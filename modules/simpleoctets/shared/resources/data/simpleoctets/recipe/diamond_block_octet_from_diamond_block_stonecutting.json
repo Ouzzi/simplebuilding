@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:diamond_block",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:diamond_block_octet"
+  }
+}

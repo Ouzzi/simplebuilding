@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet",
+    "simpleoctets:yellow_terracotta_octet"
+  ],
+  "result": {
+    "id": "minecraft:yellow_terracotta"
+  }
+}

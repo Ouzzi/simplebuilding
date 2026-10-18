@@ -1,0 +1,6 @@
+{
+  "parent": "simpleoctets:item/octet",
+  "textures": {
+    "all": "minecraft:block/red_nether_bricks"
+  }
+}

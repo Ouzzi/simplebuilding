@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet",
+    "simpleoctets:pink_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:pink_wool"
+  }
+}

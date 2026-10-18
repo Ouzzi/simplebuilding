@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:cherry_octet"
+  ],
+  "result": {
+    "id": "minecraft:cherry_planks"
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "parent": "simplebuilding:block/chess/octet_corner",
-  "textures": {
-    "all": "minecraft:block/light_gray_concrete"
-  }
-}

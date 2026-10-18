@@ -1,23 +1,28 @@
-"""Usage: python tools/textures/octets_2026_10_09.py [--check] [--preview DIR] [--vanilla DIR]
+"""Usage: python tools/textures/octets_2026_10_09.py [--check] [--preview DIR] [--vanilla DIR] [--scan]
 
-Material-Achtel (Queue Nachtrag 24, docs/ai/PLAN-Q-HAMMER-OCTETS-2026-10-09.md). Writes into the 26.3 overlay:
+Simple Octets (split stage 6, docs/ai/PLAN-S6-OCTETS-2026-10-17.md; before: Queue Nachtrag 24 / N19 / N15 in SimpleBuilding).
+Writes the module modules/simpleoctets (namespace simpleoctets):
 
   blockstates/<wood>_octet.json, blockstates/melon_octet.json   multipart: bit -> corner model (x/y rotation, uvlock)
-  models/block/octet/<wood>.json         the chess corner template with the vanilla planks texture (no copy)
+  models/block/octet_corner.json, models/item/octet.json         the corner/item templates (were SimpleBuilding's chess ones)
+  models/block/octet/<wood>.json         the corner template with the vanilla planks texture (no copy)
   models/block/octet/melon_corner.json   one melon octet: outer faces rind (melon_side / melon_top), cut faces flesh
-  models/item/octet/<wood>_octet.json + items/<wood>_octet.json   the octet item (the chess octet item shape)
-  textures/block/melon_flesh.png         own 16x16 pixel art: the cut melon (flesh with seeds)
+  models/item/octet/<wood>_octet.json + items/<wood>_octet.json   the octet item
+  textures/block/melon_flesh.png         own 16x16 pixel art: the cut melon (flesh with seeds; needs Pillow)
 
-N19/N15 (claude-q-octets2): one octet cell + item for every block that has stairs and slabs (vanilla + this mod,
-without planks (the 13 woods above) and the chess checkers). The list lives in tools/textures/octet_materials.json
-(made by --scan from the 26.3 client jar, the extracted German lang file and src/main/generated) and produces:
+One octet cell + item for every block that has stairs and slabs (vanilla + SimpleBuilding + Simple End, without planks
+(the woods above) and the chess checkers). The list lives in tools/textures/octet_materials.json (made by --scan from the
+26.3 client jar, the extracted German lang file and SimpleBuilding's generated assets) and produces:
 
   models/block/octet/<base>.json, blockstates/<base>_octet.json, models/item/octet/<base>_octet.json, items/<base>_octet.json
-  common/.../blocks/OctetMaterials.java      the list the game registers the cells from
-  lang en_us/de_de                            names of all cells and items (generated block after melon_octet)
+  shared/java/com/simpleoctets/registry/OctetMaterials.java   the list the game registers the cells from
+  lang en_us/de_de                                           names of all cells and items (generated block after melon_octet)
+  data: recipe/<cell>_from_<base>_stonecutting + <base>_from_octets (+ recipe advancements under recipes/building_blocks),
+        tags minecraft:mineable/axe|pickaxe; blocks of another mod (simplebuilding, simpleend) only while it is loaded
+        (load conditions, optional tag entries)
 
 --check compares instead of writing. --preview DIR renders octet examples (needs the vanilla textures in --vanilla DIR,
-an extracted assets/ tree; nothing of it is checked in). Needs Pillow.
+an extracted assets/ tree; nothing of it is checked in). Pillow is only needed for the melon texture and the preview.
 """
 import io
 import json
@@ -25,23 +30,36 @@ import os
 import sys
 import zipfile
 
-from PIL import Image, ImageDraw, ImageFont
-
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ASSETS = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
+NS = 'simpleoctets'
+MODULE = os.path.join(REPO, 'modules', NS)
+ASSETS = os.path.join(MODULE, 'shared', 'resources', 'assets', NS)
+DATA = os.path.join(MODULE, 'shared', 'resources', 'data')
 MATERIALS_JSON = os.path.join(REPO, 'tools', 'textures', 'octet_materials.json')
-JAVA_LIST = os.path.join(REPO, 'common', 'src', 'shared', 'java', 'com', 'simplebuilding', 'blocks', 'OctetMaterials.java')
-LANG_DIR = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuilding', 'lang')
-# the 26.3 overlay carries a second copy of the lang files (kept in sync, like tools/chess_lang_2026_10_06.py)
-LANG_DIRS = [LANG_DIR, os.path.join(ASSETS, 'lang')]
+JAVA_LIST = os.path.join(MODULE, 'shared', 'java', 'com', NS, 'registry', 'OctetMaterials.java')
+# SimpleBuilding's lang (scan: names of its palettes); the module's own lang gets the generated names
+SB_LANG_DIR = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuilding', 'lang')
+LANG_DIRS = [os.path.join(ASSETS, 'lang')]
 MOD_GENERATED = os.path.join(REPO, 'src', 'main', 'generated', 'assets', 'simplebuilding')
 CLIENT_JAR = os.environ.get('SB_VANILLA_DIR', os.path.expanduser('~/vanilla263')) + '/client.jar'
 DE_LANG = os.path.expanduser('~/.gradle/caches') + '/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
-# Order = ModBlocks.OCTET_WOODS
+# Order = OctetRegistry.WOODS
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
          'bamboo', 'crimson', 'warped', 'ashwood', 'duskwood']
 # Simple End woods (registered only with Simple End, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): planks in its namespace.
 END_WOODS = ('ashwood', 'duskwood')
+# Octets of another mod's block: their item definition + a self-contained item model live in that mod's resources (still
+# namespace simpleoctets). The 26.3 client loads every items/*.json and bakes its model even when the item is not
+# registered, so without the partner its textures would be missing (client log faults); with it in the partner's jar they
+# only exist together with the textures. Blockstates/corner models stay here (only loaded for registered blocks).
+PARTNER_RES = {'simpleend': os.path.join(REPO, 'modules', 'simpleend', 'shared', 'resources'),
+               'simpleblocks': os.path.join(REPO, 'modules', 'simpleblocks', 'shared', 'resources'),
+               'simplebuilding': os.path.join(REPO, 'mc26_3', 'overlay', 'resources')}
+
+
+def item_assets_root(ns):
+    """assets/simpleoctets of the jar that carries the octet item of a base block in namespace ns."""
+    return os.path.join(PARTNER_RES[ns], 'assets', NS) if ns in PARTNER_RES else ASSETS
 
 
 def planks_tex(wood):
@@ -74,6 +92,8 @@ FLESH_MAP = [
 
 
 def png_bytes(img):
+    if img is None:
+        return None
     buf = io.BytesIO()
     img.save(buf, 'PNG')
     return buf.getvalue()
@@ -84,6 +104,10 @@ def js(data):
 
 
 def flesh():
+    try:
+        from PIL import Image
+    except ImportError:
+        return None
     img = Image.new('RGB', (16, 16))
     for y, row in enumerate(FLESH_MAP):
         for x, c in enumerate(row):
@@ -127,7 +151,7 @@ GROUPS = [  # (group, label) in creative-tab order
     ('stone', 'Stone'), ('sandstone', 'Sandstone'), ('bricks', 'Bricks'), ('deepslate', 'Deepslate and blackstone'),
     ('tuff', 'Tuff'), ('prismarine', 'Prismarine'), ('quartz', 'Quartz and purpur'), ('copper', 'Copper'),
     ('metal', 'Metal and mineral blocks'), ('log', 'Logs and stems'), ('wool', 'Wool'), ('concrete', 'Concrete'),
-    ('terracotta', 'Terracotta'), ('mod', 'SimpleBuilding'), ('other', 'Other')]
+    ('terracotta', 'Terracotta'), ('mod', 'Blocks of SimpleBuilding and its sub-mods'), ('other', 'Other')]
 DYES = ['white', 'light_gray', 'gray', 'black', 'brown', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'light_blue',
         'blue', 'purple', 'magenta', 'pink']
 # ids of the chess octets (ChessColor); a material with the same name gets '_block' in its id and name
@@ -214,8 +238,8 @@ def scan():
     mod = {n[:-5] for n in os.listdir(mod_dir) if n.endswith('.json')}
     en_van = json.loads(z.read('assets/minecraft/lang/en_us.json'))
     de_van = json.load(open(DE_LANG, encoding='utf-8'))
-    en_mod = json.load(open(os.path.join(LANG_DIR, 'en_us.json'), encoding='utf-8'))
-    de_mod = json.load(open(os.path.join(LANG_DIR, 'de_de.json'), encoding='utf-8'))
+    en_mod = json.load(open(os.path.join(SB_LANG_DIR, 'en_us.json'), encoding='utf-8'))
+    de_mod = json.load(open(os.path.join(SB_LANG_DIR, 'de_de.json'), encoding='utf-8'))
     out = []
     for ns, have in (('minecraft', van), ('simplebuilding', mod)):
         for base in sorted(have):
@@ -269,6 +293,8 @@ def scan():
     out.sort(key=sort_key)
     last_log = max(i for i, m in enumerate(out) if m['group'] == 'log')
     out[last_log + 1:last_log + 1] = END_LOGS
+    last_mod = max(i for i, m in enumerate(out) if m['group'] == 'mod')
+    out[last_mod + 1:last_mod + 1] = BLOCKS_EXTRAS
     with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
         f.write(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
     print(f'scanned {len(out)} materials')
@@ -280,6 +306,13 @@ END_LOGS = [{'ns': 'simpleend', 'base': f'{s}{w}_log', 'key': f'{s}{w}_log', 'gr
              'tex': {'up': f'simpleend:block/{s}{w}_log_top', 'down': f'simpleend:block/{s}{w}_log_top', 'side': f'simpleend:block/{s}{w}_log'},
              'en': ('Stripped ' if s else '') + en + ' Log', 'de': ('Entrindeter ' if s else '') + de + 'stamm'}
             for s in ('', 'stripped_') for w, en, de in (('ashwood', 'Ashwood', 'Asch'), ('duskwood', 'Duskwood', 'Dämmer'))]
+
+
+# Simple Blocks (N69, split stage 6): its full blocks with stairs and slabs (not in the client jar); the game registers
+# their cells only while Simple Blocks is loaded (OctetRegistry#materialCell).
+BLOCKS_EXTRAS = [{'ns': 'simpleblocks', 'base': b, 'key': b, 'group': 'mod', 'tex': {'all': f'simpleblocks:block/{b}'}, 'en': en, 'de': de}
+                 for b, en, de in (('blue_nether_bricks', 'Blue Nether Bricks', 'Blaue Netherziegel'),
+                                   ('hushed_deepslate_tiles', 'Hushed Deepslate Tiles', 'Gedämpfte Tiefenschieferfliesen'))]
 
 
 def materials():
@@ -298,14 +331,15 @@ def sided_corner():
 def java_list(mats):
     rows = ',\n'.join(f'            new Material("{m["ns"]}", "{m["base"]}", "{m["key"]}", "{m["group"]}")' for m in mats)
     groups = ', '.join(f'"{g}"' for g, _ in GROUPS)
-    return f"""package com.simplebuilding.blocks;
+    return f"""package com.simpleoctets.registry;
 
 import java.util.List;
 
 /**
  * GENERATED by tools/textures/octets_2026_10_09.py from tools/textures/octet_materials.json - do not edit by hand.
- * Every block with stairs and slabs (vanilla and this mod, without planks and chess checkers) gets an octet cell
- * {{@code <key>_octet}} (Queue N19/N15); {{@link ModBlocks#MATERIAL_OCTETS}} registers them, in creative-tab order.
+ * Every block with stairs and slabs (vanilla, SimpleBuilding and Simple End, without planks and chess checkers) gets an
+ * octet cell {{@code <key>_octet}}; {{@link OctetRegistry#registerBlocks}} registers them in creative-tab order, the
+ * ones of another mod's block only while that mod is loaded.
  */
 public final class OctetMaterials {{
     public record Material(String namespace, String base, String key, String group) {{
@@ -323,72 +357,179 @@ public final class OctetMaterials {{
 """
 
 
+def generated_names(mats, lang):
+    out = {}
+    for m in mats:
+        name = m['en' if lang == 'en_us' else 'de']
+        if m['key'] != m['base']:
+            name += ' Block' if lang == 'en_us' else '-Block'
+        suffix = ('{} Octet', '{} Octet Cell') if lang == 'en_us' else ('{}-Achtelblock', '{}-Achtelzelle')
+        out[f'item.{NS}.{m["key"]}_octet'] = suffix[0].format(name)
+        out[f'block.{NS}.{m["key"]}_octet'] = suffix[1].format(name)
+    return out
+
+
 def merged_lang(lang_dir, lang, mats):
+    """The module's lang file: hand-written keys keep their place, the generated names follow block.<ns>.melon_octet."""
     path = os.path.join(lang_dir, lang + '.json')
     with open(path, encoding='utf-8') as f:
         data = json.load(f)
-    own = set()
-    for m in mats:
-        own.update((f'item.simplebuilding.{m["key"]}_octet', f'block.simplebuilding.{m["key"]}_octet'))
+    gen = generated_names(mats, lang)
     out = {}
     for k, v in data.items():
-        if k in own:
+        if k in gen:
             continue
         out[k] = v
-        if k == 'block.simplebuilding.melon_octet':
-            for m in mats:
-                name = m['en' if lang == 'en_us' else 'de']
-                if m['key'] != m['base']:
-                    name += ' Block' if lang == 'en_us' else '-Block'
-                suffix = ('{} Octet', '{} Octet Cell') if lang == 'en_us' else ('{}-Achtelblock', '{}-Achtelzelle')
-                out[f'item.simplebuilding.{m["key"]}_octet'] = suffix[0].format(name)
-                out[f'block.simplebuilding.{m["key"]}_octet'] = suffix[1].format(name)
+        if k == f'block.{NS}.melon_octet':
+            out.update(gen)
+    if not all(k in out for k in gen):
+        out.update(gen)
     return path, (json.dumps(out, indent=2, ensure_ascii=False) + '\n').encode('utf-8')
+
+
+def corner_template():
+    face = lambda **kw: dict({'texture': '#all'}, **kw)
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all'},
+            'elements': [{'from': [0, 0, 0], 'to': [8, 8, 8], 'faces': {
+                'north': face(cullface='north'), 'south': face(), 'east': face(), 'west': face(cullface='west'),
+                'up': face(), 'down': face(cullface='down')}}]}
+
+
+def item_template():
+    face = {'texture': '#all'}
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all'},
+            'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
+                'north': face, 'south': face, 'east': face, 'west': face, 'up': face, 'down': face}}],
+            'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}}}
+
+
+def cells(mats):
+    """(cell path, base namespace, base path, tool) of every octet cell with a stonecutter recipe, in tab order."""
+    out = []
+    for wood in WOODS:
+        ns = 'simpleend' if wood in END_WOODS else 'minecraft'
+        out.append((f'{wood}_octet', ns, f'{wood}_planks', 'axe'))
+    for m in mats:
+        b = m['base']
+        if m['ns'] == 'simpleend' or b == 'bamboo_mosaic':
+            tool = 'axe'
+        elif b.endswith('_wool'):
+            tool = None
+        else:
+            tool = 'pickaxe'
+        out.append((f'{m["key"]}_octet', m['ns'], b, tool))
+    return out
+
+
+def conditions(ns):
+    """Load conditions of a recipe/advancement that needs another mod's block (none for Vanilla)."""
+    if ns == 'minecraft':
+        return {}
+    return {'fabric:load_conditions': [{'condition': 'fabric:all_mods_loaded', 'values': [ns]}],
+            'neoforge:conditions': [{'type': 'neoforge:mod_loaded', 'modid': ns}],
+            'forge:condition': {'type': 'forge:mod_loaded', 'modid': ns}}
+
+
+def unlock(recipe, item):
+    crit = 'has_' + item.split(':')[1]
+    return {'parent': 'minecraft:recipes/root',
+            'criteria': {crit: {'conditions': {'items': [{'items': item}]}, 'trigger': 'minecraft:inventory_changed'},
+                         'has_the_recipe': {'conditions': {'recipes': f'{NS}:{recipe}'}, 'trigger': 'minecraft:recipe_unlocked'}},
+            'requirements': [['has_the_recipe', crit]], 'rewards': {'recipes': [f'{NS}:{recipe}']}}
+
+
+def data_files(mats):
+    files = {}
+    d = lambda rel, data: files.__setitem__(os.path.join(DATA, *rel.split('/')), js(data))
+    tags = {'axe': [], 'pickaxe': []}
+    for cell, ns, base, tool in cells(mats):
+        cond = conditions(ns)
+        full, octet = f'{ns}:{base}', f'{NS}:{cell}'
+        cut = f'{cell}_from_{base}_stonecutting'
+        back = f'{base}_from_octets'
+        d(f'{NS}/recipe/{cut}.json', dict(cond, type='minecraft:stonecutting', ingredient=full, result={'count': 8, 'id': octet}))
+        d(f'{NS}/recipe/{back}.json', dict(cond, type='minecraft:crafting_shapeless', category='building',
+                                             ingredients=[octet] * 8, result={'id': full}))
+        d(f'{NS}/advancement/recipes/building_blocks/{cut}.json', dict(cond, **unlock(cut, full)))
+        d(f'{NS}/advancement/recipes/building_blocks/{back}.json', dict(cond, **unlock(back, octet)))
+        if tool:
+            tags[tool].append(octet if ns == 'minecraft' else {'id': octet, 'required': False})
+    tags['axe'].append(f'{NS}:melon_octet')
+    for tool, values in tags.items():
+        d(f'minecraft/tags/block/mineable/{tool}.json', {'values': values})
+    return files
+
+
+def sided_item_template():
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
+            'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}},
+            'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
+                'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
+                'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}
+
+
+def item(files, ns, cell, tex, template):
+    """Item definition + item model of one octet (template '' = item/octet, '/_sided' = item/octet/_sided). A partner's
+    octet gets the template inlined (no parent from this module: the partner may run without it)."""
+    root = item_assets_root(ns)
+    if root == ASSETS:
+        model = {'parent': f'{NS}:item/octet{template}', 'textures': tex}
+    else:
+        model = sided_item_template() if template else item_template()
+        model['textures'] = dict(model['textures'], **tex)
+    files[os.path.join(root, 'models', 'item', 'octet', cell + '.json')] = js(model)
+    files[os.path.join(root, 'items', cell + '.json')] = js(
+        {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/octet/{cell}'}})
+    if root != ASSETS:
+        STALE.extend(os.path.join(ASSETS, *rel) for rel in (('models', 'item', 'octet', cell + '.json'), ('items', cell + '.json')))
+
+
+STALE = []
 
 
 def outputs():
     files = {}
     a = lambda rel, data: files.__setitem__(os.path.join(ASSETS, *rel.split('/')), data)
+    a('models/block/octet_corner.json', js(corner_template()))
+    a('models/item/octet.json', js(item_template()))
     for wood in WOODS:
         a(f'models/block/octet/{wood}.json', js({
-            'parent': 'simplebuilding:block/chess/octet_corner', 'textures': {'all': planks_tex(wood)}}))
-        a(f'blockstates/{wood}_octet.json', js(multipart(f'simplebuilding:block/octet/{wood}')))
-        a(f'models/item/octet/{wood}_octet.json', js({
-            'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': planks_tex(wood)}}))
-        a(f'items/{wood}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/octet/{wood}_octet'}}))
+            'parent': f'{NS}:block/octet_corner', 'textures': {'all': planks_tex(wood)}}))
+        a(f'blockstates/{wood}_octet.json', js(multipart(f'{NS}:block/octet/{wood}')))
+        item(files, 'simpleend' if wood in END_WOODS else 'minecraft', f'{wood}_octet', {'all': planks_tex(wood)}, '')
     # Melon: the corner's outer faces (north, west, down) carry the rind, the three cut faces the flesh.
     outer = {'texture': '#side'}
     a('models/block/octet/melon_corner.json', js({
         'parent': 'minecraft:block/block',
         'textures': {'particle': 'minecraft:block/melon_side', 'side': 'minecraft:block/melon_side',
-                     'end': 'minecraft:block/melon_top', 'cut': 'simplebuilding:block/melon_flesh'},
+                     'end': 'minecraft:block/melon_top', 'cut': f'{NS}:block/melon_flesh'},
         'elements': [{'from': [0, 0, 0], 'to': [8, 8, 8], 'faces': {
             'north': dict(outer, cullface='north'), 'west': dict(outer, cullface='west'),
             'down': {'texture': '#end', 'cullface': 'down'},
             'south': {'texture': '#cut'}, 'east': {'texture': '#cut'}, 'up': {'texture': '#cut'}}}]}))
-    a('blockstates/melon_octet.json', js(multipart('simplebuilding:block/octet/melon_corner')))
-    a('textures/block/melon_flesh.png', png_bytes(flesh()))
+    a('blockstates/melon_octet.json', js(multipart(f'{NS}:block/octet/melon_corner')))
+    # The mixed cell is drawn by its block entity renderer (RenderShape.INVISIBLE): only a particle texture.
+    a('blockstates/mixed_octet.json', js({'variants': {'': {'model': f'{NS}:block/mixed_octet'}}}))
+    a('models/block/mixed_octet.json', js({'textures': {'particle': 'minecraft:block/stone'}}))
+    texture = png_bytes(flesh())
+    if texture is not None:
+        a('textures/block/melon_flesh.png', texture)
+    else:
+        print('Pillow missing: textures/block/melon_flesh.png left as it is', file=sys.stderr)
     mats = materials()
     a('models/block/octet/_corner_sided.json', js(sided_corner()))
-    a('models/item/octet/_sided.json', js({
-        'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
-        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}},
-        'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
-            'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
-            'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}))
+    a('models/item/octet/_sided.json', js(sided_item_template()))
     for m in mats:
         b = m['key']
         if 'all' in m['tex']:
-            blk = {'parent': 'simplebuilding:block/chess/octet_corner', 'textures': {'all': m['tex']['all']}}
-            itm = {'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': m['tex']['all']}}
+            blk = {'parent': f'{NS}:block/octet_corner', 'textures': {'all': m['tex']['all']}}
         else:
-            blk = {'parent': 'simplebuilding:block/octet/_corner_sided', 'textures': m['tex']}
-            itm = {'parent': 'simplebuilding:item/octet/_sided', 'textures': m['tex']}
+            blk = {'parent': f'{NS}:block/octet/_corner_sided', 'textures': m['tex']}
         a(f'models/block/octet/{b}.json', js(blk))
-        a(f'blockstates/{b}_octet.json', js(multipart(f'simplebuilding:block/octet/{b}')))
-        a(f'models/item/octet/{b}_octet.json', js(itm))
-        a(f'items/{b}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/octet/{b}_octet'}}))
+        a(f'blockstates/{b}_octet.json', js(multipart(f'{NS}:block/octet/{b}')))
+        item(files, m['ns'], f'{b}_octet', m['tex'], '' if 'all' in m['tex'] else '/_sided')
     files[JAVA_LIST] = java_list(mats).encode('utf-8')
+    files.update(data_files(mats))
     for lang_dir in LANG_DIRS:
         for lang in ('en_us', 'de_de'):
             path, data = merged_lang(lang_dir, lang, mats)
@@ -399,6 +540,7 @@ def outputs():
 # --- preview: isometric voxels, one texture per voxel face kind ---
 def render(cells, tex, size=6):
     """cells: {(x, y, z): key} on a 0.5 grid (octets); tex[key] = (top, side) 16x16 images. View from south-east."""
+    from PIL import Image, ImageDraw
     w = size * 8
     pts = []
     for (x, y, z) in cells:
@@ -428,10 +570,12 @@ def render(cells, tex, size=6):
 
 
 def textured_face(tex, size=64):
+    from PIL import Image
     return tex.resize((size, size), Image.NEAREST)
 
 
 def preview(files, vanilla, out_dir):
+    from PIL import Image, ImageDraw, ImageFont
     vt = lambda n: Image.open(os.path.join(vanilla, 'assets', 'minecraft', 'textures', 'block', n + '.png')).convert('RGBA')
     fl = Image.open(io.BytesIO(files[os.path.join(ASSETS, 'textures', 'block', 'melon_flesh.png')])).convert('RGBA')
     tex = {w: (vt(w + '_planks'), vt(w + '_planks')) for w in WOODS if w not in END_WOODS}
@@ -483,7 +627,11 @@ def main():
         return
     check = '--check' in sys.argv
     files = outputs()
-    bad = []
+    bad = [p for p in STALE if os.path.exists(p)] if check else []
+    if not check:
+        for p in STALE:
+            if os.path.exists(p):
+                os.remove(p)
     for path, data in files.items():
         if check:
             try:

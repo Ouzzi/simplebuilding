@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:emerald_block",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:emerald_block_octet"
+  }
+}

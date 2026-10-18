@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet",
+    "simpleoctets:obsidian_octet"
+  ],
+  "result": {
+    "id": "minecraft:obsidian"
+  }
+}

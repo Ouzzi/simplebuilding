@@ -238,21 +238,6 @@ public final class ModItemGroupsContent {
                 ModItems.CREATIVE_BUILDING_WAND};
     }
 
-    /** Material-Achtel (N19/N15) nach Gruppen ({@code OctetMaterials#GROUPS}): Stein, Sandstein, Ziegel ... Kupfer, Wolle, Beton, Mod. */
-    public static List<CreativeTabLayout.Row> materialOctetRows() {
-        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>();
-        for (String group : com.simplebuilding.blocks.OctetMaterials.GROUPS) {
-            List<ItemLike> items = new java.util.ArrayList<>();
-            for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.materialOctets(group)) {
-                items.add(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell)));
-            }
-            if (!items.isEmpty()) {
-                rows.add(CreativeTabLayout.Row.of("material_octets_" + group, items.toArray(new ItemLike[0])));
-            }
-        }
-        return rows;
-    }
-
     private static void buildingBlocks(CreativeModeTab.Output entries) {
         CreativeTabLayout.emit(entries, buildingBlocksRows());
     }
@@ -273,9 +258,7 @@ public final class ModItemGroupsContent {
             }
             List<CreativeTabLayout.Row> chess = chessRows();
             rows.addAll(checkers + 1, chess);
-            // Holz-Achtel (Queue Nachtrag 24) hinter den Schach-Achteln und -Figuren.
-            rows.add(checkers + 1 + chess.size(), CreativeTabLayout.Row.of("wood_octets", ModItems.WOOD_OCTETS.toArray(new ItemLike[0])));
-            rows.addAll(checkers + 2 + chess.size(), materialOctetRows());
+            // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: Stufen, Eis, Nautilus | Froschlichter.

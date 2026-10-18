@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet",
+    "simpleoctets:brown_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:brown_concrete"
+  }
+}

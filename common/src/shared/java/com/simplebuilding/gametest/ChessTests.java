@@ -85,7 +85,7 @@ public final class ChessTests {
 
     private static int mask(GameTestHelper helper, BlockPos pos) {
         BlockState state = helper.getBlockState(pos);
-        return state.is(ModBlocks.CHECKER_OCTET) || state.is(ModBlocks.MIXED_OCTET) ? CheckerOctetBlock.mask(state) : -1;
+        return state.is(ModBlocks.CHECKER_OCTET) || state.is(com.simplebuilding.util.OctetRefs.mixed()) ? CheckerOctetBlock.mask(state) : -1;
     }
 
     /** Owner N18: octets (chess and wood) stack to the engine maximum of 99 (asked for 128; saved stacks allow at most 99). */
@@ -98,10 +98,12 @@ public final class ChessTests {
             helper.assertValueEqual(new ItemStack(ChessItems.octet(color)).getMaxStackSize(), 99, color.id() + " octet stack size");
         }
         // Die Material-Achtel des Vorschlaghammers (Holz, Queue Nachtrag 24) stapeln genauso.
-        for (net.minecraft.world.item.Item octet : com.simplebuilding.items.ModItems.WOOD_OCTETS) {
-            helper.assertValueEqual(new ItemStack(octet).getMaxStackSize(), 99, octet + " stack size");
-        }
-        for (net.minecraft.world.item.Item octet : com.simplebuilding.items.ModItems.MATERIAL_OCTETS) {
+        // (Split stage 6: Simple Octets' items, by id.)
+        java.util.List<net.minecraft.world.level.block.Block> cells = new java.util.ArrayList<>(com.simplebuilding.util.OctetRefs.woodCells());
+        cells.addAll(com.simplebuilding.util.OctetRefs.materialCells());
+        for (net.minecraft.world.level.block.Block cell : cells) {
+            net.minecraft.world.item.Item octet = com.simplebuilding.util.OctetRefs.itemOf(cell);
+            helper.assertTrue(octet != null, cell + " has no item");
             helper.assertValueEqual(new ItemStack(octet).getMaxStackSize(), 99, octet + " stack size");
         }
         helper.succeed();
@@ -139,7 +141,7 @@ public final class ChessTests {
         // fremde Farbe in derselben Zelle mischt (N48), ein belegtes Achtel lehnt ab
         ItemStack purpur = new ItemStack(ChessItems.octet(ChessColor.PURPUR), 4);
         helper.assertTrue(use(helper, player, purpur, cell, new Vec3(1.75, 2.5, 1.25), Direction.UP).consumesAction(), "purpur did not join the lapis cell");
-        helper.assertTrue(helper.getBlockState(cell).is(ModBlocks.MIXED_OCTET), "lapis + purpur is not a mixed cell");
+        helper.assertTrue(helper.getBlockState(cell).is(com.simplebuilding.util.OctetRefs.mixed()), "lapis + purpur is not a mixed cell");
         helper.assertValueEqual(mask(helper, cell), 0x0F, "mask after the purpur octet");
         helper.assertFalse(use(helper, player, purpur, cell, new Vec3(1.75, 2.5, 1.25), Direction.UP).consumesAction(), "an occupied octet took purpur");
         helper.assertValueEqual(purpur.getCount(), 3, "purpur octets left");

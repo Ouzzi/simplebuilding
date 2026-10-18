@@ -27,11 +27,8 @@ public abstract class ItemUseOnMixin {
         // Kleinteile und Eier auf den Boden (bis zu 4 auf einem Fleck) vor den Vorlagen; an Wand und Decke legen sich
         // Kleinteile weiter wie eine Vorlage ab.
         // Staebe (Stock, Knochen, Lohen-/Boeen-/Diamantstab) stellen sich auf einer Oberseite auf (2026-10-04).
-        // Melonenscheibe als Melonen-Achtel (Queue Nachtrag 24), vor allem anderen: sonst wuerde gegessen.
-        InteractionResult result = com.simplebuilding.util.MaterialOctets.tryPlaceSlice(context);
-        if (result == null) {
-            result = com.simplebuilding.blocks.custom.StandingRodBlock.tryPlace(context);
-        }
+        // Die Melonenscheibe als Melonen-Achtel setzt Simple Octets (eigener Haken, Stufe 6).
+        InteractionResult result = com.simplebuilding.blocks.custom.StandingRodBlock.tryPlace(context);
         if (result == null) {
             // Ziegenhorn als Halter fuer Fackeln und Staebe (Queue N24, 2026-10-09).
             result = com.simplebuilding.blocks.custom.GoatHornHolderBlock.tryPlace(context);

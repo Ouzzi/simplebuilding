@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet",
+    "simpleoctets:cinnabar_octet"
+  ],
+  "result": {
+    "id": "minecraft:cinnabar"
+  }
+}

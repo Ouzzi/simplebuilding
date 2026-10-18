@@ -1,0 +1,6 @@
+{
+  "parent": "simpleoctets:block/octet_corner",
+  "textures": {
+    "all": "simpleblocks:block/hushed_deepslate_tiles"
+  }
+}

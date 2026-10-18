@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet",
+    "simpleoctets:andesite_octet"
+  ],
+  "result": {
+    "id": "minecraft:andesite"
+  }
+}

@@ -107,7 +107,9 @@ public final class SearchTabPlacement {
         if (!com.simplebuilding.version.McVersion.CHESS) {
             return new ItemLike[0];
         }
-        return new ItemLike[]{net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", key + "_octet"))};
+        // Split stage 6: Simple Octets' items (by id; missing ones leave the chain).
+        Item item = com.simplebuilding.util.OctetRefs.item(key + "_octet");
+        return item == null ? new ItemLike[0] : new ItemLike[]{item};
     }
 
     /** Achtel aus Simple-End-Holz (Bretter, Staemme): stehen in der End-Holz-Kette der Holzwerk-Familien. */
@@ -206,21 +208,25 @@ public final class SearchTabPlacement {
             }
             out.add(Placement.after(BUILDING_BLOCKS, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, chess.toArray(new ItemLike[0])));
             // Holz-Achtel (Queue Nachtrag 24) je hinter der Stufe ihrer Holzart.
-            for (Item octet : ModItems.WOOD_OCTETS) {
-                String wood = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(octet).getPath().replace("_octet", "");
-                if (!"minecraft".equals(com.simplebuilding.blocks.ModBlocks.octetWoodNamespace(wood))) {
+            for (net.minecraft.world.level.block.Block woodCell : com.simplebuilding.util.OctetRefs.woodCells()) {
+                Item octet = com.simplebuilding.util.OctetRefs.itemOf(woodCell);
+                String wood = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(woodCell).getPath().replace("_octet", "");
+                if (octet == null || !"minecraft".equals(com.simplebuilding.util.OctetRefs.woodNamespace(wood))) {
                     continue; // Simple-End-Holz: in der End-Holz-Kette unten (seine Bloecke stehen in keinem Vanilla-Tab)
                 }
-                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.blocks.ModBlocks.octetWoodNamespace(wood), wood + "_slab"));
+                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.util.OctetRefs.woodNamespace(wood), wood + "_slab"));
                 out.add(Placement.after(BUILDING_BLOCKS, slab, octet));
             }
             // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke hinter der eigenen Stufe; Wolle/Beton im Tab Farbbloecke).
-            for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.MATERIAL_OCTETS) {
+            for (net.minecraft.world.level.block.Block cell : com.simplebuilding.util.OctetRefs.materialCells()) {
                 if (IN_CHAINS.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath())
                         || endWoodCell(cell)) {
                     continue;
                 }
-                net.minecraft.world.level.block.Block full = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
+                net.minecraft.world.level.block.Block full = com.simplebuilding.util.OctetRefs.source(cell);
+                if (full == null) {
+                    continue;
+                }
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
                 net.minecraft.world.level.block.Block slab = stairs == null ? null
                         : com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);
@@ -257,7 +263,7 @@ public final class SearchTabPlacement {
                 // Das Achtel des entrindeten Stamms (falls es eines gibt) steht direkt hinter dem Stamm, vor der Familie.
                 Item stripped = family.wood().strippedBlock().asItem();
                 String strippedPath = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stripped).getPath();
-                boolean hasOctet = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", strippedPath + "_octet"));
+                boolean hasOctet = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(com.simplebuilding.util.OctetRefs.id(strippedPath + "_octet"));
                 ItemLike[] octet = hasOctet ? octet(strippedPath) : new ItemLike[0];
                 out.add(Placement.after(BUILDING_BLOCKS, stripped, chain(octet, family.blocks().toArray(new ItemLike[0]))));
                 last = family.blocks().get(family.blocks().size() - 1);

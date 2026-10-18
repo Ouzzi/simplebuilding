@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleblocks"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleblocks"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleblocks"
+  },
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet",
+    "simpleoctets:blue_nether_bricks_octet"
+  ],
+  "result": {
+    "id": "simpleblocks:blue_nether_bricks"
+  }
+}

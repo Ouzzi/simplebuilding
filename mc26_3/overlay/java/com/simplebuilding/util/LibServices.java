@@ -2,7 +2,6 @@ package com.simplebuilding.util;
 
 import com.google.gson.JsonElement;
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.blocks.custom.MaterialOctetBlock;
 import com.simplebuilding.blocks.custom.TieredShulkerBoxBlock;
 import com.simplebuilding.data.SledgehammerUpgradeData;
 import com.simplelib.api.InWorldUpgrades;
@@ -10,7 +9,6 @@ import com.simplelib.api.OctetCells;
 import com.simplelib.api.SimpleLibApi;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  *       {@code sledgehammer_upgrades} is still read (modpacks), SimpleBuilding's files apply first.</li>
  *   <li>Tiered chests and shulker boxes move their contents through upgrade handlers; crucibles and barrels through
  *       SimpleLib's own.</li>
- *   <li>SimpleBuilding's octet cells are registered with {@link OctetCells}; the sledgehammer carves through it.</li>
+ *   <li>Simple Octets registers the octet cells with {@link OctetCells} (split stage 6); the sledgehammer carves through it.</li>
  * </ul>
  */
 public final class LibServices {
@@ -71,11 +69,6 @@ public final class LibServices {
             TieredShulkerBoxes.upgradeInPlace(level, pos, to);
             return 1;
         });
-        for (Map.Entry<Block, Block> entry : MaterialOctets.ownCells().entrySet()) {
-            Block cell = entry.getValue();
-            Supplier<Item> piece = cell instanceof MaterialOctetBlock octet ? octet::piece : () -> null;
-            OctetCells.register(entry.getKey(), cell, piece);
-        }
     }
 
     /** Applies the upgrade files through SimpleLib and returns SimpleBuilding's view of the effective table. */
@@ -109,5 +102,9 @@ public final class LibServices {
 
     public static @Nullable Item octetPiece(@Nullable Block cell) {
         return OctetCells.pieceOf(cell);
+    }
+
+    public static @Nullable Block octetBaseOf(@Nullable Block cell) {
+        return OctetCells.baseOf(cell);
     }
 }

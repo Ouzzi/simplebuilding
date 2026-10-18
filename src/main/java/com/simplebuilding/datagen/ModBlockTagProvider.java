@@ -233,9 +233,6 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 continue;
             }
             java.util.List<String> ids = new java.util.ArrayList<>(com.simplebuilding.woodwork.WoodBlocks.blockIds(wood));
-            if (ModBlocks.CHECKER_OCTET != null) {
-                ids.addAll(java.util.List.of(wood.id() + "_octet", wood.id() + "_log_octet", "stripped_" + wood.id() + "_log_octet"));
-            }
             for (String id : ids) {
                 builder(BlockTags.MINEABLE_WITH_AXE).addOptional(net.minecraft.resources.ResourceKey.create(
                         net.minecraft.core.registries.Registries.BLOCK, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", id)));
@@ -244,23 +241,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (ModBlocks.CHECKER_OCTET != null) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.CHECKER_OCTET));
         }
-        // Material-Achtel (Queue Nachtrag 24): Holz mit der Axt, Melone mit Axt wie der Melonenblock.
-        ModBlocks.WOOD_OCTETS.forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));
-        // Material-Achtel (N19/N15): Bambusmosaik mit der Axt, Wolle ohne Werkzeug, alles andere (Stein, Kupfer, Beton ...) mit der Spitzhacke.
-        for (net.minecraft.world.level.block.Block cell : ModBlocks.MATERIAL_OCTETS) {
-            net.minecraft.world.level.block.Block source = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
-            String path = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(source).getPath();
-            if (path.contains("ashwood") || path.contains("duskwood")) {
-                builder(BlockTags.MINEABLE_WITH_AXE).add(key(cell));
-            } else if (path.equals("bamboo_mosaic")) {
-                builder(BlockTags.MINEABLE_WITH_AXE).add(key(cell));
-            } else if (!path.endsWith("_wool")) {
-                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(cell));
-            }
-        }
-        if (ModBlocks.MELON_OCTET != null) {
-            builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.MELON_OCTET));
-        }
+        // Holz-, Melonen- und Material-Achtel: Abbau-Tags von Simple Octets (Stufe 6).
         // Alternativbloecke der Grundbloecke (2026-10-03): Spitzhacke wie ihr Grundblock.
         for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
             alternates.alternates().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));

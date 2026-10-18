@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet",
+    "simpleoctets:spruce_log_octet"
+  ],
+  "result": {
+    "id": "minecraft:spruce_log"
+  }
+}

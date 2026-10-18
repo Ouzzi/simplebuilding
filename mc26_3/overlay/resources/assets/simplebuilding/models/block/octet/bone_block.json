@@ -1,8 +1,0 @@
-{
-  "parent": "simplebuilding:block/octet/_corner_sided",
-  "textures": {
-    "up": "minecraft:block/bone_block_top",
-    "down": "minecraft:block/bone_block_top",
-    "side": "minecraft:block/bone_block_side"
-  }
-}

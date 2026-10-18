@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet",
+    "simpleoctets:weathered_copper_octet"
+  ],
+  "result": {
+    "id": "minecraft:weathered_copper"
+  }
+}

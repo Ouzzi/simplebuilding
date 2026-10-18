@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet",
+    "simpleoctets:tuff_octet"
+  ],
+  "result": {
+    "id": "minecraft:tuff"
+  }
+}
