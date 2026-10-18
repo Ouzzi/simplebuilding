@@ -891,7 +891,7 @@ public final class MiningEnchantmentTests {
 
             // --- the hammer itself, not a book ---
             Integer weight = entryWeight(helper, registries, BuiltInLootTables.END_CITY_TREASURE,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "diamond_sledgehammer"));
+                    com.simplebuilding.util.HammerRefs.id("diamond_sledgehammer"));
             if (weight == null) {
                 problems.add("the end city treasure has no diamond sledgehammer entry at all");
             } else if (weight != 8) {

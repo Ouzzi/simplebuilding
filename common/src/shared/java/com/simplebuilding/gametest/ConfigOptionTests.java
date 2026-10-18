@@ -157,7 +157,8 @@ public final class ConfigOptionTests {
     }
 
     public static void configuredDiamondYieldChangesActualDrops(GameTestHelper helper) {
-        if (!McVersion.GADGET_REWORK) { helper.succeed(); return; }
+        // 26.3 (split stage 7): the yield is Simple Hammers' own config (its module tests).
+        if (!McVersion.GADGET_REWORK || !McVersion.HAMMERS_IN_SB) { helper.succeed(); return; }
         var tools = com.simplebuilding.config.ServerTuning.local().tools;
         int old = tools.diamondBlockPebbles;
         var player = helper.makeMockServerPlayerInLevel();
@@ -570,6 +571,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleShops boolean=true",
             "root.enableSimpleWanderers boolean=true",
             "root.enableSimpleBlocks boolean=true",
+            "root.enableSimpleHammers boolean=true",
             "root.enableSimpleOctets boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1181,7 +1183,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"},
                 {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
-                {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}};
+                {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

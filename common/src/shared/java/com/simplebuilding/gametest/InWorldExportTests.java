@@ -58,6 +58,7 @@ public final class InWorldExportTests {
                     step.get("minimumHammer") + " cannot do the step from " + step.get("from"));
             summary.add(step.get("from").getAsString().replace("simplebuilding:", "") + ">"
                     + step.get("minimumHammer").getAsString().replace("simplebuilding:", "")
+                            .replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "")
                     + "/" + step.get("nugget").getAsString().replace("simplebuilding:", "")
                             .replace(com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE + ":", "")
                     + "x" + step.get("nuggetCount").getAsInt()
@@ -212,7 +213,7 @@ public final class InWorldExportTests {
         }
         InWorldRecipeCatalog.Entry hopper = byId.get("machine_upgrade/simplebuilding:reinforced_hopper");
         String hopperTools = hopper.tools().stream().map(InWorldTransformations::id).toList().toString()
-                .replace("simplebuilding:", "");
+                .replace("simplebuilding:", "").replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "");
         helper.assertTrue(hopperTools.equals("[diamond_sledgehammer, netherite_sledgehammer, enderite_sledgehammer]"),
                 "reinforced hopper: every hammer from diamond up, weakest first - but was " + hopperTools);
 

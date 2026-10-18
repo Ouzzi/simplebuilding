@@ -157,7 +157,7 @@ public final class ServerTuningTests {
             check(problems, s.loot.globalLootMultiplier == 0.0, "loot multiplier " + s.loot.globalLootMultiplier);
             check(problems, s.loot.tradePriceMultiplier == 1.0, "a NaN price multiplier became " + s.loot.tradePriceMultiplier);
             check(problems, s.tools.stoneChiselCooldownTicks == ServerTuning.MIN_CHISEL_COOLDOWN, "chisel cooldown " + s.tools.stoneChiselCooldownTicks);
-            check(problems, SledgehammerUpgrades.blows() == ServerTuning.MAX_UPGRADE_SECONDS, "hammer blows " + SledgehammerUpgrades.blows());
+            if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) check(problems, SledgehammerUpgrades.blows() == ServerTuning.MAX_UPGRADE_SECONDS, "hammer blows " + SledgehammerUpgrades.blows()); // 26.3: Simple Hammers' config
             check(problems, s.tools.attractorMinimumDistance == 2.0, "attractor maximum distance " + s.tools.attractorMinimumDistance);
             s.tools.attractorMinimumDistance = -1.0;
             config.validatePostLoad();
