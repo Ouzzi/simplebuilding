@@ -16,6 +16,7 @@ public final class NeoForgeSearchTabPlacement {
     }
 
     public static void onBuildContents(BuildCreativeModeTabContentsEvent event) {
+        com.simplebuilding.items.ModItemGroupsContent.contributeToSimpleBlocks(event.getTabKey(), event::accept);
         if (!SearchTabPlacement.enabled() || !SearchTabPlacement.TABS.contains(event.getTabKey())) {
             return;
         }

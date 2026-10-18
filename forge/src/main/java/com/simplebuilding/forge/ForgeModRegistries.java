@@ -283,7 +283,7 @@ public final class ForgeModRegistries {
     private static java.util.Map<ModItemGroupsContent.Tab, RegistryObject<CreativeModeTab>> registerTabs() {
         java.util.Map<ModItemGroupsContent.Tab, RegistryObject<CreativeModeTab>> tabs = new java.util.EnumMap<>(ModItemGroupsContent.Tab.class);
         ModItemGroupsContent.Tab previous = null;
-        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.ownTabs()) {
             ModItemGroupsContent.Tab before = previous;
             tabs.put(tab, CREATIVE_TABS.register(tab.id, () -> {
                 CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, tab.ordinal())
