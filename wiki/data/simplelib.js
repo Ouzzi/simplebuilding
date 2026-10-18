@@ -1459,10 +1459,10 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       },
       "note": {
         "en": {
-          "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+          "summary": "Slab of the polished end stone: crafted like Vanilla slabs (3 blocks make 6) or cut 1:2 from the block in the stonecutter."
         },
         "de": {
-          "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
+          "summary": "Stufe aus poliertem Endstein: wie Vanilla-Stufen gecraftet (3 Blöcke ergeben 6) oder in der Steinsäge 1:2 aus dem Block geschnitten."
         }
       },
       "craftedBy": [
@@ -1479,10 +1479,10 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       },
       "note": {
         "en": {
-          "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+          "summary": "Stairs of the polished end stone: crafted like Vanilla stairs (6 blocks make 4) or cut 1:1 from the block in the stonecutter."
         },
         "de": {
-          "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
+          "summary": "Treppe aus poliertem Endstein: wie Vanilla-Treppen gecraftet (6 Blöcke ergeben 4) oder in der Steinsäge 1:1 aus dem Block geschnitten."
         }
       },
       "craftedBy": [
@@ -1499,10 +1499,10 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       },
       "note": {
         "en": {
-          "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+          "summary": "Wall of the polished end stone: crafted like Vanilla walls (6 blocks make 6) or cut 1:1 from the block in the stonecutter."
         },
         "de": {
-          "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
+          "summary": "Mauer aus poliertem Endstein: wie Vanilla-Mauern gecraftet (6 Blöcke ergeben 6) oder in der Steinsäge 1:1 aus dem Block geschnitten."
         }
       },
       "craftedBy": [
