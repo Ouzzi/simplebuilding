@@ -3479,6 +3479,259 @@
       },
       "parent": "simplebuilding",
       "bundle": "required"
+    },
+    {
+      "id": "simpleoptimization",
+      "name": "Simple Optimization",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Optimization",
+      "description": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simpleoptrender",
+        "simpleoptmemory",
+        "simpleoptserver"
+      ],
+      "optional": [],
+      "checks": [
+        "modules/simpleoptimization/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleoptimization",
+        "catalogues": [
+          "modules/simpleoptimization/fabric/src/main/java/com/simplebuilding/modules/simpleoptimization/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleoptimization",
+          "simpleoptrender",
+          "simpleoptmemory",
+          "simpleoptserver"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleoptimizationGameTest",
+            "report": "integration/build/simpleoptimization-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [
+            "simpleoptrender",
+            "simpleoptmemory",
+            "simpleoptserver"
+          ],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleoptimizationStandaloneGameTest",
+              "report": "integration/build/standalone/simpleoptimization-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simpleoptimization",
+        "shared": "modules/simpleoptimization/shared",
+        "fabric": "modules/simpleoptimization/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleoptimization/generated/resources",
+        "lang": "modules/simpleoptimization/shared/resources/assets/simpleoptimization/lang",
+        "wikiManual": "modules/simpleoptimization/wiki/manual.json",
+        "balanceDir": "balance/simpleoptimization"
+      },
+      "projects": {
+        "fabric": ":modules:simpleoptimization:fabric"
+      }
+    },
+    {
+      "id": "simpleoptrender",
+      "name": "Simple Opt Render",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Opt Render",
+      "description": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [],
+      "optional": [],
+      "checks": [
+        "modules/simpleoptrender/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleoptrender",
+        "catalogues": [
+          "modules/simpleoptrender/fabric/src/main/java/com/simplebuilding/modules/simpleoptrender/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleoptrender"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleoptrenderGameTest",
+            "report": "integration/build/simpleoptrender-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleoptrenderStandaloneGameTest",
+              "report": "integration/build/standalone/simpleoptrender-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleoptrender.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleoptrender/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleoptrender",
+        "shared": "modules/simpleoptrender/shared",
+        "fabric": "modules/simpleoptrender/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleoptrender/generated/resources",
+        "lang": "modules/simpleoptrender/shared/resources/assets/simpleoptrender/lang",
+        "wikiManual": "modules/simpleoptrender/wiki/manual.json",
+        "balanceDir": "balance/simpleoptrender"
+      },
+      "projects": {
+        "fabric": ":modules:simpleoptrender:fabric"
+      },
+      "parent": "simpleoptimization",
+      "bundle": "required"
+    },
+    {
+      "id": "simpleoptmemory",
+      "name": "Simple Opt Memory",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Opt Memory",
+      "description": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [],
+      "optional": [],
+      "checks": [
+        "modules/simpleoptmemory/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleoptmemory",
+        "catalogues": [
+          "modules/simpleoptmemory/fabric/src/main/java/com/simplebuilding/modules/simpleoptmemory/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleoptmemory"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleoptmemoryGameTest",
+            "report": "integration/build/simpleoptmemory-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleoptmemoryStandaloneGameTest",
+              "report": "integration/build/standalone/simpleoptmemory-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simpleoptmemory",
+        "shared": "modules/simpleoptmemory/shared",
+        "fabric": "modules/simpleoptmemory/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleoptmemory/generated/resources",
+        "lang": "modules/simpleoptmemory/shared/resources/assets/simpleoptmemory/lang",
+        "wikiManual": "modules/simpleoptmemory/wiki/manual.json",
+        "balanceDir": "balance/simpleoptmemory"
+      },
+      "projects": {
+        "fabric": ":modules:simpleoptmemory:fabric"
+      },
+      "parent": "simpleoptimization",
+      "bundle": "required"
+    },
+    {
+      "id": "simpleoptserver",
+      "name": "Simple Opt Server",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Opt Server",
+      "description": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [],
+      "optional": [],
+      "checks": [
+        "modules/simpleoptserver/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleoptserver",
+        "catalogues": [
+          "modules/simpleoptserver/fabric/src/main/java/com/simplebuilding/modules/simpleoptserver/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleoptserver"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleoptserverGameTest",
+            "report": "integration/build/simpleoptserver-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleoptserverStandaloneGameTest",
+              "report": "integration/build/standalone/simpleoptserver-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simpleoptserver",
+        "shared": "modules/simpleoptserver/shared",
+        "fabric": "modules/simpleoptserver/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleoptserver/generated/resources",
+        "lang": "modules/simpleoptserver/shared/resources/assets/simpleoptserver/lang",
+        "wikiManual": "modules/simpleoptserver/wiki/manual.json",
+        "balanceDir": "balance/simpleoptserver"
+      },
+      "projects": {
+        "fabric": ":modules:simpleoptserver:fabric"
+      },
+      "parent": "simpleoptimization",
+      "bundle": "required"
     }
   ]
 }

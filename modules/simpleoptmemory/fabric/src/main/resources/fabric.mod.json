@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleoptmemory",
+  "version": "${version}",
+  "name": "Simple Opt Memory",
+  "description": "Memory optimizations of Simple Optimization (block states, models; later stages). Stage 1: switch, config and detection only.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleoptmemory.fabric.MemoryOptFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleoptmemory.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  }
+}

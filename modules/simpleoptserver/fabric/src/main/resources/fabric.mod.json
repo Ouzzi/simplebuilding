@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleoptserver",
+  "version": "${version}",
+  "name": "Simple Opt Server",
+  "description": "Server optimizations of Simple Optimization: view distance follows server load (MSPT) within the server.properties bounds; steps back when ServerCore is installed.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleoptserver.fabric.ServerOptFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleoptserver.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
