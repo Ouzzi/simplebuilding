@@ -157,10 +157,18 @@
     },
     "simplelib:polished_end_stone": {
       "en": {
-        "summary": "Shared End building block (since the module family split in SimpleLib): four end stone bricks make four, or cut end stone / end stone bricks 1:1 in the stonecutter; base of the astral and nihil blocks. Old worlds convert simplebuilding:polished_end_stone automatically."
+        "summary": "Shared End building block (since the module family split in SimpleLib): four end stone bricks make four, or cut end stone / end stone bricks 1:1 in the stonecutter; base of the astral and nihil blocks. Old worlds convert simplebuilding:polished_end_stone automatically. Stairs, slab and wall come from it at the crafting table or in the stonecutter; with Simple Octets it also has an octet."
       },
       "de": {
-        "summary": "Gemeinsamer End-Baublock (seit der Modulfamilie in SimpleLib): vier Endsteinziegel ergeben vier, oder Endstein/Endsteinziegel 1:1 in der Steinsäge; Grundlage der Astral- und Nihil-Blöcke. Alte Welten wandeln simplebuilding:polished_end_stone automatisch um."
+        "summary": "Gemeinsamer End-Baublock (seit der Modulfamilie in SimpleLib): vier Endsteinziegel ergeben vier, oder Endstein/Endsteinziegel 1:1 in der Steinsäge; Grundlage der Astral- und Nihil-Blöcke. Alte Welten wandeln simplebuilding:polished_end_stone automatisch um. Treppe, Stufe und Mauer entstehen daraus an der Werkbank oder in der Steinsäge; mit Simple Octets gibt es auch ein Achtelblock."
+      }
+    },
+    "simplelib:polished_end_stone_*": {
+      "en": {
+        "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+      },
+      "de": {
+        "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
       }
     }
   }

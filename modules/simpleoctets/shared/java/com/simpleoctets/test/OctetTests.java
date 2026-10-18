@@ -53,6 +53,7 @@ public final class OctetTests {
 
     static {
         ALL.put("registered", OctetTests::registered);
+        ALL.put("stairs_and_slabs_have_octets", OctetTests::stairsAndSlabsHaveOctets);
         ALL.put("sub_mod_switch", OctetTests::subModSwitch);
         ALL.put("migration_from_simplebuilding", OctetTests::migrationFromSimplebuilding);
         ALL.put("foreign_materials_only_with_their_mod", OctetTests::foreignMaterialsOnlyWithTheirMod);
@@ -101,6 +102,49 @@ public final class OctetTests {
         if (!new ItemStack(netherite).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)) problems.add("netherite octet not fire resistant");
         h.assertTrue(problems.isEmpty(), "registration: " + problems);
         h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1, "tab: every octet item and the melon slice");
+        h.succeed();
+    }
+
+    /** Octet rule (docs/ai/PRINZIPIEN.md O1): reasoned exceptions of the coverage test, by stair/slab path (substring). */
+    static final Map<String, String> NO_OCTET = Map.of(
+            "dirt_slab", "natural slab (owner 17.10.: no octets for earth, grass, sand, gravel)",
+            "grass_slab", "natural slab (owner 17.10.)",
+            "sand_slab", "natural slab (owner 17.10.)",
+            "gravel_slab", "natural slab (owner 17.10.)",
+            "petrified_oak_slab", "no full block: it looks like oak planks, whose octet (oak_octet) exists",
+            "checker", "chess checkers have the chess octet (checker_octet, SimpleBuilding)");
+
+    /**
+     * Every registered stair and slab (any mod) has an octet of its full block or a reasoned exception: a future block
+     * family with stairs fails here until it gets an entry in the octet generator (tools/textures/octets_2026_10_09.py).
+     */
+    static void stairsAndSlabsHaveOctets(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (Block block : BuiltInRegistries.BLOCK) {
+            boolean stairs = block instanceof net.minecraft.world.level.block.StairBlock;
+            if (!stairs && !(block instanceof net.minecraft.world.level.block.SlabBlock)) continue;
+            Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+            if (NO_OCTET.keySet().stream().anyMatch(id.getPath()::contains)) continue;
+            String stem = id.getPath().substring(0, id.getPath().length() - (stairs ? 7 : 5));
+            List<String> bases = List.of(stem, stem + "_planks", stem + "_block", stem + "s");
+            checked++;
+            boolean found = false;
+            for (OctetMaterials.Material m : OctetMaterials.ALL) {
+                if (m.namespace().equals(id.getNamespace()) && bases.contains(m.base())
+                        && BuiltInRegistries.BLOCK.containsKey(SimpleOctets.id(m.key() + "_octet"))) found = true;
+            }
+            for (String wood : OctetRegistry.activeWoods()) {
+                if (id.getNamespace().equals(OctetRegistry.woodNamespace(wood)) && bases.contains(wood + "_planks")
+                        && BuiltInRegistries.BLOCK.containsKey(SimpleOctets.id(wood + "_octet"))) found = true;
+            }
+            if (!found) problems.add(id.toString());
+        }
+        h.assertTrue(checked > 100, "only " + checked + " stairs/slabs checked");
+        h.assertTrue(problems.isEmpty(), "stairs/slabs without an octet or a reasoned exception: " + problems);
+        for (String path : List.of("polished_end_stone", "cut_sandstone", "cut_red_sandstone", "smooth_stone")) {
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleOctets.id(path + "_octet")), "octet of " + path);
+        }
         h.succeed();
     }
 

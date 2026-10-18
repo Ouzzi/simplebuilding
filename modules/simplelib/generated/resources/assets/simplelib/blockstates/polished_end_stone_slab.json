@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplelib:block/polished_end_stone_slab"
+    },
+    "type=double": {
+      "model": "simplelib:block/polished_end_stone"
+    },
+    "type=top": {
+      "model": "simplelib:block/polished_end_stone_slab_top"
+    }
+  }
+}

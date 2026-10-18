@@ -29,8 +29,13 @@ def files():
     out[f"{d}/tags/item/hammers.json"] = {"values": []}
     out[f"{d}/tags/item/upgrade_tools.json"] = {"values": [f"#{NS}:hammers"]}
     materials(out)
+    shapes(out)
     warped_wart(out)
-    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in MATERIAL_BLOCKS]}
+    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in (*MATERIAL_BLOCKS, *SHAPES)]}
+    for kind, tag in (("stairs", "stairs"), ("slab", "slabs"), ("wall", "walls")):
+        members = [f"{NS}:{n}" for n, k in SHAPES.items() if k == kind]
+        out[f"data/minecraft/tags/block/{tag}.json"] = {"values": members}
+        out[f"data/minecraft/tags/item/{tag}.json"] = {"values": members}
     return out
 
 
@@ -41,9 +46,12 @@ MATERIAL_GROUPS = {
     "enderite": ("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_nugget", "enderite_block"),
     "upgrade_templates": ("basic_upgrade_template", "enderite_upgrade_template"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
-    "polished_end_stone": ("polished_end_stone",),
+    "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
 }
 MATERIAL_BLOCKS = ("cracked_diamond_block", "enderite_block", "polished_end_stone")
+# Stairs, slab, wall of the polished end stone (octet rule): cut from the full block with the existing texture.
+SHAPE_BASE = "polished_end_stone"
+SHAPES = {f"{SHAPE_BASE}_{kind}": kind for kind in ("stairs", "slab", "wall")}
 
 
 def material_recipes():
@@ -106,7 +114,94 @@ def material_recipes():
         ("building_blocks", "polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone",
          {"type": "minecraft:stonecutting", "ingredient": v("end_stone_bricks"), "result": {"id": m("polished_end_stone")}},
          [v("end_stone_bricks")]),
-    ]
+    ] + shape_recipes()
+
+
+def shape_recipes():
+    """Crafting table and stonecutter recipes of the shapes (Vanilla's ratios: stairs 4, slab 6, wall 6; cut: 1, 2, 1)."""
+    base = f"{NS}:{SHAPE_BASE}"
+    out = []
+    for name, kind in SHAPES.items():
+        pattern, count, cat, cut, folder = {
+            "stairs": (["#  ", "## ", "###"], 4, "building", 1, "building_blocks"),
+            "slab": (["###"], 6, "building", 2, "building_blocks"),
+            "wall": (["###", "###"], 6, "misc", 1, "decorations")}[kind]
+        crafted = {"type": "minecraft:crafting_shaped", "category": cat, "key": {"#": base}, "pattern": pattern,
+                   "result": {"count": count, "id": f"{NS}:{name}"}}
+        cut_result = {"id": f"{NS}:{name}"} if cut == 1 else {"count": cut, "id": f"{NS}:{name}"}
+        out.append((folder, name, SHAPE_BASE, crafted, [base]))
+        out.append((folder, f"{name}_from_{SHAPE_BASE}_stonecutting", SHAPE_BASE,
+                    {"type": "minecraft:stonecutting", "ingredient": base, "result": cut_result}, [base]))
+    return out
+
+
+def stairs_state(name):
+    variants = {}
+    for facing, y0 in (("east", 0), ("south", 90), ("west", 180), ("north", 270)):
+        for half in ("bottom", "top"):
+            for shape in ("straight", "inner_left", "inner_right", "outer_left", "outer_right"):
+                model = {"straight": name, "inner_left": name + "_inner", "inner_right": name + "_inner",
+                         "outer_left": name + "_outer", "outer_right": name + "_outer"}[shape]
+                y = y0 - (90 if shape.endswith("left") else 0)
+                x = 0
+                if half == "top":
+                    x = 180
+                    y += 90 if shape != "straight" else 0
+                y %= 360
+                entry = {"model": f"{NS}:block/{model}"}
+                if x or y:
+                    entry["uvlock"] = True
+                if x:
+                    entry["x"] = x
+                if y:
+                    entry["y"] = y
+                variants[f"facing={facing},half={half},shape={shape}"] = entry
+    return {"variants": dict(sorted(variants.items()))}
+
+
+def wall_state(name):
+    parts = [{"apply": {"model": f"{NS}:block/{name}_post"}, "when": {"up": "true"}}]
+    for suffix in ("_side", "_side_tall"):
+        for side, y in (("north", 0), ("east", 90), ("south", 180), ("west", 270)):
+            apply = {"model": f"{NS}:block/{name}{suffix}", "uvlock": True}
+            if y:
+                apply["y"] = y
+            parts.append({"apply": apply, "when": {side: "low" if suffix == "_side" else "tall"}})
+    return {"multipart": parts}
+
+
+def shapes(out):
+    """Models, blockstates, item models and loot tables of the polished end stone shapes (same patterns as Simple Blocks)."""
+    a = f"assets/{NS}"
+    tex = f"{NS}:block/{SHAPE_BASE}"
+    for name, kind in SHAPES.items():
+        item_model = f"{NS}:block/{name}_inventory" if kind == "wall" else f"{NS}:block/{name}"
+        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": item_model}}
+        all_sides = {"bottom": tex, "side": tex, "top": tex}
+        if kind == "stairs":
+            for suffix, parent in (("", "stairs"), ("_inner", "inner_stairs"), ("_outer", "outer_stairs")):
+                out[f"{a}/models/block/{name}{suffix}.json"] = {"parent": f"minecraft:block/{parent}", "textures": all_sides}
+            out[f"{a}/blockstates/{name}.json"] = stairs_state(name)
+        elif kind == "slab":
+            out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/slab", "textures": all_sides}
+            out[f"{a}/models/block/{name}_top.json"] = {"parent": "minecraft:block/slab_top", "textures": all_sides}
+            out[f"{a}/blockstates/{name}.json"] = {"variants": {
+                "type=bottom": {"model": f"{NS}:block/{name}"}, "type=double": {"model": f"{NS}:block/{SHAPE_BASE}"},
+                "type=top": {"model": f"{NS}:block/{name}_top"}}}
+        else:
+            for suffix, parent in (("_post", "template_wall_post"), ("_side", "template_wall_side"),
+                                   ("_side_tall", "template_wall_side_tall"), ("_inventory", "wall_inventory")):
+                out[f"{a}/models/block/{name}{suffix}.json"] = {"parent": f"minecraft:block/{parent}", "textures": {"wall": tex}}
+            out[f"{a}/blockstates/{name}.json"] = wall_state(name)
+        item = f"{NS}:{name}"
+        if kind == "slab":
+            loot = {"type": "minecraft:block", "pools": [{"entries": [{"type": "minecraft:item", "modifier": [
+                {"type": "minecraft:set_count", "condition": {"type": "minecraft:match_block", "blocks": item, "state": {"type": "double"}}, "count": 2},
+                {"type": "minecraft:explosion_decay"}], "name": item}], "rolls": 1}]}
+        else:
+            loot = {"type": "minecraft:block", "pools": [{"condition": {"type": "minecraft:survives_explosion"},
+                                                          "entries": [{"type": "minecraft:item", "name": item}], "rolls": 1}]}
+        out[f"data/{NS}/loot_table/blocks/{name}.json"] = loot
 
 
 def material_condition(group):
@@ -119,7 +214,7 @@ def materials(out):
     d = f"data/{NS}"
     for group, ids in MATERIAL_GROUPS.items():
         for item in ids:
-            if item in MATERIAL_BLOCKS:
+            if item in MATERIAL_BLOCKS or item in SHAPES:
                 continue
             out[f"{a}/models/item/{item}.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}}
             out[f"{a}/items/{item}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/{item}"}}

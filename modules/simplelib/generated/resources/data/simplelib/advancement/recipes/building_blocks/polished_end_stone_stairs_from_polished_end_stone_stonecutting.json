@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_end_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplelib:polished_end_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplelib:polished_end_stone_stairs_from_polished_end_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polished_end_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplelib:polished_end_stone_stairs_from_polished_end_stone_stonecutting"
+    ]
+  }
+}

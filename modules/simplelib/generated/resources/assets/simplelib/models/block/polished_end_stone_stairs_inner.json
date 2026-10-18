@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "simplelib:block/polished_end_stone",
+    "side": "simplelib:block/polished_end_stone",
+    "top": "simplelib:block/polished_end_stone"
+  }
+}

@@ -100,7 +100,18 @@ public final class SearchTabPlacement {
     private static final java.util.Set<String> IN_CHAINS = java.util.Set.of("purpur_block_octet", "smooth_quartz_octet",
             "astralit_bricks_octet", "polished_astralit_block_octet", "nihilith_bricks_octet", "polished_nihilith_block_octet",
             "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet",
-            "diamond_block_octet", "netherite_block_octet", "bone_block_octet");
+            "diamond_block_octet", "netherite_block_octet", "bone_block_octet", "polished_end_stone_octet");
+
+    /** SimpleLib's stairs, slab and wall of the polished end stone (octet rule); missing on 26.2, where SimpleLib is not used. */
+    private static ItemLike[] polishedEndStoneShapes() {
+        if (!com.simplebuilding.version.McVersion.CHESS) {
+            return new ItemLike[0];
+        }
+        return java.util.stream.Stream.of("stairs", "slab", "wall")
+                .map(kind -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "polished_end_stone_" + kind)))
+                .flatMap(java.util.Optional::stream).toArray(ItemLike[]::new);
+    }
 
     /** Das Material-Achtel in einer Kette; leer, wo es die Achtel nicht gibt (nur 26.3). */
     private static ItemLike[] octet(String key) {
@@ -178,7 +189,7 @@ public final class SearchTabPlacement {
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,
         // Platten und Speicherbloecke in Erz-Reihenfolge bei Vanillas Platten und Bloecken.
         out.add(Placement.after(BUILDING_BLOCKS, Items.PURPUR_SLAB, chain(
-                octet("purpur_block"), ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE,
+                octet("purpur_block"), ModItems.POLISHED_END_STONE, polishedEndStoneShapes(), octet("polished_end_stone"), ModItems.ASTRAL_END_STONE,
                 ModItems.ASTRALIT_BLOCK, ModItems.VEINED_ASTRALIT, ModItems.CRYSTALLINE_ASTRALIT, ModItems.LAYERED_ASTRALIT,
                 ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                 ModItems.ASTRALIT_BRICK_SLAB, octet("astralit_bricks"), ModItems.ASTRALIT_BRICK_WALL, ModItems.POLISHED_ASTRALIT,

@@ -2,6 +2,9 @@
   "values": [
     "simplelib:cracked_diamond_block",
     "simplelib:enderite_block",
-    "simplelib:polished_end_stone"
+    "simplelib:polished_end_stone",
+    "simplelib:polished_end_stone_stairs",
+    "simplelib:polished_end_stone_slab",
+    "simplelib:polished_end_stone_wall"
   ]
 }

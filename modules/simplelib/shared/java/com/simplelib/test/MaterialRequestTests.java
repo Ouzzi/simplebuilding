@@ -36,7 +36,12 @@ public final class MaterialRequestTests {
             Map.entry("layered_raw_enderite", "enderite"), Map.entry("enderite_scrap_from_blasting_layered_raw_enderite", "enderite"),
             Map.entry("enderite_ingot_from_scrap", "enderite"), Map.entry("enderite_block", "enderite"), Map.entry("enderite_ingot", "enderite"),
             Map.entry("polished_end_stone", "polished_end_stone"), Map.entry("polished_end_stone_from_end_stone_stonecutting", "polished_end_stone"),
-            Map.entry("polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone"));
+            Map.entry("polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone"),
+            Map.entry("polished_end_stone_stairs", "polished_end_stone"), Map.entry("polished_end_stone_slab", "polished_end_stone"),
+            Map.entry("polished_end_stone_wall", "polished_end_stone"),
+            Map.entry("polished_end_stone_stairs_from_polished_end_stone_stonecutting", "polished_end_stone"),
+            Map.entry("polished_end_stone_slab_from_polished_end_stone_stonecutting", "polished_end_stone"),
+            Map.entry("polished_end_stone_wall_from_polished_end_stone_stonecutting", "polished_end_stone"));
 
     private MaterialRequestTests() {
     }
@@ -54,7 +59,8 @@ public final class MaterialRequestTests {
                 if (item == null || item != SimpleLibApi.materialItem(id)) problems.add("item " + id + " is not registered");
             }
         }
-        for (String block : List.of("cracked_diamond_block", "enderite_block", "polished_end_stone")) {
+        for (String block : List.of("cracked_diamond_block", "enderite_block", "polished_end_stone",
+                "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             if (!(SimpleLibApi.materialItem(block) instanceof BlockItem item) || item.getBlock() != SimpleLibApi.materialBlock(block)
                     || BuiltInRegistries.BLOCK.getValue(SimpleLib.id(block)) != SimpleLibApi.materialBlock(block)) {
                 problems.add("block " + block + " has no matching block item");

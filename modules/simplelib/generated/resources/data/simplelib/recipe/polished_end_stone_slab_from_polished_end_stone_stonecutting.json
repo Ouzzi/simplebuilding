@@ -1,0 +1,20 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplelib:polished_end_stone",
+  "result": {
+    "count": 2,
+    "id": "simplelib:polished_end_stone_slab"
+  }
+}

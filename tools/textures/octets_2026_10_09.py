@@ -196,7 +196,7 @@ def group_of(ns, base):
         return 'quartz'
     if 'brick' in base or base == 'bamboo_mosaic':
         return 'bricks'
-    if base in ('stone', 'cobblestone', 'mossy_cobblestone') or any(k in base for k in ('granite', 'diorite', 'andesite')):
+    if base in ('stone', 'smooth_stone', 'cobblestone', 'mossy_cobblestone') or any(k in base for k in ('granite', 'diorite', 'andesite')):
         return 'stone'
     return 'other'
 
@@ -290,6 +290,7 @@ def scan():
             print('SKIP (extra name): ' + base, file=sys.stderr)
             continue
         out.append({'ns': 'minecraft', 'base': base, 'key': base, 'group': group_of('minecraft', base), 'tex': tex, 'en': en, 'de': de})
+    out.extend(LIB_EXTRAS)
     out.sort(key=sort_key)
     last_log = max(i for i, m in enumerate(out) if m['group'] == 'log')
     out[last_log + 1:last_log + 1] = END_LOGS
@@ -313,6 +314,12 @@ END_LOGS = [{'ns': 'simpleend', 'base': f'{s}{w}_log', 'key': f'{s}{w}_log', 'gr
 BLOCKS_EXTRAS = [{'ns': 'simpleblocks', 'base': b, 'key': b, 'group': 'mod', 'tex': {'all': f'simpleblocks:block/{b}'}, 'en': en, 'de': de}
                  for b, en, de in (('blue_nether_bricks', 'Blue Nether Bricks', 'Blaue Netherziegel'),
                                    ('hushed_deepslate_tiles', 'Hushed Deepslate Tiles', 'Gedämpfte Tiefenschieferfliesen'))]
+
+
+# SimpleLib's polished end stone (it has stairs, slab and wall there); SimpleLib is a required dependency of the module,
+# the block is always registered.
+LIB_EXTRAS = [{'ns': 'simplelib', 'base': 'polished_end_stone', 'key': 'polished_end_stone', 'group': 'stone',
+               'tex': {'all': 'simplelib:block/polished_end_stone'}, 'en': 'Polished End Stone', 'de': 'Polierter Endstein'}]
 
 
 def materials():
@@ -423,7 +430,7 @@ def cells(mats):
 
 def conditions(ns):
     """Load conditions of a recipe/advancement that needs another mod's block (none for Vanilla)."""
-    if ns == 'minecraft':
+    if ns in ('minecraft', 'simplelib'):
         return {}
     return {'fabric:load_conditions': [{'condition': 'fabric:all_mods_loaded', 'values': [ns]}],
             'neoforge:conditions': [{'type': 'neoforge:mod_loaded', 'modid': ns}],

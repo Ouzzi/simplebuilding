@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simplelib:polished_end_stone"
+  },
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "simplelib:polished_end_stone_wall"
+  }
+}

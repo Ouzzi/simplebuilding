@@ -20,7 +20,10 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 
@@ -42,7 +45,7 @@ public final class LibMaterials {
             "enderite", List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_nugget", "enderite_block"),
             "upgrade_templates", List.of("basic_upgrade_template", "enderite_upgrade_template"),
             // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
-            "polished_end_stone", List.of("polished_end_stone"));
+            "polished_end_stone", List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"));
 
     private static final Set<String> REQUESTED = ConcurrentHashMap.newKeySet();
     private static final Map<String, Block> BLOCKS = new LinkedHashMap<>();
@@ -66,6 +69,11 @@ public final class LibMaterials {
                 .strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK));
         block("polished_end_stone", BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops()
                 .strength(3.0F, 9.0F).sound(SoundType.STONE));
+        // Stairs, slab and wall of it (octet rule, owner 17.10.): the properties copy the full block.
+        Block polished = BLOCKS.get("polished_end_stone");
+        shape("polished_end_stone_stairs", polished, p -> new StairBlock(polished.defaultBlockState(), p));
+        shape("polished_end_stone_slab", polished, SlabBlock::new);
+        shape("polished_end_stone_wall", polished, p -> new WallBlock(p.forceSolidOn()));
     }
 
     public static synchronized void ensureItems() {
@@ -84,7 +92,9 @@ public final class LibMaterials {
         // The armor trim material (SimpleBuilding's) is added by that mod when the item's components are built.
         item("enderite_ingot", p -> new Item(p.fireResistant()));
         item("enderite_block", p -> new BlockItem(BLOCKS.get("enderite_block"), p.fireResistant().useBlockDescriptionPrefix()));
-        item("polished_end_stone", p -> new BlockItem(BLOCKS.get("polished_end_stone"), p.useBlockDescriptionPrefix()));
+        for (String name : List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
+            item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
+        }
     }
 
     public static Item item(String id) {
@@ -111,6 +121,12 @@ public final class LibMaterials {
         Identifier id = SimpleLib.id(name);
         Block block = new Block(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
         BLOCKS.put(name, Registry.register(BuiltInRegistries.BLOCK, id, block));
+    }
+
+    private static void shape(String name, Block full, Function<BlockBehaviour.Properties, Block> factory) {
+        Identifier id = SimpleLib.id(name);
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(full).setId(ResourceKey.create(Registries.BLOCK, id));
+        BLOCKS.put(name, Registry.register(BuiltInRegistries.BLOCK, id, factory.apply(properties)));
     }
 
     private static void item(String name, Function<Item.Properties, Item> factory) {

@@ -47,7 +47,8 @@ public final class OctetRegistry {
     private static final Set<String> END_WOODS = Set.of("ashwood", "duskwood");
     /** Vanilla template of another mod's block whose properties that mod copies (Simple Blocks, BlocksRegistry). */
     private static final Map<String, Block> TEMPLATES = Map.of("blue_nether_bricks", Blocks.RED_NETHER_BRICKS,
-            "hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES);
+            "hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES,
+            "polished_end_stone", Blocks.END_STONE);
     /** Octets stack to the engine maximum (owner N18: "128"; item stacks are saved with at most 99). */
     public static final int MAX_STACK = 99;
 

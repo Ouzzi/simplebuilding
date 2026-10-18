@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void stairsAndSlabsHaveOctets(GameTestHelper h) {
+        OctetTests.ALL.get("stairs_and_slabs_have_octets").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void subModSwitch(GameTestHelper h) {
         OctetTests.ALL.get("sub_mod_switch").accept(h);
     }

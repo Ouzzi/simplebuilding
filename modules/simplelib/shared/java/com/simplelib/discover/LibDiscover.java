@@ -63,6 +63,7 @@ public final class LibDiscover {
             "simplelib:layered_raw_enderite",
             "simplelib:netherite_nugget",
             "simplelib:polished_end_stone",
+            "simplelib:polished_end_stone_*",
             "simplelib:raw_enderite",
             "simplelib:shared_materials",
             "simplelib:warm_food",
