@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet",
+    "simpleoctets:polished_end_stone_octet"
+  ],
+  "result": {
+    "id": "simplelib:polished_end_stone"
+  }
+}

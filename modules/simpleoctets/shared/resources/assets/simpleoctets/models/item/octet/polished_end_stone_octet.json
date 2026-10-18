@@ -1,0 +1,6 @@
+{
+  "parent": "simpleoctets:item/octet",
+  "textures": {
+    "all": "simplelib:block/polished_end_stone"
+  }
+}

@@ -11,9 +11,16 @@
     "simpleoctets:obsidian_octet",
     "simpleoctets:polished_andesite_octet",
     "simpleoctets:polished_diorite_octet",
+    {
+      "id": "simpleoctets:polished_end_stone_octet",
+      "required": false
+    },
     "simpleoctets:polished_granite_octet",
     "simpleoctets:smooth_basalt_octet",
+    "simpleoctets:smooth_stone_octet",
     "simpleoctets:stone_octet",
+    "simpleoctets:cut_red_sandstone_octet",
+    "simpleoctets:cut_sandstone_octet",
     "simpleoctets:red_sandstone_octet",
     "simpleoctets:sandstone_octet",
     "simpleoctets:smooth_red_sandstone_octet",
