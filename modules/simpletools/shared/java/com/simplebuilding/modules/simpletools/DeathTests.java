@@ -295,7 +295,8 @@ public final class DeathTests {
             curseBook.enchant(reg.getOrThrow(Enchantments.VANISHING_CURSE), 1);
             menu.getSlot(0).set(bound(h, new ItemStack(Items.DIAMOND_SWORD)));
             menu.getSlot(1).set(curseBook);
-            h.assertTrue(!menu.getSlot(2).getItem().enchantments().keySet().contains(reg.getOrThrow(Enchantments.VANISHING_CURSE)),
+            var after = menu.getSlot(2).getItem().get(DataComponents.ENCHANTMENTS);
+            h.assertTrue(after == null || after.getLevel(reg.getOrThrow(Enchantments.VANISHING_CURSE)) == 0,
                     "Soulbound keeps Curse of Vanishing off");
         });
         h.succeed();
