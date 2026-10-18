@@ -148,16 +148,9 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
                 continue;
             }
             String name = tab.getDisplayName().getString().replaceAll("[^A-Za-z0-9]+", "_");
-            context.runOnClient(c -> {
-                try {
-                    var m = net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.class
-                            .getDeclaredMethod("selectTab", net.minecraft.world.item.CreativeModeTab.class);
-                    m.setAccessible(true);
-                    m.invoke(c.gui.screen(), tab);
-                } catch (ReflectiveOperationException e) {
-                    throw new AssertionError(e);
-                }
-            });
+            context.runOnClient(c -> ((net.fabricmc.fabric.api.client.itemgroup.v1.FabricCreativeInventoryScreen) c.gui.screen())
+                    .setSelectedItemGroup(tab));
+            context.getInput().setCursorPos(2, 2);
             context.waitTicks(3);
             context.takeScreenshot(String.format("tab-%02d-%s", n++, name));
         }
