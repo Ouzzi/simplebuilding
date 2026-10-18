@@ -32,7 +32,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Registered block ids that intentionally have no inventory item (wall signs, technical blocks ...): lang key
 # block.<ns>.<id> without items/<id>.json is only a WARN anyway; this list silences known cases.
-ALLOW_NO_ITEM: set[str] = set()
+# The 11 lang-only ids found 2026-10-18: guide_book_* are legacy aliases (datafix/LegacyItemIds -> guide_book; the books of
+# GuideBooks share one item model) and home_teleporter is only a tooltip name (SpawnSetup), no registered item. The runtime
+# audit (testrunner target audit-models-263, ModelAuditClientTest) walks the real item registry and confirms 0 faults.
+ALLOW_NO_ITEM: set[str] = {'guide_book_admin', 'guide_book_building', 'guide_book_enchantments', 'guide_book_end',
+                           'guide_book_gadgets', 'guide_book_machines', 'guide_book_storage', 'guide_book_tools',
+                           'guide_book_trims', 'guide_book_tweaks', 'home_teleporter'}
 
 
 def layer_roots() -> list[tuple[str, Path]]:
