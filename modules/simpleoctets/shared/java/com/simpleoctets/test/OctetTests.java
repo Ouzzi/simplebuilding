@@ -131,7 +131,10 @@ public final class OctetTests {
             checked++;
             boolean found = false;
             for (OctetMaterials.Material m : OctetMaterials.ALL) {
-                if (m.namespace().equals(id.getNamespace()) && bases.contains(m.base())
+                // Simple Blocks cuts stairs/slabs for Vanilla blocks (calcite, cut sandstone ...): their octets live under minecraft.
+                boolean sameBlock = m.namespace().equals(id.getNamespace())
+                        || ("simpleblocks".equals(id.getNamespace()) && "minecraft".equals(m.namespace()));
+                if (sameBlock && bases.contains(m.base())
                         && BuiltInRegistries.BLOCK.containsKey(SimpleOctets.id(m.key() + "_octet"))) found = true;
             }
             for (String wood : OctetRegistry.activeWoods()) {

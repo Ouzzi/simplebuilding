@@ -75,3 +75,5 @@ Siehe `.claude/QUEUE.md`, Block „Besitzer 17.10.“, Punkt (a): Umsetzung erst
 
 
 **Besitzer 17.10.:** Naturstufen (Erde, Gras, Sand, Kies) bekommen KEINE Octets (Ausnahme von Regel 18). Damit fehlen noch 19 Familien: 15 Bretter-Arten + 4 Vanilla-Stufen-Familien.
+
+**Korrektur 18.10. (b-octetrule, `docs/ai/PLAN-B-OCTETRULE-2026-10-18.md`):** Die 15 Bretter-Achtel existierten schon (`oak_octet` ... `duskwood_octet`, Quelle `*_planks`, Generator-Liste `WOODS`); das Inventar hielt sie fälschlich für fehlend. Wirklich gefehlt haben nur `cut_sandstone`, `cut_red_sandstone`, `smooth_stone` (jetzt in `OctetMaterials`) und das neue `simplelib:polished_end_stone` (samt Treppe/Stufe/Mauer in SimpleLib). `petrified_oak_slab` bleibt begründete Ausnahme (kein Vollblock, Textur = Eichenbretter, `oak_octet` existiert). Der Abdeckungstest `stairs_and_slabs_have_octets` (`OctetTests`) hält die Regel ab jetzt automatisch ein.
