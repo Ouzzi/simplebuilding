@@ -56,6 +56,8 @@ public final class MapsItems {
                         .icon(() -> new net.minecraft.world.item.ItemStack(WAYFINDER_MAP))
                         .displayItems((params, out) -> {
                             tabStacks().forEach(out::accept);
+                            // The guide belongs in the own tab too, not only in Tools & Utilities.
+                            if (com.simplebuilding.modules.simplemaps.guide.MapsGuide.book() != null) out.accept(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack());
                         }).build());
     }
 }
