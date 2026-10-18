@@ -65,8 +65,8 @@ public final class ToolsTests {
   foreign.set(DataComponents.TOOL,vanilla.get(DataComponents.TOOL));
   var c=SimpleTools.config();
   close(h,c.fullDurabilityBonusMultiplier,1,"Fresh server default has no bonus");
-  // The SimpleBuilding hammer joins only when SimpleBuilding is loaded (standalone: Vanilla and component tools).
-  for(var stack:isModLoaded("simplebuilding")?List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign):List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),foreign)){
+  // The sledgehammer joins only when Simple Hammers is loaded (standalone: Vanilla and component tools).
+  for(var stack:isModLoaded("simplehammers")?List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign):List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),foreign)){
    h.assertTrue(stack.isDamageableItem(),"All tool kinds are damageable");
    p.setItemSlot(EquipmentSlot.MAINHAND,stack);c.enableFullDurabilityBonus=false;
    double damage=p.getAttributeValue(Attributes.ATTACK_DAMAGE);float mining=p.getDestroySpeed(Blocks.STONE.defaultBlockState());
