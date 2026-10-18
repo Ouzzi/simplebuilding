@@ -275,6 +275,7 @@ def main() -> int:
     p.add_argument("--runs", type=int, default=None, help="runs per a/b/c scenario (sbtest 3, pc 5)")
     p.add_argument("--both-runs", type=int, default=1, help="runs per d scenario (ours + other mod)")
     p.add_argument("--areas", default="o1,s5a")
+    p.add_argument("--only", default="", help="comma list of scenario names (smoke runs), e.g. a-vanilla,c-ours")
     p.add_argument("--timeout", type=int, default=1800, help="seconds per run")
     p.add_argument("--out", default=None)
     p.add_argument("--report", type=Path, help="only rebuild report.html from a results.json")
@@ -300,9 +301,9 @@ def main() -> int:
                    runs_per_scenario=runs, missing26_3=fetch_mods.load().get("missing26_3", []), runs=[])
     path = out_dir / "results.json"
     for key in keys:
-        plan = scenarios(key, runs, args.both_runs)
+        plan = [s for s in scenarios(key, runs, args.both_runs) if not args.only or s[0] in args.only.split(",")]
         print(f"{key}: {', '.join(f'{n} x{r}' for n, _, _, r in plan)}", flush=True)
-        for rep in range(1, max(r for *_, r in plan) + 1):
+        for rep in range(1, max([r for *_, r in plan] + [0]) + 1):
             for name, foreign, ours, reps in plan:
                 if rep <= reps:
                     results["runs"].append(run_once(key, name, foreign, ours, rep, jars, foreign_jars, out_dir, args.timeout))
