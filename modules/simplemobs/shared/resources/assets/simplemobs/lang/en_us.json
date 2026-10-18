@@ -121,6 +121,8 @@
   "simplemobs.guide.page.16": "Brush in the main hand, a biome material in the off hand, right-click a block: the biome around it becomes the material's biome. One material and one durability point per stroke.",
   "simplemobs.guide.page.17.title": "First pickup tips",
   "simplemobs.guide.page.17": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+  "simplemobs.guide.page.18.title": "Creative tabs",
+  "simplemobs.guide.page.18": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",

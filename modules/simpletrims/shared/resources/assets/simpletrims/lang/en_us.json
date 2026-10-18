@@ -45,6 +45,8 @@
   "simpletrims.guide.page.7": "5 right clicks with the tool, then 2 of the off-hand material, 4 diamonds and 2 glowstone (Glowing) or 2 blaze powder (Emitting) from the inventory.",
   "simpletrims.guide.page.8.title": "Moved from SimpleBuilding",
   "simpletrims.guide.page.8": "The templates, their upgrade data, recipes and advancements used to be simplebuilding:*. Old worlds load them as simpletrims:* (SimpleLib id moves); radiance keeps its stored value.",
+  "simpletrims.guide.page.9.title": "Creative tabs",
+  "simpletrims.guide.page.9": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
   "quests.simpletrims.start.title": "Welcome to Simple Trims",
   "quests.simpletrims.start.subtitle": "Your free guide",
   "quests.simpletrims.start.welcome.title": "A free guide",

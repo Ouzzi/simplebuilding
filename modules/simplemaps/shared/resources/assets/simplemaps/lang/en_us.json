@@ -53,6 +53,8 @@
   "simplemaps.guide.page.5": "Copy, extend and combine wayfinder maps at the cartography table; each can be switched off on the server.",
   "simplemaps.guide.page.6.title": "Maps in item frames",
   "simplemaps.guide.page.6": "A framed wayfinder map shows a stored view; right-click opens the map screen, and the frame shows where you scrolled to.",
+  "simplemaps.guide.page.7.title": "Creative tabs",
+  "simplemaps.guide.page.7": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
   "quests.simplemaps.start.title": "Welcome to Simple Maps",
   "quests.simplemaps.start.subtitle": "Your free guide",
   "quests.simplemaps.start.welcome.title": "A free guide",

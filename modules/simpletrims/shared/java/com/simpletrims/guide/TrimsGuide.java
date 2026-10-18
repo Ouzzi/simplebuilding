@@ -39,7 +39,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 public final class TrimsGuide {
     public static final String NAMESPACE = "simpletrims";
     public static final String AUTHOR = "Simple Trims";
-    public static final int PAGES = 8;
+    public static final int PAGES = 9;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
     public static final Item RECIPE_ITEM = Items.GLOW_INK_SAC;
