@@ -301,7 +301,8 @@ public final class ModpackTests {
         // --- a real death marks the dropped inventory ---
         ServerPlayer victim = mockPlayer(helper, new Vec3(5.5, 1.0, 5.5));
         victim.getInventory().clearContent();
-        victim.getInventory().setItem(0, new ItemStack(Items.DIAMOND, 3));
+        // Main inventory (slot 9): Simple Tweaks' partial keep inventory (default hotbar + armor) would keep slot 0.
+        victim.getInventory().setItem(9, new ItemStack(Items.DIAMOND, 3));
         victim.die(victim.damageSources().generic());
         List<ItemEntity> drops = helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds(),
                 entity -> entity.getItem().is(Items.DIAMOND));

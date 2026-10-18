@@ -43,6 +43,14 @@ import net.minecraft.world.phys.Vec3;
 public final class DeathTests {
     private DeathTests() {}
 
+    /**
+     * First main-inventory slot. Death tests that expect a stack to drop put it here: Simple Tweaks' partial keep inventory
+     * (on by default when that module is loaded, keeps hotbar + armor + offhand) never keeps it, so the expectation holds
+     * with and without Simple Tweaks. The order Soulbound first, then partial keep inventory, then the vault records the
+     * rest, is checked with both modules in {@code integration} (CrossModGameTest#soulboundKeepInventoryAndVaultSideBySide).
+     */
+    private static final int MAIN = 9;
+
     private static Holder<Enchantment> soulbound(GameTestHelper h) {
         return h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Soulbound.KEY);
     }
@@ -142,7 +150,9 @@ public final class DeathTests {
                 ItemStack helmet = bound(h, new ItemStack(Items.IRON_HELMET));
                 helmet.setDamageValue(helmet.getMaxDamage() - 20);
                 p.getInventory().setItem(3, sword);
-                p.getInventory().setItem(5, new ItemStack(Items.DIRT, 10));
+                // Main inventory: with Simple Tweaks loaded its partial keep inventory (default hotbar + armor) keeps the
+                // hotbar, but Soulbound takes its stacks first (sword in hotbar slot 3, helmet) (integration test).
+                p.getInventory().setItem(MAIN, new ItemStack(Items.DIRT, 10));
                 p.setItemSlot(EquipmentSlot.HEAD, helmet);
                 int helmetSlot = -1;
                 for (int i = 0; i < p.getInventory().getContainerSize(); i++) if (p.getInventory().getItem(i).is(Items.IRON_HELMET)) helmetSlot = i;
@@ -152,7 +162,7 @@ public final class DeathTests {
                 List<ItemEntity> drops = itemsNear(h, p);
                 h.assertTrue(drops.stream().noneMatch(e -> Soulbound.has(e.getItem())), "no Soulbound item entity exists after the death");
                 h.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(Items.DIRT)), "the plain dirt dropped");
-                h.assertTrue(p.getInventory().getItem(3).is(Items.DIAMOND_SWORD) && p.getInventory().getItem(5).isEmpty(),
+                h.assertTrue(p.getInventory().getItem(3).is(Items.DIAMOND_SWORD) && p.getInventory().getItem(MAIN).isEmpty(),
                         "the dead player still holds the sword in slot 3, the dirt is gone");
                 ServerPlayer fresh = (ServerPlayer) h.makeMockServerPlayer(GameType.SURVIVAL);
                 fresh.restoreFrom(p, false);
@@ -191,10 +201,10 @@ public final class DeathTests {
                 sword.addDetailsToTooltip(net.minecraft.world.item.Item.TooltipContext.of(h.getLevel()),
                         net.minecraft.world.item.component.TooltipDisplay.DEFAULT, p, net.minecraft.world.item.TooltipFlag.NORMAL, lines::add);
                 h.assertTrue(lines.stream().anyMatch(c -> c.getString().toLowerCase().contains("hardcore") || c.getString().contains("soulbound.hardcore")), "tooltip hint in Hardcore: " + lines);
-                p.getInventory().setItem(0, sword);
+                p.getInventory().setItem(MAIN, sword);
                 die(h, p);
                 h.assertTrue(itemsNear(h, p).stream().anyMatch(e -> Soulbound.has(e.getItem())), "Hardcore: the Soulbound sword dropped");
-                h.assertTrue(p.getInventory().getItem(0).isEmpty(), "Hardcore: nothing kept");
+                h.assertTrue(p.getInventory().getItem(MAIN).isEmpty(), "Hardcore: nothing kept");
                 Soulbound.hardcoreOverride = false;
                 lines.clear();
                 sword.addDetailsToTooltip(net.minecraft.world.item.Item.TooltipContext.of(h.getLevel()),
@@ -215,10 +225,10 @@ public final class DeathTests {
             ServerPlayer p = living(h, new BlockPos(2, 2, 2));
             try {
                 SimpleTools.config().enableSoulbound = false;
-                p.getInventory().setItem(0, bound(h, new ItemStack(Items.IRON_SWORD)));
+                p.getInventory().setItem(MAIN, bound(h, new ItemStack(Items.IRON_SWORD)));
                 die(h, p);
                 h.assertTrue(itemsNear(h, p).stream().anyMatch(e -> Soulbound.has(e.getItem())), "switched off: the sword dropped");
-                h.assertTrue(p.getInventory().getItem(0).isEmpty(), "nothing kept");
+                h.assertTrue(p.getInventory().getItem(MAIN).isEmpty(), "nothing kept");
             } finally {
                 ledger(h).clear(p.getUUID());
                 h.getLevel().getServer().getPlayerList().remove(p);
@@ -473,9 +483,9 @@ public final class DeathTests {
         configured(() -> {
             ServerPlayer p = living(h, new BlockPos(2, 2, 2));
             try {
-                p.getInventory().setItem(0, new ItemStack(Items.DIRT, 10));
-                p.getInventory().setItem(1, new ItemStack(Items.IRON_SWORD));
-                p.getInventory().setItem(2, new ItemStack(Items.APPLE, 3));
+                p.getInventory().setItem(MAIN, new ItemStack(Items.DIRT, 10));
+                p.getInventory().setItem(MAIN + 1, new ItemStack(Items.IRON_SWORD));
+                p.getInventory().setItem(MAIN + 2, new ItemStack(Items.APPLE, 3));
                 die(h, p);
                 List<ItemEntity> drops = itemsNear(h, p);
                 var death = ledger(h).last(p.getUUID()).orElseThrow();
@@ -679,7 +689,7 @@ public final class DeathTests {
             SimpleTools.config().enableDeathVault = false;
             ServerPlayer p = living(h, new BlockPos(2, 2, 2));
             try {
-                p.getInventory().setItem(0, new ItemStack(Items.DIRT));
+                p.getInventory().setItem(MAIN, new ItemStack(Items.DIRT));
                 die(h, p);
                 h.assertTrue(ledger(h).deaths(p.getUUID()).isEmpty(), "switched off: nothing recorded");
             } finally {

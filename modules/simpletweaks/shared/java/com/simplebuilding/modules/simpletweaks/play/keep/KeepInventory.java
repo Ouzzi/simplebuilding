@@ -10,15 +10,30 @@ import net.minecraft.world.level.gamerules.GameRules;
 /**
  * T27 partial keep inventory, only while the Vanilla rule {@code keep_inventory} is off. Modes: {@code hotbar_armor}
  * (hotbar, armor and offhand stay), {@code xp} (experience stays, everything else drops), {@code custom} (switches per
- * part + {@code keepXpPercent}). The kept slots are taken out before {@code Inventory.dropAll}, put back right after
- * (the dead player still holds them, so a relog before respawning keeps them too) and move to the new player in
- * {@code restoreFrom}. Curse of vanishing is applied first, as in Vanilla.
+ * part + {@code keepXpPercent}). Off in Hardcore worlds (as Vanilla's own rules there).
+ *
+ * <p>Order with other death handling (no class imports, only Vanilla hook points): Curse of Vanishing runs first (Vanilla
+ * {@code destroyVanishingCursedItems}), then every {@code Inventory.dropAll} HEAD hook of another mod (Simple Tools Soulbound
+ * takes its stacks there), and only then T27 takes what is left of its slots (injected at the first read of the slot list,
+ * which is after all HEAD hooks). The rest drops and is what a death record (Simple Tools Death Vault) sees. The kept stacks
+ * go back into the dead player (so a relog on the death screen, e.g. Simple Respawn's logout death, keeps them in the saved
+ * file) and the slots are written down as an entity tag; {@code restoreFrom} moves exactly those slots to the new player and
+ * empties them in the old one, so neither another mod's restore nor a second respawn can copy them.
  */
 public final class KeepInventory {
     private static final ThreadLocal<Map<Integer, ItemStack>> HELD = new ThreadLocal<>();
+    /** Entity tag on the dead player: {@code simpletweaks_kept:<slot>,<slot>...}. */
+    static final String TAG = "simpletweaks_kept:";
+    /** The player whose {@code Player.dropEquipment} runs (only a death empties the inventory through T27). */
+    private static final ThreadLocal<Player> DYING = new ThreadLocal<>();
+
+    public static void deathStart(Player p) { DYING.set(p); HELD.remove(); }
+    public static void deathEnd(Player p) { if (DYING.get() == p) DYING.remove(); HELD.remove(); }
+    static void untag(Player p) { for (var t : List.copyOf(p.entityTags())) if (t.startsWith(TAG)) p.removeTag(t); }
 
     public static boolean active(ServerLevel level) {
-        return Play.on() && Play.server() != null && Play.config().keepInventory().enabled() && !level.getGameRules().get(GameRules.KEEP_INVENTORY);
+        return Play.on() && Play.server() != null && Play.config().keepInventory().enabled() && !level.getGameRules().get(GameRules.KEEP_INVENTORY)
+                && !level.getLevelData().isHardcore();
     }
     public static boolean keepsSlot(int slot) {
         var c = Play.config().keepInventory();
@@ -35,9 +50,10 @@ public final class KeepInventory {
         return switch (c.mode()) { case "xp" -> 100; case "custom" -> c.keepXpPercent(); default -> 0; };
     }
 
-    /** Start of {@code Player.dropEquipment}: curse of vanishing first, then the kept stacks leave the inventory. */
-    public static void beforeDrops(Player p, ServerLevel level) {
-        if (!(p instanceof ServerPlayer) || !active(level)) return;
+    /** Inside {@code Inventory.dropAll}, after the HEAD hooks of other mods: the kept stacks leave the inventory. */
+    public static void beforeDrops(Player p) {
+        if (HELD.get() != null) return; // the hook sits in the loop condition: only the first pass takes the stacks
+        if (!(p instanceof ServerPlayer) || DYING.get() != p || !(p.level() instanceof ServerLevel level) || !active(level)) return;
         var inv = p.getInventory();
         var held = new HashMap<Integer, ItemStack>();
         for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -48,26 +64,54 @@ public final class KeepInventory {
         }
         HELD.set(held);
     }
-    /** End of {@code Player.dropEquipment}: the kept stacks go back into the (dead) player's slots. */
+    /** End of {@code Inventory.dropAll}: the kept stacks go back into the (dead) player's slots, the slots are noted. */
     public static void afterDrops(Player p) {
         var held = HELD.get();
         HELD.remove();
         if (held == null) return;
-        held.forEach((slot, st) -> p.getInventory().setItem(slot, st));
+        untag(p);
+        if (held.isEmpty()) return;
+        var slots = new StringJoiner(",");
+        new TreeMap<>(held).forEach((slot, st) -> {
+            var inv = p.getInventory();
+            if (inv.getItem(slot).isEmpty()) inv.setItem(slot, st);
+            else inv.placeItemBackInInventory(st, false, net.minecraft.util.Prediction.SERVER_ONLY);
+            slots.add(String.valueOf(slot));
+        });
+        p.addTag(TAG + slots);
+    }
+    /** Slots T27 kept on the dead player (from its tag). */
+    static List<Integer> keptSlots(Player p) {
+        var out = new ArrayList<Integer>();
+        for (var t : p.entityTags()) if (t.startsWith(TAG)) for (var n : t.substring(TAG.length()).split(",")) {
+            try { out.add(Integer.parseInt(n)); } catch (NumberFormatException ignored) {}
+        }
+        return out;
     }
     /** Experience orbs dropped on death, reduced by the kept share. */
     public static int droppedXp(Player p, int vanilla) {
         if (!(p.level() instanceof ServerLevel level) || !active(level)) return vanilla;
         return vanilla * (100 - xpPercent()) / 100;
     }
-    /** {@code ServerPlayer.restoreFrom} after a death (not after leaving the End). */
+    /**
+     * {@code ServerPlayer.restoreFrom} after a death (not after leaving the End): the slots T27 kept move (not copy) to the
+     * new player, even if T27 was switched off meanwhile; with Vanilla keep inventory Vanilla already copied everything.
+     */
     public static void restore(ServerPlayer now, ServerPlayer old) {
-        if (!active(now.level()) || old.isSpectator()) return;
+        var slots = keptSlots(old);
+        untag(old);
+        untag(now);
+        if (now.level().getGameRules().get(GameRules.KEEP_INVENTORY) || old.isSpectator()) return;
         var from = old.getInventory();
-        for (int i = 0; i < from.getContainerSize(); i++) {
-            var st = from.getItem(i);
-            if (!st.isEmpty() && keepsSlot(i)) now.getInventory().setItem(i, st.copy());
+        var to = now.getInventory();
+        for (int i : slots) {
+            if (i < 0 || i >= from.getContainerSize()) continue;
+            var st = from.removeItemNoUpdate(i);
+            if (st.isEmpty()) continue;
+            if (i < to.getContainerSize() && to.getItem(i).isEmpty()) to.setItem(i, st);
+            else to.placeItemBackInInventory(st, false, net.minecraft.util.Prediction.SERVER_ONLY);
         }
+        if (!active(now.level())) return;
         int pct = xpPercent();
         if (pct >= 100) { now.experienceLevel = old.experienceLevel; now.experienceProgress = old.experienceProgress; now.totalExperience = old.totalExperience; }
         else if (pct > 0) now.giveExperiencePoints((int) (points(old.experienceLevel, old.experienceProgress) * pct / 100));
