@@ -140,3 +140,51 @@ Nur mit `-PsbHowlerSounds=vanilla` (oder `SB_HOWLER_SOUNDS=vanilla`) läuft `gen
 die eingecheckte A-Datei gleichen Namens weg. Ohne Python-Pakete oder Asset-Store: Warnung und A (`-PsbVanillaDerivedStrict`
 bricht ab). Erlaubte Werte: `synth` (Standard) und `vanilla`, sonst Abbruch.
 Vorschau (privat, Vanilla-Referenzen nur dort): `/tmp/claude-0/ash/howler4.html`. Nachjustieren nur in den Generatoren.
+
+## 10. Varianten je Sound und Auswahl je Ereignis (claude-howler5, 2026-10-18)
+Besitzer 18.10.: „mehrere Varianten pro Sound für Abwechslung, aber relativ ähnlich; am Ende Vanilla-like, stark an Vanilla
+erinnernd, sauber eingebunden.“
+
+**Takes wie Vanilla:** jedes Ereignis hat 3–5 Takes (`sounds.json` listet sie, Dateien `<ereignis><n>.ogg`):
+heartbeat 4, ambient 4, ambient_hunger 4, ambient_rage 4, hurt 4, death 3, step 5, notice 3, sniff 4, roar 3, roar_rage 3
+(41 Dateien, A zusammen ca. 0,7 MB, Mono-OGG, Längen/Pegel wie §9). Wie bei Vanilla (Warden-Schritt/-Sniff, Hoglin) tragen
+Schritte und Schnüffeln eine Lautstärke je Eintrag (0,85–1,0); `sounds.json` ist für A, B und jede Mischung dieselbe.
+`sounds.json` ist die einzige Liste der Takes: beide Generatoren, Gradle und `check_data.py` lesen sie.
+- **A** (`make_howler_sounds.py`): Take 1 = der howler4-Sound (bitgleich dekodiert); weitere Takes per `Var(seed, take)`:
+  Tonhöhe ±5 %, Timing ±7 %, Aufnahme-Tiefpass ±12 %, Tonhöhenverlauf je Stützpunkt ±3 %, eigener Seed für alle Atem-,
+  Körnungs- und Jitter-Details. Fest geseedet, reproduzierbar; nicht mehr gelistete Dateien löscht der Generator.
+- **B** (`vanilla_derived_sounds.py`): jedes Ereignis beruht auf **einer** führenden Vanilla-Familie, jeder Take auf einer
+  anderen Vanilla-Aufnahme dieser Familie (Vanillas eigene Vielfalt), leicht verarbeitet (Tonhöhe 0,8–0,9, sanfter Filter,
+  kurzer Raum), eine zweite Familie nur leise darunter:
+
+| Ereignis | führende Familie (B) | Begründung |
+|---|---|---|
+| heartbeat | Warden heartbeat_1–4 (erster Schlag) + dumpfer Ravager-Schritt | der Herzschlag-Klang schlechthin |
+| ambient | Warden ambient (4 Aufnahmen) + rückwärts laufendes Enderman-Idle leise | Lauern = Warden-Atmen |
+| ambient_hunger | Warden agitated + Hoglin-Idle | unruhig + hungrig |
+| ambient_rage | Warden angry + gedehnter Ravager-Atem, etwas Zoglin | Wut, schwerer Körper |
+| hurt | Ravager hurt + Hoglin hurt, Warden hurt leise | großer Körper, vertrauter Schmerzlaut |
+| death | Ravager death gedehnt + Hoglin/Warden death + letzte Warden-Herzschläge | Tod eines großen Tiers, Herz hört auf |
+| step | Warden step (alle 4, einer tiefer) + Ravager-Tritt | Gewicht |
+| notice | Enderman: Idle-„Wuup“ tief über einem Stück des Stare-Drones, Warden-Fühlerklicken | „er hat dich bemerkt“ (Enderman-Motiv) |
+| sniff | Warden sniff 1–4 (Anfang) | bekanntestes Such-Geräusch |
+| roar | Warden roar + Ravager roar, etwas Hoglin | Vanilla-Brüllen |
+| roar_rage | Warden roar + gedehnter Ravager roar, rückwärts Enderman-Schrei weit hinten, Pseudo-Infraschall | größer als roar |
+
+**Auswahl je Ereignis (Build-Zeit):** `tools/sounds/howler_sounds.json`: `"mode"` = `synth` (A überall, Standard),
+`vanilla` (B überall) oder `mix` (je Ereignis laut `"mix"`: `"synth"` = A, `"vanilla"` = B). Die Wahl des Besitzers ist damit eine
+Zeile (`"mode": "mix"`) bzw. eine Zeile je Ereignis. `-PsbHowlerSounds=synth|vanilla|mix` (oder `SB_HOWLER_SOUNDS`) überschreibt
+den Modus für einen Build. `gradle/module-vanilla-derived-sounds.gradle` ruft bei `vanilla`/`mix`
+`vanilla_derived_sounds.py --mode <modus>` auf; erzeugt werden nur die Takes der B-Ereignisse, `processResources`/`sourcesJar`
+lassen genau diese A-Dateien weg (jede Datei genau einmal im Jar; geprüft für mix auf Fabric und NeoForge, vanilla und synth
+auf Fabric). Fehlt Python/Asset-Store: Warnung und A (`-PsbVanillaDerivedStrict` bricht ab).
+Vorbelegte Empfehlung in `"mix"` (Modus bleibt `synth`, bis der Besitzer entscheidet): **B** für alle Stimm-Laute (ambient,
+ambient_hunger, ambient_rage, hurt, death, notice, sniff, roar, roar_rage), **A** für heartbeat und step (reine Aufschläge, bleiben
+bewusst eigen, damit der Howler nicht für einen Warden gehalten wird; dessen Herzschlag/Schritte sind im Spiel Warnsignale).
+Klangfarben-Abstand zu den Vanilla-Referenzen (5 Bänder + Schwerpunkt, kleiner = näher; nur Orientierung) A/B:
+heartbeat 0,40/0,10, ambient 0,24/0,22, hunger 0,67/0,43, rage 0,59/0,29, hurt 0,40/0,33, death 0,88/0,16, step 0,79/0,68,
+notice 0,85/0,72, sniff 0,58/0,30, roar 0,29/0,18, roar_rage 0,19/0,11.
+**Prüfung:** `modules/simplemobs/tools/check_data.py` (3–5 Takes je Ereignis, Einträge nur name/volume/pitch/weight in
+Grenzen, jede Datei vorhanden, genau einmal gelistet, keine verwaiste Datei, Ogg/Mono/< 64 KB, A-`EVENTS`, B-`recipes()` und
+`howler_sounds.json` nennen jedes Ereignis, `selected()` je Modus).
+Vorschau (privat, Vanilla-Referenzen nur dort): `/tmp/claude-0/ash/howler5.html`.

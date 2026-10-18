@@ -17,4 +17,5 @@ public final class ProtectGameTest {
  @GameTest(maxTicks=100) public void checksFlagFarBreakNotServerBreaks(GameTestHelper h) { ProtectTests.TESTS.get("checks_flag_far_break_not_server_breaks").accept(h); }
  @GameTest(maxTicks=100) public void fastBreakUsesRealSpeed(GameTestHelper h) { ProtectTests.TESTS.get("fast_break_uses_real_speed").accept(h); }
  @GameTest(maxTicks=100) public void hammerAreaBreakNotFlagged(GameTestHelper h) { ProtectTests.TESTS.get("hammer_area_break_not_flagged").accept(h); }
+ @GameTest(maxTicks=100) public void autoOffWithPartnerMods(GameTestHelper h) { ProtectTests.TESTS.get("auto_off_with_partner_mods").accept(h); }
 }

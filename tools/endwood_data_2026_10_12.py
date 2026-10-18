@@ -30,9 +30,7 @@ TIERS = ("reinforced", "netherite", "enderite")
 RECIPES = [
     "hollow_spruce_log", "hollow_stripped_spruce_log", "spruce_sheet", "stripped_spruce_sheet", "spruce_cauldron",
     "stripped_spruce_cauldron", "spruce_crate",
-    "spruce_octet_from_spruce_planks_stonecutting", "spruce_planks_from_octets",
-    "spruce_log_octet_from_spruce_log_stonecutting", "spruce_log_from_octets",
-    "stripped_spruce_log_octet_from_stripped_spruce_log_stonecutting", "stripped_spruce_log_from_octets",
+    # The wood and log octets' recipes moved to Simple Octets (tools/textures/octets_2026_10_09.py, Shaping Saw A4b).
 ] + [f"{tier}_chest_boat_spruce" for tier in TIERS]
 LOOT = ["hollow_spruce_log", "hollow_stripped_spruce_log", "spruce_sheet", "stripped_spruce_sheet", "spruce_cauldron",
         "stripped_spruce_cauldron", "spruce_crate", "carved_spruce_log"]

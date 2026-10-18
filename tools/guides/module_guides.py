@@ -170,9 +170,9 @@ MODULES = [
          author="Simple Octets", recipe="minecraft:stonecutter",
          name=("Simple Octets Guide", "Simple-Octets-Handbuch"),
          intro=("Octets - half-block cubes of every wood, of every block with stairs and slabs and of the melon - cut in the "
-                "stonecutter, placed into the clicked corner and mixed in one cell.",
-                "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - im Steinmetz "
-                "geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt.")),
+                "Shaping Saw (Simple Blocks; without it in the stonecutter), placed into the clicked corner and mixed in one cell.",
+                "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - in der Formsäge "
+                "(Simple Blocks; ohne sie im Steinmetz) geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),

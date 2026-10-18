@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 /**
- * Optional JEI plugin of Simple Octets: info pages for what the stonecutter recipes do not show - how octets are placed
+ * Optional JEI plugin of Simple Octets: info pages for what the saw/stonecutter recipes do not show - how octets are placed
  * and mixed, and the melon slice that becomes a melon octet. Only JEI loads it (Fabric: entrypoint {@code jei_mod_plugin};
  * NeoForge: the annotation); Forge builds without it.
  */

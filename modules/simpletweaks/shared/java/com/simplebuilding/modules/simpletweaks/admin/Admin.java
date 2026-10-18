@@ -15,7 +15,7 @@ public final class Admin {
 
     public static AdminConfig config() {
         var c = config;
-        if (c == null) config = c = AdminConfig.load(AdminConfig.PATH);
+        if (c == null) config = c = AdminConfig.load(AdminConfig.PATH).withAutoOff(com.simplebuilding.modules.simpletweaks.play.Mods::loaded, org.slf4j.LoggerFactory.getLogger("simpletweaks-admin"));
         return c;
     }
     /** Tests: other settings until the next call (null = reload from the file). */

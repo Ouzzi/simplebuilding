@@ -13,12 +13,10 @@
       "modid": "simplebuilding"
     }
   ],
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "simplebuilding"
-    }
-  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:grass_block",
   "result": {

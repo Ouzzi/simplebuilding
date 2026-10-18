@@ -46,18 +46,19 @@
     {
       "id": "recipes",
       "sources": [
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_octet_from_oak_planks_sawing.json",
         "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_octet_from_oak_planks_stonecutting.json",
         "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_planks_from_octets.json",
         "tools/textures/octets_2026_10_09.py"
       ],
       "en": {
-        "title": "Stonecutter and back",
-        "summary": "The stonecutter cuts 8 octets from the full block of their material (wood octets from the planks); 8 octets of one material craft back into the block (shapeless). Both recipes unlock in the recipe book once you hold the block or the octet.",
+        "title": "Shaping Saw and back",
+        "summary": "The Shaping Saw of Simple Blocks cuts 8 octets from the full block of their material (wood octets from the planks); with Simple Blocks the Vanilla stonecutter has no octet recipes. Without Simple Blocks the stonecutter cuts them instead. 8 octets of one material craft back into the block (shapeless); the crafting recipe and the stonecutter cut unlock in the recipe book once you hold the block or the octet (the saw has no recipe book).",
         "details": []
       },
       "de": {
-        "title": "Steinmetz und zurück",
-        "summary": "Der Steinmetz schneidet 8 Achtel aus dem Vollblock ihres Materials (Holz-Achtel aus den Brettern); 8 Achtel eines Materials ergeben formlos wieder den Block. Beide Rezepte schalten sich im Rezeptbuch frei, sobald man den Block bzw. das Achtel hält.",
+        "title": "Formsäge und zurück",
+        "summary": "Die Formsäge von Simple Blocks schneidet 8 Achtel aus dem Vollblock ihres Materials (Holz-Achtel aus den Brettern); mit Simple Blocks hat der Vanilla-Steinmetz keine Achtel-Rezepte. Ohne Simple Blocks schneidet sie der Steinmetz. 8 Achtel eines Materials ergeben formlos wieder den Block; das Werkbank-Rezept und der Steinmetz-Schnitt schalten sich im Rezeptbuch frei, sobald man den Block bzw. das Achtel hält (die Säge hat kein Rezeptbuch).",
         "details": []
       }
     },
@@ -163,10 +164,10 @@
         "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
+        "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
+        "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
       }
     },
     "simpleoctets:melon_octet": {
@@ -202,10 +203,10 @@
         "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
       ],
       "en": {
-        "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+        "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
       },
       "de": {
-        "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
       }
     }
   }

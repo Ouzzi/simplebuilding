@@ -19,15 +19,13 @@
       }
     }
   ],
-  "forge:conditions": [
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:mod_loaded",
-        "modid": "simplelib"
-      }
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simplelib"
     }
-  ],
+  },
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_warped_wart_block": {

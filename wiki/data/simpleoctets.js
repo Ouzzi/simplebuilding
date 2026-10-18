@@ -65,18 +65,19 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
     {
       "id": "recipes",
       "sources": [
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_octet_from_oak_planks_sawing.json",
         "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_octet_from_oak_planks_stonecutting.json",
         "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_planks_from_octets.json",
         "tools/textures/octets_2026_10_09.py"
       ],
       "en": {
-        "title": "Stonecutter and back",
-        "summary": "The stonecutter cuts 8 octets from the full block of their material (wood octets from the planks); 8 octets of one material craft back into the block (shapeless). Both recipes unlock in the recipe book once you hold the block or the octet.",
+        "title": "Shaping Saw and back",
+        "summary": "The Shaping Saw of Simple Blocks cuts 8 octets from the full block of their material (wood octets from the planks); with Simple Blocks the Vanilla stonecutter has no octet recipes. Without Simple Blocks the stonecutter cuts them instead. 8 octets of one material craft back into the block (shapeless); the crafting recipe and the stonecutter cut unlock in the recipe book once you hold the block or the octet (the saw has no recipe book).",
         "details": []
       },
       "de": {
-        "title": "Steinmetz und zurück",
-        "summary": "Der Steinmetz schneidet 8 Achtel aus dem Vollblock ihres Materials (Holz-Achtel aus den Brettern); 8 Achtel eines Materials ergeben formlos wieder den Block. Beide Rezepte schalten sich im Rezeptbuch frei, sobald man den Block bzw. das Achtel hält.",
+        "title": "Formsäge und zurück",
+        "summary": "Die Formsäge von Simple Blocks schneidet 8 Achtel aus dem Vollblock ihres Materials (Holz-Achtel aus den Brettern); mit Simple Blocks hat der Vanilla-Steinmetz keine Achtel-Rezepte. Ohne Simple Blocks schneidet sie der Steinmetz. 8 Achtel eines Materials ergeben formlos wieder den Block; das Werkbank-Rezept und der Steinmetz-Schnitt schalten sich im Rezeptbuch frei, sobald man den Block bzw. das Achtel hält (die Säge hat kein Rezeptbuch).",
         "details": []
       }
     },
@@ -226,6 +227,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:acacia_log_octet_from_acacia_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:acacia_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/acacia_log_octet_from_acacia_log_sawing.json",
+      "ingredients": [
+        "minecraft:acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:acacia_log_octet_from_acacia_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -250,6 +270,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:acacia_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:acacia_octet_from_acacia_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:acacia_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/acacia_octet_from_acacia_planks_sawing.json",
+      "ingredients": [
+        "minecraft:acacia_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_planks"
         ]
       }
     },
@@ -380,6 +419,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:andesite_octet_from_andesite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:andesite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/andesite_octet_from_andesite_sawing.json",
+      "ingredients": [
+        "minecraft:andesite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:andesite"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:andesite_octet_from_andesite_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -461,6 +519,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:ashwood_log_octet_from_ashwood_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ashwood_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_log_octet_from_ashwood_log_sawing.json",
+      "ingredients": [
+        "simpleend:ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:ashwood_log_octet_from_ashwood_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -485,6 +562,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleend:ashwood_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ashwood_octet_from_ashwood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ashwood_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_octet_from_ashwood_planks_sawing.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_planks"
         ]
       }
     },
@@ -615,6 +711,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:astralit_bricks_octet_from_astralit_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astralit_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astralit_bricks_octet_from_astralit_bricks_sawing.json",
+      "ingredients": [
+        "simplebuilding:astralit_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:astralit_bricks_octet_from_astralit_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -692,6 +807,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:bamboo_mosaic_octet_from_bamboo_mosaic_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:bamboo_mosaic_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/bamboo_mosaic_octet_from_bamboo_mosaic_sawing.json",
+      "ingredients": [
+        "minecraft:bamboo_mosaic"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_mosaic"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:bamboo_mosaic_octet_from_bamboo_mosaic_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -716,6 +850,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:bamboo",
             "count": 4.5
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:bamboo_octet_from_bamboo_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:bamboo_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/bamboo_octet_from_bamboo_planks_sawing.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_planks"
         ]
       }
     },
@@ -846,6 +999,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:birch_log_octet_from_birch_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:birch_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/birch_log_octet_from_birch_log_sawing.json",
+      "ingredients": [
+        "minecraft:birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:birch_log_octet_from_birch_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -870,6 +1042,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:birch_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:birch_octet_from_birch_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:birch_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/birch_octet_from_birch_planks_sawing.json",
+      "ingredients": [
+        "minecraft:birch_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_planks"
         ]
       }
     },
@@ -1000,6 +1191,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:black_concrete_octet_from_black_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:black_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/black_concrete_octet_from_black_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:black_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:black_concrete_octet_from_black_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1073,6 +1283,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:black_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:black_terracotta_octet_from_black_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:black_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/black_terracotta_octet_from_black_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:black_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_terracotta"
         ]
       }
     },
@@ -1158,6 +1387,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:black_wool_octet_from_black_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:black_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/black_wool_octet_from_black_wool_sawing.json",
+      "ingredients": [
+        "minecraft:black_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:black_wool_octet_from_black_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1186,6 +1434,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:ink_sac",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:blackstone_block_octet_from_blackstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blackstone_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blackstone_block_octet_from_blackstone_sawing.json",
+      "ingredients": [
+        "minecraft:blackstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blackstone"
         ]
       }
     },
@@ -1316,6 +1583,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:blue_concrete_octet_from_blue_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blue_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_concrete_octet_from_blue_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:blue_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:blue_concrete_octet_from_blue_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1393,30 +1679,21 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
-      "id": "simpleoctets:blue_nether_bricks_octet_from_blue_nether_bricks_stonecutting",
-      "type": "minecraft:stonecutting",
+      "id": "simpleoctets:blue_nether_bricks_octet_from_blue_nether_bricks_sawing",
+      "type": "simpleblocks:sawing",
       "category": null,
       "group": null,
       "result": {
         "id": "simpleoctets:blue_nether_bricks_octet",
         "count": 8
       },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_nether_bricks_octet_from_blue_nether_bricks_stonecutting.json",
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_nether_bricks_octet_from_blue_nether_bricks_sawing.json",
       "ingredients": [
         "simpleblocks:blue_nether_bricks"
       ],
       "slots": {
         "ingredient": [
           "simpleblocks:blue_nether_bricks"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "simpleblocks:blue_nether_bricks",
-            "count": 1
-          }
         ]
       }
     },
@@ -1466,6 +1743,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:blue_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:blue_terracotta_octet_from_blue_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blue_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_terracotta_octet_from_blue_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:blue_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_terracotta"
         ]
       }
     },
@@ -1551,6 +1847,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:blue_wool_octet_from_blue_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:blue_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/blue_wool_octet_from_blue_wool_sawing.json",
+      "ingredients": [
+        "minecraft:blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:blue_wool_octet_from_blue_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1632,6 +1947,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:bone_block_octet_from_bone_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:bone_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/bone_block_octet_from_bone_block_sawing.json",
+      "ingredients": [
+        "minecraft:bone_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bone_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:bone_block_octet_from_bone_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1705,6 +2039,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:bricks_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:bricks_octet_from_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/bricks_octet_from_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bricks"
         ]
       }
     },
@@ -1786,6 +2139,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:brown_concrete_octet_from_brown_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:brown_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/brown_concrete_octet_from_brown_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:brown_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:brown_concrete_octet_from_brown_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -1859,6 +2231,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:brown_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:brown_terracotta_octet_from_brown_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:brown_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/brown_terracotta_octet_from_brown_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:brown_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_terracotta"
         ]
       }
     },
@@ -1944,6 +2335,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:brown_wool_octet_from_brown_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:brown_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/brown_wool_octet_from_brown_wool_sawing.json",
+      "ingredients": [
+        "minecraft:brown_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:brown_wool_octet_from_brown_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2025,6 +2435,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:calcite_octet_from_calcite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:calcite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/calcite_octet_from_calcite_sawing.json",
+      "ingredients": [
+        "minecraft:calcite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:calcite"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:calcite_octet_from_calcite_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2102,6 +2531,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cherry_log_octet_from_cherry_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cherry_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cherry_log_octet_from_cherry_log_sawing.json",
+      "ingredients": [
+        "minecraft:cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cherry_log_octet_from_cherry_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2126,6 +2574,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:cherry_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cherry_octet_from_cherry_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cherry_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cherry_octet_from_cherry_planks_sawing.json",
+      "ingredients": [
+        "minecraft:cherry_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_planks"
         ]
       }
     },
@@ -2256,6 +2723,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cinnabar_bricks_octet_from_cinnabar_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cinnabar_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cinnabar_bricks_octet_from_cinnabar_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:cinnabar_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cinnabar_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cinnabar_bricks_octet_from_cinnabar_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2329,6 +2815,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:cinnabar_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cinnabar_octet_from_cinnabar_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cinnabar_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cinnabar_octet_from_cinnabar_sawing.json",
+      "ingredients": [
+        "minecraft:cinnabar"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cinnabar"
         ]
       }
     },
@@ -2410,6 +2915,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:coal_block_octet_from_coal_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:coal_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/coal_block_octet_from_coal_block_sawing.json",
+      "ingredients": [
+        "minecraft:coal_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:coal_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:coal_block_octet_from_coal_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2483,6 +3007,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:cobbled_deepslate_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cobbled_deepslate_octet_from_cobbled_deepslate_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cobbled_deepslate_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cobbled_deepslate_octet_from_cobbled_deepslate_sawing.json",
+      "ingredients": [
+        "minecraft:cobbled_deepslate"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cobbled_deepslate"
         ]
       }
     },
@@ -2564,6 +3107,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cobblestone_octet_from_cobblestone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cobblestone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cobblestone_octet_from_cobblestone_sawing.json",
+      "ingredients": [
+        "minecraft:cobblestone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cobblestone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cobblestone_octet_from_cobblestone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2641,6 +3203,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:copper_block_octet_from_copper_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:copper_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/copper_block_octet_from_copper_block_sawing.json",
+      "ingredients": [
+        "minecraft:copper_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:copper_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:copper_block_octet_from_copper_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2665,6 +3246,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:copper_ingot",
             "count": 9
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:crimson_octet_from_crimson_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:crimson_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_octet_from_crimson_planks_sawing.json",
+      "ingredients": [
+        "minecraft:crimson_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_planks"
         ]
       }
     },
@@ -2795,6 +3395,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:crimson_stem_octet_from_crimson_stem_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:crimson_stem_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/crimson_stem_octet_from_crimson_stem_sawing.json",
+      "ingredients": [
+        "minecraft:crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_stem"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:crimson_stem_octet_from_crimson_stem_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2868,6 +3487,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:cut_copper_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_copper_octet_from_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_copper_octet_from_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_copper"
         ]
       }
     },
@@ -2949,6 +3587,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_red_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_red_sandstone_octet_from_cut_red_sandstone_sawing.json",
+      "ingredients": [
+        "minecraft:cut_red_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_red_sandstone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3022,6 +3679,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:cut_sandstone_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_sandstone_octet_from_cut_sandstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_sandstone_octet_from_cut_sandstone_sawing.json",
+      "ingredients": [
+        "minecraft:cut_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_sandstone"
         ]
       }
     },
@@ -3103,6 +3779,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cyan_concrete_octet_from_cyan_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cyan_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cyan_concrete_octet_from_cyan_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:cyan_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cyan_concrete_octet_from_cyan_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3176,6 +3871,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:cyan_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cyan_terracotta_octet_from_cyan_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cyan_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cyan_terracotta_octet_from_cyan_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:cyan_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_terracotta"
         ]
       }
     },
@@ -3265,6 +3979,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cyan_wool_octet_from_cyan_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cyan_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cyan_wool_octet_from_cyan_wool_sawing.json",
+      "ingredients": [
+        "minecraft:cyan_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cyan_wool_octet_from_cyan_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3350,6 +4083,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:dark_oak_log_octet_from_dark_oak_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:dark_oak_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/dark_oak_log_octet_from_dark_oak_log_sawing.json",
+      "ingredients": [
+        "minecraft:dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:dark_oak_log_octet_from_dark_oak_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3374,6 +4126,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:dark_oak_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:dark_oak_octet_from_dark_oak_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:dark_oak_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/dark_oak_octet_from_dark_oak_planks_sawing.json",
+      "ingredients": [
+        "minecraft:dark_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_planks"
         ]
       }
     },
@@ -3504,6 +4275,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:dark_prismarine_octet_from_dark_prismarine_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:dark_prismarine_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/dark_prismarine_octet_from_dark_prismarine_sawing.json",
+      "ingredients": [
+        "minecraft:dark_prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_prismarine"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:dark_prismarine_octet_from_dark_prismarine_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3585,6 +4375,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:deepslate_bricks_octet_from_deepslate_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:deepslate_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/deepslate_bricks_octet_from_deepslate_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:deepslate_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:deepslate_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:deepslate_bricks_octet_from_deepslate_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3658,6 +4467,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:deepslate_tiles_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:deepslate_tiles_octet_from_deepslate_tiles_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:deepslate_tiles_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/deepslate_tiles_octet_from_deepslate_tiles_sawing.json",
+      "ingredients": [
+        "minecraft:deepslate_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:deepslate_tiles"
         ]
       }
     },
@@ -3739,6 +4567,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:diamond_block_octet_from_diamond_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:diamond_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/diamond_block_octet_from_diamond_block_sawing.json",
+      "ingredients": [
+        "minecraft:diamond_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:diamond_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:diamond_block_octet_from_diamond_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3812,6 +4659,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:diorite_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:diorite_octet_from_diorite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:diorite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/diorite_octet_from_diorite_sawing.json",
+      "ingredients": [
+        "minecraft:diorite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:diorite"
         ]
       }
     },
@@ -3897,6 +4763,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:duskwood_log_octet_from_duskwood_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:duskwood_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/duskwood_log_octet_from_duskwood_log_sawing.json",
+      "ingredients": [
+        "simpleend:duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:duskwood_log_octet_from_duskwood_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -3921,6 +4806,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleend:duskwood_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:duskwood_octet_from_duskwood_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:duskwood_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/duskwood_octet_from_duskwood_planks_sawing.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_planks"
         ]
       }
     },
@@ -4051,6 +4955,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:emerald_block_octet_from_emerald_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:emerald_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/emerald_block_octet_from_emerald_block_sawing.json",
+      "ingredients": [
+        "minecraft:emerald_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:emerald_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:emerald_block_octet_from_emerald_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4124,6 +5047,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:end_stone_bricks_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:end_stone_bricks_octet_from_end_stone_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:end_stone_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/end_stone_bricks_octet_from_end_stone_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone_bricks"
         ]
       }
     },
@@ -4205,6 +5147,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:end_stone_octet_from_end_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/end_stone_octet_from_end_stone_sawing.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:end_stone_octet_from_end_stone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4278,6 +5239,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:ender_quartz_block_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:ender_quartz_block_octet_from_ender_quartz_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ender_quartz_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_quartz_block_octet_from_ender_quartz_block_sawing.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_block"
         ]
       }
     },
@@ -4359,6 +5339,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:ender_quartz_bricks_octet_from_ender_quartz_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:ender_quartz_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ender_quartz_bricks_octet_from_ender_quartz_bricks_sawing.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4432,6 +5431,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:exposed_copper_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:exposed_copper_octet_from_exposed_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:exposed_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/exposed_copper_octet_from_exposed_copper_sawing.json",
+      "ingredients": [
+        "minecraft:exposed_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:exposed_copper"
         ]
       }
     },
@@ -4513,6 +5531,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:exposed_cut_copper_octet_from_exposed_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:exposed_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/exposed_cut_copper_octet_from_exposed_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:exposed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:exposed_cut_copper"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:exposed_cut_copper_octet_from_exposed_cut_copper_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4590,6 +5627,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:gold_block_octet_from_gold_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:gold_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/gold_block_octet_from_gold_block_sawing.json",
+      "ingredients": [
+        "minecraft:gold_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gold_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:gold_block_octet_from_gold_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4663,6 +5719,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:granite_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:granite_octet_from_granite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:granite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/granite_octet_from_granite_sawing.json",
+      "ingredients": [
+        "minecraft:granite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:granite"
         ]
       }
     },
@@ -4748,6 +5823,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:gray_concrete_octet_from_gray_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:gray_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/gray_concrete_octet_from_gray_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:gray_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:gray_concrete_octet_from_gray_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4821,6 +5915,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:gray_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:gray_terracotta_octet_from_gray_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:gray_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/gray_terracotta_octet_from_gray_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:gray_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_terracotta"
         ]
       }
     },
@@ -4910,6 +6023,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:gray_wool_octet_from_gray_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:gray_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/gray_wool_octet_from_gray_wool_sawing.json",
+      "ingredients": [
+        "minecraft:gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:gray_wool_octet_from_gray_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -4995,6 +6127,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:green_concrete_octet_from_green_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:green_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/green_concrete_octet_from_green_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:green_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:green_concrete_octet_from_green_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5068,6 +6219,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:green_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:green_terracotta_octet_from_green_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:green_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/green_terracotta_octet_from_green_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:green_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_terracotta"
         ]
       }
     },
@@ -5149,6 +6319,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:green_wool_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:green_wool_octet_from_green_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:green_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/green_wool_octet_from_green_wool_sawing.json",
+      "ingredients": [
+        "minecraft:green_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_wool"
         ]
       }
     },
@@ -5278,30 +6467,21 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
-      "id": "simpleoctets:hushed_deepslate_tiles_octet_from_hushed_deepslate_tiles_stonecutting",
-      "type": "minecraft:stonecutting",
+      "id": "simpleoctets:hushed_deepslate_tiles_octet_from_hushed_deepslate_tiles_sawing",
+      "type": "simpleblocks:sawing",
       "category": null,
       "group": null,
       "result": {
         "id": "simpleoctets:hushed_deepslate_tiles_octet",
         "count": 8
       },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/hushed_deepslate_tiles_octet_from_hushed_deepslate_tiles_stonecutting.json",
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/hushed_deepslate_tiles_octet_from_hushed_deepslate_tiles_sawing.json",
       "ingredients": [
         "simpleblocks:hushed_deepslate_tiles"
       ],
       "slots": {
         "ingredient": [
           "simpleblocks:hushed_deepslate_tiles"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "simpleblocks:hushed_deepslate_tiles",
-            "count": 1
-          }
         ]
       }
     },
@@ -5351,6 +6531,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:iron_block_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:iron_block_octet_from_iron_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:iron_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/iron_block_octet_from_iron_block_sawing.json",
+      "ingredients": [
+        "minecraft:iron_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:iron_block"
         ]
       }
     },
@@ -5432,6 +6631,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:jungle_log_octet_from_jungle_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:jungle_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/jungle_log_octet_from_jungle_log_sawing.json",
+      "ingredients": [
+        "minecraft:jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:jungle_log_octet_from_jungle_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5456,6 +6674,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:jungle_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:jungle_octet_from_jungle_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:jungle_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/jungle_octet_from_jungle_planks_sawing.json",
+      "ingredients": [
+        "minecraft:jungle_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_planks"
         ]
       }
     },
@@ -5586,6 +6823,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:lapis_block_octet_from_lapis_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:lapis_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lapis_block_octet_from_lapis_block_sawing.json",
+      "ingredients": [
+        "minecraft:lapis_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lapis_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:lapis_block_octet_from_lapis_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5663,6 +6919,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:light_blue_concrete_octet_from_light_blue_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:light_blue_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/light_blue_concrete_octet_from_light_blue_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:light_blue_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:light_blue_concrete_octet_from_light_blue_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5736,6 +7011,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:light_blue_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:light_blue_terracotta_octet_from_light_blue_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:light_blue_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/light_blue_terracotta_octet_from_light_blue_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:light_blue_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_terracotta"
         ]
       }
     },
@@ -5821,6 +7115,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:light_blue_wool_octet_from_light_blue_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:light_blue_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/light_blue_wool_octet_from_light_blue_wool_sawing.json",
+      "ingredients": [
+        "minecraft:light_blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:light_blue_wool_octet_from_light_blue_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5902,6 +7215,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:light_gray_concrete_octet_from_light_gray_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:light_gray_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/light_gray_concrete_octet_from_light_gray_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:light_gray_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:light_gray_concrete_octet_from_light_gray_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5975,6 +7307,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:light_gray_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:light_gray_terracotta_octet_from_light_gray_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:light_gray_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/light_gray_terracotta_octet_from_light_gray_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:light_gray_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_terracotta"
         ]
       }
     },
@@ -6060,6 +7411,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:light_gray_wool_octet_from_light_gray_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:light_gray_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/light_gray_wool_octet_from_light_gray_wool_sawing.json",
+      "ingredients": [
+        "minecraft:light_gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:light_gray_wool_octet_from_light_gray_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6141,6 +7511,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:lime_concrete_octet_from_lime_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:lime_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lime_concrete_octet_from_lime_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:lime_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:lime_concrete_octet_from_lime_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6214,6 +7603,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:lime_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:lime_terracotta_octet_from_lime_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:lime_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lime_terracotta_octet_from_lime_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:lime_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_terracotta"
         ]
       }
     },
@@ -6303,6 +7711,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:lime_wool_octet_from_lime_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:lime_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lime_wool_octet_from_lime_wool_sawing.json",
+      "ingredients": [
+        "minecraft:lime_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:lime_wool_octet_from_lime_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6388,6 +7815,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:magenta_concrete_octet_from_magenta_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:magenta_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/magenta_concrete_octet_from_magenta_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:magenta_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:magenta_concrete_octet_from_magenta_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6461,6 +7907,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:magenta_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:magenta_terracotta_octet_from_magenta_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:magenta_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/magenta_terracotta_octet_from_magenta_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:magenta_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_terracotta"
         ]
       }
     },
@@ -6546,6 +8011,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:magenta_wool_octet_from_magenta_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:magenta_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/magenta_wool_octet_from_magenta_wool_sawing.json",
+      "ingredients": [
+        "minecraft:magenta_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:magenta_wool_octet_from_magenta_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6627,6 +8111,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:mangrove_log_octet_from_mangrove_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mangrove_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mangrove_log_octet_from_mangrove_log_sawing.json",
+      "ingredients": [
+        "minecraft:mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:mangrove_log_octet_from_mangrove_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6651,6 +8154,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:mangrove_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mangrove_octet_from_mangrove_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mangrove_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mangrove_octet_from_mangrove_planks_sawing.json",
+      "ingredients": [
+        "minecraft:mangrove_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_planks"
         ]
       }
     },
@@ -6781,6 +8303,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:mossy_cobblestone_octet_from_mossy_cobblestone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_cobblestone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_cobblestone_octet_from_mossy_cobblestone_sawing.json",
+      "ingredients": [
+        "minecraft:mossy_cobblestone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mossy_cobblestone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:mossy_cobblestone_octet_from_mossy_cobblestone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -6858,6 +8399,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:mossy_stone_bricks_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_stone_bricks_octet_from_mossy_stone_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_stone_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_stone_bricks_octet_from_mossy_stone_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:mossy_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mossy_stone_bricks"
         ]
       }
     },
@@ -6943,6 +8503,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:mud_bricks_octet_from_mud_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mud_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mud_bricks_octet_from_mud_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:mud_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mud_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:mud_bricks_octet_from_mud_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7024,6 +8603,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:nether_bricks_octet_from_nether_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nether_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nether_bricks_octet_from_nether_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:nether_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:nether_bricks_octet_from_nether_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7097,6 +8695,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:netherite_block_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:netherite_block_octet_from_netherite_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:netherite_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/netherite_block_octet_from_netherite_block_sawing.json",
+      "ingredients": [
+        "minecraft:netherite_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:netherite_block"
         ]
       }
     },
@@ -7178,6 +8795,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:netherrack_octet_from_netherrack_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:netherrack_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/netherrack_octet_from_netherrack_sawing.json",
+      "ingredients": [
+        "minecraft:netherrack"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:netherrack"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:netherrack_octet_from_netherrack_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7251,6 +8887,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:nihilith_bricks_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihilith_bricks_octet_from_nihilith_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihilith_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihilith_bricks_octet_from_nihilith_bricks_sawing.json",
+      "ingredients": [
+        "simplebuilding:nihilith_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_bricks"
         ]
       }
     },
@@ -7332,6 +8987,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:oak_log_octet_from_oak_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:oak_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_log_octet_from_oak_log_sawing.json",
+      "ingredients": [
+        "minecraft:oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:oak_log_octet_from_oak_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7356,6 +9030,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:oak_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:oak_octet_from_oak_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:oak_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_octet_from_oak_planks_sawing.json",
+      "ingredients": [
+        "minecraft:oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_planks"
         ]
       }
     },
@@ -7486,6 +9179,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:obsidian_octet_from_obsidian_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:obsidian_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/obsidian_octet_from_obsidian_sawing.json",
+      "ingredients": [
+        "minecraft:obsidian"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:obsidian"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:obsidian_octet_from_obsidian_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7563,6 +9275,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:orange_concrete_octet_from_orange_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:orange_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/orange_concrete_octet_from_orange_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:orange_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:orange_concrete_octet_from_orange_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7636,6 +9367,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:orange_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:orange_terracotta_octet_from_orange_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:orange_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/orange_terracotta_octet_from_orange_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:orange_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_terracotta"
         ]
       }
     },
@@ -7721,6 +9471,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:orange_wool_octet_from_orange_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:orange_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/orange_wool_octet_from_orange_wool_sawing.json",
+      "ingredients": [
+        "minecraft:orange_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:orange_wool_octet_from_orange_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7802,6 +9571,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:oxidized_copper_octet_from_oxidized_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:oxidized_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oxidized_copper_octet_from_oxidized_copper_sawing.json",
+      "ingredients": [
+        "minecraft:oxidized_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oxidized_copper"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:oxidized_copper_octet_from_oxidized_copper_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7875,6 +9663,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:oxidized_cut_copper_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:oxidized_cut_copper_octet_from_oxidized_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:oxidized_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oxidized_cut_copper_octet_from_oxidized_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:oxidized_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oxidized_cut_copper"
         ]
       }
     },
@@ -7956,6 +9763,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:pale_oak_log_octet_from_pale_oak_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:pale_oak_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/pale_oak_log_octet_from_pale_oak_log_sawing.json",
+      "ingredients": [
+        "minecraft:pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:pale_oak_log_octet_from_pale_oak_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -7980,6 +9806,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:pale_oak_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:pale_oak_octet_from_pale_oak_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:pale_oak_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/pale_oak_octet_from_pale_oak_planks_sawing.json",
+      "ingredients": [
+        "minecraft:pale_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_planks"
         ]
       }
     },
@@ -8110,6 +9955,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:pink_concrete_octet_from_pink_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:pink_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/pink_concrete_octet_from_pink_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:pink_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:pink_concrete_octet_from_pink_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8183,6 +10047,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:pink_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:pink_terracotta_octet_from_pink_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:pink_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/pink_terracotta_octet_from_pink_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:pink_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_terracotta"
         ]
       }
     },
@@ -8268,6 +10151,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:pink_wool_octet_from_pink_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:pink_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/pink_wool_octet_from_pink_wool_sawing.json",
+      "ingredients": [
+        "minecraft:pink_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:pink_wool_octet_from_pink_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8349,6 +10251,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_andesite_octet_from_polished_andesite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_andesite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_andesite_octet_from_polished_andesite_sawing.json",
+      "ingredients": [
+        "minecraft:polished_andesite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_andesite"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_andesite_octet_from_polished_andesite_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8377,6 +10298,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:quartz",
             "count": 0.5
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_astralit_block_octet_from_polished_astralit_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_astralit_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_astralit_block_octet_from_polished_astralit_sawing.json",
+      "ingredients": [
+        "simplebuilding:polished_astralit"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_astralit"
         ]
       }
     },
@@ -8507,6 +10447,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_blackstone_bricks_octet_from_polished_blackstone_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_blackstone_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_blackstone_bricks_octet_from_polished_blackstone_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:polished_blackstone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_blackstone_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_blackstone_bricks_octet_from_polished_blackstone_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8580,6 +10539,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:polished_blackstone_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_blackstone_octet_from_polished_blackstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_blackstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_blackstone_octet_from_polished_blackstone_sawing.json",
+      "ingredients": [
+        "minecraft:polished_blackstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_blackstone"
         ]
       }
     },
@@ -8661,6 +10639,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_cinnabar_octet_from_polished_cinnabar_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_cinnabar_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_cinnabar_octet_from_polished_cinnabar_sawing.json",
+      "ingredients": [
+        "minecraft:polished_cinnabar"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_cinnabar"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_cinnabar_octet_from_polished_cinnabar_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8738,6 +10735,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_deepslate_octet_from_polished_deepslate_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_deepslate_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_deepslate_octet_from_polished_deepslate_sawing.json",
+      "ingredients": [
+        "minecraft:polished_deepslate"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_deepslate"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_deepslate_octet_from_polished_deepslate_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8811,6 +10827,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:polished_diorite_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_diorite_octet_from_polished_diorite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_diorite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_diorite_octet_from_polished_diorite_sawing.json",
+      "ingredients": [
+        "minecraft:polished_diorite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_diorite"
         ]
       }
     },
@@ -8896,6 +10931,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_end_stone_octet_from_polished_end_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_end_stone_octet_from_polished_end_stone_sawing.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:polished_end_stone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_end_stone_octet_from_polished_end_stone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8920,6 +10974,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simplelib:polished_end_stone",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_ender_quartz_block_octet_from_polished_ender_quartz_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_ender_quartz_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_ender_quartz_block_octet_from_polished_ender_quartz_sawing.json",
+      "ingredients": [
+        "simplebuilding:polished_ender_quartz"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_ender_quartz"
         ]
       }
     },
@@ -9050,6 +11123,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_granite_octet_from_polished_granite_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_granite_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_granite_octet_from_polished_granite_sawing.json",
+      "ingredients": [
+        "minecraft:polished_granite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_granite"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_granite_octet_from_polished_granite_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9078,6 +11170,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:cobblestone",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_nihilith_block_octet_from_polished_nihilith_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_nihilith_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_nihilith_block_octet_from_polished_nihilith_sawing.json",
+      "ingredients": [
+        "simplebuilding:polished_nihilith"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_nihilith"
         ]
       }
     },
@@ -9208,6 +11319,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_sulfur_octet_from_polished_sulfur_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_sulfur_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_sulfur_octet_from_polished_sulfur_sawing.json",
+      "ingredients": [
+        "minecraft:polished_sulfur"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_sulfur"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_sulfur_octet_from_polished_sulfur_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9281,6 +11411,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:polished_tuff_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_tuff_octet_from_polished_tuff_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_tuff_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_tuff_octet_from_polished_tuff_sawing.json",
+      "ingredients": [
+        "minecraft:polished_tuff"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_tuff"
         ]
       }
     },
@@ -9362,6 +11511,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:poplar_log_octet_from_poplar_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:poplar_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/poplar_log_octet_from_poplar_log_sawing.json",
+      "ingredients": [
+        "minecraft:poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:poplar_log_octet_from_poplar_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9386,6 +11554,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:poplar_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:poplar_octet_from_poplar_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:poplar_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/poplar_octet_from_poplar_planks_sawing.json",
+      "ingredients": [
+        "minecraft:poplar_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_planks"
         ]
       }
     },
@@ -9516,6 +11703,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:prismarine_bricks_octet_from_prismarine_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:prismarine_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/prismarine_bricks_octet_from_prismarine_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:prismarine_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:prismarine_bricks_octet_from_prismarine_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9589,6 +11795,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:prismarine_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:prismarine_octet_from_prismarine_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:prismarine_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/prismarine_octet_from_prismarine_sawing.json",
+      "ingredients": [
+        "minecraft:prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine"
         ]
       }
     },
@@ -9670,6 +11895,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:purple_concrete_octet_from_purple_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:purple_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/purple_concrete_octet_from_purple_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:purple_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:purple_concrete_octet_from_purple_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9743,6 +11987,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:purple_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:purple_terracotta_octet_from_purple_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:purple_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/purple_terracotta_octet_from_purple_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:purple_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_terracotta"
         ]
       }
     },
@@ -9832,6 +12095,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:purple_wool_octet_from_purple_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:purple_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/purple_wool_octet_from_purple_wool_sawing.json",
+      "ingredients": [
+        "minecraft:purple_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:purple_wool_octet_from_purple_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9917,6 +12199,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:purpur_block_octet_from_purpur_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:purpur_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/purpur_block_octet_from_purpur_block_sawing.json",
+      "ingredients": [
+        "minecraft:purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purpur_block"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:purpur_block_octet_from_purpur_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -9990,6 +12291,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:quartz_block_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:quartz_block_octet_from_quartz_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:quartz_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/quartz_block_octet_from_quartz_block_sawing.json",
+      "ingredients": [
+        "minecraft:quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_block"
         ]
       }
     },
@@ -10071,6 +12391,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:red_concrete_octet_from_red_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:red_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/red_concrete_octet_from_red_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:red_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:red_concrete_octet_from_red_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10144,6 +12483,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:red_nether_bricks_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:red_nether_bricks_octet_from_red_nether_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:red_nether_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/red_nether_bricks_octet_from_red_nether_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:red_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_nether_bricks"
         ]
       }
     },
@@ -10229,6 +12587,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:red_sandstone_octet_from_red_sandstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:red_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/red_sandstone_octet_from_red_sandstone_sawing.json",
+      "ingredients": [
+        "minecraft:red_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_sandstone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:red_sandstone_octet_from_red_sandstone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10302,6 +12679,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:red_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:red_terracotta_octet_from_red_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:red_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/red_terracotta_octet_from_red_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:red_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_terracotta"
         ]
       }
     },
@@ -10387,6 +12783,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:red_wool_octet_from_red_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:red_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/red_wool_octet_from_red_wool_sawing.json",
+      "ingredients": [
+        "minecraft:red_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:red_wool_octet_from_red_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10468,6 +12883,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:resin_bricks_octet_from_resin_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:resin_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/resin_bricks_octet_from_resin_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:resin_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:resin_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:resin_bricks_octet_from_resin_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10541,6 +12975,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:sandstone_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:sandstone_octet_from_sandstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/sandstone_octet_from_sandstone_sawing.json",
+      "ingredients": [
+        "minecraft:sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sandstone"
         ]
       }
     },
@@ -10622,6 +13075,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:smooth_basalt_octet_from_smooth_basalt_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:smooth_basalt_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_basalt_octet_from_smooth_basalt_sawing.json",
+      "ingredients": [
+        "minecraft:smooth_basalt"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_basalt"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:smooth_basalt_octet_from_smooth_basalt_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10695,6 +13167,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:smooth_quartz_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:smooth_quartz_octet_from_smooth_quartz_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:smooth_quartz_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_quartz_octet_from_smooth_quartz_sawing.json",
+      "ingredients": [
+        "minecraft:smooth_quartz"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_quartz"
         ]
       }
     },
@@ -10776,6 +13267,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:smooth_red_sandstone_octet_from_smooth_red_sandstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:smooth_red_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_red_sandstone_octet_from_smooth_red_sandstone_sawing.json",
+      "ingredients": [
+        "minecraft:smooth_red_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_red_sandstone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:smooth_red_sandstone_octet_from_smooth_red_sandstone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10849,6 +13359,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:smooth_sandstone_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:smooth_sandstone_octet_from_smooth_sandstone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:smooth_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_sandstone_octet_from_smooth_sandstone_sawing.json",
+      "ingredients": [
+        "minecraft:smooth_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_sandstone"
         ]
       }
     },
@@ -10930,6 +13459,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:smooth_stone_octet_from_smooth_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:smooth_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_stone_octet_from_smooth_stone_sawing.json",
+      "ingredients": [
+        "minecraft:smooth_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_stone"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:smooth_stone_octet_from_smooth_stone_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11007,6 +13555,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:spruce_log_octet_from_spruce_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:spruce_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/spruce_log_octet_from_spruce_log_sawing.json",
+      "ingredients": [
+        "minecraft:spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:spruce_log_octet_from_spruce_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11031,6 +13598,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:spruce_log",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:spruce_octet_from_spruce_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:spruce_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/spruce_octet_from_spruce_planks_sawing.json",
+      "ingredients": [
+        "minecraft:spruce_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_planks"
         ]
       }
     },
@@ -11161,6 +13747,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stone_bricks_octet_from_stone_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stone_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stone_bricks_octet_from_stone_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stone_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stone_bricks_octet_from_stone_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11234,6 +13839,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stone_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stone_octet_from_stone_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stone_octet_from_stone_sawing.json",
+      "ingredients": [
+        "minecraft:stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stone"
         ]
       }
     },
@@ -11315,6 +13939,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_acacia_log_octet_from_stripped_acacia_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_acacia_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_acacia_log_octet_from_stripped_acacia_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_acacia_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_acacia_log_octet_from_stripped_acacia_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11388,6 +14031,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_ashwood_log_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_ashwood_log_octet_from_stripped_ashwood_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_ashwood_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_ashwood_log_octet_from_stripped_ashwood_log_sawing.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_ashwood_log"
         ]
       }
     },
@@ -11469,6 +14131,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_birch_log_octet_from_stripped_birch_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_birch_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_birch_log_octet_from_stripped_birch_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_birch_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_birch_log_octet_from_stripped_birch_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11542,6 +14223,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_cherry_log_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_cherry_log_octet_from_stripped_cherry_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_cherry_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_cherry_log_octet_from_stripped_cherry_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_cherry_log"
         ]
       }
     },
@@ -11623,6 +14323,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_crimson_stem_octet_from_stripped_crimson_stem_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_crimson_stem_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_crimson_stem_octet_from_stripped_crimson_stem_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_crimson_stem"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_crimson_stem_octet_from_stripped_crimson_stem_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11696,6 +14415,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_dark_oak_log_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_dark_oak_log_octet_from_stripped_dark_oak_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_dark_oak_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_dark_oak_log_octet_from_stripped_dark_oak_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_dark_oak_log"
         ]
       }
     },
@@ -11777,6 +14515,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_duskwood_log_octet_from_stripped_duskwood_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_duskwood_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_duskwood_log_octet_from_stripped_duskwood_log_sawing.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_duskwood_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_duskwood_log_octet_from_stripped_duskwood_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -11850,6 +14607,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_jungle_log_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_jungle_log_octet_from_stripped_jungle_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_jungle_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_jungle_log_octet_from_stripped_jungle_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_jungle_log"
         ]
       }
     },
@@ -11931,6 +14707,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_mangrove_log_octet_from_stripped_mangrove_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_mangrove_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_mangrove_log_octet_from_stripped_mangrove_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_mangrove_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_mangrove_log_octet_from_stripped_mangrove_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12004,6 +14799,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_oak_log_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_oak_log_octet_from_stripped_oak_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_oak_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_oak_log_octet_from_stripped_oak_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_oak_log"
         ]
       }
     },
@@ -12085,6 +14899,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_pale_oak_log_octet_from_stripped_pale_oak_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_pale_oak_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_pale_oak_log_octet_from_stripped_pale_oak_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_pale_oak_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_pale_oak_log_octet_from_stripped_pale_oak_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12158,6 +14991,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_poplar_log_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_poplar_log_octet_from_stripped_poplar_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_poplar_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_poplar_log_octet_from_stripped_poplar_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_poplar_log"
         ]
       }
     },
@@ -12239,6 +15091,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:stripped_spruce_log_octet_from_stripped_spruce_log_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_spruce_log_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_spruce_log_octet_from_stripped_spruce_log_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_spruce_log"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:stripped_spruce_log_octet_from_stripped_spruce_log_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12312,6 +15183,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:stripped_warped_stem_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:stripped_warped_stem_octet_from_stripped_warped_stem_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:stripped_warped_stem_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/stripped_warped_stem_octet_from_stripped_warped_stem_sawing.json",
+      "ingredients": [
+        "minecraft:stripped_warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_warped_stem"
         ]
       }
     },
@@ -12393,6 +15283,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:sulfur_bricks_octet_from_sulfur_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:sulfur_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/sulfur_bricks_octet_from_sulfur_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:sulfur_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sulfur_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:sulfur_bricks_octet_from_sulfur_bricks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12466,6 +15375,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:sulfur_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:sulfur_octet_from_sulfur_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:sulfur_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/sulfur_octet_from_sulfur_sawing.json",
+      "ingredients": [
+        "minecraft:sulfur"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sulfur"
         ]
       }
     },
@@ -12547,6 +15475,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:terracotta_octet_from_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/terracotta_octet_from_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:terracotta"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:terracotta_octet_from_terracotta_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12620,6 +15567,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:tuff_bricks_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:tuff_bricks_octet_from_tuff_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:tuff_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/tuff_bricks_octet_from_tuff_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:tuff_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:tuff_bricks"
         ]
       }
     },
@@ -12701,6 +15667,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:tuff_octet_from_tuff_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:tuff_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/tuff_octet_from_tuff_sawing.json",
+      "ingredients": [
+        "minecraft:tuff"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:tuff"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:tuff_octet_from_tuff_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12725,6 +15710,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "minecraft:tuff",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:warped_octet_from_warped_planks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:warped_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/warped_octet_from_warped_planks_sawing.json",
+      "ingredients": [
+        "minecraft:warped_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_planks"
         ]
       }
     },
@@ -12855,6 +15859,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:warped_stem_octet_from_warped_stem_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:warped_stem_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/warped_stem_octet_from_warped_stem_sawing.json",
+      "ingredients": [
+        "minecraft:warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_stem"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:warped_stem_octet_from_warped_stem_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12928,6 +15951,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:waxed_cut_copper_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:waxed_cut_copper_octet_from_waxed_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:waxed_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/waxed_cut_copper_octet_from_waxed_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:waxed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_cut_copper"
         ]
       }
     },
@@ -13013,6 +16055,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:waxed_exposed_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_exposed_cut_copper"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13090,6 +16151,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:waxed_oxidized_cut_copper_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:waxed_oxidized_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_oxidized_cut_copper"
         ]
       }
     },
@@ -13175,6 +16255,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:waxed_weathered_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_weathered_cut_copper"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13256,6 +16355,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:weathered_copper_octet_from_weathered_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:weathered_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/weathered_copper_octet_from_weathered_copper_sawing.json",
+      "ingredients": [
+        "minecraft:weathered_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:weathered_copper"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:weathered_copper_octet_from_weathered_copper_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13329,6 +16447,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:weathered_cut_copper_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:weathered_cut_copper_octet_from_weathered_cut_copper_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:weathered_cut_copper_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/weathered_cut_copper_octet_from_weathered_cut_copper_sawing.json",
+      "ingredients": [
+        "minecraft:weathered_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:weathered_cut_copper"
         ]
       }
     },
@@ -13410,6 +16547,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:white_concrete_octet_from_white_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:white_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/white_concrete_octet_from_white_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:white_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:white_concrete_octet_from_white_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13483,6 +16639,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:white_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:white_terracotta_octet_from_white_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:white_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/white_terracotta_octet_from_white_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:white_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_terracotta"
         ]
       }
     },
@@ -13568,6 +16743,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:white_wool_octet_from_white_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:white_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/white_wool_octet_from_white_wool_sawing.json",
+      "ingredients": [
+        "minecraft:white_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:white_wool_octet_from_white_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13645,6 +16839,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:yellow_concrete_octet_from_yellow_concrete_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:yellow_concrete_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/yellow_concrete_octet_from_yellow_concrete_sawing.json",
+      "ingredients": [
+        "minecraft:yellow_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_concrete"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:yellow_concrete_octet_from_yellow_concrete_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13718,6 +16931,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
             "id": "simpleoctets:yellow_terracotta_octet",
             "count": 8
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:yellow_terracotta_octet_from_yellow_terracotta_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:yellow_terracotta_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/yellow_terracotta_octet_from_yellow_terracotta_sawing.json",
+      "ingredients": [
+        "minecraft:yellow_terracotta"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_terracotta"
         ]
       }
     },
@@ -13803,6 +17035,25 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:yellow_wool_octet_from_yellow_wool_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:yellow_wool_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/yellow_wool_octet_from_yellow_wool_sawing.json",
+      "ingredients": [
+        "minecraft:yellow_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:yellow_wool_octet_from_yellow_wool_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -13852,10 +17103,10 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
         }
       },
       "texture": "assets/textures/simpleoctets/item/guide_book.png",
@@ -13881,13 +17132,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:acacia_log_octet_from_acacia_log_sawing",
         "simpleoctets:acacia_log_octet_from_acacia_log_stonecutting"
       ],
       "usedIn": [
@@ -13909,13 +17161,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:acacia_octet_from_acacia_planks_sawing",
         "simpleoctets:acacia_octet_from_acacia_planks_stonecutting"
       ],
       "usedIn": [
@@ -13937,13 +17190,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:andesite_octet_from_andesite_sawing",
         "simpleoctets:andesite_octet_from_andesite_stonecutting"
       ],
       "usedIn": [
@@ -13965,13 +17219,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:ashwood_log_octet_from_ashwood_log_sawing",
         "simpleoctets:ashwood_log_octet_from_ashwood_log_stonecutting"
       ],
       "usedIn": [
@@ -13993,13 +17248,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:ashwood_octet_from_ashwood_planks_sawing",
         "simpleoctets:ashwood_octet_from_ashwood_planks_stonecutting"
       ],
       "usedIn": [
@@ -14021,13 +17277,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:astralit_bricks_octet_from_astralit_bricks_sawing",
         "simpleoctets:astralit_bricks_octet_from_astralit_bricks_stonecutting"
       ],
       "usedIn": [
@@ -14049,13 +17306,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:bamboo_mosaic_octet_from_bamboo_mosaic_sawing",
         "simpleoctets:bamboo_mosaic_octet_from_bamboo_mosaic_stonecutting"
       ],
       "usedIn": [
@@ -14077,13 +17335,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:bamboo_octet_from_bamboo_planks_sawing",
         "simpleoctets:bamboo_octet_from_bamboo_planks_stonecutting"
       ],
       "usedIn": [
@@ -14105,13 +17364,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:birch_log_octet_from_birch_log_sawing",
         "simpleoctets:birch_log_octet_from_birch_log_stonecutting"
       ],
       "usedIn": [
@@ -14133,13 +17393,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:birch_octet_from_birch_planks_sawing",
         "simpleoctets:birch_octet_from_birch_planks_stonecutting"
       ],
       "usedIn": [
@@ -14161,13 +17422,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:black_concrete_octet_from_black_concrete_sawing",
         "simpleoctets:black_concrete_octet_from_black_concrete_stonecutting"
       ],
       "usedIn": [
@@ -14189,13 +17451,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:black_terracotta_octet_from_black_terracotta_sawing",
         "simpleoctets:black_terracotta_octet_from_black_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -14217,13 +17480,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:black_wool_octet_from_black_wool_sawing",
         "simpleoctets:black_wool_octet_from_black_wool_stonecutting"
       ],
       "usedIn": [
@@ -14245,13 +17509,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:blackstone_block_octet_from_blackstone_sawing",
         "simpleoctets:blackstone_block_octet_from_blackstone_stonecutting"
       ],
       "usedIn": [
@@ -14273,13 +17538,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:blue_concrete_octet_from_blue_concrete_sawing",
         "simpleoctets:blue_concrete_octet_from_blue_concrete_stonecutting"
       ],
       "usedIn": [
@@ -14301,14 +17567,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
-        "simpleoctets:blue_nether_bricks_octet_from_blue_nether_bricks_stonecutting"
+        "simpleoctets:blue_nether_bricks_octet_from_blue_nether_bricks_sawing"
       ],
       "usedIn": [
         "simpleoctets:blue_nether_bricks_from_octets"
@@ -14329,13 +17595,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:blue_terracotta_octet_from_blue_terracotta_sawing",
         "simpleoctets:blue_terracotta_octet_from_blue_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -14357,13 +17624,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:blue_wool_octet_from_blue_wool_sawing",
         "simpleoctets:blue_wool_octet_from_blue_wool_stonecutting"
       ],
       "usedIn": [
@@ -14385,13 +17653,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:bone_block_octet_from_bone_block_sawing",
         "simpleoctets:bone_block_octet_from_bone_block_stonecutting"
       ],
       "usedIn": [
@@ -14413,13 +17682,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:bricks_octet_from_bricks_sawing",
         "simpleoctets:bricks_octet_from_bricks_stonecutting"
       ],
       "usedIn": [
@@ -14441,13 +17711,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:brown_concrete_octet_from_brown_concrete_sawing",
         "simpleoctets:brown_concrete_octet_from_brown_concrete_stonecutting"
       ],
       "usedIn": [
@@ -14469,13 +17740,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:brown_terracotta_octet_from_brown_terracotta_sawing",
         "simpleoctets:brown_terracotta_octet_from_brown_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -14497,13 +17769,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:brown_wool_octet_from_brown_wool_sawing",
         "simpleoctets:brown_wool_octet_from_brown_wool_stonecutting"
       ],
       "usedIn": [
@@ -14525,13 +17798,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:calcite_octet_from_calcite_sawing",
         "simpleoctets:calcite_octet_from_calcite_stonecutting"
       ],
       "usedIn": [
@@ -14553,13 +17827,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cherry_log_octet_from_cherry_log_sawing",
         "simpleoctets:cherry_log_octet_from_cherry_log_stonecutting"
       ],
       "usedIn": [
@@ -14581,13 +17856,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cherry_octet_from_cherry_planks_sawing",
         "simpleoctets:cherry_octet_from_cherry_planks_stonecutting"
       ],
       "usedIn": [
@@ -14609,13 +17885,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cinnabar_bricks_octet_from_cinnabar_bricks_sawing",
         "simpleoctets:cinnabar_bricks_octet_from_cinnabar_bricks_stonecutting"
       ],
       "usedIn": [
@@ -14637,13 +17914,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cinnabar_octet_from_cinnabar_sawing",
         "simpleoctets:cinnabar_octet_from_cinnabar_stonecutting"
       ],
       "usedIn": [
@@ -14665,13 +17943,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:coal_block_octet_from_coal_block_sawing",
         "simpleoctets:coal_block_octet_from_coal_block_stonecutting"
       ],
       "usedIn": [
@@ -14693,13 +17972,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cobbled_deepslate_octet_from_cobbled_deepslate_sawing",
         "simpleoctets:cobbled_deepslate_octet_from_cobbled_deepslate_stonecutting"
       ],
       "usedIn": [
@@ -14721,13 +18001,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cobblestone_octet_from_cobblestone_sawing",
         "simpleoctets:cobblestone_octet_from_cobblestone_stonecutting"
       ],
       "usedIn": [
@@ -14749,13 +18030,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:copper_block_octet_from_copper_block_sawing",
         "simpleoctets:copper_block_octet_from_copper_block_stonecutting"
       ],
       "usedIn": [
@@ -14777,13 +18059,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:crimson_octet_from_crimson_planks_sawing",
         "simpleoctets:crimson_octet_from_crimson_planks_stonecutting"
       ],
       "usedIn": [
@@ -14805,13 +18088,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:crimson_stem_octet_from_crimson_stem_sawing",
         "simpleoctets:crimson_stem_octet_from_crimson_stem_stonecutting"
       ],
       "usedIn": [
@@ -14833,13 +18117,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cut_copper_octet_from_cut_copper_sawing",
         "simpleoctets:cut_copper_octet_from_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -14861,13 +18146,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_sawing",
         "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_stonecutting"
       ],
       "usedIn": [
@@ -14889,13 +18175,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cut_sandstone_octet_from_cut_sandstone_sawing",
         "simpleoctets:cut_sandstone_octet_from_cut_sandstone_stonecutting"
       ],
       "usedIn": [
@@ -14917,13 +18204,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cyan_concrete_octet_from_cyan_concrete_sawing",
         "simpleoctets:cyan_concrete_octet_from_cyan_concrete_stonecutting"
       ],
       "usedIn": [
@@ -14945,13 +18233,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cyan_terracotta_octet_from_cyan_terracotta_sawing",
         "simpleoctets:cyan_terracotta_octet_from_cyan_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -14973,13 +18262,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:cyan_wool_octet_from_cyan_wool_sawing",
         "simpleoctets:cyan_wool_octet_from_cyan_wool_stonecutting"
       ],
       "usedIn": [
@@ -15001,13 +18291,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:dark_oak_log_octet_from_dark_oak_log_sawing",
         "simpleoctets:dark_oak_log_octet_from_dark_oak_log_stonecutting"
       ],
       "usedIn": [
@@ -15029,13 +18320,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:dark_oak_octet_from_dark_oak_planks_sawing",
         "simpleoctets:dark_oak_octet_from_dark_oak_planks_stonecutting"
       ],
       "usedIn": [
@@ -15057,13 +18349,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:dark_prismarine_octet_from_dark_prismarine_sawing",
         "simpleoctets:dark_prismarine_octet_from_dark_prismarine_stonecutting"
       ],
       "usedIn": [
@@ -15085,13 +18378,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:deepslate_bricks_octet_from_deepslate_bricks_sawing",
         "simpleoctets:deepslate_bricks_octet_from_deepslate_bricks_stonecutting"
       ],
       "usedIn": [
@@ -15113,13 +18407,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:deepslate_tiles_octet_from_deepslate_tiles_sawing",
         "simpleoctets:deepslate_tiles_octet_from_deepslate_tiles_stonecutting"
       ],
       "usedIn": [
@@ -15141,13 +18436,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:diamond_block_octet_from_diamond_block_sawing",
         "simpleoctets:diamond_block_octet_from_diamond_block_stonecutting"
       ],
       "usedIn": [
@@ -15169,13 +18465,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:diorite_octet_from_diorite_sawing",
         "simpleoctets:diorite_octet_from_diorite_stonecutting"
       ],
       "usedIn": [
@@ -15197,13 +18494,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:duskwood_log_octet_from_duskwood_log_sawing",
         "simpleoctets:duskwood_log_octet_from_duskwood_log_stonecutting"
       ],
       "usedIn": [
@@ -15225,13 +18523,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:duskwood_octet_from_duskwood_planks_sawing",
         "simpleoctets:duskwood_octet_from_duskwood_planks_stonecutting"
       ],
       "usedIn": [
@@ -15253,13 +18552,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:emerald_block_octet_from_emerald_block_sawing",
         "simpleoctets:emerald_block_octet_from_emerald_block_stonecutting"
       ],
       "usedIn": [
@@ -15281,13 +18581,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:end_stone_bricks_octet_from_end_stone_bricks_sawing",
         "simpleoctets:end_stone_bricks_octet_from_end_stone_bricks_stonecutting"
       ],
       "usedIn": [
@@ -15309,13 +18610,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:end_stone_octet_from_end_stone_sawing",
         "simpleoctets:end_stone_octet_from_end_stone_stonecutting"
       ],
       "usedIn": [
@@ -15337,13 +18639,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:ender_quartz_block_octet_from_ender_quartz_block_sawing",
         "simpleoctets:ender_quartz_block_octet_from_ender_quartz_block_stonecutting"
       ],
       "usedIn": [
@@ -15365,13 +18668,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:ender_quartz_bricks_octet_from_ender_quartz_bricks_sawing",
         "simpleoctets:ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting"
       ],
       "usedIn": [
@@ -15393,13 +18697,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:exposed_copper_octet_from_exposed_copper_sawing",
         "simpleoctets:exposed_copper_octet_from_exposed_copper_stonecutting"
       ],
       "usedIn": [
@@ -15421,13 +18726,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:exposed_cut_copper_octet_from_exposed_cut_copper_sawing",
         "simpleoctets:exposed_cut_copper_octet_from_exposed_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -15449,13 +18755,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:gold_block_octet_from_gold_block_sawing",
         "simpleoctets:gold_block_octet_from_gold_block_stonecutting"
       ],
       "usedIn": [
@@ -15477,13 +18784,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:granite_octet_from_granite_sawing",
         "simpleoctets:granite_octet_from_granite_stonecutting"
       ],
       "usedIn": [
@@ -15505,13 +18813,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:gray_concrete_octet_from_gray_concrete_sawing",
         "simpleoctets:gray_concrete_octet_from_gray_concrete_stonecutting"
       ],
       "usedIn": [
@@ -15533,13 +18842,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:gray_terracotta_octet_from_gray_terracotta_sawing",
         "simpleoctets:gray_terracotta_octet_from_gray_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -15561,13 +18871,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:gray_wool_octet_from_gray_wool_sawing",
         "simpleoctets:gray_wool_octet_from_gray_wool_stonecutting"
       ],
       "usedIn": [
@@ -15589,13 +18900,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:green_concrete_octet_from_green_concrete_sawing",
         "simpleoctets:green_concrete_octet_from_green_concrete_stonecutting"
       ],
       "usedIn": [
@@ -15617,13 +18929,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:green_terracotta_octet_from_green_terracotta_sawing",
         "simpleoctets:green_terracotta_octet_from_green_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -15645,13 +18958,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:green_wool_octet_from_green_wool_sawing",
         "simpleoctets:green_wool_octet_from_green_wool_stonecutting"
       ],
       "usedIn": [
@@ -15673,14 +18987,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
-        "simpleoctets:hushed_deepslate_tiles_octet_from_hushed_deepslate_tiles_stonecutting"
+        "simpleoctets:hushed_deepslate_tiles_octet_from_hushed_deepslate_tiles_sawing"
       ],
       "usedIn": [
         "simpleoctets:hushed_deepslate_tiles_from_octets"
@@ -15701,13 +19015,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:iron_block_octet_from_iron_block_sawing",
         "simpleoctets:iron_block_octet_from_iron_block_stonecutting"
       ],
       "usedIn": [
@@ -15729,13 +19044,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:jungle_log_octet_from_jungle_log_sawing",
         "simpleoctets:jungle_log_octet_from_jungle_log_stonecutting"
       ],
       "usedIn": [
@@ -15757,13 +19073,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:jungle_octet_from_jungle_planks_sawing",
         "simpleoctets:jungle_octet_from_jungle_planks_stonecutting"
       ],
       "usedIn": [
@@ -15785,13 +19102,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:lapis_block_octet_from_lapis_block_sawing",
         "simpleoctets:lapis_block_octet_from_lapis_block_stonecutting"
       ],
       "usedIn": [
@@ -15813,13 +19131,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:light_blue_concrete_octet_from_light_blue_concrete_sawing",
         "simpleoctets:light_blue_concrete_octet_from_light_blue_concrete_stonecutting"
       ],
       "usedIn": [
@@ -15841,13 +19160,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:light_blue_terracotta_octet_from_light_blue_terracotta_sawing",
         "simpleoctets:light_blue_terracotta_octet_from_light_blue_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -15869,13 +19189,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:light_blue_wool_octet_from_light_blue_wool_sawing",
         "simpleoctets:light_blue_wool_octet_from_light_blue_wool_stonecutting"
       ],
       "usedIn": [
@@ -15897,13 +19218,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:light_gray_concrete_octet_from_light_gray_concrete_sawing",
         "simpleoctets:light_gray_concrete_octet_from_light_gray_concrete_stonecutting"
       ],
       "usedIn": [
@@ -15925,13 +19247,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:light_gray_terracotta_octet_from_light_gray_terracotta_sawing",
         "simpleoctets:light_gray_terracotta_octet_from_light_gray_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -15953,13 +19276,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:light_gray_wool_octet_from_light_gray_wool_sawing",
         "simpleoctets:light_gray_wool_octet_from_light_gray_wool_stonecutting"
       ],
       "usedIn": [
@@ -15981,13 +19305,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:lime_concrete_octet_from_lime_concrete_sawing",
         "simpleoctets:lime_concrete_octet_from_lime_concrete_stonecutting"
       ],
       "usedIn": [
@@ -16009,13 +19334,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:lime_terracotta_octet_from_lime_terracotta_sawing",
         "simpleoctets:lime_terracotta_octet_from_lime_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -16037,13 +19363,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:lime_wool_octet_from_lime_wool_sawing",
         "simpleoctets:lime_wool_octet_from_lime_wool_stonecutting"
       ],
       "usedIn": [
@@ -16065,13 +19392,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:magenta_concrete_octet_from_magenta_concrete_sawing",
         "simpleoctets:magenta_concrete_octet_from_magenta_concrete_stonecutting"
       ],
       "usedIn": [
@@ -16093,13 +19421,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:magenta_terracotta_octet_from_magenta_terracotta_sawing",
         "simpleoctets:magenta_terracotta_octet_from_magenta_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -16121,13 +19450,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:magenta_wool_octet_from_magenta_wool_sawing",
         "simpleoctets:magenta_wool_octet_from_magenta_wool_stonecutting"
       ],
       "usedIn": [
@@ -16149,13 +19479,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:mangrove_log_octet_from_mangrove_log_sawing",
         "simpleoctets:mangrove_log_octet_from_mangrove_log_stonecutting"
       ],
       "usedIn": [
@@ -16177,13 +19508,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:mangrove_octet_from_mangrove_planks_sawing",
         "simpleoctets:mangrove_octet_from_mangrove_planks_stonecutting"
       ],
       "usedIn": [
@@ -16247,13 +19579,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:mossy_cobblestone_octet_from_mossy_cobblestone_sawing",
         "simpleoctets:mossy_cobblestone_octet_from_mossy_cobblestone_stonecutting"
       ],
       "usedIn": [
@@ -16275,13 +19608,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:mossy_stone_bricks_octet_from_mossy_stone_bricks_sawing",
         "simpleoctets:mossy_stone_bricks_octet_from_mossy_stone_bricks_stonecutting"
       ],
       "usedIn": [
@@ -16303,13 +19637,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:mud_bricks_octet_from_mud_bricks_sawing",
         "simpleoctets:mud_bricks_octet_from_mud_bricks_stonecutting"
       ],
       "usedIn": [
@@ -16331,13 +19666,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:nether_bricks_octet_from_nether_bricks_sawing",
         "simpleoctets:nether_bricks_octet_from_nether_bricks_stonecutting"
       ],
       "usedIn": [
@@ -16359,13 +19695,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:netherite_block_octet_from_netherite_block_sawing",
         "simpleoctets:netherite_block_octet_from_netherite_block_stonecutting"
       ],
       "usedIn": [
@@ -16387,13 +19724,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:netherrack_octet_from_netherrack_sawing",
         "simpleoctets:netherrack_octet_from_netherrack_stonecutting"
       ],
       "usedIn": [
@@ -16415,13 +19753,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:nihilith_bricks_octet_from_nihilith_bricks_sawing",
         "simpleoctets:nihilith_bricks_octet_from_nihilith_bricks_stonecutting"
       ],
       "usedIn": [
@@ -16443,13 +19782,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:oak_log_octet_from_oak_log_sawing",
         "simpleoctets:oak_log_octet_from_oak_log_stonecutting"
       ],
       "usedIn": [
@@ -16471,13 +19811,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:oak_octet_from_oak_planks_sawing",
         "simpleoctets:oak_octet_from_oak_planks_stonecutting"
       ],
       "usedIn": [
@@ -16499,13 +19840,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:obsidian_octet_from_obsidian_sawing",
         "simpleoctets:obsidian_octet_from_obsidian_stonecutting"
       ],
       "usedIn": [
@@ -16527,13 +19869,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:orange_concrete_octet_from_orange_concrete_sawing",
         "simpleoctets:orange_concrete_octet_from_orange_concrete_stonecutting"
       ],
       "usedIn": [
@@ -16555,13 +19898,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:orange_terracotta_octet_from_orange_terracotta_sawing",
         "simpleoctets:orange_terracotta_octet_from_orange_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -16583,13 +19927,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:orange_wool_octet_from_orange_wool_sawing",
         "simpleoctets:orange_wool_octet_from_orange_wool_stonecutting"
       ],
       "usedIn": [
@@ -16611,13 +19956,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:oxidized_copper_octet_from_oxidized_copper_sawing",
         "simpleoctets:oxidized_copper_octet_from_oxidized_copper_stonecutting"
       ],
       "usedIn": [
@@ -16639,13 +19985,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:oxidized_cut_copper_octet_from_oxidized_cut_copper_sawing",
         "simpleoctets:oxidized_cut_copper_octet_from_oxidized_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -16667,13 +20014,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:pale_oak_log_octet_from_pale_oak_log_sawing",
         "simpleoctets:pale_oak_log_octet_from_pale_oak_log_stonecutting"
       ],
       "usedIn": [
@@ -16695,13 +20043,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:pale_oak_octet_from_pale_oak_planks_sawing",
         "simpleoctets:pale_oak_octet_from_pale_oak_planks_stonecutting"
       ],
       "usedIn": [
@@ -16723,13 +20072,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:pink_concrete_octet_from_pink_concrete_sawing",
         "simpleoctets:pink_concrete_octet_from_pink_concrete_stonecutting"
       ],
       "usedIn": [
@@ -16751,13 +20101,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:pink_terracotta_octet_from_pink_terracotta_sawing",
         "simpleoctets:pink_terracotta_octet_from_pink_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -16779,13 +20130,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:pink_wool_octet_from_pink_wool_sawing",
         "simpleoctets:pink_wool_octet_from_pink_wool_stonecutting"
       ],
       "usedIn": [
@@ -16807,13 +20159,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_andesite_octet_from_polished_andesite_sawing",
         "simpleoctets:polished_andesite_octet_from_polished_andesite_stonecutting"
       ],
       "usedIn": [
@@ -16835,13 +20188,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_astralit_block_octet_from_polished_astralit_sawing",
         "simpleoctets:polished_astralit_block_octet_from_polished_astralit_stonecutting"
       ],
       "usedIn": [
@@ -16863,13 +20217,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_blackstone_bricks_octet_from_polished_blackstone_bricks_sawing",
         "simpleoctets:polished_blackstone_bricks_octet_from_polished_blackstone_bricks_stonecutting"
       ],
       "usedIn": [
@@ -16891,13 +20246,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_blackstone_octet_from_polished_blackstone_sawing",
         "simpleoctets:polished_blackstone_octet_from_polished_blackstone_stonecutting"
       ],
       "usedIn": [
@@ -16919,13 +20275,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_cinnabar_octet_from_polished_cinnabar_sawing",
         "simpleoctets:polished_cinnabar_octet_from_polished_cinnabar_stonecutting"
       ],
       "usedIn": [
@@ -16947,13 +20304,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_deepslate_octet_from_polished_deepslate_sawing",
         "simpleoctets:polished_deepslate_octet_from_polished_deepslate_stonecutting"
       ],
       "usedIn": [
@@ -16975,13 +20333,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_diorite_octet_from_polished_diorite_sawing",
         "simpleoctets:polished_diorite_octet_from_polished_diorite_stonecutting"
       ],
       "usedIn": [
@@ -17003,13 +20362,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_end_stone_octet_from_polished_end_stone_sawing",
         "simpleoctets:polished_end_stone_octet_from_polished_end_stone_stonecutting"
       ],
       "usedIn": [
@@ -17031,13 +20391,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_ender_quartz_block_octet_from_polished_ender_quartz_sawing",
         "simpleoctets:polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting"
       ],
       "usedIn": [
@@ -17059,13 +20420,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_granite_octet_from_polished_granite_sawing",
         "simpleoctets:polished_granite_octet_from_polished_granite_stonecutting"
       ],
       "usedIn": [
@@ -17087,13 +20449,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_nihilith_block_octet_from_polished_nihilith_sawing",
         "simpleoctets:polished_nihilith_block_octet_from_polished_nihilith_stonecutting"
       ],
       "usedIn": [
@@ -17115,13 +20478,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_sulfur_octet_from_polished_sulfur_sawing",
         "simpleoctets:polished_sulfur_octet_from_polished_sulfur_stonecutting"
       ],
       "usedIn": [
@@ -17143,13 +20507,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:polished_tuff_octet_from_polished_tuff_sawing",
         "simpleoctets:polished_tuff_octet_from_polished_tuff_stonecutting"
       ],
       "usedIn": [
@@ -17171,13 +20536,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:poplar_log_octet_from_poplar_log_sawing",
         "simpleoctets:poplar_log_octet_from_poplar_log_stonecutting"
       ],
       "usedIn": [
@@ -17199,13 +20565,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:poplar_octet_from_poplar_planks_sawing",
         "simpleoctets:poplar_octet_from_poplar_planks_stonecutting"
       ],
       "usedIn": [
@@ -17227,13 +20594,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:prismarine_bricks_octet_from_prismarine_bricks_sawing",
         "simpleoctets:prismarine_bricks_octet_from_prismarine_bricks_stonecutting"
       ],
       "usedIn": [
@@ -17255,13 +20623,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:prismarine_octet_from_prismarine_sawing",
         "simpleoctets:prismarine_octet_from_prismarine_stonecutting"
       ],
       "usedIn": [
@@ -17283,13 +20652,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:purple_concrete_octet_from_purple_concrete_sawing",
         "simpleoctets:purple_concrete_octet_from_purple_concrete_stonecutting"
       ],
       "usedIn": [
@@ -17311,13 +20681,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:purple_terracotta_octet_from_purple_terracotta_sawing",
         "simpleoctets:purple_terracotta_octet_from_purple_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -17339,13 +20710,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:purple_wool_octet_from_purple_wool_sawing",
         "simpleoctets:purple_wool_octet_from_purple_wool_stonecutting"
       ],
       "usedIn": [
@@ -17367,13 +20739,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:purpur_block_octet_from_purpur_block_sawing",
         "simpleoctets:purpur_block_octet_from_purpur_block_stonecutting"
       ],
       "usedIn": [
@@ -17395,13 +20768,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:quartz_block_octet_from_quartz_block_sawing",
         "simpleoctets:quartz_block_octet_from_quartz_block_stonecutting"
       ],
       "usedIn": [
@@ -17423,13 +20797,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:red_concrete_octet_from_red_concrete_sawing",
         "simpleoctets:red_concrete_octet_from_red_concrete_stonecutting"
       ],
       "usedIn": [
@@ -17451,13 +20826,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:red_nether_bricks_octet_from_red_nether_bricks_sawing",
         "simpleoctets:red_nether_bricks_octet_from_red_nether_bricks_stonecutting"
       ],
       "usedIn": [
@@ -17479,13 +20855,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:red_sandstone_octet_from_red_sandstone_sawing",
         "simpleoctets:red_sandstone_octet_from_red_sandstone_stonecutting"
       ],
       "usedIn": [
@@ -17507,13 +20884,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:red_terracotta_octet_from_red_terracotta_sawing",
         "simpleoctets:red_terracotta_octet_from_red_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -17535,13 +20913,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:red_wool_octet_from_red_wool_sawing",
         "simpleoctets:red_wool_octet_from_red_wool_stonecutting"
       ],
       "usedIn": [
@@ -17563,13 +20942,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:resin_bricks_octet_from_resin_bricks_sawing",
         "simpleoctets:resin_bricks_octet_from_resin_bricks_stonecutting"
       ],
       "usedIn": [
@@ -17591,13 +20971,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:sandstone_octet_from_sandstone_sawing",
         "simpleoctets:sandstone_octet_from_sandstone_stonecutting"
       ],
       "usedIn": [
@@ -17619,13 +21000,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:smooth_basalt_octet_from_smooth_basalt_sawing",
         "simpleoctets:smooth_basalt_octet_from_smooth_basalt_stonecutting"
       ],
       "usedIn": [
@@ -17647,13 +21029,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:smooth_quartz_octet_from_smooth_quartz_sawing",
         "simpleoctets:smooth_quartz_octet_from_smooth_quartz_stonecutting"
       ],
       "usedIn": [
@@ -17675,13 +21058,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:smooth_red_sandstone_octet_from_smooth_red_sandstone_sawing",
         "simpleoctets:smooth_red_sandstone_octet_from_smooth_red_sandstone_stonecutting"
       ],
       "usedIn": [
@@ -17703,13 +21087,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:smooth_sandstone_octet_from_smooth_sandstone_sawing",
         "simpleoctets:smooth_sandstone_octet_from_smooth_sandstone_stonecutting"
       ],
       "usedIn": [
@@ -17731,13 +21116,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:smooth_stone_octet_from_smooth_stone_sawing",
         "simpleoctets:smooth_stone_octet_from_smooth_stone_stonecutting"
       ],
       "usedIn": [
@@ -17759,13 +21145,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:spruce_log_octet_from_spruce_log_sawing",
         "simpleoctets:spruce_log_octet_from_spruce_log_stonecutting"
       ],
       "usedIn": [
@@ -17787,13 +21174,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:spruce_octet_from_spruce_planks_sawing",
         "simpleoctets:spruce_octet_from_spruce_planks_stonecutting"
       ],
       "usedIn": [
@@ -17815,13 +21203,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stone_bricks_octet_from_stone_bricks_sawing",
         "simpleoctets:stone_bricks_octet_from_stone_bricks_stonecutting"
       ],
       "usedIn": [
@@ -17843,13 +21232,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stone_octet_from_stone_sawing",
         "simpleoctets:stone_octet_from_stone_stonecutting"
       ],
       "usedIn": [
@@ -17871,13 +21261,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_acacia_log_octet_from_stripped_acacia_log_sawing",
         "simpleoctets:stripped_acacia_log_octet_from_stripped_acacia_log_stonecutting"
       ],
       "usedIn": [
@@ -17899,13 +21290,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_ashwood_log_octet_from_stripped_ashwood_log_sawing",
         "simpleoctets:stripped_ashwood_log_octet_from_stripped_ashwood_log_stonecutting"
       ],
       "usedIn": [
@@ -17927,13 +21319,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_birch_log_octet_from_stripped_birch_log_sawing",
         "simpleoctets:stripped_birch_log_octet_from_stripped_birch_log_stonecutting"
       ],
       "usedIn": [
@@ -17955,13 +21348,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_cherry_log_octet_from_stripped_cherry_log_sawing",
         "simpleoctets:stripped_cherry_log_octet_from_stripped_cherry_log_stonecutting"
       ],
       "usedIn": [
@@ -17983,13 +21377,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_crimson_stem_octet_from_stripped_crimson_stem_sawing",
         "simpleoctets:stripped_crimson_stem_octet_from_stripped_crimson_stem_stonecutting"
       ],
       "usedIn": [
@@ -18011,13 +21406,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_dark_oak_log_octet_from_stripped_dark_oak_log_sawing",
         "simpleoctets:stripped_dark_oak_log_octet_from_stripped_dark_oak_log_stonecutting"
       ],
       "usedIn": [
@@ -18039,13 +21435,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_duskwood_log_octet_from_stripped_duskwood_log_sawing",
         "simpleoctets:stripped_duskwood_log_octet_from_stripped_duskwood_log_stonecutting"
       ],
       "usedIn": [
@@ -18067,13 +21464,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_jungle_log_octet_from_stripped_jungle_log_sawing",
         "simpleoctets:stripped_jungle_log_octet_from_stripped_jungle_log_stonecutting"
       ],
       "usedIn": [
@@ -18095,13 +21493,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_mangrove_log_octet_from_stripped_mangrove_log_sawing",
         "simpleoctets:stripped_mangrove_log_octet_from_stripped_mangrove_log_stonecutting"
       ],
       "usedIn": [
@@ -18123,13 +21522,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_oak_log_octet_from_stripped_oak_log_sawing",
         "simpleoctets:stripped_oak_log_octet_from_stripped_oak_log_stonecutting"
       ],
       "usedIn": [
@@ -18151,13 +21551,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_pale_oak_log_octet_from_stripped_pale_oak_log_sawing",
         "simpleoctets:stripped_pale_oak_log_octet_from_stripped_pale_oak_log_stonecutting"
       ],
       "usedIn": [
@@ -18179,13 +21580,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_poplar_log_octet_from_stripped_poplar_log_sawing",
         "simpleoctets:stripped_poplar_log_octet_from_stripped_poplar_log_stonecutting"
       ],
       "usedIn": [
@@ -18207,13 +21609,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_spruce_log_octet_from_stripped_spruce_log_sawing",
         "simpleoctets:stripped_spruce_log_octet_from_stripped_spruce_log_stonecutting"
       ],
       "usedIn": [
@@ -18235,13 +21638,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:stripped_warped_stem_octet_from_stripped_warped_stem_sawing",
         "simpleoctets:stripped_warped_stem_octet_from_stripped_warped_stem_stonecutting"
       ],
       "usedIn": [
@@ -18263,13 +21667,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:sulfur_bricks_octet_from_sulfur_bricks_sawing",
         "simpleoctets:sulfur_bricks_octet_from_sulfur_bricks_stonecutting"
       ],
       "usedIn": [
@@ -18291,13 +21696,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:sulfur_octet_from_sulfur_sawing",
         "simpleoctets:sulfur_octet_from_sulfur_stonecutting"
       ],
       "usedIn": [
@@ -18319,13 +21725,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:terracotta_octet_from_terracotta_sawing",
         "simpleoctets:terracotta_octet_from_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -18347,13 +21754,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:tuff_bricks_octet_from_tuff_bricks_sawing",
         "simpleoctets:tuff_bricks_octet_from_tuff_bricks_stonecutting"
       ],
       "usedIn": [
@@ -18375,13 +21783,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:tuff_octet_from_tuff_sawing",
         "simpleoctets:tuff_octet_from_tuff_stonecutting"
       ],
       "usedIn": [
@@ -18403,13 +21812,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:warped_octet_from_warped_planks_sawing",
         "simpleoctets:warped_octet_from_warped_planks_stonecutting"
       ],
       "usedIn": [
@@ -18431,13 +21841,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:warped_stem_octet_from_warped_stem_sawing",
         "simpleoctets:warped_stem_octet_from_warped_stem_stonecutting"
       ],
       "usedIn": [
@@ -18459,13 +21870,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:waxed_cut_copper_octet_from_waxed_cut_copper_sawing",
         "simpleoctets:waxed_cut_copper_octet_from_waxed_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -18487,13 +21899,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_sawing",
         "simpleoctets:waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -18515,13 +21928,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_sawing",
         "simpleoctets:waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -18543,13 +21957,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_sawing",
         "simpleoctets:waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -18571,13 +21986,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:weathered_copper_octet_from_weathered_copper_sawing",
         "simpleoctets:weathered_copper_octet_from_weathered_copper_stonecutting"
       ],
       "usedIn": [
@@ -18599,13 +22015,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:weathered_cut_copper_octet_from_weathered_cut_copper_sawing",
         "simpleoctets:weathered_cut_copper_octet_from_weathered_cut_copper_stonecutting"
       ],
       "usedIn": [
@@ -18627,13 +22044,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:white_concrete_octet_from_white_concrete_sawing",
         "simpleoctets:white_concrete_octet_from_white_concrete_stonecutting"
       ],
       "usedIn": [
@@ -18655,13 +22073,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:white_terracotta_octet_from_white_terracotta_sawing",
         "simpleoctets:white_terracotta_octet_from_white_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -18683,13 +22102,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:white_wool_octet_from_white_wool_sawing",
         "simpleoctets:white_wool_octet_from_white_wool_stonecutting"
       ],
       "usedIn": [
@@ -18711,13 +22131,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:yellow_concrete_octet_from_yellow_concrete_sawing",
         "simpleoctets:yellow_concrete_octet_from_yellow_concrete_stonecutting"
       ],
       "usedIn": [
@@ -18739,13 +22160,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:yellow_terracotta_octet_from_yellow_terracotta_sawing",
         "simpleoctets:yellow_terracotta_octet_from_yellow_terracotta_stonecutting"
       ],
       "usedIn": [
@@ -18767,13 +22189,14 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
-          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
         }
       },
       "craftedBy": [
+        "simpleoctets:yellow_wool_octet_from_yellow_wool_sawing",
         "simpleoctets:yellow_wool_octet_from_yellow_wool_stonecutting"
       ],
       "usedIn": [
@@ -18796,7 +22219,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 349,
+    "recipes": 521,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,

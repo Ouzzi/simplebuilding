@@ -237,7 +237,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleweather"
     ],
-    "dataHash": "c2f67a473414"
+    "dataHash": "9f1665b84383"
   },
   {
     "id": "simpledimensions",
@@ -429,7 +429,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "40bd3198f4a5"
+    "dataHash": "4f643d6fc208"
   },
   {
     "id": "simplefarming",
@@ -753,6 +753,6 @@ window.WIKI_MODULES = [
       "simpleend",
       "jei"
     ],
-    "dataHash": "cfc56d20051b"
+    "dataHash": "c1e7c62e3e26"
   }
 ];

@@ -543,3 +543,10 @@ modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping
 wiki/assets/textures/simpleblocks/block/shaping_saw_saw.png
 wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_saw.png
 wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_saw.png
+# Vanilla-derived bucket / soul lava wiki textures (built at wiki generation, never committed; 18.10.)
+wiki/assets/textures/block/soul_lava_still.png
+wiki/assets/textures/item/copper_*bucket*.png
+wiki/assets/textures/item/enderite_bucket.png
+wiki/assets/textures/item/soul_lava_bucket.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/soul_lava_flow.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/item/copper_*bucket_*.png

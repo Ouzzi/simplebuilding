@@ -170,10 +170,14 @@ public final class EndTests {
                     var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", r));
                     h.assertTrue(recipes.byKey(key).isPresent() == sb, "recipe " + key.identifier() + " only with SimpleBuilding");
                 }
-                // The octet cuts live in Simple Octets since stage 6 (simpleoctets:<wood>_octet_from_..., IdMoves).
-                for (String r : new String[] {n + "_octet_from_" + n + "_planks_stonecutting", n + "_log_octet_from_" + n + "_log_stonecutting"}) {
-                    var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", r));
-                    h.assertTrue(recipes.byKey(key).isPresent() == loaded("simpleoctets"), "recipe " + key.identifier() + " only with Simple Octets");
+                // The octet cuts live in Simple Octets since stage 6 (simpleoctets:<wood>_octet_from_..., IdMoves): in the
+                // Shaping Saw (_sawing) with Simple Blocks, in the stonecutter (_stonecutting) only without it.
+                boolean octets = loaded("simpleoctets"), saw = loaded("simpleblocks");
+                for (String r : new String[] {n + "_octet_from_" + n + "_planks", n + "_log_octet_from_" + n + "_log"}) {
+                    var sawing = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", r + "_sawing"));
+                    var cutting = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", r + "_stonecutting"));
+                    h.assertTrue(recipes.byKey(sawing).isPresent() == (octets && saw), "recipe " + sawing.identifier() + " only with Simple Octets and Simple Blocks");
+                    h.assertTrue(recipes.byKey(cutting).isPresent() == (octets && !saw), "recipe " + cutting.identifier() + " only with Simple Octets without Simple Blocks");
                 }
                 var board = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", n + "_cutting_board");
                 h.assertTrue(BuiltInRegistries.BLOCK.containsKey(board) == sandwiches, board + " only with Simple Sandwiches");
