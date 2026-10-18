@@ -101,13 +101,48 @@ for name in ('potion_awkward_watcher_eye', 'potion_focus_redstone', 'potion_focu
     assert (MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{name}.json').is_file(), name
 assert (MODULE / 'shared/resources/data/simplemobs/recipe/calm_amulet.json').is_file()
 print('simplemobs: bilingual names, loot and assets valid')
-# Hollow Howler voice: every MobsSounds event is in sounds.json with a subtitle in both languages and existing OGG files
+# Hollow Howler voice: every MobsSounds event is in sounds.json with a subtitle in both languages and 3-5 takes
+# (howler5, Vanilla-style variants: plain names or {name, volume, pitch, weight}); every take file exists exactly once
+# and no stray file; A (make_howler_sounds.EVENTS), B (vanilla_derived_sounds.recipes) and howler_sounds.json name
+# every event (concept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md section 10).
 import re
+import sys
 _snd = json.loads((MODULE / 'shared/resources/assets/simplemobs/sounds.json').read_text(encoding='utf-8'))
 _events = re.findall(r'make\("(entity\.hollow_howler\.[a-z_]+)"\)', (MODULE / 'shared/java/com/simplebuilding/modules/simplemobs/MobsSounds.java').read_text(encoding='utf-8'))
 assert _events and set(_events) == set(_snd), 'MobsSounds and sounds.json differ'
+_dir = MODULE / 'shared/resources/assets/simplemobs/sounds/entity/hollow_howler'
+_seen = []
 for _name, _ev in _snd.items():
+    assert 3 <= len(_ev['sounds']) <= 5, f'{_name}: 3-5 takes like Vanilla, not {len(_ev["sounds"])}'
     for _s in _ev['sounds']:
+        if isinstance(_s, dict):
+            assert set(_s) <= {'name', 'volume', 'pitch', 'weight'}, _s
+            assert 0.5 <= _s.get('volume', 1) <= 1 and 0.8 <= _s.get('pitch', 1) <= 1.2 and 1 <= _s.get('weight', 1) <= 4, _s
+            _s = _s['name']
+        assert _s.startswith('simplemobs:entity/hollow_howler/' + _name.removeprefix('entity.hollow_howler.')), _s
         assert (MODULE / f"shared/resources/assets/simplemobs/sounds/{_s.split(':', 1)[1]}.ogg").is_file(), _s
+        _seen.append(_s.rsplit('/', 1)[1])
     for _locale in ('en_us', 'de_de'):
         assert _ev['subtitle'] in json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{_locale}.json').read_text(encoding='utf-8')), _ev['subtitle']
+assert len(_seen) == len(set(_seen)), 'a take is listed twice'
+_stray = sorted({p.stem for p in _dir.glob('*.ogg')} - set(_seen))
+assert not _stray, f'unreferenced Howler sound files: {_stray}'
+for _ogg in _dir.glob('*.ogg'):
+    _b = _ogg.read_bytes()
+    assert _b[:4] == b'OggS' and len(_b) < 64 * 1024, f'{_ogg.name}: Ogg, small'
+    assert _b[0x27] == 1, f'{_ogg.name}: mono (Minecraft only places mono sounds in space)'
+_tools = MODULE.parents[1] / 'tools/sounds'
+_short = {k.removeprefix('entity.hollow_howler.') for k in _snd}
+_a = set(re.findall(r'^    "([a-z_]+)": \(\d+, ', (_tools / 'make_howler_sounds.py').read_text(encoding='utf-8'), re.M))
+assert _a == _short, f'variant A EVENTS differ from sounds.json: {sorted(_a ^ _short)}'
+_vds = (_tools / 'vanilla_derived_sounds.py').read_text(encoding='utf-8')
+_b_events = set(re.findall(r"'([a-z_]+)': [a-z_]+[,}]", _vds[_vds.index('    return {\'heartbeat\''):]))
+assert _b_events == _short, f'variant B recipes differ from sounds.json: {sorted(_b_events ^ _short)}'
+_map = json.loads((_tools / 'howler_sounds.json').read_text(encoding='utf-8'))
+assert _map['mode'] in ('synth', 'vanilla', 'mix'), _map['mode']
+assert set(_map['mix']) == _short and set(_map['mix'].values()) <= {'synth', 'vanilla'}, 'howler_sounds.json mix: every event, synth or vanilla'
+sys.path.insert(0, str(_tools))
+import vanilla_derived_sounds as _vd  # stdlib only at import time
+assert _vd.selected('vanilla') == list(_short_ord := [k.removeprefix('entity.hollow_howler.') for k in _snd])
+assert _vd.selected('mix') == [e for e in _short_ord if _map['mix'][e] == 'vanilla'] and _vd.selected('synth') == []
+print(f'simplemobs: Hollow Howler voice {len(_snd)} events, {len(_seen)} takes, mode {_map["mode"]}')
