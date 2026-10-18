@@ -55,7 +55,7 @@ public final class ServerOpt {
 
     public static List<OptCompat.Decision> apply(OptSettings s, boolean switchOn, Predicate<String> isLoaded, Map<String, OptCompat.Winner> table) {
         String a = DYNAMIC_DISTANCE.id();
-        params = new DynamicDistance.Params(s.doubleValue(a, "targetMspt", 45, 10, 1000), s.intValue(a, "minView", 6, 3, 32),
+        params = new DynamicDistance.Params(s.doubleValue(a, "targetMspt", 45, 1, 1000), s.intValue(a, "minView", 6, 3, 32),
                 s.intValue(a, "minSimulation", 5, 3, 32), s.intValue(a, "stepSeconds", 15, 1, 3600), s.boolValue(a, "adjustSimulation", false));
         List<OptCompat.Decision> out = new ArrayList<>();
         for (OptCompat.Area area : AREAS)

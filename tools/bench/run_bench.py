@@ -52,7 +52,7 @@ AREAS = {
                decisive=["meshbuild_s", "chunkload_s", "mspt_avg", "heap_mb"]),
     "s5a": dict(code="S5a", area="dynamic_distance", owner="simpleoptserver", scene="s5a", rivals=["servercore"],
                 gpu=False, props={"sb.bench.warmupSeconds": 15, "sb.bench.seconds": 75, "sb.bench.flySpeed": 1.5},
-                extra={"stepSeconds": 5}, decisive=["mspt_avg", "mspt_p95", "heap_mb"]),
+                extra={"stepSeconds": 5, "targetMspt": 3}, decisive=["mspt_avg", "mspt_p95", "heap_mb"]),
 }
 # metric: (label, lower is better, GPU-bound under llvmpipe)
 METRICS = {

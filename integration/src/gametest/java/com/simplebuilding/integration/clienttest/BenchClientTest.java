@@ -85,6 +85,20 @@ public final class BenchClientTest implements FabricClientGameTest {
         return false;
     }
 
+    /** Ticks until the section compile queue ran (or 3 s passed) and is empty with every visible section built. */
+    private static boolean drainSections(ClientGameTestContext ctx, int maxSeconds) {
+        long start = System.nanoTime(), end = start + maxSeconds * 1_000_000_000L;
+        boolean seen = false;
+        while (System.nanoTime() < end) {
+            ctx.waitTick();
+            int[] q = ctx.computeOnClient(c -> new int[] {c.levelRenderer.sectionRenderDispatcher().getCompileQueueSize(),
+                    c.levelRenderer.sectionRenderDispatcher().isQueueEmpty() && c.levelRenderer.hasRenderedAllSections() ? 1 : 0});
+            seen |= q[0] > 0;
+            if ((seen || System.nanoTime() - start > 3_000_000_000L) && q[1] == 1) return true;
+        }
+        return false;
+    }
+
     private static void quietWorld(TestServerContext server) {
         for (String cmd : List.of("gamerule advance_time false", "gamerule advance_weather false", "gamerule spawn_mobs false",
                 "time set noon", "weather clear", "gamemode creative @a", "kill @e[type=!player]")) server.runCommand(cmd);
@@ -104,19 +118,18 @@ public final class BenchClientTest implements FabricClientGameTest {
             });
             int cx = forest.getX(), cz = forest.getZ();
             server.runCommand(String.format(Locale.ROOT, "tp @a %d 200 %d", cx, cz));
+            t = System.nanoTime();
             r.put("forest_loaded", waitUntil(ctx, c -> c.level != null && c.level.hasChunk(cx >> 4, cz >> 4), 240));
-            ctx.waitTicks(40);
             int ground = server.computeOnServer(s -> s.overworld().getHeight(Heightmap.Types.MOTION_BLOCKING, cx, cz));
             r.put("forest", List.of(cx, ground, cz));
             double radius = 28, y = ground + 22;
             teleport(server, cx, cz, radius, y, 0);
-            t = System.nanoTime();
-            r.put("chunkload_complete", waitUntil(ctx, c -> c.levelRenderer.hasRenderedAllSections(), 300));
+            r.put("chunkload_complete", drainSections(ctx, 300));
             r.put("chunkload_s", secs(t));
+            // Mesh rebuild of every section in view: the CPU side of leaf culling (fewer faces to build).
             ctx.runOnClient(c -> c.levelRenderer.invalidateCompiledGeometry(c.level, c.options, c.gameRenderer.mainCamera(), c.getBlockColors()));
             t = System.nanoTime();
-            ctx.waitTick();
-            r.put("meshbuild_complete", waitUntil(ctx, c -> c.levelRenderer.hasRenderedAllSections(), 300));
+            r.put("meshbuild_complete", drainSections(ctx, 300));
             r.put("meshbuild_s", secs(t));
             r.put("heap_load_mb", heapAfterGc());
             double[] ms = new double[frames];
