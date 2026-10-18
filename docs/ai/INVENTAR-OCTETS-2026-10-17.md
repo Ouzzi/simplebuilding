@@ -77,3 +77,23 @@ Siehe `.claude/QUEUE.md`, Block „Besitzer 17.10.“, Punkt (a): Umsetzung erst
 **Besitzer 17.10.:** Naturstufen (Erde, Gras, Sand, Kies) bekommen KEINE Octets (Ausnahme von Regel 18). Damit fehlen noch 19 Familien: 15 Bretter-Arten + 4 Vanilla-Stufen-Familien.
 
 **Korrektur 18.10. (b-octetrule, `docs/ai/PLAN-B-OCTETRULE-2026-10-18.md`):** Die 15 Bretter-Achtel existierten schon (`oak_octet` ... `duskwood_octet`, Quelle `*_planks`, Generator-Liste `WOODS`); das Inventar hielt sie fälschlich für fehlend. Wirklich gefehlt haben nur `cut_sandstone`, `cut_red_sandstone`, `smooth_stone` (jetzt in `OctetMaterials`) und das neue `simplelib:polished_end_stone` (samt Treppe/Stufe/Mauer in SimpleLib). `petrified_oak_slab` bleibt begründete Ausnahme (kein Vollblock, Textur = Eichenbretter, `oak_octet` existiert). Der Abdeckungstest `stairs_and_slabs_have_octets` (`OctetTests`) hält die Regel ab jetzt automatisch ein.
+
+## Stand 18.10. (Sitzung A, `claude-octets2`): Abdeckung bestätigt, Octets exklusiv in der Formsäge
+- **Abdeckung:** Alle 15 Bretter-Familien (13 Vanilla 26.3: Eiche, Fichte, Birke, Tropen, Akazie, Schwarzeiche, Mangrove, Kirsche,
+  Blasseiche, Pappel, Bambus, Karmesin, Wirr; dazu `simpleend:ashwood_planks`/`duskwood_planks` nur mit Simple End) haben ihr
+  Octet (`<holz>_octet`, Generator-Liste `WOODS`); Bambus-Mosaik hat ein eigenes Material-Octet. Von den 4 Vanilla-Stufenfamilien
+  haben `cut_sandstone`, `cut_red_sandstone`, `smooth_stone` ein Octet (Treppe der beiden Schnittsandsteine kommt von Simple Blocks,
+  Glatter Stein hat in 26.3 nur die Stufe – Octet trotzdem sinnvoll, Vollblock vorhanden). `petrified_oak_slab` bleibt begründete
+  Ausnahme (kein eigener Vollblock, sieht aus wie Eichenbretter → `oak_octet`). Naturstufen Erde/Gras/Sand/Kies: keine Octets
+  (Besitzer 17.10.). Schachbretter: Schach-Achtel `checker_octet` (SB). Summe: 174 Zellen (15 Hölzer + 159 Materialien) + Melone.
+  Texturen: alle Octets verweisen auf die Textur ihres Vollblocks (Vanilla `minecraft:block/...` bzw. Partner-Namespace), nichts
+  Vanilla-Eigenes eingecheckt. Abdeckungstest `stairs_and_slabs_have_octets` (`OctetTests`) prüft jede registrierte Treppe/Stufe.
+- **Formsäge-Exklusivität (Prinzip A4b):** Der Generator `tools/textures/octets_2026_10_09.py` schreibt je Zelle
+  `<zelle>_from_<basis>_sawing` (`simpleblocks:sawing`, Bedingung „simpleblocks geladen“, ohne Freischalt-Fortschritt – die Säge hat
+  kein Rezeptbuch) und behält die alte Id `<zelle>_from_<basis>_stonecutting` als Ersatz mit „simpleblocks nicht geladen“
+  (Fabric `fabric:not`, NeoForge `neoforge:not`, Forge `forge:not`, mehrere Bedingungen bei Forge mit `forge:and` unter
+  `forge:condition`). Simple-Blocks-eigene Blöcke (Blaue Netherziegel, Gedämpfte Tiefenschieferfliesen) haben keinen Ersatz.
+  Die 13 Schach-Achtel-Schnitte (Schachbrett/Quarzblock → 8 `simplebuilding:<farbe>_octet`) schreibt derselbe Generator nach
+  `mc26_3/overlay` (SB-Datagen kann keine Ladebedingungen); Figuren aus Achteln bleiben Steinmetz-Rezepte (keine Octets).
+  Tests: `recipes_cut_and_craft_back` (Simple Octets: mit Simple Blocks nur Säge, kein Steinmetz-Rezept ergibt ein Octet; ohne
+  nur Steinmetz), `chess_recipes_cut_from_checkers_and_octets` (SB), `check_data.py` (Bedingungen aller drei Loader).
