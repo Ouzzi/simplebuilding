@@ -54,6 +54,7 @@ public final class MobsDiscover {
             "simplemobs:biome_brush",
             "simplemobs:blighted_wither",
             "simplemobs:calm_amulet",
+            "simplemobs:creative_tab_switch",
             "simplemobs:deceiver_cloak",
             "simplemobs:deceiver_cloth",
             "simplemobs:deceiver_disguise",

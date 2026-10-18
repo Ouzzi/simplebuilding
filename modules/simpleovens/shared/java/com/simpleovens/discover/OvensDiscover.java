@@ -54,6 +54,7 @@ public final class OvensDiscover {
             "simplelib:enderite_nugget",
             "simplelib:netherite_nugget",
             "simpleovens:config_server",
+            "simpleovens:creative_tab_switch",
             "simpleovens:enderite_blast_furnace",
             "simpleovens:enderite_furnace",
             "simpleovens:enderite_furnace_minecart",

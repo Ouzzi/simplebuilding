@@ -78,6 +78,7 @@ public final class RidingDiscover {
             "simpleriding:config-safety-movementPacketsPerTick",
             "simpleriding:config-worldGen-enableLootTableChanges",
             "simpleriding:config-worldGen-enableVillagerTrades",
+            "simpleriding:creative_tab_switch",
             "simpleriding:forge_263",
             "simpleriding:guide_book",
             "simpleriding:horseshoe_smithing_template",

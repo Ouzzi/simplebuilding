@@ -57,6 +57,7 @@ public final class CruciblesDiscover {
             "simplecrucibles:copper_*bucket",
             "simplecrucibles:copper_barrel",
             "simplecrucibles:copper_bucket",
+            "simplecrucibles:creative_tab_switch",
             "simplecrucibles:crucible",
             "simplecrucibles:crucible_blank",
             "simplecrucibles:enderite_*bucket*",

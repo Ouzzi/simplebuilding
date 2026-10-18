@@ -80,6 +80,7 @@ public final class FunDiscover {
             "simplefun:config_yeetStrength",
             "simplefun:configuration",
             "simplefun:cookieCrumbs",
+            "simplefun:creative_tab_switch",
             "simplefun:flowerSniff",
             "simplefun:forge_263",
             "simplefun:guide_book",

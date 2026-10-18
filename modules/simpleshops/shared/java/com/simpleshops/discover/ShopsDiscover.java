@@ -53,6 +53,7 @@ public final class ShopsDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simpleshops:buying",
             "simpleshops:config_server",
+            "simpleshops:creative_tab_switch",
             "simpleshops:display_case",
             "simpleshops:glow_display_case",
             "simpleshops:guide_book",
