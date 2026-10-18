@@ -14,7 +14,8 @@ window.WIKI_MODULES = [
       "cloth-config",
       "simpleovens",
       "simplemobheads",
-      "simplecrucibles"
+      "simplecrucibles",
+      "simpleoctets"
     ],
     "optional": [
       "jei",
@@ -732,5 +733,26 @@ window.WIKI_MODULES = [
       "jade"
     ],
     "dataHash": "05c0328e5c64"
+  },
+  {
+    "id": "simpleoctets",
+    "displayName": "Simple Octets",
+    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of SimpleBuilding carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleend",
+      "jei"
+    ],
+    "dataHash": "a0b7b01c1edd"
   }
 ];
