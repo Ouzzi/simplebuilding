@@ -107,7 +107,7 @@ Abweichungen (bewusst):
   Besitzerregel „jeder Block mit Treppe und Stufe hat ein Achtel“ gilt für die Familie; zeigt die optionale Integration.
 - SB-Tests bleiben (auf Ids/`OctetRefs` umgestellt) statt umzuziehen; das Modul hat eigene Tests (allein lauffähig).
 - SB-Suchtab-Ketten setzen die Modul-Achtel weiter per Id (Reihenfolge der End-Paletten); das Modul setzt sie zusätzlich selbst
-  hinter die Stufe (beide überspringen schon vorhandene Stapel).
+  hinter die Stufe nur ohne SimpleBuilding (18.10.: mit beiden gewann auf NeoForge die Modul-Platzierung und brach SBs Reihenfolge).
 - Melonenscheiben-Tooltip per Mixin auf `Item#appendHoverText` (Vanilla-Item), Glitzermelone als Nahrung bleibt SB.
 - Keine Config-Übernahme: SB hatte keine Achtel-Optionen. Kein Vanilla-abgeleitetes Bild (Modelle verweisen auf Texturen).
 - Vanilla-Stamm-Achtel bleiben in `mineable/pickaxe` (wie in SB; vermutlich Altfehler, offen notiert).
@@ -122,3 +122,5 @@ Abweichungen (bewusst):
   Namespace weiter `simpleoctets`); Generator `PARTNER_RES`, `check_data.py` prüft den Ort. Blockstates/Eckmodelle bleiben im
   Modul (nur für registrierte Blöcke geladen). Ziel: 0 Achtel-Meldungen, 22 SB-Grundstand bleiben.
 - **mixed_octet:** Lang-Schlüssel war da; die Wiki-Notiz griff aber den Glob `*_octet` zuerst → exakte Notizen stehen jetzt vor dem Glob.
+- **18.10. Tests:** Vanilla-Tab-Platzierung stürzte bei Holz-Achteln ab (`Set.of().contains(null)`, Gruppe fehlt) → gefixt;
+  danach Platzierung nur ohne SB. `DataIntegrityTests` Suchtab: „in keinem Mod-Tab“ gilt nur für SB-Items (Modul-Achtel stehen im Modul-Tab).

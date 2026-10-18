@@ -221,7 +221,9 @@ public final class OctetRegistry {
      */
     public static Map<Item, List<ItemStack>> vanillaPlacements(ResourceKey<CreativeModeTab> tab) {
         Map<Item, List<ItemStack>> out = new java.util.LinkedHashMap<>();
-        if (!SimpleOctets.on()) return out;
+        // With SimpleBuilding its search-tab chains order the octets next to its palettes; a second placement here would
+        // win the race on NeoForge/Forge (event order) and break that order.
+        if (!SimpleOctets.on() || SimpleOctets.isLoaded(SimpleOctets.SB_NAMESPACE)) return out;
         List<Item> octets = new ArrayList<>(WOOD_OCTET_ITEMS);
         octets.addAll(MATERIAL_OCTET_ITEMS);
         for (Item octet : octets) {
