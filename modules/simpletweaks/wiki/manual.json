@@ -847,6 +847,33 @@
       ]
     },
     {
+      "id": "protect_auto_off_with",
+      "en": {
+        "title": "Automatic off with partner mods (autoOffWith)",
+        "summary": "A feature switches itself off at server start when a mod that does the same job is loaded: Ledger or MineTracer for the block log, InvRestore for death backups, Inv View for /invsee, Chunky for pregeneration, Litematica or Axiom for the action checks. Freecam only gets a log note.",
+        "details": [
+          "Each of config/simpletweaks-admin.json, -play.json and -protect.json has an autoOffWith section: feature name to a list of mod ids (blockLog, deathBackups, invsee, pregen, actionChecks, antiXray, freecam). The first loaded mod of a list switches that feature off and one INFO line names the mod and the feature.",
+          "To keep a feature on, empty its list (for example autoOffWith.blockLog = []). An enabled=true in the file does not win, because it cannot be told from the default. antiXray has an empty list by default; add axiom or litematica there if you want it off with them.",
+          "Freecam never switches anything off: the Freecam rule stays as configured and the log only notes that the mod is present."
+        ]
+      },
+      "de": {
+        "title": "Automatisch aus mit Partner-Mods (autoOffWith)",
+        "summary": "Eine Funktion schaltet sich beim Serverstart selbst ab, wenn eine Mod mit gleicher Aufgabe geladen ist: Ledger oder MineTracer für das Block-Protokoll, InvRestore für Todes-Sicherungen, Inv View für /invsee, Chunky für die Vorgenerierung, Litematica oder Axiom für die Aktionsprüfung. Freecam bekommt nur einen Log-Hinweis.",
+        "details": [
+          "Jede der Dateien config/simpletweaks-admin.json, -play.json und -protect.json hat einen Abschnitt autoOffWith: Funktionsname auf eine Liste von Mod-Ids (blockLog, deathBackups, invsee, pregen, actionChecks, antiXray, freecam). Die erste geladene Mod der Liste schaltet die Funktion ab; eine INFO-Zeile nennt Mod und Funktion.",
+          "Um eine Funktion anzulassen, die Liste leeren (zum Beispiel autoOffWith.blockLog = []). Ein enabled=true in der Datei gewinnt nicht, weil es vom Standard nicht zu unterscheiden ist. antiXray hat standardmäßig eine leere Liste; axiom oder litematica dort eintragen, wenn es mit ihnen aus sein soll.",
+          "Freecam schaltet nie etwas ab: Die Freecam-Regel bleibt wie konfiguriert, das Log vermerkt nur, dass die Mod da ist."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/AutoOff.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ProtectConfig.java"
+      ]
+    },
+    {
       "id": "creative_tab_switch",
       "sources": [
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"

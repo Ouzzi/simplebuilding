@@ -28,7 +28,7 @@ public final class Play {
 
     public static PlayConfig config() {
         var c = config;
-        if (c == null) config = c = PlayConfig.load(PlayConfig.PATH);
+        if (c == null) config = c = PlayConfig.load(PlayConfig.PATH).withAutoOff(Mods::loaded, org.slf4j.LoggerFactory.getLogger("simpletweaks-play"));
         return c;
     }
     /** Tests: other settings until the next call (null = reload from the file). */

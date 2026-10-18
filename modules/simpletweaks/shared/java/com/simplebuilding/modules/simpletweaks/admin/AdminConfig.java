@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpletweaks.admin;
 
 import com.google.gson.*;
 import java.nio.file.*;
+import com.simplebuilding.modules.simpletweaks.play.AutoOff;
 import java.util.*;
 
 /**
@@ -10,7 +11,7 @@ import java.util.*;
  * a broken file is kept and the defaults are used (logged). Permission values are Vanilla operator levels 0–4.
  */
 public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee, Vanish vanish, Freeze freeze,
-        Restart restart, Backups backups, Maintenance maintenance, Lag lagFinder) {
+        Restart restart, Backups backups, Maintenance maintenance, Lag lagFinder, Map<String, List<String>> autoOffWith) {
     /** T10 block and container log. */
     public record BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds) {
         public BlockLog {
@@ -73,7 +74,35 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
             new Restart(true, 3, List.of(), List.of(15, 10, 5, 1), 0),
             new Backups(true, 3, 6, 5, "backups"),
             new Maintenance(true, 3, 2, List.of(), null, null, true),
-            new Lag(true, 2, 5, 8));
+            new Lag(true, 2, 5, 8),
+            // Ledger/MineTracer log blocks themselves (T10); InvRestore restores inventories (T11); InvView shows inventories (T13)
+            AutoOff.clean(autoOffMap("blockLog", List.of("ledger", "minetracer"), "deathBackups", List.of("invrestore", "inv_restore"),
+                    "invsee", List.of("invview", "inv_view"))));
+
+    private static Map<String, List<String>> autoOffMap(Object... kv) {
+        var m = new LinkedHashMap<String, List<String>>();
+        for (int i = 0; i < kv.length; i += 2) { @SuppressWarnings("unchecked") var v = (List<String>) kv[i + 1]; m.put((String) kv[i], v); }
+        return m;
+    }
+
+    /** The settings with every feature off whose partner mod is loaded (logged); unknown keys are ignored. */
+    public AdminConfig withAutoOff(java.util.function.Predicate<String> loaded, org.slf4j.Logger log) {
+        var hits = AutoOff.match(autoOffWith, loaded);
+        var r = this;
+        for (var f : hits.keySet()) {
+            switch (f) {
+                case "blockLog" -> r = new AdminConfig(new BlockLog(false, r.blockLog.permission, r.blockLog.rollbackPermission, r.blockLog.retentionDays, r.blockLog.rollbackMaxChanges, r.blockLog.flushSeconds),
+                        r.deathBackups, r.invsee, r.vanish, r.freeze, r.restart, r.backups, r.maintenance, r.lagFinder, r.autoOffWith);
+                case "deathBackups" -> r = new AdminConfig(r.blockLog, new Deaths(false, r.deathBackups.permission, r.deathBackups.keep),
+                        r.invsee, r.vanish, r.freeze, r.restart, r.backups, r.maintenance, r.lagFinder, r.autoOffWith);
+                case "invsee" -> r = new AdminConfig(r.blockLog, r.deathBackups, new Invsee(false, r.invsee.permission, r.invsee.editPermission),
+                        r.vanish, r.freeze, r.restart, r.backups, r.maintenance, r.lagFinder, r.autoOffWith);
+                default -> { }
+            }
+        }
+        AutoOff.log(log, "config/simpletweaks-admin.json", hits, Set.of());
+        return r;
+    }
 
     public AdminConfig {
         var d = DEFAULT;
@@ -82,6 +111,8 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
             if (invsee == null) invsee = d.invsee; if (vanish == null) vanish = d.vanish; if (freeze == null) freeze = d.freeze;
             if (restart == null) restart = d.restart; if (backups == null) backups = d.backups;
             if (maintenance == null) maintenance = d.maintenance; if (lagFinder == null) lagFinder = d.lagFinder;
+            if (autoOffWith == null) autoOffWith = d.autoOffWith;
+            autoOffWith = AutoOff.clean(autoOffWith);
         }
     }
 
