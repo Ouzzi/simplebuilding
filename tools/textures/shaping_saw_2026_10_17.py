@@ -45,6 +45,24 @@ def _copper_for(p, lo, hi):
     return COPPER[i] + (255,)
 
 
+def soften(new, old, w=0.4):
+    """1-pixel soft edge (owner 18.10.): every untouched opaque pixel that touches a copper-recoloured pixel (4-neighbourhood)
+    takes on w of the mean colour of those copper neighbours, so there are no hard copper islands."""
+    out = new.copy()
+    for y in range(new.height):
+        for x in range(new.width):
+            p = new.getpixel((x, y))
+            if not p[3] or p != old.getpixel((x, y)):
+                continue
+            nb = [new.getpixel((x + dx, y + dy)) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))
+                  if 0 <= x + dx < new.width and 0 <= y + dy < new.height
+                  and new.getpixel((x + dx, y + dy))[3] and new.getpixel((x + dx, y + dy)) != old.getpixel((x + dx, y + dy))]
+            if nb:
+                m = [sum(c[i] for c in nb) / len(nb) for i in range(3)]
+                out.putpixel((x, y), tuple(round(p[i] * (1 - w) + m[i] * w) for i in range(3)) + (p[3],))
+    return out
+
+
 def top(src):
     im = src.convert('RGBA').copy()
     brass = [im.getpixel((x, y)) for y in range(16) for x in range(16) if _is_brass(im.getpixel((x, y)))]
@@ -57,7 +75,7 @@ def top(src):
     for y in (7, 8):  # copper ends of the blade slot
         for x in (2, 13):
             im.putpixel((x, y), COPPER[3 if y == 7 else 1] + (255,))
-    return im
+    return soften(im, src.convert('RGBA'))
 
 
 def side(src):
@@ -69,7 +87,7 @@ def side(src):
             p = im.getpixel((x, y))
             if _is_wood(p):
                 im.putpixel((x, y), _copper_for(p, lo, hi))
-    return im
+    return soften(im, src.convert('RGBA'))
 
 
 def saw(src):
@@ -88,7 +106,7 @@ def saw(src):
             else:
                 c = (v, v, v)
             im.putpixel((x, y), c + (a,))
-    return im
+    return soften(im, src.convert('RGBA'))
 
 
 def build(read):
