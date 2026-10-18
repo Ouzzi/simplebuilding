@@ -17,18 +17,22 @@ public final class BlocksForge {
     static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
 
     public BlocksForge(FMLJavaModLoadingContext context) {
+        // Old simplebuilding: ids of the moved building blocks resolve here (before the registry events: Forge aliases).
+        SimpleBlocks.registerIdMoves();
+        SimpleBlocks.simplebuildingLoaded = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
         com.simplebuilding.modules.simpleblocks.forge.ModuleForgeTests.register(context.getModBusGroup());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) BlocksRegistry.registerBlocks();
             if (key.equals(Registries.ITEM)) BlocksRegistry.registerItems();
+            if (key.equals(Registries.ENTITY_TYPE)) BlocksRegistry.registerEntityTypes();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) BlocksRegistry.registerTab();
             if (key.equals(Registries.MENU)) BlocksRegistry.registerMenus();
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
             if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
         });
         // Stonecutter -> Shaping Saw in the world: axe alone, hammer with SimpleBuilding; 4 iron nuggets.
-        com.simpleblocks.saw.SawUpgrade.hammerMode = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
+        com.simpleblocks.saw.SawUpgrade.hammerMode = SimpleBlocks.simplebuildingLoaded;
         net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(e -> {
             if (!com.simpleblocks.saw.SawUpgrade.onUse(e.getLevel(), e.getPos(), e.getEntity(), e.getHand())) return false;
             e.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
@@ -70,9 +74,13 @@ public final class BlocksForge {
                 if (placement.natural() != natural) continue;
                 var before = new ItemStack(placement.before());
                 boolean anchored = entries.contains(before);
+                ItemStack previous = before;
                 for (ItemStack stack : placement.stacks()) {
                     if (entries.contains(stack)) continue;
-                    if (anchored) entries.putBefore(before, stack, visibility);
+                    if (anchored && placement.after()) {
+                        entries.putAfter(previous, stack, visibility);
+                        previous = stack;
+                    } else if (anchored) entries.putBefore(before, stack, visibility);
                     else entries.put(stack, visibility);
                 }
             }

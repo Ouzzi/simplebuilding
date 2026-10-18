@@ -1,7 +1,5 @@
 package com.simplebuilding.gametest;
 
-import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.CrackedIceBlock;
 import com.simplebuilding.util.ModWorldGen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -52,18 +50,23 @@ final class CrackedIceFieldChecks {
                 .place(level, level.getChunkSource().getGenerator(), RandomSource.create(53), origin);
         helper.assertTrue(placed, "the disc placed nothing");
         var top = helper.getBlockState(new BlockPos(4, 5, 4));
-        helper.assertTrue(top.is(ModBlocks.CRACKED_ICE) && top.getValue(CrackedIceBlock.AGE) == 1, "surface should be cracked ice stage 1, is " + top);
+        helper.assertTrue(top.is(crackedIce()) && top.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3) == 1, "surface should be cracked ice stage 1, is " + top);
         helper.assertTrue(helper.getBlockState(new BlockPos(4, 6, 4)).isAir(), "snow layer should be gone");
         for (int y = 1; y <= 4; y++) {
             expect(helper, new BlockPos(4, y, 4), Blocks.CAVE_AIR, "pit under the field");
         }
         expect(helper, new BlockPos(7, 1, 4), Blocks.DIRT, "ground outside the disc");
-        expect(helper, sea.atY(5), ModBlocks.CRACKED_ICE, "sea ice");
+        expect(helper, sea.atY(5), crackedIce(), "sea ice");
         expect(helper, sea.atY(4), Blocks.WATER, "water under the sea ice");
         expect(helper, sea.atY(3), Blocks.DIRT, "ground under the water");
         expect(helper, covered.atY(5), Blocks.SNOW_BLOCK, "covered snow");
         expect(helper, covered.atY(4), Blocks.DIRT, "covered ground");
         expect(helper, new BlockPos(4, 5, 7), Blocks.SNOW_BLOCK, "snow outside the disc");
+    }
+
+    /** Simple Blocks' cracked ice (b-blocksmove), by id. */
+    private static Block crackedIce() {
+        return com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE);
     }
 
     private static void expect(GameTestHelper helper, BlockPos pos, Block block, String what) {

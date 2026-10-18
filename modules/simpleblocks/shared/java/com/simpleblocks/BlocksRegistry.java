@@ -26,7 +26,8 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 37 blocks with their block items, the Shaping Saw ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
+ * Everything Simple Blocks registers: 37 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * {@link com.simpleblocks.nature.NatureBlocks}), the Shaping Saw ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
  * {@link #blocks}/{@link #items} in their matching registry event (Fabric: {@link #registerAll}).
@@ -107,6 +108,7 @@ public final class BlocksRegistry {
     /** Vanilla {@code Registry.register} works inside the matching registry event of every loader. */
     public static void registerBlocks() {
         BLOCKS.forEach((name, block) -> Registry.register(BuiltInRegistries.BLOCK, SimpleBlocks.id(name), block));
+        com.simpleblocks.nature.NatureBlocks.registerBlocks();
         com.simpleblocks.saw.Sawing.registerBlock();
     }
 
@@ -129,6 +131,7 @@ public final class BlocksRegistry {
             Item item = new BlockItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix());
             ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, item));
         });
+        com.simpleblocks.nature.NatureBlocks.registerItems();
         com.simpleblocks.saw.Sawing.registerItem();
         com.simpleblocks.guide.BlocksGuide.register();
         SimpleBlocks.registerStation();
@@ -142,30 +145,49 @@ public final class BlocksRegistry {
                 .build());
     }
 
+    /** The rising block of levitating sand and gravel. */
+    public static void registerEntityTypes() {
+        com.simpleblocks.nature.NatureBlocks.registerEntityTypes();
+    }
+
     /** Fabric: registries are open during init. */
     public static void registerAll() {
         registerBlocks();
         registerItems();
+        registerEntityTypes();
         registerMenus();
         registerRecipeTypes();
         registerRecipeSerializers();
         registerTab();
     }
 
-    /** All items in tab order (empty while the module is switched off). */
+    /**
+     * All items in tab order (empty while the module is switched off): the saw, the own blocks, the building blocks that
+     * moved here from SimpleBuilding (tab stage T2: gravity, slabs, ice and shell, froglights), the guide book. With
+     * SimpleBuilding loaded its remaining building blocks follow behind (tab stage T1, appended by SimpleBuilding).
+     */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleBlocks.on()) return out;
         out.add(new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM));
         ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
+        com.simpleblocks.nature.NatureBlocks.ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         out.add(com.simpleblocks.guide.BlocksGuide.stack());
         return out;
     }
 
-    /** A group of items that goes in front of a Vanilla item of a Vanilla tab. */
-    public record Placement(boolean natural, Item before, List<String> names) {
+    /** A group of items that goes in front of a Vanilla item of a Vanilla tab ({@code after}: right behind it, in order). */
+    public record Placement(boolean natural, Item before, List<String> names, boolean after) {
+        public Placement(boolean natural, Item before, List<String> names) {
+            this(natural, before, names, false);
+        }
+
+        public static Placement after(boolean natural, Item anchor, String... names) {
+            return new Placement(natural, anchor, List.of(names), true);
+        }
+
         public List<ItemStack> stacks() {
-            return names.stream().map(n -> new ItemStack(ITEMS.get(n))).toList();
+            return names.stream().map(n -> new ItemStack(BuiltInRegistries.ITEM.getValue(SimpleBlocks.id(n)))).toList();
         }
     }
 
@@ -174,7 +196,7 @@ public final class BlocksRegistry {
      * Vanilla item that follows its family, so other mods' insertions behind a Vanilla item keep their place.
      */
     public static List<Placement> placements() {
-        return List.of(
+        List<Placement> out = new ArrayList<>(List.of(
                 new Placement(false, Items.REINFORCED_DEEPSLATE, List.of("mossy_deepslate_bricks", "mossy_deepslate_tiles",
                         "hushed_deepslate_tiles", "hushed_deepslate_tile_stairs", "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall")),
                 new Placement(false, Items.CHISELED_TUFF_BRICKS, List.of("cracked_tuff_bricks", "mossy_tuff_bricks")),
@@ -189,7 +211,21 @@ public final class BlocksRegistry {
                 new Placement(false, Items.POLISHED_BASALT, List.of("smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall")),
                 new Placement(false, Items.PURPUR_BLOCK, List.of("cracked_end_stone_bricks", "mossy_end_stone_bricks")),
                 new Placement(true, Items.TUFF, List.of("calcite_stairs", "calcite_slab", "calcite_wall")),
-                new Placement(true, Items.SCULK_VEIN, List.of("sculk_deepslate")));
+                new Placement(true, Items.SCULK_VEIN, List.of("sculk_deepslate"))));
+        // The blocks that moved from SimpleBuilding, behind their base block as SimpleBuilding placed them. With SimpleBuilding
+        // loaded its search-tab chains keep placing them (by id, in its order with the octets), so only without it.
+        if (!SimpleBlocks.simplebuildingLoaded) {
+            out.add(Placement.after(true, Items.GRASS_BLOCK, "grass_slab"));
+            out.add(Placement.after(true, Items.DIRT, "dirt_slab"));
+            out.add(Placement.after(true, Items.GRAVEL, "gravel_slab", "suspended_gravel", "levitating_gravel"));
+            out.add(Placement.after(true, Items.SAND, "sand_slab", "suspended_sand", "levitating_sand"));
+            out.add(Placement.after(true, Items.ICE, "cracked_ice"));
+            out.add(Placement.after(true, Items.PACKED_ICE, "chiseled_packed_ice"));
+            out.add(Placement.after(true, Items.BLUE_ICE, "chiseled_blue_ice"));
+            out.add(Placement.after(true, Items.BONE_BLOCK, "nautilus_shell_block"));
+            out.add(Placement.after(true, Items.PEARLESCENT_FROGLIGHT, "scarlet_froglight", "aqua_froglight", "azure_froglight"));
+        }
+        return out;
     }
 
     private BlocksRegistry() {}

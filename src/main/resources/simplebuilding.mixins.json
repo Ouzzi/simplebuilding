@@ -23,7 +23,6 @@
     "AnvilScreenHandlerMixin",
     "BlockAttachedEntityTickMixin",
     "BlockStateBaseMixin",
-    "HalfTransparentBlockMixin",
     "BlockItemMixin",
     "AbstractArrowPickupMixin",
     "AbstractArrowRecoveryMixin",

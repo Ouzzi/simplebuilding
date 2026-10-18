@@ -26,8 +26,6 @@ public class ModTags {
         public static final TagKey<Item> BACKPACKS = createTag("backpacks");
         /** Die acht Vanilla-Kupfertruhen - Zutat der Verstaerkten Truhe (Vanilla hat keinen Item-Tag dafuer). */
         public static final TagKey<Item> COPPER_CHESTS = createTag("copper_chests");
-        /** Vanillas drei und die Mod-Froschlichter: Zutat der Faerberezepte der Naturvarianten (N24). */
-        public static final TagKey<Item> FROGLIGHTS = createTag("froglights");
         /** Normal and sixteen single-color Light Panes (N57): the base of the dye recipes (recolor included). */
         public static final TagKey<Item> LIGHT_PANES = createTag("light_panes");
         /** N68: the copper-switch panes that take a dye or redstone (copper pane + sixteen colors). */

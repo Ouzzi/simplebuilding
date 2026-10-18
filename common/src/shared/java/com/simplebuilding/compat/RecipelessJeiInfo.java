@@ -69,7 +69,7 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             map.put("hammer_fire_chips", List.of(ModItems.FIRE_CHIP, net.minecraft.world.item.Items.FIRE_CHARGE));
             map.put("hammer_ice_chips", com.simplebuilding.version.McVersion.NATURE_VARIANTS
-                    ? List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, ModItems.CRACKED_ICE, net.minecraft.world.item.Items.PACKED_ICE)
+                    ? List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.CRACKED_ICE), net.minecraft.world.item.Items.PACKED_ICE)
                     : List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, net.minecraft.world.item.Items.PACKED_ICE));
             map.put("hammer_obsidian_chips", List.of(ModItems.OBSIDIAN_CHIP, net.minecraft.world.item.Items.OBSIDIAN));
             map.put("hammer_crying_obsidian_chips", List.of(ModItems.CRYING_OBSIDIAN_CHIP, net.minecraft.world.item.Items.CRYING_OBSIDIAN));

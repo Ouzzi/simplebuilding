@@ -14,9 +14,12 @@ import net.minecraft.world.item.ItemStack;
 public final class BlocksFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        // Old simplebuilding: ids of the moved building blocks resolve here (before anything loads a world).
+        SimpleBlocks.registerIdMoves();
+        SimpleBlocks.simplebuildingLoaded = FabricLoader.getInstance().isModLoaded("simplebuilding");
         BlocksRegistry.registerAll();
         // Stonecutter -> Shaping Saw in the world: axe alone, hammer with SimpleBuilding; 4 iron nuggets.
-        com.simpleblocks.saw.SawUpgrade.hammerMode = FabricLoader.getInstance().isModLoaded("simplebuilding");
+        com.simpleblocks.saw.SawUpgrade.hammerMode = SimpleBlocks.simplebuildingLoaded;
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((player, level, hand, hit) ->
                 com.simpleblocks.saw.SawUpgrade.onUse(level, hit.getBlockPos(), player, hand) ? net.minecraft.world.InteractionResult.SUCCESS : net.minecraft.world.InteractionResult.PASS);
         // Shaping Saw: its recipe list goes to every client on join and after /reload (the client menu uses exactly this list).
@@ -35,7 +38,9 @@ public final class BlocksFabric implements ModInitializer {
                     // Never twice (another mod may have placed them already); at the end when the Vanilla item is missing.
                     var stacks = placement.stacks().stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
                     if (stacks.isEmpty()) continue;
-                    if (out.getDisplayStacks().stream().anyMatch(s -> s.is(placement.before()))) out.insertBefore(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    boolean anchored = out.getDisplayStacks().stream().anyMatch(s -> s.is(placement.before()));
+                    if (anchored && placement.after()) out.insertAfter(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    else if (anchored) out.insertBefore(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                     else stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
                 }
             });

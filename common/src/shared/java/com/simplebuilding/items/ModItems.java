@@ -266,26 +266,15 @@ public class ModItems {
 
 
 
-    public static final Item SUSPENDED_SAND = registerItem("suspended_sand", s -> new BlockItem(ModBlocks.SUSPENDED_SAND, s));
+    public static final Item SUSPENDED_SAND = com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? registerItem("suspended_sand", s -> new BlockItem(ModBlocks.SUSPENDED_SAND, s)) : null;
 
-    public static final Item SUSPENDED_GRAVEL = registerItem("suspended_gravel", s -> new BlockItem(ModBlocks.SUSPENDED_GRAVEL, s));
+    public static final Item SUSPENDED_GRAVEL = com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? registerItem("suspended_gravel", s -> new BlockItem(ModBlocks.SUSPENDED_GRAVEL, s)) : null;
 
-    public static final Item LEVITATING_SAND = registerItem("levitating_sand", s -> new BlockItem(ModBlocks.LEVITATING_SAND, s));
+    public static final Item LEVITATING_SAND = com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? registerItem("levitating_sand", s -> new BlockItem(ModBlocks.LEVITATING_SAND, s)) : null;
 
-    public static final Item LEVITATING_GRAVEL = registerItem("levitating_gravel", s -> new BlockItem(ModBlocks.LEVITATING_GRAVEL, s));
-    // Naturvarianten (N24/N25, nur Hauptlinie), siehe ModBlocks#natureVariants.
-    public static final Item DIRT_SLAB = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("dirt_slab", s -> new BlockItem(ModBlocks.DIRT_SLAB, s)) : null;
-    public static final Item GRASS_SLAB = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("grass_slab", s -> new BlockItem(ModBlocks.GRASS_SLAB, s)) : null;
-    public static final Item SAND_SLAB = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("sand_slab", s -> new BlockItem(ModBlocks.SAND_SLAB, s)) : null;
-    public static final Item GRAVEL_SLAB = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("gravel_slab", s -> new BlockItem(ModBlocks.GRAVEL_SLAB, s)) : null;
-    public static final Item CRACKED_ICE = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("cracked_ice", s -> new BlockItem(ModBlocks.CRACKED_ICE, s)) : null;
-    public static final Item CHISELED_PACKED_ICE = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("chiseled_packed_ice", s -> new BlockItem(ModBlocks.CHISELED_PACKED_ICE, s)) : null;
-    public static final Item CHISELED_BLUE_ICE = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("chiseled_blue_ice", s -> new BlockItem(ModBlocks.CHISELED_BLUE_ICE, s)) : null;
+    public static final Item LEVITATING_GRAVEL = com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? registerItem("levitating_gravel", s -> new BlockItem(ModBlocks.LEVITATING_GRAVEL, s)) : null;
+    // Naturvarianten (N24/N25): seit b-blocksmove in Simple Blocks (util/BlockRefs); die Sculk-Kiefer bleibt hier.
     public static final Item SCULK_JAW = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("sculk_jaw", s -> new BlockItem(ModBlocks.SCULK_JAW, s)) : null;
-    public static final Item NAUTILUS_SHELL_BLOCK = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("nautilus_shell_block", s -> new BlockItem(ModBlocks.NAUTILUS_SHELL_BLOCK, s)) : null;
-    public static final Item SCARLET_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("scarlet_froglight", s -> new BlockItem(ModBlocks.SCARLET_FROGLIGHT, s)) : null;
-    public static final Item AQUA_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("aqua_froglight", s -> new BlockItem(ModBlocks.AQUA_FROGLIGHT, s)) : null;
-    public static final Item AZURE_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("azure_froglight", s -> new BlockItem(ModBlocks.AZURE_FROGLIGHT, s)) : null;
     // Light Panes (N57): the block items of ModBlocks.lightPanes(), same order (normal, transparent, 16 colors, redstone).
     public static final List<Item> LIGHT_PANES = com.simplebuilding.version.McVersion.LIGHT_PANES ? lightPaneItems() : List.of();
 

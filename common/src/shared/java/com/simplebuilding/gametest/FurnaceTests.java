@@ -602,7 +602,7 @@ public final class FurnaceTests {
         // results above would mean nothing.
         helper.assertTrue(Blocks.FURNACE.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE),
                 "a vanilla furnace is not in mineable/pickaxe, so the tag lookup is broken");
-        helper.assertFalse(ModBlocks.LEVITATING_SAND.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE),
+        helper.assertFalse(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND).defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE),
                 "levitating sand is pickaxe mineable, so the tag lookup says yes to everything");
         // The same for the three needs_*_tool tags: a tag that failed to load would answer "no" for
         // every block, and the rule checked above would then never be reached.

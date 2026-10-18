@@ -125,6 +125,10 @@ public final class McVersion {
     public static final boolean OVENS_IN_SB = true;
     /** Namespace of the furnaces, their carts and recipes ({@link #OVENS_IN_SB}). */
     public static final String OVENS_NAMESPACE = "simplebuilding";
+    /** Building blocks without a home of their own in SimpleBuilding (b-blocksmove, docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md): on 26.3 the suspended/levitating sand and gravel (+ the rising block entity), the nature slabs, cracked/chiseled ice, the nautilus shell block and the extra froglights live in the required, bundled sub-mod Simple Blocks ({@code simpleblocks:*}, migrated through SimpleLib id moves); SB registers none of them and reaches them by id ({@code util/BlockRefs}). The 26.2 line keeps its gravity blocks until its port run. */
+    public static final boolean BLOCKS_IN_SB = true;
+    /** Namespace of those building blocks ({@link #BLOCKS_IN_SB}). */
+    public static final String BLOCKS_NAMESPACE = "simplebuilding";
     /** Namespace of the crucibles ({@code CrucibleCompat}): 26.2 has no crucibles; 26.3: Simple Crucibles (split stage 5). */
     public static final String CRUCIBLES_NAMESPACE = "simplebuilding";
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */

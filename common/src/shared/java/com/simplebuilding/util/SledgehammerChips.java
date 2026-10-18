@@ -45,7 +45,7 @@ public final class SledgehammerChips {
         java.util.List<Crush> out = new ArrayList<>();
         if (McVersion.SMALL_PLACEABLES) {
             // N53: the hammer cracks ice first (Ice -> Cracked Ice), the chips come from the cracked ice.
-            out.add(new Crush(McVersion.NATURE_VARIANTS ? ModItems.CRACKED_ICE : Items.ICE, ModItems.ICE_CHIP, ICE_CHIPS));
+            out.add(new Crush(McVersion.NATURE_VARIANTS ? BlockRefs.item(BlockRefs.CRACKED_ICE) : Items.ICE, ModItems.ICE_CHIP, ICE_CHIPS));
             out.add(new Crush(Items.PACKED_ICE, ModItems.ICE_CHIP, PACKED_ICE_CHIPS));
             out.add(new Crush(Items.OBSIDIAN, ModItems.OBSIDIAN_CHIP, OBSIDIAN_CHIPS));
             out.add(new Crush(Items.CRYING_OBSIDIAN, ModItems.CRYING_OBSIDIAN_CHIP, CRYING_OBSIDIAN_CHIPS));
@@ -81,7 +81,7 @@ public final class SledgehammerChips {
         if (McVersion.NATURE_VARIANTS && state.is(Blocks.ICE)) {
             return crackIce(context);
         }
-        if (state.is(Blocks.ICE) || (McVersion.NATURE_VARIANTS && state.is(com.simplebuilding.blocks.ModBlocks.CRACKED_ICE))) {
+        if (state.is(Blocks.ICE) || (McVersion.NATURE_VARIANTS && state.is(BlockRefs.block(BlockRefs.CRACKED_ICE)))) {
             result = new ItemStack(ModItems.ICE_CHIP, ICE_CHIPS);
         } else if (state.is(Blocks.PACKED_ICE)) {
             result = new ItemStack(ModItems.ICE_CHIP, PACKED_ICE_CHIPS);
@@ -156,7 +156,7 @@ public final class SledgehammerChips {
         if (level.isClientSide() || player.getCooldowns().isOnCooldown(context.getItemInHand())) {
             return InteractionResult.SUCCESS;
         }
-        level.setBlock(pos, com.simplebuilding.blocks.ModBlocks.CRACKED_ICE.defaultBlockState(), Block.UPDATE_ALL);
+        level.setBlock(pos, BlockRefs.block(BlockRefs.CRACKED_ICE).defaultBlockState(), Block.UPDATE_ALL);
         McVersion.swing(player, context.getHand(), true);
         level.playSound(null, pos, SoundEvents.GLASS_HIT, SoundSource.BLOCKS, 1.0F, 0.7F);
         context.getItemInHand().hurtAndBreak(DAMAGE, player, context.getHand());

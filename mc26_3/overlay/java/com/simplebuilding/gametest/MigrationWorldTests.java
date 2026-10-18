@@ -124,6 +124,9 @@ public final class MigrationWorldTests {
         // Stage 6: the first material and wood octet by their SimpleBuilding id (Simple Octets' blocks after the move).
         blocks.add(oven("andesite_octet"));
         blocks.add(oven("oak_octet"));
+        // b-blocksmove: a gravity block and a nature variant by their SimpleBuilding id (Simple Blocks' blocks after the move).
+        blocks.add(oven("levitating_sand"));
+        blocks.add(oven("chiseled_blue_ice"));
         if (CrucibleCompat.enderiteCrucible() != null) blocks.add(CrucibleCompat.enderiteCrucible());
         // Stage 3d: the shared material blocks (SimpleBuilding's before the move, SimpleLib's after).
         blocks.add(ModBlocks.CRACKED_DIAMOND_BLOCK);

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simpleblocks:block/nautilus_shell_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simpleblocks:block/nautilus_shell_block"
+    },
+    "axis=z": {
+      "model": "simpleblocks:block/nautilus_shell_block",
+      "x": 90
+    }
+  }
+}

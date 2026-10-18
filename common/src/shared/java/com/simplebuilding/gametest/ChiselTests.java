@@ -1743,9 +1743,7 @@ public final class ChiselTests {
             if (family.wood().external()) continue; // end woods come from the simpleend datapack file, not the built-in table
             stoneOwn.add(blockName(family.wood().strippedBlock()) + ">" + blockName(family.hollowStripped()));
         }
-        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            stoneOwn.add(blockName(net.minecraft.world.level.block.Blocks.ICE) + ">" + blockName(com.simplebuilding.blocks.ModBlocks.CRACKED_ICE));
-        }
+        // Ice -> cracked ice (Simple Blocks since b-blocksmove) comes from the datapack file cracked_ice_stone_chisel.json, not the built-in table.
         assertOwnContribution(helper, "stone", ChiselItem.FINAL_STONE_FWD, null, stoneOwn.toArray(new String[0]));
         assertOwnContribution(helper, "iron", ChiselItem.FINAL_IRON_FWD,
                 ChiselItem.FINAL_STONE_FWD, IRON_OWN);

@@ -216,8 +216,14 @@ public final class ImmersionTests {
         expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
                 "Filter in its menu: exact or type match");
         expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
-        expectLines(helper, ModBlocks.LEVITATING_SAND, "Falls upward instead of down");
-        expectLines(helper, ModBlocks.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls");
+        // b-blocksmove: on 26.3 the gravity blocks are Simple Blocks' and their item writes the line itself (like the ovens).
+        for (String[] gravity : new String[][]{{com.simplebuilding.util.BlockRefs.LEVITATING_SAND, "Falls upward instead of down"},
+                {com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls"}}) {
+            ItemStack stack = new ItemStack(com.simplebuilding.util.BlockRefs.item(gravity[0]));
+            List<String> lines = (com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? InfoTooltips.lines(stack) : itemLines(helper, stack))
+                    .stream().map(Component::getString).toList();
+            helper.assertTrue(lines.contains(gravity[1]), gravity[0] + " tooltip lacks \"" + gravity[1] + "\": " + lines);
+        }
         for (var legacy : List.of(TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD)) {
             helper.assertTrue(InfoTooltips.lines(new ItemStack(legacy)).isEmpty(),
                     "the legacy pad has info lines: " + text(new ItemStack(legacy)));
@@ -406,6 +412,11 @@ public final class ImmersionTests {
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) {
             return InfoTooltips.lines(stack);
         }
+        return itemLines(helper, stack);
+    }
+
+    /** The lines the item itself writes ({@code appendHoverText}; items of a sub-mod). */
+    private static List<Component> itemLines(GameTestHelper helper, ItemStack stack) {
         List<Component> out = new ArrayList<>();
         stack.getItem().appendHoverText(stack, net.minecraft.world.item.Item.TooltipContext.of(helper.getLevel()),
                 net.minecraft.world.item.component.TooltipDisplay.DEFAULT, out::add, net.minecraft.world.item.TooltipFlag.NORMAL);

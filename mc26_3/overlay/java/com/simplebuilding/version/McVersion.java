@@ -121,6 +121,10 @@ public final class McVersion {
     public static final boolean OVENS_IN_SB = false;
     /** Namespace of the furnaces, their carts and recipes ({@link #OVENS_IN_SB}). */
     public static final String OVENS_NAMESPACE = "simpleovens";
+    /** Building blocks without a home of their own in SimpleBuilding (b-blocksmove, docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md): on 26.3 the suspended/levitating sand and gravel (+ the rising block entity), the nature slabs, cracked/chiseled ice, the nautilus shell block and the extra froglights live in the required, bundled sub-mod Simple Blocks ({@code simpleblocks:*}, migrated through SimpleLib id moves); SB registers none of them and reaches them by id ({@code util/BlockRefs}). The 26.2 line keeps its gravity blocks until its port run. */
+    public static final boolean BLOCKS_IN_SB = false;
+    /** Namespace of those building blocks ({@link #BLOCKS_IN_SB}). */
+    public static final String BLOCKS_NAMESPACE = "simpleblocks";
     /** Namespace of the crucibles, barrels and the reinforced cauldron: split stage 5: the required, bundled sub-mod Simple Crucibles ({@code simplecrucibles:*}, migrated through SimpleLib id moves); soul lava and the buckets stay SimpleBuilding's. */
     public static final String CRUCIBLES_NAMESPACE = "simplecrucibles";
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */

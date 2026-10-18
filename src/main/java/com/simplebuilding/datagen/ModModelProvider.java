@@ -129,12 +129,12 @@ public class ModModelProvider extends FabricModelProvider {
 
         // Schwebender/aufsteigender Sand und Kies sehen aus wie Vanilla-Sand und -Kies: die Modelle zeigen direkt
         // auf minecraft:block/sand bzw. gravel (vorher byte-gleiche Kopien im Mod, Textur-Audit 2026-10-02).
-        vanillaCube(blockStateModelGenerator, ModBlocks.SUSPENDED_SAND, net.minecraft.world.level.block.Blocks.SAND);
-        vanillaCube(blockStateModelGenerator, ModBlocks.SUSPENDED_GRAVEL, net.minecraft.world.level.block.Blocks.GRAVEL);
-        vanillaCube(blockStateModelGenerator, ModBlocks.LEVITATING_SAND, net.minecraft.world.level.block.Blocks.SAND);
-        vanillaCube(blockStateModelGenerator, ModBlocks.LEVITATING_GRAVEL, net.minecraft.world.level.block.Blocks.GRAVEL);
-        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            registerNatureVariants(blockStateModelGenerator);
+        // 26.3 (b-blocksmove): these and the nature variants (N24/N25) are Simple Blocks' blocks with its own models.
+        if (com.simplebuilding.version.McVersion.BLOCKS_IN_SB) {
+            vanillaCube(blockStateModelGenerator, ModBlocks.SUSPENDED_SAND, net.minecraft.world.level.block.Blocks.SAND);
+            vanillaCube(blockStateModelGenerator, ModBlocks.SUSPENDED_GRAVEL, net.minecraft.world.level.block.Blocks.GRAVEL);
+            vanillaCube(blockStateModelGenerator, ModBlocks.LEVITATING_SAND, net.minecraft.world.level.block.Blocks.SAND);
+            vanillaCube(blockStateModelGenerator, ModBlocks.LEVITATING_GRAVEL, net.minecraft.world.level.block.Blocks.GRAVEL);
         }
 
 
@@ -1036,61 +1036,6 @@ public class ModModelProvider extends FabricModelProvider {
 
         // WICHTIG: Die ID muss in einen WeightedVariant umgewandelt werden!
         generator.createAxisAlignedPillarBlockCustomModel(block, BlockModelGenerators.plainVariant(modelId));
-    }
-
-    /**
-     * Naturvarianten (N24/N25): Erd-/Sand-/Kies-Stufe zeigen auf die Vanilla-Textur (Doppelstufe = Vanilla-Blockmodell),
-     * die Gras-Stufe auf handgeschriebene Modelle (Grasrand oben an der Seite, biomgefaerbt; Ressource
-     * models/block/grass_slab*.json), rissiges Eis je Rissstufe auf Vanillas frosted_ice_0..3, gemeisseltes Eis als
-     * Wuerfel, Nautilusschalen-Block und Froschlichter als Saeule (_side/_top) mit eigener Textur.
-     */
-    private void registerNatureVariants(BlockModelGenerators generator) {
-        vanillaSlab(generator, ModBlocks.DIRT_SLAB, net.minecraft.world.level.block.Blocks.DIRT);
-        vanillaSlab(generator, ModBlocks.SAND_SLAB, net.minecraft.world.level.block.Blocks.SAND);
-        vanillaSlab(generator, ModBlocks.GRAVEL_SLAB, net.minecraft.world.level.block.Blocks.GRAVEL);
-
-        Identifier grassBottom = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/grass_slab");
-        Identifier grassTop = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/grass_slab_top");
-        generator.blockStateOutput.accept(BlockModelGenerators.createSlab(ModBlocks.GRASS_SLAB, BlockModelGenerators.plainVariant(grassBottom),
-                BlockModelGenerators.plainVariant(grassTop),
-                BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(net.minecraft.world.level.block.Blocks.GRASS_BLOCK))));
-        generator.itemModelOutput.accept(ModItems.GRASS_SLAB,
-                ItemModelUtils.tintedModel(grassBottom, new net.minecraft.client.color.item.GrassColorSource()));
-
-        generator.createTrivialCube(ModBlocks.CHISELED_PACKED_ICE);
-        generator.createTrivialCube(ModBlocks.CHISELED_BLUE_ICE);
-
-        PropertyDispatch.C1<net.minecraft.client.data.models.MultiVariant, Integer> cracks =
-                PropertyDispatch.initial(com.simplebuilding.blocks.custom.CrackedIceBlock.AGE);
-        Identifier firstCrack = null;
-        for (int age = 0; age <= com.simplebuilding.blocks.custom.CrackedIceBlock.MAX_AGE; age++) {
-            TextureMapping frosted = new TextureMapping().put(TextureSlot.ALL,
-                    new Material(Identifier.withDefaultNamespace("block/frosted_ice_" + age)));
-            Identifier model = ModelTemplates.CUBE_ALL.createWithSuffix(ModBlocks.CRACKED_ICE, "_" + age, frosted, generator.modelOutput);
-            cracks.select(age, BlockModelGenerators.plainVariant(model));
-            if (firstCrack == null) {
-                firstCrack = model;
-            }
-        }
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(ModBlocks.CRACKED_ICE).with(cracks));
-        generator.registerSimpleItemModel(ModBlocks.CRACKED_ICE, firstCrack);
-
-        generator.createAxisAlignedPillarBlock(ModBlocks.NAUTILUS_SHELL_BLOCK, TexturedModel.COLUMN);
-        for (Block froglight : List.of(ModBlocks.SCARLET_FROGLIGHT, ModBlocks.AQUA_FROGLIGHT, ModBlocks.AZURE_FROGLIGHT)) {
-            generator.createAxisAlignedPillarBlock(froglight, TexturedModel.COLUMN);
-        }
-    }
-
-    /** Stufe mit der Textur eines Vanilla-Blocks; die Doppelstufe ist dessen Vanilla-Modell. */
-    private static void vanillaSlab(BlockModelGenerators generator, Block slab, Block texture) {
-        Material material = TextureMapping.getBlockTexture(texture);
-        TextureMapping mapping = new TextureMapping().put(TextureSlot.BOTTOM, material).put(TextureSlot.TOP, material)
-                .put(TextureSlot.SIDE, material);
-        Identifier bottom = ModelTemplates.SLAB_BOTTOM.create(slab, mapping, generator.modelOutput);
-        Identifier top = ModelTemplates.SLAB_TOP.create(slab, mapping, generator.modelOutput);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSlab(slab, BlockModelGenerators.plainVariant(bottom),
-                BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(texture))));
-        generator.registerSimpleItemModel(slab, bottom);
     }
 
     /** Wuerfel mit der Textur eines Vanilla-Blocks (cube_all auf minecraft:block/<vanilla>). */

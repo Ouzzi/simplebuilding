@@ -152,7 +152,7 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0", "simplecrucibles": ">=1.0.0", "simpleoctets": ">=1.0.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0", "simplecrucibles": ">=1.0.0", "simpleoctets": ">=1.0.0", "simpleblocks": ">=1.0.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -248,6 +248,12 @@ dependencies {
     include project(':modules:simpleoctets:fabric')
     implementation project(':modules:simpleoctets:fabric')
 }
+// Simple Blocks: required Sub-Mod (b-blocksmove) - SimpleBuilding's building blocks without a home of their own moved there
+// (simpleblocks:*, ids migrate). Nested for production and loaded in dev/test runs; SB code never imports it (util/BlockRefs: by id).
+dependencies {
+    include project(':modules:simpleblocks:fabric')
+    implementation project(':modules:simpleblocks:fabric')
+}
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {
     include project(':modules:simplemaps:fabric')
@@ -284,7 +290,6 @@ dependencies {
     include project(':modules:simplebeacons:fabric')
     include project(':modules:simpleshops:fabric')
     include project(':modules:simplewanderers:fabric')
-    include project(':modules:simpleblocks:fabric')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

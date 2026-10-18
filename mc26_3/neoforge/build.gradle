@@ -191,7 +191,7 @@ tasks.named('processResources', ProcessResources).configure {
         expand replaceProperties
         filter { String line -> line.replace('SimpleBuilding for NeoForge 26.2', 'SimpleBuilding for NeoForge 26.3') }
         // Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), nested below.
-        filter { String line -> line.startsWith('# Bundled optional Sub-Mods') ? '# Required Sub-Mods (26.3, split stage 4), nested.\n[[dependencies.simplebuilding]]\nmodId="simpleovens"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplemobheads"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplecrucibles"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simpleoctets"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n\n' + line : line }
+        filter { String line -> line.startsWith('# Bundled optional Sub-Mods') ? '# Required Sub-Mods (26.3, split stage 4), nested.\n[[dependencies.simplebuilding]]\nmodId="simpleovens"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplemobheads"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplecrucibles"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simpleoctets"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simpleblocks"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n\n' + line : line }
     }
 }
 
@@ -237,6 +237,12 @@ evaluationDependsOn(':modules:simpleoctets:neoforge')
 dependencies { implementation project(':modules:simpleoctets:neoforge') }
 neoForge.mods { simpleoctets { sourceSet project(':modules:simpleoctets:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simpleoctets) }
+// Simple Blocks: required Sub-Mod (b-blocksmove) - the building blocks without a home moved there (simpleblocks:*, ids migrate).
+dependencies { jarJar project(':modules:simpleblocks:neoforge') }
+evaluationDependsOn(':modules:simpleblocks:neoforge')
+dependencies { implementation project(':modules:simpleblocks:neoforge') }
+neoForge.mods { simpleblocks { sourceSet project(':modules:simpleblocks:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simpleblocks) }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies { jarJar project(':modules:simplemaps:neoforge') }
 evaluationDependsOn(':modules:simplemaps:neoforge')
@@ -278,7 +284,6 @@ dependencies {
     jarJar project(':modules:simplebeacons:neoforge')
     jarJar project(':modules:simpleshops:neoforge')
     jarJar project(':modules:simplewanderers:neoforge')
-    jarJar project(':modules:simpleblocks:neoforge')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

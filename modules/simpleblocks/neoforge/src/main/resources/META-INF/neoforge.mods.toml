@@ -14,6 +14,13 @@ type="required"
 versionRange="[26.3,26.4)"
 
 [[dependencies.simpleblocks]]
+modId="simplelib"
+type="required"
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simpleblocks]]
 modId="simplebuilding"
 type="optional"
 versionRange="[0,)"

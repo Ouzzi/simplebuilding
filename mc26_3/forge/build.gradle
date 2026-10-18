@@ -117,7 +117,7 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching('META-INF/mods.toml') {
         expand replaceProperties
         // Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), nested below.
-        filter { String line -> line.startsWith('# Bundled optional Sub-Mods') ? '# Required Sub-Mods (26.3, split stage 4), nested.\n[[dependencies.simplebuilding]]\nmodId="simpleovens"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplemobheads"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplecrucibles"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simpleoctets"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n\n' + line : line }
+        filter { String line -> line.startsWith('# Bundled optional Sub-Mods') ? '# Required Sub-Mods (26.3, split stage 4), nested.\n[[dependencies.simplebuilding]]\nmodId="simpleovens"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplemobheads"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simplecrucibles"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simpleoctets"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n[[dependencies.simplebuilding]]\nmodId="simpleblocks"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n\n' + line : line }
     }
     // Forges Mixin 0.8.7 kennt hoechstens JAVA_21; die gemeinsamen Konfigs (Fabric/NeoForge) sagen JAVA_25.
     filesMatching('*.mixins.json') {
@@ -168,9 +168,9 @@ tasks.named('check') { dependsOn 'checkForgeOverlay' }
 ext.forgeBundleSimplelib = true
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept).
 // Simple Ovens: required Sub-Mod (split stage 4), nested like the optional ones.
-ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge', ':modules:simpleovens:forge', ':modules:simplemobheads:forge', ':modules:simplecrucibles:forge', ':modules:simpleoctets:forge'] +
+ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge', ':modules:simpleovens:forge', ':modules:simplemobheads:forge', ':modules:simplecrucibles:forge', ':modules:simpleoctets:forge', ':modules:simpleblocks:forge'] +
         // Optional Sub-Mods (PLAN-MODULAUFTEILUNG stage 1a), switches via framework SubMods.
-        ['simpleriding', 'simplesandwiches', 'simpletweaks', 'simplemoney', 'simplefun', 'simpledimensions', 'simpletrims', 'simplemobs', 'simpleend', 'simplerespawn', 'simplebeacons', 'simpleshops', 'simplewanderers', 'simpleblocks'].collect { ":modules:${it}:forge" }
+        ['simpleriding', 'simplesandwiches', 'simpletweaks', 'simplemoney', 'simplefun', 'simpledimensions', 'simpletrims', 'simplemobs', 'simpleend', 'simplerespawn', 'simplebeacons', 'simpleshops', 'simplewanderers'].collect { ":modules:${it}:forge" }
 apply from: rootProject.file('gradle/forge-framework.gradle')
 sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
 sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')

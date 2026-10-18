@@ -334,25 +334,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_chess_recipes_cut_from_checkers_and_octets", ChessTests::chessRecipesCutFromCheckersAndOctets)
                     .build(),
-            GameTestSpec.named("nature_block_game_test_nature_variants_have_their_recipes", NatureBlockTests::natureVariantsHaveTheirRecipes)
-                    .build(),
-            GameTestSpec.named("nature_block_game_test_grass_slab_drops_dirt_slab_without_silk_touch", NatureBlockTests::grassSlabDropsDirtSlabWithoutSilkTouch)
-                    .build(),
-            GameTestSpec.named("nature_block_game_test_sand_and_gravel_slabs_fall_and_merge", NatureBlockTests::sandAndGravelSlabsFallAndMerge)
-                    .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
-            GameTestSpec.named("nature_block_game_test_gravity_slabs_settle_on_slabs_and_half_steps", NatureBlockTests::gravitySlabsSettleOnSlabsAndHalfSteps)
-                    .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
-            GameTestSpec.named("nature_block_game_test_upper_gravity_slab_starts_falling_from_its_own_height", NatureBlockTests::upperGravitySlabStartsFallingFromItsOwnHeight)
-                    .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
-            GameTestSpec.named("nature_block_game_test_natural_slabs_place_into_the_full_block", NatureBlockTests::naturalSlabsPlaceIntoTheFullBlock)
-                    .build(),
-            GameTestSpec.named("nature_block_game_test_cracked_ice_leaves_no_water_and_chisel_makes_it", NatureBlockTests::crackedIceLeavesNoWaterAndChiselMakesIt)
-                    .build(),
-            GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
-                    .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
-            GameTestSpec.named("nature_block_game_test_cracked_ice_blocks_placement_on_all_sides_and_blends_with_ice", NatureBlockTests::crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce)
-                    .build(),
-            GameTestSpec.named("nature_block_game_test_cracked_ice_drops_itself_with_silk_touch", NatureBlockTests::crackedIceDropsItselfWithSilkTouch)
+            // The nature variants' own tests moved to Simple Blocks with the blocks (b-blocksmove).
+            GameTestSpec.named("nature_block_game_test_chisel_makes_cracked_ice", NatureBlockTests::chiselMakesCrackedIce)
                     .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_fields_generate_in_ice_spikes_and_frozen_oceans", NatureBlockTests::crackedIceFieldsGenerateInIceSpikesAndFrozenOceans)
                     .build(),

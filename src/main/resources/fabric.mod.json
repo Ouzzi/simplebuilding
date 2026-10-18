@@ -189,7 +189,6 @@
     "simplerespawn": "*",
     "simplebeacons": "*",
     "simpleshops": "*",
-    "simplewanderers": "*",
-    "simpleblocks": "*"
+    "simplewanderers": "*"
   }
 }

@@ -1938,28 +1938,6 @@
       "A Note Amplifier touching the note block, or one already in the chain, passes the sound on. A gap ends a note chain."
     ]
   },
-  "cracked_ice": {
-    "lore": [
-      "Ice that has seen too many footsteps."
-    ],
-    "use": [
-      "Cut one ice into one in the stonecutter. A living creature standing on it cracks it one stage per second; after four stages it turns into water (it evaporates in the Nether). Drops only with Silk Touch."
-    ],
-    "secret": [
-      "With nobody on it the cracks stay as they are. So you can lay a trap, or repair the road by leaving."
-    ]
-  },
-  "nautilus_shell_block": {
-    "lore": [
-      "The sea's spiral, stacked into a block."
-    ],
-    "use": [
-      "Four nautilus shells in a square make one; it crafts back into four shells. It is placed along an axis, like the bone block."
-    ],
-    "secret": [
-      "A block of shells is the only way to store the Nautilus's gift compactly."
-    ]
-  },
   "stone_pebble": {
     "lore": [
       "{name}: A small stone, easily lost in the hand."
@@ -2935,48 +2913,6 @@
     ],
     "secret": [
       "Slide a boat across a floor of it: the carved block keeps the same friction as the plain one."
-    ]
-  },
-  "family:froglight_color": {
-    "items": [
-      "regex:(scarlet|aqua|azure)_froglight"
-    ],
-    "lore": [
-      "{name}: a lamp the frogs did not make."
-    ],
-    "use": [
-      "Any froglight plus red, cyan or blue dye. It glows at light level 15 like the vanilla froglights."
-    ],
-    "secret": [
-      "The three vanilla colors still come only from frogs; scarlet, aqua and azure only from the dye vat."
-    ]
-  },
-  "family:gravity_sand": {
-    "items": [
-      "regex:levitating_(sand|gravel)"
-    ],
-    "lore": [
-      "{name}: sand that has decided up is the right way to fall."
-    ],
-    "use": [
-      "Sand or gravel with reversed gravity: it climbs one block at a time until something stops it."
-    ],
-    "secret": [
-      "Suspended Sand and Suspended Gravel are its gravity-free twins and stay where they are put."
-    ]
-  },
-  "family:suspended": {
-    "items": [
-      "regex:suspended_(sand|gravel)"
-    ],
-    "lore": [
-      "{name}: sand that forgot to fall."
-    ],
-    "use": [
-      "Sand or gravel without gravity: it stays exactly where you put it. It is solid, and you can stand on it."
-    ],
-    "secret": [
-      "Handy for floating bridges and sculpted ceilings that never collapse."
     ]
   },
   "family:dimensional_scrap": {

@@ -207,7 +207,7 @@ public final class GuideContent {
                 ch("simplebuilding:reinforced_piston", List.of("simplebuilding:reinforced_piston"), List.of("simplebuilding:reinforced_sticky_piston", "minecraft:redstone_block", "minecraft:bedrock")),
                 ch("simplebuilding:netherite_piston", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:enderite_piston", "minecraft:redstone_torch")),
                 ch("simplebuilding:netherite_nugget", List.of(), List.of("simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")),
-                ch("simplebuilding:suspended_sand", List.of("simplebuilding:suspended_sand", "simplebuilding:levitating_sand"), List.of("simplebuilding:suspended_gravel", "simplebuilding:levitating_gravel")))));
+                ch(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":suspended_sand", List.of(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":suspended_sand", com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":levitating_sand"), List.of(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":suspended_gravel", com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":levitating_gravel")))));
         STYLES.put(GuideBooks.Book.END, new BookStyle(0xB88BE0, List.of(
                 ch("simplebuilding:astralit_ore", List.of(), List.of("simplebuilding:astralit_ore", "simplebuilding:nihilith_ore", "simplebuilding:astralit_dust", "simplebuilding:nihilith_shard", "minecraft:diamond_pickaxe")),
                 ch("simplebuilding:raw_enderite", List.of(), List.of("simplebuilding:raw_enderite", "simplebuilding:enderite_nugget", "simplebuilding:enderite_scrap", "simplebuilding:enderite_upgrade_template")),
@@ -330,7 +330,7 @@ public final class GuideContent {
             addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:stripped_oak_cauldron", List.of("simplebuilding:stripped_oak_cauldron"), List.of()));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:cracked_ice", List.of("simplebuilding:cracked_ice"), List.of("minecraft:ice")));
+            addChapter(GuideBooks.Book.BUILDING, ch(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":cracked_ice", List.of(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":cracked_ice"), List.of("minecraft:ice")));
         }
         if (com.simplebuilding.version.McVersion.FIRES) {
             addChapter(GuideBooks.Book.BUILDING, ch("minecraft:flint_and_steel", List.of("minecraft:gunpowder"), List.of("minecraft:sulfur")));
