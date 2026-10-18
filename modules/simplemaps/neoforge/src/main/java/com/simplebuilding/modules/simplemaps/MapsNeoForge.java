@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemaps;
 
 import com.simplemaps.MapsComponents;
+import com.simplemaps.MapsConfig;
 import com.simplemaps.MapsItems;
 import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
@@ -48,7 +49,7 @@ public final class MapsNeoForge {
             if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MapsItems.registerTab();
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) MapsItems.tabStacks().forEach(event::accept);
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && MapsConfig.vanillaTabs()) MapsItems.tabStacks().forEach(event::accept);
         });
         bus.addListener((RegisterPayloadHandlersEvent event) -> {
             var registrar = event.registrar("1").optional();

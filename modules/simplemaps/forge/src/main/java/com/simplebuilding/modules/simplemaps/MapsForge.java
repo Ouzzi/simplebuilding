@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemaps;
 
 import com.simplemaps.MapsComponents;
+import com.simplemaps.MapsConfig;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.DisplayPayload;
@@ -49,7 +50,7 @@ public final class MapsForge {
             if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MapsItems.registerTab();
         });
         BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
-            if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;
+            if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) || !MapsConfig.vanillaTabs()) return;
             // After the vanilla map like on Fabric: appending to the tail clashes with other mods' putAfter at the tail.
             var entries = event.getEntries();
             var previous = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.MAP);

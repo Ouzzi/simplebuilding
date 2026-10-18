@@ -93,7 +93,15 @@ public final class MobsConfig {
         }
     }
 
+    private static Path configDir;
+
+    /** Whether the items also go into the Vanilla creative tabs (shared per-mod switch, default on). */
+    public static boolean vanillaTabs() {
+        return com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(configDir, MobsRegistry.ID);
+    }
+
     public static void load(Path dir) {
+        configDir = dir;
         Path file = dir == null ? null : dir.resolve(FILE);
         JsonObject json = new JsonObject();
         if (file != null && Files.isRegularFile(file)) {

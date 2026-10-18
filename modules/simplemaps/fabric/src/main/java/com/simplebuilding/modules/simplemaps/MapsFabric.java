@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemaps;
 
 import com.simplemaps.MapsComponents;
+import com.simplemaps.MapsConfig;
 import com.simplemaps.MapsItems;
 import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
@@ -39,7 +40,9 @@ public final class MapsFabric implements ModInitializer {
         MapsComponents.register();
         MapsItems.register();
         MapsItems.registerTab();
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.insertAfter(Items.MAP, MapsItems.tabStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            if (MapsConfig.vanillaTabs()) out.insertAfter(Items.MAP, MapsItems.tabStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
         LootTableEvents.MODIFY.register((key, table, source, registries) -> MapsLoot.apply(key, table::withPool, registries));
         PayloadTypeRegistry.serverboundPlay().register(TileRequestPayload.TYPE, TileRequestPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(WaypointEditPayload.TYPE, WaypointEditPayload.CODEC);

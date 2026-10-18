@@ -72,7 +72,7 @@ def lang_audit(files):
             if not (isinstance(en[k], str) and isinstance(de[k], str)): continue
             pe = sorted(re.findall(r'%(?:\d+\$)?[sdf]', en[k])); pd = sorted(re.findall(r'%(?:\d+\$)?[sdf]', de[k]))
             if len(pe) != len(pd): out.append(('LANG-FORMAT-MISMATCH', ns, k, f'{en[k]!r} | {de[k]!r}'))
-            if en[k] == de[k] and len(en[k]) > 25 and re.search(r'[a-z]{4}', en[k]): out.append(('LANG-DE-UNTRANSLATED', ns, k, en[k]))
+            if en[k] == de[k] and len(en[k]) > 25 and re.search(r'[a-z]{4}', en[k]) and not k.startswith('jukebox_song.'): out.append(('LANG-DE-UNTRANSLATED', ns, k, en[k]))
             if re.search(r'\b(colour|armour|grey|favourite|neighbour|behaviour|traveller|catalogue)\w*', en[k], re.I): out.append(('LANG-BRITISH-EN', ns, k, en[k][:80]))
     return out
 
@@ -255,6 +255,11 @@ def ns_lang(files):
         if m: L[m.group(1)][m.group(2)] = jl(full)
     return L
 
+# Item definitions that only select a render model (ITEM_MODEL component, renderers, stored-enchantment books): no registered
+# item, so no name is needed. Same idea as TECHNICAL_BLOCKS in wiki/generate.py.
+MODEL_ONLY_PREFIXES = ('placed_', 'standing_', 'held_')
+MODEL_ONLY_ITEMS = {('simpleriding', 'enchanted_book_leaping'), ('simpleriding', 'enchanted_book_tailwind'), ('simplesandwiches', 'board.bread_half')}
+
 def names_audit(files):
     out = []
     L = ns_lang(files)
@@ -265,6 +270,8 @@ def names_audit(files):
         items = {rel for rel in files if re.match(rf'assets/{ns}/items/.+\.json$', rel)}
         for rel in sorted(items):
             n = re.match(rf'assets/{ns}/items/(.+)\.json$', rel).group(1).replace('/', '.')
+            if n.startswith(MODEL_ONLY_PREFIXES) or (ns, n) in MODEL_ONLY_ITEMS:
+                continue
             if f'item.{ns}.{n}' not in keys and f'block.{ns}.{n}' not in keys:
                 out.append(('LANG-ITEM-NAME-MISSING', ns, n, 'no item.%s.%s / block.%s.%s in en/de' % (ns, n, ns, n)))
             else:

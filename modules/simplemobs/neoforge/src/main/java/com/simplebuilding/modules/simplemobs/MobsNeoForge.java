@@ -47,6 +47,7 @@ event.register(Registries.ENTITY_TYPE, h -> {
             event.put(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes().build());
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
+            if (!MobsConfig.vanillaTabs()) return;
             if (!MobsRegistry.on()) return;
             if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
                 event.accept(MobsRegistry.EGG);
@@ -74,6 +75,7 @@ event.register(Registries.ENTITY_TYPE, h -> {
             event.put(EndNetherMobs.SOULFIRE_BLAZE, net.minecraft.world.entity.monster.Blaze.createAttributes().build());
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
+            if (!MobsConfig.vanillaTabs()) return;
             if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
                 insertAfter(event, new ItemStack(Items.SHULKER_SPAWN_EGG), new ItemStack(EndNetherMobs.SHELLKER_EGG));
                 insertAfter(event, new ItemStack(Items.BLAZE_SPAWN_EGG), new ItemStack(EndNetherMobs.SOULFIRE_EGG));
@@ -103,6 +105,7 @@ event.register(Registries.ENTITY_TYPE, h -> {
             event.put(FearMobs.WATCHER, HollowWatcherEntity.createAttributes().build());
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
+            if (!MobsConfig.vanillaTabs()) return;
             if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
                 insertAfter(event, new ItemStack(Items.WITHER_SKELETON_SPAWN_EGG), new ItemStack(FearMobs.DREAD_EGG));
                 insertAfter(event, new ItemStack(Items.ENDERMAN_SPAWN_EGG), new ItemStack(FearMobs.WATCHER_EGG));
@@ -123,13 +126,11 @@ event.register(Registries.ENTITY_TYPE, h -> {
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART));
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) insertAfter(event, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH));
+            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); }
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) { if (MobsConfig.vanillaTabs()) insertAfter(event, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH)); }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) event.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());
-        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-        });
         // client FOV for the Hollow Watcher's gaze zones
         bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) -> event.registrar("1").optional().playToServer(FearNet.FovPayload.TYPE, FearNet.FovPayload.CODEC,
                 (payload, context) -> context.enqueueWork(() -> FearNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player()))));

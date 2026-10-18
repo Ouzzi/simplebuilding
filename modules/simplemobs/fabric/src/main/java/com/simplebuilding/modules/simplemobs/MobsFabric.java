@@ -36,41 +36,54 @@ public final class MobsFabric implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FabricLoader.getInstance().getConfigDir());
         FabricDefaultAttributeRegistry.register(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes());
         FabricDefaultAttributeRegistry.register(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE));
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out ->
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out ->
+        });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.BRUSH, java.util.List.of(new ItemStack(WitherMobs.BRUSH)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack()));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.WITHER_SKELETON_SPAWN_EGG, java.util.List.of(new ItemStack(FearMobs.DREAD_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.ENDERMAN_SPAWN_EGG, java.util.List.of(new ItemStack(FearMobs.WATCHER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out ->
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.ENDER_EYE, java.util.List.of(new ItemStack(FearMobs.LINK), new ItemStack(FearMobs.EYE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(FearMobs.AMULET));
+        });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> { if (!MobsConfig.vanillaTabs()) return; out.accept(FearMobs.AMULET); });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.SHULKER_SPAWN_EGG, java.util.List.of(new ItemStack(EndNetherMobs.SHELLKER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.BLAZE_SPAWN_EGG, java.util.List.of(new ItemStack(EndNetherMobs.SOULFIRE_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.SHULKER_SHELL, java.util.List.of(new ItemStack(EndNetherMobs.SHELL)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.BLAZE_ROD, java.util.List.of(new ItemStack(EndNetherMobs.ROD)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.BLAZE_POWDER, java.util.List.of(new ItemStack(EndNetherMobs.POWDER)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.TURTLE_HELMET, java.util.List.of(new ItemStack(EndNetherMobs.HELMET)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.FIRE_CHARGE, java.util.List.of(new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             if (!MobsRegistry.on()) return;
             out.accept(MobsRegistry.EGG);
             out.insertAfter(Items.HOGLIN_SPAWN_EGG, java.util.List.of(new ItemStack(MobsRegistry.HOWLER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             out.accept(DisguiseRegistry.CLOAK);
             if (MobsConfig.trickMirrorEnabled) out.accept(DisguiseRegistry.MIRROR);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!MobsConfig.vanillaTabs()) return;
             if (!MobsRegistry.on()) return;
             out.accept(MobsRegistry.CLOTH);
             out.accept(DisguiseRegistry.SHARD);

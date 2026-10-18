@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Riding"
 displayURL="https://azarfane.de/"
 authors="Ouzzi"
-logoFile="assets/simpleriding/icon.png"
+iconFile="assets/simpleriding/icon.png"
 description="Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades."
 [[dependencies.simpleriding]]
 modId="minecraft"

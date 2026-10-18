@@ -26,7 +26,7 @@
     "simpleriding.mixins.json",
     "simpleriding.fabric.mixins.json"
   ],
-  "description": "Custom saddle and horse armor enchantments: Tailwind for mount speed, Leaping for jump height, plus protective enchantments on horse armor.",
+  "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
   "authors": [
     "Ouzzi"
   ],
