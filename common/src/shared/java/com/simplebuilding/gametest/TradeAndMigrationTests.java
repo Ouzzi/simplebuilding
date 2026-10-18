@@ -1312,7 +1312,8 @@ public final class TradeAndMigrationTests {
 
                 ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
                 for (Holder<Enchantment> enchantment : enchantments.keySet()) {
-                    drawn.add(enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment));
+                    drawn.add((enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment)).replaceFirst(
+                            "^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@"));
                 }
             }
 

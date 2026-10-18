@@ -2791,7 +2791,9 @@ public final class DataIntegrityTests {
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
                     && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))
                     // Split stage 5b: Simple Crucibles' buckets keep their row in SimpleBuilding's functional tab (by id).
-                    && !com.simplebuilding.util.BucketRefs.buckets().contains(item)) {
+                    && !com.simplebuilding.util.BucketRefs.buckets().contains(item)
+                    // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
+                    && !com.simplebuilding.util.HammerRefs.all().contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
