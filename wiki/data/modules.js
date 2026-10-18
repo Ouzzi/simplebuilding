@@ -776,6 +776,6 @@ window.WIKI_MODULES = [
       "simplecrucibles",
       "jei"
     ],
-    "dataHash": "58de2c21f052"
+    "dataHash": "f0a1c9263c15"
   }
 ];
