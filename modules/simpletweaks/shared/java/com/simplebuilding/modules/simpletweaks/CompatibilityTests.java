@@ -176,7 +176,7 @@ public final class CompatibilityTests {
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();
   var server=h.getLevel().getServer();var claim=root.getChild("claim");
   // Claims are on by default (2026-10-13): /claim is usable exactly while claims are active on this server.
-  require(h,(claim!=null && claim.canUse(server.createCommandSourceStack()))==com.simplebuilding.modules.simpletweaks.claims.Claims.enabled(server) && root.getChild("simpletweaks")==null,"/claim usable only while claims are active; no duplicate old commands");
+  require(h,(claim!=null && claim.canUse(server.createCommandSourceStack()))==com.simplebuilding.modules.simpletweaks.claims.Claims.enabled(server),"/claim usable only while claims are active");
   if(simpleBuilding())require(h,root.getChild("simplebuilding")!=null && root.getChild("killboats")!=null && root.getChild("killcarts")!=null,"Existing commands present");h.succeed();
  }
  private CompatibilityTests() {}

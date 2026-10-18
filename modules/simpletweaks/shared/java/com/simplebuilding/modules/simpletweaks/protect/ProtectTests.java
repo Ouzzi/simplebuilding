@@ -128,6 +128,8 @@ public final class ProtectTests {
         yes(h, tweaks != null && tweaks.getRequirement().test(h.getLevel().getServer().createCommandSourceStack()) && tweaks.getChild("protect") != null,
                 "/tweaks protect is a branch; the /tweaks root keeps no requirement");
         var protect = tweaks.getChild("protect");
+        var mirror = d.getRoot().getChild("simpletweaks");
+        yes(h, mirror != null && mirror.getChild("protect") == protect, "/simpletweaks protect is the same branch");
         yes(h, protect.getChild("status") != null && protect.getChild("reload") != null && protect.getChild("bench") != null && protect.getChild("checks") != null, "Sub-commands");
         var p = player(h, new BlockPos(1, 2, 1), GameType.SURVIVAL);
         yes(h, !protect.getRequirement().test(p.createCommandSourceStack()), "Players without level 3 may not use it");

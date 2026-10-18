@@ -111,7 +111,7 @@ bestehenden Deed-Kanal (`DeedNet.send`).
   über die Modliste beim Start, Hinweis im Log). Als Queue-Punkt eintragen.
 
 ## Befehle (nur Befehl = an)
-`/tweaks protect status | reload | bench | checks [player]` (Stufe `permission`, Standard 3).
+`/simpletweaks protect status | reload | bench | checks [player]` (= `/tweaks protect …`, gespiegelt per `TweakCommands.alias`; Stufe `permission`, Standard 3).
 
 ## Tests (GameTests, alle drei Loader)
 - `config_defaults_and_bounds`; `obfuscated_chunk_hides_enclosed_ore` (Paket dekodiert: verdecktes Erz = Stein,

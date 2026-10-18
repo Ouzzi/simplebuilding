@@ -14,6 +14,7 @@ public final class AdminGameTest {
  @GameTest(maxTicks=100) public void deathsOfflineRestore(GameTestHelper h) { AdminTests.TESTS.get("deaths_offline_restore").accept(h); }
  @GameTest(maxTicks=100) public void invseeLiveTakeAndRules(GameTestHelper h) { AdminTests.TESTS.get("invsee_live_take_and_rules").accept(h); }
  @GameTest(maxTicks=100) public void invseeOfflineWriteBack(GameTestHelper h) { AdminTests.TESTS.get("invsee_offline_write_back").accept(h); }
+ @GameTest(maxTicks=100) public void simpletweaksRootMirrorsAllCommands(GameTestHelper h) { AdminTests.TESTS.get("simpletweaks_root_mirrors_all_commands").accept(h); }
  @GameTest(maxTicks=100) public void vanishHidesAndIgnores(GameTestHelper h) { AdminTests.TESTS.get("vanish_hides_and_ignores").accept(h); }
  @GameTest(maxTicks=200) public void vanishNoVibrations(GameTestHelper h) { AdminTests.TESTS.get("vanish_no_vibrations").accept(h); }
  @GameTest(maxTicks=100) public void freezeHoldsPlayer(GameTestHelper h) { AdminTests.TESTS.get("freeze_holds_player").accept(h); }

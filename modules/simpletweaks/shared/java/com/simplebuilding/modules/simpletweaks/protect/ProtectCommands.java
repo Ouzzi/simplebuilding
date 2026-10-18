@@ -10,8 +10,8 @@ import net.minecraft.network.chat.Component;
 
 /**
  * {@code /tweaks protect status | reload | bench [radius] | checks [player]} (operator level {@code permission},
- * default 3). Registered as a {@code /tweaks} branch (the root carries no requirement), so the {@code /simpletweaks}
- * root of branch claude-tweaks-cmd picks it up once merged.
+ * default 3), also as {@code /simpletweaks protect …}: a {@code /tweaks} branch (the root carries no requirement) that
+ * {@link com.simplebuilding.modules.simpletweaks.TweakCommands#alias} mirrors under {@code /simpletweaks}.
  */
 public final class ProtectCommands {
     public static void register(CommandDispatcher<CommandSourceStack> d) { register(d, Protect.config()); }
@@ -24,6 +24,7 @@ public final class ProtectCommands {
                         .then(Commands.argument("radius", IntegerArgumentType.integer(0, 8)).executes(x -> bench(x.getSource(), IntegerArgumentType.getInteger(x, "radius")))))
                 .then(Commands.literal("checks").executes(x -> checks(x.getSource(), null))
                         .then(Commands.argument("player", EntityArgument.player()).executes(x -> checks(x.getSource(), EntityArgument.getPlayer(x, "player")))))));
+        com.simplebuilding.modules.simpletweaks.TweakCommands.alias(d); // mirrors the /tweaks branch as /simpletweaks protect
     }
 
     static Component onOff(boolean on) { return Protect.t(on ? "on" : "off"); }
