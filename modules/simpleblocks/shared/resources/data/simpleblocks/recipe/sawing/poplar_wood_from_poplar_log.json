@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:poplar_log",
+  "result": {
+    "id": "minecraft:poplar_wood"
+  }
+}

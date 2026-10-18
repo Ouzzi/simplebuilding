@@ -19,6 +19,45 @@
   },
   "features": [
     {
+      "id": "shaping_saw",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/Sawing.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapingSawMenu.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/client/ShapingSawScreen.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/shaping_saw.json",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/SawTests.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/SawUpgrade.java",
+        "tools/textures/shaping_saw_2026_10_17.py"
+      ],
+      "related": [
+        "simpleblocks:shaping_saw",
+        "minecraft:stonecutter"
+      ],
+      "en": {
+        "title": "Shaping Saw",
+        "summary": "The Vanilla stonecutter with copper fittings, for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
+        "details": [
+          "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
+          "Put a block in on the left, pick a cut, take the result. The list shows 6 x 4 cuts at a time; scroll with the wheel or the bar, and type in the search field to filter by name.",
+          "Same yield as the stonecutter: one block gives 1 stairs, 2 slabs or 1 wall or fence. Planks give 2 sticks; a log, wood or stripped log gives 4 planks (bamboo blocks 2); logs can be stripped or turned into wood 1:1. Wool gives wool stairs and slabs, nether bricks the nether brick fence.",
+          "With Simple End the Ashwood and Duskwood cuts are added, with SimpleBuilding the dirt, grass, sand and gravel slabs. Mods that bring stonecutting recipes (Simple Octets, for example) show up in the saw on their own; others can add simpleblocks:sawing recipes.",
+          "With JEI the saw is a station of the stonecutting category, and its own category lists the cuts only the saw has."
+        ]
+      },
+      "de": {
+        "title": "Formsäge",
+        "summary": "Die Vanilla-Steinsäge mit Kupferbeschlägen, für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
+        "details": [
+          "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
+          "Links einen Block einlegen, einen Schnitt wählen, das Ergebnis nehmen. Die Liste zeigt 6 x 4 Schnitte auf einmal; mit dem Mausrad oder der Leiste blättern und im Suchfeld nach Namen filtern.",
+          "Gleiche Ausbeute wie an der Steinsäge: ein Block ergibt 1 Treppe, 2 Stufen oder 1 Mauer bzw. Zaun. Bretter ergeben 2 Stöcke; ein Stamm, Holz oder entrindeter Stamm 4 Bretter (Bambusblock 2); Stämme lassen sich 1:1 entrinden oder zu Holz machen. Wolle ergibt Wolltreppen und -stufen, Netherziegel den Netherziegelzaun.",
+          "Mit Simple End kommen die Schnitte für Aschholz und Dämmerholz dazu, mit SimpleBuilding die Erd-, Gras-, Sand- und Kiesstufen. Mods mit Steinsägen-Rezepten (zum Beispiel Simple Octets) erscheinen von selbst in der Säge; andere können simpleblocks:sawing-Rezepte mitbringen.",
+          "Mit JEI ist die Säge eine Station der Steinsägen-Kategorie, und ihre eigene Kategorie zeigt die Schnitte, die nur die Säge kann."
+        ]
+      }
+    },
+    {
       "id": "hushed_deepslate_tiles",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
@@ -1838,6 +1877,3825 @@
       }
     },
     {
+      "id": "simpleblocks:sawing/acacia_fence_from_acacia_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_fence_from_acacia_planks.json",
+      "ingredients": [
+        "minecraft:acacia_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_planks_from_acacia_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_planks_from_acacia_log.json",
+      "ingredients": [
+        "minecraft:acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_planks_from_acacia_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_planks_from_acacia_wood.json",
+      "ingredients": [
+        "minecraft:acacia_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_planks_from_stripped_acacia_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_planks_from_stripped_acacia_log.json",
+      "ingredients": [
+        "minecraft:stripped_acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_acacia_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_planks_from_stripped_acacia_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_planks_from_stripped_acacia_wood.json",
+      "ingredients": [
+        "minecraft:stripped_acacia_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_acacia_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_slab_from_acacia_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_slab_from_acacia_planks.json",
+      "ingredients": [
+        "minecraft:acacia_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_stairs_from_acacia_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_stairs_from_acacia_planks.json",
+      "ingredients": [
+        "minecraft:acacia_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/acacia_wood_from_acacia_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/acacia_wood_from_acacia_log.json",
+      "ingredients": [
+        "minecraft:acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_fence_from_ashwood_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_fence_from_ashwood_planks.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_planks_from_ashwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_planks_from_ashwood_log.json",
+      "ingredients": [
+        "simpleend:ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_planks_from_ashwood_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_planks_from_ashwood_wood.json",
+      "ingredients": [
+        "simpleend:ashwood_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_planks_from_stripped_ashwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_planks_from_stripped_ashwood_log.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_ashwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_planks_from_stripped_ashwood_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_planks_from_stripped_ashwood_wood.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_ashwood_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_slab_from_ashwood_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_slab_from_ashwood_planks.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_stairs_from_ashwood_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_stairs_from_ashwood_planks.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/ashwood_wood_from_ashwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/ashwood_wood_from_ashwood_log.json",
+      "ingredients": [
+        "simpleend:ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_fence_from_bamboo_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_fence_from_bamboo_planks.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_mosaic_from_bamboo_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_mosaic",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_mosaic_from_bamboo_planks.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_mosaic_slab_from_bamboo_mosaic",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_mosaic_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_mosaic_slab_from_bamboo_mosaic.json",
+      "ingredients": [
+        "minecraft:bamboo_mosaic"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_mosaic"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_mosaic_stairs_from_bamboo_mosaic",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_mosaic_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_mosaic_stairs_from_bamboo_mosaic.json",
+      "ingredients": [
+        "minecraft:bamboo_mosaic"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_mosaic"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_planks_from_bamboo_block",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_planks",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_planks_from_bamboo_block.json",
+      "ingredients": [
+        "minecraft:bamboo_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_planks_from_stripped_bamboo_block",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_planks",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_planks_from_stripped_bamboo_block.json",
+      "ingredients": [
+        "minecraft:stripped_bamboo_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_bamboo_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_slab_from_bamboo_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_slab_from_bamboo_planks.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/bamboo_stairs_from_bamboo_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/bamboo_stairs_from_bamboo_planks.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_fence_from_birch_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_fence_from_birch_planks.json",
+      "ingredients": [
+        "minecraft:birch_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_planks_from_birch_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_planks_from_birch_log.json",
+      "ingredients": [
+        "minecraft:birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_planks_from_birch_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_planks_from_birch_wood.json",
+      "ingredients": [
+        "minecraft:birch_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_planks_from_stripped_birch_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_planks_from_stripped_birch_log.json",
+      "ingredients": [
+        "minecraft:stripped_birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_birch_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_planks_from_stripped_birch_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_planks_from_stripped_birch_wood.json",
+      "ingredients": [
+        "minecraft:stripped_birch_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_birch_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_slab_from_birch_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_slab_from_birch_planks.json",
+      "ingredients": [
+        "minecraft:birch_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_stairs_from_birch_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_stairs_from_birch_planks.json",
+      "ingredients": [
+        "minecraft:birch_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/birch_wood_from_birch_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/birch_wood_from_birch_log.json",
+      "ingredients": [
+        "minecraft:birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/black_wool_slab_from_black_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:black_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/black_wool_slab_from_black_wool.json",
+      "ingredients": [
+        "minecraft:black_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/black_wool_stairs_from_black_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:black_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/black_wool_stairs_from_black_wool.json",
+      "ingredients": [
+        "minecraft:black_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/blue_wool_slab_from_blue_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:blue_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/blue_wool_slab_from_blue_wool.json",
+      "ingredients": [
+        "minecraft:blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/blue_wool_stairs_from_blue_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:blue_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/blue_wool_stairs_from_blue_wool.json",
+      "ingredients": [
+        "minecraft:blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/brown_wool_slab_from_brown_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:brown_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/brown_wool_slab_from_brown_wool.json",
+      "ingredients": [
+        "minecraft:brown_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/brown_wool_stairs_from_brown_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:brown_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/brown_wool_stairs_from_brown_wool.json",
+      "ingredients": [
+        "minecraft:brown_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_fence_from_cherry_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_fence_from_cherry_planks.json",
+      "ingredients": [
+        "minecraft:cherry_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_planks_from_cherry_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_planks_from_cherry_log.json",
+      "ingredients": [
+        "minecraft:cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_planks_from_cherry_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_planks_from_cherry_wood.json",
+      "ingredients": [
+        "minecraft:cherry_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_planks_from_stripped_cherry_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_planks_from_stripped_cherry_log.json",
+      "ingredients": [
+        "minecraft:stripped_cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_cherry_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_planks_from_stripped_cherry_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_planks_from_stripped_cherry_wood.json",
+      "ingredients": [
+        "minecraft:stripped_cherry_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_cherry_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_slab_from_cherry_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_slab_from_cherry_planks.json",
+      "ingredients": [
+        "minecraft:cherry_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_stairs_from_cherry_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_stairs_from_cherry_planks.json",
+      "ingredients": [
+        "minecraft:cherry_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cherry_wood_from_cherry_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cherry_wood_from_cherry_log.json",
+      "ingredients": [
+        "minecraft:cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_fence_from_crimson_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_fence_from_crimson_planks.json",
+      "ingredients": [
+        "minecraft:crimson_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_hyphae_from_crimson_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_hyphae",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_hyphae_from_crimson_stem.json",
+      "ingredients": [
+        "minecraft:crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_planks_from_crimson_hyphae",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_planks_from_crimson_hyphae.json",
+      "ingredients": [
+        "minecraft:crimson_hyphae"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_hyphae"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_planks_from_crimson_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_planks_from_crimson_stem.json",
+      "ingredients": [
+        "minecraft:crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_planks_from_stripped_crimson_hyphae",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_planks_from_stripped_crimson_hyphae.json",
+      "ingredients": [
+        "minecraft:stripped_crimson_hyphae"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_crimson_hyphae"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_planks_from_stripped_crimson_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_planks_from_stripped_crimson_stem.json",
+      "ingredients": [
+        "minecraft:stripped_crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_crimson_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_slab_from_crimson_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_slab_from_crimson_planks.json",
+      "ingredients": [
+        "minecraft:crimson_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/crimson_stairs_from_crimson_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/crimson_stairs_from_crimson_planks.json",
+      "ingredients": [
+        "minecraft:crimson_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cyan_wool_slab_from_cyan_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cyan_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cyan_wool_slab_from_cyan_wool.json",
+      "ingredients": [
+        "minecraft:cyan_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/cyan_wool_stairs_from_cyan_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:cyan_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/cyan_wool_stairs_from_cyan_wool.json",
+      "ingredients": [
+        "minecraft:cyan_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_fence_from_dark_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_fence_from_dark_oak_planks.json",
+      "ingredients": [
+        "minecraft:dark_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_planks_from_dark_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_planks_from_dark_oak_log.json",
+      "ingredients": [
+        "minecraft:dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_planks_from_dark_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_planks_from_dark_oak_wood.json",
+      "ingredients": [
+        "minecraft:dark_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_planks_from_stripped_dark_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_planks_from_stripped_dark_oak_log.json",
+      "ingredients": [
+        "minecraft:stripped_dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_dark_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_planks_from_stripped_dark_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_planks_from_stripped_dark_oak_wood.json",
+      "ingredients": [
+        "minecraft:stripped_dark_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_dark_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_slab_from_dark_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_slab_from_dark_oak_planks.json",
+      "ingredients": [
+        "minecraft:dark_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_stairs_from_dark_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_stairs_from_dark_oak_planks.json",
+      "ingredients": [
+        "minecraft:dark_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dark_oak_wood_from_dark_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dark_oak_wood_from_dark_oak_log.json",
+      "ingredients": [
+        "minecraft:dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/dirt_slab_from_dirt",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:dirt_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dirt_slab_from_dirt.json",
+      "ingredients": [
+        "minecraft:dirt"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dirt"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_fence_from_duskwood_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_fence_from_duskwood_planks.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_planks_from_duskwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_planks_from_duskwood_log.json",
+      "ingredients": [
+        "simpleend:duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_planks_from_duskwood_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_planks_from_duskwood_wood.json",
+      "ingredients": [
+        "simpleend:duskwood_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_planks_from_stripped_duskwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_planks_from_stripped_duskwood_log.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_duskwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_planks_from_stripped_duskwood_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_planks_from_stripped_duskwood_wood.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_duskwood_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_slab_from_duskwood_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_slab_from_duskwood_planks.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_stairs_from_duskwood_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_stairs_from_duskwood_planks.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/duskwood_wood_from_duskwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/duskwood_wood_from_duskwood_log.json",
+      "ingredients": [
+        "simpleend:duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/grass_slab_from_grass_block",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:grass_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/grass_slab_from_grass_block.json",
+      "ingredients": [
+        "minecraft:grass_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:grass_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/gravel_slab_from_gravel",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gravel_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/gravel_slab_from_gravel.json",
+      "ingredients": [
+        "minecraft:gravel"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gravel"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/gray_wool_slab_from_gray_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:gray_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/gray_wool_slab_from_gray_wool.json",
+      "ingredients": [
+        "minecraft:gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/gray_wool_stairs_from_gray_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:gray_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/gray_wool_stairs_from_gray_wool.json",
+      "ingredients": [
+        "minecraft:gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/green_wool_slab_from_green_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:green_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/green_wool_slab_from_green_wool.json",
+      "ingredients": [
+        "minecraft:green_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/green_wool_stairs_from_green_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:green_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/green_wool_stairs_from_green_wool.json",
+      "ingredients": [
+        "minecraft:green_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_fence_from_jungle_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_fence_from_jungle_planks.json",
+      "ingredients": [
+        "minecraft:jungle_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_planks_from_jungle_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_planks_from_jungle_log.json",
+      "ingredients": [
+        "minecraft:jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_planks_from_jungle_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_planks_from_jungle_wood.json",
+      "ingredients": [
+        "minecraft:jungle_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_planks_from_stripped_jungle_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_planks_from_stripped_jungle_log.json",
+      "ingredients": [
+        "minecraft:stripped_jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_jungle_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_planks_from_stripped_jungle_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_planks_from_stripped_jungle_wood.json",
+      "ingredients": [
+        "minecraft:stripped_jungle_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_jungle_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_slab_from_jungle_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_slab_from_jungle_planks.json",
+      "ingredients": [
+        "minecraft:jungle_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_stairs_from_jungle_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_stairs_from_jungle_planks.json",
+      "ingredients": [
+        "minecraft:jungle_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/jungle_wood_from_jungle_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/jungle_wood_from_jungle_log.json",
+      "ingredients": [
+        "minecraft:jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/light_blue_wool_slab_from_light_blue_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:light_blue_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/light_blue_wool_slab_from_light_blue_wool.json",
+      "ingredients": [
+        "minecraft:light_blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/light_blue_wool_stairs_from_light_blue_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:light_blue_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/light_blue_wool_stairs_from_light_blue_wool.json",
+      "ingredients": [
+        "minecraft:light_blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/light_gray_wool_slab_from_light_gray_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:light_gray_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/light_gray_wool_slab_from_light_gray_wool.json",
+      "ingredients": [
+        "minecraft:light_gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/light_gray_wool_stairs_from_light_gray_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:light_gray_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/light_gray_wool_stairs_from_light_gray_wool.json",
+      "ingredients": [
+        "minecraft:light_gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/lime_wool_slab_from_lime_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:lime_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/lime_wool_slab_from_lime_wool.json",
+      "ingredients": [
+        "minecraft:lime_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/lime_wool_stairs_from_lime_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:lime_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/lime_wool_stairs_from_lime_wool.json",
+      "ingredients": [
+        "minecraft:lime_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/magenta_wool_slab_from_magenta_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:magenta_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/magenta_wool_slab_from_magenta_wool.json",
+      "ingredients": [
+        "minecraft:magenta_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/magenta_wool_stairs_from_magenta_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:magenta_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/magenta_wool_stairs_from_magenta_wool.json",
+      "ingredients": [
+        "minecraft:magenta_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_fence_from_mangrove_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_fence_from_mangrove_planks.json",
+      "ingredients": [
+        "minecraft:mangrove_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_planks_from_mangrove_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_planks_from_mangrove_log.json",
+      "ingredients": [
+        "minecraft:mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_planks_from_mangrove_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_planks_from_mangrove_wood.json",
+      "ingredients": [
+        "minecraft:mangrove_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_planks_from_stripped_mangrove_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_planks_from_stripped_mangrove_log.json",
+      "ingredients": [
+        "minecraft:stripped_mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_mangrove_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_planks_from_stripped_mangrove_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_planks_from_stripped_mangrove_wood.json",
+      "ingredients": [
+        "minecraft:stripped_mangrove_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_mangrove_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_slab_from_mangrove_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_slab_from_mangrove_planks.json",
+      "ingredients": [
+        "minecraft:mangrove_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_stairs_from_mangrove_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_stairs_from_mangrove_planks.json",
+      "ingredients": [
+        "minecraft:mangrove_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/mangrove_wood_from_mangrove_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/mangrove_wood_from_mangrove_log.json",
+      "ingredients": [
+        "minecraft:mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/nether_brick_fence_from_nether_bricks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:nether_brick_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/nether_brick_fence_from_nether_bricks.json",
+      "ingredients": [
+        "minecraft:nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:nether_bricks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_fence_from_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_fence_from_oak_planks.json",
+      "ingredients": [
+        "minecraft:oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_planks_from_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_planks_from_oak_log.json",
+      "ingredients": [
+        "minecraft:oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_planks_from_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_planks_from_oak_wood.json",
+      "ingredients": [
+        "minecraft:oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_planks_from_stripped_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_planks_from_stripped_oak_log.json",
+      "ingredients": [
+        "minecraft:stripped_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_planks_from_stripped_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_planks_from_stripped_oak_wood.json",
+      "ingredients": [
+        "minecraft:stripped_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_slab_from_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_slab_from_oak_planks.json",
+      "ingredients": [
+        "minecraft:oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_stairs_from_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_stairs_from_oak_planks.json",
+      "ingredients": [
+        "minecraft:oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/oak_wood_from_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/oak_wood_from_oak_log.json",
+      "ingredients": [
+        "minecraft:oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/orange_wool_slab_from_orange_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:orange_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/orange_wool_slab_from_orange_wool.json",
+      "ingredients": [
+        "minecraft:orange_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/orange_wool_stairs_from_orange_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:orange_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/orange_wool_stairs_from_orange_wool.json",
+      "ingredients": [
+        "minecraft:orange_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_fence_from_pale_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_fence_from_pale_oak_planks.json",
+      "ingredients": [
+        "minecraft:pale_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_planks_from_pale_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_planks_from_pale_oak_log.json",
+      "ingredients": [
+        "minecraft:pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_planks_from_pale_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_planks_from_pale_oak_wood.json",
+      "ingredients": [
+        "minecraft:pale_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_planks_from_stripped_pale_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_planks_from_stripped_pale_oak_log.json",
+      "ingredients": [
+        "minecraft:stripped_pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_pale_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_planks_from_stripped_pale_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_planks_from_stripped_pale_oak_wood.json",
+      "ingredients": [
+        "minecraft:stripped_pale_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_pale_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_slab_from_pale_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_slab_from_pale_oak_planks.json",
+      "ingredients": [
+        "minecraft:pale_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_stairs_from_pale_oak_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_stairs_from_pale_oak_planks.json",
+      "ingredients": [
+        "minecraft:pale_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pale_oak_wood_from_pale_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pale_oak_wood_from_pale_oak_log.json",
+      "ingredients": [
+        "minecraft:pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pink_wool_slab_from_pink_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pink_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pink_wool_slab_from_pink_wool.json",
+      "ingredients": [
+        "minecraft:pink_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/pink_wool_stairs_from_pink_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:pink_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/pink_wool_stairs_from_pink_wool.json",
+      "ingredients": [
+        "minecraft:pink_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_fence_from_poplar_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_fence_from_poplar_planks.json",
+      "ingredients": [
+        "minecraft:poplar_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_planks_from_poplar_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_planks_from_poplar_log.json",
+      "ingredients": [
+        "minecraft:poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_planks_from_poplar_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_planks_from_poplar_wood.json",
+      "ingredients": [
+        "minecraft:poplar_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_planks_from_stripped_poplar_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_planks_from_stripped_poplar_log.json",
+      "ingredients": [
+        "minecraft:stripped_poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_poplar_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_planks_from_stripped_poplar_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_planks_from_stripped_poplar_wood.json",
+      "ingredients": [
+        "minecraft:stripped_poplar_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_poplar_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_slab_from_poplar_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_slab_from_poplar_planks.json",
+      "ingredients": [
+        "minecraft:poplar_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_stairs_from_poplar_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_stairs_from_poplar_planks.json",
+      "ingredients": [
+        "minecraft:poplar_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/poplar_wood_from_poplar_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/poplar_wood_from_poplar_log.json",
+      "ingredients": [
+        "minecraft:poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/purple_wool_slab_from_purple_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:purple_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/purple_wool_slab_from_purple_wool.json",
+      "ingredients": [
+        "minecraft:purple_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/purple_wool_stairs_from_purple_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:purple_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/purple_wool_stairs_from_purple_wool.json",
+      "ingredients": [
+        "minecraft:purple_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/red_wool_slab_from_red_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:red_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/red_wool_slab_from_red_wool.json",
+      "ingredients": [
+        "minecraft:red_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/red_wool_stairs_from_red_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:red_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/red_wool_stairs_from_red_wool.json",
+      "ingredients": [
+        "minecraft:red_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/sand_slab_from_sand",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sand_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/sand_slab_from_sand.json",
+      "ingredients": [
+        "minecraft:sand"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sand"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_fence_from_spruce_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_fence_from_spruce_planks.json",
+      "ingredients": [
+        "minecraft:spruce_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_planks_from_spruce_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_planks_from_spruce_log.json",
+      "ingredients": [
+        "minecraft:spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_planks_from_spruce_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_planks_from_spruce_wood.json",
+      "ingredients": [
+        "minecraft:spruce_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_planks_from_stripped_spruce_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_planks_from_stripped_spruce_log.json",
+      "ingredients": [
+        "minecraft:stripped_spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_spruce_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_planks_from_stripped_spruce_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_planks_from_stripped_spruce_wood.json",
+      "ingredients": [
+        "minecraft:stripped_spruce_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_spruce_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_slab_from_spruce_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_slab_from_spruce_planks.json",
+      "ingredients": [
+        "minecraft:spruce_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_stairs_from_spruce_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_stairs_from_spruce_planks.json",
+      "ingredients": [
+        "minecraft:spruce_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/spruce_wood_from_spruce_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/spruce_wood_from_spruce_log.json",
+      "ingredients": [
+        "minecraft:spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stick_from_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stick",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stick_from_planks.json",
+      "ingredients": [
+        "#minecraft:planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "#minecraft:planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_acacia_log_from_acacia_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_acacia_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_acacia_log_from_acacia_log.json",
+      "ingredients": [
+        "minecraft:acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_acacia_wood_from_acacia_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_acacia_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_acacia_wood_from_acacia_wood.json",
+      "ingredients": [
+        "minecraft:acacia_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_acacia_wood_from_stripped_acacia_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_acacia_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_acacia_wood_from_stripped_acacia_log.json",
+      "ingredients": [
+        "minecraft:stripped_acacia_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_acacia_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_ashwood_log_from_ashwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:stripped_ashwood_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_ashwood_log_from_ashwood_log.json",
+      "ingredients": [
+        "simpleend:ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_ashwood_wood_from_ashwood_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:stripped_ashwood_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_ashwood_wood_from_ashwood_wood.json",
+      "ingredients": [
+        "simpleend:ashwood_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:ashwood_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_ashwood_wood_from_stripped_ashwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:stripped_ashwood_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_ashwood_wood_from_stripped_ashwood_log.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_ashwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_bamboo_block_from_bamboo_block",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_bamboo_block",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_bamboo_block_from_bamboo_block.json",
+      "ingredients": [
+        "minecraft:bamboo_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_birch_log_from_birch_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_birch_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_birch_log_from_birch_log.json",
+      "ingredients": [
+        "minecraft:birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_birch_wood_from_birch_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_birch_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_birch_wood_from_birch_wood.json",
+      "ingredients": [
+        "minecraft:birch_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_birch_wood_from_stripped_birch_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_birch_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_birch_wood_from_stripped_birch_log.json",
+      "ingredients": [
+        "minecraft:stripped_birch_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_birch_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_cherry_log_from_cherry_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_cherry_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_cherry_log_from_cherry_log.json",
+      "ingredients": [
+        "minecraft:cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_cherry_wood_from_cherry_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_cherry_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_cherry_wood_from_cherry_wood.json",
+      "ingredients": [
+        "minecraft:cherry_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_cherry_wood_from_stripped_cherry_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_cherry_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_cherry_wood_from_stripped_cherry_log.json",
+      "ingredients": [
+        "minecraft:stripped_cherry_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_cherry_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_crimson_hyphae_from_crimson_hyphae",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_crimson_hyphae",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_crimson_hyphae_from_crimson_hyphae.json",
+      "ingredients": [
+        "minecraft:crimson_hyphae"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_hyphae"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_crimson_hyphae_from_stripped_crimson_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_crimson_hyphae",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_crimson_hyphae_from_stripped_crimson_stem.json",
+      "ingredients": [
+        "minecraft:stripped_crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_crimson_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_crimson_stem_from_crimson_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_crimson_stem",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_crimson_stem_from_crimson_stem.json",
+      "ingredients": [
+        "minecraft:crimson_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_dark_oak_log_from_dark_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_dark_oak_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_dark_oak_log_from_dark_oak_log.json",
+      "ingredients": [
+        "minecraft:dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_dark_oak_wood_from_dark_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_dark_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_dark_oak_wood_from_dark_oak_wood.json",
+      "ingredients": [
+        "minecraft:dark_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_dark_oak_wood_from_stripped_dark_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_dark_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_dark_oak_wood_from_stripped_dark_oak_log.json",
+      "ingredients": [
+        "minecraft:stripped_dark_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_dark_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_duskwood_log_from_duskwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:stripped_duskwood_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_duskwood_log_from_duskwood_log.json",
+      "ingredients": [
+        "simpleend:duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_duskwood_wood_from_duskwood_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:stripped_duskwood_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_duskwood_wood_from_duskwood_wood.json",
+      "ingredients": [
+        "simpleend:duskwood_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:duskwood_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_duskwood_wood_from_stripped_duskwood_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleend:stripped_duskwood_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_duskwood_wood_from_stripped_duskwood_log.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleend:stripped_duskwood_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_jungle_log_from_jungle_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_jungle_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_jungle_log_from_jungle_log.json",
+      "ingredients": [
+        "minecraft:jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_jungle_wood_from_jungle_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_jungle_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_jungle_wood_from_jungle_wood.json",
+      "ingredients": [
+        "minecraft:jungle_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_jungle_wood_from_stripped_jungle_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_jungle_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_jungle_wood_from_stripped_jungle_log.json",
+      "ingredients": [
+        "minecraft:stripped_jungle_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_jungle_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_mangrove_log_from_mangrove_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_mangrove_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_mangrove_log_from_mangrove_log.json",
+      "ingredients": [
+        "minecraft:mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_mangrove_wood_from_mangrove_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_mangrove_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_mangrove_wood_from_mangrove_wood.json",
+      "ingredients": [
+        "minecraft:mangrove_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_mangrove_wood_from_stripped_mangrove_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_mangrove_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_mangrove_wood_from_stripped_mangrove_log.json",
+      "ingredients": [
+        "minecraft:stripped_mangrove_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_mangrove_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_oak_log_from_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_oak_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_oak_log_from_oak_log.json",
+      "ingredients": [
+        "minecraft:oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_oak_wood_from_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_oak_wood_from_oak_wood.json",
+      "ingredients": [
+        "minecraft:oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_oak_wood_from_stripped_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_oak_wood_from_stripped_oak_log.json",
+      "ingredients": [
+        "minecraft:stripped_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_pale_oak_log_from_pale_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_pale_oak_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_pale_oak_log_from_pale_oak_log.json",
+      "ingredients": [
+        "minecraft:pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_pale_oak_wood_from_pale_oak_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_pale_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_pale_oak_wood_from_pale_oak_wood.json",
+      "ingredients": [
+        "minecraft:pale_oak_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_pale_oak_wood_from_stripped_pale_oak_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_pale_oak_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_pale_oak_wood_from_stripped_pale_oak_log.json",
+      "ingredients": [
+        "minecraft:stripped_pale_oak_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_pale_oak_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_poplar_log_from_poplar_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_poplar_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_poplar_log_from_poplar_log.json",
+      "ingredients": [
+        "minecraft:poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_poplar_wood_from_poplar_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_poplar_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_poplar_wood_from_poplar_wood.json",
+      "ingredients": [
+        "minecraft:poplar_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_poplar_wood_from_stripped_poplar_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_poplar_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_poplar_wood_from_stripped_poplar_log.json",
+      "ingredients": [
+        "minecraft:stripped_poplar_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_poplar_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_spruce_log_from_spruce_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_spruce_log",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_spruce_log_from_spruce_log.json",
+      "ingredients": [
+        "minecraft:spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_spruce_wood_from_spruce_wood",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_spruce_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_spruce_wood_from_spruce_wood.json",
+      "ingredients": [
+        "minecraft:spruce_wood"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_wood"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_spruce_wood_from_stripped_spruce_log",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_spruce_wood",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_spruce_wood_from_stripped_spruce_log.json",
+      "ingredients": [
+        "minecraft:stripped_spruce_log"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_spruce_log"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_warped_hyphae_from_stripped_warped_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_warped_hyphae",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_warped_hyphae_from_stripped_warped_stem.json",
+      "ingredients": [
+        "minecraft:stripped_warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_warped_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_warped_hyphae_from_warped_hyphae",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_warped_hyphae",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_warped_hyphae_from_warped_hyphae.json",
+      "ingredients": [
+        "minecraft:warped_hyphae"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_hyphae"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/stripped_warped_stem_from_warped_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:stripped_warped_stem",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/stripped_warped_stem_from_warped_stem.json",
+      "ingredients": [
+        "minecraft:warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_fence_from_warped_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_fence",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_fence_from_warped_planks.json",
+      "ingredients": [
+        "minecraft:warped_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_hyphae_from_warped_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_hyphae",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_hyphae_from_warped_stem.json",
+      "ingredients": [
+        "minecraft:warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_planks_from_stripped_warped_hyphae",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_planks_from_stripped_warped_hyphae.json",
+      "ingredients": [
+        "minecraft:stripped_warped_hyphae"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_warped_hyphae"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_planks_from_stripped_warped_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_planks_from_stripped_warped_stem.json",
+      "ingredients": [
+        "minecraft:stripped_warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stripped_warped_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_planks_from_warped_hyphae",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_planks_from_warped_hyphae.json",
+      "ingredients": [
+        "minecraft:warped_hyphae"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_hyphae"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_planks_from_warped_stem",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_planks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_planks_from_warped_stem.json",
+      "ingredients": [
+        "minecraft:warped_stem"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_stem"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_slab_from_warped_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_slab_from_warped_planks.json",
+      "ingredients": [
+        "minecraft:warped_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/warped_stairs_from_warped_planks",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/warped_stairs_from_warped_planks.json",
+      "ingredients": [
+        "minecraft:warped_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/white_wool_slab_from_white_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:white_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/white_wool_slab_from_white_wool.json",
+      "ingredients": [
+        "minecraft:white_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/white_wool_stairs_from_white_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:white_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/white_wool_stairs_from_white_wool.json",
+      "ingredients": [
+        "minecraft:white_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/yellow_wool_slab_from_yellow_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:yellow_wool_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/yellow_wool_slab_from_yellow_wool.json",
+      "ingredients": [
+        "minecraft:yellow_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_wool"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sawing/yellow_wool_stairs_from_yellow_wool",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:yellow_wool_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/yellow_wool_stairs_from_yellow_wool.json",
+      "ingredients": [
+        "minecraft:yellow_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_wool"
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:sculk_deepslate",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -1868,6 +5726,54 @@
           },
           {
             "id": "minecraft:sculk",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:shaping_saw",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:shaping_saw",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/shaping_saw.json",
+      "ingredients": [
+        "minecraft:copper_ingot",
+        "minecraft:iron_ingot",
+        "minecraft:stone"
+      ],
+      "pattern": [
+        "CIC",
+        "###"
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "#": [
+          "minecraft:stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:iron_ingot",
             "count": 1
           }
         ]
@@ -2743,6 +6649,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_deepslate.json"
     },
     {
+      "id": "simpleblocks:blocks/shaping_saw",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:shaping_saw"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/shaping_saw.json"
+    },
+    {
       "id": "simpleblocks:blocks/smooth_basalt_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2847,10 +6771,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -3763,6 +7687,41 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:shaping_saw",
+      "name": {
+        "en_us": "Shaping Saw",
+        "de_de": "Formsäge"
+      },
+      "note": {
+        "en": {
+          "title": "Shaping Saw",
+          "summary": "The Vanilla stonecutter with copper fittings, for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
+          "details": [
+            "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
+            "Put a block in on the left, pick a cut, take the result. The list shows 6 x 4 cuts at a time; scroll with the wheel or the bar, and type in the search field to filter by name.",
+            "Same yield as the stonecutter: one block gives 1 stairs, 2 slabs or 1 wall or fence. Planks give 2 sticks; a log, wood or stripped log gives 4 planks (bamboo blocks 2); logs can be stripped or turned into wood 1:1. Wool gives wool stairs and slabs, nether bricks the nether brick fence.",
+            "With Simple End the Ashwood and Duskwood cuts are added, with SimpleBuilding the dirt, grass, sand and gravel slabs. Mods that bring stonecutting recipes (Simple Octets, for example) show up in the saw on their own; others can add simpleblocks:sawing recipes.",
+            "With JEI the saw is a station of the stonecutting category, and its own category lists the cuts only the saw has."
+          ]
+        },
+        "de": {
+          "title": "Formsäge",
+          "summary": "Die Vanilla-Steinsäge mit Kupferbeschlägen, für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
+          "details": [
+            "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
+            "Links einen Block einlegen, einen Schnitt wählen, das Ergebnis nehmen. Die Liste zeigt 6 x 4 Schnitte auf einmal; mit dem Mausrad oder der Leiste blättern und im Suchfeld nach Namen filtern.",
+            "Gleiche Ausbeute wie an der Steinsäge: ein Block ergibt 1 Treppe, 2 Stufen oder 1 Mauer bzw. Zaun. Bretter ergeben 2 Stöcke; ein Stamm, Holz oder entrindeter Stamm 4 Bretter (Bambusblock 2); Stämme lassen sich 1:1 entrinden oder zu Holz machen. Wolle ergibt Wolltreppen und -stufen, Netherziegel den Netherziegelzaun.",
+            "Mit Simple End kommen die Schnitte für Aschholz und Dämmerholz dazu, mit SimpleBuilding die Erd-, Gras-, Sand- und Kiesstufen. Mods mit Steinsägen-Rezepten (zum Beispiel Simple Octets) erscheinen von selbst in der Säge; andere können simpleblocks:sawing-Rezepte mitbringen.",
+            "Mit JEI ist die Säge eine Station der Steinsägen-Kategorie, und ihre eigene Kategorie zeigt die Schnitte, die nur die Säge kann."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:shaping_saw"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:smooth_basalt_slab",
       "name": {
         "en_us": "Smooth Basalt Slab",
@@ -3897,14 +7856,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 5,
-    "recipes": 60,
-    "lootTables": 37,
+    "features": 6,
+    "recipes": 262,
+    "lootTables": 38,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 37,
+    "blocks": 38,
     "trades": 0,
     "config": 0,
     "quests": 0,

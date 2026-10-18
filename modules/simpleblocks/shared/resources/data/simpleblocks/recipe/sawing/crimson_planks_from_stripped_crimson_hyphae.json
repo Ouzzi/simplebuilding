@@ -1,0 +1,8 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:stripped_crimson_hyphae",
+  "result": {
+    "count": 4,
+    "id": "minecraft:crimson_planks"
+  }
+}

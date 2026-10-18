@@ -530,3 +530,16 @@ wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/copper_lava_buck
 modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item/enderite_bucket.png
 wiki/assets/textures/simplecrucibles/item/enderite_bucket.png
 wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/enderite_bucket.png
+# Simple Blocks Shaping Saw (A4b): the Vanilla stonecutter with copper highlights is Vanilla-derived (tools/textures/shaping_saw_2026_10_17.py).
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping_saw_top.png
+wiki/assets/textures/simpleblocks/block/shaping_saw_top.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_top.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_top.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping_saw_side.png
+wiki/assets/textures/simpleblocks/block/shaping_saw_side.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_side.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_side.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping_saw_saw.png
+wiki/assets/textures/simpleblocks/block/shaping_saw_saw.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_saw.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_saw.png

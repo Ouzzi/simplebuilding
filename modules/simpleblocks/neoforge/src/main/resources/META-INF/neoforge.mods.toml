@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Blocks"
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-description="Missing building blocks: Hushed Deepslate Tiles, Sculk Deepslate, missing Vanilla stairs, slabs and walls, cracked and mossy bricks. Works on its own with Vanilla."
+description="Missing building blocks: Hushed Deepslate Tiles, Sculk Deepslate, missing Vanilla stairs, slabs and walls, cracked and mossy bricks, the Shaping Saw (cuts stone and wood into every stair, slab and shape). Works on its own with Vanilla."
 [[dependencies.simpleblocks]]
 modId="minecraft"
 type="required"
@@ -19,3 +19,13 @@ type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.simpleblocks]]
+modId="jei"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
+
+[[mixins]]
+config="simpleblocks.mixins.json"

@@ -236,7 +236,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleweather"
     ],
-    "dataHash": "a50087e184af"
+    "dataHash": "7e848fa048e2"
   },
   {
     "id": "simpledimensions",
@@ -332,7 +332,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "3bc84cfd9f3d"
+    "dataHash": "e18587033249"
   },
   {
     "id": "simpletrims",
@@ -428,7 +428,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "40bd3198f4a5"
+    "dataHash": "51d40af90050"
   },
   {
     "id": "simplefarming",
@@ -540,7 +540,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "5c8bd4f16cf9"
+    "dataHash": "8e7329c39870"
   },
   {
     "id": "simpleend",
@@ -675,7 +675,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
-    "dataHash": "34ebe8a6188b"
+    "dataHash": "a290905d600e"
   },
   {
     "id": "simplestats",
@@ -692,12 +692,12 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "55fa0fabe222"
+    "dataHash": "97f1238cce93"
   },
   {
     "id": "simpleblocks",
     "displayName": "Simple Blocks",
-    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. Works on its own with Vanilla.",
+    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. The Shaping Saw cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -707,9 +707,10 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "jei"
     ],
-    "dataHash": "62e6cdd63fc8"
+    "dataHash": "f1f2602bbfbc"
   },
   {
     "id": "simplecrucibles",

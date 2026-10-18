@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:lime_wool",
+  "result": {
+    "id": "minecraft:lime_wool_stairs"
+  }
+}

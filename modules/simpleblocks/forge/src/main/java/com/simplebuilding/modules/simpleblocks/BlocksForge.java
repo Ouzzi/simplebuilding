@@ -14,6 +14,8 @@ import net.minecraftforge.registries.RegisterEvent;
 /** Forge 26.3 entry; same registration as Fabric/NeoForge. Ancient City loot comes in through ReloadableServerRegistriesMixin. */
 @Mod(SimpleBlocks.MOD_ID)
 public final class BlocksForge {
+    static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
+
     public BlocksForge(FMLJavaModLoadingContext context) {
         com.simplebuilding.modules.simpleblocks.forge.ModuleForgeTests.register(context.getModBusGroup());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
@@ -21,10 +23,43 @@ public final class BlocksForge {
             if (key.equals(Registries.BLOCK)) BlocksRegistry.registerBlocks();
             if (key.equals(Registries.ITEM)) BlocksRegistry.registerItems();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) BlocksRegistry.registerTab();
+            if (key.equals(Registries.MENU)) BlocksRegistry.registerMenus();
+            if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
+            if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
         });
+        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with SimpleBuilding; 4 iron nuggets.
+        com.simpleblocks.saw.SawUpgrade.hammerMode = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
+        net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(e -> {
+            if (!com.simpleblocks.saw.SawUpgrade.onUse(e.getLevel(), e.getPos(), e.getEntity(), e.getHand())) return false;
+            e.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
+            return true;
+        });
+        // Shaping Saw: its recipe list goes to every client on join and after /reload.
+        channel = net.minecraftforge.network.ChannelBuilder.named(SimpleBlocks.id("main")).payloadChannel()
+                .protocol(net.minecraftforge.network.NetworkProtocol.PLAY)
+                .clientbound()
+                    .add(com.simpleblocks.saw.Sawing.Payload.TYPE, com.simpleblocks.saw.Sawing.Payload.CODEC.cast(), (payload, ctx) -> {
+                        ctx.setPacketHandled(true);
+                        ctx.enqueueWork(() -> com.simpleblocks.saw.Sawing.receive(payload.entries()));
+                    })
+                .build();
+        net.minecraftforge.event.OnDatapackSyncEvent.BUS.addListener(event -> event.getPlayers().forEach(player -> {
+            if (player.connection != null && channel.isRemotePresent(player.connection.getConnection())) {
+                channel.send(com.simpleblocks.saw.Sawing.Payload.current(player.level().getServer()), net.minecraftforge.network.PacketDistributor.PLAYER.with(player));
+            }
+        }));
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) BlocksForgeClient.init(context);
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleBlocks.on()) {
                 event.getEntries().put(com.simpleblocks.guide.BlocksGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS) && SimpleBlocks.on()) {
+                var saw = new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM);
+                var stonecutter = new ItemStack(net.minecraft.world.item.Items.STONECUTTER);
+                if (event.getEntries().contains(saw)) return;
+                if (event.getEntries().contains(stonecutter)) event.getEntries().putAfter(stonecutter, saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                else event.getEntries().put(saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                return;
             }
             boolean natural = event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS);
             if (!natural && !event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)) return;

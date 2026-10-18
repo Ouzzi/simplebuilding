@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:cherry_log",
+  "result": {
+    "id": "minecraft:stripped_cherry_log"
+  }
+}

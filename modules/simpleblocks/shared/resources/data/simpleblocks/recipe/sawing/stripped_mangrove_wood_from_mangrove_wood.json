@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:mangrove_wood",
+  "result": {
+    "id": "minecraft:stripped_mangrove_wood"
+  }
+}
