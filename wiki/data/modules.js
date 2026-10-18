@@ -753,6 +753,6 @@ window.WIKI_MODULES = [
       "simpleend",
       "jei"
     ],
-    "dataHash": "cfc56d20051b"
+    "dataHash": "c1e7c62e3e26"
   }
 ];
