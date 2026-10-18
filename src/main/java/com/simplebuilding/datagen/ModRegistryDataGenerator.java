@@ -21,7 +21,7 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
         if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
             entries.addAll(enchantments);
         } else {
-            enchantments.listElements().filter(e -> !e.key().identifier().getNamespace().equals(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE))
+            enchantments.listElements().filter(e -> e.key().identifier().getNamespace().equals(com.simplebuilding.Simplebuilding.MOD_ID))
                     .forEach(entries::add);
         }
 
