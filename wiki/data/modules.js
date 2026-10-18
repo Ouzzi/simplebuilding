@@ -754,5 +754,61 @@ window.WIKI_MODULES = [
       "jei"
     ],
     "dataHash": "cfc56d20051b"
+  },
+  {
+    "id": "simpleoptimization",
+    "displayName": "Simple Optimization",
+    "description": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simpleoptrender",
+      "simpleoptmemory",
+      "simpleoptserver"
+    ],
+    "optional": [],
+    "dataHash": "c6d6d341c731"
+  },
+  {
+    "id": "simpleoptrender",
+    "displayName": "Simple Opt Render",
+    "description": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "98be845068d7"
+  },
+  {
+    "id": "simpleoptmemory",
+    "displayName": "Simple Opt Memory",
+    "description": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "4d03e55afdca"
+  },
+  {
+    "id": "simpleoptserver",
+    "displayName": "Simple Opt Server",
+    "description": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "57366e58f2a1"
   }
 ];

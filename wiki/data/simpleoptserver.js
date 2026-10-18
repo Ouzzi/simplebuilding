@@ -1,0 +1,74 @@
+window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};
+window.WIKI_MODULE_DATA["simpleoptserver"] = {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simpleoptserver",
+    "name": "Simple Opt Server",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric"
+    ]
+  },
+  "features": [
+    {
+      "id": "dynamic_distance",
+      "sources": [
+        "modules/simpleoptserver/shared/java/com/simplebuilding/modules/simpleoptserver/DynamicDistance.java",
+        "modules/simpleoptserver/shared/java/com/simplebuilding/modules/simpleoptserver/ServerOptRuntime.java",
+        "modules/simpleoptserver/shared/java/com/simplebuilding/modules/simpleoptserver/ServerOpt.java"
+      ],
+      "en": {
+        "title": "View distance by server load",
+        "summary": "On a dedicated server with players online, every stepSeconds (default 15) the average tick time is checked: above targetMspt (default 45 ms) the view distance drops by one down to minView (default 6), below 80 % of it the distance climbs back to the server.properties value. It never goes above server.properties or below 3. The simulation distance only moves with adjustSimulation (default false), because a smaller one changes farms and growth far away. With ServerCore installed this area stays off. /simpleopt status (game masters) shows every area and the current distances."
+      },
+      "de": {
+        "title": "Sichtweite nach Serverlast",
+        "summary": "Auf einem dedizierten Server mit Spielern wird alle stepSeconds (Standard 15) die mittlere Tickzeit geprüft: über targetMspt (Standard 45 ms) sinkt die Sichtweite um eins bis minView (Standard 6), unter 80 % davon steigt sie wieder bis zum Wert aus server.properties. Nie über server.properties, nie unter 3. Die Simulationsweite ändert sich nur mit adjustSimulation (Standard false), weil eine kleinere Farmen und Wachstum in der Ferne ändert. Mit ServerCore bleibt der Bereich aus. /simpleopt status (Spielleiter) zeigt alle Bereiche und die aktuellen Weiten."
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 1,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+};
