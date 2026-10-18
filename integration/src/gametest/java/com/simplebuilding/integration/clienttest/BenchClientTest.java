@@ -85,18 +85,48 @@ public final class BenchClientTest implements FabricClientGameTest {
         return false;
     }
 
-    /** Ticks until the section compile queue ran (or 3 s passed) and is empty with every visible section built. */
+    /** Visible sections without a compiled mesh yet. */
+    private static int uncompiled(net.minecraft.client.Minecraft c) {
+        int n = 0;
+        for (var s : c.levelRenderer.visibleSections())
+            if (s.getSectionMesh() == net.minecraft.client.renderer.chunk.CompiledSectionMesh.UNCOMPILED) n++;
+        return n;
+    }
+
+    /** Ticks until every visible section has a compiled mesh (after at least one was pending, or 3 s). */
     private static boolean drainSections(ClientGameTestContext ctx, int maxSeconds) {
         long start = System.nanoTime(), end = start + maxSeconds * 1_000_000_000L;
         boolean seen = false;
         while (System.nanoTime() < end) {
             ctx.waitTick();
-            int[] q = ctx.computeOnClient(c -> new int[] {c.levelRenderer.sectionRenderDispatcher().getCompileQueueSize(),
-                    c.levelRenderer.sectionRenderDispatcher().isQueueEmpty() && c.levelRenderer.hasRenderedAllSections() ? 1 : 0});
-            seen |= q[0] > 0;
-            if ((seen || System.nanoTime() - start > 3_000_000_000L) && q[1] == 1) return true;
+            int pending = ctx.computeOnClient(BenchClientTest::uncompiled);
+            seen |= pending > 0;
+            if ((seen || System.nanoTime() - start > 3_000_000_000L) && pending == 0) return seen;
         }
         return false;
+    }
+
+    /** Terrain geometry in view: quads (indices / 6) of all visible sections per layer; CPU- and GPU-independent. */
+    private static void geometry(ClientGameTestContext ctx, Map<String, Object> r) {
+        long[] q = ctx.computeOnClient(c -> {
+            long[] out = new long[4];
+            for (var s : c.levelRenderer.visibleSections()) {
+                var mesh = s.getSectionMesh();
+                int i = 0;
+                for (var layer : net.minecraft.client.renderer.chunk.ChunkSectionLayer.values()) {
+                    var draw = mesh.getSectionDraw(layer);
+                    if (draw != null && i < 3) out[i] += draw.indexCount() / 6;
+                    i++;
+                }
+                out[3]++;
+            }
+            return out;
+        });
+        r.put("quads_solid", q[0]);
+        r.put("quads_cutout", q[1]);
+        r.put("quads_translucent", q[2]);
+        r.put("quads_total", q[0] + q[1] + q[2]);
+        r.put("visible_sections", q[3]);
     }
 
     private static void quietWorld(TestServerContext server) {
@@ -131,6 +161,7 @@ public final class BenchClientTest implements FabricClientGameTest {
             t = System.nanoTime();
             r.put("meshbuild_complete", drainSections(ctx, 300));
             r.put("meshbuild_s", secs(t));
+            geometry(ctx, r);
             r.put("heap_load_mb", heapAfterGc());
             double[] ms = new double[frames];
             List<Double> mspt = new ArrayList<>();
