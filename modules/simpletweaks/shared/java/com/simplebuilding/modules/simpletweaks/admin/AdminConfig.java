@@ -65,6 +65,12 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
         public Lag { permission = level(permission); defaultSeconds = Math.clamp(defaultSeconds, 1, 30); clockThreshold = Math.clamp(clockThreshold, 2, 1000); }
     }
 
+    /** Without autoOffWith: takes the default lists. */
+    public AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee, Vanish vanish, Freeze freeze, Restart restart, Backups backups,
+            Maintenance maintenance, Lag lagFinder) {
+        this(blockLog, deathBackups, invsee, vanish, freeze, restart, backups, maintenance, lagFinder, null);
+    }
+
     public static final AdminConfig DEFAULT = new AdminConfig(
             new BlockLog(true, 2, 3, 14, 20000, 5),
             new Deaths(true, 3, 5),
