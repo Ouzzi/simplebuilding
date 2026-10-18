@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet",
+    "simpleoctets:black_terracotta_octet"
+  ],
+  "result": {
+    "id": "minecraft:black_terracotta"
+  }
+}

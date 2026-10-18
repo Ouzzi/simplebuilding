@@ -1,0 +1,212 @@
+{
+  "features": [
+    {
+      "id": "octets",
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetMaterials.java",
+        "tools/textures/octets_2026_10_09.py",
+        "tools/textures/octet_materials.json"
+      ],
+      "en": {
+        "title": "Octets: half-block cubes of every material",
+        "summary": "An octet is a cube of 0.5 x 0.5 x 0.5 blocks. Every wood (planks), every block with stairs and slabs and a set of building colors without stairs (terracotta, metal and mineral blocks, logs and stems, wool, concrete) has its own octet with the texture of its block; up to eight octets fill one block cell.",
+        "details": [
+          "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one. An occupied octet or a creature in the way refuses it.",
+          "A cell holds up to 8 octets; a full cell (8/8) is a full cube and stays an octet cell. Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+          "Breaking a cell without sneaking takes the whole cell and drops every octet; sneaking breaks only the octet you look at. Sneak + right-click with an empty hand takes the clicked octet out into the hand. Explosions, pistons and other breaks without a player drop every octet.",
+          "An octet item stacks to 99. Each cell has the hardness, sound, map color and light of its block; octets of materials that need a tool drop only with the right tool.",
+          "Wood octets burn like their planks (not crimson and warped), wool octets like wool, log octets like logs; wood, Simple End log and bamboo mosaic octets are mined fastest with an axe, wool without a tool, all others with a pickaxe.",
+          "The creative tab \"Simple Octets\" lists the wood octets, the melon slice and the material octets by group (stone, sandstone, bricks, deepslate and blackstone, tuff, prismarine, quartz and purpur, copper, metal and mineral blocks, logs and stems, wool, concrete, terracotta, blocks of other mods, other); with \"add items to Vanilla tabs\" each octet also sits right after the slab of its block (else after the block).",
+          "The list of materials is generated (tools/textures/octets_2026_10_09.py from tools/textures/octet_materials.json)."
+        ]
+      },
+      "de": {
+        "title": "Achtel: halbe Blockwürfel aus jedem Material",
+        "summary": "Ein Achtel ist ein Würfel von 0,5 x 0,5 x 0,5 Blöcken. Jedes Holz (Bretter), jeder Block mit Treppe und Stufe und eine Reihe Baufarben ohne Treppe (Terrakotta, Metall- und Mineralblöcke, Stämme und Stängel, Wolle, Beton) hat ein eigenes Achtel mit der Textur seines Blocks; bis zu acht Achtel füllen eine Blockzelle.",
+        "details": [
+          "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten. Ein belegtes Achtel oder ein Wesen im Weg lehnt ab.",
+          "Eine Zelle fasst bis zu 8 Achtel; eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle. In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+          "Abbauen ohne Schleichen nimmt die ganze Zelle und droppt jedes Achtel; schleichend baut man nur das angeschaute Achtel ab. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand. Explosionen, Kolben und anderes Abbauen ohne Spieler droppen jedes Achtel.",
+          "Ein Achtel-Item stapelt bis 99. Jede Zelle hat Härte, Klang, Kartenfarbe und Licht ihres Blocks; Achtel aus Materialien, die ein Werkzeug brauchen, droppen nur mit dem passenden Werkzeug.",
+          "Holz-Achtel brennen wie ihre Bretter (nicht Karmesin und Wirr), Woll-Achtel wie Wolle, Stamm-Achtel wie Stämme; Holz-, Simple-End-Stamm- und Bambusmosaik-Achtel baut die Axt am schnellsten ab, Wolle ohne Werkzeug, alle übrigen die Spitzhacke.",
+          "Der Kreativ-Tab \"Simple Octets\" zeigt die Holz-Achtel, die Melonenscheibe und die Material-Achtel nach Gruppen (Stein, Sandstein, Ziegel, Tiefenschiefer und Schwarzstein, Tuff, Prismarin, Quarz und Purpur, Kupfer, Metall- und Mineralblöcke, Stämme und Stängel, Wolle, Beton, Terrakotta, Blöcke anderer Mods, Sonstiges); mit \"Items in Vanilla-Tabs\" steht jedes Achtel zusätzlich direkt hinter der Stufe seines Blocks (sonst hinter dem Block).",
+          "Die Materialliste wird generiert (tools/textures/octets_2026_10_09.py aus tools/textures/octet_materials.json)."
+        ]
+      },
+      "related": [
+        "simpleoctets:*_octet",
+        "simpleoctets:mixed_octet"
+      ]
+    },
+    {
+      "id": "recipes",
+      "sources": [
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_octet_from_oak_planks_stonecutting.json",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/oak_planks_from_octets.json",
+        "tools/textures/octets_2026_10_09.py"
+      ],
+      "en": {
+        "title": "Stonecutter and back",
+        "summary": "The stonecutter cuts 8 octets from the full block of their material (wood octets from the planks); 8 octets of one material craft back into the block (shapeless). Both recipes unlock in the recipe book once you hold the block or the octet.",
+        "details": []
+      },
+      "de": {
+        "title": "Steinmetz und zurück",
+        "summary": "Der Steinmetz schneidet 8 Achtel aus dem Vollblock ihres Materials (Holz-Achtel aus den Brettern); 8 Achtel eines Materials ergeben formlos wieder den Block. Beide Rezepte schalten sich im Rezeptbuch frei, sobald man den Block bzw. das Achtel hält.",
+        "details": []
+      }
+    },
+    {
+      "id": "mixed",
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MixedOctetBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MixedOctetBlockEntity.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/client/MixedOctetRenderer.java"
+      ],
+      "en": {
+        "title": "Mixed cells",
+        "summary": "Octets of different materials share one cell: the cell becomes the mixed octet cell, which keeps the material of each octet in its block entity, and turns back into a pure cell as soon as one material is left.",
+        "details": [
+          "A mixed cell glows with the light of its brightest material. Breaking it whole takes as long as its hardest material; sneaking, the looked-at octet sets speed, tool and drop.",
+          "It has no item of its own: every octet drops as its own item. Blueprints, which store only block states, keep the most common material with every octet.",
+          "(with SimpleBuilding) Its chess octets mix with these octets in the same cell."
+        ]
+      },
+      "de": {
+        "title": "Gemischte Zellen",
+        "summary": "Achtel verschiedener Materialien teilen sich eine Zelle: sie wird zur gemischten Achtelzelle, die das Material jedes Achtels in ihrem Block-Entity hält, und wird wieder zur reinen Zelle, sobald nur ein Material übrig ist.",
+        "details": [
+          "Eine gemischte Zelle leuchtet wie ihr hellstes Material. Ganz abgebaut dauert sie so lange wie ihr härtestes Material; schleichend bestimmt das angeschaute Achtel Tempo, Werkzeug und Drop.",
+          "Sie hat kein eigenes Item: jedes Achtel droppt als eigenes Item. Blaupausen, die nur Blockzustände speichern, behalten das häufigste Material mit allen Achteln.",
+          "(mit SimpleBuilding) Dessen Schach-Achtel mischen sich mit diesen Achteln in derselben Zelle."
+        ]
+      }
+    },
+    {
+      "id": "melon",
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/MelonSlices.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/mixin/MelonSliceUseMixin.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/mixin/MelonSliceTooltipMixin.java",
+        "tools/textures/octets_2026_10_09.py"
+      ],
+      "en": {
+        "title": "Melon octets",
+        "summary": "Sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet.",
+        "details": []
+      },
+      "de": {
+        "title": "Melonen-Achtel",
+        "summary": "Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe.",
+        "details": []
+      }
+    },
+    {
+      "id": "partners",
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/ashwood_octet_from_ashwood_planks_stonecutting.json"
+      ],
+      "en": {
+        "title": "Octets of other mods' blocks",
+        "summary": "Octets of another mod's blocks exist only while that mod is loaded, with their recipes; without it neither the cells nor the recipes are there.",
+        "details": [
+          "(with SimpleBuilding) Octets of the Astralit, Nihilith and Ender Quartz palettes; its sneaking sledgehammer carves full blocks, stairs and slabs into these octets and drops the removed octet; its chess octets stay SimpleBuilding's and mix with these.",
+          "(with Simple End) Ashwood and Duskwood octets (planks) and octets of their logs and stripped logs.",
+          "(with Simple Blocks) Octets of Blue Nether Bricks and Hushed Deepslate Tiles.",
+          "Carving tools of other mods find the cells through SimpleLib's OctetCells; Simple Octets registers every cell there."
+        ]
+      },
+      "de": {
+        "title": "Achtel aus Blöcken anderer Mods",
+        "summary": "Achtel aus Blöcken einer anderen Mod gibt es nur, solange diese Mod geladen ist, samt ihren Rezepten; ohne sie fehlen Zellen und Rezepte.",
+        "details": [
+          "(mit SimpleBuilding) Achtel der Paletten Astralit, Nihilith und Enderquarz; sein schleichender Vorschlaghammer zerlegt Vollblöcke, Treppen und Stufen in diese Achtel und lässt das abgetragene Achtel fallen; seine Schach-Achtel bleiben bei SimpleBuilding und mischen sich mit diesen.",
+          "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme.",
+          "(mit Simple Blocks) Achtel aus Blauen Netherziegeln und Gedämpften Tiefenschieferfliesen.",
+          "Schnitzwerkzeuge anderer Mods finden die Zellen über SimpleLibs OctetCells; Simple Octets meldet dort jede Zelle an."
+        ]
+      }
+    },
+    {
+      "id": "migration",
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java"
+      ],
+      "en": {
+        "title": "Worlds from SimpleBuilding",
+        "summary": "The octets were SimpleBuilding's before split stage 6. Placed cells, octet items, the mixed cell and its block entity, the recipes in the recipe book and their unlocks keep working under the new simpleoctets: ids; the next save writes the new ids.",
+        "details": [
+          "\"Enable Simple Octets\" in SimpleBuilding's config switches the module's creative tab, its Vanilla tab entries, its guide and the melon octet placing off; placed octets and recipes stay."
+        ]
+      },
+      "de": {
+        "title": "Welten aus SimpleBuilding",
+        "summary": "Die Achtel gehörten bis zur Aufteilungsstufe 6 zu SimpleBuilding. Gesetzte Zellen, Achtel-Items, die gemischte Zelle samt Block-Entity, die Rezepte im Rezeptbuch und ihre Freischaltungen funktionieren unter den neuen simpleoctets:-Ids weiter; das nächste Speichern schreibt die neuen Ids.",
+        "details": [
+          "\"Simple Octets aktivieren\" in der Config von SimpleBuilding schaltet Kreativ-Tab, Einträge in den Vanilla-Tabs, Handbuch und das Setzen von Melonen-Achteln des Moduls ab; gesetzte Achtel und Rezepte bleiben."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simpleoctets:guide_book": {
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/guide/OctetsGuide.java",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
+      }
+    },
+    "simpleoctets:melon_octet": {
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/MelonSlices.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+      ],
+      "en": {
+        "summary": "Melon octet cell: placed with sneak + right-click of a melon slice; drops one melon slice per octet. It has no item."
+      },
+      "de": {
+        "summary": "Melonen-Achtelzelle: mit Schleichen + Rechtsklick einer Melonenscheibe gesetzt; droppt je Achtel eine Melonenscheibe. Sie hat kein Item."
+      }
+    },
+    "simpleoctets:mixed_octet": {
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MixedOctetBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MixedOctetBlockEntity.java"
+      ],
+      "en": {
+        "summary": "Mixed octet cell: octets of several materials in one block, the material of each octet in its block entity. It has no item; it appears when a foreign octet joins a cell."
+      },
+      "de": {
+        "summary": "Gemischte Achtelzelle: Achtel mehrerer Materialien in einem Block, das Material je Achtel im Block-Entity. Sie hat kein Item; sie entsteht, wenn ein fremdes Achtel in eine Zelle kommt."
+      }
+    },
+    "simpleoctets:*_octet": {
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+      ],
+      "en": {
+        "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+      },
+      "de": {
+        "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+      }
+    }
+  }
+}

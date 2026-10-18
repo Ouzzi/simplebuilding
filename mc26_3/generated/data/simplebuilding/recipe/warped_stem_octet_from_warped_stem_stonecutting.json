@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:warped_stem",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:warped_stem_octet"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "simplebuilding:item/chess/octet",
-  "textures": {
-    "all": "minecraft:block/weathered_copper"
-  }
-}

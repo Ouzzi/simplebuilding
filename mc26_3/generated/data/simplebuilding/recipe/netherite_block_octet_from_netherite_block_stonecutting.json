@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:netherite_block",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:netherite_block_octet"
-  }
-}

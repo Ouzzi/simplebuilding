@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet",
+    "simpleoctets:ender_quartz_block_octet"
+  ],
+  "result": {
+    "id": "simplebuilding:ender_quartz_block"
+  }
+}

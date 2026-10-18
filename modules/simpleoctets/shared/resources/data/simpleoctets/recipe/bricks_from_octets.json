@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet",
+    "simpleoctets:bricks_octet"
+  ],
+  "result": {
+    "id": "minecraft:bricks"
+  }
+}

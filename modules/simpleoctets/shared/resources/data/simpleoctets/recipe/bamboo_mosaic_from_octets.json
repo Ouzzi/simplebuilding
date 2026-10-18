@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet",
+    "simpleoctets:bamboo_mosaic_octet"
+  ],
+  "result": {
+    "id": "minecraft:bamboo_mosaic"
+  }
+}

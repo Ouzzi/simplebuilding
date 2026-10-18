@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet",
+    "simpleoctets:bone_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:bone_block"
+  }
+}

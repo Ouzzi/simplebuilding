@@ -152,7 +152,7 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0", "simplecrucibles": ">=1.0.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0", "simplecrucibles": ">=1.0.0", "simpleoctets": ">=1.0.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -241,6 +241,12 @@ dependencies {
 dependencies {
     include project(':modules:simplecrucibles:fabric')
     implementation project(':modules:simplecrucibles:fabric')
+}
+// Simple Octets: required Sub-Mod (split stage 6) - the material, wood and melon octets and the mixed cell moved there
+// (simpleoctets:*, ids migrate). Nested for production, compiled against (the octet cell API of the chess octets) and loaded in dev/test runs.
+dependencies {
+    include project(':modules:simpleoctets:fabric')
+    implementation project(':modules:simpleoctets:fabric')
 }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet",
+    "simpleoctets:white_terracotta_octet"
+  ],
+  "result": {
+    "id": "minecraft:white_terracotta"
+  }
+}

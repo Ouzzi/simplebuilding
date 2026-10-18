@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:blue_concrete",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:blue_concrete_octet"
+  }
+}

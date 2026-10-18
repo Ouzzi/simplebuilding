@@ -1497,7 +1497,7 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
         for identifier in sorted(registered[0] - {e["id"] for e in items} - LEGACY_ITEMS - SECRET_ITEMS):
             if identifier not in {e["id"] for e in blocks}:
                 unnamed.append(f"item {identifier}")
-        for identifier in sorted(registered[1] - {e["id"] for e in blocks}):
+        for identifier in sorted(registered[1] - {e["id"] for e in blocks} - TECHNICAL_BLOCKS):
             unnamed.append(f"block {identifier}")
 
     return items, blocks, sorted(phantom), unnamed

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:netherrack",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:netherrack_octet"
-  }
-}

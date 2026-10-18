@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet",
+    "simpleoctets:magenta_terracotta_octet"
+  ],
+  "result": {
+    "id": "minecraft:magenta_terracotta"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet",
+    "simpleoctets:cyan_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:cyan_concrete"
+  }
+}

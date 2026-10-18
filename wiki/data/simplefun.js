@@ -792,6 +792,26 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "modules/simplefun/forge/build.gradle"
       ],
       "related": []
+    },
+    {
+      "id": "creative_tab_switch",
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/registry/FunContent.java"
+      ],
+      "en": {
+        "title": "Creative tabs",
+        "summary": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+        "details": [
+          "The shared switch simplefun.addItemsToVanillaTabs in config/simple-creative-tabs.properties (default true, read when a world is joined) keeps the Vanilla tabs unchanged; the module's own tab stays. Guide books always stay in Tools & Utilities."
+        ]
+      },
+      "de": {
+        "title": "Kreativ-Tabs",
+        "summary": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+        "details": [
+          "Der gemeinsame Schalter simplefun.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1099,7 +1119,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 37,
+    "features": 38,
     "recipes": 2,
     "lootTables": 0,
     "tags": 1,

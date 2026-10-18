@@ -67,13 +67,7 @@ public final class InfoTooltips {
                 && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
         }
-        // Material-Achtel (Queue Nachtrag 24): setzen, Steinmetz, Melonenscheibe, essbare Glitzermelone.
-        if (item instanceof com.simplebuilding.items.custom.MaterialOctetItem) {
-            out.add(gray("tooltip.simplebuilding.material_octet"));
-        }
-        if (com.simplebuilding.blocks.ModBlocks.MELON_OCTET != null && item == net.minecraft.world.item.Items.MELON_SLICE) {
-            out.add(gray("tooltip.simplebuilding.melon_slice.place"));
-        }
+        // Material-Achtel und Melonenscheibe: Tooltips von Simple Octets (Stufe 6); essbare Glitzermelone bleibt hier.
         if (item == net.minecraft.world.item.Items.GLISTERING_MELON_SLICE) {
             out.add(gray("tooltip.simplebuilding.glistering_melon_slice.food"));
         }

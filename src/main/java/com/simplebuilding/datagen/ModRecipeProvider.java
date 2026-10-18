@@ -1301,18 +1301,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             }
                         }
                     }
-                    // Holz-Achtel (Queue Nachtrag 24): Steinmetz Bretter -> 8 Achtel, formlos 8 Achtel -> 1 Bretter.
-                    // Material-Achtel (N19/N15): derselbe Weg fuer jeden Block mit Stufe und Treppe.
-                    java.util.List<Block> materialCells = new java.util.ArrayList<>(ModBlocks.WOOD_OCTETS);
-                    materialCells.addAll(ModBlocks.MATERIAL_OCTETS);
-                    for (Block cell : materialCells) {
-                        Block planks = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
-                        Item octet = BuiltInRegistries.ITEM.getValue(BuiltInRegistries.BLOCK.getKey(cell));
-                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, octet, planks, 8);
-                        shapeless(RecipeCategory.BUILDING_BLOCKS, planks).requires(octet, 8)
-                                .unlockedBy(getHasName(octet), has(octet))
-                                .save(output, BuiltInRegistries.BLOCK.getKey(planks).getPath() + "_from_octets");
-                    }
+                    // Holz- und Material-Achtel: Rezepte von Simple Octets (Stufe 6, tools/textures/octets_2026_10_09.py).
                 }
 
                 // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---

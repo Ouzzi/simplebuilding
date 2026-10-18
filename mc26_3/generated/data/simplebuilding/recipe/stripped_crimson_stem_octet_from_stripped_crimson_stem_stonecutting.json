@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:stripped_crimson_stem",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:stripped_crimson_stem_octet"
-  }
-}

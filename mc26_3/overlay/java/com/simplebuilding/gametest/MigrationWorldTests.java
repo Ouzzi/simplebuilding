@@ -121,8 +121,9 @@ public final class MigrationWorldTests {
     static List<Block> sampleBlocks() {
         List<Block> blocks = new ArrayList<>(List.of(ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST,
                 oven("reinforced_furnace"), oven("enderite_furnace"), ModBlocks.CHECKER_OCTET));
-        if (!ModBlocks.MATERIAL_OCTETS.isEmpty()) blocks.add(ModBlocks.MATERIAL_OCTETS.get(0));
-        if (!ModBlocks.WOOD_OCTETS.isEmpty()) blocks.add(ModBlocks.WOOD_OCTETS.get(0));
+        // Stage 6: the first material and wood octet by their SimpleBuilding id (Simple Octets' blocks after the move).
+        blocks.add(oven("andesite_octet"));
+        blocks.add(oven("oak_octet"));
         if (CrucibleCompat.enderiteCrucible() != null) blocks.add(CrucibleCompat.enderiteCrucible());
         // Stage 3d: the shared material blocks (SimpleBuilding's before the move, SimpleLib's after).
         blocks.add(ModBlocks.CRACKED_DIAMOND_BLOCK);

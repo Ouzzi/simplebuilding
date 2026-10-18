@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet",
+    "simpleoctets:oak_log_octet"
+  ],
+  "result": {
+    "id": "minecraft:oak_log"
+  }
+}

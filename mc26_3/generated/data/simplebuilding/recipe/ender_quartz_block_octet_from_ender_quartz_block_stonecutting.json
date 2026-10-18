@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:ender_quartz_block",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:ender_quartz_block_octet"
-  }
-}

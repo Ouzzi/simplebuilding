@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet",
+    "simpleoctets:cyan_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:cyan_wool"
+  }
+}

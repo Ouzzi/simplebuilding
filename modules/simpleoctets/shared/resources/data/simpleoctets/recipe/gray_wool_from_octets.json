@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet",
+    "simpleoctets:gray_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:gray_wool"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:acacia_octet"
+  ],
+  "result": {
+    "id": "minecraft:acacia_planks"
+  }
+}

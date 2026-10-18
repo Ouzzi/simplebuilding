@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:polished_blackstone",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:polished_blackstone_octet"
-  }
-}

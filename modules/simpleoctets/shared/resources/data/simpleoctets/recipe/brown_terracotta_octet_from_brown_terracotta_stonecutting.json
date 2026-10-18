@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:brown_terracotta",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:brown_terracotta_octet"
+  }
+}

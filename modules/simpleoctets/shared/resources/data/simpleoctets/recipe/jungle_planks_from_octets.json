@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:jungle_octet"
+  ],
+  "result": {
+    "id": "minecraft:jungle_planks"
+  }
+}

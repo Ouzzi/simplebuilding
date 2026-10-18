@@ -2,6 +2,7 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.CheckerOctetBlock;
+import com.simplebuilding.blocks.custom.OctetCells;
 import com.simplebuilding.chess.ChessColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
  * Punkt ein Viertel Block vor dem Trefferpunkt (in Richtung der getroffenen Flaeche) - so landet er neben dem
  * angeklickten Achtel bzw. auf der angeklickten Haelfte einer Blockflaeche. Jede Achtelzelle wird ergaenzt
  * (andere Farbe oder anderes Material: gemischte Zelle, Queue N48), eine leere oder ersetzbare Stelle (Luft, Wasser,
- * Gras) wird zur neuen Zelle; belegte Achtel lehnen ab. Setzen ueber {@link MaterialOctetItem#place}.
+ * Gras) wird zur neuen Zelle; belegte Achtel lehnen ab. Setzen ueber {@link OctetCells#place} (26.3: Simple Octets).
  */
 public class CheckerOctetItem extends Item {
     /** Octets stack to the engine maximum (owner N18: "128"; item stacks are saved with at most 99). */
@@ -36,7 +37,7 @@ public class CheckerOctetItem extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        return ModBlocks.CHECKER_OCTET == null ? InteractionResult.PASS : MaterialOctetItem.place(context, material());
+        return ModBlocks.CHECKER_OCTET == null ? InteractionResult.PASS : OctetCells.place(context, material());
     }
 
     /** Der Materialzustand dieses Achtels: die Schachzelle in seiner Farbe. */
@@ -44,8 +45,8 @@ public class CheckerOctetItem extends Item {
         return ModBlocks.CHECKER_OCTET.defaultBlockState().setValue(CheckerOctetBlock.COLOR, this.color);
     }
 
-    /** Die Teile der Zelle mit dem neuen Achtel, oder null, wenn es dort nicht hin darf ({@link MaterialOctetItem#placed}). */
+    /** Die Teile der Zelle mit dem neuen Achtel, oder null, wenn es dort nicht hin darf ({@link OctetCells#placed}). */
     public @Nullable BlockState[] placed(Level level, BlockPos cell, int index, @Nullable Player player) {
-        return ModBlocks.CHECKER_OCTET == null ? null : MaterialOctetItem.placed(level, material(), cell, index, player);
+        return ModBlocks.CHECKER_OCTET == null ? null : OctetCells.placed(level, material(), cell, index, player);
     }
 }

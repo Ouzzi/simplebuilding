@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet",
+    "simpleoctets:blue_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:blue_concrete"
+  }
+}

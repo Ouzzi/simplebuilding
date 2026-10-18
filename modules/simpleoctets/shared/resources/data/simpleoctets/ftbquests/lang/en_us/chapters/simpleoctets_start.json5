@@ -1,0 +1,10 @@
+{
+	"chapter.4D908D4434E4BC51.title": "{\"translate\": \"quests.simpleoctets.start.title\"}",
+	"chapter.4D908D4434E4BC51.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleoctets.start.subtitle\"}"
+	],
+	"quest.3ABB6F7C8F3791A0.title": "{\"translate\": \"quests.simpleoctets.start.welcome.title\"}",
+	"quest.3ABB6F7C8F3791A0.quest_desc": [
+		"{\"translate\": \"quests.simpleoctets.start.welcome.description\"}"
+	]
+}

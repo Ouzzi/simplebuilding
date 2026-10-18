@@ -1,14 +1,13 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.MaterialOctetBlock;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.MaterialOctetItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.items.custom.SledgehammerItem.ReshapeMode;
 import com.simplebuilding.util.HammerCorners;
-import com.simplebuilding.util.MaterialOctets;
+import com.simplebuilding.util.LibServices;
+import com.simplebuilding.util.OctetRefs;
 import com.simplebuilding.version.McVersion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -116,7 +115,7 @@ public final class SledgehammerOctetTests {
         ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
         SledgehammerItem hammer = (SledgehammerItem) stack.getItem();
-        Block oakCell = MaterialOctets.cellFor(Blocks.OAK_PLANKS);
+        Block oakCell = LibServices.octetCellFor(Blocks.OAK_PLANKS);
         helper.assertTrue(oakCell != null, "oak planks have no octet cell");
 
         // top octet off: vanilla stairs (no octets yet)
@@ -150,21 +149,21 @@ public final class SledgehammerOctetTests {
         BlockState stoneStairs = carve(hammer, player, stack, Blocks.STONE.defaultBlockState(), pos, 1, 1, 1);
         helper.assertTrue(stoneStairs != null && stoneStairs.is(Blocks.STONE_STAIRS), "stone did not carve into stairs");
         BlockState stoneCut = carve(hammer, player, stack, stoneStairs, pos, 0, 0, 0);
-        helper.assertTrue(stoneCut != null && stoneCut.is(MaterialOctets.cellFor(Blocks.STONE)) && OctetCellBlock.count(stoneCut) == 6,
+        helper.assertTrue(stoneCut != null && stoneCut.is(LibServices.octetCellFor(Blocks.STONE)) && OctetCellBlock.count(stoneCut) == 6,
                 "stone stairs missing two octets did not fall apart into six stone octets: " + stoneCut);
         helper.assertTrue(carve(hammer, player, stack, Blocks.SMOOTH_STONE.defaultBlockState(), pos, 1, 1, 1) == null,
                 "smooth stone (no stairs, no octets) was carved");
         // melon block: no stairs, straight into a melon cell
         BlockState melon = carve(hammer, player, stack, Blocks.MELON.defaultBlockState(), pos, 1, 1, 1);
-        helper.assertTrue(melon != null && melon.is(ModBlocks.MELON_OCTET) && OctetCellBlock.count(melon) == 7,
+        helper.assertTrue(melon != null && melon.is(OctetRefs.melon()) && OctetCellBlock.count(melon) == 7,
                 "the melon block did not become seven melon octets: " + melon);
         // what falls out
         helper.assertValueEqual(HammerCorners.removedPiece(Blocks.OAK_PLANKS.defaultBlockState()),
-                ((MaterialOctetBlock) oakCell).piece(), "removed piece of oak planks");
-        helper.assertValueEqual(HammerCorners.removedPiece(stairs), ((MaterialOctetBlock) oakCell).piece(), "removed piece of oak stairs");
+                LibServices.octetPiece(oakCell), "removed piece of oak planks");
+        helper.assertValueEqual(HammerCorners.removedPiece(stairs), LibServices.octetPiece(oakCell), "removed piece of oak stairs");
         helper.assertValueEqual(HammerCorners.removedPiece(Blocks.MELON.defaultBlockState()), Items.MELON_SLICE, "removed piece of melon");
         helper.assertValueEqual(HammerCorners.removedPiece(Blocks.STONE.defaultBlockState()),
-                ((MaterialOctetBlock) MaterialOctets.cellFor(Blocks.STONE)).piece(), "removed piece of stone");
+                LibServices.octetPiece(LibServices.octetCellFor(Blocks.STONE)), "removed piece of stone");
         helper.assertTrue(HammerCorners.removedPiece(Blocks.SMOOTH_STONE.defaultBlockState()) == null, "smooth stone dropped a piece");
         player.setShiftKeyDown(false);
         helper.succeed();
@@ -196,7 +195,7 @@ public final class SledgehammerOctetTests {
         player.setShiftKeyDown(false);
         helper.assertBlockPresent(Blocks.OAK_STAIRS, CELL);
         helper.assertValueEqual(stack.getDamageValue(), 1, "wear for one carve");
-        Item oakOctet = ((MaterialOctetBlock) MaterialOctets.cellFor(Blocks.OAK_PLANKS)).piece();
+        Item oakOctet = LibServices.octetPiece(LibServices.octetCellFor(Blocks.OAK_PLANKS));
         int octets = 0;
         for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(2.0))) {
             if (entity.getItem().is(oakOctet)) octets += entity.getItem().getCount();
@@ -210,22 +209,22 @@ public final class SledgehammerOctetTests {
     public static void woodOctetsPlaceBurnAndDrop(GameTestHelper helper) {
         if (!McVersion.CHESS) { helper.succeed(); return; }
         int expected = 0;
-        for (String wood : ModBlocks.OCTET_WOODS) {
+        for (String wood : OctetRefs.WOODS) {
             if (net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                    net.minecraft.resources.Identifier.fromNamespaceAndPath(ModBlocks.octetWoodNamespace(wood), wood + "_planks")).isPresent()) expected++;
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(OctetRefs.woodNamespace(wood), wood + "_planks")).isPresent()) expected++;
         }
-        helper.assertValueEqual(ModBlocks.WOOD_OCTETS.size(), expected, "one octet cell per wood");
-        helper.assertValueEqual(ModItems.WOOD_OCTETS.size(), expected, "one octet item per wood");
+        helper.assertValueEqual(OctetRefs.woodCells().size(), expected, "one octet cell per wood");
+        helper.assertValueEqual((int) OctetRefs.woodCells().stream().filter(c -> OctetRefs.itemOf(c) != null).count(), expected, "one octet item per wood");
         var fire = (com.simplebuilding.tweaks.mixin.FireBlockInvoker) Blocks.FIRE;
-        for (Block cell : ModBlocks.WOOD_OCTETS) {
-            Block planks = ((MaterialOctetBlock) cell).source();
+        for (Block cell : OctetRefs.woodCells()) {
+            Block planks = OctetRefs.source(cell);
             helper.assertValueEqual(fire.simplebuilding$getIgniteOdds(cell.defaultBlockState()) > 0,
                     fire.simplebuilding$getIgniteOdds(planks.defaultBlockState()) > 0, "flammability of " + cell);
-            helper.assertTrue(((MaterialOctetBlock) cell).piece() instanceof MaterialOctetItem, "octet item of " + cell);
+            helper.assertTrue(LibServices.octetPiece(cell) == OctetRefs.itemOf(cell) && OctetRefs.itemOf(cell) != null, "octet item of " + cell);
         }
         // place two oak octets: on top of a block, then next to the first one
-        Block oakCell = MaterialOctets.cellFor(Blocks.OAK_PLANKS);
-        Item oakOctet = ((MaterialOctetBlock) oakCell).piece();
+        Block oakCell = LibServices.octetCellFor(Blocks.OAK_PLANKS);
+        Item oakOctet = LibServices.octetPiece(oakCell);
         BlockPos floor = helper.absolutePos(CELL);
         helper.setBlock(CELL, Blocks.STONE);
         ServerPlayer player = awayPlayer(helper);
@@ -270,7 +269,7 @@ public final class SledgehammerOctetTests {
                 "the sneaking melon slice was not placed");
         player.setShiftKeyDown(false);
         BlockState placed = helper.getLevel().getBlockState(floor.above());
-        helper.assertTrue(placed.is(ModBlocks.MELON_OCTET) && OctetCellBlock.mask(placed) == bit(1, 0, 1),
+        helper.assertTrue(placed.is(OctetRefs.melon()) && OctetCellBlock.mask(placed) == bit(1, 0, 1),
                 "the melon octet is not in the clicked corner: " + placed);
         helper.assertValueEqual(slices.getCount(), 2, "melon slice consumed");
         helper.getLevel().destroyBlock(floor.above(), true);
@@ -291,28 +290,29 @@ public final class SledgehammerOctetTests {
     /** "Mehr 0,125er-Bloecke": every listed material (also the ones without stairs: terracotta, metal, logs) has cell, item and way back. */
     public static void materialOctetsCoverTheExtraPalette(GameTestHelper helper) {
         if (!McVersion.CHESS) { helper.succeed(); return; }
+        // Split stage 6: the list lives in Simple Octets (its own tests check the groups); here every cell it registered
+        // has a full source block that the hammer finds, its item and the way back - with SimpleBuilding's palettes too.
         java.util.List<String> problems = new java.util.ArrayList<>();
         var blocks = net.minecraft.core.registries.BuiltInRegistries.BLOCK;
         var recipes = helper.getLevel().getServer().getRecipeManager();
-        java.util.Set<String> seen = new java.util.HashSet<>();
         int extra = 0;
-        for (com.simplebuilding.blocks.OctetMaterials.Material m : com.simplebuilding.blocks.OctetMaterials.ALL) {
-            if (!seen.add(m.key())) problems.add("duplicate " + m.key());
-            // Simple-End-Staemme gibt es nur mit Simple End (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md).
-            if (!com.simplebuilding.platform.ModEnvironment.isModLoaded(m.namespace()) && !"minecraft".equals(m.namespace())
-                    && !"simplebuilding".equals(m.namespace())) continue;
-            Block full = blocks.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(m.namespace(), m.base())).orElse(null);
-            if (full == null || !full.defaultBlockState().isCollisionShapeFullBlock(helper.getLevel(), BlockPos.ZERO)) { problems.add("no full block " + m.base()); continue; }
-            if (java.util.Set.of("log", "metal", "terracotta").contains(m.group())) extra++;
-            Block cell = MaterialOctets.cellFor(full);
-            if (cell == null) { problems.add("no octet for " + m.base()); continue; }
-            Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(blocks.getKey(cell));
-            if (!(item instanceof MaterialOctetItem octet) || octet.cell() != cell) problems.add("item of " + m.key());
+        for (Block cell : OctetRefs.materialCells()) {
+            String key = blocks.getKey(cell).getPath();
+            Block full = OctetRefs.source(cell);
+            if (full == null || !full.defaultBlockState().isCollisionShapeFullBlock(helper.getLevel(), BlockPos.ZERO)) { problems.add("no full block for " + key); continue; }
+            String base = blocks.getKey(full).getPath();
+            if (base.endsWith("_log") || base.endsWith("terracotta") || base.endsWith("_stem") || base.equals("bone_block")) extra++;
+            if (LibServices.octetCellFor(full) != cell) problems.add("hammer cell of " + base);
+            Item item = OctetRefs.itemOf(cell);
+            if (item == null || LibServices.octetPiece(cell) != item) problems.add("item of " + key);
             if (recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", m.base() + "_from_octets"))).isEmpty())
-                problems.add("no recipe back to " + m.base());
+                    OctetRefs.id(base + "_from_octets"))).isEmpty())
+                problems.add("no recipe back to " + base);
         }
-        helper.assertTrue(extra >= 40, "only " + extra + " extra-palette materials");
+        for (String palette : java.util.List.of("astralit_bricks_octet", "nihilith_bricks_octet", "ender_quartz_block_octet")) {
+            if (OctetRefs.block(palette) == null) problems.add("SimpleBuilding palette octet " + palette);
+        }
+        helper.assertTrue(extra >= 30, "only " + extra + " extra-palette materials");
         helper.assertTrue(problems.isEmpty(), "extra octets: " + problems);
         helper.succeed();
     }
@@ -330,25 +330,25 @@ public final class SledgehammerOctetTests {
             if (full == null || !full.defaultBlockState().isCollisionShapeFullBlock(helper.getLevel(), BlockPos.ZERO)
                     || SledgehammerItem.reshapeTarget(stairs, false, false).isEmpty()
                     || blocks.getKey(full).getPath().endsWith("_planks") || blocks.getKey(full).getPath().equals("bamboo_block")) continue;
-            Block cell = MaterialOctets.cellFor(full);
+            Block cell = LibServices.octetCellFor(full);
             if (cell == null) { problems.add("no octet for " + blocks.getKey(full)); continue; }
             covered++;
-            if (HammerCorners.removedPiece(stairs.defaultBlockState()) != ((MaterialOctetBlock) cell).piece()) problems.add("hammer piece of " + id);
+            if (HammerCorners.removedPiece(stairs.defaultBlockState()) != LibServices.octetPiece(cell)) problems.add("hammer piece of " + id);
             var octetId = blocks.getKey(cell);
             Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(octetId);
-            if (!(item instanceof MaterialOctetItem octet) || octet.cell() != cell) problems.add("item of " + octetId);
+            if (!OctetRefs.isOctetItem(item) || OctetRefs.itemOf(cell) != item) problems.add("item of " + octetId);
             else if (new ItemStack(item).getMaxStackSize() != 99) problems.add("stack size of " + octetId);
             var recipes = helper.getLevel().getServer().getRecipeManager();
             String base = blocks.getKey(full).getPath();
             if (recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", base + "_from_octets"))).isEmpty())
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(OctetRefs.NAMESPACE, base + "_from_octets"))).isEmpty())
                 problems.add("no recipe back to " + base);
         }
         helper.assertTrue(covered >= 60, "only " + covered + " materials with octets");
         helper.assertTrue(problems.isEmpty(), "material octets: " + problems);
-        Block stoneCell = MaterialOctets.cellFor(Blocks.STONE);
-        Item stoneOctet = ((MaterialOctetBlock) stoneCell).piece();
-        helper.assertTrue(stoneCell.defaultBlockState().is(stoneCell) && MaterialOctets.cellFor(Blocks.STONE_BRICKS) != stoneCell, "stone and stone bricks share a cell");
+        Block stoneCell = LibServices.octetCellFor(Blocks.STONE);
+        Item stoneOctet = LibServices.octetPiece(stoneCell);
+        helper.assertTrue(stoneCell.defaultBlockState().is(stoneCell) && LibServices.octetCellFor(Blocks.STONE_BRICKS) != stoneCell, "stone and stone bricks share a cell");
         BlockPos floor = helper.absolutePos(CELL);
         helper.setBlock(CELL, Blocks.DIRT);
         ServerPlayer player = awayPlayer(helper);

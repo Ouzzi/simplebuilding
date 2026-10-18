@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet",
+    "simpleoctets:warped_stem_octet"
+  ],
+  "result": {
+    "id": "minecraft:warped_stem"
+  }
+}

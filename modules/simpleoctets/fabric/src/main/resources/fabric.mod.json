@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleoctets",
+  "version": "${version}",
+  "name": "Simple Octets",
+  "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs, and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of SimpleBuilding carves them.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleoctets.OctetsFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleoctets.OctetsFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleoctets.ModuleGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simpleoctets.compat.jei.OctetsJeiPlugin"
+    ]
+  },
+  "mixins": [
+    "simpleoctets.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.2.0"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleend": "*",
+    "jei": "*"
+  }
+}

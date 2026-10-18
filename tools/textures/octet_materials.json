@@ -1692,6 +1692,28 @@
   "de": "Polierter Nihilit"
  },
  {
+  "ns": "simpleblocks",
+  "base": "blue_nether_bricks",
+  "key": "blue_nether_bricks",
+  "group": "mod",
+  "tex": {
+   "all": "simpleblocks:block/blue_nether_bricks"
+  },
+  "en": "Blue Nether Bricks",
+  "de": "Blaue Netherziegel"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "hushed_deepslate_tiles",
+  "key": "hushed_deepslate_tiles",
+  "group": "mod",
+  "tex": {
+   "all": "simpleblocks:block/hushed_deepslate_tiles"
+  },
+  "en": "Hushed Deepslate Tiles",
+  "de": "Gedämpfte Tiefenschieferfliesen"
+ },
+ {
   "ns": "minecraft",
   "base": "bone_block",
   "key": "bone_block",

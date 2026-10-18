@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:blue_wool",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:blue_wool_octet"
+  }
+}

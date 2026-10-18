@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet",
+    "simpleoctets:stripped_jungle_log_octet"
+  ],
+  "result": {
+    "id": "minecraft:stripped_jungle_log"
+  }
+}

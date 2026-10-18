@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet",
+    "simpleoctets:oak_octet"
+  ],
+  "result": {
+    "id": "minecraft:oak_planks"
+  }
+}

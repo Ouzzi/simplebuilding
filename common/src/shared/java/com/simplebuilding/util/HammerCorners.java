@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
  * Sneaking with the sledgehammer removes exactly the aimed octet (0.5^3) of a full block, stairs or slab (Queue
  * Nachtrag 24). The rest becomes a slab or a vanilla stair when it is one; any other shape (e.g. one octet gone above
  * and one below, two diagonal quarters, a slab missing a quarter) falls apart into the material's octet cell
- * ({@link MaterialOctets#cellFor}, on 26.3 SimpleLib's OctetCells), and without octets of that material the hammer does not carve there.
+ * (SimpleLib's OctetCells via {@link LibServices#octetCellFor}; Simple Octets registers the cells), and without octets of that material the hammer does not carve there.
  */
 public final class HammerCorners {
     public static final net.minecraft.world.level.block.state.properties.BooleanProperty CARVED =
@@ -78,7 +78,7 @@ public final class HammerCorners {
             slab = block;
             stairs = SledgehammerItem.reshapeTarget(block, true, false).orElse(null);
             base = stairs == null ? null : SledgehammerItem.reshapeTarget(stairs, true, false).orElse(null);
-        } else if (full && !(block instanceof OctetCellBlock)) {
+        } else if (full && !OctetCellBlock.isCell(block)) {
             base = block;
             stairs = SledgehammerItem.reshapeTarget(block, false, true).orElse(null);
             slab = stairs == null ? null : SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);
@@ -86,7 +86,7 @@ public final class HammerCorners {
             return null;
         }
         return new Family(stairs instanceof StairBlock ? stairs : null, slab instanceof SlabBlock ? slab : null,
-                MaterialOctets.cellFor(base));
+                LibServices.octetCellFor(base));
     }
 
     public static BlockState subtract(BlockState state, boolean full, Direction side, Vec3 hit) {

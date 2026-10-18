@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet",
+    "simpleoctets:birch_log_octet"
+  ],
+  "result": {
+    "id": "minecraft:birch_log"
+  }
+}

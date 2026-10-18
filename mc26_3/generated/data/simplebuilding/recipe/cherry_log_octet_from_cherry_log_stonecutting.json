@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:cherry_log",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:cherry_log_octet"
-  }
-}

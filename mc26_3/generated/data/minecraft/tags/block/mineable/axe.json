@@ -136,18 +136,6 @@
       "required": false
     },
     {
-      "id": "simplebuilding:ashwood_octet",
-      "required": false
-    },
-    {
-      "id": "simplebuilding:ashwood_log_octet",
-      "required": false
-    },
-    {
-      "id": "simplebuilding:stripped_ashwood_log_octet",
-      "required": false
-    },
-    {
       "id": "simplebuilding:hollow_duskwood_log",
       "required": false
     },
@@ -178,33 +166,6 @@
     {
       "id": "simplebuilding:carved_duskwood_log",
       "required": false
-    },
-    {
-      "id": "simplebuilding:duskwood_octet",
-      "required": false
-    },
-    {
-      "id": "simplebuilding:duskwood_log_octet",
-      "required": false
-    },
-    {
-      "id": "simplebuilding:stripped_duskwood_log_octet",
-      "required": false
-    },
-    "simplebuilding:oak_octet",
-    "simplebuilding:spruce_octet",
-    "simplebuilding:birch_octet",
-    "simplebuilding:jungle_octet",
-    "simplebuilding:acacia_octet",
-    "simplebuilding:dark_oak_octet",
-    "simplebuilding:mangrove_octet",
-    "simplebuilding:cherry_octet",
-    "simplebuilding:pale_oak_octet",
-    "simplebuilding:poplar_octet",
-    "simplebuilding:bamboo_octet",
-    "simplebuilding:crimson_octet",
-    "simplebuilding:warped_octet",
-    "simplebuilding:bamboo_mosaic_octet",
-    "simplebuilding:melon_octet"
+    }
   ]
 }

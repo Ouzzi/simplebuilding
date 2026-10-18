@@ -114,6 +114,7 @@ public final class ConfigOptions {
             "enableSimpleShops",
             "enableSimpleWanderers",
             "enableSimpleBlocks",
+            "enableSimpleOctets",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

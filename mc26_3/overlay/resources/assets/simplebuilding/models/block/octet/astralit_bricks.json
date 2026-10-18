@@ -1,6 +1,0 @@
-{
-  "parent": "simplebuilding:block/chess/octet_corner",
-  "textures": {
-    "all": "simplebuilding:block/astralit_bricks"
-  }
-}

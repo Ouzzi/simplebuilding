@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:purple_terracotta",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:purple_terracotta_octet"
+  }
+}

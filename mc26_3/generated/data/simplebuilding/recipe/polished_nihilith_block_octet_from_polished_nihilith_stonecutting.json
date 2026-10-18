@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:polished_nihilith",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:polished_nihilith_block_octet"
-  }
-}

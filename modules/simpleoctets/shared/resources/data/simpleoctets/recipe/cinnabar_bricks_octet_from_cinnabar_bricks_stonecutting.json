@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:cinnabar_bricks",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:cinnabar_bricks_octet"
+  }
+}

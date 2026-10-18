@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet",
+    "simpleoctets:stripped_dark_oak_log_octet"
+  ],
+  "result": {
+    "id": "minecraft:stripped_dark_oak_log"
+  }
+}

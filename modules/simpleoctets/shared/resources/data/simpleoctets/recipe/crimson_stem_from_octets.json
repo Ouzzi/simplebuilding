@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet",
+    "simpleoctets:crimson_stem_octet"
+  ],
+  "result": {
+    "id": "minecraft:crimson_stem"
+  }
+}
