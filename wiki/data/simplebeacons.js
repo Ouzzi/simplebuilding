@@ -538,10 +538,10 @@ window.WIKI_MODULE_DATA["simplebeacons"] = {
           "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
         }
       },
       "texture": "assets/textures/simplebeacons/item/guide_book.png",

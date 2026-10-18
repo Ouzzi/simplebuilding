@@ -889,10 +889,10 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "modules/simpleovens/shared/resources/data/simpleovens/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + charcoal. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ovens\" gives one for free."
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + charcoal. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ovens\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Holzkohle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ovens\" eins."
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Holzkohle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ovens\" eins."
         }
       },
       "texture": "assets/textures/simpleovens/item/guide_book.png",

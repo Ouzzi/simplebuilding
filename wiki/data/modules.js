@@ -107,7 +107,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "442fc3654acd"
+    "dataHash": "f5b68cb55fb7"
   },
   {
     "id": "simplemodels",
@@ -146,7 +146,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "c1b8bbcd6dcd"
+    "dataHash": "883701b8f26c"
   },
   {
     "id": "simplevisuals",
@@ -237,7 +237,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleweather"
     ],
-    "dataHash": "887687e15d9e"
+    "dataHash": "c2f67a473414"
   },
   {
     "id": "simpledimensions",
@@ -333,7 +333,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "6b0e1f21965e"
+    "dataHash": "bd716401f84b"
   },
   {
     "id": "simpletrims",
@@ -353,7 +353,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
-    "dataHash": "f40619c1a3d5"
+    "dataHash": "6066a6742791"
   },
   {
     "id": "simplemobs",
@@ -368,7 +368,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "48509a0cf9e1"
+    "dataHash": "13068216a6b1"
   },
   {
     "id": "simpleweather",
@@ -592,7 +592,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "960e2c478bc7"
+    "dataHash": "2114dba4b8c0"
   },
   {
     "id": "simpleovens",
@@ -611,7 +611,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "63b8bc97a803"
+    "dataHash": "e7d902bed624"
   },
   {
     "id": "simplemobheads",
@@ -657,7 +657,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpletweaks"
     ],
-    "dataHash": "9dca1696ff83"
+    "dataHash": "485e02693f29"
   },
   {
     "id": "simplewanderers",
@@ -732,7 +732,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "05c0328e5c64"
+    "dataHash": "b2a6967297a2"
   },
   {
     "id": "simpleoctets",

@@ -645,10 +645,10 @@
           "modules/simpletrims/shared/resources/data/simpletrims/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
+          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
+          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
         }
       },
       "texture": "assets/textures/simpletrims/item/guide_book.png",

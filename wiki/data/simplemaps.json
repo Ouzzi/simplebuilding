@@ -578,10 +578,10 @@
           "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
         }
       },
       "texture": "assets/textures/simplemaps/item/guide_book.png",

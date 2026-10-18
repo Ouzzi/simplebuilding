@@ -1310,10 +1310,10 @@
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 61 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 62 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 61 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 62 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
