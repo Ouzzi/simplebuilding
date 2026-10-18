@@ -501,6 +501,10 @@ if (forge263Enabled) {
 tasks.register('checkModuleData') {
     group = 'verification'
     doLast {
+        // Load-condition ids per loader for every conditional JSON (Forge reads only "forge:condition").
+        def conditions = providers.exec { workingDir rootDir; commandLine wikiPython, 'tools/check_load_conditions.py' }
+        println conditions.standardOutput.asText.get().trim()
+        conditions.result.get().assertNormalExitValue()
         moduleRegistry.each { entry ->
             (entry.checks ?: []).each { script ->
                 def process = providers.exec { workingDir rootDir; commandLine wikiPython, script }

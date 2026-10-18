@@ -39,7 +39,7 @@ BOOK_TYPES = {
 }
 CATEGORY_DIR = {"building": "building_blocks", "blocks": "building_blocks", "redstone": "redstone",
                 "equipment": "tools", "food": "food", "misc": "misc"}
-CONDITION_KEYS = ("fabric:load_conditions", "neoforge:conditions", "forge:conditions", "conditions")
+CONDITION_KEYS = ("fabric:load_conditions", "neoforge:conditions", "forge:conditions", "forge:condition", "conditions")
 TIP_MAX = 60  # action bar line, EN and DE
 
 # First pickup tips (owner: only machines/tools whose use is not obvious; short; texts from the wiki notes).
