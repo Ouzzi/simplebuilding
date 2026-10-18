@@ -17,10 +17,10 @@
     "type": "forge:mod_loaded",
     "modid": "simpleblocks"
   },
-  "type": "minecraft:stonecutting",
-  "ingredient": "simpleblocks:blue_nether_bricks",
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:smooth_stone",
   "result": {
     "count": 8,
-    "id": "simpleoctets:blue_nether_bricks_octet"
+    "id": "simpleoctets:smooth_stone_octet"
   }
 }

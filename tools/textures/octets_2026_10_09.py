@@ -17,7 +17,8 @@ One octet cell + item for every block that has stairs and slabs (vanilla + Simpl
   models/block/octet/<base>.json, blockstates/<base>_octet.json, models/item/octet/<base>_octet.json, items/<base>_octet.json
   shared/java/com/simpleoctets/registry/OctetMaterials.java   the list the game registers the cells from
   lang en_us/de_de                                           names of all cells and items (generated block after melon_octet)
-  data: recipe/<cell>_from_<base>_stonecutting + <base>_from_octets (+ recipe advancements under recipes/building_blocks),
+  data: recipe/<cell>_from_<base>_sawing (simpleblocks:sawing, only with Simple Blocks) + <cell>_from_<base>_stonecutting
+        (fallback, only without Simple Blocks) + <base>_from_octets (+ recipe advancements under recipes/building_blocks),
         tags minecraft:mineable/axe|pickaxe; blocks of another mod (simplebuilding, simpleend) only while it is loaded
         (load conditions, optional tag entries)
 
@@ -411,7 +412,7 @@ def item_template():
 
 
 def cells(mats):
-    """(cell path, base namespace, base path, tool) of every octet cell with a stonecutter recipe, in tab order."""
+    """(cell path, base namespace, base path, tool) of every octet cell with a saw/stonecutter recipe, in tab order."""
     out = []
     for wood in WOODS:
         ns = 'simpleend' if wood in END_WOODS else 'minecraft'
@@ -428,13 +429,32 @@ def cells(mats):
     return out
 
 
-def conditions(ns):
-    """Load conditions of a recipe/advancement that needs another mod's block (none for Vanilla)."""
-    if ns in ('minecraft', 'simplelib'):
+# The Shaping Saw of Simple Blocks (docs/ai/PRINZIPIEN.md A4b): octets are cut there only while Simple Blocks is loaded;
+# without it a minecraft:stonecutting fallback keeps Simple Octets playable alone, and the Vanilla stonecutter stays Vanilla.
+SAW_MOD = 'simpleblocks'
+SAW_TYPE = 'simpleblocks:sawing'
+
+
+def conditions(ns, saw=None):
+    """Load conditions of a recipe/advancement: another mod's block needs that mod (none for Vanilla and the required
+    simplelib); saw=True adds "simpleblocks loaded", saw=False "simpleblocks not loaded" (Fabric, NeoForge, Forge)."""
+    fabric, neo, forge = [], [], []
+    mods = [] if ns in ('minecraft', 'simplelib') else [ns]
+    if saw and SAW_MOD not in mods:
+        mods.append(SAW_MOD)
+    for mod in mods:
+        fabric.append({'condition': 'fabric:all_mods_loaded', 'values': [mod]})
+        neo.append({'type': 'neoforge:mod_loaded', 'modid': mod})
+        forge.append({'type': 'forge:mod_loaded', 'modid': mod})
+    if saw is False:
+        fabric.append({'condition': 'fabric:not', 'value': {'condition': 'fabric:all_mods_loaded', 'values': [SAW_MOD]}})
+        neo.append({'type': 'neoforge:not', 'value': {'type': 'neoforge:mod_loaded', 'modid': SAW_MOD}})
+        forge.append({'type': 'forge:not', 'value': {'type': 'forge:mod_loaded', 'modid': SAW_MOD}})
+    if not fabric:
         return {}
-    return {'fabric:load_conditions': [{'condition': 'fabric:all_mods_loaded', 'values': [ns]}],
-            'neoforge:conditions': [{'type': 'neoforge:mod_loaded', 'modid': ns}],
-            'forge:condition': {'type': 'forge:mod_loaded', 'modid': ns}}
+    # Forge reads one condition object ("forge:condition"); several are joined with forge:and.
+    return {'fabric:load_conditions': fabric, 'neoforge:conditions': neo,
+            'forge:condition': forge[0] if len(forge) == 1 else {'type': 'forge:and', 'values': forge}}
 
 
 def unlock(recipe, item):
@@ -452,16 +472,27 @@ def data_files(mats):
     for cell, ns, base, tool in cells(mats):
         cond = conditions(ns)
         full, octet = f'{ns}:{base}', f'{NS}:{cell}'
+        saw = f'{cell}_from_{base}_sawing'
         cut = f'{cell}_from_{base}_stonecutting'
         back = f'{base}_from_octets'
-        d(f'{NS}/recipe/{cut}.json', dict(cond, type='minecraft:stonecutting', ingredient=full, result={'count': 8, 'id': octet}))
+        # The saw has no recipe book: the sawing recipe needs no unlock advancement.
+        d(f'{NS}/recipe/{saw}.json', dict(conditions(ns, True), type=SAW_TYPE, ingredient=full, result={'count': 8, 'id': octet}))
+        if ns != SAW_MOD:
+            fallback = conditions(ns, False)
+            d(f'{NS}/recipe/{cut}.json', dict(fallback, type='minecraft:stonecutting', ingredient=full, result={'count': 8, 'id': octet}))
+            d(f'{NS}/advancement/recipes/building_blocks/{cut}.json', dict(fallback, **unlock(cut, full)))
         d(f'{NS}/recipe/{back}.json', dict(cond, type='minecraft:crafting_shapeless', category='building',
                                              ingredients=[octet] * 8, result={'id': full}))
-        d(f'{NS}/advancement/recipes/building_blocks/{cut}.json', dict(cond, **unlock(cut, full)))
         d(f'{NS}/advancement/recipes/building_blocks/{back}.json', dict(cond, **unlock(back, octet)))
         if tool:
             tags[tool].append(octet if ns == 'minecraft' else {'id': octet, 'required': False})
     tags['axe'].append(f'{NS}:melon_octet')
+    # Recipes (and their advancements) the generator no longer writes, e.g. a stonecutter fallback that cannot apply.
+    for sub in ('recipe', os.path.join('advancement', 'recipes', 'building_blocks')):
+        folder = os.path.join(DATA, NS, sub)
+        if os.path.isdir(folder):
+            STALE.extend(os.path.join(folder, n) for n in sorted(os.listdir(folder))
+                         if n.endswith('.json') and n != 'guide_book.json' and os.path.join(folder, n) not in files)
     for tool, values in tags.items():
         d(f'minecraft/tags/block/mineable/{tool}.json', {'values': values})
     return files

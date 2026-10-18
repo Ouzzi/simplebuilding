@@ -85,7 +85,7 @@ public final class SimpleOctets {
         return out;
     }
 
-    /** Recipe ids (stonecutter in, crafting back), each with its recipe advancement under recipes/building_blocks/. */
+    /** Old SimpleBuilding recipe ids (stonecutter in - now the fallback without Simple Blocks, crafting back), each with its recipe advancement under recipes/building_blocks/. */
     public static List<String> recipePaths() {
         List<String> out = new ArrayList<>();
         for (String wood : OctetRegistry.WOODS) {

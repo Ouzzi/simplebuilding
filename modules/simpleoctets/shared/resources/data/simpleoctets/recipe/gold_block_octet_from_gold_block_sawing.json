@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleblocks"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleblocks"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleblocks"
+  },
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:gold_block",
+  "result": {
+    "count": 8,
+    "id": "simpleoctets:gold_block_octet"
+  }
+}

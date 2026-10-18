@@ -17,10 +17,10 @@
     "type": "forge:mod_loaded",
     "modid": "simpleblocks"
   },
-  "type": "minecraft:stonecutting",
-  "ingredient": "simpleblocks:hushed_deepslate_tiles",
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:light_gray_concrete",
   "result": {
     "count": 8,
-    "id": "simpleoctets:hushed_deepslate_tiles_octet"
+    "id": "simpleoctets:light_gray_concrete_octet"
   }
 }
