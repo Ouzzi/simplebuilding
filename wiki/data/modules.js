@@ -429,7 +429,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "40bd3198f4a5"
+    "dataHash": "4f643d6fc208"
   },
   {
     "id": "simplefarming",

@@ -501,6 +501,17 @@ window.WIKI_MODULE_DATA["simpletools"] = {
   ],
   "tags": [
     {
+      "id": "simpletools:enchantment/exclusive_set/soulbound",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:vanishing_curse",
+          "required": true
+        }
+      ],
+      "source": "modules/simpletools/shared/resources/data/simpletools/tags/enchantment/exclusive_set/soulbound.json"
+    },
+    {
       "id": "simpletools:item/death_vault_offerings",
       "replace": false,
       "values": [
@@ -535,7 +546,7 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       ],
       "supportedItems": "#minecraft:enchantable/vanishing",
       "primaryItems": null,
-      "exclusiveSet": "minecraft:vanishing_curse",
+      "exclusiveSet": "#simpletools:exclusive_set/soulbound",
       "effects": [],
       "implementedIn": "none",
       "hasEffect": false,
@@ -666,7 +677,7 @@ window.WIKI_MODULE_DATA["simpletools"] = {
     "features": 24,
     "recipes": 2,
     "lootTables": 1,
-    "tags": 1,
+    "tags": 2,
     "advancements": 0,
     "enchantments": 1,
     "items": 1,
