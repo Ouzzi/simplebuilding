@@ -128,3 +128,14 @@ bestehenden Deed-Kanal (`DeedNet.send`).
 26.3 Fabric/NeoForge/Forge kompilieren + 26.2 `:compileJava`; `run.py module-simpletweaks-fabric-263`/`-neoforge-263`
 + Standalone; Regeneration nur auf sb-test (`discover.py`, `module_guides.py`, `generate_links.py`, `wiki/generate.py --all`),
 dann `checkModuleGuides checkModuleData checkWiki checkDiscover checkMultimod`.
+
+## Ergebnis (18.10., Stand 4228f3d41)
+- Kompiliert: 26.3 Fabric/NeoForge/Forge + 26.2 `:compileJava`. GameTests: module-simpletweaks-fabric/-neoforge-263 und
+  beide Standalone-Ziele je 137/137 (548/548; 13 neue `protect_game_test_*`). Fabric-Integration lief wegen fremder Last
+  auf sb-test (Load ~57) über die 2400-s-Grenze, Bericht vollständig.
+- Kosten (GameTest `bench_cost_logged`, synthetischer Chunk, 8 volle Stein-Abschnitte mit 3 % Erz und 4 % Luft – etwa das
+  Dreifache echter Erzdichte): Vanilla-Serialisierung 0,01–0,04 ms, mit Anti-X-Ray 0,6–1,6 ms je Chunk-Paket. Abschnitte
+  ohne versteckten Block (Himmel, Oberfläche) kosten nur `maybeHas`. Live messen: `/simpletweaks protect bench [radius]`.
+- Nicht getestet: echter Client mit Freecam 1.5.0 (nur Mixin-Ziele per javap geprüft), Forge-GameTests, Chunk-Laden unter
+  vielen Spielern. Mögliche Verbesserung bei Bedarf: Verschleierung je Chunk zwischenspeichern (gleiche Daten für alle
+  nicht ausgenommenen Spieler) oder außerhalb des Server-Threads rechnen.
