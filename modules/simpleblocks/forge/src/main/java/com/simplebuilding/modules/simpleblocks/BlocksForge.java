@@ -27,8 +27,8 @@ public final class BlocksForge {
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
             if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
         });
-        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with SimpleBuilding; 4 iron nuggets.
-        com.simpleblocks.saw.SawUpgrade.hammerMode = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
+        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
+        com.simpleblocks.saw.SawUpgrade.hammerMode = net.minecraftforge.fml.ModList.isLoaded("simplehammers");
         net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(e -> {
             if (!com.simpleblocks.saw.SawUpgrade.onUse(e.getLevel(), e.getPos(), e.getEntity(), e.getHand())) return false;
             e.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);

@@ -438,7 +438,7 @@ public final class ConsumptionAndDurabilityTests {
         // forward without sneaking and refuse the plain sneaking hammer.
         boolean cornerHit = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
         helper.setBlock(target, Blocks.STONE);
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         survival.setShiftKeyDown(cornerHit);
         survival.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         chargeAndFinish(hammer, level, survival);
@@ -456,7 +456,7 @@ public final class ConsumptionAndDurabilityTests {
         }
 
         // --- reverse with Constructor's Touch costs two ---
-        ItemStack touchHammer = enchantedStack(helper, ModItems.DIAMOND_SLEDGEHAMMER,
+        ItemStack touchHammer = enchantedStack(helper, com.simplebuilding.util.HammerRefs.item("diamond"),
                 ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         survival.setItemInHand(InteractionHand.MAIN_HAND, touchHammer);
         chargeAndFinish(touchHammer, level, survival);
@@ -487,7 +487,7 @@ public final class ConsumptionAndDurabilityTests {
 
         // A hammer of its own for the forward step, so the durability the crush half counts on
         // further down is not moved by this case.
-        ItemStack stepHammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack stepHammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         survival.setShiftKeyDown(false);
         survival.setItemInHand(InteractionHand.MAIN_HAND, stepHammer);
         chargeAndFinish(stepHammer, level, survival);
@@ -503,7 +503,7 @@ public final class ConsumptionAndDurabilityTests {
         survival.setShiftKeyDown(false);
 
         // --- creative: the same forward transformation, free ---
-        ItemStack creativeHammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack creativeHammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         creative.setShiftKeyDown(cornerHit);
         creative.setItemInHand(InteractionHand.MAIN_HAND, creativeHammer);
         chargeAndFinish(creativeHammer, level, creative);

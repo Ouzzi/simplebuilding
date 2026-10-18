@@ -127,7 +127,8 @@ public class Simplebuilding implements ModInitializer {
                 VersatilityUsageEvent.handleAttackBlock(player, world, hand, pos, direction));
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
-            com.simplebuilding.util.SledgehammerProgress.tick(server);
+            // 26.3 (split stage 7): Simple Hammers ticks its own strike progress.
+            if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerProgress.tick(server);
             com.simplebuilding.items.custom.BuildingCoreItem.tickAnimations(server);
             for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                 if (server.getTickCount() % 2 == 0) {
@@ -138,7 +139,7 @@ public class Simplebuilding implements ModInitializer {
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             DynamicLightHandler.onDisconnect(handler.player);
-            com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(handler.player);
+            if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(handler.player);
             com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(handler.player);
             com.simplebuilding.util.WandUndo.onDisconnect(handler.player);
         });

@@ -90,7 +90,7 @@
       ],
       "en": {
         "title": "Upgrading a placed beacon or conduit",
-        "summary": "Hold an axe (with a hammer mod such as SimpleBuilding: its sledgehammer) in the main hand and the Strong Upgrade in the off hand, carry a nether star and use a placed beacon or conduit 8 times.",
+        "summary": "Hold an axe (with a hammer mod such as Simple Hammers: its sledgehammer) in the main hand and the Strong Upgrade in the off hand, carry a nether star and use a placed beacon or conduit 8 times.",
         "details": [
           "Every strike cracks the block, rings a rising anvil sound and lets the Strong block grow over the old one from below.",
           "The last strike swaps the block in place: chosen powers, lock and name stay. The template and one nether star are used up, the tool wears by one per strike.",
@@ -99,7 +99,7 @@
       },
       "de": {
         "title": "Gesetztes Leuchtfeuer oder Aquisator aufwerten",
-        "summary": "Eine Axt (mit einer Hammer-Mod wie SimpleBuilding: deren Vorschlaghammer) in der Haupthand, die Starke Aufwertungsvorlage in der Nebenhand, einen Netherstern dabei und 8-mal ein gesetztes Leuchtfeuer oder einen Aquisator benutzen.",
+        "summary": "Eine Axt (mit einer Hammer-Mod wie Simple Hammers: deren Vorschlaghammer) in der Haupthand, die Starke Aufwertungsvorlage in der Nebenhand, einen Netherstern dabei und 8-mal ein gesetztes Leuchtfeuer oder einen Aquisator benutzen.",
         "details": [
           "Jeder Schlag lässt Risse erscheinen, spielt einen steigenden Amboss-Klang und lässt den starken Block von unten über den alten wachsen.",
           "Der letzte Schlag tauscht den Block an Ort und Stelle: gewählte Kräfte, Sperre und Name bleiben. Vorlage und ein Netherstern werden verbraucht, das Werkzeug nutzt sich je Schlag um eins ab.",

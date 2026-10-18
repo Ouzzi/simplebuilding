@@ -386,7 +386,7 @@ public final class ProtectTests {
     /** With SimpleBuilding loaded: a real sledgehammer swing (3x3 server-side area break) is never flagged. */
     static void hammer(GameTestHelper h) {
         var level = h.getLevel();
-        var item = BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+        var item = BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simplehammers", "iron_sledgehammer"));
         if (item.isEmpty()) { h.succeed(); return; } // standalone: nothing to check
         var center = h.absolutePos(new BlockPos(2, 1, 2));
         for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.setBlock(center.offset(dx, 0, dz), Blocks.STONE.defaultBlockState(), 3);

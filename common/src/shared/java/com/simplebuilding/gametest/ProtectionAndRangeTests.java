@@ -338,7 +338,7 @@ public final class ProtectionAndRangeTests {
         // The sledgehammers hang in the tag twice - directly through
         // #simplebuilding:sledgehammer_tools and again through #minecraft:enchantable/mining, which
         // the provider fills with the same tag - so this only goes red once both are gone.
-        helper.assertTrue(range.canEnchant(new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER)),
+        helper.assertTrue(range.canEnchant(new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"))),
                 "Range cannot be put on the diamond sledgehammer any more, so the sledgehammers "
                         + "dropped out of #simplebuilding:chisel_and_mining_tools on both of the "
                         + "routes that put them there");

@@ -45,7 +45,7 @@ public final class DiscFlips {
 
     /** Ob ein Rechtsklick mit {@code tool} auf das Haeufchen bei {@code pos} eine Platte wendet. */
     public static boolean canFlip(Level level, BlockPos pos, ItemStack tool) {
-        if (!(tool.getItem() instanceof SledgehammerItem) || !(level.getBlockState(pos).getBlock() instanceof PlacedSmallPartsBlock)
+        if (!(com.simplebuilding.items.custom.SledgehammerItem.isHammer(tool.getItem())) || !(level.getBlockState(pos).getBlock() instanceof PlacedSmallPartsBlock)
                 || !(level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile)) {
             return false;
         }

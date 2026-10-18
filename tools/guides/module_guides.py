@@ -184,9 +184,9 @@ MODULES = [
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
          intro=("Glowing, Emitting and Pulsating armor trims, placeable trim templates and forging them with an axe "
-                "(with SimpleBuilding: the sledgehammer).",
+                "(with Simple Hammers: the sledgehammer).",
                 "Leuchtender, strahlender und pulsierender Rüstungsbesatz, ablegbare Besatzvorlagen und ihr Schmieden "
-                "mit der Axt (mit SimpleBuilding: dem Vorschlaghammer).")),
+                "mit der Axt (mit Simple Hammers: dem Vorschlaghammer).")),
     dict(module="simplemobs", ns="simplemobs", package="com.simplebuilding.modules.simplemobs.guide", cls="MobsGuide",
          kind="item", author="Simple Mobs", recipe="minecraft:bone",
          name=("Simple Mobs Guide", "Simple-Mobs-Handbuch"),

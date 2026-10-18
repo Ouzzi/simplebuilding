@@ -531,6 +531,11 @@ public class SledgehammerItem extends Item {
         return reshapeMode(player, stack) == ReshapeMode.CARVE;
     }
 
+    /** {@link #getTransformationState} of {@code item} when it is a sledgehammer, else {@code null} (for callers without the class). */
+    public static BlockState transformationState(Item item, BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {
+        return item instanceof SledgehammerItem hammer ? hammer.getTransformationState(state, pos, side, hit, player, stack) : null;
+    }
+
     public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {
         Block block = state.getBlock();
         Level world = player.level();

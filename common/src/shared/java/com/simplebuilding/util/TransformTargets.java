@@ -76,7 +76,7 @@ public final class TransformTargets {
     /** A machine or placed-template upgrade can start with this hammer and this material now. */
     private static boolean hammerPairing(Level level, BlockPos pos, Player player) {
         ItemStack main = player.getMainHandItem();
-        if (!(main.getItem() instanceof SledgehammerItem) || player.getCooldowns().isOnCooldown(main)) return false;
+        if (!(com.simplebuilding.items.custom.SledgehammerItem.isHammer(main.getItem())) || player.getCooldowns().isOnCooldown(main)) return false;
         return SledgehammerUpgrades.showsUpgradeHint(level, pos, player) || PlacedTemplates.isHammerTarget(level, pos, player);
     }
 
@@ -118,9 +118,9 @@ public final class TransformTargets {
 
         // Item#useOn: only reached when the block does not take the click first.
         if (blockTakesClick(level, pos, state, player)) return false;
-        if (item instanceof SledgehammerItem hammer) {
+        if (SledgehammerItem.isHammer(item)) {
             return SledgehammerItem.strikesDiamondBlock(state, item)
-                    || hammer.getTransformationState(state, pos, hit.getDirection(),
+                    || SledgehammerItem.transformationState(item, state, pos, hit.getDirection(),
                             hit.getLocation().subtract(Vec3.atLowerCornerOf(pos)), player, stack) != null;
         }
         if (item instanceof RotatorItem rotator)
@@ -173,8 +173,8 @@ public final class TransformTargets {
         if (!(level.getBlockState(pos).getBlock() instanceof PlacedTemplateBlock) || !PlacedTemplates.isUpgradable(level, pos)) return false;
         ItemStack stack = player.getItemInHand(hand);
         var catalysts = SledgehammerEntityInteraction.trimUpgrades();
-        if (stack.getItem() instanceof SledgehammerItem)
+        if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(stack.getItem()))
             return hand == InteractionHand.MAIN_HAND && !catalysts.containsKey(player.getOffhandItem().getItem());
-        return catalysts.containsKey(stack.getItem()) && !(player.getMainHandItem().getItem() instanceof SledgehammerItem);
+        return catalysts.containsKey(stack.getItem()) && !(com.simplebuilding.items.custom.SledgehammerItem.isHammer(player.getMainHandItem().getItem()));
     }
 }

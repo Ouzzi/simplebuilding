@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Ovens"
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-description="Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer in SimpleBuilding."
+description="Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer of Simple Hammers."
 [[dependencies.simpleovens]]
 modId="minecraft"
 type="required"

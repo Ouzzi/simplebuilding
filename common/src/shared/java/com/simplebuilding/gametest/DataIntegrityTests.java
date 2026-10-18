@@ -703,14 +703,14 @@ public final class DataIntegrityTests {
 
         // Sledgehammers: one block, two pieces of the tier's material, two sticks.
         String[] hammerPattern = {"BMM", " S ", " S "};
-        assertShapedRecipe(helper, modRecipes, "copper_sledgehammer", ModItems.COPPER_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "copper_sledgehammer", com.simplebuilding.util.HammerRefs.item("copper"), hammerPattern,
                 Map.of('B', Items.COPPER_BLOCK.weathering().unaffected(), 'M', Items.COPPER_INGOT, 'S', Items.STICK),
                 shapes);
-        assertShapedRecipe(helper, modRecipes, "iron_sledgehammer", ModItems.IRON_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "iron_sledgehammer", com.simplebuilding.util.HammerRefs.item("iron"), hammerPattern,
                 Map.of('B', Items.IRON_BLOCK, 'M', Items.IRON_INGOT, 'S', Items.STICK), shapes);
-        assertShapedRecipe(helper, modRecipes, "gold_sledgehammer", ModItems.GOLD_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "gold_sledgehammer", com.simplebuilding.util.HammerRefs.item("gold"), hammerPattern,
                 Map.of('B', Items.GOLD_BLOCK, 'M', Items.GOLD_INGOT, 'S', Items.STICK), shapes);
-        assertShapedRecipe(helper, modRecipes, "diamond_sledgehammer", ModItems.DIAMOND_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "diamond_sledgehammer", com.simplebuilding.util.HammerRefs.item("diamond"), hammerPattern,
                 Map.of('B', Items.DIAMOND_BLOCK, 'M', Items.DIAMOND, 'S', Items.STICK), shapes);
 
         // The stone tier's corner slot is the known defect, so only the rest of its shape is pinned.
@@ -1481,7 +1481,7 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_BLOCK_ITEM,
                 ModItems.ENDERITE_BUNDLE,
                 ModItems.ENDERITE_QUIVER,
-                ModItems.ENDERITE_SLEDGEHAMMER,
+                com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_BUILDING_WAND,
                 ModItems.ENDERITE_UPGRADE_TEMPLATE,
                 ModItems.ENCHANTED_ENDERITE_APPLE,
@@ -1500,8 +1500,8 @@ public final class DataIntegrityTests {
         //     rule could be widened (say to every "_sledgehammer") and step 1 would still pass,
         //     because it derives its expectation from that same rule.
         for (Item item : List.of(
-                ModItems.DIAMOND_SLEDGEHAMMER,
-                ModItems.NETHERITE_SLEDGEHAMMER,
+                com.simplebuilding.util.HammerRefs.item("diamond"),
+                com.simplebuilding.util.HammerRefs.item("netherite"),
                 ModItems.STONE_CHISEL,
                 ModItems.DIAMOND_CORE,
                 Items.DIAMOND,
@@ -2281,8 +2281,8 @@ public final class DataIntegrityTests {
                 Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL}, true, 2);
         addLadder(ladder, new Item[]{ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                 ModItems.DIAMOND_CHISEL}, false, 2);
-        addLadder(ladder, new Item[]{ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER}, false, 22);
+        addLadder(ladder, new Item[]{com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond")}, false, 22);
         ladder.put(new Item[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE}, 1);
         ladder.put(new Item[]{ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE}, 1);
         ladder.put(new Item[]{ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE}, 1);
@@ -2792,7 +2792,7 @@ public final class DataIntegrityTests {
                 ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
                 ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
-                ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER,
+                ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ROTATOR, ModItems.BLUEPRINT,
                 ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
         // Waffen und Ruestung (Besitzer 2026-10-02: wie in Vanilla getrennt von den Werkzeugen).
@@ -3746,9 +3746,9 @@ public final class DataIntegrityTests {
                         ModItems.CREATIVE_BUILDING_WAND),
                 ModItemGroupsContent.buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
-                        ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                        ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
-                        ModItems.ENDERITE_SLEDGEHAMMER)));
+                        com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                        com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
+                        com.simplebuilding.util.HammerRefs.item("enderite"))));
         Map<String, Item> enderite = new LinkedHashMap<>();
         // Vanillas Werkzeug-Reihenfolge: Schaufel, Spitzhacke, Axt, Hacke.
         enderite.put("shovel", ModItems.ENDERITE_SHOVEL);
@@ -4060,7 +4060,7 @@ public final class DataIntegrityTests {
         }, helper.getLevel().registryAccess());
         helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
 
-        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, ModItems.ENDERITE_SLEDGEHAMMER,
+        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
                 ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
@@ -4075,8 +4075,8 @@ public final class DataIntegrityTests {
                 ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
                 ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
-                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
                 ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
                 ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
                 ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,

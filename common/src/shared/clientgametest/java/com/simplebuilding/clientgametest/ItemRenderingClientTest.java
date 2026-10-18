@@ -1227,7 +1227,7 @@ public final class ItemRenderingClientTest {
         if (server == null) {
             throw new AssertionError("There is no integrated server to read the saved upgrade progress from");
         }
-        SledgehammerProgress data = server.overworld().getDataStorage().get(SledgehammerProgress.TYPE);
+        var data = server.overworld().getDataStorage().get(SledgehammerProgress.TYPE);
         if (data == null) {
             return 0;
         }

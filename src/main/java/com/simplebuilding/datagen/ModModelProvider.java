@@ -770,14 +770,16 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
         itemModelGenerator.generateFlatItem(ModItems.CREATIVE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // Queue N29
 
-        // --- SLEDGEHAMMERS ---
-        itemModelGenerator.generateFlatItem(ModItems.STONE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.COPPER_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.IRON_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.GOLD_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
+        // --- SLEDGEHAMMERS --- (26.3: Simple Hammers' own item models, split stage 7)
+        if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("stone"), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("copper"), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("iron"), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("gold"), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("diamond"), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("netherite"), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(com.simplebuilding.util.HammerRefs.item("enderite"), ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
+        }
 
         // --- NEW: ENDERITE TOOLS (HANDHELD) ---
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);

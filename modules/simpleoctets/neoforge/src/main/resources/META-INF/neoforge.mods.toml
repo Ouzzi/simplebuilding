@@ -5,7 +5,7 @@ license="CC0-1.0"
 modId="simpleoctets"
 version="${version}"
 displayName="Simple Octets"
-description="Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs, and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of SimpleBuilding carves them."
+description="Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs, and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them."
 [[dependencies.simpleoctets]]
 modId="minecraft"
 type="required"

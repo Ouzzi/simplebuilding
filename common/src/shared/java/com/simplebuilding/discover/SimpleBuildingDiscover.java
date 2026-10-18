@@ -460,7 +460,6 @@ public final class SimpleBuildingDiscover {
             "simpleovens:reinforced_furnace",
             "simpleovens:reinforced_smoker");
     static final List<Tip> TIPS = List.of(
-            new Tip("sledgehammer", List.of("*_sledgehammer")),
             new Tip("chisel", List.of("*_chisel")),
             new Tip("building_wand", List.of("*_building_wand")),
             new Tip("blueprint", List.of("blueprint")),

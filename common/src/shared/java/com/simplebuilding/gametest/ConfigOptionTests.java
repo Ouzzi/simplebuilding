@@ -162,7 +162,7 @@ public final class ConfigOptionTests {
         int old = tools.diamondBlockPebbles;
         var player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        var hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        var hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         BlockPos pos = new BlockPos(1, 2, 1);
         helper.setBlock(pos, net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK);
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, hammer);
@@ -271,7 +271,7 @@ public final class ConfigOptionTests {
     private static final Set<String> BASTION_LOOT = Set.of(
             book(ModEnchantments.FUNNEL, 1),
             book(ModEnchantments.BREAK_THROUGH, 1),
-            id(ModItems.GOLD_SLEDGEHAMMER),
+            id(com.simplebuilding.util.HammerRefs.item("gold")),
             id(ModItems.GOLD_CORE),
             id(ModItems.NETHERITE_NUGGET),
             id(ModItems.NETHERITE_CARROT));
@@ -346,14 +346,14 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VERSATILITY, 2),
                     book(ModEnchantments.BRIDGE, 1),
                     id(ModItems.DIAMOND_BUILDING_WAND),
-                    id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(com.simplebuilding.util.HammerRefs.item("diamond")),
                     id(ModItems.ENDERITE_APPLE),
                     id(ModItems.ENCHANTED_ENDERITE_APPLE))),
             Map.entry(BuiltInLootTables.ANCIENT_CITY, Set.of(
                     book(ModEnchantments.DEEP_POCKETS, 2),
                     book(ModEnchantments.RADIUS, 1),
                     id(ModItems.OCTANT),
-                    id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(com.simplebuilding.util.HammerRefs.item("diamond")),
                     id(ModItems.QUIVER),
                     id(ModItems.NETHERITE_APPLE),
                     id(ModItems.ENCHANTED_NETHERITE_APPLE),

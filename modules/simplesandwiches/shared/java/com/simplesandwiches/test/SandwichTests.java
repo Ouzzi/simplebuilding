@@ -904,7 +904,7 @@ public final class SandwichTests {
      */
     static void noEnderiteWithoutRequester(GameTestHelper h) {
         boolean sb = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"))
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplehammers", "iron_sledgehammer"))
                 || net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(
                 net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "enderite_crucible"));
         var recipes = h.getLevel().getServer().getRecipeManager();

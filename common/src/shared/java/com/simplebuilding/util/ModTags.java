@@ -102,7 +102,9 @@ public class ModTags {
             boolean own = Simplebuilding.MOD_ID.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
+                    // Split stage 7: the Enderite sledgehammer (Simple Hammers).
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace());
             return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
@@ -169,7 +171,8 @@ public class ModTags {
             // split 3d: the enderite materials (ingot, nugget, block) are SimpleLib's now; stage 4/5: so are the Enderite furnaces and crucible tiers (modules)
             return (Simplebuilding.MOD_ID.equals(id.getNamespace()) || "simplelib".equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }

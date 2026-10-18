@@ -131,7 +131,7 @@ public final class SledgehammerTests {
         }
         BlockPos pos = new BlockPos(2, 2, 2);
         ServerPlayer player = chipPlayer(helper);
-        ItemStack hammer = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("stone"));
         helper.setBlock(pos, Blocks.ICE);
         player.setGameMode(GameType.ADVENTURE);
         useChipHammerOnce(helper, player, hammer, pos);
@@ -236,11 +236,11 @@ public final class SledgehammerTests {
         player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
         helper.assertFalse(player.isCreative(), "the mock player is creative");
         helper.setBlock(pos, block);
-        ItemStack stone = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        ItemStack stone = new ItemStack(com.simplebuilding.util.HammerRefs.item("stone"));
         helper.assertTrue(useChipHammerOnce(helper, player, stone, pos) == InteractionResult.FAIL, "the stone hammer did not clank");
         helper.assertBlockPresent(block, pos);
         helper.assertTrue(stone.getDamageValue() == 0 && chipDrops(helper, ModItems.DIAMOND_PEBBLE) == 0, "the stone hammer crushed or wore");
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         for (int strike = 1; strike <= SledgehammerItem.DIAMOND_BLOCK_STRIKES; strike++) {
             helper.assertTrue(useChipHammerOnce(helper, player, hammer, pos).consumesAction(), "strike " + strike + " was not handled");
             if (strike < SledgehammerItem.DIAMOND_BLOCK_STRIKES) {
@@ -273,8 +273,8 @@ public final class SledgehammerTests {
         helper.assertTrue(recipe.output().items().equals(List.of(ModItems.DIAMOND_PEBBLE))
                         && recipe.output().count() == com.simplebuilding.config.ServerTuning.diamondBlockPebbles(),
                 "wrong yield in the catalog: " + recipe.output());
-        helper.assertTrue(!recipe.tools().contains(ModItems.STONE_SLEDGEHAMMER) && !recipe.tools().contains(ModItems.COPPER_SLEDGEHAMMER)
-                        && recipe.tools().contains(ModItems.IRON_SLEDGEHAMMER), "wrong hammers in the catalog: " + recipe.tools());
+        helper.assertTrue(!recipe.tools().contains(com.simplebuilding.util.HammerRefs.item("stone")) && !recipe.tools().contains(com.simplebuilding.util.HammerRefs.item("copper"))
+                        && recipe.tools().contains(com.simplebuilding.util.HammerRefs.item("iron")), "wrong hammers in the catalog: " + recipe.tools());
         helper.succeed();
     }
 
@@ -282,7 +282,7 @@ public final class SledgehammerTests {
         if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 2, 2);
         ServerPlayer player = chipPlayer(helper);
-        ItemStack hammer = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("stone"));
         helper.setBlock(pos, source);
         player.setGameMode(GameType.ADVENTURE);
         useChipHammer(helper, player, hammer, pos);
@@ -328,7 +328,7 @@ public final class SledgehammerTests {
             pile.add(new ItemStack(ModItems.MUSIC_DISC_DRIFTWOOD));
         }
         player.setShiftKeyDown(false);
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         player.setGameMode(GameType.ADVENTURE);
         useChipHammer(helper, player, hammer, pos);
         helper.assertTrue(pile.parts().size() == (mixed ? 3 : 1) && chipDrops(helper, ModItems.FIRE_CHIP) == 0,
@@ -366,7 +366,7 @@ public final class SledgehammerTests {
         var pile = (com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
         pile.add(new ItemStack(ModItems.MUSIC_DISC_DRIFTWOOD));
         player.setShiftKeyDown(false);
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         player.setGameMode(GameType.ADVENTURE);
         useChipHammer(helper, player, hammer, pos);
         helper.assertTrue(pile.parts().size() == 2 && chipDrops(helper, ModItems.DIAMOND_PEBBLE) == 0, "adventure changed the cracked diamond");
@@ -393,7 +393,7 @@ public final class SledgehammerTests {
             var hit = new BlockHitResult(Vec3.atCenterOf(abs).add(new Vec3(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5)), face, abs, false);
             var placed = charge.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit));
             helper.assertTrue(placed != null && placed.consumesAction() && charge.isEmpty(), "wall/ceiling placement failed");
-            ItemStack hammer = new ItemStack(expected == 0 ? ModItems.IRON_SLEDGEHAMMER : ModItems.COPPER_SLEDGEHAMMER);
+            ItemStack hammer = new ItemStack(expected == 0 ? com.simplebuilding.util.HammerRefs.item("iron") : com.simplebuilding.util.HammerRefs.item("copper"));
             useChipHammer(helper, player, hammer, support.relative(face));
             expected += 4;
             helper.assertBlockPresent(Blocks.AIR, support.relative(face));
@@ -408,7 +408,7 @@ public final class SledgehammerTests {
         player.setGameMode(GameType.CREATIVE);
         BlockPos pos = new BlockPos(2, 2, 2);
         helper.setBlock(pos, Blocks.OBSIDIAN);
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         useChipHammer(helper, player, hammer, pos);
         helper.assertBlockPresent(Blocks.AIR, pos);
         helper.assertTrue(hammer.getDamageValue() == 0 && chipDrops(helper, ModItems.OBSIDIAN_CHIP) == 9, "creative conversion or durability incorrect");
@@ -649,7 +649,7 @@ public final class SledgehammerTests {
     public static void sledgehammerBillsTwoDurabilityPerBlockAndThreeForTheWrongTool(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
 
-        assertSwingCharge(helper, player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), Blocks.STONE, 0,
+        assertSwingCharge(helper, player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), Blocks.STONE, 0,
                 "a plain hammer on its own pickaxe blocks");
         assertSwingCharge(helper, player, hammerWith(helper, ModEnchantments.OVERRIDE, 2), Blocks.GLASS, 1,
                 "an Override II hammer on glass, which is in none of the mineable tags");
@@ -684,7 +684,7 @@ public final class SledgehammerTests {
     public static void sledgehammerStopsTheSwingWhenTheHammerBreaks(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
 
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         helper.assertTrue(hammer.isDamageableItem(), "the sledgehammer stopped being damageable");
         hammer.setDamageValue(hammer.getMaxDamage() - 1);
 
@@ -752,7 +752,7 @@ public final class SledgehammerTests {
         helper.setBlock(relativeOrigin, Blocks.STONE);
 
         // A plain hammer first: one flat 3x3, no depth at all.
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         look(player, 0.0F, 90.0F);
         assertField(helper, player, origin, 0, Direction.EAST, Direction.SOUTH, Direction.DOWN, "looking down");
 
@@ -833,7 +833,7 @@ public final class SledgehammerTests {
      */
     public static void sledgehammerRightClickChargesOnlyOnBlocksItCanReshape(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
 
         // --- a diamond block takes a strike, never a charge (owner 2026-10-02; nine since N55) ---
         helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
@@ -885,7 +885,7 @@ public final class SledgehammerTests {
         // --- letting go early does nothing, and the very next finish proves the setup was live ---
         player.setShiftKeyDown(carve);
         helper.setBlock(CENTRE, Blocks.STONE);
-        ItemStack released = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack released = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         player.setItemInHand(InteractionHand.MAIN_HAND, released);
         released.getItem().useOn(topClick(helper, player, CENTRE));
         released.getItem().releaseUsing(released, helper.getLevel(), player, 5);
@@ -938,7 +938,7 @@ public final class SledgehammerTests {
             }
         }
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         player.setShiftKeyDown(false);
 
@@ -1019,8 +1019,8 @@ public final class SledgehammerTests {
      * a tag of the Override list going away.
      */
     public static void sledgehammerSpeedAndBlockCountScaleWithItsEnchantments(GameTestHelper helper) {
-        SledgehammerItem hammer = ModItems.DIAMOND_SLEDGEHAMMER;
-        float material = hammer.getMaterial().speed();
+        net.minecraft.world.item.Item hammer = com.simplebuilding.util.HammerRefs.item("diamond");
+        float material = SledgehammerItem.materialOf(hammer).speed();
         helper.assertTrue(material > 1.0F, "the diamond hammer's material speed is no longer above bare hands");
 
         BlockState stone = Blocks.STONE.defaultBlockState();
@@ -1030,7 +1030,7 @@ public final class SledgehammerTests {
         // Hay stands for the hoe class: it is in mineable/hoe and in no other mining tag.
         BlockState hay = Blocks.HAY_BLOCK.defaultBlockState();
 
-        ItemStack plain = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack plain = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         ItemStack radius = hammerWith(helper, ModEnchantments.RADIUS, 1);
         ItemStack both = hammerWith(helper, ModEnchantments.RADIUS, 1);
         both.enchant(enchantment(helper, ModEnchantments.BREAK_THROUGH), 1);
@@ -1104,7 +1104,7 @@ public final class SledgehammerTests {
             return;
         }
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
 
         // --- lone block: a little slower than the diamond pickaxe ---
         helper.setBlock(CENTRE, Blocks.STONE);
@@ -1122,7 +1122,7 @@ public final class SledgehammerTests {
 
         // --- the owner's example: an enderite hammer's 3x3 is nine netherite pickaxe blocks ---
         float netheritePickaxe = progressWith(helper, player, new ItemStack(Items.NETHERITE_PICKAXE), CENTRE);
-        assertRatio(helper, progressWith(helper, player, new ItemStack(ModItems.ENDERITE_SLEDGEHAMMER), CENTRE),
+        assertRatio(helper, progressWith(helper, player, new ItemStack(com.simplebuilding.util.HammerRefs.item("enderite")), CENTRE),
                 netheritePickaxe, 9.0F, "an enderite hammer's full 3x3 against nine blocks with a netherite pickaxe");
 
         // --- only what really breaks counts: 1 + 4 stone, the 4 dirt corners stay ---
@@ -1270,22 +1270,22 @@ public final class SledgehammerTests {
     public static void sledgehammerChargeTimeShortensWithMaterialAndEfficiency(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
 
-        assertUseDuration(helper, player, ModItems.STONE_SLEDGEHAMMER, 40, "stone (raw 50, held at the upper clamp)");
-        assertUseDuration(helper, player, ModItems.COPPER_SLEDGEHAMMER, 40, "copper");
-        assertUseDuration(helper, player, ModItems.IRON_SLEDGEHAMMER, 33, "iron");
-        assertUseDuration(helper, player, ModItems.DIAMOND_SLEDGEHAMMER, 25, "diamond");
-        assertUseDuration(helper, player, ModItems.NETHERITE_SLEDGEHAMMER, 22, "netherite");
-        assertUseDuration(helper, player, ModItems.ENDERITE_SLEDGEHAMMER, 20, "enderite");
-        assertUseDuration(helper, player, ModItems.GOLD_SLEDGEHAMMER, 16, "gold, the fastest material in the game");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("stone"), 40, "stone (raw 50, held at the upper clamp)");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("copper"), 40, "copper");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("iron"), 33, "iron");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("diamond"), 25, "diamond");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("netherite"), 22, "netherite");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("enderite"), 20, "enderite");
+        assertUseDuration(helper, player, com.simplebuilding.util.HammerRefs.item("gold"), 16, "gold, the fastest material in the game");
 
-        ItemStack efficient = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack efficient = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         efficient.enchant(enchantment(helper, Enchantments.EFFICIENCY), 5);
         helper.assertValueEqual(efficient.getItem().getUseDuration(efficient, player), 6,
                 "charge time of a diamond hammer with Efficiency V");
 
         // Deliberately above the vanilla cap: no legal level gets the raw value under the lower
         // clamp, so this is the only way to prove the clamp is doing anything.
-        ItemStack overCharged = new ItemStack(ModItems.GOLD_SLEDGEHAMMER);
+        ItemStack overCharged = new ItemStack(com.simplebuilding.util.HammerRefs.item("gold"));
         overCharged.enchant(enchantment(helper, Enchantments.EFFICIENCY), 10);
         helper.assertValueEqual(overCharged.getItem().getUseDuration(overCharged, player), 4,
                 "charge time of a gold hammer with Efficiency X (raw 3, held at the lower clamp)");
@@ -1300,9 +1300,9 @@ public final class SledgehammerTests {
         var pos = helper.absolutePos(CENTRE);
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setShiftKeyDown(true);
-        ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack stack = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-        SledgehammerItem hammer = (SledgehammerItem) stack.getItem();
+        net.minecraft.world.item.Item hammer = stack.getItem();
         for (Half half : Half.values()) for (int first = 0; first < 4; first++) {
             BlockState state = Blocks.STONE.defaultBlockState();
             int mask = 15;
@@ -1312,7 +1312,7 @@ public final class SledgehammerTests {
                 Vec3 aim = new Vec3((corner & 1) == 0 ? 0.25 : 0.75,
                         half == Half.BOTTOM ? 0.75 : 0.25, (corner & 2) == 0 ? 0.25 : 0.75);
                 level.setBlockAndUpdate(pos, state);
-                BlockState next = hammer.getTransformationState(state, pos,
+                BlockState next = SledgehammerItem.transformationState(hammer, state, pos,
                         half == Half.BOTTOM ? Direction.UP : Direction.DOWN, aim, player, stack);
                 helper.assertTrue(next != null, "missing corner step " + step + " / " + first + " / " + half);
                 var click = new BlockHitResult(Vec3.atLowerCornerOf(pos).add(aim),
@@ -1320,7 +1320,7 @@ public final class SledgehammerTests {
                 helper.assertValueEqual(hammer.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, click)),
                         InteractionResult.CONSUME, "corner hit did not use the existing charging path");
                 helper.assertValueEqual(hammer.getUseDuration(stack, player),
-                        (int) Math.ceil(SledgehammerItem.reshapeTicks(hammer.getMaterial().speed(), 0) / 1.5), "actual corner charge duration");
+                        (int) Math.ceil(SledgehammerItem.reshapeTicks(SledgehammerItem.materialOf(hammer).speed(), 0) / 1.5), "actual corner charge duration");
                 hammer.releaseUsing(stack, level, player, 0);
                 player.stopUsingItem();
                 var encoded = BlockState.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, next).getOrThrow();
@@ -1333,7 +1333,7 @@ public final class SledgehammerTests {
                     helper.assertValueEqual(com.simplebuilding.blueprint.BlueprintMaterials.survivalState(next), next,
                             "survival blueprint lost the carved geometry");
                     BlockState wet = state.getBlock() instanceof StairBlock ? state.setValue(StairBlock.WATERLOGGED, true) : null;
-                    if (wet != null) helper.assertTrue(hammer.getTransformationState(wet, pos,
+                    if (wet != null) helper.assertTrue(SledgehammerItem.transformationState(hammer, wet, pos,
                             half == Half.BOTTOM ? Direction.UP : Direction.DOWN, aim, player, stack).getValue(StairBlock.WATERLOGGED),
                             "corner hit lost waterlogging");
                     int quarters = step == 0 ? 3 : step == 1 ? 2 : 1;
@@ -1342,7 +1342,7 @@ public final class SledgehammerTests {
                     level.setBlockAndUpdate(pos.east(), Blocks.DIRT.defaultBlockState());
                     level.setBlockAndUpdate(pos.east(), Blocks.AIR.defaultBlockState());
                     helper.assertValueEqual(level.getBlockState(pos), next, "neighbor update restored a carved corner");
-                    helper.assertTrue(hammer.getTransformationState(next, pos, Direction.UP, aim, player, stack) == null,
+                    helper.assertTrue(SledgehammerItem.transformationState(hammer, next, pos, Direction.UP, aim, player, stack) == null,
                             "already missing corner was cut twice");
                 } else {
                     helper.assertTrue(next.is(Blocks.STONE_SLAB), "last corner did not become slab");
@@ -1382,7 +1382,7 @@ public final class SledgehammerTests {
                     {ModItems.ROTATOR, Blocks.OAK_STAIRS, true},
                     {Items.ECHO_SHARD, Blocks.STONE, false}, {Items.GLOW_INK_SAC, Blocks.STONE, false},
                     // Queue Nachtrag 24: the hammer only tilts while sneaking (SledgehammerOctetTests).
-                    {ModItems.DIAMOND_SLEDGEHAMMER, Blocks.STONE, false}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
+                    {com.simplebuilding.util.HammerRefs.item("diamond"), Blocks.STONE, false}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
                 ItemStack stack = new ItemStack((Item) test[0]);
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
@@ -1421,7 +1421,7 @@ public final class SledgehammerTests {
             sign.setWaxed(true);
             helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "waxed sign hinted");
         }
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.NETHERITE_NUGGET));
         level.setBlockAndUpdate(pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState());
         for (InteractionHand hand : InteractionHand.values()) helper.assertTrue(
@@ -1463,23 +1463,23 @@ public final class SledgehammerTests {
         InteractionHand main = InteractionHand.MAIN_HAND;
         InteractionHand off = InteractionHand.OFF_HAND;
 
-        holding(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), ItemStack.EMPTY);
+        holding(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), ItemStack.EMPTY);
         helper.assertTrue(halfHint(helper, hit, player, main) && !fullHint(helper, hit, player, main), "hammer without nugget: half tilt only");
-        holding(player, new ItemStack(ModItems.STONE_SLEDGEHAMMER), ItemStack.EMPTY);
+        holding(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("stone")), ItemStack.EMPTY);
         helper.assertFalse(halfHint(helper, hit, player, main), "a hammer too weak for the stage advertised it");
         holding(player, ItemStack.EMPTY, new ItemStack(ModItems.NETHERITE_NUGGET));
         helper.assertTrue(halfHint(helper, hit, player, off) && !fullHint(helper, hit, player, off), "nugget without hammer: half tilt only");
         holding(player, ItemStack.EMPTY, new ItemStack(ModItems.ENDERITE_NUGGET));
         helper.assertFalse(halfHint(helper, hit, player, off), "the material of another stage advertised this one");
-        holding(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET));
+        holding(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), new ItemStack(ModItems.NETHERITE_NUGGET));
         for (InteractionHand hand : InteractionHand.values()) {
             helper.assertTrue(fullHint(helper, hit, player, hand) && !halfHint(helper, hit, player, hand), "complete pair is no full tilt / " + hand);
         }
-        ItemStack cooling = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack cooling = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         holding(player, cooling, ItemStack.EMPTY);
         player.getCooldowns().addCooldown(cooling, 20);
         helper.assertFalse(halfHint(helper, hit, player, main), "a cooling hammer advertised the upgrade");
-        holding(player, new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER), ItemStack.EMPTY);
+        holding(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), ItemStack.EMPTY);
         player.setGameMode(GameType.ADVENTURE);
         helper.assertFalse(halfHint(helper, hit, player, main), "adventure mode advertised the upgrade");
         player.setGameMode(GameType.SURVIVAL);
@@ -1523,7 +1523,7 @@ public final class SledgehammerTests {
             helper.assertFalse(fullHint(helper, hit, player, hand), "an undamaged piston hinted a repair / " + hand);
         }
         level.setBlockAndUpdate(pos, netherite);
-        holding(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET));
+        holding(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), new ItemStack(ModItems.NETHERITE_NUGGET));
         helper.assertTrue(fullHint(helper, hit, player, InteractionHand.OFF_HAND), "a hammer that does nothing here hid the off-hand repair");
         holding(player, new ItemStack(Items.DIRT), new ItemStack(ModItems.NETHERITE_NUGGET));
         helper.assertFalse(fullHint(helper, hit, player, InteractionHand.OFF_HAND), "the off hand hinted although the main hand places a block");
@@ -1651,7 +1651,7 @@ public final class SledgehammerTests {
      */
     public static void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         BlockPos from = CENTRE.offset(-1, 0, -1);
         BlockPos to = CENTRE.offset(1, 1, 1);
         for (BlockPos pos : BlockPos.betweenClosed(from, to)) {
@@ -1749,15 +1749,15 @@ public final class SledgehammerTests {
         }
         ServerPlayer player = inLevelPlayer(helper, new Vec3(4.5, 3.0, 4.5), 0.0F, 90.0F, false);
         List<StepCase> cases = new ArrayList<>();
-        cases.add(new StepCase("diamond", new BlockPos(1, 1, 1), Blocks.DIAMOND_BLOCK, ModItems.IRON_SLEDGEHAMMER,
+        cases.add(new StepCase("diamond", new BlockPos(1, 1, 1), Blocks.DIAMOND_BLOCK, com.simplebuilding.util.HammerRefs.item("iron"),
                 ModItems.DIAMOND_PEBBLE, SledgehammerItem.DIAMOND_BLOCK_STRIKES,
                 com.simplebuilding.config.ServerTuning.diamondBlockPebbles()));
-        cases.add(new StepCase("ice", new BlockPos(4, 1, 1), chippedIce(), ModItems.STONE_SLEDGEHAMMER,
+        cases.add(new StepCase("ice", new BlockPos(4, 1, 1), chippedIce(), com.simplebuilding.util.HammerRefs.item("stone"),
                 ModItems.ICE_CHIP, com.simplebuilding.util.SledgehammerChips.ICE_CHIPS, com.simplebuilding.util.SledgehammerChips.ICE_CHIPS));
-        cases.add(new StepCase("obsidian", new BlockPos(7, 1, 1), Blocks.OBSIDIAN, ModItems.COPPER_SLEDGEHAMMER,
+        cases.add(new StepCase("obsidian", new BlockPos(7, 1, 1), Blocks.OBSIDIAN, com.simplebuilding.util.HammerRefs.item("copper"),
                 ModItems.OBSIDIAN_CHIP, com.simplebuilding.util.SledgehammerChips.OBSIDIAN_CHIPS, com.simplebuilding.util.SledgehammerChips.OBSIDIAN_CHIPS));
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            cases.add(new StepCase("quartz", new BlockPos(1, 1, 5), Blocks.QUARTZ_BLOCK, ModItems.GOLD_SLEDGEHAMMER,
+            cases.add(new StepCase("quartz", new BlockPos(1, 1, 5), Blocks.QUARTZ_BLOCK, com.simplebuilding.util.HammerRefs.item("gold"),
                     Items.QUARTZ, SledgehammerItem.QUARTZ_BLOCK_QUARTZ, SledgehammerItem.QUARTZ_BLOCK_QUARTZ));
         }
         for (StepCase c : cases) {
@@ -1806,7 +1806,7 @@ public final class SledgehammerTests {
             }
         }
         if (strike <= 2) {
-            rightClickTop(helper, player, new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER), abandoned);
+            rightClickTop(helper, player, new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), abandoned);
         }
         if (strike < longest) {
             helper.runAfterDelay(InWorldStrikes.MIN_INTERVAL + 1, () -> stepStrike(helper, player, cases, abandoned, strike + 1));
@@ -1998,7 +1998,7 @@ public final class SledgehammerTests {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
         helper.setBlock(CENTRE, Blocks.STONE);
         helper.setBlock(PROBE, Blocks.DIAMOND_BLOCK);
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(helper.absolutePos(PROBE)).inflate(2.0);
 
         // --- charged on the stone, let go while looking at the diamond block ---
@@ -2057,13 +2057,13 @@ public final class SledgehammerTests {
     public static void onlyIronOrBetterSledgehammersCrushDiamondBlocks(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         java.util.Map<Item, Boolean> expected = new java.util.LinkedHashMap<>();
-        expected.put(ModItems.STONE_SLEDGEHAMMER, false);
-        expected.put(ModItems.COPPER_SLEDGEHAMMER, false);
-        expected.put(ModItems.IRON_SLEDGEHAMMER, true);
-        expected.put(ModItems.GOLD_SLEDGEHAMMER, true);
-        expected.put(ModItems.DIAMOND_SLEDGEHAMMER, true);
-        expected.put(ModItems.NETHERITE_SLEDGEHAMMER, true);
-        expected.put(ModItems.ENDERITE_SLEDGEHAMMER, true);
+        expected.put(com.simplebuilding.util.HammerRefs.item("stone"), false);
+        expected.put(com.simplebuilding.util.HammerRefs.item("copper"), false);
+        expected.put(com.simplebuilding.util.HammerRefs.item("iron"), true);
+        expected.put(com.simplebuilding.util.HammerRefs.item("gold"), true);
+        expected.put(com.simplebuilding.util.HammerRefs.item("diamond"), true);
+        expected.put(com.simplebuilding.util.HammerRefs.item("netherite"), true);
+        expected.put(com.simplebuilding.util.HammerRefs.item("enderite"), true);
         expected.forEach((item, can) -> {
             if (SledgehammerItem.canCrushDiamondBlock(item) != can) {
                 problems.add(item + (can ? " cannot" : " can") + " crush a diamond block");
@@ -2074,7 +2074,7 @@ public final class SledgehammerTests {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
         net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(helper.absolutePos(CENTRE)).inflate(2.0);
         helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
-        for (Item weak : List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER)) {
+        for (Item weak : List.of(com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"))) {
             ItemStack hammer = new ItemStack(weak);
             InteractionResult result = useOnTop(helper, player, hammer, CENTRE);
             helper.assertTrue(result == InteractionResult.FAIL, weak + " on a diamond block answered " + result + " instead of FAIL");
@@ -2088,7 +2088,7 @@ public final class SledgehammerTests {
 
         // Owner 2026-10-01: single strikes instead of a held charge, nine since N55 (2026-10-14). A repeat inside the
         // minimum interval (held right-click) does not count, the last counted strike crushes.
-        ItemStack iron = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack iron = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         InteractionResult first = useOnTop(helper, player, iron, CENTRE);
         helper.assertTrue(first == InteractionResult.SUCCESS, "the iron hammer did not strike the diamond block, got " + first);
         helper.assertFalse(player.isUsingItem(), "the iron hammer still winds up on a diamond block");
@@ -2168,7 +2168,7 @@ public final class SledgehammerTests {
     }
 
     private static ItemStack hammerWith(GameTestHelper helper, ResourceKey<Enchantment> key, int level) {
-        ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack stack = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         stack.enchant(enchantment(helper, key), level);
         return stack;
     }

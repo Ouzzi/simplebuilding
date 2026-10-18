@@ -31,14 +31,15 @@ import org.jetbrains.annotations.Nullable;
  * ({@code McVersion.CRUCIBLE} is false there).
  * <ul>
  *   <li>The Enderite crucible and barrel are the module's blocks, found by id.</li>
- *   <li>Sledgehammer ways (principle 5a): building the iron crucible (2 durability per strike), attaching a
- *       barrel (6 strikes); upgrades run through the sledgehammer upgrade table
- *       ({@code SledgehammerUpgrades}). The Vanilla axe ways are switched off.</li>
+ *   <li>Sledgehammer ways (principle 5a): since split stage 7 building the iron crucible (2 durability per strike),
+ *       attaching a barrel and the strike-by-strike crucible upgrade are Simple Crucibles' own hammer ways (SimpleLib
+ *       {@code HammerActions}, run by Simple Hammers); SimpleBuilding only listens for the built crucible (advancement).</li>
  *   <li>Soul lava, its buckets and the copper/Enderite/ceramic buckets are the module's (split stage 5b); SimpleBuilding
  *       only listens for scooping (advancement) and lends the buckets to its wooden cauldron ({@link #cauldronBucket}).</li>
  * </ul>
  */
 public final class CrucibleCompat {
+    /** Durability per build / attach strike of the hammer (Simple Crucibles' hammer ways since split stage 7). */
     public static final int HAMMER_DAMAGE_PER_STRIKE = 2;
 
     /** Namespace of the crucibles (the module). */
@@ -50,7 +51,10 @@ public final class CrucibleCompat {
      * split stage 5b - it handles them on the reinforced cauldron itself.
      */
     public static void init() {
-        SimpleLibApi.registerToolUse(CrucibleCompat::hammerWants);
+        // Split stage 7: building, attaching and the menu hand-over with the hammer are Simple Crucibles' own hammer ways
+        // (SimpleLib HammerActions); SimpleBuilding only keeps its advancement.
+        SimpleCruciblesApi.onCrucibleBuilt(player ->
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.CRUCIBLE_BUILT));
         SimpleCruciblesApi.onSoulLavaScooped(player ->
                 com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.SOUL_LAVA_SCOOPED));
     }
@@ -154,39 +158,6 @@ public final class CrucibleCompat {
     public static int buildWallStrikes() { return SimpleCruciblesApi.buildWallStrikes(); }
 
     public static String attachedBarrelSlots() { return SimpleCruciblesApi.attachedBarrelSlots(); }
-
-    /** A sledgehammer click on a crucible/barrel reaches the hammer instead of the menu when it upgrades, builds or attaches. */
-    private static boolean hammerWants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !SimpleLibApi.isHammer(player.getMainHandItem())) return false;
-        if (com.simplebuilding.util.SledgehammerUpgrades.shouldSkipBlockUse(state, level, pos, player, hand)) return true;
-        return SimpleCruciblesApi.canAttach(level, pos, state);
-    }
-
-    /**
-     * The sledgehammer's in-world crucible ways: build the iron crucible on an iron block (off hand:
-     * walls, then handles) and attach a barrel to a crucible. Null when neither applies.
-     */
-    public static @Nullable InteractionResult hammerUse(UseOnContext context) {
-        Player player = context.getPlayer();
-        if (player == null || context.getHand() != InteractionHand.MAIN_HAND) return null;
-        Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
-        ItemStack tool = context.getItemInHand();
-        if (SimpleCruciblesApi.canAttach(level, pos, state)) {
-            return SimpleCruciblesApi.attachStrike(level, pos, player, tool, HAMMER_DAMAGE_PER_STRIKE) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
-        }
-        if (SimpleCruciblesApi.canBuildStrike(state, player.getOffhandItem())) {
-            if (!com.simplebuilding.api.WorldPermissions.mayAct(level, player, pos)) return InteractionResult.FAIL;
-            boolean hit = SimpleCruciblesApi.buildStrike(level, pos, player, tool, HAMMER_DAMAGE_PER_STRIKE);
-            if (hit && player instanceof net.minecraft.server.level.ServerPlayer server
-                    && level.getBlockState(pos).getBlock() == BuiltInRegistries.BLOCK.getValue(id("iron_crucible"))) {
-                com.simplebuilding.advancement.ModTriggers.feature(server, com.simplebuilding.advancement.ModTriggers.CRUCIBLE_BUILT);
-            }
-            return hit ? InteractionResult.SUCCESS : InteractionResult.FAIL;
-        }
-        return null;
-    }
 
     private CrucibleCompat() {}
 }

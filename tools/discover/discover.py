@@ -45,8 +45,7 @@ TIP_MAX = 60  # action bar line, EN and DE
 # First pickup tips (owner: only machines/tools whose use is not obvious; short; texts from the wiki notes).
 # (group, item patterns, EN, DE); a pattern without ':' is a path in the mod's namespace.
 SB_TIPS = [
-    ("sledgehammer", ["*_sledgehammer"], "Mines 3x3. Sneak + hold use: carve off an eighth",
-     "Baut 3x3 ab. Schleichen + Benutzen halten: Achtel ab"),
+    # split stage 7: the sledgehammer tip is Simple Hammers' (simplehammers id below)
     ("chisel", ["*_chisel"], "Use on a block: next variant; sneak: back",
      "Auf Block benutzen: nächste Variante; Schleichen: zurück"),
     ("building_wand", ["*_building_wand"], "Use on a block face: fills an area from your inventory",
@@ -87,10 +86,7 @@ MODS = [
          manual="wiki/manual.json", framework="reflect", tips=SB_TIPS, secret=["simplebuilding:easter_smithing"],
          # Fletching Table parts (no ingredients in the JSON): one unlock for all, when the table or an arrow is picked up
          grouped={"simplebuilding:fletching": ("fletching_table_parts", "combat", ["minecraft:fletching_table", "#minecraft:arrows"])},
-         # 26.2 holds right-click without sneaking and reshapes full blocks into stairs (wiki note *_sledgehammer)
-         tip_overrides={"src/main/resources/assets/simplebuilding/lang": {
-             "sledgehammer": ("Mines 3x3. Hold use: blocks to stairs, stairs to slabs",
-                              "Baut 3x3 ab. Benutzen halten: Block zu Treppe zu Stufe")}}),
+         tip_overrides={}),
     dict(id="simplelib", ns=["simplelib"], cls="LibDiscover", package="com.simplelib.discover",
          mixin_package="com.simplelib.mixin", own_packages=["com.simplelib."]),
     dict(id="simplecrucibles", ns=["simplecrucibles"], cls="CruciblesDiscover", package="com.simplecrucibles.discover",

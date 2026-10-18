@@ -841,7 +841,7 @@ public final class PadOverhaulTests {
         ServerPlayer player = textRecordingPlayer(helper, new Vec3(3.5, 1.0, 1.5), texts);
         texts.clear();
         BlockPos abs = helper.absolutePos(hopper);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
 
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.NETHERITE_NUGGET));
         helper.assertTrue(com.simplebuilding.util.SledgehammerUpgrades.showsUpgradeHint(level, abs, player),

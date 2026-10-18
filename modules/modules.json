@@ -1442,7 +1442,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Trims",
-      "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with SimpleBuilding.",
+      "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -2747,7 +2747,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Ovens",
-      "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
+      "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -3302,7 +3302,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Crucibles",
-      "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
+      "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -3395,7 +3395,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Octets",
-      "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of SimpleBuilding carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+      "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
       "loaders": [
         "fabric",
         "neoforge",

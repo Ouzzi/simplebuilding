@@ -105,7 +105,7 @@ public final class ForgeGameplayEvents {
     public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             DynamicLightHandler.onDisconnect(serverPlayer);
-            com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
+            if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
             com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(serverPlayer);
             com.simplebuilding.util.WandUndo.onDisconnect(serverPlayer);
         }
@@ -118,7 +118,8 @@ public final class ForgeGameplayEvents {
 
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent.Post event) {
-        com.simplebuilding.util.SledgehammerProgress.tick(event.server());
+        // 26.3 (split stage 7): Simple Hammers ticks its own strike progress.
+        if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerProgress.tick(event.server());
         com.simplebuilding.items.custom.BuildingCoreItem.tickAnimations(event.server());
         if (event.server().getTickCount() % 2 != 0) {
             return;

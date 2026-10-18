@@ -305,7 +305,7 @@ public final class PlacedTemplates {
 
     /** Vorschlaghammer in der Haupthand und ein Aufwertungs-Material in der Nebenhand. */
     public static boolean isHammerStance(Player player) {
-        return player.getMainHandItem().getItem() instanceof SledgehammerItem
+        return com.simplebuilding.items.custom.SledgehammerItem.isHammer(player.getMainHandItem().getItem())
                 && SledgehammerEntityInteraction.trimUpgrades().containsKey(player.getOffhandItem().getItem());
     }
 

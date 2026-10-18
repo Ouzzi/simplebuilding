@@ -164,7 +164,7 @@ public final class MigrationWorldTests {
         items.add(parseStack(helper, "{id:\"simplebuilding:enderite_chestplate\",count:1,components:{"
                 + "\"minecraft:enchantments\":{\"simplebuilding:kinetic_protection\":2,\"minecraft:unbreaking\":3},"
                 + "\"simplebuilding:glow_level\":1,\"simplebuilding:visual_glow\":1b,\"minecraft:damage\":11}}"));
-        items.add(new ItemStack(ModItems.ENDERITE_SLEDGEHAMMER));
+        items.add(new ItemStack(com.simplebuilding.util.HammerRefs.item("enderite")));
         for (Block block : sampleBlocks()) {
             if (block.asItem() != net.minecraft.world.item.Items.AIR) items.add(new ItemStack(block.asItem(), 3));
         }
@@ -205,8 +205,8 @@ public final class MigrationWorldTests {
     }
 
     static List<ItemStack> sledgehammers() {
-        return List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER,
-                ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_SLEDGEHAMMER).stream()
+        return List.of(com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"), com.simplebuilding.util.HammerRefs.item("gold"),
+                com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"), com.simplebuilding.util.HammerRefs.item("enderite")).stream()
                 .map(ItemStack::new).toList();
     }
 

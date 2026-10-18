@@ -89,7 +89,7 @@ public final class ToolBehaviourTests {
         fillLayer(helper, 1, 1, 5, 1, 5, Blocks.STONE);
 
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5), 0.0F, 90.0F);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
 
         // --- Looking straight down: the face lies flat. ---
         swingSledgehammer(helper, player, HAMMER_CENTRE);
@@ -211,7 +211,7 @@ public final class ToolBehaviourTests {
         // The same two gated stages again, this time with a hammer that is too weak.
         // =================================================================================
 
-        ItemStack stoneHammer = sledgehammerWithOverride(helper, ModItems.STONE_SLEDGEHAMMER, 0);
+        ItemStack stoneHammer = sledgehammerWithOverride(helper, com.simplebuilding.util.HammerRefs.item("stone"), 0);
         BlockState goldOre = Blocks.GOLD_ORE.defaultBlockState();
         BlockState cobble = Blocks.COBBLESTONE.defaultBlockState();
         // The premise of both phases, asserted instead of assumed. Gold ore has to be a
@@ -233,7 +233,7 @@ public final class ToolBehaviourTests {
         // --- Override 0 with a hammer below the tier: same block, still nothing happens. ---
         fillLayer(helper, 1, 2, 4, 2, 4, Blocks.GOLD_ORE);
         player.setItemInHand(InteractionHand.MAIN_HAND,
-                sledgehammerWithOverride(helper, ModItems.STONE_SLEDGEHAMMER, 0));
+                sledgehammerWithOverride(helper, com.simplebuilding.util.HammerRefs.item("stone"), 0));
         swingSledgehammer(helper, player, HAMMER_CENTRE);
 
         for (int dx = -1; dx <= 1; dx++) {
@@ -247,7 +247,7 @@ public final class ToolBehaviourTests {
         // stopped working for an unrelated reason.
         fillLayer(helper, 1, 2, 4, 2, 4, Blocks.STONE);
         player.setItemInHand(InteractionHand.MAIN_HAND,
-                sledgehammerWithOverride(helper, ModItems.STONE_SLEDGEHAMMER, 0));
+                sledgehammerWithOverride(helper, com.simplebuilding.util.HammerRefs.item("stone"), 0));
         swingSledgehammer(helper, player, HAMMER_CENTRE);
 
         assertHorizontalFaceCleared(helper, HAMMER_CENTRE);
@@ -259,7 +259,7 @@ public final class ToolBehaviourTests {
         helper.setBlock(cobblePos, Blocks.COBBLESTONE);
         helper.setBlock(gatedPos, Blocks.GOLD_ORE);
         player.setItemInHand(InteractionHand.MAIN_HAND,
-                sledgehammerWithOverride(helper, ModItems.STONE_SLEDGEHAMMER, 1));
+                sledgehammerWithOverride(helper, com.simplebuilding.util.HammerRefs.item("stone"), 1));
         swingSledgehammer(helper, player, HAMMER_CENTRE);
 
         helper.assertBlockPresent(Blocks.AIR, stonePos);
@@ -310,22 +310,22 @@ public final class ToolBehaviourTests {
         // getDestroySpeed ask one predicate for the list now, so all three tiers are driven
         // through both callers - a tier dropped from that predicate has to turn both halves
         // red, and a caller that stops asking it turns its own half red on all three.
-        float plainSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, shovelBlock);
-        float overriddenSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, shovelBlock);
+        float plainSpeed = com.simplebuilding.util.HammerRefs.item("diamond").getDestroySpeed(plainHammer, shovelBlock);
+        float overriddenSpeed = com.simplebuilding.util.HammerRefs.item("diamond").getDestroySpeed(overriddenHammer, shovelBlock);
         helper.assertValueEqual(plainSpeed, 1.0F, "unenchanted sledgehammer speed on dirt");
         helper.assertTrue(overriddenSpeed > plainSpeed,
                 "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenSpeed
                         + " on dirt; digging a shovel block would take as long as with a fist");
 
-        float plainAxeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, axeBlock);
-        float overriddenAxeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, axeBlock);
+        float plainAxeSpeed = com.simplebuilding.util.HammerRefs.item("diamond").getDestroySpeed(plainHammer, axeBlock);
+        float overriddenAxeSpeed = com.simplebuilding.util.HammerRefs.item("diamond").getDestroySpeed(overriddenHammer, axeBlock);
         helper.assertValueEqual(plainAxeSpeed, 1.0F, "unenchanted sledgehammer speed on oak log");
         helper.assertTrue(overriddenAxeSpeed > plainAxeSpeed,
                 "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenAxeSpeed
                         + " on an oak log; felling an axe block would take as long as with a fist");
 
-        float plainHoeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, hoeBlock);
-        float overriddenHoeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, hoeBlock);
+        float plainHoeSpeed = com.simplebuilding.util.HammerRefs.item("diamond").getDestroySpeed(plainHammer, hoeBlock);
+        float overriddenHoeSpeed = com.simplebuilding.util.HammerRefs.item("diamond").getDestroySpeed(overriddenHammer, hoeBlock);
         helper.assertValueEqual(plainHoeSpeed, 1.0F, "unenchanted sledgehammer speed on hay");
         helper.assertTrue(overriddenHoeSpeed > plainHoeSpeed,
                 "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenHoeSpeed
@@ -962,7 +962,7 @@ public final class ToolBehaviourTests {
     }
 
     private static ItemStack sledgehammerWithOverride(GameTestHelper helper, int overrideLevel) {
-        return sledgehammerWithOverride(helper, ModItems.DIAMOND_SLEDGEHAMMER, overrideLevel);
+        return sledgehammerWithOverride(helper, com.simplebuilding.util.HammerRefs.item("diamond"), overrideLevel);
     }
 
     private static ItemStack sledgehammerWithOverride(GameTestHelper helper, Item hammer, int overrideLevel) {

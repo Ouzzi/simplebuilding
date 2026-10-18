@@ -59,7 +59,7 @@ public final class SimpleOctets {
 
     /**
      * After blocks and items, and again once every mod is loaded (common setup / server start): carving tools
-     * (SimpleBuilding's sledgehammer) find the cells through SimpleLib's OctetCells. A cell of another mod's block is
+     * (Simple Hammers' sledgehammer) find the cells through SimpleLib's OctetCells. A cell of another mod's block is
      * registered once that block exists (the first call may come before the other mod registered it).
      */
     public static synchronized void registerCells() {

@@ -246,7 +246,7 @@ public final class OctetTests {
         h.succeed();
     }
 
-    /** SimpleLib's OctetCells knows every cell (the sledgehammer of SimpleBuilding carves through it). */
+    /** SimpleLib's OctetCells knows every cell (the sledgehammer of Simple Hammers carves through it). */
     static void cellsForCarvingTools(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         for (Block cell : OctetRegistry.cells()) {

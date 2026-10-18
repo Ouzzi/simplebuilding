@@ -140,7 +140,7 @@ public final class CrucibleTests {
         helper.assertTrue(build.inputs().get(2).count() == 4 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
                 && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot or iron rod");
         helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplecrucibles:iron_crucible"))), "the iron crucible");
-        helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
+        helper.assertTrue(build.tools().contains(com.simplebuilding.util.HammerRefs.item("iron")) && build.tools().contains(com.simplebuilding.util.HammerRefs.item("enderite")), "every sledgehammer");
         helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(16)) && noteArgs(build, 1).equals(java.util.List.of(12, 4)), "notes name 16 strikes, 12 plate/rim and 4 handle ingots");
 
         var barrel = entries.get("barrel_attach");
@@ -153,7 +153,7 @@ public final class CrucibleTests {
         helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");
         helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 8, "8 cracked diamonds");
         helper.assertTrue(cauldron.output().items().equals(java.util.List.of(item("simplecrucibles:reinforced_cauldron"))), "the reinforced cauldron");
-        helper.assertTrue(cauldron.tools().contains(ModItems.STONE_SLEDGEHAMMER), "every hammer works (rank 0)");
+        helper.assertTrue(cauldron.tools().contains(com.simplebuilding.util.HammerRefs.item("stone")), "every hammer works (rank 0)");
         helper.assertTrue(cauldron.durationTicks() == SledgehammerUpgrades.upgradeTicks(SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON)), "duration of the upgrade");
         helper.assertTrue(com.simplebuilding.compat.InWorldRecipeCatalog.build().entries().stream()
                 .noneMatch(entry -> entry.id().equals("machine_upgrade/minecraft:cauldron")),
@@ -170,7 +170,7 @@ public final class CrucibleTests {
 
         var catalysts = com.simplebuilding.compat.CauldronWorldCatalog.catalysts();
         helper.assertTrue(catalysts.contains(Items.CAULDRON) && catalysts.contains(item("simplecrucibles:reinforced_cauldron"))
-                && catalysts.contains(ModItems.DIAMOND_SLEDGEHAMMER) && catalysts.contains(item("simplecrucibles:enderite_crucible"))
+                && catalysts.contains(com.simplebuilding.util.HammerRefs.item("diamond")) && catalysts.contains(item("simplecrucibles:enderite_crucible"))
                 && catalysts.contains(item("simplecrucibles:iron_crucible")), "catalysts: both cauldrons, the hammers, the crucibles");
         helper.succeed();
     }
@@ -286,7 +286,7 @@ public final class CrucibleTests {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, Blocks.CAULDRON);
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.IRON_INGOT, 8));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplecrucibles", "crucible_walls"))), "SimpleLib plate material (iron ingot) loaded");
@@ -344,7 +344,7 @@ public final class CrucibleTests {
         var upgrade = SledgehammerUpgrades.upgradeOf(lib("iron_crucible"));
         int blows = SledgehammerUpgrades.blows(upgrade);
         helper.assertTrue(blows == 12 && upgrade.materialCost() == 4 && SledgehammerUpgrades.staged(upgrade), "12 blows, 4 units: " + blows);
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         ServerPlayer player = smith(helper, hammer, new ItemStack(ModItems.CRACKED_DIAMOND, 5), pos);
         helper.assertTrue(SledgehammerUpgrades.hasJob(player) && player.isUsingItem(), "the click started the hammer");
         var units = (net.minecraft.world.level.block.state.properties.IntegerProperty) lib("iron_crucible").getStateDefinition().getProperty("upgrade");
@@ -373,7 +373,7 @@ public final class CrucibleTests {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, lib("reinforced_crucible"));
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         ServerPlayer player = smith(helper, hammer, new ItemStack(ModItems.NETHERITE_NUGGET, 4), pos);
         for (int tick = 1; tick <= 7 * SledgehammerUpgrades.HIT_INTERVAL; tick++) player.connection.tick();
         player.releaseUsingItem();
@@ -480,7 +480,7 @@ public final class CrucibleTests {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, Blocks.QUARTZ_BLOCK);
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         ServerPlayer player = player(helper, hammer, ItemStack.EMPTY);
         SledgehammerItem.crushQuartzBlock(helper.getLevel(), helper.absolutePos(pos), player, hammer);
         helper.assertBlockPresent(Blocks.AIR, pos);

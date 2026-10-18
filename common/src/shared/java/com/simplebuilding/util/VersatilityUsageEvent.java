@@ -124,7 +124,7 @@ public final class VersatilityUsageEvent {
             score += 0f;
         }
         // 2. Sledgehammer: Höchste Priorität für Stein (Bonus 2000).
-        else if (stack.getItem() instanceof SledgehammerItem) {
+        else if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(stack.getItem())) {
             score += 2000f;
         }
         // 3. Standard-Werkzeuge (Spitzhacke, Axt, Schaufel): Hohe Priorität (Bonus 1000).

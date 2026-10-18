@@ -109,7 +109,7 @@ public class BlockHighlightRenderer {
             return ItemStack.EMPTY;
         }
         ItemStack stack = client.player.getMainHandItem();
-        return stack.getItem() instanceof SledgehammerItem ? stack : ItemStack.EMPTY;
+        return com.simplebuilding.items.custom.SledgehammerItem.isHammer(stack.getItem()) ? stack : ItemStack.EMPTY;
     }
 
     private static void drawSledgehammerHighlights(SubmitNodeCollector collector, PoseStack matrices, ItemStack stack) {

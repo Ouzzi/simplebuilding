@@ -73,7 +73,7 @@ public final class MultiBlockBreakingSupport {
         }
 
         ItemStack stack = player.getMainHandItem();
-        boolean isSledgehammer = stack.getItem() instanceof SledgehammerItem;
+        boolean isSledgehammer = com.simplebuilding.items.custom.SledgehammerItem.isHammer(stack.getItem());
         int stripLevel = EnchantmentHelper.getEnchantmentLevel(stack, level, ModEnchantments.STRIP_MINER);
         int veinLevel = EnchantmentHelper.getEnchantmentLevel(stack, level, ModEnchantments.VEIN_MINER);
 

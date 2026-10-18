@@ -45,6 +45,10 @@ import java.util.WeakHashMap;
 import static com.simplebuilding.util.EnchantmentHelper.getOverrideLevel;
 import static com.simplebuilding.util.EnchantmentHelper.hasConstructorsTouch;
 
+/**
+ * 26.2 twin (split stage 7): on 26.3 the sledgehammer is Simple Hammers' ({@code com.simplehammers.item.SledgehammerItem})
+ * and the overlay class of this name extends it; 26.2 keeps SimpleBuilding's own hammer.
+ */
 public class SledgehammerItem extends Item {
 
     public static final int STONE_ATTACK_DAMAGE = 4;
@@ -100,6 +104,20 @@ public class SledgehammerItem extends Item {
         ToolMaterial m = hammer.getMaterial();
         return m != ToolMaterial.WOOD && m != ToolMaterial.STONE && m != ToolMaterial.COPPER;
     }
+    /** Whether {@code item} is a sledgehammer (26.3: Simple Hammers' class, through the overlay subclass). */
+    public static boolean isHammer(@org.jetbrains.annotations.Nullable Item item) {
+        return item instanceof SledgehammerItem;
+    }
+
+    public static boolean isHammer(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof SledgehammerItem;
+    }
+
+    /** The tool material of a sledgehammer, or {@code null} for any other item. */
+    public static @org.jetbrains.annotations.Nullable ToolMaterial materialOf(@org.jetbrains.annotations.Nullable Item item) {
+        return item instanceof SledgehammerItem hammer ? hammer.getMaterial() : null;
+    }
+
     /** Grenzen der Umform-Ladezeit in Ticks. */
     public static final int RESHAPE_MIN_TICKS = 4;
     public static final int RESHAPE_MAX_TICKS = 40;
@@ -484,6 +502,11 @@ public class SledgehammerItem extends Item {
 
     public static boolean isCornerMode(Player player, ItemStack stack) {
         return reshapeMode(player, stack) == ReshapeMode.CARVE;
+    }
+
+    /** {@link #getTransformationState} of {@code item} when it is a sledgehammer, else {@code null} (for callers without the class). */
+    public static BlockState transformationState(Item item, BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {
+        return item instanceof SledgehammerItem hammer ? hammer.getTransformationState(state, pos, side, hit, player, stack) : null;
     }
 
     public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {

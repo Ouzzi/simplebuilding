@@ -70,7 +70,7 @@ public final class InWorldTransformations {
 
     /** Verstaerkt -> Netherit -> Enderit: Stufen, Mindesthammer, Dauer, Schlaege, Haltbarkeit. */
     public static JsonObject sledgehammerUpgrade() {
-        List<Item> hammers = modItems(SledgehammerItem.class);
+        List<Item> hammers = hammerItems();
         int hits = SledgehammerUpgrades.UPGRADE_TICKS / SledgehammerUpgrades.HIT_INTERVAL;
 
         JsonArray steps = new JsonArray();
@@ -140,10 +140,10 @@ public final class InWorldTransformations {
     /** Block -> Treppe -> Stufe: Ladezeit je Hammer ohne Effizienz und die Haltbarkeit. */
     public static JsonObject sledgehammerReshape() {
         JsonArray hammers = new JsonArray();
-        for (Item item : modItems(SledgehammerItem.class)) {
+        for (Item item : hammerItems()) {
             JsonObject entry = new JsonObject();
             entry.addProperty("id", id(item));
-            entry.addProperty("ticks", SledgehammerItem.reshapeTicks(((SledgehammerItem) item).getMaterial().speed(), 0));
+            entry.addProperty("ticks", SledgehammerItem.reshapeTicks(SledgehammerItem.materialOf(item).speed(), 0));
             hammers.add(entry);
         }
         JsonObject o = new JsonObject();
@@ -199,7 +199,7 @@ public final class InWorldTransformations {
         o.addProperty("strikeResetTicks", SledgehammerItem.DIAMOND_STRIKE_RESET_TICKS);
         // Nur Haemmer ab der Eisenstufe (SledgehammerItem#canCrushDiamondBlock).
         JsonArray hammers = new JsonArray();
-        for (Item item : modItems(SledgehammerItem.class)) {
+        for (Item item : hammerItems()) {
             if (SledgehammerItem.canCrushDiamondBlock(item)) {
                 hammers.add(id(item));
             }
@@ -278,7 +278,7 @@ public final class InWorldTransformations {
         templateIds.sort(Comparator.naturalOrder());
         templateIds.forEach(templates::add);
         JsonArray hammers = new JsonArray();
-        for (Item hammer : modItems(SledgehammerItem.class)) {
+        for (Item hammer : hammerItems()) {
             hammers.add(id(hammer));
         }
         JsonArray upgrades = new JsonArray();
@@ -486,7 +486,7 @@ public final class InWorldTransformations {
             cycles.add(tracks);
         }
         JsonArray hammers = new JsonArray();
-        for (Item hammer : modItems(SledgehammerItem.class)) {
+        for (Item hammer : hammerItems()) {
             hammers.add(id(hammer));
         }
         JsonObject o = new JsonObject();
@@ -579,6 +579,16 @@ public final class InWorldTransformations {
     }
 
     // =====================================================================================
+
+    /** The sledgehammers (26.3: Simple Hammers', split stage 7; 26.2: SimpleBuilding's), sorted by id. */
+    private static List<Item> hammerItems() {
+        List<Item> out = new ArrayList<>();
+        for (Item item : HammerRefs.all()) {
+            if (SledgehammerItem.isHammer(item)) out.add(item);
+        }
+        out.sort(Comparator.comparing(InWorldTransformations::id));
+        return out;
+    }
 
     private static List<Item> modItems(Class<?> type) {
         List<Item> out = new ArrayList<>();

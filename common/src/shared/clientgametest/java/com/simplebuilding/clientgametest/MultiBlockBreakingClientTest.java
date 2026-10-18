@@ -941,7 +941,7 @@ public final class MultiBlockBreakingClientTest {
     private static void assertMainHand(Script script, String itemId, boolean expectSledgehammer) {
         script.act("the main hand holds " + itemId, client -> {
             boolean isSledgehammer = client.player != null
-                    && client.player.getMainHandItem().getItem() instanceof SledgehammerItem;
+                    && com.simplebuilding.items.custom.SledgehammerItem.isHammer(client.player.getMainHandItem().getItem());
 
             if (isSledgehammer != expectSledgehammer) {
                 throw new AssertionError("Wrong tool in the main hand for " + itemId

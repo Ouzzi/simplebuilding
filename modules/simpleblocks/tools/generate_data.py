@@ -374,11 +374,11 @@ def names():
 SAW_LANG = {
     'en_us': dict(name='Shaping Saw', search='Search cuts', empty='Put stone, wood or wool in on the left',
                   no_cuts='Nothing to cut from this item', no_match='No cut matches the search',
-                  info='Upgrade a placed stonecutter: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets. '
+                  info='Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. '
                        'The nuggets are used up and the stonecutter becomes a Shaping Saw facing the same way.'),
     'de_de': dict(name='Formsäge', search='Schnitte suchen', empty='Links Stein, Holz oder Wolle einlegen',
                   no_cuts='Daraus lässt sich nichts schneiden', no_match='Kein Schnitt passt zur Suche',
-                  info='Eine platzierte Steinsäge aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, '
+                  info='Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, '
                        'während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.'),
 }
 

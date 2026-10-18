@@ -613,7 +613,7 @@ public final class FeatureStations {
         for (Item disc : com.simplebuilding.util.MusicDiscs.items()) {
             chest.add(new ItemStack(disc));
         }
-        chest.add(new ItemStack(ModItems.IRON_SLEDGEHAMMER));
+        chest.add(new ItemStack(com.simplebuilding.util.HammerRefs.item("iron")));
         chest.add(new ItemStack(ModItems.JUKEBOX_AMPLIFIER, 3));
         chest.add(new ItemStack(ModItems.NOTE_AMPLIFIER, 3));
         c.contents(1, 0, 1, chest);
@@ -653,7 +653,7 @@ public final class FeatureStations {
         c.place(9, 0, z, Blocks.CAULDRON);
         c.place(1, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
         List<ItemStack> chest = new ArrayList<>();
-        chest.add(new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER));
+        chest.add(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")));
         chest.add(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
         if (ModItems.IRON_POLE != null) chest.add(new ItemStack(ModItems.IRON_POLE, 2));
         chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 16));
@@ -747,7 +747,7 @@ public final class FeatureStations {
         c.contents(tx, 1, tz, List.of(new ItemStack(Items.LAPIS_LAZULI, 64), new ItemStack(Items.BLAZE_POWDER, 64)));
         c.place(8, 0, 3, Blocks.ENCHANTING_TABLE);
         c.place(9, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
-        c.contents(9, 0, 1, List.of(new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER), new ItemStack(ModItems.ENDERITE_NUGGET, 4),
+        c.contents(9, 0, 1, List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), new ItemStack(ModItems.ENDERITE_NUGGET, 4),
                 new ItemStack(Items.BLAZE_POWDER, 64), new ItemStack(Items.CRIMSON_PLANKS, 16), new ItemStack(Items.WARPED_PLANKS, 16),
                 new ItemStack(Items.PAPER, 16), new ItemStack(Items.CRYING_OBSIDIAN, 8), new ItemStack(ModItems.CRIMSON_BLAZEWOOD_PLANKS, 8),
                 new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),

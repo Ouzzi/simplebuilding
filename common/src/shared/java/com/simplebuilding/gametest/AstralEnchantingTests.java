@@ -260,14 +260,14 @@ public final class AstralEnchantingTests {
         player.snapTo(feet.x, feet.y, feet.z, 0.0F, 90.0F);
 
         // A diamond hammer is too weak: the click opens nothing and starts nothing.
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.ENDERITE_NUGGET, 2));
         click(helper, player, abs);
         helper.assertFalse(SledgehammerUpgrades.hasJob(player), "a diamond hammer started the astral upgrade");
         player.stopUsingItem();
         player.containerMenu = player.inventoryMenu;
 
-        ItemStack hammer = new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         click(helper, player, abs);
         helper.assertTrue(player.containerMenu == player.inventoryMenu, "the click opened the enchanting menu instead of hammering");

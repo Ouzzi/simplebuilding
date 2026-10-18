@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#simplebuilding:sledgehammer_tools",
+      "id": "#simplelib:hammers",
       "required": false
     }
   ]

@@ -30,8 +30,10 @@ public abstract class MultiPlayerGameModeHammerProgressMixin {
     @Inject(method = "continueDestroyBlock", at = @At("HEAD"))
     private void simplebuilding$rescaleHammerProgress(BlockPos pos, Direction direction,
                                                       CallbackInfoReturnable<Boolean> cir) {
+        // 26.3 (split stage 7): Simple Hammers carries this fix itself.
+        if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) return;
         var player = this.minecraft.player;
-        if (player == null || !(player.getMainHandItem().getItem() instanceof SledgehammerItem)) {
+        if (player == null || !(com.simplebuilding.items.custom.SledgehammerItem.isHammer(player.getMainHandItem().getItem()))) {
             this.simplebuilding$lastDivisor = 0.0F;
             return;
         }

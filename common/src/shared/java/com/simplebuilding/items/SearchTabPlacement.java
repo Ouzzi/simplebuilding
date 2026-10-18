@@ -455,22 +455,22 @@ public final class SearchTabPlacement {
         // Stufe (Besitzer 2026-10-02 "Werkzeuge nach den Vanilla-Werkzeugen der Stufe"); hinter Netherit die
         // ganze Enderit-Stufe. Buendel, Koecher und Rucksaecke hinter dem Buendel; die Geraete hinter dem
         // Bergungskompass; Handbuecher hinter dem Buch und Feder; die Spawn-Elytra hinter der Elytra.
-        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.STONE_HOE, ModItems.STONE_CHISEL, ModItems.STONE_SLEDGEHAMMER));
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.STONE_HOE, ModItems.STONE_CHISEL, com.simplebuilding.util.HammerRefs.item("stone")));
         // Farbpinsel und Farbkaesten hinter dem Vanilla-Pinsel (2026-10-09).
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BRUSH, ModItems.COLOR_BRUSH, ModItems.PAINT_BOX,
                         ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.COPPER_HOE,
-                ModItems.COPPER_CHISEL, ModItems.COPPER_SLEDGEHAMMER, ModItems.COPPER_BUILDING_WAND));
+                ModItems.COPPER_CHISEL, com.simplebuilding.util.HammerRefs.item("copper"), ModItems.COPPER_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.IRON_HOE,
-                ModItems.IRON_CHISEL, ModItems.IRON_SLEDGEHAMMER, ModItems.IRON_BUILDING_WAND));
+                ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("iron"), ModItems.IRON_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.GOLDEN_HOE,
-                ModItems.GOLD_CHISEL, ModItems.GOLD_SLEDGEHAMMER, ModItems.GOLD_BUILDING_WAND));
+                ModItems.GOLD_CHISEL, com.simplebuilding.util.HammerRefs.item("gold"), ModItems.GOLD_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.DIAMOND_HOE,
-                ModItems.DIAMOND_CHISEL, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.DIAMOND_BUILDING_WAND));
+                ModItems.DIAMOND_CHISEL, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.DIAMOND_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.NETHERITE_HOE,
-                ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.NETHERITE_BUILDING_WAND,
+                ModItems.NETHERITE_CHISEL, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.NETHERITE_BUILDING_WAND,
                 ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ENDERITE_HOE,
-                ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.ENDERITE_BUILDING_WAND,
+                ModItems.ENDERITE_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"), ModItems.ENDERITE_BUILDING_WAND,
                 ModItems.CREATIVE_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BUNDLE,
                 ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,

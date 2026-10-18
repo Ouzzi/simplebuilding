@@ -201,7 +201,7 @@ public final class PlacedBricksGemsTests {
         click(helper, player, rel, pickaxe);
         helper.assertFalse(level.getBlockState(abs).getValue(PlacedSmallPartsBlock.FLAT), "a pickaxe switched the pile");
 
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         helper.assertTrue(FlatToggles.canToggle(level, abs, hammer), "the hammer cannot switch");
         helper.assertTrue(TransformTargets.canTransformTarget(level, new BlockHitResult(Vec3.atBottomCenterOf(abs).add(0.0, 0.05, 0.0), Direction.UP, abs, false),
