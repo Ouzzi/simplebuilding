@@ -669,7 +669,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (A, claude-howler5, gemergt 18.10.; Besitzer 19.10.: Empfehlung übernommen → mode mix) Howler-Sounds: je Ereignis 3–5 ähnliche Varianten (Vanilla-Stil), A und B, Vorschlag je Ereignis, Wahl per Build-Schalter; Ziel: sehr Vanilla-nah.
 - [x] (A, claude-octets2, gemergt 18.10.) Fehlende Octet-Familien nach INVENTAR-OCTETS (15 Bretter-Arten inkl. Aschholz/Dämmerholz + 4 Vanilla-Stufen-Familien; Naturstufen ausgenommen).
 - [~] (A, claude-opt1, 18.10.) Simple Optimization Stufe 1: Gerüst simpleoptimization + 3 Sub-Mods, Kompat-Erkennung (auto/ours/theirs/off), Benchmark-Harness auf sb-test; erste Teile laut KONZEPT §6/§9.
-- [ ] (Fund claude-octets2 18.10.) Simple Blocks: eigene sawing-Rezepte nutzen `forge:conditions` (Forge 26.3 liest nur ein `forge:condition`, mehrere per `forge:and`) → laden auf Forge auch ohne Partner-Mod; Fix in modules/simpleblocks/tools/generate_data.py wie im Octet-Generator.
+- [x] (Fund claude-octets2 18.10., behoben claude-gatefix16) Simple Blocks: eigene sawing-Rezepte nutzen `forge:conditions` (Forge 26.3 liest nur ein `forge:condition`, mehrere per `forge:and`) → laden auf Forge auch ohne Partner-Mod; Fix in modules/simpleblocks/tools/generate_data.py wie im Octet-Generator.
 
 ### Besitzer 19.10. – neue geplante Umsetzungen (je erst Konzept, dann umsetzen)
 - [~] (B, b-concepts19, 19.10., Konzept) Better Item Frames (Ideen übernehmen): Rahmen unsichtbar/fest, Items drehen, … – Konzept, Zielmod festlegen. Konzept: docs/ai/KONZEPT-BETTER-ITEM-FRAMES-2026-10-19.md (B 19.10.), Umsetzung nach Besitzer-Freigabe.
