@@ -223,7 +223,8 @@ public final class RespawnTests {
         });
         add("logout_is_death_without_dupe", h -> {
             ServerPlayer victim = downedPair(h, "logout");
-            victim.getInventory().add(new ItemStack(Items.EMERALD, 7));
+            // Main inventory (slot 9): Simple Tweaks' partial keep inventory, when loaded, keeps only hotbar + armor.
+            victim.getInventory().setItem(9, new ItemStack(Items.EMERALD, 7));
             BlockPos at = victim.blockPosition();
             h.getLevel().getServer().getPlayerList().remove(victim);
             h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "logout while downed: dead");

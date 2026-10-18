@@ -51,6 +51,7 @@ public final class BlocksDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "minecraft:stonecutter",
             "simpleblocks:*_slab",
             "simpleblocks:*_stairs",
             "simpleblocks:*_wall",
@@ -91,12 +92,14 @@ public final class BlocksDiscover {
             "simpleblocks:netherrack_stairs",
             "simpleblocks:netherrack_wall",
             "simpleblocks:sculk_deepslate",
+            "simpleblocks:shaping_saw",
             "simpleblocks:smooth_basalt_slab",
             "simpleblocks:smooth_basalt_stairs",
             "simpleblocks:smooth_basalt_wall",
             "simpleblocks:smooth_red_sandstone_wall",
             "simpleblocks:smooth_sandstone_wall");
-    static final List<Tip> TIPS = List.of();
+    static final List<Tip> TIPS = List.of(
+            new Tip("shaping_saw", List.of("shaping_saw")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

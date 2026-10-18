@@ -1,0 +1,11 @@
+{
+  "required": false,
+  "package": "com.simplebuilding.modules.simpletweaks.protect.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "ProtectFreecamMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

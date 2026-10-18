@@ -1,0 +1,8 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:magenta_wool",
+  "result": {
+    "count": 2,
+    "id": "minecraft:magenta_wool_slab"
+  }
+}

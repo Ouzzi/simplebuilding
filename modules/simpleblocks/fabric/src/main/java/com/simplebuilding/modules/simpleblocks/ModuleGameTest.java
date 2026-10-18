@@ -55,4 +55,59 @@ public final class ModuleGameTest {
     public void blueNetherBricksRecipes(GameTestHelper h) {
         BlocksTests.ALL.get("blue_nether_bricks_recipes").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void discoverFirstPickupTips(GameTestHelper h) {
+        BlocksTests.ALL.get("discover_first_pickup_tips").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawRegistered(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_registered").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawWoodCuts(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_wood_cuts").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawSupersetOfStonecutter(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_superset_of_stonecutter").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawCutsEveryShape(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_cuts_every_shape").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawMenuCuts(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_menu_cuts").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawOptionalMods(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_optional_mods").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUiContrast(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_ui_contrast").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeAxe(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_axe").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeHammer(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_hammer").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeMode(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_mode").accept(h);
+    }
 }

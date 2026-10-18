@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:oak_wood",
+  "result": {
+    "id": "minecraft:stripped_oak_wood"
+  }
+}

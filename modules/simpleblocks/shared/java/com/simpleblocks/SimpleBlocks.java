@@ -29,7 +29,7 @@ public final class SimpleBlocks {
     /** Test centre station (framework contract, no import of the test centre): the module's items by id. */
     static void registerStation() {
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "blocks", "simpleblocks.testcentre.station",
-                java.util.stream.Stream.concat(BlocksRegistry.NAMES.stream(), java.util.stream.Stream.of("guide_book")).map(n -> MOD_ID + ":" + n).toList());
+                java.util.stream.Stream.concat(BlocksRegistry.NAMES.stream(), java.util.stream.Stream.of(com.simpleblocks.saw.Sawing.NAME, "guide_book")).map(n -> MOD_ID + ":" + n).toList());
     }
 
     private SimpleBlocks() {}

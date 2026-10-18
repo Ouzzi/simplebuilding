@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:dark_oak_log",
+  "result": {
+    "id": "minecraft:dark_oak_wood"
+  }
+}

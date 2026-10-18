@@ -12,6 +12,7 @@ public final class ModuleForgeTests {
  public static Map<String,Consumer<GameTestHelper>> cases(){var out=new LinkedHashMap<String,Consumer<GameTestHelper>>();com.simplebuilding.modules.simpletweaks.CompatibilityTests.TESTS.forEach((name,body)->out.put("module_game_test_"+name,body));com.simplebuilding.modules.simpletweaks.claims.ClaimTests.TESTS.forEach((name,body)->out.put("claims_game_test_"+name,body));
   com.simplebuilding.modules.simpletweaks.admin.AdminTests.TESTS.forEach((name,body)->out.put("admin_game_test_"+name,body));
   com.simplebuilding.modules.simpletweaks.play.PlayTests.TESTS.forEach((name,body)->out.put("play_game_test_"+name,body));
+  com.simplebuilding.modules.simpletweaks.protect.ProtectTests.TESTS.forEach((name,body)->out.put("protect_game_test_"+name,body));
   return out;}
  public static void register(net.minecraftforge.eventbus.api.bus.BusGroup bus){
   if(enabled()) net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(e->e.<Consumer<GameTestHelper>>register(Registries.TEST_FUNCTION,r->cases().forEach((name,body)->r.register(id(name),body))));

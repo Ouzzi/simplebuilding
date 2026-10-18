@@ -110,3 +110,33 @@ Ist-Zustand nach claude-howler-n63: Phase 1/2, H3, H5 sind drin (Vanilla-Sounds 
 - Registrierung: Fabric über `MobsRegistry.registerAll`, NeoForge/Forge über `RegisterEvent` (`Registries.SOUND_EVENT`).
 - Prüfung: `tools/check_data.py` (Events = sounds.json, Dateien vorhanden, Untertitel in beiden Sprachen), Compile, `simplemobs:*howler*`.
 - Nicht prüfbar ohne Ohr: Klangwirkung (Besitzer hört `/tmp/claude-0/ash/howler3/`). Nachjustieren nur im Generator (Konstanten je Funktion), dann neu erzeugen.
+
+## 9. Sounds überarbeitet: Variante A und B (claude-howler4, 2026-10-17)
+Besitzer 17.10.: die 18 Howler-Sounds aus §8 klingen synthetischer als Enderman/Warden → zwei Varianten, im Spiel A.
+
+**Messung (Vanilla 26.3, Asset-Index der Loom-Caches auf sb-test; Spitze/aktive RMS in dBFS, Schwerpunkt):**
+Warden-Ambient −21…−19 dB, Schwerpunkt 145–220 Hz (62–72 % unter 150 Hz); Warden-Roar −16 dB, 270–540 Hz;
+Warden-Hurt −14 dB, 600 Hz; Warden-Step −27 dB, 640 Hz; Warden-Sniff −22 dB, 1,1 kHz; Ravager/Zoglin −12…−8 dB, 130–260 Hz;
+Enderman 530–590 Hz. Vanilla-Stimmen: 7–12 % Tonhöhen-Zittern, langsames Anschwellen, kurzer Raumanteil.
+howler3 dagegen: Atmen/Hunger/Notice/Sniff Schwerpunkt 2,1–3,9 kHz (Zischen), Roar/Steps/Wut 96–99 % reiner Sinus-Bass,
+alle auf −2 dB Spitze normalisiert (Schritte so laut wie Brüllen).
+A und B liegen jetzt in diesen Bereichen (A: Ambient 220–240 Hz/−21 dB, Roar 295–340 Hz/−15 dB, Hurt 380–450 Hz/−15,5 dB,
+Step −24,5 dB, Sniff 1,3 kHz/−22 dB; B ähnlich).
+
+**Variante A „besser synthetisiert“ (Standard, eingecheckt):** `tools/sounds/make_howler_sounds.py` + gemeinsame DSP
+`tools/sounds/howler_dsp.py` (numpy/scipy/soundfile, feste Seeds, kein fremdes Audio). Stimmband-Impulse einzeln mit
+Jitter/Shimmer/Knarren (Unteroktave), Atemrauschen im Stimmtakt, 4-Formanten-Kaskade eines langen Rachens (driftend),
+nasse Körner/Blasen, Aufschläge als angeschlagene Resonanzkörper (Modal-Synthese), erzeugter kurzer Höhlenhall (IR),
+Tiefpass wie eine Aufnahme, Pegel per aktiver RMS auf Warden-Lautheit. Neu erzeugen: `python3.12 tools/sounds/make_howler_sounds.py`.
+
+**Variante B „aus Vanilla abgeleitet“ (nie im Repo, AGENTS.md Regel 7 analog zu Texturen):**
+`tools/sounds/vanilla_derived_sounds.py` (`MODULE_OUTPUTS`, `NAMES` = dieselben 18 Dateinamen, `sounds.json` unverändert)
+schichtet Warden/Ravager/Hoglin/Zoglin/Enderman/Skelett/Schleim tiefer gestimmt, gedehnt, teils rückwärts, gefiltert.
+Quelle: Sounds liegen nicht im Client-Jar, sondern als gehashte Objekte im Asset-Store (`--assets`, `SB_MC_ASSETS`,
+`GRADLE_USER_HOME/caches/fabric-loom/assets`, `…/neoformruntime/assets`, `~/.minecraft/assets`).
+Gradle: `gradle/module-vanilla-derived-sounds.gradle` (in `modules/simplemobs/{fabric,neoforge,forge}/build.gradle`).
+Nur mit `-PsbHowlerSounds=vanilla` (oder `SB_HOWLER_SOUNDS=vanilla`) läuft `generateVanillaDerivedSounds` nach
+`build/generated-resources/vanillaDerivedSounds` (gitignored über `build/`); `processResources`/`sourcesJar` lassen dann
+die eingecheckte A-Datei gleichen Namens weg. Ohne Python-Pakete oder Asset-Store: Warnung und A (`-PsbVanillaDerivedStrict`
+bricht ab). Erlaubte Werte: `synth` (Standard) und `vanilla`, sonst Abbruch.
+Vorschau (privat, Vanilla-Referenzen nur dort): `/tmp/claude-0/ash/howler4.html`. Nachjustieren nur in den Generatoren.

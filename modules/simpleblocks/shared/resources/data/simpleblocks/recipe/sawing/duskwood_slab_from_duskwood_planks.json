@@ -1,0 +1,28 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "type": "simpleblocks:sawing",
+  "ingredient": "simpleend:duskwood_planks",
+  "result": {
+    "count": 2,
+    "id": "simpleend:duskwood_slab"
+  }
+}

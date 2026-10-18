@@ -53,6 +53,7 @@ public final class MapsDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplemaps:cartography",
             "simplemaps:end_wayfinder_map",
+            "simplemaps:guide_book",
             "simplemaps:item_frames",
             "simplemaps:map_screen",
             "simplemaps:nether_wayfinder_map",

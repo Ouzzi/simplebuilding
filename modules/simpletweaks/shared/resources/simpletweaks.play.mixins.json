@@ -8,6 +8,7 @@
     "PlayLeaveMixin",
     "PlayServerPlayerMixin",
     "PlayPlayerMixin",
+    "PlayInventoryMixin",
     "PlaySleepStatusMixin",
     "PlayPhantomMixin",
     "PlayDragonFightMixin",

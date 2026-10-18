@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:purple_wool",
+  "result": {
+    "id": "minecraft:purple_wool_stairs"
+  }
+}

@@ -39,6 +39,8 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
    (`generateVanillaDerived`, `mc26_3/resources.gradle`) und `wiki/generate.py` erzeugen sie (Wiki ohne Jar: Platzhalter).
    Braucht Python 3.8+ mit Pillow + numpy (Windows: `py -3 -m pip install pillow numpy`); fehlt etwas, warnt der Build
    und liefert graue Platzhalter (`-PsbVanillaDerivedStrict` bricht stattdessen ab, `-PsbSkipVanillaDerived` ohne Python).
+   Gleiches gilt für **aus Vanilla abgeleitete Sounds**: nur beim Build (`tools/sounds/vanilla_derived_sounds.py`,
+   `gradle/module-vanilla-derived-sounds.gradle`, Howler-Variante B mit `-PsbHowlerSounds=vanilla`), nie einchecken.
 8. **Server-Autorität:** alle Gameplay-Stellschrauben serverseitig, mit Obergrenzen, die Vanilla nicht gefährden.
 9. Orchestrator committet auf `master`; Worker auf ihrem Arbeitsbranch (kein Push/Merge). Nachricht endet mit `Co-Authored-By: <Assistent> <noreply@anthropic.com>` (bei Claude), sonst passende Zeile.
 10. Gegenprobe/Mutationstests **nie** mit `git checkout` zurücksetzen – vorher committen. Nie `find` über das ganze Laufwerk.
