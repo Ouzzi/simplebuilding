@@ -216,7 +216,10 @@ public final class BlocksTests {
         for (var holder : level.getServer().getRecipeManager().getRecipes()) {
             if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(one, level)) shapes++;
         }
-        h.assertTrue(shapes == 3, "stonecutter: stairs, slab, wall, got " + shapes);
+        // Simple Octets adds the octet cut (stage 6) when it is loaded.
+        int expected = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", "blue_nether_bricks_octet")) ? 4 : 3;
+        h.assertTrue(shapes == expected, "stonecutter: stairs, slab, wall (+ octet with Simple Octets), got " + shapes);
         h.succeed();
     }
 

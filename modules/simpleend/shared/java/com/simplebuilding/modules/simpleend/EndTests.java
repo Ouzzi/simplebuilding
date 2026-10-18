@@ -166,10 +166,14 @@ public final class EndTests {
                         h.assertTrue(state.is(BlockTags.MINEABLE_WITH_AXE), key + " is mined with the axe");
                     }
                 }
-                for (String r : new String[] {"hollow_" + n + "_log", n + "_crate", n + "_cauldron", n + "_octet_from_" + n + "_planks_stonecutting",
-                        n + "_log_octet_from_" + n + "_log_stonecutting", "reinforced_chest_boat_" + n}) {
+                for (String r : new String[] {"hollow_" + n + "_log", n + "_crate", n + "_cauldron", "reinforced_chest_boat_" + n}) {
                     var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", r));
                     h.assertTrue(recipes.byKey(key).isPresent() == sb, "recipe " + key.identifier() + " only with SimpleBuilding");
+                }
+                // The octet cuts live in Simple Octets since stage 6 (simpleoctets:<wood>_octet_from_..., IdMoves).
+                for (String r : new String[] {n + "_octet_from_" + n + "_planks_stonecutting", n + "_log_octet_from_" + n + "_log_stonecutting"}) {
+                    var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", r));
+                    h.assertTrue(recipes.byKey(key).isPresent() == loaded("simpleoctets"), "recipe " + key.identifier() + " only with Simple Octets");
                 }
                 var board = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", n + "_cutting_board");
                 h.assertTrue(BuiltInRegistries.BLOCK.containsKey(board) == sandwiches, board + " only with Simple Sandwiches");
