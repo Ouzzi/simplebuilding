@@ -149,7 +149,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:override": 2
+                "simplehammers:override": 2
               }
             }
           },
@@ -221,7 +221,7 @@
           "modifier": {
             "type": "minecraft:enchant_randomly"
           },
-          "name": "simplebuilding:diamond_sledgehammer",
+          "name": "simplehammers:diamond_sledgehammer",
           "weight": 8
         },
         {

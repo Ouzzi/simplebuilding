@@ -342,6 +342,12 @@ ext.mcVersionResourceRewrites = { SourceSet sourceSet ->
         // dispatches item modifiers on "type" instead of "function"; nothing else in these files
         // uses either key (the load conditions say "condition"/"type"). One source, rewritten at
         // build time - TradeRegistryGameTest checks the result on 26.3.
+        // Split stage 7: Simple Hammers (required sub-mod) brings its own ShapelessRecipeMixin (the hammer stays in the
+        // grid); two mixins overriding getRemainingItems would clash, so SimpleBuilding's stays out of its 26.3 config.
+        // (Its other hammer mixins only check McVersion.HAMMERS_IN_SB.)
+        filesMatching('simplebuilding.mixins.json') {
+            filter { String line -> line.trim() == '"ShapelessRecipeMixin",' ? null : line }
+        }
         filesMatching('data/simplebuilding/villager_trade/**/*.json') {
             filter { String line ->
                 line.replace('"given_item_modifiers":', '"given_item_modifier":')
@@ -350,6 +356,8 @@ ext.mcVersionResourceRewrites = { SourceSet sourceSet ->
                         // conditions on "type" as well. Only this spelling - the load conditions
                         // keep their own "condition" key.
                         .replace('"condition": "minecraft:random_chance"', '"type": "minecraft:random_chance"')
+                        // Split stage 7: the sledgehammers and their enchantments are Simple Hammers'.
+                        .replaceAll(/"simplebuilding:((?:stone|copper|iron|gold|diamond|netherite|enderite)_sledgehammer|break_through|override|radius)"/, '"simplehammers:$1"')
             }
         }
     }

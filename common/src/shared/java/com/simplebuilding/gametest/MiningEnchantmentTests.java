@@ -591,14 +591,14 @@ public final class MiningEnchantmentTests {
         // --- a sledgehammer is no pickaxe: Strip Miner must not stack on the hammer's own divisor ---
         // Alone in the air, the hammer breaks only the origin, so its own divisor is 1 and any
         // difference below is Strip Miner reaching a tool it does not apply to.
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         helper.assertFalse(hammer.is(ItemTags.PICKAXES),
                 "the iron sledgehammer is tagged minecraft:pickaxes now, so Strip Miner and the "
                         + "hammer's per-block divisor would both apply to one swing");
         helper.getLevel().setBlockAndUpdate(pos, stone);
         float plainHammer = destroyProgress(helper, player, hammer, stone, pos);
         float enchantedHammer = destroyProgress(helper, player,
-                stripMinerTool(helper, ModItems.IRON_SLEDGEHAMMER, 3), stone, pos);
+                stripMinerTool(helper, com.simplebuilding.util.HammerRefs.item("iron"), 3), stone, pos);
         helper.assertValueEqual(enchantedHammer, plainHammer,
                 "Strip Miner slowed a sledgehammer down on top of its own divisor");
 
@@ -692,7 +692,7 @@ public final class MiningEnchantmentTests {
         helper.setBlock(stone, Blocks.STONE);
         BlockState stoneState = helper.getBlockState(stone);
 
-        ItemStack hammer = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("stone"));
         ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
         ItemStack stonePickaxe = new ItemStack(Items.STONE_PICKAXE);
         ItemStack chisel = fastChisel(helper);
@@ -712,9 +712,9 @@ public final class MiningEnchantmentTests {
                         + "), so the two chisel cases would prove nothing");
 
         // --- the slower hammer still outranks the faster pickaxe ---
-        arm(player, versatile(helper, new ItemStack(Items.DIAMOND_PICKAXE), 1), 3, new ItemStack(ModItems.STONE_SLEDGEHAMMER));
+        arm(player, versatile(helper, new ItemStack(Items.DIAMOND_PICKAXE), 1), 3, new ItemStack(com.simplebuilding.util.HammerRefs.item("stone")));
         attack(helper, player, stone);
-        helper.assertTrue(player.getMainHandItem().is(ModItems.STONE_SLEDGEHAMMER),
+        helper.assertTrue(player.getMainHandItem().is(com.simplebuilding.util.HammerRefs.item("stone")),
                 "Versatility did not put the sledgehammer first, hand holds "
                         + player.getMainHandItem());
 
@@ -891,7 +891,7 @@ public final class MiningEnchantmentTests {
 
             // --- the hammer itself, not a book ---
             Integer weight = entryWeight(helper, registries, BuiltInLootTables.END_CITY_TREASURE,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "diamond_sledgehammer"));
+                    com.simplebuilding.util.HammerRefs.id("diamond_sledgehammer"));
             if (weight == null) {
                 problems.add("the end city treasure has no diamond sledgehammer entry at all");
             } else if (weight != 8) {

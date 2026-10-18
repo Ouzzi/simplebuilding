@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
  * netherite nugget, Netherite -> Enderite with an enderite nugget in the off hand.
  * <ul>
  *   <li>Alone (SimpleLib's axe ways on): an axe in the main hand runs the upgrade with SimpleLib's strikes.</li>
- *   <li>With a hammer mod (SimpleBuilding's sledgehammer, which switches the axe ways off): the click passes on to the
+ *   <li>With a hammer mod (Simple Hammers' sledgehammer, which switches the axe ways off): the click passes on to the
  *       hammer when its owner says it takes it ({@link SimpleLibApi#toolWants}).</li>
  * </ul>
  * Null means: not an upgrade click, the furnace opens its menu.

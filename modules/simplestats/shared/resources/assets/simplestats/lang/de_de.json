@@ -152,7 +152,7 @@
   "simplestats.guide.page.6.title": "Abgebaute Blöcke",
   "simplestats.guide.page.6": "Liste, auch Blöcke mit Härte 0. Jede Art des Abbaus läuft über den Abbau-Aufruf des Gegenstands:",
   "simplestats.guide.page.7.title": "Abgebaute Blöcke",
-  "simplestats.guide.page.7": "Vanilla, andere Mods und (mit SimpleBuilding) der Vorschlaghammer zählen gleich; ein Flächenabbau mit dem Hammer zählt jeden Block. Änderungen werden je Tick gesammelt und einmal geschrieben.",
+  "simplestats.guide.page.7": "Vanilla, andere Mods und (mit Simple Hammers) der Vorschlaghammer zählen gleich; ein Flächenabbau mit dem Hammer zählt jeden Block. Änderungen werden je Tick gesammelt und einmal geschrieben.",
   "simplestats.guide.page.8.title": "Kills und Schaden",
   "simplestats.guide.page.8": "Ein Kill zählt für die Waffe, die ihn verursacht hat, nach Mob und nach Mob-Variante (Katzenart, Schaffarbe, Jungtier, geladener Creeper, Schleimgröße, Dorfbewohner-Beruf und die",
   "simplestats.guide.page.9.title": "Kills und Schaden",

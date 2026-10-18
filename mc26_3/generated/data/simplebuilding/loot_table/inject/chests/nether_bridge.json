@@ -48,7 +48,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:break_through": 1
+                "simplehammers:break_through": 1
               }
             }
           },

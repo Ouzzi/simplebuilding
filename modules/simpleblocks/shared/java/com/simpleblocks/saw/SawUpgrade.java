@@ -22,14 +22,14 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * In-world upgrade of a placed Vanilla stonecutter into the Shaping Saw (owner 17.10.): use the tool on it with
  * {@link #NUGGETS} iron nuggets anywhere in the inventory (used up). The tool follows principle 5a: without a hammer mod
- * (SimpleBuilding) an axe, with SimpleBuilding a hammer ({@code #simplelib:hammers}, filled by SimpleBuilding). The
+ * (Simple Hammers) an axe, with Simple Hammers a hammer ({@code #simplelib:hammers}, filled by the hammer mod; split stage 7). The
  * facing stays. One use, no strikes; SimpleLib's strike-based {@code in_world_upgrades} is not used because Simple
  * Blocks runs without SimpleLib and the owner wants the nuggets taken from the inventory.
  */
 public final class SawUpgrade {
     public static final int NUGGETS = 4;
     public static final TagKey<Item> HAMMERS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplelib", "hammers"));
-    /** True while SimpleBuilding (the hammer mod) is loaded; set by each loader at start. */
+    /** True while Simple Hammers (the hammer mod, split stage 7) is loaded; set by each loader at start. */
     public static volatile boolean hammerMode;
 
     private SawUpgrade() {}

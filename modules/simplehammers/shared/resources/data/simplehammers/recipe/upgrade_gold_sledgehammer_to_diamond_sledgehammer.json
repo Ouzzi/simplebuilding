@@ -1,0 +1,28 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:diamond",
+  "addition_count": 22,
+  "base": "simplehammers:gold_sledgehammer",
+  "result": {
+    "id": "simplehammers:diamond_sledgehammer"
+  },
+  "template": "simplelib:basic_upgrade_template"
+}

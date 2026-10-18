@@ -81,7 +81,7 @@ public final class PulsatingTrimTests {
     public static void thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         List<String> problems = new ArrayList<>();
-        for (Item hammerItem : List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, ModItems.ENDERITE_SLEDGEHAMMER)) {
+        for (Item hammerItem : List.of(com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("iron"), com.simplebuilding.util.HammerRefs.item("enderite"))) {
             for (boolean hammerFirst : new boolean[]{true, false}) {
                 ItemStack hammer = new ItemStack(hammerItem);
                 hammer.setDamageValue(3);
@@ -110,7 +110,7 @@ public final class PulsatingTrimTests {
             }
         }
         // Ein Hammer kurz vor dem Bruch bricht beim Herstellen.
-        ItemStack worn = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack worn = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         worn.setDamageValue(worn.getMaxDamage() - SledgehammerCrafting.CRAFT_DAMAGE);
         CraftingInput wornInput = pulsatingInput(List.of(worn, new ItemStack(Items.ECHO_SHARD)));
         Optional<RecipeHolder<CraftingRecipe>> wornMatch = find(helper, wornInput);
@@ -156,14 +156,14 @@ public final class PulsatingTrimTests {
             helper.succeed();
             return;
         }
-        CraftingInput complete = pulsatingInput(List.of(new ItemStack(ModItems.IRON_SLEDGEHAMMER), new ItemStack(Items.ECHO_SHARD)));
+        CraftingInput complete = pulsatingInput(List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("iron")), new ItemStack(Items.ECHO_SHARD)));
         for (int slot = 0; slot < 9; slot++) {
             List<ItemStack> grid = new ArrayList<>();
             for (int i = 0; i < 9; i++) grid.add(i == slot ? ItemStack.EMPTY : complete.getItem(i).copy());
             helper.assertTrue(find(helper, CraftingInput.of(3, 3, grid)).isEmpty(), "missing Pulsating ingredient " + slot + " accepted");
         }
         helper.assertTrue(find(helper, CraftingInput.of(2, 1,
-                List.of(new ItemStack(ModItems.IRON_SLEDGEHAMMER), new ItemStack(Items.ECHO_SHARD)))).isEmpty(), "old cheap Pulsating recipe accepted");
+                List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("iron")), new ItemStack(Items.ECHO_SHARD)))).isEmpty(), "old cheap Pulsating recipe accepted");
         for (Item[] pair : new Item[][]{
                 {ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE},
                 {ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK},

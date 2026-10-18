@@ -157,12 +157,13 @@ public final class ConfigOptionTests {
     }
 
     public static void configuredDiamondYieldChangesActualDrops(GameTestHelper helper) {
-        if (!McVersion.GADGET_REWORK) { helper.succeed(); return; }
+        // 26.3 (split stage 7): the yield is Simple Hammers' own config (its module tests).
+        if (!McVersion.GADGET_REWORK || !McVersion.HAMMERS_IN_SB) { helper.succeed(); return; }
         var tools = com.simplebuilding.config.ServerTuning.local().tools;
         int old = tools.diamondBlockPebbles;
         var player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        var hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        var hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         BlockPos pos = new BlockPos(1, 2, 1);
         helper.setBlock(pos, net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK);
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, hammer);
@@ -271,7 +272,7 @@ public final class ConfigOptionTests {
     private static final Set<String> BASTION_LOOT = Set.of(
             book(ModEnchantments.FUNNEL, 1),
             book(ModEnchantments.BREAK_THROUGH, 1),
-            id(ModItems.GOLD_SLEDGEHAMMER),
+            id(com.simplebuilding.util.HammerRefs.item("gold")),
             id(ModItems.GOLD_CORE),
             id(ModItems.NETHERITE_NUGGET),
             id(ModItems.NETHERITE_CARROT));
@@ -346,14 +347,14 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VERSATILITY, 2),
                     book(ModEnchantments.BRIDGE, 1),
                     id(ModItems.DIAMOND_BUILDING_WAND),
-                    id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(com.simplebuilding.util.HammerRefs.item("diamond")),
                     id(ModItems.ENDERITE_APPLE),
                     id(ModItems.ENCHANTED_ENDERITE_APPLE))),
             Map.entry(BuiltInLootTables.ANCIENT_CITY, Set.of(
                     book(ModEnchantments.DEEP_POCKETS, 2),
                     book(ModEnchantments.RADIUS, 1),
                     id(ModItems.OCTANT),
-                    id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(com.simplebuilding.util.HammerRefs.item("diamond")),
                     id(ModItems.QUIVER),
                     id(ModItems.NETHERITE_APPLE),
                     id(ModItems.ENCHANTED_NETHERITE_APPLE),
@@ -570,6 +571,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleShops boolean=true",
             "root.enableSimpleWanderers boolean=true",
             "root.enableSimpleBlocks boolean=true",
+            "root.enableSimpleHammers boolean=true",
             "root.enableSimpleOctets boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1181,7 +1183,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"},
                 {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
-                {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}};
+                {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

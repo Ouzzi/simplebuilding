@@ -190,9 +190,9 @@ public final class TradeAndMigrationTests {
             TradeRow.of("toolsmith/3/emerald_copper_chisel", Items.EMERALD, 6, ModItems.COPPER_CHISEL, 1, 2, 10, 0.2F),
             TradeRow.of("toolsmith/3/emerald_gold_chisel", Items.EMERALD, 6, ModItems.GOLD_CHISEL, 1, 2, 10, 0.2F),
             new TradeRow("toolsmith/4/emerald_diamond_sledgehammer", Items.EMERALD, 28,
-                    Items.DIAMOND_PICKAXE, 1, ModItems.DIAMOND_SLEDGEHAMMER, 1, 1, 30, 0.2F),
+                    Items.DIAMOND_PICKAXE, 1, com.simplebuilding.util.HammerRefs.item("diamond"), 1, 1, 30, 0.2F),
             new TradeRow("toolsmith/4/emerald_iron_sledgehammer", Items.EMERALD, 16,
-                    Items.IRON_PICKAXE, 1, ModItems.IRON_SLEDGEHAMMER, 1, 1, 30, 0.2F),
+                    Items.IRON_PICKAXE, 1, com.simplebuilding.util.HammerRefs.item("iron"), 1, 1, 30, 0.2F),
             TradeRow.of("toolsmith/5/emerald_mining_pickaxe", Items.EMERALD, 15, Items.DIAMOND_PICKAXE, 1, 1, 50, 0.2F),
             TradeRow.of("wandering_trader/emerald_copper_cores", Items.EMERALD, 24, ModItems.COPPER_CORE, 1, 2, 10, 0.1F),
             TradeRow.of("wandering_trader/emerald_iron_cores", Items.EMERALD, 32, ModItems.IRON_CORE, 1, 1, 10, 0.1F),
@@ -1276,6 +1276,8 @@ public final class TradeAndMigrationTests {
 
         for (Holder<Enchantment> enchantment : enchantments.keySet()) {
             String drawn = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
+            // Split stage 7: the json names the hammer enchantments by their old id; the 26.3 build ships simplehammers:.
+            drawn = drawn.replaceFirst("^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@");
             helper.assertTrue(pool.contains(drawn),
                     id + ": the merchant put " + drawn + " on the tool, which is not one of the "
                             + "enchantment/level pairs its json offers (" + pool + ")");
@@ -1310,7 +1312,8 @@ public final class TradeAndMigrationTests {
 
                 ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
                 for (Holder<Enchantment> enchantment : enchantments.keySet()) {
-                    drawn.add(enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment));
+                    drawn.add((enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment)).replaceFirst(
+                            "^" + com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":(break_through|override|radius)@", "simplebuilding:$1@"));
                 }
             }
 

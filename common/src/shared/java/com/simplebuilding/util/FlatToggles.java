@@ -34,13 +34,13 @@ public final class FlatToggles {
 
     /** Ob ein Rechtsklick mit {@code tool} auf das Haeufchen bei {@code pos} 3D/flach umschaltet. */
     public static boolean canToggle(Level level, BlockPos pos, ItemStack tool) {
-        return tool.getItem() instanceof SledgehammerItem && level.getBlockState(pos).getBlock() instanceof PlacedSmallPartsBlock
+        return com.simplebuilding.items.custom.SledgehammerItem.isHammer(tool.getItem()) && level.getBlockState(pos).getBlock() instanceof PlacedSmallPartsBlock
                 && level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && PlacedSmallParts.anySwitchable(pile.parts());
     }
 
     /** Ob ein Rechtsklick mit {@code tool} auf eine einzeln abgelegte Vorlage/Scherbe/Scheibe bei {@code pos} umschaltet. */
     public static boolean canToggleTemplate(Level level, BlockPos pos, ItemStack tool, Player player) {
-        return tool.getItem() instanceof SledgehammerItem && level.getBlockState(pos).getBlock() instanceof PlacedTemplateBlock
+        return com.simplebuilding.items.custom.SledgehammerItem.isHammer(tool.getItem()) && level.getBlockState(pos).getBlock() instanceof PlacedTemplateBlock
                 && PlacedSolids.shape(PlacedTemplates.templateAt(level, pos)) != null && !PlacedTemplates.isHammerStance(player);
     }
 

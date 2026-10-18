@@ -270,7 +270,7 @@ public final class PlacedTemplateTests {
         BlockPos first = helper.absolutePos(new BlockPos(1, 2, 1));
         BlockPos second = helper.absolutePos(new BlockPos(3, 2, 1));
         BlockPos upgrade = helper.absolutePos(new BlockPos(5, 2, 1));
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOWSTONE_DUST, 8));
 
@@ -395,7 +395,7 @@ public final class PlacedTemplateTests {
         BlockPos rel = new BlockPos(1, 2, 1);
         BlockPos abs = helper.absolutePos(rel);
         helper.assertTrue(level.getBlockState(abs).is(ModBlocks.PLACED_SMITHING_TEMPLATE), "the template was not placed");
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC, 8));
         if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {

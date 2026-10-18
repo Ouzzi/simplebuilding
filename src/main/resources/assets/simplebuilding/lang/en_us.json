@@ -3551,7 +3551,6 @@
   "book.simplebuilding.storage.11.text": "Planks in a U make an open crate for food.\nHolds 9 stacks of up to 9 kinds, shown in 3D. Hoppers fill it. Place it upright or on its side.",
   "book.simplebuilding.gadgets.15.title": "Sculk Jaw",
   "book.simplebuilding.gadgets.15.text": "Bone, echo shard and 3 sculk. Only on full blocks; looks like sculk.\nWhoever steps in is slowed like in a web and plunged into darkness. It bites once.",
-  "tip.simplebuilding.sledgehammer": "Mines 3x3. Hold use: blocks to stairs, stairs to slabs",
   "tip.simplebuilding.chisel": "Use on a block: next variant; sneak: back",
   "tip.simplebuilding.building_wand": "Use on a block face: fills an area from your inventory",
   "tip.simplebuilding.blueprint": "Build it with a building wand in the other hand",

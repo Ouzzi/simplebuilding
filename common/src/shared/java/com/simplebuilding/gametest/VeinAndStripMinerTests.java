@@ -794,7 +794,7 @@ public final class VeinAndStripMinerTests {
                 }
             }
         }
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         insideOnlyTheColumnOf(helper, player, HAMMER_CENTRE, face.get(0), () -> hammerSwing(helper, player, HAMMER_CENTRE));
         helper.assertTrue(brokenCount(helper, face) == 0,
                 brokenCount(helper, face) + " blocks the sledgehammer broke outside the area the player may interact with");

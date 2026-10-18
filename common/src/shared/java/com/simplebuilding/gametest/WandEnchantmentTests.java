@@ -677,9 +677,9 @@ public final class WandEnchantmentTests {
                 ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
                 ModItems.ENDERITE_CHISEL);
         List<Item> sledgehammers = List.of(
-                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
-                ModItems.ENDERITE_SLEDGEHAMMER);
+                com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
+                com.simplebuilding.util.HammerRefs.item("enderite"));
 
         List<String> problems = new ArrayList<>();
 

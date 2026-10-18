@@ -220,7 +220,7 @@ public final class ModLootTableModifications {
                     // Bruecke: die End-Verzauberung des Baustabs (Besitzer 2026-09-28), nur hier
                     .add(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 4))
                     .add(LootItem.lootTableItem(ModItems.DIAMOND_BUILDING_WAND).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
-                    .add(LootItem.lootTableItem(ModItems.DIAMOND_SLEDGEHAMMER).setWeight(8).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    .add(LootItem.lootTableItem(com.simplebuilding.util.HammerRefs.item("diamond")).setWeight(8).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.ENDERITE_APPLE, 3))
                     .add(item(ModItems.ENCHANTED_ENDERITE_APPLE, 1))
                     .add(EmptyLootItem.emptyItem().setWeight(40)));
@@ -234,7 +234,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (25 -> 28).
                     .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(2).apply(EnchantRandomlyFunction.randomEnchantment()))
-                    .add(item(ModItems.DIAMOND_SLEDGEHAMMER, 3))
+                    .add(item(com.simplebuilding.util.HammerRefs.item("diamond"), 3))
                     .add(LootItem.lootTableItem(ModItems.QUIVER).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.NETHERITE_APPLE, 2))
                     .add(item(ModItems.ENCHANTED_NETHERITE_APPLE, 1))
@@ -249,7 +249,7 @@ public final class ModLootTableModifications {
                     .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 5))
-                    .add(item(ModItems.GOLD_SLEDGEHAMMER, 6))
+                    .add(item(com.simplebuilding.util.HammerRefs.item("gold"), 6))
                     .add(counted(ModItems.NETHERITE_NUGGET, 12, 1, 4))
                     .add(counted(ModItems.NETHERITE_CARROT, 6, 1, 2))
                     .add(EmptyLootItem.emptyItem().setWeight(25)));

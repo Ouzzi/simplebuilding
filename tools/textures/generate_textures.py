@@ -82,6 +82,12 @@ MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_
                       # Runde 7 (2026-10-06): Rucksack-Icons mit durchgehend dunkler Kontur, Enderit-Speer mit Glanz
                       "item/backpack", "item/reinforced_backpack", "item/netherite_backpack", "item/enderite_backpack",
                       "item/enderite_spear.png")
+# Generated textures that a sub-mod ships as well (split stage 7: the sledgehammers live in Simple Hammers on 26.3;
+# SimpleBuilding keeps its copies for 26.2): written and checked next to the main tree.
+MODULE_COPIES = {
+    "item/netherite_sledgehammer.png": os.path.join(REPO, "modules", "simplehammers", "shared", "resources", "assets", "simplehammers", "textures"),
+    "item/enderite_sledgehammer.png": os.path.join(REPO, "modules", "simplehammers", "shared", "resources", "assets", "simplehammers", "textures"),
+}
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet
@@ -4486,7 +4492,8 @@ def main():
         data = png_bytes(img)
         # Texturen, die es bisher nur auf der Hauptlinie 26.3 gibt, landen nur im gemeinsamen Baum;
         # der Port-Run fuer 1.21.11 nimmt sie aus MAIN_LINE_ONLY heraus (hauptlinie-26-3-zuerst).
-        for tree in (TREES[:1] if rel in MAIN_TREE_ONLY or rel in MAIN_LINE_ONLY or rel.startswith(MAIN_TREE_PREFIXES) else TREES):
+        trees = TREES[:1] if rel in MAIN_TREE_ONLY or rel in MAIN_LINE_ONLY or rel.startswith(MAIN_TREE_PREFIXES) else TREES
+        for tree in trees + ([MODULE_COPIES[rel]] if rel in MODULE_COPIES else []):
             path = os.path.join(tree, *rel.split("/"))
             if args.check:
                 try:

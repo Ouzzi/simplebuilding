@@ -150,7 +150,7 @@
   "simplestats.guide.page.5.title": "Blocks mined",
   "simplestats.guide.page.5": "Every block broken with a tool counts for that tool, listed by block, including blocks with zero hardness.",
   "simplestats.guide.page.6.title": "Blocks mined",
-  "simplestats.guide.page.6": "Every way of mining ends in the item's mine-block call, so Vanilla, other mods and (with SimpleBuilding) the sledgehammer count the same way: an area break with the hammer counts each block.",
+  "simplestats.guide.page.6": "Every way of mining ends in the item's mine-block call, so Vanilla, other mods and (with Simple Hammers) the sledgehammer count the same way: an area break with the hammer counts each block.",
   "simplestats.guide.page.7.title": "Blocks mined",
   "simplestats.guide.page.7": "Changes are collected per tick and written once.",
   "simplestats.guide.page.8.title": "Kills and damage",

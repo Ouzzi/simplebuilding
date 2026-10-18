@@ -277,6 +277,18 @@ public final class SimpleCruciblesApi {
         SOUL_LAVA_SCOOPED.add(listener);
     }
 
+    private static final List<java.util.function.Consumer<Player>> CRUCIBLE_BUILT = new CopyOnWriteArrayList<>();
+
+    /** Called when a hammer finishes building the iron crucible (SimpleBuilding: its "crucible built" advancement). */
+    public static void onCrucibleBuilt(java.util.function.Consumer<Player> listener) {
+        CRUCIBLE_BUILT.add(listener);
+    }
+
+    /** Fires {@link #onCrucibleBuilt} (the hammer way calls it). */
+    public static void crucibleBuilt(Player player) {
+        CRUCIBLE_BUILT.forEach(listener -> listener.accept(player));
+    }
+
     /** Fires {@link #onSoulLavaScooped} (the soul lava block calls it). */
     public static void soulLavaScooped(Player player) {
         SOUL_LAVA_SCOOPED.forEach(listener -> listener.accept(player));

@@ -192,7 +192,7 @@ public final class OctetMixTests {
             }
         }
         ServerPlayer player = survivalPlayer(helper);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.items.ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         BlockPos origin = helper.absolutePos(CELL);
         player.snapTo(origin.getX() + 0.5, origin.getY() + 2.0, origin.getZ() + 0.5, 0.0F, 90.0F);
         player.setShiftKeyDown(false);

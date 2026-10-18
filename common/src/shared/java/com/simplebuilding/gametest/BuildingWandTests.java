@@ -905,7 +905,7 @@ public final class BuildingWandTests {
             }
         }
 
-        for (Item control : List.<Item>of(Items.DIAMOND_PICKAXE, ModItems.DIAMOND_SLEDGEHAMMER)) {
+        for (Item control : List.<Item>of(Items.DIAMOND_PICKAXE, com.simplebuilding.util.HammerRefs.item("diamond"))) {
             Identifier id = BuiltInRegistries.ITEM.getKey(control);
             helper.assertFalse(tagged.contains(id),
                     id + " is listed in #simplebuilding:building_wand_enchantable, so the tag no "

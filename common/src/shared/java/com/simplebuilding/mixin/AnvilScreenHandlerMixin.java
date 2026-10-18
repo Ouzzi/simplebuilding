@@ -69,10 +69,10 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
 
         if (leftStack.isEmpty()) return;
 
-        if (leftStack.getItem() instanceof SledgehammerItem) {
+        if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(leftStack.getItem())) {
 
             // FALL A: HAMMER + HAMMER
-            if (rightStack.getItem() instanceof SledgehammerItem) {
+            if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(rightStack.getItem())) {
                 // 1. Haltbarkeit berechnen (Deine bestehende Logik)
                 int leftDurability = leftStack.getMaxDamage() - leftStack.getDamageValue();
                 int rightDurability = rightStack.getMaxDamage() - rightStack.getDamageValue();
@@ -214,7 +214,7 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
         if (outputStack.isEmpty()) return;
 
         // A) SLEDGEHAMMER REPAIR COST FIX
-        if (outputStack.getItem() instanceof SledgehammerItem) {
+        if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(outputStack.getItem())) {
             outputStack.set(DataComponents.REPAIR_COST, 0);
             if (this.cost.get() >= 40) this.cost.set(39);
         } else if (com.simplebuilding.config.ServerTuning.get().features.anvilRepairKeepsCost

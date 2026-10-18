@@ -84,7 +84,7 @@
   "container.simpleblocks.shaping_saw.no_cuts": "Nothing to cut from this item",
   "container.simpleblocks.shaping_saw.no_match": "No cut matches the search",
   "tip.simpleblocks.shaping_saw": "Cuts stone and wood into stairs, slabs and more",
-  "jei.simpleblocks.info.shaping_saw": "Upgrade a placed stonecutter: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets. The nuggets are used up and the stonecutter becomes a Shaping Saw facing the same way.",
+  "jei.simpleblocks.info.shaping_saw": "Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. The nuggets are used up and the stonecutter becomes a Shaping Saw facing the same way.",
   "item.simpleblocks.guide_book": "Simple Blocks Guide",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, the missing Vanilla",

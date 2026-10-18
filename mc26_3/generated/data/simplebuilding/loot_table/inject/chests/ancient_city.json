@@ -36,7 +36,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:radius": 1
+                "simplehammers:radius": 1
               }
             }
           },
@@ -53,7 +53,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:diamond_sledgehammer",
+          "name": "simplehammers:diamond_sledgehammer",
           "weight": 3
         },
         {

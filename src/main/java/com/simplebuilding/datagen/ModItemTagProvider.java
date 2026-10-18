@@ -308,14 +308,21 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.REINFORCED_QUIVER))
                 .add(key(ModItems.NETHERITE_QUIVER))
                 .add(key(ModItems.ENDERITE_QUIVER));
-        builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
-                .add(key(ModItems.STONE_SLEDGEHAMMER))
-                .add(key(ModItems.COPPER_SLEDGEHAMMER))
-                .add(key(ModItems.IRON_SLEDGEHAMMER))
-                .add(key(ModItems.GOLD_SLEDGEHAMMER))
-                .add(key(ModItems.DIAMOND_SLEDGEHAMMER))
-                .add(key(ModItems.NETHERITE_SLEDGEHAMMER))
-                .add(key(ModItems.ENDERITE_SLEDGEHAMMER));
+        if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
+            builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                    .add(key(com.simplebuilding.util.HammerRefs.item("stone")))
+                    .add(key(com.simplebuilding.util.HammerRefs.item("copper")))
+                    .add(key(com.simplebuilding.util.HammerRefs.item("iron")))
+                    .add(key(com.simplebuilding.util.HammerRefs.item("gold")))
+                    .add(key(com.simplebuilding.util.HammerRefs.item("diamond")))
+                    .add(key(com.simplebuilding.util.HammerRefs.item("netherite")))
+                    .add(key(com.simplebuilding.util.HammerRefs.item("enderite")));
+        } else {
+            // Split stage 7: the hammers are Simple Hammers'; the old tag stays as an alias for datapacks and partners.
+            builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                    .addOptionalTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                            com.simplebuilding.util.HammerRefs.id("sledgehammers")));
+        }
 
         builder(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(key(ModItems.COPPER_BUILDING_WAND))

@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
  * Which tool works on trim templates - the same rule as SimpleLib's crucibles (principle 5a, split plan 2.6): as long
  * as no partner with a hammer switched SimpleLib's axe ways off, any axe ({@code #minecraft:axes}); once one did
  * (SimpleBuilding today, Simple Hammers later) only the hammers in {@code #simpletrims:template_hammers}, which names
- * {@code #simplebuilding:sledgehammer_tools} as optional entry (modules meet by id, never by class). Used for hitting
+ * {@code #simplelib:hammers} as optional entry (modules meet by id, never by class). Used for hitting
  * placed templates and for the Pulsating recipe ({@code simpletrims:tool_shapeless}).
  */
 public final class TemplateTools {

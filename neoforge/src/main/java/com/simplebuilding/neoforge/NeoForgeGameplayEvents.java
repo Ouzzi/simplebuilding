@@ -92,7 +92,7 @@ public final class NeoForgeGameplayEvents {
     public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             DynamicLightHandler.onDisconnect(serverPlayer);
-            com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
+            if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
             com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(serverPlayer);
             com.simplebuilding.util.WandUndo.onDisconnect(serverPlayer);
         }
@@ -105,7 +105,8 @@ public final class NeoForgeGameplayEvents {
 
     @SubscribeEvent
     public static void onServerTick(net.neoforged.neoforge.event.tick.ServerTickEvent.Post event) {
-        com.simplebuilding.util.SledgehammerProgress.tick(event.getServer());
+        // 26.3 (split stage 7): Simple Hammers ticks its own strike progress.
+        if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerProgress.tick(event.getServer());
         com.simplebuilding.items.custom.BuildingCoreItem.tickAnimations(event.getServer());
         if (event.getServer().getTickCount() % 2 != 0) {
             return;

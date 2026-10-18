@@ -22,7 +22,7 @@ public final class SimpleLibApi {
     private static volatile boolean axeWaysDisabled;
 
     /**
-     * A tool way on a block of a Simple mod (e.g. SimpleBuilding's sledgehammer upgrade, the axe way of the crucibles): when
+     * A tool way on a block of a Simple mod (e.g. Simple Hammers' sledgehammer upgrade, the axe way of the crucibles): when
      * it returns true, a right click no longer opens the block's menu but reaches the item's {@code useOn}.
      */
     @FunctionalInterface
@@ -45,7 +45,7 @@ public final class SimpleLibApi {
     }
 
     /**
-     * Principle 5a: a partner with a working mod way (SimpleBuilding's sledgehammer) switches the
+     * Principle 5a: a partner with a working mod way (Simple Hammers' sledgehammer) switches the
      * Vanilla axe ways off.
      */
     public static void disableAxeWays() {

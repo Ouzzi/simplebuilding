@@ -32,7 +32,8 @@ public abstract class BlockStateBaseMixin {
     @Inject(method = "getDestroyProgress", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$slowMiningTools(Player player, BlockGetter level, BlockPos pos,
                                                 CallbackInfoReturnable<Float> cir) {
-        float divisor = SledgehammerUtils.miningSpeedDivisor(player, pos);
+        // 26.3 (split stage 7): Simple Hammers slows its hammers in its own mixin; here only Strip Miner.
+        float divisor = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? SledgehammerUtils.miningSpeedDivisor(player, pos) : 1.0F;
         if (divisor <= 1.0F) {
             divisor = MiningUtils.stripMinerSpeedDivisor(player, (BlockState) (Object) this);
         }

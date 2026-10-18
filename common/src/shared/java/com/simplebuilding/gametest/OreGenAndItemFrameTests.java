@@ -290,7 +290,7 @@ public final class OreGenAndItemFrameTests {
             player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ENDERITE_PICKAXE));
             int ticks = Math.round(1.0F / state.getDestroyProgress(player, level, pos));
             helper.assertTrue(Math.abs(ticks - 5000) <= 2, "an enderite pickaxe needs " + ticks + " ticks for " + scrap + " instead of 5000");
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ENDERITE_SLEDGEHAMMER));
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("enderite")));
             helper.assertTrue(state.getDestroyProgress(player, level, pos) > 0.0F, "an enderite sledgehammer makes no progress on " + scrap);
             ItemStack stack = new ItemStack(scrap.asItem());
             helper.assertTrue(stack.is(com.simplebuilding.util.ModTags.Items.INDESTRUCTIBLE), scrap + " is not indestructible");

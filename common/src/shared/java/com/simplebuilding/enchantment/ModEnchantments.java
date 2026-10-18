@@ -35,8 +35,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> DEEP_POCKETS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "deep_pockets")); // final
     public static final ResourceKey<Enchantment> MASTER_BUILDER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "master_builder")); // final
     public static final ResourceKey<Enchantment> FUNNEL = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "funnel")); // final
-    public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "radius")); // final
-    public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "override")); // final
+    public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius")); // 26.3: Simple Hammers' (split stage 7)
+    public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "override")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> STRIP_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "strip_miner")); // final
     public static final ResourceKey<Enchantment> COVER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "cover")); // final
     public static final ResourceKey<Enchantment> BRIDGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "bridge")); // final
@@ -48,7 +48,7 @@ public class ModEnchantments {
 
     // todo new enchantment names
     public static final ResourceKey<Enchantment> COLOR_PALETTE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "color_palette"));
-    public static final ResourceKey<Enchantment> BREAK_THROUGH = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "break_through"));
+    public static final ResourceKey<Enchantment> BREAK_THROUGH = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "break_through")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> DOUBLE_JUMP = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "double_jump"));
 
     public static final TagKey<DamageType> KINETIC_DAMAGE_TAG = TagKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "kinetic_damage"));
@@ -168,8 +168,8 @@ public class ModEnchantments {
         
         // 9. BREAK_TROUGH (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
         register(registerable, BREAK_THROUGH, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE), // Nur Bundles/Shulker
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.HAMMER_ENCHANTMENT_ITEMS), // Nur Bundles/Shulker
+                items.getOrThrow(ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
                 2, // Weight rare
                 2, // Max Level
                 Enchantment.dynamicCost(15, 15),
@@ -181,8 +181,8 @@ public class ModEnchantments {
         // 10. RADIUS (Max Level 1, Treasure, Very Rare, 5x5 mining) [SLEDGEHAMMER]
         // Auch auf dem Erzdetektor (Amboss): dort mehr Reichweite fuer Gold und seltene Erze, siehe OreDetectorItem.OreClass.
         register(registerable, RADIUS, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.RADIUS_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.RADIUS_ENCHANTMENT_ITEMS),
+                items.getOrThrow(ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
                 1, // Weight (Very Rare)
                 1, // Max Level
                 Enchantment.dynamicCost(25, 20),
@@ -193,8 +193,8 @@ public class ModEnchantments {
 
         // 11. IGNORE_BLOCKTYPE (Max Level 2, Treasure, Rare) [SLEDGEHAMMER]
         register(registerable, OVERRIDE, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
+                items.getOrThrow(ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
                 2, // Weight (Rare)
                 2, // Max Level
                 Enchantment.dynamicCost(20, 15),

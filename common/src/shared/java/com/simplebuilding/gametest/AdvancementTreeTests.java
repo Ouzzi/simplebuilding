@@ -202,7 +202,7 @@ public final class AdvancementTreeTests {
         give(player, new ItemStack(Items.CRAFTING_TABLE), 0);
         helper.assertTrue(done(player, root), "a crafting table did not open the SimpleBuilding tab");
 
-        give(player, new ItemStack(ModItems.GOLD_SLEDGEHAMMER), 1);
+        give(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("gold")), 1);
         helper.assertTrue(done(player, hammerTime), "a gold sledgehammer did not earn Hammer Time");
 
         AdvancementHolder buildingTab = require(helper, manager, "building/root");

@@ -10,15 +10,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/copper_sledgehammer",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/stone_chisel",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/stone_sledgehammer",
       "required": false
     },
     {
@@ -27,6 +19,14 @@
     },
     {
       "id": "simplemoney:links/simplecrucibles/copper_bucket",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplehammers/copper_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplehammers/stone_sledgehammer",
       "required": false
     },
     {

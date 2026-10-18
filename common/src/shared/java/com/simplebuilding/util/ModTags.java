@@ -55,10 +55,19 @@ public class ModTags {
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
         /**
+         * What the hammer enchantments (Break Through, Override) go on: 26.3 Simple Hammers' {@code #simplehammers:sledgehammers}
+         * (split stage 7; {@link #SLEDGEHAMMER_ENCHANTABLE} stays as an alias holding it), 26.2 SimpleBuilding's own tag.
+         */
+        public static final TagKey<Item> HAMMER_ENCHANTMENT_ITEMS = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? SLEDGEHAMMER_ENCHANTABLE
+                : TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "sledgehammers"));
+        /**
          * supported_items von Radius: die Vorschlaghaemmer plus der Erzdetektor (dort mehr Reichweite
          * fuer Gold und seltene Erze). Am Verzauberungstisch bleibt Radius Vorschlaghaemmern vorbehalten.
          */
         public static final TagKey<Item> RADIUS_ENCHANTABLE = createTag("radius_enchantable");
+        /** Radius: 26.3 Simple Hammers' {@code #simplehammers:radius_enchantable} (holds the hammers and this mod's {@link #RADIUS_ENCHANTABLE}). */
+        public static final TagKey<Item> RADIUS_ENCHANTMENT_ITEMS = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? RADIUS_ENCHANTABLE
+                : TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius_enchantable"));
         public static final TagKey<Item> BUILDING_WAND_ENCHANTABLE = createTag("building_wand_enchantable");
         public static final TagKey<Item> VEINMINE_ENCHANTABLE = createTag("veinmine_enchantable");
         public static final TagKey<Item> TRIM_TEMPLATES = createTag("trim_templates");
@@ -102,7 +111,9 @@ public class ModTags {
             boolean own = Simplebuilding.MOD_ID.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
+                    // Split stage 7: the Enderite sledgehammer (Simple Hammers).
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace());
             return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
@@ -169,7 +180,8 @@ public class ModTags {
             // split 3d: the enderite materials (ingot, nugget, block) are SimpleLib's now; stage 4/5: so are the Enderite furnaces and crucible tiers (modules)
             return (Simplebuilding.MOD_ID.equals(id.getNamespace()) || "simplelib".equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }

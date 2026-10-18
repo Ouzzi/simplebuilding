@@ -205,7 +205,7 @@ public final class SledgehammerUpgradeTests {
             }
 
             hammerThrough(helper, player, pos, family.reinforced(), family.netherite(),
-                    ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
+                    com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
                     "the reinforced " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the netherite step");
             if (index == 0) {
@@ -220,7 +220,7 @@ public final class SledgehammerUpgradeTests {
                 helper.setBlock(pos, NetheriteBreakerPistonBlock.withDamage(beforeEnderite, 150));
             }
             hammerThrough(helper, player, pos, family.netherite(), family.enderite(),
-                    ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
+                    com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                     "the netherite " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the enderite step");
             helper.assertTrue(done(player, endOfLine), "an enderite upgrade did not earn 'End of the Line'");
@@ -263,7 +263,7 @@ public final class SledgehammerUpgradeTests {
                     String before = furnaceSummary(helper, pos);
 
                     hammerThrough(helper, player, pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"),
-                            ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
+                            com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
                             "the lit reinforced furnace");
 
                     helper.assertValueEqual(furnaceSummary(helper, pos), before,
@@ -299,11 +299,11 @@ public final class SledgehammerUpgradeTests {
         ServerPlayer player = smith(helper, false);
 
         hammerThrough(helper, player, pos, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER,
-                ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR, "the reinforced hopper");
+                com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR, "the reinforced hopper");
         helper.assertValueEqual(hopperSummary(helper, pos), before, "the hopper's filter and stock after the netherite step");
 
         hammerThrough(helper, player, pos, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER,
-                ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR, "the netherite hopper");
+                com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR, "the netherite hopper");
         helper.assertValueEqual(hopperSummary(helper, pos), before, "the hopper's filter and stock after the enderite step");
 
         helper.succeed();
@@ -324,10 +324,10 @@ public final class SledgehammerUpgradeTests {
         ServerPlayer player = smith(helper, true);
 
         hammerThrough(helper, player, pos, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"),
-                ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
+                com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
                 "the reinforced blast furnace, hammered in creative");
         hammerThrough(helper, player, pos, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"),
-                ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
+                com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                 "the netherite blast furnace, hammered in creative");
 
         helper.succeed();
@@ -410,17 +410,17 @@ public final class SledgehammerUpgradeTests {
                     helper.assertTrue(helper.getLevel().hasNeighborSignal(helper.absolutePos(blockedPiston)),
                             "test setup broken: the blocked piston has no signal, so it is not busy at all");
 
-                    assertRefused(helper, player, weakHammer, ModItems.IRON_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, true,
+                    assertRefused(helper, player, weakHammer, com.simplebuilding.util.HammerRefs.item("iron"), ModItems.NETHERITE_NUGGET, true,
                             "an iron sledgehammer on a reinforced furnace");
-                    assertRefused(helper, player, weakForEnderite, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, true,
+                    assertRefused(helper, player, weakForEnderite, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.ENDERITE_NUGGET, true,
                             "a diamond sledgehammer with an enderite nugget on a netherite smoker");
-                    assertRefused(helper, player, wrongNuggetReinforced, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, true,
+                    assertRefused(helper, player, wrongNuggetReinforced, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, true,
                             "an enderite nugget on a reinforced blast furnace");
-                    assertRefused(helper, player, wrongNuggetNetherite, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, true,
+                    assertRefused(helper, player, wrongNuggetNetherite, com.simplebuilding.util.HammerRefs.item("enderite"), ModItems.NETHERITE_NUGGET, true,
                             "a netherite nugget on a netherite furnace");
-                    assertRefused(helper, player, topTier, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, true,
+                    assertRefused(helper, player, topTier, com.simplebuilding.util.HammerRefs.item("enderite"), ModItems.ENDERITE_NUGGET, true,
                             "an enderite nugget on an enderite furnace, the top tier");
-                    assertRefused(helper, player, stickyPiston, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, false,
+                    assertRefused(helper, player, stickyPiston, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, false,
                             "an enderite nugget on a reinforced sticky piston (it climbs to netherite first, since 2026-09-29)");
                     // Power off: the retraction is only queued as a block event, so for the rest of this
                     // tick the piston is extended without a signal - only EXTENDED can refuse it now.
@@ -428,13 +428,13 @@ public final class SledgehammerUpgradeTests {
                     helper.assertBlockProperty(extendedPiston, PistonBaseBlock.EXTENDED, Boolean.TRUE);
                     helper.assertFalse(helper.getLevel().hasNeighborSignal(helper.absolutePos(extendedPiston)),
                             "test setup broken: the extended piston is still powered");
-                    assertRefused(helper, player, extendedPiston, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, false,
+                    assertRefused(helper, player, extendedPiston, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, false,
                             "a netherite nugget on an extended, unpowered reinforced piston");
-                    assertRefused(helper, player, blockedPiston, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, false,
+                    assertRefused(helper, player, blockedPiston, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, false,
                             "a netherite nugget on a powered but blocked reinforced piston");
 
                     // --- no upgrade target: the hammer does what it always does there ---
-                    arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
+                    arm(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
                     standOn(helper, player, diamondBlock);
                     click(helper, player, diamondBlock);
                     // A diamond block takes a crushing strike (owner 2026-10-01), never an upgrade charge.
@@ -443,11 +443,11 @@ public final class SledgehammerUpgradeTests {
                     helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, diamondBlock);
 
                     // --- the two controls: the same rig does start where it should ---
-                    arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
+                    arm(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
                     standOn(helper, player, furnaceControl);
                     startHammering(helper, player, furnaceControl, "control: the reinforced furnace");
                     player.releaseUsingItem();
-                    arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
+                    arm(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
                     standOn(helper, player, pistonControl);
                     startHammering(helper, player, pistonControl, "control: the reinforced piston, retracted and unpowered");
                     player.releaseUsingItem();
@@ -634,11 +634,11 @@ public final class SledgehammerUpgradeTests {
         helper.assertValueEqual(storedProgress(helper, pos), progressLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 2),
                 "the progress saved on the furnace after two blows");
 
-        SledgehammerProgress data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
+        var data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
         helper.assertTrue(data != null && data.isDirty(),
                 "the saved progress is not marked dirty, so the world save would not write it");
         Tag saved = SledgehammerProgress.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow();
-        SledgehammerProgress reloaded = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
+        var reloaded = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
         helper.assertTrue(reloaded.entries().contains(
                         new SledgehammerProgress.Entry(helper.absolutePos(pos), com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 2)),
                 "the saved progress does not survive its own codec: " + saved);
@@ -731,7 +731,7 @@ public final class SledgehammerUpgradeTests {
         ServerPlayer player = smith(helper, false);
         BlockPos absolute = helper.absolutePos(pos);
 
-        arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.ENDERITE_NUGGET, NUGGETS));
+        arm(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")), new ItemStack(ModItems.ENDERITE_NUGGET, NUGGETS));
         standOn(helper, player, pos);
         helper.assertFalse(SledgehammerUpgrades.showsUpgradeHint(helper.getLevel(), absolute, player),
                 "the hammer hints at an upgrade with the wrong nugget in the off hand");
@@ -777,7 +777,7 @@ public final class SledgehammerUpgradeTests {
 
     /** One entry of the saved progress at {@code pos}, as one line, or "nothing". */
     private static String storedProgress(GameTestHelper helper, BlockPos pos) {
-        SledgehammerProgress data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
+        var data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
         if (data == null) {
             return "nothing";
         }
@@ -972,7 +972,7 @@ public final class SledgehammerUpgradeTests {
 
     /** A fresh diamond hammer and two netherite nuggets, and the player on top of the case's furnace. */
     private static ItemStack prepareCase(GameTestHelper helper, ServerPlayer player, BlockPos machine) {
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         arm(player, hammer, new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
         standOn(helper, player, machine);
         return hammer;
