@@ -283,7 +283,8 @@ public final class ChessTests {
     }
 
     /**
-     * Rezepte: der Steinmetz schneidet aus jedem Schachbrett (Quarz: Quarzblock) 8 Achtel seiner Farbe, aus jedem Achtel
+     * Rezepte: die Formsäge (ohne Simple Blocks der Steinmetz) schneidet aus jedem Schachbrett (Quarz: Quarzblock) 8 Achtel
+     * seiner Farbe, der Steinmetz aus jedem Achtel
      * jede der zwoelf Figuren seiner Farbe, aus jedem Schachbrett Treppe (1) und Stufe (2); die Werkbank macht aus sechs
      * Schachbrettern vier Treppen und aus drei sechs Stufen.
      */
@@ -295,7 +296,18 @@ public final class ChessTests {
         ServerLevel level = helper.getLevel();
         ContextMap context = SlotDisplayContext.fromLevel(level);
         Set<String> cuts = new TreeSet<>();
+        // Octets are exclusive to the Shaping Saw of Simple Blocks (docs/ai/PRINZIPIEN.md A4b): its simpleblocks:sawing
+        // recipes have no recipe-book display, so their cuts come from the input and the assembled result.
+        Set<String> sawCuts = new TreeSet<>();
+        boolean saw = com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleblocks");
         for (RecipeHolder<?> holder : level.getServer().getRecipeManager().getRecipes()) {
+            if (holder.value() instanceof net.minecraft.world.item.crafting.SingleItemRecipe single
+                    && "simpleblocks:sawing".equals(String.valueOf(BuiltInRegistries.RECIPE_TYPE.getKey(single.getType())))) {
+                single.input().items().forEach(in -> {
+                    ItemStack out = single.assemble(new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(in.value())));
+                    sawCuts.add(path(in.value()) + " -> " + out.getCount() + " " + path(out.getItem()));
+                });
+            }
             if (!(holder.value() instanceof StonecutterRecipe)) {
                 continue;
             }
@@ -312,7 +324,9 @@ public final class ChessTests {
         List<String> missing = new ArrayList<>();
         for (ChessColor color : ChessColor.values()) {
             Item octet = ChessItems.octet(color);
-            expect(cuts, missing, path(color.octetSource().asItem()) + " -> 8 " + path(octet));
+            String octetCut = path(color.octetSource().asItem()) + " -> 8 " + path(octet);
+            expect(saw ? sawCuts : cuts, missing, octetCut);
+            if (saw && cuts.contains(octetCut)) missing.add("stonecutter must not cut octets with Simple Blocks: " + octetCut);
             for (boolean flat : new boolean[]{false, true}) {
                 for (ChessPiece piece : ChessPiece.values()) {
                     expect(cuts, missing, path(octet) + " -> 1 " + path(ChessItems.piece(color, piece, flat)));

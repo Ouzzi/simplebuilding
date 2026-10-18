@@ -498,6 +498,37 @@ def data_files(mats):
     return files
 
 
+# SimpleBuilding's chess octets (checker_octet cells, docs/ai/PLAN-SCHACH-2026-10-06.md): 8 from a checker (quartz: the
+# quartz block) - in the Shaping Saw with Simple Blocks, the stonecutter only without it. SimpleBuilding's datagen has no
+# load conditions, so these recipes live in its 26.3 overlay; the pieces cut from an octet stay stonecutter recipes.
+SB_OVERLAY_DATA = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'data', 'simplebuilding')
+CHESS_COLORS = os.path.join(REPO, 'common', 'src', 'shared', 'java', 'com', 'simplebuilding', 'chess', 'ChessColor.java')
+
+
+def chess_octet_files():
+    import re
+    files = {}
+    text = open(CHESS_COLORS, encoding='utf-8').read()
+    colors = re.findall(r'^\s+[A-Z_]+\("([a-z_]+)", \(\) -> (?:ModBlocks\.([A-Z_]+)|null), \d+\)', text, re.M)
+    assert len(colors) == 13, colors
+    for color, checker in colors:
+        src = 'simplebuilding:' + checker.lower() if checker else 'minecraft:quartz_block'
+        octet = f'simplebuilding:{color}_octet'
+        stem = f'{color}_octet_from_{src.split(":")[1]}'
+        result = {'count': 8, 'id': octet}
+        files[os.path.join(SB_OVERLAY_DATA, 'recipe', stem + '_sawing.json')] = js(
+            dict(conditions('minecraft', True), type=SAW_TYPE, ingredient=src, result=result))
+        cut = stem + '_stonecutting'
+        files[os.path.join(SB_OVERLAY_DATA, 'recipe', cut + '.json')] = js(
+            dict(conditions('minecraft', False), type='minecraft:stonecutting', ingredient=src, result=result))
+        adv = unlock(cut, src)
+        adv['criteria']['has_the_recipe']['conditions']['recipes'] = f'simplebuilding:{cut}'
+        adv['rewards']['recipes'] = [f'simplebuilding:{cut}']
+        files[os.path.join(SB_OVERLAY_DATA, 'advancement', 'recipes', 'building_blocks', cut + '.json')] = js(
+            dict(conditions('minecraft', False), **adv))
+    return files
+
+
 def sided_item_template():
     return {'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
             'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}},
@@ -568,6 +599,7 @@ def outputs():
         item(files, m['ns'], f'{b}_octet', m['tex'], '' if 'all' in m['tex'] else '/_sided')
     files[JAVA_LIST] = java_list(mats).encode('utf-8')
     files.update(data_files(mats))
+    files.update(chess_octet_files())
     for lang_dir in LANG_DIRS:
         for lang in ('en_us', 'de_de'):
             path, data = merged_lang(lang_dir, lang, mats)
