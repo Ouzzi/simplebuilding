@@ -237,7 +237,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleweather"
     ],
-    "dataHash": "c2f67a473414"
+    "dataHash": "9f1665b84383"
   },
   {
     "id": "simpledimensions",

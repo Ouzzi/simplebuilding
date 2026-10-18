@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpletweaks.protect;
 
 import com.google.gson.*;
 import java.nio.file.*;
+import com.simplebuilding.modules.simpletweaks.play.AutoOff;
 import java.util.*;
 
 /**
@@ -9,7 +10,8 @@ import java.util.*;
  * {@code config/simpletweaks-protect.json}. Every value is clamped (AGENTS.md 3.8); a missing key takes its default, a
  * broken file is kept and the defaults are used (logged). Owner 17.10.: anti-x-ray on, every other protection off.
  */
-public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, SeedHash seedHash, HideHealth hideHealth, ActionChecks actionChecks) {
+public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, SeedHash seedHash, HideHealth hideHealth, ActionChecks actionChecks,
+        Map<String, List<String>> autoOffWith) {
 
     /** Ore hiding in chunk packets; {@code dimensions} keyed by dimension id, "*" = every other dimension. */
     public record AntiXray(boolean enabled, int engineMode, double fakeOreChance, boolean exemptCreative, boolean exemptSpectator,
@@ -62,7 +64,36 @@ public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, 
             new Freecam(false, false, "This server requires Simple Tweaks on the client while the Freecam rule is on."),
             new SeedHash(false),
             new HideHealth(false),
-            new ActionChecks(false, 1.0, 0.5, 2, 30, true));
+            new ActionChecks(false, 1.0, 0.5, 2, 30, true),
+            // Litematica (Easy Place) and Axiom (bulk edits) legitimately place/break far and fast, which the checks would flag;
+            // anti-x-ray stays on by default (empty list), add "axiom"/"litematica" there if their copied "stone" bothers you;
+            // Freecam is only reported (the rule is a deliberate owner choice, nothing is switched off)
+            AutoOff.clean(autoOff("actionChecks", List.of("litematica", "axiom"), "antiXray", List.of(), "freecam", List.of("freecam"))));
+
+    static final Set<String> HINT_ONLY = Set.of("freecam");
+    private static Map<String, List<String>> autoOff(Object... kv) {
+        var m = new LinkedHashMap<String, List<String>>();
+        for (int i = 0; i < kv.length; i += 2) { @SuppressWarnings("unchecked") var v = (List<String>) kv[i + 1]; m.put((String) kv[i], v); }
+        return m;
+    }
+
+    /** The settings with every feature off whose partner mod is loaded (logged); "freecam" is only a hint. */
+    public ProtectConfig withAutoOff(java.util.function.Predicate<String> loaded, org.slf4j.Logger log) {
+        var hits = AutoOff.match(autoOffWith, loaded);
+        var r = this;
+        if (hits.containsKey("antiXray")) {
+            var a = r.antiXray;
+            r = new ProtectConfig(r.permission, new AntiXray(false, a.engineMode, a.fakeOreChance, a.exemptCreative, a.exemptSpectator, a.exemptPermission, a.dimensions),
+                    r.freecam, r.seedHash, r.hideHealth, r.actionChecks, r.autoOffWith);
+        }
+        if (hits.containsKey("actionChecks")) {
+            var c = r.actionChecks;
+            r = new ProtectConfig(r.permission, r.antiXray, r.freecam, r.seedHash, r.hideHealth,
+                    new ActionChecks(false, c.reachSlack, c.fastBreakRatio, c.notifyPermission, c.notifyCooldownSeconds, c.log), r.autoOffWith);
+        }
+        AutoOff.log(log, "config/simpletweaks-protect.json", hits, HINT_ONLY);
+        return r;
+    }
 
     /** Base of a dimension entry that is not in the defaults (modded dimensions, "*"). */
     static final AntiXray.Dimension TEMPLATE = new AntiXray.Dimension(List.of("#c:ores"), "minecraft:stone", "", 4096, List.of());
@@ -73,6 +104,8 @@ public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, 
         if (d != null) {
             if (antiXray == null) antiXray = d.antiXray; if (freecam == null) freecam = d.freecam; if (seedHash == null) seedHash = d.seedHash;
             if (hideHealth == null) hideHealth = d.hideHealth; if (actionChecks == null) actionChecks = d.actionChecks;
+            if (autoOffWith == null) autoOffWith = d.autoOffWith;
+            autoOffWith = AutoOff.clean(autoOffWith);
         }
     }
 
