@@ -266,6 +266,214 @@
       "de": {
         "summary": "Ein Vorschlaghammer: baut die 3x3-Fläche vor dir ab, Schleichen + Benutzen halten trägt ein Achtel ab, Rechtsklick zerschlägt Diamant- und Quarzblöcke, Benutzen halten mit Material in der Nebenhand wertet Blöcke in der Welt auf."
       }
+    },
+    "simplehammers:break_through": {
+      "en": {
+        "summary": "Break Through lets the sledgehammer take further layers behind the struck face along - one more layer per level.",
+        "details": [
+          "Can be applied to the sledgehammers from stone through enderite (tag simplehammers:sledgehammers). Definition: max level II; weight 2; min cost 15 (+15 per level above the first), max cost 55 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+          "Depth = enchantment level: level I takes 1 extra layer behind the face, level II takes 2 layers.",
+          "The direction comes from the view angle: steeper than 60 degrees down -> layers below the face; steeper than 60 degrees up -> above it; otherwise horizontally away from the player.",
+          "Every extra layer is the same size as the hammer face (3x3, 5x5 with Radius).",
+          "While sneaking the hammer mines a single block only.",
+          "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
+          "Which blocks of the layers actually drop is still decided by the Override rule.",
+          "Highlight and crack preview (Fabric, NeoForge and Forge) show the layers behind as well.",
+          "The mod's test proves: looking down with Break Through I takes the layer below along, and sneaking leaves everything but the targeted block standing.",
+          "Chests (only with enableLootTableChanges): bastion (treasure and other chests) book I (weight 5), bastion treasure room book II (3); nether fortress I (2); dungeon I (8).",
+          "Traders (only with enableVillagerTrades): level 4 toolsmith - Iron Sledgehammer (16 emeralds + an iron pickaxe) and Diamond Sledgehammer (28 emeralds + a diamond pickaxe) with Break Through I (weight 5) in the enchantment pool.",
+          "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
+          "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_break_through.png)."
+        ],
+        "controls": [
+          "No controls of its own; it works automatically while mining with the sledgehammer.",
+          "Sneak (Shift) while mining to take only the front face.",
+          "The view angle steers which way the extra layers lie (look down = dig downwards)."
+        ],
+        "tiers": [
+          "I: 1 extra layer behind the face",
+          "II: 2 extra layers behind the face"
+        ],
+        "caveats": [
+          "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+          "Level II only comes from the creative inventory; chests and traders deliver level I exclusively.",
+          "The slowdown counts the blocks that really break, so level II slows more than level I (up to the cap); while sneaking there is none.",
+          "The generated exclusive tag exclusive_set/break_through_group contains only Break Through itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
+          "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
+        ]
+      },
+      "de": {
+        "summary": "Durchbruch lässt den Vorschlaghammer hinter der angeschlagenen Fläche weitere Schichten mit abbauen – je Stufe eine Schicht mehr.",
+        "details": [
+          "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplehammers:sledgehammers). Definition: Höchststufe II; Gewicht 2; Mindestkosten 15 (+15), Höchstkosten 55 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+          "Tiefe = Verzauberungsstufe: Stufe I nimmt 1 zusätzliche Schicht hinter der Fläche, Stufe II 2 Schichten.",
+          "Die Richtung ergibt sich aus dem Blickwinkel: steiler als 60° nach unten → Schichten unter der Fläche; steiler als 60° nach oben → darüber; sonst horizontal vom Spieler weg.",
+          "Jede zusätzliche Schicht hat dieselbe Größe wie die Hammerfläche (3×3, mit Radius 5×5).",
+          "Beim Schleichen baut der Hammer nur einen einzelnen Block ab.",
+          "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
+          "Welche Blöcke der Schichten tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel.",
+          "Highlight und Riss-Vorschau (Fabric, NeoForge und Forge) zeigen auch die hinteren Schichten.",
+          "Der Test der Mod belegt: Blick nach unten mit Durchbruch I nimmt die Schicht darunter mit, Schleichen lässt alles außer dem Zielblock stehen.",
+          "Truhen (nur bei enableLootTableChanges): Bastion (Schatz- und sonstige Truhen) Buch I (Gewicht 5), Bastion-Schatzraum Buch II (3); Netherfestung I (2); Verlies I (8).",
+          "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 4 – Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) und Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke) mit Durchbruch I (Gewicht 5) im Verzauberungspool.",
+          "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
+          "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_break_through.png)."
+        ],
+        "controls": [
+          "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer.",
+          "Schleichen (Shift) beim Abbauen, um nur die vordere Fläche zu nehmen.",
+          "Blickwinkel steuert, in welche Richtung die Zusatzschichten liegen (nach unten schauen = nach unten graben)."
+        ],
+        "tiers": [
+          "I: 1 zusätzliche Schicht hinter der Fläche",
+          "II: 2 zusätzliche Schichten hinter der Fläche"
+        ],
+        "caveats": [
+          "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
+          "Stufe II gibt es nur aus dem Kreativ-Inventar; Truhen und Händler liefern ausschließlich Stufe I.",
+          "Die Verlangsamung zählt die Blöcke, die wirklich brechen; Stufe II verlangsamt also stärker als Stufe I (bis zur Obergrenze); beim Schleichen gibt es keine.",
+          "Das generierte Exklusiv-Tag exclusive_set/break_through_group enthält nur Durchbruch selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
+          "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
+        ]
+      },
+      "sources": [
+        "modules/simplehammers/shared/resources/data/simplehammers/enchantment/break_through.json",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/HammerEnchantments.java"
+      ]
+    },
+    "simplehammers:override": {
+      "en": {
+        "summary": "Override loosens the rule for which neighboring blocks the sledgehammer takes along in its mining face - all the way up to \"anything that can be broken\".",
+        "details": [
+          "Can be applied to the Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (tag simplehammers:sledgehammers). Definition: max level II; weight 2; min cost 20 (+15 per level above the first), max cost 70 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+          "Without the enchantment the hammer only takes neighboring blocks along that are exactly the same block as the one struck, are in the tag mineable/pickaxe and that the hammer can harvest normally.",
+          "Level I: every block from mineable/pickaxe in the face that the hammer can harvest normally - the block type may differ (stone and cobblestone go together, dirt stays standing).",
+          "Level II: every breakable block in the face; only air and blocks with a negative destroy speed are left out (dirt goes too).",
+          "Level II on top of that: the hammer counts as the correct tool for blocks from mineable/axe, mineable/shovel and mineable/hoe (drops); if its normal speed there is at most 1.0, it is set to the base speed of its material and then multiplied by the area factor as usual.",
+          "Without level II the area effect only works when the struck block itself is a mineable/pickaxe block the hammer can harvest; hit dirt, for example, and the hammer breaks only that one block.",
+          "Durability per extra block destroyed: 1 point, 2 points if the hammer is not the correct tool for that block; with level II axe/shovel/hoe blocks count as the correct tool and cost 1 point.",
+          "The hammer's highlight outline and crack preview (Fabric, NeoForge and Forge) follow the same selection rules as the mining itself (SledgehammerUtils.shouldBreak).",
+          "The mod's test proves all three tiers on a field of stone, cobblestone and dirt.",
+          "Chests (only with enableLootTableChanges): end city treasure chest book II (weight 5).",
+          "Traders (only with enableVillagerTrades): a level 4 librarian sells a book for 25 emeralds from the pool Linear I (25) / Override I (20), at most 2 uses; a level 4 toolsmith sells the Iron Sledgehammer for 16 emeralds + an iron pickaxe and the Diamond Sledgehammer for 28 emeralds + a diamond pickaxe, each with one enchantment out of Override I (15), Break Through I (5), Range I (10), Unbreaking II (50), Efficiency III (50); chance of a second, different enchantment: iron 0.01, diamond 0.15.",
+          "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
+          "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_override.png)."
+        ],
+        "controls": [
+          "No controls of its own; it works automatically while mining with the sledgehammer, whether you sneak or not.",
+          "Level II: the hammer can also be used like a matching tool on blocks from mineable/axe, mineable/shovel and mineable/hoe."
+        ],
+        "tiers": [
+          "Without Override: only the same block type as the block struck, and only mineable/pickaxe blocks",
+          "I: any mineable/pickaxe blocks the hammer can harvest",
+          "II: every breakable block; axe/shovel/hoe blocks count as a matching tool and are mined at material speed"
+        ],
+        "caveats": [
+          "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+          "Level II only comes from the end city treasure chest or the creative inventory; traders only offer level I."
+        ]
+      },
+      "de": {
+        "summary": "Übersteuerung lockert die Regel, welche Nachbarblöcke der Vorschlaghammer in seiner Abbaufläche mitnimmt – bis hin zu „alles, was zerstörbar ist“.",
+        "details": [
+          "Verzauberbar auf Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Vorschlaghammer (Tag simplehammers:sledgehammers). Definition: Höchststufe II; Gewicht 2; Mindestkosten 20 (+15), Höchstkosten 70 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+          "Ohne die Verzauberung nimmt der Hammer nur Nachbarblöcke mit, die exakt derselbe Block wie der angeschlagene sind, im Tag mineable/pickaxe stehen und die der Hammer regulär abbauen kann.",
+          "Stufe I: jeder Block aus mineable/pickaxe in der Fläche, den der Hammer regulär abbauen kann – der Blocktyp darf sich unterscheiden (Stein und Bruchstein fallen zusammen, Erde bleibt stehen).",
+          "Stufe II: jeder zerstörbare Block in der Fläche; nur Luft und Blöcke mit negativer Abbauzeit werden ausgelassen (Erde fällt mit).",
+          "Stufe II zusätzlich: Der Hammer gilt für Blöcke aus mineable/axe, mineable/shovel und mineable/hoe als richtiges Werkzeug (Drops); liegt seine normale Geschwindigkeit dort bei höchstens 1,0, wird sie auf die Grundgeschwindigkeit seines Materials gesetzt und anschließend wie üblich mit dem Flächen-Multiplikator verrechnet.",
+          "Ohne Stufe II arbeitet die Flächenwirkung nur, wenn der angeschlagene Block selbst ein mineable/pickaxe-Block ist, den der Hammer abbauen kann; schlägt man z. B. Erde an, bricht der Hammer nur diesen einen Block.",
+          "Haltbarkeit pro zusätzlich zerstörtem Block: 1 Punkt, 2 Punkte wenn der Hammer für diesen Block nicht das richtige Werkzeug ist; mit Stufe II zählen Axt-/Schaufel-/Hacken-Blöcke als richtiges Werkzeug und kosten 1 Punkt.",
+          "Highlight-Umriss und Riss-Vorschau des Hammers (Fabric, NeoForge und Forge) folgen denselben Auswahlregeln wie der Abbau (SledgehammerUtils.shouldBreak).",
+          "Der Test der Mod belegt alle drei Stufen an einem Feld aus Stein, Bruchstein und Erde.",
+          "Truhen (nur bei enableLootTableChanges): Endsiedlung Buch II (Gewicht 5).",
+          "Händler (nur bei enableVillagerTrades): Bibliothekar Stufe 4 verkauft für 25 Smaragde ein Buch aus dem Pool Linear I (25) / Übersteuerung I (20), maximal 2 Käufe; Werkzeugschmied Stufe 4 verkauft den Eisen-Vorschlaghammer für 16 Smaragde + Eisenspitzhacke und den Diamant-Vorschlaghammer für 28 Smaragde + Diamantspitzhacke, jeweils mit einer Verzauberung aus Übersteuerung I (15), Durchbruch I (5), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); Chance auf eine zweite, andere Verzauberung: Eisen 0,01, Diamant 0,15.",
+          "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
+          "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_override.png)."
+        ],
+        "controls": [
+          "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer, unabhängig vom Schleichen.",
+          "Stufe II: Der Hammer lässt sich auch auf Blöcken aus mineable/axe, mineable/shovel und mineable/hoe wie ein passendes Werkzeug einsetzen."
+        ],
+        "tiers": [
+          "ohne: nur derselbe Blocktyp wie der angeschlagene Block, nur mineable/pickaxe-Blöcke",
+          "I: beliebige mineable/pickaxe-Blöcke, die der Hammer abbauen kann",
+          "II: alle zerstörbaren Blöcke; Axt-/Schaufel-/Hacken-Blöcke gelten als passendes Werkzeug und werden mit Materialgeschwindigkeit abgebaut"
+        ],
+        "caveats": [
+          "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
+          "Stufe II gibt es nur aus der Endsiedlungs-Truhe oder dem Kreativ-Inventar; Händler bieten nur Stufe I."
+        ]
+      },
+      "sources": [
+        "modules/simplehammers/shared/resources/data/simplehammers/enchantment/override.json",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/HammerEnchantments.java"
+      ]
+    },
+    "simplehammers:radius": {
+      "en": {
+        "summary": "Radius enlarges the hammer face from 3x3 to 5x5 and with SimpleBuilding also strengthens its Detector signal and search range.",
+        "details": [
+          "Can be applied to the sledgehammers from stone through enderite (tag simplehammers:sledgehammers). Definition: max level I; weight 1; min cost 25 (+20 per level above the first), max cost 75 (+20 per level above the first); anvil cost 8; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+          "Face: base range 1 (3x3) plus the enchantment level - so range 2 with Radius I, that is 5x5 blocks around the block struck.",
+          "While sneaking the hammer mines a single block only.",
+          "Which blocks in the larger face actually drop is still decided by the Override rule (without Override only the same block type).",
+          "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
+          "Only blocks that really break count towards the slowdown; while sneaking there is none.",
+          "Highlight (black outline at alpha 0.3 plus a gray fill) and crack preview show the 5x5 face on Fabric, NeoForge and Forge; the fill strength follows the buildingHighlightOpacity option (default 40); the targeted block itself is left out of the highlight.",
+          "Durability: every extra block costs 1 point, 2 points if the hammer is not the matching tool for it.",
+          "The mod's test proves the 5x5 face, that the ring at distance 3 stays standing, and that sneaking falls back to 3x3.",
+          "Chests (only with enableLootTableChanges): ancient city book I (weight 4).",
+          "Traders (only with enableWanderingTrades): the wandering trader (\"uncommon\" pool) sells a book for 40 emeralds from a pool that holds only Radius I (weight 20), 1 use.",
+          "On the MC 1.21.11 line the same wandering trader pool exists as code (ModTradeDefinitions).",
+          "In the creative inventory the book sits at level I; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_radius.png).",
+          "With SimpleBuilding, Radius also fits its Detector (item tag simplebuilding:radius_enchantable = the sledgehammers plus the Detector); there it raises signal and range of every ore class, the signal of the rare classes the most: common ores from 18 to 22 (range 24 to 28), gold 13 to 17 (20 to 24), diamond and emerald 9 to 17 (16 to 24), ancient debris and the End ores 5 to 9 (16 to 20)."
+        ],
+        "controls": [
+          "No controls of its own; it works automatically while mining with the sledgehammer.",
+          "Sneak (Shift) while mining to take just the small 3x3 face for the moment."
+        ],
+        "caveats": [
+          "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+          "Only one level; higher levels are not defined.",
+          "Villagers do not offer Radius, only the wandering trader does (the toolsmith hammers carry \"range\", which is the Range enchantment, not Radius).",
+          "The generated exclusive tag exclusive_set/radius_group contains only Radius itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
+          "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
+        ]
+      },
+      "de": {
+        "summary": "Radius vergrößert die Hammerfläche von 3x3 auf 5x5 und erhöht mit SimpleBuilding Signal und Suchreichweite seines Detektors.",
+        "details": [
+          "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplehammers:sledgehammers). Definition: Höchststufe I; Gewicht 1; Mindestkosten 25 (+20), Höchstkosten 75 (+20); Amboss-Kosten 8; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+          "Fläche: Grundreichweite 1 (3×3) plus Verzauberungsstufe – mit Radius I also Reichweite 2, d. h. 5×5 Blöcke um den angeschlagenen Block.",
+          "Beim Schleichen baut der Hammer nur einen einzelnen Block ab.",
+          "Welche Blöcke in der größeren Fläche tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel (ohne Übersteuerung nur derselbe Blocktyp).",
+          "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
+          "Zur Verlangsamung zählen nur Blöcke, die wirklich brechen; beim Schleichen gibt es keine.",
+          "Highlight (schwarzer Umriss mit Alpha 0,3 plus graue Füllung) und Riss-Vorschau zeigen auf Fabric, NeoForge und Forge die 5×5-Fläche; die Füllstärke folgt der Option buildingHighlightOpacity (Standard 40); der Zielblock selbst wird im Highlight ausgelassen.",
+          "Haltbarkeit: jeder zusätzliche Block kostet 1 Punkt, 2 Punkte wenn der Hammer für ihn nicht das passende Werkzeug ist.",
+          "Der Test der Mod belegt die 5×5-Fläche, dass der Ring in Abstand 3 stehen bleibt, und dass Schleichen auf 3×3 zurückschaltet.",
+          "Truhen (nur bei enableLootTableChanges): Antike Stadt Buch I (Gewicht 4).",
+          "Händler (nur bei enableWanderingTrades): Wanderhändler (Pool „uncommon“) verkauft für 40 Smaragde ein Buch aus einem Pool, der nur Radius I (Gewicht 20) enthält, 1 Kauf.",
+          "Auf der MC-1.21.11-Linie liegt derselbe Wanderhändler-Pool als Code vor (ModTradeDefinitions).",
+          "Im Kreativ-Inventar liegt das Buch auf Stufe I; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_radius.png).",
+          "Mit SimpleBuilding passt Radius auch auf den Detektor (Item-Tag simplebuilding:radius_enchantable = die Vorschlaghämmer plus der Detektor); dort hebt er Signal und Reichweite jeder Erzklasse an, das Signal der seltenen Klassen am stärksten: gewöhnliche Erze von 18 auf 22 (Reichweite 24 auf 28), Gold 13 auf 17 (20 auf 24), Diamant und Smaragd 9 auf 17 (16 auf 24), Antiker Schrott und die End-Erze 5 auf 9 (16 auf 20)."
+        ],
+        "controls": [
+          "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer.",
+          "Schleichen (Shift) beim Abbauen, um vorübergehend nur die kleine 3×3-Fläche zu nehmen."
+        ],
+        "caveats": [
+          "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
+          "Nur eine Stufe; höhere Stufen sind nicht definiert.",
+          "Dorfbewohner bieten Radius nicht an, nur der Wanderhändler (die Werkzeugschmied-Hämmer enthalten „range“ = Reichweite, nicht Radius).",
+          "Das generierte Exklusiv-Tag exclusive_set/radius_group enthält nur Radius selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
+          "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
+        ]
+      },
+      "sources": [
+        "modules/simplehammers/shared/resources/data/simplehammers/enchantment/radius.json",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/HammerEnchantments.java"
+      ]
     }
   }
 }
