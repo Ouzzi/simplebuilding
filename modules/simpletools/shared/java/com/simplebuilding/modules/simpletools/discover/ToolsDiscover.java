@@ -72,6 +72,7 @@ public final class ToolsDiscover {
             "simpletools:death_vault_money",
             "simpletools:durability",
             "simpletools:furnace_lava",
+            "simpletools:guide_book",
             "simpletools:soulbound",
             "simpletools:submod",
             "simpletools:thrift");
