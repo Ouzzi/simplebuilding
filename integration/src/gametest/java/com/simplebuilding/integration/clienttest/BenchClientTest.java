@@ -103,7 +103,7 @@ public final class BenchClientTest implements FabricClientGameTest {
             int ticks = world.getConnection().waitForChunksRender();
             r.put("chunkload_s", secs(t));
             r.put("chunkload_ticks", ticks);
-            ctx.runOnClient(c -> c.levelRenderer.allChanged());
+            ctx.runOnClient(c -> c.levelRenderer.invalidateCompiledGeometry(c.level, c.options, c.gameRenderer.mainCamera(), c.getBlockColors()));
             t = System.nanoTime();
             world.getConnection().waitForChunksRender();
             r.put("meshbuild_s", secs(t));
@@ -184,8 +184,9 @@ public final class BenchClientTest implements FabricClientGameTest {
             r.put("view_final", views.isEmpty() ? 0 : views.get(views.size() - 1));
             r.put("view_trace", views);
             r.put("client_frames", frames);
-            r.put("flown_blocks", round(server.computeOnServer(s -> s.getPlayerList().getPlayers().isEmpty() ? 0.0
-                    : s.getPlayerList().getPlayers().get(0).getX())));
+            Double flown = server.computeOnServer(s -> s.getPlayerList().getPlayers().isEmpty() ? Double.valueOf(0)
+                    : Double.valueOf(s.getPlayerList().getPlayers().get(0).getX()));
+            r.put("flown_blocks", round(flown));
             r.put("heap_mb", heapAfterGc());
         }
     }
