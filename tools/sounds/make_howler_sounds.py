@@ -1,279 +1,194 @@
-"""Synthesises the Hollow Howler voice (phase 3 of docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md).
+"""Hollow Howler voice, variant A "besser synthetisiert" (the in-game default; concept
+docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md, sections 8 and 9).
 
 Usage: python tools/sounds/make_howler_sounds.py [outdir]   (Python with numpy, scipy and soundfile)
 
-Everything is generated from noise, oscillators and filters - no samples, no Vanilla or third-party audio.
-Output: mono 44.1 kHz Ogg Vorbis (libsndfile) into
-modules/simplemobs/shared/resources/assets/simplemobs/sounds/entity/hollow_howler/ (the events are declared in
-assets/simplemobs/sounds.json). Mono on purpose: Minecraft only places mono sounds in space, and the Howler is
-heard before it is seen. Fixed seeds, so a re-run gives the same files.
+Synthesised only - no samples, no Vanilla or third-party audio - so the files are committed:
+modules/simplemobs/shared/resources/assets/simplemobs/sounds/entity/hollow_howler/ (events in assets/simplemobs/
+sounds.json). Variant B (built from Vanilla sounds at build time, never committed) is
+tools/sounds/vanilla_derived_sounds.py, switched on with -PsbHowlerSounds=vanilla.
+Mono 44.1 kHz Ogg Vorbis (Minecraft only places mono sounds in space), fixed seeds: a re-run gives the same files.
 
-Design (see the concept, section 2/3): a heavy, wrong-sounding hollow body.
-- heartbeat: one thump (the code plays it twice for lub-dub) = pitch-dropping sub sine ~45 Hz, a dull 90-130 Hz knock,
-  and a very quiet 40 + 57 Hz layer whose 17 Hz beating is audible as a pulse even on laptop speakers.
-- ambient / ambient_hunger / ambient_rage: dry bone-rattling breath -> wet rasp with jaw chatter -> distorted growl with
-  sub-octave and a tremor. Each phase is clearly worse than the last.
-- hurt, death, step, notice, sniff, roar, roar_rage: same palette (breathy formant voice, bone clicks, sub thump).
+What makes it less synthetic than claude-howler3 (measured against Warden/Ravager/Zoglin, see howler_dsp.py):
+pulse-by-pulse glottal source with 6-12 % jitter, shimmer and period-doubling fry; breath noise inside each glottal
+period; a 4-formant cascade tract scaled for a long throat, drifting; granular wet noise and bubbles instead of
+band-passed hiss; impacts as struck resonant bodies instead of sine thumps; a generated short cave room on everything;
+low-passed like a recording and levelled by active RMS to the Warden's loudness instead of peak-normalised.
 """
 import os
 import sys
 
 import numpy as np
 import soundfile as sf
-from scipy.signal import butter, sosfilt
 
-SR = 44100
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from howler_dsp import (SR, band, bone, bubbles, curve, drift, grains, high, low, master, modal, n_of,  # noqa: E402
+                        place, room, swell, voice, whisper)
+
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(REPO, "modules", "simplemobs", "shared", "resources", "assets", "simplemobs", "sounds", "entity",
                    "hollow_howler")
 
 
-def band(x, lo, hi, order=3):
-    return sosfilt(butter(order, [lo, hi], btype="band", fs=SR, output="sos"), x)
+def heart_thump(rng, n, at, amp=1.0):
+    """One heavy wet heartbeat: a struck, damped chest (modes 48-140 Hz) + a soft valve 'tuck'."""
+    x = modal(rng, n, at, (58, 86, 124, 170), (0.11, 0.08, 0.05, 0.03), (1.0, 0.7, 0.4, 0.2), strike=0.012,
+              noise_lp=300)
+    x += 0.12 * modal(rng, n, at + 0.012, (380, 610), (0.012, 0.008), (1.0, 0.6), strike=0.002, noise_lp=1500)
+    return x * amp
 
-
-def low(x, hi, order=3):
-    return sosfilt(butter(order, hi, btype="low", fs=SR, output="sos"), x)
-
-
-def high(x, lo, order=3):
-    return sosfilt(butter(order, lo, btype="high", fs=SR, output="sos"), x)
-
-
-def tvec(dur):
-    return np.arange(int(SR * dur)) / SR
-
-
-def env(n, attack, release, power=1.5):
-    """Linear attack (s), then (1-x)^power over the rest, release (s) tail fade."""
-    t = np.arange(n) / SR
-    e = np.clip(t / max(attack, 1e-4), 0, 1) * (1 - t / (n / SR)) ** power
-    return e * np.clip((n / SR - t) / max(release, 1e-4), 0, 1)
-
-
-def smooth(x, hz):
-    return low(x, hz, 2)
-
-
-def drive(x, amount):
-    """Soft clip: more harmonics, a wrongly 'hot' voice."""
-    return np.tanh(x * amount) / np.tanh(amount)
-
-
-def curve(points, n):
-    """Piecewise-linear control curve over n samples from (position 0..1, value) points."""
-    xs, ys = zip(*points)
-    return np.interp(np.linspace(0, 1, n), xs, ys)
-
-
-def voice(rng, f0c, vowels, rasp=0.3, jitter=0.012, tremor=0.0, tremor_hz=14.0):
-    """Glottal saw through moving formants. f0c: f0 per sample; vowels: [(F1,F2,F3)] morphed across the length."""
-    n = len(f0c)
-    t = np.arange(n) / SR
-    jit = smooth(rng.standard_normal(n), 40) * 8 * jitter
-    f = f0c * (1 + jit)
-    f = f * (1 + 0.012 * np.sin(2 * np.pi * 5.2 * t))
-    ph = np.cumsum(f) / SR
-    saw = 2 * (ph % 1.0) - 1
-    saw += rasp * rng.standard_normal(n) * (0.4 + 0.6 * np.abs(saw))
-    out = np.zeros(n)
-    k = len(vowels)
-    pos = np.linspace(0, k - 1, n)
-    for ff in range(3):
-        sig = np.zeros(n)
-        for i, v in enumerate(vowels):
-            w = np.clip(1 - np.abs(pos - i), 0, 1)
-            sig += w * band(saw, v[ff] * 0.85, v[ff] * 1.15, 2)
-        out += sig * (1.0, 0.7, 0.4)[ff]
-    if tremor:
-        out *= 1 - tremor + tremor * np.sin(2 * np.pi * tremor_hz * t)
-    return out
-
-
-def click(rng, n, at, f, ring=0.012, amp=1.0):
-    """A dry bone tick: short decaying high band burst, placed in an n-sample buffer at time 'at' (s)."""
-    m = int(SR * ring * 4)
-    tt = np.arange(m) / SR
-    burst = band(rng.standard_normal(m), f * 0.7, f * 1.4, 2) * np.exp(-tt / ring) * amp
-    out = np.zeros(n)
-    i = int(at * SR)
-    k = min(m, n - i)
-    if k > 0:
-        out[i:i + k] = burst[:k]
-    return out
-
-
-def thump(n, at, f_start, f_end, decay, amp=1.0):
-    m = int(SR * decay * 5)
-    tt = np.arange(m) / SR
-    f = f_end + (f_start - f_end) * np.exp(-tt / (decay * 0.35))
-    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt / decay) * amp
-    out = np.zeros(n)
-    i = int(at * SR)
-    k = min(m, n - i)
-    if k > 0:
-        out[i:i + k] = s[:k]
-    return out
-
-
-def breath(rng, n, lo, hi, a=0.25, r=0.4, wet=0.0):
-    x = band(rng.standard_normal(n), lo, hi)
-    if wet:
-        # wet crackle: slow-random amplitude gating
-        gate = smooth(np.abs(rng.standard_normal(n)), 90)
-        x *= 0.5 + wet * gate / (gate.max() + 1e-9) * 2
-    return x * env(n, a, r, 1.0)
-
-
-def finish(x, peak=0.8, fade=0.01):
-    x = x - np.mean(x)
-    x = high(x, 20, 2)
-    x = x / (np.max(np.abs(x)) + 1e-9) * peak
-    m = int(SR * fade)
-    x[:m] *= np.linspace(0, 1, m)
-    x[-m:] *= np.linspace(1, 0, m)
-    return x.astype(np.float32)
-
-
-# ---------------------------------------------------------------------------------------------------------------
 
 def heartbeat(seed):
     rng = np.random.default_rng(seed)
-    dur = 0.55
-    n = int(SR * dur)
-    t = tvec(dur)
-    x = thump(n, 0.0, 70, 44, 0.16, 1.0)
-    x += 0.45 * thump(n, 0.0, 130, 92, 0.07, 1.0)
-    x += 0.25 * low(rng.standard_normal(n), 240, 2) * np.exp(-t / 0.02)
-    # pseudo-infrasound: 40 + 57 Hz beat at 17 Hz, quiet and short; the envelope is what the ear picks up
-    beat = (np.sin(2 * np.pi * 40 * t) + np.sin(2 * np.pi * 57 * t)) * 0.5
-    x += 0.12 * beat * np.exp(-t / 0.22) * np.clip(t / 0.03, 0, 1)
-    return finish(x, 0.8)
+    n = n_of(0.55)
+    t = np.arange(n) / SR
+    x = heart_thump(rng, n, 0.0)
+    # pseudo-infrasound (concept 3): 40 + 57 Hz beat at 17 Hz, quiet and short; the envelope is what the ear picks up
+    x += 0.08 * (np.sin(2 * np.pi * 40 * t) + np.sin(2 * np.pi * 57 * t)) * np.exp(-t / 0.2) * np.clip(t / 0.03, 0, 1)
+    return master(room(rng, x, 0.12, 0.4), -17.5, lp=1800)
+
+
+def breath_cycle(rng, n, inhale, exhale, f0, fry, vowels_in, vowels_out, wet=0.0):
+    """One inhale (whisper) and one exhale (creaky breathy voice) inside n samples; times as (start, end) in s."""
+    x = np.zeros(n)
+    a, b = inhale
+    m = n_of(b - a)
+    x = place(x, 0.55 * whisper(rng, m, vowels_in) * swell(m, (b - a) * 0.6, (b - a) * 0.3), a)
+    a, b = exhale
+    m = n_of(b - a)
+    f = curve(f0, m)
+    v = voice(rng, f, vowels_out, jitter=0.09, shimmer=0.3, fry=fry, breath=0.9 + wet)
+    x = place(x, v * swell(m, (b - a) * 0.35, (b - a) * 0.5), a)
+    return x
 
 
 def ambient(seed, phase):
     rng = np.random.default_rng(seed)
-    dur = (2.4, 2.8, 3.0)[phase]
-    n = int(SR * dur)
-    t = tvec(dur)
+    dur = (2.6, 2.8, 3.0)[phase]
+    n = n_of(dur)
     if phase == 0:
-        # dry, hollow: slow rasp breath in and out, a few bone ticks, a faint low moan
-        a = breath(rng, n, 500, 3500, 0.7, 0.8, 0.0) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.42 * t - 1.0) ** 2)
-        f0 = curve([(0, 62), (0.5, 70), (1, 55)], n)
-        v = voice(rng, f0, [(300, 800, 2300), (450, 900, 2400)], rasp=0.2) * env(n, 0.9, 0.8, 0.8) * 0.35
-        x = a * 0.5 + v
-        for at in (0.9, 1.05, 1.62):
-            x += click(rng, n, at + rng.uniform(-0.02, 0.02), rng.uniform(2200, 3600), 0.006, 0.5)
-    elif phase == 1:
-        # wet, hungry: gurgling rasp, jaw chatter run, a rising uneasy moan
-        a = breath(rng, n, 300, 4200, 0.5, 0.6, wet=0.9) * 0.7
-        f0 = curve([(0, 58), (0.4, 80), (0.75, 92), (1, 60)], n)
-        v = voice(rng, f0, [(350, 750, 2250), (600, 1100, 2500), (400, 850, 2300)], rasp=0.45, tremor=0.25) \
-            * env(n, 0.6, 0.7, 0.9) * 0.55
-        x = a * 0.55 + v
-        for i in range(9):  # chatter
-            x += click(rng, n, 1.15 + i * rng.uniform(0.045, 0.075), rng.uniform(1800, 3200), 0.007, 0.6 - i * 0.04)
-        x += 0.3 * thump(n, 0.05, 60, 40, 0.3)
-    else:
-        # rage: low distorted growl with a sub-octave, throat tremor and a ripping top layer
-        f0 = curve([(0, 48), (0.35, 70), (0.7, 62), (1, 42)], n)
-        v = voice(rng, f0, [(280, 700, 2200), (500, 1000, 2400), (320, 760, 2300)], rasp=0.7, jitter=0.03,
-                  tremor=0.45, tremor_hz=21.0) * env(n, 0.25, 0.6, 0.7)
-        sub = np.sin(2 * np.pi * np.cumsum(f0 * 0.5) / SR) * 0.6 * env(n, 0.3, 0.6, 0.7)
-        rip = band(rng.standard_normal(n), 1500, 6500) * env(n, 0.4, 0.5, 0.7) * (0.4 + 0.6 * (np.sin(2 * np.pi * 21 * t) > 0))
-        x = drive(v * 1.4 + sub, 2.2) * 0.8 + rip * 0.25
-        x += 0.25 * thump(n, 0.0, 55, 36, 0.35)
-    return finish(x, 0.8)
+        # dry hollow breathing: a slow rasping inhale, a long creaky exhale, a couple of loose bones
+        x = breath_cycle(rng, n, (0.0, 0.9), (0.8, 2.55), [(0, 64), (0.4, 72), (1, 52)], 0.45, ['o', 'u'], ['o', 'a', 'u'])
+        for at in rng.uniform(1.0, 2.0, 3):
+            x += 0.18 * bone(rng, n, at)
+        return master(room(rng, x, 0.2), -21.0, lp=4200, body=2.5)
+    if phase == 1:
+        # hungry: a wet, gurgling exhale, saliva crackle, a short jaw chatter run
+        x = breath_cycle(rng, n, (0.0, 0.7), (0.6, 2.75), [(0, 60), (0.35, 86), (0.7, 94), (1, 58)], 0.6,
+                         ['u', 'o'], ['o', 'ae', 'o'], wet=0.4)
+        dens = swell(n, 0.8, 0.6)
+        x += 0.25 * low(grains(rng, n, 160, 400, 3000, density=dens), 3500)
+        x += 0.12 * bubbles(rng, n, 30, density=dens)
+        t0 = rng.uniform(1.4, 1.7)
+        for i in range(7):
+            x += (0.3 - i * 0.03) * bone(rng, n, t0 + i * rng.uniform(0.05, 0.085))
+        return master(room(rng, x, 0.2), -19.5, lp=4500, body=2.0)
+    # rage: a low continuous growl - heavy fry, open throat, a ripping tremor - over a short breath gap
+    f0 = curve([(0, 70), (0.3, 92), (0.65, 84), (1, 60)], n)
+    v = voice(rng, f0, ['o', 'a', 'ae', 'o'], jitter=0.11, shimmer=0.35, fry=0.85, breath=0.7, drive=0.5,
+              bw=(110, 130, 190, 260))
+    trem = 0.6 + 0.4 * np.clip(drift(rng, n, 22, 0.8), 0, 2) / 2
+    x = v * trem * swell(n, 0.35, 0.7)
+    x += 0.15 * whisper(rng, n, ['a', 'ae']) * swell(n, 0.4, 0.8)
+    x += 0.08 * grains(rng, n, 120, 500, 3000, density=swell(n, 0.5, 0.5))
+    return master(room(rng, x, 0.18), -17.0, lp=5000, body=2.0)
 
 
 def hurt(seed):
     rng = np.random.default_rng(seed)
-    dur = 0.6
-    n = int(SR * dur)
-    f0 = curve([(0, 130), (0.12, 105), (1, 62)], n) * rng.uniform(0.92, 1.08)
-    v = voice(rng, f0, [(650, 1100, 2500), (350, 800, 2300)], rasp=0.6) * env(n, 0.012, 0.15, 1.1)
-    x = drive(v, 1.8)
-    x += click(rng, n, 0.0, 2500, 0.01, 1.2) + click(rng, n, 0.03, 1700, 0.015, 0.9)  # bone crack
-    x += 0.5 * thump(n, 0.0, 95, 50, 0.12)
-    return finish(x, 0.8)
+    n = n_of(0.75)
+    f0 = curve([(0, 150), (0.1, 128), (0.5, 88), (1, 62)], n) * rng.uniform(0.9, 1.1)
+    v = voice(rng, f0, ['ae', 'a', 'o'], jitter=0.08, shimmer=0.3, fry=0.5, breath=0.6, drive=0.6)
+    x = v * swell(n, 0.012, 0.45, 1.5)
+    x += 0.5 * bone(rng, n, 0.0) + 0.35 * bone(rng, n, 0.025)          # a crack in the rib cage
+    x += 0.5 * modal(rng, n, 0.0, (70, 115, 180), (0.06, 0.04, 0.025), (1, 0.6, 0.3), strike=0.006, noise_lp=500)
+    return master(room(rng, x, 0.16, 0.45), -15.5, lp=5500, body=1.2)
 
 
 def death(seed):
     rng = np.random.default_rng(seed)
-    dur = 4.2
-    n = int(SR * dur)
-    t = tvec(dur)
-    f0 = curve([(0, 96), (0.18, 80), (0.6, 45), (1, 26)], n)
-    v = voice(rng, f0, [(550, 1000, 2400), (350, 800, 2300), (300, 700, 2200)], rasp=0.55, tremor=0.3, tremor_hz=9.0) \
-        * env(n, 0.05, 1.2, 1.4)
-    x = drive(v, 1.8) * 0.9
-    x += breath(rng, n, 400, 3800, 0.05, 1.2, wet=0.6) * 0.35 * np.exp(-t / 1.6)   # last breath
-    x += 0.8 * thump(n, 0.0, 90, 36, 0.4)
-    x += 0.7 * thump(n, 0.32, 70, 34, 0.45)    # the heart: one more, weaker, then never again
-    x += 0.35 * thump(n, 0.85, 55, 32, 0.5)
-    for at, f in ((2.3, 2400), (2.38, 1900), (2.55, 2800), (2.62, 1600), (3.05, 2100)):  # bones settling
-        x += click(rng, n, at, f, 0.012, 0.55)
-    return finish(x, 0.8, 0.05)
+    n = n_of(4.4)
+    t = np.arange(n) / SR
+    # a falling groan that slides into fry and breath, the heart beating three more times, weaker, then never again
+    f0 = curve([(0, 104), (0.15, 88), (0.55, 50), (1, 30)], n)
+    v = voice(rng, f0, ['a', 'o', 'u', 'u'], jitter=0.1, shimmer=0.35, fry=0.7, breath=0.8, drive=0.4)
+    x = v * swell(n, 0.06, 1.6, 1.4) * np.exp(-t / 2.6)
+    m = n_of(1.6)
+    x = place(x, 0.35 * whisper(rng, m, ['o', 'u']) * swell(m, 0.2, 1.2), 2.6)            # the last breath out
+    x += 0.7 * heart_thump(rng, n, 0.0) + 0.5 * heart_thump(rng, n, 0.36) + 0.25 * heart_thump(rng, n, 0.95)
+    for at in (2.2, 2.27, 2.45, 2.52, 2.9, 3.4):                                          # bones settling
+        x += 0.3 * bone(rng, n, at + rng.uniform(-0.02, 0.02))
+    x += 0.5 * modal(rng, n, 2.15, (55, 90, 140), (0.15, 0.1, 0.06), (1, 0.6, 0.3), strike=0.02, noise_lp=400)  # body down
+    return master(room(rng, x, 0.22, 0.7), -19.0, lp=5000, fade_out=0.3, body=1.5)
 
 
 def step(seed):
     rng = np.random.default_rng(seed)
-    dur = 0.42
-    n = int(SR * dur)
-    t = tvec(dur)
-    x = thump(n, 0.0, 85, 42, 0.11, 1.0)
-    x += 0.5 * low(rng.standard_normal(n), 260, 2) * np.exp(-t / 0.05)                          # dull weight
-    x += 0.35 * band(rng.standard_normal(n), 500, 2400) * np.exp(-t / 0.07) * np.clip((t - 0.05) / 0.02, 0, 1)  # wet squelch
-    x += click(rng, n, 0.01, rng.uniform(1800, 2600), 0.006, 0.4)
-    return finish(x, 0.78)
+    n = n_of(0.6)
+    idx = np.arange(n)
+    # a heavy padded foot: low struck body, then dirt and sculk grit, a soft wet release, sometimes a bone knock
+    x = modal(rng, n, 0.0, (52, 88, 150, 260), (0.07, 0.05, 0.03, 0.02), (1, 0.8, 0.4, 0.25), strike=0.01,
+              noise_lp=700)
+    x += 0.1 * grains(rng, n, 700, 400, 2500, (0.001, 0.006), density=swell(n, 0.005, 0.25, 2) * (idx < n_of(0.25)))
+    x += 0.06 * band(rng.standard_normal(n), 400, 1500) * np.exp(-idx / SR / 0.05) * np.clip((idx / SR - 0.04) / 0.02, 0, 1)
+    if rng.random() < 0.6:
+        x += 0.06 * bone(rng, n, rng.uniform(0.02, 0.06))
+    return master(room(rng, x, 0.15, 0.4), -24.5, lp=4500)
 
 
 def notice(seed):
     rng = np.random.default_rng(seed)
-    dur = 1.5
-    n = int(SR * dur)
-    f0 = curve([(0, 110), (0.35, 130), (1, 85)], n)
-    v = voice(rng, f0, [(300, 2100, 2800), (350, 1100, 2400)], rasp=0.35) * env(n, 0.25, 0.5, 1.0) * 0.5
-    x = v + breath(rng, n, 1500, 6500, 0.18, 0.4) * 0.45
-    for at in (0.0, 0.07, 0.15):                       # antenna ticks
-        x += click(rng, n, at, 3200, 0.004, 0.9)
-    return finish(x, 0.78)
+    n = n_of(1.6)
+    # a sharp intake through the teeth, three antenna ticks, then a rising questioning creak
+    m = n_of(0.35)
+    x = place(np.zeros(n), 0.6 * high(whisper(rng, m, ['i', 'e']), 900) * swell(m, 0.05, 0.25), 0.0)
+    for at in (0.05, 0.12, 0.2):
+        x += 0.35 * bone(rng, n, at)
+    m = n_of(1.2)
+    f0 = curve([(0, 86), (0.45, 132), (1, 96)], m)
+    v = voice(rng, f0, ['u', 'e', 'o'], jitter=0.09, shimmer=0.3, fry=0.55, breath=0.8)
+    x = place(x, 0.8 * v * swell(m, 0.25, 0.6), 0.3)
+    return master(room(rng, x, 0.2), -19.0, lp=5500, body=1.2)
 
 
 def sniff(seed):
     rng = np.random.default_rng(seed)
-    dur = 0.9
-    n = int(SR * dur)
-    t = tvec(dur)
-    x = breath(rng, n, 700, 5200, 0.35, 0.3, wet=0.5) * (0.5 + 0.5 * np.sin(2 * np.pi * 3.1 * t) ** 2)
-    x += 0.25 * thump(n, 0.0, 70, 45, 0.2)
-    return finish(x, 0.78)
+    n = n_of(1.1)
+    x = np.zeros(n)
+    # three quick wet nasal inhales and a slower one: nasal formants (high, narrow) + a little snot crackle
+    at = 0.0
+    for k, d in enumerate((0.13, 0.12, 0.14, 0.3)):
+        m = n_of(d)
+        s = band(whisper(rng, m, ['i', 'e'], bw=(90, 120, 200, 260)), 500, 5000) * np.hanning(m) ** 0.7
+        x = place(x, s * (0.8 if k < 3 else 1.0), at)
+        g = grains(rng, m, 300, 1000, 5000, (0.001, 0.004))
+        x = place(x, 0.15 * g, at)
+        at += d + rng.uniform(0.04, 0.08)
+    return master(room(rng, x, 0.15), -21.5, lp=6500)
 
 
 def roar(seed, rage):
     rng = np.random.default_rng(seed)
-    dur = 3.4 if rage else 2.6
-    n = int(SR * dur)
-    t = tvec(dur)
+    dur = 3.4 if rage else 2.7
+    n = n_of(dur)
     if rage:
-        f0 = curve([(0, 52), (0.08, 90), (0.4, 110), (0.8, 74), (1, 36)], n)
-        vow = [(300, 800, 2300), (700, 1200, 2600), (450, 1000, 2500), (320, 760, 2250)]
-        v = voice(rng, f0, vow, rasp=0.75, jitter=0.035, tremor=0.5, tremor_hz=19.0)
+        f0 = curve([(0, 64), (0.08, 104), (0.4, 118), (0.75, 86), (1, 44)], n)
+        vow = ['o', 'a', 'ae', 'a', 'o']
+        v = voice(rng, f0, vow, jitter=0.12, shimmer=0.35, fry=0.9, breath=0.8, drive=0.9, bw=(120, 140, 200, 280))
     else:
-        f0 = curve([(0, 55), (0.12, 84), (0.5, 98), (1, 50)], n)
-        vow = [(320, 760, 2250), (650, 1100, 2500), (400, 850, 2300)]
-        v = voice(rng, f0, vow, rasp=0.55, jitter=0.025, tremor=0.3, tremor_hz=12.0)
-    v *= env(n, 0.14, 0.7 if rage else 0.5, 0.55)
-    sub = np.sin(2 * np.pi * np.cumsum(f0 * 0.5) / SR) * 0.7 * env(n, 0.2, 0.7, 0.6)
-    x = drive(v * (1.8 if rage else 1.3) + sub, 2.4 if rage else 1.8)
-    hiss = band(rng.standard_normal(n), 1800, 7500) * env(n, 0.25, 0.6, 0.8)
-    x += hiss * (0.28 if rage else 0.15) * (0.55 + 0.45 * np.sin(2 * np.pi * (21 if rage else 11) * t) ** 2)
-    x += 0.6 * thump(n, 0.0, 60, 34, 0.5)
+        f0 = curve([(0, 62), (0.12, 92), (0.5, 104), (1, 56)], n)
+        vow = ['o', 'a', 'o']
+        v = voice(rng, f0, vow, jitter=0.1, shimmer=0.3, fry=0.7, breath=0.7, drive=0.6, bw=(110, 130, 190, 260))
+    x = v * swell(n, 0.18, 0.9 if rage else 0.7, 0.8)
+    # a second, lower fold layer an octave down (false vocal folds), rougher and quieter
+    v2 = voice(rng, f0 * 0.5, vow, jitter=0.12, shimmer=0.4, fry=0.4, breath=0.4, drive=0.5)
+    x += 0.35 * v2 * swell(n, 0.3, 0.8)
+    x += (0.22 if rage else 0.15) * whisper(rng, n, ['a', 'ae']) * swell(n, 0.25, 0.7)
+    x += 0.4 * modal(rng, n, 0.0, (50, 80, 130), (0.18, 0.12, 0.07), (1, 0.6, 0.3), strike=0.03, noise_lp=300)
     if rage:
-        x += 0.35 * thump(n, 0.45, 50, 32, 0.5)
-        # pseudo-infrasound underlay (40 + 57 Hz, 17 Hz beating), quiet and for the length of the roar only
-        x += 0.1 * (np.sin(2 * np.pi * 40 * t) + np.sin(2 * np.pi * 57 * t)) * env(n, 0.3, 0.8, 0.5)
-    return finish(x, 0.82, 0.03)
+        t = np.arange(n) / SR
+        x += 0.06 * (np.sin(2 * np.pi * 40 * t) + np.sin(2 * np.pi * 57 * t)) * swell(n, 0.4, 0.9)
+    return master(room(rng, x, 0.24 if rage else 0.2, 0.75), -14.5 if rage else -15.5, lp=5500, fade_out=0.12, body=2.0)
 
 
 FILES = {
@@ -297,7 +212,7 @@ def main():
     for name, make in FILES.items():
         x = make()
         sf.write(os.path.join(out, name + ".ogg"), x, SR, format="OGG", subtype="VORBIS")
-        print(f"{name}.ogg {len(x) / SR:.2f}s peak {20 * np.log10(np.max(np.abs(x))):.1f} dBFS rms {20 * np.log10(np.sqrt(np.mean(x ** 2))):.1f} dBFS")
+        print(f"{name}.ogg {len(x) / SR:.2f}s peak {20 * np.log10(np.max(np.abs(x))):.1f} dBFS")
 
 
 if __name__ == "__main__":

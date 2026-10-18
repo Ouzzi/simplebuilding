@@ -4,3 +4,5 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // Shellker Shell item texture is Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Hollow Howler voice: variant A committed, variant B (Vanilla-derived) with -PsbHowlerSounds=vanilla.
+apply from: rootProject.file('gradle/module-vanilla-derived-sounds.gradle')
