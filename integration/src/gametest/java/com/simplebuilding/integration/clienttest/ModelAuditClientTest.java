@@ -149,6 +149,10 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
             }
             String name = tab.getDisplayName().getString().replaceAll("[^A-Za-z0-9]+", "_");
             context.runOnClient(c -> {
+                try {
+                    for (var iface : c.gui.screen().getClass().getInterfaces()) System.out.println("[tabshot] iface " + iface.getName());
+                    for (var m : c.gui.screen().getClass().getMethods()) if (m.getName().toLowerCase().contains("group") || m.getName().toLowerCase().contains("page")) System.out.println("[tabshot] method " + m);
+                } catch (RuntimeException e) { }
                 try { // Fabric item-group API (page switch), reached by reflection: it is not on this test's compile classpath
                     c.gui.screen().getClass().getMethod("setSelectedItemGroup", net.minecraft.world.item.CreativeModeTab.class)
                             .invoke(c.gui.screen(), tab);
