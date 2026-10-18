@@ -47,6 +47,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sharedTabWithSimplebuilding(GameTestHelper h) {
+        BlocksTests.ALL.get("shared_tab_with_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void guideBook(GameTestHelper h) {
         BlocksTests.ALL.get("guide_book").accept(h);
     }

@@ -20,7 +20,7 @@ public class ModItemGroups {
     public static final Map<ModItemGroupsContent.Tab, CreativeModeTab> GROUPS = new EnumMap<>(ModItemGroupsContent.Tab.class);
 
     static {
-        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.ownTabs()) {
             GROUPS.put(tab, Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, tab.id),
                     FabricCreativeModeTab.builder()
@@ -29,6 +29,9 @@ public class ModItemGroups {
                             .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(tab, entries, displayContext.holders()))
                             .build()));
         }
+        // Mit simpleblocks: die Baublock-Zeilen stehen im Tab "Simple Blocks" statt in einem eigenen Tab.
+        CreativeModeTabEvents.modifyOutputEvent(ModItemGroupsContent.SIMPLE_BLOCKS_TAB).register(output ->
+                ModItemGroupsContent.contributeToSimpleBlocks(ModItemGroupsContent.SIMPLE_BLOCKS_TAB, output::accept));
         // Suchtab: die Mod-Items zusaetzlich neben ihre Vanilla-Vorbilder in die Vanilla-Tabs (SearchTabPlacement).
         for (ResourceKey<CreativeModeTab> key : SearchTabPlacement.TABS) {
             CreativeModeTabEvents.modifyOutputEvent(key).register(output -> {

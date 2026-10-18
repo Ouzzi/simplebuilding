@@ -98,6 +98,9 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
                     throw new AssertionError("model audit found " + found.size() + " faults: " + found);
                 }
             });
+            if (System.getenv("SB_TABSHOTS") != null) {
+                tabShots(context, world);
+            }
         }
     }
 
@@ -118,5 +121,56 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
             }
         }
         return false;
+    }
+
+    /** Optional (env SB_TABSHOTS=1): a screenshot of every creative tab and of the inventory with the colour brush. */
+    private static void tabShots(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+        var server = world.getServer();
+        server.runCommand("gamemode creative @a");
+        String[][] inks = {{"none", ""}, {"red", "give @a minecraft:red_dye 4"}, {"palette", "give @a simplebuilding:paint_box[simplebuilding:paint_box={counts:[0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0],selected:13}]"},
+                {"white", "give @a minecraft:white_dye"}, {"black", "give @a minecraft:black_dye"}};
+        for (String[] ink : inks) {
+            server.runCommand("clear @a");
+            server.runCommand("give @a simplebuilding:color_brush");
+            if (!ink[1].isEmpty()) {
+                server.runCommand(ink[1]);
+            }
+            context.waitTicks(10);
+            context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(context.computeOnClient(c -> c.player)));
+            context.waitTicks(5);
+            context.takeScreenshot("brush-" + ink[0]);
+            context.setScreen(() -> null);
+        }
+        List<net.minecraft.world.item.CreativeModeTab> tabs = context.computeOnClient(c -> {
+            var access = c.player.connection.registryAccess();
+            net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(c.player.connection.enabledFeatures(), true, access);
+            return new ArrayList<>(net.minecraft.world.item.CreativeModeTabs.tabs());
+        });
+        context.setScreen(() -> context.computeOnClient(c -> new net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen(
+                c.player, c.player.connection.enabledFeatures(), true)));
+        int n = 0;
+        for (var tab : tabs) {
+            if (tab.getType() != net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) {
+                continue;
+            }
+            String name = tab.getDisplayName().getString().replaceAll("[^A-Za-z0-9]+", "_");
+            context.runOnClient(c -> {
+                try { // page switch from the Fabric creative-tab API, then the private vanilla selectTab (both by reflection)
+                    var screen = c.gui.screen();
+                    int page = (int) screen.getClass().getMethod("getPage", net.minecraft.world.item.CreativeModeTab.class).invoke(screen, tab);
+                    screen.getClass().getMethod("switchToPage", int.class).invoke(screen, page);
+                    var m = net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.class
+                            .getDeclaredMethod("selectTab", net.minecraft.world.item.CreativeModeTab.class);
+                    m.setAccessible(true);
+                    m.invoke(screen, tab);
+                } catch (ReflectiveOperationException e) {
+                    throw new AssertionError(e);
+                }
+            });
+            context.getInput().setCursorPos(2, 2);
+            context.waitTicks(3);
+            context.takeScreenshot(String.format("tab-%02d-%s", n++, name));
+        }
+        context.setScreen(() -> null);
     }
 }

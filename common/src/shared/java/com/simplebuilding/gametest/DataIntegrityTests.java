@@ -2566,6 +2566,45 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
+    /**
+     * Tab merge T1: with simpleblocks loaded SimpleBuilding registers no building-blocks tab and its rows stand, in order,
+     * behind Simple Blocks' own blocks in {@code simpleblocks:blocks}; alone it keeps {@code simplebuilding:building_blocks}.
+     */
+    public static void buildingBlocksTabFollowsSimpleBlocks(GameTestHelper helper) {
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
+                helper.getLevel().registryAccess());
+        List<String> problems = new ArrayList<>();
+        Identifier own = Identifier.fromNamespaceAndPath(MOD_ID, ModItemGroupsContent.Tab.BUILDING_BLOCKS.id);
+        boolean hosted = BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(ModItemGroupsContent.SIMPLE_BLOCKS_TAB.identifier());
+        if (hosted != ModItemGroupsContent.mergedIntoSimpleBlocks()) {
+            problems.add("simpleblocks tab registered=" + hosted + " but mergedIntoSimpleBlocks=" + ModItemGroupsContent.mergedIntoSimpleBlocks());
+        }
+        if (hosted) {
+            if (BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(own)) problems.add(own + " is registered next to Simple Blocks' tab");
+            List<ItemStack> shown = new ArrayList<>(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(ModItemGroupsContent.SIMPLE_BLOCKS_TAB).getDisplayItems());
+            List<ItemStack> expected = new ArrayList<>();
+            ModItemGroupsContent.populate(ModItemGroupsContent.Tab.BUILDING_BLOCKS, (CreativeModeTab.Output) (stack, visibility) -> expected.add(stack),
+                    helper.getLevel().registryAccess());
+            helper.assertTrue(!expected.isEmpty(), "the building blocks content is empty");
+            int start = shown.size() - expected.size();
+            if (start < 0) {
+                problems.add("Simple Blocks' tab holds " + shown.size() + " stacks, fewer than SimpleBuilding's " + expected.size());
+            } else {
+                for (int i = 0; i < expected.size(); i++) {
+                    if (!ItemStack.isSameItemSameComponents(shown.get(start + i), expected.get(i))) {
+                        problems.add("slot " + (start + i) + " is " + shown.get(start + i) + " instead of " + expected.get(i));
+                        break;
+                    }
+                }
+                if (start == 0) problems.add("Simple Blocks' own blocks are missing in front of SimpleBuilding's rows");
+            }
+        } else if (!BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(own)) {
+            problems.add(own + " is missing although simpleblocks is not loaded");
+        }
+        helper.assertTrue(problems.isEmpty(), "building blocks tab merge: " + problems);
+        helper.succeed();
+    }
+
     public static void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
 
@@ -2573,6 +2612,10 @@ public final class DataIntegrityTests {
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, tab.id);
             tabIds.add(id);
+            if (!ModItemGroupsContent.ownTabs().contains(tab)) {
+                if (BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(id)) problems.add(id + " is registered although simpleblocks hosts it");
+                continue;
+            }
             CreativeModeTab registered = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(id);
             if (registered == null) {
                 problems.add(id + " is not a registered creative tab");
