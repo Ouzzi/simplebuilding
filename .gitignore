@@ -543,3 +543,7 @@ modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping
 wiki/assets/textures/simpleblocks/block/shaping_saw_saw.png
 wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_saw.png
 wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_saw.png
+
+# Simple Optimization benchmark (tools/bench): downloaded comparison jars and raw run logs stay local
+tools/bench/.cache/
+bench-results/*/logs/
