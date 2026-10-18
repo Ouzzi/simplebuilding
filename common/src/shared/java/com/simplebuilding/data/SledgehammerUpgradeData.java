@@ -110,7 +110,7 @@ public final class SledgehammerUpgradeData {
         loaded = Map.copyOf(table);
     }
 
-    private static @Nullable SledgehammerUpgrades.Upgrade upgrade(Identifier file, JsonObject json) {
+    private static SledgehammerUpgrades.@Nullable Upgrade upgrade(Identifier file, JsonObject json) {
         Block from = block(file, json.get("from").getAsString());
         Block to = block(file, json.get("to").getAsString());
         Identifier materialId = Identifier.tryParse(json.get("material").getAsString());
@@ -134,7 +134,7 @@ public final class SledgehammerUpgradeData {
      * One upgrade from SimpleLib's parsed entry (26.3): the hammer grade and the tier word read as in the files; null
      * (entry skipped, logged) for an unknown hammer grade.
      */
-    public static @Nullable SledgehammerUpgrades.Upgrade upgrade(Block from, Block to, Item material, String minHammer, int damagePerHit,
+    public static SledgehammerUpgrades.@Nullable Upgrade upgrade(Block from, Block to, Item material, String minHammer, int damagePerHit,
                                             String tier, int durationFactor, int materialCount) {
         int rank = HAMMERS.indexOf(minHammer);
         if (rank < 0) {
