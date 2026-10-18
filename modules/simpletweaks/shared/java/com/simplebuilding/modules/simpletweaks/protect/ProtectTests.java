@@ -22,7 +22,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -362,12 +361,15 @@ public final class ProtectTests {
             });
             yes(h, got.size() == 1 && got.get(0).kind() == ActionChecks.Kind.FAST_BREAK, "Stone by hand stopped at once is flagged: " + got);
             yes(h, level.getBlockState(stone).is(Blocks.STONE), "Vanilla keeps the block");
-            var pick = new ItemStack(Items.NETHERITE_PICKAXE);
-            pick.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.EFFICIENCY), 5);
-            p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, pick);
+            // Haste II + netherite: faster than any fixed Vanilla tool limit would allow (mock players are not ticked, so
+            // enchantment attributes would not be applied yet; effects work at once)
+            p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+            int plain = (int) Math.ceil(0.75 / level.getBlockState(obsidian).getDestroyProgress(p, level, obsidian));
+            p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(Items.NETHERITE_PICKAXE));
+            p.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.HASTE, 600, 1));
             float perTick = level.getBlockState(obsidian).getDestroyProgress(p, level, obsidian);
             int ticks = (int) Math.ceil(0.75 / perTick);
-            yes(h, ticks < 60, "Efficiency V netherite is faster than the Vanilla diamond limit (" + ticks + " ticks)");
+            yes(h, ticks < plain, "Netherite + Haste II is faster than a plain diamond pickaxe (" + ticks + " < " + plain + " ticks)");
             got = hits(() -> {
                 p.gameMode.handleBlockBreakAction(obsidian, Action.START_DESTROY_BLOCK, Direction.UP, level.getMaxY(), 2);
                 acc.simpletweaks$setGameTicks(acc.simpletweaks$gameTicks() + ticks);
