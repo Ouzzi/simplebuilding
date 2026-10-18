@@ -111,6 +111,7 @@ public final class AdminTests {
         AdminCommands.register(d, AdminConfig.DEFAULT);
         com.simplebuilding.modules.simpletweaks.play.PlayCommands.register(d, com.simplebuilding.modules.simpletweaks.play.PlayConfig.DEFAULT);
         com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(d, com.simplebuilding.modules.simpletweaks.claims.ClaimConfig.DEFAULT);
+        com.simplebuilding.modules.simpletweaks.protect.ProtectCommands.register(d, com.simplebuilding.modules.simpletweaks.protect.ProtectConfig.DEFAULT);
         var root = d.getRoot().getChild("simpletweaks");
         yes(h, root != null && root.getRequirement().test(null) , "/simpletweaks exists without a requirement");
         var weak = player(h, new BlockPos(1, 2, 1)).createCommandSourceStack();

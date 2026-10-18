@@ -845,6 +845,90 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/pregen/Pregen.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
       ]
+    },
+    {
+      "id": "protect_antixray",
+      "en": {
+        "title": "Anti-X-Ray",
+        "summary": "Ores that touch no air, water or other see-through block are sent to players as their host stone (stone, deepslate, netherrack, end stone), so x-ray texture packs, x-ray mods and noclip cameras see no hidden ore. Server setting antiXray.enabled, default on.",
+        "details": [
+          "The world keeps the real ores; only the chunk data sent to the player changes. Mining, an explosion or any other change next to a hidden ore sends its real block at once, so normal mining looks the same.",
+          "Per dimension: list of hidden blocks (all Vanilla ores, ancient debris and the c:ores tag of other mods by default), the replacement block and a maximum height. Mode 2 also shows fake ores inside solid stone (off by default).",
+          "Players in creative or spectator mode see the real blocks (exemptCreative, exemptSpectator); exemptPermission lets operators of a level see them too. Ore detectors and maps work on the server and are not affected.",
+          "Operators of level 3: /simpletweaks protect status, reload and bench (measures the extra time per chunk packet)."
+        ]
+      },
+      "de": {
+        "title": "Anti-X-Ray",
+        "summary": "Erze, die an keinen Luft-, Wasser- oder durchsichtigen Block grenzen, werden an Spieler als ihr Wirtsgestein gesendet (Stein, Tiefenschiefer, Netherrack, Endstein). X-Ray-Texturpakete, X-Ray-Mods und Noclip-Kameras sehen so keine versteckten Erze. Servereinstellung antiXray.enabled, Standard an.",
+        "details": [
+          "Die Welt behält die echten Erze; nur die an den Spieler gesendeten Chunk-Daten ändern sich. Abbau, Explosionen oder jede andere Änderung neben einem versteckten Erz schicken sofort den echten Block, normales Abbauen sieht also gleich aus.",
+          "Je Dimension: Liste der versteckten Blöcke (Standard: alle Vanilla-Erze, Antiker Schrott und der Tag c:ores anderer Mods), Ersatzblock und Höchsthöhe. Modus 2 zeigt zusätzlich falsche Erze im festen Stein (Standard aus).",
+          "Spieler im Kreativ- oder Zuschauermodus sehen die echten Blöcke (exemptCreative, exemptSpectator); mit exemptPermission auch Operatoren ab einer Stufe. Erzdetektoren und Karten arbeiten auf dem Server und sind nicht betroffen.",
+          "Operatoren ab Stufe 3: /simpletweaks protect status, reload und bench (misst die Zusatzzeit je Chunk-Paket)."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/AntiXray.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ProtectConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ProtectCommands.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/mixin/ProtectChunkDataMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/mixin/ProtectLevelMixin.java"
+      ]
+    },
+    {
+      "id": "protect_freecam",
+      "en": {
+        "title": "Freecam rule",
+        "summary": "When the server turns it on (freecam.enabled, default off), players with the Freecam mod may still fly the camera, but not through blocks: Simple Tweaks on the client forces Freecam's block collision while connected to that server.",
+        "details": [
+          "Freecam has no server control of its own, so the rule needs Simple Tweaks on the client. With freecam.requireClient (default off) clients without it are disconnected with a clear message while the rule is on.",
+          "Without Freecam installed nothing changes. Anti-X-Ray keeps hidden ores out of the chunk data anyway, so a camera that does pass through blocks sees only stone."
+        ]
+      },
+      "de": {
+        "title": "Freecam-Regel",
+        "summary": "Schaltet der Server sie ein (freecam.enabled, Standard aus), dürfen Spieler mit dem Freecam-Mod die Kamera weiter fliegen, aber nicht durch Blöcke: Simple Tweaks auf dem Client erzwingt die Block-Kollision von Freecam, solange man mit diesem Server verbunden ist.",
+        "details": [
+          "Freecam hat keine eigene Serversteuerung, deshalb braucht die Regel Simple Tweaks auf dem Client. Mit freecam.requireClient (Standard aus) werden Clients ohne Simple Tweaks bei aktiver Regel mit einer klaren Meldung getrennt.",
+          "Ohne Freecam ändert sich nichts. Anti-X-Ray hält versteckte Erze ohnehin aus den Chunk-Daten heraus; eine Kamera, die doch durch Blöcke fliegt, sieht nur Stein."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/FreecamRule.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/mixin/ProtectFreecamMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/client/ProtectClient.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ProtectConfig.java"
+      ]
+    },
+    {
+      "id": "protect_more",
+      "en": {
+        "title": "Further protections",
+        "summary": "Three more switches, each off by default: seedHash sends a random hashed seed to clients, hideHealth sends other players' health as their maximum, actionChecks reports reach and fast-break attempts to operators (no automatic punishment).",
+        "details": [
+          "actionChecks measures only what a client asks for by packet (breaking, using an item on a block, attacking or using an entity) against that player's own server values: reach attributes such as the Range enchantment and trims, and Vanilla's break time with tool, enchantments and effects. Hammer area breaking, building wands, blueprints and chisels work on the server and are never reported.",
+          "Hits are counted per player (/simpletweaks protect checks [player]), written to simpletweaks/protect-checks.log in the world folder and shown to operators of notifyPermission (default 2) at most every notifyCooldownSeconds (default 30).",
+          "Brightness mods (fullbright, gamma) cannot be blocked by a server; they only change what the client draws."
+        ]
+      },
+      "de": {
+        "title": "Weitere Schutzfunktionen",
+        "summary": "Drei weitere Schalter, jeder Standard aus: seedHash sendet Clients einen zufälligen Seed-Hash, hideHealth sendet die Gesundheit anderer Spieler als ihr Maximum, actionChecks meldet Reichweiten- und Schnellabbau-Versuche an Operatoren (keine automatische Strafe).",
+        "details": [
+          "actionChecks misst nur, was ein Client per Paket anfordert (Abbauen, Benutzen an einem Block, Angreifen oder Benutzen einer Entity), gegen die eigenen Serverwerte des Spielers: Reichweiten-Attribute wie die Reichweiten-Verzauberung und Trims sowie Vanillas Abbauzeit mit Werkzeug, Verzauberungen und Effekten. Flächenabbau mit Hämmern, Baustäbe, Blaupausen und Meißel arbeiten auf dem Server und werden nie gemeldet.",
+          "Treffer werden je Spieler gezählt (/simpletweaks protect checks [Spieler]), in simpletweaks/protect-checks.log im Weltordner geschrieben und Operatoren ab notifyPermission (Standard 2) höchstens alle notifyCooldownSeconds (Standard 30) gezeigt.",
+          "Helligkeits-Mods (Fullbright, Gamma) kann ein Server nicht verhindern; sie ändern nur, was der Client zeichnet."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/SeedHash.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/HideHealth.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ActionChecks.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/mixin/ProtectGameModeMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/mixin/ProtectGamePacketMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ProtectConfig.java"
+      ]
     }
   ],
   "notes": {
@@ -854,10 +938,10 @@
         "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 54 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+        "summary": "Guide to this mod: 61 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 54 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+        "summary": "Handbuch zu dieser Mod: 61 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
       }
     },
     "simpletweaks:claim_deed": {
