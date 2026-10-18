@@ -83,7 +83,7 @@ public final class BenchClientTest implements FabricClientGameTest {
     private static void o1(ClientGameTestContext ctx, long seed, Map<String, Object> r) {
         int warm = Integer.getInteger("sb.bench.warmup", 100), frames = Integer.getInteger("sb.bench.frames", 400);
         long t = System.nanoTime();
-        try (var world = ctx.worldBuilder().adjustSettings(s -> s.setSeed(Long.toString(seed))).create()) {
+        try (var world = ctx.worldBuilder().setUseConsistentSettings(false).adjustSettings(s -> s.setSeed(Long.toString(seed))).create()) {
             r.put("worldload_s", secs(t));
             var server = world.getServer();
             quietWorld(server);
@@ -143,8 +143,9 @@ public final class BenchClientTest implements FabricClientGameTest {
         props.setProperty("simulation-distance", "8");
         props.setProperty("gamemode", "creative");
         props.setProperty("spawn-protection", "0");
+        props.setProperty("level-seed", Long.toString(seed));
         long t = System.nanoTime();
-        try (var server = ctx.worldBuilder().adjustSettings(s -> s.setSeed(Long.toString(seed))).createServer(props);
+        try (var server = ctx.worldBuilder().setUseConsistentSettings(false).adjustSettings(s -> s.setSeed(Long.toString(seed))).createServer(props);
              var conn = server.connect()) {
             r.put("worldload_s", secs(t));
             quietWorld(server);
