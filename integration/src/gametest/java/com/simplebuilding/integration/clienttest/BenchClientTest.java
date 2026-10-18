@@ -35,8 +35,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * </ul>
  */
 public final class BenchClientTest implements FabricClientGameTest {
-    /** Ticks; client gametests tick as fast as they can, so world generation under llvmpipe needs many. */
-    private static final int CHUNK_TIMEOUT = 200_000;
     private static final AtomicBoolean FLY = new AtomicBoolean();
     private static volatile double flySpeed = 1.5;
     private static volatile boolean flyHooked;
@@ -55,7 +53,7 @@ public final class BenchClientTest implements FabricClientGameTest {
                 "badoptimizations", "sodium", "lithium", "ferritecore", "modernfix")) if (FabricLoader.getInstance().isModLoaded(id)) mods.add(id);
         r.put("loaded", mods);
         ctx.runOnClient(c -> {
-            c.options.renderDistance().set(Integer.getInteger("sb.bench.view", 12));
+            c.options.renderDistance().set(Integer.getInteger("sb.bench.view", 10));
             c.options.simulationDistance().set(8);
             c.options.framerateLimit().set(260);
             c.options.enableVsync().set(false);
@@ -77,6 +75,16 @@ public final class BenchClientTest implements FabricClientGameTest {
         }
     }
 
+    /** Ticks until {@code done} holds or {@code maxSeconds} of wall time passed; returns whether it held. */
+    private static boolean waitUntil(ClientGameTestContext ctx, java.util.function.Predicate<net.minecraft.client.Minecraft> done, int maxSeconds) {
+        long end = System.nanoTime() + maxSeconds * 1_000_000_000L;
+        while (System.nanoTime() < end) {
+            if (ctx.computeOnClient(done::test)) return true;
+            ctx.waitTick();
+        }
+        return false;
+    }
+
     private static void quietWorld(TestServerContext server) {
         for (String cmd : List.of("gamerule advance_time false", "gamerule advance_weather false", "gamerule spawn_mobs false",
                 "time set noon", "weather clear", "gamemode creative @a", "kill @e[type=!player]")) server.runCommand(cmd);
@@ -96,18 +104,19 @@ public final class BenchClientTest implements FabricClientGameTest {
             });
             int cx = forest.getX(), cz = forest.getZ();
             server.runCommand(String.format(Locale.ROOT, "tp @a %d 200 %d", cx, cz));
-            world.getConnection().waitForChunksDownload(CHUNK_TIMEOUT);
+            r.put("forest_loaded", waitUntil(ctx, c -> c.level != null && c.level.hasChunk(cx >> 4, cz >> 4), 240));
+            ctx.waitTicks(40);
             int ground = server.computeOnServer(s -> s.overworld().getHeight(Heightmap.Types.MOTION_BLOCKING, cx, cz));
             r.put("forest", List.of(cx, ground, cz));
             double radius = 28, y = ground + 22;
             teleport(server, cx, cz, radius, y, 0);
             t = System.nanoTime();
-            int ticks = world.getConnection().waitForChunksRender(CHUNK_TIMEOUT);
+            r.put("chunkload_complete", waitUntil(ctx, c -> c.levelRenderer.hasRenderedAllSections(), 300));
             r.put("chunkload_s", secs(t));
-            r.put("chunkload_ticks", ticks);
             ctx.runOnClient(c -> c.levelRenderer.invalidateCompiledGeometry(c.level, c.options, c.gameRenderer.mainCamera(), c.getBlockColors()));
             t = System.nanoTime();
-            world.getConnection().waitForChunksRender(CHUNK_TIMEOUT);
+            ctx.waitTick();
+            r.put("meshbuild_complete", waitUntil(ctx, c -> c.levelRenderer.hasRenderedAllSections(), 300));
             r.put("meshbuild_s", secs(t));
             r.put("heap_load_mb", heapAfterGc());
             double[] ms = new double[frames];
@@ -152,9 +161,8 @@ public final class BenchClientTest implements FabricClientGameTest {
             r.put("worldload_s", secs(t));
             quietWorld(server);
             server.runCommand("tp @a 0 180 0 -90 10");
-            t = System.nanoTime();
-            conn.waitForChunksRender(CHUNK_TIMEOUT);
-            r.put("chunkload_s", secs(t));
+            // No wait for rendered chunks: the measured side is the server (MSPT), the client only has to be connected.
+            ctx.waitTicks(20);
             server.runOnServer(s -> s.getPlayerList().getPlayers().forEach(p -> {
                 p.getAbilities().mayfly = true;
                 p.getAbilities().flying = true;
