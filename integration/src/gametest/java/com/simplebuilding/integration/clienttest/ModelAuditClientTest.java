@@ -127,7 +127,7 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
     private static void tabShots(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
         var server = world.getServer();
         server.runCommand("gamemode creative @a");
-        String[][] inks = {{"none", ""}, {"red", "give @a minecraft:red_dye 4"}, {"palette", "give @a simplebuilding:paint_box"},
+        String[][] inks = {{"none", ""}, {"red", "give @a minecraft:red_dye 4"}, {"palette", ""},
                 {"white", "give @a minecraft:white_dye"}, {"black", "give @a minecraft:black_dye"}};
         for (String[] ink : inks) {
             server.runCommand("clear @a");
@@ -136,6 +136,13 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
                 server.runCommand(ink[1]);
             }
             context.waitTicks(10);
+            if (ink[0].equals("palette")) { // a paint box with a dye in it (an empty one is no ink), put into the client's slot only
+                context.runOnClient(c -> {
+                    var box = new net.minecraft.world.item.ItemStack(com.simplebuilding.items.ModItems.PAINT_BOX);
+                    com.simplebuilding.items.custom.PaintBoxItem.insert(box, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.GREEN_DYE, 3));
+                    c.player.getInventory().setItem(1, box);
+                });
+            }
             context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(context.computeOnClient(c -> c.player)));
             context.waitTicks(5);
             context.takeScreenshot("brush-" + ink[0]);
