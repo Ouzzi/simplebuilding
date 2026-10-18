@@ -403,8 +403,11 @@ public final class ServerTuningTests {
             check(problems, ServerTuning.furnaceExtraTicks(3) == 1, "enderite furnace at speed 2: " + ServerTuning.furnaceExtraTicks(3));
             check(problems, ModItems.IRON_CHISEL.effectiveCooldownTicks() == 40 && ModItems.IRON_SPATULA.effectiveCooldownTicks() == 40,
                     "iron chisel/spatula cooldown: " + ModItems.IRON_CHISEL.effectiveCooldownTicks());
-            check(problems, SledgehammerUpgrades.upgradeTicks() == 60 && SledgehammerUpgrades.blows() == 3,
-                    "upgrade length " + SledgehammerUpgrades.upgradeTicks());
+            // 26.3 (split stage 7): the upgrade length is Simple Hammers' own config (simplehammers-server.json, its tests).
+            if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
+                check(problems, SledgehammerUpgrades.upgradeTicks() == 60 && SledgehammerUpgrades.blows() == 3,
+                        "upgrade length " + SledgehammerUpgrades.upgradeTicks());
+            }
             check(problems, ServerTuning.upgradeDamagePerHit(false, true) == 1, "enderite damage per blow");
             check(problems, OreDetectorItem.OreClass.COMMON.range(false) == 12, "detector range at 0.5: " + OreDetectorItem.OreClass.COMMON.range(false));
             check(problems, OreDetectorItem.scanInterval(null) == 40 && OreDetectorItem.scanInterval(net.minecraft.world.entity.EquipmentSlot.OFFHAND) == 80,

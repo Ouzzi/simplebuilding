@@ -105,6 +105,12 @@ public final class MigrationWorldTests {
             "reinforced_blast_furnace", "redstone", "reinforced_furnace_minecart", "transportation",
             "netherite_furnace_minecart", "transportation", "netherite_furnace_minecart_smithing", "transportation",
             "enderite_furnace_minecart", "transportation", "enderite_furnace_minecart_smithing", "transportation");
+    /** Stage 7: hammer recipe path -> recipe-book folder of its unlock advancement (Simple Hammers' since the move). */
+    static final Map<String, String> HAMMER_RECIPES = Map.of("stone_sledgehammer", "tools", "copper_sledgehammer", "tools",
+            "iron_sledgehammer", "tools", "gold_sledgehammer", "tools", "diamond_sledgehammer", "tools",
+            "netherite_sledgehammer_smithing", "tools", "enderite_sledgehammer_smithing", "combat",
+            "upgrade_copper_sledgehammer_to_iron_sledgehammer", "misc", "upgrade_iron_sledgehammer_to_gold_sledgehammer", "misc",
+            "upgrade_gold_sledgehammer_to_diamond_sledgehammer", "misc");
     /** Compound keys whose children are registry ids (component types, enchantments). */
     static final Set<String> ID_KEYED = Set.of("components", "minecraft:enchantments", "minecraft:stored_enchantments");
     /** String fields that hold a registry id (item/block entity/entity id, palette block name). */
@@ -619,7 +625,8 @@ public final class MigrationWorldTests {
 
     /**
      * Ids that moved out of SimpleBuilding (stage 3d: shared materials and their recipes; stage 4: furnaces, furnace
-     * carts, their block entity types, recipes and recipe advancements) still spelled {@code simplebuilding:} in saved text.
+     * carts, their block entity types, recipes and recipe advancements; stage 7: sledgehammers, their enchantments,
+     * recipes and recipe advancements) still spelled {@code simplebuilding:} in saved text.
      */
     static List<String> materialIdsIn(String text) {
         List<String> found = new ArrayList<>();
@@ -633,6 +640,15 @@ public final class MigrationWorldTests {
             paths.addAll(OVEN_BLOCK_ENTITIES);
             paths.addAll(OVEN_RECIPES.keySet());
             OVEN_RECIPES.forEach((path, folder) -> paths.add("recipes/" + folder + "/" + path));
+        }
+        if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
+            // Stage 7: the sledgehammers, their enchantments, recipes and recipe advancements (Simple Hammers).
+            com.simplebuilding.util.HammerRefs.TIERS.forEach(tier -> paths.add(tier + "_sledgehammer"));
+            paths.addAll(List.of("break_through", "override", "radius"));
+            HAMMER_RECIPES.forEach((path, folder) -> {
+                paths.add(path);
+                paths.add("recipes/" + folder + "/" + path);
+            });
         }
         for (String path : paths) {
             java.util.regex.Matcher m = java.util.regex.Pattern.compile(java.util.regex.Pattern.quote(NOW + path) + "(?![a-z0-9_/.-])").matcher(text);
