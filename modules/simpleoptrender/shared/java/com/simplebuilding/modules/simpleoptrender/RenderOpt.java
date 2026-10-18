@@ -93,6 +93,11 @@ public final class RenderOpt {
         return OptCompat.active(MOD_ID, area.id());
     }
 
+    /** Number of areas decided at startup (client smoke test). */
+    public static int decidedAreas() {
+        return OptCompat.decisions(MOD_ID).size();
+    }
+
     public static int leafDepth() {
         return leafDepth;
     }
