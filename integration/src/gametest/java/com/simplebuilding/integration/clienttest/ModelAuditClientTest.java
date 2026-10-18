@@ -124,7 +124,7 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
     }
 
     /** Optional (env SB_TABSHOTS=1): a screenshot of every creative tab and of the inventory with the colour brush. */
-    private static void tabShots(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.TestSingleplayerContext world) {
+    private static void tabShots(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
         var server = world.getServer();
         server.runCommand("gamemode creative @a");
         server.runCommand("give @a simplebuilding:color_brush");
@@ -153,7 +153,7 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
                     var m = net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.class
                             .getDeclaredMethod("selectTab", net.minecraft.world.item.CreativeModeTab.class);
                     m.setAccessible(true);
-                    m.invoke(c.screen, tab);
+                    m.invoke(c.gui.screen(), tab);
                 } catch (ReflectiveOperationException e) {
                     throw new AssertionError(e);
                 }
