@@ -423,13 +423,24 @@ public class ModModelProvider extends FabricModelProvider {
     private static ItemModel.Unbaked brushSwing(ItemModelGenerators generator, Item brush, String suffix, ModelTemplate rest,
                                                 TextureMapping textures, net.minecraft.client.color.item.ItemTintSource[] tints,
                                                 TextureSlot... slots) {
-        Identifier idle = rest.create(ModelLocationUtils.getModelLocation(brush, suffix), textures, generator.modelOutput);
-        java.util.List<net.minecraft.client.renderer.item.RangeSelectItemModel.Entry> swing = new java.util.ArrayList<>();
-        float[] thresholds = {0.25F, 0.5F, 0.75F};
+        if (!BRUSH_MODELS.add(suffix)) return brushSwingTree(brush, suffix, tints);
+        rest.create(ModelLocationUtils.getModelLocation(brush, suffix), textures, generator.modelOutput);
         for (int i = 0; i < 3; i++) {
             ModelTemplate template = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("item/brush_brushing_" + i)),
                     Optional.empty(), slots);
-            Identifier model = template.create(ModelLocationUtils.getModelLocation(brush, suffix + "_brushing_" + i), textures, generator.modelOutput);
+            template.create(ModelLocationUtils.getModelLocation(brush, suffix + "_brushing_" + i), textures, generator.modelOutput);
+        }
+        return brushSwingTree(brush, suffix, tints);
+    }
+
+    private static final java.util.Set<String> BRUSH_MODELS = new java.util.HashSet<>();
+
+    private static ItemModel.Unbaked brushSwingTree(Item brush, String suffix, net.minecraft.client.color.item.ItemTintSource[] tints) {
+        Identifier idle = ModelLocationUtils.getModelLocation(brush, suffix);
+        java.util.List<net.minecraft.client.renderer.item.RangeSelectItemModel.Entry> swing = new java.util.ArrayList<>();
+        float[] thresholds = {0.25F, 0.5F, 0.75F};
+        for (int i = 0; i < 3; i++) {
+            Identifier model = ModelLocationUtils.getModelLocation(brush, suffix + "_brushing_" + i);
             swing.add(ItemModelUtils.override(tints == null ? ItemModelUtils.plainModel(model) : ItemModelUtils.tintedModel(model, tints), thresholds[i]));
         }
         return ItemModelUtils.rangeSelect(new net.minecraft.client.renderer.item.properties.numeric.UseCycle(10.0F), 0.1F,
