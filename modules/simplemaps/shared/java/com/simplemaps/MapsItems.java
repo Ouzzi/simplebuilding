@@ -31,7 +31,9 @@ public final class MapsItems {
 
     public static List<ItemStack> tabStacks() {
         if (!MapsConfig.enabled) return List.of();
-        return List.of(new ItemStack(WAYFINDER_MAP), new ItemStack(NETHER_WAYFINDER_MAP), new ItemStack(END_WAYFINDER_MAP));
+        // The guide book belongs in the mod's own tab as well (cross-mod creative tab coverage).
+        return List.of(new ItemStack(WAYFINDER_MAP), new ItemStack(NETHER_WAYFINDER_MAP), new ItemStack(END_WAYFINDER_MAP),
+                com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack());
     }
 
     public static boolean isWayfinder(ItemStack stack) {
@@ -54,6 +56,8 @@ public final class MapsItems {
                         .icon(() -> new net.minecraft.world.item.ItemStack(WAYFINDER_MAP))
                         .displayItems((params, out) -> {
                             tabStacks().forEach(out::accept);
+                            // The guide belongs in the own tab too, not only in Tools & Utilities.
+                            if (com.simplebuilding.modules.simplemaps.guide.MapsGuide.book() != null) out.accept(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack());
                         }).build());
     }
 }
