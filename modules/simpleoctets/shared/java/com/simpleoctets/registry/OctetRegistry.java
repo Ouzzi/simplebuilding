@@ -226,7 +226,8 @@ public final class OctetRegistry {
         octets.addAll(MATERIAL_OCTET_ITEMS);
         for (Item octet : octets) {
             if (!(octet instanceof MaterialOctetItem item) || !(item.cell() instanceof MaterialOctetBlock cell)) continue;
-            boolean colored = COLORED.contains(GROUPS.get(cell));
+            String group = GROUPS.get(cell); // null for woods; Set.of(...).contains(null) throws
+            boolean colored = group != null && COLORED.contains(group);
             if (!tab.equals(colored ? CreativeModeTabs.COLORED_BLOCKS : CreativeModeTabs.BUILDING_BLOCKS)) continue;
             Block full = cell.source();
             if (full == null || full == Blocks.AIR) continue;
