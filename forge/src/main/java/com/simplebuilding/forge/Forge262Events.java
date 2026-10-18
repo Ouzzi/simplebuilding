@@ -18,6 +18,8 @@ public final class Forge262Events {
     }
 
     private static void onBuildContents(BuildCreativeModeTabContentsEvent event) {
+        com.simplebuilding.items.ModItemGroupsContent.contributeToSimpleBlocks(event.getTabKey(),
+                (stack, visibility) -> event.getEntries().put(stack, visibility));
         if (!SearchTabPlacement.enabled() || !SearchTabPlacement.TABS.contains(event.getTabKey())) return;
         var entries = event.getEntries();
         var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;

@@ -64,6 +64,31 @@ public final class ModItemGroupsContent {
         }
     }
 
+    /** Der Tab "Simple Blocks" des Moduls simpleblocks; nur ueber die Registry-Id angesprochen (keine Klassenabhaengigkeit). */
+    public static final ResourceKey<CreativeModeTab> SIMPLE_BLOCKS_TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleblocks", "blocks"));
+
+    /**
+     * Mit geladenem simpleblocks (Tab-Zusammenlegung T1) registriert SimpleBuilding keinen eigenen Baublock-Tab, sondern
+     * reicht dessen Inhalt ({@link #buildingBlocksRows()}) in {@link #SIMPLE_BLOCKS_TAB}; allein behaelt es seinen Tab.
+     */
+    public static boolean mergedIntoSimpleBlocks() {
+        return com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleblocks");
+    }
+
+    /** Die Tabs, die SimpleBuilding selbst registriert, in {@link Tab}-Reihenfolge. */
+    public static List<Tab> ownTabs() {
+        boolean merged = mergedIntoSimpleBlocks();
+        return java.util.Arrays.stream(Tab.values()).filter(tab -> !(merged && tab == Tab.BUILDING_BLOCKS)).toList();
+    }
+
+    /** Loader-Hook fuer {@link #SIMPLE_BLOCKS_TAB}: haengt die Baublock-Zeilen hinter die eigenen Bloecke von Simple Blocks. */
+    public static void contributeToSimpleBlocks(ResourceKey<CreativeModeTab> tabKey, CreativeModeTab.Output entries) {
+        if (mergedIntoSimpleBlocks() && SIMPLE_BLOCKS_TAB.equals(tabKey)) {
+            buildingBlocks(entries);
+        }
+    }
+
     /** Alle Tabs hintereinander, in {@link Tab}-Reihenfolge. */
     public static void populate(CreativeModeTab.Output entries, HolderLookup.Provider lookup) {
         for (Tab tab : Tab.values()) {

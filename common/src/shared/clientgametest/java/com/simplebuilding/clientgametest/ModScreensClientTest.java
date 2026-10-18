@@ -835,7 +835,7 @@ public final class ModScreensClientTest {
         Set<Item> inTheTab = new HashSet<>();
         Set<Item> anywhere = new HashSet<>();
 
-        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.ownTabs()) {
             Collection<ItemStack> offered = ModItemGroups.get(tab).getDisplayItems();
             if (offered.isEmpty()) {
                 found.add("the mod's " + tab + " tab is empty after the creative inventory was opened");

@@ -233,6 +233,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_building_blocks_tab_is_laid_out_in_rows", DataIntegrityTests::buildingBlocksTabIsLaidOutInRows)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_building_blocks_tab_follows_simple_blocks", DataIntegrityTests::buildingBlocksTabFollowsSimpleBlocks)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_has_its_place_in_the_search_tab", DataIntegrityTests::everyModItemHasItsPlaceInTheSearchTab)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_tools_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::toolsTabIsLaidOutInRowsOfNine)
