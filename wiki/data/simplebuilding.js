@@ -143155,14 +143155,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 7.25,
-        "perChest": 0.075,
+        "chance": 6.61,
+        "perChest": 0.0682,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143183,14 +143183,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 5.49,
-        "perChest": 0.0562,
+        "chance": 5.0,
+        "perChest": 0.0511,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143211,14 +143211,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 8.99,
-        "perChest": 0.0938,
+        "chance": 8.2,
+        "perChest": 0.0852,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143228,7 +143228,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:override",
+        "enchantment": "simplehammers:override",
         "level": 2
       },
       {
@@ -143239,14 +143239,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 8.99,
-        "perChest": 0.0938,
+        "chance": 8.2,
+        "perChest": 0.0852,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143267,14 +143267,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 10.7,
-        "perChest": 0.1125,
+        "chance": 9.77,
+        "perChest": 0.1023,
         "count": [
           1,
           1
         ],
         "weight": 6,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143295,14 +143295,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 5.49,
-        "perChest": 0.0562,
+        "chance": 5.0,
+        "perChest": 0.0511,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143323,14 +143323,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 7.25,
-        "perChest": 0.075,
+        "chance": 6.61,
+        "perChest": 0.0682,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143351,14 +143351,41 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 10.7,
-        "perChest": 0.1125,
+        "chance": 9.77,
+        "perChest": 0.1023,
         "count": [
           1,
           1
         ],
         "weight": 6,
-        "totalWeight": 80,
+        "totalWeight": 88,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplehammers:diamond_sledgehammer",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 12.83,
+        "perChest": 0.1364,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143378,14 +143405,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 5.49,
-        "perChest": 0.0562,
+        "chance": 5.0,
+        "perChest": 0.0511,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143404,14 +143431,14 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 1.86,
-        "perChest": 0.0188,
+        "chance": 1.69,
+        "perChest": 0.017,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 80,
+        "totalWeight": 88,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143430,14 +143457,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 8.82,
-        "perChest": 0.0909,
+        "chance": 8.37,
+        "perChest": 0.0862,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143458,14 +143485,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 7.1,
-        "perChest": 0.0727,
+        "chance": 6.74,
+        "perChest": 0.069,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143475,7 +143502,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:radius",
+        "enchantment": "simplehammers:radius",
         "level": 1
       },
       {
@@ -143486,14 +143513,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 3.59,
-        "perChest": 0.0364,
+        "chance": 3.41,
+        "perChest": 0.0345,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143507,20 +143534,46 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
+        "item": "simplehammers:diamond_sledgehammer",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 5.08,
+        "perChest": 0.0517,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
         "item": "simplebuilding:quiver",
         "table": "minecraft:chests/ancient_city",
         "label": {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 5.36,
-        "perChest": 0.0545,
+        "chance": 5.08,
+        "perChest": 0.0517,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143540,14 +143593,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 3.59,
-        "perChest": 0.0364,
+        "chance": 3.41,
+        "perChest": 0.0345,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143566,14 +143619,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 1.81,
-        "perChest": 0.0182,
+        "chance": 1.71,
+        "perChest": 0.0172,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143592,14 +143645,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 7.1,
-        "perChest": 0.1455,
+        "chance": 6.74,
+        "perChest": 0.1379,
         "count": [
           1,
           3
         ],
         "weight": 4,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143618,14 +143671,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 10.51,
-        "perChest": 0.3818,
+        "chance": 9.99,
+        "perChest": 0.3621,
         "count": [
           2,
           5
         ],
         "weight": 6,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143644,14 +143697,14 @@ window.WIKI_DATA = {
           "en": "Bastion treasure room",
           "de": "Bastion-Schatzraum"
         },
-        "chance": 9.14,
-        "perChest": 0.0943,
+        "chance": 8.24,
+        "perChest": 0.0847,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143675,14 +143728,14 @@ window.WIKI_DATA = {
           "en": "Bastion treasure room",
           "de": "Bastion-Schatzraum"
         },
-        "chance": 9.14,
-        "perChest": 0.0943,
+        "chance": 8.24,
+        "perChest": 0.0847,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143695,8 +143748,37 @@ window.WIKI_DATA = {
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplehammers:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 9.82,
+        "perChest": 0.1017,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
       {
         "type": "chest",
@@ -143706,14 +143788,14 @@ window.WIKI_DATA = {
           "en": "Bastion treasure room",
           "de": "Bastion-Schatzraum"
         },
-        "chance": 20.93,
-        "perChest": 0.566,
+        "chance": 18.96,
+        "perChest": 0.5085,
         "count": [
           1,
           4
         ],
         "weight": 12,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143735,14 +143817,14 @@ window.WIKI_DATA = {
           "en": "Bastion treasure room",
           "de": "Bastion-Schatzraum"
         },
-        "chance": 10.89,
-        "perChest": 0.1698,
+        "chance": 9.82,
+        "perChest": 0.1525,
         "count": [
           1,
           2
         ],
         "weight": 6,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143797,14 +143879,14 @@ window.WIKI_DATA = {
           "en": "Bastion (other chests)",
           "de": "Bastion (übrige Truhen)"
         },
-        "chance": 9.14,
-        "perChest": 0.0943,
+        "chance": 8.24,
+        "perChest": 0.0847,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143828,14 +143910,14 @@ window.WIKI_DATA = {
           "en": "Bastion (other chests)",
           "de": "Bastion (übrige Truhen)"
         },
-        "chance": 9.14,
-        "perChest": 0.0943,
+        "chance": 8.24,
+        "perChest": 0.0847,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143848,8 +143930,37 @@ window.WIKI_DATA = {
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplehammers:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 9.82,
+        "perChest": 0.1017,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
       {
         "type": "chest",
@@ -143859,14 +143970,14 @@ window.WIKI_DATA = {
           "en": "Bastion (other chests)",
           "de": "Bastion (übrige Truhen)"
         },
-        "chance": 20.93,
-        "perChest": 0.566,
+        "chance": 18.96,
+        "perChest": 0.5085,
         "count": [
           1,
           4
         ],
         "weight": 12,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -143888,14 +143999,14 @@ window.WIKI_DATA = {
           "en": "Bastion (other chests)",
           "de": "Bastion (übrige Truhen)"
         },
-        "chance": 10.89,
-        "perChest": 0.1698,
+        "chance": 9.82,
+        "perChest": 0.1525,
         "count": [
           1,
           2
         ],
         "weight": 6,
-        "totalWeight": 53,
+        "totalWeight": 59,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -144024,7 +144135,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 2
       },
       {
@@ -144166,7 +144277,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
       },
       {
@@ -144849,7 +144960,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
       },
       {
@@ -146259,10 +146370,10 @@ window.WIKI_DATA = {
           "end"
         ],
         "pmf": [
-          0.981405761719,
-          0.018438964844,
-          0.000154785156,
-          4.88281e-07
+          0.983083310833,
+          0.016788290641,
+          0.000128031673,
+          3.66853e-07
         ]
       },
       {
@@ -146276,9 +146387,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.981928374656,
-          0.017961432507,
-          0.000110192837
+          0.982857709076,
+          0.017043202537,
+          9.9088387e-05
         ]
       },
       {
@@ -146345,10 +146456,10 @@ window.WIKI_DATA = {
           "end"
         ],
         "pmf": [
-          0.945143066406,
-          0.053477050781,
-          0.001366699219,
-          1.3183594e-05
+          0.950015921417,
+          0.048841698558,
+          0.001132474995,
+          9.905029e-06
         ]
       },
       {
@@ -146571,9 +146682,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.964077134986,
-          0.035482093664,
-          0.00044077135
+          0.965913594927,
+          0.033690051526,
+          0.000396353547
         ]
       },
       {
@@ -146640,11 +146751,11 @@ window.WIKI_DATA = {
           "nether"
         ],
         "pmf": [
-          0.891064435742,
-          0.052331790673,
-          0.053399786401,
-          0.002135991456,
-          0.001067995728
+          0.901752370009,
+          0.047400172364,
+          0.04826199368,
+          0.001723642631,
+          0.000861821316
         ]
       },
       {
@@ -146660,11 +146771,11 @@ window.WIKI_DATA = {
           "nether"
         ],
         "pmf": [
-          0.891064435742,
-          0.052331790673,
-          0.053399786401,
-          0.002135991456,
-          0.001067995728
+          0.901752370009,
+          0.047400172364,
+          0.04826199368,
+          0.001723642631,
+          0.000861821316
         ]
       },
       {
@@ -146821,6 +146932,58 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "item": "simplehammers:diamond_sledgehammer",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.949167657551,
+          0.049940546968,
+          0.000891795482
+        ]
+      },
+      {
+        "item": "simplehammers:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.094800344729,
+          0.003447285263
+        ]
+      },
+      {
+        "item": "simplehammers:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.094800344729,
+          0.003447285263
+        ]
+      },
+      {
         "item": "simplelib:basic_upgrade_template",
         "table": "minecraft:chests/simple_dungeon",
         "type": "chest",
@@ -146867,17 +147030,17 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.894876033058,
+          0.900118906064,
           0.0,
-          0.025289256198,
-          0.025289256198,
-          0.025537190083,
-          0.025785123967,
-          0.000743801653,
-          0.000991735537,
-          0.000743801653,
-          0.000495867769,
-          0.000247933884
+          0.024078478002,
+          0.024078478002,
+          0.024301426873,
+          0.024524375743,
+          0.000668846611,
+          0.000891795482,
+          0.000668846611,
+          0.000445897741,
+          0.00022294887
         ]
       },
       {
@@ -147067,13 +147230,13 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.929035812672,
-          0.023067033976,
-          0.023262932354,
-          0.023458830732,
-          0.000587695133,
-          0.000391796755,
-          0.000195898378
+          0.932619896948,
+          0.021931562954,
+          0.022107720086,
+          0.022283877218,
+          0.000528471396,
+          0.000352314264,
+          0.000176157132
         ]
       },
       {
@@ -147089,15 +147252,15 @@ window.WIKI_DATA = {
           "nether"
         ],
         "pmf": [
-          0.790672837309,
-          0.048059807761,
-          0.049127803489,
-          0.050195799217,
-          0.051263794945,
-          0.004271982912,
-          0.003203987184,
-          0.002135991456,
-          0.001067995728
+          0.810399310543,
+          0.043952887101,
+          0.044814708417,
+          0.045676529733,
+          0.046538351049,
+          0.003447285263,
+          0.002585463947,
+          0.001723642631,
+          0.000861821316
         ]
       },
       {
@@ -147113,15 +147276,15 @@ window.WIKI_DATA = {
           "nether"
         ],
         "pmf": [
-          0.790672837309,
-          0.048059807761,
-          0.049127803489,
-          0.050195799217,
-          0.051263794945,
-          0.004271982912,
-          0.003203987184,
-          0.002135991456,
-          0.001067995728
+          0.810399310543,
+          0.043952887101,
+          0.044814708417,
+          0.045676529733,
+          0.046538351049,
+          0.003447285263,
+          0.002585463947,
+          0.001723642631,
+          0.000861821316
         ]
       },
       {
