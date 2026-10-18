@@ -62,7 +62,7 @@ final class InWorldCategory implements IRecipeCategory<InWorldRecipeCatalog.Entr
     /** Exhaustive on purpose: a new kind does not compile until it has an icon here. */
     private static ItemLike iconOf(InWorldRecipeCatalog.Kind kind) {
         return switch (kind) {
-            case MACHINE_UPGRADE -> ModItems.NETHERITE_SLEDGEHAMMER;
+            case MACHINE_UPGRADE -> com.simplebuilding.util.HammerRefs.item("netherite");
             case RESHAPE -> Items.STONE_STAIRS;
             case DIAMOND_CRUSH -> ModItems.DIAMOND_PEBBLE;
             case CHISEL -> ModItems.IRON_CHISEL;
