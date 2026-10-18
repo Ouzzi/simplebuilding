@@ -280,6 +280,7 @@ def main() -> int:
     p.add_argument("--timeout", type=int, default=1800, help="seconds per run")
     p.add_argument("--out", default=None)
     p.add_argument("--report", type=Path, help="only rebuild report.html from a results.json")
+    p.add_argument("--recover", type=Path, help="with --report: folder with run JSONs to merge into entries without result")
     p.add_argument("--apply-priorities", nargs="+", type=Path)
     args = p.parse_args()
     if args.apply_priorities:
@@ -287,13 +288,21 @@ def main() -> int:
         return 0
     if args.report:
         data = json.loads(args.report.read_text(encoding="utf-8"))
+        if args.recover:  # run JSONs written elsewhere (relative sb.bench.out before the fix): merge them back in
+            for r in data["runs"]:
+                f = args.recover / f"{r['area']}-{r['scenario']}-{r['rep']}.json"
+                if "error" in r and f.is_file():
+                    r.pop("error")
+                    r.update(json.loads(f.read_text(encoding="utf-8")))
+            data["gl"] = next((r.get("gl_renderer") for r in data["runs"] if r.get("gl_renderer")), "?")
         data["summary"] = summarize(data)
         args.report.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
         report(data, args.report.with_name("report.html"))
         return 0
     runs = args.runs or (5 if args.profile == "pc" else 3)
     keys = [k.strip() for k in args.areas.split(",") if k.strip()]
-    out_dir = Path(args.out) if args.out else REPO / "bench-results" / f"{dt.date.today().isoformat()}-{args.profile}"
+    # Absolute: the game resolves sb.bench.out against its own run folder.
+    out_dir = (Path(args.out) if args.out else REPO / "bench-results" / f"{dt.date.today().isoformat()}-{args.profile}").resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     foreign_ids = sorted({r for k in keys for r in AREAS[k]["rivals"]} | {lib for k in keys for r in AREAS[k]["rivals"] for lib in LIBS.get(r, [])})
     foreign_jars = fetch_mods.fetch(foreign_ids)
