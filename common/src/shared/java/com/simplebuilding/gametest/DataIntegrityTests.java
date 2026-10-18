@@ -2867,7 +2867,10 @@ public final class DataIntegrityTests {
             }
         }
         for (Item item : placed) {
-            if (!inModTabs.contains(item)) {
+            // Sub-mod items SB's chains still order (octets of Simple Octets) live in their own module's tab.
+            boolean sbItem = MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    || com.simplebuilding.util.SharedMaterials.isShared(item);
+            if (sbItem && !inModTabs.contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is placed for the search tab but is in no mod tab");
             }
         }
