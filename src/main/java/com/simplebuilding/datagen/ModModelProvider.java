@@ -433,7 +433,8 @@ public class ModModelProvider extends FabricModelProvider {
             swing.add(ItemModelUtils.override(tints == null ? ItemModelUtils.plainModel(model) : ItemModelUtils.tintedModel(model, tints), thresholds[i]));
         }
         return ItemModelUtils.rangeSelect(new net.minecraft.client.renderer.item.properties.numeric.UseCycle(10.0F), 0.1F,
-                tints == null ? ItemModelUtils.plainModel(idle) : ItemModelUtils.tintedModel(idle, tints), swing);
+                tints == null ? ItemModelUtils.plainModel(idle) : ItemModelUtils.tintedModel(idle, tints),
+                swing.toArray(new net.minecraft.client.renderer.item.RangeSelectItemModel.Entry[0]));
     }
 
     private static void generateBlueprint(ItemModelGenerators generator) {
