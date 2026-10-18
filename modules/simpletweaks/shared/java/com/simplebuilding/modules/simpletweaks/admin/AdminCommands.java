@@ -18,6 +18,7 @@ public final class AdminCommands {
         com.simplebuilding.modules.simpletweaks.admin.backup.Backups.register(d, c);
         com.simplebuilding.modules.simpletweaks.admin.maintenance.Maintenance.register(d, c);
         com.simplebuilding.modules.simpletweaks.admin.lag.LagFinder.register(d, c);
+        com.simplebuilding.modules.simpletweaks.TweakCommands.alias(d, "inspect", "invsee", "endersee", "vanish", "freeze", "unfreeze", "backup", "maintenance", "lag");
     }
     private AdminCommands() {}
 }

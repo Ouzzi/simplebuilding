@@ -49,6 +49,7 @@ public final class ClaimCommands {
                         .then(Commands.literal("listall").executes(c->list(c.getSource(),null)))
                         .then(Commands.literal("list").then(Commands.argument("player",StringArgumentType.word())
                                 .executes(c->list(c.getSource(),resolve(c.getSource(),StringArgumentType.getString(c,"player"))))))));
+        com.simplebuilding.modules.simpletweaks.TweakCommands.alias(dispatcher,"claim");
     }
     private static int trust(CommandSourceStack source,String input,int rights) throws CommandSyntaxException {
         if (rights<0) throw new SimpleCommandExceptionType(Component.translatable("command.simpletweaks.claim.rights.invalid")).create();

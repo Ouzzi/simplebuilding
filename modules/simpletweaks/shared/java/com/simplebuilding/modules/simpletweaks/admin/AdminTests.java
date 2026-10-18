@@ -36,6 +36,7 @@ public final class AdminTests {
     public static final Map<String, Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
         TESTS.put("config_defaults_and_bounds", AdminTests::config);
+        TESTS.put("simpletweaks_root_mirrors_all_commands", AdminTests::simpletweaksRoot);
         TESTS.put("commands_follow_switches", AdminTests::commands);
         TESTS.put("blocklog_records_breaks_places_containers", AdminTests::blockLog);
         TESTS.put("blocklog_inspect_does_not_break", AdminTests::inspect);
@@ -104,11 +105,51 @@ public final class AdminTests {
         } catch (java.io.IOException e) { throw new AssertionError(e); }
         h.succeed();
     }
+    /** Every short command and every /tweaks branch has a /simpletweaks twin with the same permission, and help lists only the allowed ones. */
+    static void simpletweaksRoot(GameTestHelper h) {
+        var d = new CommandDispatcher<CommandSourceStack>();
+        AdminCommands.register(d, AdminConfig.DEFAULT);
+        com.simplebuilding.modules.simpletweaks.play.PlayCommands.register(d, com.simplebuilding.modules.simpletweaks.play.PlayConfig.DEFAULT);
+        com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(d, com.simplebuilding.modules.simpletweaks.claims.ClaimConfig.DEFAULT);
+        var root = d.getRoot().getChild("simpletweaks");
+        yes(h, root != null && root.getRequirement().test(null) , "/simpletweaks exists without a requirement");
+        var weak = player(h, new BlockPos(1, 2, 1)).createCommandSourceStack();
+        var owner = op(h, new BlockPos(2, 2, 1), LevelBasedPermissionSet.OWNER);
+        var strong = owner.createCommandSourceStack();
+        int checked = 0;
+        for (var n : d.getRoot().getChildren()) {
+            if (n.getName().equals("simpletweaks")) continue;
+            var twins = n.getName().equals("tweaks") ? n.getChildren() : List.of(n);
+            for (var t : twins) {
+                var twin = root.getChild(t.getName());
+                yes(h, twin != null, "Missing /simpletweaks " + t.getName());
+                for (var s : List.of(weak, strong)) yes(h, twin.canUse(s) == t.canUse(s), "Permission differs for " + t.getName());
+                yes(h, twin.getCommand() == t.getCommand() || twin.getRedirect() == t, "Not the same executor: " + t.getName());
+                checked++;
+            }
+        }
+        var live = h.getLevel().getServer().getCommands().getDispatcher().getRoot();
+        var liveTweaks = live.getChild("tweaks");
+        var liveTwins = live.getChild("simpletweaks");
+        if (liveTweaks != null) for (var t : liveTweaks.getChildren()) yes(h, liveTwins != null && liveTwins.getChild(t.getName()) != null, "Live dispatcher: missing /simpletweaks " + t.getName());
+        yes(h, checked >= 20, "Checked " + checked + " commands");
+        yes(h, root.getChild("help") != null, "help exists");
+        var weakList = com.simplebuilding.modules.simpletweaks.TweakCommands.allowed(d, weak);
+        var strongList = com.simplebuilding.modules.simpletweaks.TweakCommands.allowed(d, strong);
+        yes(h, weakList.contains("help") && weakList.contains("pvp") && !weakList.contains("invsee") && !weakList.contains("vanish"), "Weak help: " + weakList);
+        yes(h, strongList.containsAll(List.of("help", "pvp", "invsee", "vanish", "inspect", "lag", "claim")), "Strong help: " + strongList);
+        var parsed = d.parse("simpletweaks pvp on", weak);
+        yes(h, !parsed.getReader().canRead() && parsed.getContext().build("simpletweaks pvp on").getCommand() != null, "/simpletweaks pvp on parses to the command");
+        var denied = d.parse("simpletweaks invsee Dev", weak);
+        yes(h, denied.getReader().canRead() || denied.getContext().build("simpletweaks invsee Dev").getCommand() == null, "Weak source cannot run /simpletweaks invsee");
+        deop(h, owner);
+        h.succeed();
+    }
     static Set<String> roots(AdminConfig c) {
         var d = new CommandDispatcher<CommandSourceStack>();
         AdminCommands.register(d, c);
         var out = new TreeSet<String>();
-        for (var n : d.getRoot().getChildren()) { out.add(n.getName()); if (n.getName().equals("tweaks")) n.getChildren().forEach(x -> out.add("tweaks " + x.getName())); }
+        for (var n : d.getRoot().getChildren()) { if (n.getName().equals("simpletweaks")) continue; out.add(n.getName()); if (n.getName().equals("tweaks")) n.getChildren().forEach(x -> out.add("tweaks " + x.getName())); }
         return out;
     }
     static void commands(GameTestHelper h) {

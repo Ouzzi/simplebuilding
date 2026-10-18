@@ -21,6 +21,7 @@ public final class PlayCommands {
         com.simplebuilding.modules.simpletweaks.play.phantoms.Phantoms.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.cleanup.GroundCleanup.register(d, c);
         com.simplebuilding.modules.simpletweaks.play.pregen.Pregen.register(d, c);
+        com.simplebuilding.modules.simpletweaks.TweakCommands.alias(d, "coords", "playtime", "seen", "pvp", "vote", "afk", "leaderboard", "phantoms", "pregen");
     }
     private PlayCommands() {}
 }

@@ -143,6 +143,7 @@ public final class PlayTests {
         PlayCommands.register(d, c);
         var out = new TreeSet<String>();
         for (var n : d.getRoot().getChildren()) {
+            if (n.getName().equals("simpletweaks")) continue;
             out.add(n.getName());
             if (n.getName().equals("tweaks") || n.getName().equals("vote")) n.getChildren().forEach(x -> out.add(n.getName() + " " + x.getName()));
         }
