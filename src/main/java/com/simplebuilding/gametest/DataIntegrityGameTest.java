@@ -142,6 +142,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void buildingBlocksTabFollowsSimpleBlocks(GameTestHelper helper) {
+        DataIntegrityTests.buildingBlocksTabFollowsSimpleBlocks(helper);
+    }
+
+    @GameTest
     public void everyModItemHasItsPlaceInTheSearchTab(GameTestHelper helper) {
         DataIntegrityTests.everyModItemHasItsPlaceInTheSearchTab(helper);
     }

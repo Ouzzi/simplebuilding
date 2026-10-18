@@ -164,7 +164,7 @@ public final class SledgehammerOctetTests {
         helper.assertValueEqual(HammerCorners.removedPiece(Blocks.MELON.defaultBlockState()), Items.MELON_SLICE, "removed piece of melon");
         helper.assertValueEqual(HammerCorners.removedPiece(Blocks.STONE.defaultBlockState()),
                 LibServices.octetPiece(LibServices.octetCellFor(Blocks.STONE)), "removed piece of stone");
-        helper.assertTrue(HammerCorners.removedPiece(Blocks.SMOOTH_STONE.defaultBlockState()) == null, "smooth stone dropped a piece");
+        helper.assertTrue(HammerCorners.removedPiece(Blocks.BOOKSHELF.defaultBlockState()) == null, "a bookshelf dropped a piece");
         player.setShiftKeyDown(false);
         helper.succeed();
     }
