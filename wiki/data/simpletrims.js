@@ -431,7 +431,7 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
       "replace": false,
       "values": [
         {
-          "id": "#simplebuilding:sledgehammer_tools",
+          "id": "#simplelib:hammers",
           "required": false
         }
       ],
@@ -515,7 +515,7 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
       },
       "description": {
         "en_us": "Lay down an armor trim template, hold Glow Ink or Glowstone Dust in the off hand and hit it five times with an axe (with SimpleBuilding: a sledgehammer)",
-        "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie fünfmal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer)"
+        "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie fünfmal mit einer Axt (mit Simple Hammers: dem Vorschlaghammer)"
       },
       "criteria": [
         {
@@ -568,7 +568,7 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
             "Ein Besatz, der nicht nur scheint, sondern anderen den Weg leuchtet."
           ],
           "use": [
-            "Lege eine Rüstungsbesatzvorlage ab, halte 2 Glowstonestaub in der Nebenhand und schlage sie 5-mal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Lohenstaub weg. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
+            "Lege eine Rüstungsbesatzvorlage ab, halte 2 Glowstonestaub in der Nebenhand und schlage sie 5-mal mit einer Axt (mit Simple Hammers: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Lohenstaub weg. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
           ],
           "secret": [
             "Am Schmiedetisch wird Rüstung mit Glowstonestaub zur tragbaren Lichtquelle: Ein unsichtbarer Lichtblock folgt deinem Kopf. Mehr Staub erhöht die Strahlkraft, bis Stufe 5."
@@ -619,7 +619,7 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
             "Ein Besatz, der das Licht einen Moment länger hält, als er sollte."
           ],
           "use": [
-            "Lege eine Rüstungsbesatzvorlage ab, halte 2 Leuchttintenbeutel in der Nebenhand und schlage sie 5-mal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Glowstone weg. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
+            "Lege eine Rüstungsbesatzvorlage ab, halte 2 Leuchttintenbeutel in der Nebenhand und schlage sie 5-mal mit einer Axt (mit Simple Hammers: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Glowstone weg. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
           ],
           "secret": [
             "Am Schmiedetisch lassen Vorlage, Rüstung und ein Leuchttintenbeutel den Besatz gleichmäßig mit voller Helligkeit leuchten. Er leuchtet nur optisch und gibt kein echtes Licht ab."

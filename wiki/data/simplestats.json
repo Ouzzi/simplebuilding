@@ -41,11 +41,11 @@
       ],
       "en": {
         "title": "Blocks mined",
-        "summary": "Every block broken with a tool counts for that tool, listed by block, including blocks with zero hardness. Every way of mining ends in the item's mine-block call, so Vanilla, other mods and (with SimpleBuilding) the sledgehammer count the same way: an area break with the hammer counts each block. Changes are collected per tick and written once."
+        "summary": "Every block broken with a tool counts for that tool, listed by block, including blocks with zero hardness. Every way of mining ends in the item's mine-block call, so Vanilla, other mods and (with Simple Hammers) the sledgehammer count the same way: an area break with the hammer counts each block. Changes are collected per tick and written once."
       },
       "de": {
         "title": "Abgebaute Blöcke",
-        "summary": "Jeder mit einem Werkzeug abgebaute Block zählt für dieses Werkzeug und steht nach Blockart in einer Liste, auch Blöcke mit Härte 0. Jede Art des Abbaus läuft über den Abbau-Aufruf des Gegenstands: Vanilla, andere Mods und (mit SimpleBuilding) der Vorschlaghammer zählen gleich; ein Flächenabbau mit dem Hammer zählt jeden Block. Änderungen werden je Tick gesammelt und einmal geschrieben."
+        "summary": "Jeder mit einem Werkzeug abgebaute Block zählt für dieses Werkzeug und steht nach Blockart in einer Liste, auch Blöcke mit Härte 0. Jede Art des Abbaus läuft über den Abbau-Aufruf des Gegenstands: Vanilla, andere Mods und (mit Simple Hammers) der Vorschlaghammer zählen gleich; ein Flächenabbau mit dem Hammer zählt jeden Block. Änderungen werden je Tick gesammelt und einmal geschrieben."
       }
     },
     {

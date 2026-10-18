@@ -742,14 +742,6 @@
       "id": "simplebuilding:copper_redstone_light_pane"
     },
     {
-      "attackDamage": 6.0,
-      "attackSpeed": 0.8,
-      "durability": 760,
-      "enchantability": 13,
-      "id": "simplebuilding:copper_sledgehammer",
-      "maxStackSize": 1
-    },
-    {
       "cooldownTicks": 25,
       "dedicatedSpatula": true,
       "durability": 192,
@@ -856,14 +848,6 @@
     },
     {
       "id": "simplebuilding:diamond_rod"
-    },
-    {
-      "attackDamage": 11.0,
-      "attackSpeed": 0.8,
-      "durability": 6244,
-      "enchantability": 10,
-      "id": "simplebuilding:diamond_sledgehammer",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 10,
@@ -1144,14 +1128,6 @@
       "id": "simplebuilding:enderite_shulker_shell"
     },
     {
-      "attackDamage": 15.0,
-      "attackSpeed": 1.2,
-      "durability": 10000,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_sledgehammer",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "maxStackSize": 1
     },
@@ -1222,14 +1198,6 @@
     },
     {
       "id": "simplebuilding:gold_pole"
-    },
-    {
-      "attackDamage": 6.0,
-      "attackSpeed": 0.8,
-      "durability": 128,
-      "enchantability": 22,
-      "id": "simplebuilding:gold_sledgehammer",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 20,
@@ -1369,14 +1337,6 @@
     },
     {
       "id": "simplebuilding:iron_pole"
-    },
-    {
-      "attackDamage": 9.0,
-      "attackSpeed": 0.6,
-      "durability": 1000,
-      "enchantability": 14,
-      "id": "simplebuilding:iron_sledgehammer",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 25,
@@ -1726,14 +1686,6 @@
     },
     {
       "id": "simplebuilding:netherite_shulker_shell"
-    },
-    {
-      "attackDamage": 13.0,
-      "attackSpeed": 1.0,
-      "durability": 8124,
-      "enchantability": 15,
-      "id": "simplebuilding:netherite_sledgehammer",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 5,
@@ -2633,14 +2585,6 @@
     },
     {
       "id": "simplebuilding:stone_pebble"
-    },
-    {
-      "attackDamage": 6.0,
-      "attackSpeed": 0.6,
-      "durability": 760,
-      "enchantability": 5,
-      "id": "simplebuilding:stone_sledgehammer",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 30,

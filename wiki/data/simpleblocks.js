@@ -39,7 +39,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "title": "Shaping Saw",
         "summary": "The Vanilla stonecutter with copper fittings, for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
         "details": [
-          "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
+          "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
           "Put a block in on the left, pick a cut, take the result. The list shows 6 x 4 cuts at a time; scroll with the wheel or the bar, and type in the search field to filter by name.",
           "Same yield as the stonecutter: one block gives 1 stairs, 2 slabs or 1 wall or fence. Planks give 2 sticks; a log, wood or stripped log gives 4 planks (bamboo blocks 2); logs can be stripped or turned into wood 1:1. Wool gives wool stairs and slabs, nether bricks the nether brick fence.",
           "With Simple End the Ashwood and Duskwood cuts are added, with SimpleBuilding the dirt, grass, sand and gravel slabs. Mods that bring stonecutting recipes (Simple Octets, for example) show up in the saw on their own; others can add simpleblocks:sawing recipes.",
@@ -50,7 +50,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "title": "Formsäge",
         "summary": "Die Vanilla-Steinsäge mit Kupferbeschlägen, für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
         "details": [
-          "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
+          "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
           "Links einen Block einlegen, einen Schnitt wählen, das Ergebnis nehmen. Die Liste zeigt 6 x 4 Schnitte auf einmal; mit dem Mausrad oder der Leiste blättern und im Suchfeld nach Namen filtern.",
           "Gleiche Ausbeute wie an der Steinsäge: ein Block ergibt 1 Treppe, 2 Stufen oder 1 Mauer bzw. Zaun. Bretter ergeben 2 Stöcke; ein Stamm, Holz oder entrindeter Stamm 4 Bretter (Bambusblock 2); Stämme lassen sich 1:1 entrinden oder zu Holz machen. Wolle ergibt Wolltreppen und -stufen, Netherziegel den Netherziegelzaun.",
           "Mit Simple End kommen die Schnitte für Aschholz und Dämmerholz dazu, mit SimpleBuilding die Erd-, Gras-, Sand- und Kiesstufen. Mods mit Steinsägen-Rezepten (zum Beispiel Simple Octets) erscheinen von selbst in der Säge; andere können simpleblocks:sawing-Rezepte mitbringen.",
@@ -7698,7 +7698,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "title": "Shaping Saw",
           "summary": "The Vanilla stonecutter with copper fittings, for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
           "details": [
-            "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
+            "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
             "Put a block in on the left, pick a cut, take the result. The list shows 6 x 4 cuts at a time; scroll with the wheel or the bar, and type in the search field to filter by name.",
             "Same yield as the stonecutter: one block gives 1 stairs, 2 slabs or 1 wall or fence. Planks give 2 sticks; a log, wood or stripped log gives 4 planks (bamboo blocks 2); logs can be stripped or turned into wood 1:1. Wool gives wool stairs and slabs, nether bricks the nether brick fence.",
             "With Simple End the Ashwood and Duskwood cuts are added, with SimpleBuilding the dirt, grass, sand and gravel slabs. Mods that bring stonecutting recipes (Simple Octets, for example) show up in the saw on their own; others can add simpleblocks:sawing recipes.",
@@ -7709,7 +7709,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "title": "Formsäge",
           "summary": "Die Vanilla-Steinsäge mit Kupferbeschlägen, für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
           "details": [
-            "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
+            "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
             "Links einen Block einlegen, einen Schnitt wählen, das Ergebnis nehmen. Die Liste zeigt 6 x 4 Schnitte auf einmal; mit dem Mausrad oder der Leiste blättern und im Suchfeld nach Namen filtern.",
             "Gleiche Ausbeute wie an der Steinsäge: ein Block ergibt 1 Treppe, 2 Stufen oder 1 Mauer bzw. Zaun. Bretter ergeben 2 Stöcke; ein Stamm, Holz oder entrindeter Stamm 4 Bretter (Bambusblock 2); Stämme lassen sich 1:1 entrinden oder zu Holz machen. Wolle ergibt Wolltreppen und -stufen, Netherziegel den Netherziegelzaun.",
             "Mit Simple End kommen die Schnitte für Aschholz und Dämmerholz dazu, mit SimpleBuilding die Erd-, Gras-, Sand- und Kiesstufen. Mods mit Steinsägen-Rezepten (zum Beispiel Simple Octets) erscheinen von selbst in der Säge; andere können simpleblocks:sawing-Rezepte mitbringen.",
