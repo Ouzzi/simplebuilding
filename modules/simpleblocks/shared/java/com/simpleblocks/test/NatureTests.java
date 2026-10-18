@@ -390,7 +390,7 @@ public final class NatureTests {
         for (Block slab : List.of(NatureBlocks.DIRT_SLAB, NatureBlocks.GRASS_SLAB, NatureBlocks.SAND_SLAB, NatureBlocks.GRAVEL_SLAB)) {
             BlockState state = slab.defaultBlockState();
             if (!state.is(net.minecraft.tags.BlockTags.SLABS) || !state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)
-                    || !new ItemStack(slab).is(net.minecraft.tags.ItemTags.SLABS)) problems.add("slab tags of " + slab);
+                    || !new ItemStack(slab).is(net.minecraft.tags.TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.withDefaultNamespace("slabs")))) problems.add("slab tags of " + slab);
         }
         for (Block ice : List.of(NatureBlocks.CRACKED_ICE, NatureBlocks.CHISELED_PACKED_ICE, NatureBlocks.CHISELED_BLUE_ICE)) {
             if (!ice.defaultBlockState().is(net.minecraft.tags.BlockTags.ICE) || !ice.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("ice tags of " + ice);
