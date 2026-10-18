@@ -75,7 +75,8 @@ for c, base_ns, base in pairs:
         adv = DATA / f'advancement/recipes/building_blocks/{name}.json'
         assert adv.is_file(), ('recipe advancement', name)
         conditioned = 'fabric:load_conditions' in recipes[name]
-        assert conditioned == (base_ns != 'minecraft'), ('load condition', name)
+        # simplelib is a required dependency: its block needs no load condition
+        assert conditioned == (base_ns not in ('minecraft', 'simplelib')), ('load condition', name)
         if conditioned:
             assert recipes[name]['neoforge:conditions'][0]['modid'] == base_ns and recipes[name]['forge:condition']['modid'] == base_ns, name
             assert 'fabric:load_conditions' in json.loads(adv.read_text(encoding='utf-8')), ('advancement condition', name)

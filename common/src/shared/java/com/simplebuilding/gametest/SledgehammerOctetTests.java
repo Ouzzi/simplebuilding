@@ -145,14 +145,14 @@ public final class SledgehammerOctetTests {
         // waterlogging carries over into the cell
         BlockState wet = carve(hammer, player, stack, stairs.setValue(StairBlock.WATERLOGGED, true), pos, 0, 0, 0);
         helper.assertTrue(wet.getValue(OctetCellBlock.WATERLOGGED), "the octet cell lost the water of the stairs");
-        // stone has octets since N19/N15 (every block with stairs and slabs); a block without stairs (smooth stone) still has none
+        // stone has octets since N19/N15 (every block with stairs and slabs); since the octet rule smooth stone has one too, a block without stairs and octets (bookshelf) has none
         BlockState stoneStairs = carve(hammer, player, stack, Blocks.STONE.defaultBlockState(), pos, 1, 1, 1);
         helper.assertTrue(stoneStairs != null && stoneStairs.is(Blocks.STONE_STAIRS), "stone did not carve into stairs");
         BlockState stoneCut = carve(hammer, player, stack, stoneStairs, pos, 0, 0, 0);
         helper.assertTrue(stoneCut != null && stoneCut.is(LibServices.octetCellFor(Blocks.STONE)) && OctetCellBlock.count(stoneCut) == 6,
                 "stone stairs missing two octets did not fall apart into six stone octets: " + stoneCut);
-        helper.assertTrue(carve(hammer, player, stack, Blocks.SMOOTH_STONE.defaultBlockState(), pos, 1, 1, 1) == null,
-                "smooth stone (no stairs, no octets) was carved");
+        helper.assertTrue(carve(hammer, player, stack, Blocks.BOOKSHELF.defaultBlockState(), pos, 1, 1, 1) == null,
+                "bookshelf (no stairs, no octets) was carved");
         // melon block: no stairs, straight into a melon cell
         BlockState melon = carve(hammer, player, stack, Blocks.MELON.defaultBlockState(), pos, 1, 1, 1);
         helper.assertTrue(melon != null && melon.is(OctetRefs.melon()) && OctetCellBlock.count(melon) == 7,
