@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 653,
+      "count": 646,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -135,13 +135,13 @@ window.WIKI_DATA = {
         "simplebuilding:diamond_chisel",
         "simplebuilding:netherite_chisel",
         "simplebuilding:enderite_chisel",
-        "simplebuilding:stone_sledgehammer",
-        "simplebuilding:copper_sledgehammer",
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:gold_sledgehammer",
-        "simplebuilding:diamond_sledgehammer",
-        "simplebuilding:netherite_sledgehammer",
-        "simplebuilding:enderite_sledgehammer",
+        "simplehammers:stone_sledgehammer",
+        "simplehammers:copper_sledgehammer",
+        "simplehammers:iron_sledgehammer",
+        "simplehammers:gold_sledgehammer",
+        "simplehammers:diamond_sledgehammer",
+        "simplehammers:netherite_sledgehammer",
+        "simplehammers:enderite_sledgehammer",
         "simplebuilding:copper_building_wand",
         "simplebuilding:iron_building_wand",
         "simplebuilding:gold_building_wand",
@@ -173,9 +173,9 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot",
         "simplebuilding:fast_chiseling",
         "simplebuilding:constructors_touch",
-        "simplebuilding:override",
-        "simplebuilding:radius",
-        "simplebuilding:break_through",
+        "simplehammers:override",
+        "simplehammers:radius",
+        "simplehammers:break_through",
         "simplebuilding:range",
         "simplebuilding:vein_miner",
         "simplebuilding:strip_miner",
@@ -193,7 +193,7 @@ window.WIKI_DATA = {
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+        "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
         "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
         "common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java",
         "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java",
@@ -282,7 +282,7 @@ window.WIKI_DATA = {
         "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java"
       ],
       "en": {
         "title": "Getting Started",
@@ -327,123 +327,6 @@ window.WIKI_DATA = {
           "Jede Mod-Verzauberung hat eine Quelle im Überlebensmodus (seit 2026-09-28): Brücke aus dem Endsiedlungs-Schatz, Schublade aus Waldanwesen und vom Bibliothekar Stufe 4, Kinetischer Schutz vom Zaubertisch; zufällig verzauberte Loot-Gegenstände (Köcher, Verstärktes Bündel, Oktant, Diamant-Vorschlaghammer, Diamant-Baustab) können außerdem jede auf sie passende Verzauberung tragen.",
           "Loot und Handel hängen an drei Konfigurationsschaltern (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), die standardmäßig eingeschaltet sind und beim Laden der Datenpakete (Weltstart, /reload) ausgewertet werden. Ist das Vanilla-Datenpaket „Trade Rebalance“ aktiv, verschwinden die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler bleiben davon unberührt.",
           "Geräte: Detektor, Attraktor, Transponierer, Resonanzstab, Messuhr und Echolot. Rezeptkarten kommen aus den aktuellen Rezeptdaten."
-        ]
-      }
-    },
-    {
-      "id": "sledgehammer",
-      "related": [
-        "simplebuilding:stone_sledgehammer",
-        "simplebuilding:copper_sledgehammer",
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:gold_sledgehammer",
-        "simplebuilding:diamond_sledgehammer",
-        "simplebuilding:netherite_sledgehammer",
-        "simplebuilding:enderite_sledgehammer",
-        "simplebuilding:override",
-        "simplebuilding:radius",
-        "simplebuilding:break_through",
-        "simplebuilding:constructors_touch",
-        "simplebuilding:range",
-        "simplebuilding:versatility",
-        "simplebuilding:diamond_pebble",
-        "simplebuilding:cracked_diamond",
-        "simplebuilding:glowing_trim_template",
-        "simplebuilding:emitting_trim_template",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-        "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-        "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-        "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-        "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-        "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-        "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-        "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-        "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-        "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-        "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerProgress.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-        "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
-        "docs/SLEDGEHAMMER-BALANCE.md"
-      ],
-      "en": {
-        "title": "Sledgehammer",
-        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-        "details": [
-          "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-          "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-          "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-          "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-          "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-          "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. A Cracked Diamond placed on the ground (sneak-click) breaks back into 9 Diamond Pebbles with 9 strikes of any sledgehammer. Nine pebbles make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-          "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-          "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-          "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-          "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-          "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-          "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-          "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-          "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-          "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-          "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-          "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-          "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-          "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-          "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-        ]
-      },
-      "de": {
-        "title": "Vorschlaghammer",
-        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-        "details": [
-          "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-          "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-          "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-          "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-          "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-          "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-          "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-          "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-          "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-          "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-          "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-          "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-          "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-          "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-          "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-          "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-          "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-          "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-          "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-          "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
         ]
       }
     },
@@ -639,7 +522,7 @@ window.WIKI_DATA = {
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+        "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
         "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
         "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
         "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
@@ -1009,7 +892,7 @@ window.WIKI_DATA = {
         "simplebuilding:detector",
         "simplebuilding:constructors_touch",
         "simplebuilding:gold_core",
-        "simplebuilding:radius"
+        "simplehammers:radius"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
@@ -1214,7 +1097,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
         "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
         "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
         "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -1539,7 +1422,7 @@ window.WIKI_DATA = {
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
         "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
         "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
       ],
       "en": {
@@ -1655,7 +1538,7 @@ window.WIKI_DATA = {
         "src/main/resources/simplebuilding.mixins.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
         "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
         "src/main/resources/assets/simplebuilding/sounds.json",
         "src/main/resources/assets/simplebuilding/models/block/template_tiered_piston_head.json",
@@ -1886,25 +1769,25 @@ window.WIKI_DATA = {
         "simplebuilding:vein_miner",
         "simplebuilding:strip_miner",
         "simplebuilding:versatility",
-        "simplebuilding:override",
-        "simplebuilding:radius",
-        "simplebuilding:break_through",
-        "simplebuilding:stone_sledgehammer",
-        "simplebuilding:copper_sledgehammer",
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:gold_sledgehammer",
-        "simplebuilding:diamond_sledgehammer",
-        "simplebuilding:netherite_sledgehammer",
-        "simplebuilding:enderite_sledgehammer"
+        "simplehammers:override",
+        "simplehammers:radius",
+        "simplehammers:break_through",
+        "simplehammers:stone_sledgehammer",
+        "simplehammers:copper_sledgehammer",
+        "simplehammers:iron_sledgehammer",
+        "simplehammers:gold_sledgehammer",
+        "simplehammers:diamond_sledgehammer",
+        "simplehammers:netherite_sledgehammer",
+        "simplehammers:enderite_sledgehammer"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/util/VeinMinerUsageEvent.java",
         "common/src/shared/java/com/simplebuilding/util/StripMinerUsageEvent.java",
         "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
         "common/src/shared/java/com/simplebuilding/util/MiningUtils.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUsageEvent.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUtils.java",
+        "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
         "common/src/shared/java/com/simplebuilding/mixin/BlockStateBaseMixin.java",
         "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
         "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
@@ -2141,13 +2024,13 @@ window.WIKI_DATA = {
         "simplebuilding:detector",
         "simplebuilding:octant",
         "simplebuilding:velocity_gauge",
-        "simplebuilding:stone_sledgehammer",
-        "simplebuilding:copper_sledgehammer",
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:gold_sledgehammer",
-        "simplebuilding:diamond_sledgehammer",
-        "simplebuilding:netherite_sledgehammer",
-        "simplebuilding:enderite_sledgehammer",
+        "simplehammers:stone_sledgehammer",
+        "simplehammers:copper_sledgehammer",
+        "simplehammers:iron_sledgehammer",
+        "simplehammers:gold_sledgehammer",
+        "simplehammers:diamond_sledgehammer",
+        "simplehammers:netherite_sledgehammer",
+        "simplehammers:enderite_sledgehammer",
         "minecraft:stick",
         "minecraft:shulker_box"
       ],
@@ -2158,7 +2041,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
         "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java",
         "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+        "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
         "common/src/shared/java/com/simplebuilding/util/ConstructorsTouchInteraction.java",
         "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
@@ -2576,22 +2459,22 @@ window.WIKI_DATA = {
         "simplebuilding:copper_chisel",
         "simplebuilding:iron_chisel",
         "simplebuilding:gold_chisel",
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:diamond_sledgehammer",
+        "simplehammers:iron_sledgehammer",
+        "simplehammers:diamond_sledgehammer",
         "simplebuilding:octant",
         "simplebuilding:reinforced_bundle",
         "simplebuilding:color_palette",
         "simplebuilding:fast_chiseling",
         "simplebuilding:linear",
-        "simplebuilding:override",
+        "simplehammers:override",
         "simplebuilding:master_builder",
         "simplebuilding:range",
         "simplebuilding:funnel",
         "simplebuilding:strip_miner",
         "simplebuilding:vein_miner",
-        "simplebuilding:break_through",
+        "simplehammers:break_through",
         "simplebuilding:bridge",
-        "simplebuilding:radius"
+        "simplehammers:radius"
       ],
       "sources": [
         "src/main/resources/data/simplebuilding/villager_trade/librarian/3/emerald_building_book.json",
@@ -2817,7 +2700,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/util/TrimUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerCrafting.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerCrafting.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/TrimUpgradeSmithingExtension.java"
       ],
       "en": {
@@ -2979,7 +2862,7 @@ window.WIKI_DATA = {
     {
       "id": "recipe_viewer_jei",
       "related": [
-        "simplebuilding:netherite_sledgehammer",
+        "simplehammers:netherite_sledgehammer",
         "simplebuilding:iron_chisel",
         "simplebuilding:diamond_pebble",
         "simplebuilding:constructors_touch"
@@ -2995,7 +2878,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksJeiInfo.java",
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
         "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+        "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
         "common/src/shared/java/com/simplebuilding/gametest/InWorldExportTests.java",
         "src/main/resources/fabric.mod.json",
         "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
@@ -3386,7 +3269,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
         "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
         "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
         "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3702,7 +3585,7 @@ window.WIKI_DATA = {
       "id": "crucible_parts",
       "sources": [
         "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java"
       ],
       "related": [
         "simplecrucibles:enderite_crucible",
@@ -4112,7 +3995,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
           "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
         ]
       },
@@ -8886,7 +8769,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -9356,245 +9239,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:copper_sledgehammer",
-      "name": {
-        "en_us": "Copper Sledgehammer",
-        "de_de": "Kupfer-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/copper_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:copper_sledgehammer"
-      ],
-      "usedIn": [
-        "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer"
-      ],
-      "trades": [],
-      "properties": {
-        "attackDamage": 6.0,
-        "attackSpeed": 0.8,
-        "durability": 760,
-        "enchantability": 13,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Copper takes a dent and keeps the shape, like a good argument."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 760 durability, enchantability 13. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "A copper block, two copper ingots and two sticks. Sneak and hold right-click to carve the aimed eighth off a block; stairs and slabs are what remains."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Kupfer nimmt eine Delle und behält die Form, wie ein gutes Argument."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 760 Haltbarkeit, Verzauberbarkeit 13. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Ein Kupferblock, zwei Kupferbarren und zwei Stöcke. Schleichen und Rechtsklick halten schnitzt das anvisierte Achtel aus einem Block; übrig bleiben Treppen und Stufen."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Copper Sledgehammer: 760 durability and 13 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Kupfer-Vorschlaghammer: 760 Haltbarkeit und 13 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:cracked_ice",
       "name": {
         "en_us": "Cracked Ice",
@@ -9999,7 +9643,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -11122,7 +10766,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -11624,248 +11268,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:diamond_sledgehammer",
-      "name": {
-        "en_us": "Diamond Sledgehammer",
-        "de_de": "Diamant-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/diamond_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:diamond_sledgehammer",
-        "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer"
-      ],
-      "usedIn": [
-        "simplebuilding:netherite_sledgehammer_smithing"
-      ],
-      "trades": [
-        "simplebuilding:toolsmith/4/emerald_diamond_sledgehammer"
-      ],
-      "properties": {
-        "attackDamage": 11.0,
-        "attackSpeed": 0.8,
-        "durability": 6244,
-        "enchantability": 10,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: A head of diamond: it does not hit things, it settles arguments."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 6244 durability, enchantability 10. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "Hold right-click on a diamond block to crush it into 81 Diamond Pebbles. At this tier a hammer can raise chests from Reinforced to Netherite (with a nugget) and forge the Netherite Piston."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Ein Kopf aus Diamant: Er schlägt nicht auf Dinge, er beendet Streit."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 6244 Haltbarkeit, Verzauberbarkeit 10. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Rechtsklick auf einen Diamantblock halten zerschlägt ihn in 81 Diamantkiesel. Ab dieser Stufe hebt ein Hammer Truhen von Verstärkt auf Netherit (mit Klumpen) und schmiedet den Netherit-Kolben."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Diamond Sledgehammer: 6244 durability and 10 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Diamant-Vorschlaghammer: 6244 Haltbarkeit und 10 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:dimensional_scrap",
@@ -13663,7 +13065,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -13923,7 +13325,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -14532,7 +13934,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
@@ -14950,7 +14352,7 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -15234,7 +14636,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -15338,243 +14740,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_sledgehammer",
-      "name": {
-        "en_us": "Enderite Sledgehammer",
-        "de_de": "Enderit-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/enderite_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:enderite_sledgehammer_smithing"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "attackDamage": 15.0,
-        "attackSpeed": 1.2,
-        "durability": 10000,
-        "enchantability": 18,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It weighs what the End weighs: nothing, until it lands."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 10000 durability, enchantability 18. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "Fire resistant, floats on lava, and cannot be lost in the void: dropped Enderite items hang in place and lie twice as long as vanilla allows."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er wiegt, was das Ende wiegt: nichts, bis er landet."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 10000 Haltbarkeit, Verzauberbarkeit 18. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Feuerfest, schwimmt auf Lava und geht nicht in der Leere verloren: Fallen gelassene Enderit-Gegenstände bleiben schweben und liegen doppelt so lange wie sonst."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Enderite Sledgehammer: 10000 durability and 18 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Enderit-Vorschlaghammer: 10000 Haltbarkeit und 18 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_spear",
       "name": {
         "en_us": "Enderite Spear",
@@ -15659,7 +14824,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -16063,7 +15228,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -16506,246 +15671,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:gold_sledgehammer",
-      "name": {
-        "en_us": "Gold Sledgehammer",
-        "de_de": "Gold-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/gold_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:gold_sledgehammer",
-        "simplebuilding:upgrade_iron_sledgehammer_to_gold_sledgehammer"
-      ],
-      "usedIn": [
-        "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer"
-      ],
-      "trades": [],
-      "properties": {
-        "attackDamage": 6.0,
-        "attackSpeed": 0.8,
-        "durability": 128,
-        "enchantability": 22,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Gold hits as hard as anyone, and breaks as soon as anyone looks at it sideways."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 128 durability, enchantability 22. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "It has the best enchantability of the line (22) and the fewest uses (128). Gold sledgehammers lie in bastions."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Gold schlägt so hart wie jeder andere und bricht, sobald man es schief ansieht."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 128 Haltbarkeit, Verzauberbarkeit 22. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Er hat die beste Verzauberbarkeit der Reihe (22) und die wenigsten Nutzungen (128). Goldene Vorschlaghämmer liegen in Bastionen."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Gold Sledgehammer: 128 durability and 22 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Gold-Vorschlaghammer: 128 Haltbarkeit und 22 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:grass_slab",
@@ -18669,7 +17594,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -19118,248 +18043,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:iron_sledgehammer",
-      "name": {
-        "en_us": "Iron Sledgehammer",
-        "de_de": "Eisen-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/iron_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:iron_sledgehammer",
-        "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer"
-      ],
-      "usedIn": [
-        "simplebuilding:upgrade_iron_sledgehammer_to_gold_sledgehammer"
-      ],
-      "trades": [
-        "simplebuilding:toolsmith/4/emerald_iron_sledgehammer"
-      ],
-      "properties": {
-        "attackDamage": 9.0,
-        "attackSpeed": 0.6,
-        "durability": 1000,
-        "enchantability": 14,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Iron makes a head that has never once been talked out of anything."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 1000 durability, enchantability 14. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "The Toolsmith sells iron and diamond sledgehammers at level 4, each with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Eisen ergibt einen Kopf, den noch nie jemand von etwas abbringen konnte."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 1000 Haltbarkeit, Verzauberbarkeit 14. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Der Werkzeugschmied verkauft ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer, jeweils mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Iron Sledgehammer: 1000 durability and 14 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Eisen-Vorschlaghammer: 1000 Haltbarkeit und 14 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:jukebox_amplifier",
@@ -23133,7 +21816,7 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
@@ -23393,7 +22076,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -24028,7 +22711,7 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
@@ -24300,7 +22983,7 @@ window.WIKI_DATA = {
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -24561,7 +23244,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -24667,245 +23350,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:netherite_sledgehammer",
-      "name": {
-        "en_us": "Netherite Sledgehammer",
-        "de_de": "Netherit-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/netherite_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:netherite_sledgehammer_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_sledgehammer_smithing"
-      ],
-      "trades": [],
-      "properties": {
-        "attackDamage": 13.0,
-        "attackSpeed": 1.0,
-        "durability": 8124,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Netherite swings like a decision that was already made."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 8124 durability, enchantability 15. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Enchanter."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Netherit schwingt wie eine Entscheidung, die längst gefallen ist."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 8124 Haltbarkeit, Verzauberbarkeit 15. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Verzauberer."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Netherite Sledgehammer: 8124 durability and 15 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Netherit-Vorschlaghammer: 8124 Haltbarkeit und 15 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_trapped_chest",
       "name": {
         "en_us": "Netherite Trapped Chest",
@@ -24948,7 +23392,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -33562,7 +32006,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -33889,7 +32333,7 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
@@ -34143,7 +32587,7 @@ window.WIKI_DATA = {
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
@@ -34373,7 +32817,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -34627,7 +33071,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -36420,243 +34864,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:stone_sledgehammer",
-      "name": {
-        "en_us": "Stone Sledgehammer",
-        "de_de": "Stein-Vorschlaghammer"
-      },
-      "texture": "assets/textures/item/stone_sledgehammer.png",
-      "craftedBy": [
-        "simplebuilding:stone_sledgehammer"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "attackDamage": 6.0,
-        "attackSpeed": 0.6,
-        "durability": 760,
-        "enchantability": 5,
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Stone ground into a head and bound to a handle: slow to lift, simple to love."
-          ],
-          "use": [
-            "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 760 durability, enchantability 5. Sneak while mining takes only the aimed block."
-          ],
-          "secret": [
-            "Made from an iron ingot, two cobblestone and two sticks. It mines like a stone pickaxe, but takes a whole 3x3 face of identical blocks per swing."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Stein, zum Kopf geschliffen und an einen Stiel gebunden: schwer zu heben, leicht zu mögen."
-          ],
-          "use": [
-            "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 760 Haltbarkeit, Verzauberbarkeit 5. Beim Schleichen wird nur der anvisierte Block abgebaut."
-          ],
-          "secret": [
-            "Aus einem Eisenbarren, zwei Bruchsteinen und zwei Stöcken. Er baut ab wie eine Steinspitzhacke, nimmt aber pro Schlag eine ganze 3x3-Fläche gleicher Blöcke mit."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Stone Sledgehammer: 760 durability and 5 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
-          "details": [
-            "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
-            "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-            "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
-            "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
-            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
-            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
-            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
-            "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
-            "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then right-click it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
-            "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
-            "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
-            "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-            "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-            "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
-          ],
-          "controls": [
-            "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
-            "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
-            "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
-            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
-          ],
-          "tiers": [
-            "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
-            "Copper Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.2, enchantability 13, copper material; upgradeable to iron with 22 iron ingots.",
-            "Iron Sledgehammer: durability 1000 (250 times 4), base attack damage 6, attack speed -3.4, enchantability 14, iron material; upgradeable to gold with 22 gold ingots; buyable from the toolsmith.",
-            "Gold Sledgehammer: durability 128 (32 times 4), base attack damage 5, attack speed -3.2, enchantability 22, gold material; upgradeable to diamond with 22 diamonds; found in bastions.",
-            "Diamond Sledgehammer: durability 6244 (1561 times 4), base attack damage 7, attack speed -3.2, enchantability 10, diamond material; found in end cities and ancient cities, buyable from the toolsmith.",
-            "Netherite Sledgehammer: durability 8124 (2031 times 4), base attack damage 8, attack speed -3.0, enchantability 15, netherite material; only via the smithing table from the diamond hammer.",
-            "Enderite Sledgehammer: durability 10000 (2500 times 4), base attack damage 9, attack speed -2.8, enchantability 18; enderite material (ModToolMaterials.ENDERITE) with mining speed 10, damage bonus 5, the same incorrect blocks as netherite tools (INCORRECT_FOR_NETHERITE_TOOL) and repair with netherite tool materials; only via the smithing table from the netherite hammer.",
-            "Enchantability always comes from the tool material, not from the value handed to registerSledgehammer: settings.pickaxe(material, ...) overwrites the enchantable component that was set before it (stone would otherwise be 15 and copper 18), while the durability is re-applied after it and therefore does stand.",
-            "The base attack damage listed above is what the item adds on top of the material's damage bonus (stone and copper +1, iron +2, gold +0, diamond +3, netherite +4, enderite +5), so the attack damage attribute of the seven tiers is 5, 5, 8, 5, 10, 12 and 14.",
-            "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
-          ],
-          "caveats": [
-            "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
-            "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
-            "Forward reshaping looks for the stairs under the registry name plus _stairs in the same namespace, falling back to the name without _planks, without _block or without a plural s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); the backward direction stairs to block knows the same variants the other way round; slab to stairs only looks up the base name plus _stairs.",
-            "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
-            "Stairs to slab always produces the default state of the slab; the click position only affects blocks with an axis (pillars), the stairs facing and blocks with a FACING property, not slabs.",
-            "Sneak + right-click without Constructor's Touch has no effect, not even an animation (getTransformationState returns null).",
-            "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
-            "The Glowing and the Emitting Armor Trim cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
-            "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
-            "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
-            "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
-          ]
-        },
-        "de": {
-          "summary": "Stein-Vorschlaghammer: 760 Haltbarkeit und 5 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
-          "details": [
-            "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
-            "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-            "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
-            "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
-            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
-            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
-            "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
-            "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-            "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
-            "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-            "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand per Rechtsklick daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
-            "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
-            "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
-            "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-            "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
-          ],
-          "controls": [
-            "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
-            "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
-            "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
-          ],
-          "tiers": [
-            "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems übergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurück); keine Aufwertung im Schmiedetisch.",
-            "Kupfer-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 13, Material Kupfer (die übergebenen 18 werden aus demselben Grund überschrieben); aufwertbar zu Eisen mit 22 Eisenbarren.",
-            "Eisen-Vorschlaghammer: Haltbarkeit 1000 (250 mal 4), Angriffsschaden-Basiswert 6, Angriffsgeschwindigkeit -3,4, Verzauberbarkeit 14, Material Eisen; aufwertbar zu Gold mit 22 Goldbarren; beim Werkzeugschmied kaufbar.",
-            "Gold-Vorschlaghammer: Haltbarkeit 128 (32 mal 4), Angriffsschaden-Basiswert 5, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 22, Material Gold; aufwertbar zu Diamant mit 22 Diamanten; in Bastionen zu finden.",
-            "Diamant-Vorschlaghammer: Haltbarkeit 6244 (1561 mal 4), Angriffsschaden-Basiswert 7, Angriffsgeschwindigkeit -3,2, Verzauberbarkeit 10, Material Diamant; in Endsiedlungen und Antiken Stätten zu finden, beim Werkzeugschmied kaufbar.",
-            "Netherit-Vorschlaghammer: Haltbarkeit 8124 (2031 mal 4), Angriffsschaden-Basiswert 8, Angriffsgeschwindigkeit -3,0, Verzauberbarkeit 15, Material Netherit; nur per Schmiedetisch aus dem Diamant-Hammer.",
-            "Enderit-Vorschlaghammer: Haltbarkeit 10000 (2500 mal 4), Angriffsschaden-Basiswert 9, Angriffsgeschwindigkeit -2,8, Verzauberbarkeit 18; Enderit-Material (ModToolMaterials.ENDERITE) mit Abbaugeschwindigkeit 10, Schadensbonus 5, denselben ungeeigneten Blöcken wie Netherit-Werkzeuge (INCORRECT_FOR_NETHERITE_TOOL) und Reparatur mit Netherit-Werkzeugmaterialien; nur per Schmiedetisch aus dem Netherit-Hammer.",
-            "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
-          ],
-          "caveats": [
-            "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderitschwert, -spitzhacke, -axt, -schaufel und -hacke; die unteren Stufen verbrennen.",
-            "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
-            "Vorwärts-Umformen sucht die Treppe unter Registry-Name plus _stairs im selben Namensraum, ersatzweise unter dem Namen ohne _planks, ohne _block oder ohne Plural-s (oak_planks -> oak_stairs, bricks -> brick_stairs, quartz_block -> quartz_stairs); die Rückrichtung Treppe zu Block kennt dieselben Varianten umgekehrt; Stufe zu Treppe sucht nur Grundname plus _stairs.",
-            "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
-            "Treppe zu Stufe ergibt immer den Standardzustand der Stufe; die Klickstelle beeinflusst nur Blöcke mit Achse (Säulen), Treppen-Facing und Blöcke mit FACING-Eigenschaft, nicht Stufen.",
-            "Schleichen + Rechtsklick ohne Berührung des Konstrukteurs hat keine Wirkung, auch keine Animation (getTransformationState liefert null).",
-            "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
-            "Der Leuchtende und der Strahlende Rüstungsbesatz selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
-            "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
-            "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
-            "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModToolMaterials.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-          "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/mining_loot.json",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/enchantment/range.json",
-          "src/main/generated/data/simplebuilding/enchantment/versatility.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-          "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/toolsmith/level_4.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
-          "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:storage_crafting_table",
@@ -39122,7 +37329,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
           "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
         ]
       },
@@ -44337,7 +42544,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -44649,7 +42856,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
@@ -44902,7 +43109,7 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -45186,7 +43393,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -45357,7 +43564,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -49715,7 +47922,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -50110,7 +48317,7 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
@@ -50345,7 +48552,7 @@ window.WIKI_DATA = {
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -50633,7 +48840,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -50721,7 +48928,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -54336,7 +52543,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -54649,7 +52856,7 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
@@ -54779,7 +52986,7 @@ window.WIKI_DATA = {
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
@@ -55026,7 +53233,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
           "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -55224,7 +53431,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
           "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -66917,56 +65124,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:copper_sledgehammer",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:copper_sledgehammer",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
-      "ingredients": [
-        "minecraft:copper_block",
-        "minecraft:copper_ingot",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "BMM",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "B": [
-          "minecraft:copper_block"
-        ],
-        "M": [
-          "minecraft:copper_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 11
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:cracked_ice_from_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -68286,56 +66443,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:diamond",
             "count": 2
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:diamond_sledgehammer",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_sledgehammer",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:diamond_block",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "BMM",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "B": [
-          "minecraft:diamond_block"
-        ],
-        "M": [
-          "minecraft:diamond"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 11
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -74361,114 +72468,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:enderite_sledgehammer_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_sledgehammer",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-      "ingredients": [
-        "simplebuilding:netherite_sledgehammer",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_sledgehammer"
-        ],
-        "addition": [
-          "simplelib:enderite_ingot"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_sledgehammer",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_sledgehammer"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_sledgehammer"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 11
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:enderite_spawn_teleporter_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -75790,56 +73789,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:gold_ingot",
             "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:gold_sledgehammer",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_sledgehammer",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
-      "ingredients": [
-        "minecraft:gold_block",
-        "minecraft:gold_ingot",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "BMM",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "B": [
-          "minecraft:gold_block"
-        ],
-        "M": [
-          "minecraft:gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 11
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -78172,56 +76121,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:iron_ingot",
             "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:iron_sledgehammer",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_sledgehammer",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
-      "ingredients": [
-        "minecraft:iron_block",
-        "minecraft:iron_ingot",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "BMM",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "B": [
-          "minecraft:iron_block"
-        ],
-        "M": [
-          "minecraft:iron_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 11
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -83491,59 +81390,6 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#simplebuilding:copper_chests"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_sledgehammer_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_sledgehammer",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_ingot",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:diamond_sledgehammer"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:diamond_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:netherite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 11
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
         ]
       }
     },
@@ -99412,60 +97258,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:stone_sledgehammer",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:stone_sledgehammer",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
-      "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:iron_ingot",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "BMM",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "B": [
-          "minecraft:iron_ingot"
-        ],
-        "M": [
-          "minecraft:cobblestone"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 2
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:storage_crafting_table",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -101655,107 +99447,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_sledgehammer",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "simplebuilding:copper_sledgehammer",
-        "simplelib:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:copper_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 22,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "simplebuilding:copper_sledgehammer",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:copper_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 22
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 11
-          },
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:upgrade_copper_sword_to_iron_sword",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -102062,107 +99753,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.125
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_sledgehammer",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "simplebuilding:gold_sledgehammer",
-        "simplelib:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:gold_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 22,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "simplebuilding:gold_sledgehammer",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:gold_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 22
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 11
-          },
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -103274,107 +100864,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:iron_ingot",
             "count": 1
-          },
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_sledgehammer_to_gold_sledgehammer",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_sledgehammer",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "simplebuilding:iron_sledgehammer",
-        "simplelib:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:iron_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 22,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "simplebuilding:iron_sledgehammer",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:iron_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 22
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 11
           },
           {
             "id": "simplelib:basic_upgrade_template",
@@ -106541,6 +104030,42 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:copper_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:copper_sledgehammer",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/copper_sledgehammer.json",
+      "ingredients": [
+        "minecraft:copper_block",
+        "minecraft:copper_ingot",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "minecraft:copper_block"
+        ],
+        "M": [
+          "minecraft:copper_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:cracked_diamond",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -106678,6 +104203,42 @@ window.WIKI_DATA = {
       },
       "cookingtime": 100,
       "experience": 1.0,
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:diamond_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:diamond_sledgehammer",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/diamond_sledgehammer.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:diamond_block",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "minecraft:diamond_block"
+        ],
+        "M": [
+          "minecraft:diamond"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
       "lines": [
         "1.21.11",
         "26.2"
@@ -108060,6 +105621,42 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:gold_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gold_sledgehammer",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/gold_sledgehammer.json",
+      "ingredients": [
+        "minecraft:gold_block",
+        "minecraft:gold_ingot",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "minecraft:gold_block"
+        ],
+        "M": [
+          "minecraft:gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:guide_book_admin",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -108408,6 +106005,42 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:iron_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:iron_sledgehammer",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/iron_sledgehammer.json",
+      "ingredients": [
+        "minecraft:iron_block",
+        "minecraft:iron_ingot",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "minecraft:iron_block"
+        ],
+        "M": [
+          "minecraft:iron_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:launchpad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -108729,6 +106362,37 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/netherite_quiver_dyed.json",
       "ingredients": [],
       "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_sledgehammer_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_sledgehammer",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_sledgehammer_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:diamond_sledgehammer"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "1.21.11",
         "26.2"
       ]
     },
@@ -110326,6 +107990,42 @@ window.WIKI_DATA = {
         ],
         "addition": [
           "simplebuilding:reinforced_flypad"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:stone_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:stone_sledgehammer",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/stone_sledgehammer.json",
+      "ingredients": [
+        "minecraft:cobblestone",
+        "minecraft:iron_ingot",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "minecraft:iron_ingot"
+        ],
+        "M": [
+          "minecraft:cobblestone"
+        ],
+        "S": [
+          "minecraft:stick"
         ]
       },
       "lines": [
@@ -118175,7 +115875,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:octant",
-            "simplebuilding:diamond_sledgehammer",
+            "simplehammers:diamond_sledgehammer",
             "simplebuilding:quiver",
             "simplebuilding:netherite_apple",
             "simplebuilding:enchanted_netherite_apple",
@@ -118210,7 +115910,7 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:gold_sledgehammer",
+            "simplehammers:gold_sledgehammer",
             "simplelib:netherite_nugget",
             "simplebuilding:netherite_carrot"
           ],
@@ -118244,7 +115944,7 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplebuilding:gold_sledgehammer",
+            "simplehammers:gold_sledgehammer",
             "simplelib:netherite_nugget",
             "simplebuilding:netherite_carrot"
           ],
@@ -118381,7 +116081,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:diamond_building_wand",
-            "simplebuilding:diamond_sledgehammer",
+            "simplehammers:diamond_sledgehammer",
             "simplebuilding:enderite_apple",
             "simplebuilding:enchanted_enderite_apple"
           ],
@@ -119831,122 +117531,6 @@ window.WIKI_DATA = {
   ],
   "enchantments": [
     {
-      "id": "simplebuilding:break_through",
-      "name": {
-        "en_us": "Break Through",
-        "de_de": "Durchbruch"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 2,
-      "weight": 2,
-      "anvilCost": 4,
-      "slots": [
-        "mainhand"
-      ],
-      "supportedItems": "#simplebuilding:sledgehammer_tools",
-      "primaryItems": "#simplebuilding:sledgehammer_tools",
-      "exclusiveSet": null,
-      "effects": [],
-      "implementedIn": "code",
-      "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-      "note": {
-        "en": {
-          "summary": "Break Through lets the sledgehammer take further layers behind the struck face along - one more layer per level.",
-          "details": [
-            "Can be applied to the sledgehammers from stone through enderite (tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 2; min cost 15 (+15 per level above the first), max cost 55 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Depth = enchantment level: level I takes 1 extra layer behind the face, level II takes 2 layers.",
-            "The direction comes from the view angle: steeper than 60 degrees down -> layers below the face; steeper than 60 degrees up -> above it; otherwise horizontally away from the player.",
-            "Every extra layer is the same size as the hammer face (3x3, 5x5 with Radius).",
-            "While sneaking the hammer mines a single block only.",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Which blocks of the layers actually drop is still decided by the Override rule.",
-            "Highlight and crack preview (Fabric, NeoForge and Forge) show the layers behind as well.",
-            "The mod's test proves: looking down with Break Through I takes the layer below along, and sneaking leaves everything but the targeted block standing.",
-            "Chests (only with enableLootTableChanges): bastion (treasure and other chests) book I (weight 5), bastion treasure room book II (3); nether fortress I (2); dungeon I (8).",
-            "Traders (only with enableVillagerTrades): level 4 toolsmith - Iron Sledgehammer (16 emeralds + an iron pickaxe) and Diamond Sledgehammer (28 emeralds + a diamond pickaxe) with Break Through I (weight 5) in the enchantment pool.",
-            "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_break_through.png)."
-          ],
-          "controls": [
-            "No controls of its own; it works automatically while mining with the sledgehammer.",
-            "Sneak (Shift) while mining to take only the front face.",
-            "The view angle steers which way the extra layers lie (look down = dig downwards)."
-          ],
-          "tiers": [
-            "I: 1 extra layer behind the face",
-            "II: 2 extra layers behind the face"
-          ],
-          "caveats": [
-            "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Level II only comes from the creative inventory; chests and traders deliver level I exclusively.",
-            "The slowdown counts the blocks that really break, so level II slows more than level I (up to the cap); while sneaking there is none.",
-            "The generated exclusive tag exclusive_set/break_through_group contains only Break Through itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
-            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
-          ]
-        },
-        "de": {
-          "summary": "Durchbruch lässt den Vorschlaghammer hinter der angeschlagenen Fläche weitere Schichten mit abbauen – je Stufe eine Schicht mehr.",
-          "details": [
-            "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe II; Gewicht 2; Mindestkosten 15 (+15), Höchstkosten 55 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
-            "Tiefe = Verzauberungsstufe: Stufe I nimmt 1 zusätzliche Schicht hinter der Fläche, Stufe II 2 Schichten.",
-            "Die Richtung ergibt sich aus dem Blickwinkel: steiler als 60° nach unten → Schichten unter der Fläche; steiler als 60° nach oben → darüber; sonst horizontal vom Spieler weg.",
-            "Jede zusätzliche Schicht hat dieselbe Größe wie die Hammerfläche (3×3, mit Radius 5×5).",
-            "Beim Schleichen baut der Hammer nur einen einzelnen Block ab.",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Welche Blöcke der Schichten tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel.",
-            "Highlight und Riss-Vorschau (Fabric, NeoForge und Forge) zeigen auch die hinteren Schichten.",
-            "Der Test der Mod belegt: Blick nach unten mit Durchbruch I nimmt die Schicht darunter mit, Schleichen lässt alles außer dem Zielblock stehen.",
-            "Truhen (nur bei enableLootTableChanges): Bastion (Schatz- und sonstige Truhen) Buch I (Gewicht 5), Bastion-Schatzraum Buch II (3); Netherfestung I (2); Verlies I (8).",
-            "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 4 – Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) und Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke) mit Durchbruch I (Gewicht 5) im Verzauberungspool.",
-            "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_break_through.png)."
-          ],
-          "controls": [
-            "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer.",
-            "Schleichen (Shift) beim Abbauen, um nur die vordere Fläche zu nehmen.",
-            "Blickwinkel steuert, in welche Richtung die Zusatzschichten liegen (nach unten schauen = nach unten graben)."
-          ],
-          "tiers": [
-            "I: 1 zusätzliche Schicht hinter der Fläche",
-            "II: 2 zusätzliche Schichten hinter der Fläche"
-          ],
-          "caveats": [
-            "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
-            "Stufe II gibt es nur aus dem Kreativ-Inventar; Truhen und Händler liefern ausschließlich Stufe I.",
-            "Die Verlangsamung zählt die Blöcke, die wirklich brechen; Stufe II verlangsamt also stärker als Stufe I (bis zur Obergrenze); beim Schleichen gibt es keine.",
-            "Das generierte Exklusiv-Tag exclusive_set/break_through_group enthält nur Durchbruch selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
-            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantmentTags.java",
-          "src/main/generated/data/simplebuilding/enchantment/break_through.json",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/break_through_group.json",
-          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-          "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/resources/assets/minecraft/items/enchanted_book.json",
-          "forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeClient.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:bridge",
       "name": {
         "en_us": "Bridge",
@@ -120216,7 +117800,7 @@ window.WIKI_DATA = {
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
@@ -121130,229 +118714,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:override",
-      "name": {
-        "en_us": "Override",
-        "de_de": "Übersteuerung"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 2,
-      "weight": 2,
-      "anvilCost": 4,
-      "slots": [
-        "mainhand"
-      ],
-      "supportedItems": "#simplebuilding:sledgehammer_tools",
-      "primaryItems": "#simplebuilding:sledgehammer_tools",
-      "exclusiveSet": null,
-      "effects": [],
-      "implementedIn": "code",
-      "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/override.json",
-      "note": {
-        "en": {
-          "summary": "Override loosens the rule for which neighboring blocks the sledgehammer takes along in its mining face - all the way up to \"anything that can be broken\".",
-          "details": [
-            "Can be applied to the Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 2; min cost 20 (+15 per level above the first), max cost 70 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Without the enchantment the hammer only takes neighboring blocks along that are exactly the same block as the one struck, are in the tag mineable/pickaxe and that the hammer can harvest normally.",
-            "Level I: every block from mineable/pickaxe in the face that the hammer can harvest normally - the block type may differ (stone and cobblestone go together, dirt stays standing).",
-            "Level II: every breakable block in the face; only air and blocks with a negative destroy speed are left out (dirt goes too).",
-            "Level II on top of that: the hammer counts as the correct tool for blocks from mineable/axe, mineable/shovel and mineable/hoe (drops); if its normal speed there is at most 1.0, it is set to the base speed of its material and then multiplied by the area factor as usual.",
-            "Without level II the area effect only works when the struck block itself is a mineable/pickaxe block the hammer can harvest; hit dirt, for example, and the hammer breaks only that one block.",
-            "Durability per extra block destroyed: 1 point, 2 points if the hammer is not the correct tool for that block; with level II axe/shovel/hoe blocks count as the correct tool and cost 1 point.",
-            "The hammer's highlight outline and crack preview (Fabric, NeoForge and Forge) follow the same selection rules as the mining itself (SledgehammerUtils.shouldBreak).",
-            "The mod's test proves all three tiers on a field of stone, cobblestone and dirt.",
-            "Chests (only with enableLootTableChanges): end city treasure chest book II (weight 5).",
-            "Traders (only with enableVillagerTrades): a level 4 librarian sells a book for 25 emeralds from the pool Linear I (25) / Override I (20), at most 2 uses; a level 4 toolsmith sells the Iron Sledgehammer for 16 emeralds + an iron pickaxe and the Diamond Sledgehammer for 28 emeralds + a diamond pickaxe, each with one enchantment out of Override I (15), Break Through I (5), Range I (10), Unbreaking II (50), Efficiency III (50); chance of a second, different enchantment: iron 0.01, diamond 0.15.",
-            "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_override.png)."
-          ],
-          "controls": [
-            "No controls of its own; it works automatically while mining with the sledgehammer, whether you sneak or not.",
-            "Level II: the hammer can also be used like a matching tool on blocks from mineable/axe, mineable/shovel and mineable/hoe."
-          ],
-          "tiers": [
-            "Without Override: only the same block type as the block struck, and only mineable/pickaxe blocks",
-            "I: any mineable/pickaxe blocks the hammer can harvest",
-            "II: every breakable block; axe/shovel/hoe blocks count as a matching tool and are mined at material speed"
-          ],
-          "caveats": [
-            "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Level II only comes from the end city treasure chest or the creative inventory; traders only offer level I."
-          ]
-        },
-        "de": {
-          "summary": "Übersteuerung lockert die Regel, welche Nachbarblöcke der Vorschlaghammer in seiner Abbaufläche mitnimmt – bis hin zu „alles, was zerstörbar ist“.",
-          "details": [
-            "Verzauberbar auf Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe II; Gewicht 2; Mindestkosten 20 (+15), Höchstkosten 70 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
-            "Ohne die Verzauberung nimmt der Hammer nur Nachbarblöcke mit, die exakt derselbe Block wie der angeschlagene sind, im Tag mineable/pickaxe stehen und die der Hammer regulär abbauen kann.",
-            "Stufe I: jeder Block aus mineable/pickaxe in der Fläche, den der Hammer regulär abbauen kann – der Blocktyp darf sich unterscheiden (Stein und Bruchstein fallen zusammen, Erde bleibt stehen).",
-            "Stufe II: jeder zerstörbare Block in der Fläche; nur Luft und Blöcke mit negativer Abbauzeit werden ausgelassen (Erde fällt mit).",
-            "Stufe II zusätzlich: Der Hammer gilt für Blöcke aus mineable/axe, mineable/shovel und mineable/hoe als richtiges Werkzeug (Drops); liegt seine normale Geschwindigkeit dort bei höchstens 1,0, wird sie auf die Grundgeschwindigkeit seines Materials gesetzt und anschließend wie üblich mit dem Flächen-Multiplikator verrechnet.",
-            "Ohne Stufe II arbeitet die Flächenwirkung nur, wenn der angeschlagene Block selbst ein mineable/pickaxe-Block ist, den der Hammer abbauen kann; schlägt man z. B. Erde an, bricht der Hammer nur diesen einen Block.",
-            "Haltbarkeit pro zusätzlich zerstörtem Block: 1 Punkt, 2 Punkte wenn der Hammer für diesen Block nicht das richtige Werkzeug ist; mit Stufe II zählen Axt-/Schaufel-/Hacken-Blöcke als richtiges Werkzeug und kosten 1 Punkt.",
-            "Highlight-Umriss und Riss-Vorschau des Hammers (Fabric, NeoForge und Forge) folgen denselben Auswahlregeln wie der Abbau (SledgehammerUtils.shouldBreak).",
-            "Der Test der Mod belegt alle drei Stufen an einem Feld aus Stein, Bruchstein und Erde.",
-            "Truhen (nur bei enableLootTableChanges): Endsiedlung Buch II (Gewicht 5).",
-            "Händler (nur bei enableVillagerTrades): Bibliothekar Stufe 4 verkauft für 25 Smaragde ein Buch aus dem Pool Linear I (25) / Übersteuerung I (20), maximal 2 Käufe; Werkzeugschmied Stufe 4 verkauft den Eisen-Vorschlaghammer für 16 Smaragde + Eisenspitzhacke und den Diamant-Vorschlaghammer für 28 Smaragde + Diamantspitzhacke, jeweils mit einer Verzauberung aus Übersteuerung I (15), Durchbruch I (5), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); Chance auf eine zweite, andere Verzauberung: Eisen 0,01, Diamant 0,15.",
-            "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_override.png)."
-          ],
-          "controls": [
-            "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer, unabhängig vom Schleichen.",
-            "Stufe II: Der Hammer lässt sich auch auf Blöcken aus mineable/axe, mineable/shovel und mineable/hoe wie ein passendes Werkzeug einsetzen."
-          ],
-          "tiers": [
-            "ohne: nur derselbe Blocktyp wie der angeschlagene Block, nur mineable/pickaxe-Blöcke",
-            "I: beliebige mineable/pickaxe-Blöcke, die der Hammer abbauen kann",
-            "II: alle zerstörbaren Blöcke; Axt-/Schaufel-/Hacken-Blöcke gelten als passendes Werkzeug und werden mit Materialgeschwindigkeit abgebaut"
-          ],
-          "caveats": [
-            "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
-            "Stufe II gibt es nur aus der Endsiedlungs-Truhe oder dem Kreativ-Inventar; Händler bieten nur Stufe I."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "src/main/generated/data/simplebuilding/enchantment/override.json",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java",
-          "src/main/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
-          "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
-          "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/resources/assets/minecraft/items/enchanted_book.json",
-          "common/src/shared/java/com/simplebuilding/gametest/ToolBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:radius",
-      "name": {
-        "en_us": "Radius",
-        "de_de": "Radius"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 1,
-      "weight": 1,
-      "anvilCost": 8,
-      "slots": [
-        "mainhand"
-      ],
-      "supportedItems": "#simplebuilding:radius_enchantable",
-      "primaryItems": "#simplebuilding:sledgehammer_tools",
-      "exclusiveSet": null,
-      "effects": [],
-      "implementedIn": "code",
-      "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/radius.json",
-      "note": {
-        "en": {
-          "summary": "Radius enlarges the hammer face from 3x3 to 5x5 and strengthens the Detector signal and search range.",
-          "details": [
-            "Can be applied to the sledgehammers from stone through enderite (tag simplebuilding:sledgehammer_tools). Definition: max level I; weight 1; min cost 25 (+20 per level above the first), max cost 75 (+20 per level above the first); anvil cost 8; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Face: base range 1 (3x3) plus the enchantment level - so range 2 with Radius I, that is 5x5 blocks around the block struck.",
-            "While sneaking the hammer mines a single block only.",
-            "Which blocks in the larger face actually drop is still decided by the Override rule (without Override only the same block type).",
-            "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
-            "Only blocks that really break count towards the slowdown; while sneaking there is none.",
-            "Highlight (black outline at alpha 0.3 plus a gray fill) and crack preview show the 5x5 face on Fabric, NeoForge and Forge; the fill strength follows the buildingHighlightOpacity option (default 40); the targeted block itself is left out of the highlight.",
-            "Durability: every extra block costs 1 point, 2 points if the hammer is not the matching tool for it.",
-            "The mod's test proves the 5x5 face, that the ring at distance 3 stays standing, and that sneaking falls back to 3x3.",
-            "Chests (only with enableLootTableChanges): ancient city book I (weight 4).",
-            "Traders (only with enableWanderingTrades): the wandering trader (\"uncommon\" pool) sells a book for 40 emeralds from a pool that holds only Radius I (weight 20), 1 use.",
-            "On the MC 1.21.11 line the same wandering trader pool exists as code (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level I; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_radius.png).",
-            "Radius also fits the Detector (item tag simplebuilding:radius_enchantable = the sledgehammers plus the Detector); there it raises signal and range of every ore class, the signal of the rare classes the most: common ores from 18 to 22 (range 24 to 28), gold 13 to 17 (20 to 24), diamond and emerald 9 to 17 (16 to 24), ancient debris and the End ores 5 to 9 (16 to 20)."
-          ],
-          "controls": [
-            "No controls of its own; it works automatically while mining with the sledgehammer.",
-            "Sneak (Shift) while mining to take just the small 3x3 face for the moment."
-          ],
-          "caveats": [
-            "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Only one level; higher levels are not defined.",
-            "Villagers do not offer Radius, only the wandering trader does (the toolsmith hammers carry \"range\", which is the Range enchantment, not Radius).",
-            "The generated exclusive tag exclusive_set/radius_group contains only Radius itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
-            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
-          ]
-        },
-        "de": {
-          "summary": "Radius vergrößert die Hammerfläche von 3x3 auf 5x5 und erhöht Signal und Suchreichweite des Detektors.",
-          "details": [
-            "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe I; Gewicht 1; Mindestkosten 25 (+20), Höchstkosten 75 (+20); Amboss-Kosten 8; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
-            "Fläche: Grundreichweite 1 (3×3) plus Verzauberungsstufe – mit Radius I also Reichweite 2, d. h. 5×5 Blöcke um den angeschlagenen Block.",
-            "Beim Schleichen baut der Hammer nur einen einzelnen Block ab.",
-            "Welche Blöcke in der größeren Fläche tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel (ohne Übersteuerung nur derselbe Blocktyp).",
-            "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet für den ersten Block 1,5x, für Blöcke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Blöcke zählen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unverändert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
-            "Zur Verlangsamung zählen nur Blöcke, die wirklich brechen; beim Schleichen gibt es keine.",
-            "Highlight (schwarzer Umriss mit Alpha 0,3 plus graue Füllung) und Riss-Vorschau zeigen auf Fabric, NeoForge und Forge die 5×5-Fläche; die Füllstärke folgt der Option buildingHighlightOpacity (Standard 40); der Zielblock selbst wird im Highlight ausgelassen.",
-            "Haltbarkeit: jeder zusätzliche Block kostet 1 Punkt, 2 Punkte wenn der Hammer für ihn nicht das passende Werkzeug ist.",
-            "Der Test der Mod belegt die 5×5-Fläche, dass der Ring in Abstand 3 stehen bleibt, und dass Schleichen auf 3×3 zurückschaltet.",
-            "Truhen (nur bei enableLootTableChanges): Antike Stadt Buch I (Gewicht 4).",
-            "Händler (nur bei enableWanderingTrades): Wanderhändler (Pool „uncommon“) verkauft für 40 Smaragde ein Buch aus einem Pool, der nur Radius I (Gewicht 20) enthält, 1 Kauf.",
-            "Auf der MC-1.21.11-Linie liegt derselbe Wanderhändler-Pool als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe I; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_radius.png).",
-            "Radius passt auch auf den Detektor (Item-Tag simplebuilding:radius_enchantable = die Vorschlaghämmer plus der Detektor); dort hebt er Signal und Reichweite jeder Erzklasse an, das Signal der seltenen Klassen am stärksten: gewöhnliche Erze von 18 auf 22 (Reichweite 24 auf 28), Gold 13 auf 17 (20 auf 24), Diamant und Smaragd 9 auf 17 (16 auf 24), Antiker Schrott und die End-Erze 5 auf 9 (16 auf 20)."
-          ],
-          "controls": [
-            "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer.",
-            "Schleichen (Shift) beim Abbauen, um vorübergehend nur die kleine 3×3-Fläche zu nehmen."
-          ],
-          "caveats": [
-            "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
-            "Nur eine Stufe; höhere Stufen sind nicht definiert.",
-            "Dorfbewohner bieten Radius nicht an, nur der Wanderhändler (die Werkzeugschmied-Hämmer enthalten „range“ = Reichweite, nicht Radius).",
-            "Das generierte Exklusiv-Tag exclusive_set/radius_group enthält nur Radius selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
-            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUtils.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantmentTags.java",
-          "src/main/generated/data/simplebuilding/enchantment/radius.json",
-          "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
-          "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/radius_group.json",
-          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-          "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/wandering_trader/uncommon.json",
-          "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "src/main/resources/assets/minecraft/items/enchanted_book.json",
-          "forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeClient.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/generated/data/simplebuilding/tags/item/radius_enchantable.json",
-          "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:range",
       "name": {
         "en_us": "Range",
@@ -121940,11 +119301,11 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:break_through",
+          "id": "simplehammers:break_through",
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/break_through_group.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/enchantment/exclusive_set/break_through_group.json"
     },
     {
       "id": "simplebuilding:enchantment/exclusive_set/builder_group",
@@ -122000,11 +119361,11 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:radius",
+          "id": "simplehammers:radius",
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/radius_group.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/enchantment/exclusive_set/radius_group.json"
     },
     {
       "id": "simplebuilding:enchantment/exclusive_set/wand_modifier_group",
@@ -124229,10 +121590,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -124290,6 +121647,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplecrucibles:enderite_water_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplehammers:enderite_sledgehammer",
           "required": true
         },
         {
@@ -124468,10 +121829,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -124549,6 +121906,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplecrucibles:enderite_water_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplehammers:enderite_sledgehammer",
           "required": true
         },
         {
@@ -125406,35 +122767,11 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:stone_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:copper_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:iron_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:gold_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:diamond_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:netherite_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
+          "id": "#simplehammers:sledgehammers",
+          "required": false
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/sledgehammer_tools.json"
     },
     {
       "id": "simplebuilding:item/trial_chamber_heads",
@@ -126297,6 +123634,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Octets aktivieren",
       "tooltip": "Turns the bundled Simple Octets module on or off: octets of every wood, every block with stairs and slabs and the melon. Off hides the module's creative tab, its entries in the Vanilla tabs and its guide, and a melon slice no longer places a melon octet; placed octets, recipes and the chess octets stay. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das mitgelieferte Modul Simple Octets an oder aus: Achtel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone. Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus, und eine Melonenscheibe setzt kein Melonen-Achtel mehr; gesetzte Achtel, Rezepte und die Schach-Achtel bleiben. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleHammers",
+      "shortName": "enableSimpleHammers",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Hammers",
+      "labelDe": "Simple Hammers aktivieren",
+      "tooltip": "Turns the bundled Simple Hammers module on or off: the seven sledgehammers. Off makes them plain pickaxes of their tier (no area, no reshaping or carving, no crushing, no in-world upgrades) and hides the module's creative tab and guide; the hammers, their enchantments and recipes stay. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das mitgelieferte Modul Simple Hammers an oder aus: die sieben Vorschlaghämmer. Aus macht sie zu einfachen Spitzhacken ihrer Stufe (keine Fläche, kein Umformen oder Abtragen, kein Zerschlagen, kein Aufwerten in der Welt) und blendet den Kreativ-Tab des Moduls und sein Handbuch aus; Hämmer, ihre Verzauberungen und Rezepte bleiben. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -130972,26 +128329,13 @@ window.WIKI_DATA = {
           "hitIntervalTicks": 20,
           "hits": 5,
           "finishCooldownTicks": 20,
-          "hammers": [
-            {
-              "id": "simplebuilding:diamond_sledgehammer",
-              "rank": 1
-            },
-            {
-              "id": "simplebuilding:enderite_sledgehammer",
-              "rank": 3
-            },
-            {
-              "id": "simplebuilding:netherite_sledgehammer",
-              "rank": 2
-            }
-          ]
+          "hammers": []
         },
         "note": {
           "sources": [
-            "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-            "common/src/shared/java/com/simplebuilding/util/SledgehammerProgress.java",
-            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
+            "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerProgress.java",
+            "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
             "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
             "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
             "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
@@ -131039,44 +128383,15 @@ window.WIKI_DATA = {
           "reverseDamage": 2,
           "minTicks": 4,
           "maxTicks": 40,
-          "hammers": [
-            {
-              "id": "simplebuilding:copper_sledgehammer",
-              "ticks": 40
-            },
-            {
-              "id": "simplebuilding:diamond_sledgehammer",
-              "ticks": 25
-            },
-            {
-              "id": "simplebuilding:enderite_sledgehammer",
-              "ticks": 20
-            },
-            {
-              "id": "simplebuilding:gold_sledgehammer",
-              "ticks": 16
-            },
-            {
-              "id": "simplebuilding:iron_sledgehammer",
-              "ticks": 33
-            },
-            {
-              "id": "simplebuilding:netherite_sledgehammer",
-              "ticks": 22
-            },
-            {
-              "id": "simplebuilding:stone_sledgehammer",
-              "ticks": 40
-            }
-          ],
+          "hammers": [],
           "cornerSpeedMultiplier": 1.5,
           "cornerQuartersRemovedPerHit": 1
         },
         "note": {
           "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
             "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
-            "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+            "modules/simplehammers/shared/java/com/simplehammers/engine/HammerCorners.java",
             "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java"
           ],
           "en": {
@@ -131114,7 +128429,7 @@ window.WIKI_DATA = {
         "facts": {},
         "note": {
           "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
             "common/src/shared/java/com/simplebuilding/util/AnvilDiamondCrushing.java",
             "common/src/shared/java/com/simplebuilding/mixin/AnvilBlockMixin.java",
             "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
@@ -131619,7 +128934,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer"
+          "simplehammers:copper_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131652,7 +128967,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer"
+          "simplehammers:copper_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131684,7 +128999,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:netherite_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131715,7 +129030,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:netherite_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131748,7 +129063,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:netherite_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131781,7 +129096,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:netherite_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131814,7 +129129,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:netherite_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131846,7 +129161,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:netherite_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131877,7 +129192,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:diamond_sledgehammer"
+          "simplehammers:diamond_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131910,7 +129225,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:diamond_sledgehammer"
+          "simplehammers:diamond_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131943,7 +129258,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:diamond_sledgehammer"
+          "simplehammers:diamond_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -131976,7 +129291,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:diamond_sledgehammer"
+          "simplehammers:diamond_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -132008,7 +129323,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:diamond_sledgehammer"
+          "simplehammers:diamond_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -132040,7 +129355,7 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:diamond_sledgehammer"
+          "simplehammers:diamond_sledgehammer"
         ],
         "toolOrBetter": true,
         "output": {
@@ -132066,13 +129381,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplelib:diamond_pebble",
           "count": 81
@@ -132096,15 +129405,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplebuilding:ice_chip",
           "count": 4
@@ -132126,15 +129427,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplebuilding:ice_chip",
           "count": 9
@@ -132156,15 +129449,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplebuilding:obsidian_chip",
           "count": 9
@@ -132186,15 +129471,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplebuilding:crying_obsidian_chip",
           "count": 9
@@ -132216,15 +129493,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplebuilding:blazing_obsidian_chip",
           "count": 9
@@ -132246,15 +129515,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplebuilding:fire_chip",
           "count": 4
@@ -132276,15 +129537,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplelib:diamond_pebble",
           "count": 9
@@ -132306,15 +129559,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "minecraft:quartz",
           "count": 4
@@ -132336,13 +129581,7 @@ window.WIKI_DATA = {
             "count": 1
           }
         ],
-        "tools": [
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer"
-        ],
+        "tools": [],
         "output": {
           "id": "simplelib:diamond_pebble",
           "count": 81
@@ -133746,13 +130985,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_voidline_b_side",
@@ -133775,13 +131014,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_voidline_track_3",
@@ -133804,13 +131043,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_voidline",
@@ -133833,13 +131072,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_driftwood_b_side",
@@ -133862,13 +131101,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_driftwood",
@@ -133891,13 +131130,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_daybreak_b_side",
@@ -133920,13 +131159,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_daybreak",
@@ -133949,13 +131188,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_brimstone_b_side",
@@ -133978,13 +131217,13 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplehammers:copper_sledgehammer",
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer",
+          "simplehammers:stone_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:music_disc_brimstone",
@@ -146312,7 +143551,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:override",
+        "enchantment": "simplehammers:override",
         "level": 2
       },
       {
@@ -146456,7 +143695,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplebuilding:diamond_sledgehammer",
+        "item": "simplehammers:diamond_sledgehammer",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -146586,7 +143825,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:radius",
+        "enchantment": "simplehammers:radius",
         "level": 1
       },
       {
@@ -146618,7 +143857,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplebuilding:diamond_sledgehammer",
+        "item": "simplehammers:diamond_sledgehammer",
         "table": "minecraft:chests/ancient_city",
         "label": {
           "en": "Ancient city",
@@ -146832,12 +144071,12 @@ window.WIKI_DATA = {
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
       },
       {
         "type": "chest",
-        "item": "simplebuilding:gold_sledgehammer",
+        "item": "simplehammers:gold_sledgehammer",
         "table": "minecraft:chests/bastion_treasure",
         "label": {
           "en": "Bastion treasure room",
@@ -147014,12 +144253,12 @@ window.WIKI_DATA = {
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
       },
       {
         "type": "chest",
-        "item": "simplebuilding:gold_sledgehammer",
+        "item": "simplehammers:gold_sledgehammer",
         "table": "minecraft:chests/bastion_other",
         "label": {
           "en": "Bastion (other chests)",
@@ -147219,7 +144458,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 2
       },
       {
@@ -147361,7 +144600,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
       },
       {
@@ -148044,7 +145283,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:break_through",
+        "enchantment": "simplehammers:break_through",
         "level": 1
       },
       {
@@ -149442,22 +146681,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "item": "simplebuilding:diamond_sledgehammer",
-        "table": "minecraft:chests/ancient_city",
-        "type": "chest",
-        "label": {
-          "en": "Ancient city",
-          "de": "Antike Stätte"
-        },
-        "gated": true,
-        "requires": [],
-        "pmf": [
-          0.949167657551,
-          0.049940546968,
-          0.000891795482
-        ]
-      },
-      {
         "item": "simplebuilding:enchanted_enderite_apple",
         "table": "minecraft:chests/end_city_treasure",
         "type": "chest",
@@ -149659,42 +146882,6 @@ window.WIKI_DATA = {
         "pmf": [
           0.9835,
           0.0165
-        ]
-      },
-      {
-        "item": "simplebuilding:gold_sledgehammer",
-        "table": "minecraft:chests/bastion_other",
-        "type": "chest",
-        "label": {
-          "en": "Bastion (other chests)",
-          "de": "Bastion (übrige Truhen)"
-        },
-        "gated": true,
-        "requires": [
-          "nether"
-        ],
-        "pmf": [
-          0.901752370009,
-          0.094800344729,
-          0.003447285263
-        ]
-      },
-      {
-        "item": "simplebuilding:gold_sledgehammer",
-        "table": "minecraft:chests/bastion_treasure",
-        "type": "chest",
-        "label": {
-          "en": "Bastion treasure room",
-          "de": "Bastion-Schatzraum"
-        },
-        "gated": true,
-        "requires": [
-          "nether"
-        ],
-        "pmf": [
-          0.901752370009,
-          0.094800344729,
-          0.003447285263
         ]
       },
       {
@@ -150065,6 +147252,58 @@ window.WIKI_DATA = {
           0.922133333333,
           0.075733333333,
           0.002133333333
+        ]
+      },
+      {
+        "item": "simplehammers:diamond_sledgehammer",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.949167657551,
+          0.049940546968,
+          0.000891795482
+        ]
+      },
+      {
+        "item": "simplehammers:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.094800344729,
+          0.003447285263
+        ]
+      },
+      {
+        "item": "simplehammers:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.094800344729,
+          0.003447285263
         ]
       },
       {
@@ -151269,7 +148508,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite/hammer_of_the_end",
       "parent": "simplebuilding:enderite/template_of_the_end",
-      "icon": "simplebuilding:enderite_sledgehammer",
+      "icon": "simplehammers:enderite_sledgehammer",
       "frame": "challenge",
       "hidden": false,
       "title": {
@@ -151285,12 +148524,12 @@ window.WIKI_DATA = {
           "name": "enderite_sledgehammer",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:enderite_sledgehammer"
+            "simplehammers:enderite_sledgehammer"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/enderite/hammer_of_the_end.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/hammer_of_the_end.json"
     },
     {
       "id": "simplebuilding:enderite/heart_of_the_end",
@@ -151984,7 +149223,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hammer/demolition_crew",
       "parent": "simplebuilding:hammer/stair_master",
-      "icon": "simplebuilding:diamond_sledgehammer",
+      "icon": "simplehammers:diamond_sledgehammer",
       "frame": "challenge",
       "hidden": false,
       "title": {
@@ -152002,7 +149241,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/hammer/demolition_crew.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/demolition_crew.json"
     },
     {
       "id": "simplebuilding:hammer/diamond_in_the_rough",
@@ -152033,7 +149272,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hammer/heavy_metal",
       "parent": "simplebuilding:hammer/stair_master",
-      "icon": "simplebuilding:netherite_sledgehammer",
+      "icon": "simplehammers:netherite_sledgehammer",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -152049,12 +149288,12 @@ window.WIKI_DATA = {
           "name": "netherite_sledgehammer",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:netherite_sledgehammer"
+            "simplehammers:netherite_sledgehammer"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/hammer/heavy_metal.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/heavy_metal.json"
     },
     {
       "id": "simplebuilding:hammer/pebble_dash",
@@ -152083,7 +149322,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hammer/stair_master",
       "parent": "simplebuilding:root",
-      "icon": "simplebuilding:stone_sledgehammer",
+      "icon": "simplehammers:stone_sledgehammer",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -152102,7 +149341,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/hammer/stair_master.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/stair_master.json"
     },
     {
       "id": "simplebuilding:machines/bottomless_bucket",
@@ -153281,7 +150520,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:story/hammer_time",
       "parent": "minecraft:story/upgrade_tools",
-      "icon": "simplebuilding:stone_sledgehammer",
+      "icon": "simplehammers:stone_sledgehammer",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -153297,18 +150536,18 @@ window.WIKI_DATA = {
           "name": "sledgehammer",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:stone_sledgehammer",
-            "simplebuilding:copper_sledgehammer",
-            "simplebuilding:iron_sledgehammer",
-            "simplebuilding:gold_sledgehammer",
-            "simplebuilding:diamond_sledgehammer",
-            "simplebuilding:netherite_sledgehammer",
-            "simplebuilding:enderite_sledgehammer"
+            "simplehammers:stone_sledgehammer",
+            "simplehammers:copper_sledgehammer",
+            "simplehammers:iron_sledgehammer",
+            "simplehammers:gold_sledgehammer",
+            "simplehammers:diamond_sledgehammer",
+            "simplehammers:netherite_sledgehammer",
+            "simplehammers:enderite_sledgehammer"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/story/hammer_time.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/story/hammer_time.json"
     },
     {
       "id": "simplebuilding:tiers/copper_crafter",
@@ -153330,18 +150569,18 @@ window.WIKI_DATA = {
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplebuilding:copper_chisel",
-            "simplebuilding:copper_sledgehammer",
+            "simplehammers:copper_sledgehammer",
             "simplebuilding:copper_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/tiers/copper_crafter.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/tiers/copper_crafter.json"
     },
     {
       "id": "simplebuilding:tiers/diamond_standard",
       "parent": "simplebuilding:tiers/ironclad",
-      "icon": "simplebuilding:diamond_sledgehammer",
+      "icon": "simplehammers:diamond_sledgehammer",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -153358,18 +150597,18 @@ window.WIKI_DATA = {
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplebuilding:diamond_chisel",
-            "simplebuilding:diamond_sledgehammer",
+            "simplehammers:diamond_sledgehammer",
             "simplebuilding:diamond_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/tiers/diamond_standard.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/tiers/diamond_standard.json"
     },
     {
       "id": "simplebuilding:tiers/golden_touch",
       "parent": "simplebuilding:tiers/step_by_step",
-      "icon": "simplebuilding:gold_sledgehammer",
+      "icon": "simplehammers:gold_sledgehammer",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -153386,18 +150625,18 @@ window.WIKI_DATA = {
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplebuilding:gold_chisel",
-            "simplebuilding:gold_sledgehammer",
+            "simplehammers:gold_sledgehammer",
             "simplebuilding:gold_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/tiers/golden_touch.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/tiers/golden_touch.json"
     },
     {
       "id": "simplebuilding:tiers/ironclad",
       "parent": "simplebuilding:tiers/copper_crafter",
-      "icon": "simplebuilding:iron_sledgehammer",
+      "icon": "simplehammers:iron_sledgehammer",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -153414,13 +150653,13 @@ window.WIKI_DATA = {
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplebuilding:iron_chisel",
-            "simplebuilding:iron_sledgehammer",
+            "simplehammers:iron_sledgehammer",
             "simplebuilding:iron_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/tiers/ironclad.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/tiers/ironclad.json"
     },
     {
       "id": "simplebuilding:tiers/nether_forged",
@@ -153442,13 +150681,13 @@ window.WIKI_DATA = {
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplebuilding:netherite_chisel",
-            "simplebuilding:netherite_sledgehammer",
+            "simplehammers:netherite_sledgehammer",
             "simplebuilding:netherite_building_wand"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/tiers/nether_forged.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/tiers/nether_forged.json"
     },
     {
       "id": "simplebuilding:tiers/step_by_step",
@@ -156089,17 +153328,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 611,
+    "items": 604,
     "blocks": 368,
-    "recipes": 1053,
+    "recipes": 1043,
     "lootTables": 388,
     "trades": 20,
-    "enchantments": 19,
+    "enchantments": 16,
     "tags": 58,
-    "config": 234,
+    "config": 235,
     "inWorld": 491,
     "advancements": 116,
-    "features": 51,
+    "features": 50,
     "undocumented": 0,
     "incompleteProse": 0
   },
