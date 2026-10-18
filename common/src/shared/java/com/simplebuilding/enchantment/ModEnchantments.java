@@ -35,8 +35,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> DEEP_POCKETS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "deep_pockets")); // final
     public static final ResourceKey<Enchantment> MASTER_BUILDER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "master_builder")); // final
     public static final ResourceKey<Enchantment> FUNNEL = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "funnel")); // final
-    public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius")) // 26.3: Simple Hammers' (split stage 7); // final
-    public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "override")) // 26.3: Simple Hammers' (split stage 7); // final
+    public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius")); // 26.3: Simple Hammers' (split stage 7)
+    public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "override")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> STRIP_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "strip_miner")); // final
     public static final ResourceKey<Enchantment> COVER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "cover")); // final
     public static final ResourceKey<Enchantment> BRIDGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "bridge")); // final
@@ -48,7 +48,7 @@ public class ModEnchantments {
 
     // todo new enchantment names
     public static final ResourceKey<Enchantment> COLOR_PALETTE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "color_palette"));
-    public static final ResourceKey<Enchantment> BREAK_THROUGH = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "break_through")) // 26.3: Simple Hammers' (split stage 7);
+    public static final ResourceKey<Enchantment> BREAK_THROUGH = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "break_through")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> DOUBLE_JUMP = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "double_jump"));
 
     public static final TagKey<DamageType> KINETIC_DAMAGE_TAG = TagKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "kinetic_damage"));

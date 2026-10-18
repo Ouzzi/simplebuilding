@@ -798,6 +798,6 @@ public class SledgehammerUpgrades {
 
     /** Swing of the main hand, seen by everyone and by the player itself. */
     static void swing(Player player) {
-        player.swing(InteractionHand.MAIN_HAND, net.minecraft.world.entity.SwingAnimation.DEFAULT, true);
+        player.swing(InteractionHand.MAIN_HAND, net.minecraft.world.item.component.SwingAnimation.DEFAULT, true);
     }
 }

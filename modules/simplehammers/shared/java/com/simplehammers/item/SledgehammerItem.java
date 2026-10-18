@@ -791,7 +791,7 @@ public class SledgehammerItem extends Item {
     }
 
     private static void swing(Player player) {
-        player.swing(net.minecraft.world.InteractionHand.MAIN_HAND, net.minecraft.world.entity.SwingAnimation.DEFAULT, true);
+        player.swing(net.minecraft.world.InteractionHand.MAIN_HAND, net.minecraft.world.item.component.SwingAnimation.DEFAULT, true);
     }
 
     private static Direction getHitSideFromPlayer(Player player) {
