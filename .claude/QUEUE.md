@@ -669,3 +669,4 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (A, claude-howler5, gemergt 18.10.; Wahl A/B/Mix offen) Howler-Sounds: je Ereignis 3–5 ähnliche Varianten (Vanilla-Stil), A und B, Vorschlag je Ereignis, Wahl per Build-Schalter; Ziel: sehr Vanilla-nah.
 - [~] (A, claude-octets2, 18.10.) Fehlende Octet-Familien nach INVENTAR-OCTETS (15 Bretter-Arten inkl. Aschholz/Dämmerholz + 4 Vanilla-Stufen-Familien; Naturstufen ausgenommen).
 - [~] (A, claude-opt1, 18.10.) Simple Optimization Stufe 1: Gerüst simpleoptimization + 3 Sub-Mods, Kompat-Erkennung (auto/ours/theirs/off), Benchmark-Harness auf sb-test; erste Teile laut KONZEPT §6/§9.
+- [ ] (Fund claude-octets2 18.10.) Simple Blocks: eigene sawing-Rezepte nutzen `forge:conditions` (Forge 26.3 liest nur ein `forge:condition`, mehrere per `forge:and`) → laden auf Forge auch ohne Partner-Mod; Fix in modules/simpleblocks/tools/generate_data.py wie im Octet-Generator.
