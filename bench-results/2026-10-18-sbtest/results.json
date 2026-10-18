@@ -1,0 +1,403 @@
+{
+ "date": "2026-10-18T21:05",
+ "machine": {
+  "profile": "sbtest",
+  "os": "Linux-7.0.14-3-pve-x86_64-with-glibc2.41",
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13500T",
+  "cores": 8,
+  "ram": "14.0 GB",
+  "java": "openjdk version \"25.0.4.1\" 2026-08-18 LTS"
+ },
+ "mc": "26.3",
+ "runs_per_scenario": 3,
+ "missing26_3": [
+  {
+   "slug": "noisiumforked",
+   "modId": "noisium",
+   "latest": "26.2",
+   "areas": [
+    "S3"
+   ]
+  },
+  {
+   "slug": "voxy",
+   "modId": "voxy",
+   "latest": "26.2",
+   "areas": [
+    "O11"
+   ]
+  }
+ ],
+ "runs": [
+  {
+   "area": "o1",
+   "scenario": "a-vanilla",
+   "rep": 1,
+   "mods": [],
+   "wall_s": 91.0,
+   "exit": 0,
+   "error": "[21:06:30] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:06:30] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:06:30] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:06:30] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:06:33] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:06:33] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:06:33] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:06:33] [Server thread/INFO] (Minecraft) Stopping server\n[21:06:33] [Server thread/INFO] (Minecraft) Saving players\n[21:06:33] [Server thread/INFO] (Minecraft) Saving worlds\n[21:06:33] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:06:34] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:06:34] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:06:34] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 30s\n186 actionable tasks: 5 executed, 181 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "b-cullleaves",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    }
+   ],
+   "wall_s": 90.7,
+   "exit": 0,
+   "error": "[21:07:59] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:07:59] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:07:59] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:08:00] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:08:02] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:08:02] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:08:02] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:08:02] [Server thread/INFO] (Minecraft) Stopping server\n[21:08:02] [Server thread/INFO] (Minecraft) Saving players\n[21:08:02] [Server thread/INFO] (Minecraft) Saving worlds\n[21:08:02] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:08:04] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:08:04] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:08:04] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 30s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "b-moreculling",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    }
+   ],
+   "wall_s": 87.7,
+   "exit": 0,
+   "error": "[21:09:27] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:09:27] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:09:27] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:09:27] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:09:30] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:09:30] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:09:30] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:09:30] [Server thread/INFO] (Minecraft) Stopping server\n[21:09:30] [Server thread/INFO] (Minecraft) Saving players\n[21:09:30] [Server thread/INFO] (Minecraft) Saving worlds\n[21:09:30] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:09:32] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:09:32] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:09:32] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 27s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "c-ours",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 88.7,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> on  (no_rival)",
+   "error": "[21:10:57] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:10:57] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:10:57] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:10:57] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:11:00] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:11:00] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:11:00] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:11:00] [Server thread/INFO] (Minecraft) Stopping server\n[21:11:00] [Server thread/INFO] (Minecraft) Saving players\n[21:11:00] [Server thread/INFO] (Minecraft) Saving worlds\n[21:11:00] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:11:01] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:11:01] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:11:01] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 28s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "d-ours+cullleaves",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    },
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 86.9,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> off (rival_wins: cullleaves)",
+   "error": "[21:12:22] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:12:22] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:12:22] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:12:23] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:12:25] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:12:25] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:12:25] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:12:25] [Server thread/INFO] (Minecraft) Stopping server\n[21:12:25] [Server thread/INFO] (Minecraft) Saving players\n[21:12:25] [Server thread/INFO] (Minecraft) Saving worlds\n[21:12:26] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:12:27] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:12:27] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:12:28] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 26s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "d-ours+moreculling",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    },
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 85.2,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> off (rival_wins: moreculling)",
+   "error": "[21:13:50] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:13:50] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:13:50] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:13:50] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:13:52] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:13:52] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:13:52] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:13:52] [Server thread/INFO] (Minecraft) Stopping server\n[21:13:52] [Server thread/INFO] (Minecraft) Saving players\n[21:13:52] [Server thread/INFO] (Minecraft) Saving worlds\n[21:13:52] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:13:53] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:13:53] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:13:53] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 25s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "a-vanilla",
+   "rep": 2,
+   "mods": [],
+   "wall_s": 86.8,
+   "exit": 0,
+   "error": "[21:15:16] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:15:16] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:15:16] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:15:16] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:15:19] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:15:19] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:15:19] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:15:19] [Server thread/INFO] (Minecraft) Stopping server\n[21:15:19] [Server thread/INFO] (Minecraft) Saving players\n[21:15:19] [Server thread/INFO] (Minecraft) Saving worlds\n[21:15:19] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:15:20] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:15:20] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:15:20] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 26s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "b-cullleaves",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    }
+   ],
+   "wall_s": 79.9,
+   "exit": 0,
+   "error": "[21:16:35] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:16:35] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:16:35] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:16:35] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:16:38] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:16:38] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:16:38] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:16:38] [Server thread/INFO] (Minecraft) Stopping server\n[21:16:38] [Server thread/INFO] (Minecraft) Saving players\n[21:16:38] [Server thread/INFO] (Minecraft) Saving worlds\n[21:16:38] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:16:39] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:16:39] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:16:40] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 19s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "b-moreculling",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    }
+   ],
+   "wall_s": 94.0,
+   "exit": 0,
+   "error": "[21:18:09] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:18:09] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:18:09] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:18:09] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:18:11] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:18:11] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:18:11] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:18:11] [Server thread/INFO] (Minecraft) Stopping server\n[21:18:11] [Server thread/INFO] (Minecraft) Saving players\n[21:18:11] [Server thread/INFO] (Minecraft) Saving worlds\n[21:18:12] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:18:14] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:18:14] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:18:14] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 33s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "c-ours",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 99.6,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> on  (no_rival)",
+   "error": "[21:19:47] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:19:48] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:19:48] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:19:48] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:19:50] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:19:50] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:19:50] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:19:50] [Server thread/INFO] (Minecraft) Stopping server\n[21:19:50] [Server thread/INFO] (Minecraft) Saving players\n[21:19:50] [Server thread/INFO] (Minecraft) Saving worlds\n[21:19:51] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:19:53] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:19:53] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:19:53] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 39s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "a-vanilla",
+   "rep": 3,
+   "mods": [],
+   "wall_s": 91.0,
+   "exit": 0,
+   "error": "[21:21:19] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:21:19] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:21:19] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:21:19] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:21:22] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:21:22] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:21:22] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:21:22] [Server thread/INFO] (Minecraft) Stopping server\n[21:21:22] [Server thread/INFO] (Minecraft) Saving players\n[21:21:22] [Server thread/INFO] (Minecraft) Saving worlds\n[21:21:22] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:21:24] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:21:24] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:21:24] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 30s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "b-cullleaves",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    }
+   ],
+   "wall_s": 105.5,
+   "exit": 0,
+   "error": "[21:23:03] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:23:03] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:23:03] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:23:03] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:23:06] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:23:06] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:23:06] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:23:06] [Server thread/INFO] (Minecraft) Stopping server\n[21:23:06] [Server thread/INFO] (Minecraft) Saving players\n[21:23:06] [Server thread/INFO] (Minecraft) Saving worlds\n[21:23:06] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:23:09] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:23:09] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:23:09] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 45s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "b-moreculling",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    }
+   ],
+   "wall_s": 108.7,
+   "exit": 0,
+   "error": "[21:24:54] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:24:54] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:24:54] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:24:54] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:24:56] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:24:56] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:24:57] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:24:57] [Server thread/INFO] (Minecraft) Stopping server\n[21:24:57] [Server thread/INFO] (Minecraft) Saving players\n[21:24:57] [Server thread/INFO] (Minecraft) Saving worlds\n[21:24:57] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:24:58] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:24:59] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:24:59] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 48s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "o1",
+   "scenario": "c-ours",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 98.6,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> on  (no_rival)",
+   "error": "[21:26:32] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.070000, -42.000000, -161.950000\n[21:26:32] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.040000, -42.000000, -161.470000\n[21:26:32] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.020000, -42.000000, -160.980000\n[21:26:32] [Server thread/INFO] (Minecraft) System chat: Teleported Player0 to -164.000000, -42.000000, -160.490000\n[21:26:34] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:26:34] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:26:34] [Server thread/INFO] (Minecraft) Stopping singleplayer server as player logged out\n[21:26:34] [Server thread/INFO] (Minecraft) Stopping server\n[21:26:34] [Server thread/INFO] (Minecraft) Saving players\n[21:26:34] [Server thread/INFO] (Minecraft) Saving worlds\n[21:26:35] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:26:37] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:26:37] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:26:37] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 1m 38s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "a-vanilla",
+   "rep": 1,
+   "mods": [],
+   "wall_s": 156.1,
+   "exit": 0,
+   "error": "[21:28:01] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:28:08] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:28:08] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:28:18] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 2009ms or 40 ticks behind\n[21:29:10] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 3527ms or 70 ticks behind\n[21:29:10] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:29:10] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:29:10] [Server thread/INFO] (Minecraft) Stopping server\n[21:29:10] [Server thread/INFO] (Minecraft) Saving players\n[21:29:10] [Server thread/INFO] (Minecraft) Saving worlds\n[21:29:11] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:29:13] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:29:13] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:29:13] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 35s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "b-servercore",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "servercore",
+     "version": "1.5.20+26.3",
+     "sha512": "abe1f806ea587971"
+    }
+   ],
+   "wall_s": 176.4,
+   "exit": 0,
+   "error": "[21:30:59] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:30:59] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:31:00] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:31:00] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:32:06] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 4033ms or 80 ticks behind\n[21:32:06] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:32:06] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:32:06] [Server thread/INFO] (Minecraft) Stopping server\n[21:32:06] [Server thread/INFO] (Minecraft) Saving players\n[21:32:06] [Server thread/INFO] (Minecraft) Saving worlds\n[21:32:07] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:32:09] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:32:09] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:32:09] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 56s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "c-ours",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "simpleoptserver",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 147.4,
+   "exit": 0,
+   "decision": "S5a  dynamic_distance   mode=auto   -> on  (no_rival)",
+   "error": "[21:33:24] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:33:27] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:33:27] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 128 reached during a single frame. New capacity will be 256.\n[21:33:28] [Server thread/INFO] (simpleoptserver) S5a: MSPT 5.5 -> view 6, simulation 8\n[21:34:34] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 2933ms or 58 ticks behind\n[21:34:34] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:34:34] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:34:34] [Server thread/INFO] (Minecraft) Stopping server\n[21:34:34] [Server thread/INFO] (Minecraft) Saving players\n[21:34:34] [Server thread/INFO] (Minecraft) Saving worlds\n[21:34:34] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:34:37] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:34:37] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:34:37] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 27s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "d-ours+servercore",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "servercore",
+     "version": "1.5.20+26.3",
+     "sha512": "abe1f806ea587971"
+    },
+    {
+     "id": "simpleoptserver",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 159.0,
+   "exit": 0,
+   "decision": "S5a  dynamic_distance   mode=auto   -> off (rival_wins: servercore)",
+   "error": "[21:36:05] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:36:05] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:36:08] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:36:09] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:37:12] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 3394ms or 67 ticks behind\n[21:37:12] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:37:12] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:37:12] [Server thread/INFO] (Minecraft) Stopping server\n[21:37:12] [Server thread/INFO] (Minecraft) Saving players\n[21:37:12] [Server thread/INFO] (Minecraft) Saving worlds\n[21:37:13] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:37:16] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:37:16] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:37:16] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 38s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "a-vanilla",
+   "rep": 2,
+   "mods": [],
+   "wall_s": 156.9,
+   "exit": 0,
+   "error": "[21:38:40] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:38:40] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:38:42] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:38:42] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:39:49] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 2922ms or 58 ticks behind\n[21:39:49] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:39:49] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:39:49] [Server thread/INFO] (Minecraft) Stopping server\n[21:39:49] [Server thread/INFO] (Minecraft) Saving players\n[21:39:49] [Server thread/INFO] (Minecraft) Saving worlds\n[21:39:50] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:39:52] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:39:52] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:39:53] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 36s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "b-servercore",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "servercore",
+     "version": "1.5.20+26.3",
+     "sha512": "abe1f806ea587971"
+    }
+   ],
+   "wall_s": 155.0,
+   "exit": 0,
+   "error": "[21:41:19] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:41:19] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:41:23] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:41:45] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:42:24] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 3148ms or 62 ticks behind\n[21:42:25] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:42:25] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:42:25] [Server thread/INFO] (Minecraft) Stopping server\n[21:42:25] [Server thread/INFO] (Minecraft) Saving players\n[21:42:25] [Server thread/INFO] (Minecraft) Saving worlds\n[21:42:25] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:42:28] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:42:28] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:42:28] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 34s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "c-ours",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "simpleoptserver",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 151.4,
+   "exit": 0,
+   "decision": "S5a  dynamic_distance   mode=auto   -> on  (no_rival)",
+   "error": "[21:43:46] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:43:47] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:43:47] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:43:49] [Server thread/INFO] (simpleoptserver) S5a: MSPT 6.4 -> view 6, simulation 8\n[21:44:55] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 2743ms or 54 ticks behind\n[21:44:55] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:44:55] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:44:55] [Server thread/INFO] (Minecraft) Stopping server\n[21:44:55] [Server thread/INFO] (Minecraft) Saving players\n[21:44:55] [Server thread/INFO] (Minecraft) Saving worlds\n[21:44:56] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:44:59] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:44:59] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:44:59] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 31s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "a-vanilla",
+   "rep": 3,
+   "mods": [],
+   "wall_s": 190.6,
+   "exit": 0,
+   "error": "[21:46:58] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 8 reached during a single frame. New capacity will be 16.\n[21:46:58] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:46:58] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:47:41] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 2026ms or 40 ticks behind\n[21:48:03] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 4222ms or 84 ticks behind\n[21:48:03] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:48:03] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:48:03] [Server thread/INFO] (Minecraft) Stopping server\n[21:48:03] [Server thread/INFO] (Minecraft) Saving players\n[21:48:03] [Server thread/INFO] (Minecraft) Saving worlds\n[21:48:04] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:48:07] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:48:07] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:48:07] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 3m 8s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "b-servercore",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "servercore",
+     "version": "1.5.20+26.3",
+     "sha512": "abe1f806ea587971"
+    }
+   ],
+   "wall_s": 174.4,
+   "exit": 0,
+   "error": "[21:49:51] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:49:51] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.\n[21:49:52] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:49:52] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:50:51] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 2030ms or 40 ticks behind\n[21:50:59] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:50:59] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:50:59] [Server thread/INFO] (Minecraft) Stopping server\n[21:50:59] [Server thread/INFO] (Minecraft) Saving players\n[21:50:59] [Server thread/INFO] (Minecraft) Saving worlds\n[21:50:59] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:51:02] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:51:02] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:51:02] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 52s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  },
+  {
+   "area": "s5a",
+   "scenario": "c-ours",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "simpleoptserver",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 170.8,
+   "exit": 0,
+   "decision": "S5a  dynamic_distance   mode=auto   -> on  (no_rival)",
+   "error": "[21:52:44] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.\n[21:52:44] [Render thread/INFO] (Minecraft) Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.\n[21:52:45] [Server thread/INFO] (simpleoptserver) S5a: MSPT 4.1 -> view 7, simulation 8\n[21:52:50] [Server thread/INFO] (simpleoptserver) S5a: MSPT 4.6 -> view 6, simulation 8\n[21:53:51] [Server thread/WARN] (Minecraft) Can't keep up! Is the server overloaded? Running 4129ms or 82 ticks behind\n[21:53:51] [Server thread/INFO] (Minecraft) Player0 lost connection: Disconnected\n[21:53:51] [Server thread/INFO] (Minecraft) System chat: Player0 left the game\n[21:53:51] [Server thread/INFO] (Minecraft) Stopping server\n[21:53:51] [Server thread/INFO] (Minecraft) Saving players\n[21:53:51] [Server thread/INFO] (Minecraft) Saving worlds\n[21:53:51] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld\n[21:53:53] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether\n[21:53:53] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end\n[21:53:53] [Render thread/INFO] (Minecraft) Stopping!\n\n[Incubating] Problems report is available at: file:///root/wt/t-claude-opt1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 2m 49s\n186 actionable tasks: 3 executed, 183 up-to-date"
+  }
+ ],
+ "gl": "?",
+ "summary": {}
+}
