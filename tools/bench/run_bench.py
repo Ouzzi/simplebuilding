@@ -122,10 +122,11 @@ def run_once(key: str, name: str, foreign: list[str], ours: bool, rep: int, jars
              timeout: int) -> dict:
     a = AREAS[key]
     run = REPO / "integration" / RUN_DIR
-    for sub in ("mods", "config", "saves"):
+    for sub in ("mods", "config", "saves", "world"):
         if (run / sub).exists():
             shutil.rmtree(run / sub)
     (run / "mods").mkdir(parents=True)
+    (run / "eula.txt").write_text("eula=true\n", encoding="utf-8")  # in-process dedicated server (S5a)
     mods = []
     for mid in foreign + [lib for f in foreign for lib in LIBS.get(f, [])]:
         shutil.copy2(foreign_jars[mid], run / "mods")
@@ -312,7 +313,7 @@ def main() -> int:
                     path.write_text(json.dumps(results, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
                     report(results, out_dir / "report.html")
     shutil.rmtree(REPO / "integration" / RUN_DIR / "saves", ignore_errors=True)
-    print(f"results: {path.relative_to(REPO)}; report: {(out_dir / 'report.html').relative_to(REPO)}")
+    print(f"results: {path}; report: {out_dir / 'report.html'}")
     return 0
 
 

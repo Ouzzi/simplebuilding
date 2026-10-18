@@ -3,12 +3,13 @@ version = '0.1.0'
 group = 'com.simplebuilding.integration'
 apply from: rootProject.file('gradle/local-devmods.gradle')
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
-fabricApi {
-    configureTests { createSourceSet = true; modId = 'sbmodules-clienttest'; enableGameTests = false }
-}
 // tools/bench/run_bench.py: -PbenchRunDir gives the benchmark client its own run folder (mods/, config/, saves/),
-// -PbenchProps=key=value;... passes the scene settings as system properties. Without them nothing changes.
+// which the harness prepares per run (so it is not cleared here); -PbenchProps=key=value;... passes the scene settings
+// as system properties. Without them nothing changes.
 def benchRunDir = project.findProperty('benchRunDir')
+fabricApi {
+    configureTests { createSourceSet = true; modId = 'sbmodules-clienttest'; enableGameTests = false; clearRunDirectory = benchRunDir == null }
+}
 loom.runs.named('clientGameTest') { runDir(benchRunDir ?: 'run-fabric-263') }
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }

@@ -35,6 +35,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * </ul>
  */
 public final class BenchClientTest implements FabricClientGameTest {
+    /** Ticks; client gametests tick as fast as they can, so world generation under llvmpipe needs many. */
+    private static final int CHUNK_TIMEOUT = 200_000;
     private static final AtomicBoolean FLY = new AtomicBoolean();
     private static volatile double flySpeed = 1.5;
     private static volatile boolean flyHooked;
@@ -94,18 +96,18 @@ public final class BenchClientTest implements FabricClientGameTest {
             });
             int cx = forest.getX(), cz = forest.getZ();
             server.runCommand(String.format(Locale.ROOT, "tp @a %d 200 %d", cx, cz));
-            world.getConnection().waitForChunksDownload();
+            world.getConnection().waitForChunksDownload(CHUNK_TIMEOUT);
             int ground = server.computeOnServer(s -> s.overworld().getHeight(Heightmap.Types.MOTION_BLOCKING, cx, cz));
             r.put("forest", List.of(cx, ground, cz));
             double radius = 28, y = ground + 22;
             teleport(server, cx, cz, radius, y, 0);
             t = System.nanoTime();
-            int ticks = world.getConnection().waitForChunksRender();
+            int ticks = world.getConnection().waitForChunksRender(CHUNK_TIMEOUT);
             r.put("chunkload_s", secs(t));
             r.put("chunkload_ticks", ticks);
             ctx.runOnClient(c -> c.levelRenderer.invalidateCompiledGeometry(c.level, c.options, c.gameRenderer.mainCamera(), c.getBlockColors()));
             t = System.nanoTime();
-            world.getConnection().waitForChunksRender();
+            world.getConnection().waitForChunksRender(CHUNK_TIMEOUT);
             r.put("meshbuild_s", secs(t));
             r.put("heap_load_mb", heapAfterGc());
             double[] ms = new double[frames];
@@ -151,7 +153,7 @@ public final class BenchClientTest implements FabricClientGameTest {
             quietWorld(server);
             server.runCommand("tp @a 0 180 0 -90 10");
             t = System.nanoTime();
-            conn.waitForChunksRender();
+            conn.waitForChunksRender(CHUNK_TIMEOUT);
             r.put("chunkload_s", secs(t));
             server.runOnServer(s -> s.getPlayerList().getPlayers().forEach(p -> {
                 p.getAbilities().mayfly = true;
