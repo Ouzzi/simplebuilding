@@ -13,12 +13,10 @@
       "modid": "simplelib"
     }
   ],
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "simplelib"
-    }
-  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplelib"
+  },
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {

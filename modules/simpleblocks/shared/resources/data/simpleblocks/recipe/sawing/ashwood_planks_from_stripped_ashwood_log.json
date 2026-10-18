@@ -13,12 +13,10 @@
       "modid": "simpleend"
     }
   ],
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "simpleend"
-    }
-  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
   "type": "simpleblocks:sawing",
   "ingredient": "simpleend:stripped_ashwood_log",
   "result": {
