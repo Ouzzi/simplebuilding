@@ -638,7 +638,7 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(data != null && data.isDirty(),
                 "the saved progress is not marked dirty, so the world save would not write it");
         Tag saved = SledgehammerProgress.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow();
-        SledgehammerProgress reloaded = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
+        var reloaded = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
         helper.assertTrue(reloaded.entries().contains(
                         new SledgehammerProgress.Entry(helper.absolutePos(pos), com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 2)),
                 "the saved progress does not survive its own codec: " + saved);

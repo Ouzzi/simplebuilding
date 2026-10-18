@@ -4,7 +4,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
-import com.simplebuilding.items.custom.SledgehammerItem.ReshapeMode;
 import com.simplebuilding.util.HammerCorners;
 import com.simplebuilding.util.LibServices;
 import com.simplebuilding.util.OctetRefs;
@@ -46,15 +45,15 @@ public final class SledgehammerOctetTests {
 
     /** The pure rule behind charging and the hand tilt: nothing without sneaking where carving exists. */
     public static void reshapeModeNeedsSneaking(GameTestHelper helper) {
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, true), ReshapeMode.NONE, "plain, no touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, true), ReshapeMode.NONE, "plain, touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, true), ReshapeMode.CARVE, "sneak, no touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, true), ReshapeMode.REVERSE, "sneak, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, true), SledgehammerItem.ReshapeMode.NONE, "plain, no touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, true), SledgehammerItem.ReshapeMode.NONE, "plain, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, true), SledgehammerItem.ReshapeMode.CARVE, "sneak, no touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, true), SledgehammerItem.ReshapeMode.REVERSE, "sneak, touch");
         // 26.2 has no carving: the old forward ladder stays, the plain sneaking hammer does nothing.
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, false), ReshapeMode.FORWARD, "26.2 plain");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, false), ReshapeMode.FORWARD, "26.2 plain, touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, false), ReshapeMode.NONE, "26.2 sneak");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, false), ReshapeMode.REVERSE, "26.2 sneak, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, false), SledgehammerItem.ReshapeMode.FORWARD, "26.2 plain");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, false), SledgehammerItem.ReshapeMode.FORWARD, "26.2 plain, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, false), SledgehammerItem.ReshapeMode.NONE, "26.2 sneak");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, false), SledgehammerItem.ReshapeMode.REVERSE, "26.2 sneak, touch");
         helper.succeed();
     }
 

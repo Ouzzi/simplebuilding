@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simplebuilding.util.LibServices;
 import com.simplebuilding.util.SledgehammerUpgrades;
-import com.simplebuilding.util.SledgehammerUpgrades.Upgrade;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -57,14 +56,14 @@ public final class SledgehammerUpgradeData {
     public static final List<String> DEFAULT_FILES = List.of("reinforced", "netherite", "enderite");
     private static final List<String> HAMMERS = List.of("any", "diamond", "netherite", "enderite");
 
-    private static volatile @Nullable Map<Block, Upgrade> loaded;
+    private static volatile @Nullable Map<Block, SledgehammerUpgrades.Upgrade> loaded;
 
     private SledgehammerUpgradeData() {
     }
 
     /** The effective table: the loaded files, or the built-in table before the first load. */
-    public static Map<Block, Upgrade> table() {
-        Map<Block, Upgrade> table = loaded;
+    public static Map<Block, SledgehammerUpgrades.Upgrade> table() {
+        Map<Block, SledgehammerUpgrades.Upgrade> table = loaded;
         return table != null ? table : SledgehammerUpgrades.builtInTable();
     }
 
@@ -78,19 +77,19 @@ public final class SledgehammerUpgradeData {
 
     /** Replaces the effective table with what {@code files} say. */
     public static void apply(Map<Identifier, JsonElement> files) {
-        Map<Block, Upgrade> viaLib = LibServices.applyUpgrades(files);
+        Map<Block, SledgehammerUpgrades.Upgrade> viaLib = LibServices.applyUpgrades(files);
         if (viaLib != null) {
             // 26.3: SimpleLib parses (same order, defaults and skips), SimpleBuilding keeps its view of the table.
             loaded = Map.copyOf(viaLib);
             return;
         }
-        Map<Block, Upgrade> table = new LinkedHashMap<>();
+        Map<Block, SledgehammerUpgrades.Upgrade> table = new LinkedHashMap<>();
         for (Map.Entry<Identifier, JsonElement> file : ModDataTables.inApplyOrder(files)) {
             try {
                 JsonObject json = file.getValue().getAsJsonObject();
                 if (json.has("upgrades")) {
                     for (JsonElement element : json.getAsJsonArray("upgrades")) {
-                        Upgrade upgrade = upgrade(file.getKey(), element.getAsJsonObject());
+                        SledgehammerUpgrades.Upgrade upgrade = upgrade(file.getKey(), element.getAsJsonObject());
                         if (upgrade != null) {
                             table.put(upgrade.from(), upgrade);
                         }
@@ -111,7 +110,7 @@ public final class SledgehammerUpgradeData {
         loaded = Map.copyOf(table);
     }
 
-    private static @Nullable Upgrade upgrade(Identifier file, JsonObject json) {
+    private static @Nullable SledgehammerUpgrades.Upgrade upgrade(Identifier file, JsonObject json) {
         Block from = block(file, json.get("from").getAsString());
         Block to = block(file, json.get("to").getAsString());
         Identifier materialId = Identifier.tryParse(json.get("material").getAsString());
@@ -127,7 +126,7 @@ public final class SledgehammerUpgradeData {
         String tier = json.has("tier") ? json.get("tier").getAsString() : "netherite";
         int durationFactor = json.has("duration_factor") ? Math.max(1, json.get("duration_factor").getAsInt()) : 1;
         int materialCount = json.has("material_count") ? Math.max(1, json.get("material_count").getAsInt()) : 1;
-        return new Upgrade(from, to, material, rank, damage, "enderite".equals(tier), "reinforced".equals(tier),
+        return new SledgehammerUpgrades.Upgrade(from, to, material, rank, damage, "enderite".equals(tier), "reinforced".equals(tier),
                 durationFactor, materialCount);
     }
 
@@ -135,14 +134,14 @@ public final class SledgehammerUpgradeData {
      * One upgrade from SimpleLib's parsed entry (26.3): the hammer grade and the tier word read as in the files; null
      * (entry skipped, logged) for an unknown hammer grade.
      */
-    public static @Nullable Upgrade upgrade(Block from, Block to, Item material, String minHammer, int damagePerHit,
+    public static @Nullable SledgehammerUpgrades.Upgrade upgrade(Block from, Block to, Item material, String minHammer, int damagePerHit,
                                             String tier, int durationFactor, int materialCount) {
         int rank = HAMMERS.indexOf(minHammer);
         if (rank < 0) {
             LOGGER.warn("Skipping sledgehammer upgrade from {}: unknown min_tool {}", BuiltInRegistries.BLOCK.getKey(from), minHammer);
             return null;
         }
-        return new Upgrade(from, to, material, rank, Math.max(0, damagePerHit), "enderite".equals(tier), "reinforced".equals(tier),
+        return new SledgehammerUpgrades.Upgrade(from, to, material, rank, Math.max(0, damagePerHit), "enderite".equals(tier), "reinforced".equals(tier),
                 durationFactor, materialCount);
     }
 
@@ -156,21 +155,21 @@ public final class SledgehammerUpgradeData {
     }
 
     /** Which default file an upgrade belongs in. */
-    public static String fileOf(Upgrade upgrade) {
+    public static String fileOf(SledgehammerUpgrades.Upgrade upgrade) {
         return upgrade.toReinforced() ? "reinforced" : upgrade.toEnderite() ? "enderite" : "netherite";
     }
 
     /** The default file {@code name} (one of {@link #DEFAULT_FILES}) from the built-in table, sorted by source block. */
     public static JsonObject defaultFile(String name) {
-        List<Upgrade> upgrades = new ArrayList<>();
-        for (Upgrade upgrade : SledgehammerUpgrades.builtInTable().values()) {
+        List<SledgehammerUpgrades.Upgrade> upgrades = new ArrayList<>();
+        for (SledgehammerUpgrades.Upgrade upgrade : SledgehammerUpgrades.builtInTable().values()) {
             if (fileOf(upgrade).equals(name)) {
                 upgrades.add(upgrade);
             }
         }
         upgrades.sort(Comparator.comparing(u -> BuiltInRegistries.BLOCK.getKey(u.from()).toString()));
         JsonArray array = new JsonArray();
-        for (Upgrade upgrade : upgrades) {
+        for (SledgehammerUpgrades.Upgrade upgrade : upgrades) {
             JsonObject entry = new JsonObject();
             entry.addProperty("from", BuiltInRegistries.BLOCK.getKey(upgrade.from()).toString());
             entry.addProperty("to", BuiltInRegistries.BLOCK.getKey(upgrade.to()).toString());
