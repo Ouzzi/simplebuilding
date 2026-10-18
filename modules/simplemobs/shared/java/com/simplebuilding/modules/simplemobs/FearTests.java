@@ -501,6 +501,24 @@ final class FearTests {
             h.assertTrue(Math.abs(FearLogic.chainPendulum(30.0F)) < 0.01F, "settles");
             h.succeed();
         });
+        add.accept("fear_watcher_anim", h -> {
+            int prev = 0;
+            boolean[] seen = new boolean[FearLogic.WATCHER_POSES.length];
+            for (int n = 1; n <= 200; n++) {
+                int next = FearLogic.nextWatcherPose(prev, 42, n);
+                h.assertTrue(next >= 0 && next < seen.length && next != prev, "pose in range and changed: " + next);
+                seen[next] = true;
+                prev = next;
+            }
+            for (boolean b : seen) h.assertTrue(b, "every pose is reached");
+            h.assertTrue(FearLogic.nextWatcherPose(2, 7, 3) == FearLogic.nextWatcherPose(2, 7, 3), "deterministic");
+            h.assertTrue(FearLogic.stopMotion(0.95F, 0.9F) == FearLogic.stopMotion(1.5F, 0.9F) && FearLogic.stopMotion(1.9F, 0.9F) > FearLogic.stopMotion(0.95F, 0.9F), "gait snaps to steps");
+            h.assertTrue(FearLogic.legSwing((float) Math.PI / 2.0F, 1.0F) < -0.1F && FearLogic.legSwing(1.0F, 0.0F) == 0.0F, "trailing leg drags, still at speed 0");
+            float r = 0.0F;
+            for (int i = 0; i < 5; i++) r = FearLogic.ramp(r, 1.0F, 5.0F, 8.0F);
+            h.assertTrue(Math.abs(r - 1.0F) < 1.0e-4F && FearLogic.ramp(r, 0.7F, 5.0F, 8.0F) < 1.0F && FearLogic.ramp(0.1F, 0.0F, 5.0F, 8.0F) == 0.0F, "ramp reaches goal without overshoot");
+            h.succeed();
+        });
         add.accept("fear_idle_gesture_waits", h -> {
             net.minecraft.util.RandomSource r = net.minecraft.util.RandomSource.create(7L);
             for (int i = 0; i < 200; i++) {

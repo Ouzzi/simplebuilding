@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplemobs.client;
 
+import com.simplebuilding.modules.simplemobs.FearLogic;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -61,30 +62,40 @@ public class WatcherModel extends EntityModel<WatcherRenderState> {
     @Override
     public void setupAnim(WatcherRenderState state) {
         super.setupAnim(state);
-        float pos = state.walkAnimationPos, speed = Math.min(1.0F, state.walkAnimationSpeed), age = state.ageInTicks;
+        // stop-motion gait: the walk phase advances in jumps of about 9 frames per second
+        float pos = FearLogic.stopMotion(state.walkAnimationPos, 0.9F), speed = Math.min(1.0F, state.walkAnimationSpeed), age = state.ageInTicks;
         float live = 1.0F - state.calm;
         this.head.yRot = state.yRot * Mth.DEG_TO_RAD;
         this.head.xRot = state.xRot * Mth.DEG_TO_RAD;
-        this.rightLeg.xRot = Mth.cos(pos * 0.4F) * 0.8F * speed;
-        this.leftLeg.xRot = Mth.cos(pos * 0.4F + Mth.PI) * 0.8F * speed;
+        // the trailing leg hangs behind the beat and scuffs outwards
+        this.rightLeg.xRot = FearLogic.legSwing(pos * 0.4F, speed);
+        this.leftLeg.xRot = FearLogic.legSwing(pos * 0.4F + Mth.PI, speed);
+        this.rightLeg.zRot = -0.1F * speed * Math.max(0.0F, Mth.sin(pos * 0.4F));
+        this.leftLeg.zRot = 0.1F * speed * Math.max(0.0F, Mth.sin(pos * 0.4F + Mth.PI));
         this.rightArm.xRot = Mth.cos(pos * 0.4F + Mth.PI) * 0.5F * speed;
         this.leftArm.xRot = Mth.cos(pos * 0.4F) * 0.5F * speed;
         // a slow, crooked sway while nobody looks; perfectly still when watched
         float sway = live * Mth.sin(age * 0.07F) * 0.06F;
         this.body.xRot = 0.12F + sway;
         this.body.zRot = live * Mth.sin(age * 0.05F) * 0.04F;
-        this.head.zRot = Mth.lerp(state.calm, Mth.sin(age * 0.09F) * 0.15F, 0.12F);
-        this.rightArm.zRot = 0.06F + sway;
-        this.leftArm.zRot = -0.06F - sway;
+        // each time it is looked at it holds another crooked pose, so it seems to have moved
+        float[] pose = FearLogic.WATCHER_POSES[Math.floorMod(state.pose, FearLogic.WATCHER_POSES.length)];
+        this.head.zRot = Mth.lerp(state.calm, Mth.sin(age * 0.09F) * 0.15F, pose[0]);
+        this.head.xRot += state.calm * pose[1];
+        this.body.zRot += state.calm * pose[2];
+        this.rightArm.xRot = Mth.lerp(state.calm, this.rightArm.xRot, pose[3]);
+        this.leftArm.xRot = Mth.lerp(state.calm, this.leftArm.xRot, pose[4]);
+        this.rightArm.zRot = pose[5] * state.calm + (0.06F + sway) * live;
+        this.leftArm.zRot = -pose[5] * state.calm + (-0.06F - sway) * live;
         if (state.reach > 0.0F) {
-            float r = state.reach;
+            float r = FearLogic.ease(state.reach);
             this.rightArm.xRot = -1.5F * r;
             this.leftArm.xRot = -1.5F * r;
             this.rightArm.zRot = 0.25F * r;
             this.leftArm.zRot = -0.25F * r;
             this.body.xRot += 0.25F * r;
         }
-        if (state.shoulder > 0.0F && state.reach == 0.0F) {
+        if (state.shoulder > 0.0F && state.reach < 0.01F) {
             // behind the player: both arms stretched forward past the shoulders, hands spread and trembling
             float o = state.shoulder, tremble = Mth.sin(age * 0.7F) * 0.04F * o;
             this.rightArm.xRot = Mth.lerp(o, this.rightArm.xRot, -1.35F + tremble);
@@ -94,8 +105,9 @@ public class WatcherModel extends EntityModel<WatcherRenderState> {
             this.body.xRot += 0.3F * o;
         }
         if (state.scream > 0.0F) {
-            float s = state.scream;
-            this.head.xRot = -0.9F * s;
+            float s = FearLogic.ease(state.scream);
+            // head thrown back, the jaw (head) shakes at about 30 Hz
+            this.head.xRot = -0.9F * s + Mth.sin(age * 9.42F) * 0.05F * s;
             this.body.xRot -= 0.25F * s;
             this.rightArm.zRot = 1.2F * s;
             this.leftArm.zRot = -1.2F * s;
