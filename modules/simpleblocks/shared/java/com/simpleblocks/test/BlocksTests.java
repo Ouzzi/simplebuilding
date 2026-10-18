@@ -66,6 +66,19 @@ public final class BlocksTests {
             h.assertTrue(SimpleBlocks.on(), "module switch defaults on");
             h.succeed();
         });
+        // Tab merge T1: with SimpleBuilding loaded its building blocks stand in this tab and it registers no tab of its own (registry ids only).
+        ALL.put("shared_tab_with_simplebuilding", h -> {
+            var bricks = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "astralit_bricks");
+            if (BuiltInRegistries.ITEM.containsKey(bricks)) {
+                h.assertTrue(!BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "building_blocks")),
+                        "SimpleBuilding registers no building blocks tab next to this one");
+                net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+                var item = BuiltInRegistries.ITEM.getValue(bricks);
+                h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(SimpleBlocks.id("blocks")).getDisplayItems().stream().anyMatch(s -> s.is(item)),
+                        "astralit bricks stand in the Simple Blocks tab");
+            }
+            h.succeed();
+        });
         ALL.put("guide_book", h -> {
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBlocks.id("guide_book")), "guide book");
             h.succeed();
