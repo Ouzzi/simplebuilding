@@ -85,7 +85,10 @@ public final class TweaksDiscover {
             "simpletweaks:play_pregen",
             "simpletweaks:play_pvp",
             "simpletweaks:play_votes",
-            "simpletweaks:play_welcome");
+            "simpletweaks:play_welcome",
+            "simpletweaks:protect_antixray",
+            "simpletweaks:protect_freecam",
+            "simpletweaks:protect_more");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
