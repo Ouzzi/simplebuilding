@@ -53,9 +53,11 @@ public final class MapsItems {
                         .title(net.minecraft.network.chat.Component.translatable("itemgroup.simplemaps.maps"))
                         .icon(() -> new net.minecraft.world.item.ItemStack(WAYFINDER_MAP))
                         .displayItems((params, out) -> {
-                            tabStacks().forEach(out::accept);
+                            List<ItemStack> stacks = tabStacks();
+                            stacks.forEach(out::accept);
                             // The guide belongs in the own tab too, not only in Tools & Utilities.
-                            if (com.simplebuilding.modules.simplemaps.guide.MapsGuide.book() != null) out.accept(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack());
+                            net.minecraft.world.item.Item guide = com.simplebuilding.modules.simplemaps.guide.MapsGuide.book();
+                            if (guide != null && stacks.stream().noneMatch(s -> s.is(guide))) out.accept(new ItemStack(guide));
                         }).build());
     }
 }
