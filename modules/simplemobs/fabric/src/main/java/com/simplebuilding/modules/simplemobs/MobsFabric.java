@@ -38,11 +38,11 @@ public final class MobsFabric implements ModInitializer {
         FabricDefaultAttributeRegistry.register(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!MobsConfig.vanillaTabs()) return;
-            out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!MobsConfig.vanillaTabs()) return;
-            out.insertAfter(Items.BRUSH, java.util.List.of(new ItemStack(WitherMobs.BRUSH)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            out.insertAfter(Items.BRUSH, java.util.List.of(new ItemStack(WitherMobs.BRUSH)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack()));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
@@ -52,7 +52,7 @@ public final class MobsFabric implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!MobsConfig.vanillaTabs()) return;
-            out.insertAfter(Items.ENDER_EYE, java.util.List.of(new ItemStack(FearMobs.LINK), new ItemStack(FearMobs.EYE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            out.insertAfter(Items.ENDER_EYE, java.util.List.of(new ItemStack(FearMobs.LINK), new ItemStack(FearMobs.EYE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> { if (!MobsConfig.vanillaTabs()) return; out.accept(FearMobs.AMULET); });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
