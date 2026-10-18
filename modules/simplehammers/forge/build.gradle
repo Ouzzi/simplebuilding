@@ -1,0 +1,12 @@
+plugins {
+    id 'java-library'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+// Forge 26.3 has no JEI (the plugin is left out).
+ext.forgeExcludedSources = ['**/compat/jei/**']
+ext.forgeMixinConfigs = ['simplehammers.mixins.json', 'simplehammers.forge.mixins.json']
+// SimpleLib (IdMoves migration, HammerActions, in-world upgrades, OctetCells) nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
+// 1.0.0: SimpleBuilding 26.3 requires simplehammers >=1.0.0 (split plan section 5: new sub-mods start at 1.0.0).
+ext.moduleVersion = '1.0.0'
+apply from: rootProject.file('gradle/module-forge.gradle')

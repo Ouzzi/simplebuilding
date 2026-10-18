@@ -24,7 +24,8 @@
         "simpleovens",
         "simplemobheads",
         "simplecrucibles",
-        "simpleoctets"
+        "simpleoctets",
+        "simplehammers"
       ],
       "optional": [
         "jei",
@@ -3476,6 +3477,100 @@
         "fabric": ":modules:simpleoctets:fabric",
         "neoforge": ":modules:simpleoctets:neoforge",
         "forge": ":modules:simpleoctets:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
+    },
+    {
+      "id": "simplehammers",
+      "name": "Simple Hammers",
+      "version": "1.0.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Hammers",
+      "description": "Seven sledgehammers (Stone to Enderite) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, with the enchantments Break Through, Override and Radius, moved from SimpleBuilding (ids migrate). While it is loaded the in-world ways of the other Simple mods take the hammer instead of the axe.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simpleoctets",
+        "simplecrucibles",
+        "jei"
+      ],
+      "checks": [
+        "modules/simplehammers/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplehammers",
+        "catalogues": [
+          "modules/simplehammers/fabric/src/main/java/com/simplebuilding/modules/simplehammers/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplehammers"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplehammersGameTest",
+            "report": "integration/build/simplehammers-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplehammers:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplehammers/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplehammers:forge:runGameTestServer",
+            "report": "modules/simplehammers/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplehammersStandaloneGameTest",
+              "report": "integration/build/standalone/simplehammers-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplehammers:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplehammers/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplehammers.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplehammers/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplehammers",
+        "shared": "modules/simplehammers/shared",
+        "fabric": "modules/simplehammers/fabric",
+        "neoforge": "modules/simplehammers/neoforge",
+        "forge": "modules/simplehammers/forge",
+        "generated": "modules/simplehammers/generated/resources",
+        "lang": "modules/simplehammers/shared/resources/assets/simplehammers/lang",
+        "wikiManual": "modules/simplehammers/wiki/manual.json",
+        "balanceDir": "balance/simplehammers"
+      },
+      "projects": {
+        "fabric": ":modules:simplehammers:fabric",
+        "neoforge": ":modules:simplehammers:neoforge",
+        "forge": ":modules:simplehammers:forge"
       },
       "parent": "simplebuilding",
       "bundle": "required"

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#simplehammers:sledgehammers",
+    {
+      "id": "#simplebuilding:radius_enchantable",
+      "required": false
+    }
+  ]
+}

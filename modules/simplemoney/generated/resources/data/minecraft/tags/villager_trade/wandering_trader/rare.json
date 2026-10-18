@@ -278,10 +278,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_sledgehammer",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_spawn_teleporter",
       "required": false
     },
@@ -399,10 +395,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_shulker_box",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_sledgehammer",
       "required": false
     },
     {
@@ -579,6 +571,14 @@
     },
     {
       "id": "simplemoney:links/simpleenddragonfight/dragon_chitin",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplehammers/enderite_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplehammers/netherite_sledgehammer",
       "required": false
     },
     {

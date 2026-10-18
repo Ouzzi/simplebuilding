@@ -1,0 +1,86 @@
+{
+  "module": "simplehammers",
+  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3. The seven sledgehammers moved here from SimpleBuilding with the same rows (split stage 7).",
+  "excluded": {
+    "simplehammers:guide_book": "Crafted from a book and an iron ingot."
+  },
+  "prices": [
+    {
+      "item": "simplehammers:copper_sledgehammer",
+      "tier": 0,
+      "hours": 4.0,
+      "craft": 5,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplehammers:diamond_sledgehammer",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 5,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    },
+    {
+      "item": "simplehammers:enderite_sledgehammer",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplehammers:gold_sledgehammer",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 5,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplehammers:iron_sledgehammer",
+      "tier": 1,
+      "hours": 6.7,
+      "craft": 5,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 2,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplehammers:netherite_sledgehammer",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplehammers:stone_sledgehammer",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 5,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplehammers.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "CarvedStairMixin",
+    "HammerMiningSpeedMixin",
+    "ShapelessRecipeMixin",
+    "DiscoverTipMixin"
+  ],
+  "client": [
+    "client.MultiPlayerGameModeHammerProgressMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

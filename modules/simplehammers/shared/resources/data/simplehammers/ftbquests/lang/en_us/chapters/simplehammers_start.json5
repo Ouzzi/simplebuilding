@@ -1,0 +1,10 @@
+{
+	"chapter.041AD7D216AF5A68.title": "{\"translate\": \"quests.simplehammers.start.title\"}",
+	"chapter.041AD7D216AF5A68.chapter_subtitle": [
+		"{\"translate\": \"quests.simplehammers.start.subtitle\"}"
+	],
+	"quest.108FDEF94BF35221.title": "{\"translate\": \"quests.simplehammers.start.welcome.title\"}",
+	"quest.108FDEF94BF35221.quest_desc": [
+		"{\"translate\": \"quests.simplehammers.start.welcome.description\"}"
+	]
+}

@@ -41,6 +41,8 @@ BOOKS = {
     "simpleovens": ("simpleovens", ("#22201e", "#363230", "#9a9692", "#787470", "#5e5a56"), "#ff8a2a", "Ofenstein, Glutorange"),
     "simplecrucibles": ("simplecrucibles", ("#1c2123", "#2f373b", "#8a98a0", "#66747c", "#4c5860"), "#5ef0e0", "Gusseisen, Diamant-Tuerkis"),
     "simpleoctets": ("simpleoctets", ("#3a2c1c", "#5a4428", "#c8a878", "#a68858", "#7e6640"), "#8fd060", "Eichenbrett, Melonengruen"),
+    # 2026-10-18 (split stage 7)
+    "simplehammers": ("simplehammers", ("#241e1a", "#3a302a", "#a0938a", "#7c7068", "#5c524c"), "#d8343c", "Hammerstahl, Schmiedeglut"),
     "simpletrims": ("simpletrims", ("#141838", "#20285a", "#6a7ed0", "#4a5eae", "#3a4a8a"), "#ffd860", "Nachtblau, Besatzgold"),
     "simplewanderers": ("simplewanderers", ("#2e1a0a", "#4a2c14", "#c08a48", "#a06c34", "#7a4e24"), "#5aa04a", "Reisemantel-Ocker, Schalgruen"),
     "simpleblocks": ("simpleblocks", ("#14181c", "#222830", "#6a7482", "#4c5460", "#383f4a"), "#3ac6b4", "Tiefenschiefer, Sculk-Türkis"),

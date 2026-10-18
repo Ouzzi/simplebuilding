@@ -173,6 +173,13 @@ MODULES = [
                 "stonecutter, placed into the clicked corner and mixed in one cell.",
                 "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - im Steinmetz "
                 "geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt.")),
+    dict(module="simplehammers", ns="simplehammers", package="com.simplehammers.guide", cls="HammersGuide", kind="item",
+         author="Simple Hammers", recipe="minecraft:iron_ingot",
+         name=("Simple Hammers Guide", "Simple-Hammers-Handbuch"),
+         intro=("Seven sledgehammers that mine a whole area, carve and reshape blocks, crush diamond and quartz blocks and "
+                "upgrade blocks in the world strike by strike, and their three enchantments.",
+                "Sieben Vorschlaghämmer, die ganze Flächen abbauen, Blöcke abtragen und umformen, Diamant- und Quarzblöcke "
+                "zerschlagen und Blöcke in der Welt Schlag für Schlag aufwerten, und ihre drei Verzauberungen.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -242,6 +249,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
     "minecraft:cauldron": ("a cauldron", "einem Kessel"),
     "minecraft:stonecutter": ("a stonecutter", "einem Steinmetz"),
+    "minecraft:iron_ingot": ("an iron ingot", "einem Eisenbarren"),
     "minecraft:emerald": ("an emerald", "einem Smaragd"),
     "minecraft:flint": ("a piece of flint", "einem Feuerstein"),
     "minecraft:compass": ("a compass", "einem Kompass"),
@@ -492,6 +500,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:stonecutter": ("stonecutter", "Steinmetz"),
+    "minecraft:iron_ingot": ("iron ingot", "Eisenbarren"),
     "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:lead": ("lead", "Leine"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),

@@ -31,7 +31,8 @@ import org.jetbrains.annotations.Nullable;
  *       ({@link Stage#PERMITTED}) the hammer's own permission check.</li>
  *   <li>{@link #registerKeep}: blocks the hammer must not break right now (a placed template in the hammer stance).</li>
  *   <li>{@link #registerArea}: replaces the hammer's 3x3 area (SimpleBuilding's octant selection).</li>
- *   <li>{@link #registerPermission}: may the player change this block (claims, protections of other mods).</li>
+ *   <li>{@link #registerPermission}: may the player change this block (claims, protections of other mods);
+ *       {@link #registerAreaVeto}: no area break right now (permission probes).</li>
  *   <li>{@link #listen}/{@link #fire}: what the hammer did (advancements, counters of other mods).</li>
  *   <li>{@link #registerStaged}: in-world upgrades that go strike by strike with their own material units (crucibles).</li>
  *   <li>{@link #registerParts}: upgrades that change several blocks at once (a double chest).</li>
@@ -112,6 +113,7 @@ public final class HammerActions {
     private static final List<Keep> KEEPS = new CopyOnWriteArrayList<>();
     private static final List<Area> AREAS = new CopyOnWriteArrayList<>();
     private static final List<Permission> PERMISSIONS = new CopyOnWriteArrayList<>();
+    private static final List<java.util.function.BooleanSupplier> VETOES = new CopyOnWriteArrayList<>();
     private static final Map<String, List<Consumer<ServerPlayer>>> LISTENERS = new ConcurrentHashMap<>();
     private static final List<Registered<Staged>> STAGED = new CopyOnWriteArrayList<>();
     private static final List<Registered<Parts>> PARTS = new CopyOnWriteArrayList<>();
@@ -156,6 +158,18 @@ public final class HammerActions {
             if (positions != null) return positions;
         }
         return null;
+    }
+
+    /** While {@code veto} is true no area break starts (SimpleBuilding: its claim probes fire break events that are no real breaks). */
+    public static void registerAreaVeto(java.util.function.BooleanSupplier veto) {
+        VETOES.add(veto);
+    }
+
+    public static boolean areaVetoed() {
+        for (java.util.function.BooleanSupplier veto : VETOES) {
+            if (veto.getAsBoolean()) return true;
+        }
+        return false;
     }
 
     public static void registerPermission(Permission permission) {
