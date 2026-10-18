@@ -702,6 +702,186 @@
       }
     },
     {
+      "id": "simplelib:polished_end_stone_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone_slab",
+        "count": 6
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/polished_end_stone_slab.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:polished_end_stone_slab_from_polished_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone_slab",
+        "count": 2
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/polished_end_stone_slab_from_polished_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:polished_end_stone_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone_stairs",
+        "count": 4
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/polished_end_stone_stairs.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:polished_end_stone_stairs_from_polished_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone_stairs",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/polished_end_stone_stairs_from_polished_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:polished_end_stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone_wall",
+        "count": 6
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/polished_end_stone_wall.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:polished_end_stone_wall_from_polished_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone_wall",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/polished_end_stone_wall_from_polished_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplelib:warped_wart_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -817,6 +997,58 @@
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/polished_end_stone.json"
+    },
+    {
+      "id": "simplelib:blocks/polished_end_stone_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:polished_end_stone_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/polished_end_stone_slab.json"
+    },
+    {
+      "id": "simplelib:blocks/polished_end_stone_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:polished_end_stone_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/polished_end_stone_stairs.json"
+    },
+    {
+      "id": "simplelib:blocks/polished_end_stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:polished_end_stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/polished_end_stone_wall.json"
     },
     {
       "id": "simplelib:blocks/warped_wart",
@@ -1197,10 +1429,10 @@
       },
       "note": {
         "en": {
-          "summary": "Shared End building block (since the module family split in SimpleLib): four end stone bricks make four, or cut end stone / end stone bricks 1:1 in the stonecutter; base of the astral and nihil blocks. Old worlds convert simplebuilding:polished_end_stone automatically."
+          "summary": "Shared End building block (since the module family split in SimpleLib): four end stone bricks make four, or cut end stone / end stone bricks 1:1 in the stonecutter; base of the astral and nihil blocks. Old worlds convert simplebuilding:polished_end_stone automatically. Stairs, slab and wall come from it at the crafting table or in the stonecutter; with Simple Octets it also has an octet."
         },
         "de": {
-          "summary": "Gemeinsamer End-Baublock (seit der Modulfamilie in SimpleLib): vier Endsteinziegel ergeben vier, oder Endstein/Endsteinziegel 1:1 in der Steinsäge; Grundlage der Astral- und Nihil-Blöcke. Alte Welten wandeln simplebuilding:polished_end_stone automatisch um."
+          "summary": "Gemeinsamer End-Baublock (seit der Modulfamilie in SimpleLib): vier Endsteinziegel ergeben vier, oder Endstein/Endsteinziegel 1:1 in der Steinsäge; Grundlage der Astral- und Nihil-Blöcke. Alte Welten wandeln simplebuilding:polished_end_stone automatisch um. Treppe, Stufe und Mauer entstehen daraus an der Werkbank oder in der Steinsäge; mit Simple Octets gibt es auch ein Achtelblock."
         }
       },
       "texture": "assets/textures/simplelib/block/polished_end_stone.png",
@@ -1208,6 +1440,73 @@
         "simplelib:polished_end_stone",
         "simplelib:polished_end_stone_from_end_stone_bricks_stonecutting",
         "simplelib:polished_end_stone_from_end_stone_stonecutting"
+      ],
+      "usedIn": [
+        "simplelib:polished_end_stone_slab",
+        "simplelib:polished_end_stone_slab_from_polished_end_stone_stonecutting",
+        "simplelib:polished_end_stone_stairs",
+        "simplelib:polished_end_stone_stairs_from_polished_end_stone_stonecutting",
+        "simplelib:polished_end_stone_wall",
+        "simplelib:polished_end_stone_wall_from_polished_end_stone_stonecutting"
+      ]
+    },
+    {
+      "id": "simplelib:polished_end_stone_slab",
+      "name": {
+        "en_us": "Polished End Stone Slab",
+        "de_de": "Polierte Endstein-Stufe"
+      },
+      "note": {
+        "en": {
+          "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
+        }
+      },
+      "craftedBy": [
+        "simplelib:polished_end_stone_slab",
+        "simplelib:polished_end_stone_slab_from_polished_end_stone_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:polished_end_stone_stairs",
+      "name": {
+        "en_us": "Polished End Stone Stairs",
+        "de_de": "Polierte Endstein-Treppe"
+      },
+      "note": {
+        "en": {
+          "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
+        }
+      },
+      "craftedBy": [
+        "simplelib:polished_end_stone_stairs",
+        "simplelib:polished_end_stone_stairs_from_polished_end_stone_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:polished_end_stone_wall",
+      "name": {
+        "en_us": "Polished End Stone Wall",
+        "de_de": "Polierte Endstein-Mauer"
+      },
+      "note": {
+        "en": {
+          "summary": "Stairs, slab and wall of the polished end stone: crafted like the Vanilla shapes (4 stairs, 6 slabs, 6 walls) or cut 1:1 / 2:1 / 1:1 from the block in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppe, Stufe und Mauer des polierten Endsteins: wie die Vanilla-Formen gecraftet (4 Treppen, 6 Stufen, 6 Mauern) oder in der Steinsäge 1:1 / 2:1 / 1:1 aus dem Block geschnitten."
+        }
+      },
+      "craftedBy": [
+        "simplelib:polished_end_stone_wall",
+        "simplelib:polished_end_stone_wall_from_polished_end_stone_stonecutting"
       ],
       "usedIn": []
     },
@@ -1248,13 +1547,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 2,
-    "recipes": 23,
-    "lootTables": 4,
+    "recipes": 29,
+    "lootTables": 7,
     "tags": 3,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,
-    "blocks": 4,
+    "blocks": 7,
     "trades": 0,
     "config": 0,
     "quests": 0,

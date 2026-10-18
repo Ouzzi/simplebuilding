@@ -2900,6 +2900,160 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:cut_red_sandstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cut_red_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_red_sandstone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_red_sandstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_red_sandstone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_red_sandstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_red_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_red_sandstone_octet_from_cut_red_sandstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:cut_red_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_red_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_sandstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cut_sandstone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_sandstone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:cut_sandstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ],
+        [
+          "simpleoctets:cut_sandstone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:cut_sandstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:cut_sandstone_octet_from_cut_sandstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:cut_sandstone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/cut_sandstone_octet_from_cut_sandstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:cut_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_sandstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:cyan_concrete_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -8693,6 +8847,83 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       }
     },
     {
+      "id": "simpleoctets:polished_end_stone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplelib:polished_end_stone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_end_stone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:polished_end_stone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ],
+        [
+          "simpleoctets:polished_end_stone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:polished_end_stone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:polished_end_stone_octet_from_polished_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:polished_end_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/polished_end_stone_octet_from_polished_end_stone_stonecutting.json",
+      "ingredients": [
+        "simplelib:polished_end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:polished_end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplelib:polished_end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -10645,6 +10876,83 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           {
             "id": "minecraft:sand",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:smooth_stone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:smooth_stone",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_stone_from_octets.json",
+      "ingredients": [
+        "simpleoctets:smooth_stone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ],
+        [
+          "simpleoctets:smooth_stone_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:smooth_stone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:smooth_stone_octet_from_smooth_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:smooth_stone_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/smooth_stone_octet_from_smooth_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
           }
         ]
       }
@@ -14539,6 +14847,62 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       ]
     },
     {
+      "id": "simpleoctets:cut_red_sandstone_octet",
+      "name": {
+        "en_us": "Cut Red Sandstone Octet Cell",
+        "de_de": "Geschnittener Roter Sandstein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_red_sandstone_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:cut_sandstone_octet",
+      "name": {
+        "en_us": "Cut Sandstone Octet Cell",
+        "de_de": "Geschnittener Sandstein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:cut_sandstone_octet_from_cut_sandstone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:cut_sandstone_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:cyan_concrete_octet",
       "name": {
         "en_us": "Cyan Concrete Octet Cell",
@@ -16625,6 +16989,34 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       ]
     },
     {
+      "id": "simpleoctets:polished_end_stone_octet",
+      "name": {
+        "en_us": "Polished End Stone Octet Cell",
+        "de_de": "Polierter Endstein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:polished_end_stone_octet_from_polished_end_stone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:polished_end_stone_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:polished_ender_quartz_block_octet",
       "name": {
         "en_us": "Polished Ender Quartz Block Octet Cell",
@@ -17322,6 +17714,34 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
       ],
       "usedIn": [
         "simpleoctets:smooth_sandstone_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:smooth_stone_octet",
+      "name": {
+        "en_us": "Smooth Stone Octet Cell",
+        "de_de": "Glatter Stein-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:smooth_stone_octet_from_smooth_stone_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:smooth_stone_from_octets"
       ]
     },
     {
@@ -18376,13 +18796,13 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 341,
+    "recipes": 349,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 172,
+    "blocks": 176,
     "trades": 0,
     "config": 0,
     "quests": 0,
