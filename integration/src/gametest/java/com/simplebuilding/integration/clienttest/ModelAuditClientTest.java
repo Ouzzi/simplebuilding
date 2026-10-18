@@ -127,14 +127,20 @@ public final class ModelAuditClientTest implements FabricClientGameTest {
     private static void tabShots(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
         var server = world.getServer();
         server.runCommand("gamemode creative @a");
-        server.runCommand("give @a simplebuilding:color_brush");
-        server.runCommand("give @a minecraft:red_dye 4");
-        server.runCommand("give @a simplebuilding:paint_box");
-        context.waitTicks(10);
-        context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(context.computeOnClient(c -> c.player)));
-        context.waitTicks(5);
-        context.takeScreenshot("brush-inventory");
-        context.setScreen(() -> null);
+        String[][] inks = {{"none", ""}, {"red", "give @a minecraft:red_dye 4"}, {"palette", "give @a simplebuilding:paint_box"},
+                {"white", "give @a minecraft:white_dye"}, {"black", "give @a minecraft:black_dye"}};
+        for (String[] ink : inks) {
+            server.runCommand("clear @a");
+            server.runCommand("give @a simplebuilding:color_brush");
+            if (!ink[1].isEmpty()) {
+                server.runCommand(ink[1]);
+            }
+            context.waitTicks(10);
+            context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(context.computeOnClient(c -> c.player)));
+            context.waitTicks(5);
+            context.takeScreenshot("brush-" + ink[0]);
+            context.setScreen(() -> null);
+        }
         List<net.minecraft.world.item.CreativeModeTab> tabs = context.computeOnClient(c -> {
             var access = c.player.connection.registryAccess();
             net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(c.player.connection.enabledFeatures(), true, access);
