@@ -847,7 +847,6 @@
       ]
     },
     {
-<<<<<<< HEAD
       "id": "creative_tab_switch",
       "sources": [
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"
@@ -866,7 +865,8 @@
           "Der gemeinsame Schalter simpletweaks.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
         ]
       }
-=======
+    },
+    {
       "id": "protect_antixray",
       "en": {
         "title": "Anti-X-Ray",
@@ -949,7 +949,6 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/mixin/ProtectGamePacketMixin.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/protect/ProtectConfig.java"
       ]
->>>>>>> 5a740d0b250ecf5fb07e61408a7c1f6cb703e505
     }
   ],
   "notes": {
