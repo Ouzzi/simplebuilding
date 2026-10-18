@@ -116,3 +116,27 @@ Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava`; SB-Filter `sledgehamme
 `sledgehammer_octet`, `migration`, `data_integrity`, `crucible`; `module-simplehammers-{fabric,neoforge}-263`, Standalone
 simplehammers fabric+neoforge, simpleblocks `saw`, simpletweaks `protect`, simplecrucibles, simplelib; Checks
 `checkModuleGuides checkModuleData checkWiki checkDiscover checkMultimod`. Nicht geprüft (bewusst): Client-Sicht.
+
+## 6. Stand (18.10.) und Abweichungen
+
+Umgesetzt: Modul `modules/simplehammers` (1.0.0, Pflicht-Sub-Mod, gebündelt auf Fabric/NeoForge/Forge): 7 Hämmer, Motor
+(`item/SledgehammerItem`, `engine/*`), Mixins (Abbautempo, `carved`-Treppen unter altem Eigenschaftsnamen, Werkbank,
+Client-Fortschritt), Verzauberungen als Daten, Config mit Übernahme, Tab, JEI-Infoseiten, Handbuch, Discover, Teststation,
+Wiki, Money-Tabelle, 14 Modul-Tests. SimpleLib `HammerActions` (Haken s. E3, dazu `registerAreaVeto`), simplecrucibles
+`HammerWays` (Bau/Andocken/Menü/gestuft, `onCrucibleBuilt`). SB: 26.2-Zwillinge in `common/src/mc26_2`, 26.3-Unterklassen,
+`HammerRefs`, `OctantHammerArea`, Haken in `LibServices.init`, Datagen/Tabs/Tooltips/Discover/Wiki/Lang umgestellt.
+
+Abweichungen (bewusst):
+- **Dorfbewohner-Trades der Hämmer bleiben SB** (nutzen SBs Bedingung `simplebuilding:config` und `weighted_enchant`); auf
+  26.3 schreibt der Build ihre Ids auf `simplehammers:` um (`mc26_3/resources.gradle`). Allein hat das Modul keine Trades.
+- **Rechteprüfung:** das Modul fragt framework `Protection` selbst je Aktion (DESTROY für die Fläche); SB meldet keine
+  eigene Prüfung an (WorldPermissions ist auf 26.3 genau diese Brücke). SBs Abbau-Hörer behält seinen Schutzteil und
+  reicht an das Modul weiter (der zweite Aufruf findet die Fläche schon abgebaut).
+- **Hammer-Texturen kopiert, nicht verschoben** (26.2 nutzt SBs Kopien); Netherit/Enderit erzeugt `generate_textures.py`
+  in beide Bäume (`MODULE_COPIES`).
+- **Stufen-Aufwertungsrezepte** (Kupfer→Eisen→Gold→Diamant, Rezepttyp `simplebuilding:count_based_smithing`) nur mit SB
+  (Ladebedingung); allein gibt es jede Stufe am Werktisch.
+- SB-Lang 26.2 (src/main) behält alle Hammer-Schlüssel; nur das 26.3-Overlay verliert die umgezogenen.
+
+Offen (notiert in der Übergabe): Umriss/Risse/Ausholen und Aufwertungs-Tooltips nur mit SB; SB-Config-Schlüssel
+`server.tools.*` der Hämmer ausblenden (Stufe 9); Client-Sicht; Enderit-Freischaltung mit Simple Enderite (F3-TODO).
