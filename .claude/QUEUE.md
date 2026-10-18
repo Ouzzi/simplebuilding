@@ -672,9 +672,9 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [ ] (Fund claude-octets2 18.10.) Simple Blocks: eigene sawing-Rezepte nutzen `forge:conditions` (Forge 26.3 liest nur ein `forge:condition`, mehrere per `forge:and`) → laden auf Forge auch ohne Partner-Mod; Fix in modules/simpleblocks/tools/generate_data.py wie im Octet-Generator.
 
 ### Besitzer 19.10. – neue geplante Umsetzungen (je erst Konzept, dann umsetzen)
-- [ ] Better Item Frames (Ideen übernehmen): Rahmen unsichtbar/fest, Items drehen, … – Konzept, Zielmod festlegen.
-- [ ] Shulker-Box-Tooltip (Inhalt beim Hovern) + Endertruhen-Tooltip (eigener Endertruhen-Inhalt) – vermutlich Simple Interfaces.
+- [~] (B, b-concepts19, 19.10., Konzept) Better Item Frames (Ideen übernehmen): Rahmen unsichtbar/fest, Items drehen, … – Konzept, Zielmod festlegen.
+- [~] (B, b-concepts19, 19.10., Konzept) Shulker-Box-Tooltip (Inhalt beim Hovern) + Endertruhen-Tooltip (eigener Endertruhen-Inhalt) – vermutlich Simple Interfaces.
 - [ ] MC-Paint-Idee: „Bild-Bauplan“ wie Blaupause – Code für ein Bild eingeben (Import) oder Bild hochladen mit automatischer Umwandlung in Blöcke/Karten-Farben; Konzept ausarbeiten (Simple Building Blaupausen / Simple Maps?).
-- [ ] Bundles Beyond (Ideen übernehmen: größere/farbige Bündel, Bündel-Komfort) – Konzept, Abgleich mit SB-Rucksäcken und Simple Sandwiches (Essen aus Bündeln).
+- [~] (B, b-concepts19, 19.10., Konzept) Bundles Beyond (Ideen übernehmen: größere/farbige Bündel, Bündel-Komfort) – Konzept, Abgleich mit SB-Rucksäcken und Simple Sandwiches (Essen aus Bündeln).
 - [ ] Simple Maps: Webkarte (wie JourneyMap Web Map / Dynmap/BlueMap), wenn möglich 3D-Karte wie auf SMP-Servern – Konzept (Server-Render, Auslieferung über sb-web?, Datenschutz/Claims).
 - [ ] MineTracer: Vorteile übernehmen und in Simple Tweaks T10 (Block-/Truhen-Protokoll) einbauen – Funktionsvergleich Ledger/MineTracer vs. T10.
