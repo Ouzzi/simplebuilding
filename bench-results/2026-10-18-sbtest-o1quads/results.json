@@ -1,0 +1,1361 @@
+{
+ "date": "2026-10-18T23:45",
+ "machine": {
+  "profile": "sbtest",
+  "os": "Linux-7.0.14-3-pve-x86_64-with-glibc2.41",
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13500T",
+  "cores": 8,
+  "ram": "14.0 GB",
+  "java": "openjdk version \"25.0.4.1\" 2026-08-18 LTS"
+ },
+ "mc": "26.3",
+ "runs_per_scenario": 3,
+ "missing26_3": [
+  {
+   "slug": "noisiumforked",
+   "modId": "noisium",
+   "latest": "26.2",
+   "areas": [
+    "S3"
+   ]
+  },
+  {
+   "slug": "voxy",
+   "modId": "voxy",
+   "latest": "26.2",
+   "areas": [
+    "O11"
+   ]
+  }
+ ],
+ "runs": [
+  {
+   "area": "o1",
+   "scenario": "a-vanilla",
+   "rep": 1,
+   "mods": [],
+   "wall_s": 97.5,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 17.946,
+   "loaded": [],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 9.459,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 0.978,
+   "meshbuild_complete": true,
+   "meshbuild_s": 0.874,
+   "quads_solid": 0,
+   "quads_cutout": 0,
+   "quads_translucent": 0,
+   "quads_total": 0,
+   "visible_sections": 0,
+   "heap_load_mb": 425.266,
+   "frames": 300,
+   "frame_avg_ms": 50.068,
+   "fps_avg": 19.973,
+   "fps_1low": 10.098,
+   "frame_p99_ms": 85.013,
+   "mspt_avg": 8.473,
+   "mspt_p95": 21.669,
+   "heap_mb": 388.851
+  },
+  {
+   "area": "o1",
+   "scenario": "b-cullleaves",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    }
+   ],
+   "wall_s": 87.4,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 15.428,
+   "loaded": [
+    "cullleaves"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 9.919,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 1.499,
+   "meshbuild_complete": true,
+   "meshbuild_s": 0.838,
+   "quads_solid": 0,
+   "quads_cutout": 0,
+   "quads_translucent": 0,
+   "quads_total": 0,
+   "visible_sections": 0,
+   "heap_load_mb": 360.73,
+   "frames": 300,
+   "frame_avg_ms": 51.732,
+   "fps_avg": 19.33,
+   "fps_1low": 8.9,
+   "frame_p99_ms": 107.722,
+   "mspt_avg": 11.781,
+   "mspt_p95": 28.105,
+   "heap_mb": 388.996
+  },
+  {
+   "area": "o1",
+   "scenario": "b-moreculling",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    }
+   ],
+   "wall_s": 86.7,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 15.236,
+   "loaded": [
+    "moreculling"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 9.758,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 0.71,
+   "meshbuild_complete": true,
+   "meshbuild_s": 3.488,
+   "quads_solid": 2317,
+   "quads_cutout": 216,
+   "quads_translucent": 0,
+   "quads_total": 2533,
+   "visible_sections": 18,
+   "heap_load_mb": 352.635,
+   "frames": 300,
+   "frame_avg_ms": 50.493,
+   "fps_avg": 19.805,
+   "fps_1low": 10.308,
+   "frame_p99_ms": 92.265,
+   "mspt_avg": 7.402,
+   "mspt_p95": 10.25,
+   "heap_mb": 393.234
+  },
+  {
+   "area": "o1",
+   "scenario": "c-ours",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 73.7,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> on  (no_rival)",
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 11.588,
+   "loaded": [
+    "simpleoptrender"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 8.361,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 0.743,
+   "meshbuild_complete": true,
+   "meshbuild_s": 0.72,
+   "quads_solid": 0,
+   "quads_cutout": 0,
+   "quads_translucent": 0,
+   "quads_total": 0,
+   "visible_sections": 0,
+   "heap_load_mb": 465.618,
+   "frames": 300,
+   "frame_avg_ms": 49.063,
+   "fps_avg": 20.382,
+   "fps_1low": 13.521,
+   "frame_p99_ms": 71.8,
+   "mspt_avg": 7.802,
+   "mspt_p95": 16.228,
+   "heap_mb": 386.25
+  },
+  {
+   "area": "o1",
+   "scenario": "d-ours+cullleaves",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    },
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 70.9,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> off (rival_wins: cullleaves)",
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 11.646,
+   "loaded": [
+    "simpleoptrender",
+    "cullleaves"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 8.91,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 0.989,
+   "meshbuild_complete": true,
+   "meshbuild_s": 0.976,
+   "quads_solid": 0,
+   "quads_cutout": 0,
+   "quads_translucent": 0,
+   "quads_total": 0,
+   "visible_sections": 0,
+   "heap_load_mb": 414.082,
+   "frames": 300,
+   "frame_avg_ms": 49.168,
+   "fps_avg": 20.338,
+   "fps_1low": 13.793,
+   "frame_p99_ms": 70.571,
+   "mspt_avg": 7.13,
+   "mspt_p95": 18.634,
+   "heap_mb": 390.445
+  },
+  {
+   "area": "o1",
+   "scenario": "d-ours+moreculling",
+   "rep": 1,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    },
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 85.8,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> off (rival_wins: moreculling)",
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 17.073,
+   "loaded": [
+    "simpleoptrender",
+    "moreculling"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 10.305,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 1.049,
+   "meshbuild_complete": true,
+   "meshbuild_s": 2.616,
+   "quads_solid": 2312,
+   "quads_cutout": 176,
+   "quads_translucent": 0,
+   "quads_total": 2488,
+   "visible_sections": 18,
+   "heap_load_mb": 339.612,
+   "frames": 300,
+   "frame_avg_ms": 49.731,
+   "fps_avg": 20.108,
+   "fps_1low": 11.784,
+   "frame_p99_ms": 75.688,
+   "mspt_avg": 5.95,
+   "mspt_p95": 7.161,
+   "heap_mb": 393.563
+  },
+  {
+   "area": "o1",
+   "scenario": "a-vanilla",
+   "rep": 2,
+   "mods": [],
+   "wall_s": 98.5,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 16.621,
+   "loaded": [],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 10.068,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 1.874,
+   "meshbuild_complete": true,
+   "meshbuild_s": 5.111,
+   "quads_solid": 3551,
+   "quads_cutout": 220,
+   "quads_translucent": 0,
+   "quads_total": 3771,
+   "visible_sections": 26,
+   "heap_load_mb": 333.844,
+   "frames": 300,
+   "frame_avg_ms": 49.839,
+   "fps_avg": 20.065,
+   "fps_1low": 12.091,
+   "frame_p99_ms": 79.232,
+   "mspt_avg": 5.269,
+   "mspt_p95": 8.558,
+   "heap_mb": 388.86
+  },
+  {
+   "area": "o1",
+   "scenario": "b-cullleaves",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    }
+   ],
+   "wall_s": 98.7,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 20.932,
+   "loaded": [
+    "cullleaves"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 15.113,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 1.992,
+   "meshbuild_complete": true,
+   "meshbuild_s": 3.82,
+   "quads_solid": 2061,
+   "quads_cutout": 216,
+   "quads_translucent": 0,
+   "quads_total": 2277,
+   "visible_sections": 17,
+   "heap_load_mb": 336.591,
+   "frames": 300,
+   "frame_avg_ms": 49.284,
+   "fps_avg": 20.291,
+   "fps_1low": 11.16,
+   "frame_p99_ms": 72.917,
+   "mspt_avg": 7.448,
+   "mspt_p95": 15.383,
+   "heap_mb": 391.75
+  },
+  {
+   "area": "o1",
+   "scenario": "b-moreculling",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    }
+   ],
+   "wall_s": 86.1,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 15.565,
+   "loaded": [
+    "moreculling"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 9.983,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 0.711,
+   "meshbuild_complete": true,
+   "meshbuild_s": 5.481,
+   "quads_solid": 4328,
+   "quads_cutout": 220,
+   "quads_translucent": 0,
+   "quads_total": 4548,
+   "visible_sections": 31,
+   "heap_load_mb": 341.524,
+   "frames": 300,
+   "frame_avg_ms": 49.584,
+   "fps_avg": 20.168,
+   "fps_1low": 11.163,
+   "frame_p99_ms": 83.755,
+   "mspt_avg": 5.205,
+   "mspt_p95": 6.25,
+   "heap_mb": 391.167
+  },
+  {
+   "area": "o1",
+   "scenario": "c-ours",
+   "rep": 2,
+   "mods": [
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 111.5,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> on  (no_rival)",
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 19.206,
+   "loaded": [
+    "simpleoptrender"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 14.529,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 1.845,
+   "meshbuild_complete": true,
+   "meshbuild_s": 4.813,
+   "quads_solid": 2061,
+   "quads_cutout": 216,
+   "quads_translucent": 0,
+   "quads_total": 2277,
+   "visible_sections": 17,
+   "heap_load_mb": 350.545,
+   "frames": 300,
+   "frame_avg_ms": 61.77,
+   "fps_avg": 16.189,
+   "fps_1low": 5.55,
+   "frame_p99_ms": 157.003,
+   "mspt_avg": 11.529,
+   "mspt_p95": 18.409,
+   "heap_mb": 392.761
+  },
+  {
+   "area": "o1",
+   "scenario": "a-vanilla",
+   "rep": 3,
+   "mods": [],
+   "wall_s": 104.4,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 14.796,
+   "loaded": [],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 10.284,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 1.286,
+   "meshbuild_complete": true,
+   "meshbuild_s": 1.212,
+   "quads_solid": 0,
+   "quads_cutout": 0,
+   "quads_translucent": 0,
+   "quads_total": 0,
+   "visible_sections": 0,
+   "heap_load_mb": 411.931,
+   "frames": 300,
+   "frame_avg_ms": 50.055,
+   "fps_avg": 19.978,
+   "fps_1low": 9.009,
+   "frame_p99_ms": 95.178,
+   "mspt_avg": 8.536,
+   "mspt_p95": 28.157,
+   "heap_mb": 392.708
+  },
+  {
+   "area": "o1",
+   "scenario": "b-cullleaves",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "cullleaves",
+     "version": "4.1.2+26.3-fabric",
+     "sha512": "8cc1c814dd2c2931"
+    }
+   ],
+   "wall_s": 103.5,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 16.522,
+   "loaded": [
+    "cullleaves"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 16.051,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 2.546,
+   "meshbuild_complete": true,
+   "meshbuild_s": 5.287,
+   "quads_solid": 3551,
+   "quads_cutout": 220,
+   "quads_translucent": 0,
+   "quads_total": 3771,
+   "visible_sections": 26,
+   "heap_load_mb": 336.243,
+   "frames": 300,
+   "frame_avg_ms": 51.823,
+   "fps_avg": 19.296,
+   "fps_1low": 9.146,
+   "frame_p99_ms": 104.482,
+   "mspt_avg": 6.29,
+   "mspt_p95": 8.639,
+   "heap_mb": 393.682
+  },
+  {
+   "area": "o1",
+   "scenario": "b-moreculling",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "moreculling",
+     "version": "1.9.0",
+     "sha512": "b1975ef43606a3ba"
+    },
+    {
+     "id": "cloth-config",
+     "version": "26.3.159+fabric",
+     "sha512": "8924e19d41845096"
+    }
+   ],
+   "wall_s": 92.0,
+   "exit": 0,
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 14.97,
+   "loaded": [
+    "moreculling"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 11.566,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 0.846,
+   "meshbuild_complete": true,
+   "meshbuild_s": 3.448,
+   "quads_solid": 2061,
+   "quads_cutout": 216,
+   "quads_translucent": 0,
+   "quads_total": 2277,
+   "visible_sections": 17,
+   "heap_load_mb": 354.654,
+   "frames": 300,
+   "frame_avg_ms": 57.974,
+   "fps_avg": 17.249,
+   "fps_1low": 6.468,
+   "frame_p99_ms": 129.853,
+   "mspt_avg": 11.169,
+   "mspt_p95": 15.222,
+   "heap_mb": 391.772
+  },
+  {
+   "area": "o1",
+   "scenario": "c-ours",
+   "rep": 3,
+   "mods": [
+    {
+     "id": "simpleoptrender",
+     "version": "branch",
+     "sha512": ""
+    }
+   ],
+   "wall_s": 107.3,
+   "exit": 0,
+   "decision": "O1   leaf_culling       mode=auto   -> on  (no_rival)",
+   "scene": "o1",
+   "seed": 20261018,
+   "startup_s": 19.496,
+   "loaded": [
+    "simpleoptrender"
+   ],
+   "window": "854x480",
+   "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+   "worldload_s": 15.621,
+   "forest_loaded": true,
+   "forest": [
+    -192,
+    -64,
+    -160
+   ],
+   "chunkload_complete": true,
+   "chunkload_s": 2.338,
+   "meshbuild_complete": true,
+   "meshbuild_s": 5.297,
+   "quads_solid": 4323,
+   "quads_cutout": 182,
+   "quads_translucent": 0,
+   "quads_total": 4505,
+   "visible_sections": 31,
+   "heap_load_mb": 337.247,
+   "frames": 300,
+   "frame_avg_ms": 51.422,
+   "fps_avg": 19.447,
+   "fps_1low": 5.49,
+   "frame_p99_ms": 120.353,
+   "mspt_avg": 6.118,
+   "mspt_p95": 8.618,
+   "heap_mb": 390.31
+  }
+ ],
+ "gl": "llvmpipe (LLVM 19.1.7, 256 bits)",
+ "summary": {
+  "o1": {
+   "code": "O1",
+   "area": "leaf_culling",
+   "gpu_bound": true,
+   "decisive": [
+    "quads_cutout",
+    "meshbuild_s",
+    "mspt_avg",
+    "heap_mb"
+   ],
+   "scenarios": {
+    "a-vanilla": {
+     "fps_avg": {
+      "median": 19.978,
+      "sd": 0.04224005471376981,
+      "n": 3
+     },
+     "fps_1low": {
+      "median": 10.098,
+      "sd": 1.2761353985982655,
+      "n": 3
+     },
+     "frame_avg_ms": {
+      "median": 50.055,
+      "sd": 0.10502169088124397,
+      "n": 3
+     },
+     "frame_p99_ms": {
+      "median": 85.013,
+      "sd": 6.591426266159867,
+      "n": 3
+     },
+     "quads_total": {
+      "median": 0,
+      "sd": 1777.6664479029805,
+      "n": 3
+     },
+     "quads_cutout": {
+      "median": 0,
+      "sd": 103.70899457402697,
+      "n": 3
+     },
+     "meshbuild_s": {
+      "median": 1.212,
+      "sd": 1.9226317033344338,
+      "n": 3
+     },
+     "chunkload_s": {
+      "median": 1.286,
+      "sd": 0.3716964113658111,
+      "n": 3
+     },
+     "worldload_s": {
+      "median": 10.068,
+      "sd": 0.34931074990615485,
+      "n": 3
+     },
+     "mspt_avg": {
+      "median": 8.473,
+      "sd": 1.5254461642417931,
+      "n": 3
+     },
+     "mspt_p95": {
+      "median": 21.669,
+      "sd": 8.15211810240477,
+      "n": 3
+     },
+     "heap_mb": {
+      "median": 388.86,
+      "sd": 1.8160896331281644,
+      "n": 3
+     },
+     "startup_s": {
+      "median": 16.621,
+      "sd": 1.2913709338872743,
+      "n": 3
+     }
+    },
+    "b-cullleaves": {
+     "fps_avg": {
+      "median": 19.33,
+      "sd": 0.4612425247813425,
+      "n": 3
+     },
+     "fps_1low": {
+      "median": 9.146,
+      "sd": 1.012385082641756,
+      "n": 3
+     },
+     "frame_avg_ms": {
+      "median": 51.732,
+      "sd": 1.1760341075930678,
+      "n": 3
+     },
+     "frame_p99_ms": {
+      "median": 104.482,
+      "sd": 15.699380207157505,
+      "n": 3
+     },
+     "quads_total": {
+      "median": 2277,
+      "sd": 1550.5270071817517,
+      "n": 3
+     },
+     "quads_cutout": {
+      "median": 216,
+      "sd": 102.77915914987608,
+      "n": 3
+     },
+     "meshbuild_s": {
+      "median": 3.82,
+      "sd": 1.851066179259942,
+      "n": 3
+     },
+     "chunkload_s": {
+      "median": 1.992,
+      "sd": 0.4276777083531735,
+      "n": 3
+     },
+     "worldload_s": {
+      "median": 15.113,
+      "sd": 2.69688923679775,
+      "n": 3
+     },
+     "mspt_avg": {
+      "median": 7.448,
+      "sd": 2.3633059236774425,
+      "n": 3
+     },
+     "mspt_p95": {
+      "median": 15.383,
+      "sd": 8.070907810704375,
+      "n": 3
+     },
+     "heap_mb": {
+      "median": 391.75,
+      "sd": 1.9228374866327251,
+      "n": 3
+     },
+     "startup_s": {
+      "median": 16.522,
+      "sd": 2.3790509779228257,
+      "n": 3
+     }
+    },
+    "b-moreculling": {
+     "fps_avg": {
+      "median": 19.805,
+      "sd": 1.298951115323437,
+      "n": 3
+     },
+     "fps_1low": {
+      "median": 10.308,
+      "sd": 2.0417761875386833,
+      "n": 3
+     },
+     "frame_avg_ms": {
+      "median": 50.493,
+      "sd": 3.759192318688799,
+      "n": 3
+     },
+     "frame_p99_ms": {
+      "median": 92.265,
+      "sd": 20.028600239546343,
+      "n": 3
+     },
+     "quads_total": {
+      "median": 2533,
+      "sd": 1015.6115836720694,
+      "n": 3
+     },
+     "quads_cutout": {
+      "median": 216,
+      "sd": 1.8856180831641267,
+      "n": 3
+     },
+     "meshbuild_s": {
+      "median": 3.488,
+      "sd": 0.9490777980053409,
+      "n": 3
+     },
+     "chunkload_s": {
+      "median": 0.711,
+      "sd": 0.06387661717891942,
+      "n": 3
+     },
+     "worldload_s": {
+      "median": 9.983,
+      "sd": 0.8045273284495829,
+      "n": 3
+     },
+     "mspt_avg": {
+      "median": 7.402,
+      "sd": 2.462753517688867,
+      "n": 3
+     },
+     "mspt_p95": {
+      "median": 10.25,
+      "sd": 3.669961671007841,
+      "n": 3
+     },
+     "heap_mb": {
+      "median": 391.772,
+      "sd": 0.8676890123899371,
+      "n": 3
+     },
+     "startup_s": {
+      "median": 15.236,
+      "sd": 0.24336118562060474,
+      "n": 3
+     }
+    },
+    "c-ours": {
+     "fps_avg": {
+      "median": 19.447,
+      "sd": 1.7972212502144034,
+      "n": 3
+     },
+     "fps_1low": {
+      "median": 5.55,
+      "sd": 3.7717871095808153,
+      "n": 3
+     },
+     "frame_avg_ms": {
+      "median": 51.422,
+      "sd": 5.5187944939693745,
+      "n": 3
+     },
+     "frame_p99_ms": {
+      "median": 120.353,
+      "sd": 34.896939563361265,
+      "n": 3
+     },
+     "quads_total": {
+      "median": 2277,
+      "sd": 1839.1948117465847,
+      "n": 3
+     },
+     "quads_cutout": {
+      "median": 182,
+      "sd": 94.83084355255356,
+      "n": 3
+     },
+     "meshbuild_s": {
+      "median": 4.813,
+      "sd": 2.0530690847281945,
+      "n": 3
+     },
+     "chunkload_s": {
+      "median": 1.845,
+      "sd": 0.666789821957914,
+      "n": 3
+     },
+     "worldload_s": {
+      "median": 14.529,
+      "sd": 3.196252806021451,
+      "n": 3
+     },
+     "mspt_avg": {
+      "median": 7.802,
+      "sd": 2.260907045118544,
+      "n": 3
+     },
+     "mspt_p95": {
+      "median": 16.228,
+      "sd": 4.1969902178690965,
+      "n": 3
+     },
+     "heap_mb": {
+      "median": 390.31,
+      "sd": 2.68502269802118,
+      "n": 3
+     },
+     "startup_s": {
+      "median": 19.206,
+      "sd": 3.661427893899076,
+      "n": 3
+     }
+    },
+    "d-ours+cullleaves": {
+     "fps_avg": {
+      "median": 20.338,
+      "sd": 0.0,
+      "n": 1
+     },
+     "fps_1low": {
+      "median": 13.793,
+      "sd": 0.0,
+      "n": 1
+     },
+     "frame_avg_ms": {
+      "median": 49.168,
+      "sd": 0.0,
+      "n": 1
+     },
+     "frame_p99_ms": {
+      "median": 70.571,
+      "sd": 0.0,
+      "n": 1
+     },
+     "quads_total": {
+      "median": 0,
+      "sd": 0.0,
+      "n": 1
+     },
+     "quads_cutout": {
+      "median": 0,
+      "sd": 0.0,
+      "n": 1
+     },
+     "meshbuild_s": {
+      "median": 0.976,
+      "sd": 0.0,
+      "n": 1
+     },
+     "chunkload_s": {
+      "median": 0.989,
+      "sd": 0.0,
+      "n": 1
+     },
+     "worldload_s": {
+      "median": 8.91,
+      "sd": 0.0,
+      "n": 1
+     },
+     "mspt_avg": {
+      "median": 7.13,
+      "sd": 0.0,
+      "n": 1
+     },
+     "mspt_p95": {
+      "median": 18.634,
+      "sd": 0.0,
+      "n": 1
+     },
+     "heap_mb": {
+      "median": 390.445,
+      "sd": 0.0,
+      "n": 1
+     },
+     "startup_s": {
+      "median": 11.646,
+      "sd": 0.0,
+      "n": 1
+     }
+    },
+    "d-ours+moreculling": {
+     "fps_avg": {
+      "median": 20.108,
+      "sd": 0.0,
+      "n": 1
+     },
+     "fps_1low": {
+      "median": 11.784,
+      "sd": 0.0,
+      "n": 1
+     },
+     "frame_avg_ms": {
+      "median": 49.731,
+      "sd": 0.0,
+      "n": 1
+     },
+     "frame_p99_ms": {
+      "median": 75.688,
+      "sd": 0.0,
+      "n": 1
+     },
+     "quads_total": {
+      "median": 2488,
+      "sd": 0.0,
+      "n": 1
+     },
+     "quads_cutout": {
+      "median": 176,
+      "sd": 0.0,
+      "n": 1
+     },
+     "meshbuild_s": {
+      "median": 2.616,
+      "sd": 0.0,
+      "n": 1
+     },
+     "chunkload_s": {
+      "median": 1.049,
+      "sd": 0.0,
+      "n": 1
+     },
+     "worldload_s": {
+      "median": 10.305,
+      "sd": 0.0,
+      "n": 1
+     },
+     "mspt_avg": {
+      "median": 5.95,
+      "sd": 0.0,
+      "n": 1
+     },
+     "mspt_p95": {
+      "median": 7.161,
+      "sd": 0.0,
+      "n": 1
+     },
+     "heap_mb": {
+      "median": 393.563,
+      "sd": 0.0,
+      "n": 1
+     },
+     "startup_s": {
+      "median": 17.073,
+      "sd": 0.0,
+      "n": 1
+     }
+    }
+   },
+   "vs": {
+    "a-vanilla": {
+     "metrics": {
+      "fps_avg": {
+       "delta_pct": -2.66,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "fps_1low": {
+       "delta_pct": -45.04,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "frame_avg_ms": {
+       "delta_pct": -2.73,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "frame_p99_ms": {
+       "delta_pct": -41.57,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "meshbuild_s": {
+       "delta_pct": -297.11,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "chunkload_s": {
+       "delta_pct": -43.47,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "worldload_s": {
+       "delta_pct": -44.31,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "mspt_avg": {
+       "delta_pct": 7.92,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "mspt_p95": {
+       "delta_pct": 25.11,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "heap_mb": {
+       "delta_pct": -0.37,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "startup_s": {
+       "delta_pct": -15.55,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      }
+     },
+     "winner": "-"
+    },
+    "b-cullleaves": {
+     "metrics": {
+      "fps_avg": {
+       "delta_pct": 0.61,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "fps_1low": {
+       "delta_pct": -39.32,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "frame_avg_ms": {
+       "delta_pct": 0.6,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "frame_p99_ms": {
+       "delta_pct": -15.19,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "quads_total": {
+       "delta_pct": 0.0,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "quads_cutout": {
+       "delta_pct": 15.74,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "meshbuild_s": {
+       "delta_pct": -25.99,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "chunkload_s": {
+       "delta_pct": 7.38,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "worldload_s": {
+       "delta_pct": 3.86,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "mspt_avg": {
+       "delta_pct": -4.75,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "mspt_p95": {
+       "delta_pct": -5.49,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "heap_mb": {
+       "delta_pct": 0.37,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "startup_s": {
+       "delta_pct": -16.25,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      }
+     },
+     "winner": "theirs"
+    },
+    "b-moreculling": {
+     "metrics": {
+      "fps_avg": {
+       "delta_pct": -1.81,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "fps_1low": {
+       "delta_pct": -46.16,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "frame_avg_ms": {
+       "delta_pct": -1.84,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "frame_p99_ms": {
+       "delta_pct": -30.44,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": true
+      },
+      "quads_total": {
+       "delta_pct": 10.11,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "quads_cutout": {
+       "delta_pct": 15.74,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "meshbuild_s": {
+       "delta_pct": -37.99,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "chunkload_s": {
+       "delta_pct": -159.49,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "worldload_s": {
+       "delta_pct": -45.54,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "mspt_avg": {
+       "delta_pct": -5.4,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "mspt_p95": {
+       "delta_pct": -58.32,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "heap_mb": {
+       "delta_pct": 0.37,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      },
+      "startup_s": {
+       "delta_pct": -26.06,
+       "significant": false,
+       "verdict": "gleich",
+       "tendency_only": false
+      }
+     },
+     "winner": "theirs"
+    }
+   }
+  }
+ }
+}

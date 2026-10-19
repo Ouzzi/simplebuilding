@@ -1,0 +1,11 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+ext.moduleVersion = '0.1.0'
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// framework (SubMods switches) nested per principle 3.
+dependencies { include project(':framework') }
+// Super-mod (concept 5.2): requires and nests its sub-mods; no class imports.
+dependencies {
+    include project(':modules:simpleoptrender:fabric')
+    include project(':modules:simpleoptmemory:fabric')
+    include project(':modules:simpleoptserver:fabric')
+}

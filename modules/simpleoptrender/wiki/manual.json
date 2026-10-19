@@ -1,0 +1,81 @@
+{
+  "features": [
+    {
+      "id": "compat",
+      "sources": [
+        "framework/src/main/java/com/simplebuilding/framework/api/OptCompat.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/OptSettings.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/RenderOpt.java",
+        "modules/simpleoptrender/fabric/src/main/java/com/simplebuilding/modules/simpleoptrender/fabric/RenderOptMixinPlugin.java"
+      ],
+      "en": {
+        "title": "Steps back for known mods",
+        "summary": "Each area has a mode in config/simpleoptrender.json: auto (default), ours, theirs or off. In auto, a known mod for the same area wins and our part stays off: Cull Leaves, More Culling or Sodium for leaf culling, BadOptimizations for the light map, Fast IP Ping, No Telemetry. Ours next to such a mod is refused when both would hook the same code. The decision is made at game start (restart after a change) and logged as one table; we never switch another mod off."
+      },
+      "de": {
+        "title": "Weicht bekannten Mods",
+        "summary": "Jeder Bereich hat in config/simpleoptrender.json einen Modus: auto (Standard), ours, theirs oder off. Bei auto gewinnt ein bekannter Mod für denselben Bereich und unser Teil bleibt aus: Cull Leaves, More Culling oder Sodium beim Blätter-Culling, BadOptimizations bei der Lichtkarte, Fast IP Ping, No Telemetry. ours neben so einem Mod wird abgelehnt, wenn beide dieselbe Stelle ändern würden. Entschieden wird beim Spielstart (nach Änderung neu starten), als Tabelle im Log; fremde Mods schalten wir nie ab."
+      }
+    },
+    {
+      "id": "leaf_culling",
+      "sources": [
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/LeafCulling.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/leaf_culling/ModelBlockRendererMixin.java"
+      ],
+      "en": {
+        "title": "Leaf culling",
+        "summary": "Leaves no longer draw the faces they share with other leaves, so forests build smaller chunk meshes while the outside keeps the fancy cutout look. A face next to air or any other block always stays, so no hole opens. depth (0 to 4, default 0) keeps the faces seen through the outer layers: with depth 1 only faces behind two leaf layers are left out."
+      },
+      "de": {
+        "title": "Blätter-Culling",
+        "summary": "Blätter zeichnen die Flächen zu anderen Blättern nicht mehr, Wälder bauen so kleinere Chunk-Meshes, außen bleibt die feine Cutout-Optik. Eine Fläche neben Luft oder einem anderen Block bleibt immer, es entsteht kein Loch. depth (0 bis 4, Standard 0) behält Flächen, die man durch die äußeren Schichten sieht: bei depth 1 fallen nur Flächen hinter zwei Blätterschichten weg."
+      }
+    },
+    {
+      "id": "lightmap_cache",
+      "sources": [
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/LightmapCache.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/lightmap_cache/LightmapMixin.java"
+      ],
+      "en": {
+        "title": "Light map cache",
+        "summary": "The light map is only uploaded again when one of its inputs (sky and block light, gamma, effects, boss darkening, colors) moved by at least half a color step since the last upload; smaller changes cannot change a pixel, so the picture stays identical."
+      },
+      "de": {
+        "title": "Lichtkarten-Cache",
+        "summary": "Die Lichtkarte wird nur neu hochgeladen, wenn sich ein Eingangswert (Himmels- und Blocklicht, Gamma, Effekte, Boss-Verdunkelung, Farben) seit dem letzten Hochladen um mindestens eine halbe Farbstufe geändert hat; kleinere Änderungen ändern kein Pixel, das Bild bleibt gleich."
+      }
+    },
+    {
+      "id": "fast_ip_ping",
+      "sources": [
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/FastIpPing.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/fast_ip_ping/ServerNameResolverMixin.java"
+      ],
+      "en": {
+        "title": "Fast IP ping",
+        "summary": "A server address typed as a plain IP (IPv4, or IPv6 in brackets) is used as it is: no reverse DNS lookup and no SRV query, so the server list fills faster. Names still resolve the Vanilla way."
+      },
+      "de": {
+        "title": "Schneller IP-Ping",
+        "summary": "Eine als reine IP eingetragene Serveradresse (IPv4, oder IPv6 in Klammern) wird direkt benutzt: keine Rückwärts-DNS-Abfrage und keine SRV-Abfrage, die Serverliste füllt sich schneller. Namen werden weiter wie in Vanilla aufgelöst."
+      }
+    },
+    {
+      "id": "no_telemetry",
+      "sources": [
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/no_telemetry/ClientTelemetryManagerMixin.java"
+      ],
+      "en": {
+        "title": "Telemetry off",
+        "summary": "The client never starts a telemetry session: every telemetry event goes to the Vanilla disabled sender, nothing is sent."
+      },
+      "de": {
+        "title": "Telemetrie aus",
+        "summary": "Der Client startet keine Telemetrie-Sitzung: jedes Telemetrie-Ereignis geht an den abgeschalteten Vanilla-Sender, nichts wird gesendet."
+      }
+    }
+  ],
+  "notes": {}
+}

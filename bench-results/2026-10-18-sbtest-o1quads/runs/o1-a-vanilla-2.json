@@ -1,0 +1,33 @@
+{
+  "scene": "o1",
+  "seed": 20261018,
+  "startup_s": 16.621,
+  "loaded": [],
+  "window": "854x480",
+  "gl_renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "worldload_s": 10.068,
+  "forest_loaded": true,
+  "forest": [
+    -192,
+    -64,
+    -160
+  ],
+  "chunkload_complete": true,
+  "chunkload_s": 1.874,
+  "meshbuild_complete": true,
+  "meshbuild_s": 5.111,
+  "quads_solid": 3551,
+  "quads_cutout": 220,
+  "quads_translucent": 0,
+  "quads_total": 3771,
+  "visible_sections": 26,
+  "heap_load_mb": 333.844,
+  "frames": 300,
+  "frame_avg_ms": 49.839,
+  "fps_avg": 20.065,
+  "fps_1low": 12.091,
+  "frame_p99_ms": 79.232,
+  "mspt_avg": 5.269,
+  "mspt_p95": 8.558,
+  "heap_mb": 388.86
+}

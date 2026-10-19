@@ -15,8 +15,7 @@ window.WIKI_MODULES = [
       "simpleovens",
       "simplemobheads",
       "simplecrucibles",
-      "simpleoctets",
-      "simplehammers"
+      "simpleoctets"
     ],
     "optional": [
       "jei",
@@ -88,7 +87,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "0eb60ca09c8f"
+    "dataHash": "f2afe38586da"
   },
   {
     "id": "simpleriding",
@@ -339,7 +338,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletrims",
     "displayName": "Simple Trims",
-    "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
+    "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with SimpleBuilding.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -354,7 +353,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
-    "dataHash": "722f6419ce54"
+    "dataHash": "6066a6742791"
   },
   {
     "id": "simplemobs",
@@ -593,12 +592,12 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "a4ad90b686de"
+    "dataHash": "2114dba4b8c0"
   },
   {
     "id": "simpleovens",
     "displayName": "Simple Ovens",
-    "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
+    "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
     "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
@@ -694,7 +693,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "70d5c51abaf6"
+    "dataHash": "55fa0fabe222"
   },
   {
     "id": "simpleblocks",
@@ -712,12 +711,12 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
-    "dataHash": "8864e5be368d"
+    "dataHash": "b53f62f960f6"
   },
   {
     "id": "simplecrucibles",
     "displayName": "Simple Crucibles",
-    "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
+    "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
     "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
@@ -733,12 +732,12 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "2fa7157b41ba"
+    "dataHash": "b2a6967297a2"
   },
   {
     "id": "simpleoctets",
     "displayName": "Simple Octets",
-    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of SimpleBuilding carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
     "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
@@ -757,25 +756,59 @@ window.WIKI_MODULES = [
     "dataHash": "c1e7c62e3e26"
   },
   {
-    "id": "simplehammers",
-    "displayName": "Simple Hammers",
-    "description": "Seven sledgehammers (Stone to Enderite) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, with the enchantments Break Through, Override and Radius, moved from SimpleBuilding (ids migrate). While it is loaded the in-world ways of the other Simple mods take the hammer instead of the axe.",
-    "version": "1.0.0",
+    "id": "simpleoptimization",
+    "displayName": "Simple Optimization",
+    "description": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
-      "fabric",
-      "neoforge",
-      "forge"
+      "fabric"
     ],
     "requires": [
-      "simplelib"
+      "simpleoptrender",
+      "simpleoptmemory",
+      "simpleoptserver"
     ],
-    "optional": [
-      "simplebuilding",
-      "simpleoctets",
-      "simplecrucibles",
-      "jei"
+    "optional": [],
+    "dataHash": "c6d6d341c731"
+  },
+  {
+    "id": "simpleoptrender",
+    "displayName": "Simple Opt Render",
+    "description": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
     ],
-    "dataHash": "f0a1c9263c15"
+    "requires": [],
+    "optional": [],
+    "dataHash": "98be845068d7"
+  },
+  {
+    "id": "simpleoptmemory",
+    "displayName": "Simple Opt Memory",
+    "description": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "4d03e55afdca"
+  },
+  {
+    "id": "simpleoptserver",
+    "displayName": "Simple Opt Server",
+    "description": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "57366e58f2a1"
   }
 ];

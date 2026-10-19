@@ -38,7 +38,11 @@
     "simpleshops",
     "simplewanderers",
     "simplestats",
-    "simpleblocks"
+    "simpleblocks",
+    "simpleoptimization",
+    "simpleoptrender",
+    "simpleoptmemory",
+    "simpleoptserver"
   ],
   "devMods": [
     "jei",
