@@ -35,6 +35,9 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public final class MapsNeoForge {
     public MapsNeoForge(IEventBus bus, Dist dist) {
         SimpleMaps.init(FMLPaths.CONFIGDIR.get());
+        SimpleMaps.modLoaded = id -> net.neoforged.fml.ModList.get().isLoaded(id);
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.RegisterCommandsEvent e) -> com.simplemaps.web.WebCommands.register(e.getDispatcher()));
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Post e) -> com.simplemaps.web.WebMap.tick(e.getServer()));
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
             if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
         });

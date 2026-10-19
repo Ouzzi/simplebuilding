@@ -25,6 +25,17 @@ public final class MapsConfig {
     public static boolean allowCopy = true, allowExtend = true, allowCombine = true;
     /** Map layers (loaded chunks, shops, chunk loaders): the server answers layer requests only when true. */
     public static boolean layers = true;
+    /** Web map export (stage 1, static files): off by default; see {@code docs/SIMPLEMAPS-WEBKARTE.md}. */
+    public static final int WEB_CHUNKS_DEFAULT = 32, WEB_CHUNKS_MIN = 1, WEB_CHUNKS_MAX = 512;
+    public static final int WEB_INTERVAL_DEFAULT = 0, WEB_INTERVAL_MAX = 1440;
+    /** Mods that bring their own web map: one of them loaded switches the web export off (autoOffWith). */
+    public static final java.util.List<String> WEB_AUTO_OFF_DEFAULT = java.util.List.of("bluemap", "dynmap", "squaremap", "pl3xmap", "journeymap");
+    public static boolean webEnabled = false, webHideClaims = false;
+    /** Chunks read per server tick while exporting; minutes between automatic exports (0 = only by command). */
+    public static int webChunksPerTick = WEB_CHUNKS_DEFAULT, webIntervalMinutes = WEB_INTERVAL_DEFAULT;
+    /** Empty = {@code <world>/simplemaps-web}; a relative path is relative to the world folder. */
+    public static String webExportDir = "";
+    public static java.util.List<String> webAutoOffWith = WEB_AUTO_OFF_DEFAULT;
     /**
      * Whether the module is active. Standalone it always is; bundled in SimpleBuilding the host's config switch
      * "Enable Simple Maps" ({@code enableSimpleMaps} in {@code simplebuilding.json}, read once at load, restart to
@@ -80,6 +91,12 @@ public final class MapsConfig {
         allowExtend = getBool(json, "allowExtend", true);
         allowCombine = getBool(json, "allowCombine", true);
         layers = getBool(json, "layers", true);
+        webEnabled = getBool(json, "webEnabled", false);
+        webHideClaims = getBool(json, "webHideClaims", false);
+        webChunksPerTick = clamp(getInt(json, "webChunksPerTick", WEB_CHUNKS_DEFAULT), WEB_CHUNKS_MIN, WEB_CHUNKS_MAX);
+        webIntervalMinutes = clamp(getInt(json, "webIntervalMinutes", WEB_INTERVAL_DEFAULT), 0, WEB_INTERVAL_MAX);
+        webExportDir = getString(json, "webExportDir", "");
+        webAutoOffWith = getIds(json, "webAutoOffWith", WEB_AUTO_OFF_DEFAULT);
     }
 
     public static JsonObject toJson() {
@@ -90,6 +107,14 @@ public final class MapsConfig {
         o.addProperty("allowExtend", allowExtend);
         o.addProperty("allowCombine", allowCombine);
         o.addProperty("layers", layers);
+        o.addProperty("webEnabled", webEnabled);
+        o.addProperty("webExportDir", webExportDir);
+        o.addProperty("webChunksPerTick", webChunksPerTick);
+        o.addProperty("webIntervalMinutes", webIntervalMinutes);
+        o.addProperty("webHideClaims", webHideClaims);
+        com.google.gson.JsonArray ids = new com.google.gson.JsonArray();
+        webAutoOffWith.forEach(ids::add);
+        o.add("webAutoOffWith", ids);
         return o;
     }
 
@@ -104,6 +129,29 @@ public final class MapsConfig {
     private static boolean getBool(JsonObject json, String key, boolean fallback) {
         try {
             return json.has(key) && json.get(key).isJsonPrimitive() ? json.get(key).getAsBoolean() : fallback;
+        } catch (Exception e) {
+            return fallback;
+        }
+    }
+
+    private static String getString(JsonObject json, String key, String fallback) {
+        try {
+            return json.has(key) && json.get(key).isJsonPrimitive() ? json.get(key).getAsString().trim() : fallback;
+        } catch (Exception e) {
+            return fallback;
+        }
+    }
+
+    /** Valid mod ids only (like Simple Tweaks' autoOffWith), at most 16; a missing or broken entry keeps the default. */
+    private static java.util.List<String> getIds(JsonObject json, String key, java.util.List<String> fallback) {
+        try {
+            if (!json.has(key) || !json.get(key).isJsonArray()) return fallback;
+            java.util.List<String> out = new java.util.ArrayList<>();
+            for (var e : json.getAsJsonArray(key)) {
+                String id = e.isJsonPrimitive() ? e.getAsString() : "";
+                if (id.matches("[a-z][a-z0-9_.-]{0,63}") && !out.contains(id) && out.size() < 16) out.add(id);
+            }
+            return java.util.List.copyOf(out);
         } catch (Exception e) {
             return fallback;
         }

@@ -72,6 +72,7 @@ public final class MapsTests {
         ALL.put("host_switch", MapsTests::hostSwitch);
         ALL.put("screen_layout", MapsTests::screenLayout);
         ALL.put("layers", MapsTests::layers);
+        WebTests.register(ALL);
     }
 
     private MapsTests() {}

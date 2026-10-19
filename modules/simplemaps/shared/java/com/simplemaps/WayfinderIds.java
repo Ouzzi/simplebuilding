@@ -26,6 +26,11 @@ public final class WayfinderIds extends SavedData {
         return id >= 0 && id < server.overworld().getDataStorage().computeIfAbsent(TYPE).next;
     }
 
+    /** Number of ids handed out so far (ids are {@code 0..count-1}). */
+    public static int count(MinecraftServer server) {
+        return server.overworld().getDataStorage().computeIfAbsent(TYPE).next;
+    }
+
     public static int allocate(MinecraftServer server) {
         WayfinderIds ids = server.overworld().getDataStorage().computeIfAbsent(TYPE);
         int id = ids.next++;

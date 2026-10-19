@@ -75,7 +75,7 @@ public final class Reveal {
         return changed;
     }
 
-    static MapColor.Brightness brightness(MapColor color, int y, int previous, int waterDepth, int x, int z) {
+    public static MapColor.Brightness brightness(MapColor color, int y, int previous, int waterDepth, int x, int z) {
         int dither = (x + z) & 1;
         if (color == MapColor.WATER) {
             double diff = waterDepth * 0.1 + dither * 0.2;
@@ -87,7 +87,7 @@ public final class Reveal {
     }
 
     /** Fills {@code out} with colour id, surface y and water depth; false when nothing mappable was found. */
-    static boolean sample(ServerLevel level, LevelChunk chunk, int x, int py, int z, boolean ceiling,
+    public static boolean sample(ServerLevel level, LevelChunk chunk, int x, int py, int z, boolean ceiling,
                           BlockPos.MutableBlockPos pos, int[] out) {
         int minY = level.getMinY();
         BlockState state;

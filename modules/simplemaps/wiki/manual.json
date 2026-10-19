@@ -131,6 +131,40 @@
       }
     },
     {
+      "id": "web_map",
+      "sources": [
+        "modules/simplemaps/shared/java/com/simplemaps/web/WebExport.java",
+        "modules/simplemaps/shared/java/com/simplemaps/web/WebMap.java",
+        "modules/simplemaps/shared/java/com/simplemaps/web/WebCommands.java",
+        "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
+        "modules/simplemaps/shared/resources/assets/simplemaps/web/index.html"
+      ],
+      "en": {
+        "title": "Web map export",
+        "summary": "Server admins can export the explored world as a static web map: picture tiles, markers.json and a small viewer page.",
+        "details": [
+          "Off by default (webEnabled in simplemaps-server.json). /simplemaps web export starts an export, /simplemaps web status shows its progress (both need permission level 2); webIntervalMinutes (0–1440, default 0 = off) repeats it.",
+          "Only what wayfinder maps have explored is exported, in the Vanilla map colors: tiles/<dimension>/<z>/<x>/<y>.png, zoom 4 = one block per pixel (128 blocks per tile) down to zoom 0 = 16 blocks per pixel. Where a chunk is loaded the explored pixels are read fresh; no chunk is ever loaded.",
+          "The export runs on the server at webChunksPerTick chunks per tick (default 32, bounds 1–512). The folder is <world>/simplemaps-web unless webExportDir says otherwise; serve it with any web server (nginx, Caddy), the mod opens no port.",
+          "Players are hidden by default; each player shows or hides themselves with /simplemaps web show or /simplemaps web hide. markers.json holds only names and positions of those players, no UUIDs.",
+          "webHideClaims (default off) leaves chunks empty where a protection (for example claims of Simple Tweaks) forbids strangers to build.",
+          "If BlueMap, Dynmap, squaremap, Pl3xMap or JourneyMap is loaded, the web export switches itself off (webAutoOffWith, log line); the maps themselves stay."
+        ]
+      },
+      "de": {
+        "title": "Webkarten-Export",
+        "summary": "Server-Admins können die erkundete Welt als statische Webkarte exportieren: Bildkacheln, markers.json und eine kleine Ansichtsseite.",
+        "details": [
+          "Standardmäßig aus (webEnabled in simplemaps-server.json). /simplemaps web export startet einen Export, /simplemaps web status zeigt den Fortschritt (beide brauchen Rechtestufe 2); webIntervalMinutes (0–1440, Standard 0 = aus) wiederholt ihn.",
+          "Exportiert wird nur, was Wegfinder-Karten erkundet haben, in den Vanilla-Kartenfarben: tiles/<Dimension>/<z>/<x>/<y>.png, Zoom 4 = ein Block je Pixel (128 Blöcke je Kachel) bis Zoom 0 = 16 Blöcke je Pixel. Ist ein Chunk geladen, werden die erkundeten Pixel frisch gelesen; es wird nie ein Chunk geladen.",
+          "Der Export läuft auf dem Server mit webChunksPerTick Chunks je Tick (Standard 32, Grenzen 1–512). Ordner ist <Welt>/simplemaps-web, sofern webExportDir nichts anderes sagt; ausgeliefert wird er mit einem beliebigen Webserver (nginx, Caddy), die Mod öffnet keinen Port.",
+          "Spieler sind standardmäßig verborgen; jeder zeigt oder verbirgt sich selbst mit /simplemaps web show bzw. /simplemaps web hide. markers.json enthält nur Namen und Positionen dieser Spieler, keine UUIDs.",
+          "webHideClaims (Standard aus) lässt Chunks leer, in denen ein Schutz (z. B. Claims von Simple Tweaks) Fremden das Bauen verbietet.",
+          "Ist BlueMap, Dynmap, squaremap, Pl3xMap oder JourneyMap geladen, schaltet sich der Webkarten-Export selbst aus (webAutoOffWith, Logzeile); die Karten selbst bleiben."
+        ]
+      }
+    },
+    {
       "id": "creative_tab_switch",
       "sources": [
         "modules/simplemaps/shared/java/com/simplemaps/MapsItems.java"
@@ -158,10 +192,10 @@
         "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+        "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+        "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
       }
     },
     "simplemaps:wayfinder_map": {
