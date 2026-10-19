@@ -17,7 +17,7 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 - [~] (A, claude-howler4, 17.10.) (d) Howler-Sounds überarbeiten.
 - [x] (A, claude-optconcept, 17.10.) (e) Simple Optimization (`simpleoptimization`) – KONZEPT fertig: `docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md` (Bereiche, Kompat-Mechanismus, Prioritätstabelle, Benchmark), Modpack-Liste `docs/ai/MODPACK-BESITZER-2026-10-17.md`. Offen: Besitzer-Review + Antworten auf §8 (Fragen 1–8).
 - [x] (A, claude-opt1, 19.10.; Merge offen) (e1) Simple Optimization Stufe 1: Gerüst Super-Mod + Sub-Mods `simpleoptrender`/`simpleoptmemory`/`simpleoptserver` (Fabric 26.3), Bereichs-Tabelle, Mixin-Plugin mit Loader-Erkennung, Config, Status-Befehl; Benchmark-Harness `tools/bench/` (Mess-Mod, Bench-Welt, Kameraweg, results.json + report.html). Erst nach Besitzer-Review.
-- [~] (A, claude-opt1, 19.10.; Teile + Bench fertig, offen compat-opt-263-Ziel, 2. Messreihe, Quad-Zähler) (e2) Simple Optimization Stufe 2: O1 Blätter-Culling, O7 Lichtkarten-Cache, S5a Sichtweite nach Serverlast + M1 IP-Ping, M2 Telemetrie; Kompat-Ziel mit Cull Leaves/More Culling/BadOptimizations/ServerCore.
+- [~] (A, oc-opt2 per API, 19.10.; Teile + Bench fertig, offen compat-opt-263-Ziel, Mixin-Fehlschlag→Bereich aus, Quad-Zähler) (e2) Simple Optimization Stufe 2: O1 Blätter-Culling, O7 Lichtkarten-Cache, S5a Sichtweite nach Serverlast + M1 IP-Ping, M2 Telemetrie; Kompat-Ziel mit Cull Leaves/More Culling/BadOptimizations/ServerCore.
 - [ ] (e3) Simple Optimization Stufe 3 (Besitzer): Benchmark auf Besitzer-PC (`py -3 tools\bench\run_bench.py --profile pc ...`), `priorities.json` füllen.
 - [~] (B, b-opt45, 19.10.) (e4) Simple Optimization Stufe 4/5: O3, O4, S1a, O9, S5b (Standard aus), Zielprüfung; danach L-Bereiche nur bei Messbedarf (Konzept §7).
 - [ ] (e5) Kompatibilitätstest Modpack des Besitzers: `docs/ai/MODPACK-BESITZER-2026-10-17.md` §6 K1–K23 (26.3-Fassungen auf sb-test, Rest im Port-Run 1.21.11/beim Besitzer).
@@ -90,7 +90,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (A, claude-s5b-crucibles, gemergt 17.10.) 5b Seelenlava, Eimer-Familie, JEI-/Jade-Seiten der Tiegel nach simplecrucibles (Plan: Stufe 5 Umsetzung, Abweichungen)
 - [~] (A, claude-s6-octets, 17.10.) 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
 - [x] (A, claude-s7-hammers, gemergt 19.10.) 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung) – Modul simplehammers, Plan docs/ai/PLAN-S7-HAMMERS-2026-10-18.md
-- [ ] 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
+- [~] (B, b-s8-storage, 19.10.) 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
 - [ ] 9 `claude-split-s9-release`: Aufräumen, Wiki-Umzug, Versionen, Changelog, Brücken-Version, volles Gate
 
 ---
