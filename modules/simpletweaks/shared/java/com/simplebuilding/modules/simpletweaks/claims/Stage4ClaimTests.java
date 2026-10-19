@@ -330,7 +330,7 @@ final class Stage4ClaimTests {
         try{var f=owner.getDeclaredField(name);f.setAccessible(true);f.set(target,value);}catch(ReflectiveOperationException e){throw new AssertionError(e);}
     }
     private static void loaded(net.minecraft.server.level.ServerPlayer p){p.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());}
-    static void mobDamage(GameTestHelper h){modes(h,(f,enabled)->{
+    static void mobDamage(GameTestHelper h){warmEntityModes(h,(f,enabled)->{
         var inside=f.edge.east(4);
         var zombie=EntityTypes.ZOMBIE.create(f.l,EntitySpawnReason.COMMAND);zombie.setPos(Vec3.atBottomCenterOf(f.edge.west(3)));
         var cow=f.add(EntityTypes.COW.create(f.l,EntitySpawnReason.COMMAND),inside);cow.setNoAi(true);float before=cow.getHealth();
