@@ -775,7 +775,10 @@ window.WIKI_DATA = {
         "src/main/resources/data/simplebuilding/blueprint_examples/plains_house.sbp",
         "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
         "common/src/shared/java/com/simplebuilding/client/property/BlueprintStateModelProperty.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
+        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintPicture.java",
+        "common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintPictureScreen.java",
+        "modules/simplelib/shared/java/com/simplelib/api/image/PixelArt.java"
       ],
       "en": {
         "title": "Blueprint: Writing, Scanning and Building Structures",
@@ -805,7 +808,8 @@ window.WIKI_DATA = {
           "Undo: sneak and right-click into the air with the wand to take back the last build - also a blueprint build, as far as it got; see Building Wand for the rules (same session only, unchanged blocks only, items back into the inventory).",
           "Creative Blueprint (creative tab only, no recipe): works like the Blueprint, but a building wand holding it in the off hand reaches any block in view - when the normal reach hits nothing, the wand casts its own ray up to 1024 blocks (CreativeReach.FAR_REACH), on the client for the preview and on the server for the build. Once signed it is final: the editor opens read-only, the server ignores edits, and a copy at the cartography table stays a signed, exact copy instead of an editable one. Its sheet is violet with a small gold star.",
           "Help book icons: the Blocks and Guide tabs and the copy button are small pixel icons (a cube, an open book, two sheets); hovering shows their names. The copy icon sits at the right of the tab row and briefly turns into a check mark after copying.",
-          "Import and export: the Import and Export buttons under the code open a window in the same style. Export shows the build as text with a Copy button (clipboard); the format button switches between the build code and a Vanilla command list (fill/setblock, relative to the lowest corner). Import has a Paste button (from the clipboard) and Apply; the format is detected automatically or set by hand. The text is checked first (unknown blocks and properties are reported with their line, size and length limits apply, all or nothing) and Apply replaces the code in the editor. Import only creates the plan - nothing is built and no items are produced, and the server checks the saved code like any edit. Command import supports setblock and fill (replace, destroy, hollow, outline), absolute or ~ coordinates; keep, replace filters, block data and ^ coordinates are rejected."
+          "Import and export: the Import and Export buttons under the code open a window in the same style. Export shows the build as text with a Copy button (clipboard); the format button switches between the build code and a Vanilla command list (fill/setblock, relative to the lowest corner). Import has a Paste button (from the clipboard) and Apply; the format is detected automatically or set by hand. The text is checked first (unknown blocks and properties are reported with their line, size and length limits apply, all or nothing) and Apply replaces the code in the editor. Import only creates the plan - nothing is built and no items are produced, and the server checks the saved code like any edit. Command import supports setblock and fill (replace, destroy, hollow, outline), absolute or ~ coordinates; keep, replace filters, block data and ^ coordinates are rejected.",
+          "Picture blueprints (26.3): in the Import window, Picture... turns a PNG from config/simplebuilding/images (the folder is created for you) into build code. Choose size (16 to 128 blocks on the longer side, aspect ratio kept, at most the server's limit), dithering (Floyd-Steinberg by default, Bayer or off - off suits logos), wall or floor, and all blocks or only those in your inventory; the preview shows the result in block colors. The palette is the 16 wool, 16 concrete and 17 terracotta blocks, matched by color distance in Lab. The code uses picture rows - pixels 0,5,0 3a2b.c places 3 times $a, twice $b, a gap and once $c along x - and stays under 32000 characters even for 128 x 128. Only the code reaches the server; it can switch picture blueprints off or require an operator level and a smaller size (server.blueprint.pictureImport, picturePermission, pictureMaxSide), and every block a blueprint build places shows up in Simple Tweaks' block log."
         ]
       },
       "de": {
@@ -837,7 +841,8 @@ window.WIKI_DATA = {
           "Rückgängig: Schleichen und mit dem Stab in die Luft rechtsklicken nimmt den letzten Bau zurück - auch einen Blaupausen-Bau, so weit er gekommen ist; die Regeln stehen beim Baustab (nur in derselben Sitzung, nur unveränderte Blöcke, Items zurück ins Inventar).",
           "Kreativ-Blaupause (nur im Kreativ-Tab, kein Rezept): wie die Blaupause, aber ein Baustab mit ihr in der Nebenhand erreicht jeden Block im Blick - trifft die normale Reichweite nichts, wirft der Stab einen eigenen Strahl bis 1024 Blöcke (CreativeReach.FAR_REACH), auf dem Client für die Vorschau, auf dem Server für den Bau. Signiert ist sie endgültig: der Editor öffnet nur lesend, der Server ignoriert Änderungen, und eine Kopie am Kartentisch bleibt eine genaue, signierte Kopie statt einer bearbeitbaren. Ihr Blatt ist violett mit einem kleinen goldenen Stern.",
           "Symbole im Hilfe-Buch: die Reiter Blöcke und Anleitung sowie der Kopier-Knopf sind kleine Pixel-Symbole (Würfel, aufgeschlagenes Buch, zwei Blätter); der Tooltip nennt ihren Namen. Kopieren sitzt rechts in der Reiterzeile und zeigt nach dem Kopieren kurz einen Haken.",
-          "Import und Export: die Knöpfe Import und Export unter dem Code öffnen ein Fenster im selben Stil. Export zeigt den Bau als Text mit Kopieren-Knopf (Zwischenablage); der Formatknopf wechselt zwischen Bau-Code und einer Vanilla-Befehlsliste (fill/setblock, relativ zur kleinsten Ecke). Import hat einen Einfügen-Knopf (aus der Zwischenablage) und Übernehmen; das Format wird erkannt oder von Hand gewählt. Der Text wird vorher geprüft (unbekannte Blöcke und Eigenschaften mit Zeile, Größen- und Längengrenzen gelten, alles oder nichts) und Übernehmen ersetzt den Code im Editor. Import erzeugt nur den Plan - nichts wird gebaut, keine Items entstehen, und der Server prüft den gespeicherten Code wie jede Änderung. Der Befehlsimport kann setblock und fill (replace, destroy, hollow, outline) mit absoluten oder ~-Koordinaten; keep, Replace-Filter, Blockdaten und ^-Koordinaten werden abgelehnt."
+          "Import und Export: die Knöpfe Import und Export unter dem Code öffnen ein Fenster im selben Stil. Export zeigt den Bau als Text mit Kopieren-Knopf (Zwischenablage); der Formatknopf wechselt zwischen Bau-Code und einer Vanilla-Befehlsliste (fill/setblock, relativ zur kleinsten Ecke). Import hat einen Einfügen-Knopf (aus der Zwischenablage) und Übernehmen; das Format wird erkannt oder von Hand gewählt. Der Text wird vorher geprüft (unbekannte Blöcke und Eigenschaften mit Zeile, Größen- und Längengrenzen gelten, alles oder nichts) und Übernehmen ersetzt den Code im Editor. Import erzeugt nur den Plan - nichts wird gebaut, keine Items entstehen, und der Server prüft den gespeicherten Code wie jede Änderung. Der Befehlsimport kann setblock und fill (replace, destroy, hollow, outline) mit absoluten oder ~-Koordinaten; keep, Replace-Filter, Blockdaten und ^-Koordinaten werden abgelehnt.",
+          "Bild-Baupläne (26.3): Im Import-Fenster wandelt „Bild …“ ein PNG aus config/simplebuilding/images (der Ordner wird angelegt) in Bau-Code um. Wählbar sind Größe (16 bis 128 Blöcke an der längeren Seite, Seitenverhältnis bleibt, höchstens die Grenze des Servers), Dithering (Standard Floyd-Steinberg, Bayer oder aus - aus passt zu Logos), Wand oder Boden und alle Blöcke oder nur die im Inventar; die Vorschau zeigt das Ergebnis in Blockfarben. Die Palette sind die 16 Wolle-, 16 Beton- und 17 Terrakotta-Blöcke, gewählt nach Farbabstand in Lab. Der Code nutzt Bildzeilen - pixels 0,5,0 3a2b.c setzt entlang x dreimal $a, zweimal $b, eine Lücke und einmal $c - und bleibt auch bei 128 x 128 unter 32000 Zeichen. Zum Server geht nur der Code; er kann Bild-Baupläne ausschalten oder eine Operator-Stufe und eine kleinere Größe verlangen (server.blueprint.pictureImport, picturePermission, pictureMaxSide), und jeder Block eines Blaupausen-Baus erscheint im Block-Protokoll von Simple Tweaks."
         ]
       }
     },
@@ -2557,7 +2562,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Locking and Hiding Item Frames",
-        "summary": "Item frames can be locked against taking out, rotating and breaking with a glass pane, and made invisible with shears. Both are done with sneak + right-click and are undone the same way. An Attractor with Constructor's Touch can also copy the framed item into its filter.",
+        "summary": "Item frames can be locked against taking out, rotating and breaking with a glass pane, and made invisible with shears. Both are done with sneak + right-click and are undone the same way. An Attractor with Constructor's Touch can also copy the framed item into its filter. Only without Simple Tools: with Simple Tools loaded it takes over these frame actions (glass pane locks as Vanilla Fixed, an axe unlocks) and old locked frames are converted; the Attractor filter stays here.",
         "details": [
           "Locking: sneak + right-click with a Glass Pane on an unlocked frame that holds an item; the pane is consumed (not in creative), the glass placing sound plays and the message \"Item frame locked.\" appears.",
           "Locked frame: normal right-clicks are refused (no rotating, no putting in or taking out); damage whose direct source is a non-creative player is cancelled - so the frame cannot be knocked off.",
@@ -2573,7 +2578,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Rahmen sperren und unsichtbar machen",
-        "summary": "Rahmen lassen sich mit einer Glasscheibe gegen Herausnehmen, Drehen und Zerstören sperren und mit einer Schere unsichtbar machen. Beides geht über Schleichen + Rechtsklick und lässt sich auf demselben Weg wieder aufheben. Der Attraktor mit „Berührung des Konstrukteurs“ kann sich an einem Rahmen zusätzlich sein Filter-Item abholen.",
+        "summary": "Rahmen lassen sich mit einer Glasscheibe gegen Herausnehmen, Drehen und Zerstören sperren und mit einer Schere unsichtbar machen. Beides geht über Schleichen + Rechtsklick und lässt sich auf demselben Weg wieder aufheben. Der Attraktor mit „Berührung des Konstrukteurs“ kann sich an einem Rahmen zusätzlich sein Filter-Item abholen. Nur ohne Simple Tools: Ist Simple Tools geladen, übernimmt es diese Rahmen-Aktionen (Glasscheibe sperrt als Vanilla-Fixed, Axt entsperrt) und wandelt alt gesperrte Rahmen um; der Attraktor-Filter bleibt hier.",
         "details": [
           "Sperren: Schleichen + Rechtsklick mit einer Glasscheibe auf einen nicht gesperrten Rahmen, der ein Item enthält; die Glasscheibe wird verbraucht (nicht im Kreativmodus), es ertönt der Glas-Platzierungston und die Meldung „Rahmen gesperrt.“ erscheint.",
           "Gesperrter Rahmen: Normale Rechtsklicks werden abgewiesen (kein Drehen, kein Einlegen oder Entnehmen); Schaden, dessen direkter Verursacher ein Spieler ohne Kreativmodus ist, wird verhindert – der Rahmen kann also nicht abgeschlagen werden.",
@@ -123349,6 +123354,69 @@ window.WIKI_DATA = {
       "tooltipDe": "Höchstens so viele Stellen setzt ein\nBlaupausen-Bau je Tick; kleinere Werte lassen\ngroße Bauten länger dauern und schonen den\nServer. 1 bis 32768 (der Standard liegt über\nallem, was ein Bau heute nutzt).\nServerseitig. Standard: 32768."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.blueprint.pictureImport",
+      "shortName": "pictureImport",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Blueprint",
+      "groupDe": "Blaupause",
+      "label": "Picture Blueprints",
+      "labelDe": "Bild-Baupläne",
+      "tooltip": "Accept build code with pixels rows made\nfrom a picture (Import > Picture...). Off\nrefuses such code when it is saved.\nServer-side. Default: on.",
+      "tooltipDe": "Nimmt Bau-Code mit pixels-Zeilen aus einem\nBild an (Import > Bild …). Aus lehnt solchen\nCode beim Speichern ab.\nServerseitig. Standard: an."
+    },
+    {
+      "range": [
+        0.0,
+        4.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.blueprint.picturePermission",
+      "shortName": "picturePermission",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Blueprint",
+      "groupDe": "Blaupause",
+      "label": "Picture Blueprints: Permission Level",
+      "labelDe": "Bild-Baupläne: Rechtestufe",
+      "tooltip": "Operator level a player needs for picture\nblueprints: 0 everyone, 2 game masters,\n4 owners only. Server-side. Default: 0.",
+      "tooltipDe": "Operator-Stufe, die ein Spieler für\nBild-Baupläne braucht: 0 alle, 2 Spielleiter,\n4 nur Besitzer. Serverseitig. Standard: 0."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.blueprint.pictureMaxSide",
+      "shortName": "pictureMaxSide",
+      "type": "int",
+      "default": "128",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Blueprint",
+      "groupDe": "Blaupause",
+      "label": "Picture Blueprints: Largest Side",
+      "labelDe": "Bild-Baupläne: längste Seite",
+      "tooltip": "Longest edge of a picture blueprint in\nblocks, 16 to 128. Server-side.\nDefault: 128.",
+      "tooltipDe": "Längste Kante eines Bild-Bauplans in\nBlöcken, 16 bis 128. Serverseitig.\nStandard: 128."
+    },
+    {
       "range": [
         0.0,
         2.0
@@ -148927,7 +148995,7 @@ window.WIKI_DATA = {
     "trades": 20,
     "enchantments": 16,
     "tags": 57,
-    "config": 236,
+    "config": 239,
     "inWorld": 489,
     "advancements": 116,
     "features": 49,
