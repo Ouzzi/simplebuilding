@@ -326,6 +326,39 @@ tasks.named('check') { dependsOn 'checkBalance' }
 	tasks.named('check') { dependsOn taskName }
 }
 
+// Vanilla-derived textures (AGENTS.md rule 7, docs/ai/PLAN-B-TEXFIX20-2026-10-19.md): the unit tests of
+// tools/textures (jar search, the build's Python probe and its Windows command line, the placeholder detector of
+// tools/textures/placeholder_audit.py, Windows-safe repository paths). Same python and skip switch as checkWiki.
+tasks.register('testTextureTools', Exec) {
+	group = 'verification'
+	description = 'Runs the unit tests of tools/textures (python -m unittest discover -s tools/textures/tests).'
+	workingDir = rootDir
+	commandLine wikiPython, '-m', 'unittest', 'discover', '-s', 'tools/textures/tests'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'testTextureTools' }
+
+// End-of-build notice for grey placeholder textures (owner 19.10.): generateVanillaDerived of every 26.3 loader and
+// module project adds a line here when it fell back to placeholders (mc26_3/resources.gradle sbPlaceholderAlarm,
+// gradle/module-vanilla-derived.gradle); the service prints them once more when the build ends, after all other output.
+abstract class SbPlaceholderReport implements org.gradle.api.services.BuildService<org.gradle.api.services.BuildServiceParameters.None>, AutoCloseable {
+	final List<String> lines = Collections.synchronizedList(new ArrayList<String>())
+
+	void add(String line) { lines.add(line) }
+
+	@Override
+	void close() {
+		if (lines.isEmpty()) return
+		String bar = '#' * 100
+		org.gradle.api.logging.Logging.getLogger('sbPlaceholderReport').error(
+				"${bar}\n# THIS BUILD SHIPS GREY PLACEHOLDER TEXTURES (Vanilla-derived textures were not drawn):\n# " +
+				lines.join('\n# ') + '\n# Fix: Python 3.8+ with Pillow + numpy, see docs/ai/LAPTOP-SETUP.md; release builds: ' +
+				"-PsbVanillaDerivedStrict.\n${bar}")
+	}
+}
+gradle.sharedServices.registerIfAbsent('sbPlaceholderReport', SbPlaceholderReport) {}
+
 // The FTB Quests chapters (docs/QUESTS.md) are generated out of tools/quests/generate_quests.py
 // for both lines. checkQuests fails when the shipped files or the quests.simplebuilding.* lang keys
 // are stale, when a quest names an item or mod advancement the datagen output does not have, or

@@ -63,17 +63,20 @@ ext.mc263ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDir
 // write its labelled placeholders when no jar is found.
 // The script's output (stdout + stderr) goes to the Gradle log, and its last lines into the failure message.
 ext.sbPythonCandidates = { String explicit, boolean windows ->
+    List<List<String>> c = []
     if (explicit) {
-        // A path (may contain spaces, e.g. C:\Program Files\Python312\python.exe) or a command line.
-        return [new File(explicit).isFile() ? [explicit] : (explicit.trim().split(/\s+/) as List<String>)]
+        // A path (may contain spaces, e.g. C:\Program Files\Python312\python.exe) or a command line. Tried first, then
+        // the automatic search (a stale SB_PYTHON, e.g. the Microsoft Store alias, must not cost the real textures).
+        c << (new File(explicit).isFile() ? [explicit] : (explicit.trim().split(/\s+/) as List<String>))
     }
-    List<List<String>> c = windows ? [['py', '-3']] : []
+    if (windows) c << ['py', '-3']
     c += [['python3.12'], ['python3'], ['python']]
-    return c
+    return c.unique()
 }
-ext.sbVanillaDerivedProbe = 'import sys\nmissing = []\nfor m in ("PIL", "numpy"):\n    try:\n        __import__(m)\n' +
-        '    except ImportError:\n        missing.append("pillow" if m == "PIL" else m)\n' +
-        'print("SBPY", "%d.%d" % sys.version_info[:2], " ".join(missing) if sys.version_info >= (3, 8) else "python>=3.8")\n'
+// The Python check runs the script itself (vanilla_derived.py --probe), never python -c <code>: Java on Windows puts an
+// argument with spaces in quotes but does not escape quotes inside it, so -c code with "..." reached Python without
+// them, every candidate "did not run" and the owner got grey placeholders (19.10.; tools/textures/tests checks this).
+ext.sbProbeArgs = { File script -> ['-B', script.absolutePath, '--probe'] }
 // Runs cmd + args; returns [exit code, merged output]. exit -1 when the command cannot be started.
 ext.sbRunProcess = { List<String> cmd, File dir, Map<String, String> env ->
     try {
@@ -90,16 +93,21 @@ ext.sbRunProcess = { List<String> cmd, File dir, Map<String, String> env ->
 // [command, null] for the first candidate with Python 3.8+ and the modules; else [null, failure message].
 ext.sbFindPython = { List<List<String>> candidates, boolean needModules, File dir, Map<String, String> env ->
     List<String> tried = []
+    File script = new File(rootDirFile, 'tools/textures/vanilla_derived.py')
     for (List<String> cmd : candidates) {
-        def (int code, String text) = sbRunProcess(cmd + ['-c', sbVanillaDerivedProbe], dir, env)
-        def m = code == 0 ? (text =~ /SBPY (\d+\.\d+) ?(.*)/) : null
+        def (int code, String text) = sbRunProcess(cmd + sbProbeArgs(script), dir, env)
+        def m = code == 0 ? (text =~ /SBPY (\d+)\.(\d+) ?(.*)/) : null
         if (m == null || !m.find()) {
-            tried << "  ${cmd.join(' ')}: does not run (exit ${code}${text?.trim() ? ', ' + text.trim().readLines()[0] : ''})"
+            tried << "  ${cmd.join(' ')}: does not run (exit ${code}${text?.trim() ? ', ' + text.trim().readLines()[-1] : ''})"
             continue
         }
-        String missing = m.group(2).trim()
+        if ((m.group(1) as int) * 100 + (m.group(2) as int) < 308) {
+            tried << "  ${cmd.join(' ')}: Python ${m.group(1)}.${m.group(2)} is older than 3.8"
+            continue
+        }
+        String missing = m.group(3).trim()
         if (!missing || !needModules) return [cmd, null]
-        tried << "  ${cmd.join(' ')} (Python ${m.group(1)}): missing ${missing} -> ${cmd.join(' ')} -m pip install ${missing}"
+        tried << "  ${cmd.join(' ')} (Python ${m.group(1)}.${m.group(2)}): missing ${missing} -> ${cmd.join(' ')} -m pip install ${missing}"
     }
     return [null, 'generateVanillaDerived needs Python 3.8+ with Pillow and numpy. Tried:\n' + tried.join('\n') +
             '\nInstall Python 3 (python.org, tick "Add python.exe to PATH"; the Microsoft Store alias does not ' +
@@ -130,6 +138,8 @@ ext.mcVanillaDerivedTask = { ->
         outputs.dir(out)
         // a fallback run must not stay up to date once Python/the jar is there
         outputs.upToDateWhen { !new File(out.parentFile, 'vanillaDerived.placeholder').exists() }
+        def report = gradle.sharedServices.registrations.findByName('sbPlaceholderReport')?.service
+        if (report != null) usesService(report)
         doLast {
             project.delete(out)
             project.delete(new File(out.parentFile, 'vanillaDerived.placeholder'))
@@ -139,11 +149,13 @@ ext.mcVanillaDerivedTask = { ->
                 if (strict) throw new GradleException(why)
                 logger.warn("WARNING generateVanillaDerived: ${why}\n-> grey placeholder textures instead " +
                         '(the build goes on; the real textures need Python + Pillow + numpy and a 26.3 client jar).')
-                sbVanillaDerivedPlaceholders(script, out)
+                sbVanillaDerivedPlaceholders(script, out, why)
+                sbPlaceholderAlarm(project.path, why)
             }
             if (skip) {
                 logger.lifecycle('generateVanillaDerived: -PsbSkipVanillaDerived -> placeholder textures, no Python.')
-                sbVanillaDerivedPlaceholders(script, out)
+                sbVanillaDerivedPlaceholders(script, out, '-PsbSkipVanillaDerived')
+                sbPlaceholderAlarm(project.path, '-PsbSkipVanillaDerived')
                 return
             }
             Map<String, String> env = ['GRADLE_USER_HOME': gradleHome.absolutePath, 'PYTHONUTF8': '1',
@@ -167,7 +179,7 @@ ext.mcVanillaDerivedTask = { ->
 
 // Placeholders without Python: every OUTPUTS entry of vanilla_derived.py ('path': ((w, h), ...)) as a grey
 // checker PNG (no Mojang pixels). Same idea as vanilla_derived.placeholder_png, not the same tints.
-ext.sbVanillaDerivedPlaceholders = { File script, File out ->
+ext.sbVanillaDerivedPlaceholders = { File script, File out, String why ->
     def entries = (script.getText('UTF-8') =~ /(?m)^\s+'([a-z0-9_\/]+\.png)': \(\((\d+), (\d+)\)/).collect { it }
     if (!entries) throw new GradleException("no OUTPUTS found in ${script}")
     entries.each { m ->
@@ -181,7 +193,19 @@ ext.sbVanillaDerivedPlaceholders = { File script, File out ->
         javax.imageio.ImageIO.write(img, 'png', f)
     }
     new File(out.parentFile, 'vanillaDerived.placeholder').text = 'placeholders, see generateVanillaDerived\n'
+    // shipped in the jar: the client logs an error, tools/textures/placeholder_audit.py reports it (vanilla_derived.MARKER)
+    new File(out, 'assets/simplebuilding/vanilla_derived_placeholders.txt').text = "generateVanillaDerived: ${why}\n"
     println "generateVanillaDerived: ${entries.size()} placeholder textures -> ${out}"
+}
+
+// A placeholder fallback must not go unseen (owner 19.10.: grey checkers in game, the WARNING was lost in the log): an
+// ERROR block now and one more at the end of the build (root build.gradle, build service sbPlaceholderReport).
+ext.sbPlaceholderAlarm = { String where, String why ->
+    String line = '#' * 100
+    logger.error("${line}\n# GREY PLACEHOLDER TEXTURES in ${where} (Vanilla-derived textures not drawn)\n# " +
+            why.readLines().take(12).join('\n# ') + "\n# Fix: Python 3.8+ with Pillow + numpy (py -3 -m pip install pillow numpy), " +
+            'then build again. Details: docs/ai/LAPTOP-SETUP.md\n' + line)
+    gradle.sharedServices.registrations.findByName('sbPlaceholderReport')?.service?.get()?.add("${where}: ${why.readLines()[0]}")
 }
 
 ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, String tag, List<Map> layers ->

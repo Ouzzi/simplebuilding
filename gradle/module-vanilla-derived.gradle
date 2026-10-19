@@ -26,6 +26,8 @@ def vdTask = tasks.register('generateVanillaDerived') {
     inputs.property('python', vdPython ?: '')
     outputs.dir(vdOut)
     outputs.upToDateWhen { !vdMarker.exists() }
+    def report = gradle.sharedServices.registrations.findByName('sbPlaceholderReport')?.service
+    if (report != null) usesService(report)
     doLast {
         project.delete(vdOut, vdMarker)
         def placeholders = {
@@ -45,14 +47,28 @@ def vdTask = tasks.register('generateVanillaDerived') {
             vdMarker.parentFile.mkdirs()
             vdMarker.text = 'placeholders, see generateVanillaDerived\n'
         }
+        // A fallback must not go unseen (owner 19.10.): ERROR block, a marker in the jar (vanilla_derived.MARKER, read
+        // by tools/textures/placeholder_audit.py) and one line at the end of the build (root build service).
+        def alarm = { String why ->
+            File jarMarker = new File(vdOut, "assets/${vdModule}/vanilla_derived_placeholders.txt")
+            jarMarker.parentFile.mkdirs()
+            jarMarker.text = "generateVanillaDerived: ${why}\n"
+            String line = '#' * 100
+            logger.error("${line}\n# GREY PLACEHOLDER TEXTURES in ${project.path} (Vanilla-derived textures not drawn)\n# " +
+                    why.readLines().take(12).join('\n# ') + "\n# Fix: Python 3.8+ with Pillow + numpy (py -3 -m pip install pillow numpy), " +
+                    'then build again. Details: docs/ai/LAPTOP-SETUP.md\n' + line)
+            gradle.sharedServices.registrations.findByName('sbPlaceholderReport')?.service?.get()?.add("${project.path}: ${why.readLines()[0]}")
+        }
         def fallback = { String why ->
             if (vdStrict) throw new GradleException(why)
             logger.warn("WARNING generateVanillaDerived (${vdModule}): ${why}\n-> grey placeholder textures instead.")
             placeholders()
+            alarm(why)
         }
-        if (vdSkip) { placeholders(); return }
-        List<List<String>> candidates = vdPython ? [new File(vdPython).isFile() ? [vdPython] : (vdPython.trim().split(/\s+/) as List<String>)]
-                : (vdWindows ? [['py', '-3']] : []) + [['python3.12'], ['python3'], ['python']]
+        if (vdSkip) { placeholders(); alarm('-PsbSkipVanillaDerived'); return }
+        // explicit -PsbPython / SB_PYTHON first, then the automatic search (as mc26_3/resources.gradle)
+        List<List<String>> candidates = ((vdPython ? [new File(vdPython).isFile() ? [vdPython] : (vdPython.trim().split(/\s+/) as List<String>)] : [])
+                + (vdWindows ? [['py', '-3']] : []) + [['python3.12'], ['python3'], ['python']]).unique()
         Map<String, String> env = ['GRADLE_USER_HOME': vdGradleHome.absolutePath, 'PYTHONUTF8': '1', 'PYTHONIOENCODING': 'utf-8']
         def run = { List<String> cmd ->
             try {
@@ -66,7 +82,12 @@ def vdTask = tasks.register('generateVanillaDerived') {
                 return [-1, e.message ?: e.toString()]
             }
         }
-        List<String> py = candidates.find { c -> run(c + ['-c', 'import PIL, numpy']).first() == 0 }
+        // vanilla_derived.py --probe, never python -c <code> (Java does not escape quotes in arguments on Windows)
+        List<String> py = candidates.find { c ->
+            def (int code, String text) = run(c + ['-B', vdScript.absolutePath, '--probe'])
+            def m = code == 0 ? (text =~ /SBPY (\d+)\.(\d+)(.*)/) : null
+            m != null && m.find() && (m.group(1) as int) * 100 + (m.group(2) as int) >= 308 && !m.group(3).trim()
+        }
         if (py == null) { fallback("no Python with Pillow and numpy among ${candidates*.join(' ')}"); return }
         List<String> cmd = py + ['-B', vdScript.absolutePath, '--out', vdOut.absolutePath, '--module', vdModule]
         if (vdJar) cmd += ['--jar', vdJar]

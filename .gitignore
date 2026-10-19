@@ -554,3 +554,6 @@ wiki/assets/textures/sheets/simplebuilding/simplebuilding/item/copper_*bucket_*.
 # Simple Optimization benchmark (tools/bench): downloaded comparison jars and raw run logs stay local
 tools/bench/.cache/
 bench-results/*/logs/
+
+# A Windows default path run on Linux lands as a relative folder "C:" (17.10.: broke the Windows checkout)
+/C:/

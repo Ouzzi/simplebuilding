@@ -33,7 +33,7 @@ def main():
         i = args.index("--rev")
         rev = args[i + 1]
         del args[i:i + 2]
-    out = Path(args[0] if args else "C:/Users/o_o/code/minecraft-mods/previews/guide-buecher-J-eingebaut.png")
+    out = Path(args[0] if args else str(ROOT / "build/previews/guide-buecher-J-eingebaut.png"))
     mega_guide_textures(check=False)
 
     scale, cell, label_w, head = 8, 136, 170, 26

@@ -26,8 +26,17 @@ function Show-Popup([string]$Text, [int]$Icon = 16) {
     try { [void](New-Object -ComObject WScript.Shell).Popup($Text, 0, 'SimpleMods-Starter', $Icon) } catch { Write-Host $Text }
 }
 
+# A message box that does not wait (the Gradle output keeps flowing while it is open).
+function Show-PopupAsync([string]$Text, [int]$Icon = 48) {
+    $ps = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+    $code = "[void](New-Object -ComObject WScript.Shell).Popup('{0}', 0, 'SimpleMods-Starter', {1})" -f ($Text -replace "'", "''"), $Icon
+    $enc = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($code))
+    try { Start-Process -FilePath $ps -ArgumentList @('-NoProfile', '-WindowStyle', 'Hidden', '-EncodedCommand', $enc) -WindowStyle Hidden } catch { Write-StarterLog $Text }
+}
+
 # Runs a native program; output goes to the log (and the console). Throws on a non-zero exit code.
-function Invoke-Native([string]$Exe, [string[]]$Arguments, [switch]$Quiet, [switch]$AllowFail) {
+# OnLine (optional) sees every output line, e.g. to react to a warning while the program still runs.
+function Invoke-Native([string]$Exe, [string[]]$Arguments, [switch]$Quiet, [switch]$AllowFail, [scriptblock]$OnLine) {
     Write-StarterLog "> $Exe $($Arguments -join ' ')"
     $old = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
     $lines = New-Object System.Collections.Generic.List[string]
@@ -35,6 +44,7 @@ function Invoke-Native([string]$Exe, [string[]]$Arguments, [switch]$Quiet, [swit
         & $Exe @Arguments 2>&1 | ForEach-Object {
             $l = "$_"; $lines.Add($l)
             if (-not $Quiet) { Write-StarterLog "  $l" }
+            if ($OnLine) { & $OnLine $l }
         }
         $code = $LASTEXITCODE
     } finally { $ErrorActionPreference = $old }
@@ -73,6 +83,46 @@ function Find-JavaHome([string]$Configured) {
         if ($d -and (Test-Path -LiteralPath (Join-Path $d.FullName 'bin\java.exe'))) { return $d.FullName }
     }
     return ''
+}
+
+# Python with Pillow + numpy for the texture build (generateVanillaDerived): the configured one, py -3, python/python3
+# on PATH (not the Microsoft Store alias) or a per-user install. When a Python lacks the modules they are installed
+# once for this user (pip --user). Returns the python.exe path, or '' (the build then ships grey placeholder textures).
+function Test-PythonModules([string]$Exe) {
+    if (-not $Exe -or -not (Test-Path -LiteralPath $Exe)) { return $false }
+    [void](Invoke-Native $Exe @('-c', 'import PIL, numpy') -Quiet -AllowFail)
+    return ($script:LastExit -eq 0)
+}
+function Resolve-Python([string]$Configured) {
+    $cands = @()
+    if ($Configured) { $cands += $Configured }
+    $py = Find-Exe '' @('py') @("$env:LOCALAPPDATA\Programs\Python\Launcher\py.exe", "$env:SystemRoot\py.exe")
+    if ($py) {
+        $o = Invoke-Native $py @('-3', '-c', 'import sys; print(sys.executable)') -Quiet -AllowFail
+        if ($script:LastExit -eq 0) { $cands += ($o -join '').Trim() }
+    }
+    foreach ($n in @('python', 'python3')) {
+        foreach ($c in @(Get-Command $n -All -ErrorAction SilentlyContinue)) {
+            if ($c.Source -notmatch 'WindowsApps') { $cands += $c.Source }
+        }
+    }
+    $cands += @(Get-ChildItem "$env:LOCALAPPDATA\Programs\Python\Python3*\python.exe" -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName })
+    $cands = @($cands | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -Unique)
+    foreach ($c in $cands) { if (Test-PythonModules $c) { return $c } }
+    foreach ($c in $cands) {
+        Write-StarterLog "Pillow/numpy fehlen in $c - installiere sie fuer diesen Benutzer (pip --user) ..."
+        [void](Invoke-Native $c @('-m', 'pip', 'install', '--user', '--quiet', '--disable-pip-version-check', 'pillow', 'numpy') -AllowFail)
+        if (Test-PythonModules $c) { return $c }
+    }
+    return ''
+}
+
+function Save-ConfigValue([string]$Name, [string]$Value) {
+    try {
+        $j = if (Test-Path -LiteralPath $ConfigFile) { Get-Content -LiteralPath $ConfigFile -Raw | ConvertFrom-Json } else { New-Object psobject }
+        $j | Add-Member -NotePropertyName $Name -NotePropertyValue $Value -Force
+        $j | ConvertTo-Json | Set-Content -LiteralPath $ConfigFile -Encoding UTF8
+    } catch { Write-StarterLog "config.json nicht aktualisiert: $($_.Exception.Message)" }
 }
 
 function Find-Cloudflared([string]$Configured) {
@@ -192,11 +242,28 @@ function Main([string]$Url) {
         if (-not $java) { throw 'JDK 25 (Eclipse Temurin) fehlt. Installer erneut ausfuehren.' }
         $env:JAVA_HOME = $java
         $env:Path = (Join-Path $java 'bin') + ';' + $env:Path
-        $python = Find-Exe $cfg.python @('python', 'python3') @()
-        if ($python) { $env:SB_PYTHON = $python }
+        # only a verified Python goes to the build: an unchecked one (e.g. the Store alias) cost the real textures (19.10.)
+        $python = Resolve-Python $cfg.python
+        if ($python) {
+            $env:SB_PYTHON = $python
+            if ($python -ne $cfg.python) { Save-ConfigValue 'python' $python }
+            Write-StarterLog "Python fuer die Texturen: $python"
+        } else {
+            Remove-Item Env:SB_PYTHON -ErrorAction SilentlyContinue
+            Write-StarterLog 'WARNUNG: kein Python mit Pillow/numpy - der Build zeichnet graue Platzhalter-Texturen.'
+            Show-PopupAsync "Kein Python mit Pillow und numpy gefunden.`n`nDas Spiel startet, aber viele Bloecke/Items zeigen graue Schachmuster.`nAbhilfe: Installer erneut ausfuehren (installiert Python 3.12 + Pillow + numpy)."
+        }
         Invoke-ModSelection $Url $cfg.devDir $python
         Write-StarterLog 'Starte den Dev-Client (:integration:runIntegrationClient) ...'
-        [void](Invoke-Native (Join-Path $cfg.devDir 'gradlew.bat') @(':integration:runIntegrationClient', '--console=plain'))
+        $script:PlaceholderNoticeShown = $false
+        $watch = {
+            param($line)
+            if (-not $script:PlaceholderNoticeShown -and $line -match 'GREY PLACEHOLDER TEXTURES') {
+                $script:PlaceholderNoticeShown = $true
+                Show-PopupAsync "Der Build hat graue Platzhalter-Texturen erzeugt (aus Vanilla abgeleitete Texturen fehlen).`n`nGrund und Abhilfe stehen im Log:`n$LogFile`n(Zeilen 'GREY PLACEHOLDER TEXTURES')."
+            }
+        }
+        [void](Invoke-Native (Join-Path $cfg.devDir 'gradlew.bat') @(':integration:runIntegrationClient', '--console=plain') -OnLine $watch)
         Write-StarterLog 'Dev-Client beendet.'
     } finally { $mutex.ReleaseMutex(); $mutex.Dispose() }
 }
