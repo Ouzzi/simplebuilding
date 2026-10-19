@@ -310,11 +310,11 @@ public final class WorldUpgradeTests {
     }
 
     private static CompoundTag writeEntities(GameTestHelper helper) {
-        LevitatingBlockEntity rising = new LevitatingBlockEntity(ModEntities.LEVITATING_BLOCK, helper.getLevel());
+        com.simplebuilding.entity.LevitatingBlockEntity rising = new com.simplebuilding.entity.LevitatingBlockEntity(ModEntities.LEVITATING_BLOCK, helper.getLevel());
         CompoundTag risingTag = saveEntity(helper, rising);
         risingTag.put("BlockState", BlockState.CODEC.encodeStart(NbtOps.INSTANCE, STAIRS).getOrThrow());
         risingTag.putInt("Time", 7);
-        rising = new LevitatingBlockEntity(ModEntities.LEVITATING_BLOCK, helper.getLevel());
+        rising = new com.simplebuilding.entity.LevitatingBlockEntity(ModEntities.LEVITATING_BLOCK, helper.getLevel());
         rising.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), risingTag));
 
         ItemFrame frame = new ItemFrame(helper.getLevel(), new BlockPos(5, 65, 2), Direction.NORTH);
