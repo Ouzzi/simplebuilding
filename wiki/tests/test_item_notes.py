@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'wiki'))
 import generate as g
 
-FAMILIES = ['*_chisel', '*_sledgehammer', '*_building_wand', '*_core', '*backpack',
+# '*_sledgehammer' lives in Simple Hammers' manual since stage 7 (modules/simplehammers/wiki/manual.json).
+FAMILIES = ['*_chisel', '*_building_wand', '*_core', '*backpack',
             '*elytra_pad', '*flypad', '*spawn_teleporter*', '*chunk_loader', '*launchpad',
             '*potion_pad', '*copper_pressure_plate', '*_quartz_checker', 'chiseled_*_bricks',
             'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',
@@ -76,7 +77,6 @@ class ItemNoteTests(unittest.TestCase):
         exported = json.loads((ROOT / 'mc26_3/generated/wiki/items.json').read_text())
         props = {e['id']: e for e in exported['items']}
         for family, fields in [('*_chisel', ('durability', 'cooldownTicks')),
-                               ('*_sledgehammer', ('durability', 'enchantability')),
                                ('*_building_wand', ('durability', 'wandSquareDiameter'))]:
             for identifier, extra in manual['notes'][family]['items'].items():
                 for field in fields:

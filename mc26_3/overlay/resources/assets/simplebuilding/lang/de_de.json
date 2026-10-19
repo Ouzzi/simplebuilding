@@ -3642,5 +3642,19 @@
   "simplebuilding.testcentre.mobs.habitat.dread_figure": "Beschwörungsfigur",
   "simplebuilding.testcentre.mobs.habitat.wither_figure": "Wither-Figur + Helm",
   "simplebuilding.testcentre.command.unknown_anchor": "Unbekannter Platz %s",
-  "layer.simplebuilding.chunk_loaders": "Chunk-Loader"
+  "layer.simplebuilding.chunk_loaders": "Chunk-Loader",
+  "enchantment.simplebuilding.break_through": "Durchbruch",
+  "enchantment.simplebuilding.break_through.description": "Erlaubt dem Vorschlaghammer, eine zweite Schicht Blöcke zu brechen.",
+  "enchantment.simplebuilding.override": "Übersteuerung",
+  "enchantment.simplebuilding.override.description": "Abbau von Blöcken, die der Vorschlaghammer auslässt.",
+  "enchantment.simplebuilding.radius": "Radius",
+  "enchantment.simplebuilding.radius.description": "Vergrößert den Wirkungsbereich von Vorschlaghämmern. Am Detektor: mehr Reichweite für Gold und seltene Erze.",
+  "item.simplebuilding.copper_sledgehammer": "Kupfer-Vorschlaghammer",
+  "item.simplebuilding.diamond_sledgehammer": "Diamant-Vorschlaghammer",
+  "item.simplebuilding.enderite_sledgehammer": "Enderit-Vorschlaghammer",
+  "item.simplebuilding.gold_sledgehammer": "Gold-Vorschlaghammer",
+  "item.simplebuilding.iron_sledgehammer": "Eisen-Vorschlaghammer",
+  "item.simplebuilding.netherite_sledgehammer": "Netherit-Vorschlaghammer",
+  "item.simplebuilding.stone_sledgehammer": "Stein-Vorschlaghammer",
+  "tooltip.simplebuilding.sledgehammer.corner": "Schleichen + Rechtsklick halten: Achtel"
 }
