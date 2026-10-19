@@ -1044,13 +1044,18 @@ public final class BlueprintTests {
     // BILD-BAUPLAN (Plan docs/ai/PLAN-B-PICTURE-2026-10-19.md)
     // =====================================================================================
 
-    private static int pictureRgb(net.minecraft.world.level.block.Block block) {
+    /** Farbbloecke ueber die ID: 26.3 fuehrt sie als ColorCollection, 26.2 als Felder. */
+    private static net.minecraft.world.level.block.Block pictureBlock(String id) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id));
+    }
+
+    private static int pictureRgb(String id) {
         for (BlueprintPicture.Entry e : BlueprintPicture.PALETTE) {
-            if (e.block() == block) {
+            if (e.id().equals(id)) {
                 return 0xFF000000 | e.rgb();
             }
         }
-        throw new AssertionError("not in the picture palette: " + block);
+        throw new AssertionError("not in the picture palette: " + id);
     }
 
     private static int[] noise(int w, int h, long seed) {
@@ -1077,7 +1082,7 @@ public final class BlueprintTests {
             helper.succeed();
             return;
         }
-        int white = pictureRgb(Blocks.WHITE_WOOL), black = pictureRgb(Blocks.BLACK_CONCRETE), red = pictureRgb(Blocks.RED_TERRACOTTA);
+        int white = pictureRgb("white_wool"), black = pictureRgb("black_concrete"), red = pictureRgb("red_terracotta");
         int[] argb = {white, 0xFFE8EAEB, 0x00000000, black, red, red};
         BlueprintPicture.Result wall = BlueprintPicture.convert(argb, 3, 2, 128, BlueprintPicture.PALETTE,
                 BlueprintPicture.Dither.NONE, BlueprintPicture.Facing.WALL, "test");
@@ -1085,12 +1090,12 @@ public final class BlueprintTests {
         BlueprintCode.ParseResult parsed = BlueprintCode.parse(wall.code());
         helper.assertTrue(parsed.ok() && parsed.pixels() == 5, "picture code parses: " + parsed.problems() + "\n" + wall.code());
         BlueprintModel m = parsed.model();
-        helper.assertTrue(m.get(0, 1, 0).is(Blocks.WHITE_WOOL) && m.get(1, 1, 0).is(Blocks.WHITE_WOOL) && m.get(2, 1, 0) == null
-                && m.get(0, 0, 0).is(Blocks.BLACK_CONCRETE) && m.get(1, 0, 0).is(Blocks.RED_TERRACOTTA) && m.get(2, 0, 0).is(Blocks.RED_TERRACOTTA),
+        helper.assertTrue(m.get(0, 1, 0).is(pictureBlock("white_wool")) && m.get(1, 1, 0).is(pictureBlock("white_wool")) && m.get(2, 1, 0) == null
+                && m.get(0, 0, 0).is(pictureBlock("black_concrete")) && m.get(1, 0, 0).is(pictureBlock("red_terracotta")) && m.get(2, 0, 0).is(pictureBlock("red_terracotta")),
                 "wall blocks: " + m);
         BlueprintModel floor = BlueprintCode.parse(BlueprintPicture.convert(argb, 3, 2, 128, BlueprintPicture.PALETTE,
                 BlueprintPicture.Dither.NONE, BlueprintPicture.Facing.FLOOR, "test").code()).model();
-        helper.assertTrue(floor.get(0, 0, 0).is(Blocks.WHITE_WOOL) && floor.get(0, 0, 1).is(Blocks.BLACK_CONCRETE) && floor.sizeY() == 1,
+        helper.assertTrue(floor.get(0, 0, 0).is(pictureBlock("white_wool")) && floor.get(0, 0, 1).is(pictureBlock("black_concrete")) && floor.sizeY() == 1,
                 "floor blocks: " + floor);
 
         int[] photo = noise(40, 30, 7);
@@ -1113,10 +1118,10 @@ public final class BlueprintTests {
         helper.assertTrue(full.ok() && full.code().length() <= BlueprintCode.MAX_CODE_LENGTH && fullParsed.ok() && fullParsed.pixels() == 128 * 128,
                 "128x128 noise fits the code limit: " + full.code().length() + " " + fullParsed.problems());
 
-        List<BlueprintPicture.Entry> owned = BlueprintPicture.palette(item -> item == Items.WHITE_WOOL || item == Items.BLACK_CONCRETE);
+        List<BlueprintPicture.Entry> owned = BlueprintPicture.palette(item -> item == pictureBlock("white_wool").asItem() || item == pictureBlock("black_concrete").asItem());
         BlueprintModel limited = BlueprintCode.parse(BlueprintPicture.convert(argb, 3, 2, 128, owned, BlueprintPicture.Dither.NONE,
                 BlueprintPicture.Facing.WALL, "owned").code()).model();
-        helper.assertTrue(owned.size() == 2 && limited.blocks().values().stream().allMatch(s -> s.is(Blocks.WHITE_WOOL) || s.is(Blocks.BLACK_CONCRETE)),
+        helper.assertTrue(owned.size() == 2 && limited.blocks().values().stream().allMatch(s -> s.is(pictureBlock("white_wool")) || s.is(pictureBlock("black_concrete"))),
                 "inventory palette uses only owned blocks: " + limited);
         helper.assertTrue("no_blocks".equals(BlueprintPicture.convert(argb, 3, 2, 128, List.of(), BlueprintPicture.Dither.NONE,
                 BlueprintPicture.Facing.WALL, "none").error()), "empty palette is reported");
@@ -1152,7 +1157,7 @@ public final class BlueprintTests {
         player.getInventory().setSelectedSlot(0);
         ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
         player.getInventory().setItem(0, stack);
-        int[] argb = {pictureRgb(Blocks.WHITE_WOOL), pictureRgb(Blocks.BLACK_WOOL), pictureRgb(Blocks.BLACK_WOOL), pictureRgb(Blocks.WHITE_WOOL)};
+        int[] argb = {pictureRgb("white_wool"), pictureRgb("black_wool"), pictureRgb("black_wool"), pictureRgb("white_wool")};
         String code = BlueprintPicture.convert(argb, 2, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
                 BlueprintPicture.Facing.WALL, "small").code();
         String big = BlueprintPicture.convert(noise(20, 4, 5), 20, 4, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
@@ -1198,12 +1203,12 @@ public final class BlueprintTests {
         }
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
-        int w = pictureRgb(Blocks.WHITE_WOOL), b = pictureRgb(Blocks.BLACK_CONCRETE), r = pictureRgb(Blocks.RED_TERRACOTTA);
+        int w = pictureRgb("white_wool"), b = pictureRgb("black_concrete"), r = pictureRgb("red_terracotta");
         String code = BlueprintPicture.convert(new int[]{w, w, b, b, r, r}, 3, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
                 BlueprintPicture.Facing.WALL, "flag").code();
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
         ItemStack blueprint = blueprint(code);
-        ItemStack wool = new ItemStack(Items.WHITE_WOOL, 2), concrete = new ItemStack(Items.BLACK_CONCRETE, 2), terracotta = new ItemStack(Items.RED_TERRACOTTA, 2);
+        ItemStack wool = new ItemStack(pictureBlock("white_wool").asItem(), 2), concrete = new ItemStack(pictureBlock("black_concrete").asItem(), 2), terracotta = new ItemStack(pictureBlock("red_terracotta").asItem(), 2);
         hold(player, wand, blueprint, wool, concrete, terracotta);
         BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
         helper.assertTrue(built != null && built.placed() == 6 && built.missing() == 0, "picture build: " + built);
@@ -1212,9 +1217,9 @@ public final class BlueprintTests {
             for (int y = 1; y < 7; y++) {
                 for (int z = 0; z < 8; z++) {
                     BlockState s = helper.getBlockState(new BlockPos(x, y, z));
-                    counts[0] += s.is(Blocks.WHITE_WOOL) ? 1 : 0;
-                    counts[1] += s.is(Blocks.BLACK_CONCRETE) ? 1 : 0;
-                    counts[2] += s.is(Blocks.RED_TERRACOTTA) ? 1 : 0;
+                    counts[0] += s.is(pictureBlock("white_wool")) ? 1 : 0;
+                    counts[1] += s.is(pictureBlock("black_concrete")) ? 1 : 0;
+                    counts[2] += s.is(pictureBlock("red_terracotta")) ? 1 : 0;
                 }
             }
         }

@@ -98,7 +98,7 @@ def main():
     with zipfile.ZipFile(sys.argv[1]) as jar:
         for name in blocks():
             r, g, b = mean(png_pixels(jar.read(f"assets/minecraft/textures/block/{name}.png")))
-            print(f"            new Entry(Blocks.{name.upper()}, 0x{r:02X}{g:02X}{b:02X}),")
+            print(f'            new Entry("{name}", 0x{r:02X}{g:02X}{b:02X}),')
 
 
 if __name__ == "__main__":

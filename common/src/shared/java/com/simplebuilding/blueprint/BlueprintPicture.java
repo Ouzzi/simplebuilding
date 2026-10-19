@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -30,63 +31,70 @@ public final class BlueprintPicture {
     /** So viele Pixel stehen hoechstens in einer {@code pixels}-Zeile (lesbare Zeilen im Editor). */
     public static final int SEGMENT = 64;
 
-    /** Ein Palettenblock und seine mittlere Texturfarbe {@code 0xRRGGBB}. */
-    public record Entry(Block block, int rgb) {
+    /**
+     * Ein Palettenblock (Vanilla-ID ohne Namensraum) und seine mittlere Texturfarbe {@code 0xRRGGBB}. Ueber die ID,
+     * weil 26.3 die Farbbloecke als {@code ColorCollection} fuehrt, 26.2 als einzelne Felder.
+     */
+    public record Entry(String id, int rgb) {
+        public Block block() {
+            return BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(id));
+        }
+
         public Item item() {
-            return block.asItem();
+            return block().asItem();
         }
     }
 
     public static final List<Entry> PALETTE = List.of(
-            new Entry(Blocks.WHITE_WOOL, 0xEAECED),
-            new Entry(Blocks.LIGHT_GRAY_WOOL, 0x8E8E87),
-            new Entry(Blocks.GRAY_WOOL, 0x3F4448),
-            new Entry(Blocks.BLACK_WOOL, 0x15151A),
-            new Entry(Blocks.BROWN_WOOL, 0x724829),
-            new Entry(Blocks.RED_WOOL, 0xA12723),
-            new Entry(Blocks.ORANGE_WOOL, 0xF17614),
-            new Entry(Blocks.YELLOW_WOOL, 0xF9C628),
-            new Entry(Blocks.LIME_WOOL, 0x70B91A),
-            new Entry(Blocks.GREEN_WOOL, 0x556E1C),
-            new Entry(Blocks.CYAN_WOOL, 0x158A91),
-            new Entry(Blocks.LIGHT_BLUE_WOOL, 0x3AAFD9),
-            new Entry(Blocks.BLUE_WOOL, 0x35399D),
-            new Entry(Blocks.PURPLE_WOOL, 0x7A2AAD),
-            new Entry(Blocks.MAGENTA_WOOL, 0xBE45B4),
-            new Entry(Blocks.PINK_WOOL, 0xEE8DAC),
-            new Entry(Blocks.WHITE_CONCRETE, 0xCFD5D6),
-            new Entry(Blocks.LIGHT_GRAY_CONCRETE, 0x7D7D73),
-            new Entry(Blocks.GRAY_CONCRETE, 0x373A3E),
-            new Entry(Blocks.BLACK_CONCRETE, 0x080A0F),
-            new Entry(Blocks.BROWN_CONCRETE, 0x603C20),
-            new Entry(Blocks.RED_CONCRETE, 0x8E2121),
-            new Entry(Blocks.ORANGE_CONCRETE, 0xE06101),
-            new Entry(Blocks.YELLOW_CONCRETE, 0xF1AF15),
-            new Entry(Blocks.LIME_CONCRETE, 0x5EA918),
-            new Entry(Blocks.GREEN_CONCRETE, 0x495B24),
-            new Entry(Blocks.CYAN_CONCRETE, 0x157788),
-            new Entry(Blocks.LIGHT_BLUE_CONCRETE, 0x2489C7),
-            new Entry(Blocks.BLUE_CONCRETE, 0x2D2F8F),
-            new Entry(Blocks.PURPLE_CONCRETE, 0x64209C),
-            new Entry(Blocks.MAGENTA_CONCRETE, 0xA9309F),
-            new Entry(Blocks.PINK_CONCRETE, 0xD6658F),
-            new Entry(Blocks.WHITE_TERRACOTTA, 0xD2B2A1),
-            new Entry(Blocks.LIGHT_GRAY_TERRACOTTA, 0x876B62),
-            new Entry(Blocks.GRAY_TERRACOTTA, 0x3A2A24),
-            new Entry(Blocks.BLACK_TERRACOTTA, 0x251710),
-            new Entry(Blocks.BROWN_TERRACOTTA, 0x4D3324),
-            new Entry(Blocks.RED_TERRACOTTA, 0x8F3D2F),
-            new Entry(Blocks.ORANGE_TERRACOTTA, 0xA25426),
-            new Entry(Blocks.YELLOW_TERRACOTTA, 0xBA8523),
-            new Entry(Blocks.LIME_TERRACOTTA, 0x687635),
-            new Entry(Blocks.GREEN_TERRACOTTA, 0x4C532A),
-            new Entry(Blocks.CYAN_TERRACOTTA, 0x575B5B),
-            new Entry(Blocks.LIGHT_BLUE_TERRACOTTA, 0x716D8A),
-            new Entry(Blocks.BLUE_TERRACOTTA, 0x4A3C5B),
-            new Entry(Blocks.PURPLE_TERRACOTTA, 0x764656),
-            new Entry(Blocks.MAGENTA_TERRACOTTA, 0x96586D),
-            new Entry(Blocks.PINK_TERRACOTTA, 0xA24E4F),
-            new Entry(Blocks.TERRACOTTA, 0x985E44));
+            new Entry("white_wool", 0xEAECED),
+            new Entry("light_gray_wool", 0x8E8E87),
+            new Entry("gray_wool", 0x3F4448),
+            new Entry("black_wool", 0x15151A),
+            new Entry("brown_wool", 0x724829),
+            new Entry("red_wool", 0xA12723),
+            new Entry("orange_wool", 0xF17614),
+            new Entry("yellow_wool", 0xF9C628),
+            new Entry("lime_wool", 0x70B91A),
+            new Entry("green_wool", 0x556E1C),
+            new Entry("cyan_wool", 0x158A91),
+            new Entry("light_blue_wool", 0x3AAFD9),
+            new Entry("blue_wool", 0x35399D),
+            new Entry("purple_wool", 0x7A2AAD),
+            new Entry("magenta_wool", 0xBE45B4),
+            new Entry("pink_wool", 0xEE8DAC),
+            new Entry("white_concrete", 0xCFD5D6),
+            new Entry("light_gray_concrete", 0x7D7D73),
+            new Entry("gray_concrete", 0x373A3E),
+            new Entry("black_concrete", 0x080A0F),
+            new Entry("brown_concrete", 0x603C20),
+            new Entry("red_concrete", 0x8E2121),
+            new Entry("orange_concrete", 0xE06101),
+            new Entry("yellow_concrete", 0xF1AF15),
+            new Entry("lime_concrete", 0x5EA918),
+            new Entry("green_concrete", 0x495B24),
+            new Entry("cyan_concrete", 0x157788),
+            new Entry("light_blue_concrete", 0x2489C7),
+            new Entry("blue_concrete", 0x2D2F8F),
+            new Entry("purple_concrete", 0x64209C),
+            new Entry("magenta_concrete", 0xA9309F),
+            new Entry("pink_concrete", 0xD6658F),
+            new Entry("white_terracotta", 0xD2B2A1),
+            new Entry("light_gray_terracotta", 0x876B62),
+            new Entry("gray_terracotta", 0x3A2A24),
+            new Entry("black_terracotta", 0x251710),
+            new Entry("brown_terracotta", 0x4D3324),
+            new Entry("red_terracotta", 0x8F3D2F),
+            new Entry("orange_terracotta", 0xA25426),
+            new Entry("yellow_terracotta", 0xBA8523),
+            new Entry("lime_terracotta", 0x687635),
+            new Entry("green_terracotta", 0x4C532A),
+            new Entry("cyan_terracotta", 0x575B5B),
+            new Entry("light_blue_terracotta", 0x716D8A),
+            new Entry("blue_terracotta", 0x4A3C5B),
+            new Entry("purple_terracotta", 0x764656),
+            new Entry("magenta_terracotta", 0x96586D),
+            new Entry("pink_terracotta", 0xA24E4F),
+            new Entry("terracotta", 0x985E44));
 
     public enum Dither {
         FLOYD_STEINBERG(1), BAYER(2), NONE(0);
