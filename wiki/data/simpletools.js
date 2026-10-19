@@ -34,6 +34,22 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       }
     },
     {
+      "id": "item_frames",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ItemFrames.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/ItemFrameInteractMixin.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/ItemFrameFixedAccessor.java"
+      ],
+      "en": {
+        "title": "Better item frames",
+        "summary": "Item frames and glow item frames, only while sneaking and only with an item in the frame: shears hide or show the frame (Vanilla Invisible flag, 1 durability, Unbreaking counts). If the item is knocked out of a hidden frame, the frame shows again. Honeycomb locks the frame (Vanilla Fixed flag, one honeycomb): the item cannot be turned, taken out or swapped and the frame cannot be broken in survival or fall off. Sneak + axe unlocks it (1 durability), like waxed copper; anyone with build rights may do it, claims and adventure mode are respected. Any other sneaking right-click turns the item backwards. Without sneaking everything stays Vanilla, so a Simple Maps wayfinder in a frame still opens on a plain right-click. Server side only, sounds and wax particles are Vanilla's."
+      },
+      "de": {
+        "title": "Bessere Rahmen",
+        "summary": "Rahmen und Leuchtrahmen, nur schleichend und nur mit Item im Rahmen: Die Schere macht den Rahmen unsichtbar oder wieder sichtbar (Vanilla-Flag Invisible, 1 Haltbarkeit, Haltbarkeit-Verzauberung zählt). Wird das Item aus einem unsichtbaren Rahmen geschlagen, wird der Rahmen wieder sichtbar. Eine Honigwabe sperrt den Rahmen (Vanilla-Flag Fixed, eine Wabe): Das Item lässt sich nicht drehen, entnehmen oder tauschen, der Rahmen bricht im Überleben nicht und fällt nicht ab. Schleichen + Axt entsperrt ihn (1 Haltbarkeit), wie gewachstes Kupfer; das darf jeder mit Baurecht, Claims und Abenteuermodus gelten. Jeder andere schleichende Rechtsklick dreht das Item rückwärts. Ohne Schleichen bleibt alles Vanilla, eine Wegfinder-Karte von Simple Maps im Rahmen öffnet sich weiter mit normalem Rechtsklick. Nur serverseitig, Töne und Wachspartikel sind Vanilla."
+      }
+    },
+    {
       "id": "durability",
       "sources": [
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/FullDurabilityDamageMixin.java"
@@ -119,6 +135,48 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       }
     },
     {
+      "id": "config_enableItemFrameInvisibility",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableItemFrameInvisibility",
+        "summary": "Sneak + shears hide or show a filled item frame. Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableItemFrameInvisibility",
+        "summary": "Schleichen + Schere versteckt einen vollen Rahmen oder zeigt ihn. Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableItemFrameLock",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableItemFrameLock",
+        "summary": "Sneak + honeycomb locks a filled item frame, sneak + axe unlocks it. Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableItemFrameLock",
+        "summary": "Schleichen + Honigwabe sperrt einen vollen Rahmen, Schleichen + Axt entsperrt ihn. Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableItemFrameReverseRotate",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableItemFrameReverseRotate",
+        "summary": "Sneak + right-click turns a framed item backwards. Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableItemFrameReverseRotate",
+        "summary": "Schleichen + Rechtsklick dreht ein Rahmen-Item rückwärts. Servereinstellung. Standard: true."
+      }
+    },
+    {
       "id": "thrift",
       "sources": [
         "modules/simpletools/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
@@ -155,11 +213,11 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simpletools fullDurabilityBonus, anvilRepairKeepsCost and furnaceLava <true|false>; changes are saved to config/simpletools.json."
+        "summary": "Owner-level /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock and itemFrameReverseRotate <true|false>; changes are saved to config/simpletools.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simpletools fullDurabilityBonus, anvilRepairKeepsCost und furnaceLava <true|false>; Speichern in config/simpletools.json."
+        "summary": "Besitzerberechtigung: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock und itemFrameReverseRotate <true|false>; Speichern in config/simpletools.json."
       }
     },
     {
@@ -576,10 +634,10 @@ window.WIKI_MODULE_DATA["simpletools"] = {
           "modules/simpletools/shared/resources/data/simpletools/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 25 pages taken from this wiki, shown in your language. Shapeless recipe: book + anvil. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tools\" gives one for free."
+          "summary": "Guide to this mod: 30 pages taken from this wiki, shown in your language. Shapeless recipe: book + anvil. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tools\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 25 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Amboss. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tools\" eins."
+          "summary": "Handbuch zu dieser Mod: 30 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Amboss. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tools\" eins."
         }
       },
       "texture": "assets/textures/simpletools/item/guide_book.png",
@@ -674,7 +732,7 @@ window.WIKI_MODULE_DATA["simpletools"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 24,
+    "features": 28,
     "recipes": 2,
     "lootTables": 1,
     "tags": 2,

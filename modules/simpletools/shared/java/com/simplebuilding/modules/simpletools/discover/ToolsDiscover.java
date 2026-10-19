@@ -62,6 +62,9 @@ public final class ToolsDiscover {
             "simpletools:config_enableDeathVault",
             "simpletools:config_enableFullDurabilityBonus",
             "simpletools:config_enableFurnaceLavaFill",
+            "simpletools:config_enableItemFrameInvisibility",
+            "simpletools:config_enableItemFrameLock",
+            "simpletools:config_enableItemFrameReverseRotate",
             "simpletools:config_enableSoulbound",
             "simpletools:config_fullDurabilityBonusMultiplier",
             "simpletools:config_fullDurabilityThreshold",
@@ -73,10 +76,13 @@ public final class ToolsDiscover {
             "simpletools:durability",
             "simpletools:furnace_lava",
             "simpletools:guide_book",
+            "simpletools:item_frames",
             "simpletools:soulbound",
             "simpletools:submod",
             "simpletools:thrift");
-    static final List<Tip> TIPS = List.of();
+    static final List<Tip> TIPS = List.of(
+            new Tip("frame_shears", List.of("minecraft:shears")),
+            new Tip("frame_honeycomb", List.of("minecraft:honeycomb")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

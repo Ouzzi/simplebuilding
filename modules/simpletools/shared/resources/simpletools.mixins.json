@@ -18,7 +18,8 @@
     "ItemEntityAgeAccessor",
     "ItemStackSoulboundTooltipMixin",
     "ItemFrameFixedAccessor",
-    "ItemFrameInteractMixin"
+    "ItemFrameInteractMixin",
+    "DiscoverTipMixin"
   ],
   "injectors": {
     "defaultRequire": 1
