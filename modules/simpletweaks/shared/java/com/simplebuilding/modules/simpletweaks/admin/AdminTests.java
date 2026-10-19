@@ -431,7 +431,7 @@ public final class AdminTests {
         var level = h.getLevel();
         var a = player(h, new BlockPos(1, 2, 1));
         var b = player(h, new BlockPos(1, 2, 2));
-        var posA = h.absolutePos(new BlockPos(2, 2, 2)), posB = h.absolutePos(new BlockPos(3, 2, 2));
+        BlockPos posA = h.absolutePos(new BlockPos(2, 2, 2)), posB = h.absolutePos(new BlockPos(3, 2, 2));
         BlockLog.record(level, a, 'B', posA, "minecraft:stone", 1, "minecraft:stone");
         BlockLog.record(level, a, 'P', posB, "minecraft:dirt", 1, "minecraft:dirt");
         BlockLog.record(level, b, 'B', posB, "minecraft:stone", 1, "minecraft:stone");
