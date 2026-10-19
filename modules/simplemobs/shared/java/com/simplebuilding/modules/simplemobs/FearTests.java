@@ -381,7 +381,12 @@ final class FearTests {
             for (int i = 0; i < FearLogic.HIT_TELEPORT_TICKS + 2; i++) watcher.tick();
             h.assertTrue(watcher.position().distanceTo(start) > 1.0, "it blinked away");
             // The arena reaches into neighbouring tests, so their entities can be candidates too: assert the skip, not who wins.
-            h.assertTrue(watcher.getTarget() != null && watcher.getTarget() != near, "with two candidates the current target is skipped: another one is chosen");
+            // Asked directly, because after the blink the range check may already have dropped the chosen target.
+            watcher.setTarget(near);
+            for (int i = 0; i < 8; i++) {
+                var next = watcher.pickVictim(h.getLevel());
+                h.assertTrue(next != null && next != near, "with two candidates the current target is skipped: another one is chosen");
+            }
             watcher.discard();
             near.discard();
             far.discard();
