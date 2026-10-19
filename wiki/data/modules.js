@@ -216,7 +216,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "f0fd7ab1a8e4"
+    "dataHash": "da7304929510"
   },
   {
     "id": "simpletweaks",
@@ -317,7 +317,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "2040069d3469"
+    "dataHash": "ad4343ec39ec"
   },
   {
     "id": "simplemaps",
