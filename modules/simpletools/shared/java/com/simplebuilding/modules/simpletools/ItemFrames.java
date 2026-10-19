@@ -15,10 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
 
 /**
  * Better item frames (docs/ai/PLAN-B-ITEMFRAMES-2026-10-19.md), item frames and glow item frames alike. Only while
- * sneaking and only on a frame holding an item: shears hide/show the frame, honeycomb locks it, an axe unlocks it,
+ * sneaking and only on a frame holding an item: shears hide/show the frame, honeycomb or a glass pane locks it, an axe unlocks it,
  * anything else turns the item backwards. State lives in the Vanilla fields only ({@code Invisible}, {@code Fixed}).
  */
 public final class ItemFrames {
@@ -53,6 +54,14 @@ public final class ItemFrames {
             feedback(frame, player, SoundEvents.HONEYCOMB_WAX_ON, ParticleTypes.WAX_ON);
             return InteractionResult.SUCCESS;
         }
+        // SimpleBuilding's old habit: a glass pane locks too (it used to be its own state, now the same Fixed flag)
+        if (config.enableItemFrameLock && held.is(Items.GLASS_PANE)) {
+            if (!InteractionGuard.allow(player, frame.getPos())) return null;
+            setFixed(frame, true);
+            held.consume(1, player);
+            feedback(frame, player, SoundEvents.GLASS_PLACE, null);
+            return InteractionResult.SUCCESS;
+        }
         if (config.enableItemFrameReverseRotate) {
             frame.setRotation(frame.getRotation() + ItemFrame.NUM_ROTATIONS - 1);
             feedback(frame, player, frame.getRotateItemSound(), null);
@@ -66,6 +75,11 @@ public final class ItemFrames {
         if (frame.isInvisible() && frame.getItem().isEmpty() && !fixed(frame) && SimpleTools.active() && SimpleTools.config().enableItemFrameInvisibility) {
             frame.setInvisible(false);
         }
+    }
+
+    /** Frames saved by SimpleBuilding's own lock ({@code SimpleBuildingLocked}) become Vanilla Fixed; SimpleBuilding stops writing the tag. */
+    public static void migrate(ItemFrame frame, ValueInput input) {
+        if (input.getBooleanOr("SimpleBuildingLocked", false)) setFixed(frame, true);
     }
 
     public static boolean fixed(ItemFrame frame) {

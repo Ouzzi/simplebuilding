@@ -41,6 +41,8 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void frameReverse(GameTestHelper h){FrameTests.reverse(h);}
  @GameTest(maxTicks=100) public void frameLock(GameTestHelper h){FrameTests.lock(h);}
  @GameTest(maxTicks=100) public void frameGlow(GameTestHelper h){FrameTests.glow(h);}
+ @GameTest(maxTicks=100) public void frameGlass(GameTestHelper h){FrameTests.glass(h);}
+ @GameTest(maxTicks=100) public void frameMigrate(GameTestHelper h){FrameTests.migrate(h);}
  @GameTest(maxTicks=100) public void frameReveal(GameTestHelper h){FrameTests.reveal(h);}
  @GameTest(maxTicks=100) public void frameConfigOff(GameTestHelper h){FrameTests.configOff(h);}
  @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.firstPickupTips(h); }

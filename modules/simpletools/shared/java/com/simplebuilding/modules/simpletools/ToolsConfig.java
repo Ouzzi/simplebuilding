@@ -17,7 +17,7 @@ public final class ToolsConfig {
     public boolean enableFurnaceLavaFill = true;
     /** Sneak + shears on a filled item frame hides/shows it (Vanilla Invisible); an emptied hidden frame shows again (2026-10-19). */
     public boolean enableItemFrameInvisibility = true;
-    /** Sneak + honeycomb locks a filled item frame (Vanilla Fixed), sneak + axe unlocks it (2026-10-19). */
+    /** Sneak + honeycomb or glass pane locks a filled item frame (Vanilla Fixed), sneak + axe unlocks it (2026-10-19). */
     public boolean enableItemFrameLock = true;
     /** Sneak + right click turns the item in a frame backwards (2026-10-19). */
     public boolean enableItemFrameReverseRotate = true;

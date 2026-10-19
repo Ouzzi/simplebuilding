@@ -44,6 +44,22 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
     @Unique
     private boolean simplebuilding$locked = false;
 
+    /**
+     * Simple Tools owns the frame actions (glass pane locks as Vanilla Fixed, shears hide, axe unlocks) and migrates
+     * the old {@code SimpleBuildingLocked} tag itself; with it loaded this mixin does neither (docs/ai/PLAN-B-FRAMEMERGE-2026-10-19.md).
+     * Without it (SimpleBuilding alone, or the 26.2 line) the actions below stay as they were.
+     */
+    @Unique
+    private static Boolean simplebuilding$toolsOwnFrames;
+
+    @Unique
+    private static boolean simplebuilding$toolsOwnFrames() {
+        if (simplebuilding$toolsOwnFrames == null) {
+            simplebuilding$toolsOwnFrames = com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools");
+        }
+        return simplebuilding$toolsOwnFrames;
+    }
+
     // Radiance: vom Rahmen gesetzter Lichtblock (siehe DynamicLightHandler)
     @Unique
     private @Nullable BlockPos simplebuilding$ownedLight;
@@ -61,20 +77,20 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
     // --- DATEN ---
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$writeCustomData(ValueOutput view, CallbackInfo ci) {
-        view.putBoolean("SimpleBuildingLocked", this.simplebuilding$locked);
+        if (!simplebuilding$toolsOwnFrames()) view.putBoolean("SimpleBuildingLocked", this.simplebuilding$locked);
         view.storeNullable("SimpleBuildingOwnedLight", BlockPos.CODEC, this.simplebuilding$ownedLight);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$readCustomData(ValueInput view, CallbackInfo ci) {
-        this.simplebuilding$locked = view.getBooleanOr("SimpleBuildingLocked", false);
+        this.simplebuilding$locked = !simplebuilding$toolsOwnFrames() && view.getBooleanOr("SimpleBuildingLocked", false);
         this.simplebuilding$ownedLight = view.read("SimpleBuildingOwnedLight", BlockPos.CODEC).orElse(null);
     }
 
     // --- SCHUTZ ---
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$preventDamageIfLocked(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (this.simplebuilding$locked && source.getDirectEntity() instanceof Player player && !player.isCreative()) {
+        if (this.simplebuilding$locked && !simplebuilding$toolsOwnFrames() && source.getDirectEntity() instanceof Player player && !player.isCreative()) {
             cir.setReturnValue(false);
         }
     }
@@ -87,7 +103,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
         ItemFrame itemFrame = (ItemFrame) (Object) this;
 
         // SNEAK INTERAKTIONEN
-        if (player.isShiftKeyDown()) {
+        if (player.isShiftKeyDown() && !simplebuilding$toolsOwnFrames()) {
 
             // 1. LOCKEN (Glas) - Höchste Priorität
             if (handStack.is(Items.GLASS_PANE) && !this.getItem().isEmpty() && !this.simplebuilding$locked) {
