@@ -653,13 +653,17 @@ public final class ModpackTests {
 
     /**
      * The map without the entries Simple End adds through its own datapack files
-     * ({@code end_woods_*.json}, only present when simpleend is loaded, as in the Forge test run).
+     * ({@code end_woods_*.json}, only present when simpleend is loaded, as in the Forge test run) and without ice -> Simple
+     * Blocks' cracked ice ({@code cracked_ice_stone_chisel.json}, b-blocksmove: file only, the block may not exist when the
+     * built-in tables load).
      */
+    private static final java.util.Set<String> FILE_ONLY = java.util.Set.of("simpleend", "simpleblocks");
+
     private static Map<Block, Block> withoutEnd(Map<Block, Block> map) {
         Map<Block, Block> out = new HashMap<>();
         for (Map.Entry<Block, Block> e : map.entrySet()) {
-            if (!"simpleend".equals(BuiltInRegistries.BLOCK.getKey(e.getKey()).getNamespace())
-                    && !"simpleend".equals(BuiltInRegistries.BLOCK.getKey(e.getValue()).getNamespace())) {
+            if (!FILE_ONLY.contains(BuiltInRegistries.BLOCK.getKey(e.getKey()).getNamespace())
+                    && !FILE_ONLY.contains(BuiltInRegistries.BLOCK.getKey(e.getValue()).getNamespace())) {
                 out.put(e.getKey(), e.getValue());
             }
         }

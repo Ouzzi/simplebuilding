@@ -246,6 +246,12 @@ public final class SearchTabPlacement {
                 if (full == null) {
                     continue;
                 }
+                // b-blocksmove: octets of Simple Blocks' own blocks are left out - on Fabric this chain runs before Simple
+                // Blocks inserts the slab, so the octet would land at the end (open point for Simple Octets/Simple Blocks).
+                if ("simpleblocks".equals(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getNamespace())
+                        && !com.simplebuilding.util.BlockRefs.NATURE.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath())) {
+                    continue;
+                }
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
                 net.minecraft.world.level.block.Block slab = stairs == null ? null
                         : com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);

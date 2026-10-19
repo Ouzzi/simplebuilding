@@ -1305,13 +1305,13 @@ public final class GravityBlockTests {
 
         // "BBB" / "BMB" / "BBB", eight of the coated block per craft.
         assertCoating(helper, level, Items.SAND, ModItems.NIHILITH_SHARD,
-                "simplebuilding:suspended_sand", com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND));
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND));
         assertCoating(helper, level, Items.GRAVEL, ModItems.NIHILITH_SHARD,
-                "simplebuilding:suspended_gravel", com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL));
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL));
         assertCoating(helper, level, Items.SAND, ModItems.ASTRALIT_DUST,
-                "simplebuilding:levitating_sand", com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.LEVITATING_SAND).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
         assertCoating(helper, level, Items.GRAVEL, ModItems.ASTRALIT_DUST,
-                "simplebuilding:levitating_gravel", com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL));
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL));
 
         // Red sand stands in for the whole #minecraft:sand tag. It is the one ingredient that
         // separates "the key names the block" from "the key names the tag the block is in", and

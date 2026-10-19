@@ -9,7 +9,6 @@ import com.simplebuilding.blueprint.BlueprintContent;
 import com.simplebuilding.blueprint.BlueprintJobs;
 import com.simplebuilding.component.BackpackContents;
 import com.simplebuilding.component.ModDataComponentTypes;
-import com.simplebuilding.entity.LevitatingBlockEntity;
 import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OreDetectorItem;
@@ -538,8 +537,10 @@ public final class WorldUpgradeTests {
         helper.assertValueEqual(entities.size(), 2, "entities in the upgraded entity chunk");
 
         Entity rising = loadEntity(helper, entities.getCompoundOrEmpty(0));
-        helper.assertTrue(rising instanceof LevitatingBlockEntity, "the rising block did not load: " + rising);
-        helper.assertValueEqual(((LevitatingBlockEntity) rising).getBlockState(), STAIRS, "block of the rising block");
+        // b-blocksmove: on 26.3 the rising block is Simple Blocks' entity (the old id migrates), so it is checked by its type id.
+        helper.assertTrue(rising instanceof net.minecraft.world.entity.item.FallingBlockEntity && com.simplebuilding.util.BlockRefs.isRising(rising),
+                "the rising block did not load: " + rising);
+        helper.assertValueEqual(((net.minecraft.world.entity.item.FallingBlockEntity) rising).getBlockState(), STAIRS, "block of the rising block");
 
         Entity frame = loadEntity(helper, entities.getCompoundOrEmpty(1));
         helper.assertTrue(frame instanceof ItemFrame, "the item frame did not load: " + frame);
