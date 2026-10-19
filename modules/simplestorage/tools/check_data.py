@@ -36,6 +36,8 @@ for b in BLOCKS:
 for path in (RES / f'data/{NS}').rglob('*.json'):
     assert 'simplebuilding:' not in path.read_text(encoding='utf-8'), path
 for path in (RES / f'assets/{NS}').rglob('*.json'):
+    if path.parent.name == 'lang':
+        continue  # texts may name the old ids (migration page)
     assert 'simplebuilding:' not in path.read_text(encoding='utf-8'), path
 axe = json.loads((RES / 'data/minecraft/tags/block/mineable/axe.json').read_text(encoding='utf-8'))['values']
 axe_ids = {v if isinstance(v, str) else v['id'] for v in axe}
