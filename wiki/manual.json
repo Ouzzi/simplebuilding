@@ -9821,31 +9821,6 @@
         "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
       ]
     },
-    "storage_crafting_table": {
-      "en": {
-        "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
-        "details": [
-          "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-          "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter.",
-          "Recipe (shapeless): Crafting Table + Chest."
-        ]
-      },
-      "de": {
-        "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
-        "details": [
-          "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-          "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter.",
-          "Rezept (formlos): Werkbank + Truhe."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
-        "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-      ]
-    },
     "warden_tendril": {
       "en": {
         "summary": "Every warden drops 1 to 2 Warden Tendrils. In the brewing stand an Awkward Potion with a tendril becomes a Potion of Darkness.",
@@ -11154,36 +11129,6 @@
           "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
           "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
           "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-        ]
-      }
-    },
-    "*_crate": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-        "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-        "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-      ],
-      "en": {
-        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-        "details": [
-          "Crafting: 7 planks of one wood in a U shape.",
-          "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-          "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-          "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-          "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-        ]
-      },
-      "de": {
-        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-        "details": [
-          "Herstellung: 7 Bretter einer Holzart in U-Form.",
-          "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-          "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-          "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-          "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
         ]
       }
     },

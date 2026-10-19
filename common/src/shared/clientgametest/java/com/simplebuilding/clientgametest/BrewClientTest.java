@@ -1,9 +1,5 @@
 package com.simplebuilding.clientgametest;
 
-import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity;
-import com.simplebuilding.client.gui.StorageCraftingScreen;
-import com.simplebuilding.screen.StorageCraftingMenu;
 import com.simplebuilding.version.McVersion;
 import java.util.function.Consumer;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -23,37 +19,28 @@ import net.minecraft.world.item.Items;
 /**
  * Brewing wave 2026-10-09 (docs/ai/PLAN-BRAUEN-WERKBANK-2026-10-09.md, 26.3): documentary pictures of the perception
  * effects - a pig, a cow, a chicken and a zombie as they are, under Mirage, under Reverse Mirage, the scene Faded
- * (also with the inventory and with the Esc menu, which keeps its colours) and the crosshair under Shivering II - and
- * of the Storage Crafting Table with its grid lying on top and its screen.
+ * (also with the inventory and with the Esc menu, which keeps its colours) and the crosshair under Shivering II. The
+ * Storage Crafting Table's pictures moved with the table to Simple Storage's client smoke test (split stage 8a).
  *
  * <p>Asserted is only that the scene exists and the effects reach the client; how it looks is for a human.
  */
 public final class BrewClientTest {
     private static final double Z = 18.5;
-    private static final BlockPos TABLE = new BlockPos(10, 0, 16);
 
     private BrewClientTest() {
     }
 
     public static void inWorld(Script script) {
-        if (!McVersion.BREWING_EFFECTS || !McVersion.STORAGE_CRAFTING_TABLE) {
+        if (!McVersion.BREWING_EFFECTS) {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");
-        onServer(script, "put four mobs and a storage crafting table in front of the camera", server -> {
+        onServer(script, "put four mobs in front of the camera", server -> {
             ServerLevel level = server.overworld();
             spawn(level, EntityTypes.CHICKEN, 7.5);
             spawn(level, EntityTypes.PIG, 9.0);
             spawn(level, EntityTypes.COW, 11.0);
             spawn(level, EntityTypes.ZOMBIE, 13.0);
-            level.setBlockAndUpdate(TABLE, ModBlocks.STORAGE_CRAFTING_TABLE.defaultBlockState());
-            if (level.getBlockEntity(TABLE) instanceof StorageCraftingTableBlockEntity table) {
-                table.grid().setItem(0, new ItemStack(Items.OAK_PLANKS, 4));
-                table.grid().setItem(1, new ItemStack(Items.OAK_PLANKS, 4));
-                table.grid().setItem(3, new ItemStack(Items.STICK, 2));
-                table.grid().setItem(4, new ItemStack(Items.DIAMOND));
-                table.grid().setItem(8, new ItemStack(Items.REDSTONE, 3));
-            }
         });
         script.command("tp @a 10.5 0.0 13.0 0.0 10.0");
         script.awaitPackets();
@@ -103,29 +90,6 @@ public final class BrewClientTest {
         script.act("hide the HUD again", c -> {
             if (!c.gui.hud.isHidden()) c.gui.hud.toggle();
         });
-        // Stand on a block in front of the table and look down onto its top (eye 1.6 above it, 2 blocks away).
-        script.command("setblock 10 0 14 minecraft:stone");
-        script.command("tp @a 10.5 1.0 14.5 0.0 38.0");
-        script.awaitPackets();
-        script.check("the client has the table's grid", c -> c.level.getBlockEntity(TABLE) instanceof StorageCraftingTableBlockEntity table
-                && table.items().get(4).is(Items.DIAMOND));
-        script.idle("let the table render", 10);
-        script.shot("brew-storage-table");
-        script.act("open the storage crafting table screen", c -> {
-            Inventory inv = c.player.getInventory();
-            StorageCraftingMenu menu = new StorageCraftingMenu(0, inv);
-            menu.getSlot(1).set(new ItemStack(Items.OAK_PLANKS, 4));
-            menu.getSlot(2).set(new ItemStack(Items.OAK_PLANKS, 4));
-            menu.getSlot(4).set(new ItemStack(Items.OAK_PLANKS, 4));
-            menu.getSlot(5).set(new ItemStack(Items.OAK_PLANKS, 4));
-            menu.getSlot(StorageCraftingMenu.RESULT_SLOT).set(new ItemStack(Items.CRAFTING_TABLE));
-            c.gui.setScreen(new StorageCraftingScreen(menu, inv, Component.translatable("container.simplebuilding.storage_crafting_table")));
-        });
-        script.idle("let the screen render", 3);
-        script.shot("brew-storage-table-screen");
-        script.act("close the screen", c -> c.gui.setScreen(null));
-        script.command("setblock 10 0 16 minecraft:air");
-        script.command("setblock 10 0 14 minecraft:air");
         script.command("kill @e[type=!minecraft:player]", true);
         script.awaitPackets();
     }

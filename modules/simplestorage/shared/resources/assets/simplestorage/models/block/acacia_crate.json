@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_crate",
+  "textures": {
+    "particle": "minecraft:block/acacia_planks",
+    "planks": "minecraft:block/acacia_planks"
+  }
+}

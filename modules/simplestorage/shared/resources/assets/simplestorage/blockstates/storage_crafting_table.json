@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplestorage:block/storage_crafting_table"
+    }
+  }
+}

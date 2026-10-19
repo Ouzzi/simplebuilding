@@ -3325,7 +3325,7 @@ public final class DataIntegrityTests {
             // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
                 expected.add(new CreativeTabLayout.Row("woodwork_" + family.wood().id(),
-                        family.blocks().stream().map(ItemStack::new).toList()));
+                        family.tabItems().stream().map(ItemStack::new).toList()));
             }
         }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), flowed(expected), "SimpleBlocks", problems);

@@ -116,6 +116,7 @@ public final class ConfigOptions {
             "enableSimpleBlocks",
             "enableSimpleOctets",
             "enableSimpleHammers",
+            "enableSimpleStorage",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

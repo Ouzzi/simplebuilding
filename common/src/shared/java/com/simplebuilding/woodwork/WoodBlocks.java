@@ -25,16 +25,33 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * The woodwork family (docs/ai/PLAN-HOLZWERK-2026-10-09.md, {@code McVersion.WOODWORK}): per wood type a hollow log
- * and a hollow stripped log, a sheet and a stripped sheet, a wooden cauldron, a crate and carved wood. Blocks are
- * registered from {@code ModBlocks}, items from {@code ModItems}; without the flag every list is empty.
+ * and a hollow stripped log, a sheet and a stripped sheet, a wooden cauldron and carved wood. Blocks are registered
+ * from {@code ModBlocks}, items from {@code ModItems}; without the flag every list is empty. The crate of each wood
+ * moved to Simple Storage (split stage 8a); the tab rows still show it in its old place, by id ({@link Family#tabItems}).
  */
 public final class WoodBlocks {
     /** All blocks of one wood type. */
     public record Family(WoodKind wood, HollowLogBlock hollow, HollowLogBlock hollowStripped, Block sheet, Block strippedSheet,
-                         WoodenCauldronBlock cauldron, WoodenCauldronBlock strippedCauldron, CrateBlock crate, CarvedLogBlock carved) {
+                         WoodenCauldronBlock cauldron, WoodenCauldronBlock strippedCauldron, CarvedLogBlock carved) {
         /** In creative-tab order. */
         public List<Block> blocks() {
-            return List.of(this.hollow, this.hollowStripped, this.sheet, this.strippedSheet, this.cauldron, this.strippedCauldron, this.crate, this.carved);
+            return List.of(this.hollow, this.hollowStripped, this.sheet, this.strippedSheet, this.cauldron, this.strippedCauldron, this.carved);
+        }
+
+        /**
+         * The tab row of the wood: {@link #blocks()} with Simple Storage's crate of this wood (by id, split stage 8a)
+         * between the cauldrons and the carved wood, where it stood before the move; without the crate the blocks only.
+         */
+        public List<Item> tabItems() {
+            List<Item> out = new ArrayList<>();
+            for (Block block : blocks()) {
+                if (block == this.carved) {
+                    Item crate = com.simplebuilding.util.StorageRefs.crate(this.wood.id());
+                    if (crate != net.minecraft.world.item.Items.AIR) out.add(crate);
+                }
+                out.add(block.asItem());
+            }
+            return out;
         }
     }
 
@@ -59,10 +76,6 @@ public final class WoodBlocks {
         return "stripped_" + wood.id() + "_cauldron";
     }
 
-    public static String crateId(WoodKind wood) {
-        return wood.id() + "_crate";
-    }
-
     public static String carvedId(WoodKind wood) {
         return "carved_" + wood.log();
     }
@@ -70,7 +83,7 @@ public final class WoodBlocks {
     /** The block ids of a wood's family in creative-tab order (also for woods that are not loaded, e.g. for datagen tags). */
     public static List<String> blockIds(WoodKind wood) {
         return List.of(hollowId(wood, false), hollowId(wood, true), sheetId(wood, false), sheetId(wood, true),
-                cauldronId(wood), strippedCauldronId(wood), crateId(wood), carvedId(wood));
+                cauldronId(wood), strippedCauldronId(wood), carvedId(wood));
     }
 
     /** Registers every block; called once from {@code ModBlocks}. */
@@ -95,11 +108,9 @@ public final class WoodBlocks {
                     s -> new WoodenCauldronBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(2.0F).noOcclusion()));
             WoodenCauldronBlock strippedCauldron = register(strippedCauldronId(wood), planks,
                     s -> new WoodenCauldronBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(2.0F).noOcclusion()));
-            CrateBlock crate = register(crateId(wood), planks,
-                    s -> new CrateBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(1.5F).noOcclusion()));
             CarvedLogBlock carved = register(carvedId(wood), stripped,
                     s -> new CarvedLogBlock(wood, s.mapColor(woodColor)));
-            out.add(new Family(wood, hollow, hollowStripped, sheet, strippedSheet, cauldron, strippedCauldron, crate, carved));
+            out.add(new Family(wood, hollow, hollowStripped, sheet, strippedSheet, cauldron, strippedCauldron, carved));
         }
         return List.copyOf(out);
     }
@@ -128,7 +139,7 @@ public final class WoodBlocks {
         }
     }
 
-    /** Burnable woods catch fire like logs (tubes, carved wood) and planks (sheets, cauldrons, crates). */
+    /** Burnable woods catch fire like logs (tubes, carved wood) and planks (sheets, cauldrons). */
     public static void registerFlammability() {
         com.simplebuilding.mixin.FireBlockFlammableInvoker fire = (com.simplebuilding.mixin.FireBlockFlammableInvoker) Blocks.FIRE;
         for (Family family : families()) {
@@ -142,7 +153,6 @@ public final class WoodBlocks {
             fire.simplebuilding$setFlammable(family.strippedSheet(), 5, 20);
             fire.simplebuilding$setFlammable(family.cauldron(), 5, 20);
             fire.simplebuilding$setFlammable(family.strippedCauldron(), 5, 20);
-            fire.simplebuilding$setFlammable(family.crate(), 5, 20);
         }
     }
 
@@ -153,11 +163,6 @@ public final class WoodBlocks {
     /** Every woodwork item in creative-tab order (wood by wood). */
     public static List<Item> items() {
         return List.copyOf(ITEMS);
-    }
-
-    /** All crates (block entity type). */
-    public static Block[] crates() {
-        return families().stream().map(Family::crate).toArray(Block[]::new);
     }
 
     /** All wooden cauldrons (water tint). */

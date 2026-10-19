@@ -152,7 +152,7 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0", "simplecrucibles": ">=1.0.0", "simpleoctets": ">=1.0.0", "simpleblocks": ">=1.0.0", "simplehammers": ">=1.0.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0", "simplecrucibles": ">=1.0.0", "simpleoctets": ">=1.0.0", "simpleblocks": ">=1.0.0", "simplehammers": ">=1.0.0", "simplestorage": ">=1.0.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -259,6 +259,12 @@ dependencies {
 dependencies {
     include project(':modules:simplehammers:fabric')
     implementation project(':modules:simplehammers:fabric')
+}
+// Simple Storage: required Sub-Mod (split stage 8a) - the crates and the Storage Crafting Table moved there
+// (simplestorage:*, ids migrate). Nested for production and loaded in dev/test runs; SB code never imports it (util/StorageRefs: by id).
+dependencies {
+    include project(':modules:simplestorage:fabric')
+    implementation project(':modules:simplestorage:fabric')
 }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {

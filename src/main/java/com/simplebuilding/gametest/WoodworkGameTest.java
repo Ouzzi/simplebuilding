@@ -34,26 +34,6 @@ public final class WoodworkGameTest {
         WoodworkTests.woodenCauldronTakesCrucibleBuckets(helper);
     }
 
-    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
-    public void cratesStoreFoodForHoppersAndComparators(GameTestHelper helper) {
-        WoodworkTests.cratesStoreFoodForHoppersAndComparators(helper);
-    }
-
-    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
-    public void cratesTakeAtMostNineKinds(GameTestHelper helper) {
-        WoodworkTests.cratesTakeAtMostNineKinds(helper);
-    }
-
-    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
-    public void cratesLayerTheNewestKindOnTop(GameTestHelper helper) {
-        WoodworkTests.cratesLayerTheNewestKindOnTop(helper);
-    }
-
-    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
-    public void cratesTurnLikeBarrelsAndKeepTheirFood(GameTestHelper helper) {
-        WoodworkTests.cratesTurnLikeBarrelsAndKeepTheirFood(helper);
-    }
-
     @GameTest
     public void chiselCarvesSherdMotifsAndHollowsLogs(GameTestHelper helper) {
         WoodworkTests.chiselCarvesSherdMotifsAndHollowsLogs(helper);

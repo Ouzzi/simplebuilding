@@ -42,7 +42,8 @@
     "simpleoptimization",
     "simpleoptrender",
     "simpleoptmemory",
-    "simpleoptserver"
+    "simpleoptserver",
+    "simplestorage"
   ],
   "devMods": [
     "jei",

@@ -1,0 +1,480 @@
+package com.simplestorage.test;
+
+import com.simplelib.api.IdMoves;
+import com.simplestorage.SimpleStorage;
+import com.simplestorage.crate.CrateBlock;
+import com.simplestorage.crate.CrateBlockEntity;
+import com.simplestorage.crate.CrateWood;
+import com.simplestorage.registry.StorageBlockEntities;
+import com.simplestorage.registry.StorageBlocks;
+import com.simplestorage.registry.StorageItems;
+import com.simplestorage.registry.StorageMenus;
+import com.simplestorage.registry.StorageRegistry;
+import com.simplestorage.table.StorageCraftingMenu;
+import com.simplestorage.table.StorageCraftingTableBlockEntity;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * Loader independent module tests (split stage 8a); the Fabric/NeoForge/Forge adapters register them as
+ * module_game_test_<name> on {@code simplestorage:empty}. Every test runs standalone and with SimpleBuilding; partner
+ * checks (Simple End's woods) read the registry, never a class. The crate and table tests came from SimpleBuilding's
+ * {@code WoodworkTests} and {@code BrewingTests} unchanged in what they check.
+ */
+public final class StorageTests {
+    public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
+    public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
+    static final BlockPos SPOT = new BlockPos(2, 2, 2);
+
+    static {
+        ALL.put("registered", h -> {
+            List<String> problems = new ArrayList<>();
+            boolean end = loaded(CrateWood.SIMPLE_END);
+            for (CrateWood wood : CrateWood.values()) {
+                boolean expected = !wood.external() || end;
+                if (BuiltInRegistries.BLOCK.containsKey(SimpleStorage.id(wood.crateId())) != expected) problems.add("block " + wood.crateId());
+                if (BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(wood.crateId())) != expected) problems.add("item " + wood.crateId());
+            }
+            for (String path : List.of(SimpleStorage.STORAGE_CRAFTING_TABLE, "guide_book")) {
+                if (!BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(path))) problems.add("item " + path);
+            }
+            if (!BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimpleStorage.id("crate"))) problems.add("block entity crate");
+            if (!BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimpleStorage.id(SimpleStorage.STORAGE_CRAFTING_TABLE))) problems.add("block entity table");
+            if (!BuiltInRegistries.MENU.containsKey(SimpleStorage.id(SimpleStorage.STORAGE_CRAFTING_TABLE))) problems.add("menu");
+            StorageBlocks.CRATES.values().forEach(crate -> {
+                if (!StorageBlockEntities.CRATE.isValid(crate.defaultBlockState())) problems.add("crate BE takes " + crate);
+            });
+            if (StorageBlockEntities.CRATE.isValid(StorageBlocks.STORAGE_CRAFTING_TABLE.defaultBlockState())) problems.add("crate BE takes the table");
+            if (StorageMenus.STORAGE_CRAFTING_TABLE == null) problems.add("menu field");
+            h.assertTrue(problems.isEmpty(), "registration: " + problems);
+            h.succeed();
+        });
+        ALL.put("migration_from_simplebuilding", h -> {
+            List<String> problems = new ArrayList<>();
+            for (String path : SimpleStorage.movedBlocks()) {
+                if (!BuiltInRegistries.BLOCK.containsKey(SimpleStorage.id(path))) continue; // End crates without Simple End
+                if (BuiltInRegistries.BLOCK.getValue(SimpleStorage.old(path)) != BuiltInRegistries.BLOCK.getValue(SimpleStorage.id(path))) problems.add("block " + path);
+                if (BuiltInRegistries.ITEM.getValue(SimpleStorage.old(path)) != BuiltInRegistries.ITEM.getValue(SimpleStorage.id(path))) problems.add("item " + path);
+                if (!SimpleStorage.id(path).equals(IdMoves.target(Registries.RECIPE, SimpleStorage.old(path)))) problems.add("recipe " + path);
+                Identifier advancement = SimpleStorage.id("recipes/decorations/" + path);
+                if (!advancement.equals(IdMoves.advancement(SimpleStorage.old("recipes/decorations/" + path)))) problems.add("advancement " + path);
+            }
+            for (String be : List.of("crate", SimpleStorage.STORAGE_CRAFTING_TABLE)) {
+                if (BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleStorage.old(be)) != BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleStorage.id(be))) problems.add("block entity " + be);
+            }
+            // A crate of an old world: block entity id simplebuilding:crate with its food.
+            BlockState state = StorageBlocks.CRATES.get(CrateWood.OAK).defaultBlockState();
+            BlockEntity crate = BlockEntity.loadStatic(h.absolutePos(SPOT), state, oldEntity("simplebuilding:crate", "minecraft:bread", 7), h.getLevel().registryAccess());
+            if (!(crate instanceof CrateBlockEntity loaded) || loaded.countItem(Items.BREAD) != 7) problems.add("old crate loads as " + crate);
+            else if (!BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(loaded.getType()).equals(SimpleStorage.id("crate"))) problems.add("crate saved as " + loaded.getType());
+            // A Storage Crafting Table of an old world keeps its grid.
+            BlockEntity table = BlockEntity.loadStatic(h.absolutePos(SPOT), StorageBlocks.STORAGE_CRAFTING_TABLE.defaultBlockState(),
+                    oldEntity("simplebuilding:storage_crafting_table", "minecraft:oak_planks", 3), h.getLevel().registryAccess());
+            if (!(table instanceof StorageCraftingTableBlockEntity grid) || !grid.items().get(0).is(Items.OAK_PLANKS)) problems.add("old table loads as " + table);
+            h.assertTrue(problems.isEmpty(), "migration: " + problems);
+            h.succeed();
+        });
+        ALL.put("recipes", h -> {
+            List<String> problems = new ArrayList<>();
+            var manager = h.getLevel().getServer().getRecipeManager();
+            for (String path : SimpleStorage.movedBlocks()) {
+                boolean registered = BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(path));
+                var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path)));
+                if (holder.isPresent() != registered) problems.add((registered ? "missing " : "unexpected ") + path);
+                if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.old(path))).isPresent()) problems.add("still under simplebuilding: " + path);
+            }
+            h.assertTrue(problems.isEmpty(), "recipes: " + problems);
+            h.succeed();
+        });
+        ALL.put("crates_burn_and_fuel_like_planks", h -> {
+            List<String> problems = new ArrayList<>();
+            var fire = (com.simplestorage.mixin.FireBlockInvoker) Blocks.FIRE;
+            var fuel = h.getLevel().fuelValues();
+            StorageBlocks.CRATES.forEach((wood, crate) -> {
+                if (fire.simplestorage$canBurn(crate.defaultBlockState()) == wood.nether()) problems.add(wood + " burns: " + !wood.nether() + " expected");
+                int ticks = fuel.burnDuration(new ItemStack(StorageItems.CRATES.get(wood)));
+                if (ticks != (wood.nether() ? 0 : StorageItems.CRATE_FUEL)) problems.add(wood + " fuel " + ticks);
+                if (!crate.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)) problems.add(wood + " not mined with the axe");
+            });
+            if (!StorageBlocks.STORAGE_CRAFTING_TABLE.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)) problems.add("table not mined with the axe");
+            h.assertTrue(problems.isEmpty(), "burning: " + problems);
+            h.succeed();
+        });
+        ALL.put("sub_mod_switch", h -> {
+            com.simplebuilding.framework.api.SubMods.set(SimpleStorage.MOD_ID, false);
+            try {
+                h.assertFalse(SimpleStorage.on(), "switched off");
+                h.assertTrue(StorageRegistry.tabStacks().isEmpty(), "no tab stacks while off");
+                h.assertFalse(StorageRegistry.fillsVanillaTabs(false, true), "no Vanilla tab entries while off");
+                h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleStorage.id("oak_crate")), "registrations stay");
+                h.setBlock(SPOT, StorageBlocks.CRATES.get(CrateWood.OAK));
+                h.assertTrue(h.getBlockEntity(SPOT, CrateBlockEntity.class).insert(new ItemStack(Items.APPLE, 2)).isEmpty(), "a crate still stores while off");
+            } finally {
+                com.simplebuilding.framework.api.SubMods.set(SimpleStorage.MOD_ID, true);
+            }
+            h.assertTrue(StorageRegistry.fillsVanillaTabs(false, true) && !StorageRegistry.fillsVanillaTabs(true, true),
+                    "Vanilla tabs: only on its own (SimpleBuilding places them by id)");
+            h.succeed();
+        });
+        crates();
+        tables();
+        ALL.put("guide_book", com.simplestorage.guide.StorageGuide::gameTest);
+        ALL.put("discover_recipe_unlocks", com.simplestorage.discover.StorageDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplestorage.discover.StorageDiscover::behaviourHints);
+        ALL.put("discover_first_pickup_tips", com.simplestorage.discover.StorageDiscover::firstPickupTips);
+    }
+
+    // ------------------------------------------------------------------ crates (from SimpleBuilding WoodworkTests)
+
+    private static final Item[] NINE_FOODS = {Items.APPLE, Items.BREAD, Items.CARROT, Items.POTATO, Items.BAKED_POTATO,
+            Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.MELON_SLICE, Items.COOKIE};
+
+    private static Block oakCrate() {
+        return StorageBlocks.CRATES.get(CrateWood.OAK);
+    }
+
+    private static List<Item> kinds(CrateBlockEntity crate) {
+        return crate.layers().stream().map(layer -> layer.kind().getItem()).toList();
+    }
+
+    private static void crates() {
+        MAX_TICKS.put("crates_store_food_for_hoppers_and_comparators", 200);
+        ALL.put("crates_store_food_for_hoppers_and_comparators", helper -> {
+            List<String> fails = new ArrayList<>();
+            BlockPos rel = SPOT;
+            helper.setBlock(rel, oakCrate());
+            CrateBlockEntity crate = helper.getBlockEntity(rel, CrateBlockEntity.class);
+            ServerPlayer player = player(helper, GameType.SURVIVAL);
+            useBlock(helper, player, new ItemStack(Items.DIRT, 10), rel);
+            check(crate.isEmpty(), fails, "dirt stays out");
+            check(player.getMainHandItem().getCount() == 10, fails, "dirt stays in the hand");
+            useBlock(helper, player, new ItemStack(Items.BREAD, 40), rel);
+            check(crate.countItem(Items.BREAD) == 40 && player.getMainHandItem().isEmpty(), fails, "the bread stack goes in");
+            ItemStack rest = crate.insert(new ItemStack(Items.APPLE, 64 * 9));
+            check(crate.countItem(Items.APPLE) == 64 * 8 && rest.getCount() == 64, fails, "nine stacks in all (apples " + crate.countItem(Items.APPLE) + ")");
+            int signal = helper.getBlockState(rel).getAnalogOutputSignal(helper.getLevel(), helper.absolutePos(rel), Direction.NORTH);
+            check(signal >= 14, fails, "comparator reads it nearly full (" + signal + ")");
+            useBlock(helper, player, ItemStack.EMPTY, rel);
+            check(player.getInventory().countItem(Items.APPLE) == 64, fails, "empty hand takes the top stack");
+            player.getInventory().clearContent();
+            player.setShiftKeyDown(true);
+            useBlock(helper, player, ItemStack.EMPTY, rel);
+            check(player.getInventory().countItem(Items.APPLE) == 1, fails, "sneaking takes one");
+            crate.clearContent();
+            crate.insert(new ItemStack(Items.CARROT, 5));
+            helper.setBlock(rel.below(), Blocks.HOPPER);
+            if (!fails.isEmpty()) {
+                finish(helper, fails);
+                return;
+            }
+            helper.runAfterDelay(60, () -> {
+                check(crate.isEmpty(), fails, "a hopper empties the crate");
+                var hopper = (net.minecraft.world.Container) helper.getBlockEntity(rel.below(), HopperBlockEntity.class);
+                check(hopper.countItem(Items.CARROT) == 5, fails, "the hopper got the carrots");
+                hopper.clearContent();
+                helper.setBlock(rel.below(), Blocks.STONE);
+                crate.insert(new ItemStack(Items.COOKED_BEEF, 3));
+                helper.getLevel().destroyBlock(helper.absolutePos(rel), true);
+                AABB box = new AABB(helper.absolutePos(rel)).inflate(2.0);
+                int beef = 0;
+                boolean crateItem = false;
+                for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, box)) {
+                    if (entity.getItem().is(Items.COOKED_BEEF)) beef += entity.getItem().getCount();
+                    if (entity.getItem().is(oakCrate().asItem())) crateItem = true;
+                    entity.discard();
+                }
+                check(beef == 3, fails, "breaking drops the contents (" + beef + ")");
+                check(crateItem, fails, "breaking drops the crate");
+                finish(helper, fails);
+            });
+        });
+        // Queue N55: a crate holds at most nine different kinds; a tenth is refused by insert, canPlaceItem, by hand and
+        // by a hopper (which still passes on what the crate takes), while a kind that is in already still fills up.
+        MAX_TICKS.put("crates_take_at_most_nine_kinds", 200);
+        ALL.put("crates_take_at_most_nine_kinds", helper -> {
+            List<String> fails = new ArrayList<>();
+            BlockPos rel = SPOT;
+            helper.setBlock(rel, oakCrate());
+            CrateBlockEntity crate = helper.getBlockEntity(rel, CrateBlockEntity.class);
+            for (Item food : NINE_FOODS) {
+                check(crate.insert(new ItemStack(food, 3)).isEmpty(), fails, food + " goes in");
+            }
+            check(crate.kindCount() == 9 && crate.layers().size() == 9, fails, "nine kinds, nine layers (" + crate.kindCount() + ")");
+            ItemStack rest = crate.insert(new ItemStack(Items.BEETROOT, 3));
+            check(rest.getCount() == 3 && crate.countItem(Items.BEETROOT) == 0, fails, "insert refuses a tenth kind");
+            check(!crate.canPlaceItem(0, new ItemStack(Items.BEETROOT)) && crate.canPlaceItem(0, new ItemStack(Items.APPLE)), fails,
+                    "canPlaceItem: no tenth kind, but more of a present one");
+            ServerPlayer player = player(helper, GameType.SURVIVAL);
+            useBlock(helper, player, new ItemStack(Items.BEETROOT, 10), rel);
+            check(crate.countItem(Items.BEETROOT) == 0 && player.getMainHandItem().getCount() == 10, fails, "by hand: the tenth kind stays in the hand");
+            check(crate.insert(new ItemStack(Items.APPLE, 5)).isEmpty() && crate.countItem(Items.APPLE) == 8 && crate.kindCount() == 9, fails,
+                    "a present kind still fills up (apples " + crate.countItem(Items.APPLE) + ")");
+            BlockPos above = rel.above();
+            helper.setBlock(above, Blocks.HOPPER);
+            var hopper = (net.minecraft.world.Container) helper.getBlockEntity(above, HopperBlockEntity.class);
+            hopper.setItem(0, new ItemStack(Items.BEETROOT, 3));
+            hopper.setItem(1, new ItemStack(Items.APPLE, 3));
+            helper.runAfterDelay(60, () -> {
+                check(hopper.countItem(Items.BEETROOT) == 3 && crate.countItem(Items.BEETROOT) == 0, fails,
+                        "the hopper cannot put a tenth kind in (crate beetroot " + crate.countItem(Items.BEETROOT) + ")");
+                check(hopper.countItem(Items.APPLE) == 0 && crate.countItem(Items.APPLE) == 11, fails,
+                        "the hopper does pass on a present kind (crate apples " + crate.countItem(Items.APPLE) + ")");
+                check(crate.kindCount() == 9, fails, "still nine kinds");
+                crate.removeItem(crate.items().indexOf(crate.items().stream().filter(s -> s.is(Items.COOKIE)).findFirst().orElseThrow()), 64);
+                check(crate.kindCount() == 8 && crate.insert(new ItemStack(Items.BEETROOT, 3)).isEmpty(), fails, "after one kind is gone a new one fits");
+                finish(helper, fails);
+            });
+        });
+        // Queue N55: the layers lie in the order the kinds were put in, the newest on top; topping up (also by a hopper)
+        // lifts a kind, taking keeps the order, the empty hand takes from the top; order and amounts survive saving, the
+        // client gets just kinds and amounts.
+        MAX_TICKS.put("crates_layer_the_newest_kind_on_top", 200);
+        ALL.put("crates_layer_the_newest_kind_on_top", helper -> {
+            List<String> fails = new ArrayList<>();
+            BlockPos rel = SPOT;
+            helper.setBlock(rel, oakCrate());
+            CrateBlockEntity crate = helper.getBlockEntity(rel, CrateBlockEntity.class);
+            crate.insert(new ItemStack(Items.APPLE, 10));
+            crate.insert(new ItemStack(Items.BREAD, 10));
+            crate.insert(new ItemStack(Items.CARROT, 10));
+            check(kinds(crate).equals(List.of(Items.APPLE, Items.BREAD, Items.CARROT)), fails, "first in, lowest: " + kinds(crate));
+            crate.insert(new ItemStack(Items.APPLE, 5));
+            check(kinds(crate).equals(List.of(Items.BREAD, Items.CARROT, Items.APPLE)), fails, "topping up apples lifts them: " + kinds(crate));
+            crate.insert(new ItemStack(Items.APPLE, 1));
+            check(kinds(crate).equals(List.of(Items.BREAD, Items.CARROT, Items.APPLE)) && crate.layers().get(2).count() == 16, fails,
+                    "the top kind stays on top (" + kinds(crate) + ")");
+            crate.removeItem(crate.items().indexOf(crate.items().stream().filter(s -> s.is(Items.BREAD)).findFirst().orElseThrow()), 3);
+            check(kinds(crate).equals(List.of(Items.BREAD, Items.CARROT, Items.APPLE)) && crate.layers().get(0).count() == 7, fails,
+                    "taking keeps the order (" + kinds(crate) + ")");
+            var registries = helper.getLevel().registryAccess();
+            BlockPos at = helper.absolutePos(rel);
+            CrateBlockEntity saved = new CrateBlockEntity(at, crate.getBlockState());
+            saved.loadCustomOnly(TagValueInput.create(ProblemReporter.DISCARDING, registries, crate.saveCustomOnly(registries)));
+            check(kinds(saved).equals(kinds(crate)) && saved.countItem(Items.APPLE) == 16, fails, "saving keeps order and amounts (" + kinds(saved) + ")");
+            CompoundTag update = crate.getUpdateTag(registries);
+            check(update.get("Items") == null && update.get("Layers") != null, fails, "the update carries layers, not stacks: " + update);
+            CrateBlockEntity client = new CrateBlockEntity(at, crate.getBlockState());
+            client.loadCustomOnly(TagValueInput.create(ProblemReporter.DISCARDING, registries, update));
+            check(kinds(client).equals(kinds(crate)) && client.countItem(Items.CARROT) == 10 && !client.isEmpty(), fails,
+                    "the client sees the same layers (" + kinds(client) + ")");
+            BlockPos above = rel.above();
+            helper.setBlock(above, Blocks.HOPPER);
+            ((net.minecraft.world.Container) helper.getBlockEntity(above, HopperBlockEntity.class)).setItem(0, new ItemStack(Items.BREAD, 2));
+            helper.runAfterDelay(40, () -> {
+                check(kinds(crate).equals(List.of(Items.CARROT, Items.APPLE, Items.BREAD)) && crate.layers().get(2).count() == 9, fails,
+                        "a hopper merging bread lifts it to the top (" + kinds(crate) + ")");
+                ServerPlayer player = player(helper, GameType.SURVIVAL);
+                useBlock(helper, player, ItemStack.EMPTY, rel);
+                check(player.getInventory().countItem(Items.BREAD) == 9 && kinds(crate).equals(List.of(Items.CARROT, Items.APPLE)), fails,
+                        "the empty hand takes the top layer's stack (" + player.getInventory().countItem(Items.BREAD) + ", " + kinds(crate) + ")");
+                finish(helper, fails);
+            });
+        });
+        // Queue N31: a crate turns its opening to the player like a barrel (also sideways and upside down), keeps its food
+        // when turned, has an open collision shape on the opening side, and hoppers fill it from above and empty it from
+        // below in every orientation.
+        MAX_TICKS.put("crates_turn_like_barrels_and_keep_their_food", 200);
+        ALL.put("crates_turn_like_barrels_and_keep_their_food", helper -> {
+            List<String> fails = new ArrayList<>();
+            Block crateBlock = oakCrate();
+            ServerPlayer player = player(helper, GameType.SURVIVAL);
+            BlockPos at = new BlockPos(1, 1, 1);
+            float[][] looks = {{0F, 90F}, {0F, -90F}, {0F, 0F}, {90F, 0F}, {180F, 0F}, {-90F, 0F}};
+            Direction[] expected = {Direction.UP, Direction.DOWN, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
+            for (int i = 0; i < looks.length; i++) {
+                player.setYRot(looks[i][0]);
+                player.setYHeadRot(looks[i][0]);
+                player.setXRot(looks[i][1]);
+                var context = new net.minecraft.world.item.context.BlockPlaceContext(player, InteractionHand.MAIN_HAND,
+                        new ItemStack(crateBlock), hit(helper, at, Direction.UP));
+                BlockState placed = crateBlock.getStateForPlacement(context);
+                check(placed != null && placed.getValue(CrateBlock.FACING) == expected[i], fails,
+                        "looking yaw " + looks[i][0] + " pitch " + looks[i][1] + " opens " + (placed == null ? null : placed.getValue(CrateBlock.FACING)) + ", expected " + expected[i]);
+            }
+            for (Direction facing : Direction.values()) {
+                var shape = crateBlock.defaultBlockState().setValue(CrateBlock.FACING, facing).getShape(helper.getLevel(), BlockPos.ZERO);
+                Vec3 open = new Vec3(0.5 + facing.getStepX() * 0.45, 0.5 + facing.getStepY() * 0.45, 0.5 + facing.getStepZ() * 0.45);
+                Vec3 closed = new Vec3(0.5 - facing.getStepX() * 0.45, 0.5 - facing.getStepY() * 0.45, 0.5 - facing.getStepZ() * 0.45);
+                boolean openHit = shape.toAabbs().stream().anyMatch(box -> box.contains(open));
+                boolean closedHit = shape.toAabbs().stream().anyMatch(box -> box.contains(closed));
+                check(!openHit && closedHit, fails, facing + ": the shape is open towards the opening only");
+            }
+            BlockPos turn = new BlockPos(1, 5, 6);
+            helper.setBlock(turn, crateBlock.defaultBlockState().setValue(CrateBlock.FACING, Direction.NORTH));
+            helper.getBlockEntity(turn, CrateBlockEntity.class).insert(new ItemStack(Items.BREAD, 12));
+            BlockState turned = helper.getBlockState(turn).rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_90);
+            check(turned.getValue(CrateBlock.FACING) == Direction.EAST, fails, "turning north clockwise opens east");
+            helper.setBlock(turn, turned.setValue(CrateBlock.FACING, Direction.DOWN));
+            helper.setBlock(turn, helper.getBlockState(turn).setValue(CrateBlock.FACING, Direction.EAST));
+            CrateBlockEntity kept = helper.getBlockEntity(turn, CrateBlockEntity.class);
+            check(kept.countItem(Items.BREAD) == 12, fails, "the bread stays when the crate is turned (" + kept.countItem(Items.BREAD) + ")");
+            useBlock(helper, player, new ItemStack(Items.APPLE, 5), turn);
+            check(kept.countItem(Items.APPLE) == 5, fails, "a sideways crate takes food by hand");
+            Direction[] all = Direction.values();
+            for (int i = 0; i < all.length; i++) {
+                BlockPos crate = new BlockPos(1 + i, 2, 3);
+                helper.setBlock(crate.below(), Blocks.HOPPER);
+                helper.setBlock(crate, crateBlock.defaultBlockState().setValue(CrateBlock.FACING, all[i]));
+                helper.setBlock(crate.above(), Blocks.HOPPER);
+                ((net.minecraft.world.Container) helper.getBlockEntity(crate.above(), HopperBlockEntity.class)).setItem(0, new ItemStack(Items.CARROT, 3));
+            }
+            if (!fails.isEmpty()) {
+                finish(helper, fails);
+                return;
+            }
+            helper.runAfterDelay(80, () -> {
+                for (int i = 0; i < all.length; i++) {
+                    BlockPos crate = new BlockPos(1 + i, 2, 3);
+                    var below = (net.minecraft.world.Container) helper.getBlockEntity(crate.below(), HopperBlockEntity.class);
+                    check(below.countItem(Items.CARROT) == 3, fails, all[i] + ": the carrots went through the crate (" + below.countItem(Items.CARROT) + ")");
+                }
+                finish(helper, fails);
+            });
+        });
+    }
+
+    // ------------------------------------------------------------------ storage crafting table (from SimpleBuilding BrewingTests)
+
+    private static StorageCraftingTableBlockEntity table(GameTestHelper helper, BlockPos pos) {
+        helper.setBlock(pos, StorageBlocks.STORAGE_CRAFTING_TABLE);
+        return helper.getBlockEntity(pos, StorageCraftingTableBlockEntity.class);
+    }
+
+    private static StorageCraftingMenu open(StorageCraftingTableBlockEntity table, ServerPlayer player, int id) {
+        return (StorageCraftingMenu) table.createMenu(id, player.getInventory(), player);
+    }
+
+    private static void tables() {
+        // Four planks in the grid make a crafting table; closing leaves them on the table, reopening shows them again.
+        ALL.put("storage_crafting_table_keeps_its_grid", helper -> {
+            StorageCraftingTableBlockEntity table = table(helper, new BlockPos(1, 2, 1));
+            ServerPlayer player = helper.makeMockServerPlayerInLevel();
+            player.getInventory().clearContent();
+            StorageCraftingMenu menu = open(table, player, 1);
+            for (int slot : new int[] {1, 2, 4, 5}) {
+                menu.getSlot(slot).set(new ItemStack(Items.OAK_PLANKS, 3));
+            }
+            helper.assertTrue(menu.getSlot(StorageCraftingMenu.RESULT_SLOT).getItem().is(Items.CRAFTING_TABLE), "the grid crafts no crafting table");
+            menu.removed(player);
+            helper.assertTrue(player.getInventory().isEmpty(), "closing gave the grid back to the player");
+            helper.assertTrue(table.items().get(0).is(Items.OAK_PLANKS) && table.items().get(0).getCount() == 3
+                    && table.items().get(4).is(Items.OAK_PLANKS), "the table lost its grid: " + table.items());
+            StorageCraftingMenu again = open(table, player, 2);
+            helper.assertTrue(again.getSlot(1).getItem().is(Items.OAK_PLANKS), "the reopened grid is empty");
+            helper.assertTrue(again.getSlot(StorageCraftingMenu.RESULT_SLOT).getItem().is(Items.CRAFTING_TABLE), "the reopened grid shows no result");
+            ItemStack crafted = again.getSlot(StorageCraftingMenu.RESULT_SLOT).remove(1);
+            again.getSlot(StorageCraftingMenu.RESULT_SLOT).onTake(player, crafted);
+            helper.assertValueEqual(table.items().get(0).getCount(), 2, "planks left in the first slot after crafting");
+            again.removed(player);
+            helper.succeed();
+        });
+        // Two players at one table use one grid: what one puts in, the other sees; what one takes is gone for both.
+        ALL.put("storage_crafting_table_shares_its_grid", helper -> {
+            StorageCraftingTableBlockEntity table = table(helper, new BlockPos(1, 2, 1));
+            ServerPlayer first = helper.makeMockServerPlayerInLevel();
+            ServerPlayer second = helper.makeMockServerPlayerInLevel();
+            StorageCraftingMenu a = open(table, first, 1);
+            StorageCraftingMenu b = open(table, second, 2);
+            a.getSlot(5).set(new ItemStack(Items.DIAMOND, 2));
+            helper.assertTrue(b.getSlot(5).getItem().is(Items.DIAMOND), "the second menu does not see the diamond");
+            ItemStack taken = b.getSlot(5).remove(2);
+            helper.assertValueEqual(taken.getCount(), 2, "taken diamonds");
+            helper.assertTrue(a.getSlot(5).getItem().isEmpty() && table.items().get(4).isEmpty(), "the diamond is still there after taking it");
+            a.removed(first);
+            b.removed(second);
+            helper.succeed();
+        });
+        // Breaking drops the table and its grid; hoppers do not see the grid.
+        ALL.put("storage_crafting_table_drops_its_grid_and_ignores_hoppers", helper -> {
+            BlockPos pos = new BlockPos(1, 2, 1);
+            StorageCraftingTableBlockEntity table = table(helper, pos);
+            table.grid().setItem(0, new ItemStack(Items.STICK, 5));
+            helper.assertTrue(HopperBlockEntity.getContainerAt(helper.getLevel(), helper.absolutePos(pos)) == null, "a hopper can reach the grid");
+            helper.getLevel().destroyBlock(helper.absolutePos(pos), true);
+            helper.assertItemEntityPresent(Items.STICK, pos, 2.0);
+            helper.assertItemEntityPresent(StorageItems.STORAGE_CRAFTING_TABLE, pos, 2.0);
+            helper.succeed();
+        });
+    }
+
+    // ------------------------------------------------------------------ helpers
+
+    /** A partner mod is there when its namespace has registered items (no loader call in shared code). */
+    static boolean loaded(String namespace) {
+        return BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals(namespace));
+    }
+
+    /** A saved block entity of an old world: {@code id} with one stack of {@code item} in slot 0. */
+    private static CompoundTag oldEntity(String id, String item, int count) {
+        CompoundTag tag = new CompoundTag();
+        tag.putString("id", id);
+        net.minecraft.nbt.ListTag items = new net.minecraft.nbt.ListTag();
+        CompoundTag slot = new CompoundTag();
+        slot.putByte("Slot", (byte) 0);
+        slot.putString("id", item);
+        slot.putInt("count", count);
+        items.add(slot);
+        tag.put("Items", items);
+        return tag;
+    }
+
+    private static ServerPlayer player(GameTestHelper helper, GameType mode) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(mode);
+        return player;
+    }
+
+    private static BlockHitResult hit(GameTestHelper helper, BlockPos pos, Direction face) {
+        Vec3 centre = Vec3.atCenterOf(helper.absolutePos(pos)).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
+        return new BlockHitResult(centre, face, helper.absolutePos(pos), false);
+    }
+
+    /** Right-click on the block at {@code pos} with {@code stack} in the main hand (the block's own use). */
+    private static void useBlock(GameTestHelper helper, ServerPlayer player, ItemStack stack, BlockPos pos) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockState state = helper.getBlockState(pos);
+        var result = state.useItemOn(stack, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit(helper, pos, Direction.UP));
+        if (!result.consumesAction() && stack.isEmpty()) {
+            state.useWithoutItem(helper.getLevel(), player, hit(helper, pos, Direction.UP));
+        }
+    }
+
+    private static void check(boolean ok, List<String> fails, String what) {
+        if (!ok) fails.add(what);
+    }
+
+    private static void finish(GameTestHelper helper, List<String> fails) {
+        if (fails.isEmpty()) helper.succeed();
+        else helper.fail(String.join("; ", fails));
+    }
+
+    private StorageTests() {}
+}

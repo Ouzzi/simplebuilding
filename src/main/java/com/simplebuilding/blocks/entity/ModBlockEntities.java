@@ -27,8 +27,6 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity> GOAT_HORN_HOLDER_BE;
     /** Schachfiguren auf einem Block; nur mit McVersion.CHESS. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity> CHESS_PIECES_BE;
-    /** Kisten (Holzwerk); nur mit McVersion.WOODWORK. */
-    public static BlockEntityType<com.simplebuilding.woodwork.CrateBlockEntity> CRATE_BE;
     /** Haengematten (Tuch und Seil kennen ihre Matte); nur mit McVersion.HAMMOCK. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity> HAMMOCK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
@@ -39,8 +37,6 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity> AUTONOMOUS_CRAFTER_BE;
     /** Astral-Verzauberungstisch (McVersion.ASTRAL_ENCHANTING). */
     public static BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity> ASTRAL_ENCHANTING_TABLE_BE;
-    /** Werkbank mit Lager; nur, wenn es den Block gibt (McVersion.STORAGE_CRAFTING_TABLE). */
-    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity> STORAGE_CRAFTING_TABLE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     public static void registerBlockEntities() {
@@ -118,11 +114,6 @@ public class ModBlockEntities {
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "astral_enchanting_table"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity::new, ModBlocks.ASTRAL_ENCHANTING_TABLE).build());
         }
-        if (ModBlocks.STORAGE_CRAFTING_TABLE != null) {
-            STORAGE_CRAFTING_TABLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "storage_crafting_table"),
-                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity::new, ModBlocks.STORAGE_CRAFTING_TABLE).build());
-        }
 
         if (ModBlocks.PLACED_SMALL_PARTS != null) {
             PLACED_SMALL_PARTS_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
@@ -140,12 +131,6 @@ public class ModBlockEntities {
             CHESS_PIECES_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "chess_pieces"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity::new, ModBlocks.CHESS_PIECES).build());
-        }
-
-        if (!ModBlocks.WOOD_FAMILIES.isEmpty()) {
-            CRATE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "crate"),
-                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.woodwork.CrateBlockEntity::new, com.simplebuilding.woodwork.WoodBlocks.crates()).build());
         }
 
         if (ModBlocks.HAMMOCK_ROPE != null) {

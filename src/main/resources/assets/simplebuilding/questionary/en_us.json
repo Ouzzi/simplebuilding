@@ -1729,17 +1729,6 @@
       "The hopper below is the machine's only door out: if it is full, nothing is crafted. A redstone signal is the off switch."
     ]
   },
-  "storage_crafting_table": {
-    "lore": [
-      "A crafting table that never clears its grid."
-    ],
-    "use": [
-      "Keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
-    ],
-    "secret": [
-      "A tidy way to keep a recipe set up: the items stay on the table, visible, until you pick them up."
-    ]
-  },
   "crafted_arrow": {
     "lore": [
       "An arrow made with attention, tip by tip."
@@ -2353,20 +2342,6 @@
     ],
     "secret": [
       "Lava poured into it sets it alight, and after 3 seconds the cauldron is gone and the lava stays behind as a source. Take the lava out in time and the cauldron is saved."
-    ]
-  },
-  "family:crate": {
-    "items": [
-      "regex:.*_crate"
-    ],
-    "lore": [
-      "{name}: an open box of planks where the harvest waits for the pot."
-    ],
-    "use": [
-      "Stores up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats. Craft from 7 planks of one wood in a U. Right-click with food puts the stack in, an empty hand takes the top stack out."
-    ],
-    "secret": [
-      "Sneaking with an empty hand takes just one item. Hoppers fill and empty crates, a comparator reads the fill level, and the tag simplebuilding:crate_storable lets modpacks allow non-food items."
     ]
   },
   "family:sheet": {

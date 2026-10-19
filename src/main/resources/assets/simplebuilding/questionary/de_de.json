@@ -1729,17 +1729,6 @@
       "Der Trichter darunter ist die einzige Tür nach draußen: Ist er voll, wird nichts hergestellt. Ein Redstone-Signal ist der Ausschalter."
     ]
   },
-  "storage_crafting_table": {
-    "lore": [
-      "Eine Werkbank, die ihr Raster nie leert."
-    ],
-    "use": [
-      "Behält ihr 3x3-Raster: Beim Schließen des Fensters bleiben die Gegenstände liegen, flach auf der Platte."
-    ],
-    "secret": [
-      "Ein ordentlicher Weg, ein Rezept bereit zu halten: Die Gegenstände bleiben sichtbar auf dem Tisch, bis du sie nimmst."
-    ]
-  },
   "crafted_arrow": {
     "lore": [
       "Ein Pfeil, mit Aufmerksamkeit gebaut, Spitze für Spitze."
@@ -2353,20 +2342,6 @@
     ],
     "secret": [
       "Gießt du Lava hinein, fängt er Feuer; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Nimmst du die Lava rechtzeitig heraus, ist er gerettet."
-    ]
-  },
-  "family:crate": {
-    "items": [
-      "regex:.*_crate"
-    ],
-    "lore": [
-      "{name}: eine offene Kiste aus Brettern, in der die Ernte auf den Topf wartet."
-    ],
-    "use": [
-      "Lagert bis zu 9 Stapel Nahrung aus höchstens 9 Sorten; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar. Hergestellt aus 7 Brettern einer Holzart in U-Form. Rechtsklick mit Essen legt den Stapel hinein, eine leere Hand nimmt den obersten heraus."
-    ],
-    "secret": [
-      "Schleichen mit leerer Hand nimmt nur ein Stück. Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und das Tag simplebuilding:crate_storable erlaubt Modpacks auch Nicht-Nahrung."
     ]
   },
   "family:sheet": {

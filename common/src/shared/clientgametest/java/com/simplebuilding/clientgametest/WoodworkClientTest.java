@@ -1,8 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.version.McVersion;
-import com.simplebuilding.woodwork.CrateBlock;
-import com.simplebuilding.woodwork.CrateBlockEntity;
 import com.simplebuilding.woodwork.SherdMotif;
 import com.simplebuilding.woodwork.WoodBlocks;
 import com.simplebuilding.woodwork.WoodKind;
@@ -30,11 +28,14 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * Woodwork (docs/ai/PLAN-HOLZWERK-2026-10-09.md, 26.3): the carved-wood motifs are real sprites in the blocks atlas
  * (derived at load from the pottery patterns, not missingno), and one documentary picture of hollow logs, sheets,
- * wooden cauldrons (water, crimson with lava), crates with food and carved logs. Cleans up behind itself.
+ * wooden cauldrons (water, crimson with lava), crates with food and carved logs. Cleans up behind itself. The crates are
+ * Simple Storage's since split stage 8a: placed and filled by id and through Vanilla's {@code Container}.
  */
 public final class WoodworkClientTest {
     private static final int Z = 19;
     private static final int CRATE_Z = 16;
+    private static final net.minecraft.world.level.block.state.properties.EnumProperty<Direction> FACING =
+            net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
     private WoodworkClientTest() {
     }
@@ -78,8 +79,8 @@ public final class WoodworkClientTest {
             set(level, 6, 1, bamboo.hollow().defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X));
             set(level, 7, 0, oak.cauldron().with(WoodenCauldronBlock.Content.WATER, 3));
             set(level, 8, 0, crimson.cauldron().with(WoodenCauldronBlock.Content.LAVA, 3));
-            set(level, 9, 0, oak.crate().defaultBlockState());
-            set(level, 10, 0, spruce.crate().defaultBlockState());
+            set(level, 9, 0, crate(WoodKind.OAK));
+            set(level, 10, 0, crate(WoodKind.SPRUCE));
             fill(level, 9, List.of(new ItemStack(Items.BREAD, 64), new ItemStack(Items.APPLE, 64), new ItemStack(Items.APPLE, 20)));
             fill(level, 10, List.of(new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64),
                     new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64), new ItemStack(Items.GOLDEN_CARROT, 40)));
@@ -102,7 +103,7 @@ public final class WoodworkClientTest {
         });
         script.awaitPackets();
         script.await("the client has the crate contents", 100,
-                client -> client.level.getBlockEntity(new BlockPos(10, 0, Z)) instanceof CrateBlockEntity crate && !crate.isEmpty());
+                client -> client.level.getBlockEntity(new BlockPos(10, 0, Z)) instanceof net.minecraft.world.Container crate && !crate.isEmpty());
         script.idle("let the blocks render", 20);
         script.shot("woodwork-overview");
         script.command("tp @a 10.5 1.2 17.6 0.0 35.0");
@@ -118,10 +119,10 @@ public final class WoodworkClientTest {
             Direction[] facings = {Direction.UP, Direction.NORTH, Direction.EAST, Direction.WEST, Direction.DOWN, Direction.SOUTH, Direction.UP, Direction.UP};
             WoodKind[] woods = WoodKind.active().toArray(new WoodKind[0]);
             for (int i = 0; i < facings.length; i++) {
-                level.setBlock(new BlockPos(5 + i, 0, CRATE_Z), WoodBlocks.family(woods[i % woods.length]).crate().defaultBlockState().setValue(CrateBlock.FACING, facings[i]), 3);
+                level.setBlock(new BlockPos(5 + i, 0, CRATE_Z), crate(woods[i % woods.length]).setValue(FACING, facings[i]), 3);
             }
             for (int i = 0; i < woods.length - facings.length; i++) {
-                level.setBlock(new BlockPos(5 + i, 1, CRATE_Z), WoodBlocks.family(woods[facings.length + i]).crate().defaultBlockState(), 3);
+                level.setBlock(new BlockPos(5 + i, 1, CRATE_Z), crate(woods[facings.length + i]), 3);
             }
             fillAt(level, 5, CRATE_Z, List.of(new ItemStack(Items.APPLE, 64), new ItemStack(Items.APPLE, 64), new ItemStack(Items.APPLE, 40)));
             fillAt(level, 6, CRATE_Z, List.of(new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 20)));
@@ -131,21 +132,21 @@ public final class WoodworkClientTest {
             fillAt(level, 10, CRATE_Z, List.of(new ItemStack(Items.APPLE, 5)));
             fillAt(level, 11, CRATE_Z, List.of(new ItemStack(Items.COOKIE, 1)));
             List<ItemStack> full = new ArrayList<>();
-            for (int i = 0; i < CrateBlockEntity.SLOTS; i++) {
+            for (int i = 0; i < 9; i++) {
                 full.add(new ItemStack(Items.GOLDEN_CARROT, 64));
             }
             fillAt(level, 12, CRATE_Z, full);
             // Queue N55: nine different kinds, the newest (cookies) on top; one more apple lifts the apples again.
-            level.setBlock(new BlockPos(13, 0, CRATE_Z), WoodBlocks.family(WoodKind.OAK).crate().defaultBlockState(), 3);
+            level.setBlock(new BlockPos(13, 0, CRATE_Z), crate(WoodKind.OAK), 3);
             fillAt(level, 13, CRATE_Z, List.of(new ItemStack(Items.POTATO, 64), new ItemStack(Items.CARROT, 40), new ItemStack(Items.BREAD, 64),
                     new ItemStack(Items.BEETROOT, 30), new ItemStack(Items.COOKED_BEEF, 20), new ItemStack(Items.MELON_SLICE, 64),
                     new ItemStack(Items.BAKED_POTATO, 10), new ItemStack(Items.APPLE, 40), new ItemStack(Items.COOKIE, 64)));
-            level.setBlock(new BlockPos(14, 0, CRATE_Z), WoodBlocks.family(WoodKind.OAK).crate().defaultBlockState().setValue(CrateBlock.FACING, Direction.NORTH), 3);
+            level.setBlock(new BlockPos(14, 0, CRATE_Z), crate(WoodKind.OAK).setValue(FACING, Direction.NORTH), 3);
             fillAt(level, 14, CRATE_Z, List.of(new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 20), new ItemStack(Items.BREAD, 30), new ItemStack(Items.APPLE, 12)));
         });
         script.awaitPackets();
         script.await("the client has the crate contents", 100,
-                client -> client.level.getBlockEntity(new BlockPos(12, 0, CRATE_Z)) instanceof CrateBlockEntity crate && !crate.isEmpty());
+                client -> client.level.getBlockEntity(new BlockPos(12, 0, CRATE_Z)) instanceof net.minecraft.world.Container crate && !crate.isEmpty());
         String[][] views = {
                 {"crates-front", "8.5 0.4 13.3 0.0 25.0"},
                 {"crates-above", "8.5 1.0 13.0 0.0 50.0"},
@@ -276,9 +277,15 @@ public final class WoodworkClientTest {
     }
 
     private static void fillAt(ServerLevel level, int x, int z, List<ItemStack> stacks) {
-        if (level.getBlockEntity(new BlockPos(x, 0, z)) instanceof CrateBlockEntity crate) {
-            stacks.forEach(stack -> crate.insert(stack.copy()));
+        if (level.getBlockEntity(new BlockPos(x, 0, z)) instanceof net.minecraft.world.Container crate) {
+            // Through the crate's Vanilla container, like a hopper (it keeps its rules and layers).
+            stacks.forEach(stack -> net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, crate, stack.copy(), null));
         }
+    }
+
+    /** Simple Storage's crate of a wood (split stage 8a), by id. */
+    private static BlockState crate(WoodKind wood) {
+        return com.simplebuilding.util.StorageRefs.block(wood.id() + "_crate").defaultBlockState();
     }
 
     private static Set<String> spritesOn(BlockStateModel model, Direction side) {

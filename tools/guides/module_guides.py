@@ -180,6 +180,13 @@ MODULES = [
                 "upgrade blocks in the world strike by strike, and their three enchantments.",
                 "Sieben Vorschlaghämmer, die ganze Flächen abbauen, Blöcke abtragen und umformen, Diamant- und Quarzblöcke "
                 "zerschlagen und Blöcke in der Welt Schlag für Schlag aufwerten, und ihre drei Verzauberungen.")),
+    dict(module="simplestorage", ns="simplestorage", package="com.simplestorage.guide", cls="StorageGuide", kind="item",
+         author="Simple Storage", recipe="minecraft:barrel",
+         name=("Simple Storage Guide", "Simple-Storage-Handbuch"),
+         intro=("Crates of every wood that hold nine stacks of food in layers, and the Storage Crafting Table that keeps its "
+                "grid on its top.",
+                "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, und die Werkbank mit Lager, die ihr Raster "
+                "auf der Platte behält.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "simplestorage",
+  "version": "${version}",
+  "name": "Simple Storage",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Crates for every wood (open food boxes for nine stacks, hoppers and comparators work) and the Storage Crafting Table that keeps its grid, moved from SimpleBuilding (ids migrate).",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplestorage.StorageFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplestorage.StorageFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplestorage.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simplestorage.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.2.0"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleend": "*"
+  }
+}

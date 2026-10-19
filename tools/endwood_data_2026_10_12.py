@@ -29,11 +29,14 @@ TIERS = ("reinforced", "netherite", "enderite")
 # Template names (spruce), relative to recipe/ and loot_table/blocks/.
 RECIPES = [
     "hollow_spruce_log", "hollow_stripped_spruce_log", "spruce_sheet", "stripped_spruce_sheet", "spruce_cauldron",
-    "stripped_spruce_cauldron", "spruce_crate",
+    "stripped_spruce_cauldron",
     # The wood and log octets' recipes moved to Simple Octets (tools/textures/octets_2026_10_09.py, Shaping Saw A4b).
 ] + [f"{tier}_chest_boat_spruce" for tier in TIERS]
 LOOT = ["hollow_spruce_log", "hollow_stripped_spruce_log", "spruce_sheet", "stripped_spruce_sheet", "spruce_cauldron",
-        "stripped_spruce_cauldron", "spruce_crate", "carved_spruce_log"]
+        "stripped_spruce_cauldron", "carved_spruce_log"]
+# The crates moved to Simple Storage (split stage 8a): their End-wood files are written into that module from its spruce one.
+STORAGE = ROOT / "modules/simplestorage/shared/resources/data/simplestorage"
+STORAGE_FILES = ["spruce_crate"]
 
 CONDITIONS = {
     "fabric:load_conditions": [{"condition": "fabric:all_mods_loaded", "values": [MOD]}],
@@ -77,18 +80,19 @@ def outputs() -> dict[Path, str]:
     def put(path: Path, data: dict) -> None:
         files[path] = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
-    for wood in WOODS:
-        for name in RECIPES:
-            text = (SRC / "recipe" / f"{name}.json").read_text(encoding="utf-8")
-            put(OUT / "recipe" / f"{rename(name, wood)}.json", conditioned(json.loads(rename(text, wood))))
-        for adv in sorted((SRC / "advancement/recipes").glob("*/*.json")):
-            if adv.stem in RECIPES:
-                text = adv.read_text(encoding="utf-8")
-                put(OUT / "advancement/recipes" / adv.parent.name / f"{rename(adv.stem, wood)}.json",
-                    conditioned(json.loads(rename(text, wood))))
-        for name in LOOT:
-            text = (SRC / "loot_table/blocks" / f"{name}.json").read_text(encoding="utf-8")
-            put(OUT / "loot_table/blocks" / f"{rename(name, wood)}.json", conditioned(json.loads(rename(text, wood))))
+    for src, out, recipes, loot in ((SRC, OUT, RECIPES, LOOT), (STORAGE, STORAGE, STORAGE_FILES, STORAGE_FILES)):
+        for wood in WOODS:
+            for name in recipes:
+                text = (src / "recipe" / f"{name}.json").read_text(encoding="utf-8")
+                put(out / "recipe" / f"{rename(name, wood)}.json", conditioned(json.loads(rename(text, wood))))
+            for adv in sorted((src / "advancement/recipes").glob("*/*.json")):
+                if adv.stem in recipes:
+                    text = adv.read_text(encoding="utf-8")
+                    put(out / "advancement/recipes" / adv.parent.name / f"{rename(adv.stem, wood)}.json",
+                        conditioned(json.loads(rename(text, wood))))
+            for name in loot:
+                text = (src / "loot_table/blocks" / f"{name}.json").read_text(encoding="utf-8")
+                put(out / "loot_table/blocks" / f"{rename(name, wood)}.json", conditioned(json.loads(rename(text, wood))))
     for name, data in chisel_files().items():
         put(OUT / "chisel_transformations" / f"{name}.json", data)
     return files

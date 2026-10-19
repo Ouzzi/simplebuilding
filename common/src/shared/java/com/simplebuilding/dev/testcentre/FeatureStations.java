@@ -856,8 +856,12 @@ public final class FeatureStations {
             c.place(x, 0, 4, f.strippedSheet());
             c.place(x, 0, 5, f.cauldron().with(com.simplebuilding.woodwork.WoodenCauldronBlock.Content.WATER, 3));
             c.place(x, 0, 8, f.strippedCauldron().with(com.simplebuilding.woodwork.WoodenCauldronBlock.Content.WATER, 3));
-            c.place(x, 0, 6, f.crate());
-            c.contents(x, 0, 6, List.of(new ItemStack(foods[i % foods.length], 64), new ItemStack(foods[(i + 3) % foods.length], 32)));
+            // The crates are Simple Storage's since split stage 8a (by id; its own station lists them too).
+            net.minecraft.world.level.block.Block crate = com.simplebuilding.util.StorageRefs.block(f.wood().id() + "_crate");
+            if (crate != Blocks.AIR) {
+                c.place(x, 0, 6, crate);
+                c.contents(x, 0, 6, List.of(new ItemStack(foods[i % foods.length], 64), new ItemStack(foods[(i + 3) % foods.length], 32)));
+            }
             c.place(x, 0, 7, f.carved().carvedWith(i % 2 == 0 ? motifs[i % motifs.length] : null));
         }
         int chestX = families.size() + 2;

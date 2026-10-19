@@ -1,0 +1,157 @@
+{
+  "features": [
+    {
+      "id": "crates",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+        "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+      ],
+      "en": {
+        "title": "Crates",
+        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
+        "details": [
+          "Crafting: 7 planks of one wood in a U shape.",
+          "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplestorage:crate_storable).",
+          "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
+          "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
+          "(with Simple End) Ashwood and Duskwood crates from Simple End planks.",
+          "Crates burn like planks and are furnace fuel for 300 ticks (not the Crimson and Warped ones); they are mined with the axe."
+        ]
+      },
+      "de": {
+        "title": "Kisten",
+        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
+        "details": [
+          "Herstellung: 7 Bretter einer Holzart in U-Form.",
+          "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplestorage:crate_storable).",
+          "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
+          "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
+          "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern.",
+          "Kisten brennen wie Bretter und sind 300 Ticks Ofenbrennstoff (nicht die aus Karmesin- und Wirrholz); abgebaut werden sie mit der Axt."
+        ]
+      }
+    },
+    {
+      "id": "storage_crafting_table",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingTableRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingScreen.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/storage_crafting_table.json"
+      ],
+      "en": {
+        "title": "Storage Crafting Table",
+        "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
+        "details": [
+          "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
+          "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter (with SimpleBuilding).",
+          "Recipe (shapeless): Crafting Table + Chest."
+        ]
+      },
+      "de": {
+        "title": "Werkbank mit Lager",
+        "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
+        "details": [
+          "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
+          "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter (mit SimpleBuilding).",
+          "Rezept (formlos): Werkbank + Truhe."
+        ]
+      }
+    },
+    {
+      "id": "migration",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/StorageTests.java"
+      ],
+      "en": {
+        "title": "Moved from SimpleBuilding",
+        "summary": "The crates of every wood and the Storage Crafting Table, their block entities, recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplestorage:* through SimpleLib's id moves and save the new ids; placed crates keep their food and tables their grid.",
+        "details": [
+          "SimpleBuilding needs Simple Storage and bundles it; Simple Storage runs on its own with SimpleLib, which it bundles. Tiered chests, shulker boxes, bundles and backpacks follow in later stages."
+        ]
+      },
+      "de": {
+        "title": "Aus SimpleBuilding umgezogen",
+        "summary": "Die Kisten aller Hölzer und die Werkbank mit Lager, ihre Block-Entities, Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* und speichern die neuen Ids; gesetzte Kisten behalten ihr Essen, Werkbänke ihr Raster.",
+        "details": [
+          "SimpleBuilding braucht Simple Storage und bündelt es; Simple Storage läuft allein mit SimpleLib, das es mitbringt. Stufen-Truhen, Shulker-Kisten, Bündel und Rucksäcke folgen in späteren Stufen."
+        ]
+      }
+    },
+    {
+      "id": "creative_tab_switch",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageRegistry.java"
+      ],
+      "en": {
+        "title": "Creative tabs",
+        "summary": "Own tab with the Storage Crafting Table, the crates and the guide. Without SimpleBuilding the table also sits behind the crafting table and the crates behind the barrel in the Vanilla functional blocks tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places. Switched off (SimpleBuilding's Enable Simple Storage), the tab and the Vanilla tab entries are empty; the blocks keep working.",
+        "details": []
+      },
+      "de": {
+        "title": "Kreativ-Tabs",
+        "summary": "Eigener Tab mit der Werkbank mit Lager, den Kisten und dem Handbuch. Ohne SimpleBuilding steht die Werkbank zusätzlich hinter der Werkbank und stehen die Kisten hinter dem Fass im Vanilla-Tab Gebrauchsblöcke (Schalter addItemsToVanillaTabs); mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Storage aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Blöcke funktionieren weiter.",
+        "details": []
+      }
+    }
+  ],
+  "notes": {
+    "simplestorage:guide_book": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+      }
+    },
+    "simplestorage:*_crate": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+        "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+      ],
+      "en": {
+        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+      },
+      "de": {
+        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+      }
+    },
+    "simplestorage:storage_crafting_table": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingTableRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingScreen.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/storage_crafting_table.json"
+      ],
+      "en": {
+        "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
+      },
+      "de": {
+        "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches."
+      }
+    }
+  }
+}

@@ -23,6 +23,9 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "mc26_3/overlay/resources/assets"
 NS = "simplebuilding"
+# The crates moved to Simple Storage (split stage 8a, docs/ai/PLAN-B-S8-STORAGE-2026-10-19.md): their files go there.
+STORAGE_OUT = ROOT / "modules/simplestorage/shared/resources/assets"
+STORAGE_NS = "simplestorage"
 
 # id, log path, stripped log average colour (sRGB of the Vanilla 16x16 side, measured once 2026-10-09).
 WOODS = [
@@ -333,8 +336,12 @@ def wood_ns(wood: str, path: str) -> str:
     return ("simpleend:" if wood in END_WOODS else "minecraft:") + path
 
 
-def put_json(rel: str, data) -> None:
-    files[OUT / rel] = (json.dumps(data, indent=2) + "\n").encode()
+def put_json(rel: str, data, out: Path = OUT) -> None:
+    files[out / rel] = (json.dumps(data, indent=2) + "\n").encode()
+
+
+def put_crate_json(rel: str, data) -> None:
+    put_json(rel, data, STORAGE_OUT)
 
 
 def put_png(rel: str, image: Image.Image) -> None:
@@ -348,7 +355,7 @@ def block_item(name: str, model: str | None = None) -> None:
 
 
 def templates() -> None:
-    put_json(f"{NS}/models/block/template_crate.json", {
+    put_crate_json(f"{STORAGE_NS}/models/block/template_crate.json", {
         "parent": "minecraft:block/block", "textures": {"particle": "#planks"}, "elements": crate_elements()})
     cube = {"down": "#end", "up": "#end", "north": "#side", "south": "#side", "west": "#side", "east": "#side"}
     faces = {d: {"texture": t, "cullface": d} for d, t in cube.items()}
@@ -485,11 +492,12 @@ def wood_assets(wood: str, log: str) -> None:
     block_item(name, sb(f"item/{name}"))
     # crate: an open box of plank slats with gaps (template_crate), the opening turned to facing like a barrel
     name = f"{wood}_crate"
-    put_json(f"{NS}/models/block/{name}.json", {"parent": sb("block/template_crate"), "textures": {
+    st = lambda path: f"{STORAGE_NS}:{path}"
+    put_crate_json(f"{STORAGE_NS}/models/block/{name}.json", {"parent": st("block/template_crate"), "textures": {
         "particle": tex["planks"], "planks": tex["planks"]}})
-    put_json(f"{NS}/blockstates/{name}.json", {"variants": {
-        f"facing={facing}": ({"model": sb(f"block/{name}")} | rot) for facing, rot in CRATE_FACING.items()}})
-    block_item(name)
+    put_crate_json(f"{STORAGE_NS}/blockstates/{name}.json", {"variants": {
+        f"facing={facing}": ({"model": st(f"block/{name}")} | rot) for facing, rot in CRATE_FACING.items()}})
+    put_crate_json(f"{STORAGE_NS}/items/{name}.json", {"model": {"type": "minecraft:model", "model": st(f"block/{name}")}})
     # carved wood: one model per motif, turned by facing
     name = f"carved_{log}"
     put_png(f"{NS}/textures/block/carved/{wood}_carving.png", carving(wood))

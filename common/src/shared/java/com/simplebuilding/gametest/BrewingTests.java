@@ -1,11 +1,9 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity;
 import com.simplebuilding.effect.MirageTable;
 import com.simplebuilding.effect.ModEffects;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.screen.StorageCraftingMenu;
 import com.simplebuilding.version.McVersion;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -177,83 +175,5 @@ public final class BrewingTests {
         Warden warden = helper.spawnWithNoFreeWill(EntityTypes.WARDEN, pos);
         warden.kill(helper.getLevel());
         helper.succeedWhen(() -> helper.assertItemEntityPresent(ModItems.WARDEN_TENDRIL, pos, 4.0));
-    }
-
-    // ------------------------------------------------------------------ storage crafting table
-
-    private static StorageCraftingTableBlockEntity table(GameTestHelper helper, BlockPos pos) {
-        helper.setBlock(pos, ModBlocks.STORAGE_CRAFTING_TABLE);
-        return helper.getBlockEntity(pos, StorageCraftingTableBlockEntity.class);
-    }
-
-    private static StorageCraftingMenu open(StorageCraftingTableBlockEntity table, ServerPlayer player, int id) {
-        return (StorageCraftingMenu) table.createMenu(id, player.getInventory(), player);
-    }
-
-    /** Four planks in the grid make a crafting table; closing leaves them on the table, reopening shows them again. */
-    public static void storageCraftingTableKeepsItsGrid(GameTestHelper helper) {
-        if (!McVersion.STORAGE_CRAFTING_TABLE) {
-            helper.succeed();
-            return;
-        }
-        StorageCraftingTableBlockEntity table = table(helper, new BlockPos(1, 2, 1));
-        ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        player.getInventory().clearContent();
-        StorageCraftingMenu menu = open(table, player, 1);
-        for (int slot : new int[] {1, 2, 4, 5}) {
-            menu.getSlot(slot).set(new ItemStack(Items.OAK_PLANKS, 3));
-        }
-        helper.assertTrue(menu.getSlot(StorageCraftingMenu.RESULT_SLOT).getItem().is(Items.CRAFTING_TABLE), "the grid crafts no crafting table");
-        menu.removed(player);
-        helper.assertTrue(player.getInventory().isEmpty(), "closing gave the grid back to the player");
-        helper.assertTrue(table.items().get(0).is(Items.OAK_PLANKS) && table.items().get(0).getCount() == 3
-                && table.items().get(4).is(Items.OAK_PLANKS), "the table lost its grid: " + table.items());
-        StorageCraftingMenu again = open(table, player, 2);
-        helper.assertTrue(again.getSlot(1).getItem().is(Items.OAK_PLANKS), "the reopened grid is empty");
-        helper.assertTrue(again.getSlot(StorageCraftingMenu.RESULT_SLOT).getItem().is(Items.CRAFTING_TABLE), "the reopened grid shows no result");
-        // Taking the result uses one plank of each slot, on the table.
-        ItemStack crafted = again.getSlot(StorageCraftingMenu.RESULT_SLOT).remove(1);
-        again.getSlot(StorageCraftingMenu.RESULT_SLOT).onTake(player, crafted);
-        helper.assertValueEqual(table.items().get(0).getCount(), 2, "planks left in the first slot after crafting");
-        again.removed(player);
-        helper.succeed();
-    }
-
-    /** Two players at one table use one grid: what one puts in, the other sees; what one takes is gone for both. */
-    public static void storageCraftingTableSharesItsGrid(GameTestHelper helper) {
-        if (!McVersion.STORAGE_CRAFTING_TABLE) {
-            helper.succeed();
-            return;
-        }
-        StorageCraftingTableBlockEntity table = table(helper, new BlockPos(1, 2, 1));
-        ServerPlayer first = helper.makeMockServerPlayerInLevel();
-        ServerPlayer second = helper.makeMockServerPlayerInLevel();
-        StorageCraftingMenu a = open(table, first, 1);
-        StorageCraftingMenu b = open(table, second, 2);
-        a.getSlot(5).set(new ItemStack(Items.DIAMOND, 2));
-        helper.assertTrue(b.getSlot(5).getItem().is(Items.DIAMOND), "the second menu does not see the diamond");
-        ItemStack taken = b.getSlot(5).remove(2);
-        helper.assertValueEqual(taken.getCount(), 2, "taken diamonds");
-        helper.assertTrue(a.getSlot(5).getItem().isEmpty() && table.items().get(4).isEmpty(), "the diamond is still there after taking it");
-        a.removed(first);
-        b.removed(second);
-        helper.succeed();
-    }
-
-    /** Breaking drops the table and its grid; hoppers do not see the grid. */
-    public static void storageCraftingTableDropsItsGridAndIgnoresHoppers(GameTestHelper helper) {
-        if (!McVersion.STORAGE_CRAFTING_TABLE) {
-            helper.succeed();
-            return;
-        }
-        BlockPos pos = new BlockPos(1, 2, 1);
-        StorageCraftingTableBlockEntity table = table(helper, pos);
-        table.grid().setItem(0, new ItemStack(Items.STICK, 5));
-        helper.assertTrue(HopperBlockEntity.getContainerAt(helper.getLevel(), helper.absolutePos(pos)) == null,
-                "a hopper can reach the grid");
-        helper.getLevel().destroyBlock(helper.absolutePos(pos), true);
-        helper.assertItemEntityPresent(Items.STICK, pos, 2.0);
-        helper.assertItemEntityPresent(ModItems.STORAGE_CRAFTING_TABLE, pos, 2.0);
-        helper.succeed();
     }
 }

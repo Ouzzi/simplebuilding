@@ -301,10 +301,10 @@ public final class ModItemGroupsContent {
             rows.add(sulfurLightRow());
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
-            // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart eine Zeile - Roehren, Platten, Kessel, Kiste, Schnitzholz.
+            // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart eine Zeile - Roehren, Platten, Kessel, Kiste (Simple Storage, per Id), Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
                 rows.add(new CreativeTabLayout.Row("woodwork_" + family.wood().id(),
-                        family.blocks().stream().map(ItemStack::new).toList()));
+                        family.tabItems().stream().map(ItemStack::new).toList()));
             }
         }
         return List.copyOf(rows);
@@ -620,7 +620,8 @@ public final class ModItemGroupsContent {
         List<net.minecraft.world.level.ItemLike> items = new java.util.ArrayList<>();
         items.add(ModItems.AUTO_SMITHER);
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) items.add(ModItems.AUTONOMOUS_CRAFTER);
-        if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) items.add(ModItems.STORAGE_CRAFTING_TABLE);
+        // Split stage 8a: the Storage Crafting Table is Simple Storage's (by id; air on 26.2 is skipped).
+        if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) items.add(com.simplebuilding.util.StorageRefs.item(com.simplebuilding.util.StorageRefs.STORAGE_CRAFTING_TABLE));
         return CreativeTabLayout.Row.of("auto_smither", items.toArray(net.minecraft.world.level.ItemLike[]::new));
     }
 
