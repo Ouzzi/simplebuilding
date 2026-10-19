@@ -18,6 +18,6 @@ Beide laufen auf sb-agent: Sitzung A mit `claude` (Konfig `/root/.claude`), Sitz
    `uebergabe-B.md`) und trägt Neues in `MEMORY.md` nur additiv ein (eine Zeile, nichts Fremdes löschen).
 6. **Wünsche des Besitzers oder Mitarbeiters** kommen als neuer Nachtrag in die Queue (mit Name/Kürzel), egal in
    welcher Sitzung sie eingegeben wurden.
-7. **Ressourcen:** sb-test hat 2 Testplätze für beide Sitzungen zusammen. Höchstens je ~3 Unteragenten pro Sitzung.
-   sb-agent hat 3 GB RAM – bei zwei Sitzungen mit Unteragenten auf mindestens 6 GB erhöhen.
+7. **Ressourcen:** sb-test hat 2 Testplätze für beide Sitzungen zusammen (ein Gate belegt beide). Sitzung A und B je bis ~4 Unteragenten (beide Accounts Max, Stand 19.10.); Tests gezielt halten, eigene sb-test-Spiegel nach dem Merge löschen.
+   sb-agent hat seit 16.10. 6 GB RAM.
 8. **Keine Wiki-/Textur-Neuerzeugung auf sb-agent committen** (ohne Client-Jar entstehen Platzhalter) – immer auf sb-test.
