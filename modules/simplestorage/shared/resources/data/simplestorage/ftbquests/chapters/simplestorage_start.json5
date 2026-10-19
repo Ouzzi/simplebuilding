@@ -1,0 +1,41 @@
+{
+	"id": "26663ECD76D0EF18",
+	"order_index": 0,
+	"filename": "simplestorage_start",
+	"icon": {
+		"id": "simplestorage:guide_book"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "55C99E50BA751C18",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": [],
+			"tasks": [
+				{
+					"id": "74EB6D7927813C5F",
+					"type": "item",
+					"item": {
+						"id": "minecraft:crafting_table",
+						"count": 1
+					}
+				}
+			],
+			"rewards": [
+				{
+					"id": "320B9AEE39E42BE7",
+					"type": "item",
+					"item": {
+						"id": "simplestorage:guide_book",
+						"count": 1
+					}
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

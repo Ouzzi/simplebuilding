@@ -1,0 +1,10 @@
+{
+	"chapter.26663ECD76D0EF18.title": "{\"translate\": \"quests.simplestorage.start.title\"}",
+	"chapter.26663ECD76D0EF18.chapter_subtitle": [
+		"{\"translate\": \"quests.simplestorage.start.subtitle\"}"
+	],
+	"quest.55C99E50BA751C18.title": "{\"translate\": \"quests.simplestorage.start.welcome.title\"}",
+	"quest.55C99E50BA751C18.quest_desc": [
+		"{\"translate\": \"quests.simplestorage.start.welcome.description\"}"
+	]
+}
