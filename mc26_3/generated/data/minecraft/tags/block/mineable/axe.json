@@ -4,7 +4,6 @@
     "simplebuilding:warped_blazewood_planks",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:warped_blazewood_bookshelf",
-    "simplebuilding:storage_crafting_table",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:note_amplifier",
     "simplebuilding:hollow_oak_log",
@@ -13,7 +12,6 @@
     "simplebuilding:stripped_oak_sheet",
     "simplebuilding:oak_cauldron",
     "simplebuilding:stripped_oak_cauldron",
-    "simplebuilding:oak_crate",
     "simplebuilding:carved_oak_log",
     "simplebuilding:hollow_spruce_log",
     "simplebuilding:hollow_stripped_spruce_log",
@@ -21,7 +19,6 @@
     "simplebuilding:stripped_spruce_sheet",
     "simplebuilding:spruce_cauldron",
     "simplebuilding:stripped_spruce_cauldron",
-    "simplebuilding:spruce_crate",
     "simplebuilding:carved_spruce_log",
     "simplebuilding:hollow_birch_log",
     "simplebuilding:hollow_stripped_birch_log",
@@ -29,7 +26,6 @@
     "simplebuilding:stripped_birch_sheet",
     "simplebuilding:birch_cauldron",
     "simplebuilding:stripped_birch_cauldron",
-    "simplebuilding:birch_crate",
     "simplebuilding:carved_birch_log",
     "simplebuilding:hollow_jungle_log",
     "simplebuilding:hollow_stripped_jungle_log",
@@ -37,7 +33,6 @@
     "simplebuilding:stripped_jungle_sheet",
     "simplebuilding:jungle_cauldron",
     "simplebuilding:stripped_jungle_cauldron",
-    "simplebuilding:jungle_crate",
     "simplebuilding:carved_jungle_log",
     "simplebuilding:hollow_acacia_log",
     "simplebuilding:hollow_stripped_acacia_log",
@@ -45,7 +40,6 @@
     "simplebuilding:stripped_acacia_sheet",
     "simplebuilding:acacia_cauldron",
     "simplebuilding:stripped_acacia_cauldron",
-    "simplebuilding:acacia_crate",
     "simplebuilding:carved_acacia_log",
     "simplebuilding:hollow_dark_oak_log",
     "simplebuilding:hollow_stripped_dark_oak_log",
@@ -53,7 +47,6 @@
     "simplebuilding:stripped_dark_oak_sheet",
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:stripped_dark_oak_cauldron",
-    "simplebuilding:dark_oak_crate",
     "simplebuilding:carved_dark_oak_log",
     "simplebuilding:hollow_mangrove_log",
     "simplebuilding:hollow_stripped_mangrove_log",
@@ -61,7 +54,6 @@
     "simplebuilding:stripped_mangrove_sheet",
     "simplebuilding:mangrove_cauldron",
     "simplebuilding:stripped_mangrove_cauldron",
-    "simplebuilding:mangrove_crate",
     "simplebuilding:carved_mangrove_log",
     "simplebuilding:hollow_cherry_log",
     "simplebuilding:hollow_stripped_cherry_log",
@@ -69,7 +61,6 @@
     "simplebuilding:stripped_cherry_sheet",
     "simplebuilding:cherry_cauldron",
     "simplebuilding:stripped_cherry_cauldron",
-    "simplebuilding:cherry_crate",
     "simplebuilding:carved_cherry_log",
     "simplebuilding:hollow_pale_oak_log",
     "simplebuilding:hollow_stripped_pale_oak_log",
@@ -77,7 +68,6 @@
     "simplebuilding:stripped_pale_oak_sheet",
     "simplebuilding:pale_oak_cauldron",
     "simplebuilding:stripped_pale_oak_cauldron",
-    "simplebuilding:pale_oak_crate",
     "simplebuilding:carved_pale_oak_log",
     "simplebuilding:hollow_crimson_stem",
     "simplebuilding:hollow_stripped_crimson_stem",
@@ -85,7 +75,6 @@
     "simplebuilding:stripped_crimson_sheet",
     "simplebuilding:crimson_cauldron",
     "simplebuilding:stripped_crimson_cauldron",
-    "simplebuilding:crimson_crate",
     "simplebuilding:carved_crimson_stem",
     "simplebuilding:hollow_warped_stem",
     "simplebuilding:hollow_stripped_warped_stem",
@@ -93,7 +82,6 @@
     "simplebuilding:stripped_warped_sheet",
     "simplebuilding:warped_cauldron",
     "simplebuilding:stripped_warped_cauldron",
-    "simplebuilding:warped_crate",
     "simplebuilding:carved_warped_stem",
     "simplebuilding:hollow_bamboo_block",
     "simplebuilding:hollow_stripped_bamboo_block",
@@ -101,7 +89,6 @@
     "simplebuilding:stripped_bamboo_sheet",
     "simplebuilding:bamboo_cauldron",
     "simplebuilding:stripped_bamboo_cauldron",
-    "simplebuilding:bamboo_crate",
     "simplebuilding:carved_bamboo_block",
     {
       "id": "simplebuilding:hollow_ashwood_log",
@@ -125,10 +112,6 @@
     },
     {
       "id": "simplebuilding:stripped_ashwood_cauldron",
-      "required": false
-    },
-    {
-      "id": "simplebuilding:ashwood_crate",
       "required": false
     },
     {
@@ -157,10 +140,6 @@
     },
     {
       "id": "simplebuilding:stripped_duskwood_cauldron",
-      "required": false
-    },
-    {
-      "id": "simplebuilding:duskwood_crate",
       "required": false
     },
     {
