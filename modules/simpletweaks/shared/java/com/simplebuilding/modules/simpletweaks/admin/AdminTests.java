@@ -416,8 +416,10 @@ public final class AdminTests {
         yes(h, level.getBlockState(shelf).isAir() && level.getBlockState(base.above()).is(Blocks.DIRT) && BlockRecorder.signText(sign, true).startsWith("Grief")
                 && Rollback.restorable() == before, "Preview changed nothing");
         var done = Rollback.apply(server, list, false);
-        yes(h, done.undone() == 3 && level.getBlockState(shelf).is(Blocks.BOOKSHELF) && level.getBlockState(base.above()).isAir()
-                && BlockRecorder.signText(sign, true).equals("\n\n\n"), "Rollback undid all three: " + done + " sign=" + BlockRecorder.signText(sign, true));
+        yes(h, done.undone() == 3, "Rollback undid all three: " + done);
+        yes(h, level.getBlockState(shelf).is(Blocks.BOOKSHELF), "Bookshelf back: " + level.getBlockState(shelf));
+        yes(h, level.getBlockState(base.above()).isAir(), "Dirt gone: " + level.getBlockState(base.above()));
+        yes(h, BlockRecorder.signText(sign, true).equals("\n\n\n"), "Sign text back: " + BlockRecorder.signText(sign, true).replace('\n', '|'));
         yes(h, Rollback.restorable() == 3, "The run can be restored");
         var redo = Rollback.restore(server);
         yes(h, redo.undone() == 3 && level.getBlockState(shelf).isAir() && level.getBlockState(base.above()).is(Blocks.DIRT) && BlockRecorder.signText(sign, true).startsWith("Grief"),
