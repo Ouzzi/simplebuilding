@@ -19,7 +19,7 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 - [x] (A, claude-opt1, 19.10.; Merge offen) (e1) Simple Optimization Stufe 1: Gerüst Super-Mod + Sub-Mods `simpleoptrender`/`simpleoptmemory`/`simpleoptserver` (Fabric 26.3), Bereichs-Tabelle, Mixin-Plugin mit Loader-Erkennung, Config, Status-Befehl; Benchmark-Harness `tools/bench/` (Mess-Mod, Bench-Welt, Kameraweg, results.json + report.html). Erst nach Besitzer-Review.
 - [~] (A, claude-opt1, 19.10.; Teile + Bench fertig, offen compat-opt-263-Ziel, 2. Messreihe, Quad-Zähler) (e2) Simple Optimization Stufe 2: O1 Blätter-Culling, O7 Lichtkarten-Cache, S5a Sichtweite nach Serverlast + M1 IP-Ping, M2 Telemetrie; Kompat-Ziel mit Cull Leaves/More Culling/BadOptimizations/ServerCore.
 - [ ] (e3) Simple Optimization Stufe 3 (Besitzer): Benchmark auf Besitzer-PC (`py -3 tools\bench\run_bench.py --profile pc ...`), `priorities.json` füllen.
-- [ ] (e4) Simple Optimization Stufe 4/5: O3, O4, S1a, O9, S5b (Standard aus), Zielprüfung; danach L-Bereiche nur bei Messbedarf (Konzept §7).
+- [~] (B, b-opt45, 19.10.) (e4) Simple Optimization Stufe 4/5: O3, O4, S1a, O9, S5b (Standard aus), Zielprüfung; danach L-Bereiche nur bei Messbedarf (Konzept §7).
 - [ ] (e5) Kompatibilitätstest Modpack des Besitzers: `docs/ai/MODPACK-BESITZER-2026-10-17.md` §6 K1–K23 (26.3-Fassungen auf sb-test, Rest im Port-Run 1.21.11/beim Besitzer).
 
 ## Offen – Überblick (Stand 2026-10-13)
@@ -531,7 +531,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (oc-bricks3d) Ziegel (Bricks) beim Platzieren wie Barren 3D legen; Diamanten und Smaragde bekommen ebenfalls eine 3D-Form. Mit dem Vorschlaghammer auf das platzierte 3D-Item hauen → 2D, nochmal → wieder 3D (nur unterstützte Items).
 - [x] (oc-crates) Crates: seitlich bis zu 9 verschiedene enthaltene Items anzeigen. Inhalt wie das Besitzer-Referenzbild rendern (Bild liegt in dieser Sitzung NICHT vor – beim Besitzer anfordern): jedes Item bekommt je nach Anzahl eine Schicht, die aussieht, als bestünde sie aus dem Item; max. 9 verschiedene Items je Crate; zuletzt eingelegtes Item liegt oben, ältere Schichten werden hochgeschoben.
 - [x] (oc-n55-small) Enchanter: am Buch-Button nicht die benötigten Level anzeigen (stehen schon oben), sondern wie viele Level abgezogen werden.
-- [ ] Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert. (Besitzer 17.10.: stört Textur + Verhalten → Konzept mit Varianten, Texturvorschläge als Seite)
+- [~] (B, b-blazing, 19.10., Konzept + Texturseite) Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert. (Besitzer 17.10.: stört Textur + Verhalten → Konzept mit Varianten, Texturvorschläge als Seite)
 - [x] (oc-n55-small) Notenblock-Verstärker funktioniert nicht – dasselbe Prinzip wie beim (funktionierenden) Jukebox-Verstärker anwenden.
 - [x] (oc-ashleaves) Aschholz-Blätter sollen wie Spinnennetze wirken (verlangsamen; Details beim Planen).
 - [x] (oc-blueprint-io) Blaupause: Import-/Export-Button für andere Bau-Formate („block languages“) – Modal mit Kopieren-Button (Export) bzw. Einfügen-Button (Import).
