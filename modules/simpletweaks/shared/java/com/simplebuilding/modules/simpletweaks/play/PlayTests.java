@@ -330,10 +330,11 @@ public final class PlayTests {
             yes(h, ServerEvents.start(server, "double_xp", 5) && ServerEvents.is("double_xp"), "Double XP started");
             yes(h, ServerEvents.xp(10) == 20 && ServerEvents.xp(0) == 0, "Experience doubled");
             var at = Vec3.atCenterOf(h.absolutePos(new BlockPos(2, 3, 2)));
-            ExperienceOrb.award(h.getLevel(), at, 7);
+            // 2 -> 4 = orbs 3+1: distinct sizes never merge (7 -> 14 = two 7-orbs merge into one count-2 orb, getValue() then reads 7)
+            ExperienceOrb.award(h.getLevel(), at, 2);
             int total = 0;
             for (var orb : h.getLevel().getEntitiesOfClass(ExperienceOrb.class, new net.minecraft.world.phys.AABB(at, at).inflate(2))) { total += orb.getValue(); orb.discard(); }
-            yes(h, total == 14, "Awarded orbs carry double experience: " + total);
+            yes(h, total == 4, "Awarded orbs carry double experience: " + total);
             yes(h, ServerEvents.extraLootRolls(cow, true) == 0, "No extra loot during double XP");
             ServerEvents.start(server, "more_loot", 5);
             yes(h, ServerEvents.extraLootRolls(cow, true) == 1 && ServerEvents.extraLootRolls(cow, false) == 0, "More loot only for player kills");
