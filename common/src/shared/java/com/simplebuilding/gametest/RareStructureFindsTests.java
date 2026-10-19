@@ -502,7 +502,7 @@ public final class RareStructureFindsTests {
         // Two vanilla shells and a copper chest stay the vanilla recipe's business (no tier box).
         CraftingInput plain = CraftingInput.of(3, 1, List.of(new ItemStack(Items.SHULKER_SHELL), new ItemStack(copperChest), new ItemStack(Items.SHULKER_SHELL)));
         Optional<RecipeHolder<CraftingRecipe>> none = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, plain, level);
-        helper.assertTrue(none.isEmpty() || com.simplebuilding.util.TieredShulkerBoxes.items().stream()
+        helper.assertTrue(none.isEmpty() || com.simplebuilding.util.StorageRefs.TIERS.stream().map(com.simplebuilding.util.StorageRefs::shulkerBox)
                 .noneMatch(box -> none.get().value().assemble(plain).is(box)), "two vanilla shells made a tier box");
 
         ServerTuningConfig config = new ServerTuningConfig();

@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
  * alles ohne Blaettern sichtbar (Geometrie siehe {@link ChestTier} und {@link #imageWidth()}).
  *
  * <p>Wie {@code ChestMenu}, mit zwei Ergaenzungen fuer uebergrosse Stapel (Netherit x2, Enderit
- * x4), die {@link BackpackMenu} genauso macht: ein uebergrosser Stapel geht nie im Ganzen auf den
+ * x4), die {@code BackpackMenu} (SimpleBuilding) genauso macht: ein uebergrosser Stapel geht nie im Ganzen auf den
  * Cursor ({@link TieredChestSlot#tryRemove}), nie per Zifferntaste in einen belegten Hotbar-Platz
  * und tauscht nicht mit einem anderen Cursor-Stapel.
  */

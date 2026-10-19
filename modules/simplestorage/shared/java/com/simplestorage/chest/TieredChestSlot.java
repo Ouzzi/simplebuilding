@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Ein Platz einer Mod-Truhe. Ab Netherit haelt er mehr als einen normalen Stapel (x2/x4), aber
- * nichts, was ihn verlaesst, ist groesser als ein normaler Stapel - genau wie {@link BackpackSlot}:
+ * nichts, was ihn verlaesst, ist groesser als ein normaler Stapel - genau wie {@code BackpackSlot} (SimpleBuilding):
  * der Cursor, das Inventar und ein geworfenes Item kennen nur Vanilla-Grenzen. Die Grenze kommt
  * aus dem Menue (der Stufe), nicht aus dem Container: eine Doppeltruhe ist ein Vanilla-
  * {@code CompoundContainer}, und der kennt nur die normale Stapelgroesse.
