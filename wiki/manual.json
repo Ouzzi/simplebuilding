@@ -2525,7 +2525,7 @@
       ],
       "en": {
         "title": "Locking and Hiding Item Frames",
-        "summary": "Item frames can be locked against taking out, rotating and breaking with a glass pane, and made invisible with shears. Both are done with sneak + right-click and are undone the same way. An Attractor with Constructor's Touch can also copy the framed item into its filter.",
+        "summary": "Item frames can be locked against taking out, rotating and breaking with a glass pane, and made invisible with shears. Both are done with sneak + right-click and are undone the same way. An Attractor with Constructor's Touch can also copy the framed item into its filter. Only without Simple Tools: with Simple Tools loaded it takes over these frame actions (glass pane locks as Vanilla Fixed, an axe unlocks) and old locked frames are converted; the Attractor filter stays here.",
         "details": [
           "Locking: sneak + right-click with a Glass Pane on an unlocked frame that holds an item; the pane is consumed (not in creative), the glass placing sound plays and the message \"Item frame locked.\" appears.",
           "Locked frame: normal right-clicks are refused (no rotating, no putting in or taking out); damage whose direct source is a non-creative player is cancelled - so the frame cannot be knocked off.",
@@ -2541,7 +2541,7 @@
       },
       "de": {
         "title": "Rahmen sperren und unsichtbar machen",
-        "summary": "Rahmen lassen sich mit einer Glasscheibe gegen Herausnehmen, Drehen und Zerstören sperren und mit einer Schere unsichtbar machen. Beides geht über Schleichen + Rechtsklick und lässt sich auf demselben Weg wieder aufheben. Der Attraktor mit „Berührung des Konstrukteurs“ kann sich an einem Rahmen zusätzlich sein Filter-Item abholen.",
+        "summary": "Rahmen lassen sich mit einer Glasscheibe gegen Herausnehmen, Drehen und Zerstören sperren und mit einer Schere unsichtbar machen. Beides geht über Schleichen + Rechtsklick und lässt sich auf demselben Weg wieder aufheben. Der Attraktor mit „Berührung des Konstrukteurs“ kann sich an einem Rahmen zusätzlich sein Filter-Item abholen. Nur ohne Simple Tools: Ist Simple Tools geladen, übernimmt es diese Rahmen-Aktionen (Glasscheibe sperrt als Vanilla-Fixed, Axt entsperrt) und wandelt alt gesperrte Rahmen um; der Attraktor-Filter bleibt hier.",
         "details": [
           "Sperren: Schleichen + Rechtsklick mit einer Glasscheibe auf einen nicht gesperrten Rahmen, der ein Item enthält; die Glasscheibe wird verbraucht (nicht im Kreativmodus), es ertönt der Glas-Platzierungston und die Meldung „Rahmen gesperrt.“ erscheint.",
           "Gesperrter Rahmen: Normale Rechtsklicks werden abgewiesen (kein Drehen, kein Einlegen oder Entnehmen); Schaden, dessen direkter Verursacher ein Spieler ohne Kreativmodus ist, wird verhindert – der Rahmen kann also nicht abgeschlagen werden.",

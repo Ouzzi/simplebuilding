@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Better item frames: sneaking actions on a filled frame ({@link ItemFrames}); covers glow item frames (same method).
- * Priority 1100: runs after SimpleBuilding's own frame hook (glass-pane lock, shears hide, sneak show), which keeps
- * precedence when SimpleBuilding is installed; Simple Tools then adds what it leaves alone.
+ * SimpleBuilding's older frame hook (glass-pane lock, shears hide, sneak show) steps aside when Simple Tools is loaded,
+ * so there is one behaviour; the old {@code SimpleBuildingLocked} tag is migrated to Fixed on load.
  */
 @Mixin(value = ItemFrame.class, priority = 1100)
 public abstract class ItemFrameInteractMixin {
@@ -25,6 +26,11 @@ public abstract class ItemFrameInteractMixin {
     private void simpletools$frameActions(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> cir) {
         InteractionResult result = ItemFrames.interact((ItemFrame) (Object) this, player, hand);
         if (result != null) cir.setReturnValue(result);
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void simpletools$migrateOldLock(ValueInput input, CallbackInfo ci) {
+        ItemFrames.migrate((ItemFrame) (Object) this, input);
     }
 
     @Inject(method = "dropItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;Z)V", at = @At("TAIL"))

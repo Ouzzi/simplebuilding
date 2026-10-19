@@ -65,7 +65,7 @@
   "simpletools.option.enableItemFrameInvisibility": "Rahmen mit Schere verstecken",
   "simpletools.option.enableItemFrameInvisibility.tooltip": "Schleichen + Schere an einem Rahmen mit\nItem macht ihn unsichtbar oder wieder\nsichtbar (1 Haltbarkeit). Ein geleerter\nunsichtbarer Rahmen wird wieder\nsichtbar. Standard: true.",
   "simpletools.option.enableItemFrameLock": "Rahmen sperren",
-  "simpletools.option.enableItemFrameLock.tooltip": "Schleichen + Honigwabe sperrt einen\nRahmen mit Item: nicht drehen, nicht\nentnehmen, nicht abbauen. Schleichen +\nAxt entsperrt ihn. Standard: true.",
+  "simpletools.option.enableItemFrameLock.tooltip": "Schleichen + Honigwabe oder Glasscheibe\nsperrt einen Rahmen mit Item: nicht drehen, nicht\nentnehmen, nicht abbauen. Schleichen +\nAxt entsperrt ihn. Standard: true.",
   "simpletools.option.enableItemFrameReverseRotate": "Rahmen-Items rückwärts drehen",
   "simpletools.option.enableItemFrameReverseRotate.tooltip": "Schleichen + Rechtsklick dreht das Item\nim Rahmen rückwärts. Standard: true.",
   "tip.simpletools.frame_shears": "Schleichen + Benutzen am vollen Rahmen: verstecken/zeigen",

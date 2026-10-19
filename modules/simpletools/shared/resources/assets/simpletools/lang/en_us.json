@@ -65,7 +65,7 @@
   "simpletools.option.enableItemFrameInvisibility": "Hide Item Frames with Shears",
   "simpletools.option.enableItemFrameInvisibility.tooltip": "Sneak + shears on a frame with an item\nhides or shows the frame (costs 1\ndurability). An emptied hidden frame\nshows again. Default: true.",
   "simpletools.option.enableItemFrameLock": "Lock Item Frames",
-  "simpletools.option.enableItemFrameLock.tooltip": "Sneak + honeycomb locks a frame with an\nitem: no turning, no taking out, no\nbreaking. Sneak + axe unlocks it.\nDefault: true.",
+  "simpletools.option.enableItemFrameLock.tooltip": "Sneak + honeycomb or glass pane locks a\nframe with an item: no turning, no taking out, no\nbreaking. Sneak + axe unlocks it.\nDefault: true.",
   "simpletools.option.enableItemFrameReverseRotate": "Turn Framed Items Backwards",
   "simpletools.option.enableItemFrameReverseRotate.tooltip": "Sneak + right-click turns the item in a\nframe backwards. Default: true.",
   "tip.simpletools.frame_shears": "Sneak + use on a framed item: hide or show the frame",
