@@ -152,7 +152,12 @@ MODS = [
          own_packages=["com.simplebuilding.modules.simplerespawn."]),
     dict(id="simpleriding", ns=["simpleriding"], cls="RidingDiscover", package="com.simpleriding.discover", own_packages=["com.simpleriding."]),
     dict(id="simpletools", ns=["simpletools"], cls="ToolsDiscover", package="com.simplebuilding.modules.simpletools.discover",
-         own_packages=["com.simplebuilding.modules.simpletools."]),
+         mixin_package="com.simplebuilding.modules.simpletools.mixin", own_packages=["com.simplebuilding.modules.simpletools."],
+         # better item frames (Vanilla items, so the tip comes with the first pair of shears / honeycomb)
+         tips=[("frame_shears", ["minecraft:shears"], "Sneak + use on a framed item: hide or show the frame",
+                "Schleichen + Benutzen am vollen Rahmen: verstecken/zeigen"),
+               ("frame_honeycomb", ["minecraft:honeycomb"], "Sneak + use on a framed item: lock it; an axe unlocks",
+                "Schleichen + Benutzen am vollen Rahmen: sperren; Axt löst")]),
     dict(id="simpletweaks", ns=["simpletweaks"], cls="TweaksDiscover", package="com.simplebuilding.modules.simpletweaks.discover",
          own_packages=["com.simplebuilding.modules.simpletweaks."]),
 ]
