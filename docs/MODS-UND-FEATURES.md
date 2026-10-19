@@ -115,6 +115,8 @@ Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Re
 (Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch), Amboss/Schleifstein/Steinsäge/Webstuhl/Kartentisch/
 Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla;
 Inventar-Helligkeit Hell/Dämmerung/Dunkel (Einstellung, wirkt über SimpleLib auf alle Mod-Kästen).
+Tooltips (19.10.): Shulkerkisten-Inhalt als 9x3-Raster mit Umschalt (Färbung nach Kiste), Endertruhen-Item zeigt
+die eigene Endertruhe (Snapshot Server→Client bei Login und Schließen, Server-Teil optional); Schalter lokal + Server.
 
 ### Simple Weather (Sub-Mod von QoL)
 Wetter abschalten (Server), Regendichte (Client); eigene Config `config/simpleweather.json`, alte QoL-Werte werden

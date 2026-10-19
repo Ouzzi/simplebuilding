@@ -28,6 +28,10 @@ public final class ContainersForge {
                     c.setPacketHandled(true);
                     c.enqueueWork(() -> ContainersForgeClient.receive(p));
                 })
+                .add(com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.TYPE, com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.CODEC, (p, c) -> {
+                    c.setPacketHandled(true);
+                    c.enqueueWork(() -> com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.receive(p));
+                })
                 .serverbound()
                 .add(com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.TYPE, com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.CODEC.cast(), (p, c) -> {
                     c.setPacketHandled(true);
@@ -38,6 +42,11 @@ public final class ContainersForge {
                 }).build();
         LinkedContainers.cancelToServer = payload -> channel.send(payload, net.minecraftforge.network.PacketDistributor.SERVER.noArg());
         LinkedContainers.openSync = (p, payload) -> {
+            if (p.connection == null || !channel.isRemotePresent(p.connection.getConnection())) return false;
+            channel.send(payload, net.minecraftforge.network.PacketDistributor.PLAYER.with(p));
+            return true;
+        };
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.sender = (p, payload) -> {
             if (p.connection == null || !channel.isRemotePresent(p.connection.getConnection())) return false;
             channel.send(payload, net.minecraftforge.network.PacketDistributor.PLAYER.with(p));
             return true;
@@ -62,5 +71,6 @@ public final class ContainersForge {
     private static void sync(net.minecraft.server.level.ServerPlayer p) {
         if (p.connection != null && channel.isRemotePresent(p.connection.getConnection()))
             channel.send(new ConfigSyncPayload(SimpleInterfaces.syncJson()), net.minecraftforge.network.PacketDistributor.PLAYER.with(p));
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.send(p);
     }
 }

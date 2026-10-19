@@ -16,6 +16,8 @@ public final class LinkedConfig {
     public boolean enableEasyShulkers = true;
     /** Ender chests open from the hand or the inventory. */
     public boolean enableEasyEnderChests = true;
+    /** Players get their own ender chest contents at login and on closing it (ender chest item tooltip). */
+    public boolean enableEnderChestTooltip = true;
 
     public void normalizeNumbers() {
         linkedContainerRange = Math.clamp(linkedContainerRange, MIN_LINKED_RANGE, MAX_LINKED_RANGE);

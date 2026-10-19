@@ -66,5 +66,18 @@
   "simpleinterfaces.option.enableEasyEnderChests": "Einfache Endertruhen",
   "simpleinterfaces.option.enableEasyEnderChests.tooltip": "Rechtsklick mit einer Endertruhe in die Luft\noder auf ihren Inventarplatz öffnet deine\nEndertruhe, ohne sie zu platzieren.\nStandard: true.",
   "container.simpleinterfaces.linked": "Vorgemerkt: %s",
-  "simpleinterfaces.tab.server": "Verknüpfte Behälter (Server)"
+  "simpleinterfaces.tab.server": "Verknüpfte Behälter (Server)",
+  "simpleinterfaces.option.tooltipShulker": "Shulkerkisten-Inhalt im Tooltip",
+  "simpleinterfaces.option.tooltipShulker.tooltip": "Shulkerkisten zeigen ihren Inhalt als Raster im\nTooltip. Standard: an.",
+  "simpleinterfaces.option.tooltipEnderChest": "Endertruhen-Inhalt im Tooltip",
+  "simpleinterfaces.option.tooltipEnderChest.tooltip": "Die Endertruhe zeigt deine eigene Endertruhe.\nBraucht Simple Interfaces auf dem Server; er\nschickt den Inhalt beim Einloggen und beim\nSchließen der Endertruhe. Standard: an.",
+  "simpleinterfaces.option.tooltipNeedsShift": "Inhaltsraster nur mit Umschalt",
+  "simpleinterfaces.option.tooltipNeedsShift.tooltip": "An: das Raster erscheint bei gedrückter Umschalt-\ntaste, sonst bleiben die Vanilla-Zeilen. Aus:\nimmer das Raster. Standard: an.",
+  "simpleinterfaces.option.tooltipColorByDye": "Raster in Kistenfarbe",
+  "simpleinterfaces.option.tooltipColorByDye.tooltip": "Färbt das Raster einer gefärbten Shulkerkiste in\nihrer Farbe. Standard: an.",
+  "simpleinterfaces.option.enableEnderChestTooltip": "Endertruhen-Tooltip",
+  "simpleinterfaces.option.enableEnderChestTooltip.tooltip": "Schickt jedem Spieler den Inhalt seiner eigenen\nEndertruhe beim Einloggen und beim Schließen,\nfür den Tooltip der Endertruhe. Nie fremde\nTruhen. Standard: true.",
+  "simpleinterfaces.tooltip.shulker.shift": "Umschalt: Inhalt zeigen",
+  "simpleinterfaces.tooltip.ender_chest.shift": "Umschalt: eigene Endertruhe zeigen",
+  "simpleinterfaces.tooltip.ender_chest.empty": "Deine Endertruhe ist leer"
 }

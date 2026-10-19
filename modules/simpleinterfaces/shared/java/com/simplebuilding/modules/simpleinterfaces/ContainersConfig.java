@@ -14,6 +14,14 @@ public final class ContainersConfig {
     public boolean showStyleToggle = false;
     /** Per screen kind (style id), default on. */
     public Map<String, Boolean> screens = new HashMap<>();
+    /** Shulker box items show their contents as a slot grid in the tooltip. */
+    public boolean tooltipShulker = true;
+    /** The ender chest item shows the own ender chest (needs the mod on the server). */
+    public boolean tooltipEnderChest = true;
+    /** The grid only while Shift is held (otherwise the Vanilla lines and a hint). */
+    public boolean tooltipNeedsShift = true;
+    /** Grid panel in the shulker box's dye color. */
+    public boolean tooltipColorByDye = true;
 
     /** Super-mod switch "Enable Simple QoL" (framework SubMods): off = every screen exactly Vanilla, no toggle button. Runtime only. */
     public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simpleinterfaces"); }

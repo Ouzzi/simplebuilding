@@ -34,6 +34,14 @@ public final class ContainersScreen {
             general.addEntry(e.startBooleanToggle(name(key), c.screens.getOrDefault(style.id(), true)).setDefaultValue(true)
                     .setTooltip(tip(key)).setSaveConsumer(v -> c.screens.put(style.id(), v)).build());
         }
+        general.addEntry(e.startBooleanToggle(name("tooltipShulker"), c.tooltipShulker).setDefaultValue(true)
+                .setTooltip(tip("tooltipShulker")).setSaveConsumer(v -> c.tooltipShulker = v).build());
+        general.addEntry(e.startBooleanToggle(name("tooltipEnderChest"), c.tooltipEnderChest).setDefaultValue(true)
+                .setTooltip(tip("tooltipEnderChest")).setSaveConsumer(v -> c.tooltipEnderChest = v).build());
+        general.addEntry(e.startBooleanToggle(name("tooltipNeedsShift"), c.tooltipNeedsShift).setDefaultValue(true)
+                .setTooltip(tip("tooltipNeedsShift")).setSaveConsumer(v -> c.tooltipNeedsShift = v).build());
+        general.addEntry(e.startBooleanToggle(name("tooltipColorByDye"), c.tooltipColorByDye).setDefaultValue(true)
+                .setTooltip(tip("tooltipColorByDye")).setSaveConsumer(v -> c.tooltipColorByDye = v).build());
         // Server values (formerly Simple QoL): linked containers and Easy Shulkers / Ender Chests.
         var s = gson.fromJson(gson.toJson(SimpleInterfaces.CONFIG), LinkedConfig.class);
         var server = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.server"));
@@ -46,6 +54,8 @@ public final class ContainersScreen {
                 .setTooltip(tip("enableEasyShulkers")).setSaveConsumer(v -> s.enableEasyShulkers = v).build());
         server.addEntry(e.startBooleanToggle(name("enableEasyEnderChests"), s.enableEasyEnderChests).setDefaultValue(true)
                 .setTooltip(tip("enableEasyEnderChests")).setSaveConsumer(v -> s.enableEasyEnderChests = v).build());
+        server.addEntry(e.startBooleanToggle(name("enableEnderChestTooltip"), s.enableEnderChestTooltip).setDefaultValue(true)
+                .setTooltip(tip("enableEnderChestTooltip")).setSaveConsumer(v -> s.enableEnderChestTooltip = v).build());
         b.setSavingRunnable(() -> {
             c.normalize();
             ContainersClient.CONFIG = c;

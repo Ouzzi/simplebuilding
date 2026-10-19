@@ -24,6 +24,14 @@ public final class ContainersNeoForge {
         bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e) -> e.registrar("1").optional().playToServer(
                 com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.TYPE, com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.CODEC,
                 (p, c) -> c.enqueueWork(() -> LinkedContainers.onCancel((net.minecraft.server.level.ServerPlayer) c.player()))));
+        bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e) -> e.registrar("1").optional().playToClient(
+                com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.TYPE, com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.CODEC,
+                (p, c) -> c.enqueueWork(() -> com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.receive(p))));
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.sender = (p, payload) -> {
+            if (!p.connection.hasChannel(payload.type())) return false;
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, payload);
+            return true;
+        };
         // Lambda: the client class only loads when Escape is pressed (client side).
         LinkedContainers.cancelToServer = payload -> net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(payload);
         LinkedContainers.openSync = (p, payload) -> {
@@ -49,5 +57,6 @@ public final class ContainersNeoForge {
 
     private static void sync(net.minecraft.server.level.ServerPlayer p) {
         if (p.connection.hasChannel(ConfigSyncPayload.TYPE)) net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, new ConfigSyncPayload(SimpleInterfaces.syncJson()));
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.send(p);
     }
 }

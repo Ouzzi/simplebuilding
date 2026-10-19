@@ -717,6 +717,132 @@
       }
     },
     {
+      "id": "container_tooltips",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/tooltip/ContainerTooltips.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/ContainerPreviewTooltip.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/ItemStackPreviewMixin.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/EnderChestSnapshotMixin.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/network/EnderChestSnapshotPayload.java"
+      ],
+      "en": {
+        "title": "Shulker box and ender chest tooltips",
+        "summary": "Hold Shift over a shulker box item to see its contents as a 9x3 slot grid like the shulker box screen, instead of Vanilla's five lines; the ender chest item shows your own ender chest the same way.",
+        "details": [
+          "Without Shift the Vanilla lines stay and one gray hint line tells you about Shift (tooltipNeedsShift off: always the grid). Dyed boxes tint the grid in their color; bigger shulker tiers show up to six rows, the last cell counts the rest.",
+          "The ender chest contents live on the server. With Simple Interfaces on the server it sends each player only their own ender chest at login and whenever they close it (ender chest block or Easy Ender Chest), never continuously and never another player's chest. Without the server part the ender chest tooltip stays Vanilla; the shulker grid works anyway because the box item carries its contents."
+        ]
+      },
+      "de": {
+        "title": "Tooltips für Shulkerkisten und Endertruhen",
+        "summary": "Mit gedrückter Umschalttaste über einer Shulkerkiste siehst du ihren Inhalt als 9x3-Raster wie im Shulkerkisten-Bildschirm statt der fünf Vanilla-Zeilen; die Endertruhe zeigt so deine eigene Endertruhe.",
+        "details": [
+          "Ohne Umschalt bleiben die Vanilla-Zeilen und eine graue Hinweiszeile nennt die Umschalttaste (tooltipNeedsShift aus: immer das Raster). Gefärbte Kisten tönen das Raster in ihrer Farbe; größere Shulker-Stufen zeigen bis zu sechs Reihen, das letzte Feld zählt den Rest.",
+          "Der Endertruhen-Inhalt liegt auf dem Server. Mit Simple Interfaces auf dem Server schickt er jedem Spieler nur seine eigene Endertruhe beim Einloggen und bei jedem Schließen (Endertruhen-Block oder Einfache Endertruhe), nie fortlaufend und nie fremde Truhen. Ohne Server-Teil bleibt der Endertruhen-Tooltip Vanilla; das Shulker-Raster geht trotzdem, weil die Kiste ihren Inhalt selbst trägt."
+        ]
+      }
+    },
+    {
+      "id": "config_tooltipShulker",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Shulker box contents tooltip",
+        "summary": "Shulker box items show their contents as a slot grid in the tooltip. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Shulkerkisten-Inhalt im Tooltip",
+        "summary": "Shulkerkisten zeigen ihren Inhalt als Raster im Tooltip. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_tooltipEnderChest",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Ender chest contents tooltip",
+        "summary": "The ender chest item shows your own ender chest; needs Simple Interfaces on the server. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Endertruhen-Inhalt im Tooltip",
+        "summary": "Die Endertruhe zeigt deine eigene Endertruhe; braucht Simple Interfaces auf dem Server. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_tooltipNeedsShift",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Contents grid only with Shift",
+        "summary": "On: the grid shows while Shift is held, otherwise the Vanilla lines stay. Off: always the grid. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Inhaltsraster nur mit Umschalt",
+        "summary": "An: das Raster erscheint bei gedrückter Umschalttaste, sonst bleiben die Vanilla-Zeilen. Aus: immer das Raster. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_tooltipColorByDye",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Grid in the box color",
+        "summary": "Tint the grid of a dyed shulker box in its color. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Raster in Kistenfarbe",
+        "summary": "Färbt das Raster einer gefärbten Shulkerkiste in ihrer Farbe. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_enableEnderChestTooltip",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
+      ],
+      "en": {
+        "title": "enableEnderChestTooltip",
+        "summary": "Server switch: send each player their own ender chest contents at login and on closing it. Default: true.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json, sent to clients; off = the ender chest tooltip stays Vanilla."
+        ]
+      },
+      "de": {
+        "title": "enableEnderChestTooltip",
+        "summary": "Serverschalter: schickt jedem Spieler seinen eigenen Endertruhen-Inhalt beim Einloggen und beim Schließen. Standard: true.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json, wird an Clients gesendet; aus = der Endertruhen-Tooltip bleibt Vanilla."
+        ]
+      }
+    },
+    {
       "id": "submod",
       "sources": [
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/SimpleInterfaces.java",
