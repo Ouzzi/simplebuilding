@@ -16,7 +16,9 @@
     "EntityRemovedMixin",
     "WanderingTraderSoulboundMixin",
     "ItemEntityAgeAccessor",
-    "ItemStackSoulboundTooltipMixin"
+    "ItemStackSoulboundTooltipMixin",
+    "ItemFrameFixedAccessor",
+    "ItemFrameInteractMixin"
   ],
   "injectors": {
     "defaultRequire": 1

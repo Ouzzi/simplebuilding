@@ -25,6 +25,13 @@ public final class ToolsScreen {
                 .setTooltip(tip("anvilRepairKeepsCost")).setSaveConsumer(v -> c.anvilRepairKeepsCost = v).build());
         general.addEntry(e.startBooleanToggle(name("enableFurnaceLavaFill"), c.enableFurnaceLavaFill).setDefaultValue(true)
                 .setTooltip(tip("enableFurnaceLavaFill")).setSaveConsumer(v -> c.enableFurnaceLavaFill = v).build());
+        var frames = b.getOrCreateCategory(Component.translatable("simpletools.tab.itemframes"));
+        frames.addEntry(e.startBooleanToggle(name("enableItemFrameInvisibility"), c.enableItemFrameInvisibility).setDefaultValue(true)
+                .setTooltip(tip("enableItemFrameInvisibility")).setSaveConsumer(v -> c.enableItemFrameInvisibility = v).build());
+        frames.addEntry(e.startBooleanToggle(name("enableItemFrameLock"), c.enableItemFrameLock).setDefaultValue(true)
+                .setTooltip(tip("enableItemFrameLock")).setSaveConsumer(v -> c.enableItemFrameLock = v).build());
+        frames.addEntry(e.startBooleanToggle(name("enableItemFrameReverseRotate"), c.enableItemFrameReverseRotate).setDefaultValue(true)
+                .setTooltip(tip("enableItemFrameReverseRotate")).setSaveConsumer(v -> c.enableItemFrameReverseRotate = v).build());
         var death = b.getOrCreateCategory(Component.translatable("simpletools.tab.death"));
         death.addEntry(e.startBooleanToggle(name("enableSoulbound"), c.enableSoulbound).setDefaultValue(true)
                 .setTooltip(tip("enableSoulbound")).setSaveConsumer(v -> c.enableSoulbound = v).build());

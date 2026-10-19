@@ -115,5 +115,12 @@
   "quests.simpletools.start.title": "Welcome to Simple Tools",
   "quests.simpletools.start.subtitle": "Your free guide",
   "quests.simpletools.start.welcome.title": "A free guide",
-  "quests.simpletools.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tools Guide as a reward. You can also craft it from a book and an anvil."
+  "quests.simpletools.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tools Guide as a reward. You can also craft it from a book and an anvil.",
+  "simpletools.tab.itemframes": "Item Frames",
+  "simpletools.option.enableItemFrameInvisibility": "Hide Item Frames with Shears",
+  "simpletools.option.enableItemFrameInvisibility.tooltip": "Sneak + shears on a frame with an item\nhides or shows the frame (costs 1\ndurability). An emptied hidden frame\nshows again. Default: true.",
+  "simpletools.option.enableItemFrameLock": "Lock Item Frames",
+  "simpletools.option.enableItemFrameLock.tooltip": "Sneak + honeycomb locks a frame with an\nitem: no turning, no taking out, no\nbreaking. Sneak + axe unlocks it.\nDefault: true.",
+  "simpletools.option.enableItemFrameReverseRotate": "Turn Framed Items Backwards",
+  "simpletools.option.enableItemFrameReverseRotate.tooltip": "Sneak + right-click turns the item in a\nframe backwards. Default: true."
 }

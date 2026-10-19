@@ -115,5 +115,12 @@
   "quests.simpletools.start.title": "Willkommen bei Simple Tools",
   "quests.simpletools.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletools.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletools.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tools-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Amboss herstellen."
+  "quests.simpletools.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tools-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Amboss herstellen.",
+  "simpletools.tab.itemframes": "Rahmen",
+  "simpletools.option.enableItemFrameInvisibility": "Rahmen mit Schere verstecken",
+  "simpletools.option.enableItemFrameInvisibility.tooltip": "Schleichen + Schere an einem Rahmen mit\nItem macht ihn unsichtbar oder wieder\nsichtbar (1 Haltbarkeit). Ein geleerter\nunsichtbarer Rahmen wird wieder\nsichtbar. Standard: true.",
+  "simpletools.option.enableItemFrameLock": "Rahmen sperren",
+  "simpletools.option.enableItemFrameLock.tooltip": "Schleichen + Honigwabe sperrt einen\nRahmen mit Item: nicht drehen, nicht\nentnehmen, nicht abbauen. Schleichen +\nAxt entsperrt ihn. Standard: true.",
+  "simpletools.option.enableItemFrameReverseRotate": "Rahmen-Items rückwärts drehen",
+  "simpletools.option.enableItemFrameReverseRotate.tooltip": "Schleichen + Rechtsklick dreht das Item\nim Rahmen rückwärts. Standard: true."
 }

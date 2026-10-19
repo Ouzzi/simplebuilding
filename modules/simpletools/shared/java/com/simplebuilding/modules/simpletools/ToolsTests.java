@@ -33,6 +33,7 @@ public final class ToolsTests {
   ALL.put("permissions_spam",ToolsTests::permissionsSpam);
   ALL.put("cross_mod",ToolsTests::crossMod);
   ALL.put("soulbound_registered",DeathTests::soulboundRegistered);ALL.put("soulbound_death",DeathTests::soulboundDeath);ALL.put("soulbound_switch",DeathTests::soulboundSwitch);ALL.put("soulbound_hardcore",DeathTests::soulboundHardcore);ALL.put("death_durability_cap",DeathTests::durabilityCap);ALL.put("soulbound_anvil",DeathTests::soulboundAnvil);ALL.put("soulbound_grindstone",DeathTests::soulboundGrindstone);ALL.put("soulbound_sources",DeathTests::soulboundSources);ALL.put("vault_lying",DeathTests::vaultLying);ALL.put("vault_lost",DeathTests::vaultLost);ALL.put("vault_taken",DeathTests::vaultTaken);ALL.put("vault_pvp",DeathTests::vaultPvp);ALL.put("vault_weights",DeathTests::vaultWeights);ALL.put("vault_dupe",DeathTests::vaultDupe);ALL.put("vault_persistence",DeathTests::vaultPersistence);ALL.put("vault_fates",DeathTests::vaultFates);ALL.put("vault_last_death",DeathTests::vaultLastDeath);ALL.put("vault_menu_rows",DeathTests::vaultMenuRows);
+  ALL.put("frame_invisible",FrameTests::invisible);ALL.put("frame_empty",FrameTests::empty);ALL.put("frame_reverse",FrameTests::reverse);ALL.put("frame_lock",FrameTests::lock);ALL.put("frame_glow",FrameTests::glow);ALL.put("frame_reveal",FrameTests::reveal);ALL.put("frame_config_off",FrameTests::configOff);
   // ALL-END
  }
  private ToolsTests(){}
@@ -131,6 +132,7 @@ public final class ToolsTests {
     static {
         ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::behaviourHints);
+        ALL.put("discover_first_pickup_tips", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::firstPickupTips);
         ALL.put("guide_book", com.simplebuilding.modules.simpletools.guide.ToolsGuide::gameTest);
     }
 }
