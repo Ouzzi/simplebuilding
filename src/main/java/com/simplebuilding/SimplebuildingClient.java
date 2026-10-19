@@ -92,17 +92,12 @@ public class SimplebuildingClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
-        if (com.simplebuilding.blocks.entity.ModBlockEntities.STORAGE_CRAFTING_TABLE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
-                com.simplebuilding.blocks.entity.ModBlockEntities.STORAGE_CRAFTING_TABLE_BE, com.simplebuilding.client.render.StorageCraftingTableRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE, com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.GOAT_HORN_HOLDER_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.GOAT_HORN_HOLDER_BE, com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE, com.simplebuilding.client.render.ChessPiecesRenderer::new);
-        // Kisten (Holzwerk): die oberen Lagen zeigen die eingelagerten Items.
-        if (com.simplebuilding.blocks.entity.ModBlockEntities.CRATE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
-                com.simplebuilding.blocks.entity.ModBlockEntities.CRATE_BE, com.simplebuilding.woodwork.client.CrateRenderer::new);
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);
@@ -265,9 +260,6 @@ public class SimplebuildingClient implements ClientModInitializer {
         }
         if (ModScreenHandlers.ASTRAL_ENCHANTING_MENU != null) {
             MenuScreens.register(ModScreenHandlers.ASTRAL_ENCHANTING_MENU, com.simplebuilding.client.gui.AstralEnchantingScreen::new);
-        }
-        if (ModScreenHandlers.STORAGE_CRAFTING_TABLE_MENU != null) {
-            MenuScreens.register(ModScreenHandlers.STORAGE_CRAFTING_TABLE_MENU, com.simplebuilding.client.gui.StorageCraftingScreen::new);
         }
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---

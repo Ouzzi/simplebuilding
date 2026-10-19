@@ -278,7 +278,7 @@ public final class SearchTabPlacement {
                     // der vorigen Familie: Bretter-Achtel, Stamm-Achtel, entrindetes Stamm-Achtel, dann die Familie.
                     String w = family.wood().id();
                     ItemLike[] chain = chain(octet(w), octet(w + "_log"), octet("stripped_" + w + "_log"),
-                            family.blocks().toArray(new ItemLike[0]));
+                            family.tabItems().toArray(new ItemLike[0]));
                     if (last != null && chain.length > 0) {
                         out.add(Placement.after(BUILDING_BLOCKS, last, chain));
                         last = chain[chain.length - 1];
@@ -290,8 +290,8 @@ public final class SearchTabPlacement {
                 String strippedPath = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stripped).getPath();
                 boolean hasOctet = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(com.simplebuilding.util.OctetRefs.id(strippedPath + "_octet"));
                 ItemLike[] octet = hasOctet ? octet(strippedPath) : new ItemLike[0];
-                out.add(Placement.after(BUILDING_BLOCKS, stripped, chain(octet, family.blocks().toArray(new ItemLike[0]))));
-                last = family.blocks().get(family.blocks().size() - 1);
+                out.add(Placement.after(BUILDING_BLOCKS, stripped, chain(octet, family.tabItems().toArray(new ItemLike[0]))));
+                last = family.tabItems().get(family.tabItems().size() - 1);
             }
         }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
@@ -352,7 +352,8 @@ public final class SearchTabPlacement {
         }
         if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) {
             // Werkbank mit Lager (N26) hinter die Werkbank (Gebrauchsbloecke).
-            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CRAFTING_TABLE, ModItems.STORAGE_CRAFTING_TABLE));
+            // Split stage 8a: Simple Storage's block, by id.
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CRAFTING_TABLE, com.simplebuilding.util.StorageRefs.item(com.simplebuilding.util.StorageRefs.STORAGE_CRAFTING_TABLE)));
         }
         if (com.simplebuilding.version.McVersion.BREWING_EFFECTS) {
             // Waerter-Fuehler (N24) zu den Brauzutaten, hinter das fermentierte Spinnenauge.

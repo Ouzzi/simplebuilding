@@ -57,7 +57,7 @@ public final class McVersion {
     public static final boolean AUTONOMOUS_CRAFTER = true;
     /** Astral Enchanting Table, blazewood, blaze books and shelves, blazing obsidian (owner 2026-10-09, queue N27). */
     public static final boolean ASTRAL_ENCHANTING = true;
-    /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26). */
+    /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26); since split stage 8a it is Simple Storage's ({@link #STORAGE_NAMESPACE}). */
     public static final boolean STORAGE_CRAFTING_TABLE = true;
     /** Potions of darkness/nausea/shivering/mirage/reverse mirage/faded and the warden tendril (queue N20/N24). */
     public static final boolean BREWING_EFFECTS = true;
@@ -131,6 +131,8 @@ public final class McVersion {
     public static final boolean HAMMERS_IN_SB = false;
     /** Namespace of the sledgehammers, the hammer enchantments and their recipes ({@link #HAMMERS_IN_SB}). */
     public static final String HAMMERS_NAMESPACE = "simplehammers";
+    /** Namespace of the storage blocks that left SimpleBuilding: split stage 8a (docs/ai/PLAN-B-S8-STORAGE-2026-10-19.md) moved the crates of every wood and the Storage Crafting Table into the required, bundled sub-mod Simple Storage ({@code simplestorage:*}, migrated through SimpleLib id moves); SB registers neither and reaches them by id ({@code util/StorageRefs}). Both never existed on 26.2. */
+    public static final String STORAGE_NAMESPACE = "simplestorage";
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */
     public static final boolean FIRES = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

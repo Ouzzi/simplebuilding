@@ -21,8 +21,6 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity> GOAT_HORN_HOLDER_BE;
     /** Schachfiguren auf einem Block; nur mit McVersion.CHESS. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity> CHESS_PIECES_BE;
-    /** Kisten (Holzwerk); nur mit McVersion.WOODWORK. */
-    public static BlockEntityType<com.simplebuilding.woodwork.CrateBlockEntity> CRATE_BE;
     /** Haengematten (Tuch und Seil kennen ihre Matte); nur mit McVersion.HAMMOCK. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity> HAMMOCK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
@@ -33,8 +31,6 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity> AUTONOMOUS_CRAFTER_BE;
     /** Astral-Verzauberungstisch (McVersion.ASTRAL_ENCHANTING). */
     public static BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity> ASTRAL_ENCHANTING_TABLE_BE;
-    /** Werkbank mit Lager; nur, wenn es den Block gibt (McVersion.STORAGE_CRAFTING_TABLE). */
-    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity> STORAGE_CRAFTING_TABLE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     private ModBlockEntities() {

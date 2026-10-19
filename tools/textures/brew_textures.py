@@ -10,7 +10,7 @@ Own pixel art of branch claude-q-brew (docs/ai/PLAN-BRAUEN-WERKBANK-2026-10-09.m
   posts and rim of a work table over a chest-like drawer with an iron latch; side = posts, rim and an iron strap.
   The planks are vanilla oak planks (read from the vanilla directory at generation time, never checked in) - the
   shapes on them are new. The bottom uses minecraft:block/oak_planks directly.
-Writes into mc26_3/overlay/resources/assets/simplebuilding/textures and, with a preview dir, two preview sheets
+Writes into mc26_3/overlay/resources/assets/simplebuilding/textures (the table's faces into Simple Storage's) and, with a preview dir, two preview sheets
 (16x, old/vanilla reference next to new): brew-effect-icons.png and storage-crafting-table-textures.png.
 """
 from PIL import Image, ImageDraw
@@ -21,6 +21,8 @@ V = sys.argv[1] if len(sys.argv) > 1 else 'build/vanilla-textures/'
 PREVIEW = sys.argv[2] if len(sys.argv) > 2 else None
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 TEX = os.path.join(ROOT, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding', 'textures')
+# The Storage Crafting Table moved to Simple Storage (split stage 8a): its three faces go there.
+STORAGE_TEX = os.path.join(ROOT, 'modules', 'simplestorage', 'shared', 'resources', 'assets', 'simplestorage', 'textures')
 
 
 def rgba(h):
@@ -246,8 +248,8 @@ def table_side():
     return out
 
 
-def save(im, *path):
-    p = os.path.join(TEX, *path)
+def save(im, *path, root=TEX):
+    p = os.path.join(root, *path)
     os.makedirs(os.path.dirname(p), exist_ok=True)
     im.save(p)
     print('wrote', os.path.normpath(p))
@@ -288,7 +290,7 @@ def main():
     save(tendril, 'item', 'warden_tendril.png')
     faces = {'top': table_top(), 'front': table_front(), 'side': table_side()}
     for name, im in faces.items():
-        save(im, 'block', 'storage_crafting_table_' + name + '.png')
+        save(im, 'block', 'storage_crafting_table_' + name + '.png', root=STORAGE_TEX)
     if PREVIEW:
         os.makedirs(PREVIEW, exist_ok=True)
         ref = lambda n: Image.open(os.path.join(V, n + '.png')).convert('RGBA')

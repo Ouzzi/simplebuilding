@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_crate",
+  "textures": {
+    "particle": "simpleend:block/duskwood_planks",
+    "planks": "simpleend:block/duskwood_planks"
+  }
+}

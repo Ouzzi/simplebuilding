@@ -1,0 +1,37 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplestorage"
+version="${version}"
+displayName="Simple Storage"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
+description="Crates for every wood (open food boxes for nine stacks, hoppers and comparators work) and the Storage Crafting Table that keeps its grid, moved from SimpleBuilding (ids migrate)."
+[[dependencies.simplestorage]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simplestorage]]
+modId="simplelib"
+type="required"
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simplestorage]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplestorage]]
+modId="simpleend"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="simplestorage.mixins.json"

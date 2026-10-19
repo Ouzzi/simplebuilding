@@ -17,7 +17,8 @@ window.WIKI_MODULES = [
       "simplecrucibles",
       "simpleoctets",
       "simpleblocks",
-      "simplehammers"
+      "simplehammers",
+      "simplestorage"
     ],
     "optional": [
       "jei",
@@ -216,7 +217,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "69f8f3e604c3"
+    "dataHash": "df544e32087e"
   },
   {
     "id": "simpletweaks",
@@ -430,7 +431,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "f3e59d31b9bb"
+    "dataHash": "d861602f48e2"
   },
   {
     "id": "simplefarming",
@@ -559,7 +560,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "6c2c72b1e8d7"
+    "dataHash": "8743da5d21e0"
   },
   {
     "id": "simplerespawn",
@@ -808,7 +809,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "b2d1f93d90d8"
+    "dataHash": "98be845068d7"
   },
   {
     "id": "simpleoptmemory",
@@ -821,7 +822,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "6f05fd404d00"
+    "dataHash": "4d03e55afdca"
   },
   {
     "id": "simpleoptserver",
@@ -834,6 +835,26 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "c718c2a98ad5"
+    "dataHash": "57366e58f2a1"
+  },
+  {
+    "id": "simplestorage",
+    "displayName": "Simple Storage",
+    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work) and the Storage Crafting Table (a crafting table that keeps its grid), moved from SimpleBuilding (ids migrate). Tiered chests, shulker boxes, bundles and backpacks follow in stages 8b/8c.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleend"
+    ],
+    "dataHash": "d0740d71b507"
   }
 ];

@@ -621,9 +621,10 @@ SKIPPED_SHOTS = {
              "modui-fletching-book",
              # McVersion.CRUCIBLE: the Enderite buckets are 26.3 only (EnderiteBucketClientTest).
              "enderite-buckets-inventory",
-             # McVersion.BREWING_EFFECTS / STORAGE_CRAFTING_TABLE are 26.3 features (BrewClientTest).
+             # McVersion.BREWING_EFFECTS is a 26.3 feature (BrewClientTest; the Storage Crafting Table's shots
+             # moved to Simple Storage's client smoke test, split stage 8a).
              "brew-plain", "brew-mirage", "brew-reverse-mirage", "brew-faded", "brew-faded-inventory",
-             "brew-faded-pause", "brew-shivering", "brew-storage-table", "brew-storage-table-screen",
+             "brew-faded-pause", "brew-shivering",
              # McVersion.CHESS: chess pieces are 26.3 only (ChessClientTest).
              "chess-board-pieces", "chess-board-flat", "chess-gallery",
              # McVersion.MUSIC_DISCS: jukebox amplifiers are 26.3 only (MusicAmplifierClientTest).

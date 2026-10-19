@@ -336,7 +336,9 @@ public final class GuideContent {
             addChapter(GuideBooks.Book.BUILDING, ch("minecraft:flint_and_steel", List.of("minecraft:gunpowder"), List.of("minecraft:sulfur")));
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
-            addChapter(GuideBooks.Book.STORAGE, ch("simplebuilding:oak_crate", List.of("simplebuilding:oak_crate"), List.of()));
+            // The crates are Simple Storage's since split stage 8a (the chapter stays, by id).
+            addChapter(GuideBooks.Book.STORAGE, ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":oak_crate",
+                    List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":oak_crate"), List.of()));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             addChapter(GuideBooks.Book.GADGETS, ch("simplebuilding:sculk_jaw", List.of("simplebuilding:sculk_jaw"), List.of()));

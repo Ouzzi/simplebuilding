@@ -377,18 +377,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("woodwork_game_test_wooden_cauldron_takes_crucible_buckets", WoodworkTests::woodenCauldronTakesCrucibleBuckets)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("woodwork_game_test_crates_store_food_for_hoppers_and_comparators", WoodworkTests::cratesStoreFoodForHoppersAndComparators)
-                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
-                    .build(),
-            GameTestSpec.named("woodwork_game_test_crates_take_at_most_nine_kinds", WoodworkTests::cratesTakeAtMostNineKinds)
-                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
-                    .build(),
-            GameTestSpec.named("woodwork_game_test_crates_layer_the_newest_kind_on_top", WoodworkTests::cratesLayerTheNewestKindOnTop)
-                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
-                    .build(),
-            GameTestSpec.named("woodwork_game_test_crates_turn_like_barrels_and_keep_their_food", WoodworkTests::cratesTurnLikeBarrelsAndKeepTheirFood)
-                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
-                    .build(),
             GameTestSpec.named("woodwork_game_test_chisel_carves_sherd_motifs_and_hollows_logs", WoodworkTests::chiselCarvesSherdMotifsAndHollowsLogs)
                     .build(),
             GameTestSpec.named("woodwork_game_test_woodwork_recipes_exist_for_every_wood", WoodworkTests::woodworkRecipesExistForEveryWood)
@@ -711,12 +699,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("brewing_game_test_mirage_keeps_the_size_class_and_is_stable", BrewingTests::mirageKeepsTheSizeClassAndIsStable)
                     .build(),
             GameTestSpec.named("brewing_game_test_warden_drops_tendrils", BrewingTests::wardenDropsTendrils)
-                    .build(),
-            GameTestSpec.named("brewing_game_test_storage_crafting_table_keeps_its_grid", BrewingTests::storageCraftingTableKeepsItsGrid)
-                    .build(),
-            GameTestSpec.named("brewing_game_test_storage_crafting_table_shares_its_grid", BrewingTests::storageCraftingTableSharesItsGrid)
-                    .build(),
-            GameTestSpec.named("brewing_game_test_storage_crafting_table_drops_its_grid_and_ignores_hoppers", BrewingTests::storageCraftingTableDropsItsGridAndIgnoresHoppers)
                     .build(),
             GameTestSpec.named("combat_game_test_crafty_shulker_only_triggers_on_hits_by_creatures", CombatTests::craftyShulkerOnlyTriggersOnHitsByCreatures)
                     .build(),

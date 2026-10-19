@@ -155,7 +155,7 @@ public final class EndTests {
             for (EndWood w : EndWood.ALL) {
                 String n = w.name;
                 for (String id : new String[] {"hollow_" + n + "_log", "hollow_stripped_" + n + "_log", n + "_sheet", "stripped_" + n + "_sheet",
-                        n + "_cauldron", "stripped_" + n + "_cauldron", n + "_crate", "carved_" + n + "_log", n + "_octet", n + "_log_octet",
+                        n + "_cauldron", "stripped_" + n + "_cauldron", "carved_" + n + "_log", n + "_octet", n + "_log_octet",
                         "stripped_" + n + "_log_octet"}) {
                     var key = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", id);
                     h.assertTrue(BuiltInRegistries.BLOCK.containsKey(key) == sb, key + " registered only with SimpleBuilding");
@@ -166,7 +166,16 @@ public final class EndTests {
                         h.assertTrue(state.is(BlockTags.MINEABLE_WITH_AXE), key + " is mined with the axe");
                     }
                 }
-                for (String r : new String[] {"hollow_" + n + "_log", n + "_crate", n + "_cauldron", "reinforced_chest_boat_" + n}) {
+                // The crates moved to Simple Storage (split stage 8a, simplestorage:<wood>_crate): there with Simple Storage.
+                boolean storage = loaded("simplestorage");
+                var crate = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", n + "_crate");
+                h.assertTrue(BuiltInRegistries.BLOCK.containsKey(crate) == storage, crate + " registered only with Simple Storage");
+                h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, crate)).isPresent() == storage, "recipe " + crate + " only with Simple Storage");
+                if (storage) {
+                    BlockState state = BuiltInRegistries.BLOCK.getValue(crate).defaultBlockState();
+                    h.assertTrue(fire.simpleend$canBurn(state) && state.is(BlockTags.MINEABLE_WITH_AXE), crate + " burns and is mined with the axe");
+                }
+                for (String r : new String[] {"hollow_" + n + "_log", n + "_cauldron", "reinforced_chest_boat_" + n}) {
                     var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", r));
                     h.assertTrue(recipes.byKey(key).isPresent() == sb, "recipe " + key.identifier() + " only with SimpleBuilding");
                 }

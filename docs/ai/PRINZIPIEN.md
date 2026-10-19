@@ -268,6 +268,6 @@ Eisen-, verstärkte, Netherit- und Enderit-Tiegel und -Fässer, verstärkter Kes
 ### Geplante Module (noch nicht in `modules.json`)
 
 - `simplehammers`: Geplant (Stufe 7): Hämmer, Hammer-Verzauberungen, Schnitzen, In-World-Crafting. Eigene Regeln: keine bisher.
-- `simplestorage`: Geplant (Stufe 8): Lager (Kisten-Stufen, Rucksäcke, Fässer). Eigene Regeln: keine bisher.
+- `simplestorage`: Stufe 8a umgesetzt (b-s8-storage): Kisten aller Hölzer, Werkbank mit Lager; geplant 8b Truhen-/Shulker-Stufen, Kisten-Boote/-Loren, 8c Bündel, Rucksäcke, Köcher. Eigene Regeln: keine bisher.
 - `simplegadgets`: Geplant: Geräte in der Hand (Rotator/Transposer, Messuhr, Detektor, Magnet, Oktant, Attractor). Eigene Regeln: keine bisher.
 - `simpleenderite`: Geplant: Enderit-Ausrüstung, Astral/Nihil-Paletten. Eigene Regeln: keine bisher.

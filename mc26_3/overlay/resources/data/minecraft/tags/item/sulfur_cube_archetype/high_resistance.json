@@ -65,10 +65,6 @@
       "required": false
     },
     {
-      "id": "simplebuilding:storage_crafting_table",
-      "required": false
-    },
-    {
       "id": "simplebuilding:astral_enchanting_table",
       "required": false
     },

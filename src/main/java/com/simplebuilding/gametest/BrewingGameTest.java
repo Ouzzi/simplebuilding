@@ -28,19 +28,4 @@ public final class BrewingGameTest {
     public void wardenDropsTendrils(GameTestHelper helper) {
         BrewingTests.wardenDropsTendrils(helper);
     }
-
-    @GameTest
-    public void storageCraftingTableKeepsItsGrid(GameTestHelper helper) {
-        BrewingTests.storageCraftingTableKeepsItsGrid(helper);
-    }
-
-    @GameTest
-    public void storageCraftingTableSharesItsGrid(GameTestHelper helper) {
-        BrewingTests.storageCraftingTableSharesItsGrid(helper);
-    }
-
-    @GameTest
-    public void storageCraftingTableDropsItsGridAndIgnoresHoppers(GameTestHelper helper) {
-        BrewingTests.storageCraftingTableDropsItsGridAndIgnoresHoppers(helper);
-    }
 }

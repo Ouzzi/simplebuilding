@@ -132,6 +132,8 @@ MODS = [
          tips=[("oven_upgrade", ["reinforced_*", "netherite_furnace", "netherite_smoker", "netherite_blast_furnace"],
                 "Axe or hammer, nugget in off hand: upgrade in place",
                 "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten")]),
+    dict(id="simplestorage", ns=["simplestorage"], cls="StorageDiscover", package="com.simplestorage.discover",
+         own_packages=["com.simplestorage."]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

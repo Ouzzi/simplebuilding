@@ -136,17 +136,6 @@ public final class NeoForgeModRegistries {
                             com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, ModBlocks.AUTONOMOUS_CRAFTER))
                     : null;
 
-    /** Werkbank mit Lager, nur Hauptlinie (McVersion.STORAGE_CRAFTING_TABLE). */
-    public static final Supplier<MenuType<com.simplebuilding.screen.StorageCraftingMenu>> STORAGE_CRAFTING_TABLE_MENU =
-            com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE
-                    ? MENUS.register("storage_crafting_table", () -> new MenuType<>(com.simplebuilding.screen.StorageCraftingMenu::new,
-                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
-                    : null;
-    public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity>> STORAGE_CRAFTING_TABLE_BE =
-            com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE
-                    ? BLOCK_ENTITIES.register("storage_crafting_table", () -> new BlockEntityType<>(
-                            com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity::new, ModBlocks.STORAGE_CRAFTING_TABLE))
-                    : null;
 
     /** Auto-Schmied, nur Hauptlinie (McVersion.AUTO_SMITHER). */
     public static final Supplier<MenuType<com.simplebuilding.screen.AutoSmitherMenu>> AUTO_SMITHER_MENU =
@@ -197,12 +186,6 @@ public final class NeoForgeModRegistries {
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity>> GOAT_HORN_HOLDER_BE =
             com.simplebuilding.version.McVersion.SMALL_PLACEABLES
                     ? BLOCK_ENTITIES.register("goat_horn_holder", () -> new BlockEntityType<>(com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity::new, ModBlocks.GOAT_HORN_HOLDER))
-                    : null;
-
-    /** Kisten (Holzwerk), nur Hauptlinie (McVersion.WOODWORK). */
-    public static final Supplier<BlockEntityType<com.simplebuilding.woodwork.CrateBlockEntity>> CRATE_BE =
-            com.simplebuilding.version.McVersion.WOODWORK
-                    ? BLOCK_ENTITIES.register("crate", () -> new BlockEntityType<>(com.simplebuilding.woodwork.CrateBlockEntity::new, com.simplebuilding.woodwork.WoodBlocks.crates()))
                     : null;
 
     /** Schachfiguren auf einem Block, nur Hauptlinie (McVersion.CHESS). */
@@ -343,8 +326,6 @@ public final class NeoForgeModRegistries {
         if (AUTONOMOUS_CRAFTER_BE != null) ModBlockEntities.AUTONOMOUS_CRAFTER_BE = AUTONOMOUS_CRAFTER_BE.get();
         if (ASTRAL_ENCHANTING_MENU != null) ModScreenHandlers.ASTRAL_ENCHANTING_MENU = ASTRAL_ENCHANTING_MENU.get();
         if (ASTRAL_ENCHANTING_TABLE_BE != null) ModBlockEntities.ASTRAL_ENCHANTING_TABLE_BE = ASTRAL_ENCHANTING_TABLE_BE.get();
-        if (STORAGE_CRAFTING_TABLE_MENU != null) ModScreenHandlers.STORAGE_CRAFTING_TABLE_MENU = STORAGE_CRAFTING_TABLE_MENU.get();
-        if (STORAGE_CRAFTING_TABLE_BE != null) ModBlockEntities.STORAGE_CRAFTING_TABLE_BE = STORAGE_CRAFTING_TABLE_BE.get();
         if (FLETCHING_TYPE != null) {
             com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
             com.simplebuilding.fletching.FletchingRecipes.TIP_CATEGORY = FLETCHING_TIP_CATEGORY.get();
@@ -360,7 +341,6 @@ public final class NeoForgeModRegistries {
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
         if (GOAT_HORN_HOLDER_BE != null) ModBlockEntities.GOAT_HORN_HOLDER_BE = GOAT_HORN_HOLDER_BE.get();
         if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();
-        if (CRATE_BE != null) ModBlockEntities.CRATE_BE = CRATE_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         if (MOD_BLAST_FURNACE_BE != null) ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();

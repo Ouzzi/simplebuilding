@@ -282,14 +282,6 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(Items.CRYING_OBSIDIAN), has(Items.CRYING_OBSIDIAN))
                             .save(output);
                 }
-                // Werkbank mit Lager (2026-10-09, N26): Werkbank + Truhe, formlos.
-                if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) {
-                    shapeless(RecipeCategory.DECORATIONS, ModItems.STORAGE_CRAFTING_TABLE)
-                            .requires(Items.CRAFTING_TABLE)
-                            .requires(Items.CHEST)
-                            .unlockedBy(getHasName(Items.CRAFTING_TABLE), has(Items.CRAFTING_TABLE))
-                            .save(output);
-                }
 
                 // Lautsprecher (2026-10-03) wie Notenblock (Redstone in der Mitte) und Plattenspieler (Diamant):
                 // acht Bretter um Astralitstaub bzw. Nihilitsplitter.
@@ -394,10 +386,6 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('S', Ingredient.of(family.sheet(), family.strippedSheet()))
                             .group("stripped_wooden_cauldron")
                             .unlockedBy(getHasName(family.hollowStripped()), has(family.hollowStripped())).save(output);
-                    shaped(RecipeCategory.DECORATIONS, family.crate())
-                            .pattern("P P").pattern("P P").pattern("PPP")
-                            .define('P', wood.planks()).group("crate")
-                            .unlockedBy(getHasName(wood.planks()), has(wood.planks())).save(output);
                 }
 
                 // Haengematten (2026-10-02, v2 2026-10-04): Faden, Stock, Faden ueber drei Wolle einer Farbe; Faerben wie Betten

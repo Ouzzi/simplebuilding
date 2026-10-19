@@ -135,6 +135,8 @@ public final class McVersion {
     public static final boolean HAMMERS_IN_SB = true;
     /** Namespace of the sledgehammers, the hammer enchantments and their recipes ({@link #HAMMERS_IN_SB}). */
     public static final String HAMMERS_NAMESPACE = "simplebuilding";
+    /** Namespace of the storage blocks that left SimpleBuilding on 26.3 (split stage 8a: crates, Storage Crafting Table); 26.2 has neither. */
+    public static final String STORAGE_NAMESPACE = "simplebuilding";
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
     public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

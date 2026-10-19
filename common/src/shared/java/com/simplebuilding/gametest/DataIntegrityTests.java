@@ -2793,7 +2793,9 @@ public final class DataIntegrityTests {
                     // Split stage 5b: Simple Crucibles' buckets keep their row in SimpleBuilding's functional tab (by id).
                     && !com.simplebuilding.util.BucketRefs.buckets().contains(item)
                     // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
-                    && !com.simplebuilding.util.HammerRefs.all().contains(item)) {
+                    && !com.simplebuilding.util.HammerRefs.all().contains(item)
+                    // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
+                    && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -3325,7 +3327,7 @@ public final class DataIntegrityTests {
             // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
                 expected.add(new CreativeTabLayout.Row("woodwork_" + family.wood().id(),
-                        family.blocks().stream().map(ItemStack::new).toList()));
+                        family.tabItems().stream().map(ItemStack::new).toList()));
             }
         }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), flowed(expected), "SimpleBlocks", problems);

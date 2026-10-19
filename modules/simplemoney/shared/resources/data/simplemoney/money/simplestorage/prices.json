@@ -1,0 +1,6 @@
+{
+  "module": "simplestorage",
+  "derivation": "Crates and the Storage Crafting Table are crafted cheaply from planks, a crafting table and a chest; like in SimpleBuilding before split stage 8a they are not traded.",
+  "excluded": {},
+  "prices": []
+}

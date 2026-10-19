@@ -18,7 +18,7 @@
           "Recipes are the Vanilla wood recipes (logs to 4 planks, planks to stairs, slabs, doors ...; hanging signs from stripped logs and iron chains).",
           "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere.",
           "The shelf is Vanilla's shelf in End wood (six from six stripped logs): it holds three items, and linked shelves swap them with the hotbar when powered.",
-          "(with SimpleBuilding) Both woods also get SimpleBuilding's woodwork - hollow logs, sheets, wooden cauldrons, crate and carved log - plus wood and log octets and tiered chest boats. (with Simple Sandwiches) A cutting board of each wood. Without those mods none of these blocks exists."
+          "(with SimpleBuilding) Both woods also get SimpleBuilding's woodwork - hollow logs, sheets, wooden cauldrons and carved log - plus wood and log octets and tiered chest boats. (with Simple Storage) A crate of each wood. (with Simple Sandwiches) A cutting board of each wood. Without those mods none of these blocks exists."
         ]
       },
       "de": {
@@ -30,7 +30,7 @@
           "Rezepte sind die Vanilla-Holzrezepte (Stamm zu 4 Brettern, Bretter zu Treppen, Stufen, Türen …; Hängeschilder aus entrindeten Stämmen und Eisenketten).",
           "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton.",
           "Das Regal ist das Vanilla-Regal aus End-Holz (sechs aus sechs entrindeten Stämmen): es hält drei Gegenstände, verbundene Regale tauschen sie mit Redstone-Signal gegen die Schnellleiste.",
-          "(mit SimpleBuilding) Beide Hölzer bekommen auch SimpleBuildings Holzwerk – ausgehöhlte Stämme, Platten, Holzkessel, Kiste und geschnitzten Stamm – dazu Holz- und Stamm-Achtel und gestufte Kistenboote. (mit Simple Sandwiches) Ein Schneidebrett je Holz. Ohne diese Mods gibt es keinen dieser Blöcke."
+          "(mit SimpleBuilding) Beide Hölzer bekommen auch SimpleBuildings Holzwerk – ausgehöhlte Stämme, Platten, Holzkessel und geschnitzten Stamm – dazu Holz- und Stamm-Achtel und gestufte Kistenboote. (mit Simple Storage) Eine Kiste je Holz. (mit Simple Sandwiches) Ein Schneidebrett je Holz. Ohne diese Mods gibt es keinen dieser Blöcke."
         ]
       }
     },

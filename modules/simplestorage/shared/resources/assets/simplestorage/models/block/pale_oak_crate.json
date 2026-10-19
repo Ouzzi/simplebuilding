@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_crate",
+  "textures": {
+    "particle": "minecraft:block/pale_oak_planks",
+    "planks": "minecraft:block/pale_oak_planks"
+  }
+}

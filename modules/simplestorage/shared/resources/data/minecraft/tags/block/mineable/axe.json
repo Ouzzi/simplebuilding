@@ -1,0 +1,25 @@
+{
+  "values": [
+    "simplestorage:storage_crafting_table",
+    "simplestorage:oak_crate",
+    "simplestorage:spruce_crate",
+    "simplestorage:birch_crate",
+    "simplestorage:jungle_crate",
+    "simplestorage:acacia_crate",
+    "simplestorage:dark_oak_crate",
+    "simplestorage:mangrove_crate",
+    "simplestorage:cherry_crate",
+    "simplestorage:pale_oak_crate",
+    "simplestorage:crimson_crate",
+    "simplestorage:warped_crate",
+    "simplestorage:bamboo_crate",
+    {
+      "id": "simplestorage:ashwood_crate",
+      "required": false
+    },
+    {
+      "id": "simplestorage:duskwood_crate",
+      "required": false
+    }
+  ]
+}

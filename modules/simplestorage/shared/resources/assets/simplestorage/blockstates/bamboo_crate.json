@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "simplestorage:block/bamboo_crate"
+    },
+    "facing=down": {
+      "model": "simplestorage:block/bamboo_crate",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "simplestorage:block/bamboo_crate",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "simplestorage:block/bamboo_crate",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "simplestorage:block/bamboo_crate",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplestorage:block/bamboo_crate",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

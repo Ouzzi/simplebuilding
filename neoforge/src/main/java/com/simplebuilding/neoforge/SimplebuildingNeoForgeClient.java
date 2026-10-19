@@ -135,16 +135,12 @@ public final class SimplebuildingNeoForgeClient {
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_BUNDLE_BE.get(), com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
-        if (NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_BE != null) event.registerBlockEntityRenderer(
-                NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_BE.get(), com.simplebuilding.client.render.StorageCraftingTableRenderer::new);
         if (NeoForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (NeoForgeModRegistries.GOAT_HORN_HOLDER_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.GOAT_HORN_HOLDER_BE.get(), com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (NeoForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
-        if (NeoForgeModRegistries.CRATE_BE != null) event.registerBlockEntityRenderer(
-                NeoForgeModRegistries.CRATE_BE.get(), com.simplebuilding.woodwork.client.CrateRenderer::new);
         if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
         if (NeoForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE != null) event.registerBlockEntityRenderer(
@@ -191,9 +187,6 @@ public final class SimplebuildingNeoForgeClient {
         }
         if (NeoForgeModRegistries.ASTRAL_ENCHANTING_MENU != null) {
             event.register(NeoForgeModRegistries.ASTRAL_ENCHANTING_MENU.get(), com.simplebuilding.client.gui.AstralEnchantingScreen::new);
-        }
-        if (NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_MENU != null) {
-            event.register(NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_MENU.get(), com.simplebuilding.client.gui.StorageCraftingScreen::new);
         }
     }
 
