@@ -1,12 +1,9 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.version.McVersion;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -37,16 +34,5 @@ public final class StorageRefs {
     /** The crate of a wood ({@code "oak"}, {@code "ashwood"}); air when it is not registered. */
     public static Item crate(String wood) {
         return item(wood + "_crate");
-    }
-
-    /** Every registered crate item (Vanilla woods, with Simple End also its woods). */
-    public static List<Item> crates() {
-        List<Item> out = new ArrayList<>();
-        BuiltInRegistries.ITEM.keySet().stream()
-                .filter(key -> key.getNamespace().equals(McVersion.STORAGE_NAMESPACE) && key.getPath().endsWith("_crate"))
-                .sorted()
-                .forEach(key -> out.add(BuiltInRegistries.ITEM.getValue(key)));
-        out.removeIf(item -> item == Items.AIR);
-        return out;
     }
 }
