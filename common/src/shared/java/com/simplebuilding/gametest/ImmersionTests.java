@@ -221,7 +221,7 @@ public final class ImmersionTests {
                 {com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls"}}) {
             ItemStack stack = new ItemStack(com.simplebuilding.util.BlockRefs.item(gravity[0]));
             List<String> lines = (com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? InfoTooltips.lines(stack) : itemLines(helper, stack))
-                    .stream().map(Component::getString).toList();
+                    .stream().map(ImmersionTests::subModString).toList();
             helper.assertTrue(lines.contains(gravity[1]), gravity[0] + " tooltip lacks \"" + gravity[1] + "\": " + lines);
         }
         for (var legacy : List.of(TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD)) {
@@ -413,6 +413,42 @@ public final class ImmersionTests {
             return InfoTooltips.lines(stack);
         }
         return itemLines(helper, stack);
+    }
+
+    /**
+     * The English text of a sub-mod line. The Forge test server does not load every nested sub-mod's language file, so an
+     * untranslated key is looked up in the sub-mod's own en_us.json (like GuideBookTests#subModHas).
+     */
+    private static String subModString(Component line) {
+        String text = line.getString();
+        if (!(line.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents translatable)
+                || !text.equals(translatable.getKey()) || translatable.getArgs().length > 0) {
+            return text;
+        }
+        String key = translatable.getKey();
+        int dot = key.indexOf('.');
+        int end = key.indexOf('.', dot + 1);
+        if (dot < 0 || end < 0) {
+            return text;
+        }
+        String path = "assets/" + key.substring(dot + 1, end) + "/lang/en_us.json";
+        for (ClassLoader loader : new ClassLoader[] {ImmersionTests.class.getClassLoader(), Thread.currentThread().getContextClassLoader()}) {
+            if (loader == null) {
+                continue;
+            }
+            try (java.io.InputStream in = loader.getResourceAsStream(path)) {
+                if (in != null) {
+                    com.google.gson.JsonObject lang = com.google.gson.JsonParser.parseReader(
+                            new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                    if (lang.has(key)) {
+                        return lang.get(key).getAsString();
+                    }
+                }
+            } catch (java.io.IOException | RuntimeException e) {
+                // try the next loader
+            }
+        }
+        return text;
     }
 
     /** The lines the item itself writes ({@code appendHoverText}; items of a sub-mod). */
