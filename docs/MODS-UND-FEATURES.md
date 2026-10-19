@@ -58,8 +58,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Tweaks (`simpletweaks`) | simplelib | SimpleBuilding, Simple Dimensions | simplelib, framework |
 | Simple Stats (`simplestats`) | – (Fabric API) | SimpleBuilding (Hammer-Flächenabbau zählt jeden Block), FTB Quests (Handbuch-Kapitel) | framework |
 | Simple Optimization (`simpleoptimization`, Super-Mod, nur Fabric 26.3) | Simple Opt Render, Simple Opt Memory, Simple Opt Server | – | simpleoptrender, simpleoptmemory, simpleoptserver, framework |
-| Simple Opt Render (`simpleoptrender`, Client) | – (Fabric Loader) | weicht Cull Leaves, More Culling, Sodium, BadOptimizations, Fast IP Ping, No Telemetry | framework |
-| Simple Opt Memory (`simpleoptmemory`) | – (Fabric Loader) | meldet FerriteCore, ModernFix (Bereiche ab Stufe 4) | framework |
+| Simple Opt Render (`simpleoptrender`, Client) | – (Fabric Loader) | weicht Cull Leaves, More Culling, Sodium, BadOptimizations, Sodium Extra, Fast IP Ping, No Telemetry | framework |
+| Simple Opt Memory (`simpleoptmemory`) | – (Fabric Loader) | weicht FerriteCore; meldet ModernFix (O5 später) | framework |
 | Simple Opt Server (`simpleoptserver`, Server) | Fabric API | weicht ServerCore | framework |
 | Wiring Example (`wiringexample`) | – | – | – (nur Testmodul) |
 
@@ -191,13 +191,16 @@ Admin/Schutz (17.10., Plan `docs/ai/PLAN-TWEAKS-ADMIN-2026-10-17.md`, Paket `adm
 Spieler/Welt/Events (Teil 2, 17.10., `docs/ai/PLAN-TWEAKS-PLAY-2026-10-17.md`, Config `config/simpletweaks-play.json`): an – /coords, privater Todes-Hinweis, @Erwähnungen, /playtime + /seen, PvP je Spieler (/pvp, beide an, Claims haben Vorrang), Abstimmungen (/vote; Tag/Nacht aus), AFK (Tab-Liste grau, zählt nicht fürs Schlafen; Kick aus), Weltgrenze je Dimension (Config-Ebene über die Vanilla-Grenze je Dimension), Teil-Keep-Inventory (hotbar_armor/xp/custom), Drachenei je Kampf, /tweaks event (Doppel-XP, Mehr Beute, Blutmond; Zeitplan aus), /leaderboard (Seitenleiste aus), /phantoms, /pregen; aus – Mob-Griefing je Mob, Willkommen/Tipps, Login-Belohnung (Geldscheine mit Simple Money), Nether-Dach, Mob-Grenze je Chunk, Bodengegenstände aufräumen. Optional: Simple Money (Scheine), Simple Weather (Wetter-Abstimmung aus, wenn Wetter abgeschaltet).
 Schutz (17.10., `docs/ai/PLAN-TWEAKS-PROTECT-2026-10-17.md`, Paket `protect`, Config `config/simpletweaks-protect.json`): an – Anti-X-Ray (verdeckte Erze im Chunk-Paket als Wirtsgestein, Aufdecken bei Nachbaränderung, Listen/Höhe je Dimension, Kreativ/Zuschauer ausgenommen, Modus 2 Fake-Erze aus), `/simpletweaks protect status|reload|bench|checks` (auch `/tweaks protect`); aus – Freecam-Regel (Kollision erzwingen über Client-Mixin bei geladenem Freecam, optional Kick ohne Simple Tweaks), Seed-Hash zufällig, Gesundheit anderer Spieler verbergen, Reichweiten-/Schnellabbau-Protokoll (Grenzen aus echten Server-Attributen, Hammer/Baustab/Blaupause nie gemeldet). Optional: Freecam (Client).
 
-### Simple Optimization (Super-Mod + 3 Sub-Mods, `claude-opt1`, nur Fabric 26.3)
+### Simple Optimization (Super-Mod + 3 Sub-Mods, `claude-opt1`, `b-opt45`, nur Fabric 26.3)
 Eigene Umsetzungen veröffentlichter Optimierungen, jeder Bereich einzeln schaltbar (`auto|ours|theirs|off` in
 `config/simpleopt*.json`); ist ein bekannter Mod für denselben Bereich da, gewinnt er (Mod-Erkennung im Mixin-Plugin,
 framework `OptCompat`, Prioritätstabelle `data/<submod>/priorities.json`). Render: O1 Blätter-Culling (Tiefe 0–4),
-O7 Lichtkarten-Cache, M1 schneller IP-Ping, M2 Telemetrie aus. Server: S5a Sichtweite nach Serverlast (Simulationsweite
-nur per Config), `/simpleopt status`. Memory: noch ohne Bereich. Benchmark `tools/bench/run_bench.py` (sb-test).
-Konzept `docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md`, Plan `docs/ai/PLAN-OPT1-2026-10-18.md`.
+O7 Lichtkarten-Cache, M1 schneller IP-Ping, M2 Telemetrie aus, O3 weiteres Culling (Schild-Rückseite, Rahmen hinter Wand,
+Leuchtfeuer-Strahl außer Sicht), O9 Detail-Schalter (Partikel, Textur-Animationen, Luft-Nebel). Server: S5a Sichtweite nach
+Serverlast (Simulationsweite nur per Config), S5b Aktivierungsbereich ferner Mobs (Standard aus), `/simpleopt status`.
+Memory: O4 geteilte Blockzustands-Tabellen. Zielprüfung (§4.5): fremder Mod auf derselben Zielklasse → Bereich aus
+(framework `OptAreas`). Benchmark `tools/bench/run_bench.py` (sb-test).
+Konzept `docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md`, Pläne `docs/ai/PLAN-OPT1-2026-10-18.md`, `docs/ai/PLAN-B-OPT45-2026-10-19.md`.
 
 ### Simple Stats (neu, `oc-simplestats`, allein spielbar)
 Jedes Werkzeug, jede Waffe, Rüstung, Schild, Elytra, Angel, Bürste und das Feuerzeug zählt eigene Statistik in der Komponente

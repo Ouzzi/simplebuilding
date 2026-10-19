@@ -42,8 +42,9 @@ import fetch_mods  # noqa: E402
 
 RUN_DIR = "run-bench-263"
 OWNER_AREAS = {
-    "simpleoptrender": ["leaf_culling", "lightmap_cache", "fast_ip_ping", "no_telemetry"],
-    "simpleoptserver": ["dynamic_distance"],
+    "simpleoptrender": ["leaf_culling", "lightmap_cache", "fast_ip_ping", "no_telemetry", "more_culling", "details"],
+    "simpleoptmemory": ["state_tables"],
+    "simpleoptserver": ["dynamic_distance", "activation_range"],
 }
 LIBS = {"moreculling": ["cloth-config"]}
 AREAS = {
@@ -53,6 +54,10 @@ AREAS = {
     "s5a": dict(code="S5a", area="dynamic_distance", owner="simpleoptserver", scene="s5a", rivals=["servercore"],
                 gpu=False, props={"sb.bench.warmupSeconds": 15, "sb.bench.seconds": 75, "sb.bench.flySpeed": 1.5},
                 extra={"stepSeconds": 5, "targetMspt": 3}, decisive=["mspt_avg", "mspt_p95", "heap_mb"]),
+    # O4 needs no own scene: heap after GC and start time of the S5a scene (server side, not GPU-bound).
+    "o4": dict(code="O4", area="state_tables", owner="simpleoptmemory", scene="s5a", rivals=["ferritecore"],
+               gpu=False, props={"sb.bench.warmupSeconds": 15, "sb.bench.seconds": 30, "sb.bench.flySpeed": 1.5},
+               extra={}, decisive=["heap_mb", "startup_s", "mspt_avg"]),
 }
 # metric: (label, lower is better, GPU-bound under llvmpipe)
 METRICS = {

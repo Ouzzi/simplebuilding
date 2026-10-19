@@ -1,11 +1,11 @@
 package com.simplebuilding.modules.simpleoptrender;
 
+import com.simplebuilding.framework.api.OptAreas;
 import com.simplebuilding.framework.api.OptCompat;
 import com.simplebuilding.framework.api.OptSettings;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
  * Simple Opt Render: client areas of Simple Optimization (docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md §3, §5).
  * {@link #boot} runs in the mixin plugin before any game class loads: it reads {@code config/simpleoptrender.json},
  * the super-mod switch and the priority table, decides each area through framework {@link OptCompat} and logs the table.
- * Mixins live in {@code mixin.<area>} and apply only while their area is active (restart needed after a change).
+ * Mixins live in {@code mixin.<area>} and apply only while their area is active (restart needed after a change); each
+ * asks {@link #live} first, so the target check (concept §4.5, plugin {@code acceptTargets}) can still switch it off.
  */
 public final class RenderOpt {
     public static final String MOD_ID = "simpleoptrender", FILE = MOD_ID + ".json";
@@ -36,11 +37,22 @@ public final class RenderOpt {
             List.of("fastipping"), false);
     public static final OptCompat.Area NO_TELEMETRY = new OptCompat.Area("no_telemetry", "M2", OptCompat.Side.CLIENT,
             List.of("no-telemetry"), false);
-    public static final List<OptCompat.Area> AREAS = List.of(LEAF_CULLING, LIGHTMAP_CACHE, FAST_IP_PING, NO_TELEMETRY);
+    /** O3: sign text, item frames, beacon beams (More Culling covers the same pieces). */
+    public static final OptCompat.Area MORE_CULLING = new OptCompat.Area("more_culling", "O3", OptCompat.Side.CLIENT,
+            List.of("moreculling"), false);
+    /** O9: detail switches; mod id from the published 26.3 jar of Sodium Extra (fabric.mod.json, 2026-10-19). */
+    public static final OptCompat.Area DETAILS = new OptCompat.Area("details", "O9", OptCompat.Side.CLIENT,
+            List.of("sodium-extra"), false);
+    public static final List<OptCompat.Area> AREAS = List.of(LEAF_CULLING, LIGHTMAP_CACHE, FAST_IP_PING, NO_TELEMETRY,
+            MORE_CULLING, DETAILS);
+    /** Live state, mixin targets and the target check (concept §4.5). */
+    public static final OptAreas RUNTIME = new OptAreas(MOD_ID, AREAS);
 
     /** Leaf culling depth: 0 culls every leaf-to-leaf face, n keeps faces seen through the outer n leaf layers. */
     public static final int MAX_DEPTH = 4;
     private static volatile int leafDepth = 0;
+    private static volatile MoreCulling.Parts culling = MoreCulling.Parts.DEFAULTS;
+    private static volatile Details.Switches details = Details.Switches.DEFAULTS;
     private static volatile boolean booted;
 
     private RenderOpt() {}
@@ -51,7 +63,15 @@ public final class RenderOpt {
         d.put(LIGHTMAP_CACHE.id(), Map.of());
         d.put(FAST_IP_PING.id(), Map.of());
         d.put(NO_TELEMETRY.id(), Map.of());
+        d.put(MORE_CULLING.id(), ordered("signText", true, "itemFrames", true, "beaconBeams", true));
+        d.put(DETAILS.id(), ordered("particles", true, "textureAnimations", true, "fog", true));
         return d;
+    }
+
+    private static Map<String, Object> ordered(Object... keyValues) {
+        Map<String, Object> m = new LinkedHashMap<>();
+        for (int i = 0; i < keyValues.length; i += 2) m.put((String) keyValues[i], keyValues[i + 1]);
+        return m;
     }
 
     /** Once per game start (mixin plugin; the mod initializer calls it too in case no mixin config loaded). */
@@ -66,12 +86,12 @@ public final class RenderOpt {
     public static List<OptCompat.Decision> apply(OptSettings settings, boolean switchOn, Predicate<String> isLoaded,
                                                  Map<String, OptCompat.Winner> table) {
         leafDepth = settings.intValue(LEAF_CULLING.id(), "depth", 0, 0, MAX_DEPTH);
-        List<OptCompat.Decision> out = new ArrayList<>();
-        for (OptCompat.Area a : AREAS)
-            out.add(OptCompat.resolve(a, settings.mode(a.id()), switchOn, isLoaded, table.getOrDefault(a.id(), OptCompat.Winner.THEIRS)));
-        OptCompat.publish(MOD_ID, out);
-        LOG.info(OptCompat.table(MOD_ID, out));
-        return out;
+        String c = MORE_CULLING.id(), d = DETAILS.id();
+        culling = new MoreCulling.Parts(settings.boolValue(c, "signText", true), settings.boolValue(c, "itemFrames", true),
+                settings.boolValue(c, "beaconBeams", true));
+        details = new Details.Switches(settings.boolValue(d, "particles", true), settings.boolValue(d, "textureAnimations", true),
+                settings.boolValue(d, "fog", true));
+        return RUNTIME.decide(settings, switchOn, isLoaded, table, LOG::info);
     }
 
     /** {@code data/simpleoptrender/priorities.json} in the jar (only {@code tools/bench/run_bench.py --apply-priorities} writes it). */
@@ -84,13 +104,28 @@ public final class RenderOpt {
     }
 
     /** Tests only: puts earlier decisions (and depth) back live. */
-    static void restore(List<OptCompat.Decision> decisions, int depth) {
-        OptCompat.publish(MOD_ID, decisions);
+    static void restore(List<OptCompat.Decision> decisions, int depth, MoreCulling.Parts parts, Details.Switches switches) {
+        RUNTIME.publish(decisions);
         leafDepth = depth;
+        culling = parts;
+        details = switches;
     }
 
     public static boolean active(OptCompat.Area area) {
         return OptCompat.active(MOD_ID, area.id());
+    }
+
+    /** Hot-path check for mixins: decided on and not switched off by the target check. */
+    public static boolean live(OptCompat.Area area) {
+        return RUNTIME.live(area);
+    }
+
+    public static MoreCulling.Parts culling() {
+        return culling;
+    }
+
+    public static Details.Switches details() {
+        return details;
     }
 
     /** Number of areas decided at startup (client smoke test). */
@@ -104,10 +139,6 @@ public final class RenderOpt {
 
     /** Mixin class {@code ...mixin.<area>.Name} → whether that area is on. Mixins outside an area package always apply. */
     public static boolean mixinActive(String mixinClassName) {
-        int at = mixinClassName.indexOf(".mixin.");
-        if (at < 0) return true;
-        String rest = mixinClassName.substring(at + 7);
-        int dot = rest.indexOf('.');
-        return dot < 0 || OptCompat.active(MOD_ID, rest.substring(0, dot));
+        return RUNTIME.shouldApply(null, mixinClassName);
     }
 }

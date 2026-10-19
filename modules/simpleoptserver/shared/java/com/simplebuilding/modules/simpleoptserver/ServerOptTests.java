@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.entity.EntityTypes;
 
 /** Simple Opt Server checks (Fabric wrapper ModuleGameTest). */
 public final class ServerOptTests {
@@ -18,6 +19,7 @@ public final class ServerOptTests {
         ALL.put("s5a_bounds", ServerOptTests::s5aBounds);
         ALL.put("s5a_controller", ServerOptTests::s5aController);
         ALL.put("config_file", ServerOptTests::configFile);
+        ALL.put("s5b_rule", ServerOptTests::s5bRule);
     }
 
     private ServerOptTests() {}
@@ -29,6 +31,8 @@ public final class ServerOptTests {
     public static void compatModes(GameTestHelper h) {
         List<OptCompat.Decision> live = OptCompat.decisions(ServerOpt.MOD_ID);
         var p = ServerOpt.params();
+        var a = ServerOpt.activation();
+        h.assertTrue(!ServerOpt.active(ServerOpt.ACTIVATION_RANGE), "S5b off in a default start (changes gameplay)");
         try {
             ServerOpt.apply(settings("{}"), true, Set.<String>of()::contains, Map.of());
             h.assertTrue(OptCompat.active(ServerOpt.MOD_ID, "dynamic_distance"), "auto without ServerCore: ours on");
@@ -39,8 +43,15 @@ public final class ServerOptTests {
             h.assertTrue(!OptCompat.active(ServerOpt.MOD_ID, "dynamic_distance"), "ours next to ServerCore (same target): falls back");
             ServerOpt.apply(settings("{\"areas\":{\"dynamic_distance\":{\"mode\":\"off\"}}}"), true, Set.<String>of()::contains, Map.of());
             h.assertTrue(!OptCompat.active(ServerOpt.MOD_ID, "dynamic_distance"), "off");
+            ServerOpt.apply(settings("{}"), true, Set.<String>of()::contains, Map.of());
+            h.assertTrue(!OptCompat.active(ServerOpt.MOD_ID, "activation_range"), "S5b default mode off");
+            ServerOpt.apply(settings("{\"areas\":{\"activation_range\":{\"mode\":\"auto\",\"range\":500,\"interval\":1}}}"), true, Set.<String>of()::contains, Map.of());
+            h.assertTrue(OptCompat.active(ServerOpt.MOD_ID, "activation_range"), "S5b on when chosen");
+            h.assertTrue(ServerOpt.activation().range() == ActivationRange.MAX_RANGE && ServerOpt.activation().interval() == 2, "range/interval clamped");
+            ServerOpt.apply(settings("{\"areas\":{\"activation_range\":{\"mode\":\"auto\"}}}"), true, Set.of("servercore")::contains, Map.of());
+            h.assertTrue(!OptCompat.active(ServerOpt.MOD_ID, "activation_range"), "ServerCore covers S5b too");
         } finally {
-            ServerOpt.restore(live, p);
+            ServerOpt.restore(live, p, a);
         }
         h.succeed();
     }
@@ -85,11 +96,54 @@ public final class ServerOptTests {
             var dir = Files.createTempDirectory("simpleoptserver-test");
             OptSettings.load(dir, ServerOpt.FILE, ServerOpt.defaults(), s -> {});
             String text = Files.readString(dir.resolve(ServerOpt.FILE));
-            for (String key : List.of("dynamic_distance", "targetMspt", "minView", "minSimulation", "stepSeconds", "adjustSimulation"))
+            var written = com.google.gson.JsonParser.parseString(text).getAsJsonObject().getAsJsonObject("areas").getAsJsonObject("activation_range");
+            h.assertTrue("off".equals(written.get("mode").getAsString()), "S5b written as off");
+            for (String key : List.of("dynamic_distance", "targetMspt", "minView", "minSimulation", "stepSeconds", "adjustSimulation", "range", "interval"))
                 h.assertTrue(text.contains(key), "file has " + key);
         } catch (java.io.IOException e) {
             throw new IllegalStateException(e);
         }
+        h.succeed();
+    }
+
+    /** S5b rule on real mobs: idle far mobs are skipped off-beat, everything that would drift stays active. */
+    public static void s5bRule(GameTestHelper h) {
+        var p = ActivationRange.Params.DEFAULTS;
+        int skipped = 0;
+        for (int t = 0; t < 40; t++) if (ActivationRange.offBeat(t, 7, p.interval())) skipped++;
+        h.assertTrue(skipped == 30, "3 of 4 ticks skipped: " + skipped);
+        h.assertTrue(!ActivationRange.offBeat(1, 7, 4) && ActivationRange.offBeat(2, 7, 4), "spread by id");
+        var level = h.getLevel();
+        var zombie = h.spawn(EntityTypes.ZOMBIE, 1, 2, 1);
+        zombie.setBaby(false);
+        zombie.setOnGround(true);
+        h.assertTrue(!ActivationRange.exempt(zombie), "idle zombie on the ground: may sleep");
+        var noPlayers = level.players().isEmpty();
+        int idle = 0;
+        for (int t = 0; t < 4; t++) {
+            zombie.tickCount = t;
+            if (ActivationRange.skip(zombie, level, p)) idle++;
+        }
+        h.assertTrue(!noPlayers || idle == 3, "no player near: runs 1 of 4 ticks (" + idle + ")");
+        zombie.setOnGround(false);
+        h.assertTrue(ActivationRange.exempt(zombie), "airborne stays active");
+        zombie.setOnGround(true);
+        zombie.hurtTime = 5;
+        h.assertTrue(ActivationRange.exempt(zombie), "hurt stays active");
+        zombie.hurtTime = 0;
+        zombie.setRemainingFireTicks(40);
+        h.assertTrue(ActivationRange.exempt(zombie), "burning stays active");
+        var calf = h.spawn(EntityTypes.COW, 2, 2, 1);
+        calf.setAge(-24000);
+        calf.setOnGround(true);
+        h.assertTrue(ActivationRange.exempt(calf), "babies keep growing");
+        var cow = h.spawn(EntityTypes.COW, 3, 2, 1);
+        cow.setOnGround(true);
+        h.assertTrue(!ActivationRange.exempt(cow), "adult cow may sleep");
+        cow.setInLove(null);
+        h.assertTrue(ActivationRange.exempt(cow), "cow in love stays active");
+        h.assertTrue(ActivationRange.exempt(h.spawn(EntityTypes.VILLAGER, 1, 2, 3)), "villagers stay active");
+        h.assertTrue(ActivationRange.exempt(h.spawn(EntityTypes.ARMOR_STAND, 2, 2, 3)), "non-mobs are never touched");
         h.succeed();
     }
 }

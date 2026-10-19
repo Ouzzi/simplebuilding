@@ -84,4 +84,63 @@ class OptCompatTest {
         assertEquals(OptCompat.Winner.OURS, OptSettings.priorities("{\"areas\":{\"a\":{\"winner\":\"ours\"}}}").get("a"));
         assertTrue(OptSettings.priorities("nope").isEmpty());
     }
+
+    @Test
+    void defaultModeOffAndConflictScanKey() {
+        Map<String, Map<String, Object>> defaults = new LinkedHashMap<>();
+        defaults.put("activation_range", Map.of("mode", "off", "range", 32));
+        var fresh = OptSettings.of(null, defaults);
+        assertEquals(OptCompat.Mode.OFF, fresh.mode("activation_range"), "gameplay area starts off");
+        assertTrue(fresh.conflictScan());
+        var edited = OptSettings.of(JsonParser.parseString("{\"areas\":{\"activation_range\":{\"mode\":\"auto\"}},\"conflictScan\":false}").getAsJsonObject(), defaults);
+        assertEquals(OptCompat.Mode.AUTO, edited.mode("activation_range"), "the file wins over the default mode");
+        assertFalse(edited.conflictScan());
+    }
+
+    @Test
+    void targetCheckFindsOtherModsOnTheSameClass() {
+        Map<String, Set<String>> areas = Map.of("leaf_culling", Set.of("net.minecraft.client.renderer.block.ModelBlockRenderer"),
+                "lightmap_cache", Set.of("net.minecraft.client.renderer.Lightmap"));
+        Map<String, Set<String>> mods = Map.of(
+                "zeta", Set.of("net/minecraft/client/renderer/block/ModelBlockRenderer"),
+                "alpha", Set.of("net.minecraft.client.renderer.block.ModelBlockRenderer", "net.minecraft.client.Minecraft"),
+                "fabric-renderer-api-v1", Set.of("net.minecraft.client.renderer.Lightmap"));
+        var hits = OptCompat.conflicts(areas, mods, m -> m.startsWith("fabric"));
+        assertEquals(Map.of("leaf_culling", "alpha"), hits, "first other mod in sorted order; ignored mods never count");
+        var d = OptCompat.downgrade(decide(LEAVES, OptCompat.Mode.AUTO, Set.of(), OptCompat.Winner.THEIRS), "alpha");
+        assertFalse(d.active());
+        assertEquals(OptCompat.Reason.CONFLICT, d.reason());
+        assertTrue(d.hint().contains("alpha"));
+    }
+
+    @Test
+    void areasRuntimeLiveShouldApplyAndScan() {
+        var light = new OptCompat.Area("lightmap_cache", "O7", OptCompat.Side.CLIENT, List.of("badoptimizations"), false);
+        var rt = new OptAreas("test-areas", List.of(LEAVES, light));
+        Map<String, Map<String, Object>> defaults = new LinkedHashMap<>();
+        defaults.put("leaf_culling", Map.of());
+        defaults.put("lightmap_cache", Map.of());
+        rt.decide(OptSettings.of(null, defaults), true, Set.of("badoptimizations")::contains, Map.of(), s -> {});
+        assertTrue(rt.live(LEAVES));
+        assertFalse(rt.live(light), "rival present");
+        String leafMixin = "a.b.mixin.leaf_culling.ModelBlockRendererMixin";
+        assertTrue(rt.shouldApply("net.minecraft.client.renderer.block.ModelBlockRenderer", leafMixin));
+        assertFalse(rt.shouldApply("net.minecraft.client.renderer.Lightmap", "a.b.mixin.lightmap_cache.LightmapMixin"));
+        assertTrue(rt.shouldApply("x.Y", "a.b.mixin.Plain"), "outside an area package");
+        assertTrue(OptAreas.areaOf("a.b.Plain") == null);
+        List<String> warnings = new java.util.ArrayList<>();
+        rt.scan(Map.of("othermod", Set.of("net/minecraft/client/renderer/block/ModelBlockRenderer")), m -> false, warnings::add);
+        assertFalse(rt.live(LEAVES), "target check switches the hooked area off at runtime");
+        assertEquals(OptCompat.Reason.CONFLICT, OptCompat.decisions("test-areas").get(0).reason());
+        assertEquals(1, warnings.size());
+        var forced = OptSettings.of(JsonParser.parseString("{\"areas\":{\"leaf_culling\":{\"mode\":\"ours\"}}}").getAsJsonObject(), defaults);
+        rt.decide(forced, true, Set.<String>of()::contains, Map.of(), s -> {});
+        rt.scan(Map.of("othermod", Set.of("net.minecraft.client.renderer.block.ModelBlockRenderer")), m -> false, warnings::add);
+        assertTrue(rt.live(LEAVES), "mode ours keeps the area, with a warning");
+        assertEquals(2, warnings.size());
+        var noScan = OptSettings.of(JsonParser.parseString("{\"conflictScan\":false}").getAsJsonObject(), defaults);
+        rt.decide(noScan, true, Set.<String>of()::contains, Map.of(), s -> {});
+        rt.scan(Map.of("othermod", Set.of("net.minecraft.client.renderer.block.ModelBlockRenderer")), m -> false, warnings::add);
+        assertTrue(rt.live(LEAVES), "conflictScan false skips the check");
+    }
 }

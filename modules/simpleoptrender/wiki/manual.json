@@ -6,15 +6,17 @@
         "framework/src/main/java/com/simplebuilding/framework/api/OptCompat.java",
         "framework/src/main/java/com/simplebuilding/framework/api/OptSettings.java",
         "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/RenderOpt.java",
-        "modules/simpleoptrender/fabric/src/main/java/com/simplebuilding/modules/simpleoptrender/fabric/RenderOptMixinPlugin.java"
+        "modules/simpleoptrender/fabric/src/main/java/com/simplebuilding/modules/simpleoptrender/fabric/RenderOptMixinPlugin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/OptAreas.java",
+        "modules/simpleoptrender/fabric/src/main/java/com/simplebuilding/modules/simpleoptrender/fabric/OptTargetScan.java"
       ],
       "en": {
         "title": "Steps back for known mods",
-        "summary": "Each area has a mode in config/simpleoptrender.json: auto (default), ours, theirs or off. In auto, a known mod for the same area wins and our part stays off: Cull Leaves, More Culling or Sodium for leaf culling, BadOptimizations for the light map, Fast IP Ping, No Telemetry. Ours next to such a mod is refused when both would hook the same code. The decision is made at game start (restart after a change) and logged as one table; we never switch another mod off."
+        "summary": "Each area has a mode in config/simpleoptrender.json: auto (default), ours, theirs or off. In auto, a known mod for the same area wins and our part stays off: Cull Leaves, More Culling or Sodium for leaf culling, BadOptimizations for the light map, More Culling for more culling, Sodium Extra for the detail switches, Fast IP Ping, No Telemetry. Ours next to such a mod is refused when both would hook the same code. The decision is made at game start (restart after a change) and logged as one table; we never switch another mod off. Target check: when any other mod (not ours, not Fabric API) hooks one of the classes an area changes, that area switches itself off at start and the log names the mod as a possible conflict; mode ours keeps it on, conflictScan false skips the check."
       },
       "de": {
         "title": "Weicht bekannten Mods",
-        "summary": "Jeder Bereich hat in config/simpleoptrender.json einen Modus: auto (Standard), ours, theirs oder off. Bei auto gewinnt ein bekannter Mod für denselben Bereich und unser Teil bleibt aus: Cull Leaves, More Culling oder Sodium beim Blätter-Culling, BadOptimizations bei der Lichtkarte, Fast IP Ping, No Telemetry. ours neben so einem Mod wird abgelehnt, wenn beide dieselbe Stelle ändern würden. Entschieden wird beim Spielstart (nach Änderung neu starten), als Tabelle im Log; fremde Mods schalten wir nie ab."
+        "summary": "Jeder Bereich hat in config/simpleoptrender.json einen Modus: auto (Standard), ours, theirs oder off. Bei auto gewinnt ein bekannter Mod für denselben Bereich und unser Teil bleibt aus: Cull Leaves, More Culling oder Sodium beim Blätter-Culling, BadOptimizations bei der Lichtkarte, More Culling beim weiteren Culling, Sodium Extra bei den Detail-Schaltern, Fast IP Ping, No Telemetry. ours neben so einem Mod wird abgelehnt, wenn beide dieselbe Stelle ändern würden. Entschieden wird beim Spielstart (nach Änderung neu starten), als Tabelle im Log; fremde Mods schalten wir nie ab. Zielprüfung: ändert ein anderer Mod (nicht unsere, nicht Fabric API) eine der Klassen, die ein Bereich ändert, schaltet sich der Bereich beim Start ab und das Log nennt den Mod als möglichen Konflikt; mode ours lässt ihn an, conflictScan false überspringt die Prüfung."
       }
     },
     {
@@ -74,6 +76,40 @@
       "de": {
         "title": "Telemetrie aus",
         "summary": "Der Client startet keine Telemetrie-Sitzung: jedes Telemetrie-Ereignis geht an den abgeschalteten Vanilla-Sender, nichts wird gesendet."
+      }
+    },
+    {
+      "id": "more_culling",
+      "sources": [
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/MoreCulling.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/more_culling/AbstractSignRendererMixin.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/more_culling/EntityRendererMixin.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/more_culling/BeaconRendererMixin.java"
+      ],
+      "en": {
+        "title": "More culling",
+        "summary": "Three more things are left out when they cannot be seen, each with its own switch (all on): signText drops the text side facing away from you once you stand more than half a block behind the board; itemFrames skips frames (with item or map) seen from behind their solid wall, frames with the Glowing effect stay; beaconBeams skips beacon beams outside the view."
+      },
+      "de": {
+        "title": "Weiteres Culling",
+        "summary": "Drei weitere Dinge fallen weg, wenn man sie nicht sehen kann, je mit eigenem Schalter (alle an): signText lässt die abgewandte Textseite eines Schilds weg, sobald man mehr als einen halben Block hinter dem Brett steht; itemFrames überspringt Rahmen (mit Item oder Karte), die man von hinten durch ihre feste Wand sieht, Rahmen mit Leuchteffekt (Glowing) bleiben; beaconBeams überspringt Leuchtfeuer-Strahlen außerhalb des Blickfelds."
+      }
+    },
+    {
+      "id": "details",
+      "sources": [
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/Details.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/details/ParticleEngineMixin.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/details/TextureAtlasMixin.java",
+        "modules/simpleoptrender/shared/java/com/simplebuilding/modules/simpleoptrender/mixin/details/FogRendererMixin.java"
+      ],
+      "en": {
+        "title": "Detail switches",
+        "summary": "Switches without needing Sodium, all true (Vanilla) by default: particles false adds no particles, textureAnimations false keeps animated textures (water, lava, fire, portals) on their current frame, fog false lifts the air and render-distance fog. Fog in water, lava or powder snow and the fog of blindness and darkness always stay."
+      },
+      "de": {
+        "title": "Detail-Schalter",
+        "summary": "Schalter ohne Sodium, standardmäßig alle true (Vanilla): particles false erzeugt keine Partikel, textureAnimations false hält animierte Texturen (Wasser, Lava, Feuer, Portale) auf ihrem aktuellen Bild, fog false hebt den Luft- und Sichtweiten-Nebel auf. Nebel in Wasser, Lava oder Pulverschnee und der Nebel von Blindheit und Dunkelheit bleiben immer."
       }
     }
   ],

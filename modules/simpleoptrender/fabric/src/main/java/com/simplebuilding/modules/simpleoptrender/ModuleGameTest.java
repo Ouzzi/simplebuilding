@@ -9,4 +9,7 @@ public final class ModuleGameTest {
     @GameTest public void lightmapCache(GameTestHelper h) { RenderOptTests.lightmapCache(h); }
     @GameTest public void fastIpPing(GameTestHelper h) { RenderOptTests.fastIpPing(h); }
     @GameTest public void configFile(GameTestHelper h) { RenderOptTests.configFile(h); }
+    @GameTest public void moreCullingRules(GameTestHelper h) { RenderOptTests.moreCullingRules(h); }
+    @GameTest public void detailsRules(GameTestHelper h) { RenderOptTests.detailsRules(h); }
+    @GameTest public void targetCheck(GameTestHelper h) { RenderOptTests.targetCheck(h); }
 }
