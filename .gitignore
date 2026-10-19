@@ -550,3 +550,7 @@ wiki/assets/textures/item/enderite_bucket.png
 wiki/assets/textures/item/soul_lava_bucket.png
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/soul_lava_flow.png
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/item/copper_*bucket_*.png
+
+# Simple Optimization benchmark (tools/bench): downloaded comparison jars and raw run logs stay local
+tools/bench/.cache/
+bench-results/*/logs/

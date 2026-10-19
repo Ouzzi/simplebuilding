@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleoptrender",
+  "version": "${version}",
+  "name": "Simple Opt Render",
+  "description": "Client optimizations of Simple Optimization: leaf culling, light-map cache, fast IP ping, telemetry off. Each area steps back when a known optimization mod covers it.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleoptrender.fabric.RenderOptFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleoptrender.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  },
+  "mixins": [
+    "simpleoptrender.mixins.json"
+  ]
+}

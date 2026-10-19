@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleoptimization",
+  "version": "${version}",
+  "name": "Simple Optimization",
+  "description": "Super-mod: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server, with one on/off switch each.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleoptimization.OptimizationFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleoptimization.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simpleoptrender": "*",
+    "simpleoptmemory": "*",
+    "simpleoptserver": "*",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  }
+}

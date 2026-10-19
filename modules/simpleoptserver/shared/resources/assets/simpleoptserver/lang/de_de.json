@@ -1,0 +1,6 @@
+{
+  "modmenu.nameTranslation.simpleoptserver": "Simple Opt Server",
+  "simpleoptserver.area.dynamic_distance": "Sichtweite nach Serverlast",
+  "simpleoptserver.status.area": "%s %s: %s (%s)",
+  "simpleoptserver.status.distance": "Sichtweite %s von %s, Simulation %s von %s, MSPT %s"
+}

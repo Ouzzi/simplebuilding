@@ -1,0 +1,6 @@
+{
+  "comment": "Simple Optimization priority table (concept 5.1). Written only by tools/bench/run_bench.py --apply-priorities; start value everywhere theirs.",
+  "areas": {
+    "dynamic_distance": { "winner": "theirs", "vs": "servercore 1.5.20+26.3", "measured": "", "delta": {}, "runs": 0 }
+  }
+}

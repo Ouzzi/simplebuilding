@@ -1,0 +1,19 @@
+{
+  "features": [
+    {
+      "id": "stage1",
+      "sources": [
+        "modules/simpleoptmemory/shared/java/com/simplebuilding/modules/simpleoptmemory/MemoryOpt.java"
+      ],
+      "en": {
+        "title": "Placeholder for memory areas",
+        "summary": "Simple Opt Memory has no active area yet: it writes config/simpleoptmemory.json and logs whether FerriteCore or ModernFix are installed. Block-state tables and model loading follow in a later stage, after measuring."
+      },
+      "de": {
+        "title": "Platzhalter für Speicher-Bereiche",
+        "summary": "Simple Opt Memory hat noch keinen aktiven Bereich: Es schreibt config/simpleoptmemory.json und meldet im Log, ob FerriteCore oder ModernFix installiert sind. Blockzustands-Tabellen und Modell-Laden folgen in einer späteren Stufe nach Messung."
+      }
+    }
+  ],
+  "notes": {}
+}
