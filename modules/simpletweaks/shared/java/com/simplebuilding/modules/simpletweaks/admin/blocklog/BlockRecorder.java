@@ -51,12 +51,9 @@ public final class BlockRecorder {
 
     /** The plain lines of one sign side, joined with newlines. */
     public static String signText(SignBlockEntity sign, boolean front) {
-        var out = new StringBuilder();
-        for (var line : sign.getText(front ? SignTextSlot.FRONT : SignTextSlot.BACK).getMessages(false)) {
-            if (!out.isEmpty()) out.append('\n');
-            out.append(line.getString());
-        }
-        return out.toString();
+        var lines = new ArrayList<String>();
+        for (var line : sign.getText(front ? SignTextSlot.FRONT : SignTextSlot.BACK).getMessages(false)) lines.add(line.getString());
+        return String.join("\n", lines);
     }
     /** After a player edited a sign: logs side, old and new text (S) when the text changed. */
     public static void signEdited(ServerPlayer player, SignBlockEntity sign, boolean front, String before) {
