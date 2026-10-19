@@ -2793,7 +2793,9 @@ public final class DataIntegrityTests {
                     // Split stage 5b: Simple Crucibles' buckets keep their row in SimpleBuilding's functional tab (by id).
                     && !com.simplebuilding.util.BucketRefs.buckets().contains(item)
                     // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
-                    && !com.simplebuilding.util.HammerRefs.all().contains(item)) {
+                    && !com.simplebuilding.util.HammerRefs.all().contains(item)
+                    // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
+                    && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
