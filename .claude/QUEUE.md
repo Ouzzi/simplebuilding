@@ -409,7 +409,7 @@ Simple Shops – Server-Shop
 Rotator – zweite Funktion
 - [x] (oc-rotator) Rotator: platzierbaren Block in der Nebenhand + Rechtsklick auf einen Block tauscht den angeklickten Block gegen den aus der Nebenhand (abgebauter Block ins Inventar). Nur Blöcke, die ein Stein-Werkzeug abbauen kann (kein Obsidian o. ä.); wertvolle Blöcke wie Leuchtfeuer ausgeschlossen. Whitelist/Blacklist als Block-Tags bzw. Blocknamen in der Config (Liste hat Vorrang vor der Härte-Regel). Tausch kostet doppelte Haltbarkeit. Immer 1 s Ausholen (Wind-up-Animation), mit Effizienz V sofort; Zeit je nach Blockhärte leicht anpassen, damit Spitzhacke & Co. Vorteil behalten. Claims/Schutz beachten. (Namenspunkt bleibt offen, siehe nächste Zeile)
 - [~] (B, b-names, 17.10.) Rotator: besseren Namen vorschlagen (Besitzer wählt). (Besitzer 17.10.: Transposer / Transponierer; nur Anzeigename, Item-ID bleibt rotator)
-- [ ] Audit D-05: DE „Enderitklumpen“ vs. „Enderitnugget“ – Besitzer wählte 17.10. „nugget“ auf Basis einer falschen Angabe (Vanilla 26.3 DE heißt „Eisen-/Gold-/Kupferklumpen“, also passt „Klumpen“ zu Vanilla; auch Netheritklumpen betroffen). Rückfrage an Besitzer offen, nichts umbenannt.
+- [x] (Besitzer 19.10.: wie Vanilla → „Klumpen“ bleibt, nichts umbenannt) Audit D-05: DE „Enderitklumpen“ vs. „Enderitnugget“ – Besitzer wählte 17.10. „nugget“ auf Basis einer falschen Angabe (Vanilla 26.3 DE heißt „Eisen-/Gold-/Kupferklumpen“, also passt „Klumpen“ zu Vanilla; auch Netheritklumpen betroffen). Rückfrage an Besitzer offen, nichts umbenannt.
 
 Hollow Watcher – Verhalten (Abgrenzung zum Creaking)
 - [x] Steht er hinter dem Spieler, streckt er die Hände über die Schultern des Spielers, sodass man sie im Bild sieht (Erschrecken); Hände markanter rendern.
