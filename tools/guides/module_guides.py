@@ -526,6 +526,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:flint": ("flint", "Feuerstein"),
     "minecraft:compass": ("compass", "Kompass"), "minecraft:anvil": ("anvil", "Amboss"),
     "minecraft:ender_pearl": ("ender pearl", "Enderperle"),
+    "minecraft:barrel": ("barrel", "Fass"),
 }
 
 
