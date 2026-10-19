@@ -60,7 +60,8 @@ public final class MapsDiscover {
             "simplemaps:nether_wayfinder_map",
             "simplemaps:wayfinder_map",
             "simplemaps:wayfinder_maps",
-            "simplemaps:waypoints");
+            "simplemaps:waypoints",
+            "simplemaps:web_map");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
