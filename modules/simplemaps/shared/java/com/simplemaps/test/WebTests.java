@@ -146,6 +146,10 @@ final class WebTests {
             h.assertTrue(job.step(60) == 60 && job.tilesDone() == 1, "64 chunks complete one tile");
             run(job);
             h.assertTrue(job.done() && job.chunksDone() == 2 * WebExport.CHUNKS_PER_TILE, "every chunk of the explored tiles read once");
+            // A single explored pixel at an odd position survives the pyramid up to zoom 0.
+            String folder = WebExport.folder(Level.OVERWORLD);
+            int f = 1 << WebExport.MAX_ZOOM;
+            h.assertTrue(png(dir, folder, 0, Math.floorDiv(FAR_TILE, f), Math.floorDiv(FAR_TILE, f)) != null, "single odd pixel kept at zoom 0");
         } finally {
             delete(dir);
         }

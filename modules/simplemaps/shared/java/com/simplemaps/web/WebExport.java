@@ -304,11 +304,20 @@ public final class WebExport {
                 BufferedImage image = ImageIO.read(child.toFile());
                 if (image == null || image.getWidth() != TILE || image.getHeight() != TILE) continue;
                 for (int v = 0; v < half; v++) {
-                    for (int u = 0; u < half; u++) out[(dy * half + v) * TILE + dx * half + u] = image.getRGB(u * 2, v * 2);
+                    for (int u = 0; u < half; u++) out[(dy * half + v) * TILE + dx * half + u] = downsample(image, u * 2, v * 2);
                 }
             }
         }
         write(d.folder, z, x, y, out);
+    }
+
+    /** The first opaque pixel of a 2x2 block, so a small explored spot survives every zoom level. */
+    private static int downsample(BufferedImage image, int x, int y) {
+        for (int i = 0; i < 4; i++) {
+            int argb = image.getRGB(x + (i & 1), y + (i >> 1));
+            if ((argb >>> 24) != 0) return argb;
+        }
+        return 0;
     }
 
     /** Writes a tile (temp file, then move); an empty tile deletes an old file instead. Returns whether a file was written. */
