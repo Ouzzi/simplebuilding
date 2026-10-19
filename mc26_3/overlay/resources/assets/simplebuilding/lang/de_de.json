@@ -3626,5 +3626,6 @@
   "item.simplebuilding.iron_sledgehammer": "Eisen-Vorschlaghammer",
   "item.simplebuilding.netherite_sledgehammer": "Netherit-Vorschlaghammer",
   "item.simplebuilding.stone_sledgehammer": "Stein-Vorschlaghammer",
-  "tooltip.simplebuilding.sledgehammer.corner": "Schleichen + Rechtsklick halten: Achtel"
+  "tooltip.simplebuilding.sledgehammer.corner": "Schleichen + Rechtsklick halten: Achtel",
+  "container.simplebuilding.double_chest": "Große %s"
 }

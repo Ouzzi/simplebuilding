@@ -3626,5 +3626,6 @@
   "item.simplebuilding.iron_sledgehammer": "Iron Sledgehammer",
   "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
   "item.simplebuilding.stone_sledgehammer": "Stone Sledgehammer",
-  "tooltip.simplebuilding.sledgehammer.corner": "Sneak + hold right-click: cut an eighth"
+  "tooltip.simplebuilding.sledgehammer.corner": "Sneak + hold right-click: cut an eighth",
+  "container.simplebuilding.double_chest": "Large %s"
 }

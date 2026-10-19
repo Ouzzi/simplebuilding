@@ -39,7 +39,8 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
 
     private static Component displayTitle(TieredChestMenu menu, Component title) {
         if (menu.isShulkerBox()) return title;
-        Component block = Component.translatable("block.simplebuilding." + menu.tier().textureName() + "_chest");
+        // The chest's name by id (split stage 8b: on 26.3 Simple Storage's chest; this menu stays for the chest boats/carts).
+        Component block = com.simplebuilding.util.StorageRefs.chestBlock(menu.tier().textureName()).getName();
         return menu.isDouble() ? Component.translatable("container.simplebuilding.double_chest", block) : block;
     }
 
