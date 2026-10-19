@@ -293,13 +293,16 @@ def write_html(result: dict, scans: list[dict], out: Path, title: str) -> None:
             f"<b class=\"{'bad' if c['placeholder'] else ''}\">{c['placeholder']} Platzhalter</b> · {c['missing']} fehlt · "
             f"{c['noicon']} ohne Offline-Icon</p><img class=\"sheet\" alt=\"Kontaktbogen {e(tab['tab'])}\" "
             f"src=\"{_png_uri(tab['sheet'])}\">{'<ul>' + items + '</ul>' if items else ''}</section>")
-    page = f"""<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{e(title)}</title><style>
-:root{{--bg:#f6f5f2;--fg:#1d1d1b;--muted:#5d5d58;--card:#fff;--line:#d9d6cf;--bad:#b3261e}}
-@media (prefers-color-scheme:dark){{:root:not([data-theme="light"]){{--bg:#1b1b1a;--fg:#ecebe6;--muted:#a9a8a0;--card:#252523;--line:#3a3a37;--bad:#ff8a80}}}}
-:root[data-theme="dark"]{{--bg:#1b1b1a;--fg:#ecebe6;--muted:#a9a8a0;--card:#252523;--line:#3a3a37;--bad:#ff8a80}}
+    # Page body only (no html/head/body): opens in any browser and fits the Artifact page contract (privately published).
+    page = f"""<title>{e(title)}</title><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover"><style>
+/* layout: one column of tab cards, each a creative-inventory-like contact sheet; slate greys like the game's GUI */
+:root{{--bg:#eef0f2;--fg:#1c2026;--muted:#56606b;--card:#ffffff;--line:#d3d8de;--bad:#b3261e;--mono:ui-monospace,Consolas,monospace}}
+@media (prefers-color-scheme:dark){{:root:not([data-theme="light"]){{--bg:#16191d;--fg:#e8ebee;--muted:#a3adb8;--card:#1f2328;--line:#343a42;--bad:#ff8a80;color-scheme:dark}}}}
+:root[data-theme="dark"]{{--bg:#16191d;--fg:#e8ebee;--muted:#a3adb8;--card:#1f2328;--line:#343a42;--bad:#ff8a80;color-scheme:dark}}
 body{{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}}
-main{{max-width:980px;margin:0 auto;padding:16px}}
+main{{max-width:980px;margin:0 auto;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+code{{font-family:var(--mono)}} td{{font-variant-numeric:tabular-nums}} h1,h2{{text-wrap:balance}}
 section{{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:16px 0}}
 h1{{font-size:1.5rem}} h2{{font-size:1.1rem;margin:.2em 0}} .meta{{color:var(--muted);margin:.2em 0 .6em}}
 .bad{{color:var(--bad)}} .sheet{{image-rendering:pixelated;max-width:100%;height:auto;border:1px solid var(--line)}}
@@ -314,7 +317,7 @@ Roter Rahmen = graue Platzhalter-Textur, magenta = Textur/Definition fehlt oder 
 {total['noicon']} ohne Offline-Icon</p>
 <section><h2>Jars</h2><div class="scroll"><table><tr><th>Jar</th><th>Texturen</th><th>Platzhalter</th><th>Marker</th></tr>{jar_rows}</table></div></section>
 {''.join(tabs_html)}
-</main></body></html>"""
+</main>"""
     out.write_text(page, encoding='utf-8')
 
 
