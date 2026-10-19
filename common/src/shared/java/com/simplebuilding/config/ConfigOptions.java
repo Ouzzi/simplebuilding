@@ -115,6 +115,7 @@ public final class ConfigOptions {
             "enableSimpleWanderers",
             "enableSimpleBlocks",
             "enableSimpleOctets",
+            "enableSimpleHammers",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

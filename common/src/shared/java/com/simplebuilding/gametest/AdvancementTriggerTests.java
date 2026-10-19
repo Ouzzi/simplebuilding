@@ -130,7 +130,7 @@ public final class AdvancementTriggerTests {
                 helper.setBlock(centre.offset(dx, 0, dz), Blocks.STONE);
             }
         }
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         BlockPos origin = helper.absolutePos(centre);
         SledgehammerUsageEvent.handleBeforeBlockBreak(helper.getLevel(), player, origin, helper.getLevel().getBlockState(origin), null);
         helper.assertValueEqual(ModCounters.get(player, ModCounters.HAMMER_BLOCKS), 8L, "blocks counted for one 3x3 swing");

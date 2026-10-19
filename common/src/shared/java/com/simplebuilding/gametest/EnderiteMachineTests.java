@@ -411,7 +411,7 @@ public final class EnderiteMachineTests {
      * {@code #simplebuilding:enderite_items}, and a lifetime other than twice vanilla.
      */
     public static void everyEnderiteItemDropLastsTwiceAsLongAsVanilla(GameTestHelper helper) {
-        ItemEntity hammer = drop(helper, new BlockPos(1, 2, 1), ModItems.ENDERITE_SLEDGEHAMMER);
+        ItemEntity hammer = drop(helper, new BlockPos(1, 2, 1), com.simplebuilding.util.HammerRefs.item("enderite"));
         ItemEntity scrap = drop(helper, new BlockPos(3, 2, 1), ModItems.ENDERITE_SCRAP);
         ItemEntity flypad = drop(helper, new BlockPos(5, 2, 1), com.simplebuilding.tweaks.block.TweaksBlocks.STELLAR_FLYPAD.asItem());
         ItemEntity netherite = drop(helper, new BlockPos(1, 2, 4), Items.NETHERITE_INGOT);

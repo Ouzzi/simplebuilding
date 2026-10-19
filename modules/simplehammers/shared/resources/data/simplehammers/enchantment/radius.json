@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.simplehammers.radius"
+  },
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 20
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 20
+  },
+  "primary_items": "#simplehammers:sledgehammers",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#simplehammers:radius_enchantable",
+  "weight": 1
+}

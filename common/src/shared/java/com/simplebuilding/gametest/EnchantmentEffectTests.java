@@ -68,7 +68,7 @@ public final class EnchantmentEffectTests {
         // --- without the enchantment: the plain 3x3 ---
         fillLayer(helper, 2, 0, 6, 0, 6, Blocks.STONE);
         player.setShiftKeyDown(false);
-        swing(helper, player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        swing(helper, player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(2, 0, 0));
 
         // --- with Radius I: the ring at distance 2 goes too ---
@@ -137,7 +137,7 @@ public final class EnchantmentEffectTests {
         // --- without it, the layer below survives ---
         fillCube(helper, 1, 5, 1, 2, 1, 5, Blocks.STONE);
         player.setShiftKeyDown(false);
-        swing(helper, player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        swing(helper, player, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, -1, 0));
 
         // --- with Break Through I, the layer below goes as well ---
@@ -443,7 +443,7 @@ public final class EnchantmentEffectTests {
     }
 
     private static ItemStack hammerWith(GameTestHelper helper, ResourceKey<Enchantment> key, int level) {
-        ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack stack = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         stack.enchant(enchantment(helper, key), level);
         return stack;
     }

@@ -247,7 +247,7 @@ public final class SawTests {
         h.assertTrue(!SawUpgrade.tryUpgrade(level, pos, player, hand, hammer, rule), name + ": no second upgrade");
     }
 
-    /** Path without SimpleBuilding: an axe and 4 iron nuggets; a hammer-mode rule refuses the axe. */
+    /** Path without Simple Hammers: an axe and 4 iron nuggets; a hammer-mode rule refuses the axe. */
     private static void upgradeAxe(GameTestHelper h) {
         ItemStack axe = new ItemStack(Items.IRON_AXE);
         h.assertTrue(SawUpgrade.toolFits(axe, false) && !SawUpgrade.toolFits(axe, true), "axe fits only the axe path");
@@ -257,7 +257,7 @@ public final class SawTests {
     }
 
     /**
-     * Path with SimpleBuilding: a hammer ({@code #simplelib:hammers}) and 4 iron nuggets. With a hammer mod loaded a real
+     * Path with Simple Hammers: a hammer ({@code #simplelib:hammers}) and 4 iron nuggets. With a hammer mod loaded a real
      * hammer is used; standalone (no hammer exists) the same flow runs with a stand-in tool for the hammer rule.
      */
     private static void upgradeHammer(GameTestHelper h) {
@@ -278,10 +278,10 @@ public final class SawTests {
         h.succeed();
     }
 
-    /** The loaders pick the hammer path exactly when SimpleBuilding is loaded. */
+    /** The loaders pick the hammer path exactly when Simple Hammers is loaded (split stage 7; before: SimpleBuilding). */
     private static void upgradeMode(GameTestHelper h) {
-        boolean sb = BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals("simplebuilding"));
-        h.assertTrue(SawUpgrade.hammerMode == sb, "hammer mode " + SawUpgrade.hammerMode + " but SimpleBuilding loaded " + sb);
+        boolean hammers = BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals("simplehammers"));
+        h.assertTrue(SawUpgrade.hammerMode == hammers, "hammer mode " + SawUpgrade.hammerMode + " but Simple Hammers loaded " + hammers);
         h.succeed();
     }
 }

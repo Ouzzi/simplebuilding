@@ -161,11 +161,18 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
     problems: list[str] = []
     raw = path.read_text(encoding="utf-8")
     text = _strip_comments(raw)
+    # HammerRefs.item("gold") -> HammerRefs.GOLD_SLEDGEHAMMER, so the entry patterns below read it like a field.
+    text = re.sub(r'(?:com\.simplebuilding\.util\.)?HammerRefs\.item\("(\w+)"\)', lambda m: f"HammerRefs.{m.group(1).upper()}_SLEDGEHAMMER", text)
     constants = {name: float(value) for name, value in
                  re.findall(r"static final float (\w+) = ([0-9.]+)f?;", text)}
 
+    hammers_moved = (version_flags or {}).get("HAMMERS_IN_SB") is False
+
     def item_id(owner: str, const: str) -> str:
         identifier = f"{ns}:{const.lower()}"
+        # 26.3 split stage 7: the sledgehammers are Simple Hammers' (util/HammerRefs, by id).
+        if owner == "HammerRefs":
+            identifier = f"{'simplehammers' if hammers_moved else ns}:{const.lower()}"
         # 26.3 split stage 3d: the shared materials are SimpleLib's (ModItems fields point at them).
         shared = f"simplelib:{const.lower()}"
         if identifier not in item_ids and (version_flags or {}).get("MATERIALS_IN_LIB") and shared in item_ids:
@@ -176,6 +183,9 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
 
     def ench_id(const: str) -> str:
         identifier = f"{ns}:{const.lower()}"
+        # 26.3 split stage 7: Break Through, Override and Radius are Simple Hammers' enchantments.
+        if hammers_moved and const in ("BREAK_THROUGH", "OVERRIDE", "RADIUS"):
+            identifier = f"simplehammers:{const.lower()}"
         if identifier not in ench_ids:
             problems.append(f"{path.name}: ModEnchantments.{const} is no enchantment the wiki knows ({identifier})")
         return identifier

@@ -9197,11 +9197,11 @@
         "count": 81,
         "damage": 1,
         "hammers": [
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer"
+          "simplehammers:diamond_sledgehammer",
+          "simplehammers:enderite_sledgehammer",
+          "simplehammers:gold_sledgehammer",
+          "simplehammers:iron_sledgehammer",
+          "simplehammers:netherite_sledgehammer"
         ],
         "input": "simplelib:cracked_diamond_block",
         "result": "simplelib:diamond_pebble",
@@ -9210,11 +9210,11 @@
     ],
     "damage": 1,
     "hammers": [
-      "simplebuilding:diamond_sledgehammer",
-      "simplebuilding:enderite_sledgehammer",
-      "simplebuilding:gold_sledgehammer",
-      "simplebuilding:iron_sledgehammer",
-      "simplebuilding:netherite_sledgehammer"
+      "simplehammers:diamond_sledgehammer",
+      "simplehammers:enderite_sledgehammer",
+      "simplehammers:gold_sledgehammer",
+      "simplehammers:iron_sledgehammer",
+      "simplehammers:netherite_sledgehammer"
     ],
     "result": "simplelib:diamond_pebble",
     "strikeResetTicks": 100,
@@ -9242,13 +9242,13 @@
     ],
     "durabilityPerFlip": 1,
     "hammers": [
-      "simplebuilding:copper_sledgehammer",
-      "simplebuilding:diamond_sledgehammer",
-      "simplebuilding:enderite_sledgehammer",
-      "simplebuilding:gold_sledgehammer",
-      "simplebuilding:iron_sledgehammer",
-      "simplebuilding:netherite_sledgehammer",
-      "simplebuilding:stone_sledgehammer"
+      "simplehammers:copper_sledgehammer",
+      "simplehammers:diamond_sledgehammer",
+      "simplehammers:enderite_sledgehammer",
+      "simplehammers:gold_sledgehammer",
+      "simplehammers:iron_sledgehammer",
+      "simplehammers:netherite_sledgehammer",
+      "simplehammers:stone_sledgehammer"
     ]
   },
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
@@ -9333,31 +9333,31 @@
     "damage": 1,
     "hammers": [
       {
-        "id": "simplebuilding:copper_sledgehammer",
+        "id": "simplehammers:copper_sledgehammer",
         "ticks": 40
       },
       {
-        "id": "simplebuilding:diamond_sledgehammer",
+        "id": "simplehammers:diamond_sledgehammer",
         "ticks": 25
       },
       {
-        "id": "simplebuilding:enderite_sledgehammer",
+        "id": "simplehammers:enderite_sledgehammer",
         "ticks": 20
       },
       {
-        "id": "simplebuilding:gold_sledgehammer",
+        "id": "simplehammers:gold_sledgehammer",
         "ticks": 16
       },
       {
-        "id": "simplebuilding:iron_sledgehammer",
+        "id": "simplehammers:iron_sledgehammer",
         "ticks": 33
       },
       {
-        "id": "simplebuilding:netherite_sledgehammer",
+        "id": "simplehammers:netherite_sledgehammer",
         "ticks": 22
       },
       {
-        "id": "simplebuilding:stone_sledgehammer",
+        "id": "simplehammers:stone_sledgehammer",
         "ticks": 40
       }
     ],
@@ -9370,31 +9370,31 @@
     "finishCooldownTicks": 20,
     "hammers": [
       {
-        "id": "simplebuilding:copper_sledgehammer",
+        "id": "simplehammers:copper_sledgehammer",
         "rank": 0
       },
       {
-        "id": "simplebuilding:diamond_sledgehammer",
+        "id": "simplehammers:diamond_sledgehammer",
         "rank": 1
       },
       {
-        "id": "simplebuilding:enderite_sledgehammer",
+        "id": "simplehammers:enderite_sledgehammer",
         "rank": 3
       },
       {
-        "id": "simplebuilding:gold_sledgehammer",
+        "id": "simplehammers:gold_sledgehammer",
         "rank": 0
       },
       {
-        "id": "simplebuilding:iron_sledgehammer",
+        "id": "simplehammers:iron_sledgehammer",
         "rank": 0
       },
       {
-        "id": "simplebuilding:netherite_sledgehammer",
+        "id": "simplehammers:netherite_sledgehammer",
         "rank": 2
       },
       {
-        "id": "simplebuilding:stone_sledgehammer",
+        "id": "simplehammers:stone_sledgehammer",
         "rank": 0
       }
     ],
@@ -9406,7 +9406,7 @@
         "durationTicks": 100,
         "from": "minecraft:copper_chest",
         "hits": 5,
-        "minimumHammer": "simplebuilding:copper_sledgehammer",
+        "minimumHammer": "simplehammers:copper_sledgehammer",
         "nugget": "simplelib:cracked_diamond",
         "nuggetCount": 1,
         "to": "simplebuilding:reinforced_chest",
@@ -9417,7 +9417,7 @@
         "durationTicks": 200,
         "from": "minecraft:shulker_box",
         "hits": 10,
-        "minimumHammer": "simplebuilding:copper_sledgehammer",
+        "minimumHammer": "simplehammers:copper_sledgehammer",
         "nugget": "simplelib:cracked_diamond",
         "nuggetCount": 2,
         "to": "simplebuilding:reinforced_shulker_box",
@@ -9428,7 +9428,7 @@
         "durationTicks": 400,
         "from": "minecraft:enchanting_table",
         "hits": 20,
-        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "minimumHammer": "simplehammers:netherite_sledgehammer",
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:astral_enchanting_table",
@@ -9439,7 +9439,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:netherite_chest",
         "hits": 5,
-        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "minimumHammer": "simplehammers:netherite_sledgehammer",
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_chest",
@@ -9450,7 +9450,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:netherite_hopper",
         "hits": 5,
-        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "minimumHammer": "simplehammers:netherite_sledgehammer",
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_hopper",
@@ -9461,7 +9461,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:netherite_piston",
         "hits": 5,
-        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "minimumHammer": "simplehammers:netherite_sledgehammer",
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_piston",
@@ -9472,7 +9472,7 @@
         "durationTicks": 200,
         "from": "simplebuilding:netherite_shulker_box",
         "hits": 10,
-        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "minimumHammer": "simplehammers:netherite_sledgehammer",
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 2,
         "to": "simplebuilding:enderite_shulker_box",
@@ -9483,7 +9483,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:netherite_trapped_chest",
         "hits": 5,
-        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "minimumHammer": "simplehammers:netherite_sledgehammer",
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_trapped_chest",
@@ -9494,7 +9494,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_chest",
         "hits": 5,
-        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "minimumHammer": "simplehammers:diamond_sledgehammer",
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_chest",
@@ -9505,7 +9505,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_hopper",
         "hits": 5,
-        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "minimumHammer": "simplehammers:diamond_sledgehammer",
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_hopper",
@@ -9516,7 +9516,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_piston",
         "hits": 5,
-        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "minimumHammer": "simplehammers:diamond_sledgehammer",
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_piston",
@@ -9527,7 +9527,7 @@
         "durationTicks": 200,
         "from": "simplebuilding:reinforced_shulker_box",
         "hits": 10,
-        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "minimumHammer": "simplehammers:diamond_sledgehammer",
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 2,
         "to": "simplebuilding:netherite_shulker_box",
@@ -9538,7 +9538,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_sticky_piston",
         "hits": 5,
-        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "minimumHammer": "simplehammers:diamond_sledgehammer",
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_piston",
@@ -9549,7 +9549,7 @@
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_trapped_chest",
         "hits": 5,
-        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "minimumHammer": "simplehammers:diamond_sledgehammer",
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_trapped_chest",
@@ -9560,13 +9560,13 @@
   "trimTemplate": {
     "damage": 1,
     "hammers": [
-      "simplebuilding:copper_sledgehammer",
-      "simplebuilding:diamond_sledgehammer",
-      "simplebuilding:enderite_sledgehammer",
-      "simplebuilding:gold_sledgehammer",
-      "simplebuilding:iron_sledgehammer",
-      "simplebuilding:netherite_sledgehammer",
-      "simplebuilding:stone_sledgehammer"
+      "simplehammers:copper_sledgehammer",
+      "simplehammers:diamond_sledgehammer",
+      "simplehammers:enderite_sledgehammer",
+      "simplehammers:gold_sledgehammer",
+      "simplehammers:iron_sledgehammer",
+      "simplehammers:netherite_sledgehammer",
+      "simplehammers:stone_sledgehammer"
     ],
     "placedHits": 5,
     "templates": [

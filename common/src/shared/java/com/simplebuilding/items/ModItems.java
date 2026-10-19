@@ -626,21 +626,21 @@ public class ModItems {
     // Reichweite, ohne Haltbarkeit und Materialverbrauch (BuildingWandItem#freeBuild).
     public static final BuildingWandItem CREATIVE_BUILDING_WAND = registerCreativeBuildingWand();
 
-    // Sledgehammer
+    // Sledgehammer: 26.3 Simple Hammers (simplehammers:, split stage 7, util/HammerRefs); 26.2 SimpleBuilding's own.
 
-    public static final SledgehammerItem STONE_SLEDGEHAMMER = registerSledgehammer("stone_sledgehammer", DURABILITY_STONE_SLEDGEHAMMER, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE, SledgehammerItem.STONE_ATTACK_DAMAGE, SledgehammerItem.STONE_ATTACK_SPEED);
+    public static final SledgehammerItem STONE_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("stone_sledgehammer", DURABILITY_STONE_SLEDGEHAMMER, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE, SledgehammerItem.STONE_ATTACK_DAMAGE, SledgehammerItem.STONE_ATTACK_SPEED) : null;
 
-    public static final SledgehammerItem COPPER_SLEDGEHAMMER = registerSledgehammer("copper_sledgehammer", DURABILITY_COPPER_SLEDGEHAMMER, ENCHANTABILITY_COPPER, ToolMaterial.COPPER, SledgehammerItem.COPPER_ATTACK_DAMAGE, SledgehammerItem.COPPER_ATTACK_SPEED);
+    public static final SledgehammerItem COPPER_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("copper_sledgehammer", DURABILITY_COPPER_SLEDGEHAMMER, ENCHANTABILITY_COPPER, ToolMaterial.COPPER, SledgehammerItem.COPPER_ATTACK_DAMAGE, SledgehammerItem.COPPER_ATTACK_SPEED) : null;
 
-    public static final SledgehammerItem IRON_SLEDGEHAMMER = registerSledgehammer("iron_sledgehammer", DURABILITY_IRON_SLEDGEHAMMER, ENCHANTABILITY_IRON, ToolMaterial.IRON, SledgehammerItem.IRON_ATTACK_DAMAGE, SledgehammerItem.IRON_ATTACK_SPEED);
+    public static final SledgehammerItem IRON_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("iron_sledgehammer", DURABILITY_IRON_SLEDGEHAMMER, ENCHANTABILITY_IRON, ToolMaterial.IRON, SledgehammerItem.IRON_ATTACK_DAMAGE, SledgehammerItem.IRON_ATTACK_SPEED) : null;
 
-    public static final SledgehammerItem GOLD_SLEDGEHAMMER = registerSledgehammer("gold_sledgehammer", DURABILITY_GOLD_SLEDGEHAMMER, ENCHANTABILITY_GOLD, ToolMaterial.GOLD, SledgehammerItem.GOLD_ATTACK_DAMAGE, SledgehammerItem.GOLD_ATTACK_SPEED);
+    public static final SledgehammerItem GOLD_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("gold_sledgehammer", DURABILITY_GOLD_SLEDGEHAMMER, ENCHANTABILITY_GOLD, ToolMaterial.GOLD, SledgehammerItem.GOLD_ATTACK_DAMAGE, SledgehammerItem.GOLD_ATTACK_SPEED) : null;
 
-    public static final SledgehammerItem DIAMOND_SLEDGEHAMMER = registerSledgehammer("diamond_sledgehammer", DURABILITY_DIAMOND_SLEDGEHAMMER, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND, SledgehammerItem.DIAMOND_ATTACK_DAMAGE, SledgehammerItem.DIAMOND_ATTACK_SPEED);
+    public static final SledgehammerItem DIAMOND_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("diamond_sledgehammer", DURABILITY_DIAMOND_SLEDGEHAMMER, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND, SledgehammerItem.DIAMOND_ATTACK_DAMAGE, SledgehammerItem.DIAMOND_ATTACK_SPEED) : null;
 
-    public static final SledgehammerItem NETHERITE_SLEDGEHAMMER = registerSledgehammer("netherite_sledgehammer", DURABILITY_NETHERITE_SLEDGEHAMMER, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE, SledgehammerItem.NETHERITE_ATTACK_DAMAGE, SledgehammerItem.NETHERITE_ATTACK_SPEED);
+    public static final SledgehammerItem NETHERITE_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("netherite_sledgehammer", DURABILITY_NETHERITE_SLEDGEHAMMER, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE, SledgehammerItem.NETHERITE_ATTACK_DAMAGE, SledgehammerItem.NETHERITE_ATTACK_SPEED) : null;
 
-    public static final SledgehammerItem ENDERITE_SLEDGEHAMMER = registerSledgehammer("enderite_sledgehammer", DURABILITY_ENDERITE_SLEDGEHAMMER, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE, SledgehammerItem.ENDERITE_ATTACK_DAMAGE, SledgehammerItem.ENDERITE_ATTACK_SPEED);
+    public static final SledgehammerItem ENDERITE_SLEDGEHAMMER = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? registerSledgehammer("enderite_sledgehammer", DURABILITY_ENDERITE_SLEDGEHAMMER, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE, SledgehammerItem.ENDERITE_ATTACK_DAMAGE, SledgehammerItem.ENDERITE_ATTACK_SPEED) : null;
 
     // Chisels (Forward)
 
@@ -1363,7 +1363,7 @@ public class ModItems {
         }
         // Module split 3c: upgrade handlers and octet cells in SimpleLib (26.3; no-op on 26.2); 3d: shared materials requested.
         com.simplebuilding.util.LibServices.init();
-        // Principle 5a: the sledgehammer replaces SimpleLib's axe ways (own call, moves to Simple Hammers in stage 7).
+        // Principle 5a: 26.2 only (26.3: Simple Hammers switches SimpleLib's axe ways off itself, split stage 7).
         com.simplebuilding.util.LibServices.hammersReplaceAxes();
 
 

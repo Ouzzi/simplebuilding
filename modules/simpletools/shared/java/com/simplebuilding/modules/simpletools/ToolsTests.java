@@ -58,15 +58,15 @@ public final class ToolsTests {
  public static void durability(GameTestHelper h){configured(()->{
   var p=h.makeMockServerPlayerInLevel();p.setGameMode(GameType.SURVIVAL);
   var vanilla=new ItemStack(Items.DIAMOND_PICKAXE);
-  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));
+  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplehammers:diamond_sledgehammer")));
   // A component-defined tool models third-party stacks without a Vanilla tool subclass.
   var foreign=new ItemStack(Items.STICK);foreign.set(DataComponents.MAX_STACK_SIZE,1);
   foreign.set(DataComponents.MAX_DAMAGE,400);foreign.set(DataComponents.DAMAGE,0);
   foreign.set(DataComponents.TOOL,vanilla.get(DataComponents.TOOL));
   var c=SimpleTools.config();
   close(h,c.fullDurabilityBonusMultiplier,1,"Fresh server default has no bonus");
-  // The SimpleBuilding hammer joins only when SimpleBuilding is loaded (standalone: Vanilla and component tools).
-  for(var stack:isModLoaded("simplebuilding")?List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign):List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),foreign)){
+  // The sledgehammer joins only when Simple Hammers is loaded (standalone: Vanilla and component tools).
+  for(var stack:isModLoaded("simplehammers")?List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign):List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),foreign)){
    h.assertTrue(stack.isDamageableItem(),"All tool kinds are damageable");
    p.setItemSlot(EquipmentSlot.MAINHAND,stack);c.enableFullDurabilityBonus=false;
    double damage=p.getAttributeValue(Attributes.ATTACK_DAMAGE);float mining=p.getDestroySpeed(Blocks.STONE.defaultBlockState());
@@ -123,7 +123,7 @@ public final class ToolsTests {
  });h.succeed();}
  public static void crossMod(GameTestHelper h){if(partnerMissing(h,"simplebuilding","Simple Tools cross-mod checks"))return;configured(()->{
   var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_furnace"));h.assertTrue(block!=Blocks.AIR,"Public SimpleBuilding furnace ID");var pos=new BlockPos(2,2,2);h.setBlock(pos,block);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.LAVA_BUCKET));h.assertTrue(FurnaceLavaFillHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,h.absolutePos(pos),Direction.UP)==InteractionResult.SUCCESS,"Foreign furnace follows Vanilla fuel interface");h.assertTrue(((AbstractFurnaceBlockEntity)h.getLevel().getBlockEntity(h.absolutePos(pos))).getItem(1).is(Items.LAVA_BUCKET),"Foreign fuel slot updated");
-  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));h.assertTrue(hammer.isDamageableItem(),"Public foreign damageable tool ID");p.setItemSlot(EquipmentSlot.MAINHAND,hammer);SimpleTools.config().enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);SimpleTools.config().enableFullDurabilityBonus=true;SimpleTools.config().fullDurabilityBonusMultiplier=1.5;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Foreign tool receives exactly one capped bonus");
+  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplehammers:diamond_sledgehammer")));h.assertTrue(hammer.isDamageableItem(),"Public foreign damageable tool ID");p.setItemSlot(EquipmentSlot.MAINHAND,hammer);SimpleTools.config().enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);SimpleTools.config().enableFullDurabilityBonus=true;SimpleTools.config().fullDurabilityBonusMultiplier=1.5;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Foreign tool receives exactly one capped bonus");
  });h.succeed();}
 // MOVED-END
 

@@ -63,8 +63,9 @@ public final class InfoTooltips {
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION && item == ModItems.SILENT_DANDELION) {
             out.add(gray("tooltip.simplebuilding.silent_dandelion"));
         }
-        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
-                && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
+        // 26.3 (split stage 7): Simple Hammers shows this line itself.
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS && com.simplebuilding.version.McVersion.HAMMERS_IN_SB
+                && com.simplebuilding.items.custom.SledgehammerItem.isHammer(item)) {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
         }
         // Material-Achtel und Melonenscheibe: Tooltips von Simple Octets (Stufe 6); essbare Glitzermelone bleibt hier.

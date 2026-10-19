@@ -1710,6 +1710,11 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
         # Split stage 3d: the shared materials SimpleBuilding's loot hands out are SimpleLib items.
         item_ids |= {"simplelib:" + p.stem for p in (REPO / "modules/simplelib/generated/resources/assets/simplelib/items").glob("*.json")}
     ench_ids = {e["id"] for e in enchantments}
+    if (version_flags(roots) or {}).get("HAMMERS_IN_SB") is False:
+        # Split stage 7: SimpleBuilding's loot hands out Simple Hammers' sledgehammers and hammer enchantments.
+        hammers = REPO / "modules/simplehammers/shared/resources"
+        item_ids |= {"simplehammers:" + p.stem for p in (hammers / "assets/simplehammers/items").glob("*.json")}
+        ench_ids |= {"simplehammers:" + p.stem for p in (hammers / "data/simplehammers/enchantment").glob("*.json")}
     sources: list[dict] = []
     loot_file = next((REPO / root / "loot" / "ModLootTableModifications.java" for root in roots["code_roots"]
                       if (REPO / root / "loot" / "ModLootTableModifications.java").exists()), None)

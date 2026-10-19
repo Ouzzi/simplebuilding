@@ -112,10 +112,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(Items.END_STONE));
 
             // Teasers in the vanilla tabs.
-            node("story/hammer_time", Identifier.withDefaultNamespace("story/upgrade_tools"), ModItems.STONE_SLEDGEHAMMER,
-                    AdvancementType.TASK, "sledgehammer", any(ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER,
-                            ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER,
-                            ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_SLEDGEHAMMER));
+            node("story/hammer_time", Identifier.withDefaultNamespace("story/upgrade_tools"), com.simplebuilding.util.HammerRefs.item("stone"),
+                    AdvancementType.TASK, "sledgehammer", any(com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"),
+                            com.simplebuilding.util.HammerRefs.item("iron"), com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"),
+                            com.simplebuilding.util.HammerRefs.item("netherite"), com.simplebuilding.util.HammerRefs.item("enderite")));
             node("nether/nugget_of_wisdom", Identifier.withDefaultNamespace("nether/root"), ModItems.NETHERITE_NUGGET,
                     AdvancementType.TASK, "netherite_nugget", any(ModItems.NETHERITE_NUGGET));
 
@@ -136,7 +136,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         }
 
         private void hammerAndMachines(AdvancementHolder root) {
-            AdvancementHolder stairs = feature("hammer/stair_master", root, ModItems.STONE_SLEDGEHAMMER, AdvancementType.TASK, ModTriggers.HAMMER_RESHAPE);
+            AdvancementHolder stairs = feature("hammer/stair_master", root, com.simplebuilding.util.HammerRefs.item("stone"), AdvancementType.TASK, ModTriggers.HAMMER_RESHAPE);
             AdvancementHolder pebbles = feature("hammer/pebble_dash", stairs, ModItems.DIAMOND_PEBBLE, AdvancementType.TASK, ModTriggers.DIAMOND_CRUSH);
             AdvancementHolder cracked = node("hammer/cracked_up", pebbles, ModItems.CRACKED_DIAMOND, AdvancementType.TASK,
                     "cracked_diamond", any(ModItems.CRACKED_DIAMOND));
@@ -147,9 +147,9 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     : feature("hammer/glow_up", stairs, ModItems.GLOWING_TRIM_TEMPLATE, AdvancementType.TASK, ModTriggers.TRIM_TEMPLATE_FORGED);
             AdvancementHolder bright = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : node("hammer/bright_idea", glow, ModItems.EMITTING_TRIM_TEMPLATE, AdvancementType.TASK,
                     "emitting_trim_template", any(ModItems.EMITTING_TRIM_TEMPLATE));
-            node("hammer/heavy_metal", stairs, ModItems.NETHERITE_SLEDGEHAMMER, AdvancementType.GOAL,
-                    "netherite_sledgehammer", any(ModItems.NETHERITE_SLEDGEHAMMER));
-            counter("hammer/demolition_crew", stairs, ModItems.DIAMOND_SLEDGEHAMMER, AdvancementType.CHALLENGE,
+            node("hammer/heavy_metal", stairs, com.simplebuilding.util.HammerRefs.item("netherite"), AdvancementType.GOAL,
+                    "netherite_sledgehammer", any(com.simplebuilding.util.HammerRefs.item("netherite")));
+            counter("hammer/demolition_crew", stairs, com.simplebuilding.util.HammerRefs.item("diamond"), AdvancementType.CHALLENGE,
                     ModCounters.HAMMER_BLOCKS, 10_000);
             // Radiance V: an armor piece whose emission level (GlowingTrimUtils) reached the maximum.
             CompoundTag radiance = new CompoundTag();
@@ -186,21 +186,21 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         /** The tool tiers, one step per material - the mod's version of "Getting an Upgrade". */
         private void tiers(AdvancementHolder root) {
             AdvancementHolder copper = node("tiers/copper_crafter", root, ModItems.COPPER_CHISEL, AdvancementType.TASK, "copper_tool",
-                    any(ModItems.COPPER_CHISEL, ModItems.COPPER_SLEDGEHAMMER, ModItems.COPPER_BUILDING_WAND));
+                    any(ModItems.COPPER_CHISEL, com.simplebuilding.util.HammerRefs.item("copper"), ModItems.COPPER_BUILDING_WAND));
             AdvancementHolder template = node("tiers/step_by_step", copper, ModItems.BASIC_UPGRADE_TEMPLATE, AdvancementType.TASK,
                     "basic_upgrade_template", any(ModItems.BASIC_UPGRADE_TEMPLATE));
-            AdvancementHolder iron = node("tiers/ironclad", copper, ModItems.IRON_SLEDGEHAMMER, AdvancementType.TASK, "iron_tool",
-                    any(ModItems.IRON_CHISEL, ModItems.IRON_SLEDGEHAMMER, ModItems.IRON_BUILDING_WAND));
+            AdvancementHolder iron = node("tiers/ironclad", copper, com.simplebuilding.util.HammerRefs.item("iron"), AdvancementType.TASK, "iron_tool",
+                    any(ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("iron"), ModItems.IRON_BUILDING_WAND));
             // The mining enchantments: books from chests and traders, used while sneaking.
             feature("mining/all_in_vein", iron, Items.IRON_ORE, AdvancementType.TASK, ModTriggers.VEIN_MINE);
             feature("mining/tunnel_vision", iron, Items.IRON_PICKAXE, AdvancementType.TASK, ModTriggers.STRIP_MINE);
             feature("mining/right_tool_for_the_job", iron, Items.IRON_AXE, AdvancementType.TASK, ModTriggers.VERSATILITY_SWAP);
-            node("tiers/golden_touch", template, ModItems.GOLD_SLEDGEHAMMER, AdvancementType.TASK, "gold_tool",
-                    any(ModItems.GOLD_CHISEL, ModItems.GOLD_SLEDGEHAMMER, ModItems.GOLD_BUILDING_WAND));
-            AdvancementHolder diamond = node("tiers/diamond_standard", iron, ModItems.DIAMOND_SLEDGEHAMMER, AdvancementType.TASK, "diamond_tool",
-                    any(ModItems.DIAMOND_CHISEL, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.DIAMOND_BUILDING_WAND));
+            node("tiers/golden_touch", template, com.simplebuilding.util.HammerRefs.item("gold"), AdvancementType.TASK, "gold_tool",
+                    any(ModItems.GOLD_CHISEL, com.simplebuilding.util.HammerRefs.item("gold"), ModItems.GOLD_BUILDING_WAND));
+            AdvancementHolder diamond = node("tiers/diamond_standard", iron, com.simplebuilding.util.HammerRefs.item("diamond"), AdvancementType.TASK, "diamond_tool",
+                    any(ModItems.DIAMOND_CHISEL, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.DIAMOND_BUILDING_WAND));
             node("tiers/nether_forged", diamond, ModItems.NETHERITE_CHISEL, AdvancementType.GOAL, "netherite_tool",
-                    any(ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.NETHERITE_BUILDING_WAND));
+                    any(ModItems.NETHERITE_CHISEL, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.NETHERITE_BUILDING_WAND));
         }
 
         private void storage(AdvancementHolder root) {
@@ -366,8 +366,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                             ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_HOE));
             node("enderite/master_builder", template, ModItems.ENDERITE_BUILDING_WAND, AdvancementType.GOAL, "enderite_building_tool",
                     any(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND));
-            node("enderite/hammer_of_the_end", template, ModItems.ENDERITE_SLEDGEHAMMER, AdvancementType.CHALLENGE,
-                    "enderite_sledgehammer", any(ModItems.ENDERITE_SLEDGEHAMMER));
+            node("enderite/hammer_of_the_end", template, com.simplebuilding.util.HammerRefs.item("enderite"), AdvancementType.CHALLENGE,
+                    "enderite_sledgehammer", any(com.simplebuilding.util.HammerRefs.item("enderite")));
             node("enderite/endless_pockets", template, ModItems.ENDERITE_BUNDLE, AdvancementType.GOAL, "enderite_storage",
                     any(ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK));
             node("enderite/heart_of_the_end", template, ModItems.ENDERITE_CORE, AdvancementType.GOAL, "enderite_core",

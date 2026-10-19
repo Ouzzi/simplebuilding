@@ -34,7 +34,7 @@ public final class InWorldUpgradeTests {
     }
 
     private static boolean simplebuilding() {
-        return BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+        return BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplehammers", "iron_sledgehammer"));
     }
 
     private static JsonElement json(String text) {
@@ -92,9 +92,9 @@ public final class InWorldUpgradeTests {
                 "an axe fits the default tool exactly while the axe ways are on");
         h.assertTrue(!SimpleLibApi.isHammer(new ItemStack(Items.IRON_AXE)), "an axe counts as a hammer");
         if (simplebuilding()) {
-            ItemStack hammer = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer")));
+            ItemStack hammer = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplehammers", "iron_sledgehammer")));
             h.assertTrue(SimpleLibApi.isHammer(hammer) && SimpleLibApi.isUpgradeTool(hammer) && InWorldUpgrades.toolFits(cauldron, hammer),
-                    "SimpleBuilding's sledgehammer is no #simplelib:hammers / upgrade tool");
+                    "Simple Hammers' sledgehammer is no #simplelib:hammers / upgrade tool");
             h.assertTrue(!SimpleLibApi.axeWaysEnabled(), "SimpleBuilding is loaded, yet the axe ways are on");
             InWorldUpgrades.Entry chest = InWorldUpgrades.entryFor(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("copper_chest")));
             h.assertTrue(chest != null && chest.material() == BuiltInRegistries.ITEM.getValue(

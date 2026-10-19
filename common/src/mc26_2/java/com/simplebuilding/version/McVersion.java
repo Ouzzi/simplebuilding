@@ -131,6 +131,10 @@ public final class McVersion {
     public static final String BLOCKS_NAMESPACE = "simplebuilding";
     /** Namespace of the crucibles ({@code CrucibleCompat}): 26.2 has no crucibles; 26.3: Simple Crucibles (split stage 5). */
     public static final String CRUCIBLES_NAMESPACE = "simplebuilding";
+    /** Sledgehammers in SimpleBuilding: split stage 7: on 26.3 the seven sledgehammers, their enchantments and the hammer engine live in the required, bundled sub-mod Simple Hammers ({@code simplehammers:*}, migrated through SimpleLib id moves); SB registers none of them, reaches them by id ({@code util/HammerRefs}) and plugs its hammer ways in through SimpleLib {@code HammerActions}. */
+    public static final boolean HAMMERS_IN_SB = true;
+    /** Namespace of the sledgehammers, the hammer enchantments and their recipes ({@link #HAMMERS_IN_SB}). */
+    public static final String HAMMERS_NAMESPACE = "simplebuilding";
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
     public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

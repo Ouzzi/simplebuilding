@@ -91,7 +91,7 @@ public final class TrimsTests {
         });
         // Same principle as the crucibles: the axe way lasts exactly as long as no hammer partner switched it off.
         ALL.put("tool_mode_follows_the_partner", h -> {
-            boolean sledgehammers = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+            boolean sledgehammers = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplehammers", "iron_sledgehammer"));
             h.assertTrue(TemplateTools.hammerMode() == sledgehammers, "hammer mode " + TemplateTools.hammerMode() + " but SimpleBuilding hammers " + sledgehammers);
             h.assertTrue(TemplateTools.isTemplateTool(tool()) && !TemplateTools.isTemplateTool(wrongTool().orElse(new ItemStack(Items.STICK))),
                     "the current tool works, the other one does not");

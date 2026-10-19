@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:story/upgrade_tools",
+  "criteria": {
+    "sledgehammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplehammers:stone_sledgehammer",
+              "simplehammers:copper_sledgehammer",
+              "simplehammers:iron_sledgehammer",
+              "simplehammers:gold_sledgehammer",
+              "simplehammers:diamond_sledgehammer",
+              "simplehammers:netherite_sledgehammer",
+              "simplehammers:enderite_sledgehammer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.story.hammer_time.description"
+    },
+    "icon": {
+      "id": "simplehammers:stone_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.story.hammer_time.title"
+    }
+  },
+  "requirements": [
+    [
+      "sledgehammer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

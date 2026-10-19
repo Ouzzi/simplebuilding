@@ -216,3 +216,13 @@ Alle Werte sind serverseitig und werden auf folgende Grenzen beschränkt:
 Seelenbrand läuft `soulBurnSeconds` lang und würfelt alle `soulBurnIntervalTicks` mit `soulBurnChance` um 1 Feuerschaden. Auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) halbiert sich das Intervall, der Brand beißt also doppelt so oft; das Intervall wird nie kleiner als 1 Tick.
 
 `fuelMultiplier` multipliziert 20.000 Ticks und wird bei der Item-Registrierung gelesen: Neustart und gleiche Modpack-Config auf Server und Client erforderlich. Normale Lava-Eimer bleiben bei 20.000 Ticks. Alle anderen Werte werden beim Laden der Datei übernommen; bereits geplante Fluid-Ticks behalten zunächst ihre Verzögerung. Auf 26.2 ist keine Seelen-Lava registriert.
+
+## Vorschlaghämmer (Simple Hammers, `simplehammers-server.json`, 26.3)
+
+Seit Modulaufteilung Stufe 7 liest der Hammer-Motor seine Werte aus `config/simplehammers-server.json`: `enabled`,
+`upgradeSeconds` (1–30, Standard 5), `reinforcedDamagePerHit` (2), `netheriteDamagePerHit` (4), `enderiteDamagePerHit` (10)
+(je 0–64) und `diamondBlockPebbles` (1–81, Standard 81). Beim ersten Start übernimmt das Modul die Werte aus
+`simplebuilding.json` → `server.tools` (`sledgehammerUpgradeSeconds`, `*UpgradeDamagePerHit`, `diamondBlockPebbles`);
+danach wirken diese SB-Schlüssel auf 26.3 nicht mehr (sie bleiben bis Stufe 9 sichtbar, 26.2 nutzt sie weiter).
+Die Werte sind serverlokal (wie Simple Ovens): ein Client rechnet mit seiner eigenen Datei, der Server beendet eine
+Aufwertung früher, wenn sein Wert kleiner ist.

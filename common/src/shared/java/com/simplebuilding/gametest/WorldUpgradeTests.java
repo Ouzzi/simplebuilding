@@ -388,7 +388,7 @@ public final class WorldUpgradeTests {
         ListTag list = new ListTag();
         list.add(SledgehammerProgress.Entry.CODEC.encodeStart(NbtOps.INSTANCE, HAMMER_ENTRY).getOrThrow());
         progress.put("entries", list);
-        SledgehammerProgress data = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, progress).getOrThrow();
+        var data = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, progress).getOrThrow();
         return savedDataFile(SledgehammerProgress.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow());
     }
 
@@ -591,7 +591,7 @@ public final class WorldUpgradeTests {
         helper.assertValueEqual(jobs.pending(), List.of(PENDING_JOB), "pending blueprint jobs");
 
         CompoundTag hammerFile = upgrade(helper, readFixture(helper, SLEDGEHAMMER_PROGRESS), SledgehammerProgress.TYPE.dataFixType());
-        SledgehammerProgress hammer = SledgehammerProgress.CODEC.parse(ops(helper), hammerFile.get("data")).result().orElse(null);
+        var hammer = SledgehammerProgress.CODEC.parse(ops(helper), hammerFile.get("data")).result().orElse(null);
         helper.assertTrue(hammer != null, "the sledgehammer progress file does not decode: " + hammerFile);
         helper.assertValueEqual(hammer.entries(), List.of(HAMMER_ENTRY), "sledgehammer progress entries");
         helper.succeed();

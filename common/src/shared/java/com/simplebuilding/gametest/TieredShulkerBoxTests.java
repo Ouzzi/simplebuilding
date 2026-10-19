@@ -156,11 +156,11 @@ public final class TieredShulkerBoxTests {
         start.setItem(0, new ItemStack(Items.DIAMOND, 5));
         start.setItem(VANILLA_SLOTS - 1, new ItemStack(Items.OAK_LOG, 64));
 
-        climb(helper, player, pos, ModItems.STONE_SLEDGEHAMMER, ModItems.CRACKED_DIAMOND, red, ModBlocks.REINFORCED_SHULKER_BOX,
+        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, red, ModBlocks.REINFORCED_SHULKER_BOX,
                 REINFORCED_SLOTS, "vanilla -> reinforced");
-        climb(helper, player, pos, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, ModBlocks.REINFORCED_SHULKER_BOX,
+        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, ModBlocks.REINFORCED_SHULKER_BOX,
                 ModBlocks.NETHERITE_SHULKER_BOX, NETHERITE_SLOTS, "reinforced -> netherite");
-        climb(helper, player, pos, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ModBlocks.NETHERITE_SHULKER_BOX,
+        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, ModBlocks.NETHERITE_SHULKER_BOX,
                 ModBlocks.ENDERITE_SHULKER_BOX, ENDERITE_SLOTS, "netherite -> enderite");
 
         TieredShulkerBoxBlockEntity end = box(helper, pos);

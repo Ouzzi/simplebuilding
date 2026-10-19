@@ -136,9 +136,9 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("building_wands", buildingWands()),
                 buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
-                        ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                        ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
-                        ModItems.ENDERITE_SLEDGEHAMMER),
+                        com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                        com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
+                        com.simplebuilding.util.HammerRefs.item("enderite")),
                 // Vanillas Reihenfolge im Tab "Werkzeuge": Schaufel, Spitzhacke, Axt, Hacke.
                 CreativeTabLayout.Row.of("shovels",
                         Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COPPER_SHOVEL, Items.IRON_SHOVEL,

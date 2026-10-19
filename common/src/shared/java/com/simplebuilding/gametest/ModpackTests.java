@@ -233,7 +233,7 @@ public final class ModpackTests {
         BlockPos claimed = centre.offset(1, 0, 0);
         Runnable release = ProtectionProbe.refuseAt(helper.absolutePos(claimed));
         try {
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
             BlockPos origin = helper.absolutePos(centre);
             SledgehammerUsageEvent.handleBeforeBlockBreak(helper.getLevel(), player, origin,
                     helper.getLevel().getBlockState(origin), null);

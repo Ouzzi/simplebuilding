@@ -749,7 +749,7 @@ public final class BlockHighlightClientTest {
             return "no client player or level";
         }
 
-        if (!(client.player.getMainHandItem().getItem() instanceof SledgehammerItem)) {
+        if (!(com.simplebuilding.items.custom.SledgehammerItem.isHammer(client.player.getMainHandItem().getItem()))) {
             return "main hand does not hold a SledgehammerItem but " + client.player.getMainHandItem();
         }
 

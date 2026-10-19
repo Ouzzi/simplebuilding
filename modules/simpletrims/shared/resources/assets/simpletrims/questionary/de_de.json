@@ -4,7 +4,7 @@
       "Ein Besatz, der das Licht einen Moment länger hält, als er sollte."
     ],
     "use": [
-      "Lege eine Rüstungsbesatzvorlage ab, halte 2 Leuchttintenbeutel in der Nebenhand und schlage sie 5-mal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Glowstone weg. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
+      "Lege eine Rüstungsbesatzvorlage ab, halte 2 Leuchttintenbeutel in der Nebenhand und schlage sie 5-mal mit einer Axt (mit Simple Hammers: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Glowstone weg. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
     ],
     "secret": [
       "Am Schmiedetisch lassen Vorlage, Rüstung und ein Leuchttintenbeutel den Besatz gleichmäßig mit voller Helligkeit leuchten. Er leuchtet nur optisch und gibt kein echtes Licht ab."
@@ -15,7 +15,7 @@
       "Ein Besatz, der nicht nur scheint, sondern anderen den Weg leuchtet."
     ],
     "use": [
-      "Lege eine Rüstungsbesatzvorlage ab, halte 2 Glowstonestaub in der Nebenhand und schlage sie 5-mal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Lohenstaub weg. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
+      "Lege eine Rüstungsbesatzvorlage ab, halte 2 Glowstonestaub in der Nebenhand und schlage sie 5-mal mit einer Axt (mit Simple Hammers: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Lohenstaub weg. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
     ],
     "secret": [
       "Am Schmiedetisch wird Rüstung mit Glowstonestaub zur tragbaren Lichtquelle: Ein unsichtbarer Lichtblock folgt deinem Kopf. Mehr Staub erhöht die Strahlkraft, bis Stufe 5."

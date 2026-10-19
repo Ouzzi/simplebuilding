@@ -70,7 +70,7 @@ public final class SledgehammerChips {
         var level = context.getLevel();
         var player = context.getPlayer();
         var pos = context.getClickedPos();
-        if (player == null || !(context.getItemInHand().getItem() instanceof com.simplebuilding.items.custom.SledgehammerItem)
+        if (player == null || !(com.simplebuilding.items.custom.SledgehammerItem.isHammer(context.getItemInHand().getItem()))
                 || !TransformTargets.mayTransform(level, player, pos, context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.PASS;
         }

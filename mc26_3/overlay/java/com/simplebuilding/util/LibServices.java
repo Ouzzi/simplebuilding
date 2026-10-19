@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.custom.TieredShulkerBoxBlock;
 import com.simplebuilding.data.SledgehammerUpgradeData;
+import com.simplelib.api.HammerActions;
 import com.simplelib.api.InWorldUpgrades;
 import com.simplelib.api.OctetCells;
 import com.simplelib.api.SimpleLibApi;
@@ -28,6 +29,9 @@ import org.jetbrains.annotations.Nullable;
  *   <li>Tiered chests and shulker boxes move their contents through upgrade handlers; crucibles and barrels through
  *       SimpleLib's own.</li>
  *   <li>Simple Octets registers the octet cells with {@link OctetCells} (split stage 6); the sledgehammer carves through it.</li>
+ *   <li>The sledgehammer is Simple Hammers' (split stage 7); SimpleBuilding plugs its hammer ways in through
+ *       {@link HammerActions} ({@link #registerHammerWays}): placed trim templates, flat discs, chips, the octant
+ *       selection, double chests, fresh breaker pistons, its advancements and counters.</li>
  * </ul>
  */
 public final class LibServices {
@@ -42,12 +46,10 @@ public final class LibServices {
     }
 
     /**
-     * Principle 5a, axe/hammer switch (split plan §2.6): SimpleBuilding has a working hammer way, so SimpleLib's axe
-     * ways (crucible build, barrel attach, crucible/cauldron upgrades) go off and only the sledgehammer runs them. Its
-     * own call, because it moves to Simple Hammers in stage 7 (the hammer mod switches the axe off, not SimpleBuilding).
+     * Principle 5a, axe/hammer switch (split plan §2.6): since split stage 7 Simple Hammers (required sub-mod) switches
+     * SimpleLib's axe ways off itself when it loads; SimpleBuilding no longer does.
      */
     public static void hammersReplaceAxes() {
-        SimpleLibApi.disableAxeWays();
     }
 
     /** After the blocks and items are registered (ModItems.registerModItems). */
@@ -69,6 +71,47 @@ public final class LibServices {
             TieredShulkerBoxes.upgradeInPlace(level, pos, to);
             return 1;
         });
+        registerHammerWays();
+    }
+
+    /** Split stage 7: SimpleBuilding's hammer ways for Simple Hammers (SimpleLib {@link HammerActions}; the engine statics through the overlay subclasses). */
+    private static void registerHammerWays() {
+        // Placed trim template with glow ink / glowstone in the off hand: right-click strikes it (owner 2026-10-06).
+        HammerActions.registerUse(HammerActions.Stage.FIRST, context -> {
+            var player = context.getPlayer();
+            if (player == null || !PlacedTemplates.isHammerTarget(context.getLevel(), context.getClickedPos(), player)) return null;
+            if (context.getLevel() instanceof ServerLevel server) PlacedTemplates.strike(server, context.getClickedPos(), player);
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        });
+        HammerActions.registerUse(HammerActions.Stage.PERMITTED, context -> {
+            var player = context.getPlayer();
+            if (player == null) return null;
+            // Sneak + hammer on a pile with a flippable disc: flat display (D7); without sneaking the block flips it.
+            if (player.isSecondaryUseActive() && FlatToggles.toggle(context.getLevel(), context.getClickedPos(), player,
+                    context.getItemInHand(), context.getHand())) {
+                return net.minecraft.world.InteractionResult.SUCCESS;
+            }
+            var chips = SledgehammerChips.tryCrush(context);
+            return chips.consumesAction() ? chips : null;
+        });
+        HammerActions.registerKeep((player, state, level, pos) ->
+                state.getBlock() instanceof com.simplebuilding.blocks.custom.PlacedTemplateBlock && PlacedTemplates.isHammerStance(player));
+        HammerActions.registerArea(OctantHammerArea::selection);
+        HammerActions.registerAreaVeto(BuildPermissions::isProbing);
+        // Claims: Simple Hammers asks framework Protection itself (what WorldPermissions bridges to on 26.3), per action.
+        HammerActions.registerParts(block -> block instanceof ChestBlock, TieredChests::halves);
+        HammerActions.registerUpgradedState(state -> com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(state, 0));
+        SledgehammerUpgrades.setFallbackTable(SledgehammerUpgrades::builtInTable);
+        HammerActions.listen(HammerActions.RESHAPE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.HAMMER_RESHAPE));
+        HammerActions.listen(HammerActions.DIAMOND_CRUSH, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.DIAMOND_CRUSH));
+        HammerActions.listen(HammerActions.UPGRADE_NETHERITE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE));
+        HammerActions.listen(HammerActions.UPGRADE_ENDERITE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE));
+        HammerActions.listen(HammerActions.AREA_BLOCK, player -> com.simplebuilding.advancement.ModCounters.add(player,
+                com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1));
     }
 
     /** Applies the upgrade files through SimpleLib and returns SimpleBuilding's view of the effective table. */

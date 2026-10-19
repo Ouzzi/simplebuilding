@@ -172,7 +172,7 @@ public final class CauldronWorldCatalog {
     private static List<Item> hammers(int minRank) {
         List<Item> out = new ArrayList<>();
         for (Item item : BuiltInRegistries.ITEM) {
-            if (item instanceof SledgehammerItem && SledgehammerUpgrades.hammerRank(item) >= minRank) {
+            if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(item) && SledgehammerUpgrades.hammerRank(item) >= minRank) {
                 out.add(item);
             }
         }

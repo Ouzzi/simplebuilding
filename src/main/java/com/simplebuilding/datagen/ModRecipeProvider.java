@@ -490,15 +490,18 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // SLEDGEHAMMER
                 // =================================================================
-                createSledgehammerRecipe(ModItems.STONE_SLEDGEHAMMER, Items.COBBLESTONE, Items.IRON_INGOT);
+                // 26.3 (split stage 7): Simple Hammers ships the hammer recipes itself (data/simplehammers/recipe).
+                if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
+                createSledgehammerRecipe(com.simplebuilding.util.HammerRefs.item("stone"), Items.COBBLESTONE, Items.IRON_INGOT);
                 // MC 26.2: Items.COPPER_BLOCK ist jetzt eine WeatheringCopperCollection<Item>.
                 // weathering().unaffected() liefert das unverwitterte, ungewachste minecraft:copper_block
                 // (identisch zum frueheren Items.COPPER_BLOCK) - so macht es auch der VanillaRecipeProvider.
-                createSledgehammerRecipe(ModItems.COPPER_SLEDGEHAMMER, Items.COPPER_INGOT, Items.COPPER_BLOCK.weathering().unaffected());
-                createSledgehammerRecipe(ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, Items.IRON_BLOCK);
-                createSledgehammerRecipe(ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, Items.GOLD_BLOCK);
-                createSledgehammerRecipe(ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, Items.DIAMOND_BLOCK);
-                createSmithing(ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER, RecipeCategory.TOOLS);
+                createSledgehammerRecipe(com.simplebuilding.util.HammerRefs.item("copper"), Items.COPPER_INGOT, Items.COPPER_BLOCK.weathering().unaffected());
+                createSledgehammerRecipe(com.simplebuilding.util.HammerRefs.item("iron"), Items.IRON_INGOT, Items.IRON_BLOCK);
+                createSledgehammerRecipe(com.simplebuilding.util.HammerRefs.item("gold"), Items.GOLD_INGOT, Items.GOLD_BLOCK);
+                createSledgehammerRecipe(com.simplebuilding.util.HammerRefs.item("diamond"), Items.DIAMOND, Items.DIAMOND_BLOCK);
+                createSmithing(com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"), RecipeCategory.TOOLS);
+                }
 
 
                 // =================================================================
@@ -1132,9 +1135,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
 
                 // Vorschlaghammer (Werkbank: 1 Block + 2 Barren = 11 Barren -> Aufwerten: 22)
-                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 22);
-                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
-                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
+                if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) { // 26.3: Simple Hammers' files (with a SimpleBuilding condition)
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"), Items.IRON_INGOT, 22);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, com.simplebuilding.util.HammerRefs.item("iron"), com.simplebuilding.util.HammerRefs.item("gold"), Items.GOLD_INGOT, 22);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), Items.DIAMOND, 22);
+                }
 
                 // Baustab: kein Barren-Preis - ein Baustab braucht einen Kern (Late-Game), also kostet das
                 // Aufwerten genau einen Kern der Zielstufe (Entscheidung des Besitzers, 2026-09-25).
@@ -1205,14 +1210,17 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         Items.NETHERITE_SWORD, Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE, Items.NETHERITE_SHOVEL, Items.NETHERITE_HOE, Items.NETHERITE_SPEAR,
                         Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS,
                         Items.NETHERITE_HORSE_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR,
-                        ModItems.NETHERITE_CORE, ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_BUILDING_WAND, ModItems.NETHERITE_SLEDGEHAMMER
+                        ModItems.NETHERITE_CORE, ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("netherite")
                 );
+                // 26.3 (split stage 7): the Enderite sledgehammer recipe is Simple Hammers' (the last pair of both lists).
+                if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) netheriteItems = netheriteItems.subList(0, netheriteItems.size() - 1);
                 List<Item> enderiteItems = List.of(
                         ModItems.ENDERITE_SWORD, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_HOE, ModItems.ENDERITE_SPEAR,
                         ModItems.ENDERITE_HELMET, ModItems.ENDERITE_CHESTPLATE, ModItems.ENDERITE_LEGGINGS, ModItems.ENDERITE_BOOTS,
                         ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR,
-                        ModItems.ENDERITE_CORE, ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, ModItems.ENDERITE_SLEDGEHAMMER
+                        ModItems.ENDERITE_CORE, ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite")
                 );
+                if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB) enderiteItems = enderiteItems.subList(0, enderiteItems.size() - 1);
 
                 for (int i = 0; i < netheriteItems.size(); i++) {
                     createSmithingTransform(output,

@@ -1,0 +1,45 @@
+package com.simplehammers.mixin.client;
+
+import com.simplehammers.item.SledgehammerItem;
+import com.simplehammers.engine.SledgehammerUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+/**
+ * Sledgehammer exploit fix (owner N65): sneaking (1 block) and releasing (area) change the
+ * mining divisor mid-break, but vanilla keeps the accumulated progress. The progress is therefore
+ * converted at every switch so that the elapsed mining time stays the same
+ * ({@link SledgehammerUtils#rescaleProgress}).
+ */
+@Mixin(MultiPlayerGameMode.class)
+public abstract class MultiPlayerGameModeHammerProgressMixin {
+
+    @Shadow private float destroyProgress;
+    @Shadow @org.spongepowered.asm.mixin.Final private Minecraft minecraft;
+
+    @Unique private float simplehammers$lastDivisor = 0.0F;
+
+    @Inject(method = "continueDestroyBlock", at = @At("HEAD"))
+    private void simplehammers$rescaleHammerProgress(BlockPos pos, Direction direction,
+                                                      CallbackInfoReturnable<Boolean> cir) {
+        var player = this.minecraft.player;
+        if (player == null || !(player.getMainHandItem().getItem() instanceof SledgehammerItem)) {
+            this.simplehammers$lastDivisor = 0.0F;
+            return;
+        }
+        float divisor = SledgehammerUtils.miningSpeedDivisor(player, pos);
+        if (this.destroyProgress > 0.0F) {
+            this.destroyProgress = SledgehammerUtils.rescaleProgress(
+                    this.destroyProgress, this.simplehammers$lastDivisor, divisor);
+        }
+        this.simplehammers$lastDivisor = divisor;
+    }
+}

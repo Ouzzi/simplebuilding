@@ -46,7 +46,7 @@ final class ToolClaimTests {
             yes(h,l.getBlockState(origin.above()).is(Blocks.STONE),"Wand actually places unclaimed target");
             yes(h,l.getBlockState(inside.above()).isAir()==(actor==other),"Every wand target honors claim border");
             for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++){var at=origin.offset(x,0,z);l.setBlock(at,Blocks.STONE.defaultBlockState(),3);l.setBlock(at.above(),Blocks.AIR.defaultBlockState(),3);}
-            actor.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(item("diamond_sledgehammer")));actor.setXRot(90);
+            actor.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplehammers:diamond_sledgehammer"))));actor.setXRot(90);
             yes(h,actor.gameMode.destroyBlock(origin)&&l.getBlockState(origin.west()).isAir(),"Real loader hammer break hook removes an unclaimed neighbor");
             yes(h,l.getBlockState(inside).is(Blocks.STONE)==(actor==other),"Every hammer target honors claim border");
         }
@@ -59,9 +59,9 @@ final class ToolClaimTests {
             owner.setYRot(270);owner.setYHeadRot(270);owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(bed));
             var hit=new BlockHitResult(Vec3.atCenterOf(foot.below()).add(0,.5,0),Direction.UP,foot.below(),false);
             yes(h,((BlockItem)bed).place(new net.minecraft.world.item.context.BlockPlaceContext(owner,InteractionHand.MAIN_HAND,owner.getMainHandItem(),hit)).consumesAction(),"Actual complete bed fixture");
-            other.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(item("diamond_sledgehammer")));
+            other.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplehammers:diamond_sledgehammer"))));
             yes(h,!other.gameMode.destroyBlock(foot)&&!l.getBlockState(head).isAir(),"Real hammer cannot destroy an unclaimed bed foot and protected head");
-            owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(item("diamond_sledgehammer")));
+            owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplehammers:diamond_sledgehammer"))));
             yes(h,owner.gameMode.destroyBlock(foot)&&l.getBlockState(head).isAir(),"Owner hammer destroys both bed halves");
         }
     });h.succeed();}

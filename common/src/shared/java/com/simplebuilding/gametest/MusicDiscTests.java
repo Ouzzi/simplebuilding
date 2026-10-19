@@ -203,7 +203,7 @@ public final class MusicDiscTests {
         click(helper, player, rel, pickaxe);
         helper.assertTrue(pile.parts().get(1).is(ModItems.MUSIC_DISC_VOIDLINE), "a pickaxe flipped the disc");
 
-        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         helper.assertTrue(TransformTargets.canTransformTarget(level, hit(helper, rel), player, InteractionHand.MAIN_HAND), "no hint for the hammer");
         click(helper, player, rel, hammer);

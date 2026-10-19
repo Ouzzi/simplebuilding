@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "simplehammers",
+  "version": "${version}",
+  "name": "Simple Hammers",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Seven sledgehammers (Stone to Enderite) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, with the enchantments Break Through, Override and Radius, moved from SimpleBuilding (ids migrate). With a hammer mod the in-world ways of the other Simple mods take the hammer instead of the axe.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplehammers.HammersFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplehammers.ModuleGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simplehammers.compat.jei.HammersJeiPlugin"
+    ]
+  },
+  "mixins": [
+    "simplehammers.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.2.0"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleoctets": "*",
+    "simplecrucibles": "*",
+    "jei": "*"
+  }
+}

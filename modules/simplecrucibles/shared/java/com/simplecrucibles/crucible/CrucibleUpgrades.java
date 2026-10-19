@@ -101,7 +101,7 @@ public final class CrucibleUpgrades {
 
     /**
      * Crucible upgrade strike number {@code done} (1..{@value #CRUCIBLE_STRIKES}) - shared by the axe way and partner ways
-     * (SimpleBuilding's sledgehammer): cracks, sound and the growing preview of {@code to}; every
+     * (Simple Hammers' sledgehammer): cracks, sound and the growing preview of {@code to}; every
      * {@value #STRIKES_PER_UNIT}rd strike takes one unit from {@code material} (empty = creative, nothing taken) and
      * shows it as a band ({@link CrucibleBlock#UPGRADE}); the last one upgrades in place. Returns the units struck in.
      */

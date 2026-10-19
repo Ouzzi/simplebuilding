@@ -15,7 +15,15 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider registries, Entries entries) {
-        entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
+        // 26.3 (split stage 7): Break Through, Override and Radius are Simple Hammers' (its own files); the bootstrap keeps
+        // them under simplehammers: only so the other generated data (loot tables, trades) can name them.
+        var enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
+        if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
+            entries.addAll(enchantments);
+        } else {
+            enchantments.listElements().filter(e -> e.key().identifier().getNamespace().equals(com.simplebuilding.Simplebuilding.MOD_ID))
+                    .forEach(entries::add);
+        }
 
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_MATERIAL));
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));

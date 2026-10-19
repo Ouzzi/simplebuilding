@@ -47,7 +47,7 @@ public final class MaterialRequestTests {
     }
 
     private static boolean simplebuilding() {
-        return BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+        return BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", "diamond_chisel"));
     }
 
     /** Every material is registered under simplelib, whoever asked; the blocks have their block items; the groups match. */

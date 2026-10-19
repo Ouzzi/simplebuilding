@@ -31,8 +31,8 @@ public final class BlocksNeoForge {
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
             if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
         });
-        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with SimpleBuilding; 4 iron nuggets.
-        com.simpleblocks.saw.SawUpgrade.hammerMode = SimpleBlocks.simplebuildingLoaded;
+        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
+        com.simpleblocks.saw.SawUpgrade.hammerMode = net.neoforged.fml.ModList.get().isLoaded("simplehammers");
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock e) -> {
             if (e.isCanceled()) return;
             if (com.simpleblocks.saw.SawUpgrade.onUse(e.getLevel(), e.getPos(), e.getEntity(), e.getHand())) {

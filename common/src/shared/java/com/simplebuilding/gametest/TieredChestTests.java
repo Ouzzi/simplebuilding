@@ -89,14 +89,14 @@ public final class TieredChestTests {
         start.setItem(0, new ItemStack(Items.DIAMOND, 5));
         start.setItem(COPPER_SLOTS - 1, new ItemStack(Items.OAK_LOG, 64));
 
-        hammer(helper, player, pos, ModItems.STONE_SLEDGEHAMMER, ModItems.CRACKED_DIAMOND, 2, "copper -> reinforced");
+        hammer(helper, player, pos, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, 2, "copper -> reinforced");
         assertTier(helper, pos, ModBlocks.REINFORCED_CHEST, REINFORCED_SLOTS, "copper -> reinforced");
         helper.assertTrue(player.getOffhandItem().getCount() == 1, "copper -> reinforced: cracked diamonds left: "
                 + player.getOffhandItem().getCount() + ", expected 1");
 
-        hammer(helper, player, pos, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, 2, "reinforced -> netherite");
+        hammer(helper, player, pos, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, 2, "reinforced -> netherite");
         assertTier(helper, pos, ModBlocks.NETHERITE_CHEST, NETHERITE_SLOTS, "reinforced -> netherite");
-        hammer(helper, player, pos, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, 2, "netherite -> enderite");
+        hammer(helper, player, pos, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, 2, "netherite -> enderite");
         assertTier(helper, pos, ModBlocks.ENDERITE_CHEST, ENDERITE_SLOTS, "netherite -> enderite");
         helper.assertTrue(player.getOffhandItem().getCount() == 1, "netherite -> enderite: nuggets left: "
                 + player.getOffhandItem().getCount() + ", expected 1");
@@ -126,7 +126,7 @@ public final class TieredChestTests {
         container(helper, right).setItem(20, new ItemStack(Items.GOLD_INGOT, 7));
 
         // One diamond is not enough for two blocks.
-        arm(player, new ItemStack(ModItems.STONE_SLEDGEHAMMER), new ItemStack(ModItems.CRACKED_DIAMOND, 1));
+        arm(player, new ItemStack(com.simplebuilding.util.HammerRefs.item("stone")), new ItemStack(ModItems.CRACKED_DIAMOND, 1));
         standOn(helper, player, left);
         player.containerMenu = player.inventoryMenu;
         click(helper, player, left);
@@ -134,11 +134,11 @@ public final class TieredChestTests {
         helper.assertFalse(player.isUsingItem(), "one cracked diamond started the hammer on a double chest");
         player.containerMenu = player.inventoryMenu;
 
-        hammer(helper, player, left, ModItems.STONE_SLEDGEHAMMER, ModItems.CRACKED_DIAMOND, 3, "double copper -> reinforced");
+        hammer(helper, player, left, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, 3, "double copper -> reinforced");
         helper.assertTrue(player.getOffhandItem().getCount() == 1,
                 "double copper -> reinforced: diamonds left " + player.getOffhandItem().getCount() + ", expected 3 - 2 = 1");
         assertDouble(helper, ModBlocks.REINFORCED_CHEST, left, right, "double copper -> reinforced");
-        hammer(helper, player, right, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, 2, "double reinforced -> netherite");
+        hammer(helper, player, right, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, 2, "double reinforced -> netherite");
         helper.assertTrue(player.getOffhandItem().isEmpty(), "double reinforced -> netherite: both nuggets should be gone");
         assertDouble(helper, ModBlocks.NETHERITE_CHEST, left, right, "double reinforced -> netherite");
 
@@ -496,10 +496,10 @@ public final class TieredChestTests {
                 .set(DataComponents.CUSTOM_NAME, Component.literal("Redstone stock")).build(), DataComponentPatch.EMPTY);
         container(helper, left).setItem(3, new ItemStack(Items.IRON_INGOT, 12));
         container(helper, right).setItem(20, new ItemStack(Items.GOLD_INGOT, 7));
-        hammer(helper, player, left, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, 2, "trapped -> netherite");
+        hammer(helper, player, left, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, 2, "trapped -> netherite");
         assertDouble(helper, ModBlocks.NETHERITE_TRAPPED_CHEST, left, right, "trapped netherite");
         helper.assertTrue(player.getOffhandItem().isEmpty(), "two netherite nuggets consumed");
-        hammer(helper, player, left, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, 2, "trapped -> enderite");
+        hammer(helper, player, left, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, 2, "trapped -> enderite");
         assertDouble(helper, ModBlocks.ENDERITE_TRAPPED_CHEST, left, right, "trapped enderite");
         helper.assertTrue(player.getOffhandItem().isEmpty(), "two enderite nuggets consumed");
         helper.assertValueEqual(container(helper, left).getItem(3).getCount(), 12, "first half contents");

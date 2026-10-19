@@ -14,15 +14,15 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/iron_sledgehammer",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/magnet",
       "required": false
     },
     {
       "id": "simplemoney:links/simplebuilding/rotator",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplehammers/iron_sledgehammer",
       "required": false
     }
   ]

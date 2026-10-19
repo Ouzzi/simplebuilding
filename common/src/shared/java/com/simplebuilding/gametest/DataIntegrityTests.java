@@ -238,9 +238,9 @@ public final class DataIntegrityTests {
             Map.entry(ModEnchantments.DRAWER, ModTags.Items.BUNDLE_ENCHANTABLE),
             Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.MASTER_BUILDER_ENCHANTABLE),
             Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.COLOR_PALETTE_ENCHANTABLE),
-            Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
-            Map.entry(ModEnchantments.RADIUS, ModTags.Items.RADIUS_ENCHANTABLE),
-            Map.entry(ModEnchantments.OVERRIDE, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+            Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
+            Map.entry(ModEnchantments.RADIUS, ModTags.Items.RADIUS_ENCHANTMENT_ITEMS),
+            Map.entry(ModEnchantments.OVERRIDE, ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
             Map.entry(ModEnchantments.COVER, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
             Map.entry(ModEnchantments.BRIDGE, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
             Map.entry(ModEnchantments.LINEAR, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
@@ -700,17 +700,23 @@ public final class DataIntegrityTests {
 
         // --- the shapes themselves ---
         List<String> shapes = new ArrayList<>();
+        // Split stage 7: the sledgehammer recipes are Simple Hammers' (same shapes).
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
+                modRecipes.putIfAbsent(holder.id().identifier(), holder);
+            }
+        }
 
         // Sledgehammers: one block, two pieces of the tier's material, two sticks.
         String[] hammerPattern = {"BMM", " S ", " S "};
-        assertShapedRecipe(helper, modRecipes, "copper_sledgehammer", ModItems.COPPER_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "copper_sledgehammer", com.simplebuilding.util.HammerRefs.item("copper"), hammerPattern,
                 Map.of('B', Items.COPPER_BLOCK.weathering().unaffected(), 'M', Items.COPPER_INGOT, 'S', Items.STICK),
                 shapes);
-        assertShapedRecipe(helper, modRecipes, "iron_sledgehammer", ModItems.IRON_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "iron_sledgehammer", com.simplebuilding.util.HammerRefs.item("iron"), hammerPattern,
                 Map.of('B', Items.IRON_BLOCK, 'M', Items.IRON_INGOT, 'S', Items.STICK), shapes);
-        assertShapedRecipe(helper, modRecipes, "gold_sledgehammer", ModItems.GOLD_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "gold_sledgehammer", com.simplebuilding.util.HammerRefs.item("gold"), hammerPattern,
                 Map.of('B', Items.GOLD_BLOCK, 'M', Items.GOLD_INGOT, 'S', Items.STICK), shapes);
-        assertShapedRecipe(helper, modRecipes, "diamond_sledgehammer", ModItems.DIAMOND_SLEDGEHAMMER, hammerPattern,
+        assertShapedRecipe(helper, modRecipes, "diamond_sledgehammer", com.simplebuilding.util.HammerRefs.item("diamond"), hammerPattern,
                 Map.of('B', Items.DIAMOND_BLOCK, 'M', Items.DIAMOND, 'S', Items.STICK), shapes);
 
         // The stone tier's corner slot is the known defect, so only the rest of its shape is pinned.
@@ -866,7 +872,7 @@ public final class DataIntegrityTests {
     private static void assertShapedRecipe(GameTestHelper helper, Map<Identifier, RecipeHolder<?>> modRecipes,
                                            String path, Item result, int count, String[] pattern,
                                            Map<Character, Item> key, List<String> problems) {
-        assertShapedRecipe(helper, modRecipes, Identifier.fromNamespaceAndPath(MOD_ID, path), result, count, pattern, key, problems);
+        assertShapedRecipe(helper, modRecipes, recipeId(path), result, count, pattern, key, problems);
     }
 
     /** As above for a recipe of any namespace (split stage 4: the furnace recipes are Simple Ovens' on 26.3). */
@@ -908,7 +914,7 @@ public final class DataIntegrityTests {
     private static void assertShapeWithFreeCorner(GameTestHelper helper, Map<Identifier, RecipeHolder<?>> modRecipes,
                                                   String path, String[] pattern, Map<Character, Item> key,
                                                   List<String> problems) {
-        Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, path);
+        Identifier id = recipeId(path);
         RecipeHolder<?> holder = modRecipes.get(id);
         if (holder == null) {
             problems.add(id + " is not loaded at all");
@@ -1452,7 +1458,9 @@ public final class DataIntegrityTests {
             // Split stage 5: plus the Enderite crucible and barrel of the required sub-mod Simple Crucibles.
             if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
+                    // Split stage 7: plus the Enderite sledgehammer of the required sub-mod Simple Hammers.
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -1481,7 +1489,7 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_BLOCK_ITEM,
                 ModItems.ENDERITE_BUNDLE,
                 ModItems.ENDERITE_QUIVER,
-                ModItems.ENDERITE_SLEDGEHAMMER,
+                com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_BUILDING_WAND,
                 ModItems.ENDERITE_UPGRADE_TEMPLATE,
                 ModItems.ENCHANTED_ENDERITE_APPLE,
@@ -1500,8 +1508,8 @@ public final class DataIntegrityTests {
         //     rule could be widened (say to every "_sledgehammer") and step 1 would still pass,
         //     because it derives its expectation from that same rule.
         for (Item item : List.of(
-                ModItems.DIAMOND_SLEDGEHAMMER,
-                ModItems.NETHERITE_SLEDGEHAMMER,
+                com.simplebuilding.util.HammerRefs.item("diamond"),
+                com.simplebuilding.util.HammerRefs.item("netherite"),
                 ModItems.STONE_CHISEL,
                 ModItems.DIAMOND_CORE,
                 Items.DIAMOND,
@@ -2281,8 +2289,8 @@ public final class DataIntegrityTests {
                 Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL}, true, 2);
         addLadder(ladder, new Item[]{ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                 ModItems.DIAMOND_CHISEL}, false, 2);
-        addLadder(ladder, new Item[]{ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER}, false, 22);
+        addLadder(ladder, new Item[]{com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond")}, false, 22);
         ladder.put(new Item[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE}, 1);
         ladder.put(new Item[]{ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE}, 1);
         ladder.put(new Item[]{ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE}, 1);
@@ -2293,7 +2301,7 @@ public final class DataIntegrityTests {
             Item result = rung.getKey()[1];
             Item material = rung.getKey()[2];
             int count = rung.getValue();
-            Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, "upgrade_"
+            Identifier id = recipeId("upgrade_"
                     + BuiltInRegistries.ITEM.getKey(base).getPath() + "_to_" + BuiltInRegistries.ITEM.getKey(result).getPath());
             priced.add(id);
             RecipeHolder<?> holder = modRecipes.get(id);
@@ -2388,10 +2396,16 @@ public final class DataIntegrityTests {
     }
 
     /** The mod's own loaded recipes by id. */
+    /** A recipe id by path; the sledgehammer recipes are Simple Hammers' on 26.3 (split stage 7). */
+    private static Identifier recipeId(String path) {
+        return Identifier.fromNamespaceAndPath(path.contains("_sledgehammer") ? com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE : MOD_ID, path);
+    }
+
     private static Map<Identifier, RecipeHolder<?>> modRecipes(RecipeManager recipeManager) {
         Map<Identifier, RecipeHolder<?>> modRecipes = new HashMap<>();
         for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
-            if (MOD_ID.equals(holder.id().identifier().getNamespace())) {
+            if (MOD_ID.equals(holder.id().identifier().getNamespace())
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
                 modRecipes.put(holder.id().identifier(), holder);
             }
         }
@@ -2777,7 +2791,9 @@ public final class DataIntegrityTests {
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
                     && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))
                     // Split stage 5b: Simple Crucibles' buckets keep their row in SimpleBuilding's functional tab (by id).
-                    && !com.simplebuilding.util.BucketRefs.buckets().contains(item)) {
+                    && !com.simplebuilding.util.BucketRefs.buckets().contains(item)
+                    // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
+                    && !com.simplebuilding.util.HammerRefs.all().contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -2796,7 +2812,7 @@ public final class DataIntegrityTests {
                     java.util.stream.Stream.of(ModItems.LEVITATING_SAND)).toList());
         }
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
-                ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER,
+                ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ROTATOR, ModItems.BLUEPRINT,
                 ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
         // Waffen und Ruestung (Besitzer 2026-10-02: wie in Vanilla getrennt von den Werkzeugen).
@@ -2825,7 +2841,9 @@ public final class DataIntegrityTests {
         });
 
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
+                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())
+                        // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
+                        || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         Map<ModItemGroupsContent.Tab, Integer> expectedBooks = new LinkedHashMap<>();
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             expectedBooks.put(tab, tab == ModItemGroupsContent.Tab.TOOLS ? modEnchantments : 0);
@@ -3474,7 +3492,9 @@ public final class DataIntegrityTests {
                     // split stage 4: Simple Ovens' Enderite furnaces and cart keep SimpleBuilding's Enderite perks
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
                     // split stage 5: so do Simple Crucibles' Enderite crucible and barrel
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
+                    // split stage 7: and Simple Hammers' Enderite sledgehammer
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
@@ -3747,9 +3767,9 @@ public final class DataIntegrityTests {
                         ModItems.CREATIVE_BUILDING_WAND),
                 ModItemGroupsContent.buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
-                        ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                        ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
-                        ModItems.ENDERITE_SLEDGEHAMMER)));
+                        com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                        com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
+                        com.simplebuilding.util.HammerRefs.item("enderite"))));
         Map<String, Item> enderite = new LinkedHashMap<>();
         // Vanillas Werkzeug-Reihenfolge: Schaufel, Spitzhacke, Axt, Hacke.
         enderite.put("shovel", ModItems.ENDERITE_SHOVEL);
@@ -3788,7 +3808,9 @@ public final class DataIntegrityTests {
         // die verzauberten Buecher (eins pro Mod-Verzauberung); jede Kategorie fliesst nach einer Luecke weiter
         // (Row#flowing), damit keine Buecherzeile fast leer bleibt.
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
+                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())
+                        // split stage 7: the tab keeps the books of Simple Hammers' three enchantments
+                        || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(h.key().identifier().getNamespace())).count();
         boolean firstShelf = true;
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
@@ -4061,7 +4083,7 @@ public final class DataIntegrityTests {
         }, helper.getLevel().registryAccess());
         helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
 
-        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, ModItems.ENDERITE_SLEDGEHAMMER,
+        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
                 ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
@@ -4076,8 +4098,8 @@ public final class DataIntegrityTests {
                 ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
                 ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
-                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
+                com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
                 ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
                 ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
                 ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
@@ -4790,7 +4812,8 @@ public final class DataIntegrityTests {
         String book = vanillaBookResource("/assets/minecraft/items/enchanted_book.json", problems);
         for (ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : com.simplebuilding.enchantment.VanillaBookTextures.MOD_BOOKS) {
             String path = key.identifier().getPath();
-            if (!MOD_ID.equals(key.identifier().getNamespace()) || enchantments.get(key).isEmpty()) {
+            if (!(MOD_ID.equals(key.identifier().getNamespace()) || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(key.identifier().getNamespace()))
+                    || enchantments.get(key).isEmpty()) {
                 problems.add(key.identifier() + " is not a mod enchantment of the registry");
             }
             if (book != null && !book.contains("\"when\": \"" + path + "\"")) {
@@ -5521,7 +5544,7 @@ public final class DataIntegrityTests {
                 if (de.get(key).getAsString().contains(old)) problems.add("de_de " + key + " still says '" + old + "'");
             }
         }
-        helper.assertTrue(styleByFamily.containsKey("_sledgehammer") && styleByFamily.containsKey("_chisel"),
+        helper.assertTrue((!com.simplebuilding.version.McVersion.HAMMERS_IN_SB || styleByFamily.containsKey("_sledgehammer")) && styleByFamily.containsKey("_chisel"),
                 "the family style check saw no sledgehammers or chisels - it checks nothing");
         helper.assertTrue(problems.isEmpty(), problems.size() + " name problems: " + problems);
         helper.succeed();

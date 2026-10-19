@@ -76,6 +76,8 @@ public final class SimpleCrucibles {
         InWorldUpgrades.registerDefaults(MOD_ID);
         // The Vanilla axe ways (build, attach, upgrade) take the click instead of the crucible/barrel menu (principle 5a).
         SimpleLibApi.registerToolUse(com.simplecrucibles.crucible.AxeWays::wants);
+        // Split stage 7: the hammer ways (build, attach, staged crucible upgrades) through SimpleLib's hammer contract.
+        com.simplecrucibles.crucible.HammerWays.register();
         // In-world upgrades into a crucible or barrel tier move contents, progress and experience (InWorldUpgrades).
         InWorldUpgrades.registerHandler(com.simplecrucibles.api.SimpleCruciblesApi::upgradesInPlace, (level, pos, to) -> {
             com.simplecrucibles.crucible.CrucibleUpgrades.upgradeInPlace(level, pos, to);

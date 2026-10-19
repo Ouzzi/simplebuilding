@@ -58,6 +58,7 @@ public final class InWorldExportTests {
                     step.get("minimumHammer") + " cannot do the step from " + step.get("from"));
             summary.add(step.get("from").getAsString().replace("simplebuilding:", "") + ">"
                     + step.get("minimumHammer").getAsString().replace("simplebuilding:", "")
+                            .replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "")
                     + "/" + step.get("nugget").getAsString().replace("simplebuilding:", "")
                             .replace(com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE + ":", "")
                     + "x" + step.get("nuggetCount").getAsInt()
@@ -95,8 +96,8 @@ public final class InWorldExportTests {
         helper.assertTrue(timing.equals("100/20/5"), "duration/interval/blows: expected 100/20/5 but were " + timing);
         // Die stapellose Rangfrage (fuer den Export) und die mit Stapel (im Spiel) sagen dasselbe.
         List<String> ranks = new ArrayList<>();
-        for (Item hammer : List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER,
-                ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_SLEDGEHAMMER)) {
+        for (Item hammer : List.of(com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("iron"), com.simplebuilding.util.HammerRefs.item("diamond"),
+                com.simplebuilding.util.HammerRefs.item("netherite"), com.simplebuilding.util.HammerRefs.item("enderite"))) {
             int byItem = SledgehammerUpgrades.hammerRank(hammer);
             int byStack = SledgehammerUpgrades.hammerRank(new ItemStack(hammer));
             ranks.add(byItem + "=" + byStack);
@@ -112,8 +113,8 @@ public final class InWorldExportTests {
         for (JsonElement element : InWorldTransformations.sledgehammerReshape().getAsJsonArray("hammers")) {
             JsonObject hammer = element.getAsJsonObject();
             Item item = item(hammer.get("id").getAsString());
-            int game = ((SledgehammerItem) item).getUseDuration(new ItemStack(item), player);
-            seen.put(hammer.get("id").getAsString().replace("simplebuilding:", ""), hammer.get("ticks").getAsInt() + "=" + game);
+            int game = item.getUseDuration(new ItemStack(item), player);
+            seen.put(hammer.get("id").getAsString().replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", ""), hammer.get("ticks").getAsInt() + "=" + game);
         }
         String expected = "{copper_sledgehammer=40=40, diamond_sledgehammer=25=25, enderite_sledgehammer=20=20, "
                 + "gold_sledgehammer=16=16, iron_sledgehammer=33=33, netherite_sledgehammer=22=22, stone_sledgehammer=40=40}";
@@ -212,7 +213,7 @@ public final class InWorldExportTests {
         }
         InWorldRecipeCatalog.Entry hopper = byId.get("machine_upgrade/simplebuilding:reinforced_hopper");
         String hopperTools = hopper.tools().stream().map(InWorldTransformations::id).toList().toString()
-                .replace("simplebuilding:", "");
+                .replace("simplebuilding:", "").replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "");
         helper.assertTrue(hopperTools.equals("[diamond_sledgehammer, netherite_sledgehammer, enderite_sledgehammer]"),
                 "reinforced hopper: every hammer from diamond up, weakest first - but was " + hopperTools);
 
@@ -268,8 +269,8 @@ public final class InWorldExportTests {
         helper.assertTrue(crush != null && crush.output().items().get(0) == ModItems.DIAMOND_PEBBLE && crush.output().count() == 81,
                 "diamond block -> 81 diamond pebbles in JEI");
         // Owner 2026-09-29: only iron-tier-and-up hammers crush, and JEI names exactly those.
-        helper.assertTrue(crush.tools().contains(ModItems.IRON_SLEDGEHAMMER) && crush.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER)
-                        && !crush.tools().contains(ModItems.STONE_SLEDGEHAMMER) && !crush.tools().contains(ModItems.COPPER_SLEDGEHAMMER),
+        helper.assertTrue(crush.tools().contains(com.simplebuilding.util.HammerRefs.item("iron")) && crush.tools().contains(com.simplebuilding.util.HammerRefs.item("enderite"))
+                        && !crush.tools().contains(com.simplebuilding.util.HammerRefs.item("stone")) && !crush.tools().contains(com.simplebuilding.util.HammerRefs.item("copper")),
                 "JEI lists " + crush.tools() + " as diamond crushing hammers instead of iron and better");
         InWorldRecipeCatalog.Entry wool = byId.get("shear_wool");
         helper.assertTrue(wool != null && wool.inputs().get(0).items().size() == 16
@@ -281,7 +282,7 @@ public final class InWorldExportTests {
         long vanillaTemplates = BuiltInRegistries.ITEM.stream()
                 .filter(i -> BuiltInRegistries.ITEM.getKey(i).getPath().endsWith("_armor_trim_smithing_template")).count();
         java.util.List<Item> hammers = BuiltInRegistries.ITEM.stream()
-                .filter(i -> i instanceof SledgehammerItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals("simplebuilding"))
+                .filter(i -> com.simplebuilding.items.custom.SledgehammerItem.isHammer(i) && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE))
                 .toList();
         helper.assertTrue(vanillaTemplates == 18 && trim.getAsJsonArray("templates").size() == 18,
                 "18 vanilla armor trim templates, all exported: registry " + vanillaTemplates
@@ -307,7 +308,7 @@ public final class InWorldExportTests {
                                 && entry.inputs().get(3).count() == 2))
                             && entry.output().items().get(0) == result && entry.output().count() == 1
                             && entry.tools().size() == hammers.size() && entry.tools().containsAll(hammers)
-                            && entry.tools().contains(ModItems.STONE_SLEDGEHAMMER),
+                            && entry.tools().contains(com.simplebuilding.util.HammerRefs.item("stone")),
                     "any trim template + " + InWorldTransformations.id((Item) upgrade[0]) + " under any sledgehammer -> "
                             + InWorldTransformations.id(result) + " in JEI, but was " + describe(entry));
         }

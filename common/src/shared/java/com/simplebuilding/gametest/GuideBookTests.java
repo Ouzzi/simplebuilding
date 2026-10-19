@@ -428,7 +428,8 @@ public final class GuideBookTests {
                 problems.add(id + " (" + germanName + ") is named in no German guide chapter");
             }
         }
-        helper.assertTrue(mod >= 19, "only " + mod + " mod enchantments are registered");
+        // 26.3 (split stage 7): Break Through, Override and Radius are Simple Hammers' (its own guide explains them).
+        helper.assertTrue(mod >= (com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? 19 : 16), "only " + mod + " mod enchantments are registered");
         for (Item item : List.of(ModItems.VELOCITY_GAUGE, ModItems.CONSTRUCTION_LIGHT, ModItems.NETHERITE_APPLE,
                 ModItems.NETHERITE_CARROT, ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT, ModItems.ENDERITE_SPEAR,
                 com.simplebuilding.tweaks.item.TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER,

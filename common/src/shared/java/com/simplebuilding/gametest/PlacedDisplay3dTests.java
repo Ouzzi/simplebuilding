@@ -232,7 +232,7 @@ public final class PlacedDisplay3dTests {
                 ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
                 click(helper, player, rel, pickaxe);
                 helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + ": a pickaxe switched it");
-                ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+                ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
                 // a disc with another side: a plain hammer click turns it over, sneaking switches to flat
                 boolean turnable = com.simplebuilding.util.MusicDiscs.nextTrack(art) != null;
                 if (turnable) {
@@ -242,7 +242,7 @@ public final class PlacedDisplay3dTests {
                     for (int turns = 0; turns < 4 && !((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0).is(art); turns++) {
                         click(helper, player, rel, hammer);   // the track cycle comes back to the first side
                     }
-                    hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+                    hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("iron"));
                     helper.assertTrue(((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0).is(art), art + " is not on its first side again");
                 }
                 click(helper, player, rel, hammer, turnable);

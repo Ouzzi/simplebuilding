@@ -4,7 +4,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
-import com.simplebuilding.items.custom.SledgehammerItem.ReshapeMode;
 import com.simplebuilding.util.HammerCorners;
 import com.simplebuilding.util.LibServices;
 import com.simplebuilding.util.OctetRefs;
@@ -46,15 +45,15 @@ public final class SledgehammerOctetTests {
 
     /** The pure rule behind charging and the hand tilt: nothing without sneaking where carving exists. */
     public static void reshapeModeNeedsSneaking(GameTestHelper helper) {
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, true), ReshapeMode.NONE, "plain, no touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, true), ReshapeMode.NONE, "plain, touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, true), ReshapeMode.CARVE, "sneak, no touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, true), ReshapeMode.REVERSE, "sneak, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, true), SledgehammerItem.ReshapeMode.NONE, "plain, no touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, true), SledgehammerItem.ReshapeMode.NONE, "plain, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, true), SledgehammerItem.ReshapeMode.CARVE, "sneak, no touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, true), SledgehammerItem.ReshapeMode.REVERSE, "sneak, touch");
         // 26.2 has no carving: the old forward ladder stays, the plain sneaking hammer does nothing.
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, false), ReshapeMode.FORWARD, "26.2 plain");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, false), ReshapeMode.FORWARD, "26.2 plain, touch");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, false), ReshapeMode.NONE, "26.2 sneak");
-        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, false), ReshapeMode.REVERSE, "26.2 sneak, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, false, false), SledgehammerItem.ReshapeMode.FORWARD, "26.2 plain");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(false, true, false), SledgehammerItem.ReshapeMode.FORWARD, "26.2 plain, touch");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, false, false), SledgehammerItem.ReshapeMode.NONE, "26.2 sneak");
+        helper.assertValueEqual(SledgehammerItem.reshapeMode(true, true, false), SledgehammerItem.ReshapeMode.REVERSE, "26.2 sneak, touch");
         helper.succeed();
     }
 
@@ -64,7 +63,7 @@ public final class SledgehammerOctetTests {
         var level = helper.getLevel();
         BlockPos pos = helper.absolutePos(CELL);
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
         // the bottom face: its lower north-west eighth is there in every block tried (stairs: the solid base)
         BlockHitResult hit = new BlockHitResult(Vec3.atLowerCornerOf(pos).add(0.25, 0.0, 0.25), Direction.DOWN, pos, false);
         for (Block block : new Block[]{Blocks.OAK_PLANKS, Blocks.STONE, Blocks.OAK_STAIRS, Blocks.MELON}) {
@@ -96,11 +95,11 @@ public final class SledgehammerOctetTests {
     }
 
     /** Aim at the given octet from its outer face (top for upper octets, bottom for lower ones). */
-    private static BlockState carve(SledgehammerItem hammer, ServerPlayer player, ItemStack stack, BlockState state,
+    private static BlockState carve(net.minecraft.world.item.Item hammer, ServerPlayer player, ItemStack stack, BlockState state,
                                     BlockPos pos, int x, int y, int z) {
         Direction side = y == 1 ? Direction.UP : Direction.DOWN;
         Vec3 aim = new Vec3(x * 0.5 + 0.25, y, z * 0.5 + 0.25);
-        return hammer.getTransformationState(state, pos, side, aim, player, stack);
+        return SledgehammerItem.transformationState(hammer, state, pos, side, aim, player, stack);
     }
 
     /**
@@ -112,9 +111,9 @@ public final class SledgehammerOctetTests {
         BlockPos pos = helper.absolutePos(CELL);
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setShiftKeyDown(true);
-        ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack stack = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-        SledgehammerItem hammer = (SledgehammerItem) stack.getItem();
+        net.minecraft.world.item.Item hammer = stack.getItem();
         Block oakCell = LibServices.octetCellFor(Blocks.OAK_PLANKS);
         helper.assertTrue(oakCell != null, "oak planks have no octet cell");
 
@@ -176,7 +175,7 @@ public final class SledgehammerOctetTests {
         ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
         Vec3 eye = helper.absoluteVec(new Vec3(CELL.getX() + 0.5, CELL.getY() + 2.0, CELL.getZ() + 0.5));
         player.snapTo(eye.x, eye.y, eye.z, 0.0F, 90.0F);
-        ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ItemStack stack = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
         // without sneaking: nothing
         player.setShiftKeyDown(false);

@@ -367,7 +367,7 @@ public final class OvensTests {
             h.succeed();
         });
         ALL.put("hammer_click_passes_on", h -> {
-            Identifier hammerId = Identifier.fromNamespaceAndPath("simplebuilding", "diamond_sledgehammer");
+            Identifier hammerId = Identifier.fromNamespaceAndPath("simplehammers", "diamond_sledgehammer");
             if (!BuiltInRegistries.ITEM.containsKey(hammerId)) {
                 SimpleOvens.LOG.info("[standalone] no hammer mod - hammer click not checked");
                 h.succeed();
