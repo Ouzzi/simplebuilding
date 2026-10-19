@@ -52,6 +52,7 @@ public final class BlocksDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "minecraft:stonecutter",
+            "simpleblocks:*_froglight",
             "simpleblocks:*_slab",
             "simpleblocks:*_stairs",
             "simpleblocks:*_wall",
@@ -64,6 +65,7 @@ public final class BlocksDiscover {
             "simpleblocks:calcite_slab",
             "simpleblocks:calcite_stairs",
             "simpleblocks:calcite_wall",
+            "simpleblocks:chiseled_*_ice",
             "simpleblocks:chiseled_blue_ice",
             "simpleblocks:chiseled_packed_ice",
             "simpleblocks:cracked_*",

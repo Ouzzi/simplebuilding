@@ -7925,7 +7925,18 @@
         "en_us": "Aqua Froglight",
         "de_de": "Türkises Froschlicht"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "A froglight in a color the frogs do not make (red, cyan or blue): any froglight plus a dye; light level 15."
+        },
+        "de": {
+          "summary": "Ein Froschlicht in einer Farbe, die Frösche nicht machen (rot, cyan oder blau): ein beliebiges Froschlicht plus Farbstoff; Lichtstufe 15."
+        }
+      },
       "craftedBy": [
         "simpleblocks:aqua_froglight"
       ],
@@ -7937,7 +7948,18 @@
         "en_us": "Azure Froglight",
         "de_de": "Azurblaues Froschlicht"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "A froglight in a color the frogs do not make (red, cyan or blue): any froglight plus a dye; light level 15."
+        },
+        "de": {
+          "summary": "Ein Froschlicht in einer Farbe, die Frösche nicht machen (rot, cyan oder blau): ein beliebiges Froschlicht plus Farbstoff; Lichtstufe 15."
+        }
+      },
       "craftedBy": [
         "simpleblocks:azure_froglight"
       ],
@@ -8155,7 +8177,18 @@
         "en_us": "Chiseled Blue Ice",
         "de_de": "Gemeißeltes Blaueis"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Chiseled packed or blue ice: cut 1:1 from its base block in the stonecutter, as slippery as it; drops only with Silk Touch."
+        },
+        "de": {
+          "summary": "Gemeißeltes Pack- oder Blaueis: am Steinmetz 1:1 aus dem Grundblock, so rutschig wie dieser; droppt nur mit Behutsamkeit."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_blue_ice.png",
       "craftedBy": [
         "simpleblocks:chiseled_blue_ice_from_blue_ice_stonecutting"
@@ -8168,7 +8201,18 @@
         "en_us": "Chiseled Packed Ice",
         "de_de": "Gemeißeltes Packeis"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Chiseled packed or blue ice: cut 1:1 from its base block in the stonecutter, as slippery as it; drops only with Silk Touch."
+        },
+        "de": {
+          "summary": "Gemeißeltes Pack- oder Blaueis: am Steinmetz 1:1 aus dem Grundblock, so rutschig wie dieser; droppt nur mit Behutsamkeit."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/chiseled_packed_ice.png",
       "craftedBy": [
         "simpleblocks:chiseled_packed_ice_from_packed_ice_stonecutting"
@@ -8891,7 +8935,18 @@
         "en_us": "Block of Nautilus Shell",
         "de_de": "Nautilusschalenblock"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Block of Nautilus Shell: four nautilus shells in a square, crafts back into four; placed along an axis like the bone block."
+        },
+        "de": {
+          "summary": "Nautilusschalenblock: vier Nautilusschalen im Quadrat, wieder in vier zerlegbar; wird wie der Knochenblock entlang einer Achse gesetzt."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -9025,7 +9080,18 @@
         "en_us": "Scarlet Froglight",
         "de_de": "Scharlachrotes Froschlicht"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "A froglight in a color the frogs do not make (red, cyan or blue): any froglight plus a dye; light level 15."
+        },
+        "de": {
+          "summary": "Ein Froschlicht in einer Farbe, die Frösche nicht machen (rot, cyan oder blau): ein beliebiges Froschlicht plus Farbstoff; Lichtstufe 15."
+        }
+      },
       "craftedBy": [
         "simpleblocks:scarlet_froglight"
       ],
@@ -9302,14 +9368,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleblocks:aqua_froglight",
-    "simpleblocks:azure_froglight",
-    "simpleblocks:chiseled_blue_ice",
-    "simpleblocks:chiseled_packed_ice",
-    "simpleblocks:nautilus_shell_block",
-    "simpleblocks:scarlet_froglight"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 8,
@@ -9324,7 +9383,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 6,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
