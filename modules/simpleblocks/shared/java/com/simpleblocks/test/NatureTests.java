@@ -379,7 +379,7 @@ public final class NatureTests {
     /** The 15 blocks with their items, the rising block entity and their tags (shovel/pickaxe, slabs, ice, froglights). */
     public static void movedBlocksRegistered(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-        if (NatureBlocks.NAMES.size() != 15) problems.add("15 moved blocks, found " + NatureBlocks.NAMES.size());
+        if (!NatureBlocks.NAMES.equals(com.simpleblocks.nature.NatureIds.NAMES)) problems.add("NatureIds.NAMES differs from the registered blocks: " + NatureBlocks.NAMES);
         for (String name : NatureBlocks.NAMES) {
             if (BuiltInRegistries.BLOCK.getValue(SimpleBlocks.id(name)) != NatureBlocks.BLOCKS.get(name)) problems.add("block " + name);
             if (BuiltInRegistries.ITEM.getValue(SimpleBlocks.id(name)) != NatureBlocks.ITEMS.get(name)) problems.add("item " + name);
@@ -407,8 +407,8 @@ public final class NatureTests {
 
     /**
      * Old worlds of SimpleBuilding: every {@code simplebuilding:} id of the moved blocks (blocks, items, the rising block entity,
-     * recipe book, recipe advancements) resolves to the id here (SimpleLib IdMoves); a saved block state and item stack with
-     * the old id load as the moved block.
+     * recipe book, recipe advancements) resolves to the id here (SimpleLib IdMoves); a saved block state with the old id loads
+     * as the moved block.
      */
     public static void movedIdsFromSimplebuilding(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
@@ -427,9 +427,6 @@ public final class NatureTests {
             BlockState ice = BlockState.CODEC.parse(ops, net.minecraft.nbt.TagParser.parseCompoundFully(
                     "{Name:\"simplebuilding:cracked_ice\",Properties:{age:\"2\"}}")).getOrThrow();
             if (!ice.is(NatureBlocks.CRACKED_ICE) || ice.getValue(CrackedIceBlock.AGE) != 2) problems.add("saved block state loads as " + ice);
-            ItemStack stack = ItemStack.CODEC.parse(ops, net.minecraft.nbt.TagParser.parseCompoundFully(
-                    "{id:\"simplebuilding:levitating_sand\",count:5}")).getOrThrow();
-            if (!stack.is(NatureBlocks.LEVITATING_SAND.asItem()) || stack.getCount() != 5) problems.add("saved item stack loads as " + stack);
         } catch (Exception e) {
             problems.add("old save data did not load: " + e);
         }

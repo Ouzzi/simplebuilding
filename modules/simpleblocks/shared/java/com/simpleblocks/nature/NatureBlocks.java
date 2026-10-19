@@ -38,7 +38,7 @@ public final class NatureBlocks {
     public static final Map<String, Item> ITEMS = new LinkedHashMap<>();
     /** The rising block; set when the entity types register. */
     public static EntityType<LevitatingBlockEntity> LEVITATING_BLOCK;
-    public static final String LEVITATING_ENTITY = "levitating_block";
+    public static final String LEVITATING_ENTITY = NatureIds.LEVITATING_ENTITY;
 
     // Both suspended blocks have a full collision box: you stand on them, items stay on top and rising blocks land below.
     public static final Block SUSPENDED_SAND = add("suspended_sand", Blocks.SAND, Block::new);
@@ -68,21 +68,10 @@ public final class NatureBlocks {
     /** Groups of the creative tab, in order. */
     public static final List<List<String>> ROWS = List.of(NAMES.subList(0, 4), NAMES.subList(4, 8), NAMES.subList(8, 12), NAMES.subList(12, 15));
 
-    /** Recipe ids that came from SimpleBuilding (recipe book) -> folder of their unlock advancement {@code recipes/<folder>/<path>}. */
-    public static final Map<String, String> MOVED_RECIPES = movedRecipes();
+    /** Recipe ids that came from SimpleBuilding ({@link NatureIds#MOVED_RECIPES}). */
+    public static final Map<String, String> MOVED_RECIPES = NatureIds.MOVED_RECIPES;
 
     private NatureBlocks() {}
-
-    private static Map<String, String> movedRecipes() {
-        Map<String, String> out = new LinkedHashMap<>();
-        for (String path : List.of("suspended_sand", "suspended_gravel", "levitating_sand", "levitating_gravel", "dirt_slab", "grass_slab",
-                "sand_slab", "gravel_slab", "cracked_ice_from_ice_stonecutting", "chiseled_packed_ice_from_packed_ice_stonecutting",
-                "chiseled_blue_ice_from_blue_ice_stonecutting", "nautilus_shell_block", "scarlet_froglight", "aqua_froglight", "azure_froglight")) {
-            out.put(path, "building_blocks");
-        }
-        out.put("nautilus_shell_from_nautilus_shell_block", "misc");
-        return Map.copyOf(out);
-    }
 
     private static Block froglight(String name, MapColor color) {
         return add(name, Blocks.OCHRE_FROGLIGHT, s -> new RotatedPillarBlock(s.mapColor(color)));
