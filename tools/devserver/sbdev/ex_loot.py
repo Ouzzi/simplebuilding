@@ -106,7 +106,9 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
         return out
 
     def item_id(owner_const: str, at: int) -> str:
-        const = owner_const.split(".")[-1]
+        # Stufe 7: Hämmer über HammerRefs.item("diamond") (26.3 simplehammers:*, 26.2 simplebuilding:*)
+        hm = HAMMER_REF.fullmatch(owner_const.strip())
+        const = f"{hm.group(1).upper()}_SLEDGEHAMMER" if hm else owner_const.split(".")[-1]
         identifier = f"simplebuilding:{const.lower()}"
         if item_ids and identifier not in item_ids:
             problems.append(problem("loot", f"{owner_const} ist kein bekanntes Item ({identifier})",
@@ -352,6 +354,9 @@ def read_twin(repo: Path, twin_rel: str) -> dict[str, dict]:
     return out
 
 
+HAMMER_REF = re.compile(r'(?:[\w.]+\.)?HammerRefs\.item\(\s*"(\w+)"\s*\)')
+
+
 def _entry(text: str, start: int, end: int, item_id, ench_id) -> dict | None:
     """Ein .add(...)-Argument -> Eintrag mit Token-Positionen für Gewicht und Anzahl."""
     choice = re.match(r"\s*McVersion\.GADGET_REWORK\s*\?\s*(EmptyLootItem\.emptyItem\(\)\.setWeight\(\d+\))\s*:\s*enchantedBook\(ModEnchantments\.COVER,", text[start:end])
@@ -397,7 +402,7 @@ def _entry(text: str, start: int, end: int, item_id, ench_id) -> dict | None:
             ws = offset + wm.start(1)
             weight = (wm.group(1), ws, ws + len(wm.group(1)))
         return {"key": "empty", "item": None, "count": [0, 0], "_weight": weight, "_count": None}
-    m = re.match(r"LootItem\.lootTableItem\(\s*(\w+\.\w+)\s*\)", stripped)
+    m = re.match(r"LootItem\.lootTableItem\(\s*(" + HAMMER_REF.pattern + r"|\w+\.\w+)\s*\)", stripped)
     if m:
         item = item_id(m.group(1), offset + m.start(1))
         rest = stripped[m.end():]

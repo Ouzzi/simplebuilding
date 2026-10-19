@@ -1,7 +1,6 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.entity.LevitatingBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -11,6 +10,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -506,9 +506,9 @@ public final class BlockBehaviourTests {
         helper.setBlock(new BlockPos(3, 0, 3), Blocks.STONE);
 
         helper.setBlock(vanillaSand, Blocks.SAND);
-        helper.setBlock(suspendedSand, ModBlocks.SUSPENDED_SAND);
+        helper.setBlock(suspendedSand, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND));
         helper.setBlock(vanillaGravel, Blocks.GRAVEL);
-        helper.setBlock(suspendedGravel, ModBlocks.SUSPENDED_GRAVEL);
+        helper.setBlock(suspendedGravel, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL));
 
         helper.startSequence()
                 .thenExecuteAfter(40, () -> {
@@ -519,10 +519,10 @@ public final class BlockBehaviourTests {
                     helper.assertBlockPresent(Blocks.GRAVEL, new BlockPos(1, 1, 3));
 
                     // The suspended variants never moved.
-                    helper.assertBlockPresent(ModBlocks.SUSPENDED_SAND, suspendedSand);
-                    helper.assertBlockPresent(ModBlocks.SUSPENDED_GRAVEL, suspendedGravel);
-                    helper.assertBlockNotPresent(ModBlocks.SUSPENDED_SAND, new BlockPos(3, 1, 1));
-                    helper.assertBlockNotPresent(ModBlocks.SUSPENDED_GRAVEL, new BlockPos(3, 1, 3));
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), suspendedSand);
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), suspendedGravel);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), new BlockPos(3, 1, 1));
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), new BlockPos(3, 1, 3));
                 })
                 .thenSucceed();
     }
@@ -542,8 +542,8 @@ public final class BlockBehaviourTests {
         helper.setBlock(new BlockPos(3, 0, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(5, 0, 1), Blocks.STONE);
 
-        helper.setBlock(levitatingSandStart, ModBlocks.LEVITATING_SAND);
-        helper.setBlock(levitatingGravelStart, ModBlocks.LEVITATING_GRAVEL);
+        helper.setBlock(levitatingSandStart, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
+        helper.setBlock(levitatingGravelStart, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL));
         helper.setBlock(controlSand, Blocks.SAND);
 
         double[] firstSample = new double[1];
@@ -555,8 +555,8 @@ public final class BlockBehaviourTests {
                     // LUFT sein, nicht irgendetwas: rise() ersetzt den Block durch seinen
                     // Fluidzustand, und der ist fuer beide Bloecke leer, weil keiner von beiden
                     // WATERLOGGED kennt. "nicht mehr da" allein wuerde jeden Ersatzblock durchlassen.
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, levitatingSandStart);
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_GRAVEL, levitatingGravelStart);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), levitatingSandStart);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), levitatingGravelStart);
                     helper.assertBlockPresent(Blocks.AIR, levitatingSandStart);
                     helper.assertBlockPresent(Blocks.AIR, levitatingGravelStart);
                     helper.assertTrue(risingEntities(helper).size() >= 2,
@@ -576,7 +576,7 @@ public final class BlockBehaviourTests {
                     // Kontrolle: gewoehnlicher Sand auf demselben Boden bewegt sich nicht.
                     helper.assertBlockPresent(Blocks.SAND, controlSand);
                 })
-                .thenExecute(() -> risingEntities(helper).forEach(LevitatingBlockEntity::discard))
+                .thenExecute(() -> risingEntities(helper).forEach(FallingBlockEntity::discard))
                 .thenSucceed();
     }
 
@@ -600,11 +600,11 @@ public final class BlockBehaviourTests {
 
         helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
         helper.setBlock(ceiling, Blocks.STONE);
-        helper.setBlock(start, ModBlocks.LEVITATING_SAND);
+        helper.setBlock(start, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
 
         helper.startSequence()
                 .thenExecuteAfter(CEILING_FLIGHT_SAMPLE, () -> {
-                    List<LevitatingBlockEntity> flying = risingEntities(helper);
+                    List<FallingBlockEntity> flying = risingEntities(helper);
                     helper.assertTrue(flying.size() == 1,
                             "exactly one levitating sand should be in flight at tick " + CEILING_FLIGHT_SAMPLE
                                     + ", found " + flying.size());
@@ -614,10 +614,10 @@ public final class BlockBehaviourTests {
                     helper.assertValueEqual(rising.getWidth(), EntityTypes.FALLING_BLOCK.getWidth(),
                             "hitbox width of the rising block entity against vanilla's falling block");
                 })
-                .thenWaitUntil(() -> helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, expected))
+                .thenWaitUntil(() -> helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), expected))
                 .thenExecute(() -> {
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, start);
-                    List<LevitatingBlockEntity> left = risingEntities(helper);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), start);
+                    List<FallingBlockEntity> left = risingEntities(helper);
                     helper.assertTrue(left.isEmpty(),
                             "the entity should be gone once it turned back into a block, still here: "
                                     + left.stream().map(e -> e.blockPosition().toString()).toList());
@@ -639,12 +639,16 @@ public final class BlockBehaviourTests {
         // Knapp unter das Baulimit setzen: ein paar Bloecke Anlauf reichen.
         BlockPos high = new BlockPos(anchor.getX(), level.getMaxY() - 3, anchor.getZ());
 
-        LevitatingBlockEntity entity =
-                LevitatingBlockEntity.rise(level, high, ModBlocks.LEVITATING_SAND.defaultBlockState());
+        // b-blocksmove: the block (Simple Blocks' since 26.3) is set there and lifts off by itself; SimpleBuilding reaches the
+        // rising entity only by its type id.
+        level.setBlock(high, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND).defaultBlockState(), 3);
+        java.util.function.Supplier<List<FallingBlockEntity>> rising = () -> level.getEntitiesOfClass(FallingBlockEntity.class,
+                new AABB(high).inflate(16.0D), com.simplebuilding.util.BlockRefs::isRising);
 
         helper.startSequence()
                 .thenWaitUntil(() -> {
-                    helper.assertTrue(!entity.isAlive(),
+                    helper.assertTrue(level.getBlockState(high).isAir(), "the levitating sand should have lifted off");
+                    helper.assertTrue(rising.get().isEmpty(),
                             "the rising entity should be gone once it passed the build limit");
                     helper.assertTrue(!droppedSand(level, high).isEmpty(),
                             "no sand item dropped at the build limit");
@@ -652,7 +656,7 @@ public final class BlockBehaviourTests {
                 .thenExecute(() -> {
                     // Der Gegenstand wuerde sonst quer durch die Welt auf die naechste
                     // Teststruktur fallen; die Entity selbst ist hier schon weg.
-                    entity.discard();
+                    rising.get().forEach(FallingBlockEntity::discard);
                     droppedSand(level, high).forEach(ItemEntity::discard);
                 })
                 .thenSucceed();
@@ -664,18 +668,18 @@ public final class BlockBehaviourTests {
      * entities of the neighbouring levitating test and make the result depend on the order the
      * tests happen to run in.
      */
-    private static List<LevitatingBlockEntity> risingEntities(GameTestHelper helper) {
-        return helper.getLevel().getEntitiesOfClass(LevitatingBlockEntity.class, helper.getBounds());
+    private static List<FallingBlockEntity> risingEntities(GameTestHelper helper) {
+        return helper.getLevel().getEntitiesOfClass(FallingBlockEntity.class, helper.getBounds(), com.simplebuilding.util.BlockRefs::isRising);
     }
 
     private static double highestRisingEntity(GameTestHelper helper) {
         return risingEntities(helper).stream()
-                .mapToDouble(LevitatingBlockEntity::getY).max().orElse(Double.NaN);
+                .mapToDouble(FallingBlockEntity::getY).max().orElse(Double.NaN);
     }
 
     private static List<ItemEntity> droppedSand(ServerLevel level, BlockPos near) {
         return level.getEntitiesOfClass(ItemEntity.class, new AABB(near).inflate(64.0D),
-                item -> item.getItem().is(ModBlocks.LEVITATING_SAND.asItem()));
+                item -> item.getItem().is(com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_SAND)));
     }
 
     // ------------------------------------------------------------------

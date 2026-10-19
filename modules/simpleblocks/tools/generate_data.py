@@ -55,6 +55,31 @@ for kind, suffix in (('stairs', 'stairs'), ('slab', 'slab'), ('wall', 'wall')):
 AGED_BASE = dict(AGED)
 HUSHED_BLOCKS = [n for n in BLOCKS if n.startswith('hushed_')]
 
+# --- Moved from SimpleBuilding (b-blocksmove, docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md) -----------------------------------
+# Java: com.simpleblocks.nature.NatureBlocks (not in BlocksRegistry, so the 37 above stay the module's own). The nature
+# variants keep their data files from SimpleBuilding's 26.3 datagen (moved, namespace rewritten; check_data.py checks them);
+# this script writes the gravity blocks' data, the tags and the names of all 15.
+GRAVITY = [('suspended_sand', 'sand', 'simplebuilding:nihilith_shard', 'minecraft:phantom_membrane'),
+           ('suspended_gravel', 'gravel', 'simplebuilding:nihilith_shard', 'minecraft:phantom_membrane'),
+           ('levitating_sand', 'sand', 'simplebuilding:astralit_dust', 'minecraft:breeze_rod'),
+           ('levitating_gravel', 'gravel', 'simplebuilding:astralit_dust', 'minecraft:breeze_rod')]
+NATURE_SLABS = ['dirt_slab', 'grass_slab', 'sand_slab', 'gravel_slab']
+NATURE_ICE = ['cracked_ice', 'chiseled_packed_ice', 'chiseled_blue_ice']
+NATURE_OTHER = ['nautilus_shell_block', 'scarlet_froglight', 'aqua_froglight', 'azure_froglight']
+MOVED = [g[0] for g in GRAVITY] + NATURE_SLABS + NATURE_ICE + NATURE_OTHER
+MOVED_NAMES = {
+    'en_us': ['Suspended Sand', 'Suspended Gravel', 'Levitating Sand', 'Levitating Gravel', 'Dirt Slab', 'Grass Slab', 'Sand Slab',
+              'Gravel Slab', 'Cracked Ice', 'Chiseled Packed Ice', 'Chiseled Blue Ice', 'Block of Nautilus Shell', 'Scarlet Froglight',
+              'Aqua Froglight', 'Azure Froglight'],
+    'de_de': ['Schwebender Sand', 'Schwebender Kies', 'Aufsteigender Sand', 'Aufsteigender Kies', 'Erdstufe', 'Grasstufe', 'Sandstufe',
+              'Kiesstufe', 'Rissiges Eis', 'Gemeißeltes Packeis', 'Gemeißeltes Blaueis', 'Nautilusschalenblock', 'Scharlachrotes Froschlicht',
+              'Türkises Froschlicht', 'Azurblaues Froschlicht']}
+MOVED_TEXT = {
+    'en_us': {'tooltip.simpleblocks.levitating': 'Falls upward instead of down', 'tooltip.simpleblocks.suspended': 'Hangs in mid-air and never falls',
+              'entity.simpleblocks.levitating_block': 'Levitating Block'},
+    'de_de': {'tooltip.simpleblocks.levitating': 'Fällt nach oben statt nach unten', 'tooltip.simpleblocks.suspended': 'Schwebt in der Luft und fällt nie',
+              'entity.simpleblocks.levitating_block': 'Aufsteigender Block'}}
+
 # --- Shaping Saw (owner 17.10., principle A4b): the block and its sawing recipes -----------------------------------------
 SAW = 'shaping_saw'
 # Wood families: (namespace, wood, log word, wood word, mod condition or None). Ratios as at the crafting table and the
@@ -65,7 +90,7 @@ WOODS += [('minecraft', w, 'stem', 'hyphae', None) for w in ('crimson', 'warped'
 WOODS += [('simpleend', w, 'log', 'wood', 'simpleend') for w in ('ashwood', 'duskwood')]
 WOOLS = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple',
          'blue', 'brown', 'green', 'red', 'black']
-# SimpleBuilding's natural slabs (no stonecutting recipe there; no octets, owner 17.10.).
+# The natural slabs (moved from SimpleBuilding in b-blocksmove; no stonecutting recipe; no octets, owner 17.10.).
 NATURAL_SLABS = [('dirt', 'minecraft:dirt'), ('grass', 'minecraft:grass_block'), ('sand', 'minecraft:sand'), ('gravel', 'minecraft:gravel')]
 
 
@@ -103,7 +128,7 @@ def sawing_list():
         cut(f'minecraft:{color}_wool', f'minecraft:{color}_wool_slab', 2)
     cut('minecraft:nether_bricks', 'minecraft:nether_brick_fence')
     for name, base in NATURAL_SLABS:
-        cut(base, f'simplebuilding:{name}_slab', 2, 'simplebuilding')
+        cut(base, f'{NS}:{name}_slab', 2)
     return out
 
 # --- json helpers -----------------------------------------------------------------------------------------------------
@@ -179,6 +204,11 @@ def models_and_states():
             put(f'assets/{NS}/blockstates/{name}.json', wall_state(name))
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}_inventory'}})
     saw_model()
+    # Gravity blocks look like Vanilla sand and gravel: the models point at minecraft:block/sand / gravel.
+    for name, base, _, _ in GRAVITY:
+        put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'minecraft:block/{base}'}})
+        put(f'assets/{NS}/blockstates/{name}.json', {'variants': {'': {'model': f'{NS}:block/{name}'}}})
+        put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
 
 
 def saw_model():
@@ -280,6 +310,13 @@ def recipes():
     # Shaping Saw: the Vanilla stonecutter recipe (iron ingot over 3 stone) with a copper ingot on each side of the iron.
     recipe(SAW, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'C': 'minecraft:copper_ingot', 'I': 'minecraft:iron_ingot', '#': 'minecraft:stone'},
                  'pattern': ['CIC', '###'], 'result': result(SAW)}, 'minecraft:copper_ingot', 'decorations')
+    # Gravity blocks (b-blocksmove): SimpleBuilding's way (Nihilith shard / Astralit dust, same recipe ids as before the move)
+    # only with SimpleBuilding; alone a Vanilla way (phantom membrane: slow falling / breeze rod: wind lifts), principles 1 and 5.
+    sb, no_sb = mod_condition('simplebuilding'), mod_condition('simplebuilding', True)
+    for name, base, sb_item, vanilla_item in GRAVITY:
+        for rid, centre, cond in ((name, sb_item, sb), (f'{name}_without_simplebuilding', vanilla_item, no_sb)):
+            recipe(rid, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'B': f'minecraft:{base}', 'M': centre},
+                         'pattern': ['BBB', 'BMB', 'BBB'], 'result': result(name, 8)}, centre, conditions=cond)
     for path, ingredient, out, count, mod in sawing_list():
         res = {'id': out} if count == 1 else {'count': count, 'id': out}
         put(f'data/{NS}/recipe/{path}.json', {**(mod_condition(mod) if mod else {}), 'type': f'{NS}:sawing', 'ingredient': ingredient, 'result': res})
@@ -302,6 +339,9 @@ def loot():
             data = {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                           'entries': [{'type': 'minecraft:item', 'name': item}], 'rolls': 1}]}
         put(f'data/{NS}/loot_table/blocks/{name}.json', data)
+    for name, *_ in GRAVITY:
+        put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
+                                                            'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
     put(f'data/{NS}/loot_table/blocks/{SAW}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                     'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{SAW}'}], 'rolls': 1}]})
 
@@ -312,11 +352,19 @@ def tag(rel, ids):
 
 def tags():
     ids = [f'{NS}:{n}' for n in BLOCKS]
-    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'])
+    # Moved blocks keep SimpleBuilding's tags: ice like Vanilla ice (pickaxe, #ice), the nautilus shell block with the pickaxe,
+    # the nature slabs with the shovel and as slabs; froglights (Vanilla + these) are the dye recipes' ingredient.
+    moved_ice = [f'{NS}:{n}' for n in NATURE_ICE]
+    moved_slabs = [f'{NS}:{n}' for n in NATURE_SLABS]
+    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'])
+    tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs)
+    tag('data/minecraft/tags/block/ice.json', moved_ice)
+    tag(f'data/{NS}/tags/item/froglights.json', ['minecraft:ochre_froglight', 'minecraft:verdant_froglight', 'minecraft:pearlescent_froglight']
+        + [f'{NS}:{n}' for n in NATURE_OTHER[1:]])
     tag('data/minecraft/tags/block/occludes_vibration_signals.json', [f'{NS}:{n}' for n in HUSHED_BLOCKS])
     tag('data/minecraft/tags/block/dampens_vibrations.json', [f'{NS}:{n}' for n in HUSHED_BLOCKS])
     for kind, tag_name in (('stairs', 'stairs'), ('slab', 'slabs'), ('wall', 'walls')):
-        members = [f'{NS}:{n}' for n, b in BLOCKS.items() if b['kind'] == kind]
+        members = [f'{NS}:{n}' for n, b in BLOCKS.items() if b['kind'] == kind] + (moved_slabs if kind == 'slab' else [])
         tag(f'data/minecraft/tags/block/{tag_name}.json', members)
         tag(f'data/minecraft/tags/item/{tag_name}.json', members)
 
@@ -392,6 +440,10 @@ def lang():
         for name, text in table.items():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
+        for name, text in zip(MOVED, MOVED_NAMES[locale]):
+            data[f'block.{NS}.{name}'] = text
+            data[f'item.{NS}.{name}'] = text
+        data.update(MOVED_TEXT[locale])
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
         data[f'jei.{NS}.info.{SAW}'] = saw['info']

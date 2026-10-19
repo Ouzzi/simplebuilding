@@ -13,11 +13,24 @@ import java.util.*;
 public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee, Vanish vanish, Freeze freeze,
         Restart restart, Backups backups, Maintenance maintenance, Lag lagFinder, Map<String, List<String>> autoOffWith) {
     /** T10 block and container log. */
-    public record BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds) {
+    public record BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds,
+            boolean signs, boolean explosions, boolean fire, boolean hoppers, int worldEventsPerTick,
+            int lookupPermission, int restorePermission, int purgePermission, int lookupMaxResults) {
         public BlockLog {
             permission = level(permission); rollbackPermission = level(rollbackPermission);
             retentionDays = Math.clamp(retentionDays, 1, 365); rollbackMaxChanges = Math.clamp(rollbackMaxChanges, 1, 200000);
             flushSeconds = Math.clamp(flushSeconds, 1, 60);
+            worldEventsPerTick = Math.clamp(worldEventsPerTick, 0, 100000);
+            lookupPermission = level(lookupPermission); restorePermission = level(restorePermission); purgePermission = level(purgePermission);
+            lookupMaxResults = Math.clamp(lookupMaxResults, 10, 100000);
+        }
+        /** The T10 basics; the event groups and command levels take their defaults (signs, explosions, fire on; hoppers off). */
+        public BlockLog(boolean enabled, int permission, int rollbackPermission, int retentionDays, int rollbackMaxChanges, int flushSeconds) {
+            this(enabled, permission, rollbackPermission, retentionDays, rollbackMaxChanges, flushSeconds, true, true, true, false, 1000, 2, 3, 4, 5000);
+        }
+        public BlockLog withEnabled(boolean on) {
+            return new BlockLog(on, permission, rollbackPermission, retentionDays, rollbackMaxChanges, flushSeconds, signs, explosions, fire, hoppers,
+                    worldEventsPerTick, lookupPermission, restorePermission, purgePermission, lookupMaxResults);
         }
     }
     /** T11 inventory backups on death. */
@@ -97,7 +110,7 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
         var r = this;
         for (var f : hits.keySet()) {
             switch (f) {
-                case "blockLog" -> r = new AdminConfig(new BlockLog(false, r.blockLog.permission, r.blockLog.rollbackPermission, r.blockLog.retentionDays, r.blockLog.rollbackMaxChanges, r.blockLog.flushSeconds),
+                case "blockLog" -> r = new AdminConfig(r.blockLog.withEnabled(false),
                         r.deathBackups, r.invsee, r.vanish, r.freeze, r.restart, r.backups, r.maintenance, r.lagFinder, r.autoOffWith);
                 case "deathBackups" -> r = new AdminConfig(r.blockLog, new Deaths(false, r.deathBackups.permission, r.deathBackups.keep),
                         r.invsee, r.vanish, r.freeze, r.restart, r.backups, r.maintenance, r.lagFinder, r.autoOffWith);

@@ -1,0 +1,12 @@
+{
+  "tier": "stone",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:ice",
+        "simpleblocks:cracked_ice"
+      ]
+    }
+  ]
+}

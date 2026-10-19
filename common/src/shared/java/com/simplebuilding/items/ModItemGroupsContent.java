@@ -271,7 +271,7 @@ public final class ModItemGroupsContent {
      * Zeilen des Tabs "SimpleBlocks" (Besitzer 2026-09-28: Zeilen-Layout fuer alle Tabs): die drei
      * Endsteine (poliert, astral, nihil), je Palette eine Kategorie Block, Ziegel mit Treppe, Stufe und Mauer,
      * Saeule, gemeisselte Ziegel (und der Purpur der Palette) gefolgt von der polierten Reihe; die
-     * Quarz-Schachbretter; die Schwerkraftbloecke (schwebend | levitierend) und zuletzt Lager und Licht -
+     * Quarz-Schachbretter; die Schwerkraftbloecke (schwebend | levitierend; nur 26.2, auf 26.3 in Simple Blocks) und zuletzt Lager und Licht -
      * seit tweaks P8 jede Kategorie nach einer leeren Zelle hinter der vorigen.
      */
     public static List<CreativeTabLayout.Row> buildingBlocksRows() {
@@ -286,12 +286,13 @@ public final class ModItemGroupsContent {
             // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: Stufen, Eis, Nautilus | Froschlichter.
-            int gravity = 0;
-            while (!rows.get(gravity).name().equals("gravity_blocks")) {
-                gravity++;
+            // Die Sculk-Kiefer (N50) vor Lager und Licht; die Naturvarianten (Stufen, Eis, Nautilus, Froschlichter) und die
+            // Schwerkraftbloecke stehen seit b-blocksmove im Tab von Simple Blocks (Stufe T2).
+            int storage = 0;
+            while (!rows.get(storage).name().equals("storage_and_light")) {
+                storage++;
             }
-            rows.addAll(gravity, natureRows());
+            rows.addAll(storage, natureRows());
         }
         if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
             rows.addAll(lightPaneRows());
@@ -324,16 +325,12 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("copper_light_panes_colored", ModItems.LIGHT_PANES.subList(20, 36).toArray(new net.minecraft.world.level.ItemLike[0])));
     }
 
-    /** Naturvarianten (N24/N25): die vier Stufen, das Eis, der Nautilusschalen-Block; die drei Froschlichter. */
+    /**
+     * Was von den Naturvarianten (N24/N25) in SimpleBuilding blieb: die Sculk-Kiefer (Falle). Stufen, Eis, Nautilusschalen-Block
+     * und Froschlichter gehoeren seit b-blocksmove Simple Blocks (eigener Tab, Stufe T2).
+     */
     public static List<CreativeTabLayout.Row> natureRows() {
-        return List.of(
-                CreativeTabLayout.Row.of("nature_slabs",
-                        ModItems.DIRT_SLAB, ModItems.GRASS_SLAB, ModItems.SAND_SLAB, ModItems.GRAVEL_SLAB),
-                CreativeTabLayout.Row.of("nature_ice_and_shells",
-                        ModItems.CRACKED_ICE, ModItems.CHISELED_PACKED_ICE, ModItems.CHISELED_BLUE_ICE, ModItems.NAUTILUS_SHELL_BLOCK),
-                CreativeTabLayout.Row.of("froglights",
-                        ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT),
-                CreativeTabLayout.Row.of("traps", ModItems.SCULK_JAW));
+        return List.of(CreativeTabLayout.Row.of("traps", ModItems.SCULK_JAW));
     }
 
     /**
@@ -360,7 +357,7 @@ public final class ModItemGroupsContent {
     }
 
     private static List<CreativeTabLayout.Row> baseBuildingBlocksRows() {
-        return List.of(
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(List.of(
                 CreativeTabLayout.Row.of("end_stones",
                         ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),
                 CreativeTabLayout.Row.of("astralit",
@@ -393,12 +390,16 @@ public final class ModItemGroupsContent {
                         ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                         ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                         ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
-                CreativeTabLayout.Row.of("gravity_blocks",
-                        ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, CreativeTabLayout.GAP,
-                        ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
                 CreativeTabLayout.Row.of("storage_and_light",
                         ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, CreativeTabLayout.GAP,
-                        ModItems.CONSTRUCTION_LIGHT));
+                        ModItems.CONSTRUCTION_LIGHT)));
+        if (com.simplebuilding.version.McVersion.BLOCKS_IN_SB) {
+            // 26.2: die Schwerkraftbloecke (schwebend | levitierend) vor Lager und Licht; 26.3: in Simple Blocks (b-blocksmove).
+            rows.add(rows.size() - 1, CreativeTabLayout.Row.of("gravity_blocks",
+                    ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, CreativeTabLayout.GAP,
+                    ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL));
+        }
+        return rows;
     }
 
     private static void materials(CreativeModeTab.Output entries) {

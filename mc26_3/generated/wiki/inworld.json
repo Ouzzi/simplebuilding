@@ -233,10 +233,6 @@
             "minecraft:polished_tuff_stairs"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -345,10 +341,6 @@
           [
             "minecraft:dark_oak_stairs",
             "minecraft:dark_oak_slab"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_planks",
@@ -869,10 +861,6 @@
             "minecraft:warped_planks"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -1045,10 +1033,6 @@
           [
             "minecraft:dark_oak_wood",
             "minecraft:stripped_dark_oak_wood"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_log",
@@ -1651,10 +1635,6 @@
             "minecraft:polished_tuff_stairs"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -1835,10 +1815,6 @@
           [
             "minecraft:deepslate_tiles",
             "minecraft:cracked_deepslate_tiles"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_planks",
@@ -2651,10 +2627,6 @@
             "minecraft:warped_planks"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -2951,10 +2923,6 @@
           [
             "minecraft:horn_coral_block",
             "minecraft:tube_coral_block"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_log",
@@ -3717,10 +3685,6 @@
             "simplebuilding:nihilith_bricks"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:crystalline_astralit",
             "simplebuilding:veined_astralit"
           ],
@@ -3997,10 +3961,6 @@
           [
             "minecraft:deepslate_tiles",
             "minecraft:cracked_deepslate_tiles"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_planks",
@@ -5089,10 +5049,6 @@
             "simplebuilding:nihilith_bricks"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:crystalline_astralit",
             "simplebuilding:veined_astralit"
           ],
@@ -5521,10 +5477,6 @@
           [
             "minecraft:horn_coral_block",
             "minecraft:tube_coral_block"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_log",
@@ -6427,10 +6379,6 @@
             "minecraft:polished_tuff_stairs"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -6627,10 +6575,6 @@
           [
             "minecraft:deepslate_tiles",
             "minecraft:cracked_deepslate_tiles"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_planks",
@@ -7567,10 +7511,6 @@
             "minecraft:yellow_concrete"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -7919,10 +7859,6 @@
           [
             "minecraft:horn_coral_block",
             "minecraft:tube_coral_block"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_log",
@@ -8393,10 +8329,6 @@
             "minecraft:smooth_stone_slab"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -8461,10 +8393,6 @@
           [
             "minecraft:cut_sandstone_slab",
             "minecraft:smooth_sandstone_slab"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:red_sandstone",
@@ -8677,10 +8605,6 @@
             "minecraft:spruce_log"
           ],
           [
-            "simplebuilding:cracked_ice",
-            "minecraft:ice"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -8773,10 +8697,6 @@
           [
             "minecraft:dark_oak_log",
             "minecraft:stripped_dark_oak_log"
-          ],
-          [
-            "minecraft:ice",
-            "simplebuilding:cracked_ice"
           ],
           [
             "minecraft:jungle_log",
@@ -9220,7 +9140,7 @@
       {
         "count": 4,
         "damage": 1,
-        "input": "simplebuilding:cracked_ice",
+        "input": "simpleblocks:cracked_ice",
         "result": "simplebuilding:ice_chip",
         "strikes": 4
       },

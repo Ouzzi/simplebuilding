@@ -209,10 +209,3 @@ type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
-
-[[dependencies.${modId}]]
-modId="simpleblocks"
-type="optional"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"

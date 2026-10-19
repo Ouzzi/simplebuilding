@@ -16,6 +16,7 @@ window.WIKI_MODULES = [
       "simplemobheads",
       "simplecrucibles",
       "simpleoctets",
+      "simpleblocks",
       "simplehammers"
     ],
     "optional": [
@@ -41,8 +42,7 @@ window.WIKI_MODULES = [
       "simplerespawn",
       "simplebeacons",
       "simpleshops",
-      "simplewanderers",
-      "simpleblocks"
+      "simplewanderers"
     ]
   },
   {
@@ -216,7 +216,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "da7304929510"
+    "dataHash": "d4b0fb70e6f8"
   },
   {
     "id": "simpletweaks",
@@ -238,7 +238,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleweather"
     ],
-    "dataHash": "9f1665b84383"
+    "dataHash": "8f7275ae7f45"
   },
   {
     "id": "simpledimensions",
@@ -317,7 +317,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "ad4343ec39ec"
+    "dataHash": "2040069d3469"
   },
   {
     "id": "simplemaps",
@@ -430,7 +430,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "4f643d6fc208"
+    "dataHash": "d861602f48e2"
   },
   {
     "id": "simplefarming",
@@ -699,20 +699,22 @@ window.WIKI_MODULES = [
   {
     "id": "simpleblocks",
     "displayName": "Simple Blocks",
-    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. The Shaping Saw cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla.",
-    "version": "0.1.0",
+    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shaping Saw cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "jei"
     ],
-    "dataHash": "8864e5be368d"
+    "dataHash": "b95cfeeec4d6"
   },
   {
     "id": "simplecrucibles",

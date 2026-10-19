@@ -4,7 +4,7 @@
   "size": 14,
   "targets": [
     {
-      "state": "simplebuilding:cracked_ice",
+      "state": "simpleblocks:cracked_ice",
       "target": {
         "block": "minecraft:ice",
         "predicate_type": "minecraft:block_match"

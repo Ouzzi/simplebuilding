@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleblocks:block/aqua_froglight_top",
+    "side": "simpleblocks:block/aqua_froglight_side"
+  }
+}

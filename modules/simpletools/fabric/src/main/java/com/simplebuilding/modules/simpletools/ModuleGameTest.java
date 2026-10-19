@@ -36,5 +36,13 @@ public final class ModuleGameTest {
  @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.recipeUnlocks(h); }
  @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.behaviourHints(h); }
  @GameTest(maxTicks=100) public void guideBook(GameTestHelper h){com.simplebuilding.modules.simpletools.guide.ToolsGuide.gameTest(h);}
+ @GameTest(maxTicks=100) public void frameInvisible(GameTestHelper h){FrameTests.invisible(h);}
+ @GameTest(maxTicks=100) public void frameEmpty(GameTestHelper h){FrameTests.empty(h);}
+ @GameTest(maxTicks=100) public void frameReverse(GameTestHelper h){FrameTests.reverse(h);}
+ @GameTest(maxTicks=100) public void frameLock(GameTestHelper h){FrameTests.lock(h);}
+ @GameTest(maxTicks=100) public void frameGlow(GameTestHelper h){FrameTests.glow(h);}
+ @GameTest(maxTicks=100) public void frameReveal(GameTestHelper h){FrameTests.reveal(h);}
+ @GameTest(maxTicks=100) public void frameConfigOff(GameTestHelper h){FrameTests.configOff(h);}
+ @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.firstPickupTips(h); }
  // CAT-END
 }

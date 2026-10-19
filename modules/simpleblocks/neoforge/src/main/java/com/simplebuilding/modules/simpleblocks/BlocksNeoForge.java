@@ -17,11 +17,15 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 @Mod(SimpleBlocks.MOD_ID)
 public final class BlocksNeoForge {
     public BlocksNeoForge(IEventBus bus, net.neoforged.api.distmarker.Dist dist) {
+        // Old simplebuilding: ids of the moved building blocks resolve here (before the registry events).
+        SimpleBlocks.registerIdMoves();
+        SimpleBlocks.simplebuildingLoaded = net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) BlocksRegistry.registerBlocks();
             if (key.equals(Registries.ITEM)) BlocksRegistry.registerItems();
+            if (key.equals(Registries.ENTITY_TYPE)) BlocksRegistry.registerEntityTypes();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) BlocksRegistry.registerTab();
             if (key.equals(Registries.MENU)) BlocksRegistry.registerMenus();
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
@@ -72,9 +76,14 @@ public final class BlocksNeoForge {
                 if (placement.natural() != natural) continue;
                 var before = new ItemStack(placement.before());
                 boolean anchored = event.getParentEntries().contains(before) && event.getSearchEntries().contains(before);
+                ItemStack previous = before;
                 for (ItemStack stack : placement.stacks()) {
                     if (event.getParentEntries().contains(stack) || event.getSearchEntries().contains(stack)) continue;
-                    if (anchored) event.insertBefore(before, stack, visibility);
+                    if (anchored && placement.after()) {
+                        // Behind the anchor in order: each one behind the one before it.
+                        event.insertAfter(previous, stack, visibility);
+                        previous = stack;
+                    } else if (anchored) event.insertBefore(before, stack, visibility);
                     else event.accept(stack, visibility);
                 }
             }

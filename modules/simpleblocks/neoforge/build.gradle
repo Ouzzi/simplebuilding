@@ -2,9 +2,14 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.147'
 }
+// 1.0.0: SimpleBuilding 26.3 requires simpleblocks >=1.0.0 (required sub-mod since the building blocks moved here).
+ext.moduleVersion = '1.0.0'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 // Bundles the shared framework API for standalone runs.
 dependencies { jarJar project(':framework') }
+// SimpleLib (IdMoves migration of the building blocks from SimpleBuilding) nested per principle 6a; compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

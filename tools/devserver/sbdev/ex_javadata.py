@@ -443,10 +443,12 @@ _TOOL_KINDS = r"(?:sword|axe|pickaxe|shovel|hoe|spear)"
 def _material_overrides(repo: Path, cls: str) -> bool:
     """Ruft der Konstruktor der Item-Klasse settings.pickaxe(material, ...) & Co. auf? Dann setzt das
     Werkzeugmaterial die Verzauberbarkeit - ein vorher gesetztes enchantable(...) ist wirkungslos."""
-    path = repo / "common/src/shared/java/com/simplebuilding/items/custom" / f"{cls}.java"
-    if not path.exists():
-        return False
-    return bool(re.search(r"super\(\s*settings\s*\.\s*" + _TOOL_KINDS + r"\(", path.read_text(encoding="utf-8")))
+    # Stufe 7 (Hämmer) hat versionsgebundene Klassen aus shared nach mc26_2 bzw. ins 26.3-Overlay verschoben.
+    for base in ("common/src/shared/java", "common/src/mc26_2/java", "mc26_3/overlay/java"):
+        path = repo / base / "com/simplebuilding/items/custom" / f"{cls}.java"
+        if path.exists():
+            return bool(re.search(r"super\(\s*settings\s*\.\s*" + _TOOL_KINDS + r"\(", path.read_text(encoding="utf-8")))
+    return False
 
 
 def _helpers(text: str, repo: Path | None = None) -> dict[str, dict[str, int]]:

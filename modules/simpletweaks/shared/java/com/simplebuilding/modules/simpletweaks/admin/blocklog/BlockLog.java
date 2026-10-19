@@ -19,7 +19,11 @@ import net.minecraft.world.level.storage.LevelResource;
  * is the position index, the day file the time index; retention deletes whole day files.
  */
 public final class BlockLog {
-    /** One action. {@code action}: B broke, P placed, T took from a container, D deposited into a container. */
+    /**
+     * One action. {@code action}: B broke, P placed, T took from a container, D deposited into a container, S edited a sign
+     * (extra: side, old and new text), X destroyed by an explosion, F burned, I a hopper put into a container, O a hopper took out.
+     * Actors that are no player have {@link #WORLD} as UUID and a name starting with {@code #} ({@code #fire}, {@code #hopper}, {@code #creeper}).
+     */
     public record Entry(long time, char action, UUID player, String name, String dimension, int x, int y, int z, String id, int count, String extra) {
         public BlockPos pos() { return new BlockPos(x, y, z); }
         String line() {
@@ -35,12 +39,18 @@ public final class BlockLog {
         }
     }
 
+    /** UUID of the non-player actors. */
+    public static final UUID WORLD = new UUID(0L, 0L);
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger("simpletweaks-blocklog");
     private static final ConcurrentLinkedQueue<Entry> QUEUE = new ConcurrentLinkedQueue<>();
     private static ExecutorService io;
     private static Path root;
     private static long ticks;
     private static LocalDate lastPurge;
+    /** Server thread: world events (explosions, fire, hoppers) still allowed in this tick. */
+    private static int budget;
+    /** Server thread: hopper moves of the current flush interval, summed per container, direction and item. */
+    private static final Map<String, Entry> HOPPERS = new LinkedHashMap<>();
     /** Server thread: the server's zone for day files (tests may fix the clock). */
     static Clock clock = Clock.systemDefaultZone();
 
@@ -62,11 +72,13 @@ public final class BlockLog {
             try { if (!io.awaitTermination(10, TimeUnit.SECONDS)) LOG.warn("Block log writer did not finish in 10 s"); }
             catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         }
-        io = null; root = null; QUEUE.clear();
+        io = null; root = null; QUEUE.clear(); HOPPERS.clear();
+        Rollback.forget();
     }
     public static void tick(MinecraftServer server) {
         if (io == null) return;
-        if (++ticks % (Admin.config().blockLog().flushSeconds() * 20L) == 0) io.submit(BlockLog::drain);
+        budget = Admin.config().blockLog().worldEventsPerTick();
+        if (++ticks % (Admin.config().blockLog().flushSeconds() * 20L) == 0) { collect(); io.submit(BlockLog::drain); }
         if (ticks % 72000 == 0) io.submit(BlockLog::purge);
     }
 
@@ -76,9 +88,40 @@ public final class BlockLog {
                 pos.getX(), pos.getY(), pos.getZ(), id, count, extra == null ? "" : extra));
     }
 
+    /** A logged action of a non-player actor ({@code #name}). */
+    public static void record(ServerLevel level, String actor, char action, BlockPos pos, String id, int count, String extra) {
+        if (!active()) return;
+        QUEUE.add(new Entry(clock.millis(), action, WORLD, actor, level.dimension().identifier().toString(), pos.getX(), pos.getY(), pos.getZ(), id, count, extra == null ? "" : extra));
+    }
+    /** World events take one unit of the per-tick budget ({@code worldEventsPerTick}); false = drop the event. */
+    public static boolean budget() {
+        if (budget <= 0) return false;
+        budget--;
+        return true;
+    }
+    /** Tests: a fresh budget now. */
+    public static void resetBudget() { budget = Admin.config().blockLog().worldEventsPerTick(); }
+    /** Hopper move ({@code I} or {@code O}): summed until the next flush. Server thread. */
+    public static void hopper(ServerLevel level, char action, BlockPos pos, String item, int count) {
+        if (!active() || count <= 0) return;
+        String dim = level.dimension().identifier().toString();
+        String key = dim + '|' + pos.asLong() + '|' + action + '|' + item;
+        var old = HOPPERS.get(key);
+        if (old == null && !budget()) return;
+        HOPPERS.put(key, old == null ? new Entry(clock.millis(), action, WORLD, "#hopper", dim, pos.getX(), pos.getY(), pos.getZ(), item, count, "")
+                : new Entry(old.time(), action, WORLD, old.name(), dim, old.x(), old.y(), old.z(), item, old.count() + count, ""));
+    }
+    /** Server thread: the summed hopper moves go into the write queue. */
+    static void collect() {
+        if (HOPPERS.isEmpty()) return;
+        QUEUE.addAll(HOPPERS.values());
+        HOPPERS.clear();
+    }
+
     /** Tests and shutdown: everything queued so far is on disk when this returns. */
     public static void flushNow() {
         if (io == null) return;
+        collect();
         try { io.submit(BlockLog::drain).get(30, TimeUnit.SECONDS); } catch (Exception e) { throw new IllegalStateException(e); }
     }
 
@@ -125,6 +168,7 @@ public final class BlockLog {
     /** History of one block, newest first (IO thread; complete with everything recorded before the call). */
     public static CompletableFuture<List<Entry>> at(ServerLevel level, BlockPos pos) {
         String dim = level.dimension().identifier().toString();
+        collect();
         return CompletableFuture.supplyAsync(() -> {
             drain();
             var out = new ArrayList<Entry>();
@@ -139,26 +183,61 @@ public final class BlockLog {
      * square in {@code levelFilter}; without them every dimension is searched. At most {@code limit} entries.
      */
     public static CompletableFuture<List<Entry>> byPlayer(MinecraftServer server, UUID player, long since, ServerLevel levelFilter, BlockPos center, int radius, int limit) {
+        return query(server, LogFilter.of(player, since, levelFilter == null ? null : levelFilter.dimension().identifier().toString(), center, radius), limit);
+    }
+
+    /** Entries matching {@code filter}, newest first, at most {@code limit} (IO thread; call from the server thread). */
+    public static CompletableFuture<List<Entry>> query(MinecraftServer server, LogFilter filter, int limit) {
         var dims = new ArrayList<String>();
-        if (levelFilter != null) dims.add(levelFilter.dimension().identifier().toString());
+        if (filter.dims() != null) dims.addAll(filter.dims());
         else for (var l : server.getAllLevels()) dims.add(l.dimension().identifier().toString());
-        var firstDay = Instant.ofEpochMilli(since).atZone(clock.getZone()).toLocalDate();
+        var firstDay = filter.since() > 0 ? Instant.ofEpochMilli(filter.since()).atZone(clock.getZone()).toLocalDate() : null;
+        collect();
         return CompletableFuture.supplyAsync(() -> {
             drain();
             var out = new ArrayList<Entry>();
+            Comparator<Entry> newest = Comparator.comparingLong(Entry::time).reversed();
             for (String dim : dims) {
                 Path dir = root.resolve(AdminFiles.folder(dim));
                 if (!Files.isDirectory(dir)) continue;
                 try (var regions = Files.list(dir)) {
                     for (var region : regions.toList()) {
-                        if (center != null && !regionNear(region, center, radius)) continue;
-                        read(region, dim, e -> e.player().equals(player) && e.time() >= since
-                                && (center == null || Math.abs(e.x() - center.getX()) <= radius && Math.abs(e.z() - center.getZ()) <= radius), out, firstDay);
+                        if (filter.center() != null && !regionNear(region, filter.center(), filter.radius())) continue;
+                        read(region, dim, filter::test, out, firstDay);
+                        // keep memory bounded on huge logs: only the newest `limit` can survive
+                        if (out.size() > 4 * limit) { out.sort(newest); out.subList(limit, out.size()).clear(); }
                     }
                 } catch (IOException e) { LOG.warn("Could not list {}", dir, e); }
             }
-            out.sort(Comparator.comparingLong(Entry::time).reversed());
+            out.sort(newest);
             return out.size() > limit ? new ArrayList<>(out.subList(0, limit)) : out;
+        }, io);
+    }
+
+    /** Removes every line of {@code player} from all day files (privacy); the number of removed lines. */
+    public static CompletableFuture<Integer> purgePlayer(UUID player) {
+        collect();
+        String id = player.toString();
+        return CompletableFuture.supplyAsync(() -> {
+            drain();
+            int removed = 0;
+            if (root == null || !Files.isDirectory(root)) return 0;
+            try (var walk = Files.walk(root, 3)) {
+                for (var file : walk.filter(p -> p.getFileName().toString().endsWith(".tsv")).toList()) {
+                    var lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+                    var keep = new ArrayList<String>(lines.size());
+                    for (String line : lines) {
+                        String[] f = line.split("\t", 4);
+                        if (f.length >= 3 && f[2].equals(id)) removed++; else keep.add(line);
+                    }
+                    if (keep.size() == lines.size()) continue;
+                    if (keep.isEmpty()) { Files.deleteIfExists(file); continue; }
+                    Path tmp = file.resolveSibling(file.getFileName() + ".tmp");
+                    Files.write(tmp, keep, StandardCharsets.UTF_8);
+                    Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+                }
+            } catch (IOException e) { LOG.warn("Could not purge {} from the block log", id, e); }
+            return removed;
         }, io);
     }
     private static boolean regionNear(Path region, BlockPos c, int r) {

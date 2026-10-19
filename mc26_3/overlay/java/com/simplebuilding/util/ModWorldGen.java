@@ -128,10 +128,11 @@ public class ModWorldGen {
                     new BlockMatchTest(Blocks.END_STONE), ModBlocks.END_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Cracked ice belongs to Simple Blocks since b-blocksmove (by id; datagen loads the required sub-mod).
             context.register(CRACKED_ICE_PATCH_KEY, new OreFeature(new BlockMatchTest(Blocks.ICE),
-                    ModBlocks.CRACKED_ICE.defaultBlockState(), CRACKED_ICE_PATCH_SIZE));
+                    crackedIce().defaultBlockState(), CRACKED_ICE_PATCH_SIZE));
             context.register(CRACKED_ICE_SINGLE_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
-                    new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.CRACKED_ICE.defaultBlockState())));
+                    new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(crackedIce().defaultBlockState())));
             context.register(CRACKED_ICE_FIELD_KEY, crackedIceField());
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
@@ -213,6 +214,11 @@ public class ModWorldGen {
      * snow layers go, the topmost block under open air becomes cracked ice (stage 1), what lies under it turns into cave
      * air (the pit). Blocks under water are never targets, so frozen ocean water stays where it is.
      */
+    /** Simple Blocks' cracked ice (b-blocksmove), by id. */
+    private static net.minecraft.world.level.block.Block crackedIce() {
+        return com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE);
+    }
+
     private static Feature crackedIceField() {
         net.minecraft.core.Vec3i up = Direction.UP.getUnitVec3i();
         // Carved blocks become cave air, so a block under the pit never mistakes it for the open sky; columns still
@@ -220,8 +226,8 @@ public class ModWorldGen {
         var provider = net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider.builder()
                 .ifTrueThenProvide(BlockPredicate.matchesBlocks(Blocks.SNOW), Blocks.AIR)
                 .ifTrueThenProvide(BlockPredicate.matchesBlocks(up, List.of(Blocks.AIR)),
-                        ModBlocks.CRACKED_ICE.defaultBlockState().setValue(com.simplebuilding.blocks.custom.CrackedIceBlock.AGE, 1))
-                .ifTrueThenProvide(BlockPredicate.matchesBlocks(up, List.of(ModBlocks.CRACKED_ICE, Blocks.CAVE_AIR)), Blocks.CAVE_AIR)
+                        crackedIce().defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3, 1))
+                .ifTrueThenProvide(BlockPredicate.matchesBlocks(up, List.of(crackedIce(), Blocks.CAVE_AIR)), Blocks.CAVE_AIR)
                 .build();
         BlockPredicate target = BlockPredicate.allOf(
                 BlockPredicate.matchesBlocks(Blocks.ICE, Blocks.SNOW_BLOCK, Blocks.SNOW, Blocks.DIRT, Blocks.POWDER_SNOW),

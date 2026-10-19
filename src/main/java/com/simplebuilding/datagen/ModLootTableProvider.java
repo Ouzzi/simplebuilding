@@ -215,22 +215,15 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         ModBlocks.lightPanes().forEach(this::dropSelf); // Light Panes (N57): each drops itself, no tool needed
 
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            // Naturvarianten (N24/N25): Stufen wie Stufen (doppelt = 2), Eis wie Eis (nur mit Behutsamkeit), der Rest sich selbst.
-            // Die Gras-Stufe (Behutsamkeit: sie selbst, sonst die Erd-Stufe) steht handgeschrieben unter mc26_3/overlay.
-            for (Block slab : List.of(ModBlocks.DIRT_SLAB, ModBlocks.SAND_SLAB, ModBlocks.GRAVEL_SLAB)) {
-                add(slab, createSlabItemTable(slab));
-            }
-            for (Block ice : List.of(ModBlocks.CRACKED_ICE, ModBlocks.CHISELED_PACKED_ICE, ModBlocks.CHISELED_BLUE_ICE)) {
-                dropWhenSilkTouch(ice);
-            }
-            for (Block block : List.of(ModBlocks.NAUTILUS_SHELL_BLOCK, ModBlocks.SCULK_JAW, ModBlocks.SCARLET_FROGLIGHT, ModBlocks.AQUA_FROGLIGHT, ModBlocks.AZURE_FROGLIGHT)) {
-                dropSelf(block);
-            }
+            // Die Sculk-Kiefer droppt sich selbst; die Naturvarianten (N24/N25) haben seit b-blocksmove ihre Beute in Simple Blocks.
+            dropSelf(ModBlocks.SCULK_JAW);
         }
-        dropSelf(ModBlocks.SUSPENDED_SAND);
-        dropSelf(ModBlocks.SUSPENDED_GRAVEL);
-        dropSelf(ModBlocks.LEVITATING_SAND);
-        dropSelf(ModBlocks.LEVITATING_GRAVEL);
+        if (com.simplebuilding.version.McVersion.BLOCKS_IN_SB) { // 26.3: Simple Blocks' gravity blocks
+            dropSelf(ModBlocks.SUSPENDED_SAND);
+            dropSelf(ModBlocks.SUSPENDED_GRAVEL);
+            dropSelf(ModBlocks.LEVITATING_SAND);
+            dropSelf(ModBlocks.LEVITATING_GRAVEL);
+        }
 
         // Rucksaecke: immer das Rucksack-Item mit allen Komponenten des Blocks (Inhalt, Name,
         // Verzauberungen). Bewusst ohne survives_explosion und ohne Werkzeugbedingung.

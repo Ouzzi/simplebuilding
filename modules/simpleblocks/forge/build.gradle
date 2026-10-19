@@ -5,6 +5,10 @@ plugins {
 // Forge 26.3 has no JEI (the plugin sources are left out).
 ext.forgeExcludedSources = ['**/compat/jei/**']
 ext.forgeMixinConfigs = ['simpleblocks.mixins.json', 'simpleblocks.forge.mixins.json']
+// SimpleLib (IdMoves migration of the building blocks from SimpleBuilding) nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
+// 1.0.0: SimpleBuilding 26.3 requires simpleblocks >=1.0.0 (required sub-mod since the building blocks moved here).
+ext.moduleVersion = '1.0.0'
 apply from: rootProject.file('gradle/module-forge.gradle')
 // The cracked/mossy brick textures are Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

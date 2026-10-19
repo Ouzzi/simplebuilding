@@ -52,17 +52,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            // Naturvarianten (N24/N25): Stufen mit der Schaufel und als Stufen; Eis wie Vanilla-Eis (Spitzhacke, #ice);
-            // der Nautilusschalen-Block mit der Spitzhacke wie der Knochenblock; Froschlichter wie Vanilla ohne Werkzeug.
-            for (Block slab : java.util.List.of(ModBlocks.DIRT_SLAB, ModBlocks.GRASS_SLAB, ModBlocks.SAND_SLAB, ModBlocks.GRAVEL_SLAB)) {
-                builder(BlockTags.MINEABLE_WITH_SHOVEL).add(key(slab));
-                builder(BlockTags.SLABS).add(key(slab));
-            }
-            for (Block ice : java.util.List.of(ModBlocks.CRACKED_ICE, ModBlocks.CHISELED_PACKED_ICE, ModBlocks.CHISELED_BLUE_ICE)) {
-                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ice));
-                builder(BlockTags.ICE).add(key(ice));
-            }
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.NAUTILUS_SHELL_BLOCK));
+            // Die Naturvarianten (N24/N25) taggt seit b-blocksmove Simple Blocks; hier bleibt die Sculk-Kiefer (Hacke).
             builder(BlockTags.MINEABLE_WITH_HOE).add(key(ModBlocks.SCULK_JAW));
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {

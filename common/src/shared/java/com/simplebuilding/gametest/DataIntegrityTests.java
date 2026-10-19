@@ -1149,7 +1149,7 @@ public final class DataIntegrityTests {
                 // Eis ohne Behutsamkeit nichts (wie Eis, Pack- und Blaueis). Die Behutsamkeits-Seite prueft NatureBlockTests.
                 boolean grass = blockId.getPath().equals("grass_slab");
                 for (List<ItemStack> produced : rolls) {
-                    boolean ok = grass ? produced.size() == 1 && produced.getFirst().is(ModItems.DIRT_SLAB) && produced.getFirst().getCount() == 1
+                    boolean ok = grass ? produced.size() == 1 && produced.getFirst().is(com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.DIRT_SLAB)) && produced.getFirst().getCount() == 1
                             : produced.isEmpty();
                     if (!ok) {
                         problems.add(actual + " handed over " + produced + " to an empty hand; expected "
@@ -2806,7 +2806,11 @@ public final class DataIntegrityTests {
                 ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS,
                 ModItems.ASTRALIT_BLOCK, ModItems.POLISHED_NIHILITH_WALL, ModItems.ENDER_QUARTZ_BLOCK,
                 ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
-                ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
+                ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER));
+        if (McVersion.BLOCKS_IN_SB) { // 26.3: Simple Blocks' (b-blocksmove)
+            pinned.put(ModItemGroupsContent.Tab.BUILDING_BLOCKS, java.util.stream.Stream.concat(pinned.get(ModItemGroupsContent.Tab.BUILDING_BLOCKS).stream(),
+                    java.util.stream.Stream.of(ModItems.LEVITATING_SAND)).toList());
+        }
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ROTATOR, ModItems.BLUEPRINT,
@@ -3274,12 +3278,15 @@ public final class DataIntegrityTests {
                         ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                         ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                         ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
-                CreativeTabLayout.Row.of("gravity_blocks",
-                        ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap,
-                        ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
                 CreativeTabLayout.Row.of("storage_and_light",
                         ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap,
                         ModItems.CONSTRUCTION_LIGHT)));
+        if (McVersion.BLOCKS_IN_SB) {
+            // 26.2: die Schwerkraftbloecke vor Lager und Licht; 26.3: im Tab von Simple Blocks (b-blocksmove, Stufe T2).
+            expected.add(expected.size() - 1, CreativeTabLayout.Row.of("gravity_blocks",
+                    ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap,
+                    ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL));
+        }
         if (McVersion.CHESS) {
             // Schach (2026-10-06) nach den Schachbrettern: je Farbe eine Kategorie Achtel, Treppe, Stufe
             // (Quarz hat keine Stufen: Luecken) und die sechs 3D-Figuren, dann eine zweite mit den sechs flachen.
@@ -3303,15 +3310,9 @@ public final class DataIntegrityTests {
             // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
         }
         if (McVersion.NATURE_VARIANTS) {
-            // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: vier Stufen; Eis und Nautilus; drei Froschlichter.
-            expected.addAll(expected.size() - 2, List.of(
-                    CreativeTabLayout.Row.of("nature_slabs",
-                            ModItems.DIRT_SLAB, ModItems.GRASS_SLAB, ModItems.SAND_SLAB, ModItems.GRAVEL_SLAB),
-                    CreativeTabLayout.Row.of("nature_ice_and_shells",
-                            ModItems.CRACKED_ICE, ModItems.CHISELED_PACKED_ICE, ModItems.CHISELED_BLUE_ICE, ModItems.NAUTILUS_SHELL_BLOCK),
-                    CreativeTabLayout.Row.of("froglights",
-                            ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT),
-                    CreativeTabLayout.Row.of("traps", ModItems.SCULK_JAW)));
+            // Die Sculk-Kiefer (N50) vor Lager und Licht; Stufen, Eis, Nautilus und Froschlichter stehen seit b-blocksmove im
+            // Tab von Simple Blocks (Stufe T2, simpleblocks BlocksTests).
+            expected.add(expected.size() - 1, CreativeTabLayout.Row.of("traps", ModItems.SCULK_JAW));
         }
         if (McVersion.LIGHT_PANES) {
             // Light Panes (N57) after the nature rows, before the woodwork rows.

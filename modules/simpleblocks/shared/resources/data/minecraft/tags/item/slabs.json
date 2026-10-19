@@ -4,6 +4,10 @@
     "simpleblocks:calcite_slab",
     "simpleblocks:netherrack_slab",
     "simpleblocks:smooth_basalt_slab",
-    "simpleblocks:blue_nether_brick_slab"
+    "simpleblocks:blue_nether_brick_slab",
+    "simpleblocks:dirt_slab",
+    "simpleblocks:grass_slab",
+    "simpleblocks:sand_slab",
+    "simpleblocks:gravel_slab"
   ]
 }

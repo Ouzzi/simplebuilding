@@ -39,7 +39,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 public final class BlocksGuide {
     public static final String NAMESPACE = "simpleblocks";
     public static final String AUTHOR = "Simple Blocks";
-    public static final int PAGES = 9;
+    public static final int PAGES = 11;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
     public static final Item RECIPE_ITEM = Items.CLAY_BALL;

@@ -29,7 +29,7 @@
           ]
         },
         "then": {
-          "id": "simplebuilding:cracked_ice",
+          "id": "simpleblocks:cracked_ice",
           "properties": {
             "age": "1"
           }
@@ -39,7 +39,7 @@
         "if_true": {
           "type": "minecraft:matching_blocks",
           "blocks": [
-            "simplebuilding:cracked_ice",
+            "simpleblocks:cracked_ice",
             "minecraft:cave_air"
           ],
           "offset": [

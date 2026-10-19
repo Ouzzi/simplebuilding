@@ -162,20 +162,26 @@
       "id": "admin_block_log",
       "en": {
         "title": "Block and container log (on by default)",
-        "summary": "Logs every block a player breaks or places and every item taken from or put into a container block, with player, time, position and dimension. /simpletweaks inspect shows the history of a clicked block, /simpletweaks rollback undoes a player's actions.",
+        "summary": "Logs blocks players break or place, items taken from or put into containers, sign edits, explosions and fire (hoppers optional), with actor, time, position and dimension. /simpletweaks inspect shows a block's history, /simpletweaks lookup searches with filters, /simpletweaks rollback undoes (with --preview), /simpletweaks restore redoes the last rollback.",
         "details": [
           "Storage: append-only day files under <world>/simpletweaks/blocklog/<dimension>/<regionX>_<regionZ>/<date>.tsv; the region folder (512×512 blocks) is the position index, the day file the time index. The server thread only queues entries; one background thread writes them every flushSeconds (default 5, 1–60) and answers lookups. Day files older than retentionDays (default 14, 1–365) are deleted at start and once a day.",
           "/simpletweaks inspect (operator level permission, default 2) toggles the inspect mode: a left or right click on a block shows its history, 7 lines per page (/simpletweaks inspect page <n>), and does not break or use the block. Broken blocks keep their block state and block entity data up to 32 KB.",
-          "/simpletweaks rollback <player> <time> [radius] (rollbackPermission, default 3): time like 30m, 2h, 1d or 1h30m; with a radius only the square around you in your dimension, without one every dimension. Newest first: placed blocks are removed while the same block is still there, broken blocks return onto air or replaceable blocks (with their contents), taken items go back into the container and deposited items are taken out. At most rollbackMaxChanges (default 20000) entries. Section blockLog in config/simpletweaks-admin.json."
+          "/simpletweaks rollback <filter> [--preview] (rollbackPermission, default 3) takes the lookup filters and needs time: plus player: or radius:; the old form <player> <time> [radius] still works. Newest first: placed blocks are removed while the same block is still there, broken, exploded and burned blocks return onto air or replaceable blocks (with their contents, so an exploded chest can be duplicated), taken items go back, deposited items are taken out, signs get their old text back; hopper moves are never undone. --preview checks the same and changes nothing. At most rollbackMaxChanges (default 20000) entries.",
+          "New events (each with a switch in section blockLog): signs (S, old and new text, on), explosions (X, actor = the player behind it, else #creeper, #tnt or #explosion, on), fire (F, #fire, on), hoppers and hopper minecarts moving items into or out of a container (I/O, #hopper, summed per flush, off). Explosions, fire and hoppers together log at most worldEventsPerTick (default 1000) blocks per tick. Actors that are no player are stored with the zero UUID and a name starting with #; the file format is unchanged and old day files stay readable.",
+          "/simpletweaks lookup <filter> (lookupPermission, default 2): player:<name|uuid|#actor>, action:break|place|take|put|sign|explode|burn|hopperin|hopperout, item:<id>, block:<id>, dim:<dimension>, time:<2h>, radius:<1-4096> around you in your dimension; values can be comma lists. 7 lines per page (/simpletweaks lookup page <n>), at most lookupMaxResults (default 5000) entries, newest first.",
+          "/simpletweaks restore (restorePermission, default 3) plays the last rollback forward again (kept in memory until the next rollback or restart). /simpletweaks purge <player> (purgePermission, default 4) deletes every log line of that player from all day files (privacy)."
         ]
       },
       "de": {
         "title": "Block- und Truhen-Protokoll (standardmäßig an)",
-        "summary": "Protokolliert jeden Block, den ein Spieler abbaut oder setzt, und jedes Item, das er aus einem Container-Block nimmt oder hineinlegt – mit Spieler, Zeit, Position und Dimension. /simpletweaks inspect zeigt den Verlauf eines angeklickten Blocks, /simpletweaks rollback macht die Aktionen eines Spielers rückgängig.",
+        "summary": "Protokolliert abgebaute und gesetzte Blöcke, aus Containern genommene oder hineingelegte Items, Schild-Änderungen, Explosionen und Feuer (Trichter optional) – mit Verursacher, Zeit, Position und Dimension. /simpletweaks inspect zeigt den Verlauf eines Blocks, /simpletweaks lookup sucht mit Filtern, /simpletweaks rollback macht rückgängig (mit --preview), /simpletweaks restore holt den letzten Rollback zurück.",
         "details": [
           "Ablage: Tagesdateien zum Anhängen unter <welt>/simpletweaks/blocklog/<dimension>/<regionX>_<regionZ>/<datum>.tsv; der Regionsordner (512×512 Blöcke) ist der Positionsindex, die Tagesdatei der Zeitindex. Der Server-Thread reiht Einträge nur ein; ein eigener Thread schreibt sie alle flushSeconds (Standard 5, 1–60) und beantwortet Abfragen. Tagesdateien älter als retentionDays (Standard 14, 1–365) werden beim Start und einmal täglich gelöscht.",
           "/simpletweaks inspect (OP-Stufe permission, Standard 2) schaltet den Prüfmodus: Links- oder Rechtsklick auf einen Block zeigt seinen Verlauf, 7 Zeilen je Seite (/simpletweaks inspect page <n>), ohne ihn abzubauen oder zu benutzen. Abgebaute Blöcke behalten Blockzustand und Blockentity-Daten bis 32 KB.",
-          "/simpletweaks rollback <Spieler> <Zeit> [Radius] (rollbackPermission, Standard 3): Zeit wie 30m, 2h, 1d oder 1h30m; mit Radius nur das Quadrat um dich in deiner Dimension, ohne Radius alle Dimensionen. Neueste zuerst: gesetzte Blöcke verschwinden, solange noch derselbe Block dort steht, abgebaute kommen auf Luft oder ersetzbare Blöcke zurück (mit Inhalt), genommene Items wandern zurück in den Container, hineingelegte wieder heraus. Höchstens rollbackMaxChanges (Standard 20000) Einträge. Abschnitt blockLog in config/simpletweaks-admin.json."
+          "/simpletweaks rollback <Filter> [--preview] (rollbackPermission, Standard 3) nimmt die Lookup-Filter und braucht time: plus player: oder radius:; die alte Form <Spieler> <Zeit> [Radius] geht weiter. Neueste zuerst: gesetzte Blöcke verschwinden, solange noch derselbe Block dort steht, abgebaute, gesprengte und verbrannte kommen auf Luft oder ersetzbare Blöcke zurück (mit Inhalt, eine gesprengte Truhe kann sich also verdoppeln), genommene Items wandern zurück, hineingelegte wieder heraus, Schilder bekommen den alten Text; Trichter-Bewegungen werden nie zurückgesetzt. --preview prüft dasselbe und ändert nichts. Höchstens rollbackMaxChanges (Standard 20000) Einträge.",
+          "Neue Ereignisse (je ein Schalter im Abschnitt blockLog): Schilder (S, alter und neuer Text, an), Explosionen (X, Verursacher = der Spieler dahinter, sonst #creeper, #tnt oder #explosion, an), Feuer (F, #fire, an), Trichter und Trichterloren, die Items in einen Container legen oder herausnehmen (I/O, #hopper, je Schreibintervall zusammengefasst, aus). Explosionen, Feuer und Trichter zusammen protokollieren höchstens worldEventsPerTick (Standard 1000) Blöcke je Tick. Verursacher ohne Spieler stehen mit der Null-UUID und einem Namen mit # in der Datei; das Format bleibt gleich, alte Tagesdateien bleiben lesbar.",
+          "/simpletweaks lookup <Filter> (lookupPermission, Standard 2): player:<Name|UUID|#Verursacher>, action:break|place|take|put|sign|explode|burn|hopperin|hopperout, item:<ID>, block:<ID>, dim:<Dimension>, time:<2h>, radius:<1-4096> um dich in deiner Dimension; Werte auch als Komma-Liste. 7 Zeilen je Seite (/simpletweaks lookup page <n>), höchstens lookupMaxResults (Standard 5000) Einträge, neueste zuerst.",
+          "/simpletweaks restore (restorePermission, Standard 3) spielt den letzten Rollback wieder vorwärts (im Speicher bis zum nächsten Rollback oder Neustart). /simpletweaks purge <Spieler> (purgePermission, Standard 4) löscht alle Protokollzeilen dieses Spielers aus allen Tagesdateien (Datenschutz)."
         ]
       },
       "sources": [
@@ -184,7 +190,12 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/Inspect.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/Rollback.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockLogCommands.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/LogFilter.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminSignMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminExplosionMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminFireMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminHopperMixin.java"
       ]
     },
     {
@@ -985,10 +996,10 @@
         "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 65 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+        "summary": "Guide to this mod: 67 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 65 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+        "summary": "Handbuch zu dieser Mod: 67 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
       }
     },
     "simpletweaks:claim_deed": {

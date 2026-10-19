@@ -4,6 +4,8 @@
   "package": "com.simpleblocks.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "CrackedIceFacesMixin",
+    "CrackedIcePlaceMixin",
     "DiscoverTipMixin"
   ],
   "client": [],
