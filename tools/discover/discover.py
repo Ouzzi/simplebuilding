@@ -133,7 +133,12 @@ MODS = [
                 "Axe or hammer, nugget in off hand: upgrade in place",
                 "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten")]),
     dict(id="simplestorage", ns=["simplestorage"], cls="StorageDiscover", package="com.simplestorage.discover",
-         own_packages=["com.simplestorage."]),
+         own_packages=["com.simplestorage."],
+         # split stage 8b: the tiered chests and shulker boxes climb in the world like the ovens
+         tips=[("chest_upgrade", ["reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest",
+                                  "netherite_trapped_chest", "netherite_shulker_box"],
+                "Axe or hammer, nugget in off hand: upgrade in place",
+                "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten")]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),
