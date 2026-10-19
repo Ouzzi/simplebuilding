@@ -262,6 +262,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:compass": ("a compass", "einem Kompass"),
     "minecraft:anvil": ("an anvil", "einem Amboss"),
     "minecraft:ender_pearl": ("an ender pearl", "einer Enderperle"),
+    "minecraft:barrel": ("a barrel", "einem Fass"),
 }
 
 

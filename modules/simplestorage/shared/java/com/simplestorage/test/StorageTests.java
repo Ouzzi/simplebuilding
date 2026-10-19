@@ -117,11 +117,11 @@ public final class StorageTests {
         ALL.put("crates_burn_and_fuel_like_planks", h -> {
             List<String> problems = new ArrayList<>();
             var fire = (com.simplestorage.mixin.FireBlockInvoker) Blocks.FIRE;
-            var fuel = h.getLevel().fuelValues();
             StorageBlocks.CRATES.forEach((wood, crate) -> {
                 if (fire.simplestorage$canBurn(crate.defaultBlockState()) == wood.nether()) problems.add(wood + " burns: " + !wood.nether() + " expected");
-                int ticks = fuel.burnDuration(new ItemStack(StorageItems.CRATES.get(wood)));
-                if (ticks != (wood.nether() ? 0 : StorageItems.CRATE_FUEL)) problems.add(wood + " fuel " + ticks);
+                // 26.3 fuel is the item's cooking_fuel component (300 ticks like planks, none for the Nether woods).
+                boolean fuel = new ItemStack(StorageItems.CRATES.get(wood)).has(net.minecraft.core.component.DataComponents.COOKING_FUEL);
+                if (fuel == wood.nether()) problems.add(wood + " fuel: " + fuel);
                 if (!crate.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)) problems.add(wood + " not mined with the axe");
             });
             if (!StorageBlocks.STORAGE_CRAFTING_TABLE.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)) problems.add("table not mined with the axe");
