@@ -16,7 +16,7 @@ public final class Protect {
 
     public static ProtectConfig config() {
         var c = config;
-        if (c == null) config = c = ProtectConfig.load(ProtectConfig.PATH);
+        if (c == null) config = c = ProtectConfig.load(ProtectConfig.PATH).withAutoOff(com.simplebuilding.modules.simpletweaks.play.Mods::loaded, org.slf4j.LoggerFactory.getLogger("simpletweaks-protect"));
         return c;
     }
     /** Tests: other settings until the next call (null = reload from the file). */

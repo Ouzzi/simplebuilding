@@ -43,16 +43,26 @@ if (project.hasProperty('forgeMixinConfigs')) {
         minecraft.runs.configureEach { project.forgeMixinConfigs.each { args "-mixin.config=${it}" } }
     }
 }
-// Forge consumes one condition object; Fabric/NeoForge ignore this additional key.
+// Forge 26.3 reads exactly one condition object under "forge:condition" (net.minecraftforge.common.crafting.conditions.
+// ICondition.DEFAULT_FIELD); Fabric/NeoForge ignore that key. An explicit "forge:condition" wins, then a "forge:conditions"
+// list, then "neoforge:conditions" with NeoForge's built-in types renamed to their Forge twins (same field names).
+// tools/check_load_conditions.py applies the same rule and rejects ids a loader does not know.
+def forgeBuiltins = ['and', 'or', 'not', 'mod_loaded', 'item_exists', 'tag_empty', 'true', 'false'] as Set
+def toForge
+toForge = { c ->
+    if (c instanceof List) return c.collect { toForge(it) }
+    if (!(c instanceof Map)) return c
+    def out = c.collectEntries { k, v -> [k, k in ['value', 'values'] ? toForge(v) : v] }
+    def type = c.type instanceof String ? c.type : ''
+    if (type.startsWith('neoforge:') && type.substring(9) in forgeBuiltins) out.type = 'forge:' + type.substring(9)
+    out
+}
 processResources {
     doLast {
         fileTree(destinationDir).matching { include 'data/**/*.json' }.each { f ->
             def data = new groovy.json.JsonSlurper().parse(f)
-            if (data instanceof Map && data['neoforge:conditions']) {
-                // Prefer explicit Forge conditions; NeoForge's built-in mod_loaded has a Forge twin.
-                def conditions = data['forge:conditions'] ?: data['neoforge:conditions'].collect {
-                    it instanceof Map && it.type == 'neoforge:mod_loaded' ? it + [type: 'forge:mod_loaded'] : it
-                }
+            if (data instanceof Map && !data['forge:condition'] && (data['forge:conditions'] || data['neoforge:conditions'])) {
+                def conditions = data['forge:conditions'] ?: toForge(data['neoforge:conditions'])
                 data['forge:condition'] = conditions.size() == 1 ? conditions[0] : [type:'forge:and', values:conditions]
                 f.setText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(data)) + '\n', 'UTF-8')
             }

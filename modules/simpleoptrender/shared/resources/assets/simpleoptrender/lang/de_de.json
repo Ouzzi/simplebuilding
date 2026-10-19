@@ -1,0 +1,7 @@
+{
+  "modmenu.nameTranslation.simpleoptrender": "Simple Opt Render",
+  "simpleoptrender.area.leaf_culling": "Blätter-Culling",
+  "simpleoptrender.area.lightmap_cache": "Lichtkarten-Cache",
+  "simpleoptrender.area.fast_ip_ping": "Schneller IP-Ping",
+  "simpleoptrender.area.no_telemetry": "Telemetrie aus"
+}

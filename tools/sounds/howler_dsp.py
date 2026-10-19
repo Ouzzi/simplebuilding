@@ -317,6 +317,7 @@ def stretch(x, factor, win=2048, hop=512):
     if len(spec) < 2:
         return x
     steps = np.arange(0, len(spec) - 1, 1 / factor)
+    steps = steps[steps < len(spec) - 1]  # float arange can overshoot by one frame
     phase = np.angle(spec[0])
     expected = 2 * np.pi * hop * np.arange(win // 2 + 1) / win
     out = np.zeros(int(len(steps) * hop + win))

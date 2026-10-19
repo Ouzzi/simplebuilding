@@ -228,21 +228,41 @@ public final class OctetTests {
         h.succeed();
     }
 
-    /** Every cell: the stonecutter cuts 8 from the full block, 8 craft back. */
+    /**
+     * Every cell: 8 are cut from the full block, 8 craft back. Octets are exclusive to the Shaping Saw (docs/ai/PRINZIPIEN.md
+     * A4b): with Simple Blocks only its {@code simpleblocks:sawing} recipe exists and no stonecutter recipe yields an octet
+     * (the Vanilla stonecutter stays Vanilla); without it the {@code minecraft:stonecutting} fallback keeps the module playable.
+     */
     static void recipesCutAndCraftBack(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
+        boolean saw = SimpleOctets.isLoaded("simpleblocks");
         var recipes = h.getLevel().getServer().getRecipeManager();
         for (Block cell : OctetRegistry.cells()) {
             if (cell == OctetRegistry.MELON_OCTET) continue;
             Block full = ((MaterialOctetBlock) cell).source();
             String base = BuiltInRegistries.BLOCK.getKey(full).getPath();
             String key = BuiltInRegistries.BLOCK.getKey(cell).getPath();
+            var sawing = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(key + "_from_" + base + "_sawing")));
             var cut = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(key + "_from_" + base + "_stonecutting")));
             var back = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(base + "_from_octets")));
-            if (cut.isEmpty()) problems.add("no stonecutter recipe for " + key);
+            if (sawing.isPresent() != saw) problems.add("Shaping Saw recipe of " + key + " present=" + sawing.isPresent());
+            if (sawing.isPresent() && !"simpleblocks:sawing".equals(String.valueOf(BuiltInRegistries.RECIPE_TYPE.getKey(sawing.get().value().getType())))) {
+                problems.add("type of " + key + "_from_" + base + "_sawing");
+            }
+            if (cut.isPresent() == saw) problems.add("stonecutter recipe of " + key + " present=" + cut.isPresent());
             if (back.isEmpty()) problems.add("no way back to " + base);
         }
-        h.assertTrue(problems.isEmpty(), "recipes: " + problems);
+        for (var holder : recipes.getRecipes()) {
+            if (holder.value().getType() != net.minecraft.world.item.crafting.RecipeType.STONECUTTING
+                    || !(holder.value() instanceof net.minecraft.world.item.crafting.SingleItemRecipe recipe)) continue;
+            var first = recipe.input().items().findFirst();
+            if (first.isEmpty()) continue;
+            ItemStack out = recipe.assemble(new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(first.get().value())));
+            if (saw && SimpleOctets.MOD_ID.equals(BuiltInRegistries.ITEM.getKey(out.getItem()).getNamespace())) {
+                problems.add("stonecutter yields an octet with Simple Blocks: " + holder.id().identifier());
+            }
+        }
+        h.assertTrue(problems.isEmpty(), "recipes (Simple Blocks " + (saw ? "loaded" : "absent") + "): " + problems);
         h.succeed();
     }
 

@@ -229,10 +229,15 @@ public final class BlocksTests {
         for (var holder : level.getServer().getRecipeManager().getRecipes()) {
             if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(one, level)) shapes++;
         }
-        // Simple Octets adds the octet cut (stage 6) when it is loaded.
-        int expected = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", "blue_nether_bricks_octet")) ? 4 : 3;
-        h.assertTrue(shapes == expected, "stonecutter: stairs, slab, wall (+ octet with Simple Octets), got " + shapes);
+        // Simple Octets' octet cut is a Shaping Saw recipe while Simple Blocks is loaded (principle A4b), never the stonecutter's.
+        h.assertTrue(shapes == 3, "stonecutter: stairs, slab, wall (the octet only in the Shaping Saw), got " + shapes);
+        if (net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", "blue_nether_bricks_octet"))) {
+            h.assertTrue(com.simpleblocks.saw.Sawing.serverEntries(level.getServer().getRecipeManager()).stream().anyMatch(e -> e.sawOnly()
+                    && e.input().test(new ItemStack(BlocksRegistry.BLUE_NETHER_BRICKS))
+                    && "simpleoctets:blue_nether_bricks_octet".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(e.result().item().value()).toString())),
+                    "the Shaping Saw cuts the blue nether bricks octet");
+        }
         h.succeed();
     }
 

@@ -1,13 +1,17 @@
-// Hollow Howler voice, variant switch (concept docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md, section 9).
-// Default (no property): variant A, the synthesised .ogg files committed under shared/resources (make_howler_sounds.py).
-// -PsbHowlerSounds=vanilla (or SB_HOWLER_SOUNDS=vanilla): variant B, built from Vanilla sounds of the local Minecraft
-// asset store by tools/sounds/vanilla_derived_sounds.py into build/generated-resources/vanillaDerivedSounds (never
-// committed, AGENTS.md rule 7); processResources then drops the committed file of every name the generated root has,
-// so the jar carries exactly one copy. A missing Python (numpy, scipy, soundfile) or asset store logs a WARNING and
+// Hollow Howler voice, variant switch per event (concept docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md, sections 9-10).
+// The choice lives in tools/sounds/howler_sounds.json: "mode" (synth = variant A everywhere, the default; vanilla =
+// variant B everywhere; mix = per event as in its "mix" map). -PsbHowlerSounds=synth|vanilla|mix (or SB_HOWLER_SOUNDS)
+// overrides the mode for one build. Variant A = the synthesised .ogg files committed under shared/resources
+// (make_howler_sounds.py). Variant B is built from Vanilla sounds of the local Minecraft asset store by
+// tools/sounds/vanilla_derived_sounds.py into build/generated-resources/vanillaDerivedSounds (never committed,
+// AGENTS.md rule 7); processResources then drops the committed file of every name the generated root has, so the jar
+// carries exactly one copy of each take. A missing Python (numpy, scipy, soundfile) or asset store logs a WARNING and
 // keeps variant A; -PsbVanillaDerivedStrict fails instead. -PsbPython / SB_PYTHON as in module-vanilla-derived.gradle.
-String vsMode = ((project.findProperty('sbHowlerSounds') ?: System.getenv('SB_HOWLER_SOUNDS') ?: 'synth') as String).trim()
-if (!(vsMode in ['synth', 'vanilla'])) throw new GradleException("sbHowlerSounds must be synth or vanilla, not '${vsMode}'")
-if (vsMode == 'vanilla') {
+File vsMapping = rootProject.file('tools/sounds/howler_sounds.json')
+String vsFileMode = vsMapping.isFile() ? (new groovy.json.JsonSlurper().parse(vsMapping).mode as String) : 'synth'
+String vsMode = ((project.findProperty('sbHowlerSounds') ?: System.getenv('SB_HOWLER_SOUNDS') ?: vsFileMode ?: 'synth') as String).trim()
+if (!(vsMode in ['synth', 'vanilla', 'mix'])) throw new GradleException("sbHowlerSounds must be synth, vanilla or mix, not '${vsMode}'")
+if (vsMode != 'synth') {
     File vsScript = rootProject.file('tools/sounds/vanilla_derived_sounds.py')
     File vsOut = layout.buildDirectory.dir('generated-resources/vanillaDerivedSounds').get().asFile
     File vsShared = file('../shared/resources')
@@ -21,6 +25,9 @@ if (vsMode == 'vanilla') {
         description = "Builds variant B of the ${vsModule} sounds (never committed) from the local Minecraft assets."
         inputs.files(fileTree(vsScript.parentFile) { include '*.py' }).withPropertyName('generators')
         inputs.property('python', vsPython ?: '')
+        inputs.property('mode', vsMode)
+        inputs.file(vsMapping).withPropertyName('mapping')
+        inputs.file(file('../shared/resources/assets/simplemobs/sounds.json')).withPropertyName('soundsJson')
         outputs.dir(vsOut)
         doLast {
             project.delete(vsOut)
@@ -47,7 +54,7 @@ if (vsMode == 'vanilla') {
             }
             List<String> py = candidates.find { c -> run(c + ['-c', 'import numpy, scipy, soundfile']).first() == 0 }
             if (py == null) { fallback("no Python with numpy, scipy and soundfile among ${candidates*.join(' ')}"); return }
-            def (int code, String text) = run(py + ['-B', vsScript.absolutePath, '--out', vsOut.absolutePath, '--module', vsModule])
+            def (int code, String text) = run(py + ['-B', vsScript.absolutePath, '--out', vsOut.absolutePath, '--module', vsModule, '--mode', vsMode])
             text.readLines().each { logger.lifecycle(it) }
             if (code != 0) fallback("vanilla_derived_sounds.py failed (exit ${code}):\n${text.readLines().takeRight(25).join('\n')}")
         }

@@ -397,21 +397,55 @@ public class ModModelProvider extends FabricModelProvider {
         net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties.ID_MAPPER.put(
                 com.simplebuilding.client.property.BrushInkModelProperty.ID,
                 com.simplebuilding.client.property.BrushInkModelProperty.PROPERTY_TYPE);
-        Identifier plain = BRUSH_ONE_LAYER.create(brush, TextureMapping.layer0(brush), generator.modelOutput);
-        Identifier tip = BRUSH_TWO_LAYERS.create(ModelLocationUtils.getModelLocation(brush, "_tip"),
-                TextureMapping.layered(TextureMapping.getItemTexture(brush), TextureMapping.getItemTexture(brush, "_tip")),
-                generator.modelOutput);
-        Identifier palette = BRUSH_TWO_LAYERS.create(ModelLocationUtils.getModelLocation(brush, "_palette"),
-                TextureMapping.layered(TextureMapping.getItemTexture(brush), TextureMapping.getItemTexture(brush, "_tip_palette")),
-                generator.modelOutput);
+        TextureMapping base = TextureMapping.layer0(brush);
+        TextureMapping tipMap = TextureMapping.layered(TextureMapping.getItemTexture(brush), TextureMapping.getItemTexture(brush, "_tip"));
+        TextureMapping paletteMap = TextureMapping.layered(TextureMapping.getItemTexture(brush), TextureMapping.getItemTexture(brush, "_tip_palette"));
+        ItemModel.Unbaked plain = brushSwing(generator, brush, "", BRUSH_ONE_LAYER, base, null, TextureSlot.LAYER0);
+        ItemModel.Unbaked palette = brushSwing(generator, brush, "_palette", BRUSH_TWO_LAYERS, paletteMap, null, TextureSlot.LAYER0, TextureSlot.LAYER1);
         java.util.List<net.minecraft.client.renderer.item.SelectItemModel.SwitchCase<String>> cases = new java.util.ArrayList<>();
         for (net.minecraft.world.item.DyeColor color : net.minecraft.world.item.DyeColor.values()) {
-            cases.add(ItemModelUtils.when(color.getName(), ItemModelUtils.tintedModel(tip, ItemModelUtils.constantTint(-1),
-                    ItemModelUtils.constantTint(net.minecraft.util.ARGB.opaque(color.getTextureDiffuseColor())))));
+            ItemModel.Unbaked tinted = brushSwing(generator, brush, "_tip", BRUSH_TWO_LAYERS, tipMap,
+                    new net.minecraft.client.color.item.ItemTintSource[]{ItemModelUtils.constantTint(-1),
+                            ItemModelUtils.constantTint(net.minecraft.util.ARGB.opaque(color.getTextureDiffuseColor()))},
+                    TextureSlot.LAYER0, TextureSlot.LAYER1);
+            cases.add(ItemModelUtils.when(color.getName(), tinted));
         }
-        cases.add(ItemModelUtils.when(com.simplebuilding.items.custom.ColorBrushItem.INK_PALETTE, ItemModelUtils.plainModel(palette)));
+        cases.add(ItemModelUtils.when(com.simplebuilding.items.custom.ColorBrushItem.INK_PALETTE, palette));
         generator.itemModelOutput.accept(brush, ItemModelUtils.select(new com.simplebuilding.client.property.BrushInkModelProperty(),
-                ItemModelUtils.plainModel(plain), cases));
+                plain, cases));
+    }
+
+    /**
+     * Ein Tintenmodell mit Vanilla-Schwenk: {@code use_cycle} (period 10, scale 0.1, Schwellen 0.25/0.5/0.75 wie
+     * {@code items/brush.json}) waehlt {@code <name>_brushing_0..2} mit dem Vanilla-Modell
+     * {@code item/brush_brushing_N} als Parent (Transforms); ohne Benutzung gilt das Standardmodell. Gleiche Texturen.
+     */
+    private static ItemModel.Unbaked brushSwing(ItemModelGenerators generator, Item brush, String suffix, ModelTemplate rest,
+                                                TextureMapping textures, net.minecraft.client.color.item.ItemTintSource[] tints,
+                                                TextureSlot... slots) {
+        if (!BRUSH_MODELS.add(suffix)) return brushSwingTree(brush, suffix, tints);
+        rest.create(ModelLocationUtils.getModelLocation(brush, suffix), textures, generator.modelOutput);
+        for (int i = 0; i < 3; i++) {
+            ModelTemplate template = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("item/brush_brushing_" + i)),
+                    Optional.empty(), slots);
+            template.create(ModelLocationUtils.getModelLocation(brush, suffix + "_brushing_" + i), textures, generator.modelOutput);
+        }
+        return brushSwingTree(brush, suffix, tints);
+    }
+
+    private static final java.util.Set<String> BRUSH_MODELS = new java.util.HashSet<>();
+
+    private static ItemModel.Unbaked brushSwingTree(Item brush, String suffix, net.minecraft.client.color.item.ItemTintSource[] tints) {
+        Identifier idle = ModelLocationUtils.getModelLocation(brush, suffix);
+        java.util.List<net.minecraft.client.renderer.item.RangeSelectItemModel.Entry> swing = new java.util.ArrayList<>();
+        float[] thresholds = {0.25F, 0.5F, 0.75F};
+        for (int i = 0; i < 3; i++) {
+            Identifier model = ModelLocationUtils.getModelLocation(brush, suffix + "_brushing_" + i);
+            swing.add(ItemModelUtils.override(tints == null ? ItemModelUtils.plainModel(model) : ItemModelUtils.tintedModel(model, tints), thresholds[i]));
+        }
+        return ItemModelUtils.rangeSelect(new net.minecraft.client.renderer.item.properties.numeric.UseCycle(10.0F), 0.1F,
+                tints == null ? ItemModelUtils.plainModel(idle) : ItemModelUtils.tintedModel(idle, tints),
+                swing.toArray(new net.minecraft.client.renderer.item.RangeSelectItemModel.Entry[0]));
     }
 
     private static void generateBlueprint(ItemModelGenerators generator) {

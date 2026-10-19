@@ -3,7 +3,7 @@
   "description": {
     "translate": "enchantment.simpletools.soulbound"
   },
-  "exclusive_set": "minecraft:vanishing_curse",
+  "exclusive_set": "#simpletools:exclusive_set/soulbound",
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0

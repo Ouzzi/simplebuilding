@@ -53,6 +53,7 @@ public final class ProtectTests {
         TESTS.put("checks_flag_far_break_not_server_breaks", ProtectTests::reach);
         TESTS.put("fast_break_uses_real_speed", ProtectTests::fastBreak);
         TESTS.put("hammer_area_break_not_flagged", ProtectTests::hammer);
+        TESTS.put("auto_off_with_partner_mods", ProtectTests::autoOff);
     }
     public static int maxTicks(String name) { return 100; }
 
@@ -91,6 +92,33 @@ public final class ProtectTests {
         throw new AssertionError("section missing");
     }
     static BlockState host(BlockPos pos) { return pos.getY() < 0 ? Blocks.DEEPSLATE.defaultBlockState() : Blocks.STONE.defaultBlockState(); }
+
+    // ------------------------------------------------------------------ autoOffWith (partner mods)
+    static void autoOff(GameTestHelper h) {
+        var log = org.slf4j.LoggerFactory.getLogger("simpletweaks-autooff-test");
+        java.util.function.Predicate<String> none = id -> false, ledger = "ledger"::equals, chunky = "chunky"::equals,
+                lite = "litematica"::equals, axiom = "axiom"::equals, free = "freecam"::equals, view = "inv_view"::equals, restore = "invrestore"::equals;
+        var a = com.simplebuilding.modules.simpletweaks.admin.AdminConfig.DEFAULT;
+        yes(h, a.withAutoOff(none, log).equals(a), "No partner: nothing changes");
+        yes(h, !a.withAutoOff(ledger, log).blockLog().enabled() && a.withAutoOff(ledger, log).invsee().enabled() && a.withAutoOff(ledger, log).deathBackups().enabled(), "Ledger switches off only the block log");
+        yes(h, !a.withAutoOff("minetracer"::equals, log).blockLog().enabled(), "MineTracer too");
+        yes(h, !a.withAutoOff(view, log).invsee().enabled() && a.withAutoOff(view, log).blockLog().enabled(), "Inv View (alternative id) switches off /invsee");
+        yes(h, !a.withAutoOff(restore, log).deathBackups().enabled() && a.withAutoOff(restore, log).invsee().enabled(), "InvRestore switches off death backups");
+        var p = com.simplebuilding.modules.simpletweaks.play.PlayConfig.DEFAULT;
+        yes(h, p.pregen().enabled() && !p.withAutoOff(chunky, log).pregen().enabled() && p.withAutoOff(ledger, log).equals(p), "Chunky switches off pregen only");
+        var c = ProtectConfig.of("{\"actionChecks\":{\"enabled\":true},\"freecam\":{\"enabled\":true}}");
+        yes(h, c.actionChecks().enabled() && c.withAutoOff(none, log).equals(c), "No partner: protect unchanged");
+        yes(h, !c.withAutoOff(lite, log).actionChecks().enabled() && !c.withAutoOff(axiom, log).actionChecks().enabled(), "Litematica/Axiom switch off the action checks");
+        yes(h, c.withAutoOff(lite, log).antiXray().enabled(), "Anti-x-ray stays on by default");
+        yes(h, c.withAutoOff(free, log).equals(c), "Freecam: hint only, nothing switched off");
+        var x = ProtectConfig.of("{\"autoOffWith\":{\"antiXray\":[\"axiom\",\"BAD ID\"],\"actionChecks\":[]}}");
+        yes(h, x.autoOffWith().get("antiXray").equals(List.of("axiom")) && !x.withAutoOff(axiom, log).antiXray().enabled(),
+                "Admin list: ids validated, antiXray follows Axiom, emptied actionChecks list keeps the feature");
+        yes(h, ProtectConfig.of("{\"actionChecks\":{\"enabled\":true},\"autoOffWith\":{\"actionChecks\":[]}}").withAutoOff(lite, log).actionChecks().enabled(), "An emptied list keeps the feature on");
+        var m = com.simplebuilding.modules.simpletweaks.play.AutoOff.match(java.util.Map.of("a", List.of("x", "y")), id -> id.equals("y"));
+        yes(h, m.equals(java.util.Map.of("a", "y")), "match returns the first loaded partner per feature");
+        h.succeed();
+    }
 
     // ------------------------------------------------------------------ config
     static void config(GameTestHelper h) {

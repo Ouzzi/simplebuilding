@@ -1267,7 +1267,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                     for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
                         Item octet = com.simplebuilding.chess.ChessItems.octet(color);
-                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, octet, color.octetSource(), 8);
+                        // 8 Achtel aus dem Schachbrett: nur in der Formsäge (Prinzip A4b), Ersatz im Steinmetz nur ohne
+                        // Simple Blocks - beides mit Ladebedingungen aus tools/textures/octets_2026_10_09.py (mc26_3/overlay).
                         for (boolean flat : new boolean[]{false, true}) {
                             for (com.simplebuilding.chess.ChessPiece piece : com.simplebuilding.chess.ChessPiece.values()) {
                                 stonecutterResultFromBase(RecipeCategory.DECORATIONS, com.simplebuilding.chess.ChessItems.piece(color, piece, flat), octet);

@@ -243,14 +243,15 @@ def advancement(recipe_id, trigger_item, folder='building_blocks', conditions=No
 
 
 def mod_condition(mod, negate=False):
-    """Load conditions in the three loader forms: `mod` is loaded (or, negated, is not)."""
+    """Load conditions in the three loader forms: `mod` is loaded (or, negated, is not). Forge 26.3 reads one object
+    under "forge:condition" (a "forge:conditions" list is ignored by Forge itself)."""
     fabric = {'condition': 'fabric:all_mods_loaded', 'values': [mod]}
     neo = {'type': 'neoforge:mod_loaded', 'modid': mod}
     forge = {'type': 'forge:mod_loaded', 'modid': mod}
     if negate:
         fabric, neo, forge = ({'condition': 'fabric:not', 'value': fabric}, {'type': 'neoforge:not', 'value': neo},
                               {'type': 'forge:not', 'value': forge})
-    return {'fabric:load_conditions': [fabric], 'neoforge:conditions': [neo], 'forge:conditions': [forge]}
+    return {'fabric:load_conditions': [fabric], 'neoforge:conditions': [neo], 'forge:condition': forge}
 
 
 def recipe(recipe_id, data, trigger_item, folder='building_blocks', conditions=None):

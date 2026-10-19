@@ -1,0 +1,17 @@
+{
+  "_doc": "Hollow Howler voice per event (concept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md section 10). mode: synth = variant A everywhere (committed synthesis, default), vanilla = variant B everywhere (built from Vanilla at build time), mix = per event as in 'mix'. -PsbHowlerSounds / SB_HOWLER_SOUNDS override mode for one build.",
+  "mode": "mix",
+  "mix": {
+    "heartbeat": "synth",
+    "ambient": "vanilla",
+    "ambient_hunger": "vanilla",
+    "ambient_rage": "vanilla",
+    "hurt": "vanilla",
+    "death": "vanilla",
+    "step": "synth",
+    "notice": "vanilla",
+    "sniff": "vanilla",
+    "roar": "vanilla",
+    "roar_rage": "vanilla"
+  }
+}

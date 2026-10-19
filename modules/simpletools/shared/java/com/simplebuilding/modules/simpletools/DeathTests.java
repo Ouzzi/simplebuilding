@@ -289,6 +289,15 @@ public final class DeathTests {
             menu.getSlot(0).set(cursed);
             menu.getSlot(1).set(book(h));
             h.assertTrue(!Soulbound.has(menu.getSlot(2).getItem()), "Curse of Vanishing keeps Soulbound off");
+            // the other way round: an item that already carries Soulbound refuses a Curse of Vanishing book
+            var reg = h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+            ItemStack curseBook = new ItemStack(Items.ENCHANTED_BOOK);
+            curseBook.enchant(reg.getOrThrow(Enchantments.VANISHING_CURSE), 1);
+            menu.getSlot(0).set(bound(h, new ItemStack(Items.DIAMOND_SWORD)));
+            menu.getSlot(1).set(curseBook);
+            var after = menu.getSlot(2).getItem().get(DataComponents.ENCHANTMENTS);
+            h.assertTrue(after == null || after.getLevel(reg.getOrThrow(Enchantments.VANISHING_CURSE)) == 0,
+                    "Soulbound keeps Curse of Vanishing off");
         });
         h.succeed();
     }

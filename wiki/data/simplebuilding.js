@@ -5223,6 +5223,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/astralit.png",
       "craftedBy": [
+        "simplebuilding:astralit_octet_from_astralit_quartz_checker_sawing",
         "simplebuilding:astralit_octet_from_astralit_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -5349,6 +5350,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:astralit_octet_from_astralit_quartz_checker_sawing",
         "simplebuilding:astralit_octet_from_astralit_quartz_checker_stonecutting",
         "simplebuilding:astralit_quartz_checker_slab",
         "simplebuilding:astralit_quartz_checker_slab_from_astralit_quartz_checker_stonecutting",
@@ -6840,6 +6842,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/blackstone.png",
       "craftedBy": [
+        "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_sawing",
         "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -6910,6 +6913,7 @@ window.WIKI_DATA = {
         "simplebuilding:blackstone_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_sawing",
         "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_stonecutting",
         "simplebuilding:blackstone_quartz_checker_slab",
         "simplebuilding:blackstone_quartz_checker_slab_from_blackstone_quartz_checker_stonecutting",
@@ -12343,6 +12347,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_checker_slab_from_ender_quartz_checker_stonecutting",
         "simplebuilding:ender_quartz_checker_stairs",
         "simplebuilding:ender_quartz_checker_stairs_from_ender_quartz_checker_stonecutting",
+        "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_sawing",
         "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_stonecutting"
       ],
       "trades": [],
@@ -13064,6 +13069,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/ender_quartz.png",
       "craftedBy": [
+        "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_sawing",
         "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -20156,6 +20162,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/lapis.png",
       "craftedBy": [
+        "simplebuilding:lapis_octet_from_lapis_quartz_checker_sawing",
         "simplebuilding:lapis_octet_from_lapis_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -20226,6 +20233,7 @@ window.WIKI_DATA = {
         "simplebuilding:lapis_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:lapis_octet_from_lapis_quartz_checker_sawing",
         "simplebuilding:lapis_octet_from_lapis_quartz_checker_stonecutting",
         "simplebuilding:lapis_quartz_checker_slab",
         "simplebuilding:lapis_quartz_checker_slab_from_lapis_quartz_checker_stonecutting",
@@ -22453,6 +22461,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/nether_brick.png",
       "craftedBy": [
+        "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_sawing",
         "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -22523,6 +22532,7 @@ window.WIKI_DATA = {
         "simplebuilding:nether_brick_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_sawing",
         "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_stonecutting",
         "simplebuilding:nether_brick_quartz_checker_slab",
         "simplebuilding:nether_brick_quartz_checker_slab_from_nether_brick_quartz_checker_stonecutting",
@@ -26014,6 +26024,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/nihilith.png",
       "craftedBy": [
+        "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_sawing",
         "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -26140,6 +26151,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_sawing",
         "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_stonecutting",
         "simplebuilding:nihilith_quartz_checker_slab",
         "simplebuilding:nihilith_quartz_checker_slab_from_nihilith_quartz_checker_stonecutting",
@@ -27710,6 +27722,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_checker_slab_from_polished_astralit_checker_stonecutting",
         "simplebuilding:polished_astralit_checker_stairs",
         "simplebuilding:polished_astralit_checker_stairs_from_polished_astralit_checker_stonecutting",
+        "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_sawing",
         "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_stonecutting"
       ],
       "trades": [],
@@ -28402,6 +28415,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/polished_astralit.png",
       "craftedBy": [
+        "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_sawing",
         "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_stonecutting"
       ],
       "usedIn": [
@@ -28563,6 +28577,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_checker_slab_from_polished_ender_quartz_checker_stonecutting",
         "simplebuilding:polished_ender_quartz_checker_stairs",
         "simplebuilding:polished_ender_quartz_checker_stairs_from_polished_ender_quartz_checker_stonecutting",
+        "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_sawing",
         "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting"
       ],
       "trades": [],
@@ -29284,6 +29299,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/polished_ender_quartz.png",
       "craftedBy": [
+        "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_sawing",
         "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -29447,6 +29463,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_checker_slab_from_polished_nihilith_checker_stonecutting",
         "simplebuilding:polished_nihilith_checker_stairs",
         "simplebuilding:polished_nihilith_checker_stairs_from_polished_nihilith_checker_stonecutting",
+        "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_sawing",
         "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting"
       ],
       "trades": [],
@@ -30139,6 +30156,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/polished_nihilith.png",
       "craftedBy": [
+        "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_sawing",
         "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting"
       ],
       "usedIn": [
@@ -31030,6 +31048,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/purpur.png",
       "craftedBy": [
+        "simplebuilding:purpur_octet_from_purpur_quartz_checker_sawing",
         "simplebuilding:purpur_octet_from_purpur_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -31100,6 +31119,7 @@ window.WIKI_DATA = {
         "simplebuilding:purpur_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:purpur_octet_from_purpur_quartz_checker_sawing",
         "simplebuilding:purpur_octet_from_purpur_quartz_checker_stonecutting",
         "simplebuilding:purpur_quartz_checker_slab",
         "simplebuilding:purpur_quartz_checker_slab_from_purpur_quartz_checker_stonecutting",
@@ -31825,6 +31845,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/quartz.png",
       "craftedBy": [
+        "simplebuilding:quartz_octet_from_quartz_block_sawing",
         "simplebuilding:quartz_octet_from_quartz_block_stonecutting"
       ],
       "usedIn": [
@@ -32843,6 +32864,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/red_nether_brick.png",
       "craftedBy": [
+        "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_sawing",
         "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -32913,6 +32935,7 @@ window.WIKI_DATA = {
         "simplebuilding:red_nether_brick_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_sawing",
         "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting",
         "simplebuilding:red_nether_brick_quartz_checker_slab",
         "simplebuilding:red_nether_brick_quartz_checker_slab_from_red_nether_brick_quartz_checker_stonecutting",
@@ -35241,6 +35264,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/chess/resin.png",
       "craftedBy": [
+        "simplebuilding:resin_octet_from_resin_quartz_checker_sawing",
         "simplebuilding:resin_octet_from_resin_quartz_checker_stonecutting"
       ],
       "usedIn": [
@@ -35311,6 +35335,7 @@ window.WIKI_DATA = {
         "simplebuilding:resin_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:resin_octet_from_resin_quartz_checker_sawing",
         "simplebuilding:resin_octet_from_resin_quartz_checker_stonecutting",
         "simplebuilding:resin_quartz_checker_slab",
         "simplebuilding:resin_quartz_checker_slab_from_resin_quartz_checker_stonecutting",
@@ -39673,6 +39698,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:astralit_octet_from_astralit_quartz_checker_sawing",
         "simplebuilding:astralit_octet_from_astralit_quartz_checker_stonecutting",
         "simplebuilding:astralit_quartz_checker_slab",
         "simplebuilding:astralit_quartz_checker_slab_from_astralit_quartz_checker_stonecutting",
@@ -40634,6 +40660,7 @@ window.WIKI_DATA = {
         "simplebuilding:blackstone_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_sawing",
         "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_stonecutting",
         "simplebuilding:blackstone_quartz_checker_slab",
         "simplebuilding:blackstone_quartz_checker_slab_from_blackstone_quartz_checker_stonecutting",
@@ -43856,6 +43883,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_checker_slab_from_ender_quartz_checker_stonecutting",
         "simplebuilding:ender_quartz_checker_stairs",
         "simplebuilding:ender_quartz_checker_stairs_from_ender_quartz_checker_stonecutting",
+        "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_sawing",
         "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_stonecutting"
       ],
       "trades": [],
@@ -47856,6 +47884,7 @@ window.WIKI_DATA = {
         "simplebuilding:lapis_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:lapis_octet_from_lapis_quartz_checker_sawing",
         "simplebuilding:lapis_octet_from_lapis_quartz_checker_stonecutting",
         "simplebuilding:lapis_quartz_checker_slab",
         "simplebuilding:lapis_quartz_checker_slab_from_lapis_quartz_checker_stonecutting",
@@ -49249,6 +49278,7 @@ window.WIKI_DATA = {
         "simplebuilding:nether_brick_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_sawing",
         "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_stonecutting",
         "simplebuilding:nether_brick_quartz_checker_slab",
         "simplebuilding:nether_brick_quartz_checker_slab_from_nether_brick_quartz_checker_stonecutting",
@@ -51289,6 +51319,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_sawing",
         "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_stonecutting",
         "simplebuilding:nihilith_quartz_checker_slab",
         "simplebuilding:nihilith_quartz_checker_slab_from_nihilith_quartz_checker_stonecutting",
@@ -52580,6 +52611,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_checker_slab_from_polished_astralit_checker_stonecutting",
         "simplebuilding:polished_astralit_checker_stairs",
         "simplebuilding:polished_astralit_checker_stairs_from_polished_astralit_checker_stonecutting",
+        "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_sawing",
         "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_stonecutting"
       ],
       "trades": [],
@@ -52794,6 +52826,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_checker_slab_from_polished_ender_quartz_checker_stonecutting",
         "simplebuilding:polished_ender_quartz_checker_stairs",
         "simplebuilding:polished_ender_quartz_checker_stairs_from_polished_ender_quartz_checker_stonecutting",
+        "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_sawing",
         "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting"
       ],
       "trades": [],
@@ -53039,6 +53072,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_checker_slab_from_polished_nihilith_checker_stonecutting",
         "simplebuilding:polished_nihilith_checker_stairs",
         "simplebuilding:polished_nihilith_checker_stairs_from_polished_nihilith_checker_stonecutting",
+        "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_sawing",
         "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting"
       ],
       "trades": [],
@@ -53528,6 +53562,7 @@ window.WIKI_DATA = {
         "simplebuilding:purpur_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:purpur_octet_from_purpur_quartz_checker_sawing",
         "simplebuilding:purpur_octet_from_purpur_quartz_checker_stonecutting",
         "simplebuilding:purpur_quartz_checker_slab",
         "simplebuilding:purpur_quartz_checker_slab_from_purpur_quartz_checker_stonecutting",
@@ -53853,6 +53888,7 @@ window.WIKI_DATA = {
         "simplebuilding:red_nether_brick_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_sawing",
         "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting",
         "simplebuilding:red_nether_brick_quartz_checker_slab",
         "simplebuilding:red_nether_brick_quartz_checker_slab_from_red_nether_brick_quartz_checker_stonecutting",
@@ -55228,6 +55264,7 @@ window.WIKI_DATA = {
         "simplebuilding:resin_quartz_checker"
       ],
       "usedIn": [
+        "simplebuilding:resin_octet_from_resin_quartz_checker_sawing",
         "simplebuilding:resin_octet_from_resin_quartz_checker_stonecutting",
         "simplebuilding:resin_quartz_checker_slab",
         "simplebuilding:resin_quartz_checker_slab_from_resin_quartz_checker_stonecutting",
@@ -60965,6 +61002,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astralit_octet_from_astralit_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_octet_from_astralit_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:astralit_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astralit_octet_from_astralit_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -60973,7 +61032,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:astralit_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/astralit_octet_from_astralit_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_octet_from_astralit_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:astralit_quartz_checker"
       ],
@@ -62584,6 +62643,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blackstone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/blackstone_octet_from_blackstone_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:blackstone_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:blackstone_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -62592,7 +62673,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:blackstone_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blackstone_octet_from_blackstone_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/blackstone_octet_from_blackstone_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:blackstone_quartz_checker"
       ],
@@ -70417,6 +70498,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/ender_quartz_octet_from_ender_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:ender_quartz_octet_from_ender_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -70425,7 +70528,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:ender_quartz_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_octet_from_ender_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/ender_quartz_octet_from_ender_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:ender_quartz_checker"
       ],
@@ -78703,6 +78806,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:lapis_octet_from_lapis_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:lapis_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/lapis_octet_from_lapis_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:lapis_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:lapis_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:lapis_octet_from_lapis_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -78711,7 +78836,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:lapis_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/lapis_octet_from_lapis_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/lapis_octet_from_lapis_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:lapis_quartz_checker"
       ],
@@ -81369,6 +81494,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nether_brick_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nether_brick_octet_from_nether_brick_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:nether_brick_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nether_brick_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nether_brick_octet_from_nether_brick_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -81377,7 +81524,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:nether_brick_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nether_brick_octet_from_nether_brick_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nether_brick_octet_from_nether_brick_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:nether_brick_quartz_checker"
       ],
@@ -85327,6 +85474,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_octet_from_nihilith_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:nihilith_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -85335,7 +85504,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:nihilith_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nihilith_octet_from_nihilith_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_octet_from_nihilith_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:nihilith_quartz_checker"
       ],
@@ -88636,6 +88805,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_astralit_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/polished_astralit_octet_from_polished_astralit_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:polished_astralit_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_astralit_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -88644,7 +88835,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_astralit_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_astralit_octet_from_polished_astralit_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/polished_astralit_octet_from_polished_astralit_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:polished_astralit_checker"
       ],
@@ -89942,6 +90133,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_ender_quartz_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/polished_ender_quartz_octet_from_polished_ender_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:polished_ender_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_ender_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -89950,7 +90163,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_ender_quartz_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:polished_ender_quartz_checker"
       ],
@@ -91289,6 +91502,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_nihilith_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/polished_nihilith_octet_from_polished_nihilith_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:polished_nihilith_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_nihilith_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -91297,7 +91532,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_nihilith_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_nihilith_octet_from_polished_nihilith_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/polished_nihilith_octet_from_polished_nihilith_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:polished_nihilith_checker"
       ],
@@ -92684,6 +92919,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:purpur_octet_from_purpur_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:purpur_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/purpur_octet_from_purpur_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:purpur_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:purpur_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:purpur_octet_from_purpur_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -92692,7 +92949,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:purpur_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/purpur_octet_from_purpur_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/purpur_octet_from_purpur_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:purpur_quartz_checker"
       ],
@@ -93284,6 +93541,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:quartz_octet_from_quartz_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:quartz_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/quartz_octet_from_quartz_block_sawing.json",
+      "ingredients": [
+        "minecraft:quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:quartz_octet_from_quartz_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -93292,7 +93571,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:quartz_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/quartz_octet_from_quartz_block_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/quartz_octet_from_quartz_block_stonecutting.json",
       "ingredients": [
         "minecraft:quartz_block"
       ],
@@ -94206,6 +94485,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_nether_brick_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/red_nether_brick_octet_from_red_nether_brick_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:red_nether_brick_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:red_nether_brick_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -94214,7 +94515,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:red_nether_brick_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:red_nether_brick_quartz_checker"
       ],
@@ -97958,6 +98259,28 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:resin_octet_from_resin_quartz_checker_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:resin_octet",
+        "count": 8
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/resin_octet_from_resin_quartz_checker_sawing.json",
+      "ingredients": [
+        "simplebuilding:resin_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:resin_quartz_checker"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:resin_octet_from_resin_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -97966,7 +98289,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:resin_octet",
         "count": 8
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/resin_octet_from_resin_quartz_checker_stonecutting.json",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/resin_octet_from_resin_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplebuilding:resin_quartz_checker"
       ],
@@ -155768,7 +156091,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 611,
     "blocks": 368,
-    "recipes": 1040,
+    "recipes": 1053,
     "lootTables": 388,
     "trades": 20,
     "enchantments": 19,

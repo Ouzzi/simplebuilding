@@ -4,287 +4,1289 @@
     "cases": [
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -393218
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -393218
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -393218
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -393218
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -393218
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "white"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -425955
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -425955
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -425955
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -425955
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -425955
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "orange"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -3715395
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -3715395
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -3715395
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -3715395
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -3715395
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "magenta"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12930086
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -12930086
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12930086
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12930086
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -12930086
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "light_blue"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -75715
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -75715
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -75715
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -75715
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -75715
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "yellow"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -8337633
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -8337633
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -8337633
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -8337633
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -8337633
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "lime"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -816214
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -816214
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -816214
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -816214
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -816214
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "pink"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12103854
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -12103854
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12103854
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12103854
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -12103854
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "gray"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -6447721
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -6447721
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -6447721
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -6447721
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -6447721
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "light_gray"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -15295332
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -15295332
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -15295332
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -15295332
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -15295332
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "cyan"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -7785800
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -7785800
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -7785800
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -7785800
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -7785800
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "purple"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12827478
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -12827478
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12827478
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -12827478
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -12827478
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "blue"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -8170446
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -8170446
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -8170446
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -8170446
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -8170446
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "brown"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -10585066
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -10585066
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -10585066
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -10585066
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -10585066
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "green"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -5231066
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -5231066
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -5231066
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -5231066
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -5231066
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "red"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_tip",
-          "tints": [
+          "type": "minecraft:range_dispatch",
+          "entries": [
             {
-              "type": "minecraft:constant",
-              "value": -1
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_0",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -14869215
+                  }
+                ]
+              },
+              "threshold": 0.25
             },
             {
-              "type": "minecraft:constant",
-              "value": -14869215
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_1",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -14869215
+                  }
+                ]
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_tip_brushing_2",
+                "tints": [
+                  {
+                    "type": "minecraft:constant",
+                    "value": -1
+                  },
+                  {
+                    "type": "minecraft:constant",
+                    "value": -14869215
+                  }
+                ]
+              },
+              "threshold": 0.75
             }
-          ]
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_tip",
+            "tints": [
+              {
+                "type": "minecraft:constant",
+                "value": -1
+              },
+              {
+                "type": "minecraft:constant",
+                "value": -14869215
+              }
+            ]
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "black"
       },
       {
         "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/color_brush_palette"
+          "type": "minecraft:range_dispatch",
+          "entries": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_palette_brushing_0"
+              },
+              "threshold": 0.25
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_palette_brushing_1"
+              },
+              "threshold": 0.5
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "simplebuilding:item/color_brush_palette_brushing_2"
+              },
+              "threshold": 0.75
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_palette"
+          },
+          "period": 10.0,
+          "property": "minecraft:use_cycle",
+          "scale": 0.1
         },
         "when": "palette"
       }
     ],
     "fallback": {
-      "type": "minecraft:model",
-      "model": "simplebuilding:item/color_brush"
+      "type": "minecraft:range_dispatch",
+      "entries": [
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_brushing_0"
+          },
+          "threshold": 0.25
+        },
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_brushing_1"
+          },
+          "threshold": 0.5
+        },
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "simplebuilding:item/color_brush_brushing_2"
+          },
+          "threshold": 0.75
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "simplebuilding:item/color_brush"
+      },
+      "period": 10.0,
+      "property": "minecraft:use_cycle",
+      "scale": 0.1
     },
     "property": "simplebuilding:brush_ink"
   }

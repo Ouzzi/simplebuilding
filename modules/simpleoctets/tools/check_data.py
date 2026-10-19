@@ -66,21 +66,52 @@ foreign = {m['key'] + '_octet': m['ns'] for m in materials if m['ns'] != 'minecr
 foreign.update({w + '_octet': 'simpleend' for w in woods if w in ('ashwood', 'duskwood')})
 pairs = [(w + '_octet', 'simpleend' if w in ('ashwood', 'duskwood') else 'minecraft', w + '_planks') for w in woods]
 pairs += [(m['key'] + '_octet', m['ns'], m['base']) for m in materials]
+def mods_in(conds, key, field):
+    """Mod ids a condition list requires (plain mod_loaded) and forbids (inside a not)."""
+    ids = lambda c: set(c['values']) if 'values' in c else {c['modid']}
+    need, never = set(), set()
+    for c in conds:
+        if c[key].endswith(':not'):
+            never |= ids(c['value'])
+        else:
+            need |= ids(c)
+    return need, never
+
+
+# Octets exclusive to the Shaping Saw (docs/ai/PRINZIPIEN.md A4b): simpleblocks:sawing only with Simple Blocks, a
+# minecraft:stonecutting fallback only without it (none for Simple Blocks' own blocks), crafting back always.
+sawing = 0
 for c, base_ns, base in pairs:
-    cut, back = f'{c}_from_{base}_stonecutting', f'{base}_from_octets'
-    assert cut in recipes and back in recipes, ('recipes', c)
-    assert recipes[cut]['result'] == {'count': 8, 'id': f'{NS}:{c}'} and recipes[cut]['ingredient'] == f'{base_ns}:{base}', cut
+    saw, cut, back = f'{c}_from_{base}_sawing', f'{c}_from_{base}_stonecutting', f'{base}_from_octets'
+    foreign_mod = set() if base_ns in ('minecraft', 'simplelib') else {base_ns}
+    assert saw in recipes and back in recipes, ('recipes', c)
+    assert (cut in recipes) == (base_ns != 'simpleblocks'), ('stonecutter fallback', c)
+    assert recipes[saw]['type'] == 'simpleblocks:sawing' and recipes[saw]['result'] == {'count': 8, 'id': f'{NS}:{c}'} \
+        and recipes[saw]['ingredient'] == f'{base_ns}:{base}', saw
+    assert not (DATA / f'advancement/recipes/building_blocks/{saw}.json').exists(), ('the saw has no recipe book', saw)
+    sawing += 1
+    expect = {saw: (foreign_mod | {'simpleblocks'}, set()), back: (foreign_mod, set())}
+    if cut in recipes:
+        assert recipes[cut]['type'] == 'minecraft:stonecutting' and recipes[cut]['result'] == {'count': 8, 'id': f'{NS}:{c}'} \
+            and recipes[cut]['ingredient'] == f'{base_ns}:{base}', cut
+        expect[cut] = (foreign_mod, {'simpleblocks'})
     assert recipes[back]['ingredients'] == [f'{NS}:{c}'] * 8 and recipes[back]['result'] == {'id': f'{base_ns}:{base}'}, back
-    for name in (cut, back):
-        adv = DATA / f'advancement/recipes/building_blocks/{name}.json'
-        assert adv.is_file(), ('recipe advancement', name)
-        conditioned = 'fabric:load_conditions' in recipes[name]
-        # simplelib is a required dependency: its block needs no load condition
-        assert conditioned == (base_ns not in ('minecraft', 'simplelib')), ('load condition', name)
-        if conditioned:
-            assert recipes[name]['neoforge:conditions'][0]['modid'] == base_ns and recipes[name]['forge:condition']['modid'] == base_ns, name
-            assert 'fabric:load_conditions' in json.loads(adv.read_text(encoding='utf-8')), ('advancement condition', name)
-assert len(recipes) == 2 * len(cells) + (1 if 'guide_book' in recipes else 0), (len(recipes), len(cells))
+    for name, (need, never) in expect.items():
+        data = recipes[name]
+        assert mods_in(data.get('fabric:load_conditions', []), 'condition', 'values') == (need, never), ('fabric conditions', name)
+        assert mods_in(data.get('neoforge:conditions', []), 'type', 'modid') == (need, never), ('neoforge conditions', name)
+        forge = data.get('forge:condition')
+        forge = [] if forge is None else forge['values'] if forge['type'] == 'forge:and' else [forge]
+        assert mods_in(forge, 'type', 'modid') == (need, never), ('forge condition', name)
+        if name != saw:
+            adv = DATA / f'advancement/recipes/building_blocks/{name}.json'
+            assert adv.is_file(), ('recipe advancement', name)
+            adv_data = json.loads(adv.read_text(encoding='utf-8'))
+            assert adv_data.get('fabric:load_conditions') == data.get('fabric:load_conditions'), ('advancement condition', name)
+assert not [n for n, r in recipes.items() if r['type'] == 'minecraft:stonecutting' and 'fabric:load_conditions' not in r], \
+    'a stonecutter recipe without "simpleblocks not loaded"'
+assert len(recipes) == 3 * len(cells) - sum(1 for _, ns, _ in pairs if ns == 'simpleblocks') + (1 if 'guide_book' in recipes else 0), \
+    (len(recipes), len(cells))
 
 # Other mods' ids only behind load conditions or as optional tag entries.
 for path in (RES / 'data').rglob('*.json'):
@@ -115,5 +146,6 @@ for key in ('simpleoctets:*_octet', 'simpleoctets:melon_octet', 'simpleoctets:mi
 
 gen = subprocess.run([sys.executable, str(ROOT / 'tools/textures/octets_2026_10_09.py'), '--check'], capture_output=True, text=True)
 assert gen.returncode == 0, 'octet resources out of date: ' + gen.stdout + gen.stderr
-print(f'Simple Octets data: {len(cells)} cells ({len(woods)} woods, {len(materials)} materials), {len(recipes)} recipes, '
+print(f'Simple Octets data: {len(cells)} cells ({len(woods)} woods, {len(materials)} materials), {len(recipes)} recipes '
+      f'({sawing} Shaping Saw, stonecutter only without Simple Blocks), '
       f'{len(foreign)} conditional on other mods, bilingual texts, wiki complete')

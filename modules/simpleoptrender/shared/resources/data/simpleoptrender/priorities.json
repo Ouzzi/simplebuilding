@@ -1,0 +1,9 @@
+{
+  "comment": "Simple Optimization priority table (concept 5.1). Written only by tools/bench/run_bench.py --apply-priorities; start value everywhere theirs.",
+  "areas": {
+    "leaf_culling": { "winner": "theirs", "vs": "cullleaves 4.1.2+26.3, moreculling 1.9.0", "measured": "", "delta": {}, "runs": 0 },
+    "lightmap_cache": { "winner": "theirs", "vs": "badoptimizations 2.4.1", "measured": "", "delta": {}, "runs": 0 },
+    "fast_ip_ping": { "winner": "theirs", "vs": "fastipping v1.0.12-mc26.3", "measured": "", "delta": {}, "runs": 0 },
+    "no_telemetry": { "winner": "theirs", "vs": "no-telemetry 1.10.0", "measured": "", "delta": {}, "runs": 0 }
+  }
+}

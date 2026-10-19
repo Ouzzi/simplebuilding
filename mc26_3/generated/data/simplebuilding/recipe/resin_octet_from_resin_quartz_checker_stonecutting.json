@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:resin_quartz_checker",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:resin_octet"
-  }
-}

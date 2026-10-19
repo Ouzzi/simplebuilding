@@ -13,7 +13,7 @@ import java.util.*;
 public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, Playtime playtime, MobGriefing mobGriefing,
         Pvp pvp, Welcome welcome, LoginReward loginReward, Events events, Leaderboard leaderboard, Vote vote, Afk afk,
         Border border, NetherRoof netherRoof, KeepInventory keepInventory, DragonEgg dragonEgg, Phantoms phantoms,
-        EntityLimit entityLimit, Cleanup cleanup, Pregen pregen) {
+        EntityLimit entityLimit, Cleanup cleanup, Pregen pregen, Map<String, List<String>> autoOffWith) {
 
     /** T4 /coords. */
     public record Coords(boolean enabled, boolean ping, int pingSeconds, int cooldownSeconds) {
@@ -140,7 +140,19 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
             new Phantoms(true),
             new EntityLimit(false, 50, 10, true),
             new Cleanup(false, 2, 15, List.of(60, 30, 10, 5, 4, 3, 2, 1), 60, "rare", List.of("minecraft:nether_star", "minecraft:elytra", "minecraft:dragon_egg", "minecraft:totem_of_undying")),
-            new Pregen(true, 3, 8, 4, 10_000));
+            new Pregen(true, 3, 8, 4, 10_000),
+            // Chunky pregenerates chunks itself (T33); two pregeneration jobs at once only fight over the server thread
+            AutoOff.clean(Map.of("pregen", List.of("chunky"))));
+
+    /** The settings with every feature off whose partner mod is loaded (logged); unknown keys are ignored. */
+    public PlayConfig withAutoOff(java.util.function.Predicate<String> loaded, org.slf4j.Logger log) {
+        var hits = AutoOff.match(autoOffWith, loaded);
+        var r = this;
+        if (hits.containsKey("pregen")) r = new PlayConfig(coords, deathHint, mentions, playtime, mobGriefing, pvp, welcome, loginReward, events, leaderboard, vote, afk, border,
+                netherRoof, keepInventory, dragonEgg, phantoms, entityLimit, cleanup, new Pregen(false, pregen.permission, pregen.parallel, pregen.perTick, pregen.maxRadius), autoOffWith);
+        AutoOff.log(log, "config/simpletweaks-play.json", hits, Set.of());
+        return r;
+    }
 
     public PlayConfig {
         var d = DEFAULT;
@@ -152,6 +164,8 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
             if (border == null) border = d.border; if (netherRoof == null) netherRoof = d.netherRoof; if (keepInventory == null) keepInventory = d.keepInventory;
             if (dragonEgg == null) dragonEgg = d.dragonEgg; if (phantoms == null) phantoms = d.phantoms; if (entityLimit == null) entityLimit = d.entityLimit;
             if (cleanup == null) cleanup = d.cleanup; if (pregen == null) pregen = d.pregen;
+            if (autoOffWith == null) autoOffWith = d.autoOffWith;
+            autoOffWith = AutoOff.clean(autoOffWith);
         }
     }
 

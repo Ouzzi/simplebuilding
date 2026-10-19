@@ -88,6 +88,7 @@ public final class TweaksDiscover {
             "simpletweaks:play_votes",
             "simpletweaks:play_welcome",
             "simpletweaks:protect_antixray",
+            "simpletweaks:protect_auto_off_with",
             "simpletweaks:protect_freecam",
             "simpletweaks:protect_more");
     static final List<Tip> TIPS = List.of();

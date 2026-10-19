@@ -315,8 +315,11 @@ a Dist.CLIENT entrypoint. Register shared test bodies as TEST_FUNCTION entries;
 a module-owned RegistryLoadTask mixin adds identical TEST_INSTANCE ids only on the
 GameTest server, before registry freeze, using the already loaded default environment.
 Do not register test instances in normal worlds or on client network registry loading.
-The Forge convention adds `forge:condition` from each existing `neoforge:conditions`
-object in built resources, preserving canonical datagen and other loader behavior.
+The Forge convention adds `forge:condition` (Forge 26.3 reads only this one object) in built
+resources when a file has none: from `forge:conditions`, else from `neoforge:conditions` with
+NeoForge built-ins (and/or/not/mod_loaded/item_exists/tag_empty/true/false) renamed to `forge:`.
+An explicit `forge:condition` is kept. `tools/check_load_conditions.py` (checkModuleData)
+rejects condition ids a loader does not know.
 Register the matching condition codec with Forge CONDITION_SERIALIZERS.
 Loot involving holders must run in createAndValidateFullContext, after holders bind
 and before validation; a module-owned mixin receives the current reload lookup.
