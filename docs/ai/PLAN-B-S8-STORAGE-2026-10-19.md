@@ -78,4 +78,15 @@ Nicht geprüft (bewusst, Auftrag): Client-Läufe (Kisten-Renderer, Werkbank-Scre
 
 ## 6. Stand und Abweichungen
 
-(wird nach der Umsetzung ergänzt)
+Umgesetzt wie geplant (8a). Belege (sb-test, 8bc5bd991 + Erzeugung): fabric-263 1201/1201, neoforge-263 1201/1201,
+module-simplestorage fabric/neoforge/forge/standalone-fabric je 16/16, module-simpleend-fabric 36/36, forge-263 `*woodwork*` 7/7 und
+`*data_integrity*` 51/51, Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava`, `./gradlew check` Exit 0, Datagen 26.3 (nur axe-Tag, wiki/items).
+
+Abweichungen (bewusst):
+- `McVersion.STORAGE_CRAFTING_TABLE` bleibt (heißt jetzt „gibt es auf dieser Linie“, 26.2 false); `StorageRefs` liefert per Id.
+- Das Kisten-Kapitel im SB-Lagerbuch bleibt (per `STORAGE_NAMESPACE`-Id), das Modul hat zusätzlich ein eigenes Handbuch.
+- Werkbank-/Kisten-Bilder der SB-Client-Tests: Werkbank-Teil in den Client-Smoke des Moduls verschoben, Kisten-Teil per Id/Container.
+- Tag `simplebuilding:crate_storable` heißt jetzt `simplestorage:crate_storable` (Datapacks mit dem alten Tag müssen nachziehen).
+- Wiki-Renders der Kisten/Werkbank entfallen in SB (Generator); im Modul-Wiki keine eigenen Renders.
+
+Offen: 8b, 8c; Client-Sicht (Kisten-Renderer, Werkbank-Fenster, Tab), Forge-Volllauf, Merge + Gate durch die Hauptsitzung.
