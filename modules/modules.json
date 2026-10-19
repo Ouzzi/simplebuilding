@@ -1354,7 +1354,9 @@
       "requires": [
         "simplelib"
       ],
-      "optional": [],
+      "optional": [
+        "simplemoney"
+      ],
       "checks": [
         "modules/simplemaps/tools/check_data.py"
       ],

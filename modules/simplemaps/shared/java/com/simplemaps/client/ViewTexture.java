@@ -1,6 +1,7 @@
 package com.simplemaps.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import com.simplemaps.JamNoise;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
 import com.simplemaps.Waypoints;
@@ -34,6 +35,14 @@ public final class ViewTexture {
 
     /** Requests the needed tiles and redraws when the centre, a tile or a waypoint changed. Render or tick thread. */
     public void compose(TileCache cache, int mapId, int zoom, int centerX, int centerZ, Waypoints waypoints, boolean contour) {
+        compose(cache, mapId, zoom, centerX, centerZ, waypoints, contour, -1, 0L);
+    }
+
+    /**
+     * Like {@link #compose(TileCache, int, int, int, int, Waypoints, boolean)}; {@code jamTint >= 0} (map of another
+     * dimension) lays the faint {@link JamNoise} over the unexplored pixels and redraws every tick.
+     */
+    public void compose(TileCache cache, int mapId, int zoom, int centerX, int centerZ, Waypoints waypoints, boolean contour, int jamTint, long tick) {
         zoom = WayfinderData.validZoom(zoom);
         int left = Math.floorDiv(centerX, zoom) - SIZE / 2, top = Math.floorDiv(centerZ, zoom) - SIZE / 2;
         int tx0 = Math.floorDiv(left, WayfinderData.TILE), tz0 = Math.floorDiv(top, WayfinderData.TILE);
@@ -49,6 +58,7 @@ public final class ViewTexture {
         }
         hash = hash * 31 + waypoints.hashCode();
         hash = hash * 31 + (contour ? 1 : 0);
+        if (jamTint >= 0) hash = (hash * 31 + jamTint) * 31 + (tick >> 1);
         if (hash == lastHash) return;
         lastHash = hash;
         NativeImage pixels = texture.getPixels();
@@ -57,12 +67,10 @@ public final class ViewTexture {
                 int gx = left + px, gz = top + py;
                 TileCache.Entry e = tiles[Math.floorDiv(gx, WayfinderData.TILE) - tx0][Math.floorDiv(gz, WayfinderData.TILE) - tz0];
                 int tx = Math.floorMod(gx, WayfinderData.TILE), tz = Math.floorMod(gz, WayfinderData.TILE);
-                if (contour) {
-                    pixels.setPixel(px, py, TileCache.contourColor(e, tx, tz));
-                    continue;
-                }
-                int c = TileCache.color(e, tx, tz);
-                pixels.setPixel(px, py, c == 0 ? 0 : MapColor.getColorFromPackedId(c));
+                int c = contour ? TileCache.contourColor(e, tx, tz) : TileCache.color(e, tx, tz);
+                int argb = c == 0 ? 0 : contour ? c : MapColor.getColorFromPackedId(c);
+                if (argb == 0 && jamTint >= 0) argb = JamNoise.argb(jamTint, px, py, tick);
+                pixels.setPixel(px, py, argb);
             }
         }
         for (Waypoint w : waypoints.list()) {

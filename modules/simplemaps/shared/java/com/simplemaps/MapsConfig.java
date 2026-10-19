@@ -31,6 +31,8 @@ public final class MapsConfig {
     /** Mods that bring their own web map: one of them loaded switches the web export off (autoOffWith). */
     public static final java.util.List<String> WEB_AUTO_OFF_DEFAULT = java.util.List.of("bluemap", "dynmap", "squaremap", "pl3xmap", "journeymap");
     public static boolean webEnabled = false, webHideClaims = false;
+    /** Shops (Simple Shops' map layer) in the web map's markers.json: off by default, owner names are in it (privacy). */
+    public static boolean webShops = false;
     /** Chunks read per server tick while exporting; minutes between automatic exports (0 = only by command). */
     public static int webChunksPerTick = WEB_CHUNKS_DEFAULT, webIntervalMinutes = WEB_INTERVAL_DEFAULT;
     /** Empty = {@code <world>/simplemaps-web}; a relative path is relative to the world folder. */
@@ -93,6 +95,7 @@ public final class MapsConfig {
         layers = getBool(json, "layers", true);
         webEnabled = getBool(json, "webEnabled", false);
         webHideClaims = getBool(json, "webHideClaims", false);
+        webShops = getBool(json, "webShops", false);
         webChunksPerTick = clamp(getInt(json, "webChunksPerTick", WEB_CHUNKS_DEFAULT), WEB_CHUNKS_MIN, WEB_CHUNKS_MAX);
         webIntervalMinutes = clamp(getInt(json, "webIntervalMinutes", WEB_INTERVAL_DEFAULT), 0, WEB_INTERVAL_MAX);
         webExportDir = getString(json, "webExportDir", "");
@@ -112,6 +115,7 @@ public final class MapsConfig {
         o.addProperty("webChunksPerTick", webChunksPerTick);
         o.addProperty("webIntervalMinutes", webIntervalMinutes);
         o.addProperty("webHideClaims", webHideClaims);
+        o.addProperty("webShops", webShops);
         com.google.gson.JsonArray ids = new com.google.gson.JsonArray();
         webAutoOffWith.forEach(ids::add);
         o.add("webAutoOffWith", ids);

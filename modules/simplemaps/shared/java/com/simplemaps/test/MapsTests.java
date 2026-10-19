@@ -72,6 +72,9 @@ public final class MapsTests {
         ALL.put("host_switch", MapsTests::hostSwitch);
         ALL.put("screen_layout", MapsTests::screenLayout);
         ALL.put("layers", MapsTests::layers);
+        ALL.put("layers_own_chunks", MapsTests::layersOwnChunks);
+        ALL.put("other_dimension_tiles", MapsTests::otherDimensionTiles);
+        ALL.put("shop_icon", MapsTests::shopIcon);
         WebTests.register(ALL);
     }
 
@@ -385,6 +388,107 @@ public final class MapsTests {
             h.assertTrue(back.markers().equals(answer.markers()) && back.area().equals(answer.area()), "codec round trip");
         } finally {
             SimpleMaps.toClient = old;
+        }
+        h.succeed();
+    }
+
+    /**
+     * Owner 19.10.: the loaded-chunks layer flags only the viewer's own chunks and forced ones (chunk loaders), never a
+     * chunk that only another player keeps loaded, and none of another dimension unless forced there.
+     */
+    private static void layersOwnChunks(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        var server = level.getServer();
+        ServerLevel nether = server.getLevel(Level.NETHER);
+        ServerPlayer viewer = h.makeMockServerPlayerInLevel(), late = h.makeMockServerPlayerInLevel();
+        ItemStack map = bound(h, Waypoints.EMPTY);
+        viewer.setItemInHand(InteractionHand.MAIN_HAND, map);
+        late.setItemInHand(InteractionHand.MAIN_HAND, map.copy());
+        int id = map.get(MapsComponents.MAP_ID).id();
+        BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+        int ocx = pos.getX() >> 4, ocz = pos.getZ() >> 4;
+        // Far from every test structure and every player: loaded only for this test, as if somebody else stood there.
+        int fcx = -30_000 + (ocx & 63), fcz = 30_000 + (ocz & 63);
+        long far = net.minecraft.world.level.ChunkPos.pack(fcx, fcz), near = net.minecraft.world.level.ChunkPos.pack(ocx, ocz);
+        h.assertTrue(!level.getForceLoadedChunks().contains(far) && !nether.getForceLoadedChunks().contains(near), "test chunks not forced yet");
+        WayfinderData data = WayfinderData.get(server, id);
+        data.set(fcx * 16 + 1, fcz * 16 + 1, MapColor.STONE.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, 10, true);
+        level.getChunk(fcx, fcz);
+        var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
+        var old = SimpleMaps.toClient;
+        SimpleMaps.toClient = (p, payload) -> sent.add(payload);
+        try {
+            h.assertTrue(level.getChunkSource().getChunkNow(fcx, fcz) != null, "far chunk is loaded");
+            h.assertTrue(com.simplemaps.net.LayerService.shownChunk(level, viewer, ocx, ocz), "own chunk shown");
+            h.assertTrue(!com.simplemaps.net.LayerService.shownChunk(level, viewer, fcx, fcz), "chunk loaded by somebody else is not shown");
+            var ask = new com.simplemaps.net.LayerRequestPayload(id, fcx * 16, fcz * 16, fcx * 16 + 15, fcz * 16 + 15, true, List.of());
+            com.simplemaps.net.LayerService.handle(ask, viewer);
+            h.assertTrue(sent.size() == 1 && ((com.simplemaps.net.LayerDataPayload) sent.get(0)).loaded()[0] == 0, "explored chunk loaded by somebody else stays unflagged");
+            level.setChunkForced(fcx, fcz, true);
+            h.assertTrue(com.simplemaps.net.LayerService.shownChunk(level, viewer, fcx, fcz), "forced chunk (chunk loader) shown");
+            com.simplemaps.net.LayerService.handle(ask, late);
+            h.assertTrue(sent.size() == 2 && (((com.simplemaps.net.LayerDataPayload) sent.get(1)).loaded()[0] & 1) == 1, "forced explored chunk flagged");
+            nether.getChunk(ocx, ocz);
+            h.assertTrue(!com.simplemaps.net.LayerService.shownChunk(nether, viewer, ocx, ocz), "same spot in another dimension is not the viewer's");
+            nether.setChunkForced(ocx, ocz, true);
+            h.assertTrue(com.simplemaps.net.LayerService.shownChunk(nether, viewer, ocx, ocz), "forced chunk of another dimension shown");
+        } finally {
+            SimpleMaps.toClient = old;
+            level.setChunkForced(fcx, fcz, false);
+            nether.setChunkForced(ocx, ocz, false);
+        }
+        h.succeed();
+    }
+
+    /** Owner 19.10.: a map of another dimension is still served (End/Nether map in the Overworld), positions convert 8:1. */
+    private static void otherDimensionTiles(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        ServerLevel nether = server.getLevel(Level.NETHER);
+        ItemStack stack = new ItemStack(MapsItems.NETHER_WAYFINDER_MAP);
+        WayfinderData data = ((WayfinderMapItem) MapsItems.NETHER_WAYFINDER_MAP).dataFor(stack, nether);
+        h.assertTrue(data != null, "Nether map binds in the Nether");
+        data.set(16, 16, MapColor.NETHER.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, 10, true);
+        int id = stack.get(MapsComponents.MAP_ID).id();
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        h.assertTrue(player.level().dimension() != Level.NETHER, "holder is outside the Nether");
+        var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
+        var old = SimpleMaps.toClient;
+        SimpleMaps.toClient = (p, payload) -> sent.add(payload);
+        try {
+            MapsNetwork.handleTiles(new com.simplemaps.net.TileRequestPayload(List.of(new com.simplemaps.net.TileRequestPayload.Entry(id, 1, 0, 0, -1))), player);
+        } finally {
+            SimpleMaps.toClient = old;
+        }
+        var state = sent.stream().filter(p -> p instanceof com.simplemaps.net.MapStatePayload).map(p -> (com.simplemaps.net.MapStatePayload) p).findFirst();
+        var tile = sent.stream().filter(p -> p instanceof com.simplemaps.net.TileDataPayload).map(p -> (com.simplemaps.net.TileDataPayload) p).findFirst();
+        h.assertTrue(state.isPresent() && state.get().dimension().equals(Level.NETHER.identifier().toString()), "map state names the Nether");
+        h.assertTrue(tile.isPresent() && tile.get().data().length > 0, "explored Nether tile is sent to a holder in the Overworld");
+        h.assertTrue(WayfinderMapItem.kindOf(nether.dimensionTypeRegistration()) == WayfinderMapItem.Kind.NETHER
+                && WayfinderMapItem.kindOf(h.getLevel().dimensionTypeRegistration()) == WayfinderMapItem.Kind.OVERWORLD
+                && WayfinderMapItem.kindOf(server.getLevel(Level.END).dimensionTypeRegistration()) == WayfinderMapItem.Kind.END, "kind of each dimension");
+        h.assertTrue(WayfinderMapItem.coordScale(WayfinderMapItem.Kind.NETHER, WayfinderMapItem.Kind.OVERWORLD) == 0.125
+                && WayfinderMapItem.coordScale(WayfinderMapItem.Kind.OVERWORLD, WayfinderMapItem.Kind.NETHER) == 8.0
+                && WayfinderMapItem.coordScale(WayfinderMapItem.Kind.END, WayfinderMapItem.Kind.OVERWORLD) == 1.0
+                && WayfinderMapItem.coordScale(WayfinderMapItem.Kind.OVERWORLD, WayfinderMapItem.Kind.END) == 1.0, "Overworld/Nether 8:1, End 1:1");
+        int unexplored = com.simplemaps.JamNoise.argb(com.simplemaps.JamNoise.tint(WayfinderMapItem.Kind.END), 3, 4, 10);
+        h.assertTrue(unexplored >>> 24 > 0 && unexplored >>> 24 <= com.simplemaps.JamNoise.MAX_ALPHA, "static is faint (alpha <= MAX_ALPHA)");
+        h.succeed();
+    }
+
+    /** Owner 19.10.: shops carry Simple Money's bill only when Simple Money is loaded (by id, principle 4). */
+    private static void shopIcon(GameTestHelper h) {
+        var saved = SimpleMaps.modLoaded;
+        boolean registered = BuiltInRegistries.ITEM.containsKey(com.simplemaps.MapsIcons.MONEY_BILL);
+        try {
+            h.assertTrue(com.simplemaps.MapsIcons.shopIcon().isPresent() == (saved.test("simplemoney") && registered), "real state: icon iff Simple Money is there");
+            SimpleMaps.modLoaded = id -> false;
+            h.assertTrue(com.simplemaps.MapsIcons.shopIcon().isEmpty() && com.simplemaps.MapsIcons.webIcon("shop").equals("diamond"), "without Simple Money: diamond");
+            SimpleMaps.modLoaded = id -> id.equals("simplemoney");
+            h.assertTrue(com.simplemaps.MapsIcons.shopIcon().isPresent() == registered, "with Simple Money: its bill when registered");
+            h.assertTrue(com.simplemaps.MapsIcons.webIcon("shop").equals(registered ? "money_bill" : "diamond")
+                    && com.simplemaps.MapsIcons.webIcon("chunk_loader").equals("diamond"), "only shops get the bill");
+        } finally {
+            SimpleMaps.modLoaded = saved;
         }
         h.succeed();
     }

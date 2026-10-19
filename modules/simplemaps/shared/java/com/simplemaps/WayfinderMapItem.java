@@ -45,6 +45,21 @@ public class WayfinderMapItem extends Item {
         };
     }
 
+    /** The map kind that charts a dimension of this type. */
+    public static Kind kindOf(Holder<DimensionType> type) {
+        return type.is(MapsItems.NETHER_DIMENSIONS) ? Kind.NETHER : type.is(MapsItems.END_DIMENSIONS) ? Kind.END : Kind.OVERWORLD;
+    }
+
+    /**
+     * Factor from a holder's coordinates in a {@code holder} dimension to the {@code map}'s dimension (owner 19.10.:
+     * a map of another dimension stays readable): Overworld to Nether 1/8, Nether to Overworld 8, everything else 1.
+     */
+    public static double coordScale(Kind map, Kind holder) {
+        if (map == Kind.NETHER && holder == Kind.OVERWORLD) return 1.0 / 8.0;
+        if (map == Kind.OVERWORLD && holder == Kind.NETHER) return 8.0;
+        return 1.0;
+    }
+
     public boolean accepts(Level level) {
         return accepts(kind, level.dimensionTypeRegistration());
     }
