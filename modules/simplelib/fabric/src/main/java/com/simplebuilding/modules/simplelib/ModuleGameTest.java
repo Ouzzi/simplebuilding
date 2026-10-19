@@ -124,4 +124,24 @@ public final class ModuleGameTest {
     public void warpedWartBlockRecipes(GameTestHelper h) {
         LibTests.ALL.get("warped_wart_block_recipes").accept(h);
     }
+
+    @GameTest
+    public void pixelPaletteLabNearest(GameTestHelper h) {
+        LibTests.ALL.get("pixel_palette_lab_nearest").accept(h);
+    }
+
+    @GameTest
+    public void pixelDitherDeterministic(GameTestHelper h) {
+        LibTests.ALL.get("pixel_dither_deterministic").accept(h);
+    }
+
+    @GameTest
+    public void pixelRleRoundTrip(GameTestHelper h) {
+        LibTests.ALL.get("pixel_rle_round_trip").accept(h);
+    }
+
+    @GameTest
+    public void pixelSizeLimit(GameTestHelper h) {
+        LibTests.ALL.get("pixel_size_limit").accept(h);
+    }
 }

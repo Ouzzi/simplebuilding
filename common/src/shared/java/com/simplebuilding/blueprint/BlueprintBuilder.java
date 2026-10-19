@@ -961,6 +961,11 @@ public final class BlueprintBuilder {
                 }
                 BlueprintMaterials.Cost paid = BlueprintMaterials.cost(state);
                 com.simplebuilding.util.WandUndo.record(player, level, pos, state, paid.item(), paid.count());
+                // Block-Protokoll (Simple Tweaks T10) und andere Zuhoerer ueber SimpleLib; 26.2: nichts.
+                if (level instanceof net.minecraft.server.level.ServerLevel logLevel && player instanceof net.minecraft.server.level.ServerPlayer logPlayer
+                        && !state.isAir()) {
+                    com.simplebuilding.util.LibServices.toolPlaced(logLevel, logPlayer, pos, level.getBlockState(pos));
+                }
                 com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
                 com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, 1);
                 if (holder[0] != null && holder[0].sound == null) {

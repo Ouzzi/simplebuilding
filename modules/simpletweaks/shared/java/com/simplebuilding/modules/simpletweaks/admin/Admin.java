@@ -29,6 +29,9 @@ public final class Admin {
         server = s;
         state = AdminState.load(s);
         com.simplebuilding.modules.simpletweaks.admin.blocklog.BlockLog.start(s);
+        // Blocks a tool set without a block item (SimpleBuilding blueprint builds) reach the log through SimpleLib.
+        com.simplelib.api.ToolPlacements.listen("simpletweaks:blocklog", (level, player, pos, placed) ->
+                com.simplebuilding.modules.simpletweaks.admin.blocklog.BlockRecorder.placed(level, player, pos));
         com.simplebuilding.modules.simpletweaks.admin.restart.Restart.start(s);
         com.simplebuilding.modules.simpletweaks.admin.backup.Backups.start(s);
     }

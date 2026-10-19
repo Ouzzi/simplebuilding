@@ -1722,6 +1722,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_edit_packet_saves_signs_and_locks_the_blueprint", BlueprintTests::editPacketSavesSignsAndLocksTheBlueprint)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_picture_code_holds_the_expected_blocks", BlueprintTests::pictureCodeHoldsTheExpectedBlocks)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_picture_import_follows_the_server_switch", BlueprintTests::pictureImportFollowsTheServerSwitch)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_picture_blueprint_builds_its_blocks", BlueprintTests::pictureBlueprintBuildsItsBlocks)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_recipe_crafts_one_blank_blueprint", BlueprintTests::recipeCraftsOneBlankBlueprint)
                     .build(),
             GameTestSpec.named("blueprint_game_test_creative_wand_reaches_afar_block_without_cost", BlueprintTests::creativeWandReachesAFarBlockWithoutCost)

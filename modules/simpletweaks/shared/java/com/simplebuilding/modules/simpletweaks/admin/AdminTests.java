@@ -193,6 +193,12 @@ public final class AdminTests {
         chest.removeItem(0, 2);
         chest.setItem(1, new ItemStack(Items.EMERALD, 3));
         p.closeContainer();
+        // A tool placement (SimpleBuilding blueprint build) through SimpleLib, without a block item.
+        var toolPos = h.absolutePos(new BlockPos(5, 2, 3));
+        level.setBlock(toolPos, Blocks.WHITE_WOOL.defaultBlockState(), 3);
+        com.simplelib.api.ToolPlacements.placed(level, p, toolPos, Blocks.WHITE_WOOL.defaultBlockState());
+        var tool = get(BlockLog.at(level, toolPos));
+        yes(h, tool.size() == 1 && tool.getFirst().action() == 'P' && tool.getFirst().id().equals("minecraft:white_wool"), "Tool placement logged: " + tool);
         var broken = get(BlockLog.at(level, stonePos));
         var put = get(BlockLog.at(level, placed));
         var box = get(BlockLog.at(level, chestPos));

@@ -67,7 +67,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 
 ### SimpleBuilding
 - **Bauwerkzeuge:** Vorschlaghammer (3×3, Formen in Treppe/Stufe/Achtel), Meißel (Blöcke in der Welt umformen),
-  Baustab (Flächen), Oktant (Messen/Planen), Blaupause (Bau-Code, Editor mit 3D-Vorschau, Scannen/Bauen),
+  Baustab (Flächen), Oktant (Messen/Planen), Blaupause (Bau-Code, Editor mit 3D-Vorschau, Scannen/Bauen; 26.3: Bild-Bauplan aus PNG, Umwandlung in SimpleLib `api.image`),
   Rotator (dreht Blöcke; zweite Funktion: Block in der Nebenhand tauscht den angeklickten Block), Farbpinsel (Goldpinsel) mit Farbkasten in 4 Stufen.
 - **Kerne** (Kupfer bis Enderit) als Werkzeugstufen, mit Hand-Animationen; In-World-Umwandlungen per Schlag.
 - **Vorschlaghammer-Zerlegungen** (schrittweise, ein Teil je Schlag): Diamantblock und Rissiger Diamantblock (9 Schläge, ab Eisenhammer) → 81 Diamantkiesel;
@@ -106,7 +106,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 Warmes Essen (Komponente `simplelib:warm`, Tag `warmable_food`; die Tiegel selbst liegen seit Stufe 5 in `simplecrucibles`), Stapelgrößen-Regel
 (`StackLimits`), UI-Bausteine des Simple-Stils (Kästen, Slots, Symbole, Flammen, Filter-Knopf). Dienste der
 Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Übergabe-Handlern und Tags
-`#simplelib:hammers`/`#simplelib:upgrade_tools`, `OctetCells` (Achtelzellen je Material). Gemeinsame Materialien
+`#simplelib:hammers`/`#simplelib:upgrade_tools`, `OctetCells` (Achtelzellen je Material), Bildumwandlung `api.image` (Lab-Palette, Floyd-Steinberg/Bayer, Lauflängen-Zeilen; Bild-Bauplan), `ToolPlacements` (Werkzeug-Bauten an Zuhörer wie das Block-Protokoll). Gemeinsame Materialien
 (Stufe 3d, `simplelib:*`, früher SB): Diamantkiesel, Rissiger Diamant (+Block, Amboss-Zerschlagen), Netheritklumpen,
 Enderit-Grundmaterial (Fragment, Platten, Barren, Klumpen, Block), Basis-/Enderit-Aufwertungsvorlage, Polierter Endstein (Modulfamilie Stufe 3, gemeinsamer End-Baublock), `c:`-Tags;
 Rezepte/Zerschlagen nur, wenn eine Mod sie anfordert (`requestMaterial`, Condition `simplelib:material_requested`; SB fordert alle an).
