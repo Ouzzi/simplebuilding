@@ -42,6 +42,11 @@ public final class ContainersScreen {
                 .setTooltip(tip("tooltipNeedsShift")).setSaveConsumer(v -> c.tooltipNeedsShift = v).build());
         general.addEntry(e.startBooleanToggle(name("tooltipColorByDye"), c.tooltipColorByDye).setDefaultValue(true)
                 .setTooltip(tip("tooltipColorByDye")).setSaveConsumer(v -> c.tooltipColorByDye = v).build());
+        general.addEntry(e.startBooleanToggle(name("bundleShowAll"), c.bundleShowAll).setDefaultValue(true)
+                .setTooltip(tip("bundleShowAll")).setSaveConsumer(v -> c.bundleShowAll = v).build());
+        general.addEntry(e.startIntField(name("bundleMaxRows"), c.bundleMaxRows).setMin(com.simplebuilding.modules.simpleinterfaces.tooltip.BundleView.MIN_ROWS)
+                .setMax(com.simplebuilding.modules.simpleinterfaces.tooltip.BundleView.MAX_ROWS).setDefaultValue(6)
+                .setTooltip(tip("bundleMaxRows")).setSaveConsumer(v -> c.bundleMaxRows = v).build());
         // Server values (formerly Simple QoL): linked containers and Easy Shulkers / Ender Chests.
         var s = gson.fromJson(gson.toJson(SimpleInterfaces.CONFIG), LinkedConfig.class);
         var server = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.server"));

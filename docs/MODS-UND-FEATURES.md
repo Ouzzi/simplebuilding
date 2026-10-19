@@ -118,6 +118,8 @@ Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergl
 Inventar-Helligkeit Hell/Dämmerung/Dunkel (Einstellung, wirkt über SimpleLib auf alle Mod-Kästen).
 Tooltips (19.10.): Shulkerkisten-Inhalt als 9x3-Raster mit Umschalt (Färbung nach Kiste), Endertruhen-Item zeigt
 die eigene Endertruhe (Snapshot Server→Client bei Login und Schließen, Server-Teil optional); Schalter lokal + Server.
+Bündel (19.10.): Tooltip zeigt alle Einträge statt 12 (bis 6 Reihen, darüber Seiten mit "+n", folgen der Mausrad-Auswahl),
+Mausrad wählt jeden Eintrag; nur Client, liest nur `bundle_contents` (gilt auch für SBs verstärkte Bündel); Schalter lokal.
 
 ### Simple Weather (Sub-Mod von QoL)
 Wetter abschalten (Server), Regendichte (Client); eigene Config `config/simpleweather.json`, alte QoL-Werte werden
