@@ -464,6 +464,18 @@ final class WitherTests {
             h.assertTrue(stroke(h, b, at) == BiomeBrush.Result.PAINTED && b.getMainHandItem().isEmpty(), "brush breaks at 0 durability");
             h.succeed();
         });
+        add.accept("biome_brush_sneak", h -> {
+            BlockPos at = new BlockPos(3, 2, 3);
+            reset(h, at);
+            // sneaking: only the clicked cell changes, the neighbouring cell keeps its biome
+            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 2));
+            p.setShiftKeyDown(true);
+            h.assertTrue(stroke(h, p, at) == BiomeBrush.Result.PAINTED, "sneaking stroke painted");
+            h.assertTrue(cellBiome(h, at) == Biomes.SNOWY_PLAINS, "clicked cell is snowy plains: " + cellBiome(h, at));
+            h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.PLAINS, "neighbouring cell unchanged: " + cellBiome(h, at.offset(4, 0, 0)));
+            h.assertTrue(p.getOffhandItem().getCount() == 1, "one material per stroke");
+            h.succeed();
+        });
         add.accept("biome_brush_claims", h -> {
             ServerLevel level = h.getLevel();
             BlockPos at = new BlockPos(3, 2, 3);

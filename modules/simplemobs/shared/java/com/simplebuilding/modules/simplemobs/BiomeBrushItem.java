@@ -18,7 +18,8 @@ import net.minecraft.world.level.biome.Biome;
 /**
  * Biome Brush (concept N26 B): brush in the main hand, a biome material in the off hand, right-click a block - the
  * biome around it becomes the material's biome ({@link BiomeBrush}). One material and one durability point per stroke
- * (none in creative), holding the button keeps painting (one stroke per {@link #STROKE_TICKS} ticks). Durability 512,
+ * (none in creative), holding the button keeps painting (one stroke per {@link #STROKE_TICKS} ticks). Sneaking paints only
+ * the clicked biome cell (4x4x4, the smallest unit Vanilla stores) instead of the area. Durability 512,
  * repaired with Netherite Ingots, takes Unbreaking and Mending. No text: a refused stroke puffs smoke.
  */
 public class BiomeBrushItem extends Item {
@@ -57,7 +58,7 @@ public class BiomeBrushItem extends Item {
         if (biome == null || !BiomeBrush.fitsDimension(level, biome)) return fizzle(level, target, BiomeBrush.Result.WRONG_DIMENSION);
         if (!BiomeBrush.centreAllowed(level, player, target)) return fizzle(level, target, BiomeBrush.Result.DENIED);
         player.getCooldowns().addCooldown(brush, STROKE_TICKS);
-        int changed = BiomeBrush.paint(level, player, target, biome, MobsConfig.biomeBrushRadius);
+        int changed = BiomeBrush.paint(level, player, target, biome, player.isShiftKeyDown() ? 0 : MobsConfig.biomeBrushRadius);
         if (changed <= 0) return BiomeBrush.Result.UNCHANGED;
         if (!player.hasInfiniteMaterials()) {
             material.shrink(1);
