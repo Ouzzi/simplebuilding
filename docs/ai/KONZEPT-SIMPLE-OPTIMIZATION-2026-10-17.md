@@ -227,3 +227,14 @@ sonst Start über eine Launcher-Instanz mit gleicher Ordnerstruktur).
 ## 9. Besitzer-Antworten (17.10.2026)
 Alle Empfehlungen aus §8 übernommen (Super-Mod + 3 Sub-Mods; erst Fabric 26.3; Start O1/O7/S5a + IP-Ping/Telemetrie; spielverändernde Teile Standard aus; Schwelle ≥3 % Median, 1%-Low/Heap nicht schlechter, 2 Messreihen; Messung auf 26.3; Kleinkram hier, Optik nach Simple Visuals nur auf Wunsch).
 **Abweichung zu Frage 6:** Benchmarks laufen auf dem Server (sb-test), nicht am Besitzer-PC (Besitzer nicht immer verfügbar). Folge: CPU-/Server-Kennzahlen (MSPT, Heap, Startzeit, Chunk-Laden, Frame-Zeit unter Software-GL) sind aussagekräftig; reine GPU-Gewinne nur grob (llvmpipe) – im Bericht je Bereich als „GPU-gebunden, nur Tendenz“ markieren. Das PC-Skript bleibt optional.
+
+## 10. Stand Stufe 4 (`b-opt45`, 19.10.2026)
+Plan `docs/ai/PLAN-B-OPT45-2026-10-19.md`. Umgesetzt (Fabric 26.3, framework 0.1.13):
+- **Zielprüfung §4.5**: framework `OptAreas` + Plugin-`acceptTargets` in allen drei Sub-Mods; Treffer → Bereich zur Laufzeit
+  aus (Grund `conflict`), Familie/Fabric API ignoriert, `mode: ours` behält, `conflictScan: false` überspringt.
+- **O3** `more_culling` (Schild-Rückseite, Rahmen hinter fester Wand, Leuchtfeuer-Strahl außer Sicht), **O9** `details`
+  (Partikel, Textur-Animationen, Luft-Nebel; Rivale `sodium-extra`), **O4** `state_tables` (geteilte Werte-/Schlüssel-Arrays
+  und Seiten-Tabellen; Mojang hat FerriteCores Kern in 26.3 schon übernommen), **S5b** `activation_range` (Standard `off`).
+- **Offen:** S1a (Audit: Leerlauf der Familien-BEs schon billig; teuer nur Trichter-Saugen/Pads, Schlaf bräuchte
+  Item-Entity-Signal = Vanilla-Eingriff), O3 Regen hinter Decken, O4 Modell-Deduplizierung (Client), Messung O3/O4/O9/S5b
+  (Bench-Fall `o4` angelegt; Bench läuft als Client und wurde nicht gefahren).
