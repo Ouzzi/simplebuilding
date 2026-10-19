@@ -84,7 +84,7 @@
   "container.simpleblocks.shaping_saw.no_cuts": "Daraus lässt sich nichts schneiden",
   "container.simpleblocks.shaping_saw.no_match": "Kein Schnitt passt zur Suche",
   "tip.simpleblocks.shaping_saw": "Schneidet Stein und Holz zu Treppen, Stufen und mehr",
-  "jei.simpleblocks.info.shaping_saw": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.",
+  "jei.simpleblocks.info.shaping_saw": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.",
   "block.simpleblocks.suspended_sand": "Schwebender Sand",
   "item.simpleblocks.suspended_sand": "Schwebender Sand",
   "block.simpleblocks.suspended_gravel": "Schwebender Kies",
