@@ -3,7 +3,6 @@
     "simplebuilding:acacia_cauldron",
     "simplebuilding:acacia_crate",
     "simplebuilding:acacia_sheet",
-    "simplebuilding:aqua_froglight",
     "simplebuilding:astral_enchanting_table",
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
@@ -25,7 +24,6 @@
     "simplebuilding:astralit_quartz_checker_stairs",
     "simplebuilding:auto_smither",
     "simplebuilding:autonomous_crafter",
-    "simplebuilding:azure_froglight",
     "simplebuilding:backpack",
     "simplebuilding:bamboo_cauldron",
     "simplebuilding:bamboo_crate",
@@ -66,17 +64,14 @@
     "simplebuilding:cherry_sheet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
-    "simplebuilding:chiseled_blue_ice",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
-    "simplebuilding:chiseled_packed_ice",
     "simplebuilding:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
     "simplebuilding:copper_light_pane",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:copper_redstone_light_pane",
-    "simplebuilding:cracked_ice",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crimson_cauldron",
@@ -94,7 +89,6 @@
     "simplebuilding:diamond_pole",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
-    "simplebuilding:dirt_slab",
     "simplebuilding:elytra_pad",
     "simplebuilding:end_dimensional_scrap",
     "simplebuilding:ender_quartz_block",
@@ -129,8 +123,6 @@
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
     "simplebuilding:gold_pole",
-    "simplebuilding:grass_slab",
-    "simplebuilding:gravel_slab",
     "simplebuilding:gray_copper_light_pane",
     "simplebuilding:gray_hammock",
     "simplebuilding:gray_light_pane",
@@ -173,8 +165,6 @@
     "simplebuilding:lapis_quartz_checker_stairs",
     "simplebuilding:launchpad",
     "simplebuilding:layered_astralit",
-    "simplebuilding:levitating_gravel",
-    "simplebuilding:levitating_sand",
     "simplebuilding:light_blue_copper_light_pane",
     "simplebuilding:light_blue_hammock",
     "simplebuilding:light_blue_light_pane",
@@ -191,7 +181,6 @@
     "simplebuilding:mangrove_cauldron",
     "simplebuilding:mangrove_crate",
     "simplebuilding:mangrove_sheet",
-    "simplebuilding:nautilus_shell_block",
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
@@ -298,8 +287,6 @@
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
     "simplebuilding:sage_ore",
-    "simplebuilding:sand_slab",
-    "simplebuilding:scarlet_froglight",
     "simplebuilding:sculk_jaw",
     "simplebuilding:silent_dandelion",
     "simplebuilding:spawn_teleporter",
@@ -341,8 +328,6 @@
     "simplebuilding:sulfur_lantern",
     "simplebuilding:sulfur_torch",
     "simplebuilding:sulfur_wall_torch",
-    "simplebuilding:suspended_gravel",
-    "simplebuilding:suspended_sand",
     "simplebuilding:transparent_light_pane",
     "simplebuilding:trapped_copper_chest",
     "simplebuilding:veined_astralit",
@@ -384,9 +369,6 @@
       "durability": 640,
       "id": "simplebuilding:amethyst_lens",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:aqua_froglight"
     },
     {
       "id": "simplebuilding:astral_enchanting_table"
@@ -505,9 +487,6 @@
     },
     {
       "id": "simplebuilding:autonomous_crafter"
-    },
-    {
-      "id": "simplebuilding:azure_froglight"
     },
     {
       "id": "simplebuilding:backpack",
@@ -690,16 +669,10 @@
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {
-      "id": "simplebuilding:chiseled_blue_ice"
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks"
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks"
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice"
     },
     {
       "id": "simplebuilding:chunk_loader",
@@ -756,9 +729,6 @@
       "enchantability": 18,
       "id": "simplebuilding:copper_spatula",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:cracked_ice"
     },
     {
       "id": "simplebuilding:crafted_arrow"
@@ -875,9 +845,6 @@
     },
     {
       "id": "simplebuilding:dimensional_scrap"
-    },
-    {
-      "id": "simplebuilding:dirt_slab"
     },
     {
       "durability": 1500,
@@ -1240,12 +1207,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:grass_slab"
-    },
-    {
-      "id": "simplebuilding:gravel_slab"
-    },
-    {
       "id": "simplebuilding:gray_copper_light_pane"
     },
     {
@@ -1470,12 +1431,6 @@
       "id": "simplebuilding:leather_sheet"
     },
     {
-      "id": "simplebuilding:levitating_gravel"
-    },
-    {
-      "id": "simplebuilding:levitating_sand"
-    },
-    {
       "id": "simplebuilding:light_blue_copper_light_pane"
     },
     {
@@ -1566,9 +1521,6 @@
     {
       "id": "simplebuilding:music_disc_voidline_track_3",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block"
     },
     {
       "id": "simplebuilding:nether_brick_chess_bishop",
@@ -2575,12 +2527,6 @@
       "id": "simplebuilding:sage_ore"
     },
     {
-      "id": "simplebuilding:sand_slab"
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight"
-    },
-    {
       "id": "simplebuilding:sculk_jaw"
     },
     {
@@ -2737,12 +2683,6 @@
     },
     {
       "id": "simplebuilding:sulfur_torch"
-    },
-    {
-      "id": "simplebuilding:suspended_gravel"
-    },
-    {
-      "id": "simplebuilding:suspended_sand"
     },
     {
       "id": "simplebuilding:training_dummy",

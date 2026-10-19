@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 653,
+      "count": 638,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -93,7 +93,7 @@
           "Tags section: tags decide which items accept an enchantment (e.g. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) or gain special properties (void_protected). If an item refuses an enchantment, it is almost always because it is missing from one of these tags; that now affects the Enderite building wand, chisel and sledgehammer and the legacy spatulas - the Enderite Bundle and Enderite Quiver are in the container tags.",
           "Config section: switches for the air jump and its cooldown, armor trim benefits, tool animations, preview opacity, Octant and bundle controls, plus the three switches for loot, villager trades and the wandering trader; reachable through ModMenu on Fabric and through the config button in the mod list on NeoForge.",
           "For players coming from older versions: legacy spatulas are converted automatically into the chisel of the same tier on server start (dropped items) and on join (inventory and open menu); chest contents are not covered.",
-          "Five regular creative tabs: SimpleTools, SimpleBlocks, SimpleMaterials, SimpleMachines and SimplePads, each nine slots wide, with one empty cell between two categories whenever the previous one did not end exactly at the row edge. SimpleEnchants (Dev) is conditional and excluded from search."
+          "Five regular creative tabs: SimpleTools, SimpleBlocks, SimpleMaterials, SimpleMachines and SimplePads, each nine slots wide, with one empty cell between two categories whenever the previous one did not end exactly at the row edge. SimpleEnchants (Dev) is conditional and excluded from search. With Simple Blocks loaded (always on 26.3, a required sub-mod) the SimpleBlocks rows stand at the end of the shared \"Simple Blocks\" tab instead of a tab of their own."
         ]
       },
       "de": {
@@ -107,7 +107,7 @@
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert und sein Dev-Client startet, aber kein Test läuft darauf. Seine Client-Anzeigen sind wie auf den anderen Loadern verdrahtet: Oktant-HUD, Geschwindigkeitsanzeige des Geschwindigkeitsmessers und Luftsprung-Balken über Forges HUD-Ebenen (AddGuiOverlayLayersEvent), Weltmarkierungen und zusätzliche Abbau-Risse über die Mixins LevelRendererMixin / LevelExtractorMixin, die eigenen Buchtexturen der Verzauberungen über SelectItemModelPropertiesMixin.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Auch die eigenen Menü-, Status- und Tooltip-Texte der Mod - Trichter-Filter, Detektor, Attraktor, Rahmensperre, Struktur-Kompasse, Umschalttasten, Oktant- und Geschwindigkeitsmesser-HUD, Resonanzfeld, Meißel-Tooltip - kommen seit dem 27.09.2026 aus den Sprachdateien; ein Datentest prüft, dass jeder dieser Schlüssel in beiden Dateien mit denselben Platzhaltern steht.",
-          "Das Kreativinventar hat fünf eigene Reiter, je neun Felder breit - die Kategorien laufen nacheinander weiter, mit genau einem leeren Feld dazwischen, wenn die vorige nicht genau am Zeilenrand endete; zwei kurze Familien können nebeneinander stehen: „SimpleTools“ (die Kategorien von der niedrigsten Stufe bis Enderite: Meißel, Baustäbe - neben dem Enderit-Baustab nach einem leeren Feld die Bauplanung: Blaupause und Vanilla-Kartografentisch -, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach Pferde- und Nautilusrüstung, die Geräte (Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Detektor, Attraktor, Transponierer, Resonanzstab, Oktant), die gefärbten Oktanten, die Handbücher und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (die Endsteine, die Astralit-, Nihilit- und Enderquarz-Palette mit den polierten Stücken, die Quarz-Schachbretter, die Schwerkraftblöcke, dann Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (End-Erze, Rohstoffe, Baukerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren), „SimpleMachines“ (jeweils Vanilla zuerst und dann die Stufen: Trichter und Öfen, Räucheröfen und Schmelzöfen, Kolben, Bündel und Köcher, Rucksäcke, Truhen; Symbol: Netherittrichter) und „SimplePads“ (die Druckplatten - Eiche, Stein, polierter Schwarzstein, Wägeplatten schwer und leicht, Diamant, Netherit und Enderit in einer Reihe, die Kupferplatten in der nächsten; die übrigen Holzplatten bleiben im Vanilla-Reiter - dann die Pad-Familien in Erz-Reihenfolge, jede mit ihrer Freischalt-Zutat: Chunk-Loader, Launchpads, Spawn-Teleporter, Elytra-Pads, Trank-Pads und Flypads; Symbol: Elytra-Pad). Zwischen zwei Kategorien liegt genau ein leeres Feld, ein unsichtbarer Kreativ-Platzhalter, der sich nicht aufnehmen lässt und nie im Suchreiter steht; nur eine Kategorie, die in der Reihe ihres Vorgängers weiterlaufen soll, füllt die Reihe bis zum Ende auf, und nach der letzten Kategorie steht keiner. Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur Kupfer-, Eisen- und Enderit-Kern stehen bewusst in zweien (SimpleMaterials und, als Freischalt-Zutat, SimplePads). Zusätzlich steht jedes Mod-Item im passenden Vanilla-Reiter direkt hinter seinem Vanilla-Vorbild (verstärkter, Netherit- und Enderit-Trichter hinter dem Trichter, die Enderit-Werkzeuge hinter den Netherit-Werkzeugen, die Mod-Platten bei den Vanilla-Platten, Lohen- und Endermankopf bei den Vanilla-Köpfen), sodass der Suchreiter es dort zeigt - einmal - statt ganz am Ende; die verzauberten Bücher der Mod stehen ohnehin zwischen Vanillas Büchern. Ein sechster Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
+          "Das Kreativinventar hat fünf eigene Reiter, je neun Felder breit - die Kategorien laufen nacheinander weiter, mit genau einem leeren Feld dazwischen, wenn die vorige nicht genau am Zeilenrand endete; zwei kurze Familien können nebeneinander stehen: „SimpleTools“ (die Kategorien von der niedrigsten Stufe bis Enderite: Meißel, Baustäbe - neben dem Enderit-Baustab nach einem leeren Feld die Bauplanung: Blaupause und Vanilla-Kartografentisch -, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach Pferde- und Nautilusrüstung, die Geräte (Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Detektor, Attraktor, Transponierer, Resonanzstab, Oktant), die gefärbten Oktanten, die Handbücher und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (mit Simple Blocks – auf 26.3 immer, Pflicht-Sub-Mod – stehen diese Zeilen hinten im gemeinsamen Tab „Simple Blocks“ statt in einem eigenen Reiter: die Endsteine, die Astralit-, Nihilit- und Enderquarz-Palette mit den polierten Stücken, die Quarz-Schachbretter, dann Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (End-Erze, Rohstoffe, Baukerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren), „SimpleMachines“ (jeweils Vanilla zuerst und dann die Stufen: Trichter und Öfen, Räucheröfen und Schmelzöfen, Kolben, Bündel und Köcher, Rucksäcke, Truhen; Symbol: Netherittrichter) und „SimplePads“ (die Druckplatten - Eiche, Stein, polierter Schwarzstein, Wägeplatten schwer und leicht, Diamant, Netherit und Enderit in einer Reihe, die Kupferplatten in der nächsten; die übrigen Holzplatten bleiben im Vanilla-Reiter - dann die Pad-Familien in Erz-Reihenfolge, jede mit ihrer Freischalt-Zutat: Chunk-Loader, Launchpads, Spawn-Teleporter, Elytra-Pads, Trank-Pads und Flypads; Symbol: Elytra-Pad). Zwischen zwei Kategorien liegt genau ein leeres Feld, ein unsichtbarer Kreativ-Platzhalter, der sich nicht aufnehmen lässt und nie im Suchreiter steht; nur eine Kategorie, die in der Reihe ihres Vorgängers weiterlaufen soll, füllt die Reihe bis zum Ende auf, und nach der letzten Kategorie steht keiner. Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur Kupfer-, Eisen- und Enderit-Kern stehen bewusst in zweien (SimpleMaterials und, als Freischalt-Zutat, SimplePads). Zusätzlich steht jedes Mod-Item im passenden Vanilla-Reiter direkt hinter seinem Vanilla-Vorbild (verstärkter, Netherit- und Enderit-Trichter hinter dem Trichter, die Enderit-Werkzeuge hinter den Netherit-Werkzeugen, die Mod-Platten bei den Vanilla-Platten, Lohen- und Endermankopf bei den Vanilla-Köpfen), sodass der Suchreiter es dort zeigt - einmal - statt ganz am Ende; die verzauberten Bücher der Mod stehen ohnehin zwischen Vanillas Büchern. Ein sechster Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Attraktor, Transponierer und Detektor.",
           "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
@@ -118,7 +118,7 @@
           "Bereich Tags: Tags legen fest, welche Gegenstände eine Verzauberung annehmen (z. B. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) oder besondere Eigenschaften bekommen (void_protected). Nimmt ein Gegenstand eine Verzauberung nicht an, liegt es fast immer daran, dass er in einem dieser Tags fehlt; das betrifft jetzt Enderit-Baustab, -Meißel und -Vorschlaghammer sowie die alten Spatel - Enderitbündel und Enderitköcher stehen in den Behälter-Tags.",
           "Bereich Konfiguration: Schalter für Luftsprung und dessen Abklingzeit, Rüstungsbesatz-Vorteile, Werkzeuganimationen, Deckkraft der Vorschau, Oktant- und Bündel-Bedienung sowie die drei Schalter für Loot, Dorfbewohner-Handel und fahrenden Händler; auf Fabric über ModMenu, auf NeoForge über den Konfigurationsknopf der Mod-Liste erreichbar.",
           "Für Umsteiger aus älteren Versionen: Alte Spatel werden beim Serverstart (herumliegende Gegenstände) und beim Betreten (Inventar und offenes Menü) automatisch in den gleichstufigen Meißel umgewandelt; Truheninhalte werden dabei nicht erfasst.",
-          "Fünf reguläre Kreativreiter: SimpleTools, SimpleBlocks, SimpleMaterials, SimpleMachines und SimplePads, je neun Felder breit, mit einem leeren Feld zwischen zwei Kategorien, wenn die vorige nicht genau am Zeilenrand endete. SimpleEnchants (Dev) ist bedingt sichtbar und aus der Suche ausgeschlossen."
+          "Fünf reguläre Kreativreiter: SimpleTools, SimpleBlocks, SimpleMaterials, SimpleMachines und SimplePads, je neun Felder breit, mit einem leeren Feld zwischen zwei Kategorien, wenn die vorige nicht genau am Zeilenrand endete. SimpleEnchants (Dev) ist bedingt sichtbar und aus der Suche ausgeschlossen. Mit geladenem Simple Blocks (auf 26.3 immer, Pflicht-Sub-Mod) stehen die Zeilen von SimpleBlocks hinten im gemeinsamen Tab „Simple Blocks“ statt in einem eigenen Reiter."
         ]
       }
     },
@@ -1604,10 +1604,6 @@
         "simplebuilding:reinforced_piston_head",
         "simplebuilding:netherite_piston_head",
         "simplebuilding:enderite_piston_head",
-        "simplebuilding:levitating_sand",
-        "simplebuilding:levitating_gravel",
-        "simplebuilding:suspended_sand",
-        "simplebuilding:suspended_gravel",
         "simplebuilding:cracked_diamond",
         "simplebuilding:netherite_nugget",
         "simplebuilding:astralit_dust",
@@ -1624,8 +1620,6 @@
         "common/src/shared/java/com/simplebuilding/util/PistonBoreEffects.java",
         "common/src/shared/java/com/simplebuilding/util/ModSounds.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/PistonHeadRendererMixin.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
-        "common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
@@ -1643,10 +1637,6 @@
         "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
         "src/main/generated/data/simplebuilding/tags/block/piston_breach_immune.json",
         "src/main/generated/data/simplebuilding/tags/block/piston_breachable_extra.json",
-        "src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
-        "src/main/generated/data/simplebuilding/recipe/levitating_gravel.json",
-        "src/main/generated/data/simplebuilding/recipe/suspended_sand.json",
-        "src/main/generated/data/simplebuilding/recipe/suspended_gravel.json",
         "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
         "src/main/resources/simplebuilding.mixins.json",
@@ -1657,11 +1647,12 @@
         "src/main/resources/assets/simplebuilding/sounds.json",
         "src/main/resources/assets/simplebuilding/models/block/template_tiered_piston_head.json",
         "common/src/shared/java/com/simplebuilding/gametest/PistonBreachTests.java",
-        "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java",
+        "common/src/shared/java/com/simplebuilding/util/BlockRefs.java"
       ],
       "en": {
         "title": "Pistons and Gravity Blocks",
-        "summary": "SimpleBuilding extends redstone builds with four stronger pistons and turns gravity on its head for sand and gravel. The Reinforced Piston and its sticky twin push longer block lines and, paid with a Redstone Block, even one unbreakable block; the Netherite and Enderite Pistons destroy blocks depending on redstone strength and, paid the same way, sacrifice themselves to break through unbreakable blocks. Four new sand and gravel variants either hang in mid-air or climb upwards on their own.",
+        "summary": "SimpleBuilding extends redstone builds with four stronger pistons. The Reinforced Piston and its sticky twin push longer block lines and, paid with a Redstone Block, even one unbreakable block; the Netherite and Enderite Pistons destroy blocks depending on redstone strength and, paid the same way, sacrifice themselves to break through unbreakable blocks. The gravity tests run its pistons against the suspended and levitating sand and gravel of Simple Blocks.",
         "details": [
           "The Reinforced Piston and the Reinforced Sticky Piston raise the push limit from 12 to 18 blocks via a mixin. Recipes: 3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots yield 2 Reinforced Pistons (unlocked with a Piston); a Slime Ball on top of a Reinforced Piston yields 1 Reinforced Sticky Piston (unlocked with a Reinforced Piston). The sticky one pulls a block back when it retracts; its head shows the slime face.",
           "Unbreakable blocks, as the mod's pistons see them (PistonBreach): a negative destroy speed in the minecraft namespace (another mod's hardness -1 blocks only while the config option pistonsBreachModdedUnbreakables is on, off by default) or the tag simplebuilding:piston_breachable_extra (Reinforced Deepslate), but not the tag simplebuilding:piston_breach_immune (barrier, light, the three command blocks, structure block, jigsaw, test block, test instance block, moving piston, #minecraft:portals) and never a block with a block entity. In vanilla that leaves Bedrock and Reinforced Deepslate, plus End Portal Frames only while the config option pistonsBreachEndPortalFrames is on (off by default). The server sends both piston options to every client at login (PistonConfigPayload): a client replaying a Reinforced Piston asks the same question in its own piston resolver and would otherwise push (or refuse) a block the server did not.",
@@ -1678,20 +1669,15 @@
           "All pistons are in the mineable/pickaxe tag. The Netherite Piston has hardness 5 and blast resistance 1200, the Enderite Piston hardness 6 and blast resistance 1500, and both items are fire resistant (the Enderite Piston's of rarity Epic); the Reinforced and the Reinforced Sticky Piston have hardness 1.5.",
           "Every block a mod piston destroys - the Netherite and Enderite Piston's ordinary break as well as each block of a breach - shows its break particles and plays its normal break sound (the world event Level.destroyBlock sends to nearby players), plus the mod's own sound simplebuilding:block.piston.bore (subtitle \"Piston bores through a block\"). The Redstone Block and the piston used up by a breach vanish with particles but without the bore sound. The three piston heads have hardness, blast resistance and sound of their piston and are in the mineable/pickaxe tag.",
           "Protection: before a mod piston destroys anything, the loader is asked. On NeoForge and Forge PistonEvent.Pre fires once per piston action (a whole enderite breach counts as one; a normal breaker extension additionally shows vanilla's own PistonEvent.Pre when the head moves out); then, for every block, NeoForge fires BreakBlockEvent with its fake player and Fabric PlayerBlockBreakEvents.BEFORE with its fake player (a refusal fires CANCELED). Forge 26.2 has no fake player, so there only the piston event decides. A cancelled event keeps the block (a refused breach consumes nothing), and nothing outside the world border is ever destroyed. The config option pistonsFireBreakEvents (default on) switches the break event with the fake player off - for protection mods that refuse every fake player (pistons would stop everywhere) or quest and statistics mods that would count piston breaks as player breaks; then only the piston event and the world border decide.",
-          "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilit Shard each = 8) are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising Levitating block lands underneath them.",
-          "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) fall upwards: two ticks after being placed, and again whenever a neighbor changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick, limit 2 blocks per tick), so it starts slowly and accelerates exactly like falling sand.",
-          "A rising block that runs into a ceiling turns back into a block in the free space below it - the mirror image of sand landing on the ground. If it cannot be placed there, it drops as an item. Remove the obstacle again and it carries on rising; the blocks never come back down on their own.",
-          "Above the build limit the rising block breaks and drops as an item, the way falling sand is lost in the void. Unlike vanilla, there is no 100 tick grace period before that happens, so the block breaks at the limit instead of about 115 blocks above it.",
-          "Of the eight blocks that have an item, the four pistons sit in the creative tab \"SimpleMachines\" and the four sand and gravel variants in \"SimpleBlocks\".",
-          "None of the four sand and gravel variants is in any tool tag the mod generates.",
-          "All four sand and gravel variants ship byte-identical copies of the vanilla sand and gravel textures (checked by SHA-256 against the client jar). In game they therefore cannot be told apart from ordinary sand and gravel - on blocks whose whole point is the changed gravity.",
+          "Suspended and Levitating Sand and Gravel belong to Simple Blocks since 26.3 (old simplebuilding: ids migrate); with SimpleBuilding they are crafted from 8 Sand or Gravel around a Nihilith Shard (suspended) or Astralit Dust (levitating). The pistons push and break them like any other block (GravityBlockTests).",
+          "The four pistons sit in the creative tab \"SimpleMachines\".",
           "The Netherite and the Enderite Piston's items have a tooltip: what they break (the Enderite Piston also its 3-deep breach), their durability (226 and 281, 1 per broken block), what they turn into and which nugget repairs them, and once damaged \"Durability: left/max\" (with advanced tooltips vanilla's own durability line instead).",
           "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength and, with a Redstone Block beside it, breaks through bedrock, leaving neither itself nor the Redstone Block behind and dropping no piston, the suspended blocks stay in mid-air, the levitating blocks rise measurably faster over each of three samples (which a constant-rate movement could not do), turn back into a block under a ceiling, and drop as an item at the build limit; every mod piston extends with the head of its tier, loses it on retraction, and each destroyed block is reported to the bore effects exactly once."
         ]
       },
       "de": {
         "title": "Kolben und Schwerkraftblöcke",
-        "summary": "SimpleBuilding erweitert Redstone-Bauten um vier stärkere Kolben und hebt die Schwerkraft von Sand und Kies aus den Angeln. Der Verstärkte Kolben und sein klebriger Zwilling schieben längere Blockreihen und, mit einem Redstoneblock bezahlt, sogar einen unzerstörbaren Block; Netherit- und Enderitkolben zerstören Blöcke je nach Redstone-Stärke und opfern sich, genauso bezahlt, um unzerstörbare Blöcke zu durchbrechen. Vier neue Sand- und Kiesvarianten bleiben entweder in der Luft hängen oder steigen von selbst nach oben.",
+        "summary": "SimpleBuilding erweitert Redstone-Bauten um vier stärkere Kolben. Der Verstärkte Kolben und sein klebriger Zwilling schieben längere Blockreihen und, mit einem Redstoneblock bezahlt, sogar einen unzerstörbaren Block; Netherit- und Enderitkolben zerstören Blöcke je nach Redstone-Stärke und opfern sich, genauso bezahlt, um unzerstörbare Blöcke zu durchbrechen. Die Schwerkraft-Tests lassen seine Kolben gegen den schwebenden und aufsteigenden Sand und Kies von Simple Blocks laufen.",
         "details": [
           "Der Verstärkte Kolben und der Verstärkte klebrige Kolben heben das Schublimit per Mixin von 12 auf 18 Blöcke an. Rezepte: 3 Rissige Diamanten, 2 Kolben und 4 Eisenbarren ergeben 2 Verstärkte Kolben (freigeschaltet mit einem Kolben); ein Schleimball über einem Verstärkten Kolben ergibt 1 Verstärkten klebrigen Kolben (freigeschaltet mit einem Verstärkten Kolben). Der klebrige zieht beim Einfahren einen Block zurück; sein Kopf zeigt die Schleimseite.",
           "Unzerstörbar aus Sicht der Mod-Kolben (PistonBreach) sind Blöcke mit negativer Abbaugeschwindigkeit aus dem Namensraum minecraft (die Härte-(-1)-Blöcke anderer Mods nur, solange die Konfigurationsoption pistonsBreachModdedUnbreakables an ist, Standard aus) oder im Tag simplebuilding:piston_breachable_extra (Verstärkter Tiefenschiefer), aber nicht im Tag simplebuilding:piston_breach_immune (Barriere, Licht, die drei Befehlsblöcke, Konstruktionsblock, Verbund, Testblock, Testinstanzblock, bewegter Kolben, #minecraft:portals) und nie ein Block mit Block-Entity. In Vanilla bleiben damit Grundgestein und Verstärkter Tiefenschiefer, dazu Endportalrahmen nur, solange die Konfigurationsoption pistonsBreachEndPortalFrames an ist (Standard aus). Der Server schickt beide Kolben-Optionen beim Einloggen an jeden Client (PistonConfigPayload): Ein Client, der einen Verstärkten Kolben nachspielt, stellt dieselbe Frage in seinem eigenen Kolben-Resolver und würde sonst einen Block schieben (oder nicht), den der Server anders behandelt.",
@@ -1708,13 +1694,8 @@
           "Alle Kolben sind im Tag mineable/pickaxe. Der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, der Enderitkolben Härte 6 und Explosionswiderstand 1500, beide Items sind feuerfest (das des Enderitkolbens von der Seltenheit Episch); der Verstärkte und der Verstärkte klebrige Kolben haben Härte 1,5.",
           "Jeder Block, den ein Mod-Kolben zerstört - das normale Brechen von Netherit- und Enderitkolben ebenso wie jeder Block eines Durchbruchs -, zeigt seine Bruchpartikel und spielt seinen normalen Abbauklang (das Weltereignis, das Level.destroyBlock an Spieler in der Nähe sendet), dazu den eigenen Klang simplebuilding:block.piston.bore (Untertitel „Kolben bohrt sich durch einen Block“). Der Redstoneblock und der Kolben, die ein Durchbruch verbraucht, verschwinden mit Partikeln, aber ohne Bohrklang. Die drei Kolbenköpfe haben Härte, Explosionswiderstand und Klang ihres Kolbens und stehen im Tag mineable/pickaxe.",
           "Schutz: Bevor ein Mod-Kolben etwas zerstört, wird der Loader gefragt. Auf NeoForge und Forge feuert PistonEvent.Pre einmal pro Kolbenaktion (ein ganzer Enderit-Durchbruch zählt als eine; ein normales Ausfahren des Brechers zeigt zusätzlich Vanillas eigenes PistonEvent.Pre, wenn der Kopf ausfährt); danach feuert für jeden Block NeoForge BreakBlockEvent mit seinem Fake-Spieler und Fabric PlayerBlockBreakEvents.BEFORE mit seinem Fake-Spieler (eine Ablehnung feuert CANCELED). Forge 26.2 hat keinen Fake-Spieler, dort entscheidet nur das Kolben-Ereignis. Ein abgebrochenes Ereignis lässt den Block stehen (ein abgelehnter Durchbruch verbraucht nichts), und außerhalb der Weltgrenze wird nie etwas zerstört. Die Konfigurationsoption pistonsFireBreakEvents (Standard an) schaltet das Abbau-Ereignis mit dem Fake-Spieler ab – für Schutz-Mods, die jeden Fake-Spieler sperren (die Kolben stünden sonst überall still), oder Quest- und Statistik-Mods, die Kolbenabbau als Spielerabbau zählen würden; dann entscheiden nur das Kolben-Ereignis und die Weltgrenze.",
-          "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilitsplitter = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Levitating-Block landet darunter.",
-          "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralitstaub = 8 Stück) fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick, Grenzwert 2 Blöcke pro Tick) und beschleunigt daher genauso wie fallender Sand.",
-          "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block – das Spiegelbild von Sand, der auf dem Boden landet. Passt er dort nicht hin, fällt er als Gegenstand. Wird das Hindernis entfernt, steigt er weiter; von selbst kommen die Blöcke nie wieder herunter.",
-          "Über dem Baulimit zerbricht der aufsteigende Block und fällt als Gegenstand, so wie fallender Sand in der Leere verloren geht. Anders als bei Vanilla gibt es davor keine Schonfrist von 100 Ticks, der Block zerbricht also am Limit statt rund 115 Blöcke darüber.",
-          "Von den acht Blöcken mit Item liegen die vier Kolben im Kreativ-Tab „SimpleMachines“ und die vier Sand- und Kiesvarianten in „SimpleBlocks“.",
-          "Die vier Sand- und Kiesvarianten stehen in keinem vom Mod erzeugten Werkzeug-Tag.",
-          "Alle vier Sand- und Kiesvarianten liefern byte-identische Kopien der Vanilla-Texturen von Sand und Kies aus (per SHA-256 gegen das Client-Jar geprüft). Im Spiel lassen sie sich daher nicht von gewöhnlichem Sand und Kies unterscheiden – bei Blöcken, deren ganzer Sinn die veränderte Schwerkraft ist.",
+          "Schwebender und aufsteigender Sand und Kies gehören seit 26.3 zu Simple Blocks (alte simplebuilding:-Ids ziehen mit um); mit SimpleBuilding entstehen sie aus 8 Sand oder Kies rund um einen Nihilitsplitter (schwebend) bzw. Astralitstaub (aufsteigend). Die Kolben schieben und brechen sie wie jeden anderen Block (GravityBlockTests).",
+          "Die vier Kolben liegen im Kreativ-Tab „SimpleMachines“.",
           "Die Items von Netherit- und Enderitkolben haben einen Tooltip: was sie brechen (der Enderitkolben dazu seinen 3 Blöcke tiefen Durchbruch), ihre Haltbarkeit (226 und 281, 1 je gebrochenem Block), wozu sie werden und welcher Klumpen sie repariert, und beschädigt „Haltbarkeit: übrig/max“ (bei erweiterten Tooltips stattdessen Vanillas eigene Haltbarkeitszeile).",
           "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke und durchbricht mit einem Redstoneblock daneben Grundgestein, ohne dass er selbst oder der Redstoneblock übrig bleibt oder ein Kolben fällt, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke legen über drei Messpunkte hinweg jeweils mehr Strecke zurück (was eine gleichförmige Bewegung nicht könnte), werden unter einer Decke wieder zum Block und fallen am Baulimit als Gegenstand; jeder Mod-Kolben fährt mit dem Kopf seiner Stufe aus und verliert ihn beim Einfahren, und jeder zerstörte Block wird den Bohr-Effekten genau einmal gemeldet."
         ]
@@ -1816,64 +1797,6 @@
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
           "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
           "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
-        ]
-      }
-    },
-    {
-      "id": "nature_variants",
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "common/src/shared/java/com/simplebuilding/items/SearchTabPlacement.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json",
-        "common/src/shared/java/com/simplebuilding/gametest/NatureBlockTests.java"
-      ],
-      "related": [
-        "simplebuilding:dirt_slab",
-        "simplebuilding:grass_slab",
-        "simplebuilding:sand_slab",
-        "simplebuilding:gravel_slab",
-        "simplebuilding:cracked_ice",
-        "simplebuilding:chiseled_packed_ice",
-        "simplebuilding:chiseled_blue_ice",
-        "simplebuilding:nautilus_shell_block",
-        "simplebuilding:scarlet_froglight",
-        "simplebuilding:aqua_froglight",
-        "simplebuilding:azure_froglight"
-      ],
-      "en": {
-        "title": "Natural Block Variants",
-        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
-        "details": [
-          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
-          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. It neither spreads nor turns into dirt.",
-          "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand or Gravel Slab onto one gives dirt, a grass block, sand or gravel instead of a double slab.",
-          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
-          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it turns into water (in the Nether it evaporates). With nobody on it the cracks stay. Otherwise it behaves like ice and drops only with Silk Touch.",
-          "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
-          "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
-          "Scarlet, Aqua and Azure Froglights: any froglight plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
-          "Creative mode: a row of their own in SimpleBlocks before the gravity blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (the froglights also in Functional Blocks)."
-        ]
-      },
-      "de": {
-        "title": "Naturvarianten",
-        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
-        "details": [
-          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
-          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Sie breitet sich nicht aus und wird nicht zu Erde.",
-          "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand oder Kies statt einer Doppelstufe.",
-          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
-          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten wird es zu Wasser (im Nether verdampft es). Steht niemand darauf, bleiben die Risse. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit.",
-          "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
-          "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
-          "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
-          "Kreativmodus: eine eigene Zeile in SimpleBlocks vor den Schwerkraftblöcken und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (die Froschlichter auch in Gebrauchsblöcke)."
         ]
       }
     },
@@ -4032,21 +3955,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:aqua_froglight",
-      "name": {
-        "en_us": "Aqua Froglight",
-        "de_de": "Türkises Froschlicht"
-      },
-      "texture": "assets/textures/block/aqua_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:aqua_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/aqua_froglight.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:astral_enchanting_table",
       "name": {
         "en_us": "Enchanter",
@@ -5139,8 +5047,6 @@
         "simplebuilding:bridge_redstone",
         "simplebuilding:ender_quartz",
         "simplebuilding:jukebox_amplifier",
-        "simplebuilding:levitating_gravel",
-        "simplebuilding:levitating_sand",
         "simplebuilding:polished_astralit_slab_from_purpur_slab",
         "simplebuilding:polished_astralit_stairs_from_purpur_stairs",
         "simplebuilding:raw_enderite_synthesis"
@@ -5599,21 +5505,6 @@
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:azure_froglight",
-      "name": {
-        "en_us": "Azure Froglight",
-        "de_de": "Azurblaues Froschlicht"
-      },
-      "texture": "assets/textures/block/azure_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:azure_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/azure_froglight.png",
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:backpack",
@@ -8390,40 +8281,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:chiseled_blue_ice",
-      "name": {
-        "en_us": "Chiseled Blue Ice",
-        "de_de": "Gemeißeltes Blaueis"
-      },
-      "texture": "assets/textures/block/chiseled_blue_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_blue_ice.png",
-      "note": {
-        "en": {
-          "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
-          "details": [
-            "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
-          "details": [
-            "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -8504,40 +8361,6 @@
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice",
-      "name": {
-        "en_us": "Chiseled Packed Ice",
-        "de_de": "Gemeißeltes Packeis"
-      },
-      "texture": "assets/textures/block/chiseled_packed_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_packed_ice.png",
-      "note": {
-        "en": {
-          "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
-          "details": [
-            "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
-          "details": [
-            "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -9587,77 +9410,6 @@
           "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
           "modules/simpleoctets/shared/java/com/simpleoctets/SimpleOctets.java",
           "mc26_3/generated/wiki/items.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:cracked_ice",
-      "name": {
-        "en_us": "Cracked Ice",
-        "de_de": "Rissiges Eis"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cracked_ice_from_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cracked_ice.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "Ice that has seen too many footsteps."
-          ],
-          "use": [
-            "Cut one ice into one in the stonecutter. A living creature standing on it cracks it one stage per second; after four stages it turns into water (it evaporates in the Nether). Drops only with Silk Touch."
-          ],
-          "secret": [
-            "With nobody on it the cracks stay as they are. So you can lay a trap, or repair the road by leaving."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eis, das zu viele Schritte gesehen hat."
-          ],
-          "use": [
-            "Im Steinschneider aus einem Eis eines. Ein darauf stehendes Lebewesen lässt es pro Sekunde eine Stufe brechen; nach vier Stufen wird es zu Wasser (im Nether verdampft es). Lässt sich nur mit Behutsamkeit einsammeln."
-          ],
-          "secret": [
-            "Steht niemand darauf, bleiben die Risse, wie sie sind. So legst du eine Falle, oder du reparierst die Straße, indem du gehst."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
-          "details": [
-            "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
-            "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-            "Stonecutter: one ice makes one cracked ice.",
-            "It hides in ice: ice and cracked ice hide the faces between them like ice next to ice, so no inner edges show. No block can be placed against any of its six sides.",
-            "A sledgehammer strike turns normal ice into cracked ice; further strikes crush the cracked ice into 4 ice chips. The stone chisel cracks ice too.",
-            "Cracked ice fields: rarely (about one chunk in 12 of Ice Spikes, Frozen Ocean and Deep Frozen Ocean) a field of 20-30 blocks replaces the surface; on land a pit four blocks deep lies under it. Whoever breaks in has to build their way out. Config switch server.oreGeneration.crackedIceFields."
-          ]
-        },
-        "de": {
-          "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
-          "details": [
-            "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
-            "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-            "Steinmetz: ein Eis ergibt ein rissiges Eis.",
-            "Es ist im Eis getarnt: Eis und rissiges Eis blenden die Flächen zueinander aus wie Eis neben Eis, es zeichnen sich keine Innenkanten ab. An keine seiner sechs Seiten lässt sich ein Block setzen.",
-            "Ein Schlag mit dem Vorschlaghammer macht aus normalem Eis rissiges Eis; weitere Schläge zerschlagen es zu 4 Eissplittern. Auch der Steinmeißel macht Eis rissig.",
-            "Rissiges-Eis-Felder: selten (etwa jeder 12. Chunk in Eiszapfen, Gefrorenem und Tiefem gefrorenem Ozean) ersetzt ein Feld von 20-30 Blöcken die Oberfläche; an Land liegt darunter eine vier Blöcke tiefe Grube. Wer einbricht, muss sich hochbauen. Config-Schalter server.oreGeneration.crackedIceFields."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -11898,41 +11650,6 @@
           "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
           "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
           "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:dirt_slab",
-      "name": {
-        "en_us": "Dirt Slab",
-        "de_de": "Erdstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dirt_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/dirt_slab.png",
-      "note": {
-        "en": {
-          "summary": "A slab of dirt; two of them make a dirt block again.",
-          "details": [
-            "Placing a second Dirt Slab onto a bottom or top one gives a full dirt block instead of a double slab.",
-            "Crafting: three dirt in a row make six slabs."
-          ]
-        },
-        "de": {
-          "summary": "Eine Stufe aus Erde; zwei ergeben wieder einen Erdblock.",
-          "details": [
-            "Setzt man eine zweite Erdstufe auf eine untere oder obere, entsteht ein voller Erdblock statt einer Doppelstufe.",
-            "Herstellung: drei Erde nebeneinander ergeben sechs Stufen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -16745,77 +16462,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:grass_slab",
-      "name": {
-        "en_us": "Grass Slab",
-        "de_de": "Grasstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:grass_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/grass_slab.png",
-      "note": {
-        "en": {
-          "summary": "A biome-tinted grass slab; two of them make a grass block again.",
-          "details": [
-            "Placing a second Grass Slab onto one gives a full grass block instead of a double slab.",
-            "Without Silk Touch it drops a Dirt Slab; it neither spreads nor turns into dirt."
-          ]
-        },
-        "de": {
-          "summary": "Eine nach Biom gefärbte Grasstufe; zwei ergeben wieder einen Grasblock.",
-          "details": [
-            "Setzt man eine zweite Grasstufe darauf, entsteht ein voller Grasblock statt einer Doppelstufe.",
-            "Ohne Behutsamkeit droppt sie eine Erdstufe; sie breitet sich nicht aus und wird nicht zu Erde."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:gravel_slab",
-      "name": {
-        "en_us": "Gravel Slab",
-        "de_de": "Kiesstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:gravel_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gravel_slab.png",
-      "note": {
-        "en": {
-          "summary": "A gravel slab that falls like gravel; two of them make a gravel block again.",
-          "details": [
-            "With nothing below it falls; a top slab falls as a bottom slab.",
-            "A bottom slab landing on a bottom Gravel Slab, or a second slab placed onto one, makes a full gravel block. It never drops flint."
-          ]
-        },
-        "de": {
-          "summary": "Eine Kiesstufe, die wie Kies fällt; zwei ergeben wieder einen Kiesblock.",
-          "details": [
-            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
-            "Landet eine untere Stufe auf einer unteren Kiesstufe oder setzt man eine zweite darauf, entsteht ein voller Kiesblock. Sie droppt nie Feuerstein."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:gray_copper_light_pane",
       "name": {
         "en_us": "Gray Copper Light Pane",
@@ -20443,168 +20089,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:levitating_gravel",
-      "name": {
-        "en_us": "Levitating Gravel",
-        "de_de": "Aufsteigender Kies"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:levitating_gravel"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/levitating_gravel.png",
-      "note": {
-        "en": {
-          "summary": "Levitating Gravel is gravel with reversed gravity: it climbs upwards one block at a time until something stops it.",
-          "details": [
-            "Its own class LevitatingBlock with the properties copied from ordinary gravel (hardness, sound, map color); not a FallingBlock, so it never falls.",
-            "After it is placed, a check whether it can rise is scheduled 2 ticks later.",
-            "It rises when the block directly above it is air, contains a fluid (water, lava) or is replaceable (canBeReplaced, e.g. grass).",
-            "Each step moves it exactly one block up and leaves air behind at the old position; the next step follows 2 ticks later.",
-            "Every change to a neighboring block (updateShape) schedules a fresh check tick: remove the block above it and it keeps rising.",
-            "At the top of the world (Y >= the level's highest block layer, getMaxY) it stops rising.",
-            "Loot table: drops itself (survives_explosion condition), so you can pick it up and place it again.",
-            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Astralit Dust; yields 8. Unlocked as soon as you own Astralit Dust.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "A game test proves it: placed on the floor, the block is at least three blocks higher after 40 ticks (the control is an ordinary sand block next to it, which stays put)."
-          ],
-          "controls": [
-            "Place it: the block starts rising after 2 ticks, provided there is room above it.",
-            "Remove the block above it: the gravel keeps rising."
-          ],
-          "caveats": [
-            "It never comes back down on its own; there is no code that makes it fall.",
-            "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
-            "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
-          ]
-        },
-        "de": {
-          "summary": "Schwebender Kies („Levitating Gravel“) ist Kies mit umgekehrter Schwerkraft: Er steigt Block für Block nach oben, bis ihn etwas aufhält.",
-          "details": [
-            "Eigene Klasse LevitatingBlock mit den kopierten Eigenschaften von normalem Kies (Härte, Geräusch, Farbe); kein FallingBlock, fällt also nicht.",
-            "Nach dem Platzieren wird 2 Ticks später geprüft, ob der Block nach oben steigen kann.",
-            "Er steigt, wenn der Block direkt über ihm Luft ist, eine Flüssigkeit enthält (Wasser, Lava) oder ersetzbar ist (canBeReplaced, z.B. Gras).",
-            "Pro Schritt bewegt er sich um genau einen Block nach oben und hinterlässt an der alten Stelle Luft; der nächste Schritt folgt nach 2 Ticks.",
-            "Bei jeder Änderung an einem Nachbarblock (updateShape) wird ein neuer Prüf-Tick geplant: Wird der Block über ihm entfernt, steigt er weiter.",
-            "Am oberen Weltrand (Y >= Maximalhöhe der Welt) hört er auf zu steigen.",
-            "Beutetabelle: lässt sich selbst fallen und kann erneut gesetzt werden.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Astralitstaub; ergibt 8 Stück. Freigeschaltet, sobald man Astralitstaub besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Ein Spieltest belegt: Auf den Boden gesetzt, ist der Block nach 40 Ticks mindestens drei Blöcke höher (Kontrolle: normaler Sand daneben bleibt liegen)."
-          ],
-          "controls": [
-            "Platzieren: Der Block beginnt nach 2 Ticks zu steigen, sofern darüber Platz ist.",
-            "Block darüber entfernen: Der Kies steigt weiter."
-          ],
-          "caveats": [
-            "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
-            "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
-            "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/levitating_gravel.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_gravel.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:levitating_sand",
-      "name": {
-        "en_us": "Levitating Sand",
-        "de_de": "Aufsteigender Sand"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:levitating_sand"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/levitating_sand.png",
-      "note": {
-        "en": {
-          "summary": "Levitating Sand is sand with reversed gravity: it climbs upwards one block at a time until something stops it.",
-          "details": [
-            "Its own class LevitatingBlock with the properties copied from ordinary sand (hardness, sound, map color); not a FallingBlock, so it never falls.",
-            "After it is placed, a check whether it can rise is scheduled 2 ticks later.",
-            "It rises when the block directly above it is air, contains a fluid (water, lava) or is replaceable (canBeReplaced, e.g. grass).",
-            "Each step moves it exactly one block up and leaves air behind at the old position; the next step follows 2 ticks later.",
-            "Every change to a neighboring block (updateShape) schedules a fresh check tick: remove the block above it and it keeps rising.",
-            "At the top of the world (Y >= the level's highest block layer, getMaxY) it stops rising.",
-            "Loot table: drops itself (survives_explosion condition), so you can pick it up and place it again.",
-            "Recipe (crafting table, building blocks category): 8 Sand around 1 Astralit Dust; yields 8. Unlocked as soon as you own Astralit Dust.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "A game test proves it: placed on the floor, the block is at least three blocks higher after 40 ticks, while ordinary sand next to it stays put."
-          ],
-          "controls": [
-            "Place it: the block starts rising after 2 ticks, provided there is room above it.",
-            "Remove the block above it: the sand keeps rising."
-          ],
-          "caveats": [
-            "It never comes back down on its own; there is no code that makes it fall.",
-            "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
-          ]
-        },
-        "de": {
-          "summary": "Schwebender Sand („Levitating Sand“) ist Sand mit umgekehrter Schwerkraft: Er steigt Block für Block nach oben, bis ihn etwas aufhält.",
-          "details": [
-            "Eigene Klasse LevitatingBlock mit den kopierten Eigenschaften von normalem Sand (Härte, Geräusch, Farbe); kein FallingBlock, fällt also nicht.",
-            "Nach dem Platzieren wird 2 Ticks später geprüft, ob der Block nach oben steigen kann.",
-            "Er steigt, wenn der Block direkt über ihm Luft ist, eine Flüssigkeit enthält (Wasser, Lava) oder ersetzbar ist (canBeReplaced, z.B. Gras).",
-            "Pro Schritt bewegt er sich um genau einen Block nach oben und hinterlässt an der alten Stelle Luft; der nächste Schritt folgt nach 2 Ticks.",
-            "Bei jeder Änderung an einem Nachbarblock (updateShape) wird ein neuer Prüf-Tick geplant: Wird der Block über ihm entfernt, steigt er weiter.",
-            "Am oberen Weltrand (Y >= Maximalhöhe der Welt) hört er auf zu steigen.",
-            "Beutetabelle: lässt sich selbst fallen und kann erneut gesetzt werden.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Astralitstaub; ergibt 8 Stück. Freigeschaltet, sobald man Astralitstaub besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Ein Spieltest belegt: Auf den Boden gesetzt, ist der Block nach 40 Ticks mindestens drei Blöcke höher, während normaler Sand daneben liegen bleibt."
-          ],
-          "controls": [
-            "Platzieren: Der Block beginnt nach 2 Ticks zu steigen, sofern darüber Platz ist.",
-            "Block darüber entfernen: Der Sand steigt weiter."
-          ],
-          "caveats": [
-            "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
-            "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:light_blue_copper_light_pane",
       "name": {
         "en_us": "Light Blue Copper Light Pane",
@@ -21806,47 +21290,6 @@
       "trades": [],
       "properties": {
         "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block",
-      "name": {
-        "en_us": "Block of Nautilus Shell",
-        "de_de": "Nautilusschalenblock"
-      },
-      "texture": "assets/textures/block/nautilus_shell_block_side.png",
-      "craftedBy": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "usedIn": [
-        "simplebuilding:nautilus_shell_from_nautilus_shell_block"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nautilus_shell_block.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "The sea's spiral, stacked into a block."
-          ],
-          "use": [
-            "Four nautilus shells in a square make one; it crafts back into four shells. It is placed along an axis, like the bone block."
-          ],
-          "secret": [
-            "A block of shells is the only way to store the Nautilus's gift compactly."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Die Spirale des Meeres, zu einem Block gestapelt."
-          ],
-          "use": [
-            "Vier Nautilusschalen im Quadrat ergeben einen Block; er lässt sich zurück in vier Schalen verwandeln. Er wird entlang einer Achse gesetzt, wie der Knochenblock."
-          ],
-          "secret": [
-            "Ein Block aus Schalen ist die einzige Möglichkeit, die Gabe des Nautilus kompakt zu lagern."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -26292,9 +25735,7 @@
         "simplebuilding:note_amplifier",
         "simplebuilding:polished_nihilith_slab_from_purpur_slab",
         "simplebuilding:polished_nihilith_stairs_from_purpur_stairs",
-        "simplebuilding:raw_enderite_synthesis",
-        "simplebuilding:suspended_gravel",
-        "simplebuilding:suspended_sand"
+        "simplebuilding:raw_enderite_synthesis"
       ],
       "trades": [],
       "questionary": {
@@ -35703,57 +35144,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:sand_slab",
-      "name": {
-        "en_us": "Sand Slab",
-        "de_de": "Sandstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:sand_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/sand_slab.png",
-      "note": {
-        "en": {
-          "summary": "A sand slab that falls like sand; two of them make a sand block again.",
-          "details": [
-            "With nothing below it falls; a top slab falls as a bottom slab.",
-            "A bottom slab landing on a bottom Sand Slab, or a second slab placed onto one, makes a full sand block."
-          ]
-        },
-        "de": {
-          "summary": "Eine Sandstufe, die wie Sand fällt; zwei ergeben wieder einen Sandblock.",
-          "details": [
-            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
-            "Landet eine untere Stufe auf einer unteren Sandstufe oder setzt man eine zweite darauf, entsteht ein voller Sandblock."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight",
-      "name": {
-        "en_us": "Scarlet Froglight",
-        "de_de": "Scharlachrotes Froschlicht"
-      },
-      "texture": "assets/textures/block/scarlet_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:scarlet_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/scarlet_froglight.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:sculk_jaw",
       "name": {
         "en_us": "Sculk Jaw",
@@ -37774,142 +37164,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:suspended_gravel",
-      "name": {
-        "en_us": "Suspended Gravel",
-        "de_de": "Schwebender Kies"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:suspended_gravel"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/suspended_gravel.png",
-      "note": {
-        "en": {
-          "summary": "Suspended Gravel is gravel without gravity: it stays exactly where you put it.",
-          "details": [
-            "An ordinary block (class Block) with the properties copied from gravel (hardness, sound, map color), but with no falling logic - it never falls.",
-            "It keeps the normal collision box, so you can stand on it, items rest on it and a rising Levitating block lands underneath it - exactly like Suspended Sand.",
-            "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "A game test proves it: placed in mid-air it is still in the same spot after 40 ticks, while ordinary gravel next to it falls to the ground."
-          ],
-          "controls": [
-            "Place it: the block hangs freely in mid-air."
-          ],
-          "caveats": [
-            "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
-          ]
-        },
-        "de": {
-          "summary": "Schwebend fixierter Kies („Suspended Gravel“) ist Kies ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt.",
-          "details": [
-            "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Kies (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
-            "Er hat die normale Kollisionsbox: Man kann darauf stehen, Gegenstände bleiben liegen und ein aufsteigender Levitating-Block landet darunter – genau wie beim Suspended Sand.",
-            "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Ein Spieltest belegt: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Kies daneben zu Boden fällt."
-          ],
-          "controls": [
-            "Platzieren: Der Block bleibt frei in der Luft hängen."
-          ],
-          "caveats": [
-            "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/suspended_gravel.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_gravel.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:suspended_sand",
-      "name": {
-        "en_us": "Suspended Sand",
-        "de_de": "Schwebender Sand"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:suspended_sand"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/suspended_sand.png",
-      "note": {
-        "en": {
-          "summary": "Suspended Sand is sand without gravity: it stays exactly where you put it, and like Suspended Gravel it is solid - you can stand on it.",
-          "details": [
-            "An ordinary block (class Block) with the properties copied from sand (hardness, sound, map color), but with no falling logic - it never falls.",
-            "It keeps the full collision box of sand (until 2026-09-24 it was registered with noCollision() and could be walked through): players and mobs stand on it, dropped items come to rest on top, and a Levitating block rising from below stops underneath it and turns back into a block.",
-            "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "Game tests prove it: placed in mid-air it is still in the same spot after 40 ticks while ordinary sand next to it falls to the ground; an item dropped onto it stays on top, and Levitating Sand rising from two blocks below lands in the cell directly underneath it."
-          ],
-          "controls": [
-            "Place it: the block hangs freely in mid-air."
-          ],
-          "caveats": [
-            "It behaves exactly like Suspended Gravel; the two differ only in look, sound and recipe.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
-          ]
-        },
-        "de": {
-          "summary": "Schwebend fixierter Sand („Suspended Sand“) ist Sand ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt, und ist wie der Suspended Gravel fest – man kann darauf stehen.",
-          "details": [
-            "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Sand (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
-            "Er hat die volle Kollisionsbox von Sand (bis 2026-09-24 war er mit noCollision() registriert und man lief hindurch): Spieler und Kreaturen stehen darauf, fallengelassene Gegenstände bleiben oben liegen, und ein von unten aufsteigender Levitating-Block hält darunter an und wird wieder zum Block.",
-            "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Spieltests belegen: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Sand daneben zu Boden fällt; ein daraufgeworfener Gegenstand bleibt oben liegen, und Levitating Sand, der zwei Blöcke tiefer startet, landet im Feld direkt darunter."
-          ],
-          "controls": [
-            "Platzieren: Der Block bleibt frei in der Luft hängen."
-          ],
-          "caveats": [
-            "Er verhält sich genau wie der Suspended Gravel; beide unterscheiden sich nur in Aussehen, Geräusch und Rezept.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/suspended_sand.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:training_dummy",
       "name": {
         "en_us": "Training Dummy",
@@ -39033,25 +38287,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:aqua_froglight",
-      "name": {
-        "en_us": "Aqua Froglight",
-        "de_de": "Türkises Froschlicht"
-      },
-      "texture": "assets/textures/block/aqua_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:aqua_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/aqua_froglight.png",
-      "lootTable": "simplebuilding:blocks/aqua_froglight",
-      "drops": [
-        "simplebuilding:aqua_froglight"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:astral_enchanting_table",
       "name": {
         "en_us": "Enchanter",
@@ -39967,25 +39202,6 @@
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:azure_froglight",
-      "name": {
-        "en_us": "Azure Froglight",
-        "de_de": "Azurblaues Froschlicht"
-      },
-      "texture": "assets/textures/block/azure_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:azure_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/azure_froglight.png",
-      "lootTable": "simplebuilding:blocks/azure_froglight",
-      "drops": [
-        "simplebuilding:azure_froglight"
-      ],
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:backpack",
@@ -42162,44 +41378,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:chiseled_blue_ice",
-      "name": {
-        "en_us": "Chiseled Blue Ice",
-        "de_de": "Gemeißeltes Blaueis"
-      },
-      "texture": "assets/textures/block/chiseled_blue_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_blue_ice.png",
-      "lootTable": "simplebuilding:blocks/chiseled_blue_ice",
-      "drops": [
-        "simplebuilding:chiseled_blue_ice"
-      ],
-      "note": {
-        "en": {
-          "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
-          "details": [
-            "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
-          "details": [
-            "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -42288,44 +41466,6 @@
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice",
-      "name": {
-        "en_us": "Chiseled Packed Ice",
-        "de_de": "Gemeißeltes Packeis"
-      },
-      "texture": "assets/textures/block/chiseled_packed_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_packed_ice.png",
-      "lootTable": "simplebuilding:blocks/chiseled_packed_ice",
-      "drops": [
-        "simplebuilding:chiseled_packed_ice"
-      ],
-      "note": {
-        "en": {
-          "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
-          "details": [
-            "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
-          "details": [
-            "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -42668,81 +41808,6 @@
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "tools/textures/light_panes_2026_10_14.py",
           "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:cracked_ice",
-      "name": {
-        "en_us": "Cracked Ice",
-        "de_de": "Rissiges Eis"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cracked_ice_from_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cracked_ice.png",
-      "lootTable": "simplebuilding:blocks/cracked_ice",
-      "drops": [
-        "simplebuilding:cracked_ice"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "Ice that has seen too many footsteps."
-          ],
-          "use": [
-            "Cut one ice into one in the stonecutter. A living creature standing on it cracks it one stage per second; after four stages it turns into water (it evaporates in the Nether). Drops only with Silk Touch."
-          ],
-          "secret": [
-            "With nobody on it the cracks stay as they are. So you can lay a trap, or repair the road by leaving."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eis, das zu viele Schritte gesehen hat."
-          ],
-          "use": [
-            "Im Steinschneider aus einem Eis eines. Ein darauf stehendes Lebewesen lässt es pro Sekunde eine Stufe brechen; nach vier Stufen wird es zu Wasser (im Nether verdampft es). Lässt sich nur mit Behutsamkeit einsammeln."
-          ],
-          "secret": [
-            "Steht niemand darauf, bleiben die Risse, wie sie sind. So legst du eine Falle, oder du reparierst die Straße, indem du gehst."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
-          "details": [
-            "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
-            "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-            "Stonecutter: one ice makes one cracked ice.",
-            "It hides in ice: ice and cracked ice hide the faces between them like ice next to ice, so no inner edges show. No block can be placed against any of its six sides.",
-            "A sledgehammer strike turns normal ice into cracked ice; further strikes crush the cracked ice into 4 ice chips. The stone chisel cracks ice too.",
-            "Cracked ice fields: rarely (about one chunk in 12 of Ice Spikes, Frozen Ocean and Deep Frozen Ocean) a field of 20-30 blocks replaces the surface; on land a pit four blocks deep lies under it. Whoever breaks in has to build their way out. Config switch server.oreGeneration.crackedIceFields."
-          ]
-        },
-        "de": {
-          "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
-          "details": [
-            "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
-            "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-            "Steinmetz: ein Eis ergibt ein rissiges Eis.",
-            "Es ist im Eis getarnt: Eis und rissiges Eis blenden die Flächen zueinander aus wie Eis neben Eis, es zeichnen sich keine Innenkanten ab. An keine seiner sechs Seiten lässt sich ein Block setzen.",
-            "Ein Schlag mit dem Vorschlaghammer macht aus normalem Eis rissiges Eis; weitere Schläge zerschlagen es zu 4 Eissplittern. Auch der Steinmeißel macht Eis rissig.",
-            "Rissiges-Eis-Felder: selten (etwa jeder 12. Chunk in Eiszapfen, Gefrorenem und Tiefem gefrorenem Ozean) ersetzt ein Feld von 20-30 Blöcken die Oberfläche; an Land liegt darunter eine vier Blöcke tiefe Grube. Wer einbricht, muss sich hochbauen. Config-Schalter server.oreGeneration.crackedIceFields."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -43551,45 +42616,6 @@
           "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
           "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
           "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:dirt_slab",
-      "name": {
-        "en_us": "Dirt Slab",
-        "de_de": "Erdstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dirt_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/dirt_slab.png",
-      "lootTable": "simplebuilding:blocks/dirt_slab",
-      "drops": [
-        "simplebuilding:dirt_slab"
-      ],
-      "note": {
-        "en": {
-          "summary": "A slab of dirt; two of them make a dirt block again.",
-          "details": [
-            "Placing a second Dirt Slab onto a bottom or top one gives a full dirt block instead of a double slab.",
-            "Crafting: three dirt in a row make six slabs."
-          ]
-        },
-        "de": {
-          "summary": "Eine Stufe aus Erde; zwei ergeben wieder einen Erdblock.",
-          "details": [
-            "Setzt man eine zweite Erdstufe auf eine untere oder obere, entsteht ein voller Erdblock statt einer Doppelstufe.",
-            "Herstellung: drei Erde nebeneinander ergeben sechs Stufen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -45753,86 +44779,6 @@
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:grass_slab",
-      "name": {
-        "en_us": "Grass Slab",
-        "de_de": "Grasstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:grass_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/grass_slab.png",
-      "lootTable": "simplebuilding:blocks/grass_slab",
-      "drops": [
-        "simplebuilding:dirt_slab",
-        "simplebuilding:grass_slab"
-      ],
-      "note": {
-        "en": {
-          "summary": "A biome-tinted grass slab; two of them make a grass block again.",
-          "details": [
-            "Placing a second Grass Slab onto one gives a full grass block instead of a double slab.",
-            "Without Silk Touch it drops a Dirt Slab; it neither spreads nor turns into dirt."
-          ]
-        },
-        "de": {
-          "summary": "Eine nach Biom gefärbte Grasstufe; zwei ergeben wieder einen Grasblock.",
-          "details": [
-            "Setzt man eine zweite Grasstufe darauf, entsteht ein voller Grasblock statt einer Doppelstufe.",
-            "Ohne Behutsamkeit droppt sie eine Erdstufe; sie breitet sich nicht aus und wird nicht zu Erde."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:gravel_slab",
-      "name": {
-        "en_us": "Gravel Slab",
-        "de_de": "Kiesstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:gravel_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gravel_slab.png",
-      "lootTable": "simplebuilding:blocks/gravel_slab",
-      "drops": [
-        "simplebuilding:gravel_slab"
-      ],
-      "note": {
-        "en": {
-          "summary": "A gravel slab that falls like gravel; two of them make a gravel block again.",
-          "details": [
-            "With nothing below it falls; a top slab falls as a bottom slab.",
-            "A bottom slab landing on a bottom Gravel Slab, or a second slab placed onto one, makes a full gravel block. It never drops flint."
-          ]
-        },
-        "de": {
-          "summary": "Eine Kiesstufe, die wie Kies fällt; zwei ergeben wieder einen Kiesblock.",
-          "details": [
-            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
-            "Landet eine untere Stufe auf einer unteren Kiesstufe oder setzt man eine zweite darauf, entsteht ein voller Kiesblock. Sie droppt nie Feuerstein."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gray_copper_light_pane",
@@ -48122,176 +47068,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:levitating_gravel",
-      "name": {
-        "en_us": "Levitating Gravel",
-        "de_de": "Aufsteigender Kies"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:levitating_gravel"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/levitating_gravel.png",
-      "lootTable": "simplebuilding:blocks/levitating_gravel",
-      "drops": [
-        "simplebuilding:levitating_gravel"
-      ],
-      "note": {
-        "en": {
-          "summary": "Levitating Gravel is gravel with reversed gravity: it climbs upwards one block at a time until something stops it.",
-          "details": [
-            "Its own class LevitatingBlock with the properties copied from ordinary gravel (hardness, sound, map color); not a FallingBlock, so it never falls.",
-            "After it is placed, a check whether it can rise is scheduled 2 ticks later.",
-            "It rises when the block directly above it is air, contains a fluid (water, lava) or is replaceable (canBeReplaced, e.g. grass).",
-            "Each step moves it exactly one block up and leaves air behind at the old position; the next step follows 2 ticks later.",
-            "Every change to a neighboring block (updateShape) schedules a fresh check tick: remove the block above it and it keeps rising.",
-            "At the top of the world (Y >= the level's highest block layer, getMaxY) it stops rising.",
-            "Loot table: drops itself (survives_explosion condition), so you can pick it up and place it again.",
-            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Astralit Dust; yields 8. Unlocked as soon as you own Astralit Dust.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "A game test proves it: placed on the floor, the block is at least three blocks higher after 40 ticks (the control is an ordinary sand block next to it, which stays put)."
-          ],
-          "controls": [
-            "Place it: the block starts rising after 2 ticks, provided there is room above it.",
-            "Remove the block above it: the gravel keeps rising."
-          ],
-          "caveats": [
-            "It never comes back down on its own; there is no code that makes it fall.",
-            "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
-            "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
-          ]
-        },
-        "de": {
-          "summary": "Schwebender Kies („Levitating Gravel“) ist Kies mit umgekehrter Schwerkraft: Er steigt Block für Block nach oben, bis ihn etwas aufhält.",
-          "details": [
-            "Eigene Klasse LevitatingBlock mit den kopierten Eigenschaften von normalem Kies (Härte, Geräusch, Farbe); kein FallingBlock, fällt also nicht.",
-            "Nach dem Platzieren wird 2 Ticks später geprüft, ob der Block nach oben steigen kann.",
-            "Er steigt, wenn der Block direkt über ihm Luft ist, eine Flüssigkeit enthält (Wasser, Lava) oder ersetzbar ist (canBeReplaced, z.B. Gras).",
-            "Pro Schritt bewegt er sich um genau einen Block nach oben und hinterlässt an der alten Stelle Luft; der nächste Schritt folgt nach 2 Ticks.",
-            "Bei jeder Änderung an einem Nachbarblock (updateShape) wird ein neuer Prüf-Tick geplant: Wird der Block über ihm entfernt, steigt er weiter.",
-            "Am oberen Weltrand (Y >= Maximalhöhe der Welt) hört er auf zu steigen.",
-            "Beutetabelle: lässt sich selbst fallen und kann erneut gesetzt werden.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Astralitstaub; ergibt 8 Stück. Freigeschaltet, sobald man Astralitstaub besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Ein Spieltest belegt: Auf den Boden gesetzt, ist der Block nach 40 Ticks mindestens drei Blöcke höher (Kontrolle: normaler Sand daneben bleibt liegen)."
-          ],
-          "controls": [
-            "Platzieren: Der Block beginnt nach 2 Ticks zu steigen, sofern darüber Platz ist.",
-            "Block darüber entfernen: Der Kies steigt weiter."
-          ],
-          "caveats": [
-            "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
-            "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
-            "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/levitating_gravel.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_gravel.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:levitating_sand",
-      "name": {
-        "en_us": "Levitating Sand",
-        "de_de": "Aufsteigender Sand"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:levitating_sand"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/levitating_sand.png",
-      "lootTable": "simplebuilding:blocks/levitating_sand",
-      "drops": [
-        "simplebuilding:levitating_sand"
-      ],
-      "note": {
-        "en": {
-          "summary": "Levitating Sand is sand with reversed gravity: it climbs upwards one block at a time until something stops it.",
-          "details": [
-            "Its own class LevitatingBlock with the properties copied from ordinary sand (hardness, sound, map color); not a FallingBlock, so it never falls.",
-            "After it is placed, a check whether it can rise is scheduled 2 ticks later.",
-            "It rises when the block directly above it is air, contains a fluid (water, lava) or is replaceable (canBeReplaced, e.g. grass).",
-            "Each step moves it exactly one block up and leaves air behind at the old position; the next step follows 2 ticks later.",
-            "Every change to a neighboring block (updateShape) schedules a fresh check tick: remove the block above it and it keeps rising.",
-            "At the top of the world (Y >= the level's highest block layer, getMaxY) it stops rising.",
-            "Loot table: drops itself (survives_explosion condition), so you can pick it up and place it again.",
-            "Recipe (crafting table, building blocks category): 8 Sand around 1 Astralit Dust; yields 8. Unlocked as soon as you own Astralit Dust.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "A game test proves it: placed on the floor, the block is at least three blocks higher after 40 ticks, while ordinary sand next to it stays put."
-          ],
-          "controls": [
-            "Place it: the block starts rising after 2 ticks, provided there is room above it.",
-            "Remove the block above it: the sand keeps rising."
-          ],
-          "caveats": [
-            "It never comes back down on its own; there is no code that makes it fall.",
-            "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
-          ]
-        },
-        "de": {
-          "summary": "Schwebender Sand („Levitating Sand“) ist Sand mit umgekehrter Schwerkraft: Er steigt Block für Block nach oben, bis ihn etwas aufhält.",
-          "details": [
-            "Eigene Klasse LevitatingBlock mit den kopierten Eigenschaften von normalem Sand (Härte, Geräusch, Farbe); kein FallingBlock, fällt also nicht.",
-            "Nach dem Platzieren wird 2 Ticks später geprüft, ob der Block nach oben steigen kann.",
-            "Er steigt, wenn der Block direkt über ihm Luft ist, eine Flüssigkeit enthält (Wasser, Lava) oder ersetzbar ist (canBeReplaced, z.B. Gras).",
-            "Pro Schritt bewegt er sich um genau einen Block nach oben und hinterlässt an der alten Stelle Luft; der nächste Schritt folgt nach 2 Ticks.",
-            "Bei jeder Änderung an einem Nachbarblock (updateShape) wird ein neuer Prüf-Tick geplant: Wird der Block über ihm entfernt, steigt er weiter.",
-            "Am oberen Weltrand (Y >= Maximalhöhe der Welt) hört er auf zu steigen.",
-            "Beutetabelle: lässt sich selbst fallen und kann erneut gesetzt werden.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Astralitstaub; ergibt 8 Stück. Freigeschaltet, sobald man Astralitstaub besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Ein Spieltest belegt: Auf den Boden gesetzt, ist der Block nach 40 Ticks mindestens drei Blöcke höher, während normaler Sand daneben liegen bleibt."
-          ],
-          "controls": [
-            "Platzieren: Der Block beginnt nach 2 Ticks zu steigen, sofern darüber Platz ist.",
-            "Block darüber entfernen: Der Sand steigt weiter."
-          ],
-          "caveats": [
-            "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
-            "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:light_blue_copper_light_pane",
       "name": {
         "en_us": "Light Blue Copper Light Pane",
@@ -49214,51 +47990,6 @@
           "details": [
             "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
             "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block",
-      "name": {
-        "en_us": "Block of Nautilus Shell",
-        "de_de": "Nautilusschalenblock"
-      },
-      "texture": "assets/textures/block/nautilus_shell_block_side.png",
-      "craftedBy": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "usedIn": [
-        "simplebuilding:nautilus_shell_from_nautilus_shell_block"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nautilus_shell_block.png",
-      "lootTable": "simplebuilding:blocks/nautilus_shell_block",
-      "drops": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "The sea's spiral, stacked into a block."
-          ],
-          "use": [
-            "Four nautilus shells in a square make one; it crafts back into four shells. It is placed along an axis, like the bone block."
-          ],
-          "secret": [
-            "A block of shells is the only way to store the Nautilus's gift compactly."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Die Spirale des Meeres, zu einem Block gestapelt."
-          ],
-          "use": [
-            "Vier Nautilusschalen im Quadrat ergeben einen Block; er lässt sich zurück in vier Schalen verwandeln. Er wird entlang einer Achse gesetzt, wie der Knochenblock."
-          ],
-          "secret": [
-            "Ein Block aus Schalen ist die einzige Möglichkeit, die Gabe des Nautilus kompakt zu lagern."
           ]
         }
       },
@@ -55436,65 +54167,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:sand_slab",
-      "name": {
-        "en_us": "Sand Slab",
-        "de_de": "Sandstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:sand_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/sand_slab.png",
-      "lootTable": "simplebuilding:blocks/sand_slab",
-      "drops": [
-        "simplebuilding:sand_slab"
-      ],
-      "note": {
-        "en": {
-          "summary": "A sand slab that falls like sand; two of them make a sand block again.",
-          "details": [
-            "With nothing below it falls; a top slab falls as a bottom slab.",
-            "A bottom slab landing on a bottom Sand Slab, or a second slab placed onto one, makes a full sand block."
-          ]
-        },
-        "de": {
-          "summary": "Eine Sandstufe, die wie Sand fällt; zwei ergeben wieder einen Sandblock.",
-          "details": [
-            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
-            "Landet eine untere Stufe auf einer unteren Sandstufe oder setzt man eine zweite darauf, entsteht ein voller Sandblock."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight",
-      "name": {
-        "en_us": "Scarlet Froglight",
-        "de_de": "Scharlachrotes Froschlicht"
-      },
-      "texture": "assets/textures/block/scarlet_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:scarlet_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/scarlet_froglight.png",
-      "lootTable": "simplebuilding:blocks/scarlet_froglight",
-      "drops": [
-        "simplebuilding:scarlet_froglight"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:sculk_jaw",
       "name": {
         "en_us": "Sculk Jaw",
@@ -57439,150 +56111,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:suspended_gravel",
-      "name": {
-        "en_us": "Suspended Gravel",
-        "de_de": "Schwebender Kies"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:suspended_gravel"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/suspended_gravel.png",
-      "lootTable": "simplebuilding:blocks/suspended_gravel",
-      "drops": [
-        "simplebuilding:suspended_gravel"
-      ],
-      "note": {
-        "en": {
-          "summary": "Suspended Gravel is gravel without gravity: it stays exactly where you put it.",
-          "details": [
-            "An ordinary block (class Block) with the properties copied from gravel (hardness, sound, map color), but with no falling logic - it never falls.",
-            "It keeps the normal collision box, so you can stand on it, items rest on it and a rising Levitating block lands underneath it - exactly like Suspended Sand.",
-            "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "A game test proves it: placed in mid-air it is still in the same spot after 40 ticks, while ordinary gravel next to it falls to the ground."
-          ],
-          "controls": [
-            "Place it: the block hangs freely in mid-air."
-          ],
-          "caveats": [
-            "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
-          ]
-        },
-        "de": {
-          "summary": "Schwebend fixierter Kies („Suspended Gravel“) ist Kies ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt.",
-          "details": [
-            "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Kies (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
-            "Er hat die normale Kollisionsbox: Man kann darauf stehen, Gegenstände bleiben liegen und ein aufsteigender Levitating-Block landet darunter – genau wie beim Suspended Sand.",
-            "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Ein Spieltest belegt: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Kies daneben zu Boden fällt."
-          ],
-          "controls": [
-            "Platzieren: Der Block bleibt frei in der Luft hängen."
-          ],
-          "caveats": [
-            "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/suspended_gravel.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_gravel.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:suspended_sand",
-      "name": {
-        "en_us": "Suspended Sand",
-        "de_de": "Schwebender Sand"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:suspended_sand"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/suspended_sand.png",
-      "lootTable": "simplebuilding:blocks/suspended_sand",
-      "drops": [
-        "simplebuilding:suspended_sand"
-      ],
-      "note": {
-        "en": {
-          "summary": "Suspended Sand is sand without gravity: it stays exactly where you put it, and like Suspended Gravel it is solid - you can stand on it.",
-          "details": [
-            "An ordinary block (class Block) with the properties copied from sand (hardness, sound, map color), but with no falling logic - it never falls.",
-            "It keeps the full collision box of sand (until 2026-09-24 it was registered with noCollision() and could be walked through): players and mobs stand on it, dropped items come to rest on top, and a Levitating block rising from below stops underneath it and turns back into a block.",
-            "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
-            "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
-            "Game tests prove it: placed in mid-air it is still in the same spot after 40 ticks while ordinary sand next to it falls to the ground; an item dropped onto it stays on top, and Levitating Sand rising from two blocks below lands in the cell directly underneath it."
-          ],
-          "controls": [
-            "Place it: the block hangs freely in mid-air."
-          ],
-          "caveats": [
-            "It behaves exactly like Suspended Gravel; the two differ only in look, sound and recipe.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
-          ]
-        },
-        "de": {
-          "summary": "Schwebend fixierter Sand („Suspended Sand“) ist Sand ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt, und ist wie der Suspended Gravel fest – man kann darauf stehen.",
-          "details": [
-            "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Sand (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
-            "Er hat die volle Kollisionsbox von Sand (bis 2026-09-24 war er mit noCollision() registriert und man lief hindurch): Spieler und Kreaturen stehen darauf, fallengelassene Gegenstände bleiben oben liegen, und ein von unten aufsteigender Levitating-Block hält darunter an und wird wieder zum Block.",
-            "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
-            "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
-            "Spieltests belegen: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Sand daneben zu Boden fällt; ein daraufgeworfener Gegenstand bleibt oben liegen, und Levitating Sand, der zwei Blöcke tiefer startet, landet im Feld direkt darunter."
-          ],
-          "controls": [
-            "Platzieren: Der Block bleibt frei in der Luft hängen."
-          ],
-          "caveats": [
-            "Er verhält sich genau wie der Suspended Gravel; beide unterscheiden sich nur in Aussehen, Geräusch und Rezept.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/suspended_sand.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:transparent_light_pane",
       "name": {
         "en_us": "Transparent Light Pane",
@@ -58958,52 +57486,6 @@
             "id": "minecraft:redstone",
             "count": 1
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:aqua_froglight",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:aqua_froglight",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/aqua_froglight.json",
-      "ingredients": [
-        "#simplebuilding:froglights",
-        "minecraft:cyan_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:froglights"
-        ],
-        [
-          "minecraft:cyan_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ochre_froglight",
-            "count": 1
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:froglights"
         ]
       }
     },
@@ -61550,48 +60032,6 @@
             "id": "minecraft:quartz",
             "count": 1
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:azure_froglight",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:azure_froglight",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/azure_froglight.json",
-      "ingredients": [
-        "#simplebuilding:froglights",
-        "minecraft:blue_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:froglights"
-        ],
-        [
-          "minecraft:blue_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ochre_froglight",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:froglights"
         ]
       }
     },
@@ -65921,37 +64361,6 @@
       }
     },
     {
-      "id": "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:chiseled_blue_ice",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_blue_ice_from_blue_ice_stonecutting.json",
-      "ingredients": [
-        "minecraft:blue_ice"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:blue_ice"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ice",
-            "count": 81
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -66338,37 +64747,6 @@
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:chiseled_packed_ice",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_packed_ice_from_packed_ice_stonecutting.json",
-      "ingredients": [
-        "minecraft:packed_ice"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:packed_ice"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ice",
-            "count": 9
           }
         ]
       }
@@ -66959,37 +65337,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:cracked_ice_from_ice_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cracked_ice",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cracked_ice_from_ice_stonecutting.json",
-      "ingredients": [
-        "minecraft:ice"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:ice"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ice",
-            "count": 1
           }
         ]
       }
@@ -68333,40 +66680,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:dirt_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:dirt_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/dirt_slab.json",
-      "ingredients": [
-        "minecraft:dirt"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:dirt"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:dirt",
-            "count": 3
           }
         ]
       }
@@ -75842,74 +74155,6 @@
       }
     },
     {
-      "id": "simplebuilding:grass_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:grass_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/grass_slab.json",
-      "ingredients": [
-        "minecraft:grass_block"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:grass_block"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:grass_block",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:gravel_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gravel_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gravel_slab.json",
-      "ingredients": [
-        "minecraft:gravel"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:gravel"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:gravel",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:gray_copper_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -79274,98 +77519,6 @@
       }
     },
     {
-      "id": "simplebuilding:levitating_gravel",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:levitating_gravel",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/levitating_gravel.json",
-      "ingredients": [
-        "minecraft:gravel",
-        "simplebuilding:astralit_dust"
-      ],
-      "pattern": [
-        "BBB",
-        "BMB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:gravel"
-        ],
-        "M": [
-          "simplebuilding:astralit_dust"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:gravel",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:levitating_sand",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:levitating_sand",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
-      "ingredients": [
-        "minecraft:sand",
-        "simplebuilding:astralit_dust"
-      ],
-      "pattern": [
-        "BBB",
-        "BMB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:sand"
-        ],
-        "M": [
-          "simplebuilding:astralit_dust"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:sand",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:light_blue_copper_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -81000,72 +79153,6 @@
           {
             "id": "minecraft:mangrove_log",
             "count": 6
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nautilus_shell_block",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nautilus_shell_block.json",
-      "ingredients": [
-        "minecraft:nautilus_shell"
-      ],
-      "pattern": [
-        "SS",
-        "SS"
-      ],
-      "key": {
-        "S": [
-          "minecraft:nautilus_shell"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:nautilus_shell",
-            "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_from_nautilus_shell_block",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:nautilus_shell",
-        "count": 4
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nautilus_shell_from_nautilus_shell_block.json",
-      "ingredients": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:nautilus_shell_block"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 4,
-        "materials": [
-          {
-            "id": "simplebuilding:nautilus_shell_block",
-            "count": 1
           }
         ]
       }
@@ -98646,82 +96733,6 @@
       }
     },
     {
-      "id": "simplebuilding:sand_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:sand_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/sand_slab.json",
-      "ingredients": [
-        "minecraft:sand"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:sand"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:sand",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:scarlet_froglight",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/scarlet_froglight.json",
-      "ingredients": [
-        "#simplebuilding:froglights",
-        "minecraft:red_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:froglights"
-        ],
-        [
-          "minecraft:red_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ochre_froglight",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:froglights"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:sculk_jaw",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -100813,98 +98824,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.125
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:suspended_gravel",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:suspended_gravel",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/suspended_gravel.json",
-      "ingredients": [
-        "minecraft:gravel",
-        "simplebuilding:nihilith_shard"
-      ],
-      "pattern": [
-        "BBB",
-        "BMB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:gravel"
-        ],
-        "M": [
-          "simplebuilding:nihilith_shard"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:gravel",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:suspended_sand",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:suspended_sand",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/suspended_sand.json",
-      "ingredients": [
-        "minecraft:sand",
-        "simplebuilding:nihilith_shard"
-      ],
-      "pattern": [
-        "BBB",
-        "BMB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:sand"
-        ],
-        "M": [
-          "simplebuilding:nihilith_shard"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:sand",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
           }
         ]
       }
@@ -108499,6 +106418,70 @@
       ]
     },
     {
+      "id": "simplebuilding:levitating_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:levitating_gravel",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/levitating_gravel.json",
+      "ingredients": [
+        "minecraft:gravel",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:gravel"
+        ],
+        "M": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:levitating_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:levitating_sand",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
+      "ingredients": [
+        "minecraft:sand",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sand"
+        ],
+        "M": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:magnet",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -110331,6 +108314,70 @@
       ]
     },
     {
+      "id": "simplebuilding:suspended_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:suspended_gravel",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/suspended_gravel.json",
+      "ingredients": [
+        "minecraft:gravel",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:gravel"
+        ],
+        "M": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:suspended_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:suspended_sand",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/suspended_sand.json",
+      "ingredients": [
+        "minecraft:sand",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sand"
+        ],
+        "M": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:upgrade_copper_axe_to_iron_axe",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -111557,24 +109604,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/acacia_sheet.json"
     },
     {
-      "id": "simplebuilding:blocks/aqua_froglight",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:aqua_froglight"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/aqua_froglight.json"
-    },
-    {
       "id": "simplebuilding:blocks/ashwood_cauldron",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -112010,24 +110039,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/autonomous_crafter.json"
-    },
-    {
-      "id": "simplebuilding:blocks/azure_froglight",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:azure_froglight"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/azure_froglight.json"
     },
     {
       "id": "simplebuilding:blocks/backpack",
@@ -112746,22 +110757,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
     },
     {
-      "id": "simplebuilding:blocks/chiseled_blue_ice",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:chiseled_blue_ice"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_blue_ice.json"
-    },
-    {
       "id": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -112796,22 +110791,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
-    },
-    {
-      "id": "simplebuilding:blocks/chiseled_packed_ice",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:chiseled_packed_ice"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_packed_ice.json"
     },
     {
       "id": "simplebuilding:blocks/chunk_loader",
@@ -112902,22 +110881,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/copper_redstone_light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/cracked_ice",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cracked_ice"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_ice.json"
     },
     {
       "id": "simplebuilding:blocks/crimson_blazewood_bookshelf",
@@ -113220,22 +111183,6 @@
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dimensional_scrap.json"
-    },
-    {
-      "id": "simplebuilding:blocks/dirt_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:dirt_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/dirt_slab.json"
     },
     {
       "id": "simplebuilding:blocks/duskwood_cauldron",
@@ -113854,39 +111801,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_pole.json"
-    },
-    {
-      "id": "simplebuilding:blocks/grass_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:grass_slab",
-            "simplebuilding:dirt_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json"
-    },
-    {
-      "id": "simplebuilding:blocks/gravel_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:gravel_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gravel_slab.json"
     },
     {
       "id": "simplebuilding:blocks/gray_copper_light_pane",
@@ -114697,42 +112611,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/layered_astralit.json"
     },
     {
-      "id": "simplebuilding:blocks/levitating_gravel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:levitating_gravel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/levitating_gravel.json"
-    },
-    {
-      "id": "simplebuilding:blocks/levitating_sand",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:levitating_sand"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json"
-    },
-    {
       "id": "simplebuilding:blocks/light_blue_copper_light_pane",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -115019,24 +112897,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/mangrove_sheet.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nautilus_shell_block",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nautilus_shell_block"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nautilus_shell_block.json"
     },
     {
       "id": "simplebuilding:blocks/nether_brick_quartz_checker",
@@ -116795,40 +114655,6 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json"
     },
     {
-      "id": "simplebuilding:blocks/sand_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:sand_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/sand_slab.json"
-    },
-    {
-      "id": "simplebuilding:blocks/scarlet_froglight",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:scarlet_froglight"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/scarlet_froglight.json"
-    },
-    {
       "id": "simplebuilding:blocks/sculk_jaw",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -117582,42 +115408,6 @@
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_torch.json"
-    },
-    {
-      "id": "simplebuilding:blocks/suspended_gravel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:suspended_gravel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_gravel.json"
-    },
-    {
-      "id": "simplebuilding:blocks/suspended_sand",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:suspended_sand"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
     },
     {
       "id": "simplebuilding:blocks/transparent_light_pane",
@@ -122986,14 +120776,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:levitating_gravel",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:levitating_sand",
-          "required": true
-        },
-        {
           "id": "simplebuilding:magnet",
           "required": true
         },
@@ -123866,14 +121648,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:suspended_gravel",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:suspended_sand",
-          "required": true
-        },
-        {
           "id": "simplebuilding:velocity_gauge",
           "required": true
         },
@@ -123891,50 +121665,6 @@
         },
         {
           "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:dirt_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:grass_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:sand_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:gravel_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:cracked_ice",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:chiseled_packed_ice",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:chiseled_blue_ice",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:nautilus_shell_block",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:scarlet_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:aqua_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:azure_froglight",
           "required": true
         },
         {
@@ -124633,37 +122363,6 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json"
-    },
-    {
-      "id": "simplebuilding:item/froglights",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:ochre_froglight",
-          "required": true
-        },
-        {
-          "id": "minecraft:verdant_froglight",
-          "required": true
-        },
-        {
-          "id": "minecraft:pearlescent_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:scarlet_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:aqua_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:azure_froglight",
-          "required": true
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/froglights.json"
     },
     {
       "id": "simplebuilding:item/funnel_enchantable",
@@ -132089,7 +129788,7 @@
         "kind": "diamond_crush",
         "inputs": [
           {
-            "id": "simplebuilding:cracked_ice",
+            "id": "simpleblocks:cracked_ice",
             "count": 1
           }
         ],
@@ -135053,35 +132752,6 @@
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:ice/simplebuilding:cracked_ice",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:ice",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:cracked_ice",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -142844,35 +140514,6 @@
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:cracked_ice/minecraft:ice",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:cracked_ice",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:ice",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -150889,7 +148530,7 @@
     {
       "id": "simplebuilding:end/defying_gravity",
       "parent": "simplebuilding:end/stardust",
-      "icon": "simplebuilding:levitating_sand",
+      "icon": "simpleblocks:levitating_sand",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -150905,15 +148546,15 @@
           "name": "gravity_block",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:suspended_sand",
-            "simplebuilding:suspended_gravel",
-            "simplebuilding:levitating_sand",
-            "simplebuilding:levitating_gravel"
+            "simpleblocks:suspended_sand",
+            "simpleblocks:suspended_gravel",
+            "simpleblocks:levitating_sand",
+            "simpleblocks:levitating_gravel"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/end/defying_gravity.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/end/defying_gravity.json"
     },
     {
       "id": "simplebuilding:end/palette_cleanser",
@@ -156086,17 +153727,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 611,
-    "blocks": 368,
-    "recipes": 1053,
-    "lootTables": 388,
+    "items": 596,
+    "blocks": 353,
+    "recipes": 1037,
+    "lootTables": 373,
     "trades": 20,
     "enchantments": 19,
-    "tags": 58,
+    "tags": 57,
     "config": 234,
-    "inWorld": 491,
+    "inWorld": 489,
     "advancements": 116,
-    "features": 51,
+    "features": 50,
     "undocumented": 0,
     "incompleteProse": 0
   },

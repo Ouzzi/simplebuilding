@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   "mod": {
     "id": "simpleblocks",
     "name": "Simple Blocks",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraftLines": [
       "26.3"
     ],
@@ -238,9 +238,195 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen."
         ]
       }
+    },
+    {
+      "id": "nature_variants",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/FallingSlabBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/MergingSlabBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/CrackedIceBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/CrackedIcePlaceMixin.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/CrackedIceFacesMixin.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/grass_slab.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "related": [
+        "simpleblocks:dirt_slab",
+        "simpleblocks:grass_slab",
+        "simpleblocks:sand_slab",
+        "simpleblocks:gravel_slab",
+        "simpleblocks:cracked_ice",
+        "simpleblocks:chiseled_packed_ice",
+        "simpleblocks:chiseled_blue_ice",
+        "simpleblocks:nautilus_shell_block",
+        "simpleblocks:scarlet_froglight",
+        "simpleblocks:aqua_froglight",
+        "simpleblocks:azure_froglight"
+      ],
+      "en": {
+        "title": "Natural Block Variants",
+        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
+        "details": [
+          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
+          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. It neither spreads nor turns into dirt.",
+          "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand or Gravel Slab onto one gives dirt, a grass block, sand or gravel instead of a double slab.",
+          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
+          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it breaks away and leaves no water. With nobody on it the cracks stay. No block can be placed against any of its sides, and next to ice it hides the faces between them like ice next to ice. Otherwise it behaves like ice and drops only with Silk Touch. With SimpleBuilding the stone chisel and the sledgehammer also turn ice into cracked ice, and SimpleBuilding's world generation lays cracked ice fields.",
+          "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
+          "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
+          "Scarlet, Aqua and Azure Froglights: any froglight (tag simpleblocks:froglights) plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
+          "Creative mode: in the Simple Blocks tab behind the module's own blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (with SimpleBuilding its search-tab placement puts them there, the froglights also in Functional Blocks).",
+          "Moved from SimpleBuilding (26.3): worlds with the old simplebuilding: ids keep these blocks and items; recipes and their unlocks keep working (SimpleLib id moves)."
+        ]
+      },
+      "de": {
+        "title": "Naturvarianten",
+        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
+        "details": [
+          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
+          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Sie breitet sich nicht aus und wird nicht zu Erde.",
+          "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand oder Kies statt einer Doppelstufe.",
+          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
+          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten bricht es weg und hinterlässt kein Wasser. Steht niemand darauf, bleiben die Risse. An keine seiner Seiten lässt sich ein Block setzen, und neben Eis blendet es die gemeinsamen Flächen aus wie Eis neben Eis. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit. Mit SimpleBuilding machen auch der Steinmeißel und der Vorschlaghammer aus Eis rissiges Eis, und SimpleBuildings Weltgenerierung legt Felder aus rissigem Eis an.",
+          "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
+          "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
+          "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht (Tag simpleblocks:froglights) plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
+          "Kreativmodus: im Tab Simple Blocks hinter den eigenen Blöcken des Moduls und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (mit SimpleBuilding setzt dessen Suchtab-Platzierung sie dorthin, die Froschlichter auch in Gebrauchsblöcke).",
+          "Aus SimpleBuilding umgezogen (26.3): Welten mit den alten simplebuilding:-Ids behalten diese Blöcke und Gegenstände; Rezepte und ihre Freischaltungen gelten weiter (SimpleLib-Id-Umzüge)."
+        ]
+      }
+    },
+    {
+      "id": "gravity_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlockEntity.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand_without_simplebuilding.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand_without_simplebuilding.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "related": [
+        "simpleblocks:suspended_sand",
+        "simpleblocks:suspended_gravel",
+        "simpleblocks:levitating_sand",
+        "simpleblocks:levitating_gravel"
+      ],
+      "en": {
+        "title": "Suspended and Levitating Sand and Gravel",
+        "summary": "Sand and gravel without gravity (suspended) and with reversed gravity (levitating).",
+        "details": [
+          "Recipes: 8 Sand or Gravel around one centre item make 8. With SimpleBuilding the centre is a Nihilith Shard (suspended) or Astralit Dust (levitating); without SimpleBuilding a Phantom Membrane (suspended) or a Breeze Rod (levitating). Only one of the two ways is active at a time.",
+          "Suspended Sand and Suspended Gravel are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising levitating block lands underneath them.",
+          "Levitating Sand and Levitating Gravel fall upwards: two ticks after being placed, and again whenever a neighbor changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick), so it starts slowly and accelerates like falling sand.",
+          "A rising block that runs into a ceiling turns back into a block in the free space below it. If it cannot be placed there, it drops as an item. Above the build limit it breaks and drops as an item.",
+          "Each drops itself. Their models use the vanilla sand and gravel textures, so the item tooltip says what they do. None of them is in a tool tag.",
+          "Moved from SimpleBuilding (26.3): old simplebuilding: ids load as these blocks, items and the rising entity."
+        ]
+      },
+      "de": {
+        "title": "Schwebender und aufsteigender Sand und Kies",
+        "summary": "Sand und Kies ohne Schwerkraft (schwebend) und mit umgekehrter Schwerkraft (aufsteigend).",
+        "details": [
+          "Rezepte: 8 Sand oder Kies rund um ein Mittelstück ergeben 8. Mit SimpleBuilding ist das Mittelstück ein Nihilitsplitter (schwebend) bzw. Astralitstaub (aufsteigend); ohne SimpleBuilding eine Phantomhaut (schwebend) bzw. eine Windrute (aufsteigend). Es gilt immer nur einer der beiden Wege.",
+          "Schwebender Sand und schwebender Kies sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Block landet darunter.",
+          "Aufsteigender Sand und aufsteigender Kies fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick) und beschleunigt daher wie fallender Sand.",
+          "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block. Passt er dort nicht hin, fällt er als Gegenstand. Über dem Baulimit zerbricht er und fällt als Gegenstand.",
+          "Jeder droppt sich selbst. Ihre Modelle nutzen die Vanilla-Texturen von Sand und Kies, deshalb sagt der Tooltip, was sie tun. Keiner steht in einem Werkzeug-Tag.",
+          "Aus SimpleBuilding umgezogen (26.3): alte simplebuilding:-Ids laden als diese Blöcke, Gegenstände und die aufsteigende Entity."
+        ]
+      }
     }
   ],
   "recipes": [
+    {
+      "id": "simpleblocks:aqua_froglight",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:aqua_froglight",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/aqua_froglight.json",
+      "ingredients": [
+        "#simpleblocks:froglights",
+        "minecraft:cyan_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleblocks:froglights"
+        ],
+        [
+          "minecraft:cyan_dye"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ochre_froglight",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          }
+        ],
+        "tagExamples": [
+          "#simpleblocks:froglights"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:azure_froglight",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:azure_froglight",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/azure_froglight.json",
+      "ingredients": [
+        "#simpleblocks:froglights",
+        "minecraft:blue_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleblocks:froglights"
+        ],
+        [
+          "minecraft:blue_dye"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ochre_froglight",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleblocks:froglights"
+        ]
+      }
+    },
     {
       "id": "simpleblocks:blue_nether_brick_slab",
       "type": "minecraft:crafting_shaped",
@@ -723,6 +909,62 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "simpleblocks:chiseled_blue_ice_from_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_blue_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_blue_ice_from_blue_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:chiseled_packed_ice_from_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:chiseled_packed_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/chiseled_packed_ice_from_packed_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:cracked_cinnabar_bricks_from_smelting",
       "type": "minecraft:smelting",
       "category": "blocks",
@@ -777,6 +1019,34 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "materials": [
           {
             "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cracked_ice_from_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_ice",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_ice_from_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
             "count": 1
           }
         ]
@@ -1153,6 +1423,99 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "simpleblocks:dirt_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dirt_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dirt_slab.json",
+      "ingredients": [
+        "minecraft:dirt"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:dirt"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:grass_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:grass_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/grass_slab.json",
+      "ingredients": [
+        "minecraft:grass_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:grass_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:grass_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gravel_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gravel_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gravel_slab.json",
+      "ingredients": [
+        "minecraft:gravel"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:gravel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1442,6 +1805,170 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "simpleblocks:levitating_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:levitating_gravel",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_gravel.json",
+      "ingredients": [
+        "minecraft:gravel",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:gravel"
+        ],
+        "M": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:levitating_gravel_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:levitating_gravel",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_gravel_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:breeze_rod",
+        "minecraft:gravel"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:gravel"
+        ],
+        "M": [
+          "minecraft:breeze_rod"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "minecraft:breeze_rod",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:levitating_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:levitating_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand.json",
+      "ingredients": [
+        "minecraft:sand",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sand"
+        ],
+        "M": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:levitating_sand_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:levitating_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:breeze_rod",
+        "minecraft:sand"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sand"
+        ],
+        "M": [
+          "minecraft:breeze_rod"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 8
+          },
+          {
+            "id": "minecraft:breeze_rod",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:mossy_cinnabar_bricks_from_moss_block",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -1698,6 +2225,66 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "simpleblocks:nautilus_shell_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:nautilus_shell_block",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/nautilus_shell_block.json",
+      "ingredients": [
+        "minecraft:nautilus_shell"
+      ],
+      "pattern": [
+        "SS",
+        "SS"
+      ],
+      "key": {
+        "S": [
+          "minecraft:nautilus_shell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:nautilus_shell_from_nautilus_shell_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:nautilus_shell",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/nautilus_shell_from_nautilus_shell_block.json",
+      "ingredients": [
+        "simpleblocks:nautilus_shell_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:nautilus_shell_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleblocks:nautilus_shell_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:netherrack_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1873,6 +2460,37 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           {
             "id": "minecraft:netherrack",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:sand_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sand_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sand_slab.json",
+      "ingredients": [
+        "minecraft:sand"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:sand"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 3
           }
         ]
       }
@@ -3099,7 +3717,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:dirt_slab",
+        "id": "simpleblocks:dirt_slab",
         "count": 2
       },
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/dirt_slab_from_dirt.json",
@@ -3270,7 +3888,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:grass_slab",
+        "id": "simpleblocks:grass_slab",
         "count": 2
       },
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/grass_slab_from_grass_block.json",
@@ -3289,7 +3907,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:gravel_slab",
+        "id": "simpleblocks:gravel_slab",
         "count": 2
       },
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/gravel_slab_from_gravel.json",
@@ -4467,7 +5085,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:sand_slab",
+        "id": "simpleblocks:sand_slab",
         "count": 2
       },
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sawing/sand_slab_from_sand.json",
@@ -5697,6 +6315,45 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "simpleblocks:scarlet_froglight",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:scarlet_froglight",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/scarlet_froglight.json",
+      "ingredients": [
+        "#simpleblocks:froglights",
+        "minecraft:red_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleblocks:froglights"
+        ],
+        [
+          "minecraft:red_dye"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ochre_froglight",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleblocks:froglights"
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:sculk_deepslate",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -6079,9 +6736,209 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           }
         ]
       }
+    },
+    {
+      "id": "simpleblocks:suspended_gravel",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:suspended_gravel",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_gravel.json",
+      "ingredients": [
+        "minecraft:gravel",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:gravel"
+        ],
+        "M": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:suspended_gravel_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:suspended_gravel",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_gravel_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:gravel",
+        "minecraft:phantom_membrane"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:gravel"
+        ],
+        "M": [
+          "minecraft:phantom_membrane"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "minecraft:phantom_membrane",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:suspended_sand",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:suspended_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand.json",
+      "ingredients": [
+        "minecraft:sand",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sand"
+        ],
+        "M": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:suspended_sand_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:suspended_sand",
+        "count": 8
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:phantom_membrane",
+        "minecraft:sand"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sand"
+        ],
+        "M": [
+          "minecraft:phantom_membrane"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 8
+          },
+          {
+            "id": "minecraft:phantom_membrane",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
+    {
+      "id": "simpleblocks:blocks/aqua_froglight",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:aqua_froglight"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/aqua_froglight.json"
+    },
+    {
+      "id": "simpleblocks:blocks/azure_froglight",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:azure_froglight"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/azure_froglight.json"
+    },
     {
       "id": "simpleblocks:blocks/blue_nether_brick_slab",
       "kind": "blocks",
@@ -6205,6 +7062,38 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/calcite_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/chiseled_blue_ice",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_blue_ice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_blue_ice.json"
+    },
+    {
+      "id": "simpleblocks:blocks/chiseled_packed_ice",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:chiseled_packed_ice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/chiseled_packed_ice.json"
+    },
+    {
       "id": "simpleblocks:blocks/cracked_cinnabar_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -6239,6 +7128,22 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_end_stone_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cracked_ice",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_ice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_ice.json"
     },
     {
       "id": "simpleblocks:blocks/cracked_mud_bricks",
@@ -6385,6 +7290,55 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_sandstone_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/dirt_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dirt_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dirt_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/grass_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:grass_slab",
+            "simpleblocks:dirt_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/grass_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/gravel_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:gravel_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/gravel_slab.json"
+    },
+    {
       "id": "simpleblocks:blocks/hushed_deepslate_tile_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -6453,6 +7407,42 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/hushed_deepslate_tiles.json"
+    },
+    {
+      "id": "simpleblocks:blocks/levitating_gravel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:levitating_gravel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/levitating_gravel.json"
+    },
+    {
+      "id": "simpleblocks:blocks/levitating_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:levitating_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/levitating_sand.json"
     },
     {
       "id": "simpleblocks:blocks/mossy_cinnabar_bricks",
@@ -6581,6 +7571,24 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_tuff_bricks.json"
     },
     {
+      "id": "simpleblocks:blocks/nautilus_shell_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:nautilus_shell_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/nautilus_shell_block.json"
+    },
+    {
       "id": "simpleblocks:blocks/netherrack_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -6631,6 +7639,40 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/netherrack_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/sand_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:sand_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sand_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/scarlet_froglight",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:scarlet_froglight"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/scarlet_froglight.json"
     },
     {
       "id": "simpleblocks:blocks/sculk_deepslate",
@@ -6754,9 +7796,77 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_sandstone_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/suspended_gravel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:suspended_gravel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/suspended_gravel.json"
+    },
+    {
+      "id": "simpleblocks:blocks/suspended_sand",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:suspended_sand"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/suspended_sand.json"
     }
   ],
-  "tags": [],
+  "tags": [
+    {
+      "id": "simpleblocks:item/froglights",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:ochre_froglight",
+          "required": true
+        },
+        {
+          "id": "minecraft:verdant_froglight",
+          "required": true
+        },
+        {
+          "id": "minecraft:pearlescent_froglight",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:scarlet_froglight",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:aqua_froglight",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:azure_froglight",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/tags/item/froglights.json"
+    }
+  ],
   "advancements": [],
   "enchantments": [],
   "items": [
@@ -6772,10 +7882,10 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -6810,6 +7920,30 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
     }
   ],
   "blocks": [
+    {
+      "id": "simpleblocks:aqua_froglight",
+      "name": {
+        "en_us": "Aqua Froglight",
+        "de_de": "Türkises Froschlicht"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleblocks:aqua_froglight"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:azure_froglight",
+      "name": {
+        "en_us": "Azure Froglight",
+        "de_de": "Azurblaues Froschlicht"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleblocks:azure_froglight"
+      ],
+      "usedIn": []
+    },
     {
       "id": "simpleblocks:blue_nether_brick_slab",
       "name": {
@@ -7017,6 +8151,32 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "usedIn": []
     },
     {
+      "id": "simpleblocks:chiseled_blue_ice",
+      "name": {
+        "en_us": "Chiseled Blue Ice",
+        "de_de": "Gemeißeltes Blaueis"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_blue_ice.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_blue_ice_from_blue_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:chiseled_packed_ice",
+      "name": {
+        "en_us": "Chiseled Packed Ice",
+        "de_de": "Gemeißeltes Packeis"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleblocks/block/chiseled_packed_ice.png",
+      "craftedBy": [
+        "simpleblocks:chiseled_packed_ice_from_packed_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:cracked_cinnabar_bricks",
       "name": {
         "en_us": "Cracked Cinnabar Bricks",
@@ -7061,6 +8221,53 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "texture": "assets/textures/simpleblocks/block/cracked_end_stone_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_end_stone_bricks_from_smelting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_ice",
+      "name": {
+        "en_us": "Cracked Ice",
+        "de_de": "Rissiges Eis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Ice that has seen too many footsteps."
+          ],
+          "use": [
+            "Cut one ice into one in the stonecutter. A living creature standing on it cracks it one stage per second; after four stages it breaks away and leaves no water. Drops only with Silk Touch."
+          ],
+          "secret": [
+            "With nobody on it the cracks stay as they are. So you can lay a trap, or repair the road by leaving."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eis, das zu viele Schritte gesehen hat."
+          ],
+          "use": [
+            "Im Steinschneider aus einem Eis eines. Ein darauf stehendes Lebewesen lässt es pro Sekunde eine Stufe brechen; nach vier Stufen bricht es weg und hinterlässt kein Wasser. Lässt sich nur mit Behutsamkeit einsammeln."
+          ],
+          "secret": [
+            "Steht niemand darauf, bleiben die Risse, wie sie sind. So legst du eine Falle, oder du reparierst die Straße, indem du gehst."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:cracked_ice_from_ice_stonecutting"
       ],
       "usedIn": []
     },
@@ -7257,6 +8464,78 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "usedIn": []
     },
     {
+      "id": "simpleblocks:dirt_slab",
+      "name": {
+        "en_us": "Dirt Slab",
+        "de_de": "Erdstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:dirt_slab",
+        "simpleblocks:sawing/dirt_slab_from_dirt"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:grass_slab",
+      "name": {
+        "en_us": "Grass Slab",
+        "de_de": "Grasstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:grass_slab",
+        "simpleblocks:sawing/grass_slab_from_grass_block"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:gravel_slab",
+      "name": {
+        "en_us": "Gravel Slab",
+        "de_de": "Kiesstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:gravel_slab",
+        "simpleblocks:sawing/gravel_slab_from_gravel"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:hushed_deepslate_tile_slab",
       "name": {
         "en_us": "Hushed Deepslate Tile Slab",
@@ -7390,6 +8669,54 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "simpleblocks:hushed_deepslate_tile_wall",
         "simpleblocks:hushed_deepslate_tile_wall_from_hushed_deepslate_tiles_stonecutting"
       ]
+    },
+    {
+      "id": "simpleblocks:levitating_gravel",
+      "name": {
+        "en_us": "Levitating Gravel",
+        "de_de": "Aufsteigender Kies"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Levitating Gravel: gravel with reversed gravity; it rises as an entity and lands under a ceiling."
+        },
+        "de": {
+          "summary": "Aufsteigender Kies: Kies mit umgekehrter Schwerkraft; er steigt als Entity auf und landet unter einer Decke."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:levitating_gravel",
+        "simpleblocks:levitating_gravel_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:levitating_sand",
+      "name": {
+        "en_us": "Levitating Sand",
+        "de_de": "Aufsteigender Sand"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Levitating Sand: sand with reversed gravity; it rises as an entity and lands under a ceiling."
+        },
+        "de": {
+          "summary": "Aufsteigender Sand: Sand mit umgekehrter Schwerkraft; er steigt als Entity auf und landet unter einer Decke."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:levitating_sand",
+        "simpleblocks:levitating_sand_without_simplebuilding"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleblocks:mossy_cinnabar_bricks",
@@ -7560,6 +8887,44 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "usedIn": []
     },
     {
+      "id": "simpleblocks:nautilus_shell_block",
+      "name": {
+        "en_us": "Block of Nautilus Shell",
+        "de_de": "Nautilusschalenblock"
+      },
+      "note": null,
+      "questionary": {
+        "en": {
+          "lore": [
+            "The sea's spiral, stacked into a block."
+          ],
+          "use": [
+            "Four nautilus shells in a square make one; it crafts back into four shells. It is placed along an axis, like the bone block."
+          ],
+          "secret": [
+            "A block of shells is the only way to store the Nautilus's gift compactly."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Die Spirale des Meeres, zu einem Block gestapelt."
+          ],
+          "use": [
+            "Vier Nautilusschalen im Quadrat ergeben einen Block; er lässt sich zurück in vier Schalen verwandeln. Er wird entlang einer Achse gesetzt, wie der Knochenblock."
+          ],
+          "secret": [
+            "Ein Block aus Schalen ist die einzige Möglichkeit, die Gabe des Nautilus kompakt zu lagern."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:nautilus_shell_block"
+      ],
+      "usedIn": [
+        "simpleblocks:nautilus_shell_from_nautilus_shell_block"
+      ]
+    },
+    {
       "id": "simpleblocks:netherrack_slab",
       "name": {
         "en_us": "Netherrack Slab",
@@ -7628,6 +8993,42 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "craftedBy": [
         "simpleblocks:netherrack_wall",
         "simpleblocks:netherrack_wall_from_netherrack_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:sand_slab",
+      "name": {
+        "en_us": "Sand Slab",
+        "de_de": "Sandstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:sand_slab",
+        "simpleblocks:sawing/sand_slab_from_sand"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:scarlet_froglight",
+      "name": {
+        "en_us": "Scarlet Froglight",
+        "de_de": "Scharlachrotes Froschlicht"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleblocks:scarlet_froglight"
       ],
       "usedIn": []
     },
@@ -7841,6 +9242,54 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "simpleblocks:smooth_sandstone_wall_from_smooth_sandstone_stonecutting"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:suspended_gravel",
+      "name": {
+        "en_us": "Suspended Gravel",
+        "de_de": "Schwebender Kies"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Suspended Gravel: gravel without gravity; it stays where it is put and is solid."
+        },
+        "de": {
+          "summary": "Schwebender Kies: Kies ohne Schwerkraft; er bleibt, wo man ihn setzt, und ist fest."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:suspended_gravel",
+        "simpleblocks:suspended_gravel_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:suspended_sand",
+      "name": {
+        "en_us": "Suspended Sand",
+        "de_de": "Schwebender Sand"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+        ],
+        "en": {
+          "summary": "Suspended Sand: sand without gravity; it stays where it is put and is solid."
+        },
+        "de": {
+          "summary": "Schwebender Sand: Sand ohne Schwerkraft; er bleibt, wo man ihn setzt, und ist fest."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:suspended_sand",
+        "simpleblocks:suspended_sand_without_simplebuilding"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -7854,22 +9303,29 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleblocks:aqua_froglight",
+    "simpleblocks:azure_froglight",
+    "simpleblocks:chiseled_blue_ice",
+    "simpleblocks:chiseled_packed_ice",
+    "simpleblocks:nautilus_shell_block",
+    "simpleblocks:scarlet_froglight"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
-    "recipes": 262,
-    "lootTables": 38,
-    "tags": 0,
+    "features": 8,
+    "recipes": 282,
+    "lootTables": 53,
+    "tags": 1,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 38,
+    "blocks": 53,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 6,
     "inWorld": 0,
     "incompleteProse": 0
   }

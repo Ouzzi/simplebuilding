@@ -13,12 +13,10 @@
       "modid": "simplebuilding"
     }
   ],
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "simplebuilding"
-    }
-  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_astralit_dust": {
