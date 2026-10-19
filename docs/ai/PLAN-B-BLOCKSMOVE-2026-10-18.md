@@ -78,3 +78,20 @@ Vorbilder Stufe 4 (Ovens), 5b (`PLAN-S5B-2026-10-16.md`), 6 (`PLAN-S6-OCTETS-202
 Compile 26.3 fabric/neoforge/forge + Module + 26.2 `:compileJava`; SB-Filter `nature`, `gravity`, `block_behaviour`, `data_integrity`, `migration`,
 `chisel`, `sledgehammer` (fabric-263, neoforge-263) und am Ende voll fabric-263; `module-simpleblocks-{fabric,neoforge}-263`, Standalone fabric;
 `integration-263`; `./gradlew check`. Nicht geprüft (bewusst): Client-Sicht (Tint, Renderer, Tab-Bild) - Besitzer-/Client-Abnahme.
+
+## 6. Stand (19.10.) und Abweichungen
+
+Umgesetzt wie geplant (Stand `b-blocksmove`, mit `claude-wave1` 23b9489dd gemergt). Belege (sb-test, ce7a29ae4): fabric-263 1207/1207,
+neoforge-263 1207/1207, integration-263 3/3, module-simpleblocks fabric 37/37 (Vorlauf auch neoforge + standalone-fabric je 37/37),
+Compile 26.3 fabric/neoforge/forge + Forge-Modul + 26.2 `:compileJava`, `./gradlew check` grün.
+
+Abweichungen (bewusst):
+- Ids der Verschiebung in `nature/NatureIds` (ohne Blöcke): `registerIdMoves` läuft im Loader-Konstruktor, NeoForge/Forge-Registries sind dort gesperrt.
+- SB-Lang behält die Schlüssel der 15 (26.2 nutzt die Schwerkraftblöcke weiter; `checkLangText` verlangt Overlay ⊇ geteilte Datei) - wie bei den Öfen.
+- Migrations-Fixture (`testing/fixtures/migration-before`) unverändert; die Id-Umzüge prüft der Modultest `moved_ids_from_simplebuilding`.
+- Meißel Eis -> rissiges Eis nur per Datenpaket-Datei `cracked_ice_stone_chisel.json` (Modpack-Test zählt `simpleblocks` wie `simpleend` als reine Datei-Einträge).
+- SB-Suchtab setzt Achtel von Simple-Blocks-eigenen Blöcken (Blaue Netherziegel, gedämpfte Fliesen) nicht mehr: auf Fabric lief die Kette vor dem
+  Einfügen der Stufe (Achtel landete am Ende). Offen für Simple Octets/Simple Blocks (Sitzung A, octets2).
+- Wiki-Notizen der Schwerkraftblöcke neu und kürzer (die alten beschrieben noch das schrittweise Steigen); Text „rissiges Eis wird zu Wasser“ korrigiert.
+
+Offen: Client-Sicht (Gras-Tint, Renderer der aufsteigenden Blöcke, Tab-Bild), Forge-Laufzeittests, Merge + Gate durch die Hauptsitzung.
