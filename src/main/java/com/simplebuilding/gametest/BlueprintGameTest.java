@@ -85,6 +85,21 @@ public final class BlueprintGameTest {
     }
 
     @GameTest
+    public void pictureCodeHoldsTheExpectedBlocks(GameTestHelper helper) {
+        BlueprintTests.pictureCodeHoldsTheExpectedBlocks(helper);
+    }
+
+    @GameTest
+    public void pictureImportFollowsTheServerSwitch(GameTestHelper helper) {
+        BlueprintTests.pictureImportFollowsTheServerSwitch(helper);
+    }
+
+    @GameTest
+    public void pictureBlueprintBuildsItsBlocks(GameTestHelper helper) {
+        BlueprintTests.pictureBlueprintBuildsItsBlocks(helper);
+    }
+
+    @GameTest
     public void recipeCraftsOneBlankBlueprint(GameTestHelper helper) {
         BlueprintTests.recipeCraftsOneBlankBlueprint(helper);
     }

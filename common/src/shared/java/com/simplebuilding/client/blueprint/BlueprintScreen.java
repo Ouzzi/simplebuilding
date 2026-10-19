@@ -62,10 +62,10 @@ public class BlueprintScreen extends Screen {
     static final int PAPER_EDGE = 0xFF8B7355;
     static final int PAPER_SHADE = 0xFFD8C99E;
     static final int INK = 0xFF3B2F20;
-    static final int INK_SOFT = 0xFF7A6A50;
+    static final int INK_SOFT = 0xFF655740; // 5.3:1 on PAPER (was 3.9:1, rule 15)
     private static final int VIEW_BG = 0xFF26384F;
-    static final int ERROR = 0xFFC62828;
-    static final int OK = 0xFF2E7D32;
+    static final int ERROR = 0xFFA82020; // 5.5:1 on PAPER (was 4.2:1)
+    static final int OK = 0xFF256528; // 5.3:1 on PAPER (was 3.9:1)
     private static final int SELECT = 0xFF3A6EA5;
     /** Autospeichern so lange nach der letzten Aenderung. */
     public static final long AUTOSAVE_MS = 1500;

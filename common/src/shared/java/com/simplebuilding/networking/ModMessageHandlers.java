@@ -459,6 +459,12 @@ public final class ModMessageHandlers {
         if (code.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH) {
             return null;
         }
+        // Bild-Bauplan (pixels-Zeilen): Server-Schalter, Rechtestufe und Groesse (BlueprintPicture).
+        String refusal = com.simplebuilding.blueprint.BlueprintPicture.refusal(player, code);
+        if (refusal != null) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable(refusal).withStyle(net.minecraft.ChatFormatting.YELLOW));
+            return null;
+        }
         if (payload.sign()) {
             String title = payload.title().strip();
             if (title.isEmpty() || title.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {

@@ -24,7 +24,8 @@ import org.jetbrains.annotations.Nullable;
  *   <li><b>Import</b>: Feld zum Einfuegen (Strg+V oder Knopf "Einfuegen" aus der Zwischenablage), Format
  *       "Automatisch" oder fest; unter dem Feld das Ergebnis der Pruefung ({@link BlueprintFormats}); "Uebernehmen"
  *       ersetzt den Code im Editor und ist nur bei fehlerfreiem Text aktiv. Es entsteht nur der Plan - nichts wird
- *       gebaut oder ausgegeben; der Editor speichert danach wie gewohnt.</li>
+ *       gebaut oder ausgegeben; der Editor speichert danach wie gewohnt. Auf 26.3 oeffnet "Bild ..." das
+ *       Bild-Fenster ({@link BlueprintPictureScreen}).</li>
  * </ul>
  */
 public class BlueprintIoScreen extends Screen {
@@ -105,9 +106,20 @@ public class BlueprintIoScreen extends Screen {
             addRenderableWidget(button(Component.translatable("gui.done"), layout.button(1, 2), b -> onClose()));
             primary.active = !exportText.isEmpty();
         } else {
-            primary = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.paste"), layout.button(0, 3), b -> paste()));
-            apply = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.apply"), layout.button(1, 3), b -> apply()));
-            addRenderableWidget(button(Component.translatable("gui.cancel"), layout.button(2, 3), b -> onClose()));
+            // Bild-Bauplan (26.3): vierter Knopf "Bild ..." oeffnet das Bild-Fenster.
+            boolean pictures = com.simplebuilding.blueprint.BlueprintPicture.available();
+            int count = pictures ? 4 : 3;
+            primary = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.paste"), layout.button(0, count), b -> paste()));
+            if (pictures) {
+                Button picture = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.picture"), layout.button(1, count),
+                        b -> minecraft.gui.setScreen(new BlueprintPictureScreen(parent))));
+                boolean on = com.simplebuilding.config.ServerTuning.pictureImport();
+                picture.active = canApply && on;
+                picture.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable(
+                        on ? "simplebuilding.blueprint.io.picture_hint" : "simplebuilding.blueprint.picture.error.off")));
+            }
+            apply = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.apply"), layout.button(count - 2, count), b -> apply()));
+            addRenderableWidget(button(Component.translatable("gui.cancel"), layout.button(count - 1, count), b -> onClose()));
             apply.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simplebuilding.blueprint.io.apply_tip")));
             updateApply();
         }

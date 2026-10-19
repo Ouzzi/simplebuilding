@@ -38,6 +38,7 @@ import net.minecraft.world.phys.AABB;
  * stone 0..$r,0,$r+1                            Variablen und + - ( * / % ) in Koordinaten
  * glass sphere(8,8,8,$r) hollow_box(0,0,0,5,4,5)  Formen, hohl mit hollow_
  * air 1..3,1..3,1..3                            air raeumt, was davor gesetzt wurde
+ * pixels 0,5,0 3a2b.c                           Bildzeile entlang +x: 3x $a, 2x $b, frei, 1x $c (26.3)
  * </pre>
  * Spaetere Anweisungen ueberschreiben fruehere. Koordinaten liegen im Raster {@code 0..255}.
  */
@@ -86,7 +87,8 @@ public final class BlueprintCode {
         }
     }
 
-    public record ParseResult(BlueprintModel model, List<Problem> problems, byte[] styles) {
+    /** {@code pixels}: Stellen, die {@code pixels}-Zeilen gesetzt haben (Bild-Bauplan; 0 = keine). */
+    public record ParseResult(BlueprintModel model, List<Problem> problems, byte[] styles, int pixels) {
         public boolean ok() {
             return problems.isEmpty();
         }
@@ -152,6 +154,14 @@ public final class BlueprintCode {
         }
     }
 
+    /**
+     * Schluesselwort der Bildzeile (Bild-Bauplan, Plan docs/ai/PLAN-B-PICTURE-2026-10-19.md):
+     * {@code pixels x,y,z 3a2b.c} setzt ab x,y,z entlang +x die Lauflaengen-Zeile; jeder Buchstabe ist ein
+     * Ein-Zeichen-Alias ({@code $a}), {@code .} laesst frei, eine Zahl davor wiederholt. Die Kodierung kommt aus
+     * SimpleLib ({@code com.simplelib.api.image.PixelRle}), darum nur auf 26.3.
+     */
+    public static final String PIXELS = "pixels";
+
     /** Das Wort, mit dem Formen hohl werden. */
     public static final String HOLLOW_PREFIX = "hollow_";
 
@@ -204,7 +214,7 @@ public final class BlueprintCode {
     public static ParseResult parse(String code) {
         Parser parser = new Parser(code == null ? "" : code);
         parser.run();
-        return new ParseResult(parser.model, List.copyOf(parser.problems), parser.styles);
+        return new ParseResult(parser.model, List.copyOf(parser.problems), parser.styles, parser.pixels);
     }
 
     private static final class Word {
@@ -246,6 +256,7 @@ public final class BlueprintCode {
         final Map<String, BlockState> aliases = new HashMap<>();
         final Map<String, Long> variables = new HashMap<>();
         long expanded;
+        int pixels;
         long shapeVolume;
         boolean budgetExceeded;
         int line;
@@ -327,6 +338,10 @@ public final class BlueprintCode {
                     return;
                 }
             }
+            if (first.text.equals(PIXELS)) {
+                pixels(first, words);
+                return;
+            }
             BlockState state = parseSpec(first);
             if (words.size() == 1) {
                 problem(first.start, first.end(), "no_region");
@@ -336,6 +351,86 @@ public final class BlueprintCode {
                 Region region = parseRegion(words.get(i));
                 if (region != null && state != null) {
                     apply(region, state, words.get(i));
+                }
+            }
+        }
+
+        /** {@code pixels x,y,z <Zeile>}: eine Bildzeile ab x,y,z entlang +x ({@link #PIXELS}). */
+        void pixels(Word keyword, List<Word> words) {
+            style(keyword.start, keyword.end(), STYLE_PROPERTY);
+            if (!com.simplebuilding.util.LibServices.pictures()) {
+                problem(keyword.start, keyword.end(), "pixels_unsupported");
+                return;
+            }
+            if (words.size() != 3) {
+                problem(keyword.start, words.get(words.size() - 1).end(), "pixels_usage");
+                return;
+            }
+            Word at = words.get(1), row = words.get(2);
+            styleExpression(at.start, at.end());
+            long[] p;
+            try {
+                p = triple(at.start, at.end());
+            } catch (Syntax e) {
+                problem(at.start, at.end(), "bad_region", at.text);
+                return;
+            } catch (Reported e) {
+                return;
+            }
+            BlockState[] states = new BlockState[52];
+            boolean failed = false;
+            for (int i = 0; i < row.text.length(); i++) {
+                char c = row.text.charAt(i);
+                int pos = row.start + i;
+                int index = com.simplebuilding.util.LibServices.pixelSymbolIndex(c);
+                if (Character.isDigit(c)) {
+                    style(pos, pos + 1, STYLE_NUMBER);
+                } else if (index == -1) {
+                    style(pos, pos + 1, STYLE_OPERATOR);
+                } else if (index >= 0) {
+                    String name = String.valueOf(c);
+                    BlockState state = aliases.get(name);
+                    if (state == null) {
+                        problem(pos, pos + 1, variables.containsKey(name) ? "variable_as_block" : "unknown_alias", "$" + name);
+                        failed = true;
+                    } else {
+                        style(pos, pos + 1, STYLE_ALIAS);
+                        states[index] = state;
+                    }
+                }
+            }
+            int[] cells = com.simplebuilding.util.LibServices.decodePixelRow(row.text, GRID);
+            if (cells == null) {
+                problem(row.start, row.end(), "pixels_bad_row", row.text);
+                return;
+            }
+            if (failed) {
+                return;
+            }
+            int x0 = (int) p[0], y = (int) p[1], z = (int) p[2];
+            if (cells.length > 0 && (!BlueprintModel.inGrid(x0, y, z) || !BlueprintModel.inGrid(x0 + cells.length - 1, y, z))) {
+                problem(keyword.start, row.end(), "pixels_outside", String.valueOf(GRID - 1));
+                return;
+            }
+            int filled = 0;
+            for (int cell : cells) {
+                if (cell >= 0) {
+                    filled++;
+                }
+            }
+            if (budgetExceeded) {
+                return;
+            }
+            if (expanded + filled > MAX_EXPANDED_CELLS) {
+                budgetExceeded = true;
+                problem(keyword.start, row.end(), "too_many_cells", String.valueOf(MAX_EXPANDED_CELLS));
+                return;
+            }
+            expanded += filled;
+            pixels += filled;
+            for (int i = 0; i < cells.length; i++) {
+                if (cells[i] >= 0) {
+                    model.set(x0 + i, y, z, states[cells[i]]);
                 }
             }
         }

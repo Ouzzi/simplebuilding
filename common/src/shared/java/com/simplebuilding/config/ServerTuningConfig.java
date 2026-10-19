@@ -154,6 +154,9 @@ public class ServerTuningConfig {
         speakers.maxChain = clamp(speakers.maxChain, 0, ServerTuning.MAX_SPEAKER_CHAIN);
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
+        blueprint.picturePermission = clamp(blueprint.picturePermission, 0, 4);
+        blueprint.pictureMaxSide = clamp(blueprint.pictureMaxSide, com.simplebuilding.blueprint.BlueprintPicture.MIN_SIDE,
+                com.simplebuilding.blueprint.BlueprintPicture.MAX_SIDE);
 
         laser.scanIntervalTicks = clamp(laser.scanIntervalTicks, 20, 100);
 
@@ -528,6 +531,15 @@ public class ServerTuningConfig {
         /** Hoechstens so viele Stellen setzt ein Blaupausen-Bau je Tick (der Bau dauert dann laenger). */
         @ConfigEntry.Gui.Tooltip
         public int maxBlocksPerTick = 32768;
+        /** Bild-Bauplan: Code mit {@code pixels}-Zeilen (aus einem Bild) annehmen (BlueprintPicture). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean pictureImport = true;
+        /** Bild-Bauplan: noetige Vanilla-Rechtestufe 0..4 (0 = alle Spieler). */
+        @ConfigEntry.Gui.Tooltip
+        public int picturePermission = 0;
+        /** Bild-Bauplan: laengste Kante eines Bildes in Bloecken, 16..128. */
+        @ConfigEntry.Gui.Tooltip
+        public int pictureMaxSide = 128;
     }
 
     /**
