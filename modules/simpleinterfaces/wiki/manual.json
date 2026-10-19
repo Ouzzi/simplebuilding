@@ -727,7 +727,7 @@
       ],
       "en": {
         "title": "Shulker box and ender chest tooltips",
-        "summary": "Hold Shift over a shulker box item to see its contents as a 9x3 slot grid like the shulker box screen, instead of Vanilla's five lines; the ender chest item shows your own ender chest the same way.",
+        "summary": "Hold Shift over a shulker box to see its contents as a slot grid; the ender chest item shows your own ender chest.",
         "details": [
           "Without Shift the Vanilla lines stay and one gray hint line tells you about Shift (tooltipNeedsShift off: always the grid). Dyed boxes tint the grid in their color; bigger shulker tiers show up to six rows, the last cell counts the rest.",
           "The ender chest contents live on the server. With Simple Interfaces on the server it sends each player only their own ender chest at login and whenever they close it (ender chest block or Easy Ender Chest), never continuously and never another player's chest. Without the server part the ender chest tooltip stays Vanilla; the shulker grid works anyway because the box item carries its contents."
@@ -735,7 +735,7 @@
       },
       "de": {
         "title": "Tooltips für Shulkerkisten und Endertruhen",
-        "summary": "Mit gedrückter Umschalttaste über einer Shulkerkiste siehst du ihren Inhalt als 9x3-Raster wie im Shulkerkisten-Bildschirm statt der fünf Vanilla-Zeilen; die Endertruhe zeigt so deine eigene Endertruhe.",
+        "summary": "Mit Umschalt über einer Shulkerkiste siehst du ihren Inhalt als Raster; die Endertruhe zeigt deine eigene Endertruhe.",
         "details": [
           "Ohne Umschalt bleiben die Vanilla-Zeilen und eine graue Hinweiszeile nennt die Umschalttaste (tooltipNeedsShift aus: immer das Raster). Gefärbte Kisten tönen das Raster in ihrer Farbe; größere Shulker-Stufen zeigen bis zu sechs Reihen, das letzte Feld zählt den Rest.",
           "Der Endertruhen-Inhalt liegt auf dem Server. Mit Simple Interfaces auf dem Server schickt er jedem Spieler nur seine eigene Endertruhe beim Einloggen und bei jedem Schließen (Endertruhen-Block oder Einfache Endertruhe), nie fortlaufend und nie fremde Truhen. Ohne Server-Teil bleibt der Endertruhen-Tooltip Vanilla; das Shulker-Raster geht trotzdem, weil die Kiste ihren Inhalt selbst trägt."
