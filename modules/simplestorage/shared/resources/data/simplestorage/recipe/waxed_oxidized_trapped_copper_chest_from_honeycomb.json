@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplestorage:oxidized_trapped_copper_chest",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simplestorage:waxed_oxidized_trapped_copper_chest"
+  }
+}

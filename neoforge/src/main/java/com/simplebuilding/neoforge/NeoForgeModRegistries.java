@@ -150,20 +150,20 @@ public final class NeoForgeModRegistries {
                     : null;
 
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>> TIERED_CHEST_BE =
-            BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<>(
+            com.simplebuilding.version.McVersion.STORAGE_IN_SB ? BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<>(
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
-                    ModBlocks.tieredChests()));
+                    ModBlocks.tieredChests())) : null;
 
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity>> TRAPPED_COPPER_CHEST_BE =
-            com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
                     ? BLOCK_ENTITIES.register("trapped_copper_chest", () -> new BlockEntityType<>(
                             com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity::new, ModBlocks.trappedCopperChests()))
                     : null;
 
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>> TIERED_SHULKER_BOX_BE =
-            BLOCK_ENTITIES.register("tiered_shulker_box", () -> new BlockEntityType<>(
+            com.simplebuilding.version.McVersion.STORAGE_IN_SB ? BLOCK_ENTITIES.register("tiered_shulker_box", () -> new BlockEntityType<>(
                     com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity::new,
-                    ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX));
+                    ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX)) : null;
 
     public static final Supplier<BlockEntityType<BackpackBlockEntity>> BACKPACK_BE =
             BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<>(BackpackBlockEntity::new,
@@ -332,9 +332,9 @@ public final class NeoForgeModRegistries {
             com.simplebuilding.fletching.FletchingRecipes.SHAFT_CATEGORY = FLETCHING_SHAFT_CATEGORY.get();
             com.simplebuilding.fletching.FletchingRecipes.FLETCHING_CATEGORY = FLETCHING_FLETCHING_PART_CATEGORY.get();
         }
-        ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
+        if (TIERED_CHEST_BE != null) ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         if (TRAPPED_COPPER_CHEST_BE != null) ModBlockEntities.TRAPPED_COPPER_CHEST_BE = TRAPPED_COPPER_CHEST_BE.get();
-        ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
+        if (TIERED_SHULKER_BOX_BE != null) ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();

@@ -122,11 +122,11 @@ public final class SimplebuildingForgeClient {
         if (com.simplebuilding.forge.ForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE.get(), com.simplebuilding.client.render.AstralEnchantingTableRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
-        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
+        if (com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE != null) event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
                 com.simplebuilding.client.render.TieredChestRenderer::new);
         if (com.simplebuilding.forge.ForgeModRegistries.TRAPPED_COPPER_CHEST_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.TRAPPED_COPPER_CHEST_BE.get(), com.simplebuilding.client.render.TrappedCopperChestRenderer::new);
-        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE.get(),
+        if (com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE != null) event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE.get(),
                 com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
     }
 

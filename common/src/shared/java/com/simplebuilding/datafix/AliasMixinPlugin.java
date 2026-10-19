@@ -10,13 +10,16 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
  * Mixin config plugin of {@code simplebuilding.mixins.json} and {@code simplebuilding.forge.mixins.json}: where
  * SimpleLib resolves moved ids ({@link IdMovesHook#LIB_ALIASES}, 26.3), the mod's own registry alias mixins are not
  * applied - one alias layer, not two. Where Simple Ovens owns the furnaces ({@code McVersion.OVENS_IN_SB} false), the
- * furnace menu mixin is Simple Ovens' and SimpleBuilding's copy stays out. Every other mixin applies as before.
+ * furnace menu mixin is Simple Ovens' and SimpleBuilding's copy stays out; likewise the copper chests' upgrade click where
+ * Simple Storage owns the chests ({@code McVersion.STORAGE_IN_SB} false). Every other mixin applies as before.
  */
 public final class AliasMixinPlugin implements IMixinConfigPlugin {
     static final Set<String> OWN_ALIAS_MIXINS = Set.of(
             "com.simplebuilding.mixin.MappedRegistryAliasMixin",
             "com.simplebuilding.mixin.forge.NamespacedWrapperAliasMixin");
     static final Set<String> OVENS_MIXINS = Set.of("com.simplebuilding.mixin.AbstractFurnaceMenuMixin");
+    /** Split stage 8b: the copper chests' upgrade click is Simple Storage's ({@code ChestUpgradeClickMixin}) where it owns the chests. */
+    static final Set<String> STORAGE_MIXINS = Set.of("com.simplebuilding.mixin.ChestBlockMixin");
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -32,6 +35,7 @@ public final class AliasMixinPlugin implements IMixinConfigPlugin {
         // Split stage 4: where Simple Ovens owns the furnaces (26.3) it also brings the furnace menu mixin. The constant
         // is inlined by javac, so no game class loads here.
         if (!com.simplebuilding.version.McVersion.OVENS_IN_SB && OVENS_MIXINS.contains(mixinClassName)) return false;
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB && STORAGE_MIXINS.contains(mixinClassName)) return false;
         return !(IdMovesHook.LIB_ALIASES && OWN_ALIAS_MIXINS.contains(mixinClassName));
     }
 

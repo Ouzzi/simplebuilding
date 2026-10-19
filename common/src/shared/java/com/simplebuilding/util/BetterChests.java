@@ -69,11 +69,8 @@ public final class BetterChests {
     }
 
     public static Block chestOf(ChestTier tier) {
-        return switch (tier) {
-            case REINFORCED -> ModBlocks.REINFORCED_CHEST;
-            case NETHERITE -> ModBlocks.NETHERITE_CHEST;
-            case ENDERITE -> ModBlocks.ENDERITE_CHEST;
-        };
+        // Split stage 8b: on 26.3 the chests are Simple Storage's (by id).
+        return StorageRefs.chestBlock(tier.textureName());
     }
 
     public static boolean enabled() {
@@ -93,7 +90,7 @@ public final class BetterChests {
      * (erste Haelfte trifft und die zweite trifft neu) - fuer beide Haelften dasselbe Ergebnis.
      */
     public static boolean decides(long worldSeed, BlockPos pos, BlockState state, double chance) {
-        Optional<BlockPos> partner = state.hasProperty(TieredChestBlock.TYPE) ? TieredChestBlock.partner(state, pos) : Optional.empty();
+        Optional<BlockPos> partner = state.hasProperty(net.minecraft.world.level.block.ChestBlock.TYPE) ? TieredChestBlock.partner(state, pos) : Optional.empty();
         if (partner.isEmpty()) {
             return rolls(worldSeed, pos, chance);
         }

@@ -26,7 +26,8 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
 
     /** Whether this step upgrades a shulker box (contents and color move, see {@link TieredShulkerBoxes}). */
     public static boolean isShulkerBox(Upgrade upgrade) {
-        return upgrade.to() instanceof com.simplebuilding.blocks.custom.TieredShulkerBoxBlock;
+        // Split stage 8b: the tier shulker boxes are Simple Storage's; they are Vanilla shulker boxes to everyone else.
+        return upgrade.to() instanceof net.minecraft.world.level.block.ShulkerBoxBlock;
     }
 
     /** The built-in table - the default the shipped datapack files are generated from. */
@@ -50,34 +51,36 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
                 toEnderite(map, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE);
             }
             toEnderite(map, ModBlocks.NETHERITE_PISTON, ModBlocks.ENDERITE_PISTON);
-            // Truhen: jede der acht Vanilla-Kupfertruhen (vier Oxidationsstufen, gewachst oder nicht)
-            // -> Verstaerkt -> Netherit -> Enderit. Der Umbau behaelt den Inhalt (TieredChests).
-            for (Block copperChest : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
-                if (copperChest instanceof net.minecraft.world.level.block.CopperChestBlock) {
-                    map.put(copperChest, new Upgrade(copperChest, ModBlocks.REINFORCED_CHEST, ModItems.CRACKED_DIAMOND,
-                            0, REINFORCED_DAMAGE_PER_HIT, false, true));
+            if (McVersion.STORAGE_IN_SB) { // 26.3: data/simplestorage/in_world_upgrades (split stage 8b)
+                // Truhen: jede der acht Vanilla-Kupfertruhen (vier Oxidationsstufen, gewachst oder nicht)
+                // -> Verstaerkt -> Netherit -> Enderit. Der Umbau behaelt den Inhalt (TieredChests).
+                for (Block copperChest : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+                    if (copperChest instanceof net.minecraft.world.level.block.CopperChestBlock) {
+                        map.put(copperChest, new Upgrade(copperChest, ModBlocks.REINFORCED_CHEST, ModItems.CRACKED_DIAMOND,
+                                0, REINFORCED_DAMAGE_PER_HIT, false, true));
+                    }
                 }
-            }
-            toNetherite(map, ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST);
-            toEnderite(map, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST);
-            if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
-                toNetherite(map, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST);
-                toEnderite(map, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST);
-            }
-            // Shulkerkisten: jede der 17 Vanilla-Shulkerkisten (ungefaerbt und 16 Farben) -> Verstaerkt ->
-            // Netherit -> Enderit, teurer als die Truhen (TieredShulkerBoxes). Farbe und Inhalt bleiben.
-            int factor = TieredShulkerBoxes.SHULKER_UPGRADE_DURATION_FACTOR;
-            int cost = TieredShulkerBoxes.SHULKER_UPGRADE_MATERIAL_COST;
-            for (Block vanillaBox : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
-                if (TieredShulkerBoxes.isVanillaShulkerBox(vanillaBox)) {
-                    map.put(vanillaBox, new Upgrade(vanillaBox, ModBlocks.REINFORCED_SHULKER_BOX, ModItems.CRACKED_DIAMOND,
-                            0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
+                toNetherite(map, ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST);
+                toEnderite(map, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST);
+                if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+                    toNetherite(map, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST);
+                    toEnderite(map, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST);
                 }
+                // Shulkerkisten: jede der 17 Vanilla-Shulkerkisten (ungefaerbt und 16 Farben) -> Verstaerkt ->
+                // Netherit -> Enderit, teurer als die Truhen (TieredShulkerBoxes). Farbe und Inhalt bleiben.
+                int factor = TieredShulkerBoxes.SHULKER_UPGRADE_DURATION_FACTOR;
+                int cost = TieredShulkerBoxes.SHULKER_UPGRADE_MATERIAL_COST;
+                for (Block vanillaBox : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+                    if (TieredShulkerBoxes.isVanillaShulkerBox(vanillaBox)) {
+                        map.put(vanillaBox, new Upgrade(vanillaBox, ModBlocks.REINFORCED_SHULKER_BOX, ModItems.CRACKED_DIAMOND,
+                                0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
+                    }
+                }
+                map.put(ModBlocks.REINFORCED_SHULKER_BOX, new Upgrade(ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX,
+                        ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
+                map.put(ModBlocks.NETHERITE_SHULKER_BOX, new Upgrade(ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX,
+                        ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
             }
-            map.put(ModBlocks.REINFORCED_SHULKER_BOX, new Upgrade(ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX,
-                    ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
-            map.put(ModBlocks.NETHERITE_SHULKER_BOX, new Upgrade(ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX,
-                    ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
             if (McVersion.CRUCIBLE) crucibleUpgrades(map);
             // Astral-Verzauberungstisch (Queue N27): Verzauberungstisch + Enderit-Nugget, ab Netherit-Hammer, 4x so viele
             // Schlaege (Standard 5 -> 20); verbraucht wird das Nugget beim letzten Schlag.

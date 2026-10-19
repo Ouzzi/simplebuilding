@@ -30,7 +30,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
-        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+        // Split stage 8b: on 26.3 Simple Storage tags its chests and shulker boxes itself.
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
             for (var chest : ModBlocks.trappedCopperChests()) {
                 builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(chest));
                 builder(BlockTags.GUARDED_BY_PIGLINS).add(key(chest));
@@ -146,14 +147,17 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.REINFORCED_PISTON_HEAD))
                 .add(key(ModBlocks.NETHERITE_PISTON_HEAD))
                 .add(key(ModBlocks.ENDERITE_PISTON_HEAD))
-                .add(key(ModBlocks.ENDERITE_HOPPER))
-                .add(key(ModBlocks.REINFORCED_CHEST))
-                .add(key(ModBlocks.NETHERITE_CHEST))
-                .add(key(ModBlocks.ENDERITE_CHEST))
-                // Gestufte Shulkerkisten: schneller mit der Spitzhacke, droppen aber mit jedem Werkzeug.
-                .add(key(ModBlocks.REINFORCED_SHULKER_BOX))
-                .add(key(ModBlocks.NETHERITE_SHULKER_BOX))
-                .add(key(ModBlocks.ENDERITE_SHULKER_BOX));
+                .add(key(ModBlocks.ENDERITE_HOPPER));
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE)
+                    .add(key(ModBlocks.REINFORCED_CHEST))
+                    .add(key(ModBlocks.NETHERITE_CHEST))
+                    .add(key(ModBlocks.ENDERITE_CHEST))
+                    // Gestufte Shulkerkisten: schneller mit der Spitzhacke, droppen aber mit jedem Werkzeug.
+                    .add(key(ModBlocks.REINFORCED_SHULKER_BOX))
+                    .add(key(ModBlocks.NETHERITE_SHULKER_BOX))
+                    .add(key(ModBlocks.ENDERITE_SHULKER_BOX));
+        }
 
 
         // 2. Er benötigt mindestens ein Eisenwerkzeug (wie Diamantblock)

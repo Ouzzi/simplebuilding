@@ -123,9 +123,12 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
         // Gestufte Shulkerkisten wie Vanillas Shulkerkiste: sich selbst mit Inhalt, Name und Schloss -
         // dazu die Farbe und die echten Anzahlen der Plaetze ueber 99. Ohne survives_explosion.
-        add(ModBlocks.REINFORCED_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.REINFORCED_SHULKER_BOX));
-        add(ModBlocks.NETHERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.NETHERITE_SHULKER_BOX));
-        add(ModBlocks.ENDERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.ENDERITE_SHULKER_BOX));
+        // Split stage 8b: on 26.3 the boxes and their loot tables are Simple Storage's (the chests: tieredChests() is empty).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            add(ModBlocks.REINFORCED_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.REINFORCED_SHULKER_BOX));
+            add(ModBlocks.NETHERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.NETHERITE_SHULKER_BOX));
+            add(ModBlocks.ENDERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.ENDERITE_SHULKER_BOX));
+        }
 
         dropSelf(ModBlocks.REINFORCED_PISTON);
         dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);

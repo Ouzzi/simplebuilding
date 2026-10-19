@@ -104,9 +104,9 @@ public final class SimplebuildingForgeClient {
         if (com.simplebuilding.forge.ForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
-        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
+        if (com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE != null) event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
                 com.simplebuilding.client.render.TieredChestRenderer::new);
-        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE.get(),
+        if (com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE != null) event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE.get(),
                 com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
     }
 

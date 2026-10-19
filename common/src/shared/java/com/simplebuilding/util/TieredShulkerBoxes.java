@@ -148,11 +148,21 @@ public final class TieredShulkerBoxes {
 
     /** A dyed tier shulker box item; the wash and the hand hint ({@code TransformTargets}) ask this. */
     public static boolean isWashable(ItemStack stack) {
-        return stack.getItem() instanceof BlockItem item && tierOf(item.getBlock()) != null && stack.has(DataComponents.BASE_COLOR);
+        return stack.getItem() instanceof BlockItem item && (tierOf(item.getBlock()) != null || isStorageBox(item.getBlock()))
+                && stack.has(DataComponents.BASE_COLOR);
+    }
+
+    /** A tier shulker box by id (split stage 8b: on 26.3 Simple Storage's). */
+    private static boolean isStorageBox(Block block) {
+        for (String tier : StorageRefs.TIERS) {
+            if (block == StorageRefs.shulkerBoxBlock(tier) && block != net.minecraft.world.level.block.Blocks.AIR) return true;
+        }
+        return false;
     }
 
     /** The three tier shulker box items. */
     public static List<net.minecraft.world.item.Item> items() {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) return List.of(); // 26.3: Simple Storage's (split stage 8b)
         return List.of(com.simplebuilding.items.ModItems.REINFORCED_SHULKER_BOX, com.simplebuilding.items.ModItems.NETHERITE_SHULKER_BOX,
                 com.simplebuilding.items.ModItems.ENDERITE_SHULKER_BOX);
     }

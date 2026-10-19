@@ -63,7 +63,8 @@ public final class VehicleTiers {
     }
 
     public static Block chest(ChestTier tier) {
-        return pick(tier, ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST);
+        // Split stage 8b: on 26.3 the chests are Simple Storage's (by id).
+        return com.simplebuilding.util.StorageRefs.chestBlock(tier.textureName());
     }
 
     public static Block furnace(ChestTier tier) {

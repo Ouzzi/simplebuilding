@@ -47,7 +47,7 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
         // Mod-Truhen wie NeoForges eigene Truhen-Anbindung (CapabilityHooks): eine Doppeltruhe ist
         // ein Lager aus beiden Haelften. VanillaContainerWrapper fragt getMaxStackSize(stack) der
         // Block-Entity, Rohre sehen also die x2/x4-Plaetze von Netherit und Enderit.
-        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_CHEST_BE.get(),
+        if (NeoForgeModRegistries.TIERED_CHEST_BE != null) event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_CHEST_BE.get(),
                 (chest, side) -> com.simplebuilding.neoforge.NeoForgeItemAutomation.chestHandler(chest));
         if (NeoForgeModRegistries.TRAPPED_COPPER_CHEST_BE != null) {
             event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TRAPPED_COPPER_CHEST_BE.get(),
@@ -55,7 +55,7 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
         }
         // Gestufte Shulkerkisten wie NeoForges Vanilla-Shulkerkiste: seitenweise ueber WorldlyContainer
         // (nimmt keine Shulkerkisten an), die x2/x4-Plaetze ueber getMaxStackSize(stack).
-        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_SHULKER_BOX_BE.get(), WorldlyContainerWrapper::new);
+        if (NeoForgeModRegistries.TIERED_SHULKER_BOX_BE != null) event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_SHULKER_BOX_BE.get(), WorldlyContainerWrapper::new);
     }
 
     /** Die Truhe, bei einer Doppeltruhe beide Haelften als ein Lager (erst die rechte, wie Vanilla). */

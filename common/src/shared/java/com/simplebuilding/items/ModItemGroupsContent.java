@@ -550,8 +550,8 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
             int shulkers = rows.indexOf(rows.stream().filter(row -> row.name().equals("shulker_boxes")).findFirst().orElseThrow());
             rows.add(shulkers, CreativeTabLayout.Row.of("trapped_chests", Items.TRAPPED_CHEST,
-                    ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
-            rows.add(shulkers + 1, CreativeTabLayout.Row.of("trapped_copper_chests", ModItems.trappedCopperChests()));
+                    com.simplebuilding.util.StorageRefs.trappedChest("reinforced"), com.simplebuilding.util.StorageRefs.trappedChest("netherite"), com.simplebuilding.util.StorageRefs.trappedChest("enderite")));
+            rows.add(shulkers + 1, CreativeTabLayout.Row.of("trapped_copper_chests", com.simplebuilding.util.StorageRefs.trappedCopperChests().toArray(net.minecraft.world.level.ItemLike[]::new)));
         }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch, Lohen-Obsidian-Boden, Lohenholz, Lohen-Regale, Lohenbuch.
@@ -649,15 +649,15 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("paint_boxes",
                         ModItems.PAINT_BOX, ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX),
                 CreativeTabLayout.Row.of("chests",
-                        Items.CHEST, Items.COPPER_CHEST.weathering().unaffected(), ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST,
-                        ModItems.ENDERITE_CHEST),
+                        Items.CHEST, Items.COPPER_CHEST.weathering().unaffected(), com.simplebuilding.util.StorageRefs.chest("reinforced"), com.simplebuilding.util.StorageRefs.chest("netherite"),
+                        com.simplebuilding.util.StorageRefs.chest("enderite")),
                 // 26.3: nach einer Luecke die Stufen-Shulkerschalen (2026-10-02) in derselben Zeile.
                 com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
-                        ? CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
-                                ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX, CreativeTabLayout.GAP,
+                        ? CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
+                                com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite"), CreativeTabLayout.GAP,
                                 ModItems.REINFORCED_SHULKER_SHELL, ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL)
-                        : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
-                                ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+                        : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
+                                com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));
     }
 
     /**

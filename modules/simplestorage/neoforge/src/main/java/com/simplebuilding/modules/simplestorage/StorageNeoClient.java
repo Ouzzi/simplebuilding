@@ -15,8 +15,14 @@ final class StorageNeoClient {
         bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             event.registerBlockEntityRenderer(StorageBlockEntities.CRATE, CrateRenderer::new);
             event.registerBlockEntityRenderer(StorageBlockEntities.STORAGE_CRAFTING_TABLE, StorageCraftingTableRenderer::new);
+            event.registerBlockEntityRenderer(StorageBlockEntities.TIERED_CHEST, com.simplestorage.client.TieredChestRenderer::new);
+            event.registerBlockEntityRenderer(StorageBlockEntities.TRAPPED_COPPER_CHEST, com.simplestorage.client.TrappedCopperChestRenderer::new);
+            event.registerBlockEntityRenderer(StorageBlockEntities.TIERED_SHULKER_BOX, com.simplestorage.client.TieredShulkerBoxRenderer::new);
         });
-        bus.addListener((RegisterMenuScreensEvent event) -> event.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new));
+        bus.addListener((RegisterMenuScreensEvent event) -> {
+            event.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new);
+            for (var type : StorageMenus.tieredTypes()) event.register(type, com.simplestorage.client.TieredChestScreen::new);
+        });
     }
 
     private StorageNeoClient() {}

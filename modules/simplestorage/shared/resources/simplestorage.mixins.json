@@ -4,7 +4,10 @@
   "package": "com.simplestorage.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "FireBlockInvoker"
+    "CauldronDispatcherAccessor",
+    "ChestUpgradeClickMixin",
+    "FireBlockInvoker",
+    "ShulkerBoxUpgradeClickMixin"
   ],
   "client": [],
   "server": [],

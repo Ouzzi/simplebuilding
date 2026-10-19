@@ -137,6 +137,12 @@ public final class McVersion {
     public static final String HAMMERS_NAMESPACE = "simplebuilding";
     /** Namespace of the storage blocks that left SimpleBuilding on 26.3 (split stage 8a: crates, Storage Crafting Table); 26.2 has neither. */
     public static final String STORAGE_NAMESPACE = "simplebuilding";
+    /**
+     * Whether SimpleBuilding registers the tiered and trapped chests, the trapped copper chests and the tier shulker boxes
+     * (with their block entities and the {@code container_counts} component) itself - split stage 8b,
+     * docs/ai/PLAN-B-S8B-STORAGE-2026-10-19.md. 26.2 keeps them in SimpleBuilding (no sub-mods on this line). SimpleBuilding reaches them by id ({@code util/StorageRefs}).
+     */
+    public static final boolean STORAGE_IN_SB = true;
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
     public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

@@ -41,7 +41,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             builder(ModTags.Items.REPAIRS_RESONANCE_ROD).add(key(Items.AMETHYST_SHARD));
         }
-        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
             for (var chest : ModBlocks.trappedCopperChests()) {
                 builder(net.minecraft.tags.TagKey.<Item>create(net.minecraft.core.registries.Registries.ITEM,
                         net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "chests/trapped"))).add(key(chest.asItem()));

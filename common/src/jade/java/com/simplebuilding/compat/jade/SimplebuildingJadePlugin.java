@@ -1,7 +1,6 @@
 package com.simplebuilding.compat.jade;
 
 import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
-import com.simplebuilding.blocks.custom.TieredChestBlock;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.compat.BlockInfo;
 import com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity;
@@ -68,7 +67,8 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.PAD_STATUS), Block.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.HOPPER_FILTER), Block.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.PISTON_DURABILITY), NetheriteBreakerPistonBlock.class);
-        registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), TieredChestBlock.class);
+        // Tier chests by id (BlockInfo answers only for them; split stage 8b: on 26.3 Simple Storage's classes).
+        registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), net.minecraft.world.level.block.ChestBlock.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), net.minecraft.world.level.block.EnderChestBlock.class);
         // Gestufte Shulkerkisten (BlockInfo antwortet nur fuer sie); ueber die Vanilla-Klasse, weil die
         // 1.21.11-Linie dieses Plugin mit ihrer eigenen Kopie des gemeinsamen Codes baut.

@@ -33,7 +33,9 @@ public abstract class ShulkerBoxBlockMixin {
     @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$passToTheHammer(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit,
                                                 CallbackInfoReturnable<InteractionResult> cir) {
-        if (SledgehammerUpgrades.shouldSkipBlockUse(state, level, pos, player, InteractionHand.MAIN_HAND)) {
+        // Split stage 8b: on 26.3 Simple Storage passes the upgrade click (ShulkerBoxUpgradeClickMixin); the lid state stays here.
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB
+                && SledgehammerUpgrades.shouldSkipBlockUse(state, level, pos, player, InteractionHand.MAIN_HAND)) {
             cir.setReturnValue(InteractionResult.PASS);
             return;
         }
