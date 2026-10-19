@@ -407,8 +407,8 @@ public final class NatureTests {
 
     /**
      * Old worlds of SimpleBuilding: every {@code simplebuilding:} id of the moved blocks (blocks, items, the rising block entity,
-     * recipe book, recipe advancements) resolves to the id here (SimpleLib IdMoves); a saved block state with the old id loads
-     * as the moved block.
+     * recipe book, recipe advancements) resolves to the id here (SimpleLib IdMoves; chunk palettes and item stacks look ids up the same way;
+     * SimpleBuilding's MigrationWorldTests load a whole old chunk).
      */
     public static void movedIdsFromSimplebuilding(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
@@ -422,14 +422,6 @@ public final class NatureTests {
             String advancement = "recipes/" + folder + "/" + path;
             if (!SimpleBlocks.id(advancement).equals(IdMoves.advancement(SimpleBlocks.old(advancement)))) problems.add("advancement " + advancement);
         });
-        var ops = helper.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
-        try {
-            BlockState ice = BlockState.CODEC.parse(ops, net.minecraft.nbt.TagParser.parseCompoundFully(
-                    "{Name:\"simplebuilding:cracked_ice\",Properties:{age:\"2\"}}")).getOrThrow();
-            if (!ice.is(NatureBlocks.CRACKED_ICE) || ice.getValue(CrackedIceBlock.AGE) != 2) problems.add("saved block state loads as " + ice);
-        } catch (Exception e) {
-            problems.add("old save data did not load: " + e);
-        }
         helper.assertTrue(problems.isEmpty(), "moved ids: " + problems);
         helper.succeed();
     }
