@@ -136,6 +136,9 @@ public final class TooltipTests {
             SimpleInterfaces.config().enableEnderChestTooltip = true;
             ServerPlayer p = h.makeMockServerPlayerInLevel();
             ServerPlayer other = h.makeMockServerPlayerInLevel();
+            h.assertTrue(to.contains(p), "login sends the snapshot");
+            to.clear();
+            sent.clear();
             p.getEnderChestInventory().setItem(5, new ItemStack(Items.DIAMOND, 3));
             p.getEnderChestInventory().startOpen(p);
             p.getEnderChestInventory().stopOpen(p);
