@@ -7,4 +7,5 @@ public final class ModuleGameTest {
     @GameTest public void s5aBounds(GameTestHelper h) { ServerOptTests.s5aBounds(h); }
     @GameTest public void s5aController(GameTestHelper h) { ServerOptTests.s5aController(h); }
     @GameTest public void configFile(GameTestHelper h) { ServerOptTests.configFile(h); }
+    @GameTest(structure = "simpleoptserver:empty") public void s5bRule(GameTestHelper h) { ServerOptTests.s5bRule(h); }
 }

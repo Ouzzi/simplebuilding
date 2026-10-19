@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpleoptrender.mixin.lightmap_cache;
 
 import com.simplebuilding.modules.simpleoptrender.LightmapCache;
+import com.simplebuilding.modules.simpleoptrender.RenderOpt;
 import net.minecraft.client.renderer.Lightmap;
 import net.minecraft.client.renderer.state.LightmapRenderState;
 import org.joml.Vector3fc;
@@ -19,7 +20,7 @@ abstract class LightmapMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void simpleoptrender$skipUnchanged(LightmapRenderState s, CallbackInfo ci) {
-        if (!s.needsUpdate) return;
+        if (!s.needsUpdate || !RenderOpt.live(RenderOpt.LIGHTMAP_CACHE)) return;
         float[] n = simpleoptrender$now;
         n[0] = s.skyFactor;
         n[1] = s.blockFactor;

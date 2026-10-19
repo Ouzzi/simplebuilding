@@ -9,7 +9,13 @@
     "leaf_culling.ModelBlockRendererMixin",
     "lightmap_cache.LightmapMixin",
     "fast_ip_ping.ServerNameResolverMixin",
-    "no_telemetry.ClientTelemetryManagerMixin"
+    "no_telemetry.ClientTelemetryManagerMixin",
+    "more_culling.AbstractSignRendererMixin",
+    "more_culling.BeaconRendererMixin",
+    "more_culling.EntityRendererMixin",
+    "details.ParticleEngineMixin",
+    "details.TextureAtlasMixin",
+    "details.FogRendererMixin"
   ],
   "server": [],
   "injectors": {

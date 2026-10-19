@@ -2,5 +2,6 @@
   "modmenu.nameTranslation.simpleoptserver": "Simple Opt Server",
   "simpleoptserver.area.dynamic_distance": "View distance by server load",
   "simpleoptserver.status.area": "%s %s: %s (%s)",
-  "simpleoptserver.status.distance": "View distance %s of %s, simulation %s of %s, MSPT %s"
+  "simpleoptserver.status.distance": "View distance %s of %s, simulation %s of %s, MSPT %s",
+  "simpleoptserver.area.activation_range": "Activation range"
 }

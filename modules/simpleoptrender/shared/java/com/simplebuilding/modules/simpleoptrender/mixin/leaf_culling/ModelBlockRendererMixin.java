@@ -22,6 +22,6 @@ abstract class ModelBlockRendererMixin {
     @Inject(method = "shouldRenderFace", at = @At("HEAD"), cancellable = true)
     private void simpleoptrender$cullLeaves(BlockAndTintGetter level, BlockState state, Direction direction, BlockPos neighborPos,
                                             CallbackInfoReturnable<Boolean> cir) {
-        if (cull && LeafCulling.cull(level, state, direction, neighborPos, RenderOpt.leafDepth())) cir.setReturnValue(false);
+        if (cull && RenderOpt.live(RenderOpt.LEAF_CULLING) && LeafCulling.cull(level, state, direction, neighborPos, RenderOpt.leafDepth())) cir.setReturnValue(false);
     }
 }

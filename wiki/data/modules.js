@@ -808,7 +808,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "98be845068d7"
+    "dataHash": "b2d1f93d90d8"
   },
   {
     "id": "simpleoptmemory",
@@ -821,7 +821,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "4d03e55afdca"
+    "dataHash": "6f05fd404d00"
   },
   {
     "id": "simpleoptserver",
@@ -834,6 +834,6 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "57366e58f2a1"
+    "dataHash": "c718c2a98ad5"
   }
 ];

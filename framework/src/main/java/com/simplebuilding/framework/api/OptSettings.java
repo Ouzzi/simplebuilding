@@ -26,7 +26,7 @@ public final class OptSettings {
         this.root = root;
     }
 
-    /** {@code defaults}: area id → key → default value (Number, Boolean or String; "mode" is added as "auto"). */
+    /** {@code defaults}: area id → key → default value (Number, Boolean or String; "mode" defaults to "auto" unless given). */
     public static OptSettings load(Path dir, String file, Map<String, Map<String, Object>> defaults, Consumer<String> warn) {
         Path path = dir == null ? null : dir.resolve(file);
         JsonObject read = ConfigFiles.readOrQuarantine(path, text -> JsonParser.parseString(text).getAsJsonObject(), warn);
@@ -50,10 +50,11 @@ public final class OptSettings {
         defaults.forEach((area, keys) -> {
             JsonObject entry = areas.has(area) && areas.get(area).isJsonObject() ? areas.getAsJsonObject(area) : new JsonObject();
             areas.add(area, entry);
-            if (!entry.has("mode")) entry.addProperty("mode", "auto");
             keys.forEach((key, value) -> {
                 if (!entry.has(key)) entry.add(key, GSON.toJsonTree(value));
             });
+            // Since 0.1.13 a default "mode" in {@code defaults} wins (areas that change gameplay start "off").
+            if (!entry.has("mode")) entry.addProperty("mode", "auto");
         });
         if (!root.has("conflictScan")) root.addProperty("conflictScan", true);
         return new OptSettings(root);
@@ -98,6 +99,15 @@ public final class OptSettings {
             return value == null ? fallback : value.getAsBoolean();
         } catch (RuntimeException e) {
             return fallback;
+        }
+    }
+
+    /** Since 0.1.13: the root key {@code conflictScan} (target check of concept §4.5), default on. */
+    public boolean conflictScan() {
+        try {
+            return !root.has("conflictScan") || root.get("conflictScan").getAsBoolean();
+        } catch (RuntimeException e) {
+            return true;
         }
     }
 

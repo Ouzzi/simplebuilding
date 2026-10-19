@@ -1,0 +1,6 @@
+{
+  "comment": "Simple Optimization priority table (concept 5.1). Written only by tools/bench/run_bench.py --apply-priorities; start value everywhere theirs.",
+  "areas": {
+    "state_tables": { "winner": "theirs", "vs": "ferritecore 9.0.0-fabric", "measured": "", "delta": {}, "runs": 0 }
+  }
+}
