@@ -237,4 +237,5 @@ Plan `docs/ai/PLAN-B-OPT45-2026-10-19.md`. Umgesetzt (Fabric 26.3, framework 0.1
   und Seiten-Tabellen; Mojang hat FerriteCores Kern in 26.3 schon übernommen), **S5b** `activation_range` (Standard `off`).
 - **Offen:** S1a (Audit: Leerlauf der Familien-BEs schon billig; teuer nur Trichter-Saugen/Pads, Schlaf bräuchte
   Item-Entity-Signal = Vanilla-Eingriff), O3 Regen hinter Decken, O4 Modell-Deduplizierung (Client), Messung O3/O4/O9/S5b
-  (Bench-Fall `o4` angelegt; Bench läuft als Client und wurde nicht gefahren).
+  (Bench-Fall `o4` angelegt; Bench läuft als Client und wurde nicht gefahren). O4-Zählung im Integrationslauf:
+  117 611 von 130 583 Arrays geteilt, ≈ 4,3 MiB.
