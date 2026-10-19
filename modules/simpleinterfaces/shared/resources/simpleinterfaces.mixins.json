@@ -5,7 +5,8 @@
   "mixins": [
     "ContainerMenuLinkedMixin",
     "ServerPlayerLinkedMixin",
-    "ItemUsePortableMixin"
+    "ItemUsePortableMixin",
+    "EnderChestSnapshotMixin"
   ],
   "client": [
     "ContainerLabelsMixin",
@@ -34,7 +35,9 @@
     "ContainerScreenLinkedMixin",
     "HudLinkedMixin",
     "KeyboardLinkedMixin",
-    "SlotPositionAccessor"
+    "SlotPositionAccessor",
+    "ClientTooltipPreviewMixin",
+    "ItemStackPreviewMixin"
   ],
   "injectors": {
     "defaultRequire": 1

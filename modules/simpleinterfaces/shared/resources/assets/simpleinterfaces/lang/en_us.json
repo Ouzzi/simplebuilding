@@ -66,5 +66,18 @@
   "simpleinterfaces.option.enableEasyEnderChests": "Easy Ender Chests",
   "simpleinterfaces.option.enableEasyEnderChests.tooltip": "Right-click an ender chest in the air or on its\ninventory slot to open your ender chest\nwithout placing it. Default: true.",
   "container.simpleinterfaces.linked": "Marked: %s",
-  "simpleinterfaces.tab.server": "Linked containers (server)"
+  "simpleinterfaces.tab.server": "Linked containers (server)",
+  "simpleinterfaces.option.tooltipShulker": "Shulker box contents tooltip",
+  "simpleinterfaces.option.tooltipShulker.tooltip": "Shulker box items show their contents as a slot\ngrid in the tooltip. Default: on.",
+  "simpleinterfaces.option.tooltipEnderChest": "Ender chest contents tooltip",
+  "simpleinterfaces.option.tooltipEnderChest.tooltip": "The ender chest item shows your own ender chest.\nNeeds Simple Interfaces on the server; it sends\nthe contents at login and when you close the\nender chest. Default: on.",
+  "simpleinterfaces.option.tooltipNeedsShift": "Contents grid only with Shift",
+  "simpleinterfaces.option.tooltipNeedsShift.tooltip": "On: the grid shows while Shift is held, otherwise\nthe Vanilla lines stay. Off: always the grid.\nDefault: on.",
+  "simpleinterfaces.option.tooltipColorByDye": "Grid in the box color",
+  "simpleinterfaces.option.tooltipColorByDye.tooltip": "Tint the grid of a dyed shulker box in its color.\nDefault: on.",
+  "simpleinterfaces.option.enableEnderChestTooltip": "Ender chest tooltip",
+  "simpleinterfaces.option.enableEnderChestTooltip.tooltip": "Send each player their own ender chest contents\nat login and when closing it, for the ender\nchest item tooltip. Never another player's chest.\nDefault: true.",
+  "simpleinterfaces.tooltip.shulker.shift": "Shift: show contents",
+  "simpleinterfaces.tooltip.ender_chest.shift": "Shift: show your ender chest",
+  "simpleinterfaces.tooltip.ender_chest.empty": "Your ender chest is empty"
 }

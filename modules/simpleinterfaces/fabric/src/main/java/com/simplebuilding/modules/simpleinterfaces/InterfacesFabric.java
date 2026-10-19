@@ -17,10 +17,17 @@ public final class InterfacesFabric implements ModInitializer {
         SimpleInterfaces.load();
         PayloadTypeRegistry.clientboundPlay().register(ConfigSyncPayload.TYPE, ConfigSyncPayload.STREAM_CODEC);
         PayloadTypeRegistry.clientboundPlay().register(LinkedOpenPayload.TYPE, LinkedOpenPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.TYPE,
+                com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(LinkedCancelPayload.TYPE, LinkedCancelPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(LinkedCancelPayload.TYPE, (payload, c) -> c.server().execute(() -> LinkedContainers.onCancel(c.player())));
         LinkedContainers.openSync = (p, payload) -> {
             if (!ServerPlayNetworking.canSend(p, LinkedOpenPayload.TYPE)) return false;
+            ServerPlayNetworking.send(p, payload);
+            return true;
+        };
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.sender = (p, payload) -> {
+            if (!ServerPlayNetworking.canSend(p, payload.type())) return false;
             ServerPlayNetworking.send(p, payload);
             return true;
         };
@@ -33,5 +40,6 @@ public final class InterfacesFabric implements ModInitializer {
 
     private static void sync(net.minecraft.server.level.ServerPlayer p) {
         if (ServerPlayNetworking.canSend(p, ConfigSyncPayload.TYPE)) ServerPlayNetworking.send(p, new ConfigSyncPayload(SimpleInterfaces.syncJson()));
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.send(p);
     }
 }

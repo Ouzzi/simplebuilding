@@ -18,6 +18,8 @@ public final class ContainersFabricClient implements ClientModInitializer {
         // Runs on the client thread in packet order: the slots must exist before the menu's first content packet.
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload.TYPE,
                 (p, c) -> com.simplebuilding.modules.simpleinterfaces.client.LinkedPanel.receive(p));
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload.TYPE,
+                (p, c) -> c.client().execute(() -> com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.receive(p)));
         com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers.cancelToServer = payload -> {
             if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
         };

@@ -84,6 +84,7 @@ public final class SimpleInterfaces {
     public static void clearSync() {
         synced = null;
         syncedActive = true;
+        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.enderSnapshot = null;
     }
 
     public static LinkedConfig syncedConfig() {

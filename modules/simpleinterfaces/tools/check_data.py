@@ -43,8 +43,8 @@ for feature in manual['features']:
     assert all((MODULE.parents[1] / source).is_file() for source in feature['sources']), feature['id']
 assert manual['notes'] == {} and not (MODULE / 'shared/resources/assets/simpleinterfaces/items').exists()
 mixins = read(MODULE / 'shared/resources/simpleinterfaces.mixins.json')
-# Client mixins draw the style; the common ones are the server side of the linked containers (formerly Simple QoL).
-assert mixins['client'] and set(mixins.get('mixins', [])) <= {'ContainerMenuLinkedMixin', 'ServerPlayerLinkedMixin', 'ItemUsePortableMixin'}, 'unexpected common mixin'
+# Client mixins draw the style and tooltips; the common ones are the server side of the linked containers (formerly Simple QoL) and the ender chest snapshot.
+assert mixins['client'] and set(mixins.get('mixins', [])) <= {'ContainerMenuLinkedMixin', 'ServerPlayerLinkedMixin', 'ItemUsePortableMixin', 'EnderChestSnapshotMixin'}, 'unexpected common mixin'
 for name in mixins['client'] + mixins.get('mixins', []):
     assert (JAVA / 'mixin' / f'{name}.java').is_file(), name
 print(f'simpleinterfaces: {len(ids)} styles in {len(groups)} group(s), bilingual options, wiki, client and linked-container mixins valid')
