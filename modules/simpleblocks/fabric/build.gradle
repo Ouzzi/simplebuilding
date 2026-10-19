@@ -1,7 +1,11 @@
 plugins { id 'net.fabricmc.fabric-loom' }
+// 1.0.0: SimpleBuilding 26.3 requires simpleblocks >=1.0.0 (required sub-mod since the building blocks moved here).
+ext.moduleVersion = '1.0.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // Bundles the shared framework API (sub-mod switch, config files, creative tab setting) for standalone runs.
 dependencies { include project(':framework') }
+// SimpleLib (IdMoves migration of the building blocks from SimpleBuilding) nested per principle 6a; compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // The cracked/mossy brick textures are Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
 // Optional JEI plugin (shared/java/com/simpleblocks/compat/jei, the Shaping Saw category): compiled against, never bundled.

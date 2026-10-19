@@ -115,4 +115,79 @@ public final class ModuleGameTest {
     public void sawUpgradeMode(GameTestHelper h) {
         BlocksTests.ALL.get("saw_upgrade_mode").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void natureRecipes(GameTestHelper h) {
+        BlocksTests.ALL.get("nature_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void grassSlabDropsDirtSlabWithoutSilkTouch(GameTestHelper h) {
+        BlocksTests.ALL.get("grass_slab_drops_dirt_slab_without_silk_touch").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sandAndGravelSlabsFallAndMerge(GameTestHelper h) {
+        BlocksTests.ALL.get("sand_and_gravel_slabs_fall_and_merge").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void gravitySlabsSettleOnSlabsAndHalfSteps(GameTestHelper h) {
+        BlocksTests.ALL.get("gravity_slabs_settle_on_slabs_and_half_steps").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void upperGravitySlabStartsFallingFromItsOwnHeight(GameTestHelper h) {
+        BlocksTests.ALL.get("upper_gravity_slab_starts_falling_from_its_own_height").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void naturalSlabsPlaceIntoTheFullBlock(GameTestHelper h) {
+        BlocksTests.ALL.get("natural_slabs_place_into_the_full_block").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void crackedIceLeavesNoWater(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_ice_leaves_no_water").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 200)
+    public void crackedIceMeltsUnderAnEntityAfterSomeSeconds(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_ice_melts_under_an_entity_after_some_seconds").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_ice_blocks_placement_on_all_sides_and_blends_with_ice").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void crackedIceDropsItselfWithSilkTouch(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_ice_drops_itself_with_silk_touch").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void movedBlocksRegistered(GameTestHelper h) {
+        BlocksTests.ALL.get("moved_blocks_registered").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void movedIdsFromSimplebuilding(GameTestHelper h) {
+        BlocksTests.ALL.get("moved_ids_from_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void gravityRecipesWithAndWithoutSimplebuilding(GameTestHelper h) {
+        BlocksTests.ALL.get("gravity_recipes_with_and_without_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void suspendedBlocksStayLevitatingBlocksRise(GameTestHelper h) {
+        BlocksTests.ALL.get("suspended_blocks_stay_levitating_blocks_rise").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void movedBlocksInTheTab(GameTestHelper h) {
+        BlocksTests.ALL.get("moved_blocks_in_the_tab").accept(h);
+    }
 }

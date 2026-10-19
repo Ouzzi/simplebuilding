@@ -1,7 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.CrackedIceBlock;
 import com.simplebuilding.version.McVersion;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
@@ -23,7 +22,7 @@ public final class N52VisualsClientTest {
     }
 
     public static void inWorld(Script script) {
-        if (!McVersion.NATURE_VARIANTS || ModBlocks.CRACKED_ICE == null) {
+        if (!McVersion.NATURE_VARIANTS || !com.simplebuilding.util.BlockRefs.present(com.simplebuilding.util.BlockRefs.CRACKED_ICE)) {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");
@@ -38,8 +37,8 @@ public final class N52VisualsClientTest {
             for (int age = 0; age < 4; age++) {
                 level.setBlock(new BlockPos(age * 2, 0, Z_ICE + 2), Blocks.FROSTED_ICE.defaultBlockState()
                         .setValue(net.minecraft.world.level.block.FrostedIceBlock.AGE, age), Block.UPDATE_ALL);
-                level.setBlock(new BlockPos(age * 2, 0, Z_ICE + 4), ModBlocks.CRACKED_ICE.defaultBlockState()
-                        .setValue(CrackedIceBlock.AGE, age), Block.UPDATE_ALL);
+                level.setBlock(new BlockPos(age * 2, 0, Z_ICE + 4), com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE).defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3, age), Block.UPDATE_ALL);
             }
             // Bridge redstone: a corner, a T and a cross, each with the connections of a placement.
             BlockPos[] bridge = {new BlockPos(1, 0, Z_BRIDGE), new BlockPos(2, 0, Z_BRIDGE), new BlockPos(1, 0, Z_BRIDGE + 1),

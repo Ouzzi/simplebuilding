@@ -2,6 +2,7 @@ package com.simplebuilding.items;
 
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
+import com.simplebuilding.util.BlockRefs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
+import com.simplebuilding.util.BlockRefs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -140,6 +142,12 @@ public final class SearchTabPlacement {
         return out;
     }
 
+    /** A building block that moved to Simple Blocks (b-blocksmove; on 26.2 the gravity blocks are still SB's), by id; missing ones leave the chain. */
+    private static ItemLike[] block(String path) {
+        Item item = BlockRefs.item(path);
+        return item == Items.AIR ? new ItemLike[0] : new ItemLike[]{item};
+    }
+
     private static ItemLike[] chain(Object... parts) {
         List<ItemLike> out = new ArrayList<>();
         for (Object part : parts) {
@@ -236,6 +244,12 @@ public final class SearchTabPlacement {
                 }
                 net.minecraft.world.level.block.Block full = com.simplebuilding.util.OctetRefs.source(cell);
                 if (full == null) {
+                    continue;
+                }
+                // b-blocksmove: octets of Simple Blocks' own blocks are left out - on Fabric this chain runs before Simple
+                // Blocks inserts the slab, so the octet would land at the end (open point for Simple Octets/Simple Blocks).
+                if ("simpleblocks".equals(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getNamespace())
+                        && !com.simplebuilding.util.BlockRefs.NATURE.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath())) {
                     continue;
                 }
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
@@ -358,25 +372,24 @@ public final class SearchTabPlacement {
 
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Naturvarianten (N24/N25) direkt hinter ihrem Grundblock; die Stufen vor den Schwebe-/Levitationsbloecken.
-            out.add(Placement.after(NATURAL_BLOCKS, Items.GRASS_BLOCK, ModItems.GRASS_SLAB));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.DIRT, ModItems.DIRT_SLAB));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.ICE, ModItems.CRACKED_ICE));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, ModItems.CHISELED_PACKED_ICE));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, ModItems.CHISELED_BLUE_ICE));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, chain(ModItems.NAUTILUS_SHELL_BLOCK, octet("bone_block"))));
+            // Seit b-blocksmove Bloecke von Simple Blocks (per Id); diese Kette setzt sie weiter, das Modul selbst nur ohne SB.
+            out.add(Placement.after(NATURAL_BLOCKS, Items.GRASS_BLOCK, block(BlockRefs.GRASS_SLAB)));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.DIRT, block(BlockRefs.DIRT_SLAB)));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.ICE, block(BlockRefs.CRACKED_ICE)));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, block(BlockRefs.CHISELED_PACKED_ICE)));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, block(BlockRefs.CHISELED_BLUE_ICE)));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, chain(block(BlockRefs.NAUTILUS_SHELL_BLOCK), octet("bone_block"))));
             out.add(Placement.after(NATURAL_BLOCKS, Items.SCULK_SHRIEKER, ModItems.SCULK_JAW));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
-                    ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT));
+                    chain(block(BlockRefs.SCARLET_FROGLIGHT), block(BlockRefs.AQUA_FROGLIGHT), block(BlockRefs.AZURE_FROGLIGHT))));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
-                    ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT).asSecondary());
+                    chain(block(BlockRefs.SCARLET_FROGLIGHT), block(BlockRefs.AQUA_FROGLIGHT), block(BlockRefs.AZURE_FROGLIGHT))).asSecondary());
         }
         boolean slabs = com.simplebuilding.version.McVersion.NATURE_VARIANTS;
-        out.add(Placement.after(NATURAL_BLOCKS, Items.GRAVEL, slabs
-                ? new ItemLike[]{ModItems.GRAVEL_SLAB, ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_GRAVEL}
-                : new ItemLike[]{ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_GRAVEL}));
-        out.add(Placement.after(NATURAL_BLOCKS, Items.SAND, slabs
-                ? new ItemLike[]{ModItems.SAND_SLAB, ModItems.SUSPENDED_SAND, ModItems.LEVITATING_SAND}
-                : new ItemLike[]{ModItems.SUSPENDED_SAND, ModItems.LEVITATING_SAND}));
+        out.add(Placement.after(NATURAL_BLOCKS, Items.GRAVEL, chain(slabs ? block(BlockRefs.GRAVEL_SLAB) : new ItemLike[0],
+                block(BlockRefs.SUSPENDED_GRAVEL), block(BlockRefs.LEVITATING_GRAVEL))));
+        out.add(Placement.after(NATURAL_BLOCKS, Items.SAND, chain(slabs ? block(BlockRefs.SAND_SLAB) : new ItemLike[0],
+                block(BlockRefs.SUSPENDED_SAND), block(BlockRefs.LEVITATING_SAND))));
 
         // --- Gebrauchsbloecke: Licht, Blaupause beim Kartografentisch, Oefen, Truhen, Koepfe.
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SEA_LANTERN, ModItems.CONSTRUCTION_LIGHT));

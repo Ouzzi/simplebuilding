@@ -24,8 +24,11 @@ public final class ModEntities {
      * dieselbe Trefferbox (0,98), damit {@code blockPosition()} beim Anstoßen an
      * eine Decke genau die freie Zelle darunter trifft, und {@code noLootTable()},
      * weil die Mod keine Entity-Loot-Tabelle mitliefert.
+     *
+     * <p>26.3 (b-blocksmove): the levitating blocks and this entity live in Simple Blocks ({@code simpleblocks:levitating_block},
+     * migrated through SimpleLib id moves); SimpleBuilding registers it only on the 26.2 line.
      */
-    public static final EntityType<LevitatingBlockEntity> LEVITATING_BLOCK = register("levitating_block");
+    public static final EntityType<LevitatingBlockEntity> LEVITATING_BLOCK = com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? register("levitating_block") : null;
 
     /** Pfeil vom Befiederungstisch; Masse wie Vanillas Pfeil. */
     public static final EntityType<com.simplebuilding.fletching.CraftedArrow> CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING

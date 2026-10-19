@@ -66,7 +66,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         ClientNetworking.setSender(ClientPlayNetworking::send);
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
-        EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        if (ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks (b-blocksmove)
+            EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        }
         if (com.simplebuilding.version.McVersion.FLETCHING) {
             EntityRendererRegistry.register(ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
         }
@@ -124,11 +126,6 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
-        if (com.simplebuilding.blocks.ModBlocks.GRASS_SLAB != null) {
-            // Gras-Stufe (N25) biomgefaerbt wie der Grasblock.
-            net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
-                    com.simplebuilding.blocks.ModBlocks.GRASS_SLAB);
-        }
         if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {

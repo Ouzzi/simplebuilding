@@ -42,6 +42,13 @@ Weitere einfache Blöcke in SB außerhalb des Tabs:
 | Truhen, Fässer, Rucksäcke, Trichter, Öfen, Eimer | Funktional | bleibt | Lager/Maschinen (Regel 16) |
 | Erze (Salbei, Nihilith, Astralit), Dimensionsschrott | Natur | bleibt | Material-/Enderit-Kette |
 
+## Stand 18.10. (b-blocksmove)
+Die 15 Items (Schwerkraft 4, Naturstufen 4, Eis/Schale 4, Froschlichter 3) und die Entity `levitating_block` liegen in `simpleblocks`
+(`com.simpleblocks.nature.NatureBlocks`, IdMoves aus `simplebuilding:`); Simple Blocks ist Pflicht-Sub-Mod von SimpleBuilding 26.3 (bündelt
+SimpleLib). Tab: Stufe T2 umgesetzt (die 15 stehen von Haus aus im Tab `simpleblocks:blocks`, SB hängt seine übrigen Zeilen per T1 an).
+SimpleBuilding behält Weltgenerierung (rissige Eisfelder), Meißel-/Hammer-Wege und Schwerkraft-Kolbentests (per Id). Plan:
+`docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md`.
+
 ## Zahlen
 - Tab „SimpleBlocks“ hat heute 12 Zeilengruppen (Basis) + Schach + Octets + Natur + Lichtscheiben + Schwefel + Holzwerk.
 - **Verschieben nach `simpleblocks`: 15 Items sicher** (4 Schwerkraft, 4 Naturstufen, 4 Eis/Schale, 3 Froschlichter) **plus 40 nach Entscheidung E-B1**

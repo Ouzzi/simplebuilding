@@ -4,59 +4,14 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 /**
- * Fabric adapter for the nature variants (N24/N25 slabs, ice, nautilus, froglights). No test logic here: every method
- * delegates to {@link NatureBlockTests}. Class and method names are load bearing: Fabric derives the test id from them.
+ * Fabric adapter for SimpleBuilding's uses of the nature variants (chisel, cracked ice fields; the blocks and their own tests
+ * are Simple Blocks' since b-blocksmove). No test logic here: every method delegates to {@link NatureBlockTests}. Class and method names are load bearing: Fabric derives the test id from them.
  */
 public final class NatureBlockGameTest {
 
     @GameTest
-    public void natureVariantsHaveTheirRecipes(GameTestHelper helper) {
-        NatureBlockTests.natureVariantsHaveTheirRecipes(helper);
-    }
-
-    @GameTest
-    public void grassSlabDropsDirtSlabWithoutSilkTouch(GameTestHelper helper) {
-        NatureBlockTests.grassSlabDropsDirtSlabWithoutSilkTouch(helper);
-    }
-
-    @GameTest(maxTicks = NatureBlockTests.FALLING_SLAB_MAX_TICKS)
-    public void sandAndGravelSlabsFallAndMerge(GameTestHelper helper) {
-        NatureBlockTests.sandAndGravelSlabsFallAndMerge(helper);
-    }
-
-    @GameTest(maxTicks = NatureBlockTests.FALLING_SLAB_MAX_TICKS)
-    public void gravitySlabsSettleOnSlabsAndHalfSteps(GameTestHelper helper) {
-        NatureBlockTests.gravitySlabsSettleOnSlabsAndHalfSteps(helper);
-    }
-
-    @GameTest(maxTicks = NatureBlockTests.FALLING_SLAB_MAX_TICKS)
-    public void upperGravitySlabStartsFallingFromItsOwnHeight(GameTestHelper helper) {
-        NatureBlockTests.upperGravitySlabStartsFallingFromItsOwnHeight(helper);
-    }
-
-    @GameTest
-    public void naturalSlabsPlaceIntoTheFullBlock(GameTestHelper helper) {
-        NatureBlockTests.naturalSlabsPlaceIntoTheFullBlock(helper);
-    }
-
-    @GameTest
-    public void crackedIceLeavesNoWaterAndChiselMakesIt(GameTestHelper helper) {
-        NatureBlockTests.crackedIceLeavesNoWaterAndChiselMakesIt(helper);
-    }
-
-    @GameTest(maxTicks = NatureBlockTests.CRACKED_ICE_MAX_TICKS)
-    public void crackedIceMeltsUnderAnEntityAfterSomeSeconds(GameTestHelper helper) {
-        NatureBlockTests.crackedIceMeltsUnderAnEntityAfterSomeSeconds(helper);
-    }
-
-    @GameTest
-    public void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper helper) {
-        NatureBlockTests.crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(helper);
-    }
-
-    @GameTest
-    public void crackedIceDropsItselfWithSilkTouch(GameTestHelper helper) {
-        NatureBlockTests.crackedIceDropsItselfWithSilkTouch(helper);
+    public void chiselMakesCrackedIce(GameTestHelper helper) {
+        NatureBlockTests.chiselMakesCrackedIce(helper);
     }
 
     @GameTest

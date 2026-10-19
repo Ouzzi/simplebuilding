@@ -2,7 +2,6 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
-import com.simplebuilding.entity.LevitatingBlockEntity;
 import com.simplebuilding.items.ModItems;
 import java.util.List;
 import java.util.Optional;
@@ -677,12 +676,12 @@ public final class GravityBlockTests {
         helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(5, 0, 1), Blocks.STONE);
 
-        helper.setBlock(rising, ModBlocks.LEVITATING_SAND);
+        helper.setBlock(rising, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
         helper.setBlock(falling, Blocks.SAND);
 
         long[] leftAt = {-1L, -1L};
         helper.onEachTick(() -> {
-            if (leftAt[0] < 0 && !helper.getBlockState(rising).is(ModBlocks.LEVITATING_SAND)) {
+            if (leftAt[0] < 0 && !helper.getBlockState(rising).is(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND))) {
                 leftAt[0] = helper.getTick();
             }
             if (leftAt[1] < 0 && !helper.getBlockState(falling).is(Blocks.SAND)) {
@@ -703,7 +702,7 @@ public final class GravityBlockTests {
                                     + "falling - both are placed in the same tick, so a different lead "
                                     + "time in LevitatingBlock shows up as a different tick here");
 
-                    LevitatingBlockEntity flyer = riser(helper);
+                    FallingBlockEntity flyer = riser(helper);
                     FallingBlockEntity sand = faller(helper);
                     firstSample[0] = flyer.getDeltaMovement().y;
                     firstSample[1] = sand.getDeltaMovement().y;
@@ -715,7 +714,7 @@ public final class GravityBlockTests {
                             "the vanilla sand should be moving downwards, speed " + firstSample[1]);
                 })
                 .thenExecuteAfter(VELOCITY_SAMPLE_GAP, () -> {
-                    LevitatingBlockEntity flyer = riser(helper);
+                    FallingBlockEntity flyer = riser(helper);
                     FallingBlockEntity sand = faller(helper);
                     double rise = flyer.getDeltaMovement().y;
                     double fall = sand.getDeltaMovement().y;
@@ -754,7 +753,7 @@ public final class GravityBlockTests {
                                     + "the same four ticks, but the block rose " + rose
                                     + " while the sand fell " + fell);
                 })
-                .thenExecute(() -> risingEntities(helper).forEach(LevitatingBlockEntity::discard))
+                .thenExecute(() -> risingEntities(helper).forEach(FallingBlockEntity::discard))
                 .thenSucceed();
     }
 
@@ -827,13 +826,13 @@ public final class GravityBlockTests {
         helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
         helper.setBlock(roof, Blocks.STONE);
         helper.setBlock(lid, Blocks.STONE);
-        helper.setBlock(start, ModBlocks.LEVITATING_SAND);
+        helper.setBlock(start, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
 
         // The second column: a lid that is not air but that vanilla still calls free.
         helper.setBlock(new BlockPos(5, 0, 1), Blocks.STONE);
         helper.setBlock(porousRoof, Blocks.STONE);
         helper.setBlock(porousLid, Blocks.STRUCTURE_VOID);
-        helper.setBlock(porousStart, ModBlocks.LEVITATING_SAND);
+        helper.setBlock(porousStart, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
 
         // Hangs on the levitating block itself: FACING=EAST means the cell to its west carries it.
         helper.setBlock(tell, Blocks.WALL_TORCH.defaultBlockState()
@@ -845,8 +844,8 @@ public final class GravityBlockTests {
                             "the torch that hangs on the levitating block is gone, so that cell was "
                                     + "empty at least once in these 20 ticks - the block must not "
                                     + "leave at all while something solid sits directly above it");
-                    helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, start);
-                    List<LevitatingBlockEntity> flying = risingEntities(helper);
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), start);
+                    List<FallingBlockEntity> flying = risingEntities(helper);
                     helper.assertTrue(flying.isEmpty(),
                             "a levitating block with a solid block directly above it must not lift "
                                     + "off, but " + flying.size() + " entity/entities exist");
@@ -861,15 +860,15 @@ public final class GravityBlockTests {
                     helper.assertTrue(FallingBlock.isFree(porous),
                             "vanilla no longer counts the second column's lid as free, so that "
                                     + "column is not expected to rise and proves nothing");
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, porousStart);
-                    helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, porousLanding);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), porousStart);
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), porousLanding);
 
                     // Take the lid away; nothing but updateShape can notice.
                     helper.setBlock(lid, Blocks.AIR);
                 })
-                .thenWaitUntil(() -> helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, landing))
+                .thenWaitUntil(() -> helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), landing))
                 .thenExecute(() -> {
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, start);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), start);
                     helper.assertTrue(risingEntities(helper).isEmpty(),
                             "the entity should be gone once it turned back into a block");
                     // The rig checks itself: the same torch that had to survive phase one has to be
@@ -948,10 +947,10 @@ public final class GravityBlockTests {
                         .setValue(MovingPistonBlock.FACING, Direction.UP),
                 Block.UPDATE_CLIENTS);
 
-        helper.setBlock(unlandableStart, ModBlocks.LEVITATING_SAND);
-        helper.setBlock(pistonStart, ModBlocks.LEVITATING_SAND);
+        helper.setBlock(unlandableStart, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
+        helper.setBlock(pistonStart, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
 
-        Item levitatingSand = ModBlocks.LEVITATING_SAND.asItem();
+        Item levitatingSand = com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_SAND);
 
         // The x the first dropped item is seen at. An entity spawned during the entity tick phase
         // is not part of that same pass, and every game test assertion runs after the level tick,
@@ -970,13 +969,13 @@ public final class GravityBlockTests {
                 .thenExecuteAfter(2, () -> {
                     // The marker for defect 5, checked while the room is still intact.
                     helper.assertFalse(
-                            ModBlocks.LEVITATING_SAND.defaultBlockState()
+                            com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND).defaultBlockState()
                                     .hasProperty(BlockStateProperties.WATERLOGGED),
                             "levitating sand can be waterlogged now, so the fluid handling in "
                                     + "LevitatingBlockEntity#rise and in its landing branch is finally "
                                     + "reachable and needs a test of its own");
                     helper.assertFalse(
-                            ModBlocks.LEVITATING_GRAVEL.defaultBlockState()
+                            com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL).defaultBlockState()
                                     .hasProperty(BlockStateProperties.WATERLOGGED),
                             "levitating gravel can be waterlogged now - same as above");
                 })
@@ -986,13 +985,13 @@ public final class GravityBlockTests {
                     helper.assertBlockPresent(Blocks.MOVING_PISTON, movingPistonCell);
 
                     // Torch column: broken and dropped, not placed.
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, torchCell);
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, torchCell.below());
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, unlandableStart);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), torchCell);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), torchCell.below());
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), unlandableStart);
 
                     // Moving piston column: not placed, still in the air.
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, movingPistonCell);
-                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, movingPistonCell.below());
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), movingPistonCell);
+                    helper.assertBlockNotPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), movingPistonCell.below());
 
                     // Exactly one drop, and it belongs to the torch column. Counting instead of
                     // asking within a radius: the dropped item is already most of the way to the
@@ -1014,7 +1013,7 @@ public final class GravityBlockTests {
                                     + "; the moving piston column is at x="
                                     + (movingPistonCell.getX() + 0.5D));
 
-                    List<LevitatingBlockEntity> flying = risingEntities(helper);
+                    List<FallingBlockEntity> flying = risingEntities(helper);
                     helper.assertValueEqual(flying.size(), 1,
                             "exactly one rising entity should be left: the one over the moving piston. "
                                     + "The one under the wall torch has to be gone, and the moving piston "
@@ -1032,7 +1031,7 @@ public final class GravityBlockTests {
                 .thenExecute(() -> {
                     // The survivor would otherwise keep bouncing under the ceiling for the rest of
                     // the run, and the drop would still be lying there when the room is reused.
-                    risingEntities(helper).forEach(LevitatingBlockEntity::discard);
+                    risingEntities(helper).forEach(FallingBlockEntity::discard);
                     levitatingSandDrops(helper, levitatingSand).forEach(ItemEntity::discard);
                 })
                 .thenSucceed();
@@ -1050,7 +1049,7 @@ public final class GravityBlockTests {
      *
      * <p>The shapes are asserted and then driven twice per block. <b>Items</b> are dropped onto
      * each block from above and have to come to rest on top of it. <b>Levitating blocks</b> rise
-     * from two blocks below each suspended block: the {@link LevitatingBlockEntity} moves by
+     * from two blocks below each suspended block: the {@code LevitatingBlockEntity} moves by
      * vanilla's collision, so it has to hit the underside of the suspended block, stop there and
      * turn back into a block in the cell directly underneath - with nothing left flying and nothing
      * dropped. Without the behavioural half the test would only be reading the shape back out of
@@ -1069,10 +1068,10 @@ public final class GravityBlockTests {
 
         helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(5, 0, 1), Blocks.STONE);
-        helper.setBlock(sand, ModBlocks.SUSPENDED_SAND);
-        helper.setBlock(gravel, ModBlocks.SUSPENDED_GRAVEL);
-        helper.setBlock(sandCeiling, ModBlocks.SUSPENDED_SAND);
-        helper.setBlock(gravelCeiling, ModBlocks.SUSPENDED_GRAVEL);
+        helper.setBlock(sand, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND));
+        helper.setBlock(gravel, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL));
+        helper.setBlock(sandCeiling, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND));
+        helper.setBlock(gravelCeiling, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL));
 
         ServerLevel level = helper.getLevel();
         for (BlockPos pos : List.of(sand, gravel)) {
@@ -1085,8 +1084,8 @@ public final class GravityBlockTests {
 
         ItemEntity ontoSand = helper.spawnItem(Items.STONE, new Vec3(1.5D, 6.0D, 1.5D));
         ItemEntity ontoGravel = helper.spawnItem(Items.STONE, new Vec3(5.5D, 6.0D, 1.5D));
-        helper.setBlock(sandRiser, ModBlocks.LEVITATING_SAND);
-        helper.setBlock(gravelRiser, ModBlocks.LEVITATING_GRAVEL);
+        helper.setBlock(sandRiser, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
+        helper.setBlock(gravelRiser, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL));
 
         helper.startSequence()
                 .thenExecuteAfter(60, () -> {
@@ -1099,15 +1098,15 @@ public final class GravityBlockTests {
                             "the item should be lying on top of the suspended gravel at y=3, but it is at y="
                                     + gravelY + " - it fell through");
 
-                    List<LevitatingBlockEntity> flying = risingEntities(helper);
+                    List<FallingBlockEntity> flying = risingEntities(helper);
                     helper.assertTrue(flying.isEmpty(),
                             "both levitating blocks should have landed under the suspended blocks, but "
                                     + flying.size() + " are still flying at "
                                     + flying.stream().map(e -> helper.relativeVec(e.position()).toString()).toList());
-                    helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, sandCeiling.below());
-                    helper.assertBlockPresent(ModBlocks.LEVITATING_GRAVEL, gravelCeiling.below());
-                    helper.assertBlockPresent(ModBlocks.SUSPENDED_SAND, sandCeiling);
-                    helper.assertBlockPresent(ModBlocks.SUSPENDED_GRAVEL, gravelCeiling);
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), sandCeiling.below());
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), gravelCeiling.below());
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), sandCeiling);
+                    helper.assertBlockPresent(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), gravelCeiling);
                     List<ItemEntity> dropped = helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds(),
                             item -> !item.getItem().is(Items.STONE));
                     helper.assertTrue(dropped.isEmpty(),
@@ -1117,7 +1116,7 @@ public final class GravityBlockTests {
                 .thenExecute(() -> {
                     ontoSand.discard();
                     ontoGravel.discard();
-                    risingEntities(helper).forEach(LevitatingBlockEntity::discard);
+                    risingEntities(helper).forEach(FallingBlockEntity::discard);
                 })
                 .thenSucceed();
     }
@@ -1168,19 +1167,19 @@ public final class GravityBlockTests {
         assertPickaxeMineable(helper, ModBlocks.REINFORCED_PISTON_HEAD, true);
         assertPickaxeMineable(helper, ModBlocks.NETHERITE_PISTON_HEAD, true);
         assertPickaxeMineable(helper, ModBlocks.ENDERITE_PISTON_HEAD, true);
-        assertPickaxeMineable(helper, ModBlocks.LEVITATING_SAND, false);
-        assertPickaxeMineable(helper, ModBlocks.SUSPENDED_SAND, false);
-        assertPickaxeMineable(helper, ModBlocks.LEVITATING_GRAVEL, false);
-        assertPickaxeMineable(helper, ModBlocks.SUSPENDED_GRAVEL, false);
+        assertPickaxeMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), false);
+        assertPickaxeMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), false);
+        assertPickaxeMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), false);
+        assertPickaxeMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), false);
 
         // --- the shovel tag the four gravity blocks are missing from; see defect 6 ---
         // The two vanilla lines are the proof that the lookup can say yes at all.
         assertShovelMineable(helper, Blocks.SAND, true);
         assertShovelMineable(helper, Blocks.GRAVEL, true);
-        assertShovelMineable(helper, ModBlocks.LEVITATING_SAND, false);
-        assertShovelMineable(helper, ModBlocks.SUSPENDED_SAND, false);
-        assertShovelMineable(helper, ModBlocks.LEVITATING_GRAVEL, false);
-        assertShovelMineable(helper, ModBlocks.SUSPENDED_GRAVEL, false);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), false);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), false);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), false);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), false);
 
         // --- strength, measured through the state, against vanilla's piston ---
         float vanillaSpeed = Blocks.PISTON.defaultBlockState().getDestroySpeed(level, absoluteProbe);
@@ -1306,13 +1305,13 @@ public final class GravityBlockTests {
 
         // "BBB" / "BMB" / "BBB", eight of the coated block per craft.
         assertCoating(helper, level, Items.SAND, ModItems.NIHILITH_SHARD,
-                "simplebuilding:suspended_sand", ModBlocks.SUSPENDED_SAND.asItem());
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND));
         assertCoating(helper, level, Items.GRAVEL, ModItems.NIHILITH_SHARD,
-                "simplebuilding:suspended_gravel", ModBlocks.SUSPENDED_GRAVEL.asItem());
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL));
         assertCoating(helper, level, Items.SAND, ModItems.ASTRALIT_DUST,
-                "simplebuilding:levitating_sand", ModBlocks.LEVITATING_SAND.asItem());
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.LEVITATING_SAND).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_SAND));
         assertCoating(helper, level, Items.GRAVEL, ModItems.ASTRALIT_DUST,
-                "simplebuilding:levitating_gravel", ModBlocks.LEVITATING_GRAVEL.asItem());
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL).toString(), com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL));
 
         // Red sand stands in for the whole #minecraft:sand tag. It is the one ingredient that
         // separates "the key names the block" from "the key names the tag the block is in", and
@@ -1427,8 +1426,8 @@ public final class GravityBlockTests {
      * structures stand a few blocks apart, and any margin would also collect the entities of the
      * neighbouring test and make the result depend on the order the tests happen to run in.
      */
-    private static List<LevitatingBlockEntity> risingEntities(GameTestHelper helper) {
-        return helper.getLevel().getEntitiesOfClass(LevitatingBlockEntity.class, helper.getBounds());
+    private static List<FallingBlockEntity> risingEntities(GameTestHelper helper) {
+        return helper.getLevel().getEntitiesOfClass(FallingBlockEntity.class, helper.getBounds(), com.simplebuilding.util.BlockRefs::isRising);
     }
 
     /** The dropped levitating sand items inside THIS structure; the bounds stay uninflated too. */
@@ -1437,17 +1436,17 @@ public final class GravityBlockTests {
                 item -> item.getItem().is(levitatingSand));
     }
 
-    private static LevitatingBlockEntity riser(GameTestHelper helper) {
-        List<LevitatingBlockEntity> found = risingEntities(helper);
+    private static FallingBlockEntity riser(GameTestHelper helper) {
+        List<FallingBlockEntity> found = risingEntities(helper);
         helper.assertValueEqual(found.size(), 1, "rising entities in the room");
         return found.get(0);
     }
 
-    /** The vanilla falling sand in the room - every {@link LevitatingBlockEntity} filtered out. */
+    /** The vanilla falling sand in the room - every {@code LevitatingBlockEntity} filtered out. */
     private static FallingBlockEntity faller(GameTestHelper helper) {
         List<FallingBlockEntity> found = helper.getLevel()
                 .getEntitiesOfClass(FallingBlockEntity.class, helper.getBounds()).stream()
-                .filter(entity -> !(entity instanceof LevitatingBlockEntity))
+                .filter(entity -> !com.simplebuilding.util.BlockRefs.isRising(entity))
                 .toList();
         helper.assertValueEqual(found.size(), 1, "vanilla falling block entities in the room");
         return found.get(0);

@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:sand",
+    "M": "simplebuilding:nihilith_shard"
+  },
+  "pattern": [
+    "BBB",
+    "BMB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simpleblocks:suspended_sand"
+  }
+}

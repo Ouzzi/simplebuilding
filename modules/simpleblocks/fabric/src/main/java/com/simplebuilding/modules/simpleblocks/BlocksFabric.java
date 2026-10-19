@@ -14,6 +14,9 @@ import net.minecraft.world.item.ItemStack;
 public final class BlocksFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        // Old simplebuilding: ids of the moved building blocks resolve here (before anything loads a world).
+        SimpleBlocks.registerIdMoves();
+        SimpleBlocks.simplebuildingLoaded = FabricLoader.getInstance().isModLoaded("simplebuilding");
         BlocksRegistry.registerAll();
         // Stonecutter -> Shaping Saw in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
         com.simpleblocks.saw.SawUpgrade.hammerMode = FabricLoader.getInstance().isModLoaded("simplehammers");
@@ -35,7 +38,9 @@ public final class BlocksFabric implements ModInitializer {
                     // Never twice (another mod may have placed them already); at the end when the Vanilla item is missing.
                     var stacks = placement.stacks().stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
                     if (stacks.isEmpty()) continue;
-                    if (out.getDisplayStacks().stream().anyMatch(s -> s.is(placement.before()))) out.insertBefore(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    boolean anchored = out.getDisplayStacks().stream().anyMatch(s -> s.is(placement.before()));
+                    if (anchored && placement.after()) out.insertAfter(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    else if (anchored) out.insertBefore(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                     else stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
                 }
             });

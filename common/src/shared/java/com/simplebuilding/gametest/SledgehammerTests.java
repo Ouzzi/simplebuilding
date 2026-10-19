@@ -117,7 +117,7 @@ public final class SledgehammerTests {
 
     /** N53: the hammer cracks plain ice first, the chips come from the cracked ice (lines without cracked ice: plain ice). */
     private static Block chippedIce() {
-        return com.simplebuilding.version.McVersion.NATURE_VARIANTS ? com.simplebuilding.blocks.ModBlocks.CRACKED_ICE : Blocks.ICE;
+        return com.simplebuilding.version.McVersion.NATURE_VARIANTS ? com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE) : Blocks.ICE;
     }
 
     /**
@@ -139,8 +139,8 @@ public final class SledgehammerTests {
         player.setGameMode(GameType.SURVIVAL);
         helper.assertTrue(useChipHammerOnce(helper, player, hammer, pos).consumesAction(), "hammer did not handle ice");
         var state = helper.getBlockState(pos);
-        helper.assertTrue(state.is(com.simplebuilding.blocks.ModBlocks.CRACKED_ICE)
-                && state.getValue(com.simplebuilding.blocks.custom.CrackedIceBlock.AGE) == 0, "struck ice should be cracked ice, is " + state);
+        helper.assertTrue(state.is(com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE))
+                && state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3) == 0, "struck ice should be cracked ice, is " + state);
         helper.assertTrue(chipDrops(helper, ModItems.ICE_CHIP) == 0 && chipDrops(helper, Items.ICE) == 0, "cracking dropped items");
         helper.assertTrue(hammer.getDamageValue() == 1 && player.getCooldowns().isOnCooldown(hammer), "one strike: one durability and the cooldown");
         player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));

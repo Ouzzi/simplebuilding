@@ -75,6 +75,19 @@ afterEvaluate {
         }
     }
 }
+// SimpleBuilding 26.3 requires its sub-mod Simple Blocks (b-blocksmove, nested in production): same as Simple Ovens below.
+afterEvaluate {
+    if (project.path == ':modules:simpleblocks:neoforge' || rootProject.findProject(':modules:simpleblocks:neoforge') == null) return
+    if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
+    if (neoForge.mods.findByName('simpleblocks') == null) {
+        neoForge.mods.create('simpleblocks') { sourceSet rootProject.project(':modules:simpleblocks:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') }) {
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simpleblocks]).unique())
+        }
+    }
+}
 // SimpleBuilding 26.3 requires its sub-mod Simple Hammers (split stage 7, nested in production): same as Simple Ovens below.
 afterEvaluate {
     if (project.path == ':modules:simplehammers:neoforge' || rootProject.findProject(':modules:simplehammers:neoforge') == null) return

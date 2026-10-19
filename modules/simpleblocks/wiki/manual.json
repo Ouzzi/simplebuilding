@@ -219,6 +219,110 @@
           "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen."
         ]
       }
+    },
+    {
+      "id": "nature_variants",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/FallingSlabBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/MergingSlabBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/CrackedIceBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/CrackedIcePlaceMixin.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/CrackedIceFacesMixin.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/grass_slab.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "related": [
+        "simpleblocks:dirt_slab",
+        "simpleblocks:grass_slab",
+        "simpleblocks:sand_slab",
+        "simpleblocks:gravel_slab",
+        "simpleblocks:cracked_ice",
+        "simpleblocks:chiseled_packed_ice",
+        "simpleblocks:chiseled_blue_ice",
+        "simpleblocks:nautilus_shell_block",
+        "simpleblocks:scarlet_froglight",
+        "simpleblocks:aqua_froglight",
+        "simpleblocks:azure_froglight"
+      ],
+      "en": {
+        "title": "Natural Block Variants",
+        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
+        "details": [
+          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
+          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. It neither spreads nor turns into dirt.",
+          "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand or Gravel Slab onto one gives dirt, a grass block, sand or gravel instead of a double slab.",
+          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
+          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it breaks away and leaves no water. With nobody on it the cracks stay. No block can be placed against any of its sides, and next to ice it hides the faces between them like ice next to ice. Otherwise it behaves like ice and drops only with Silk Touch. With SimpleBuilding the stone chisel and the sledgehammer also turn ice into cracked ice, and SimpleBuilding's world generation lays cracked ice fields.",
+          "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
+          "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
+          "Scarlet, Aqua and Azure Froglights: any froglight (tag simpleblocks:froglights) plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
+          "Creative mode: in the Simple Blocks tab behind the module's own blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (with SimpleBuilding its search-tab placement puts them there, the froglights also in Functional Blocks).",
+          "Moved from SimpleBuilding (26.3): worlds with the old simplebuilding: ids keep these blocks and items; recipes and their unlocks keep working (SimpleLib id moves)."
+        ]
+      },
+      "de": {
+        "title": "Naturvarianten",
+        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
+        "details": [
+          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
+          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Sie breitet sich nicht aus und wird nicht zu Erde.",
+          "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand oder Kies statt einer Doppelstufe.",
+          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
+          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten bricht es weg und hinterlässt kein Wasser. Steht niemand darauf, bleiben die Risse. An keine seiner Seiten lässt sich ein Block setzen, und neben Eis blendet es die gemeinsamen Flächen aus wie Eis neben Eis. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit. Mit SimpleBuilding machen auch der Steinmeißel und der Vorschlaghammer aus Eis rissiges Eis, und SimpleBuildings Weltgenerierung legt Felder aus rissigem Eis an.",
+          "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
+          "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
+          "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht (Tag simpleblocks:froglights) plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
+          "Kreativmodus: im Tab Simple Blocks hinter den eigenen Blöcken des Moduls und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (mit SimpleBuilding setzt dessen Suchtab-Platzierung sie dorthin, die Froschlichter auch in Gebrauchsblöcke).",
+          "Aus SimpleBuilding umgezogen (26.3): Welten mit den alten simplebuilding:-Ids behalten diese Blöcke und Gegenstände; Rezepte und ihre Freischaltungen gelten weiter (SimpleLib-Id-Umzüge)."
+        ]
+      }
+    },
+    {
+      "id": "gravity_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlockEntity.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/suspended_sand_without_simplebuilding.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/levitating_sand_without_simplebuilding.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "related": [
+        "simpleblocks:suspended_sand",
+        "simpleblocks:suspended_gravel",
+        "simpleblocks:levitating_sand",
+        "simpleblocks:levitating_gravel"
+      ],
+      "en": {
+        "title": "Suspended and Levitating Sand and Gravel",
+        "summary": "Sand and gravel without gravity (suspended) and with reversed gravity (levitating).",
+        "details": [
+          "Recipes: 8 Sand or Gravel around one centre item make 8. With SimpleBuilding the centre is a Nihilith Shard (suspended) or Astralit Dust (levitating); without SimpleBuilding a Phantom Membrane (suspended) or a Breeze Rod (levitating). Only one of the two ways is active at a time.",
+          "Suspended Sand and Suspended Gravel are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising levitating block lands underneath them.",
+          "Levitating Sand and Levitating Gravel fall upwards: two ticks after being placed, and again whenever a neighbor changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick), so it starts slowly and accelerates like falling sand.",
+          "A rising block that runs into a ceiling turns back into a block in the free space below it. If it cannot be placed there, it drops as an item. Above the build limit it breaks and drops as an item.",
+          "Each drops itself. Their models use the vanilla sand and gravel textures, so the item tooltip says what they do. None of them is in a tool tag.",
+          "Moved from SimpleBuilding (26.3): old simplebuilding: ids load as these blocks, items and the rising entity."
+        ]
+      },
+      "de": {
+        "title": "Schwebender und aufsteigender Sand und Kies",
+        "summary": "Sand und Kies ohne Schwerkraft (schwebend) und mit umgekehrter Schwerkraft (aufsteigend).",
+        "details": [
+          "Rezepte: 8 Sand oder Kies rund um ein Mittelstück ergeben 8. Mit SimpleBuilding ist das Mittelstück ein Nihilitsplitter (schwebend) bzw. Astralitstaub (aufsteigend); ohne SimpleBuilding eine Phantomhaut (schwebend) bzw. eine Windrute (aufsteigend). Es gilt immer nur einer der beiden Wege.",
+          "Schwebender Sand und schwebender Kies sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Block landet darunter.",
+          "Aufsteigender Sand und aufsteigender Kies fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick) und beschleunigt daher wie fallender Sand.",
+          "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block. Passt er dort nicht hin, fällt er als Gegenstand. Über dem Baulimit zerbricht er und fällt als Gegenstand.",
+          "Jeder droppt sich selbst. Ihre Modelle nutzen die Vanilla-Texturen von Sand und Kies, deshalb sagt der Tooltip, was sie tun. Keiner steht in einem Werkzeug-Tag.",
+          "Aus SimpleBuilding umgezogen (26.3): alte simplebuilding:-Ids laden als diese Blöcke, Gegenstände und die aufsteigende Entity."
+        ]
+      }
     }
   ],
   "notes": {
@@ -228,10 +332,10 @@
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+        "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+        "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
       }
     },
     "*_slab": {
@@ -304,6 +408,90 @@
       },
       "de": {
         "summary": "Blaue Netherziegel: ein dekorativer Ziegelblock mit Platten-, Treppen- und Mauervarianten."
+      }
+    },
+    "suspended_sand": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Suspended Sand: sand without gravity; it stays where it is put and is solid."
+      },
+      "de": {
+        "summary": "Schwebender Sand: Sand ohne Schwerkraft; er bleibt, wo man ihn setzt, und ist fest."
+      }
+    },
+    "suspended_gravel": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Suspended Gravel: gravel without gravity; it stays where it is put and is solid."
+      },
+      "de": {
+        "summary": "Schwebender Kies: Kies ohne Schwerkraft; er bleibt, wo man ihn setzt, und ist fest."
+      }
+    },
+    "levitating_sand": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Levitating Sand: sand with reversed gravity; it rises as an entity and lands under a ceiling."
+      },
+      "de": {
+        "summary": "Aufsteigender Sand: Sand mit umgekehrter Schwerkraft; er steigt als Entity auf und landet unter einer Decke."
+      }
+    },
+    "levitating_gravel": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Levitating Gravel: gravel with reversed gravity; it rises as an entity and lands under a ceiling."
+      },
+      "de": {
+        "summary": "Aufsteigender Kies: Kies mit umgekehrter Schwerkraft; er steigt als Entity auf und landet unter einer Decke."
+      }
+    },
+    "*_froglight": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "A froglight in a color the frogs do not make (red, cyan or blue): any froglight plus a dye; light level 15."
+      },
+      "de": {
+        "summary": "Ein Froschlicht in einer Farbe, die Frösche nicht machen (rot, cyan oder blau): ein beliebiges Froschlicht plus Farbstoff; Lichtstufe 15."
+      }
+    },
+    "chiseled_*_ice": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Chiseled packed or blue ice: cut 1:1 from its base block in the stonecutter, as slippery as it; drops only with Silk Touch."
+      },
+      "de": {
+        "summary": "Gemeißeltes Pack- oder Blaueis: am Steinmetz 1:1 aus dem Grundblock, so rutschig wie dieser; droppt nur mit Behutsamkeit."
+      }
+    },
+    "nautilus_shell_block": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Block of Nautilus Shell: four nautilus shells in a square, crafts back into four; placed along an axis like the bone block."
+      },
+      "de": {
+        "summary": "Nautilusschalenblock: vier Nautilusschalen im Quadrat, wieder in vier zerlegbar; wird wie der Knochenblock entlang einer Achse gesetzt."
       }
     }
   }

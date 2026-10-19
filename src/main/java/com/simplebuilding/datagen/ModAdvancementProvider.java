@@ -328,8 +328,9 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(ModItems.ASTRALIT_BRICKS, ModItems.NIHILITH_BRICKS, ModItems.ENDER_QUARTZ_BRICKS));
             node("end/astral_projection", dust, ModItems.ASTRAL_PURPUR_BLOCK, AdvancementType.TASK, "astral_block",
                     any(ModItems.ASTRAL_PURPUR_BLOCK, ModItems.NIHIL_PURPUR_BLOCK, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE));
-            node("end/defying_gravity", dust, ModItems.LEVITATING_SAND, AdvancementType.TASK, "gravity_block",
-                    any(ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL));
+            // The gravity blocks belong to Simple Blocks on 26.3 (b-blocksmove, by id; datagen loads the required sub-mod).
+            node("end/defying_gravity", dust, com.simplebuilding.util.BlockRefs.item(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), AdvancementType.TASK, "gravity_block",
+                    any(com.simplebuilding.util.BlockRefs.GRAVITY.stream().map(com.simplebuilding.util.BlockRefs::item).toArray(net.minecraft.world.item.Item[]::new)));
 
             AdvancementHolder raw = node("enderite/raw_deal", dust, ModItems.RAW_ENDERITE, AdvancementType.TASK, "raw_enderite",
                     any(ModItems.RAW_ENDERITE));

@@ -64,6 +64,8 @@ public final class ModDataFixer {
     static final String BACKPACK_BLOCK_ENTITY = NS + "backpack";
     static final String BACKPACK_CONTENTS_COMPONENT = NS + "backpack_contents";
     static final String LEVITATING_BLOCK = NS + "levitating_block";
+    /** 26.3 (b-blocksmove): the rising block lives in Simple Blocks; worlds saved since then hold this id. */
+    static final String MOVED_LEVITATING_BLOCK = "simpleblocks:levitating_block";
 
     private ModDataFixer() {
     }
@@ -147,7 +149,7 @@ public final class ModDataFixer {
             compound.getList("Contents").ifPresent(entries -> fixItemStacks(fixer, entries, from, to));
             return compound;
         }
-        if (id.equals(LEVITATING_BLOCK) && compound.contains("BlockState")) {
+        if ((id.equals(LEVITATING_BLOCK) || id.equals(MOVED_LEVITATING_BLOCK)) && compound.contains("BlockState")) {
             return fixAs(fixer, References.ENTITY, compound, id, "minecraft:falling_block", from, to);
         }
         return compound;

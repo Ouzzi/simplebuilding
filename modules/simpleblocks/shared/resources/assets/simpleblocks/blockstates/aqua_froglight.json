@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simpleblocks:block/aqua_froglight",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simpleblocks:block/aqua_froglight"
+    },
+    "axis=z": {
+      "model": "simpleblocks:block/aqua_froglight",
+      "x": 90
+    }
+  }
+}

@@ -87,8 +87,10 @@ public final class SimplebuildingForgeClient {
     /** Wie Fabric/NeoForge: schwebender Sand/Kies nutzt den Vanilla-FallingBlockRenderer. */
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
-                net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        if (com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks
+            event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
+                    net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        }
         if (com.simplebuilding.version.McVersion.FLETCHING) {
             event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
         }

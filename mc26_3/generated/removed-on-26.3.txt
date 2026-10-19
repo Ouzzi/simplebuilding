@@ -19,6 +19,8 @@ assets/simplebuilding/blockstates/enderman_head.json
 assets/simplebuilding/blockstates/enderman_wall_head.json
 assets/simplebuilding/blockstates/husk_head.json
 assets/simplebuilding/blockstates/husk_wall_head.json
+assets/simplebuilding/blockstates/levitating_gravel.json
+assets/simplebuilding/blockstates/levitating_sand.json
 assets/simplebuilding/blockstates/netherite_blast_furnace.json
 assets/simplebuilding/blockstates/netherite_furnace.json
 assets/simplebuilding/blockstates/netherite_smoker.json
@@ -36,6 +38,8 @@ assets/simplebuilding/blockstates/spider_head.json
 assets/simplebuilding/blockstates/spider_wall_head.json
 assets/simplebuilding/blockstates/stray_skull.json
 assets/simplebuilding/blockstates/stray_wall_skull.json
+assets/simplebuilding/blockstates/suspended_gravel.json
+assets/simplebuilding/blockstates/suspended_sand.json
 assets/simplebuilding/items/basic_upgrade_template.json
 assets/simplebuilding/items/blaze_head.json
 assets/simplebuilding/items/bogged_skull.json
@@ -73,6 +77,8 @@ assets/simplebuilding/items/guide_book_tweaks.json
 assets/simplebuilding/items/husk_head.json
 assets/simplebuilding/items/iron_sledgehammer.json
 assets/simplebuilding/items/layered_raw_enderite.json
+assets/simplebuilding/items/levitating_gravel.json
+assets/simplebuilding/items/levitating_sand.json
 assets/simplebuilding/items/netherite_blast_furnace.json
 assets/simplebuilding/items/netherite_furnace.json
 assets/simplebuilding/items/netherite_nugget.json
@@ -90,6 +96,8 @@ assets/simplebuilding/items/slime_head.json
 assets/simplebuilding/items/spider_head.json
 assets/simplebuilding/items/stone_sledgehammer.json
 assets/simplebuilding/items/stray_skull.json
+assets/simplebuilding/items/suspended_gravel.json
+assets/simplebuilding/items/suspended_sand.json
 assets/simplebuilding/models/block/cracked_diamond_block.json
 assets/simplebuilding/models/block/enderite_blast_furnace.json
 assets/simplebuilding/models/block/enderite_blast_furnace_on.json
@@ -98,6 +106,8 @@ assets/simplebuilding/models/block/enderite_furnace.json
 assets/simplebuilding/models/block/enderite_furnace_on.json
 assets/simplebuilding/models/block/enderite_smoker.json
 assets/simplebuilding/models/block/enderite_smoker_on.json
+assets/simplebuilding/models/block/levitating_gravel.json
+assets/simplebuilding/models/block/levitating_sand.json
 assets/simplebuilding/models/block/netherite_blast_furnace.json
 assets/simplebuilding/models/block/netherite_blast_furnace_on.json
 assets/simplebuilding/models/block/netherite_furnace.json
@@ -111,6 +121,8 @@ assets/simplebuilding/models/block/reinforced_furnace.json
 assets/simplebuilding/models/block/reinforced_furnace_on.json
 assets/simplebuilding/models/block/reinforced_smoker.json
 assets/simplebuilding/models/block/reinforced_smoker_on.json
+assets/simplebuilding/models/block/suspended_gravel.json
+assets/simplebuilding/models/block/suspended_sand.json
 assets/simplebuilding/models/item/basic_upgrade_template.json
 assets/simplebuilding/models/item/copper_sledgehammer.json
 assets/simplebuilding/models/item/cracked_diamond.json
@@ -150,9 +162,13 @@ data/simplebuilding/advancement/hammer/full_radiance.json
 data/simplebuilding/advancement/hammer/glow_up.json
 data/simplebuilding/advancement/recipes/building_blocks/cracked_diamond_block.json
 data/simplebuilding/advancement/recipes/building_blocks/enderite_ingot.json
+data/simplebuilding/advancement/recipes/building_blocks/levitating_gravel.json
+data/simplebuilding/advancement/recipes/building_blocks/levitating_sand.json
 data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone.json
 data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone_from_end_stone_bricks_stonecutting.json
 data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone_from_end_stone_stonecutting.json
+data/simplebuilding/advancement/recipes/building_blocks/suspended_gravel.json
+data/simplebuilding/advancement/recipes/building_blocks/suspended_sand.json
 data/simplebuilding/advancement/recipes/combat/enderite_sledgehammer_smithing.json
 data/simplebuilding/advancement/recipes/decorations/enderite_block.json
 data/simplebuilding/advancement/recipes/misc/backpack_dyed.json
@@ -221,6 +237,8 @@ data/simplebuilding/loot_table/blocks/enderite_furnace.json
 data/simplebuilding/loot_table/blocks/enderite_smoker.json
 data/simplebuilding/loot_table/blocks/enderman_head.json
 data/simplebuilding/loot_table/blocks/husk_head.json
+data/simplebuilding/loot_table/blocks/levitating_gravel.json
+data/simplebuilding/loot_table/blocks/levitating_sand.json
 data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json
 data/simplebuilding/loot_table/blocks/netherite_furnace.json
 data/simplebuilding/loot_table/blocks/netherite_smoker.json
@@ -233,6 +251,8 @@ data/simplebuilding/loot_table/blocks/silverfish_head.json
 data/simplebuilding/loot_table/blocks/slime_head.json
 data/simplebuilding/loot_table/blocks/spider_head.json
 data/simplebuilding/loot_table/blocks/stray_skull.json
+data/simplebuilding/loot_table/blocks/suspended_gravel.json
+data/simplebuilding/loot_table/blocks/suspended_sand.json
 data/simplebuilding/loot_table/inject/charged_creeper/root.json
 data/simplebuilding/recipe/backpack_dyed.json
 data/simplebuilding/recipe/basic_upgrade_template.json
@@ -271,6 +291,8 @@ data/simplebuilding/recipe/guide_book_trims.json
 data/simplebuilding/recipe/guide_book_tweaks.json
 data/simplebuilding/recipe/iron_sledgehammer.json
 data/simplebuilding/recipe/layered_raw_enderite.json
+data/simplebuilding/recipe/levitating_gravel.json
+data/simplebuilding/recipe/levitating_sand.json
 data/simplebuilding/recipe/netherite_backpack_dyed.json
 data/simplebuilding/recipe/netherite_bundle_dyed.json
 data/simplebuilding/recipe/netherite_ingot.json
@@ -291,6 +313,8 @@ data/simplebuilding/recipe/reinforced_furnace.json
 data/simplebuilding/recipe/reinforced_quiver_dyed.json
 data/simplebuilding/recipe/reinforced_smoker.json
 data/simplebuilding/recipe/stone_sledgehammer.json
+data/simplebuilding/recipe/suspended_gravel.json
+data/simplebuilding/recipe/suspended_sand.json
 data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json
 data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json
 data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json

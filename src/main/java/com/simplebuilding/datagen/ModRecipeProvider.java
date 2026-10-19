@@ -188,39 +188,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .save(output);
                     }
                 }
-                // Naturvarianten (N24/N25): Stufen 3 -> 6 wie Vanilla (keine Steinsaege: die schneidet nur Stein);
-                // Eisvarianten am Steinmetz 1:1; Nautilusschalen 2x2 <-> Block; Froschlicht + Farbstoff -> neue Farbe.
+                // Naturvarianten (N24/N25): seit b-blocksmove Bloecke von Simple Blocks mit ihren Rezepten dort; hier bleibt die Sculk-Kiefer.
                 if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-                    Block[][] slabs = {
-                            {ModBlocks.DIRT_SLAB, net.minecraft.world.level.block.Blocks.DIRT},
-                            {ModBlocks.GRASS_SLAB, net.minecraft.world.level.block.Blocks.GRASS_BLOCK},
-                            {ModBlocks.SAND_SLAB, net.minecraft.world.level.block.Blocks.SAND},
-                            {ModBlocks.GRAVEL_SLAB, net.minecraft.world.level.block.Blocks.GRAVEL}};
-                    for (Block[] pair : slabs) {
-                        slabBuilder(RecipeCategory.BUILDING_BLOCKS, pair[0], Ingredient.of(pair[1]))
-                                .unlockedBy(getHasName(pair[1]), has(pair[1])).save(output);
-                    }
-                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_ICE, net.minecraft.world.level.block.Blocks.ICE);
-                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_PACKED_ICE, net.minecraft.world.level.block.Blocks.PACKED_ICE);
-                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BLUE_ICE, net.minecraft.world.level.block.Blocks.BLUE_ICE);
-                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.NAUTILUS_SHELL_BLOCK).pattern("SS").pattern("SS")
-                            .define('S', Items.NAUTILUS_SHELL)
-                            .unlockedBy(getHasName(Items.NAUTILUS_SHELL), has(Items.NAUTILUS_SHELL)).save(output);
-                    shapeless(RecipeCategory.MISC, Items.NAUTILUS_SHELL, 4).requires(ModItems.NAUTILUS_SHELL_BLOCK)
-                            .unlockedBy(getHasName(ModItems.NAUTILUS_SHELL_BLOCK), has(ModItems.NAUTILUS_SHELL_BLOCK))
-                            .save(output, "nautilus_shell_from_nautilus_shell_block");
                     // Sculk-Kiefer: Fangzaehne (Knochen), Echo-Splitter und Sculk - der Splitter gibt es nur in Ancient Cities.
                     shaped(RecipeCategory.REDSTONE, ModItems.SCULK_JAW).pattern("BEB").pattern("SSS")
                             .define('B', Items.BONE).define('E', Items.ECHO_SHARD).define('S', Items.SCULK)
                             .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
-                    Item[][] froglights = {
-                            {ModItems.SCARLET_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.RED)},
-                            {ModItems.AQUA_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.CYAN)},
-                            {ModItems.AZURE_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.BLUE)}};
-                    for (Item[] pair : froglights) {
-                        shapeless(RecipeCategory.BUILDING_BLOCKS, pair[0]).requires(com.simplebuilding.util.ModTags.Items.FROGLIGHTS).requires(pair[1])
-                                .unlockedBy("has_froglight", has(com.simplebuilding.util.ModTags.Items.FROGLIGHTS)).save(output);
-                    }
                 }
                 // Light Panes (N57): glass pane + glowstone dust; transparent = glass only plus a little dust; dye or redstone on a pane.
                 if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
@@ -1409,14 +1382,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                 }
 
-                // --- GRAVITY BLOCKS ---
-                // Nihilith -> No Gravity (Suspended)
-                createCoatingRecipe(output, ModBlocks.SUSPENDED_SAND, Items.SAND, ModItems.NIHILITH_SHARD);
-                createCoatingRecipe(output, ModBlocks.SUSPENDED_GRAVEL, Items.GRAVEL, ModItems.NIHILITH_SHARD);
+                // --- GRAVITY BLOCKS --- (26.3: Simple Blocks owns them and keeps these recipes under a simplebuilding condition)
+                if (com.simplebuilding.version.McVersion.BLOCKS_IN_SB) {
+                    // Nihilith -> No Gravity (Suspended)
+                    createCoatingRecipe(output, ModBlocks.SUSPENDED_SAND, Items.SAND, ModItems.NIHILITH_SHARD);
+                    createCoatingRecipe(output, ModBlocks.SUSPENDED_GRAVEL, Items.GRAVEL, ModItems.NIHILITH_SHARD);
 
-                // Astralit -> Reverse Gravity (Levitating/Upwards)
-                createCoatingRecipe(output, ModBlocks.LEVITATING_SAND, Items.SAND, ModItems.ASTRALIT_DUST);
-                createCoatingRecipe(output, ModBlocks.LEVITATING_GRAVEL, Items.GRAVEL, ModItems.ASTRALIT_DUST);
+                    // Astralit -> Reverse Gravity (Levitating/Upwards)
+                    createCoatingRecipe(output, ModBlocks.LEVITATING_SAND, Items.SAND, ModItems.ASTRALIT_DUST);
+                    createCoatingRecipe(output, ModBlocks.LEVITATING_GRAVEL, Items.GRAVEL, ModItems.ASTRALIT_DUST);
+                }
 
                 // --- ENDERITE ITEMS (Smithing Upgrades) ---
                 // Bundle

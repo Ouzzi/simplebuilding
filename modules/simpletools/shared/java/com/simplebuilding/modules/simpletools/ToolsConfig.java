@@ -15,6 +15,12 @@ public final class ToolsConfig {
     public boolean anvilRepairKeepsCost = true;
     /** Right click a furnace with a lava bucket fills its fuel slot. */
     public boolean enableFurnaceLavaFill = true;
+    /** Sneak + shears on a filled item frame hides/shows it (Vanilla Invisible); an emptied hidden frame shows again (2026-10-19). */
+    public boolean enableItemFrameInvisibility = true;
+    /** Sneak + honeycomb locks a filled item frame (Vanilla Fixed), sneak + axe unlocks it (2026-10-19). */
+    public boolean enableItemFrameLock = true;
+    /** Sneak + right click turns the item in a frame backwards (2026-10-19). */
+    public boolean enableItemFrameReverseRotate = true;
     /** Soulbound items stay in their slot on death (owner 2026-10-12). */
     public boolean enableSoulbound = true;
     /** Death Vault block: shows what became of the items dropped at your last death. */

@@ -1,6 +1,50 @@
 {
   "prices": [
     {
+      "item": "simpleblocks:levitating_gravel",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleblocks:levitating_sand",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleblocks:suspended_gravel",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleblocks:suspended_sand",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:amethyst_lens",
       "tier": 1,
       "hours": 6.7,
@@ -1211,28 +1255,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:levitating_gravel",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:levitating_sand",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:magnet",
       "tier": 1,
       "hours": 6.7,
@@ -2232,28 +2254,6 @@
       "level": 1,
       "stock": 2,
       "chance": 1
-    },
-    {
-      "item": "simplebuilding:suspended_gravel",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:suspended_sand",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplebuilding:velocity_gauge",

@@ -310,10 +310,9 @@ public class ChiselItem extends Item {
             registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().strippedBlock(), family.hollowStripped());
         }
 
-        // Rissiges Eis (Queue Nachtrag 35): der Meissel macht aus Eis rissiges Eis (Spatel zurueck).
-        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, Blocks.ICE, ModBlocks.CRACKED_ICE);
-        }
+        // Rissiges Eis (Queue Nachtrag 35): der Meissel macht aus Eis rissiges Eis (Spatel zurueck) - seit b-blocksmove ein Block
+        // von Simple Blocks, der beim Laden dieser Klasse noch nicht registriert sein muss: nur ueber die Datenpaket-Datei
+        // chisel_transformations/cracked_ice_stone_chisel.json (wie die End-Hoelzer).
 
         // =================================================================================
         // MERGING

@@ -186,10 +186,10 @@ public final class SawTests {
         h.succeed();
     }
 
-    /** Optional cuts only with their mod: Simple End's woods, SimpleBuilding's natural slabs. */
+    /** Optional cuts only with their mod: Simple End's woods; the natural slabs are this module's since b-blocksmove (always). */
     private static void optionalMods(GameTestHelper h) {
         ServerLevel level = h.getLevel();
-        boolean end = has("simpleend:ashwood_planks"), sb = has("simplebuilding:dirt_slab");
+        boolean end = has("simpleend:ashwood_planks"), sb = BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals("simplebuilding"));
         if (end) {
             for (String w : List.of("ashwood", "duskwood")) {
                 expect(h, level, "simpleend:" + w + "_planks", "simpleend:" + w + "_stairs", 1);
@@ -197,7 +197,7 @@ public final class SawTests {
                 expect(h, level, "simpleend:" + w + "_log", "simpleend:" + w + "_planks", 4);
             }
         }
-        if (sb) expect(h, level, "minecraft:dirt", "simplebuilding:dirt_slab", 2);
+        expect(h, level, "minecraft:dirt", "simpleblocks:dirt_slab", 2);
         for (Sawing.Entry e : Sawing.entries(level)) {
             String ns = BuiltInRegistries.ITEM.getKey(e.result().item().value()).getNamespace();
             h.assertTrue(!ns.equals("simpleend") || end, "Simple End cut without Simple End: " + e.id());

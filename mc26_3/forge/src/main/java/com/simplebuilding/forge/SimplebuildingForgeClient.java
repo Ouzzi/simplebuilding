@@ -87,8 +87,10 @@ public final class SimplebuildingForgeClient {
     /** Wie Fabric/NeoForge: schwebender Sand/Kies nutzt den Vanilla-FallingBlockRenderer. */
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
-                net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        if (com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks
+            event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
+                    net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        }
         if (com.simplebuilding.version.McVersion.FLETCHING) {
             event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
         }
@@ -209,11 +211,6 @@ public final class SimplebuildingForgeClient {
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
-        if (com.simplebuilding.blocks.ModBlocks.GRASS_SLAB != null) {
-            // Gras-Stufe (N25) biomgefaerbt wie der Grasblock.
-            event.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
-                    com.simplebuilding.blocks.ModBlocks.GRASS_SLAB);
-        }
         if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) event.register(
                 java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
     }

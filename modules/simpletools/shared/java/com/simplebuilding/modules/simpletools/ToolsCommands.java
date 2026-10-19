@@ -20,7 +20,10 @@ public final class ToolsCommands {
                 .then(toggle("furnaceLava", (c, v) -> c.enableFurnaceLavaFill = v))
                 .then(toggle("soulbound", (c, v) -> c.enableSoulbound = v))
                 .then(toggle("deathVault", (c, v) -> c.enableDeathVault = v))
-                .then(toggle("deathVaultRedeem", (c, v) -> c.deathVaultRedeem = v)));
+                .then(toggle("deathVaultRedeem", (c, v) -> c.deathVaultRedeem = v))
+                .then(toggle("itemFrameInvisible", (c, v) -> c.enableItemFrameInvisibility = v))
+                .then(toggle("itemFrameLock", (c, v) -> c.enableItemFrameLock = v))
+                .then(toggle("itemFrameReverseRotate", (c, v) -> c.enableItemFrameReverseRotate = v)));
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> toggle(String name, BiConsumer<ToolsConfig, Boolean> setter) {

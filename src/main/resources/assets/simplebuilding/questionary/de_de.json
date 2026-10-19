@@ -1938,28 +1938,6 @@
       "Ein Notenverstärker, der den Notenblock oder einen schon in der Kette berührt, gibt den Klang weiter. Eine Lücke beendet eine Notenkette."
     ]
   },
-  "cracked_ice": {
-    "lore": [
-      "Eis, das zu viele Schritte gesehen hat."
-    ],
-    "use": [
-      "Im Steinschneider aus einem Eis eines. Ein darauf stehendes Lebewesen lässt es pro Sekunde eine Stufe brechen; nach vier Stufen wird es zu Wasser (im Nether verdampft es). Lässt sich nur mit Behutsamkeit einsammeln."
-    ],
-    "secret": [
-      "Steht niemand darauf, bleiben die Risse, wie sie sind. So legst du eine Falle, oder du reparierst die Straße, indem du gehst."
-    ]
-  },
-  "nautilus_shell_block": {
-    "lore": [
-      "Die Spirale des Meeres, zu einem Block gestapelt."
-    ],
-    "use": [
-      "Vier Nautilusschalen im Quadrat ergeben einen Block; er lässt sich zurück in vier Schalen verwandeln. Er wird entlang einer Achse gesetzt, wie der Knochenblock."
-    ],
-    "secret": [
-      "Ein Block aus Schalen ist die einzige Möglichkeit, die Gabe des Nautilus kompakt zu lagern."
-    ]
-  },
   "stone_pebble": {
     "lore": [
       "{name}: Ein kleiner Stein, den man leicht in der Hand verliert."
@@ -2935,48 +2913,6 @@
     ],
     "secret": [
       "Schick ein Boot über einen Boden daraus: Der geschnitzte Block hat dieselbe Reibung wie der glatte."
-    ]
-  },
-  "family:froglight_color": {
-    "items": [
-      "regex:(scarlet|aqua|azure)_froglight"
-    ],
-    "lore": [
-      "{name}: eine Lampe, die die Frösche nicht machten."
-    ],
-    "use": [
-      "Ein beliebiges Froschlicht plus roter, türkiser oder blauer Farbstoff. Es leuchtet mit Lichtstärke 15 wie die Vanilla-Froschlichter."
-    ],
-    "secret": [
-      "Die drei Vanilla-Farben stammen weiterhin nur von Fröschen; Scharlach, Aqua und Azur nur aus dem Färbebottich."
-    ]
-  },
-  "family:gravity_sand": {
-    "items": [
-      "regex:levitating_(sand|gravel)"
-    ],
-    "lore": [
-      "{name}: Sand, der beschlossen hat, dass oben die richtige Fallrichtung ist."
-    ],
-    "use": [
-      "Sand oder Kies mit umgekehrter Schwerkraft: Er steigt Block für Block, bis etwas ihn stoppt."
-    ],
-    "secret": [
-      "Schwebender Sand und Schwebender Kies sind seine schwerelosen Zwillinge und bleiben, wo man sie hinsetzt."
-    ]
-  },
-  "family:suspended": {
-    "items": [
-      "regex:suspended_(sand|gravel)"
-    ],
-    "lore": [
-      "{name}: Sand, der das Fallen vergaß."
-    ],
-    "use": [
-      "Sand oder Kies ohne Schwerkraft: Er bleibt genau, wo du ihn hinsetzt. Er ist fest, und du kannst darauf stehen."
-    ],
-    "secret": [
-      "Praktisch für schwebende Brücken und geformte Decken, die nie einstürzen."
     ]
   },
   "family:dimensional_scrap": {

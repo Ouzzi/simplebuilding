@@ -1,7 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.CrackedIceBlock;
 import com.simplebuilding.version.McVersion;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
@@ -23,7 +22,7 @@ public final class N53VisualsClientTest {
     }
 
     public static void inWorld(Script script) {
-        if (!McVersion.NATURE_VARIANTS || ModBlocks.CRACKED_ICE == null) {
+        if (!McVersion.NATURE_VARIANTS || !com.simplebuilding.util.BlockRefs.present(com.simplebuilding.util.BlockRefs.CRACKED_ICE)) {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");
@@ -34,10 +33,10 @@ public final class N53VisualsClientTest {
                 level.setBlock(new BlockPos(x, -1, z), Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
                 level.setBlock(new BlockPos(x, 0, z), Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
-            level.setBlock(new BlockPos(2, 0, Z + 3), ModBlocks.CRACKED_ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
-            level.setBlock(new BlockPos(4, 0, Z + 3), ModBlocks.CRACKED_ICE.defaultBlockState().setValue(CrackedIceBlock.AGE, 3), Block.UPDATE_CLIENTS);
-            level.setBlock(new BlockPos(3, 0, Z + 5), ModBlocks.CRACKED_ICE.defaultBlockState().setValue(CrackedIceBlock.AGE, 1), Block.UPDATE_CLIENTS);
-            level.setBlock(new BlockPos(3, -1, Z + 3), ModBlocks.CRACKED_ICE.defaultBlockState().setValue(CrackedIceBlock.AGE, 2), Block.UPDATE_CLIENTS);
+            level.setBlock(new BlockPos(2, 0, Z + 3), com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE).defaultBlockState(), Block.UPDATE_CLIENTS);
+            level.setBlock(new BlockPos(4, 0, Z + 3), com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE).defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3, 3), Block.UPDATE_CLIENTS);
+            level.setBlock(new BlockPos(3, 0, Z + 5), com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE).defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3, 1), Block.UPDATE_CLIENTS);
+            level.setBlock(new BlockPos(3, -1, Z + 3), com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.CRACKED_ICE).defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3, 2), Block.UPDATE_CLIENTS);
             int zb = Z + 10;
             for (int z = zb - 1; z <= zb + 4; z++) for (int x = -1; x <= 15; x++) {   // ground for the wire and the table
                 level.setBlock(new BlockPos(x, -1, z), Blocks.DIRT.defaultBlockState(), Block.UPDATE_CLIENTS);
