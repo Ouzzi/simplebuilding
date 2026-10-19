@@ -1244,6 +1244,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_bundle_packets_only_touch_the_slots_they_own", BundleWiringTests::bundlePacketsOnlyTouchTheSlotsTheyOwn)
                     .build(),
+            GameTestSpec.named("bundle_wiring_game_test_selection_packet_reaches_entries_past_the_twelfth", BundleWiringTests::selectionPacketReachesEntriesPastTheTwelfth)
+                    .build(),
             GameTestSpec.named("bundle_wiring_game_test_bundles_close_like_vanilla_when_picked_up_or_left", BundleWiringTests::bundlesCloseLikeVanillaWhenPickedUpOrLeft)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_anvil_repair_keeps_the_cost_unless_enchanting", BundleWiringTests::anvilRepairKeepsTheCostUnlessEnchanting)

@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpleinterfaces;
 
 import com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload;
+import com.simplebuilding.modules.simpleinterfaces.tooltip.BundleView;
 import com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerPreview;
 import com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips;
 import java.util.ArrayList;
@@ -13,10 +14,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.ItemContainerContents;
 
-/** Shulker box / ender chest tooltips (data side; the drawing itself needs a client and is checked by hand). */
+/** Shulker box / ender chest / bundle tooltips (data side; the drawing itself needs a client and is checked by hand). */
 public final class TooltipTests {
     public static final java.util.Map<String, Consumer<GameTestHelper>> ALL = new java.util.LinkedHashMap<>();
 
@@ -26,6 +30,9 @@ public final class TooltipTests {
         ALL.put("tooltip_shulker_grid", TooltipTests::shulkerGrid);
         ALL.put("tooltip_config_off", TooltipTests::configOff);
         ALL.put("tooltip_ender_close", TooltipTests::enderClose);
+        ALL.put("bundle_view_pages", TooltipTests::bundleViewPages);
+        ALL.put("bundle_view_off", TooltipTests::bundleViewOff);
+        ALL.put("bundle_selection_beyond_twelve", TooltipTests::bundleSelectionBeyondTwelve);
     }
 
     private TooltipTests() {}
@@ -154,6 +161,74 @@ public final class TooltipTests {
             ContainerTooltips.sender = sender;
             SimpleInterfaces.config().enableEnderChestTooltip = before;
         }
+        h.succeed();
+    }
+
+    /** {@code n} distinct bundle entries, entry i holding i+1 stone (custom names keep them apart). */
+    private static BundleContents entries(int n) {
+        List<ItemStackTemplate> items = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            var stack = new ItemStack(Items.STONE, i + 1);
+            stack.set(DataComponents.CUSTOM_NAME, Component.literal("e" + i));
+            items.add(ItemStackTemplate.fromNonEmptyStack(stack));
+        }
+        return new BundleContents(items);
+    }
+
+    /** Layout for n entries: all up to maxRows*4, beyond that pages of maxRows*4-1 plus "+n", following the selection. */
+    public static void bundleViewPages(GameTestHelper h) {
+        var c = new ContainersConfig();
+        h.assertTrue(c.bundleShowAll && c.bundleMaxRows == 6, "defaults: on, six rows");
+        h.assertTrue(BundleView.of(0, -1, c) == null && BundleView.of(12, 5, c) == null, "<= 12 entries: Vanilla");
+        h.assertTrue(new BundleView(0, 13, false, 13).equals(BundleView.of(13, -1, c)), "13 entries: all, no +n");
+        h.assertTrue(new BundleView(0, 24, false, 24).equals(BundleView.of(24, 23, c)), "24 entries: all six rows");
+        h.assertTrue(new BundleView(0, 23, true, 24).equals(BundleView.of(25, -1, c)), "25 entries: page of 23 + n");
+        h.assertTrue(new BundleView(23, 2, true, 3).equals(BundleView.of(25, 24, c)), "selection 24 turns to page 2");
+        h.assertTrue(new BundleView(23, 17, true, 18).equals(BundleView.of(40, 30, c)), "40 entries, selection 30: page 2 (17)");
+        h.assertTrue(new BundleView(92, 8, true, 9).equals(BundleView.of(100, 99, c)), "100 entries, last: page 5");
+        h.assertTrue(BundleView.of(40, 99, c).start() == 0 && BundleView.of(40, -1, c).start() == 0, "no / invalid selection: page 1");
+        var contents = entries(30);
+        var page2 = BundleView.of(30, 25, c);
+        int total = 30 * 31 / 2, onPage = 0;
+        for (int i = page2.start(); i < page2.start() + page2.shown(); i++) onPage += i + 1;
+        h.assertTrue(BundleView.hidden(contents, page2) == total - onPage, "+n counts the items off the page (both sides)");
+        h.assertTrue(BundleView.selectable(30, 11, c) == 30 && BundleView.selectable(12, 12, c) == 12, "wheel reaches every entry");
+        c.bundleMaxRows = 0;
+        h.assertTrue(BundleView.rows(c) == BundleView.MIN_ROWS && BundleView.of(13, -1, c).overflow(), "rows clamp to 3 (Vanilla size)");
+        c.bundleMaxRows = 99;
+        h.assertTrue(BundleView.rows(c) == BundleView.MAX_ROWS && !BundleView.of(64, 63, c).overflow(), "rows clamp to 16: 64 entries at once");
+        h.succeed();
+    }
+
+    /** Switch off: no view and the wheel keeps Vanilla's count; old config files get the defaults. */
+    public static void bundleViewOff(GameTestHelper h) {
+        var c = new ContainersConfig();
+        c.bundleShowAll = false;
+        h.assertTrue(BundleView.of(40, 30, c) == null && BundleView.selectable(40, 11, c) == 11, "off: Vanilla view and wheel");
+        h.assertTrue(BundleView.of(40, 30, null) == null, "no config: Vanilla");
+        var old = new com.google.gson.Gson().fromJson("{\"tooltipShulker\":true}", ContainersConfig.class);
+        h.assertTrue(old.bundleShowAll && old.bundleMaxRows == 6, "missing keys: defaults");
+        h.assertTrue(entries(20).getNumberOfItemsToShow() <= 12, "server side: Vanilla count untouched (client-only mixin)");
+        h.succeed();
+    }
+
+    /** Server: a bundle entry past the twelfth can be selected and taken out; out-of-range indices select nothing. */
+    public static void bundleSelectionBeyondTwelve(GameTestHelper h) {
+        ServerPlayer p = h.makeMockServerPlayerInLevel();
+        var bundle = new ItemStack(Items.BUNDLE);
+        bundle.set(DataComponents.BUNDLE_CONTENTS, entries(20));
+        p.getInventory().setItem(9, bundle);
+        p.containerMenu.setSelectedBundleItemIndex(9, 15);
+        var held = p.getInventory().getItem(9);
+        h.assertTrue(BundleItem.getSelectedItemIndex(held) == 15, "index 15 accepted");
+        var mutable = held.get(DataComponents.BUNDLE_CONTENTS).asMutable();
+        var out = mutable.removeOne();
+        h.assertTrue(out != null && "e15".equals(out.getHoverName().getString()) && out.getCount() == 16, "entry 15 comes out");
+        p.containerMenu.setSelectedBundleItemIndex(9, 20);
+        h.assertTrue(BundleItem.getSelectedItemIndex(held) == -1, "index = entry count rejected");
+        p.containerMenu.setSelectedBundleItemIndex(9, -2);
+        h.assertTrue(BundleItem.getSelectedItemIndex(held) == -1, "negative index rejected");
+        p.getInventory().clearContent();
         h.succeed();
     }
 }

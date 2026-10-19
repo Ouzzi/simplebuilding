@@ -37,6 +37,11 @@ public final class BundleWiringGameTest {
     }
 
     @GameTest
+    public void selectionPacketReachesEntriesPastTheTwelfth(GameTestHelper helper) {
+        BundleWiringTests.selectionPacketReachesEntriesPastTheTwelfth(helper);
+    }
+
+    @GameTest
     public void anvilRepairKeepsTheCostUnlessEnchanting(GameTestHelper helper) {
         BundleWiringTests.anvilRepairKeepsTheCostUnlessEnchanting(helper);
     }

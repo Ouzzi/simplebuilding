@@ -22,6 +22,10 @@ public final class ContainersConfig {
     public boolean tooltipNeedsShift = true;
     /** Grid panel in the shulker box's dye color. */
     public boolean tooltipColorByDye = true;
+    /** Bundle tooltips show every entry instead of Vanilla's twelve (pages beyond {@code bundleMaxRows}). */
+    public boolean bundleShowAll = true;
+    /** Rows of four entries the bundle tooltip shows at most (3..16, Vanilla: 3). */
+    public int bundleMaxRows = 6;
 
     /** Super-mod switch "Enable Simple QoL" (framework SubMods): off = every screen exactly Vanilla, no toggle button. Runtime only. */
     public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simpleinterfaces"); }

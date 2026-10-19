@@ -437,6 +437,42 @@ public final class BundleWiringTests {
     // =====================================================================================
 
     /**
+     * The scroll selection packet is not tied to the twelve entries Vanilla's tooltip shows:
+     * Simple Interfaces' bundle view (docs/ai/KONZEPT-BUNDLES-BEYOND-2026-10-19.md) lets the mouse
+     * wheel reach every entry, so the handler must accept index 13+ of a fuller reinforced bundle
+     * and still drop indices at or past the entry count and negative ones (the component's own
+     * bounds check, {@code BundleContents.Mutable.toggleSelectedItem}).
+     *
+     * <p>What breaks it: a handler or bundle clamping the index to Vanilla's shown count, or one
+     * that writes an out-of-range index into the component.
+     */
+    public static void selectionPacketReachesEntriesPastTheTwelfth(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        player.getInventory().clearContent();
+        List<ItemStackTemplate> entries = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            ItemStack stack = new ItemStack(Items.STONE, 1);
+            stack.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("entry " + i));
+            entries.add(ItemStackTemplate.fromNonEmptyStack(stack));
+        }
+        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(entries));
+        player.getInventory().setItem(1, bundle);
+        int slot = menuSlotOf(helper, player, bundle);
+
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(slot, 15), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(bundle), 15, "selection 15 of 20 entries");
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(slot, 19), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(bundle), 19, "the last of 20 entries");
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(slot, 20), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(bundle), -1, "index = entry count selects nothing");
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(slot, -3), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(bundle), -1, "a negative index selects nothing");
+        player.getInventory().clearContent();
+        helper.succeed();
+    }
+
+    /**
      * Both bundle payloads take something the client picked - a slot id, an item to fetch - and
      * write into the player's inventory with it. Both therefore need a guard, and neither guard
      * was ever executed.

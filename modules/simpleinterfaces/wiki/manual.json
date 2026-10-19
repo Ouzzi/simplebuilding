@@ -823,6 +823,70 @@
       }
     },
     {
+      "id": "bundle_view",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/tooltip/BundleView.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/BundleTooltipViewMixin.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/BundleSelectionMixin.java"
+      ],
+      "en": {
+        "title": "Bundles show everything",
+        "summary": "Bundle tooltips show every entry instead of Vanilla's twelve, and the mouse wheel selects any of them.",
+        "details": [
+          "Up to six rows of four entries show at once (bundleMaxRows). A fuller bundle goes in pages: the last cell counts what is not on the page, and the page follows the entry the mouse wheel selects, so every entry can be taken out with a right click. Scrolling works like Vanilla.",
+          "Client only: the server already accepts any selected entry. It reads only the Vanilla bundle contents, so it also covers bundles of other mods that use the Vanilla bundle tooltip (SimpleBuilding's reinforced bundles). Bundles with twelve entries or fewer look exactly like Vanilla."
+        ]
+      },
+      "de": {
+        "title": "Bündel zeigen alles",
+        "summary": "Bündel-Tooltips zeigen jeden Eintrag statt der zwölf von Vanilla, und das Mausrad wählt jeden davon aus.",
+        "details": [
+          "Bis zu sechs Reihen zu vier Einträgen erscheinen auf einmal (bundleMaxRows). Ein volleres Bündel blättert seitenweise: das letzte Feld zählt, was nicht auf der Seite liegt, und die Seite folgt dem Eintrag, den das Mausrad wählt; so lässt sich jeder Eintrag per Rechtsklick herausnehmen. Das Scrollen bleibt wie in Vanilla.",
+          "Nur Client: der Server nimmt jede Auswahl schon an. Gelesen wird nur der Vanilla-Bündelinhalt, darum gilt es auch für Bündel anderer Mods mit dem Vanilla-Bündel-Tooltip (verstärkte Bündel von SimpleBuilding). Bündel mit höchstens zwölf Einträgen sehen genau wie Vanilla aus."
+        ]
+      }
+    },
+    {
+      "id": "config_bundleShowAll",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Bundle tooltip shows everything",
+        "summary": "Bundles show every entry instead of Vanilla's twelve, and the mouse wheel selects any of them. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only). Off: Vanilla bundle tooltip and selection."
+        ]
+      },
+      "de": {
+        "title": "Bündel-Tooltip zeigt alles",
+        "summary": "Bündel zeigen jeden Eintrag statt der zwölf von Vanilla, und das Mausrad wählt jeden davon aus. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client). Aus: Vanilla-Bündel-Tooltip und -Auswahl."
+        ]
+      }
+    },
+    {
+      "id": "config_bundleMaxRows",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Bundle tooltip rows",
+        "summary": "Rows of four entries the bundle tooltip shows before it pages. Default: 6, range 3–16.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Reihen im Bündel-Tooltip",
+        "summary": "Reihen zu vier Einträgen, die der Bündel-Tooltip zeigt, bevor er blättert. Standard: 6, Bereich 3–16.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
       "id": "config_enableEnderChestTooltip",
       "sources": [
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"

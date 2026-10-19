@@ -37,7 +37,9 @@
     "KeyboardLinkedMixin",
     "SlotPositionAccessor",
     "ClientTooltipPreviewMixin",
-    "ItemStackPreviewMixin"
+    "ItemStackPreviewMixin",
+    "BundleTooltipViewMixin",
+    "BundleSelectionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
