@@ -90,7 +90,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (A, claude-s5b-crucibles, gemergt 17.10.) 5b Seelenlava, Eimer-Familie, JEI-/Jade-Seiten der Tiegel nach simplecrucibles (Plan: Stufe 5 Umsetzung, Abweichungen)
 - [~] (A, claude-s6-octets, 17.10.) 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
 - [x] (A, claude-s7-hammers, gemergt 19.10.) 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung) – Modul simplehammers, Plan docs/ai/PLAN-S7-HAMMERS-2026-10-18.md
-- [ ] 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
+- [~] (B, b-s8-storage, 19.10.) 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
 - [ ] 9 `claude-split-s9-release`: Aufräumen, Wiki-Umzug, Versionen, Changelog, Brücken-Version, volles Gate
 
 ---
