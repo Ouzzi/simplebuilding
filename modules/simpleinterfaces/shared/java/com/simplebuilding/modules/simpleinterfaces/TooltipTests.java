@@ -86,7 +86,7 @@ public final class TooltipTests {
         h.assertTrue(!hint.grid() && !hint.replacesList() && hint.note() != null, "no Shift: Vanilla lines plus hint");
         local.tooltipNeedsShift = false;
         h.assertTrue(ContainerTooltips.preview(shulker, false, local, true, null).orElseThrow().grid(), "always mode: grid without Shift");
-        var red = box(Items.RED_SHULKER_BOX, slotsWith(0, new ItemStack(Items.STONE)));
+        var red = box(Items.DYED_SHULKER_BOX.pick(net.minecraft.world.item.DyeColor.RED), slotsWith(0, new ItemStack(Items.STONE)));
         h.assertTrue(ContainerTooltips.preview(red, false, local, true, null).orElseThrow().face() != ContainerTooltips.VANILLA_FACE, "dyed box tinted");
         local.tooltipColorByDye = false;
         h.assertTrue(ContainerTooltips.preview(red, false, local, true, null).orElseThrow().face() == ContainerTooltips.VANILLA_FACE, "dye tint switch");
