@@ -376,6 +376,22 @@ public final class ServerTuning {
         return ServerTuningConfig.clamp(get().blueprint.maxBlocksPerTick, 1, MAX_BLUEPRINT_BLOCKS_PER_TICK);
     }
 
+    /** Bild-Bauplan an (Server-Schalter); auf einem Client der Wert des Servers. */
+    public static boolean pictureImport() {
+        return get().blueprint.pictureImport;
+    }
+
+    /** Noetige Rechtestufe fuer den Bild-Bauplan (0..4, 0 = alle). */
+    public static int picturePermission() {
+        return ServerTuningConfig.clamp(get().blueprint.picturePermission, 0, 4);
+    }
+
+    /** Laengste Bildkante in Bloecken (16..128); auf einem Client der Wert des Servers. */
+    public static int pictureMaxSide() {
+        return ServerTuningConfig.clamp(get().blueprint.pictureMaxSide, com.simplebuilding.blueprint.BlueprintPicture.MIN_SIDE,
+                com.simplebuilding.blueprint.BlueprintPicture.MAX_SIDE);
+    }
+
     /** Faktor der Besatz-Wirkung {@code bonusKey} ({@code fire_protection}, ...). */
     public static float trimStrength(String bonusKey) {
         return get().trimStrengths.of(bonusKey);

@@ -26,6 +26,9 @@ public final class RenderOptTests {
         ALL.put("lightmap_cache", RenderOptTests::lightmapCache);
         ALL.put("fast_ip_ping", RenderOptTests::fastIpPing);
         ALL.put("config_file", RenderOptTests::configFile);
+        ALL.put("more_culling_rules", RenderOptTests::moreCullingRules);
+        ALL.put("details_rules", RenderOptTests::detailsRules);
+        ALL.put("target_check", RenderOptTests::targetCheck);
     }
 
     private RenderOptTests() {}
@@ -39,10 +42,12 @@ public final class RenderOptTests {
     private static void withFake(Runnable body) {
         List<OptCompat.Decision> live = OptCompat.decisions(RenderOpt.MOD_ID);
         int depth = RenderOpt.leafDepth();
+        var parts = RenderOpt.culling();
+        var switches = RenderOpt.details();
         try {
             body.run();
         } finally {
-            RenderOpt.restore(live, depth);
+            RenderOpt.restore(live, depth, parts, switches);
         }
     }
 
@@ -64,8 +69,14 @@ public final class RenderOptTests {
             h.assertTrue(!RenderOpt.active(RenderOpt.LEAF_CULLING), "off is off");
             RenderOpt.apply(settings("auto", 0), false, Set.<String>of()::contains, Map.of());
             h.assertTrue(!RenderOpt.active(RenderOpt.LEAF_CULLING) && !RenderOpt.active(RenderOpt.FAST_IP_PING), "super-mod switch off");
+            RenderOpt.apply(settings("auto", 0), true, Set.of("moreculling", "sodium-extra")::contains, Map.of());
+            h.assertTrue(!RenderOpt.live(RenderOpt.MORE_CULLING) && !RenderOpt.live(RenderOpt.DETAILS), "More Culling covers O3, Sodium Extra O9");
+            h.assertTrue(RenderOpt.live(RenderOpt.LIGHTMAP_CACHE), "other areas stay");
+            RenderOpt.apply(settings("auto", 0), true, Set.<String>of()::contains, Map.of());
+            h.assertTrue(RenderOpt.live(RenderOpt.MORE_CULLING) && RenderOpt.live(RenderOpt.DETAILS), "O3/O9 on without rivals");
         });
-        h.assertTrue(RenderOpt.priorities().get("leaf_culling") == OptCompat.Winner.THEIRS, "shipped table: theirs");
+        for (OptCompat.Area a : RenderOpt.AREAS)
+            h.assertTrue(RenderOpt.priorities().get(a.id()) == OptCompat.Winner.THEIRS, "shipped table: theirs for " + a.id());
         h.succeed();
     }
 
@@ -139,9 +150,72 @@ public final class RenderOptTests {
             String text = Files.readString(dir.resolve(RenderOpt.FILE));
             for (OptCompat.Area a : RenderOpt.AREAS) h.assertTrue(text.contains(a.id()), "file lists " + a.id());
             h.assertTrue(text.contains("\"depth\"") && text.contains("conflictScan"), "parameters written");
+            for (String key : List.of("signText", "itemFrames", "beaconBeams", "particles", "textureAnimations", "fog"))
+                h.assertTrue(text.contains("\"" + key + "\": true"), "default on: " + key);
         } catch (java.io.IOException e) {
             throw new IllegalStateException(e);
         }
+        h.succeed();
+    }
+
+    /** O3 geometry: text side and frame back culling only well behind the board or wall, never at the edge. */
+    public static void moreCullingRules(GameTestHelper h) {
+        // Sign facing south (yRot 0): front normal +z.
+        h.assertTrue(MoreCulling.signSides(0, 3, 0) == MoreCulling.SignSides.FRONT, "in front: back text dropped");
+        h.assertTrue(MoreCulling.signSides(0, -3, 0) == MoreCulling.SignSides.BACK, "behind: front text dropped");
+        h.assertTrue(MoreCulling.signSides(5, 0.4, 0) == MoreCulling.SignSides.BOTH, "beside the board plane: both kept");
+        h.assertTrue(MoreCulling.signSides(-3, 0, 90) == MoreCulling.SignSides.FRONT, "yRot 90 faces west (-x)");
+        h.assertTrue(MoreCulling.signSides(2, 2, 45) == MoreCulling.SignSides.BOTH, "on the 45 degree plane: both kept");
+        h.assertTrue(MoreCulling.signSides(-2, 2, 45) == MoreCulling.SignSides.FRONT, "yRot 45 faces (-x, +z)");
+        // Agrees with Vanilla's side rule (getSlotPlayerIsFacing) wherever we drop a side.
+        for (int yaw = 0; yaw < 360; yaw += 15)
+            for (int a = 0; a < 360; a += 10) {
+                double dx = 4 * Math.cos(Math.toRadians(a)), dz = 4 * Math.sin(Math.toRadians(a));
+                float playerYRot = (float) (Math.atan2(dz, dx) * 180 / Math.PI) - 90;
+                boolean vanillaFront = net.minecraft.util.Mth.degreesDifferenceAbs(yaw, playerYRot) <= 90;
+                var sides = MoreCulling.signSides(dx, dz, yaw);
+                h.assertTrue(sides == MoreCulling.SignSides.BOTH || (sides == MoreCulling.SignSides.FRONT) == vanillaFront,
+                        "matches Vanilla front/back at yaw " + yaw + ", angle " + a);
+            }
+        h.assertTrue(MoreCulling.behindFrame(0, 0, -1.5, 0, 0, 1), "frame facing south, camera north of its wall: hidden");
+        h.assertTrue(!MoreCulling.behindFrame(0, 0, -0.9, 0, 0, 1), "camera inside the wall depth: kept");
+        h.assertTrue(!MoreCulling.behindFrame(3, 0, 0.2, 0, 0, 1), "camera beside the frame: kept");
+        h.assertTrue(MoreCulling.behindFrame(0, 2, 0, 0, -1, 0), "ceiling frame facing down, camera above: hidden");
+        h.succeed();
+    }
+
+    public static void detailsRules(GameTestHelper h) {
+        var off = new Details.Switches(true, true, false);
+        h.assertTrue(Details.liftFog(off, false, false), "fog false lifts the air fog");
+        h.assertTrue(!Details.liftFog(off, true, false), "fluid or snow fog stays");
+        h.assertTrue(!Details.liftFog(off, false, true), "blindness/darkness fog stays");
+        h.assertTrue(!Details.liftFog(Details.Switches.DEFAULTS, false, false), "default: Vanilla fog");
+        withFake(() -> {
+            var read = com.google.gson.JsonParser.parseString("{\"areas\":{\"details\":{\"particles\":false,\"fog\":false},\"more_culling\":{\"beaconBeams\":false}}}").getAsJsonObject();
+            RenderOpt.apply(OptSettings.of(read, RenderOpt.defaults()), true, Set.<String>of()::contains, Map.of());
+            h.assertTrue(!RenderOpt.details().particles() && RenderOpt.details().textureAnimations() && !RenderOpt.details().fog(), "switches read");
+            h.assertTrue(!RenderOpt.culling().beaconBeams() && RenderOpt.culling().signText() && RenderOpt.culling().itemFrames(), "parts read");
+        });
+        h.succeed();
+    }
+
+    /** Concept §4.5: another mod hooking a class of an active area switches that area off at runtime, never ours forced. */
+    public static void targetCheck(GameTestHelper h) {
+        withFake(() -> {
+            RenderOpt.apply(settings("auto", 0), true, Set.<String>of()::contains, Map.of());
+            RenderOpt.RUNTIME.shouldApply("net.minecraft.client.renderer.block.ModelBlockRenderer",
+                    "com.simplebuilding.modules.simpleoptrender.mixin.leaf_culling.ModelBlockRendererMixin");
+            RenderOpt.RUNTIME.scan(Map.of("somemod", Set.of("net/minecraft/client/renderer/block/ModelBlockRenderer")), m -> false, s -> {});
+            var d = OptCompat.decisions(RenderOpt.MOD_ID).get(0);
+            h.assertTrue(!RenderOpt.live(RenderOpt.LEAF_CULLING) && d.reason() == OptCompat.Reason.CONFLICT && "somemod".equals(d.rival()),
+                    "leaf culling off: possible conflict with somemod");
+            h.assertTrue(RenderOpt.live(RenderOpt.LIGHTMAP_CACHE), "areas on other classes stay");
+            RenderOpt.apply(settings("ours", 0), true, Set.<String>of()::contains, Map.of());
+            RenderOpt.RUNTIME.scan(Map.of("somemod", Set.of("net.minecraft.client.renderer.block.ModelBlockRenderer")), m -> false, s -> {});
+            h.assertTrue(RenderOpt.live(RenderOpt.LEAF_CULLING), "mode ours keeps it");
+        });
+        h.assertTrue(OptCompat.decisions(RenderOpt.MOD_ID).stream().noneMatch(d -> d.reason() == OptCompat.Reason.CONFLICT),
+                "no conflict in this test run (family and Fabric API ignored)");
         h.succeed();
     }
 }

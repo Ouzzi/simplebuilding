@@ -8,6 +8,7 @@ import com.simplebuilding.blueprint.BlueprintFormats;
 import com.simplebuilding.blueprint.BlueprintJobs;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
+import com.simplebuilding.blueprint.BlueprintPicture;
 import com.simplebuilding.blueprint.BlueprintScanner;
 import com.simplebuilding.blueprint.BlueprintTiers;
 import com.simplebuilding.component.ModDataComponentTypes;
@@ -1037,6 +1038,195 @@ public final class BlueprintTests {
                     clear(helper);
                 })
                 .thenSucceed();
+    }
+
+    // =====================================================================================
+    // BILD-BAUPLAN (Plan docs/ai/PLAN-B-PICTURE-2026-10-19.md)
+    // =====================================================================================
+
+    /** Farbbloecke ueber die ID: 26.3 fuehrt sie als ColorCollection, 26.2 als Felder. */
+    private static net.minecraft.world.level.block.Block pictureBlock(String id) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id));
+    }
+
+    private static int pictureRgb(String id) {
+        for (BlueprintPicture.Entry e : BlueprintPicture.PALETTE) {
+            if (e.id().equals(id)) {
+                return 0xFF000000 | e.rgb();
+            }
+        }
+        throw new AssertionError("not in the picture palette: " + id);
+    }
+
+    private static int[] noise(int w, int h, long seed) {
+        java.util.Random random = new java.util.Random(seed);
+        int[] out = new int[w * h];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = 0xFF000000 | random.nextInt(0x1000000);
+        }
+        return out;
+    }
+
+    /**
+     * Bild zu Bau-Code: bekannte Farben ergeben die erwarteten Bloecke (Wand: oberste Bildzeile oben, Boden:
+     * oberste Zeile bei z = 0), fast gleiche Farben den naechsten Block, Durchsichtiges bleibt frei; Dithering ist
+     * deterministisch; die Groessengrenze haelt das Seitenverhaeltnis; 128 x 128 Rauschen mit Floyd-Steinberg passt
+     * in 32000 Zeichen; handgeschriebene {@code pixels}-Zeilen und ihre Fehler. Auf 26.2 gibt es keinen Bild-Bauplan.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine falsche Zeilen-/Achsen-Zuordnung, eine Palette mit falschen
+     * Farben, nicht deterministisches Dithering, ein Bild, das zu langen Code ergibt, oder eine Bildzeile, die
+     * unbekannte Aliase, Raster-Ueberlauf oder kaputte Lauflaengen still annimmt.
+     */
+    public static void pictureCodeHoldsTheExpectedBlocks(GameTestHelper helper) {
+        if (!BlueprintPicture.available()) {
+            helper.succeed();
+            return;
+        }
+        int white = pictureRgb("white_wool"), black = pictureRgb("black_concrete"), red = pictureRgb("red_terracotta");
+        int[] argb = {white, 0xFFE8EAEB, 0x00000000, black, red, red};
+        BlueprintPicture.Result wall = BlueprintPicture.convert(argb, 3, 2, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.NONE, BlueprintPicture.Facing.WALL, "test");
+        helper.assertTrue(wall.ok() && wall.blocks() == 5 && wall.colors() == 3, "wall picture: " + wall.error() + " " + wall.blocks());
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(wall.code());
+        helper.assertTrue(parsed.ok() && parsed.pixels() == 5, "picture code parses: " + parsed.problems() + "\n" + wall.code());
+        BlueprintModel m = parsed.model();
+        helper.assertTrue(m.get(0, 1, 0).is(pictureBlock("white_wool")) && m.get(1, 1, 0).is(pictureBlock("white_wool")) && m.get(2, 1, 0) == null
+                && m.get(0, 0, 0).is(pictureBlock("black_concrete")) && m.get(1, 0, 0).is(pictureBlock("red_terracotta")) && m.get(2, 0, 0).is(pictureBlock("red_terracotta")),
+                "wall blocks: " + m);
+        BlueprintModel floor = BlueprintCode.parse(BlueprintPicture.convert(argb, 3, 2, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.NONE, BlueprintPicture.Facing.FLOOR, "test").code()).model();
+        helper.assertTrue(floor.get(0, 0, 0).is(pictureBlock("white_wool")) && floor.get(0, 0, 1).is(pictureBlock("black_concrete")) && floor.sizeY() == 1,
+                "floor blocks: " + floor);
+
+        int[] photo = noise(40, 30, 7);
+        String once = BlueprintPicture.convert(photo, 40, 30, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.FLOYD_STEINBERG,
+                BlueprintPicture.Facing.WALL, "noise").code();
+        String twice = BlueprintPicture.convert(photo, 40, 30, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.FLOYD_STEINBERG,
+                BlueprintPicture.Facing.WALL, "noise").code();
+        helper.assertTrue(!once.isEmpty() && once.equals(twice), "Floyd-Steinberg is deterministic");
+        helper.assertTrue(!once.equals(BlueprintPicture.convert(photo, 40, 30, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "noise").code()), "dithering changes the result");
+
+        BlueprintPicture.Result wide = BlueprintPicture.convert(noise(300, 200, 3), 300, 200, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.BAYER, BlueprintPicture.Facing.WALL, "wide");
+        BlueprintModel wideModel = BlueprintCode.parse(wide.code()).model();
+        helper.assertTrue(wide.ok() && wide.width() == 128 && wide.height() == 85 && wideModel.sizeX() == 128 && wideModel.sizeY() == 85,
+                "size limit keeps the aspect ratio: " + wide.width() + "x" + wide.height());
+        BlueprintPicture.Result full = BlueprintPicture.convert(noise(128, 128, 11), 128, 128, 128, BlueprintPicture.PALETTE,
+                BlueprintPicture.Dither.FLOYD_STEINBERG, BlueprintPicture.Facing.WALL, "full");
+        BlueprintCode.ParseResult fullParsed = BlueprintCode.parse(full.code());
+        helper.assertTrue(full.ok() && full.code().length() <= BlueprintCode.MAX_CODE_LENGTH && fullParsed.ok() && fullParsed.pixels() == 128 * 128,
+                "128x128 noise fits the code limit: " + full.code().length() + " " + fullParsed.problems());
+
+        List<BlueprintPicture.Entry> owned = BlueprintPicture.palette(item -> item == pictureBlock("white_wool").asItem() || item == pictureBlock("black_concrete").asItem());
+        BlueprintModel limited = BlueprintCode.parse(BlueprintPicture.convert(argb, 3, 2, 128, owned, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "owned").code()).model();
+        helper.assertTrue(owned.size() == 2 && limited.blocks().values().stream().allMatch(s -> s.is(pictureBlock("white_wool")) || s.is(pictureBlock("black_concrete"))),
+                "inventory palette uses only owned blocks: " + limited);
+        helper.assertTrue("no_blocks".equals(BlueprintPicture.convert(argb, 3, 2, 128, List.of(), BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "none").error()), "empty palette is reported");
+        helper.assertTrue("empty".equals(BlueprintPicture.convert(new int[4], 2, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "clear").error()), "transparent picture is reported");
+
+        BlueprintCode.ParseResult hand = BlueprintCode.parse("$a = stone\n$b = oak_planks\npixels 0,2,1 3a.2b");
+        helper.assertTrue(hand.ok() && hand.pixels() == 5 && hand.model().get(2, 2, 1).is(Blocks.STONE) && hand.model().get(3, 2, 1) == null
+                && hand.model().get(5, 2, 1).is(Blocks.OAK_PLANKS), "hand-written pixels row: " + hand.problems());
+        String[][] errors = {{"$a = stone\npixels 0,0,0 3a2c", "unknown_alias"}, {"$a = stone\npixels 250,0,0 10a", "pixels_outside"},
+                {"$a = stone\npixels 0,0,0 3", "pixels_bad_row"}, {"pixels 0,0,0", "pixels_usage"}, {"$a = stone\npixels 0,x,0 a", "bad_region"}};
+        for (String[] e : errors) {
+            List<BlueprintCode.Problem> problems = BlueprintCode.parse(e[0]).problems();
+            helper.assertTrue(problems.stream().anyMatch(p -> p.key().equals(e[1])), e[0] + " should report " + e[1] + ": " + problems);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Server-Schutz des Bild-Bauplans: Schalter aus lehnt Code mit {@code pixels}-Zeilen ab (gewoehnlicher Code bleibt
+     * erlaubt), die Rechtestufe gilt, zu grosse Bilder werden abgelehnt, erlaubter Code wird gespeichert.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Handler, der den Schalter, die Stufe oder die Groesse
+     * nicht prueft, oder einer, der auch normalen Code ablehnt.
+     */
+    public static void pictureImportFollowsTheServerSwitch(GameTestHelper helper) {
+        if (!BlueprintPicture.available()) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
+        player.getInventory().setItem(0, stack);
+        int[] argb = {pictureRgb("white_wool"), pictureRgb("black_wool"), pictureRgb("black_wool"), pictureRgb("white_wool")};
+        String code = BlueprintPicture.convert(argb, 2, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "small").code();
+        String big = BlueprintPicture.convert(noise(20, 4, 5), 20, 4, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "big").code();
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        String saved = com.simplebuilding.config.ServerTuning.toJson(config.server);
+        try {
+            config.server.blueprint.pictureImport = false;
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, code, false, ""), player);
+            helper.assertTrue(BlueprintItem.content(stack).code().isEmpty(), "switch off: the picture code was saved");
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0,0,0", false, ""), player);
+            helper.assertTrue(BlueprintItem.content(stack).code().equals("stone 0,0,0"), "switch off must not block ordinary code");
+
+            config.server.blueprint.pictureImport = true;
+            config.server.blueprint.picturePermission = 4;
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, code, false, ""), player);
+            boolean owner = BlueprintPicture.hasLevel(player, 4);
+            helper.assertTrue(BlueprintItem.content(stack).code().equals(code) == owner, "permission level 4 (player owner: " + owner + ")");
+
+            config.server.blueprint.picturePermission = 0;
+            config.server.blueprint.pictureMaxSide = 16;
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, big, false, ""), player);
+            helper.assertTrue(!BlueprintItem.content(stack).code().equals(big), "a 20 wide picture passed a 16 block limit");
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, code, false, ""), player);
+            helper.assertTrue(BlueprintItem.content(stack).code().equals(code), "an allowed picture code was not saved");
+        } finally {
+            config.server = com.simplebuilding.config.ServerTuning.copyOf(saved);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Ein Bild-Bauplan baut mit Baustab und Material wie jede Blaupause: jede Bildstelle wird ihr Block, das Material
+     * wird verbraucht.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code pixels}-Zeilen, die das Modell anders fuellen als die
+     * Vorschau, oder ein Bau, der Bildbloecke auslaesst.
+     */
+    public static void pictureBlueprintBuildsItsBlocks(GameTestHelper helper) {
+        if (!BlueprintPicture.available()) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        int w = pictureRgb("white_wool"), b = pictureRgb("black_concrete"), r = pictureRgb("red_terracotta");
+        String code = BlueprintPicture.convert(new int[]{w, w, b, b, r, r}, 3, 2, 128, BlueprintPicture.PALETTE, BlueprintPicture.Dither.NONE,
+                BlueprintPicture.Facing.WALL, "flag").code();
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint(code);
+        ItemStack wool = new ItemStack(pictureBlock("white_wool").asItem(), 2), concrete = new ItemStack(pictureBlock("black_concrete").asItem(), 2), terracotta = new ItemStack(pictureBlock("red_terracotta").asItem(), 2);
+        hold(player, wand, blueprint, wool, concrete, terracotta);
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        helper.assertTrue(built != null && built.placed() == 6 && built.missing() == 0, "picture build: " + built);
+        int[] counts = new int[3];
+        for (int x = 0; x < 8; x++) {
+            for (int y = 1; y < 7; y++) {
+                for (int z = 0; z < 8; z++) {
+                    BlockState s = helper.getBlockState(new BlockPos(x, y, z));
+                    counts[0] += s.is(pictureBlock("white_wool")) ? 1 : 0;
+                    counts[1] += s.is(pictureBlock("black_concrete")) ? 1 : 0;
+                    counts[2] += s.is(pictureBlock("red_terracotta")) ? 1 : 0;
+                }
+            }
+        }
+        helper.assertTrue(counts[0] == 2 && counts[1] == 2 && counts[2] == 2, "built blocks " + java.util.Arrays.toString(counts));
+        helper.assertTrue(wool.isEmpty() && concrete.isEmpty() && terracotta.isEmpty(), "material used");
+        clear(helper);
+        helper.succeed();
     }
 
     // =====================================================================================

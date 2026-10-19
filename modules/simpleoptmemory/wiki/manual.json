@@ -1,17 +1,36 @@
 {
   "features": [
     {
-      "id": "stage1",
+      "id": "compat",
       "sources": [
-        "modules/simpleoptmemory/shared/java/com/simplebuilding/modules/simpleoptmemory/MemoryOpt.java"
+        "framework/src/main/java/com/simplebuilding/framework/api/OptAreas.java",
+        "modules/simpleoptmemory/shared/java/com/simplebuilding/modules/simpleoptmemory/MemoryOpt.java",
+        "modules/simpleoptmemory/fabric/src/main/java/com/simplebuilding/modules/simpleoptmemory/fabric/MemoryOptMixinPlugin.java",
+        "modules/simpleoptmemory/fabric/src/main/java/com/simplebuilding/modules/simpleoptmemory/fabric/OptTargetScan.java"
       ],
       "en": {
-        "title": "Placeholder for memory areas",
-        "summary": "Simple Opt Memory has no active area yet: it writes config/simpleoptmemory.json and logs whether FerriteCore or ModernFix are installed. Block-state tables and model loading follow in a later stage, after measuring."
+        "title": "Steps back for known mods",
+        "summary": "config/simpleoptmemory.json has a mode per area (auto, ours, theirs, off). In auto, FerriteCore wins the block-state tables and our part stays off; ours next to it is refused, since both change the same constructors. Another mod hooking the same classes switches the area off at start (target check, conflictScan). The log also names ModernFix when installed (model loading is a later area)."
       },
       "de": {
-        "title": "Platzhalter für Speicher-Bereiche",
-        "summary": "Simple Opt Memory hat noch keinen aktiven Bereich: Es schreibt config/simpleoptmemory.json und meldet im Log, ob FerriteCore oder ModernFix installiert sind. Blockzustands-Tabellen und Modell-Laden folgen in einer späteren Stufe nach Messung."
+        "title": "Weicht bekannten Mods",
+        "summary": "config/simpleoptmemory.json hat je Bereich einen Modus (auto, ours, theirs, off). Bei auto gewinnt FerriteCore die Blockzustands-Tabellen und unser Teil bleibt aus; ours daneben wird abgelehnt, weil beide dieselben Konstruktoren ändern. Ändert ein anderer Mod dieselben Klassen, schaltet sich der Bereich beim Start ab (Zielprüfung, conflictScan). Das Log nennt auch ModernFix, wenn installiert (Modell-Laden ist ein späterer Bereich)."
+      }
+    },
+    {
+      "id": "state_tables",
+      "sources": [
+        "modules/simpleoptmemory/shared/java/com/simplebuilding/modules/simpleoptmemory/StateTables.java",
+        "modules/simpleoptmemory/shared/java/com/simplebuilding/modules/simpleoptmemory/mixin/state_tables/StateHolderMixin.java",
+        "modules/simpleoptmemory/shared/java/com/simplebuilding/modules/simpleoptmemory/mixin/state_tables/BlockStateCacheMixin.java"
+      ],
+      "en": {
+        "title": "Shared block-state tables",
+        "summary": "Block states that hold the same property values (for example every stair block facing east) share one value array instead of one each, blocks with the same properties share one key array, and states with the same face-support pattern share one table. Only arrays that are never written are shared, with exact identity of their entries, so the game behaves the same; the log reports how many arrays were shared and the memory saved."
+      },
+      "de": {
+        "title": "Geteilte Blockzustands-Tabellen",
+        "summary": "Blockzustände mit denselben Eigenschaftswerten (zum Beispiel jede nach Osten zeigende Treppe) teilen sich ein Werte-Array statt je eines, Blöcke mit denselben Eigenschaften ein Schlüssel-Array, und Zustände mit demselben Muster tragfähiger Seiten eine Tabelle. Geteilt werden nur Arrays, die nie beschrieben werden, mit genau denselben Einträgen, das Spiel verhält sich also gleich; das Log meldet, wie viele Arrays geteilt wurden und wie viel Speicher frei wurde."
       }
     }
   ],

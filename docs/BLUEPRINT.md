@@ -205,6 +205,33 @@ dirt ($r*3),0,20            # Malnehmen in einer Position nur in Klammern
 
 Noch nicht umgesetzt: relative Regionen und Spiegelung.
 
+### 1.9 Bildzeilen und Bild-Bauplan (26.3, Plan `docs/ai/PLAN-B-PICTURE-2026-10-19.md`)
+
+`pixels x,y,z <Zeile>` setzt ab `x,y,z` entlang +x eine Lauflängen-Zeile: jeder Buchstabe
+(`a`–`z`, `A`–`Z`) ist der Ein-Zeichen-Alias `$a` …, `.` lässt eine Stelle frei, eine Zahl ≥ 2 davor
+wiederholt (`3a2b.c` = 3× `$a`, 2× `$b`, frei, 1× `$c`). Koordinaten sind Ausdrücke wie sonst. Fehler:
+`pixels_usage`, `pixels_bad_row`, `pixels_outside`, `unknown_alias`; auf 26.2 `pixels_unsupported`
+(Kodierung aus SimpleLib `com.simplelib.api.image.PixelRle`). Die gesetzten Stellen zählen gegen
+`MAX_EXPANDED_CELLS`; `ParseResult.pixels()` zählt sie.
+
+**Bild-Fenster** (Import → „Bild …“, `BlueprintPictureScreen`): PNG aus
+`config/simplebuilding/images/` (Ordner wird angelegt; nur PNG, `NativeImage`, Quelle bis 4096 px),
+Größe 16/32/48/64/96/128 (längere Seite, Seitenverhältnis bleibt, höchstens `pictureMaxSide` des
+Servers), Dithering Floyd-Steinberg (Standard) / Bayer 4×4 / aus, Lage Wand (x-y, oben = oben) oder
+Boden (x-z, oben = Norden), Blöcke alle oder nur Inventar (Kreativ: alle). Vorschau in Blockfarben,
+Status Größe/Blöcke/Farben/Codelänge; „Übernehmen“ setzt den Code in den Editor. Das Bild verlässt
+den Client nie; Umwandlung `BlueprintPicture.convert` → SimpleLib `PixelArt` (Flächenmittel,
+Lab-Abstand ΔE76, Alpha < 128 = frei). Palette: 16 Wolle, 16 Beton, 16 Terrakotta, Terrakotta
+(49 Vollblöcke), Farbe = sRGB-Mittel der deckenden Texturpixel (Standard-Paket 26.3,
+`tools/picture/block_colors.py`); `MapColor` nicht, weil Wolle und Beton dort gleich sind.
+Zeilen werden je 64 Pixel umgebrochen; 128 × 128 mit Dithering bleibt unter 32000 Zeichen.
+
+**Server** (`server.blueprint.*`): `pictureImport` (an), `picturePermission` (0..4, 0),
+`pictureMaxSide` (16..128, 128). `editedBlueprint` lehnt Code mit `pixels`-Zeilen ab, wenn aus,
+Stufe fehlt oder die längste Kante größer ist (Aktionsleiste). Gewöhnlicher Code ist nicht betroffen
+(dasselbe Bild als Quader-Zeilen ist ein normaler Bau). Jeder Blaupausen-Bau-Block geht über
+SimpleLib `ToolPlacements` an Zuhörer – Simple Tweaks schreibt ihn ins Block-Protokoll (T10).
+
 ## 2. Editor
 
 Benutzen öffnet den Editor (nicht im Baumodus, siehe 4). Eine **abgelegte** Blaupause

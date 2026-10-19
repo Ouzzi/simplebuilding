@@ -1,9 +1,12 @@
 package com.simplebuilding.framework.api;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
@@ -45,7 +48,9 @@ public final class OptCompat {
         /** mode "ours" (or auto with a measured win) and both parts may run side by side. */
         OURS_CHOSEN,
         /** mode "ours" (or a measured win) but both parts would hook the same target: falls back to theirs. */
-        OURS_NOT_ALLOWED
+        OURS_NOT_ALLOWED,
+        /** Since 0.1.13: target check (concept §4.5) - a mod not on the area's list hooks one of its target classes. */
+        CONFLICT
     }
 
     /**
@@ -78,6 +83,34 @@ public final class OptCompat {
                 ? "mode ours is not allowed next to " + rival + " (same target); using theirs"
                 : "measured faster than " + rival + ": switch that part of " + rival + " off to use ours";
         return new Decision(area, mode, false, rival, Reason.OURS_NOT_ALLOWED, hint);
+    }
+
+    /**
+     * Since 0.1.13. Target check of concept §4.5: for every area (id → its target classes) the first other mod (sorted)
+     * whose mixins target one of those classes, unless {@code ignore} accepts that mod (our family, the loader, Fabric API).
+     * Class names may use '/' or '.'.
+     */
+    public static Map<String, String> conflicts(Map<String, Set<String>> areaTargets, Map<String, Set<String>> modTargets,
+                                                Predicate<String> ignore) {
+        Map<String, String> out = new TreeMap<>();
+        List<String> mods = modTargets.keySet().stream().filter(m -> !ignore.test(m)).sorted().toList();
+        areaTargets.forEach((area, targets) -> {
+            Set<String> mine = new HashSet<>();
+            for (String t : targets) mine.add(t.replace('/', '.'));
+            for (String mod : mods) {
+                if (modTargets.get(mod).stream().anyMatch(t -> mine.contains(t.replace('/', '.')))) {
+                    out.put(area, mod);
+                    break;
+                }
+            }
+        });
+        return out;
+    }
+
+    /** Since 0.1.13. The decision after the target check found {@code mod} on the same target: off, reason CONFLICT. */
+    public static Decision downgrade(Decision d, String mod) {
+        return new Decision(d.area(), d.mode(), false, mod, Reason.CONFLICT, "possible conflict with " + mod
+                + " (same target class); set mode ours or conflictScan false to keep ours");
     }
 
     /** The startup log block: one line per area. */

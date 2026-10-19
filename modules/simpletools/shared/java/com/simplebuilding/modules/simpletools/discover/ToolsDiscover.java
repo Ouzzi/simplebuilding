@@ -82,7 +82,7 @@ public final class ToolsDiscover {
             "simpletools:thrift");
     static final List<Tip> TIPS = List.of(
             new Tip("frame_shears", List.of("minecraft:shears")),
-            new Tip("frame_honeycomb", List.of("minecraft:honeycomb")));
+            new Tip("frame_honeycomb", List.of("minecraft:honeycomb", "minecraft:glass_pane")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

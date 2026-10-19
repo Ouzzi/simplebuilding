@@ -3,5 +3,7 @@
   "simpleoptrender.area.leaf_culling": "Blätter-Culling",
   "simpleoptrender.area.lightmap_cache": "Lichtkarten-Cache",
   "simpleoptrender.area.fast_ip_ping": "Schneller IP-Ping",
-  "simpleoptrender.area.no_telemetry": "Telemetrie aus"
+  "simpleoptrender.area.no_telemetry": "Telemetrie aus",
+  "simpleoptrender.area.more_culling": "Weiteres Culling",
+  "simpleoptrender.area.details": "Detail-Schalter"
 }

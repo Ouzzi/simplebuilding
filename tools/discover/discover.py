@@ -156,7 +156,7 @@ MODS = [
          # better item frames (Vanilla items, so the tip comes with the first pair of shears / honeycomb)
          tips=[("frame_shears", ["minecraft:shears"], "Sneak + use on a framed item: hide or show the frame",
                 "Schleichen + Benutzen am vollen Rahmen: verstecken/zeigen"),
-               ("frame_honeycomb", ["minecraft:honeycomb"], "Sneak + use on a framed item: lock it; an axe unlocks",
+               ("frame_honeycomb", ["minecraft:honeycomb", "minecraft:glass_pane"], "Sneak + use on a framed item: lock it; an axe unlocks",
                 "Schleichen + Benutzen am vollen Rahmen: sperren; Axt löst")]),
     dict(id="simpletweaks", ns=["simpletweaks"], cls="TweaksDiscover", package="com.simplebuilding.modules.simpletweaks.discover",
          own_packages=["com.simplebuilding.modules.simpletweaks."]),

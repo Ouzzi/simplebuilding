@@ -42,11 +42,6 @@ public final class FrameTests {
         return p;
     }
 
-    /** With SimpleBuilding its older frame hook runs first: shears hide a visible frame, sneaking shows a hidden one. */
-    private static boolean sb() {
-        return ToolsTests.isModLoaded("simplebuilding");
-    }
-
     private static InteractionResult click(ItemFrame frame, ServerPlayer p) {
         return frame.interact(p, InteractionHand.MAIN_HAND, Vec3.ZERO);
     }
@@ -72,12 +67,11 @@ public final class FrameTests {
             ItemFrame frame = frame(h, false, true);
             ServerPlayer p = player(h, GameType.SURVIVAL, new ItemStack(Items.SHEARS), true);
             h.assertTrue(click(frame, p).consumesAction() && frame.isInvisible(), "sneak + shears hides a filled frame");
-            // SimpleBuilding hides first and asks isCreative(), which the mock server player answers with true
-            int wear = p.getMainHandItem().getDamageValue();
-            h.assertTrue(sb() || wear == 1, "shears lose 1 durability: " + p.getMainHandItem().getDamageValue() + " invisible=" + frame.isInvisible() + " rot=" + frame.getRotation());
+            // with SimpleBuilding loaded its older hook stays out of the way: one action, one wear (it would hide for free)
+            h.assertTrue(p.getMainHandItem().getDamageValue() == 1, "shears lose 1 durability: " + p.getMainHandItem().getDamageValue() + " invisible=" + frame.isInvisible() + " rot=" + frame.getRotation());
             h.assertTrue(frame.getRotation() == 0 && frame.getItem().is(Items.DIAMOND), "item and rotation untouched");
             click(frame, p);
-            h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == (sb() ? wear : 2), "again: shown, shears -1 again (SimpleBuilding shows for free): " + p.getMainHandItem().getDamageValue());
+            h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == 2, "again: shown, shears -1 again: " + p.getMainHandItem().getDamageValue());
             p.setShiftKeyDown(false);
             click(frame, p);
             h.assertTrue(!frame.isInvisible() && frame.getRotation() == 1, "without sneaking: Vanilla rotation");
@@ -134,11 +128,9 @@ public final class FrameTests {
         p.setShiftKeyDown(true);
         click(frame, p);
         h.assertTrue(frame.getRotation() == 0, "locked: no turning either way");
-        if (!sb()) {
-            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
-            click(frame, p);
-            h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == 0, "locked: shears do nothing");
-        }
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
+        click(frame, p);
+        h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == 0, "locked: shears do nothing");
         frame.hurtServer(h.getLevel(), p.damageSources().playerAttack(p), 1.0F);
         h.assertTrue(frame.getItem().is(Items.DIAMOND) && !frame.isRemoved(), "locked: a survival hit takes nothing out");
         ServerPlayer adventure = player(h, GameType.ADVENTURE, new ItemStack(Items.IRON_AXE), true);
@@ -149,6 +141,57 @@ public final class FrameTests {
         h.assertTrue(p.getMainHandItem().getDamageValue() == 1 && frame.getRotation() == 0, "axe -1, no turn while unlocking");
         click(frame, p);
         h.assertTrue(frame.getRotation() == 7, "unlocked: sneak + axe now turns backwards");
+    }
+
+    /** The old SimpleBuilding habit: a glass pane locks like honeycomb (Vanilla Fixed), an axe unlocks, nothing is dropped. */
+    public static void glass(GameTestHelper h) {
+        run(h, t -> {
+            ItemFrame frame = frame(h, false, true);
+            ServerPlayer p = player(h, GameType.SURVIVAL, new ItemStack(Items.GLASS_PANE, 2), true);
+            h.assertTrue(click(frame, p).consumesAction() && ItemFrames.fixed(frame), "sneak + glass pane locks (Vanilla Fixed)");
+            h.assertTrue(p.getMainHandItem().getCount() == 1 && frame.getRotation() == 0, "one pane used, no turn");
+            click(frame, p);
+            h.assertTrue(ItemFrames.fixed(frame) && p.getMainHandItem().getCount() == 1, "a locked frame takes no second pane");
+            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_AXE));
+            h.assertTrue(click(frame, p).consumesAction() && !ItemFrames.fixed(frame), "sneak + axe unlocks");
+            h.assertTrue(h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, new net.minecraft.world.phys.AABB(h.absolutePos(SPOT)).inflate(4)).isEmpty(), "unlocking drops no glass pane");
+            ItemFrame empty = frame(h, false, false);
+            ServerPlayer q = player(h, GameType.SURVIVAL, new ItemStack(Items.GLASS_PANE), true);
+            click(empty, q);
+            h.assertTrue(!ItemFrames.fixed(empty) && empty.getItem().is(Items.GLASS_PANE), "pane on an empty frame: Vanilla placing, no lock");
+        });
+    }
+
+    /** A frame saved with SimpleBuilding's old lock tag loads as Vanilla Fixed; saving it again no longer carries the tag. */
+    public static void migrate(GameTestHelper h) {
+        run(h, t -> {
+            BlockPos pos = h.absolutePos(SPOT);
+            net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+            ItemFrame source = frame(h, false, true);
+            net.minecraft.world.level.storage.TagValueOutput out = net.minecraft.world.level.storage.TagValueOutput.createWithContext(
+                    net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess());
+            source.saveWithoutId(out);
+            tag = out.buildResult();
+            source.discard();
+            h.assertTrue(!tag.getBooleanOr("Fixed", false), "the fresh frame is not fixed");
+            tag.putBoolean("SimpleBuildingLocked", true);
+            ItemFrame reloaded = new ItemFrame(h.getLevel(), pos, Direction.SOUTH);
+            reloaded.load(net.minecraft.world.level.storage.TagValueInput.create(
+                    net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), tag));
+            h.assertTrue(ItemFrames.fixed(reloaded), "the old lock tag became Fixed");
+            net.minecraft.world.level.storage.TagValueOutput again = net.minecraft.world.level.storage.TagValueOutput.createWithContext(
+                    net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess());
+            reloaded.saveWithoutId(again);
+            net.minecraft.nbt.CompoundTag saved = again.buildResult();
+            h.assertTrue(saved.getBooleanOr("Fixed", false), "saved as Vanilla Fixed");
+            h.assertTrue(!saved.contains("SimpleBuildingLocked"), "the old tag is gone after saving");
+            net.minecraft.nbt.CompoundTag plain = new net.minecraft.nbt.CompoundTag();
+            plain.putBoolean("Fixed", false);
+            ItemFrame other = new ItemFrame(h.getLevel(), pos, Direction.SOUTH);
+            other.load(net.minecraft.world.level.storage.TagValueInput.create(
+                    net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), plain));
+            h.assertTrue(!ItemFrames.fixed(other), "a frame without the tag stays unfixed");
+        });
     }
 
     /** Glow item frames share the behaviour (same Vanilla method). */
@@ -188,12 +231,14 @@ public final class FrameTests {
             ServerPlayer p = player(h, GameType.SURVIVAL, ItemStack.EMPTY, true);
             click(frame, p);
             h.assertTrue(frame.getRotation() == 1, "reverse off: Vanilla forward turn");
-            if (!sb()) {
-                p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
-                click(frame, p);
-                h.assertTrue(!frame.isInvisible() && frame.getRotation() == 2 && p.getMainHandItem().getDamageValue() == 0, "shears off: Vanilla forward turn");
-                frame.setRotation(1);
-            }
+            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
+            click(frame, p);
+            h.assertTrue(!frame.isInvisible() && frame.getRotation() == 2 && p.getMainHandItem().getDamageValue() == 0, "shears off: Vanilla forward turn");
+            frame.setRotation(1);
+            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GLASS_PANE));
+            click(frame, p);
+            h.assertTrue(!ItemFrames.fixed(frame) && frame.getRotation() == 2 && p.getMainHandItem().getCount() == 1, "lock off: a glass pane turns forward too");
+            frame.setRotation(1);
             p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HONEYCOMB));
             click(frame, p);
             h.assertTrue(!ItemFrames.fixed(frame) && frame.getRotation() == 2 && p.getMainHandItem().getCount() == 1, "lock off: Vanilla forward turn");
