@@ -37,6 +37,9 @@ public final class MapsForge {
 
     public MapsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemaps.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleMaps.init(FMLPaths.CONFIGDIR.get());
+        SimpleMaps.modLoaded = net.minecraftforge.fml.ModList::isLoaded;
+        net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(e -> com.simplemaps.web.WebCommands.register(e.getDispatcher()));
+        net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> com.simplemaps.web.WebMap.tick(e.server()));
         net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
             if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
         });

@@ -155,6 +155,11 @@ public final class WayfinderData extends SavedData {
         return tiles.size();
     }
 
+    /** Keys ({@link #key}) of the explored 1:1 tiles (read-only view; the web export walks them). */
+    public java.util.Set<Long> tileKeys() {
+        return java.util.Collections.unmodifiableSet(tiles.keySet());
+    }
+
     public Tile tile(int tx, int tz) {
         return tiles.get(key(tx, tz));
     }

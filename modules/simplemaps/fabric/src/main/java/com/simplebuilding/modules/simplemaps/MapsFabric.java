@@ -29,6 +29,9 @@ public final class MapsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         SimpleMaps.init(FabricLoader.getInstance().getConfigDir());
+        SimpleMaps.modLoaded = FabricLoader.getInstance()::isModLoaded;
+        net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> com.simplemaps.web.WebCommands.register(d));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplemaps.web.WebMap::tick);
         com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             var book = java.util.List.of(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack());

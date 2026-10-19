@@ -1,0 +1,156 @@
+<!doctype html>
+<!-- Simple Maps web map viewer (stage 1). Own code, no third-party library, CC0 like the mod. Reads markers.json and
+     tiles/<dim>/<z>/<x>/<y>.png next to this file; z 4 = one block per pixel, 128 blocks per tile. Serve the folder
+     with any web server (file:// cannot load markers.json in most browsers). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simple Maps</title>
+<style>
+:root{color-scheme:dark;--bg:#16181a;--panel:rgba(22,24,26,.88);--fg:#f2f2f2;--muted:#c4c4c4;--line:#5a5f66;--accent:#ffd84d}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:14px system-ui,sans-serif;overflow:hidden}
+canvas{display:block;width:100vw;height:100vh;cursor:grab;touch-action:none}
+canvas.drag{cursor:grabbing}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+#bar{top:8px;left:8px;right:8px;max-width:520px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#info{bottom:8px;left:8px;color:var(--muted)}
+button,select{font:inherit;background:#2a2d31;color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:2px 9px;min-height:28px}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent)}
+</style>
+</head>
+<body>
+<canvas id="map" aria-label="Map"></canvas>
+<div id="bar" class="panel"><strong>Simple Maps</strong><select id="dim" aria-label="Dimension"></select>
+<button id="out" aria-label="Zoom out">&minus;</button><button id="in" aria-label="Zoom in">+</button>
+<label><input type="checkbox" id="pl" checked> <span id="plText">Players</span></label></div>
+<div id="info" class="panel"></div>
+<script>
+"use strict";
+const T = 128, MAXZ = 4, MIN_S = 1 / 16, MAX_S = 8;
+const de = (navigator.language || "").toLowerCase().startsWith("de");
+const L = de ? {players: "Spieler", none: "Noch nichts exportiert.", updated: "Stand", error: "markers.json nicht lesbar"}
+             : {players: "Players", none: "Nothing exported yet.", updated: "Updated", error: "markers.json could not be read"};
+document.documentElement.lang = de ? "de" : "en";
+document.getElementById("plText").textContent = L.players;
+const canvas = document.getElementById("map"), ctx = canvas.getContext("2d");
+const sel = document.getElementById("dim"), info = document.getElementById("info"), pl = document.getElementById("pl");
+let meta = null, dim = null, cx = 0, cz = 0, scale = 1, mouse = null, queued = false;
+const cache = new Map();
+
+function tile(z, x, y) {
+  const key = dim.folder + "/" + z + "/" + x + "/" + y;
+  let e = cache.get(key);
+  if (!e) {
+    e = {img: new Image(), ok: false};
+    e.img.onload = () => { e.ok = true; draw(); };
+    e.img.src = "tiles/" + key + ".png";
+    cache.set(key, e);
+    if (cache.size > 4000) cache.delete(cache.keys().next().value);
+  }
+  return e;
+}
+
+function draw() {
+  if (queued) return;
+  queued = true;
+  requestAnimationFrame(() => { queued = false; render(); });
+}
+
+function render() {
+  const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+  if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+  }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = "#16181a"; ctx.fillRect(0, 0, w, h);
+  if (!dim) { info.textContent = meta ? L.none : ""; return; }
+  const z = Math.max(0, Math.min(MAXZ, MAXZ + Math.floor(Math.log2(scale) + 1e-9))), b = T << (MAXZ - z);
+  const left = cx - w / 2 / scale, top = cz - h / 2 / scale, right = cx + w / 2 / scale, bottom = cz + h / 2 / scale;
+  for (let ty = Math.floor(top / b); ty <= Math.floor(bottom / b); ty++) {
+    for (let tx = Math.floor(left / b); tx <= Math.floor(right / b); tx++) {
+      const e = tile(z, tx, ty);
+      if (!e.ok) continue;
+      const sx = Math.floor((tx * b - cx) * scale + w / 2), sy = Math.floor((ty * b - cz) * scale + h / 2);
+      const size = Math.ceil(b * scale);
+      ctx.drawImage(e.img, sx, sy, size + 1, size + 1);
+    }
+  }
+  if (pl.checked) {
+    ctx.font = "13px system-ui,sans-serif"; ctx.textBaseline = "middle";
+    for (const p of meta.players || []) {
+      if (p.dimension !== dim.id) continue;
+      const sx = (p.x + 0.5 - cx) * scale + w / 2, sy = (p.z + 0.5 - cz) * scale + h / 2;
+      ctx.beginPath(); ctx.arc(sx, sy, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = "#ffd84d"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#000"; ctx.stroke();
+      ctx.lineWidth = 3; ctx.strokeText(p.name, sx + 9, sy); ctx.fillStyle = "#fff"; ctx.fillText(p.name, sx + 9, sy);
+    }
+  }
+  let text = L.updated + " " + new Date(meta.generatedAt).toLocaleString() + " · 1:" + (scale >= 1 ? 1 : 1 / scale);
+  if (mouse) text += " · x " + Math.floor(cx + (mouse.x - w / 2) / scale) + ", z " + Math.floor(cz + (mouse.y - h / 2) / scale);
+  info.textContent = text;
+}
+
+function zoomAt(factor, px, py) {
+  const w = canvas.clientWidth, h = canvas.clientHeight, next = Math.max(MIN_S, Math.min(MAX_S, scale * factor));
+  if (px !== undefined) {
+    cx += (px - w / 2) / scale - (px - w / 2) / next;
+    cz += (py - h / 2) / scale - (py - h / 2) / next;
+  }
+  scale = next; saveHash(); draw();
+}
+
+function saveHash() {
+  if (dim) history.replaceState(null, "", "#" + dim.folder + "/" + Math.round(cx) + "/" + Math.round(cz) + "/" + Math.log2(scale));
+}
+
+function pick(folder) {
+  dim = (meta.dimensions || []).find(d => d.folder === folder) || (meta.dimensions || [])[0] || null;
+  if (dim) sel.value = dim.folder;
+}
+
+async function load(first) {
+  try {
+    const r = await fetch("markers.json", {cache: "no-store"});
+    meta = await r.json();
+  } catch (e) { info.textContent = L.error; return; }
+  const keep = dim ? dim.folder : null;
+  sel.replaceChildren(...(meta.dimensions || []).map(d => new Option(d.id + " (" + d.tiles + ")", d.folder)));
+  if (first) {
+    const [folder, x, z, s] = decodeURIComponent(location.hash.slice(1)).split("/");
+    pick(folder);
+    if (dim) {
+      const ok = x !== undefined && !isNaN(+x) && !isNaN(+z);
+      cx = ok ? +x : dim.centerX; cz = ok ? +z : dim.centerZ;
+      if (s !== undefined && !isNaN(+s)) scale = Math.max(MIN_S, Math.min(MAX_S, Math.pow(2, Math.round(+s))));
+    }
+  } else {
+    pick(keep);
+    cache.clear();
+  }
+  draw();
+}
+
+sel.addEventListener("change", () => { pick(sel.value); cx = dim.centerX; cz = dim.centerZ; saveHash(); draw(); });
+pl.addEventListener("change", draw);
+document.getElementById("in").addEventListener("click", () => zoomAt(2));
+document.getElementById("out").addEventListener("click", () => zoomAt(0.5));
+canvas.addEventListener("wheel", e => { e.preventDefault(); zoomAt(e.deltaY < 0 ? 2 : 0.5, e.offsetX, e.offsetY); }, {passive: false});
+let dragging = null;
+canvas.addEventListener("pointerdown", e => { dragging = {x: e.clientX, y: e.clientY}; canvas.setPointerCapture(e.pointerId); canvas.classList.add("drag"); });
+canvas.addEventListener("pointermove", e => {
+  mouse = {x: e.offsetX, y: e.offsetY};
+  if (dragging) { cx -= (e.clientX - dragging.x) / scale; cz -= (e.clientY - dragging.y) / scale; dragging = {x: e.clientX, y: e.clientY}; }
+  draw();
+});
+const stop = () => { if (dragging) saveHash(); dragging = null; canvas.classList.remove("drag"); };
+canvas.addEventListener("pointerup", stop);
+canvas.addEventListener("pointercancel", stop);
+canvas.addEventListener("pointerleave", () => { mouse = null; draw(); });
+window.addEventListener("resize", draw);
+load(true);
+setInterval(() => load(false), 60000);
+</script>
+</body>
+</html>

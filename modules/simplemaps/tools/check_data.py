@@ -28,6 +28,15 @@ def main():
     for tag in ('tags/dimension_type/nether_wayfinder', 'tags/dimension_type/end_wayfinder', 'tags/item/waypoint_heads', 'tags/item/wayfinder_maps'):
         if not (res / f'data/{NS}/{tag}.json').is_file():
             errors.append(f'missing tag {tag}')
+    # Web map export: the viewer ships in the jar, every command text has EN and DE, the wiki explains it.
+    if not (res / f'assets/{NS}/web/index.html').is_file():
+        errors.append('missing web viewer assets/simplemaps/web/index.html')
+    for key in ('disabled', 'auto_off', 'running', 'started', 'status.running', 'status.last', 'status.never', 'show', 'hide'):
+        if f'commands.{NS}.web.{key}' not in langs['en_us']:
+            errors.append(f'no text for commands.{NS}.web.{key}')
+    features = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))['features']
+    if not any(f['id'] == 'web_map' for f in features):
+        errors.append('no wiki feature web_map')
     textures = subprocess.run([sys.executable, str(MODULE / 'tools/gen_textures.py'), '--check'], capture_output=True, text=True)
     if textures.returncode:
         errors.append(textures.stdout.strip() or 'texture check failed')
@@ -35,7 +44,7 @@ def main():
         print(e)
     if errors:
         return 1
-    print('simplemaps: names, wiki notes, models, textures, recipes and tags valid')
+    print('simplemaps: names, wiki notes, models, textures, recipes, tags and web map valid')
     return 0
 
 

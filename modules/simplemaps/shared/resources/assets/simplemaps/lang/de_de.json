@@ -58,5 +58,14 @@
   "quests.simplemaps.start.title": "Willkommen bei Simple Maps",
   "quests.simplemaps.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemaps.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemaps.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Maps-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kompass herstellen."
+  "quests.simplemaps.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Maps-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kompass herstellen.",
+  "commands.simplemaps.web.disabled": "Der Webkarten-Export ist aus (webEnabled in %s).",
+  "commands.simplemaps.web.auto_off": "Der Webkarten-Export ist aus, weil %s geladen ist.",
+  "commands.simplemaps.web.running": "Ein Webkarten-Export läuft bereits.",
+  "commands.simplemaps.web.started": "Webkarten-Export gestartet: %s Kacheln in %s Dimensionen.",
+  "commands.simplemaps.web.status.running": "Webkarten-Export läuft: %s von %s Kacheln, %s Chunks gelesen.",
+  "commands.simplemaps.web.status.last": "Letzter Webkarten-Export vor %s min: %s Kacheln in %s Dimensionen, Ordner %s.",
+  "commands.simplemaps.web.status.never": "Seit dem Serverstart kein Webkarten-Export; Ordner %s.",
+  "commands.simplemaps.web.show": "Deine Position erscheint jetzt auf der Webkarte (ab dem nächsten Export).",
+  "commands.simplemaps.web.hide": "Deine Position erscheint nicht mehr auf der Webkarte (ab dem nächsten Export)."
 }

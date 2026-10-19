@@ -27,6 +27,8 @@ public final class SimpleMaps {
     public static Consumer<InteractionHand> openHand = hand -> {};
     /** Opens the map screen for the map in the item frame with this entity id (client entry). */
     public static IntConsumer openFrame = entityId -> {};
+    /** Whether a mod id is loaded (set by each loader; used for the web map's autoOffWith). */
+    public static java.util.function.Predicate<String> modLoaded = id -> false;
 
     public static Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
