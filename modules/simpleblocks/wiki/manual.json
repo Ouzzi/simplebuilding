@@ -457,6 +457,42 @@
       "de": {
         "summary": "Aufsteigender Kies: Kies mit umgekehrter Schwerkraft; er steigt als Entity auf und landet unter einer Decke."
       }
+    },
+    "*_froglight": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "A froglight in a color the frogs do not make (red, cyan or blue): any froglight plus a dye; light level 15."
+      },
+      "de": {
+        "summary": "Ein Froschlicht in einer Farbe, die Frösche nicht machen (rot, cyan oder blau): ein beliebiges Froschlicht plus Farbstoff; Lichtstufe 15."
+      }
+    },
+    "chiseled_*_ice": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Chiseled packed or blue ice: cut 1:1 from its base block in the stonecutter, as slippery as it; drops only with Silk Touch."
+      },
+      "de": {
+        "summary": "Gemeißeltes Pack- oder Blaueis: am Steinmetz 1:1 aus dem Grundblock, so rutschig wie dieser; droppt nur mit Behutsamkeit."
+      }
+    },
+    "nautilus_shell_block": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/nature/NatureBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/NatureTests.java"
+      ],
+      "en": {
+        "summary": "Block of Nautilus Shell: four nautilus shells in a square, crafts back into four; placed along an axis like the bone block."
+      },
+      "de": {
+        "summary": "Nautilusschalenblock: vier Nautilusschalen im Quadrat, wieder in vier zerlegbar; wird wie der Knochenblock entlang einer Achse gesetzt."
+      }
     }
   }
 }
