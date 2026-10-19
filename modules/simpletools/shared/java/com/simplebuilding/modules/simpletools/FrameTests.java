@@ -42,6 +42,11 @@ public final class FrameTests {
         return p;
     }
 
+    /** With SimpleBuilding its older frame hook runs first: shears hide a visible frame, sneaking shows a hidden one. */
+    private static boolean sb() {
+        return ToolsTests.isModLoaded("simplebuilding");
+    }
+
     private static InteractionResult click(ItemFrame frame, ServerPlayer p) {
         return frame.interact(p, InteractionHand.MAIN_HAND, Vec3.ZERO);
     }
@@ -67,10 +72,10 @@ public final class FrameTests {
             ItemFrame frame = frame(h, false, true);
             ServerPlayer p = player(h, GameType.SURVIVAL, new ItemStack(Items.SHEARS), true);
             h.assertTrue(click(frame, p).consumesAction() && frame.isInvisible(), "sneak + shears hides a filled frame");
-            h.assertTrue(p.getMainHandItem().getDamageValue() == 1, "shears lose 1 durability");
+            h.assertTrue(p.getMainHandItem().getDamageValue() == 1, "shears lose 1 durability: " + p.getMainHandItem().getDamageValue() + " invisible=" + frame.isInvisible() + " rot=" + frame.getRotation());
             h.assertTrue(frame.getRotation() == 0 && frame.getItem().is(Items.DIAMOND), "item and rotation untouched");
             click(frame, p);
-            h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == 2, "again: shown, shears -1 again");
+            h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == (sb() ? 1 : 2), "again: shown, shears -1 again (SimpleBuilding shows for free): " + p.getMainHandItem().getDamageValue());
             p.setShiftKeyDown(false);
             click(frame, p);
             h.assertTrue(!frame.isInvisible() && frame.getRotation() == 1, "without sneaking: Vanilla rotation");
@@ -127,9 +132,11 @@ public final class FrameTests {
         p.setShiftKeyDown(true);
         click(frame, p);
         h.assertTrue(frame.getRotation() == 0, "locked: no turning either way");
-        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
-        click(frame, p);
-        h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == 0, "locked: shears do nothing");
+        if (!sb()) {
+            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
+            click(frame, p);
+            h.assertTrue(!frame.isInvisible() && p.getMainHandItem().getDamageValue() == 0, "locked: shears do nothing");
+        }
         frame.hurtServer(h.getLevel(), p.damageSources().playerAttack(p), 1.0F);
         h.assertTrue(frame.getItem().is(Items.DIAMOND) && !frame.isRemoved(), "locked: a survival hit takes nothing out");
         ServerPlayer adventure = player(h, GameType.ADVENTURE, new ItemStack(Items.IRON_AXE), true);
@@ -176,9 +183,15 @@ public final class FrameTests {
             c.enableItemFrameReverseRotate = false;
             c.enableItemFrameLock = false;
             ItemFrame frame = frame(h, false, true);
-            ServerPlayer p = player(h, GameType.SURVIVAL, new ItemStack(Items.SHEARS), true);
+            ServerPlayer p = player(h, GameType.SURVIVAL, ItemStack.EMPTY, true);
             click(frame, p);
-            h.assertTrue(!frame.isInvisible() && frame.getRotation() == 1 && p.getMainHandItem().getDamageValue() == 0, "shears off: Vanilla forward turn");
+            h.assertTrue(frame.getRotation() == 1, "reverse off: Vanilla forward turn");
+            if (!sb()) {
+                p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
+                click(frame, p);
+                h.assertTrue(!frame.isInvisible() && frame.getRotation() == 2 && p.getMainHandItem().getDamageValue() == 0, "shears off: Vanilla forward turn");
+                frame.setRotation(1);
+            }
             p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HONEYCOMB));
             click(frame, p);
             h.assertTrue(!ItemFrames.fixed(frame) && frame.getRotation() == 2 && p.getMainHandItem().getCount() == 1, "lock off: Vanilla forward turn");
@@ -193,9 +206,9 @@ public final class FrameTests {
             SimpleTools.CONFIG = new ToolsConfig();
             SubMods.set(SimpleTools.MOD_ID, false);
             ItemFrame second = frame(h, false, true);
-            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
+            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HONEYCOMB));
             click(second, p);
-            h.assertTrue(!second.isInvisible() && second.getRotation() == 1, "Enable Simple Tools off: Vanilla");
+            h.assertTrue(!ItemFrames.fixed(second) && second.getRotation() == 1 && p.getMainHandItem().getCount() == 1, "Enable Simple Tools off: Vanilla");
         });
     }
 }
