@@ -125,7 +125,7 @@ public final class MigrationWorldTests {
 
     /** The placed blocks, x = index in section (z = 1, y = 64). */
     static List<Block> sampleBlocks() {
-        List<Block> blocks = new ArrayList<>(List.of(ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST,
+        List<Block> blocks = new ArrayList<>(List.of(com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), com.simplebuilding.util.StorageRefs.chestBlock("netherite"), com.simplebuilding.util.StorageRefs.chestBlock("enderite"),
                 oven("reinforced_furnace"), oven("enderite_furnace"), ModBlocks.CHECKER_OCTET));
         // Stage 6: the first material and wood octet by their SimpleBuilding id (Simple Octets' blocks after the move).
         blocks.add(oven("andesite_octet"));
@@ -649,6 +649,17 @@ public final class MigrationWorldTests {
                 paths.add(path);
                 paths.add("recipes/" + folder + "/" + path);
             });
+        }
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            // Stage 8b: the tiered (trapped) chests, trapped copper chests and tier shulker boxes, their block entity
+            // types and the container_counts component (Simple Storage).
+            for (String tier : com.simplebuilding.util.StorageRefs.TIERS) {
+                paths.addAll(List.of(tier + "_chest", tier + "_trapped_chest", tier + "_shulker_box"));
+            }
+            for (String waxed : List.of("", "waxed_")) {
+                for (String stage : List.of("", "exposed_", "weathered_", "oxidized_")) paths.add(waxed + stage + "trapped_copper_chest");
+            }
+            paths.addAll(List.of("tiered_chest", "trapped_copper_chest", "tiered_shulker_box", "container_counts"));
         }
         for (String path : paths) {
             java.util.regex.Matcher m = java.util.regex.Pattern.compile(java.util.regex.Pattern.quote(NOW + path) + "(?![a-z0-9_/.-])").matcher(text);

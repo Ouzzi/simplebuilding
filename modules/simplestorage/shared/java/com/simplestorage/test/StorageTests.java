@@ -55,6 +55,35 @@ public final class StorageTests {
     static final BlockPos SPOT = new BlockPos(2, 2, 2);
 
     static {
+        // Split stage 8b: the chests and shulker boxes (bodies from SimpleBuilding's TieredChestTests / TieredShulkerBoxTests).
+        ALL.put("tiered_chest_single_chest_climbs_from_copper_to_enderite_keeping_its_contents", ChestTests::singleChestClimbsFromCopperToEnderiteKeepingItsContents);
+        ALL.put("tiered_chest_double_chest_upgrades_both_halves_together", ChestTests::doubleChestUpgradesBothHalvesTogether);
+        ALL.put("tiered_chest_slot_counts_and_stack_limits_follow_the_tier", ChestTests::slotCountsAndStackLimitsFollowTheTier);
+        ALL.put("tiered_chest_double_chests_form_only_from_equal_tiers", ChestTests::doubleChestsFormOnlyFromEqualTiers);
+        MAX_TICKS.put("tiered_chest_vanilla_hoppers_fill_and_empty_oversized_slots", ChestTests.HOPPER_MAX_TICKS);
+        ALL.put("tiered_chest_vanilla_hoppers_fill_and_empty_oversized_slots", ChestTests::vanillaHoppersFillAndEmptyOversizedSlots);
+        ALL.put("tiered_chest_comparator_reads_oversized_slots_against_the_tier_limit", ChestTests::comparatorReadsOversizedSlotsAgainstTheTierLimit);
+        ALL.put("tiered_chest_oversized_stacks_survive_saving_and_loading", ChestTests::oversizedStacksSurviveSavingAndLoading);
+        ALL.put("tiered_chest_chest_items_follow_the_family_scheme", ChestTests::chestItemsFollowTheFamilyScheme);
+        ALL.put("tiered_chest_trapped_capacity_comparator_and_properties_match_normal_tiers", ChestTests::trappedCapacityComparatorAndPropertiesMatchNormalTiers);
+        ALL.put("tiered_chest_trapped_double_chests_require_the_same_kind", ChestTests::trappedDoubleChestsRequireTheSameKind);
+        ALL.put("tiered_chest_trapped_recipes_use_the_matching_chest_and_hook", ChestTests::trappedRecipesUseTheMatchingChestAndHook);
+        ALL.put("tiered_chest_trapped_signal_counts_viewers_and_updates_neighbors", ChestTests::trappedSignalCountsViewersAndUpdatesNeighbors);
+        ALL.put("tiered_chest_trapped_upgrades_keep_both_halves_and_contents", ChestTests::trappedUpgradesKeepBothHalvesAndContents);
+        ALL.put("tiered_chest_trapped_titles_match_normal_tiers", ChestTests::trappedTitlesMatchNormalTiers);
+        ALL.put("tiered_chest_trapped_copper_chest_signals_its_viewers", ChestTests::trappedCopperChestSignalsItsViewers);
+        ALL.put("tiered_chest_trapped_copper_chest_waxes_scrapes_and_ages_with_its_contents", ChestTests::trappedCopperChestWaxesScrapesAndAgesWithItsContents);
+        ALL.put("tiered_chest_trapped_copper_chests_pair_only_with_each_other", ChestTests::trappedCopperChestsPairOnlyWithEachOther);
+        ALL.put("shulker_box_vanilla_box_climbs_to_enderite_in_ten_blows_keeping_contents_and_color", ShulkerBoxTests::vanillaBoxClimbsToEnderiteInTenBlowsKeepingContentsAndColor);
+        ALL.put("shulker_box_contents_and_oversized_stacks_survive_breaking_placing_and_burning", ShulkerBoxTests::contentsAndOversizedStacksSurviveBreakingPlacingAndBurning);
+        ALL.put("shulker_box_oversized_stacks_and_color_survive_saving_and_loading", ShulkerBoxTests::oversizedStacksAndColorSurviveSavingAndLoading);
+        MAX_TICKS.put("shulker_box_hoppers_and_comparators_follow_the_tier_limit", ShulkerBoxTests.RIG_MAX_TICKS);
+        ALL.put("shulker_box_hoppers_and_comparators_follow_the_tier_limit", ShulkerBoxTests::hoppersAndComparatorsFollowTheTierLimit);
+        MAX_TICKS.put("shulker_box_dispensers_place_the_boxes", ShulkerBoxTests.RIG_MAX_TICKS);
+        ALL.put("shulker_box_dispensers_place_the_boxes", ShulkerBoxTests::dispensersPlaceTheBoxes);
+        ALL.put("shulker_box_boxes_do_not_nest", ShulkerBoxTests::boxesDoNotNest);
+        ALL.put("shulker_box_boxes_are_dyed_crafted_and_washed", ShulkerBoxTests::boxesAreDyedCraftedAndWashed);
+        ALL.put("shulker_box_box_items_follow_the_family_scheme", ShulkerBoxTests::boxItemsFollowTheFamilyScheme);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);
@@ -74,20 +103,57 @@ public final class StorageTests {
             });
             if (StorageBlockEntities.CRATE.isValid(StorageBlocks.STORAGE_CRAFTING_TABLE.defaultBlockState())) problems.add("crate BE takes the table");
             if (StorageMenus.STORAGE_CRAFTING_TABLE == null) problems.add("menu field");
+            // Split stage 8b: chests, trapped chests, trapped copper chests, tier shulker boxes, their block entities, menus, component.
+            for (String path : SimpleStorage.movedChests()) {
+                if (!BuiltInRegistries.BLOCK.containsKey(SimpleStorage.id(path))) problems.add("block " + path);
+                if (!BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(path))) problems.add("item " + path);
+            }
+            for (var chest : StorageBlocks.tieredChests()) if (!StorageBlockEntities.TIERED_CHEST.isValid(chest.defaultBlockState())) problems.add("chest BE takes " + chest);
+            for (var chest : StorageBlocks.trappedCopperChests()) if (!StorageBlockEntities.TRAPPED_COPPER_CHEST.isValid(chest.defaultBlockState())) problems.add("copper BE takes " + chest);
+            for (var box : StorageBlocks.shulkerBoxes()) if (!StorageBlockEntities.TIERED_SHULKER_BOX.isValid(box.defaultBlockState())) problems.add("box BE takes " + box);
+            for (String tier : SimpleStorage.TIERS) {
+                for (String kind : List.of("_chest", "_double_chest", "_shulker_box")) {
+                    if (!BuiltInRegistries.MENU.containsKey(SimpleStorage.id(tier + kind))) problems.add("menu " + tier + kind);
+                }
+            }
+            if (!BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleStorage.id("container_counts"))) problems.add("component container_counts");
             h.assertTrue(problems.isEmpty(), "registration: " + problems);
             h.succeed();
         });
         ALL.put("migration_from_simplebuilding", h -> {
             List<String> problems = new ArrayList<>();
+            List<String> chests = SimpleStorage.movedChests();
             for (String path : SimpleStorage.movedBlocks()) {
                 if (!BuiltInRegistries.BLOCK.containsKey(SimpleStorage.id(path))) continue; // End crates without Simple End
                 if (BuiltInRegistries.BLOCK.getValue(SimpleStorage.old(path)) != BuiltInRegistries.BLOCK.getValue(SimpleStorage.id(path))) problems.add("block " + path);
                 if (BuiltInRegistries.ITEM.getValue(SimpleStorage.old(path)) != BuiltInRegistries.ITEM.getValue(SimpleStorage.id(path))) problems.add("item " + path);
+                if (chests.contains(path)) continue; // 8b: their recipes are checked below by recipe id
                 if (!SimpleStorage.id(path).equals(IdMoves.target(Registries.RECIPE, SimpleStorage.old(path)))) problems.add("recipe " + path);
                 Identifier advancement = SimpleStorage.id("recipes/decorations/" + path);
                 if (!advancement.equals(IdMoves.advancement(SimpleStorage.old("recipes/decorations/" + path)))) problems.add("advancement " + path);
             }
-            for (String be : List.of("crate", SimpleStorage.STORAGE_CRAFTING_TABLE)) {
+            // Split stage 8b: the chest and box recipes with their recipe-book folders, the component.
+            SimpleStorage.movedChestRecipes().forEach((path, folder) -> {
+                if (!SimpleStorage.id(path).equals(IdMoves.target(Registries.RECIPE, SimpleStorage.old(path)))) problems.add("recipe " + path);
+                Identifier advancement = SimpleStorage.id("recipes/" + folder + "/" + path);
+                if (!advancement.equals(IdMoves.advancement(SimpleStorage.old("recipes/" + folder + "/" + path)))) problems.add("advancement " + path);
+            });
+            if (BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(SimpleStorage.old("container_counts")) != com.simplestorage.registry.StorageComponents.CONTAINER_COUNTS) {
+                problems.add("component container_counts");
+            }
+            // A filled Netherite chest of an old world: block entity id simplebuilding:tiered_chest, a slot of 100 (over the codec's 99).
+            BlockState chestState = StorageBlocks.NETHERITE_CHEST.defaultBlockState();
+            CompoundTag chestTag = oldEntity("simplebuilding:tiered_chest", "minecraft:cobblestone", 99);
+            net.minecraft.nbt.ListTag counts = new net.minecraft.nbt.ListTag();
+            CompoundTag extra = new CompoundTag();
+            extra.putInt("Slot", 0);
+            extra.putInt("Count", 100);
+            counts.add(extra);
+            chestTag.put(com.simplestorage.chest.TieredChestBlockEntity.EXTRA_COUNTS, counts);
+            BlockEntity oldChest = BlockEntity.loadStatic(h.absolutePos(SPOT), chestState, chestTag, h.getLevel().registryAccess());
+            if (!(oldChest instanceof com.simplestorage.chest.TieredChestBlockEntity loadedChest) || loadedChest.getItem(0).getCount() != 100
+                    || !loadedChest.getItem(0).is(Items.COBBLESTONE)) problems.add("old netherite chest loads as " + oldChest);
+            for (String be : List.of("crate", SimpleStorage.STORAGE_CRAFTING_TABLE, "tiered_chest", "trapped_copper_chest", "tiered_shulker_box")) {
                 if (BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleStorage.old(be)) != BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleStorage.id(be))) problems.add("block entity " + be);
             }
             // A crate of an old world: block entity id simplebuilding:crate with its food.
@@ -105,7 +171,13 @@ public final class StorageTests {
         ALL.put("recipes", h -> {
             List<String> problems = new ArrayList<>();
             var manager = h.getLevel().getServer().getRecipeManager();
+            for (String path : SimpleStorage.movedChestRecipes().keySet()) {
+                if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty()) problems.add("missing " + path);
+                if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.old(path))).isPresent()) problems.add("still under simplebuilding: " + path);
+            }
+            List<String> chestBlocks = SimpleStorage.movedChests();
             for (String path : SimpleStorage.movedBlocks()) {
+                if (chestBlocks.contains(path)) continue; // 8b: own recipe ids above (Netherite/Enderite only in the world)
                 boolean registered = BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(path));
                 var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path)));
                 if (holder.isPresent() != registered) problems.add((registered ? "missing " : "unexpected ") + path);

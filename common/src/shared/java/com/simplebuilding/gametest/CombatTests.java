@@ -227,7 +227,7 @@ public final class CombatTests {
             }
         }
         helper.assertTrue(boxes >= 20, "found only " + boxes + " shulker boxes (17 vanilla + 3 tiers expected)");
-        helper.assertTrue(BuiltInRegistries.ITEM.getKey(ModItems.ENDERITE_SHULKER_BOX).getNamespace().equals(Simplebuilding.MOD_ID),
+        helper.assertTrue(BuiltInRegistries.ITEM.getKey(com.simplebuilding.util.StorageRefs.shulkerBox("enderite")).getNamespace().equals(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE),
                 "the enderite shulker box is not registered");
         helper.succeed();
     }

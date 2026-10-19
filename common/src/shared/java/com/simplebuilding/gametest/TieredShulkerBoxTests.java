@@ -156,19 +156,20 @@ public final class TieredShulkerBoxTests {
         start.setItem(0, new ItemStack(Items.DIAMOND, 5));
         start.setItem(VANILLA_SLOTS - 1, new ItemStack(Items.OAK_LOG, 64));
 
-        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, red, ModBlocks.REINFORCED_SHULKER_BOX,
+        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, red, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("reinforced"),
                 REINFORCED_SLOTS, "vanilla -> reinforced");
-        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, ModBlocks.REINFORCED_SHULKER_BOX,
-                ModBlocks.NETHERITE_SHULKER_BOX, NETHERITE_SLOTS, "reinforced -> netherite");
-        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, ModBlocks.NETHERITE_SHULKER_BOX,
-                ModBlocks.ENDERITE_SHULKER_BOX, ENDERITE_SLOTS, "netherite -> enderite");
+        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("reinforced"),
+                com.simplebuilding.util.StorageRefs.shulkerBoxBlock("netherite"), NETHERITE_SLOTS, "reinforced -> netherite");
+        climb(helper, player, pos, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("netherite"),
+                com.simplebuilding.util.StorageRefs.shulkerBoxBlock("enderite"), ENDERITE_SLOTS, "netherite -> enderite");
 
-        TieredShulkerBoxBlockEntity end = box(helper, pos);
+        BaseContainerBlockEntity end = anyBox(helper, pos);
         String contents = describe(end.getItem(0)) + "|" + describe(end.getItem(VANILLA_SLOTS - 1));
         helper.assertTrue(contents.equals("5 diamond|64 oak_log"), "contents after three upgrades: " + contents);
         helper.assertTrue(end.getCustomName() != null && end.getCustomName().getString().equals("Loot"),
                 "the name was lost on the way: " + end.getCustomName());
-        helper.assertTrue(end.getColor() == DyeColor.RED, "the color was lost on the way: " + end.getColor());
+        DyeColor color = end.collectComponents().get(DataComponents.BASE_COLOR);
+        helper.assertTrue(color == DyeColor.RED, "the color was lost on the way: " + color);
         helper.assertTrue(helper.getBlockState(pos).getValue(ShulkerBoxBlock.FACING) == Direction.EAST, "the facing was lost");
         helper.succeed();
     }
@@ -185,9 +186,11 @@ public final class TieredShulkerBoxTests {
      * out as four stacks of 64, not just the 64 that minecraft:container holds.
      */
     public static void contentsAndOversizedStacksSurviveBreakingPlacingAndBurning(GameTestHelper helper) {
+        // 26.3 (split stage 8b): Simple Storage's classes; its module tests (shulker_box_*) cover this there.
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
         BlockPos pos = new BlockPos(1, 1, 1);
-        helper.setBlock(pos, ModBlocks.ENDERITE_SHULKER_BOX.defaultBlockState());
+        helper.setBlock(pos, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("enderite").defaultBlockState());
         TieredShulkerBoxBlockEntity box = box(helper, pos);
         box.applyComponents(DataComponentMap.builder().set(DataComponents.CUSTOM_NAME, Component.literal("Quarry"))
                 .set(DataComponents.BASE_COLOR, DyeColor.BLUE).build(), DataComponentPatch.EMPTY);
@@ -195,7 +198,7 @@ public final class TieredShulkerBoxTests {
         box.setItem(6, new ItemStack(Items.ENDER_PEARL, 40));
 
         List<ItemStack> drops = Block.getDrops(helper.getBlockState(pos), level, helper.absolutePos(pos), box);
-        helper.assertTrue(drops.size() == 1 && drops.get(0).is(ModItems.ENDERITE_SHULKER_BOX), "the broken box drops " + drops);
+        helper.assertTrue(drops.size() == 1 && drops.get(0).is(com.simplebuilding.util.StorageRefs.shulkerBox("enderite")), "the broken box drops " + drops);
         ItemStack dropped = drops.get(0);
         net.minecraft.world.item.component.ItemContainerContents vanillaView = dropped.get(DataComponents.CONTAINER);
         helper.assertTrue(vanillaView != null, "the dropped box carries no minecraft:container");
@@ -242,8 +245,10 @@ public final class TieredShulkerBoxTests {
      * loads both back whole; the vanilla "Items" list alone still holds a readable stack of 64.
      */
     public static void oversizedStacksAndColorSurviveSavingAndLoading(GameTestHelper helper) {
+        // 26.3 (split stage 8b): Simple Storage's classes; its module tests (shulker_box_*) cover this there.
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(1, 1, 1);
-        helper.setBlock(pos, ModBlocks.NETHERITE_SHULKER_BOX.defaultBlockState());
+        helper.setBlock(pos, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("netherite").defaultBlockState());
         TieredShulkerBoxBlockEntity box = box(helper, pos);
         box.setColor(DyeColor.LIME);
         box.setItem(NETHERITE_SLOTS - 1, new ItemStack(Items.COBBLESTONE, 128));
@@ -271,14 +276,14 @@ public final class TieredShulkerBoxTests {
      */
     public static void hoppersAndComparatorsFollowTheTierLimit(GameTestHelper helper) {
         BlockPos netherite = new BlockPos(1, 1, 1);
-        helper.setBlock(netherite, ModBlocks.NETHERITE_SHULKER_BOX.defaultBlockState());
+        helper.setBlock(netherite, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("netherite").defaultBlockState());
         Container single = container(helper, netherite);
         single.setItem(0, new ItemStack(Items.COBBLESTONE, 127));
         ItemStack rest = HopperBlockEntity.addItem(null, single, new ItemStack(Items.COBBLESTONE, 2), Direction.UP);
         String line = single.getItem(0).getCount() + "+" + single.getItem(1).getCount() + " rest " + rest.getCount();
         helper.assertTrue(line.equals("128+1 rest 0"), "netherite slot 0 at 127 plus 2 cobblestone: " + line);
         ItemStack vanillaBox = HopperBlockEntity.addItem(null, single, new ItemStack(Items.SHULKER_BOX), Direction.UP);
-        ItemStack tierBox = HopperBlockEntity.addItem(null, single, new ItemStack(ModItems.REINFORCED_SHULKER_BOX), Direction.UP);
+        ItemStack tierBox = HopperBlockEntity.addItem(null, single, new ItemStack(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced")), Direction.UP);
         helper.assertTrue(vanillaBox.getCount() == 1 && tierBox.getCount() == 1,
                 "a hopper put a shulker box into the netherite box (vanilla rest " + vanillaBox.getCount()
                         + ", reinforced rest " + tierBox.getCount() + ")");
@@ -295,7 +300,7 @@ public final class TieredShulkerBoxTests {
         helper.assertTrue(half == 8 && full == 15, "comparator signal half/full: " + half + "/" + full + ", expected 8/15");
 
         BlockPos fed = new BlockPos(4, 1, 1);
-        helper.setBlock(fed, ModBlocks.ENDERITE_SHULKER_BOX.defaultBlockState());
+        helper.setBlock(fed, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("enderite").defaultBlockState());
         Container fedBox = container(helper, fed);
         for (int i = 0; i < ENDERITE_SLOTS; i++) {
             fedBox.setItem(i, new ItemStack(Items.COBBLESTONE, 64));
@@ -304,7 +309,7 @@ public final class TieredShulkerBoxTests {
         ((Container) helper.getLevel().getBlockEntity(helper.absolutePos(fed.above()))).setItem(0, new ItemStack(Items.COBBLESTONE, 2));
 
         BlockPos drained = new BlockPos(1, 2, 4);
-        helper.setBlock(drained, ModBlocks.REINFORCED_SHULKER_BOX.defaultBlockState());
+        helper.setBlock(drained, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("reinforced").defaultBlockState());
         container(helper, drained).setItem(0, new ItemStack(Items.COBBLESTONE, 60));
         helper.setBlock(drained.below(), Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING, Direction.EAST));
 
@@ -328,14 +333,14 @@ public final class TieredShulkerBoxTests {
     public static void dispensersPlaceTheBoxes(GameTestHelper helper) {
         BlockPos dispenser = new BlockPos(1, 1, 1);
         helper.setBlock(dispenser, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.UP));
-        ItemStack green = new ItemStack(ModItems.REINFORCED_SHULKER_BOX);
+        ItemStack green = new ItemStack(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"));
         green.set(DataComponents.BASE_COLOR, DyeColor.GREEN);
         ((Container) helper.getLevel().getBlockEntity(helper.absolutePos(dispenser))).setItem(0, green);
         helper.setBlock(dispenser.east(), Blocks.REDSTONE_BLOCK);
         helper.succeedWhen(() -> {
             BlockState above = helper.getBlockState(dispenser.above());
-            helper.assertTrue(above.is(ModBlocks.REINFORCED_SHULKER_BOX), "the dispenser did not place the box: " + above);
-            helper.assertTrue(box(helper, dispenser.above()).getColor() == DyeColor.GREEN, "the placed box lost its color");
+            helper.assertTrue(above.is(com.simplebuilding.util.StorageRefs.shulkerBoxBlock("reinforced")), "the dispenser did not place the box: " + above);
+            helper.assertTrue(anyBox(helper, dispenser.above()).collectComponents().get(DataComponents.BASE_COLOR) == DyeColor.GREEN, "the placed box lost its color");
         });
     }
 
@@ -349,15 +354,17 @@ public final class TieredShulkerBoxTests {
      * Ordinary items do.
      */
     public static void boxesDoNotNest(GameTestHelper helper) {
+        // 26.3 (split stage 8b): Simple Storage's classes; its module tests (shulker_box_*) cover this there.
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(1, 1, 1);
-        helper.setBlock(pos, ModBlocks.REINFORCED_SHULKER_BOX.defaultBlockState());
+        helper.setBlock(pos, com.simplebuilding.util.StorageRefs.shulkerBoxBlock("reinforced").defaultBlockState());
         TieredShulkerBoxBlockEntity box = box(helper, pos);
         TieredChestMenu menu = TieredChestMenu.server(0,
                 helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL).getInventory(), box, box.tier(), false, true);
         ShulkerBoxSlot vanillaSlot = new ShulkerBoxSlot(new net.minecraft.world.SimpleContainer(27), 0, 0, 0);
         List<String> summary = new ArrayList<>();
-        for (Item item : List.of(Items.COBBLESTONE, Items.SHULKER_BOX, vanillaBlock("red_shulker_box").asItem(), ModItems.REINFORCED_SHULKER_BOX,
-                ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX)) {
+        for (Item item : List.of(Items.COBBLESTONE, Items.SHULKER_BOX, vanillaBlock("red_shulker_box").asItem(), com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
+                com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite"))) {
             ItemStack stack = new ItemStack(item);
             summary.add(BuiltInRegistries.ITEM.getKey(item).getPath()
                     + ":" + (menu.getSlot(0).mayPlace(stack) ? "menu" : "-")
@@ -380,13 +387,15 @@ public final class TieredShulkerBoxTests {
      * one level of water.
      */
     public static void boxesAreDyedCraftedAndWashed(GameTestHelper helper) {
+        // 26.3 (split stage 8b): Simple Storage's classes; its module tests (shulker_box_*) cover this there.
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
-        ItemStack filled = new ItemStack(ModItems.REINFORCED_SHULKER_BOX);
+        ItemStack filled = new ItemStack(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"));
         filled.set(DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.fromItems(
                 List.of(new ItemStack(Items.DIAMOND, 3))));
         ItemStack dyed = craft(helper, level, CraftingInput.of(2, 1, List.of(filled, new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("red_dye"))))),
                 "reinforced box + red dye", "simplebuilding:red_reinforced_shulker_box");
-        helper.assertTrue(dyed.is(ModItems.REINFORCED_SHULKER_BOX) && dyed.get(DataComponents.BASE_COLOR) == DyeColor.RED
+        helper.assertTrue(dyed.is(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced")) && dyed.get(DataComponents.BASE_COLOR) == DyeColor.RED
                         && describe(TieredShulkerBoxes.contentsOf(dyed).get(0)).equals("3 diamond"),
                 "dyed: " + dyed + " " + dyed.getComponentsPatch());
 
@@ -394,7 +403,7 @@ public final class TieredShulkerBoxTests {
         ItemStack redVanilla = new ItemStack(vanillaBlock("red_shulker_box").asItem());
         ItemStack crafted = craft(helper, level, CraftingInput.of(3, 2, List.of(redVanilla, diamond, diamond, diamond, diamond, ItemStack.EMPTY)),
                 "red shulker box + 4 cracked diamonds", "simplebuilding:reinforced_shulker_box_from_red_shulker_box");
-        helper.assertTrue(crafted.is(ModItems.REINFORCED_SHULKER_BOX) && crafted.get(DataComponents.BASE_COLOR) == DyeColor.RED,
+        helper.assertTrue(crafted.is(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced")) && crafted.get(DataComponents.BASE_COLOR) == DyeColor.RED,
                 "crafted: " + crafted + " " + crafted.getComponentsPatch());
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
                         CraftingInput.of(2, 2, List.of(redVanilla, diamond, diamond, diamond)), level).isEmpty(),
@@ -411,7 +420,7 @@ public final class TieredShulkerBoxTests {
         wash.interact(helper.getBlockState(cauldron), level, helper.absolutePos(cauldron), player, InteractionHand.MAIN_HAND, dyed);
         ItemStack washed = player.getMainHandItem();
         int water = helper.getBlockState(cauldron).getValue(net.minecraft.world.level.block.LayeredCauldronBlock.LEVEL);
-        helper.assertTrue(washed.is(ModItems.REINFORCED_SHULKER_BOX) && !washed.has(DataComponents.BASE_COLOR)
+        helper.assertTrue(washed.is(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced")) && !washed.has(DataComponents.BASE_COLOR)
                         && describe(TieredShulkerBoxes.contentsOf(washed).get(0)).equals("3 diamond") && water == 2,
                 "washed: " + washed.getComponentsPatch() + ", water level " + water);
         helper.succeed();
@@ -427,12 +436,12 @@ public final class TieredShulkerBoxTests {
      */
     public static void boxItemsFollowTheFamilyScheme(GameTestHelper helper) {
         List<String> summary = new ArrayList<>();
-        for (Item item : List.of(ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX)) {
+        for (Item item : List.of(com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"), com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite"))) {
             ItemStack stack = new ItemStack(item);
             summary.add(BuiltInRegistries.ITEM.getKey(item).getPath() + ":" + stack.getRarity()
                     + ":" + (stack.has(DataComponents.DAMAGE_RESISTANT) ? "fireproof" : "burns")
                     + ":" + stack.getMaxStackSize()
-                    + ":" + (item instanceof net.minecraft.world.item.BlockItem block && block.getBlock() instanceof TieredShulkerBoxBlock)
+                    + ":" + (item instanceof net.minecraft.world.item.BlockItem block && block.getBlock() instanceof ShulkerBoxBlock)
                     + (stack.is(ModTags.Items.VOID_PROTECTED) ? ":void" : "")
                     + (stack.is(ModTags.Items.DOUBLE_DESPAWN_TIME) ? ":despawn" : ""));
         }
@@ -458,6 +467,14 @@ public final class TieredShulkerBoxTests {
         BlockEntity entity = helper.getLevel().getBlockEntity(helper.absolutePos(pos));
         helper.assertTrue(entity instanceof TieredShulkerBoxBlockEntity, "no tier shulker box at " + pos + ": " + entity);
         return (TieredShulkerBoxBlockEntity) entity;
+    }
+
+    /** Any tier shulker box as a container (split stage 8b: on 26.3 Simple Storage's block entity). */
+    private static BaseContainerBlockEntity anyBox(GameTestHelper helper, BlockPos pos) {
+        BlockEntity entity = helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        helper.assertTrue(entity instanceof BaseContainerBlockEntity && entity.getBlockState().getBlock() instanceof ShulkerBoxBlock,
+                "no shulker box at " + pos + ": " + entity);
+        return (BaseContainerBlockEntity) entity;
     }
 
     private static String describe(ItemStack stack) {
@@ -535,8 +552,8 @@ public final class TieredShulkerBoxTests {
         }
         helper.assertFalse(SledgehammerUpgrades.hasJob(player), what + ": the job outlived the upgrade");
         helper.assertTrue(helper.getBlockState(pos).is(to), what + ": the box is " + helper.getBlockState(pos) + " after ten blows");
-        helper.assertTrue(box(helper, pos).getContainerSize() == slots,
-                what + ": " + box(helper, pos).getContainerSize() + " slots, expected " + slots);
+        helper.assertTrue(anyBox(helper, pos).getContainerSize() == slots,
+                what + ": " + anyBox(helper, pos).getContainerSize() + " slots, expected " + slots);
         helper.assertTrue(player.getOffhandItem().getCount() == 1,
                 what + ": material left " + player.getOffhandItem().getCount() + ", expected " + (MATERIAL_PER_STEP + 1) + " - " + MATERIAL_PER_STEP);
         player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));

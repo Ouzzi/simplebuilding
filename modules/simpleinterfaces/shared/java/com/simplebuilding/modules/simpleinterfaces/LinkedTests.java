@@ -510,8 +510,8 @@ public final class LinkedTests {
             SimpleInterfaces.config().enableEasyShulkers = false;
             h.assertTrue(!PortableContainers.open(p, 3) && !PortableContainers.interceptClick(p.inventoryMenu, 36 + 3, 1, ContainerInput.PICKUP, p), "Switch off: boxes stay closed");
             SimpleInterfaces.config().enableEasyShulkers = true;
-            // A SimpleBuilding tier box (public registry ID): 45 slots, its own components kept.
-            var tier = BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:netherite_shulker_box"));
+            // A Simple Storage tier box (public registry ID; SimpleBuilding's before split stage 8b): 45 slots, its own components kept.
+            var tier = BuiltInRegistries.ITEM.getValue(Identifier.parse("simplestorage:netherite_shulker_box"));
             if (tier != Items.AIR) {
                 var tierBox = new ItemStack(tier);
                 p.getInventory().setItem(6, tierBox);

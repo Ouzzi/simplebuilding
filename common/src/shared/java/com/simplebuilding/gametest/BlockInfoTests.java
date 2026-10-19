@@ -164,9 +164,9 @@ public final class BlockInfoTests {
 
     /** Reinforced chest 36 slots, no stack bonus; netherite 45, doubled 90, stacks x2. */
     public static void chestSlotsFollowTheTierAndDoubleChests(GameTestHelper helper) {
-        expect(helper, BlockInfo.stateLines(Topic.CHEST_SLOTS, ModBlocks.REINFORCED_CHEST.defaultBlockState()),
+        expect(helper, BlockInfo.stateLines(Topic.CHEST_SLOTS, com.simplebuilding.util.StorageRefs.chestBlock("reinforced").defaultBlockState()),
                 List.of("jade.simplebuilding.chest.slots [36]"), "single reinforced chest");
-        BlockState netherite = ModBlocks.NETHERITE_CHEST.defaultBlockState();
+        BlockState netherite = com.simplebuilding.util.StorageRefs.chestBlock("netherite").defaultBlockState();
         expect(helper, BlockInfo.stateLines(Topic.CHEST_SLOTS, netherite),
                 List.of("jade.simplebuilding.chest.slots [45]", "jade.simplebuilding.chest.stacks [2]"), "single netherite chest");
         expect(helper, BlockInfo.stateLines(Topic.CHEST_SLOTS, netherite.setValue(ChestBlock.TYPE, ChestType.LEFT)),
