@@ -1,6 +1,6 @@
 package com.simplebuilding.modules.simpletweaks.admin.blocklog;
 
-import com.simplebuilding.modules.simpletweaks.admin.AdminCodecs;
+import com.simplebuilding.modules.simpletweaks.admin.*;
 import java.util.*;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.core.BlockPos;
@@ -9,7 +9,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** What the mixins hand to the block log: breaks, placements and container differences. Server thread only. */
@@ -41,6 +41,62 @@ public final class BlockRecorder {
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) return;
         BlockLog.record(level, player, 'P', pos, BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString(), 1, BlockStateParser.serialize(state));
+    }
+
+    // ---- world events (signs, explosions, fire, hoppers), each behind its own switch ----
+    public static boolean signs() { return BlockLog.active() && Admin.config().blockLog().signs(); }
+    public static boolean explosions() { return BlockLog.active() && Admin.config().blockLog().explosions(); }
+    public static boolean fire() { return BlockLog.active() && Admin.config().blockLog().fire(); }
+    public static boolean hoppers() { return BlockLog.active() && Admin.config().blockLog().hoppers(); }
+
+    /** The plain lines of one sign side, joined with newlines. */
+    public static String signText(SignBlockEntity sign, boolean front) {
+        var out = new StringBuilder();
+        for (var line : sign.getText(front ? SignTextSlot.FRONT : SignTextSlot.BACK).getMessages(false)) {
+            if (!out.isEmpty()) out.append('\n');
+            out.append(line.getString());
+        }
+        return out.toString();
+    }
+    /** After a player edited a sign: logs side, old and new text (S) when the text changed. */
+    public static void signEdited(ServerPlayer player, SignBlockEntity sign, boolean front, String before) {
+        if (before == null || !signs() || !(sign.getLevel() instanceof ServerLevel level)) return;
+        String after = signText(sign, front);
+        if (after.equals(before)) return;
+        BlockLog.record(level, player, 'S', sign.getBlockPos(), BuiltInRegistries.BLOCK.getKey(sign.getBlockState().getBlock()).toString(), 1,
+                (front ? "front" : "back") + "\u0001" + before + "\u0001" + after);
+    }
+
+    /** Actor of an explosion: the player behind it, else {@code #<entity type>} or {@code #explosion}. */
+    public static Object explosionActor(net.minecraft.world.entity.Entity direct, net.minecraft.world.entity.Entity indirect) {
+        if (indirect instanceof ServerPlayer p) return p;
+        if (direct instanceof ServerPlayer p) return p;
+        var e = indirect != null ? indirect : direct;
+        return e == null ? "#explosion" : "#" + BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+    }
+    /** After an explosion or fire changed a block: X or F with the old state (and block entity data), so a rollback can rebuild it. */
+    public static void worldBroke(ServerLevel level, Object actor, char action, BlockPos pos, String[] before) {
+        if (before == null || level.getBlockState(pos).getBlock() == BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse(before[0]))) return;
+        if (actor instanceof ServerPlayer p) BlockLog.record(level, p, action, pos, before[0], 1, before[1]);
+        else BlockLog.record(level, (String) actor, action, pos, before[0], 1, before[1]);
+    }
+    /** {@link #before} for world events, limited by the per-tick budget. */
+    public static String[] worldBefore(ServerLevel level, BlockPos pos) {
+        if (level.getBlockState(pos).isAir() || !BlockLog.budget()) return null;
+        return before(level, pos);
+    }
+
+    /** A hopper (block or minecart) moved {@code count} items between {@code from} and {@code to}; logs only real containers. */
+    public static void hopperMoved(Container from, Container to, ItemStack proto, int count) {
+        if (count <= 0 || proto.isEmpty() || !hoppers()) return;
+        String item = BuiltInRegistries.ITEM.getKey(proto.getItem()).toString();
+        if (from instanceof Hopper && !(to instanceof Hopper)) {
+            var ref = resolve(to, 0);
+            if (ref != null) BlockLog.hopper((ServerLevel) ref.be.getLevel(), 'I', ref.be.getBlockPos(), item, count);
+        } else if (to instanceof Hopper && from != null && !(from instanceof Hopper)) {
+            var ref = resolve(from, 0);
+            if (ref != null) BlockLog.hopper((ServerLevel) ref.be.getLevel(), 'O', ref.be.getBlockPos(), item, count);
+        }
     }
 
     // ---- containers: snapshot when a menu opens, difference when it closes ----

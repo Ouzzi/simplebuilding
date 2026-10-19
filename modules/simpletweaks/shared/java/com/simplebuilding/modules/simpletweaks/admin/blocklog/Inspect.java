@@ -49,14 +49,23 @@ public final class Inspect {
         return true;
     }
     public static Component line(BlockLog.Entry e, long now) {
-        Component what = name(e);
-        return Component.translatable("simpletweaks.admin.blocklog.line", ago(now - e.time()),
-                Component.translatable("simpletweaks.admin.blocklog.action." + e.action(), e.name(), what, e.count()));
+        return Component.translatable("simpletweaks.admin.blocklog.line", ago(now - e.time()), action(e));
+    }
+    /** "Steve broke Stone", for signs with the new text; unknown actions of newer files show their letter. */
+    public static Component action(BlockLog.Entry e) {
+        String detail = "";
+        if (e.action() == 'S') {
+            String[] f = e.extra().split("\u0001", -1);
+            detail = f.length == 3 ? f[2].replace('\n', '|') : "";
+        }
+        if (LogFilter.ITEM_ACTIONS.indexOf(e.action()) < 0 && LogFilter.BLOCK_ACTIONS.indexOf(e.action()) < 0)
+            return Component.literal(e.name() + " " + e.action() + " " + e.id());
+        return Component.translatable("simpletweaks.admin.blocklog.action." + e.action(), e.name(), name(e), e.count(), detail);
     }
     static Component name(BlockLog.Entry e) {
         var id = Identifier.tryParse(e.id());
         if (id == null) return Component.literal(e.id());
-        if (e.action() == 'B' || e.action() == 'P') return BuiltInRegistries.BLOCK.getOptional(id).map(b -> (Component) b.getName()).orElse(Component.literal(e.id()));
+        if (LogFilter.BLOCK_ACTIONS.indexOf(e.action()) >= 0) return BuiltInRegistries.BLOCK.getOptional(id).map(b -> (Component) b.getName()).orElse(Component.literal(e.id()));
         return BuiltInRegistries.ITEM.getOptional(id).map(i -> new ItemStack(i).getHoverName()).orElse(Component.literal(e.id()));
     }
     /** 42s, 5m, 3h, 2d. */

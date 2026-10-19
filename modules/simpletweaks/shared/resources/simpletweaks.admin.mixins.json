@@ -18,7 +18,11 @@
     "AdminChunkMapAccessor",
     "AdminTrackedEntityInvoker",
     "AdminLagMixin",
-    "AdminLagEntityMixin"
+    "AdminLagEntityMixin",
+    "AdminSignMixin",
+    "AdminExplosionMixin",
+    "AdminFireMixin",
+    "AdminHopperMixin"
   ],
   "injectors": {
     "defaultRequire": 1

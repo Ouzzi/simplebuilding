@@ -42,6 +42,12 @@ public final class AdminTests {
         TESTS.put("blocklog_inspect_does_not_break", AdminTests::inspect);
         TESTS.put("blocklog_rollback", AdminTests::rollback);
         TESTS.put("blocklog_retention_and_format", AdminTests::retention);
+        TESTS.put("blocklog_signs_explosions_fire_hoppers", AdminTests::worldEvents);
+        TESTS.put("blocklog_lookup_filters", AdminTests::lookupFilters);
+        TESTS.put("blocklog_preview_and_restore", AdminTests::previewRestore);
+        TESTS.put("blocklog_purge_player", AdminTests::purgePlayer);
+        TESTS.put("blocklog_command_permissions", AdminTests::blockLogPermissions);
+        TESTS.put("blocklog_legacy_lines_readable", AdminTests::legacyLines);
         TESTS.put("deaths_backup_on_death_and_restore", AdminTests::deaths);
         TESTS.put("deaths_offline_restore", AdminTests::deathsOffline);
         TESTS.put("invsee_live_take_and_rules", AdminTests::invseeLive);
@@ -261,6 +267,242 @@ public final class AdminTests {
         } catch (java.io.IOException ex) { throw new AssertionError(ex); }
         h.succeed();
     }
+    /** Signs (S), explosions (X), fire (F) and hoppers (I/O, only with the switch on) are logged. */
+    static void worldEvents(GameTestHelper h) {
+        var level = h.getLevel();
+        var p = player(h, new BlockPos(1, 2, 1));
+        // sign: old and new text
+        var signPos = h.absolutePos(new BlockPos(1, 2, 4));
+        level.setBlock(signPos, Blocks.OAK_SIGN.defaultBlockState(), 3);
+        var sign = (net.minecraft.world.level.block.entity.SignBlockEntity) level.getBlockEntity(signPos);
+        sign.setAllowedPlayerEditor(p.getUUID());
+        sign.updateSignText(p, net.minecraft.world.level.block.entity.SignTextSlot.FRONT, signLines("Hello", "World"));
+        var signLog = get(BlockLog.at(level, signPos));
+        yes(h, signLog.size() == 1 && signLog.getFirst().action() == 'S' && signLog.getFirst().player().equals(p.getUUID())
+                && signLog.getFirst().extra().endsWith("\u0001Hello\nWorld\n\n"), "Sign edit logged with old and new text: " + signLog);
+        // explosion without a source: #explosion
+        var dirt = h.absolutePos(new BlockPos(5, 2, 5));
+        level.setBlock(dirt, Blocks.DIRT.defaultBlockState(), 3);
+        BlockLog.resetBudget();
+        level.explode(null, dirt.getX() + .5, dirt.getY() + .5, dirt.getZ() + .5, 1.5f, net.minecraft.world.level.Level.ExplosionInteraction.BLOCK);
+        var boom = get(BlockLog.at(level, dirt));
+        yes(h, level.getBlockState(dirt).isAir() && boom.stream().anyMatch(e -> e.action() == 'X' && e.id().equals("minecraft:dirt") && e.name().equals("#explosion")
+                && e.player().equals(BlockLog.WORLD)), "Explosion logged: " + boom);
+        // fire: the burn-out step itself (loader-specific signature, called by name)
+        var wood = h.absolutePos(new BlockPos(1, 2, 6));
+        level.setBlock(wood, Blocks.OAK_PLANKS.defaultBlockState(), 3);
+        burnOut(level, wood);
+        var burned = get(BlockLog.at(level, wood));
+        yes(h, !level.getBlockState(wood).is(Blocks.OAK_PLANKS) && burned.stream().anyMatch(e -> e.action() == 'F' && e.name().equals("#fire") && e.id().equals("minecraft:oak_planks")),
+                "Burned block logged: " + burned);
+        // hoppers: off by default, then on
+        var chestPos = h.absolutePos(new BlockPos(3, 3, 1));
+        var hopperPos = chestPos.below();
+        level.setBlock(chestPos, Blocks.CHEST.defaultBlockState(), 3);
+        level.setBlock(hopperPos, Blocks.HOPPER.defaultBlockState(), 3);
+        var chest = (ChestBlockEntity) level.getBlockEntity(chestPos);
+        var hopper = (net.minecraft.world.level.block.entity.HopperBlockEntity) level.getBlockEntity(hopperPos);
+        chest.setItem(0, new ItemStack(Items.DIAMOND, 4));
+        net.minecraft.world.level.block.entity.HopperBlockEntity.suckInItems(level, hopper);
+        BlockLog.flushNow();
+        yes(h, get(BlockLog.at(level, chestPos)).isEmpty(), "Hoppers are not logged with the switch off");
+        var previous = Admin.config();
+        var b = previous.blockLog();
+        Admin.configure(new AdminConfig(new AdminConfig.BlockLog(b.enabled(), b.permission(), b.rollbackPermission(), b.retentionDays(), b.rollbackMaxChanges(), b.flushSeconds(),
+                b.signs(), b.explosions(), b.fire(), true, b.worldEventsPerTick(), b.lookupPermission(), b.restorePermission(), b.purgePermission(), b.lookupMaxResults()),
+                previous.deathBackups(), previous.invsee(), previous.vanish(), previous.freeze(), previous.restart(), previous.backups(), previous.maintenance(), previous.lagFinder(), previous.autoOffWith()));
+        try {
+            BlockLog.resetBudget();
+            net.minecraft.world.level.block.entity.HopperBlockEntity.suckInItems(level, hopper);
+            net.minecraft.world.level.block.entity.HopperBlockEntity.suckInItems(level, hopper);
+            net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(hopper, chest, new ItemStack(Items.EMERALD), Direction.UP);
+            BlockLog.flushNow();
+        } finally { Admin.configure(previous); }
+        var moves = get(BlockLog.at(level, chestPos));
+        yes(h, moves.stream().anyMatch(e -> e.action() == 'O' && e.id().equals("minecraft:diamond") && e.count() == 2 && e.name().equals("#hopper"))
+                && moves.stream().anyMatch(e -> e.action() == 'I' && e.id().equals("minecraft:emerald") && e.count() == 1), "Hopper moves summed and logged: " + moves);
+        yes(h, get(BlockLog.at(level, hopperPos)).isEmpty(), "The hopper itself is not logged");
+        h.succeed();
+    }
+    private static List<net.minecraft.server.network.FilteredText> signLines(String... text) {
+        var out = new ArrayList<net.minecraft.server.network.FilteredText>();
+        for (int i = 0; i < 4; i++) out.add(net.minecraft.server.network.FilteredText.passThrough(i < text.length ? text[i] : ""));
+        return out;
+    }
+    /** FireBlock.checkBurnOut with chance 1 (always burns); the parameters differ per loader, so they are filled by type. */
+    private static void burnOut(net.minecraft.server.level.ServerLevel level, BlockPos pos) {
+        try {
+            var m = java.util.Arrays.stream(FireBlock.class.getDeclaredMethods()).filter(x -> x.getName().equals("checkBurnOut")).findFirst().orElseThrow();
+            m.setAccessible(true);
+            var types = m.getParameterTypes();
+            var args = new Object[types.length];
+            int ints = 0;
+            for (int i = 0; i < types.length; i++) {
+                if (types[i] == int.class) args[i] = ints++ == 0 ? 1 : 15;
+                else if (types[i] == BlockPos.class) args[i] = pos;
+                else if (types[i] == Direction.class) args[i] = Direction.UP;
+                else if (net.minecraft.util.RandomSource.class.isAssignableFrom(types[i])) args[i] = level.getRandom();
+                else args[i] = level;
+            }
+            m.invoke(Blocks.FIRE, args);
+        } catch (ReflectiveOperationException e) { throw new AssertionError(e); }
+    }
+
+    /** Lookup filters: player (UUID and #actor), action, item, block, dimension, time, radius; parser errors; the old rollback form. */
+    static void lookupFilters(GameTestHelper h) {
+        var level = h.getLevel();
+        var server = level.getServer();
+        var p = player(h, new BlockPos(1, 2, 1));
+        var here = h.absolutePos(new BlockPos(2, 2, 2));
+        String dim = level.dimension().identifier().toString();
+        BlockLog.record(level, p, 'B', here, "minecraft:stone", 1, "minecraft:stone");
+        BlockLog.record(level, p, 'T', here.east(), "minecraft:diamond", 3, "");
+        BlockLog.record(level, "#fire", 'F', here.north(), "minecraft:oak_planks", 1, "minecraft:oak_planks");
+        long now = System.currentTimeMillis();
+        String uuid = p.getUUID().toString();
+        java.util.function.Function<String, List<BlockLog.Entry>> find = text -> {
+            var parsed = LogFilter.parse(server, text + " radius:4", here, dim, now);
+            h.assertTrue(parsed.error() == null, "Parses: " + text + " -> " + parsed.error());
+            return get(BlockLog.query(server, parsed.filter(), 1000));
+        };
+        yes(h, find.apply("player:" + uuid).size() == 2, "player: finds the two own actions");
+        var broke = find.apply("player:" + uuid + " action:break");
+        yes(h, broke.size() == 1 && broke.getFirst().action() == 'B', "action:break: " + broke);
+        var items = find.apply("item:diamond");
+        yes(h, items.size() == 1 && items.getFirst().action() == 'T' && items.getFirst().count() == 3, "item:diamond: " + items);
+        var blocks = find.apply("block:minecraft:stone,oak_planks");
+        yes(h, blocks.size() == 2 && blocks.stream().noneMatch(e -> e.action() == 'T'), "block: list: " + blocks);
+        var fire = find.apply("player:#fire action:burn");
+        yes(h, fire.size() == 1 && fire.getFirst().name().equals("#fire"), "#actor filter: " + fire);
+        yes(h, find.apply("player:" + uuid + " dim:the_nether").isEmpty(), "dim: limits the dimension");
+        yes(h, find.apply("player:" + uuid + " time:1h").size() == 2, "time: keeps recent entries");
+        var far = LogFilter.parse(server, "player:" + uuid + " radius:4", here.offset(3000, 0, 3000), dim, now);
+        yes(h, get(BlockLog.query(server, far.filter(), 1000)).isEmpty(), "radius: limits the area");
+        yes(h, "simpletweaks.admin.blocklog.filter.action".equals(LogFilter.parse(server, "action:fly", here, dim, now).error()), "Unknown action rejected");
+        yes(h, "simpletweaks.admin.blocklog.filter.radius".equals(LogFilter.parse(server, "radius:0", here, dim, now).error()), "Bad radius rejected");
+        yes(h, "simpletweaks.admin.blocklog.badtime".equals(LogFilter.parse(server, "time:soon", here, dim, now).error()), "Bad time rejected");
+        var legacy = LogFilter.parse(server, uuid + " 2h 16 --preview", here, dim, now);
+        yes(h, legacy.error() == null && legacy.preview() && legacy.hasTime() && legacy.filter().players().contains(p.getUUID()) && legacy.filter().radius() == 16
+                && legacy.filter().since() == now - 7_200_000L, "Old form <player> <time> [radius] still parses");
+        var noNarrow = LogFilter.parse(server, "time:1h", here, dim, now);
+        yes(h, noNarrow.error() == null && !noNarrow.filter().narrowed(), "time alone is not narrow enough for a rollback");
+        h.succeed();
+    }
+
+    /** --preview changes nothing; a rollback is undone again by restore. */
+    static void previewRestore(GameTestHelper h) {
+        var level = h.getLevel();
+        var server = level.getServer();
+        var p = player(h, new BlockPos(1, 2, 1));
+        p.setGameMode(GameType.CREATIVE);
+        var shelf = h.absolutePos(new BlockPos(2, 2, 2));
+        level.setBlock(shelf, Blocks.BOOKSHELF.defaultBlockState(), 3);
+        p.gameMode.destroyBlock(shelf);
+        var base = h.absolutePos(new BlockPos(3, 1, 3));
+        level.setBlock(base, Blocks.STONE.defaultBlockState(), 3);
+        var stack = new ItemStack(Items.DIRT);
+        p.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        p.gameMode.useItemOn(p, level, stack, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(base).add(0, .5, 0), Direction.UP, base, false));
+        var signPos = h.absolutePos(new BlockPos(1, 2, 4));
+        level.setBlock(signPos, Blocks.OAK_SIGN.defaultBlockState(), 3);
+        var sign = (net.minecraft.world.level.block.entity.SignBlockEntity) level.getBlockEntity(signPos);
+        sign.setAllowedPlayerEditor(p.getUUID());
+        sign.updateSignText(p, net.minecraft.world.level.block.entity.SignTextSlot.FRONT, signLines("Grief"));
+        var list = get(BlockLog.byPlayer(server, p.getUUID(), System.currentTimeMillis() - 60_000, level, shelf, 16, 1000));
+        yes(h, list.size() == 3, "Three actions: " + list);
+        int before = Rollback.restorable();
+        var preview = Rollback.apply(server, list, true);
+        yes(h, preview.undone() == 3, "Preview counts all three: " + preview);
+        yes(h, level.getBlockState(shelf).isAir() && level.getBlockState(base.above()).is(Blocks.DIRT) && BlockRecorder.signText(sign, true).startsWith("Grief")
+                && Rollback.restorable() == before, "Preview changed nothing");
+        var done = Rollback.apply(server, list, false);
+        yes(h, done.undone() == 3 && level.getBlockState(shelf).is(Blocks.BOOKSHELF) && level.getBlockState(base.above()).isAir()
+                && BlockRecorder.signText(sign, true).equals("\n\n\n"), "Rollback undid all three: " + done + " sign=" + BlockRecorder.signText(sign, true));
+        yes(h, Rollback.restorable() == 3, "The run can be restored");
+        var redo = Rollback.restore(server);
+        yes(h, redo.undone() == 3 && level.getBlockState(shelf).isAir() && level.getBlockState(base.above()).is(Blocks.DIRT) && BlockRecorder.signText(sign, true).startsWith("Grief"),
+                "Restore brought the changes back: " + redo);
+        yes(h, Rollback.restorable() == 0, "Restore empties the buffer");
+        h.succeed();
+    }
+
+    /** purge removes every line of one player and keeps the others. */
+    static void purgePlayer(GameTestHelper h) {
+        var level = h.getLevel();
+        var a = player(h, new BlockPos(1, 2, 1));
+        var b = player(h, new BlockPos(1, 2, 2));
+        var posA = h.absolutePos(new BlockPos(2, 2, 2)), posB = h.absolutePos(new BlockPos(3, 2, 2));
+        BlockLog.record(level, a, 'B', posA, "minecraft:stone", 1, "minecraft:stone");
+        BlockLog.record(level, a, 'P', posB, "minecraft:dirt", 1, "minecraft:dirt");
+        BlockLog.record(level, b, 'B', posB, "minecraft:stone", 1, "minecraft:stone");
+        int removed = get(BlockLog.purgePlayer(a.getUUID()));
+        yes(h, removed == 2, "Both lines of the player removed: " + removed);
+        var leftB = get(BlockLog.at(level, posB));
+        yes(h, get(BlockLog.at(level, posA)).isEmpty() && leftB.size() == 1 && leftB.getFirst().player().equals(b.getUUID()), "Other players stay: " + leftB);
+        h.succeed();
+    }
+
+    /** Each block log command has its own operator level from the config; defaults lookup 2, rollback 3, restore 3, purge 4. */
+    static void blockLogPermissions(GameTestHelper h) {
+        var b = AdminConfig.DEFAULT.blockLog();
+        yes(h, b.retentionDays() == 14 && b.signs() && b.explosions() && b.fire() && !b.hoppers() && b.permission() == 2 && b.lookupPermission() == 2
+                && b.rollbackPermission() == 3 && b.restorePermission() == 3 && b.purgePermission() == 4, "Block log defaults: " + b);
+        var clamped = new AdminConfig.BlockLog(true, 2, 3, 14, 1, 5, true, true, true, true, -5, 9, -1, 7, 1);
+        yes(h, clamped.worldEventsPerTick() == 0 && clamped.lookupPermission() == 4 && clamped.restorePermission() == 0 && clamped.purgePermission() == 4
+                && clamped.lookupMaxResults() == 10, "New values are clamped");
+        yes(h, !b.withEnabled(false).enabled() && b.withEnabled(false).purgePermission() == 4, "Auto-off keeps the other settings");
+        var d = new CommandDispatcher<CommandSourceStack>();
+        AdminCommands.register(d, AdminConfig.DEFAULT);
+        var tweaks = d.getRoot().getChild("tweaks");
+        var root = d.getRoot().getChild("simpletweaks");
+        for (var name : List.of("lookup", "rollback", "restore", "purge")) yes(h, tweaks.getChild(name) != null && root.getChild(name) == tweaks.getChild(name), "/tweaks and /simpletweaks " + name);
+        var gm = op(h, new BlockPos(1, 2, 1), LevelBasedPermissionSet.GAMEMASTER);
+        var admin = op(h, new BlockPos(1, 2, 2), LevelBasedPermissionSet.ADMIN);
+        var owner = op(h, new BlockPos(1, 2, 3), LevelBasedPermissionSet.OWNER);
+        var g = gm.createCommandSourceStack(); var a = admin.createCommandSourceStack(); var o = owner.createCommandSourceStack();
+        java.util.function.BiPredicate<String, CommandSourceStack> can = (n, s) -> tweaks.getChild(n).canUse(s);
+        yes(h, can.test("lookup", g) && !can.test("rollback", g) && !can.test("restore", g) && !can.test("purge", g), "Level 2: lookup only");
+        yes(h, can.test("rollback", a) && can.test("restore", a) && !can.test("purge", a), "Level 3: rollback and restore");
+        yes(h, can.test("purge", o), "Level 4: purge");
+        var previous = Admin.config();
+        var c = previous.blockLog();
+        Admin.configure(new AdminConfig(new AdminConfig.BlockLog(c.enabled(), c.permission(), c.rollbackPermission(), c.retentionDays(), c.rollbackMaxChanges(), c.flushSeconds(),
+                c.signs(), c.explosions(), c.fire(), c.hoppers(), c.worldEventsPerTick(), 4, c.restorePermission(), 3, c.lookupMaxResults()),
+                previous.deathBackups(), previous.invsee(), previous.vanish(), previous.freeze(), previous.restart(), previous.backups(), previous.maintenance(), previous.lagFinder(), previous.autoOffWith()));
+        boolean lookupBlocked, purgeAllowed;
+        try { lookupBlocked = !can.test("lookup", g); purgeAllowed = can.test("purge", a); } finally { Admin.configure(previous); }
+        yes(h, lookupBlocked && purgeAllowed, "The levels follow the config");
+        deop(h, gm, admin, owner);
+        h.succeed();
+    }
+
+    /** Day files of the first T10 version (only B/P/T/D) and lines of newer versions (unknown actions) stay readable. */
+    static void legacyLines(GameTestHelper h) {
+        var level = h.getLevel();
+        String dim = level.dimension().identifier().toString();
+        var pos = h.absolutePos(new BlockPos(2, 2, 2));
+        var id = UUID.randomUUID();
+        long old = System.currentTimeMillis() - 7_200_000L;
+        try {
+            Path file = BlockLog.root().resolve(AdminFiles.folder(dim)).resolve((pos.getX() >> 9) + "_" + (pos.getZ() >> 9)).resolve(LocalDate.now() + ".tsv");
+            Files.createDirectories(file.getParent());
+            String legacy = old + "\tB\t" + id + "\tOldTimer\t" + pos.getX() + "\t" + pos.getY() + "\t" + pos.getZ() + "\tminecraft:chest\t1\tminecraft:chest[facing=north]\n"
+                    + "garbage line\n"
+                    + old + "\tZ\t" + id + "\tOldTimer\t" + pos.getX() + "\t" + pos.getY() + "\t" + pos.getZ() + "\tminecraft:stone\t1\t\tfuture-column\n";
+            Files.writeString(file, legacy, java.nio.charset.StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (java.io.IOException e) { throw new AssertionError(e); }
+        var at = get(BlockLog.at(level, pos));
+        yes(h, at.stream().anyMatch(e -> e.action() == 'B' && e.player().equals(id) && e.name().equals("OldTimer") && e.id().equals("minecraft:chest") && e.time() == old),
+                "Old line read: " + at);
+        yes(h, at.stream().anyMatch(e -> e.action() == 'Z'), "Unknown actions and extra columns of newer files do not break reading");
+        yes(h, Inspect.action(at.stream().filter(e -> e.action() == 'Z').findFirst().orElseThrow()).getString().contains("Z"), "Unknown actions show their letter");
+        var server = level.getServer();
+        var recent = LogFilter.parse(server, "player:" + id + " time:1h", pos, level.dimension().identifier().toString(), System.currentTimeMillis());
+        var wide = LogFilter.parse(server, "player:" + id + " time:3h action:break", pos, level.dimension().identifier().toString(), System.currentTimeMillis());
+        yes(h, get(BlockLog.query(server, recent.filter(), 100)).isEmpty() && get(BlockLog.query(server, wide.filter(), 100)).size() == 1, "time: filters old lines");
+        h.succeed();
+    }
+
     private static BlockLog.Entry blockLogParse(String dim, BlockLog.Entry e) {
         try {
             var line = BlockLog.Entry.class.getDeclaredMethod("line"); line.setAccessible(true);

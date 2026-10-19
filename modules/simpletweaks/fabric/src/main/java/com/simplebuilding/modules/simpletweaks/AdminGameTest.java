@@ -10,6 +10,12 @@ public final class AdminGameTest {
  @GameTest(maxTicks=100) public void blocklogInspectDoesNotBreak(GameTestHelper h) { AdminTests.TESTS.get("blocklog_inspect_does_not_break").accept(h); }
  @GameTest(maxTicks=100) public void blocklogRollback(GameTestHelper h) { AdminTests.TESTS.get("blocklog_rollback").accept(h); }
  @GameTest(maxTicks=100) public void blocklogRetentionAndFormat(GameTestHelper h) { AdminTests.TESTS.get("blocklog_retention_and_format").accept(h); }
+ @GameTest(maxTicks=100) public void blocklogSignsExplosionsFireHoppers(GameTestHelper h) { AdminTests.TESTS.get("blocklog_signs_explosions_fire_hoppers").accept(h); }
+ @GameTest(maxTicks=100) public void blocklogLookupFilters(GameTestHelper h) { AdminTests.TESTS.get("blocklog_lookup_filters").accept(h); }
+ @GameTest(maxTicks=100) public void blocklogPreviewAndRestore(GameTestHelper h) { AdminTests.TESTS.get("blocklog_preview_and_restore").accept(h); }
+ @GameTest(maxTicks=100) public void blocklogPurgePlayer(GameTestHelper h) { AdminTests.TESTS.get("blocklog_purge_player").accept(h); }
+ @GameTest(maxTicks=100) public void blocklogCommandPermissions(GameTestHelper h) { AdminTests.TESTS.get("blocklog_command_permissions").accept(h); }
+ @GameTest(maxTicks=100) public void blocklogLegacyLinesReadable(GameTestHelper h) { AdminTests.TESTS.get("blocklog_legacy_lines_readable").accept(h); }
  @GameTest(maxTicks=100) public void deathsBackupOnDeathAndRestore(GameTestHelper h) { AdminTests.TESTS.get("deaths_backup_on_death_and_restore").accept(h); }
  @GameTest(maxTicks=100) public void deathsOfflineRestore(GameTestHelper h) { AdminTests.TESTS.get("deaths_offline_restore").accept(h); }
  @GameTest(maxTicks=100) public void invseeLiveTakeAndRules(GameTestHelper h) { AdminTests.TESTS.get("invsee_live_take_and_rules").accept(h); }
