@@ -17,7 +17,8 @@ window.WIKI_MODULES = [
       "simplecrucibles",
       "simpleoctets",
       "simpleblocks",
-      "simplehammers"
+      "simplehammers",
+      "simplestorage"
     ],
     "optional": [
       "jei",
@@ -559,7 +560,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "6c2c72b1e8d7"
+    "dataHash": "8743da5d21e0"
   },
   {
     "id": "simplerespawn",
@@ -835,5 +836,25 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "57366e58f2a1"
+  },
+  {
+    "id": "simplestorage",
+    "displayName": "Simple Storage",
+    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work) and the Storage Crafting Table (a crafting table that keeps its grid), moved from SimpleBuilding (ids migrate). Tiered chests, shulker boxes, bundles and backpacks follow in stages 8b/8c.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleend"
+    ],
+    "dataHash": "d0740d71b507"
   }
 ];

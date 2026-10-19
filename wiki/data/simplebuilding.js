@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 631,
+      "count": 618,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3669,51 +3669,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:acacia_crate",
-      "name": {
-        "en_us": "Acacia Crate",
-        "de_de": "Akazienholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:acacia_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/acacia_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:acacia_sheet",
       "name": {
         "en_us": "Acacia Sheet",
@@ -5629,51 +5584,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:bamboo_crate",
-      "name": {
-        "en_us": "Bamboo Crate",
-        "de_de": "Bambuskiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:bamboo_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/bamboo_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:bamboo_sheet",
       "name": {
         "en_us": "Bamboo Sheet",
@@ -5748,51 +5658,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:birch_crate",
-      "name": {
-        "en_us": "Birch Crate",
-        "de_de": "Birkenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:birch_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/birch_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -8041,51 +7906,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:cherry_crate",
-      "name": {
-        "en_us": "Cherry Crate",
-        "de_de": "Kirschholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cherry_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cherry_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:cherry_sheet",
       "name": {
         "en_us": "Cherry Sheet",
@@ -9644,51 +9464,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:crimson_crate",
-      "name": {
-        "en_us": "Crimson Crate",
-        "de_de": "Karmesinholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:crimson_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:crimson_sheet",
       "name": {
         "en_us": "Crimson Sheet",
@@ -10032,51 +9807,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:dark_oak_crate",
-      "name": {
-        "en_us": "Dark Oak Crate",
-        "de_de": "Schwarzeichenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dark_oak_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/dark_oak_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -17800,51 +17530,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:jungle_crate",
-      "name": {
-        "en_us": "Jungle Crate",
-        "de_de": "Tropenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:jungle_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/jungle_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:jungle_sheet",
       "name": {
         "en_us": "Jungle Sheet",
@@ -19659,51 +19344,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:mangrove_crate",
-      "name": {
-        "en_us": "Mangrove Crate",
-        "de_de": "Mangrovenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:mangrove_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/mangrove_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -24321,51 +23961,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:oak_crate",
-      "name": {
-        "en_us": "Oak Crate",
-        "de_de": "Eichenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:oak_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/oak_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:oak_sheet",
       "name": {
         "en_us": "Oak Sheet",
@@ -25298,51 +24893,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:pale_oak_crate",
-      "name": {
-        "en_us": "Pale Oak Crate",
-        "de_de": "Blasseichenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:pale_oak_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/pale_oak_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -33877,51 +33427,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:spruce_crate",
-      "name": {
-        "en_us": "Spruce Crate",
-        "de_de": "Fichtenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:spruce_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/spruce_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:spruce_sheet",
       "name": {
         "en_us": "Spruce Sheet",
@@ -34254,70 +33759,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:storage_crafting_table",
-      "name": {
-        "en_us": "Storage Crafting Table",
-        "de_de": "Werkbank mit Lager"
-      },
-      "texture": "assets/textures/block/storage_crafting_table_front.png",
-      "craftedBy": [
-        "simplebuilding:storage_crafting_table"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/storage_crafting_table.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A crafting table that never clears its grid."
-          ],
-          "use": [
-            "Keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
-          ],
-          "secret": [
-            "A tidy way to keep a recipe set up: the items stay on the table, visible, until you pick them up."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Werkbank, die ihr Raster nie leert."
-          ],
-          "use": [
-            "Behält ihr 3x3-Raster: Beim Schließen des Fensters bleiben die Gegenstände liegen, flach auf der Platte."
-          ],
-          "secret": [
-            "Ein ordentlicher Weg, ein Rezept bereit zu halten: Die Gegenstände bleiben sichtbar auf dem Tisch, bis du sie nimmst."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
-          "details": [
-            "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter.",
-            "Recipe (shapeless): Crafting Table + Chest."
-          ]
-        },
-        "de": {
-          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
-          "details": [
-            "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter.",
-            "Rezept (formlos): Werkbank + Truhe."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:straw_armor_stand",
@@ -35790,51 +35231,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:warped_crate",
-      "name": {
-        "en_us": "Warped Crate",
-        "de_de": "Wirrholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:warped_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/warped_crate.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:warped_sheet",
       "name": {
         "en_us": "Warped Sheet",
@@ -36399,55 +35795,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:acacia_crate",
-      "name": {
-        "en_us": "Acacia Crate",
-        "de_de": "Akazienholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:acacia_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/acacia_crate.png",
-      "lootTable": "simplebuilding:blocks/acacia_crate",
-      "drops": [
-        "simplebuilding:acacia_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -37659,55 +37006,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:bamboo_crate",
-      "name": {
-        "en_us": "Bamboo Crate",
-        "de_de": "Bambuskiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:bamboo_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/bamboo_crate.png",
-      "lootTable": "simplebuilding:blocks/bamboo_crate",
-      "drops": [
-        "simplebuilding:bamboo_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:bamboo_sheet",
       "name": {
         "en_us": "Bamboo Sheet",
@@ -37790,55 +37088,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:birch_crate",
-      "name": {
-        "en_us": "Birch Crate",
-        "de_de": "Birkenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:birch_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/birch_crate.png",
-      "lootTable": "simplebuilding:blocks/birch_crate",
-      "drops": [
-        "simplebuilding:birch_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -39395,55 +38644,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:cherry_crate",
-      "name": {
-        "en_us": "Cherry Crate",
-        "de_de": "Kirschholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cherry_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cherry_crate.png",
-      "lootTable": "simplebuilding:blocks/cherry_crate",
-      "drops": [
-        "simplebuilding:cherry_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:cherry_sheet",
       "name": {
         "en_us": "Cherry Sheet",
@@ -40148,55 +39348,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:crimson_crate",
-      "name": {
-        "en_us": "Crimson Crate",
-        "de_de": "Karmesinholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:crimson_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_crate.png",
-      "lootTable": "simplebuilding:blocks/crimson_crate",
-      "drops": [
-        "simplebuilding:crimson_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:crimson_sheet",
       "name": {
         "en_us": "Crimson Sheet",
@@ -40508,55 +39659,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:dark_oak_crate",
-      "name": {
-        "en_us": "Dark Oak Crate",
-        "de_de": "Schwarzeichenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dark_oak_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/dark_oak_crate.png",
-      "lootTable": "simplebuilding:blocks/dark_oak_crate",
-      "drops": [
-        "simplebuilding:dark_oak_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -44935,55 +44037,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:jungle_crate",
-      "name": {
-        "en_us": "Jungle Crate",
-        "de_de": "Tropenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:jungle_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/jungle_crate.png",
-      "lootTable": "simplebuilding:blocks/jungle_crate",
-      "drops": [
-        "simplebuilding:jungle_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:jungle_sheet",
       "name": {
         "en_us": "Jungle Sheet",
@@ -46108,55 +45161,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:mangrove_crate",
-      "name": {
-        "en_us": "Mangrove Crate",
-        "de_de": "Mangrovenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:mangrove_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/mangrove_crate.png",
-      "lootTable": "simplebuilding:blocks/mangrove_crate",
-      "drops": [
-        "simplebuilding:mangrove_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -48505,55 +47509,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:oak_crate",
-      "name": {
-        "en_us": "Oak Crate",
-        "de_de": "Eichenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:oak_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/oak_crate.png",
-      "lootTable": "simplebuilding:blocks/oak_crate",
-      "drops": [
-        "simplebuilding:oak_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:oak_sheet",
       "name": {
         "en_us": "Oak Sheet",
@@ -48893,55 +47848,6 @@ window.WIKI_DATA = {
             "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
             "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
             "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:pale_oak_crate",
-      "name": {
-        "en_us": "Pale Oak Crate",
-        "de_de": "Blasseichenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:pale_oak_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/pale_oak_crate.png",
-      "lootTable": "simplebuilding:blocks/pale_oak_crate",
-      "drops": [
-        "simplebuilding:pale_oak_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
         }
       },
@@ -52848,55 +51754,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:spruce_crate",
-      "name": {
-        "en_us": "Spruce Crate",
-        "de_de": "Fichtenholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:spruce_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/spruce_crate.png",
-      "lootTable": "simplebuilding:blocks/spruce_crate",
-      "drops": [
-        "simplebuilding:spruce_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:spruce_sheet",
       "name": {
         "en_us": "Spruce Sheet",
@@ -53085,74 +51942,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:storage_crafting_table",
-      "name": {
-        "en_us": "Storage Crafting Table",
-        "de_de": "Werkbank mit Lager"
-      },
-      "texture": "assets/textures/block/storage_crafting_table_front.png",
-      "craftedBy": [
-        "simplebuilding:storage_crafting_table"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/storage_crafting_table.png",
-      "lootTable": "simplebuilding:blocks/storage_crafting_table",
-      "drops": [
-        "simplebuilding:storage_crafting_table"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A crafting table that never clears its grid."
-          ],
-          "use": [
-            "Keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
-          ],
-          "secret": [
-            "A tidy way to keep a recipe set up: the items stay on the table, visible, until you pick them up."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Werkbank, die ihr Raster nie leert."
-          ],
-          "use": [
-            "Behält ihr 3x3-Raster: Beim Schließen des Fensters bleiben die Gegenstände liegen, flach auf der Platte."
-          ],
-          "secret": [
-            "Ein ordentlicher Weg, ein Rezept bereit zu halten: Die Gegenstände bleiben sichtbar auf dem Tisch, bis du sie nimmst."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
-          "details": [
-            "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter.",
-            "Recipe (shapeless): Crafting Table + Chest."
-          ]
-        },
-        "de": {
-          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
-          "details": [
-            "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter.",
-            "Rezept (formlos): Werkbank + Truhe."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:stripped_acacia_cauldron",
@@ -54560,55 +53349,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:warped_crate",
-      "name": {
-        "en_us": "Warped Crate",
-        "de_de": "Wirrholzkiste"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:warped_crate"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/warped_crate.png",
-      "lootTable": "simplebuilding:blocks/warped_crate",
-      "drops": [
-        "simplebuilding:warped_crate"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
-        ],
-        "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
-          "details": [
-            "Crafting: 7 planks of one wood in a U shape.",
-            "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
-            "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
-            "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
-          ]
-        },
-        "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
-          "details": [
-            "Herstellung: 7 Bretter einer Holzart in U-Form.",
-            "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
-            "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
-            "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:warped_sheet",
       "name": {
         "en_us": "Warped Sheet",
@@ -55421,42 +54161,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:acacia_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:acacia_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/acacia_crate.json",
-      "ingredients": [
-        "minecraft:acacia_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:acacia_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:acacia_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:acacia_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -55736,42 +54440,6 @@ window.WIKI_DATA = {
           {
             "id": "simpleend:ashwood_log",
             "count": 1.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:ashwood_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:ashwood_crate",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_crate.json",
-      "ingredients": [
-        "simpleend:ashwood_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "simpleend:ashwood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleend:ashwood_planks",
-            "count": 7
           }
         ]
       }
@@ -58349,42 +57017,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:bamboo_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:bamboo_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_crate.json",
-      "ingredients": [
-        "minecraft:bamboo_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:bamboo_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:bamboo",
-            "count": 31.5
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:bamboo_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -58456,42 +57088,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:birch_log",
             "count": 1.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:birch_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:birch_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/birch_crate.json",
-      "ingredients": [
-        "minecraft:birch_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:birch_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:birch_log",
-            "count": 1.75
           }
         ]
       }
@@ -62327,42 +60923,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:cherry_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:cherry_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cherry_crate.json",
-      "ingredients": [
-        "minecraft:cherry_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:cherry_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cherry_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:cherry_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -63639,42 +62199,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:crimson_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:crimson_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_crate.json",
-      "ingredients": [
-        "minecraft:crimson_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:crimson_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:crimson_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -64277,42 +62801,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:dark_oak_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:dark_oak_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_oak_crate.json",
-      "ingredients": [
-        "minecraft:dark_oak_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:dark_oak_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:dark_oak_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:dark_oak_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -64831,42 +63319,6 @@ window.WIKI_DATA = {
           {
             "id": "simpleend:duskwood_log",
             "count": 1.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:duskwood_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:duskwood_crate",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_crate.json",
-      "ingredients": [
-        "simpleend:duskwood_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "simpleend:duskwood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleend:duskwood_planks",
-            "count": 7
           }
         ]
       }
@@ -74459,42 +72911,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:jungle_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:jungle_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/jungle_crate.json",
-      "ingredients": [
-        "minecraft:jungle_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:jungle_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:jungle_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:jungle_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -76984,42 +75400,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:mangrove_log",
             "count": 1.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:mangrove_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:mangrove_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/mangrove_crate.json",
-      "ingredients": [
-        "minecraft:mangrove_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:mangrove_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:mangrove_log",
-            "count": 1.75
           }
         ]
       }
@@ -81931,42 +80311,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:oak_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:oak_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/oak_crate.json",
-      "ingredients": [
-        "minecraft:oak_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:oak_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:oak_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -83605,42 +81949,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:pale_oak_log",
             "count": 1.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:pale_oak_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:pale_oak_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pale_oak_crate.json",
-      "ingredients": [
-        "minecraft:pale_oak_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:pale_oak_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:pale_oak_log",
-            "count": 1.75
           }
         ]
       }
@@ -95000,42 +93308,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:spruce_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:spruce_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/spruce_crate.json",
-      "ingredients": [
-        "minecraft:spruce_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:spruce_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:spruce_log",
-            "count": 1.75
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:spruce_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -95264,41 +93536,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:cobblestone",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:storage_crafting_table",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:storage_crafting_table",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/storage_crafting_table.json",
-      "ingredients": [
-        "minecraft:chest",
-        "minecraft:crafting_table"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:crafting_table"
-        ],
-        [
-          "minecraft:chest"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 3
           }
         ]
       }
@@ -100287,42 +98524,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:warped_stem",
             "count": 1.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:warped_crate",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": "crate",
-      "result": {
-        "id": "simplebuilding:warped_crate",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_crate.json",
-      "ingredients": [
-        "minecraft:warped_planks"
-      ],
-      "pattern": [
-        "P P",
-        "P P",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "minecraft:warped_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:warped_stem",
-            "count": 1.75
           }
         ]
       }
@@ -107271,24 +105472,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/acacia_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/acacia_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:acacia_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/acacia_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/acacia_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -107323,24 +105506,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/ashwood_cauldron.json"
-    },
-    {
-      "id": "simplebuilding:blocks/ashwood_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:ashwood_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/ashwood_crate.json"
     },
     {
       "id": "simplebuilding:blocks/ashwood_sheet",
@@ -107778,24 +105943,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/bamboo_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/bamboo_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:bamboo_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/bamboo_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/bamboo_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -107830,24 +105977,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/birch_cauldron.json"
-    },
-    {
-      "id": "simplebuilding:blocks/birch_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:birch_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/birch_crate.json"
     },
     {
       "id": "simplebuilding:blocks/birch_sheet",
@@ -108406,24 +106535,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cherry_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/cherry_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cherry_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cherry_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/cherry_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -108639,24 +106750,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/crimson_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:crimson_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/crimson_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -108783,24 +106876,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/dark_oak_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/dark_oak_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:dark_oak_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/dark_oak_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/dark_oak_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -108904,24 +106979,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/duskwood_cauldron.json"
-    },
-    {
-      "id": "simplebuilding:blocks/duskwood_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:duskwood_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/duskwood_crate.json"
     },
     {
       "id": "simplebuilding:blocks/duskwood_sheet",
@@ -110190,24 +108247,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/jungle_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/jungle_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:jungle_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/jungle_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/jungle_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -110564,24 +108603,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/mangrove_cauldron.json"
-    },
-    {
-      "id": "simplebuilding:blocks/mangrove_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:mangrove_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/mangrove_crate.json"
     },
     {
       "id": "simplebuilding:blocks/mangrove_sheet",
@@ -111237,24 +109258,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oak_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/oak_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:oak_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oak_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/oak_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -111379,24 +109382,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pale_oak_cauldron.json"
-    },
-    {
-      "id": "simplebuilding:blocks/pale_oak_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:pale_oak_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pale_oak_crate.json"
     },
     {
       "id": "simplebuilding:blocks/pale_oak_sheet",
@@ -112484,24 +110469,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spruce_cauldron.json"
     },
     {
-      "id": "simplebuilding:blocks/spruce_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:spruce_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spruce_crate.json"
-    },
-    {
       "id": "simplebuilding:blocks/spruce_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -112536,24 +110503,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
-    },
-    {
-      "id": "simplebuilding:blocks/storage_crafting_table",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:storage_crafting_table"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/storage_crafting_table.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_acacia_cauldron",
@@ -113236,24 +111185,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_cauldron.json"
-    },
-    {
-      "id": "simplebuilding:blocks/warped_crate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:warped_crate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_crate.json"
     },
     {
       "id": "simplebuilding:blocks/warped_sheet",
@@ -121353,6 +119284,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Hammers aktivieren",
       "tooltip": "Turns the bundled Simple Hammers module on or off: the seven sledgehammers. Off makes them plain pickaxes of their tier (no area, no reshaping or carving, no crushing, no in-world upgrades) and hides the module's creative tab and guide; the hammers, their enchantments and recipes stay. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das mitgelieferte Modul Simple Hammers an oder aus: die sieben Vorschlaghämmer. Aus macht sie zu einfachen Spitzhacken ihrer Stufe (keine Fläche, kein Umformen oder Abtragen, kein Zerschlagen, kein Aufwerten in der Welt) und blendet den Kreativ-Tab des Moduls und sein Handbuch aus; Hämmer, ihre Verzauberungen und Rezepte bleiben. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleStorage",
+      "shortName": "enableSimpleStorage",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Storage",
+      "labelDe": "Simple Storage aktivieren",
+      "tooltip": "Turns the bundled Simple Storage module on or off: the crates of every wood and the Storage Crafting Table. Off hides the module's creative tab, its Vanilla tab entries and its guide; the blocks, their contents and recipes stay and keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das mitgelieferte Modul Simple Storage an oder aus: die Kisten aller Hölzer und die Werkbank mit Lager. Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Blöcke, Inhalte und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -150969,14 +148920,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 589,
-    "blocks": 353,
-    "recipes": 1027,
-    "lootTables": 373,
+    "items": 576,
+    "blocks": 340,
+    "recipes": 1012,
+    "lootTables": 358,
     "trades": 20,
     "enchantments": 16,
     "tags": 57,
-    "config": 235,
+    "config": 236,
     "inWorld": 489,
     "advancements": 116,
     "features": 49,

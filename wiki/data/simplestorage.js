@@ -1,0 +1,1467 @@
+window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};
+window.WIKI_MODULE_DATA["simplestorage"] = {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplestorage",
+    "name": "Simple Storage",
+    "version": "1.0.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "crates",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+        "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+      ],
+      "en": {
+        "title": "Crates",
+        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
+        "details": [
+          "Crafting: 7 planks of one wood in a U shape.",
+          "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplestorage:crate_storable).",
+          "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
+          "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
+          "(with Simple End) Ashwood and Duskwood crates from Simple End planks.",
+          "Crates burn like planks and are furnace fuel for 300 ticks (not the Crimson and Warped ones); they are mined with the axe."
+        ]
+      },
+      "de": {
+        "title": "Kisten",
+        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
+        "details": [
+          "Herstellung: 7 Bretter einer Holzart in U-Form.",
+          "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplestorage:crate_storable).",
+          "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
+          "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
+          "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern.",
+          "Kisten brennen wie Bretter und sind 300 Ticks Ofenbrennstoff (nicht die aus Karmesin- und Wirrholz); abgebaut werden sie mit der Axt."
+        ]
+      }
+    },
+    {
+      "id": "storage_crafting_table",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingTableRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingScreen.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/storage_crafting_table.json"
+      ],
+      "en": {
+        "title": "Storage Crafting Table",
+        "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
+        "details": [
+          "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
+          "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter (with SimpleBuilding).",
+          "Recipe (shapeless): Crafting Table + Chest."
+        ]
+      },
+      "de": {
+        "title": "Werkbank mit Lager",
+        "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
+        "details": [
+          "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
+          "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter (mit SimpleBuilding).",
+          "Rezept (formlos): Werkbank + Truhe."
+        ]
+      }
+    },
+    {
+      "id": "migration",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/StorageTests.java"
+      ],
+      "en": {
+        "title": "Moved from SimpleBuilding",
+        "summary": "The crates of every wood and the Storage Crafting Table, their block entities, recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplestorage:* through SimpleLib's id moves and save the new ids; placed crates keep their food and tables their grid.",
+        "details": [
+          "SimpleBuilding needs Simple Storage and bundles it; Simple Storage runs on its own with SimpleLib, which it bundles. Tiered chests, shulker boxes, bundles and backpacks follow in later stages."
+        ]
+      },
+      "de": {
+        "title": "Aus SimpleBuilding umgezogen",
+        "summary": "Die Kisten aller Hölzer und die Werkbank mit Lager, ihre Block-Entities, Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* und speichern die neuen Ids; gesetzte Kisten behalten ihr Essen, Werkbänke ihr Raster.",
+        "details": [
+          "SimpleBuilding braucht Simple Storage und bündelt es; Simple Storage läuft allein mit SimpleLib, das es mitbringt. Stufen-Truhen, Shulker-Kisten, Bündel und Rucksäcke folgen in späteren Stufen."
+        ]
+      }
+    },
+    {
+      "id": "creative_tab_switch",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageRegistry.java"
+      ],
+      "en": {
+        "title": "Creative tabs",
+        "summary": "Own tab with the Storage Crafting Table, the crates and the guide. Without SimpleBuilding the table also sits behind the crafting table and the crates behind the barrel in the Vanilla functional blocks tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places. Switched off (SimpleBuilding's Enable Simple Storage), the tab and the Vanilla tab entries are empty; the blocks keep working.",
+        "details": []
+      },
+      "de": {
+        "title": "Kreativ-Tabs",
+        "summary": "Eigener Tab mit der Werkbank mit Lager, den Kisten und dem Handbuch. Ohne SimpleBuilding steht die Werkbank zusätzlich hinter der Werkbank und stehen die Kisten hinter dem Fass im Vanilla-Tab Gebrauchsblöcke (Schalter addItemsToVanillaTabs); mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Storage aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Blöcke funktionieren weiter.",
+        "details": []
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplestorage:acacia_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:acacia_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/acacia_crate.json",
+      "ingredients": [
+        "minecraft:acacia_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:acacia_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:ashwood_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:ashwood_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/ashwood_crate.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_planks",
+            "count": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:bamboo_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:bamboo_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/bamboo_crate.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:bamboo_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 31.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:birch_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:birch_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/birch_crate.json",
+      "ingredients": [
+        "minecraft:birch_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:birch_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:cherry_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:cherry_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/cherry_crate.json",
+      "ingredients": [
+        "minecraft:cherry_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:cherry_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:crimson_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:crimson_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/crimson_crate.json",
+      "ingredients": [
+        "minecraft:crimson_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:crimson_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:dark_oak_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:dark_oak_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/dark_oak_crate.json",
+      "ingredients": [
+        "minecraft:dark_oak_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:dark_oak_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:duskwood_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:duskwood_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/duskwood_crate.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_planks",
+            "count": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplestorage:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:barrel",
+        "minecraft:book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:barrel"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.75
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:jungle_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:jungle_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/jungle_crate.json",
+      "ingredients": [
+        "minecraft:jungle_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:jungle_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:mangrove_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:mangrove_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/mangrove_crate.json",
+      "ingredients": [
+        "minecraft:mangrove_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:mangrove_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:oak_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:oak_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+      "ingredients": [
+        "minecraft:oak_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:oak_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:pale_oak_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:pale_oak_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/pale_oak_crate.json",
+      "ingredients": [
+        "minecraft:pale_oak_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:pale_oak_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:spruce_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:spruce_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/spruce_crate.json",
+      "ingredients": [
+        "minecraft:spruce_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:spruce_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:storage_crafting_table",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:storage_crafting_table",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/storage_crafting_table.json",
+      "ingredients": [
+        "minecraft:chest",
+        "minecraft:crafting_table"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:crafting_table"
+        ],
+        [
+          "minecraft:chest"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:warped_crate",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "crate",
+      "result": {
+        "id": "simplestorage:warped_crate",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/warped_crate.json",
+      "ingredients": [
+        "minecraft:warped_planks"
+      ],
+      "pattern": [
+        "P P",
+        "P P",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "minecraft:warped_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:warped_stem",
+            "count": 1.75
+          }
+        ]
+      }
+    }
+  ],
+  "lootTables": [
+    {
+      "id": "simplestorage:blocks/acacia_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:acacia_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/acacia_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/ashwood_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:ashwood_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/ashwood_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/bamboo_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:bamboo_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/bamboo_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/birch_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:birch_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/birch_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/cherry_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:cherry_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/cherry_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/crimson_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:crimson_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/crimson_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/dark_oak_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:dark_oak_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/dark_oak_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/duskwood_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:duskwood_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/duskwood_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/jungle_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:jungle_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/jungle_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/mangrove_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:mangrove_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/mangrove_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/oak_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:oak_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/oak_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/pale_oak_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:pale_oak_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/pale_oak_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/spruce_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:spruce_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/spruce_crate.json"
+    },
+    {
+      "id": "simplestorage:blocks/storage_crafting_table",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:storage_crafting_table"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/storage_crafting_table.json"
+    },
+    {
+      "id": "simplestorage:blocks/warped_crate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:warped_crate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/warped_crate.json"
+    }
+  ],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simplestorage:guide_book",
+      "name": {
+        "en_us": "Simple Storage Guide",
+        "de_de": "Simple-Storage-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+        }
+      },
+      "texture": "assets/textures/simplestorage/item/guide_book.png",
+      "craftedBy": [
+        "simplestorage:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
+  "blocks": [
+    {
+      "id": "simplestorage:acacia_crate",
+      "name": {
+        "en_us": "Acacia Crate",
+        "de_de": "Akazienholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:acacia_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:ashwood_crate",
+      "name": {
+        "en_us": "Ashwood Crate",
+        "de_de": "Aschholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:ashwood_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:bamboo_crate",
+      "name": {
+        "en_us": "Bamboo Crate",
+        "de_de": "Bambuskiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:bamboo_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:birch_crate",
+      "name": {
+        "en_us": "Birch Crate",
+        "de_de": "Birkenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:birch_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:cherry_crate",
+      "name": {
+        "en_us": "Cherry Crate",
+        "de_de": "Kirschholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:cherry_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:crimson_crate",
+      "name": {
+        "en_us": "Crimson Crate",
+        "de_de": "Karmesinholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:crimson_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:dark_oak_crate",
+      "name": {
+        "en_us": "Dark Oak Crate",
+        "de_de": "Schwarzeichenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:dark_oak_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:duskwood_crate",
+      "name": {
+        "en_us": "Duskwood Crate",
+        "de_de": "Dämmerholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:duskwood_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:jungle_crate",
+      "name": {
+        "en_us": "Jungle Crate",
+        "de_de": "Tropenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:jungle_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:mangrove_crate",
+      "name": {
+        "en_us": "Mangrove Crate",
+        "de_de": "Mangrovenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:mangrove_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:oak_crate",
+      "name": {
+        "en_us": "Oak Crate",
+        "de_de": "Eichenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:oak_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:pale_oak_crate",
+      "name": {
+        "en_us": "Pale Oak Crate",
+        "de_de": "Blasseichenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:pale_oak_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:spruce_crate",
+      "name": {
+        "en_us": "Spruce Crate",
+        "de_de": "Fichtenholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:spruce_crate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:storage_crafting_table",
+      "name": {
+        "en_us": "Storage Crafting Table",
+        "de_de": "Werkbank mit Lager"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingTableBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/table/StorageCraftingMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingTableRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/StorageCraftingScreen.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/storage_crafting_table.json"
+        ],
+        "en": {
+          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
+        },
+        "de": {
+          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A crafting table that never clears its grid."
+          ],
+          "use": [
+            "Keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
+          ],
+          "secret": [
+            "A tidy way to keep a recipe set up: the items stay on the table, visible, until you pick them up."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Werkbank, die ihr Raster nie leert."
+          ],
+          "use": [
+            "Behält ihr 3x3-Raster: Beim Schließen des Fensters bleiben die Gegenstände liegen, flach auf der Platte."
+          ],
+          "secret": [
+            "Ein ordentlicher Weg, ein Rezept bereit zu halten: Die Gegenstände bleiben sichtbar auf dem Tisch, bis du sie nimmst."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:storage_crafting_table"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:warped_crate",
+      "name": {
+        "en_us": "Warped Crate",
+        "de_de": "Wirrholzkiste"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/crate/CrateWood.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateRenderer.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/CrateMesh.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/oak_crate.json",
+          "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
+        ],
+        "en": {
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        },
+        "de": {
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:warped_crate"
+      ],
+      "usedIn": []
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 4,
+    "recipes": 16,
+    "lootTables": 15,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 1,
+    "blocks": 15,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+};
