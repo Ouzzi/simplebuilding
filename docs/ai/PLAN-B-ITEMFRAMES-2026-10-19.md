@@ -56,3 +56,12 @@ Ziele: `module-simpletools-fabric-263`, `-neoforge-263`, `-standalone-fabric-263
 Compile Fabric/NeoForge/Forge (`:modules:simpletools:forge:compileJava`, `:modules:simplequalityoflife:forge:compileJava`);
 Simple Maps `module-simplemaps-fabric-263` (Karten-Klick bleibt grün); Generatoren + `./gradlew check -q`.
 Nicht getestet: Client-Sicht (keine Client-Läufe erlaubt), Forge-Laufzeit.
+
+## Abweichung beim Test entdeckt: SimpleBuilding hat schon Rahmen-Aktionen
+`common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java` (Wiki `item_frame_lock`, im Konzept übersehen):
+Schleichen + Glasscheibe sperrt (eigener Zustand `SimpleBuildingLocked`), Schleichen + Schere versteckt, Schleichen auf
+versteckten Rahmen zeigt ihn, mit Aktionsleisten-Text. Entscheidung (kleinste Änderung, SB unangetastet): der Simple-Tools-Mixin
+läuft mit Priorität 1100 **nach** SB; mit SB haben dessen Aktionen Vorrang, Simple Tools ergänzt Honigwabe/Axt (Vanilla `Fixed`),
+Rückwärtsdrehen und das Sichtbarwerden beim Leeren. Tests sind SB-bewusst (Integration mit SB, Standalone ohne).
+Empfehlung an den Besitzer: SB-Rahmenfunktion später nach Simple Tools verschieben (Glasscheibe → Vanilla `Fixed`, Migration
+`SimpleBuildingLocked`), dann eine einheitliche Bedienung.
