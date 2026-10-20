@@ -877,6 +877,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
-    "dataHash": "8e912655ee20"
+    "dataHash": "270eca38c4d5"
   }
 ];

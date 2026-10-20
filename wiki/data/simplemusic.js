@@ -520,9 +520,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "items": [
             "simplemusic:orchestrion"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -659,6 +657,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
         }
       },
+      "texture": "assets/textures/simplemusic/item/guide_book.png",
       "craftedBy": [
         "simplemusic:guide_book"
       ],
