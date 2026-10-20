@@ -1,16 +1,11 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.custom.ChestTier;
-import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.entity.ModEntities;
-import com.simplebuilding.entity.vehicle.BoatWoods;
-import com.simplebuilding.entity.vehicle.TieredChestBoat;
-import com.simplebuilding.entity.vehicle.TieredChestMinecart;
 import com.simplebuilding.entity.vehicle.TieredFurnaceMinecart;
 import com.simplebuilding.entity.vehicle.TieredHopperMinecart;
 import com.simplebuilding.entity.vehicle.VehicleTiers;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.screen.TieredChestMenu;
 import com.simplebuilding.util.HopperFilterMode;
 import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
@@ -20,12 +15,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.minecart.MinecartHopper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,19 +30,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RailBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.properties.RailShape;
-import net.minecraft.world.level.storage.TagValueInput;
-import net.minecraft.world.level.storage.TagValueOutput;
 
 /**
  * Tiered vehicles (Queue N19/N23, docs/ai/PLAN-FAHRZEUG-STUFEN-2026-10-10.md). The expected numbers are this file's
- * own constants (the defaults of server.machines), not read from the mod.
+ * own constants (the defaults of server.machines), not read from the mod. The chest carts and chest boats are Simple
+ * Storage's since split stage 8b-2 (its VehicleTests); here the hopper carts (and SimpleBuilding's own furnace carts).
  */
 public final class VehicleTests {
     public static final int MOVE_MAX_TICKS = 200;
 
     private static final ChestTier[] TIERS = ChestTier.values();
-    private static final int[] SLOTS = {36, 45, 54};
-    private static final int[] COBBLE_STACK = {64, 128, 256};
     private static final int[] FUEL_PER_COAL = {7200, 14400, 28800};
     private static final double[] SPEED_SHARE = {0.625, 0.75, 1.0};
     private static final int[] ITEMS_PER_TICK = {2, 4, 8};
@@ -63,10 +53,6 @@ public final class VehicleTests {
             return false;
         }
         return true;
-    }
-
-    private static List<EntityType<TieredChestMinecart>> chestCarts() {
-        return List.of(ModEntities.REINFORCED_CHEST_MINECART, ModEntities.NETHERITE_CHEST_MINECART, ModEntities.ENDERITE_CHEST_MINECART);
     }
 
     /** SimpleBuilding's own furnace carts (26.2); on 26.3 they are Simple Ovens' (split stage 4, its OvensTests). */
@@ -88,57 +74,6 @@ public final class VehicleTests {
 
     private static List<EntityType<TieredHopperMinecart>> hopperCarts() {
         return List.of(ModEntities.REINFORCED_HOPPER_MINECART, ModEntities.NETHERITE_HOPPER_MINECART, ModEntities.ENDERITE_HOPPER_MINECART);
-    }
-
-    private static List<EntityType<TieredChestBoat>> chestBoats() {
-        return List.of(ModEntities.REINFORCED_CHEST_BOAT, ModEntities.NETHERITE_CHEST_BOAT, ModEntities.ENDERITE_CHEST_BOAT);
-    }
-
-    // =====================================================================================
-    // INVENTORY SIZE, STACKS, SAVING, MENU
-    // =====================================================================================
-
-    /**
-     * Chest carts and chest boats hold the slots and stack size of their tier's chest (36/45/54; cobblestone 64/128/256),
-     * open the tier chest menu with all slots, and keep an oversized stack (above 99) and the boat's wood through saving.
-     */
-    public static void chestVehiclesHoldTheTierSlotsAndKeepOversizedStacks(GameTestHelper helper) {
-        if (!active(helper)) return;
-        ServerLevel level = helper.getLevel();
-        Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
-        for (int i = 0; i < TIERS.length; i++) {
-            List<Container> vehicles = new ArrayList<>();
-            vehicles.add(helper.spawn(chestCarts().get(i), new BlockPos(1, 2, 1)));
-            TieredChestBoat boat = helper.spawn(chestBoats().get(i), new BlockPos(4, 2, 4));
-            boat.setWood("cherry");
-            vehicles.add(boat);
-            for (Container vehicle : vehicles) {
-                String name = ((Entity) vehicle).getType().toShortString();
-                helper.assertValueEqual(vehicle.getContainerSize(), SLOTS[i], name + " slots");
-                helper.assertValueEqual(vehicle.getMaxStackSize(new ItemStack(Items.COBBLESTONE)), COBBLE_STACK[i], name + " cobblestone stack");
-                helper.assertValueEqual(vehicle.getMaxStackSize(new ItemStack(Items.DIAMOND_SWORD)), 1, name + " sword stack");
-                vehicle.setItem(SLOTS[i] - 1, new ItemStack(Items.COBBLESTONE, COBBLE_STACK[i]));
-                Entity entity = (Entity) vehicle;
-                TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
-                entity.saveWithoutId(output);
-                Entity loaded = entity.getType().create(level, net.minecraft.world.entity.EntitySpawnReason.LOAD);
-                loaded.load(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), output.buildResult()));
-                ItemStack back = ((Container) loaded).getItem(SLOTS[i] - 1);
-                helper.assertTrue(back.is(Items.COBBLESTONE) && back.getCount() == COBBLE_STACK[i],
-                        name + " saved " + COBBLE_STACK[i] + " cobblestone in its last slot and loaded " + back);
-                if (loaded instanceof TieredChestBoat loadedBoat) {
-                    helper.assertValueEqual(loadedBoat.wood(), "cherry", name + " wood after loading");
-                }
-                net.minecraft.world.inventory.AbstractContainerMenu menu = ((net.minecraft.world.MenuProvider) vehicle)
-                        .createMenu(1, player.getInventory(), player);
-                helper.assertTrue(menu instanceof TieredChestMenu tiered && tiered.chestSlotCount() == SLOTS[i]
-                                && tiered.tier() == TIERS[i],
-                        name + " opens " + (menu == null ? "nothing" : menu.getClass().getSimpleName()) + " instead of the tier chest menu");
-                vehicle.clearContent();
-                entity.discard();
-            }
-        }
-        helper.succeed();
     }
 
     // =====================================================================================
@@ -293,20 +228,14 @@ public final class VehicleTests {
     // DROPS AND RECIPES
     // =====================================================================================
 
-    /** Broken vehicles drop their own tier item (the boat with its wood, a name kept) and their contents. */
+    /** Broken vehicles drop their own tier item and their contents (the chest carts and boats: Simple Storage's tests). */
     public static void brokenVehiclesDropTheirTierItemAndContents(GameTestHelper helper) {
         if (!active(helper)) return;
         ServerLevel level = helper.getLevel();
         List<Entity> vehicles = new ArrayList<>();
-        vehicles.add(helper.spawn(ModEntities.NETHERITE_CHEST_MINECART, new BlockPos(1, 2, 1)));
         vehicles.add(helper.spawn(com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), new BlockPos(3, 2, 1)));
         vehicles.add(helper.spawn(ModEntities.REINFORCED_HOPPER_MINECART, new BlockPos(5, 2, 1)));
-        TieredChestBoat boat = helper.spawn(ModEntities.ENDERITE_CHEST_BOAT, new BlockPos(3, 2, 5));
-        boat.setWood("cherry");
-        boat.setCustomName(net.minecraft.network.chat.Component.literal("Ferry"));
-        vehicles.add(boat);
-        Item[] expected = {ModItems.NETHERITE_CHEST_MINECART, com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), ModItems.REINFORCED_HOPPER_MINECART,
-                ModItems.ENDERITE_CHEST_BOAT};
+        Item[] expected = {com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), ModItems.REINFORCED_HOPPER_MINECART};
         for (int i = 0; i < vehicles.size(); i++) {
             Entity vehicle = vehicles.get(i);
             if (vehicle instanceof Container container) container.setItem(0, new ItemStack(Items.EMERALD, 3));
@@ -318,37 +247,21 @@ public final class VehicleTests {
             if (vehicle instanceof Container) {
                 helper.assertTrue(drops.stream().anyMatch(d -> d.getItem().is(Items.EMERALD)), vehicle.getType().toShortString() + " lost its contents");
             }
-            if (vehicle == boat) {
-                ItemStack stack = own.get().getItem();
-                helper.assertValueEqual(stack.get(ModDataComponentTypes.BOAT_WOOD), "cherry", "wood of the dropped boat");
-                helper.assertTrue(stack.getHoverName().getString().equals("Ferry"), "the boat lost its name: " + stack.getHoverName().getString());
-            }
             drops.forEach(Entity::discard);
         }
         helper.succeed();
     }
 
     /**
-     * Crafting: cart + tier block, boat + tier chest (wood carried over); smithing reinforced -> netherite -> enderite,
-     * the boat keeping its wood.
+     * Crafting: cart + tier block; smithing reinforced -> netherite -> enderite (the chest carts and boats: Simple
+     * Storage's tests).
      */
     public static void vehicleRecipesCraftAndUpgrade(GameTestHelper helper) {
         if (!active(helper)) return;
-        ServerLevel level = helper.getLevel();
         List<String> wrong = new ArrayList<>();
         for (ChestTier tier : TIERS) {
-            craft(helper, wrong, List.of(new ItemStack(Items.MINECART), new ItemStack(VehicleTiers.chest(tier))), VehicleTiers.chestMinecart(tier), null);
-            craft(helper, wrong, List.of(new ItemStack(VehicleTiers.furnace(tier)), new ItemStack(Items.MINECART)), VehicleTiers.furnaceMinecart(tier), null);
-            craft(helper, wrong, List.of(new ItemStack(Items.MINECART), new ItemStack(VehicleTiers.hopper(tier))), VehicleTiers.hopperMinecart(tier), null);
-            for (String wood : BoatWoods.ALL) {
-                craft(helper, wrong, List.of(new ItemStack(BoatWoods.boat(wood)), new ItemStack(VehicleTiers.chest(tier))), VehicleTiers.chestBoat(tier), wood);
-            }
-        }
-        ItemStack base = BoatWoods.stack(ModItems.REINFORCED_CHEST_BOAT, "mangrove");
-        ItemStack netherite = smith(helper, new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), base,
-                new ItemStack(Items.NETHERITE_INGOT)));
-        if (!netherite.is(ModItems.NETHERITE_CHEST_BOAT) || !"mangrove".equals(netherite.get(ModDataComponentTypes.BOAT_WOOD))) {
-            wrong.add("smithing reinforced chest boat (mangrove) gave " + netherite + " wood " + netherite.get(ModDataComponentTypes.BOAT_WOOD));
+            craft(helper, wrong, List.of(new ItemStack(VehicleTiers.furnace(tier)), new ItemStack(Items.MINECART)), VehicleTiers.furnaceMinecart(tier));
+            craft(helper, wrong, List.of(new ItemStack(Items.MINECART), new ItemStack(VehicleTiers.hopper(tier))), VehicleTiers.hopperMinecart(tier));
         }
         ItemStack enderite = smith(helper, new SmithingRecipeInput(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
                 new ItemStack(ModItems.NETHERITE_HOPPER_MINECART), new ItemStack(ModItems.ENDERITE_INGOT)));
@@ -359,14 +272,12 @@ public final class VehicleTests {
         helper.succeed();
     }
 
-    private static void craft(GameTestHelper helper, List<String> wrong, List<ItemStack> ingredients, Item result, String wood) {
+    private static void craft(GameTestHelper helper, List<String> wrong, List<ItemStack> ingredients, Item result) {
         CraftingInput grid = CraftingInput.of(2, 1, ingredients);
         ItemStack got = helper.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, helper.getLevel())
                 .map(m -> m.value().assemble(grid)).orElse(ItemStack.EMPTY);
-        boolean ok = got.is(result) && (wood == null || wood.equals(got.get(ModDataComponentTypes.BOAT_WOOD)));
-        if (!ok) {
-            wrong.add(BuiltInRegistries.ITEM.getKey(result).getPath() + (wood == null ? "" : " (" + wood + ")") + " got " + got
-                    + (got.isEmpty() ? "" : " wood " + got.get(ModDataComponentTypes.BOAT_WOOD)));
+        if (!got.is(result)) {
+            wrong.add(BuiltInRegistries.ITEM.getKey(result).getPath() + " got " + got);
         }
     }
 

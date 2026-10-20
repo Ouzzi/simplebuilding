@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplestorage:reinforced_chest",
+    "minecraft:minecart"
+  ],
+  "result": {
+    "id": "simplestorage:reinforced_chest_minecart"
+  }
+}

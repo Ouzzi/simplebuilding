@@ -1,8 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.entity.ModEntities;
-import com.simplebuilding.entity.vehicle.BoatWoods;
-import com.simplebuilding.entity.vehicle.TieredChestBoat;
 import com.simplebuilding.entity.vehicle.TieredFurnaceMinecart;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.version.McVersion;
@@ -24,11 +22,16 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 /**
  * Tiered vehicles (Queue N19/N23, 26.3): one documentary picture of the nine tier carts on a rail and the tier chest
  * boats (cherry boat and bamboo raft) in front, a close-up of the boats, and the item sprites in item frames. Cleans up behind itself.
+ * The chest carts and chest boats are Simple Storage's since split stage 8b-2 (by id; the boats summoned with their wood).
  */
 public final class VehicleClientTest {
     private static final int Z = 19;
 
     private VehicleClientTest() {
+    }
+
+    private static EntityType<?> storageEntity(String path) {
+        return net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getValue(com.simplebuilding.util.StorageRefs.id(path));
     }
 
     public static void inWorld(Script script) {
@@ -41,8 +44,8 @@ public final class VehicleClientTest {
             for (int x = 3; x <= 17; x++) {
                 level.setBlock(new BlockPos(x, 0, Z), Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.EAST_WEST), 3);
             }
-            List<EntityType<?>> carts = List.of(ModEntities.REINFORCED_CHEST_MINECART, ModEntities.NETHERITE_CHEST_MINECART,
-                    ModEntities.ENDERITE_CHEST_MINECART, com.simplebuilding.util.OvenRefs.entityType("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.entityType("netherite_furnace_minecart"),
+            List<EntityType<?>> carts = List.of(storageEntity("reinforced_chest_minecart"), storageEntity("netherite_chest_minecart"),
+                    storageEntity("enderite_chest_minecart"), com.simplebuilding.util.OvenRefs.entityType("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.entityType("netherite_furnace_minecart"),
                     com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), ModEntities.REINFORCED_HOPPER_MINECART, ModEntities.NETHERITE_HOPPER_MINECART,
                     ModEntities.ENDERITE_HOPPER_MINECART);
             for (int i = 0; i < carts.size(); i++) {
@@ -53,26 +56,24 @@ public final class VehicleClientTest {
                 }
                 level.addFreshEntity(cart);
             }
-            List<EntityType<TieredChestBoat>> boats = List.of(ModEntities.REINFORCED_CHEST_BOAT, ModEntities.NETHERITE_CHEST_BOAT,
-                    ModEntities.ENDERITE_CHEST_BOAT);
-            for (int i = 0; i < 6; i++) {
-                TieredChestBoat boat = boats.get(i % 3).create(level, EntitySpawnReason.COMMAND);
-                boat.setWood(i < 3 ? "cherry" : "bamboo");
-                boat.setPos(4.5 + i * 2.2, 0.0, Z - 4.0);
-                boat.setYRot(90.0F);
-                level.addFreshEntity(boat);
-            }
             // Item frames on the wall behind the rail: the nine cart sprites, then the boats in several woods.
-            List<Item> cartItems = List.of(ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART,
+            List<Item> cartItems = List.of(com.simplebuilding.util.StorageRefs.chestMinecart("reinforced"),
+                    com.simplebuilding.util.StorageRefs.chestMinecart("netherite"), com.simplebuilding.util.StorageRefs.chestMinecart("enderite"),
                     com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"),
                     ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART);
-            List<Item> boatItems = List.of(ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT);
+            List<Item> boatItems = List.of(com.simplebuilding.util.StorageRefs.chestBoat("reinforced"),
+                    com.simplebuilding.util.StorageRefs.chestBoat("netherite"), com.simplebuilding.util.StorageRefs.chestBoat("enderite"));
             String[] woods = {"oak", "spruce", "cherry", "mangrove", "pale_oak", "dark_oak", "bamboo", "bamboo", "bamboo"};
             for (int i = 0; i < 9; i++) {
                 frame(level, 6 + i, 2, cartItems.get(i) == null ? ItemStack.EMPTY : new ItemStack(cartItems.get(i)));
-                frame(level, 6 + i, 3, BoatWoods.stack(boatItems.get(i % 3), woods[i]));
+                frame(level, 6 + i, 3, com.simplebuilding.util.StorageRefs.chestBoatStack(boatItems.get(i % 3), woods[i]));
             }
         });
+        String[] tiers = {"reinforced", "netherite", "enderite"};
+        for (int i = 0; i < 6; i++) {
+            script.command(String.format(java.util.Locale.ROOT, "summon %s %.1f 0.0 %.1f {Wood:\"%s\",Rotation:[90.0f,0.0f]}",
+                    com.simplebuilding.util.StorageRefs.id(tiers[i % 3] + "_chest_boat"), 4.5 + i * 2.2, Z - 4.0, i < 3 ? "cherry" : "bamboo"), true);
+        }
         script.awaitPackets();
         script.command("tp @a 10.5 4.5 10.0 0.0 25.0");
         script.awaitPackets();

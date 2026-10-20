@@ -31,12 +31,14 @@ RECIPES = [
     "hollow_spruce_log", "hollow_stripped_spruce_log", "spruce_sheet", "stripped_spruce_sheet", "spruce_cauldron",
     "stripped_spruce_cauldron",
     # The wood and log octets' recipes moved to Simple Octets (tools/textures/octets_2026_10_09.py, Shaping Saw A4b).
-] + [f"{tier}_chest_boat_spruce" for tier in TIERS]
+]
 LOOT = ["hollow_spruce_log", "hollow_stripped_spruce_log", "spruce_sheet", "stripped_spruce_sheet", "spruce_cauldron",
         "stripped_spruce_cauldron", "carved_spruce_log"]
-# The crates moved to Simple Storage (split stage 8a): their End-wood files are written into that module from its spruce one.
+# The crates (split stage 8a) and the tiered chest boats (8b-2) moved to Simple Storage: their End-wood files are written
+# into that module from its spruce ones.
 STORAGE = ROOT / "modules/simplestorage/shared/resources/data/simplestorage"
-STORAGE_FILES = ["spruce_crate"]
+STORAGE_FILES = ["spruce_crate"] + [f"{tier}_chest_boat_spruce" for tier in TIERS]
+STORAGE_LOOT = ["spruce_crate"]
 
 CONDITIONS = {
     "fabric:load_conditions": [{"condition": "fabric:all_mods_loaded", "values": [MOD]}],
@@ -80,7 +82,7 @@ def outputs() -> dict[Path, str]:
     def put(path: Path, data: dict) -> None:
         files[path] = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
-    for src, out, recipes, loot in ((SRC, OUT, RECIPES, LOOT), (STORAGE, STORAGE, STORAGE_FILES, STORAGE_FILES)):
+    for src, out, recipes, loot in ((SRC, OUT, RECIPES, LOOT), (STORAGE, STORAGE, STORAGE_FILES, STORAGE_LOOT)):
         for wood in WOODS:
             for name in recipes:
                 text = (src / "recipe" / f"{name}.json").read_text(encoding="utf-8")

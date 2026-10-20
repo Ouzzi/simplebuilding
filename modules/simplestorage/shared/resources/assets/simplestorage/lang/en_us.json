@@ -100,5 +100,18 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
+  "item.simplestorage.reinforced_chest_minecart": "Reinforced Chest Minecart",
+  "item.simplestorage.netherite_chest_minecart": "Netherite Chest Minecart",
+  "item.simplestorage.enderite_chest_minecart": "Enderite Chest Minecart",
+  "item.simplestorage.reinforced_chest_boat": "Reinforced Chest Boat",
+  "item.simplestorage.netherite_chest_boat": "Netherite Chest Boat",
+  "item.simplestorage.enderite_chest_boat": "Enderite Chest Boat",
+  "entity.simplestorage.reinforced_chest_minecart": "Reinforced Chest Minecart",
+  "entity.simplestorage.netherite_chest_minecart": "Netherite Chest Minecart",
+  "entity.simplestorage.enderite_chest_minecart": "Enderite Chest Minecart",
+  "entity.simplestorage.reinforced_chest_boat": "Reinforced Chest Boat",
+  "entity.simplestorage.netherite_chest_boat": "Netherite Chest Boat",
+  "entity.simplestorage.enderite_chest_boat": "Enderite Chest Boat",
+  "tooltip.simplestorage.tiered_chest_boat.wood": "Base: %s"
 }

@@ -184,9 +184,11 @@ MODULES = [
          author="Simple Storage", recipe="minecraft:barrel",
          name=("Simple Storage Guide", "Simple-Storage-Handbuch"),
          intro=("Crates of every wood that hold nine stacks of food in layers, the Storage Crafting Table that keeps its "
-                "grid on its top, and chests and shulker boxes in three tiers with more slots and bigger stacks.",
+                "grid on its top, and chests, shulker boxes, chest carts and chest boats in three tiers with more slots and "
+                "bigger stacks.",
                 "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, die Werkbank mit Lager, die ihr Raster "
-                "auf der Platte behält, und Truhen und Shulkerkisten in drei Stufen mit mehr Plätzen und größeren Stapeln.")),
+                "auf der Platte behält, und Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr "
+                "Plätzen und größeren Stapeln.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),

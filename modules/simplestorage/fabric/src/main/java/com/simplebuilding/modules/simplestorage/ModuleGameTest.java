@@ -210,4 +210,29 @@ public final class ModuleGameTest {
     public void shulkerBoxBoxItemsFollowTheFamilyScheme(GameTestHelper h) {
         StorageTests.ALL.get("shulker_box_box_items_follow_the_family_scheme").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void vehicleChestVehiclesHoldTheTierSlotsAndKeepOversizedStacks(GameTestHelper h) {
+        StorageTests.ALL.get("vehicle_chest_vehicles_hold_the_tier_slots_and_keep_oversized_stacks").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void vehicleBrokenChestVehiclesDropTheirTierItemAndContents(GameTestHelper h) {
+        StorageTests.ALL.get("vehicle_broken_chest_vehicles_drop_their_tier_item_and_contents").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void vehicleChestVehicleRecipesCraftAndUpgrade(GameTestHelper h) {
+        StorageTests.ALL.get("vehicle_chest_vehicle_recipes_craft_and_upgrade").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = StorageTests.VEHICLE_DECK_MAX_TICKS)
+    public void vehicleStandersStayOnTheChestBoatDeck(GameTestHelper h) {
+        StorageTests.ALL.get("vehicle_standers_stay_on_the_chest_boat_deck").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void vehicleOldVehiclesLoadAsSimpleStorages(GameTestHelper h) {
+        StorageTests.ALL.get("vehicle_old_vehicles_load_as_simple_storages").accept(h);
+    }
 }

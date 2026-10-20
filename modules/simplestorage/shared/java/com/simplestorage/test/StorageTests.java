@@ -53,6 +53,8 @@ public final class StorageTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
     static final BlockPos SPOT = new BlockPos(2, 2, 2);
+    /** The boat deck test waits 40 ticks for the boat to settle. */
+    public static final int VEHICLE_DECK_MAX_TICKS = 100;
 
     static {
         // Split stage 8b: the chests and shulker boxes (bodies from SimpleBuilding's TieredChestTests / TieredShulkerBoxTests).
@@ -84,6 +86,13 @@ public final class StorageTests {
         ALL.put("shulker_box_boxes_do_not_nest", ShulkerBoxTests::boxesDoNotNest);
         ALL.put("shulker_box_boxes_are_dyed_crafted_and_washed", ShulkerBoxTests::boxesAreDyedCraftedAndWashed);
         ALL.put("shulker_box_box_items_follow_the_family_scheme", ShulkerBoxTests::boxItemsFollowTheFamilyScheme);
+        // Split stage 8b-2: the chest carts and chest boats (bodies from SimpleBuilding's VehicleTests / WorldPolishTests).
+        ALL.put("vehicle_chest_vehicles_hold_the_tier_slots_and_keep_oversized_stacks", VehicleTests::chestVehiclesHoldTheTierSlotsAndKeepOversizedStacks);
+        ALL.put("vehicle_broken_chest_vehicles_drop_their_tier_item_and_contents", VehicleTests::brokenChestVehiclesDropTheirTierItemAndContents);
+        ALL.put("vehicle_chest_vehicle_recipes_craft_and_upgrade", VehicleTests::chestVehicleRecipesCraftAndUpgrade);
+        MAX_TICKS.put("vehicle_standers_stay_on_the_chest_boat_deck", VEHICLE_DECK_MAX_TICKS);
+        ALL.put("vehicle_standers_stay_on_the_chest_boat_deck", VehicleTests::standersStayOnTheChestBoatDeck);
+        ALL.put("vehicle_old_vehicles_load_as_simple_storages", VehicleTests::oldVehiclesLoadAsSimpleStorages);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);
@@ -117,6 +126,12 @@ public final class StorageTests {
                 }
             }
             if (!BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleStorage.id("container_counts"))) problems.add("component container_counts");
+            // Split stage 8b-2: chest carts and chest boats (item + entity), the wood component.
+            for (String path : SimpleStorage.movedVehicles()) {
+                if (!BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(path))) problems.add("item " + path);
+                if (!BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleStorage.id(path))) problems.add("entity " + path);
+            }
+            if (!BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleStorage.id("boat_wood"))) problems.add("component boat_wood");
             h.assertTrue(problems.isEmpty(), "registration: " + problems);
             h.succeed();
         });
@@ -133,6 +148,11 @@ public final class StorageTests {
                 if (!advancement.equals(IdMoves.advancement(SimpleStorage.old("recipes/decorations/" + path)))) problems.add("advancement " + path);
             }
             // Split stage 8b: the chest and box recipes with their recipe-book folders, the component.
+            for (String path : SimpleStorage.movedVehicleRecipes()) {
+                if (!SimpleStorage.id(path).equals(IdMoves.target(Registries.RECIPE, SimpleStorage.old(path)))) problems.add("recipe " + path);
+                Identifier advancement = SimpleStorage.id("recipes/transportation/" + path);
+                if (!advancement.equals(IdMoves.advancement(SimpleStorage.old("recipes/transportation/" + path)))) problems.add("advancement " + path);
+            }
             SimpleStorage.movedChestRecipes().forEach((path, folder) -> {
                 if (!SimpleStorage.id(path).equals(IdMoves.target(Registries.RECIPE, SimpleStorage.old(path)))) problems.add("recipe " + path);
                 Identifier advancement = SimpleStorage.id("recipes/" + folder + "/" + path);

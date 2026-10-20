@@ -1,0 +1,50 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplestorage:enderite_chest"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplestorage:enderite_chest_boat_ashwood"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_chest"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplestorage:enderite_chest_boat_ashwood"
+    ]
+  }
+}

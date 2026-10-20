@@ -17,3 +17,5 @@ neoForge.runs {
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplestorage:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }
+// Chest cart and chest boat item textures are Vanilla-derived (built, never committed; split stage 8b-2).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

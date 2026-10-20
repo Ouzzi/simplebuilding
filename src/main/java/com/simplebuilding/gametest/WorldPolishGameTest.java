@@ -25,9 +25,4 @@ public final class WorldPolishGameTest {
     public void sculkJawFeatureIsRegistered(GameTestHelper helper) {
         WorldPolishTests.sculkJawFeatureIsRegistered(helper);
     }
-
-    @GameTest(maxTicks = WorldPolishTests.BOAT_MAX_TICKS)
-    public void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
-        WorldPolishTests.standersStayOnTheChestBoatDeck(helper);
-    }
 }

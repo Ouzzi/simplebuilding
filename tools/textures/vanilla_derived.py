@@ -87,21 +87,12 @@ OUTPUTS = {
     'block/standing_bone.png': ((16, 16), 'standing_rods_2026_10_04.derived()'),
     'block/standing_blaze_rod.png': ((16, 16), 'standing_rods_2026_10_04.derived()'),
     'block/standing_breeze_rod.png': ((16, 16), 'standing_rods_2026_10_04.derived()'),
-    'item/reinforced_chest_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/netherite_chest_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/enderite_chest_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/reinforced_furnace_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/netherite_furnace_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_furnace_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/reinforced_hopper_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/netherite_hopper_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_hopper_minecart.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/reinforced_chest_boat_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/reinforced_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/netherite_chest_boat_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/netherite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/enderite_chest_boat_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/enderite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     # Top views of the placed discs (Item display 3D, placed_display_3d_2026_10_16.py): 22 Vanilla + 16 mod discs.
     **{f'block/placed_disc_music_disc_{d}.png': ((16, 16), 'placed_display_3d_2026_10_16.derived() - disc top view')
        for d in ('11', '13', '5', 'blocks', 'bounce', 'cat', 'chirp', 'creator', 'creator_music_box', 'far', 'lava_chicken',
@@ -125,6 +116,8 @@ MODULE_OUTPUTS = {
                    'entity/blighted_wither/blighted_wither.png': ((64, 64), 'wither_textures.derived() - Vanilla wither skin (N26)'),
                    'entity/blighted_wither/abyssal_wither.png': ((64, 64), 'wither_textures.derived() - Vanilla wither skin (N50)')},
     'simpleblocks': {'block/cracked_red_nether_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_tuff_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_tuff_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_mud_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_mud_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_end_stone_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_end_stone_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_deepslate_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_deepslate_tiles.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_cinnabar_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_cinnabar_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_sulfur_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_sulfur_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/shaping_saw_top.png': ((16, 16), 'shaping_saw_2026_10_17.derived() - Vanilla stonecutter + copper (A4b)'), 'block/shaping_saw_side.png': ((16, 16), 'shaping_saw_2026_10_17.derived() - Vanilla stonecutter + copper (A4b)'), 'block/shaping_saw_saw.png': ((16, 48), 'shaping_saw_2026_10_17.derived() - Vanilla stonecutter blade + light copper (A4b)')},
+    # simplestorage (split stage 8b-2, vehicles_2026_10_10 art): one line (gradle/module-vanilla-derived.gradle reads its placeholder sizes from it).
+    'simplestorage': {'item/reinforced_chest_minecart.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/reinforced_chest_boat_overlay.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/reinforced_chest_raft_overlay.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/netherite_chest_minecart.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/netherite_chest_boat_overlay.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/netherite_chest_raft_overlay.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/enderite_chest_minecart.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/enderite_chest_boat_overlay.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)'), 'item/enderite_chest_raft_overlay.png': ((16, 16), 'storage_vehicles_2026_10_20.derived() - Vanilla minecart / chest boat masks (split stage 8b-2)')},
     'simpleovens': {f'item/{tier}_furnace_minecart.png': ((16, 16), 'ovens_carts_2026_10_13.derived() - Vanilla minecart (N19)')
                     for tier in ('reinforced', 'netherite', 'enderite')},
     # simplecrucibles: one line (gradle/module-vanilla-derived.gradle reads its placeholder sizes from it).
@@ -132,6 +125,7 @@ MODULE_OUTPUTS = {
     'simplebeacons': {'gui/container/strong_beacon.png': ((256, 288), 'strong_beacon_gui.derived() - Vanilla beacon GUI + 2 rows (T12)')},
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures'), 'simpleovens': ('ovens_carts_2026_10_13',),
+                     'simplestorage': ('storage_vehicles_2026_10_20',),
                      'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16', 'shaping_saw_2026_10_17'), 'simplecrucibles': ('crucibles_derived_2026_10_16', 'soul_lava_2026_10_09')}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
@@ -239,10 +233,9 @@ def images(jar: Path) -> dict:
 # Vanilla-derived texture (or draw over a Mojang sprite): not committed, placeholders without the renderer.
 WIKI_RENDERS = {'astral_vault': 128, 'nihil_vault': 128, 'enderite_barrel': 128, 'enderite_crucible': 128,
                 'astral_piston': 128, 'nihil_piston': 128, 'jukebox_amplifier': 128, 'note_amplifier': 128,
-                'enderite_chest_boat': 128, 'netherite_chest_boat': 128, 'reinforced_chest_boat': 128,
-                'enderite_chest_minecart': 128, 'enderite_furnace_minecart': 128, 'enderite_hopper_minecart': 128,
-                'netherite_chest_minecart': 128, 'netherite_furnace_minecart': 128, 'netherite_hopper_minecart': 128,
-                'reinforced_chest_minecart': 128, 'reinforced_furnace_minecart': 128,
+                'enderite_furnace_minecart': 128, 'enderite_hopper_minecart': 128,
+                'netherite_furnace_minecart': 128, 'netherite_hopper_minecart': 128,
+                'reinforced_furnace_minecart': 128,
                 'reinforced_hopper_minecart': 128, 'block/astral_rail': 128, 'block/nihil_rail': 128,
                 'block/copper_fire': 128, 'block/sulfur_fire': 128, 'block/placed_egg': 128,
                 'block/potted_silent_dandelion': 128, 'block/silent_dandelion': 128, 'block/standing_rod': 128,

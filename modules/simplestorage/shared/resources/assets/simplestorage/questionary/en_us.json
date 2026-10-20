@@ -23,5 +23,71 @@
     "secret": [
       "Sneaking with an empty hand takes just one item. Hoppers fill and empty crates, a comparator reads the fill level, and the tag simplestorage:crate_storable lets modpacks allow non-food items."
     ]
+  },
+  "reinforced_chest_minecart": {
+    "lore": [
+      "{name}: a chest that finally got its rails."
+    ],
+    "use": [
+      "The chest minecart of the tier: 36 slots, the same as the chest of the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+    ]
+  },
+  "netherite_chest_minecart": {
+    "lore": [
+      "{name}: a chest that finally got its rails."
+    ],
+    "use": [
+      "The chest minecart of the tier: 45 slots with 2x stacks, the same as the chest of the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+    ]
+  },
+  "enderite_chest_minecart": {
+    "lore": [
+      "{name}: a chest that finally got its rails."
+    ],
+    "use": [
+      "The chest minecart of the tier: 54 slots with 4x stacks, the same as the chest of the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+    ]
+  },
+  "reinforced_chest_boat": {
+    "lore": [
+      "{name}: a boat that has stopped being afraid of its cargo."
+    ],
+    "use": [
+      "The chest boat of the Reinforced tier, in every wood (bamboo: raft). 36 slots, the same as the chest."
+    ],
+    "secret": [
+      "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+    ]
+  },
+  "netherite_chest_boat": {
+    "lore": [
+      "{name}: a boat that has stopped being afraid of its cargo."
+    ],
+    "use": [
+      "The chest boat of the Netherite tier, in every wood (bamboo: raft). 45 slots with 2x stacks, the same as the chest."
+    ],
+    "secret": [
+      "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+    ]
+  },
+  "enderite_chest_boat": {
+    "lore": [
+      "{name}: a boat that has stopped being afraid of its cargo."
+    ],
+    "use": [
+      "The chest boat of the Enderite tier, in every wood (bamboo: raft). 54 slots with 4x stacks, the same as the chest."
+    ],
+    "secret": [
+      "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+    ]
   }
 }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "enderite_chest_boat",
+  "ingredients": [
+    "simplestorage:enderite_chest",
+    "minecraft:jungle_boat"
+  ],
+  "result": {
+    "components": {
+      "simplestorage:boat_wood": "jungle"
+    },
+    "id": "simplestorage:enderite_chest_boat"
+  }
+}

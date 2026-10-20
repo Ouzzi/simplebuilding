@@ -33,6 +33,7 @@ public final class StorageFabric implements ModInitializer {
                 return new BlockEntityType<>(factory, blocks);
             }
         });
+        com.simplestorage.registry.StorageEntities.register();
         StorageMenus.register();
         StorageRegistry.registerTab();
         StorageBlocks.registerFlammability();
@@ -47,6 +48,11 @@ public final class StorageFabric implements ModInitializer {
             insertAfter(out, Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            if (StorageRegistry.fillsVanillaTabs(sb, com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(loader.getConfigDir(), SimpleStorage.MOD_ID))) {
+                // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.
+                insertAfter(out, Items.CHEST_MINECART, StorageRegistry.chestMinecartStacks());
+                insertAfter(out, Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
+            }
             if (!SimpleStorage.on()) return;
             var book = List.of(com.simplestorage.guide.StorageGuide.stack());
             // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.

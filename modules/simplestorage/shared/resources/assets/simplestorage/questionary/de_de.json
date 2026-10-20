@@ -23,5 +23,71 @@
     "secret": [
       "Schleichen mit leerer Hand nimmt nur ein Stück. Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und das Tag simplestorage:crate_storable erlaubt Modpacks auch Nicht-Nahrung."
     ]
+  },
+  "reinforced_chest_minecart": {
+    "lore": [
+      "{name}: eine Truhe, die endlich ihre Schienen bekam."
+    ],
+    "use": [
+      "Die Lore mit Truhe der Stufe: 36 Plätze, wie die Truhe der Stufe."
+    ],
+    "secret": [
+      "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+    ]
+  },
+  "netherite_chest_minecart": {
+    "lore": [
+      "{name}: eine Truhe, die endlich ihre Schienen bekam."
+    ],
+    "use": [
+      "Die Lore mit Truhe der Stufe: 45 Plätze mit 2-fachen Stapeln, wie die Truhe der Stufe."
+    ],
+    "secret": [
+      "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+    ]
+  },
+  "enderite_chest_minecart": {
+    "lore": [
+      "{name}: eine Truhe, die endlich ihre Schienen bekam."
+    ],
+    "use": [
+      "Die Lore mit Truhe der Stufe: 54 Plätze mit 4-fachen Stapeln, wie die Truhe der Stufe."
+    ],
+    "secret": [
+      "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+    ]
+  },
+  "reinforced_chest_boat": {
+    "lore": [
+      "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+    ],
+    "use": [
+      "Das Truhenboot der Stufe Reinforced, in jeder Holzart (Bambus: Floß). 36 Plätze, wie die Truhe."
+    ],
+    "secret": [
+      "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+    ]
+  },
+  "netherite_chest_boat": {
+    "lore": [
+      "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+    ],
+    "use": [
+      "Das Truhenboot der Stufe Netherite, in jeder Holzart (Bambus: Floß). 45 Plätze mit 2-fachen Stapeln, wie die Truhe."
+    ],
+    "secret": [
+      "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+    ]
+  },
+  "enderite_chest_boat": {
+    "lore": [
+      "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+    ],
+    "use": [
+      "Das Truhenboot der Stufe Enderite, in jeder Holzart (Bambus: Floß). 54 Plätze mit 4-fachen Stapeln, wie die Truhe."
+    ],
+    "secret": [
+      "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+    ]
   }
 }

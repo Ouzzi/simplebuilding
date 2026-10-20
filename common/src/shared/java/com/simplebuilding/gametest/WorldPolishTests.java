@@ -32,8 +32,6 @@ import net.minecraft.world.phys.Vec3;
  * Enderite bucket shows only its name, the sculk jaw needs a full block top.
  */
 public final class WorldPolishTests {
-    /** The floating boat test waits 40 ticks for the boat to settle. */
-    public static final int BOAT_MAX_TICKS = 80;
     private WorldPolishTests() {
     }
 
@@ -230,35 +228,5 @@ public final class WorldPolishTests {
         helper.setBlock(floor, Blocks.AIR);
         helper.assertTrue(helper.getBlockState(floor.above()).isAir(), "the jaw stayed without its floor: " + helper.getBlockState(floor.above()));
         helper.succeed();
-    }
-
-    /**
-     * A tier chest boat floating in still water keeps its height on the 1/4096 grid of the move packets
-     * ({@code TieredChestBoat#tick}), so the client's deck lies exactly where the server's does and a player standing on it
-     * is not set back by the server.
-     */
-    public static void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
-        if (!McVersion.TIERED_VEHICLES || com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT == null) {
-            helper.succeed();
-            return;
-        }
-        for (int x = 0; x < 5; x++) {
-            for (int z = 0; z < 5; z++) {
-                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
-                helper.setBlock(new BlockPos(x, 1, z), Blocks.WATER);
-                helper.setBlock(new BlockPos(x, 2, z), Blocks.WATER);
-            }
-        }
-        ServerLevel level = helper.getLevel();
-        var boat = com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
-        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.6123, 2.5));
-        boat.setPos(at.x, at.y, at.z);
-        level.addFreshEntity(boat);
-        helper.runAfterDelay(40, () -> {
-            double grid = boat.getY() * com.simplebuilding.entity.vehicle.TieredChestBoat.PACKET_GRID;
-            helper.assertTrue(boat.isInWater() || boat.getY() > at.y - 1.0, "the boat sank: " + boat.getY());
-            helper.assertTrue(grid == Math.rint(grid), "the boat height " + boat.getY() + " is off the packet grid");
-            helper.succeed();
-        });
     }
 }

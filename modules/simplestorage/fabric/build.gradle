@@ -6,3 +6,5 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // SimpleLib (IdMoves migration, container style blocks) nested per principle 6a; compiled against.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// Chest cart and chest boat item textures are Vanilla-derived (built, never committed; split stage 8b-2).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

@@ -157,14 +157,12 @@ public final class TieredChests {
 
     /**
      * Das Lager mit Stufen-Stapelgrenze hinter {@code container}: eine Mod-Truhe (auch als erste
-     * Haelfte einer Doppeltruhe), eine gestufte Shulkerkiste oder ein gestuftes Kisten-Fahrzeug, sonst null.
+     * Haelfte einer Doppeltruhe) oder eine gestufte Shulkerkiste, sonst null (die Kisten-Fahrzeuge sind seit Stufe 8b-2
+     * Simple Storage's; ihre Grenze liest {@link #maxStackSize} wie die jedes Containers ueber {@code getMaxStackSize(stack)}).
      */
     public static @Nullable Container oversizedStorage(@Nullable Container container) {
         if (container instanceof com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity box) {
             return box;
-        }
-        if (container instanceof com.simplebuilding.entity.vehicle.TieredStorageVehicle) {
-            return container; // gestufte Kistenlore / Kistenboot (Queue N19)
         }
         return chestBehind(container);
     }
