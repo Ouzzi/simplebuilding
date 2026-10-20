@@ -89,7 +89,7 @@ def main():
             raise SystemExit("Stale module guide textures: " + ", ".join(stale))
         print("module guide textures: up to date")
         return
-    out = Path(args[0] if args else "C:/Users/o_o/code/minecraft-mods/previews/modul-buecher-vorschau.png")
+    out = Path(args[0] if args else str(ROOT / "build/previews/modul-buecher-vorschau.png"))
     scale, cell, label_h = 16, 16 * 16 + 24, 52
     rows = (len(BOOKS) + 3) // 4
     sheet = Image.new("RGBA", (4 * cell + 16, rows * (cell + label_h) + 16), (198, 198, 198, 255))

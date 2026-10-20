@@ -147,8 +147,42 @@ public final class CrossModGameTest {
                 }
             }
         }
+        dumpCreativeTabs(System.getenv("SB_CREATIVE_TAB_DUMP"));
         helper.assertTrue(problems.isEmpty(), "creative tab coverage (" + problems.size() + "): " + problems);
         helper.succeed();
+    }
+
+    /**
+     * b-texfix20 (19.10.): with SB_CREATIVE_TAB_DUMP set, the rebuilt tabs go to that file as JSON
+     * ({@code [{"tab": id, "items": [{"id": item, "model": item_model}]}]}) for tools/textures/placeholder_audit.py, which
+     * renders a contact sheet per tab offline. Unset (every normal run): nothing is written.
+     */
+    private static void dumpCreativeTabs(String target) {
+        if (target == null || target.isBlank()) {
+            return;
+        }
+        var tabs = new com.google.gson.JsonArray();
+        for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
+            var items = new com.google.gson.JsonArray();
+            for (ItemStack stack : BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId).getDisplayItems()) {
+                var entry = new com.google.gson.JsonObject();
+                entry.addProperty("id", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+                Identifier model = stack.get(net.minecraft.core.component.DataComponents.ITEM_MODEL);
+                if (model != null) {
+                    entry.addProperty("model", model.toString());
+                }
+                items.add(entry);
+            }
+            var tab = new com.google.gson.JsonObject();
+            tab.addProperty("tab", tabId.toString());
+            tab.add("items", items);
+            tabs.add(tab);
+        }
+        try {
+            java.nio.file.Files.writeString(java.nio.file.Path.of(target), tabs.toString());
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException("creative tab dump " + target, e);
+        }
     }
 
     /**

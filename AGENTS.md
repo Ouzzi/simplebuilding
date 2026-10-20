@@ -39,6 +39,10 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
    (`generateVanillaDerived`, `mc26_3/resources.gradle`) und `wiki/generate.py` erzeugen sie (Wiki ohne Jar: Platzhalter).
    Braucht Python 3.8+ mit Pillow + numpy (Windows: `py -3 -m pip install pillow numpy`); fehlt etwas, warnt der Build
    und liefert graue Platzhalter (`-PsbVanillaDerivedStrict` bricht stattdessen ab, `-PsbSkipVanillaDerived` ohne Python).
+   Platzhalter bleiben nie still (19.10.): ERROR-Block + Build-Ende-Hinweis, Marker `assets/<ns>/vanilla_derived_placeholders.txt`
+   im Jar, Fehlerzeile im Client-Log; Prüfung gebauter Jars: `tools/textures/placeholder_audit.py`. Python-Aufrufe aus
+   Gradle nie als `python -c "<Code mit Anführungszeichen>"` (Java maskiert unter Windows keine inneren `"`), sondern
+   Skript + Argumente (`vanilla_derived.py --probe`).
    Gleiches gilt für **aus Vanilla abgeleitete Sounds**: nur beim Build (`tools/sounds/vanilla_derived_sounds.py`,
    `gradle/module-vanilla-derived-sounds.gradle`, Howler-Variante B mit `-PsbHowlerSounds=vanilla`), nie einchecken.
 8. **Server-Autorität:** alle Gameplay-Stellschrauben serverseitig, mit Obergrenzen, die Vanilla nicht gefährden.

@@ -21,7 +21,7 @@ highlight pixel; the top keeps the jukebox frame and its disc slot is inlaid wit
 Output (26.3-only, Vanilla-derived, never committed - tools/textures/vanilla_derived.py builds them through
 derived(jar)): item/music_disc_<song>[_b_side|_track_3|_track_4].png and block/jukebox_amplifier_side/_top.png and
 note_amplifier_side/_top.png (the amplifiers, formerly speakers).
---preview writes C:/Users/o_o/code/minecraft-mods/previews/schallplatten-vorschau.png and
+--preview writes build/previews/schallplatten-vorschau.png and
 lautsprecher-vorschau.png (16x, labeled).
 """
 import io
@@ -32,7 +32,7 @@ import zipfile
 from PIL import Image, ImageDraw
 
 JAR = os.environ.get("SB_CLIENT_JAR") or os.path.expanduser(r"~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
-PREVIEWS = r"C:/Users/o_o/code/minecraft-mods/previews"
+PREVIEWS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "build", "previews")
 
 # Roles of music_disc_13.png by color.
 ROLE = {(33, 33, 33): "outline", (64, 64, 64): "body", (81, 81, 81): "groove", (38, 38, 38): "rim",

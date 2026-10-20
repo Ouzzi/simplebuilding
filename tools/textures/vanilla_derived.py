@@ -140,6 +140,22 @@ OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2
                     'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
+# Shipped next to placeholder textures (assets/<ns>/<MARKER>, also by the Gradle fallbacks): the client logs an error
+# and tools/textures/placeholder_audit.py reports the jar. Absent when the real textures were drawn.
+MARKER = 'vanilla_derived_placeholders.txt'
+
+
+def probe() -> str:
+    """One line for the build's Python check: 'SBPY <major.minor> <missing pip packages>'. The build calls the script
+    with --probe instead of python -c: Java on Windows does not escape quotes inside an argument (the -c code lost its
+    quotes and every Python 'did not run' -> grey placeholders, owner 19.10.)."""
+    missing = []
+    for module, package in (('PIL', 'pillow'), ('numpy', 'numpy')):
+        try:
+            __import__(module)
+        except ImportError:
+            missing.append(package)
+    return ' '.join(['SBPY', '%d.%d' % sys.version_info[:2]] + missing)
 
 
 # Where the 26.3 loaders cache the client jar, relative to GRADLE_USER_HOME (the same layout on Windows, under
@@ -150,9 +166,12 @@ CACHE_JARS = (('caches', 'fabric-loom', '26.3', 'minecraft-client.jar'),
 
 
 def jar_candidates(explicit: str | None, env: dict, home_dir: str, join=os.path.join) -> list[str]:
-    """Candidate jar paths in search order. join is os.path.join; tests pass ntpath.join to check Windows paths."""
+    """Candidate jar paths in search order. join is os.path.join; tests pass ntpath.join to check Windows paths.
+    Last: the official launcher's 26.3 jar (%APPDATA%\\.minecraft on Windows, ~/.minecraft elsewhere)."""
     home = env.get('GRADLE_USER_HOME') or join(home_dir, '.gradle')
-    return [c for c in (explicit, env.get('SB_CLIENT_JAR')) if c] + [join(home, *parts) for parts in CACHE_JARS]
+    launcher = [join(d, '.minecraft', 'versions', '26.3', '26.3.jar') for d in (env.get('APPDATA'), home_dir) if d]
+    return ([c for c in (explicit, env.get('SB_CLIENT_JAR')) if c] + [join(home, *parts) for parts in CACHE_JARS]
+            + launcher)
 
 
 def find_jar(explicit: str | None = None) -> Path | None:
@@ -282,6 +301,12 @@ def write(out_root: Path, jar: Path | None, placeholders: bool = False, module: 
     for old in base.rglob('*.png') if base.is_dir() else ():
         if old.relative_to(base).as_posix() not in art:
             old.unlink()
+    marker = out_root / 'assets' / (module or NS) / MARKER
+    if jar is None:
+        marker.write_text('vanilla_derived.py --placeholder-if-missing: no 26.3 client jar or no Pillow/numpy\n',
+                          encoding='utf-8')
+    elif marker.exists():
+        marker.unlink()
     return 'jar' if jar is not None else 'placeholder'
 
 
@@ -314,7 +339,11 @@ def main() -> None:
     ap.add_argument('--placeholder-if-missing', action='store_true')
     ap.add_argument('--list', action='store_true')
     ap.add_argument('--module', choices=sorted(MODULE_OUTPUTS), help='only this module\'s textures (its own jars)')
+    ap.add_argument('--probe', action='store_true', help='print "SBPY <version> <missing packages>" (the build\'s check)')
     a = ap.parse_args()
+    if a.probe:
+        print(probe())
+        return
     if a.list or not a.out:
         for rel, (size, how) in OUTPUTS.items():
             print(f'assets/{NS}/textures/{rel}  {size[0]}x{size[1]}  {how}')

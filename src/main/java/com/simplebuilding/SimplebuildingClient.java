@@ -213,6 +213,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         });
 
         registerDoubleJumpClient();
+        com.simplebuilding.client.PlaceholderTextureCheck.warnIfPlaceholders(); // grey checkers: say why (19.10.)
         com.simplebuilding.client.blueprint.BlueprintClient.init();
         com.simplebuilding.client.guide.GuideBookClient.init();
 

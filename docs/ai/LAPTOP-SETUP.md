@@ -9,3 +9,11 @@
 7. Dev tools: `python tools/launchhub/server.py` (hub on 8771), `python tools/devserver/serve.py` (balancing on 8770), wiki on 8765. The hub's `launch_targets.json` is path-independent; the integration instance uses its own run directory.
 8. Mods folder for the dev client: the owner's 26.3 Fabric dev mods are managed through `integration/enabled-mods.json` and `tools/devmods.json`; data-pack mods written for older Minecraft formats crash world creation on 26.3 (see `docs/ai/WORKFLOW.md`, traps).
 9. Secrets: none are stored in the repo. Git push needs GitHub auth; Codex/Claude need their own logins.
+10. Textures derived from Vanilla (AGENTS.md rule 7) are drawn at build time: Python 3.8+ with Pillow and numpy
+    (`py -3 -m pip install pillow numpy`, Linux/macOS `python3 -m pip install pillow numpy`) and the 26.3 client jar
+    (Gradle downloads it on the first 26.3 build; the official launcher's `%APPDATA%\.minecraft\versions\26.3\26.3.jar`
+    also counts). Without them the build ships **grey checker placeholders** and says so: an ERROR block
+    `GREY PLACEHOLDER TEXTURES` in the task and again at the end of the build, the marker
+    `assets/<ns>/vanilla_derived_placeholders.txt` in the jar, an error line in the client log, and the Zentrale
+    starter shows a message box. Check built jars: `python tools/textures/placeholder_audit.py --jars <jar>...`
+    (`--fail-on-placeholder` for release builds; `--html`/`--md` for a per-creative-tab contact sheet).
