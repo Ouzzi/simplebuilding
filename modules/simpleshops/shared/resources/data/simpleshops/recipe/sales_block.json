@@ -3,13 +3,14 @@
   "category": "misc",
   "key": {
     "I": "minecraft:iron_ingot",
+    "E": "minecraft:ender_pearl",
     "C": "minecraft:chest",
     "P": "#minecraft:planks"
   },
   "pattern": [
     "PPP",
-    "ICI",
-    "PPP"
+    "IEI",
+    "PCP"
   ],
   "result": {
     "count": 1,

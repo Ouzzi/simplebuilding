@@ -265,4 +265,19 @@ public final class ModuleGameTest {
     public void storageDupeFuzz(GameTestHelper h) {
         ShopsTests.ALL.get("storage_dupe_fuzz").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void recipesEnderPearl(GameTestHelper h) {
+        ShopsTests.ALL.get("recipes_ender_pearl").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void noInsertEveryClickType(GameTestHelper h) {
+        ShopsTests.ALL.get("no_insert_every_click_type").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 120)
+    public void noInsertHoppers(GameTestHelper h) {
+        ShopsTests.ALL.get("no_insert_hoppers").accept(h);
+    }
 }

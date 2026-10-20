@@ -23,8 +23,8 @@ for locale in ('en_us', 'de_de'):
         assert data.get(k), (locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
-assert recipes['sales_block']['pattern'] == ['PPP', 'ICI', 'PPP'], 'sales block recipe'
-assert recipes['sales_storage']['pattern'] == ['PPP', 'ICI', 'PHP'], 'sales storage recipe'
+assert recipes['sales_block']['pattern'] == ['PPP', 'IEI', 'PCP'], 'sales block recipe (ender pearl, KONZ20)'
+assert recipes['sales_storage']['pattern'] == ['PPP', 'IEI', 'PHP'], 'sales storage recipe (ender pearl, KONZ20)'
 assert recipes['display_case']['pattern'] == ['NNN', 'GGG', 'PPP'], 'display case recipe'
 assert recipes['glow_display_case']['ingredients'] == [f'{NS}:display_case', 'minecraft:glow_ink_sac'], 'glow case recipe'
 for name in BLOCKS:

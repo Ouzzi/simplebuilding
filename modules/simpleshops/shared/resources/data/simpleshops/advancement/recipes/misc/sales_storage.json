@@ -11,16 +11,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_chest": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:chest"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_planks": {
       "conditions": {
         "items": [
@@ -46,15 +36,25 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "has_ender_pearl": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:ender_pearl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
     [
       "has_the_recipe",
       "has_iron_ingot",
-      "has_chest",
       "has_planks",
-      "has_hopper"
+      "has_hopper",
+      "has_ender_pearl"
     ]
   ],
   "rewards": {
