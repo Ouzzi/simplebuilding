@@ -301,7 +301,7 @@ public final class ShulkerBoxTests {
                     );
         }
         String expected = "[cobblestone:menu+hopper+place+vanilla+bundle, shulker_box:-, red_shulker_box:-, "
-                + "reinforced_shulker_box:-+nobackpack, netherite_shulker_box:-+nobackpack, enderite_shulker_box:-+nobackpack]";
+                + "reinforced_shulker_box:-, netherite_shulker_box:-, enderite_shulker_box:-]";
         helper.assertTrue(summary.toString().equals(expected), "nesting: expected " + expected + " but was " + summary);
         helper.succeed();
     }
@@ -369,7 +369,7 @@ public final class ShulkerBoxTests {
                     );
         }
         String expected = "[reinforced_shulker_box:" + Rarity.COMMON + ":burns:1:true, netherite_shulker_box:" + Rarity.UNCOMMON
-                + ":fireproof:1:true, enderite_shulker_box:" + Rarity.EPIC + ":fireproof:1:true:void:despawn]";
+                + ":fireproof:1:true, enderite_shulker_box:" + Rarity.EPIC + ":fireproof:1:true]";
         helper.assertTrue(summary.toString().equals(expected), "shulker box items: expected " + expected + " but were " + summary);
         helper.succeed();
     }
