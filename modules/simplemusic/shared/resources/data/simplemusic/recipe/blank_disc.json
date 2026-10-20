@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["CBC", "BAB", "CBC"],
+  "key": {"C": "#minecraft:coals", "B": "minecraft:blackstone", "A": "minecraft:amethyst_shard"},
+  "result": {"id": "simplemusic:blank_disc", "count": 1}
+}

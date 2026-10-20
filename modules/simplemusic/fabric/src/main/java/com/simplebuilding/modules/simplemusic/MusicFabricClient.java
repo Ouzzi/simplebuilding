@@ -1,0 +1,28 @@
+package com.simplebuilding.modules.simplemusic;
+
+import com.simplemusic.SimpleMusic;
+import com.simplemusic.client.BurnScreen;
+import com.simplemusic.client.MusicClient;
+import com.simplemusic.client.TrackPlayer;
+import com.simplemusic.net.TrackDataPayload;
+import com.simplemusic.net.TrackPlayPayload;
+import com.simplemusic.net.UploadResultPayload;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+
+public final class MusicFabricClient implements ClientModInitializer {
+    @Override
+    public void onInitializeClient() {
+        MusicClient.init();
+        SimpleMusic.toServer = payload -> {
+            if (ClientPlayNetworking.canSend(payload.type())) ClientPlayNetworking.send(payload);
+        };
+        ClientPlayNetworking.registerGlobalReceiver(UploadResultPayload.TYPE, (p, c) -> c.client().execute(() -> BurnScreen.receive(p)));
+        ClientPlayNetworking.registerGlobalReceiver(TrackPlayPayload.TYPE, (p, c) -> c.client().execute(() -> TrackPlayer.receive(p)));
+        ClientPlayNetworking.registerGlobalReceiver(TrackDataPayload.TYPE, (p, c) -> c.client().execute(() -> TrackPlayer.receive(p)));
+        ClientTickEvents.END_CLIENT_TICK.register(client -> MusicClient.tick());
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> client.execute(TrackPlayer::clear));
+    }
+}

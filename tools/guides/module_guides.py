@@ -200,6 +200,13 @@ MODULES = [
          intro=("New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
                 "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der "
                 "Biom-Pinsel.")),
+    dict(module="simplemusic", ns="simplemusic", package="com.simplemusic.guide", cls="MusicGuide", kind="item",
+         author="Simple Music", recipe="minecraft:note_block",
+         name=("Simple Music Guide", "Simple-Music-Handbuch"),
+         intro=("Write sheet music as text, listen to it in the editor and let the Orchestrion play it on a loop. Burn "
+                "your own mono Ogg files onto blank discs.",
+                "Notenblätter als Text schreiben, im Editor probehören und vom Orchestrion in Schleife spielen lassen. "
+                "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
     dict(module="simplestats", ns="simplestats", package="com.simplebuilding.modules.simplestats.guide", cls="StatsGuide",
          kind="item", author="Simple Stats", recipe="minecraft:flint",
          name=("Simple Stats Guide", "Simple-Stats-Handbuch"),

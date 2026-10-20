@@ -1,0 +1,83 @@
+package com.simplemusic.registry;
+
+import com.simplemusic.SimpleMusic;
+import com.simplemusic.disc.BlankDiscItem;
+import com.simplemusic.disc.CustomDiscItem;
+import com.simplemusic.orchestrion.OrchestrionBlock;
+import com.simplemusic.orchestrion.OrchestrionBlockEntity;
+import com.simplemusic.sheet.SheetMusicItem;
+import java.util.List;
+import java.util.function.Function;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
+
+/**
+ * Everything Simple Music registers. Loaders call the methods inside their matching registry event (Fabric: directly
+ * in the initializer), in this order: components, blocks, items, block entity type, tab.
+ */
+public final class MusicRegistry {
+    public static Block ORCHESTRION;
+    public static Item SHEET_MUSIC, ORCHESTRION_ITEM, BLANK_DISC, CUSTOM_DISC;
+    public static BlockEntityType<OrchestrionBlockEntity> ORCHESTRION_BE;
+
+    public static void registerBlocks() {
+        ORCHESTRION = block("orchestrion", OrchestrionBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
+                .instrument(NoteBlockInstrument.BASS).strength(2.0F, 6.0F).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    public static void registerItems() {
+        SHEET_MUSIC = item("sheet_music", SheetMusicItem::new, new Item.Properties().stacksTo(16));
+        ORCHESTRION_ITEM = item("orchestrion", p -> new BlockItem(ORCHESTRION, p), new Item.Properties().useBlockDescriptionPrefix());
+        BLANK_DISC = item("blank_disc", BlankDiscItem::new, new Item.Properties().stacksTo(16));
+        CUSTOM_DISC = item("custom_disc", CustomDiscItem::new, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+        com.simplemusic.guide.MusicGuide.register();
+    }
+
+    public static void registerBlockEntities(BlockEntityType<OrchestrionBlockEntity> orchestrion) {
+        ORCHESTRION_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("orchestrion"), orchestrion);
+    }
+
+    /** Creative tab stacks (empty while the module is switched off). */
+    public static List<ItemStack> tabStacks() {
+        if (!SimpleMusic.on()) return List.of();
+        return List.of(new ItemStack(ORCHESTRION_ITEM), new ItemStack(SHEET_MUSIC), new ItemStack(BLANK_DISC));
+    }
+
+    public static void registerTab() {
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleMusic.id("music"),
+                CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+                        .title(Component.translatable("itemgroup.simplemusic.music"))
+                        .icon(() -> new ItemStack(ORCHESTRION_ITEM))
+                        .displayItems((params, out) -> {
+                            if (!SimpleMusic.on()) return;
+                            out.accept(com.simplemusic.guide.MusicGuide.stack());
+                            tabStacks().forEach(out::accept);
+                        }).build());
+    }
+
+    private static Block block(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleMusic.id(name));
+        return Registry.register(BuiltInRegistries.BLOCK, key, factory.apply(properties.setId(key)));
+    }
+
+    private static Item item(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleMusic.id(name));
+        return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
+    }
+
+    private MusicRegistry() {}
+}
