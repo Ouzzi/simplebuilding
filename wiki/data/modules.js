@@ -858,5 +858,25 @@ window.WIKI_MODULES = [
       "simpleend"
     ],
     "dataHash": "d0740d71b507"
+  },
+  {
+    "id": "simplemusic",
+    "displayName": "Simple Music",
+    "description": "Sheet music with a text note code (editor with test listening, .txt/.nbs import), the Orchestrion (note block + jukebox: redstone loop, chest above = next sheet, comparator progress) and uploaded mono Ogg discs (quota, OP approval). Needs SimpleLib; SimpleBuilding optional.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplemobheads"
+    ],
+    "dataHash": "8e912655ee20"
   }
 ];
