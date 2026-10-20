@@ -82,7 +82,7 @@ Mixins (Kupfertruhe/Vanilla-Shulker → Axt/Hammer), NeoForge-Capabilities, Tab,
 25 portierte Modul-Tests (ChestTests/ShulkerBoxTests) + Registrierung/Migration (alte gefüllte Netherit-Truhe lädt mit 100er-Stapel).
 SB 26.3: `McVersion.STORAGE_IN_SB=false`, Felder `null`, Zugriff über `StorageRefs`; Datagen 26.3 ohne Truhen/Shulker.
 Belege (sb-test, 55a5263d4): fabric-263 1204/1204, neoforge-263 1204/1204, module-simplestorage fabric/neoforge/standalone-fabric
-je 41/41; Forge und `check`: siehe Abschlussbericht.
+je 41/41, module-simplestorage-forge 41/41, forge-263 `tiered_chest*` 17/17, `tiered_shulker*` 10/10, `data_integrity*` 51/51, `./gradlew check` Exit 0.
 
 Abweichungen (bewusst):
 - **Kisten-Boote/-Loren nicht umgezogen (8b-2 offen):** hängen an `BoatWoods`, `TieredMinecartItem`, `VehicleTiers`, Boots-Renderern
