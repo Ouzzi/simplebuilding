@@ -2045,6 +2045,28 @@
    "Sneak while wearing it: a quiet greeting in the mob's own voice."
   ]
  },
+ "herobrine_head": {
+  "lore": [
+   "{name}: he was never removed."
+  ],
+  "use": [
+   "No mob drops it. Gold carries moss, moss carries netherrack, four red lights keep watch - light it at night. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack."
+  ]
+ },
+ "herobrine_wall_head": {
+  "lore": [
+   "{name}: he was never removed."
+  ],
+  "use": [
+   "No mob drops it. Gold carries moss, moss carries netherrack, four red lights keep watch - light it at night. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack."
+  ]
+ },
  "guide_book": {
   "lore": [
    "A book about every mob's head."

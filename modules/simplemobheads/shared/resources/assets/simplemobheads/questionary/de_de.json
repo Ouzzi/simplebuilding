@@ -2045,6 +2045,28 @@
    "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
   ]
  },
+ "herobrine_head": {
+  "lore": [
+   "{name}: er wurde nie entfernt."
+  ],
+  "use": [
+   "Kein Mob lässt ihn fallen. Gold trägt Moos, Moos trägt Netherrack, vier rote Lichter wachen - zünde es nachts an. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."
+  ]
+ },
+ "herobrine_wall_head": {
+  "lore": [
+   "{name}: er wurde nie entfernt."
+  ],
+  "use": [
+   "Kein Mob lässt ihn fallen. Gold trägt Moos, Moos trägt Netherrack, vier rote Lichter wachen - zünde es nachts an. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."
+  ]
+ },
  "guide_book": {
   "lore": [
    "Ein Buch über den Kopf jedes Mobs."

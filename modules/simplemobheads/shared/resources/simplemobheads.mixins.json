@@ -12,6 +12,7 @@
     "HeadAbilityLivingEntityMixin",
     "HeadAbilityPlayerMixin",
     "HeadAbilityShulkerBoxMixin",
+    "IgniteItemMixin",
     "MobTargetMixin",
     "RamTargetMixin",
     "ServerPlayerTickMixin",

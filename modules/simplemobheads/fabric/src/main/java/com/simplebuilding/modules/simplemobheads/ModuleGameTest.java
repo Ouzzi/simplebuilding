@@ -140,4 +140,34 @@ public final class ModuleGameTest {
     public void discoverBehaviourHints(GameTestHelper helper) {
         MobHeadTests.ALL.get("discover_behaviour_hints").accept(helper);
     }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void herobrineRitual(GameTestHelper helper) {
+        MobHeadTests.ALL.get("herobrine_ritual").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void herobrineRitualWrongShrines(GameTestHelper helper) {
+        MobHeadTests.ALL.get("herobrine_ritual_wrong_shrines").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void herobrineHaunt(GameTestHelper helper) {
+        MobHeadTests.ALL.get("herobrine_haunt").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void herobrineGaze(GameTestHelper helper) {
+        MobHeadTests.ALL.get("herobrine_gaze").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void herobrineTorchFlicker(GameTestHelper helper) {
+        MobHeadTests.ALL.get("herobrine_torch_flicker").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void herobrineHintBook(GameTestHelper helper) {
+        MobHeadTests.ALL.get("herobrine_hint_book").accept(helper);
+    }
 }

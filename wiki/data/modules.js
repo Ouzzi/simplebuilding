@@ -640,7 +640,7 @@ window.WIKI_MODULES = [
       "jei",
       "modmenu"
     ],
-    "dataHash": "6e2e291796f1"
+    "dataHash": "0806bcdef644"
   },
   {
     "id": "simpleshops",

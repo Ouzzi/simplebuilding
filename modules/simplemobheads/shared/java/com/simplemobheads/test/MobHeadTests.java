@@ -12,6 +12,8 @@ import com.simplemobheads.data.HeadTable;
 import com.simplemobheads.drop.HeadDropCondition;
 import com.simplemobheads.drop.HeadDrops;
 import com.simplemobheads.drop.Variants;
+import com.simplemobheads.ritual.HerobrineHaunt;
+import com.simplemobheads.ritual.HerobrineRitual;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -100,6 +102,12 @@ public final class MobHeadTests {
         put("guide_book", com.simplemobheads.guide.MobHeadsGuide::gameTest);
         put("discover_recipe_unlocks", com.simplemobheads.discover.MobHeadsDiscover::recipeUnlocks);
         put("discover_behaviour_hints", com.simplemobheads.discover.MobHeadsDiscover::behaviourHints);
+        put("herobrine_ritual", MobHeadTests::herobrineRitual);
+        put("herobrine_ritual_wrong_shrines", MobHeadTests::herobrineRitualWrongShrines);
+        put("herobrine_haunt", MobHeadTests::herobrineHaunt);
+        put("herobrine_gaze", MobHeadTests::herobrineGaze);
+        put("herobrine_torch_flicker", MobHeadTests::herobrineTorchFlicker);
+        put("herobrine_hint_book", MobHeadTests::herobrineHintBook);
     }
 
     private MobHeadTests() {
@@ -664,7 +672,7 @@ public final class MobHeadTests {
         SimpleMobHeads.config().abilities.put("blaze", true);
         SimpleMobHeads.config().enabled = false;
         helper.assertTrue(!HeadAbilities.active(player, "blaze"), "the master switch does nothing");
-        helper.assertTrue(SimpleMobHeads.abilityIds().size() == 28, "abilities: " + SimpleMobHeads.abilityIds());
+        helper.assertTrue(SimpleMobHeads.abilityIds().size() == 29, "abilities: " + SimpleMobHeads.abilityIds());
         helper.succeed();
     }
 
@@ -723,6 +731,223 @@ public final class MobHeadTests {
         } finally {
             com.simplebuilding.framework.api.SubMods.set(SimpleMobHeads.MOD_ID, before);
         }
+        helper.succeed();
+    }
+
+    // --- Herobrine (KONZEPT-HEROBRINE-KOPF-2026-10-19, owner KONZ20) ---------------------------------------------
+
+    private static final BlockPos SHRINE_FIRE = new BlockPos(2, 5, 2);
+
+    /** The totem shrine: 3x3 gold at y 2, mossy cobblestone at (2,3,2), four redstone torches around it, netherrack on top. */
+    private static void buildShrine(GameTestHelper helper) {
+        for (int x = 1; x <= 3; x++) {
+            for (int z = 1; z <= 3; z++) {
+                helper.setBlock(new BlockPos(x, 2, z), Blocks.GOLD_BLOCK);
+            }
+        }
+        helper.setBlock(new BlockPos(2, 3, 2), Blocks.MOSSY_COBBLESTONE);
+        for (BlockPos torch : List.of(new BlockPos(1, 3, 2), new BlockPos(3, 3, 2), new BlockPos(2, 3, 1), new BlockPos(2, 3, 3))) {
+            helper.setBlock(torch, Blocks.REDSTONE_TORCH);
+        }
+        helper.setBlock(new BlockPos(2, 4, 2), Blocks.NETHERRACK);
+        helper.setBlock(SHRINE_FIRE, Blocks.FIRE);
+    }
+
+    private static HerobrineRitual.Result ignite(GameTestHelper helper, ServerPlayer player, Boolean night) {
+        return HerobrineRitual.ignite(helper.getLevel(), helper.absolutePos(SHRINE_FIRE), player, night);
+    }
+
+    private static void clearShrine(GameTestHelper helper) {
+        for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(0, 2, 0), new BlockPos(4, 6, 4))) {
+            helper.setBlock(pos, Blocks.AIR);
+        }
+        clearAll(helper);
+    }
+
+    /**
+     * H1/H4: the right shrine lit at night gives exactly one head; the torches go out, the moss turns to cobblestone, gold and
+     * netherrack stay. By day nothing is used up. A second ritual within the cooldown (same player or same shrine) gives
+     * nothing; fire without a player and the switch off do nothing. The real flint and steel reaches the ritual too.
+     */
+    public static void herobrineRitual(GameTestHelper helper) {
+        ServerPlayer player = player(helper);
+        HerobrineRitual.resetForTests();
+        HerobrineHaunt.resetForTests();
+        Item head = MobHeads.item("herobrine");
+        clearShrine(helper);
+        buildShrine(helper);
+        helper.assertTrue(HerobrineRitual.isShrine(helper.getLevel(), helper.absolutePos(new BlockPos(2, 4, 2))), "the shrine is not seen");
+        var day = ignite(helper, player, false);
+        helper.assertTrue(day == HerobrineRitual.Result.DAY, "by day: " + day);
+        helper.assertTrue(count(helper, head) == 0 && helper.getBlockState(new BlockPos(1, 3, 2)).is(Blocks.REDSTONE_TORCH)
+                && helper.getBlockState(new BlockPos(2, 3, 2)).is(Blocks.MOSSY_COBBLESTONE), "the day used the shrine up");
+        helper.assertTrue(ignite(helper, null, true) == HerobrineRitual.Result.NO_PLAYER, "fire without a player counts");
+        SimpleMobHeads.config().herobrineRitual = false;
+        helper.assertTrue(ignite(helper, player, true) == HerobrineRitual.Result.DISABLED, "the switch does nothing");
+        SimpleMobHeads.config().herobrineRitual = true;
+        var result = ignite(helper, player, true);
+        helper.assertTrue(result == HerobrineRitual.Result.SUMMONED, "at night: " + result);
+        helper.assertValueEqual(count(helper, head), 1, "Herobrine heads");
+        for (BlockPos torch : List.of(new BlockPos(1, 3, 2), new BlockPos(3, 3, 2), new BlockPos(2, 3, 1), new BlockPos(2, 3, 3))) {
+            helper.assertTrue(helper.getBlockState(torch).isAir(), "a torch stayed at " + torch);
+        }
+        helper.assertTrue(helper.getBlockState(new BlockPos(2, 3, 2)).is(Blocks.COBBLESTONE), "the moss stayed");
+        helper.assertTrue(helper.getBlockState(new BlockPos(2, 4, 2)).is(Blocks.NETHERRACK) && helper.getBlockState(SHRINE_FIRE).isAir(),
+                "netherrack or fire wrong");
+        for (BlockPos gold : BlockPos.betweenClosed(new BlockPos(1, 2, 1), new BlockPos(3, 2, 3))) {
+            helper.assertTrue(helper.getBlockState(gold).is(Blocks.GOLD_BLOCK), "gold was used up");
+        }
+        helper.assertTrue(!helper.getLevel().getEntitiesOfClass(LightningBolt.class, helper.getBounds().inflate(6.0)).isEmpty(), "no lightning");
+        helper.assertTrue(HerobrineHaunt.haunted(player), "the haunting did not start");
+        clearItems(helper);
+        // Cooldown: the same player at the rebuilt shrine, and another player at the same shrine.
+        buildShrine(helper);
+        helper.assertTrue(ignite(helper, player, true) == HerobrineRitual.Result.COOLDOWN, "no cooldown for the player");
+        ServerPlayer other = player(helper);
+        helper.assertTrue(ignite(helper, other, true) == HerobrineRitual.Result.COOLDOWN, "no cooldown for the shrine");
+        helper.assertValueEqual(count(helper, head), 0, "heads during the cooldown");
+        // The real item: flint and steel on the netherrack (the mixin asks the world's time).
+        HerobrineRitual.resetForTests();
+        helper.setBlock(SHRINE_FIRE, Blocks.AIR);
+        boolean night = helper.getLevel().isDarkOutside();
+        other.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FLINT_AND_STEEL));
+        BlockPos netherrack = helper.absolutePos(new BlockPos(2, 4, 2));
+        Items.FLINT_AND_STEEL.useOn(new net.minecraft.world.item.context.UseOnContext(other, InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(netherrack).add(0.0, 0.5, 0.0), net.minecraft.core.Direction.UP, netherrack, false)));
+        helper.assertValueEqual(count(helper, head), night ? 1 : 0, "heads from a real flint and steel (night " + night + ")");
+        // The config keeps the cooldown within its bounds.
+        MobHeadsConfig bounded = new MobHeadsConfig();
+        bounded.ritualCooldownTicks = 5;
+        bounded.normalize(SimpleMobHeads.abilityIds());
+        helper.assertValueEqual(bounded.ritualCooldownTicks, MobHeadsConfig.MIN_RITUAL_COOLDOWN, "cooldown bound");
+        HerobrineHaunt.resetForTests();
+        HerobrineRitual.resetForTests();
+        clearShrine(helper);
+        helper.succeed();
+    }
+
+    /** H1: a missing torch, no moss (cobblestone), an incomplete gold square or a torch of the wrong kind - no ritual. */
+    public static void herobrineRitualWrongShrines(GameTestHelper helper) {
+        ServerPlayer player = player(helper);
+        HerobrineRitual.resetForTests();
+        Map<String, Consumer<GameTestHelper>> wrong = new LinkedHashMap<>();
+        wrong.put("a torch missing", h -> h.setBlock(new BlockPos(3, 3, 2), Blocks.AIR));
+        wrong.put("a plain torch", h -> h.setBlock(new BlockPos(2, 3, 1), Blocks.TORCH));
+        wrong.put("no moss", h -> h.setBlock(new BlockPos(2, 3, 2), Blocks.COBBLESTONE));
+        wrong.put("a corner not gold", h -> h.setBlock(new BlockPos(1, 2, 1), Blocks.IRON_BLOCK));
+        wrong.put("an edge not gold", h -> h.setBlock(new BlockPos(3, 2, 2), Blocks.STONE));
+        List<String> problems = new ArrayList<>();
+        for (var entry : wrong.entrySet()) {
+            clearShrine(helper);
+            buildShrine(helper);
+            entry.getValue().accept(helper);
+            helper.setBlock(SHRINE_FIRE, Blocks.FIRE);
+            var result = ignite(helper, player, true);
+            if (result != HerobrineRitual.Result.NO_SHRINE || count(helper, MobHeads.item("herobrine")) != 0) {
+                problems.add(entry.getKey() + ": " + result);
+            }
+        }
+        clearShrine(helper);
+        helper.assertTrue(problems.isEmpty(), "wrong shrines: " + problems);
+        HerobrineRitual.resetForTests();
+        HerobrineHaunt.resetForTests();
+        helper.succeed();
+    }
+
+    /** H2: the haunting is only the trigger's; the figure vanishes up close and when looked at; the switch ends it. */
+    public static void herobrineHaunt(GameTestHelper helper) {
+        ServerPlayer player = player(helper);
+        ServerPlayer bystander = player(helper);
+        HerobrineHaunt.start(player);
+        helper.assertTrue(HerobrineHaunt.haunted(player) && !HerobrineHaunt.haunted(bystander),
+                "the haunting reaches someone else");
+        Vec3 eye = new Vec3(0.0, 65.0, 0.0);
+        Vec3 north = new Vec3(0.0, 0.0, -1.0);
+        helper.assertTrue(HerobrineHaunt.vanishes(eye, north, new Vec3(0.0, 63.4, -50.0)), "looked at, it stays");
+        helper.assertTrue(!HerobrineHaunt.vanishes(eye, north, new Vec3(0.0, 63.4, 50.0)), "behind the player it vanishes");
+        helper.assertTrue(HerobrineHaunt.vanishes(eye, north, new Vec3(10.0, 63.4, 10.0)), "up close it stays");
+        Vec3 spot = HerobrineHaunt.placeFigure(helper.getLevel(), player, helper.getLevel().getRandom());
+        helper.assertTrue(spot == null || player.position().multiply(1, 0, 1).distanceTo(spot.multiply(1, 0, 1)) >= HerobrineHaunt.FIGURE_MIN - 1.0, "the figure stands too close: " + spot);
+        HerobrineHaunt.tick(player);
+        helper.assertTrue(HerobrineHaunt.haunted(player), "one tick ended the haunting");
+        SimpleMobHeads.config().hauntPhase = false;
+        HerobrineHaunt.tick(player);
+        helper.assertTrue(!HerobrineHaunt.haunted(player), "the switch does not end the haunting");
+        HerobrineHaunt.resetForTests();
+        helper.succeed();
+    }
+
+    /** The Herobrine head's extra ability: in the dark a hostile mob that targets the wearer hesitates, once per cooldown. */
+    public static void herobrineGaze(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        // Mobs never target a creative player: the in-level mock player always is one, so a survival mock player stands here.
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+        player.setPos(at.x, at.y, at.z);
+        HeadAbilities.resetForTests(player);
+        var zombie = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 4));
+        zombie.setTarget(player);
+        helper.assertTrue(zombie.getTarget() == player, "the zombie does not target the player (difficulty " + level.getDifficulty() + ")");
+        helper.assertValueEqual(HeadAbilities.gaze(level, player, true), 0, "hesitation without the head");
+        wear(player, "herobrine");
+        helper.assertValueEqual(HeadAbilities.gaze(level, player, false), 0, "hesitation in the light");
+        helper.assertValueEqual(HeadAbilities.gaze(level, player, true), 1, "hesitation in the dark");
+        helper.assertTrue(zombie.hasEffect(MobEffects.SLOWNESS), "the zombie does not hesitate");
+        helper.assertValueEqual(HeadAbilities.gaze(level, player, true), 0, "hesitation again within the cooldown");
+        var cow = helper.spawn(EntityTypes.COW, new BlockPos(3, 2, 4));
+        HeadAbilities.resetForTests(player);
+        helper.assertValueEqual(HeadAbilities.gaze(level, player, true), 1, "after the cooldown (the cow never counts)");
+        helper.assertTrue(!cow.hasEffect(MobEffects.SLOWNESS), "a peaceful mob hesitates");
+        HeadAbilities.resetForTests(player);
+        SimpleMobHeads.config().abilities.put("herobrine", false);
+        helper.assertValueEqual(HeadAbilities.gaze(level, player, true), 0, "the ability switch does nothing");
+        wear(player, null);
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** H5 f: torches (every TorchBlock) near the wearer flicker; redstone torches do not; without the head nothing flickers. */
+    public static void herobrineTorchFlicker(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = player(helper);
+        helper.setBlock(new BlockPos(1, 2, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(1, 3, 1), Blocks.TORCH);
+        helper.setBlock(new BlockPos(4, 2, 4), Blocks.STONE);
+        helper.setBlock(new BlockPos(4, 3, 4), Blocks.SOUL_TORCH);
+        helper.setBlock(new BlockPos(5, 3, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(5, 3, 2), Blocks.WALL_TORCH.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.WallTorchBlock.FACING, net.minecraft.core.Direction.SOUTH));
+        helper.setBlock(new BlockPos(1, 2, 4), Blocks.STONE);
+        helper.setBlock(new BlockPos(1, 3, 4), Blocks.REDSTONE_TORCH);
+        List<BlockPos> torches = List.of(helper.absolutePos(new BlockPos(1, 3, 1)), helper.absolutePos(new BlockPos(4, 3, 4)),
+                helper.absolutePos(new BlockPos(5, 3, 2)));
+        helper.assertTrue(HeadAbilities.flickerTorches(level, player).isEmpty(), "torches flicker without the head");
+        wear(player, "herobrine");
+        List<BlockPos> flickered = HeadAbilities.flickerTorches(level, player);
+        helper.assertTrue(flickered.containsAll(torches), "not every torch flickers: " + flickered);
+        helper.assertTrue(!flickered.contains(helper.absolutePos(new BlockPos(1, 3, 4))), "a redstone torch flickers");
+        helper.assertTrue(flickered.size() <= HeadAbilities.FLICKER_MAX, "too many torches: " + flickered.size());
+        wear(player, null);
+        for (BlockPos pos : List.of(new BlockPos(1, 3, 1), new BlockPos(4, 3, 4), new BlockPos(5, 3, 2), new BlockPos(5, 3, 1), new BlockPos(1, 3, 4),
+                new BlockPos(1, 2, 1), new BlockPos(4, 2, 4), new BlockPos(1, 2, 4))) {
+            helper.setBlock(pos, Blocks.AIR);
+        }
+        helper.succeed();
+    }
+
+    /** Hint (rule A6): mineshaft chests get one rare pool with the three-page Herobrine Notes; the switch removes it. */
+    public static void herobrineHintBook(GameTestHelper helper) {
+        List<LootPool.Builder> pools = new ArrayList<>();
+        HeadDrops.apply(BuiltInLootTables.ABANDONED_MINESHAFT, pools::add, helper.getLevel().registryAccess());
+        helper.assertValueEqual(pools.size(), 1, "mineshaft pools");
+        ItemStack book = HerobrineRitual.hintBook();
+        var content = book.get(DataComponents.WRITTEN_BOOK_CONTENT);
+        helper.assertTrue(content != null && content.pages().size() == 3, "the notes have no three pages");
+        SimpleMobHeads.config().hintBook = false;
+        List<LootPool.Builder> none = new ArrayList<>();
+        HeadDrops.apply(BuiltInLootTables.ABANDONED_MINESHAFT, none::add, helper.getLevel().registryAccess());
+        helper.assertTrue(none.isEmpty(), "the hint book switch does nothing");
+        helper.assertTrue(MobHeads.head("herobrine") != null && MobHeads.head("herobrine").drop().equals("ritual"), "the head is no ritual head");
         helper.succeed();
     }
 

@@ -5,7 +5,8 @@
     "simplemobheads:warden_head": "Boss head: only the charged creeper.",
     "simplemobheads:wither_head": "Boss head: only the charged creeper (server switch, default off).",
     "simplemobheads:blighted_wither_head": "Boss head of Simple Mobs.",
-    "simplemobheads:abyssal_wither_head": "Boss head of Simple Mobs."
+    "simplemobheads:abyssal_wither_head": "Boss head of Simple Mobs.",
+    "simplemobheads:herobrine_head": "Secret head: only the Herobrine ritual (KONZEPT-HEROBRINE-KOPF-2026-10-19), never sold."
   },
   "prices": [
     {

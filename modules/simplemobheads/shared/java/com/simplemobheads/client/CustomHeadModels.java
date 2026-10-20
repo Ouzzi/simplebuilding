@@ -29,6 +29,8 @@ public final class CustomHeadModels {
     public static final Identifier STRAY_OVERLAY = Identifier.withDefaultNamespace("textures/entity/skeleton/stray_overlay.png");
     public static final Identifier BOGGED_OVERLAY = Identifier.withDefaultNamespace("textures/entity/skeleton/bogged_overlay.png");
     public static final Identifier BREEZE_EYES = Identifier.withDefaultNamespace("textures/entity/breeze/breeze_eyes.png");
+    /** The Herobrine head's own pixels (no Mojang texture): only its white eyes, drawn emissive like the spider's. */
+    public static final Identifier HEROBRINE_EYES = Identifier.fromNamespaceAndPath("simplemobheads", "textures/entity/herobrine/herobrine_eyes.png");
     private static final float EYES_INFLATE = 0.25F;
 
     private CustomHeadModels() {
@@ -52,6 +54,9 @@ public final class CustomHeadModels {
             case "breeze" -> layered(breezeHeadLayer(0.0F), pass(breezeHeadLayer(EYES_INFLATE), RenderTypes::breezeEyes, BREEZE_EYES));
             case "shulker" -> plain(shulkerHeadLayer());
             case "pig", "cow", "chicken" -> plain(animalHeadLayer(name));
+            // Secret head (KONZ20 H3 t1): a player-sized head with its hat layer, the white eyes glow in the dark.
+            case "herobrine" -> layered(SkullModel.createHumanoidHeadLayer(),
+                    pass(humanoidHeadLayer(new CubeDeformation(0.0F, 0.0F, EYES_INFLATE), 64, 64), RenderTypes::eyes, HEROBRINE_EYES));
             default -> null;
         };
     }

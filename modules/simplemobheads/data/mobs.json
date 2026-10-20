@@ -2601,6 +2601,23 @@
     "tex": "simpleenddragonfight:dragonmite/dragonmite"
    },
    "mob": "simpleenddragonfight:dragonmite"
+  },
+  {
+   "id": "herobrine",
+   "en": "Herobrine Head",
+   "de": "Herobrine-Kopf",
+   "group": "secret",
+   "sound": [
+    "minecraft:ambient.cave"
+   ],
+   "model": {
+    "custom": "herobrine",
+    "tex": "simplemobheads:herobrine/herobrine"
+   },
+   "ability": "herobrine",
+   "mob": "simplemobheads:herobrine",
+   "drop": "ritual",
+   "advancement": true
   }
  ]
 }

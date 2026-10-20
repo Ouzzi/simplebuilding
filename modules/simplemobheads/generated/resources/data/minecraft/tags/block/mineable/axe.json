@@ -185,6 +185,8 @@
     "simplemobheads:nibblemite_head",
     "simplemobheads:nibblemite_wall_head",
     "simplemobheads:dragonmite_head",
-    "simplemobheads:dragonmite_wall_head"
+    "simplemobheads:dragonmite_wall_head",
+    "simplemobheads:herobrine_head",
+    "simplemobheads:herobrine_wall_head"
   ]
 }

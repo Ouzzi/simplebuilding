@@ -63,11 +63,14 @@ ABILITIES = {
     "polar_bear": ("Ice is less slippery for its wearer.", "Eis ist für den Träger weniger rutschig."),
     "wolf": ("Wild wolves never attack its wearer.", "Wilde Wölfe greifen den Träger nie an."),
     "warden": ("Half of its wearer's footsteps never reach sculk.", "Die Hälfte der Schritte des Trägers erreicht kein Sculk."),
+    "herobrine": ("Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack.",
+                  "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."),
 }
 
 TRADE_EXCLUDED = {"wither": "Boss head: only the charged creeper (server switch, default off).",
                   "warden": "Boss head: only the charged creeper.",
-                  "blighted_wither": "Boss head of Simple Mobs.", "abyssal_wither": "Boss head of Simple Mobs."}
+                  "blighted_wither": "Boss head of Simple Mobs.", "abyssal_wither": "Boss head of Simple Mobs.",
+                  "herobrine": "Secret head: only the Herobrine ritual (KONZEPT-HEROBRINE-KOPF-2026-10-19), never sold."}
 # Price rows that moved in from SimpleBuilding / Simple Fun keep their values.
 LEGACY_TRADE = {"bogged": ("mason", 0, 0.5, 1, 2, 1.0), "stray": ("mason", 0, 0.5, 1, 2, 1.0)}
 
@@ -223,8 +226,11 @@ def resources():
             "parent": f"{NS}:heads/root",
             "criteria": {"has_head": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": f"{NS}:{item}"}]}}},
             "requirements": [["has_head"]],
-            "display": {"icon": {"id": f"{NS}:{item}"}, "title": {"translate": f"block.{NS}.{item}"},
-                        "description": {"translate": f"advancements.{NS}.heads.head.description"},
+            # A head with "advancement": true (the secret Herobrine head) has its own hand-written title and description.
+            "display": {"icon": {"id": f"{NS}:{item}"},
+                        "title": {"translate": f"advancements.{NS}.heads.{h['id']}.title" if h.get("advancement") else f"block.{NS}.{item}"},
+                        "description": {"translate": f"advancements.{NS}.heads.{h['id']}.description" if h.get("advancement")
+                                        else f"advancements.{NS}.heads.head.description"},
                         "show_toast": False, "announce_to_chat": False, "hidden": True}}
     out[GEN / f"data/{NS}/advancement/heads/root.json"] = {
         "criteria": {"any_head": {"trigger": "minecraft:inventory_changed",
@@ -279,6 +285,10 @@ def questionary(locale):
                 use = "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
             secret = ABILITIES[h["ability"]][0] if h.get("ability") else "Sneak while wearing it: a quiet greeting in the mob's own voice."
             lore = f"{{name}}: proof that a charged creeper met a {mob.lower()}."
+            if h.get("drop") == "ritual":
+                use = ("No mob drops it. Gold carries moss, moss carries netherrack, four red lights keep watch - "
+                       "light it at night. Place it, wear it or put it on a note block.")
+                lore = "{name}: he was never removed."
         else:
             use = ("Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. "
                    "Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen.")
@@ -286,6 +296,10 @@ def questionary(locale):
                 use = "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
             secret = ABILITIES[h["ability"]][1] if h.get("ability") else "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
             lore = "{name}: der Beweis, dass ein geladener Creeper hier war."
+            if h.get("drop") == "ritual":
+                use = ("Kein Mob lässt ihn fallen. Gold trägt Moos, Moos trägt Netherrack, vier rote Lichter wachen - "
+                       "zünde es nachts an. Aufstellen, tragen oder auf einen Notenblock setzen.")
+                lore = "{name}: er wurde nie entfernt."
         entry = {"lore": [lore], "use": [use], "secret": [secret]}
         out[item_id(h)] = entry
         out[wall_id(h)] = entry
