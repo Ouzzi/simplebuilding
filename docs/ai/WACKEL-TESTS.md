@@ -18,3 +18,12 @@ kein FEHLER, höchstens 6 rote Tests), läuft jeder rote Test einmal allein nach
 | Datum | Test | Ursache / Fix |
 |---|---|---|
 | 2026-10-20 | simplemobs:module_game_test_fear_watcher_hit_new_victim | Schweine außerhalb der 8×8-Testfläche, Nachbar-Struktur räumte sie weg; Fix 371df6b7f |
+
+## Delta-Gate
+
+Nach einem roten Gate auf `<base>` prüft `/root/sb-gate.sh <fix-ref> delta <base>` nur, was der Fix ändern kann
+(`tools/testrunner/delta_gate.py`): `gradlew check`, jeden roten Test der Basis einzeln und die Ziele der berührten
+Module samt Modulen, die sie voraussetzen (SimpleBuilding-Kernziele, wenn SB eines davon voraussetzt), dazu
+`integration-263`. Docs/Queue/Wiki brauchen nur `check`. Änderungen an common/, simplelib, framework, Build-Dateien,
+tools/ oder Fixes, die nicht auf der Basis aufsetzen, führen automatisch zum vollen Gate. Grün → Push nach master wie
+beim vollen Gate; der Nachtlauf (`sb-night.sh`) bleibt der volle Lauf über alles.
