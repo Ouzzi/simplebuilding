@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "E": "minecraft:ender_eye",
+    "B": "minecraft:bookshelf",
+    "L": "minecraft:lectern",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    "GEG",
+    "BLB",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleshops:trade_terminal"
+  }
+}

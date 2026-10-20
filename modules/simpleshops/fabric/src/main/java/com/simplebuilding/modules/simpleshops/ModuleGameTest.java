@@ -305,4 +305,49 @@ public final class ModuleGameTest {
     public void enderWorldDataRoundtrip(GameTestHelper h) {
         ShopsTests.ALL.get("ender_world_data_roundtrip").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalRegistered(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_registered").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalRemoteBuyEqualsOnSite(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_remote_buy_equals_on_site").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalNeverLoadsChunks(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_never_loads_chunks").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalLockSharedWithSite(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_lock_shared_with_site").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 120)
+    public void terminalTakeDelivery(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_take_delivery").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalPrivateAndDimension(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_private_and_dimension").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalRateLimitAndBadRequests(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_rate_limit_and_bad_requests").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalCollectAndPrices(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_collect_and_prices").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 400)
+    public void terminalDupeFuzz(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_dupe_fuzz").accept(h);
+    }
 }

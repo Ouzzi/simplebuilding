@@ -388,6 +388,14 @@ public final class EnderShops extends SavedData {
         }
     }
 
+    /** Links a case entry to a sales entry directly (operator tools and tests; on site {@link #link} does it). */
+    public void linkCase(Vault sales, Vault box) {
+        if (sales.kind == Kind.SALES && box.kind == Kind.CASE) {
+            sales.caseId = box.id;
+            setDirty();
+        }
+    }
+
     /** The display case entry of a sales entry (same kind of shop), or {@code null}. */
     public @Nullable Vault caseOf(Vault sales) {
         Vault c = find(sales.caseId);

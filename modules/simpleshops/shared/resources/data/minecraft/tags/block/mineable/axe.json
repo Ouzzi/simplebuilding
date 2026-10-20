@@ -4,6 +4,7 @@
     "simpleshops:sales_block",
     "simpleshops:display_case",
     "simpleshops:glow_display_case",
-    "simpleshops:sales_storage"
+    "simpleshops:sales_storage",
+    "simpleshops:trade_terminal"
   ]
 }

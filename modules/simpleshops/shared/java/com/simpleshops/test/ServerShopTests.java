@@ -244,6 +244,9 @@ final class ServerShopTests {
             salesBack.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, registries, salesTag));
             DisplayCaseBlockEntity boxBack = new DisplayCaseBlockEntity(at.above(), box.getBlockState());
             boxBack.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, registries, boxTag));
+            // Ender shops: prices and goods stay in the world data; the reloaded block entities find them through their saved id.
+            salesBack.setLevel(h.getLevel());
+            boxBack.setLevel(h.getLevel());
             h.assertTrue(salesBack.serverId().equals(made.id()) && salesBack.prices().get(2).is(Items.EMERALD) && boxBack.isServerShop() && boxBack.goods().get(0).is(Items.DIAMOND), "block entities reload as server shop");
             h.assertTrue(!sales.getUpdateTag(registries).toString().contains("server_id"), "the id is not sent to clients");
             // Registry: ids, counter and cash survive the codec.

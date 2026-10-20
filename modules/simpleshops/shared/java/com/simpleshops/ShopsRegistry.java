@@ -38,8 +38,8 @@ public final class ShopsRegistry {
     public static final float BLAST_RESISTANCE = 3_600_000.0F;
     public static final float HARDNESS = 2.0F;
 
-    public static Block SALES_BLOCK, DISPLAY_CASE, GLOW_DISPLAY_CASE, SALES_STORAGE;
-    public static Item SALES_BLOCK_ITEM, DISPLAY_CASE_ITEM, GLOW_DISPLAY_CASE_ITEM, SALES_STORAGE_ITEM;
+    public static Block SALES_BLOCK, DISPLAY_CASE, GLOW_DISPLAY_CASE, SALES_STORAGE, TRADE_TERMINAL;
+    public static Item SALES_BLOCK_ITEM, DISPLAY_CASE_ITEM, GLOW_DISPLAY_CASE_ITEM, SALES_STORAGE_ITEM, TRADE_TERMINAL_ITEM;
     public static BlockEntityType<SalesBlockEntity> SALES_BE;
     public static BlockEntityType<DisplayCaseBlockEntity> CASE_BE;
     public static BlockEntityType<SalesStorageBlockEntity> STORAGE_BE;
@@ -49,6 +49,8 @@ public final class ShopsRegistry {
     /** Owner screen with the display case above (goods, price, earnings); same class as {@link #OWNER_MENU}, other layout. */
     public static MenuType<SalesOwnerMenu> SHOP_MENU;
     public static MenuType<StorageMenu> STORAGE_MENU;
+    /** The trade terminal (Handelskontor): remote access to the ender shop data. */
+    public static MenuType<com.simpleshops.menu.TradeTerminalMenu> TERMINAL_MENU;
 
     private static BlockBehaviour.Properties base(MapColor color) {
         // pushReaction BLOCK: pistons and slime never move or pull a shop; no ignitedByLava/flammable entry: fire and lava leave it alone.
@@ -63,6 +65,9 @@ public final class ShopsRegistry {
                 base(MapColor.WOOD).noOcclusion().sound(SoundType.GLASS).isSuffocating((s, l, pos) -> false));
         GLOW_DISPLAY_CASE = block("glow_display_case", p -> new DisplayCaseBlock(p, true),
                 base(MapColor.WOOD).noOcclusion().sound(SoundType.GLASS).lightLevel(s -> 6).isSuffocating((s, l, pos) -> false));
+        // Holds nothing: an ordinary wooden block (normal hardness and blast resistance, pistons may not move it like a lectern).
+        TRADE_TERMINAL = block("trade_terminal", com.simpleshops.block.TradeTerminalBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
+                .strength(2.5F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).pushReaction(PushReaction.BLOCK));
     }
 
     public static void registerItems() {
@@ -70,6 +75,7 @@ public final class ShopsRegistry {
         SALES_STORAGE_ITEM = item("sales_storage", p -> new BlockItem(SALES_STORAGE, p), new Item.Properties().useBlockDescriptionPrefix());
         DISPLAY_CASE_ITEM = item("display_case", p -> new BlockItem(DISPLAY_CASE, p), new Item.Properties().useBlockDescriptionPrefix());
         GLOW_DISPLAY_CASE_ITEM = item("glow_display_case", p -> new BlockItem(GLOW_DISPLAY_CASE, p), new Item.Properties().useBlockDescriptionPrefix());
+        TRADE_TERMINAL_ITEM = item("trade_terminal", p -> new BlockItem(TRADE_TERMINAL, p), new Item.Properties().useBlockDescriptionPrefix());
         com.simpleshops.guide.ShopsGuide.register();
     }
 
@@ -86,6 +92,8 @@ public final class ShopsRegistry {
         STOCK_MENU = Registry.register(BuiltInRegistries.MENU, SimpleShops.id("stock"), new MenuType<>(StockMenu::new, FeatureFlags.VANILLA_SET));
         SHOP_MENU = Registry.register(BuiltInRegistries.MENU, SimpleShops.id("shop"), new MenuType<>(SalesOwnerMenu::combinedClient, FeatureFlags.VANILLA_SET));
         STORAGE_MENU = Registry.register(BuiltInRegistries.MENU, SimpleShops.id("storage"), new MenuType<>(StorageMenu::new, FeatureFlags.VANILLA_SET));
+        TERMINAL_MENU = Registry.register(BuiltInRegistries.MENU, SimpleShops.id("trade_terminal"),
+                new MenuType<>(com.simpleshops.menu.TradeTerminalMenu::new, FeatureFlags.VANILLA_SET));
     }
 
     /** The block entity types' valid blocks, for the loader adapters. */
@@ -104,7 +112,8 @@ public final class ShopsRegistry {
     /** Creative tab stacks (empty while the module is switched off): the shop blocks after the Vanilla item frames. */
     public static List<ItemStack> tabStacks() {
         if (!SimpleShops.on()) return List.of();
-        return List.of(new ItemStack(SALES_BLOCK_ITEM), new ItemStack(SALES_STORAGE_ITEM), new ItemStack(DISPLAY_CASE_ITEM), new ItemStack(GLOW_DISPLAY_CASE_ITEM));
+        return List.of(new ItemStack(SALES_BLOCK_ITEM), new ItemStack(SALES_STORAGE_ITEM), new ItemStack(DISPLAY_CASE_ITEM), new ItemStack(GLOW_DISPLAY_CASE_ITEM),
+                new ItemStack(TRADE_TERMINAL_ITEM));
     }
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {

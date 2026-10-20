@@ -54,7 +54,8 @@ public final class ShopScreens {
         }
 
         protected void label(GuiGraphicsExtractor graphics, String key, int x, int y) {
-            graphics.text(this.font, Component.translatable(key), x, y, UiPalette.DARK_LABEL, false);
+            // N67: the palette label is nudged to at least 4.5:1 on the box (plain dark grey reads only 3.7:1 on BARREL).
+            graphics.text(this.font, Component.translatable(key), x, y, PALETTE.label(), false);
         }
     }
 

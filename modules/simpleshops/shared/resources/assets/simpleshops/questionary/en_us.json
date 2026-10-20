@@ -42,5 +42,16 @@
     "secret": [
       "Strangers cannot open, break, push or empty it; hoppers do not see it. A full chain turns the Trade button off."
     ]
+  },
+  "trade_terminal": {
+    "lore": [
+      "A counting desk with an ender eye: it sees every shop in the world data, like an ender chest sees your ender items."
+    ],
+    "use": [
+      "Right click: tab My shops collects earnings, edits prices, switches public/private and fetches goods (only out, with a delivery time). Tab Browse shops searches every public shop of this dimension and buys from it."
+    ],
+    "secret": [
+      "It never loads a chunk and holds nothing itself: break it like any block. Putting goods in only works at the shop."
+    ]
   }
 }

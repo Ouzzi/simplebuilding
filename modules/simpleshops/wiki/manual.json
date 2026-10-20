@@ -128,6 +128,61 @@
       }
     },
     {
+      "id": "ender_shops",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/logic/EnderShops.java",
+        "modules/simpleshops/shared/java/com/simpleshops/block/VaultLink.java"
+      ],
+      "en": {
+        "title": "Ender shops",
+        "summary": "Like an ender chest: the goods, prices and earnings of every shop live in the world data, the blocks are only windows onto them. That is why the Sales Block and the Sales Storage need an ender pearl.",
+        "details": [
+          "Shops from before keep everything: their contents move into the world data the first time the block is used or ticks.",
+          "Breaking a shop block drops its contents once, as before. Copied block data never shares contents (the copy starts empty).",
+          "A shop block removed without its usual side effects leaves its contents in the world data; operators list them with /servershop orphans and take them with /servershop orphans clear.",
+          "No chunk is ever loaded for a shop."
+        ]
+      },
+      "de": {
+        "title": "Ender-Shops",
+        "summary": "Wie bei der Endertruhe: Ware, Preise und Einnahmen jedes Shops liegen in den Weltdaten, die Blöcke sind nur Fenster darauf. Deshalb brauchen Verkaufsblock und Verkaufslager eine Enderperle.",
+        "details": [
+          "Alte Shops behalten alles: ihr Inhalt wandert beim ersten Benutzen oder Tick in die Weltdaten.",
+          "Abbauen droppt den Inhalt einmal, wie bisher. Kopierte Blockdaten teilen nie einen Inhalt (die Kopie ist leer).",
+          "Wird ein Shop-Block ohne seine üblichen Nebenwirkungen entfernt, bleibt sein Inhalt in den Weltdaten; Operatoren listen ihn mit /servershop orphans und holen ihn mit /servershop orphans clear.",
+          "Für einen Shop wird nie ein Chunk geladen."
+        ]
+      }
+    },
+    {
+      "id": "trade_terminal",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/block/TradeTerminalBlock.java",
+        "modules/simpleshops/shared/java/com/simpleshops/menu/TradeTerminalMenu.java",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/TradeTerminal.java"
+      ],
+      "en": {
+        "title": "Trade Terminal",
+        "summary": "Remote access to shops: gold ingots, an eye of ender, bookshelves, a lectern and planks. It holds nothing itself and breaks like any block.",
+        "details": [
+          "Tab My shops: pick one of your shops, collect its earnings (only what fits in your inventory), edit its price row, switch it public or private, and take goods out: only from a public shop with a price, after a delivery time of 2 seconds per stack. Goods go in only at the shop.",
+          "Tab Browse shops: every public shop with a price, also server shops; search by item name, mod id or shop name, show only offers in stock, sort by price, distance or name. Buying works like at the shop: put the exact price into the pay slots and trade (shift = up to 64 times).",
+          "Only shops in the terminal's dimension are reachable (server setting remoteCrossDimension). A shop selected in a terminal is busy for everyone else, like an open shop menu. Your own shops appear in the list but cannot be bought there.",
+          "The name of a shop is the anvil name of its Sales Block item (24 characters at most)."
+        ]
+      },
+      "de": {
+        "title": "Handelskontor",
+        "summary": "Fernzugriff auf Shops: Goldbarren, ein Enderauge, Bücherregale, ein Lesepult und Bretter. Es hält selbst nichts und wird wie jeder Block abgebaut.",
+        "details": [
+          "Tab Meine Shops: einen eigenen Shop wählen, seine Einnahmen abholen (nur was ins Inventar passt), die Preiszeile ändern, ihn öffentlich oder privat schalten und Ware entnehmen: nur aus einem öffentlichen Shop mit Preis, nach einer Lieferzeit von 2 Sekunden je Stapel. Ware hineinlegen geht nur am Shop.",
+          "Tab Shops suchen: jeder öffentliche Shop mit Preis, auch Server-Shops; Suche nach Item-Name, Mod-Id oder Shopname, nur Angebote mit Ware, Sortierung nach Preis, Entfernung oder Name. Kaufen wie am Shop: genauen Preis in die Zahlplätze legen und tauschen (Shift = bis zu 64-mal).",
+          "Erreichbar sind nur Shops der Dimension des Kontors (Server-Einstellung remoteCrossDimension). Ein im Kontor gewählter Shop ist für alle anderen belegt, wie ein offenes Shop-Menü. Eigene Shops stehen in der Liste, sind dort aber nicht kaufbar.",
+          "Der Name eines Shops ist der Amboss-Name seines Verkaufsblock-Items (höchstens 24 Zeichen)."
+        ]
+      }
+    },
+    {
       "id": "shop_protection",
       "sources": [
         "modules/simpleshops/shared/java/com/simpleshops/logic/ShopGuard.java",
@@ -198,6 +253,9 @@
           "maxShopsPerPlayer (16, 1 to 64): Sales Blocks and Display Cases each a player may have placed.",
           "idleTimeoutSeconds (300, 30 to 1800): seconds without a click before the server closes a shop menu.",
           "collectServerShopIncome (false): off = the payments of a server shop vanish; on = they are summed in the admin cash (/servershop cash).",
+          "remoteStock (take): trade terminal and own goods; take = take out only, with a delivery time; none = look only. Putting goods in only works at the shop.",
+          "remoteDelaySeconds (2, 0 to 20): delivery time per stack taken out through a trade terminal.",
+          "remoteCrossDimension (false): off = a trade terminal reaches only shops in its own dimension.",
           "With SimpleBuilding the switch Enable Simple Shops in its config turns the bundled module on or off."
         ]
       },
@@ -209,6 +267,9 @@
           "maxShopsPerPlayer (16, 1 bis 64): Verkaufsblöcke und Vitrinen, die ein Spieler je gesetzt haben darf.",
           "idleTimeoutSeconds (300, 30 bis 1800): Sekunden ohne Klick, bevor der Server ein Shop-Menü schließt.",
           "collectServerShopIncome (false): aus = die Zahlungen eines Server-Shops verschwinden; an = sie werden in der Admin-Kasse summiert (/servershop cash).",
+          "remoteStock (take): Handelskontor und eigene Ware; take = nur entnehmen, mit Lieferzeit; none = nur ansehen. Ware hineinlegen geht nur am Shop.",
+          "remoteDelaySeconds (2, 0 bis 20): Lieferzeit je Stapel, der über ein Handelskontor entnommen wird.",
+          "remoteCrossDimension (false): aus = ein Handelskontor erreicht nur Shops der eigenen Dimension.",
           "Mit SimpleBuilding schaltet der Schalter Simple Shops aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }

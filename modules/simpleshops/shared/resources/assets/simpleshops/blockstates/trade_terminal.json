@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "simpleshops:block/trade_terminal"
+    },
+    "facing=east": {
+      "model": "simpleshops:block/trade_terminal",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "simpleshops:block/trade_terminal",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simpleshops:block/trade_terminal",
+      "y": 270
+    }
+  }
+}

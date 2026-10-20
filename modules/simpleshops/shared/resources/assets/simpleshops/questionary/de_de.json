@@ -42,5 +42,16 @@
     "secret": [
       "Fremde können sie nicht öffnen, abbauen, schieben oder leeren; Trichter sehen sie nicht. Eine volle Kette schaltet den Tausch-Knopf aus."
     ]
+  },
+  "trade_terminal": {
+    "lore": [
+      "Ein Rechenpult mit Enderauge: es sieht jeden Shop in den Weltdaten, so wie eine Endertruhe deine Ender-Items sieht."
+    ],
+    "use": [
+      "Rechtsklick: Tab Meine Shops holt Einnahmen ab, ändert Preise, schaltet öffentlich/privat und holt Ware (nur heraus, mit Lieferzeit). Tab Shops durchsuchen findet jeden öffentlichen Shop dieser Dimension und kauft dort."
+    ],
+    "secret": [
+      "Es lädt nie einen Chunk und hält selbst nichts: abbauen wie jeden Block. Ware hineinlegen geht nur am Shop."
+    ]
   }
 }

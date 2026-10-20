@@ -21,6 +21,7 @@ final class ShopsNeoClient {
             event.register(ShopsRegistry.STOCK_MENU, ShopScreens.Stock::new);
             event.register(ShopsRegistry.SHOP_MENU, ShopScreens.Owner::new);
             event.register(ShopsRegistry.STORAGE_MENU, ShopScreens.Storage::new);
+            event.register(ShopsRegistry.TERMINAL_MENU, com.simpleshops.client.TradeTerminalScreen::new);
         });
     }
 
