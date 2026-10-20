@@ -1715,6 +1715,11 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
         hammers = REPO / "modules/simplehammers/shared/resources"
         item_ids |= {"simplehammers:" + p.stem for p in (hammers / "assets/simplehammers/items").glob("*.json")}
         ench_ids |= {"simplehammers:" + p.stem for p in (hammers / "data/simplehammers/enchantment").glob("*.json")}
+    if (version_flags(roots) or {}).get("STORAGE_IN_SB") is False:
+        # Split stage 8c-1: SimpleBuilding's loot hands out Simple Storage's bundles, quivers and storage books.
+        storage = REPO / "modules/simplestorage/shared/resources"
+        item_ids |= {"simplestorage:" + p.stem for p in (storage / "assets/simplestorage/items").glob("*.json")}
+        ench_ids |= {"simplestorage:" + p.stem for p in (storage / "data/simplestorage/enchantment").glob("*.json")}
     sources: list[dict] = []
     loot_file = next((REPO / root / "loot" / "ModLootTableModifications.java" for root in roots["code_roots"]
                       if (REPO / root / "loot" / "ModLootTableModifications.java").exists()), None)
