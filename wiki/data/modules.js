@@ -855,6 +855,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
-    "dataHash": "9880c72074ab"
+    "dataHash": "75ffc79fbc4d"
   }
 ];

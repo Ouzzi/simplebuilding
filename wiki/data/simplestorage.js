@@ -4055,7 +4055,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Enderite Chest",
         "de_de": "Enderittruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simplestorage:enderite_trapped_chest"
@@ -4067,7 +4081,20 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Enderite Shulker Box",
         "de_de": "Enderit-Shulkerkiste"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step."
+        },
+        "de": {
+          "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe."
+        }
+      },
       "texture": "assets/textures/simplestorage/block/enderite_shulker_box.png",
       "craftedBy": [
         "simplestorage:black_enderite_shulker_box",
@@ -4112,7 +4139,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Enderite Trapped Chest",
         "de_de": "Enderit-Redstone-Truhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:enderite_trapped_chest"
       ],
@@ -4124,7 +4165,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Exposed Trapped Copper Chest",
         "de_de": "Angelaufene Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:exposed_trapped_copper_chest"
       ],
@@ -4198,7 +4253,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Netherite Chest",
         "de_de": "Netherittruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "texture": "assets/textures/simplestorage/block/netherite_chest.png",
       "craftedBy": [],
       "usedIn": [
@@ -4211,7 +4280,20 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Netherite Shulker Box",
         "de_de": "Netherit-Shulkerkiste"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step."
+        },
+        "de": {
+          "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe."
+        }
+      },
       "texture": "assets/textures/simplestorage/block/netherite_shulker_box.png",
       "craftedBy": [
         "simplestorage:black_netherite_shulker_box",
@@ -4256,7 +4338,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Netherite Trapped Chest",
         "de_de": "Netherit-Redstone-Truhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:netherite_trapped_chest"
       ],
@@ -4298,7 +4394,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Oxidized Trapped Copper Chest",
         "de_de": "Oxidierte Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:oxidized_trapped_copper_chest"
       ],
@@ -4342,7 +4452,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Reinforced Chest",
         "de_de": "Verstärkte Truhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "texture": "assets/textures/simplestorage/block/reinforced_chest.png",
       "craftedBy": [
         "simplestorage:reinforced_chest"
@@ -4357,7 +4481,20 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Reinforced Shulker Box",
         "de_de": "Verstärkte Shulkerkiste"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step."
+        },
+        "de": {
+          "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe."
+        }
+      },
       "texture": "assets/textures/simplestorage/block/reinforced_shulker_box.png",
       "craftedBy": [
         "simplestorage:black_reinforced_shulker_box",
@@ -4419,7 +4556,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Reinforced Trapped Chest",
         "de_de": "Verstärkte Redstone-Truhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:reinforced_trapped_chest"
       ],
@@ -4512,7 +4663,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Trapped Copper Chest",
         "de_de": "Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:trapped_copper_chest"
       ],
@@ -4556,7 +4721,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Waxed Exposed Trapped Copper Chest",
         "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:waxed_exposed_trapped_copper_chest",
         "simplestorage:waxed_exposed_trapped_copper_chest_from_honeycomb"
@@ -4569,7 +4748,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Waxed Oxidized Trapped Copper Chest",
         "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:waxed_oxidized_trapped_copper_chest",
         "simplestorage:waxed_oxidized_trapped_copper_chest_from_honeycomb"
@@ -4582,7 +4775,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Waxed Trapped Copper Chest",
         "de_de": "Gewachste Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:waxed_trapped_copper_chest",
         "simplestorage:waxed_trapped_copper_chest_from_honeycomb"
@@ -4595,7 +4802,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Waxed Weathered Trapped Copper Chest",
         "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:waxed_weathered_trapped_copper_chest",
         "simplestorage:waxed_weathered_trapped_copper_chest_from_honeycomb"
@@ -4608,7 +4829,21 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "en_us": "Weathered Trapped Copper Chest",
         "de_de": "Verwitterte Redstone-Kupfertruhe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
       "craftedBy": [
         "simplestorage:weathered_trapped_copper_chest"
       ],
@@ -4628,25 +4863,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplestorage:enderite_chest",
-    "simplestorage:enderite_shulker_box",
-    "simplestorage:enderite_trapped_chest",
-    "simplestorage:exposed_trapped_copper_chest",
-    "simplestorage:netherite_chest",
-    "simplestorage:netherite_shulker_box",
-    "simplestorage:netherite_trapped_chest",
-    "simplestorage:oxidized_trapped_copper_chest",
-    "simplestorage:reinforced_chest",
-    "simplestorage:reinforced_shulker_box",
-    "simplestorage:reinforced_trapped_chest",
-    "simplestorage:trapped_copper_chest",
-    "simplestorage:waxed_exposed_trapped_copper_chest",
-    "simplestorage:waxed_oxidized_trapped_copper_chest",
-    "simplestorage:waxed_trapped_copper_chest",
-    "simplestorage:waxed_weathered_trapped_copper_chest",
-    "simplestorage:weathered_trapped_copper_chest"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 6,
@@ -4661,7 +4878,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 17,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
