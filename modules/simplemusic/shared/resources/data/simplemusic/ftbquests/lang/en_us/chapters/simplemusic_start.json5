@@ -1,0 +1,10 @@
+{
+	"chapter.39E497F3E8FF8857.title": "{\"translate\": \"quests.simplemusic.start.title\"}",
+	"chapter.39E497F3E8FF8857.chapter_subtitle": [
+		"{\"translate\": \"quests.simplemusic.start.subtitle\"}"
+	],
+	"quest.014E11F442196DFE.title": "{\"translate\": \"quests.simplemusic.start.welcome.title\"}",
+	"quest.014E11F442196DFE.quest_desc": [
+		"{\"translate\": \"quests.simplemusic.start.welcome.description\"}"
+	]
+}

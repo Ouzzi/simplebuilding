@@ -55,6 +55,7 @@ public final class MusicDiscover {
             "simplemusic:config_server",
             "simplemusic:creative_tab_switch",
             "simplemusic:custom_disc",
+            "simplemusic:guide_book",
             "simplemusic:moderation",
             "simplemusic:note_code",
             "simplemusic:orchestrion",
