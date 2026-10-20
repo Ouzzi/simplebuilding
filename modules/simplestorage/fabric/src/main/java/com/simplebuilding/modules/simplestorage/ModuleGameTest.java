@@ -336,8 +336,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void quiverAQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder(GameTestHelper h) {
-        StorageTests.ALL.get("quiver_a_quiver_inside_the_backpack_feeds_the_bow_only_with_master_builder").accept(h);
+    public void quiverInsideWornContainersFeedsTheBow(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_inside_worn_containers_feeds_the_bow").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")

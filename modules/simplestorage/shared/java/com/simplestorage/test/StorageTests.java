@@ -118,7 +118,7 @@ public final class StorageTests {
         ALL.put("quiver_bow_shoots_from_the_quiver_and_bills_it_outside_creative_only", QuiverTests::bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly);
         ALL.put("quiver_netherite_quiver_survives_an_explosion_like_the_netherite_bundle", QuiverTests::netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle);
         ALL.put("quiver_crossbow_loads_from_the_quiver_and_bills_one_arrow", QuiverTests::crossbowLoadsFromTheQuiverAndBillsOneArrow);
-        ALL.put("quiver_a_quiver_inside_the_backpack_feeds_the_bow_only_with_master_builder", QuiverTests::aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder);
+        ALL.put("quiver_inside_worn_containers_feeds_the_bow", QuiverTests::aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder);
         ALL.put("quiver_picked_up_arrows_go_into_the_quiver_only_with_funnel", QuiverTests::pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel);
         ALL.put("storage_enchantment_funnel_filter_decides_what_the_touch_sweeps_up", StorageEnchantmentTests::funnelFilterDecidesWhatTheTouchSweepsUp);
         ALL.put("storage_enchantment_drawer_kind_lock_holds_against_the_funnel_too", StorageEnchantmentTests::drawerKindLockHoldsAgainstTheFunnelToo);
