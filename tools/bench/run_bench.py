@@ -63,7 +63,7 @@ AREAS = {
 METRICS = {
     "fps_avg": ("FPS Mittel", False, True), "fps_1low": ("FPS 1%-Low", False, True),
     "frame_avg_ms": ("Frame-Zeit ms", True, True), "frame_p99_ms": ("Frame p99 ms", True, True),
-    "quads_total": ("Quads im Blick", True, False), "quads_cutout": ("Quads Cutout (Blätter)", True, False),
+    "quads_total": ("Quads (Ausschnitt, stabil)", True, False), "quads_cutout": ("Quads Cutout (Blätter)", True, False),
     "meshbuild_s": ("Mesh-Neubau s", True, False), "chunkload_s": ("Chunk-Laden s", True, False),
     "worldload_s": ("Welt-Laden s", True, False), "mspt_avg": ("MSPT Mittel", True, False),
     "mspt_p95": ("MSPT p95", True, False), "heap_mb": ("Heap nach GC MB", True, False),
@@ -164,6 +164,9 @@ def run_once(key: str, name: str, foreign: list[str], ours: bool, rep: int, jars
         entry["decision"] = decision[0][-160:]
     if result_file.is_file():
         entry.update(json.loads(result_file.read_text(encoding="utf-8")))
+        if entry.get("geometry_stable") is False:  # a half-built view must not count as a quad value
+            for k in [k for k in entry if k.startswith("quads_")]:
+                entry.pop(k)
     else:
         entry["error"] = "\n".join(text.splitlines()[-25:])
     print(f"  {key} {name} #{rep}: exit {code}, {entry['wall_s']} s" + (" (no result)" if "error" in entry else ""), flush=True)
