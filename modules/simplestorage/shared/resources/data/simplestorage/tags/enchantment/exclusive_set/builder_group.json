@@ -1,0 +1,13 @@
+{
+  "values": [
+    "simplestorage:drawer",
+    {
+      "id": "simplebuilding:master_builder",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:color_palette",
+      "required": false
+    }
+  ]
+}

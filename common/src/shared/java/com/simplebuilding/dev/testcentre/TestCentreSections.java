@@ -732,6 +732,17 @@ public final class TestCentreSections {
      * (schleichend hinsehen zeigt das oberste Item, Rechtsklick nimmt es), dazu ein gefaerbtes und ein
      * farbiges Vanilla-Buendel. Liefert die naechste freie x-Position.
      */
+    /** {@code state} with the property {@code name} set to {@code value} by name (no class of the owning mod needed). */
+    private static net.minecraft.world.level.block.state.BlockState withProperty(net.minecraft.world.level.block.state.BlockState state, String name, String value) {
+        net.minecraft.world.level.block.state.properties.Property<?> property = state.getBlock().getStateDefinition().getProperty(name);
+        return property == null ? state : withValue(state, property, value);
+    }
+
+    private static <T extends Comparable<T>> net.minecraft.world.level.block.state.BlockState withValue(
+            net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.level.block.state.properties.Property<T> property, String value) {
+        return property.getValue(value).map(v -> state.setValue(property, v)).orElse(state);
+    }
+
     private static int placedBundles(TcCanvas c, int bx) {
         c.sign(bx, 0, 2, Direction.NORTH, TcText.bold(TcText.t("storage.placed_bundle", "Placed bundles")),
                 TcText.t("storage.placed_bundle.sub", "sneak + wheel: pick item"),
@@ -739,10 +750,11 @@ public final class TestCentreSections {
         bx++;
         List<ItemStack> bundles = new ArrayList<>();
         bundles.add(new ItemStack(Items.BUNDLE));
-        bundles.add(new ItemStack(ModItems.REINFORCED_BUNDLE));
-        bundles.add(new ItemStack(ModItems.NETHERITE_BUNDLE));
-        bundles.add(new ItemStack(ModItems.ENDERITE_BUNDLE));
-        ItemStack dyed = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        // Split stage 8c-1: by id (on 26.3 the bundles and the placed bundle are Simple Storage's; its block entity is filled by key).
+        bundles.add(new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")));
+        bundles.add(new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle")));
+        bundles.add(new ItemStack(com.simplebuilding.util.StorageRefs.item("enderite_bundle")));
+        ItemStack dyed = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         dyed.set(DataComponents.DYED_COLOR, new DyedItemColor(dyeRgb(DyeColor.LIME)));
         bundles.add(dyed);
         // Per Id: 26.2 fuehrt die farbigen Buendel als ColorCollection, 1.21.11 je Farbe ein Feld.
@@ -752,10 +764,13 @@ public final class TestCentreSections {
                 new ItemStack(Items.COBBLESTONE, 32), new ItemStack(Items.FEATHER, 5));
         for (ItemStack bundle : bundles) {
             com.simplebuilding.util.PlacedBundles.setContents(bundle, sample);
-            c.place(bx, 0, 1, ModBlocks.PLACED_BUNDLE.defaultBlockState()
-                    .setValue(com.simplebuilding.blocks.custom.PlacedBundleBlock.TIER, com.simplebuilding.util.PlacedBundles.tierOf(bundle))
-                    .setValue(com.simplebuilding.blocks.custom.PlacedBundleBlock.DYED,
-                            com.simplebuilding.util.PlacedBundles.dyeColor(bundle) != com.simplebuilding.util.DyedStorage.UNDYED));
+            String path = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(bundle.getItem()).getPath();
+            String tier = path.endsWith("_bundle") && !"minecraft".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(bundle.getItem()).getNamespace())
+                    ? path.substring(0, path.length() - "_bundle".length()) : "bundle";
+            net.minecraft.world.level.block.state.BlockState state = com.simplebuilding.util.StorageRefs.placedBundle().defaultBlockState();
+            state = withProperty(state, "tier", tier);
+            state = withProperty(state, "dyed", String.valueOf(com.simplebuilding.util.PlacedBundles.dyeColor(bundle) != com.simplebuilding.util.DyedStorage.UNDYED));
+            c.place(bx, 0, 1, state);
             c.contents(bx, 0, 1, List.of(bundle));
             bx += 2;
         }

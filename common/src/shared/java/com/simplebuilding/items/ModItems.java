@@ -690,25 +690,27 @@ public class ModItems {
 
     // =================================================================================
 
-    public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1)));
+    // Split stage 8c-1 (docs/ai/PLAN-B-S8C1-STORAGE-2026-10-20.md): on 26.3 the bundles and quivers are Simple Storage's
+    // (McVersion.STORAGE_IN_SB false, fields null, SimpleBuilding reaches them through util/StorageRefs).
+    public static final Item REINFORCED_BUNDLE = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1)));
 
-    public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_BUNDLE = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON)));
 
     // The four quivers are worn in the chest slot - that is the bow search's second stage;
     // quiverChestSlot() says what that component may and may not bring with it.
 
-    public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+    public static final Item QUIVER = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
     // Die Stufe zwischen Koecher und Netherit-Koecher: wie der Koecher weder feuerfest noch
     // explosionssicher (ItemEntityMixin nennt ihn nicht; ab Netherit ja), gewoehnliche Seltenheit.
     // Seltenheiten aller Familien: docs/RARITAETEN.md (Netherit UNCOMMON, Enderit EPIC, Ausruestung COMMON).
-    public static final Item REINFORCED_QUIVER = registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+    public static final Item REINFORCED_QUIVER = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
-    public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+    public static final Item NETHERITE_QUIVER = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("netherite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
-    public static final Item ENDERITE_BUNDLE = registerItem("enderite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_BUNDLE = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+    public static final Item ENDERITE_QUIVER = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
     // Rucksaecke: im Brust-Slot getragen (Rechtsklick legt an), per Schleichen + Rechtsklick als
     // Block abstellbar; backpack(...) sagt, was die Komponenten mitbringen.
     public static final Item BACKPACK = registerItem("backpack", settings -> new BackpackItem(BackpackTier.BASIC, ModBlocks.BACKPACK,

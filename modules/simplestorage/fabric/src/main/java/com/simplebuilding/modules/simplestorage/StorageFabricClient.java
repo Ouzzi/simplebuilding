@@ -20,6 +20,20 @@ public final class StorageFabricClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(StorageBlockEntities.TRAPPED_COPPER_CHEST, com.simplestorage.client.TrappedCopperChestRenderer::new);
         BlockEntityRendererRegistry.register(StorageBlockEntities.TIERED_SHULKER_BOX, com.simplestorage.client.TieredShulkerBoxRenderer::new);
         for (var type : StorageMenus.tieredTypes()) MenuScreens.register(type, com.simplestorage.client.TieredChestScreen::new);
+        // Split stage 8c-1: the bundle packets, the placed bundle (item above it, dyed leather layer), the tooltip, the quiver on the back.
+        com.simplestorage.bundle.BundleNet.toServer = payload -> {
+            if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
+        };
+        BlockEntityRendererRegistry.register(StorageBlockEntities.PLACED_BUNDLE, com.simplestorage.client.PlacedBundleRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(java.util.List.of(com.simplestorage.client.PlacedBundleTint.INSTANCE),
+                com.simplestorage.registry.StorageBlocks.PLACED_BUNDLE);
+        net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback.EVENT.register(data ->
+                data instanceof com.simplestorage.bundle.BundleTooltipData bundle ? com.simplestorage.client.BundleTooltips.create(bundle) : null);
+        net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
+            if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
+                helper.register(new com.simplestorage.client.QuiverLayer(avatar));
+            }
+        });
         // Split stage 8b-2: chest carts and chest boats.
         com.simplestorage.client.VehicleRenderers.register(new com.simplestorage.client.VehicleRenderers.Registrar() {
             @Override

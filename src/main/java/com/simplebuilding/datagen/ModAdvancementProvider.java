@@ -214,17 +214,17 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("storage/splash_of_color", sheet, Items.DYE.pick(DyeColor.RED), AdvancementType.TASK, "dyed_storage",
                     InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, ModItems.BACKPACK,
                                     ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK,
-                                    ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE, ModItems.QUIVER,
-                                    ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER)
+                                    com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("quiver"),
+                                    com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"))
                             .withComponents(DataComponentMatchers.Builder.components().any(DataComponents.DYED_COLOR).build())));
-            AdvancementHolder bundle = node("storage/bundle_of_joy", sheet, ModItems.REINFORCED_BUNDLE, AdvancementType.TASK, "reinforced_bundle",
-                    any(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE));
-            node("storage/deeper_pockets", bundle, ModItems.NETHERITE_BUNDLE, AdvancementType.TASK, "netherite_bundle",
-                    any(ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE));
-            AdvancementHolder quiver = node("storage/quiver_in_fear", sheet, ModItems.QUIVER, AdvancementType.TASK, "quiver",
-                    any(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER));
-            node("storage/sharpshooter", quiver, ModItems.NETHERITE_QUIVER, AdvancementType.TASK, "netherite_quiver",
-                    any(ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER));
+            AdvancementHolder bundle = node("storage/bundle_of_joy", sheet, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), AdvancementType.TASK, "reinforced_bundle",
+                    any(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle")));
+            node("storage/deeper_pockets", bundle, com.simplebuilding.util.StorageRefs.item("netherite_bundle"), AdvancementType.TASK, "netherite_bundle",
+                    any(com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle")));
+            AdvancementHolder quiver = node("storage/quiver_in_fear", sheet, com.simplebuilding.util.StorageRefs.item("quiver"), AdvancementType.TASK, "quiver",
+                    any(com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver")));
+            node("storage/sharpshooter", quiver, com.simplebuilding.util.StorageRefs.item("netherite_quiver"), AdvancementType.TASK, "netherite_quiver",
+                    any(com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver")));
         }
 
         private void chisel(AdvancementHolder building) {
@@ -368,8 +368,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND));
             node("enderite/hammer_of_the_end", template, com.simplebuilding.util.HammerRefs.item("enderite"), AdvancementType.CHALLENGE,
                     "enderite_sledgehammer", any(com.simplebuilding.util.HammerRefs.item("enderite")));
-            node("enderite/endless_pockets", template, ModItems.ENDERITE_BUNDLE, AdvancementType.GOAL, "enderite_storage",
-                    any(ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK));
+            node("enderite/endless_pockets", template, com.simplebuilding.util.StorageRefs.item("enderite_bundle"), AdvancementType.GOAL, "enderite_storage",
+                    any(com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), ModItems.ENDERITE_BACKPACK));
             node("enderite/heart_of_the_end", template, ModItems.ENDERITE_CORE, AdvancementType.GOAL, "enderite_core",
                     any(ModItems.ENDERITE_CORE));
         }

@@ -18,8 +18,14 @@ public final class AliasMixinPlugin implements IMixinConfigPlugin {
             "com.simplebuilding.mixin.MappedRegistryAliasMixin",
             "com.simplebuilding.mixin.forge.NamespacedWrapperAliasMixin");
     static final Set<String> OVENS_MIXINS = Set.of("com.simplebuilding.mixin.AbstractFurnaceMenuMixin");
-    /** Split stage 8b: the copper chests' upgrade click is Simple Storage's ({@code ChestUpgradeClickMixin}) where it owns the chests. */
-    static final Set<String> STORAGE_MIXINS = Set.of("com.simplebuilding.mixin.ChestBlockMixin");
+    /**
+     * Split stage 8b: the copper chests' upgrade click is Simple Storage's ({@code ChestUpgradeClickMixin}) where it owns the
+     * chests; 8c-1: likewise the quivers' bow, crossbow and arrow pickup hooks and the deposit into a placed bundle (Simple
+     * Storage brings its own; two redirects on the same call would clash).
+     */
+    static final Set<String> STORAGE_MIXINS = Set.of("com.simplebuilding.mixin.ChestBlockMixin",
+            "com.simplebuilding.mixin.BowItemMixin", "com.simplebuilding.mixin.CrossbowItemMixin",
+            "com.simplebuilding.mixin.AbstractArrowPickupMixin", "com.simplebuilding.mixin.ItemStackUseOnMixin");
 
     @Override
     public void onLoad(String mixinPackage) {

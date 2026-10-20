@@ -115,5 +115,19 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
+  "item.simplestorage.reinforced_bundle": "Reinforced Bundle",
+  "item.simplestorage.netherite_bundle": "Netherite Bundle",
+  "item.simplestorage.enderite_bundle": "Enderite Bundle",
+  "item.simplestorage.quiver": "Quiver",
+  "item.simplestorage.reinforced_quiver": "Reinforced Quiver",
+  "item.simplestorage.netherite_quiver": "Netherite Quiver",
+  "item.simplestorage.enderite_quiver": "Enderite Quiver",
+  "block.simplestorage.placed_bundle": "Placed Bundle",
+  "enchantment.simplestorage.drawer": "Drawer",
+  "enchantment.simplestorage.drawer.description": "More capacity, one item kind only.",
+  "enchantment.simplestorage.deep_pockets": "Deep Pockets",
+  "enchantment.simplestorage.deep_pockets.description": "Increases the capacity of bundles.",
+  "enchantment.simplestorage.funnel": "Funnel",
+  "enchantment.simplestorage.funnel.description": "Automatically funnels items into your bundle."
 }

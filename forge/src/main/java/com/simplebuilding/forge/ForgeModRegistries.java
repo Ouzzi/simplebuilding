@@ -167,7 +167,8 @@ public final class ForgeModRegistries {
                     com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new, Set.of(ModBlocks.PLACED_SMITHING_TEMPLATE, ModBlocks.PLACED_BLUEPRINT)));
 
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>> PLACED_BUNDLE_BE =
-            BLOCK_ENTITIES.register("placed_bundle", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, Set.of(ModBlocks.PLACED_BUNDLE)));
+            !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null // split stage 8c-1: Simple Storage's on 26.3
+            : BLOCK_ENTITIES.register("placed_bundle", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, Set.of(ModBlocks.PLACED_BUNDLE)));
 
     /** Kleinteile auf einem Fleck, nur Hauptlinie (McVersion.SMALL_PLACEABLES). */
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity>> PLACED_SMALL_PARTS_BE =
@@ -334,7 +335,7 @@ public final class ForgeModRegistries {
         if (TIERED_SHULKER_BOX_BE != null) ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
-        ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
+        if (PLACED_BUNDLE_BE != null) ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
         if (GOAT_HORN_HOLDER_BE != null) ModBlockEntities.GOAT_HORN_HOLDER_BE = GOAT_HORN_HOLDER_BE.get();
         if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();

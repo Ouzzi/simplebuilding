@@ -19,6 +19,10 @@ import net.minecraft.world.level.block.Block;
  *
  * <p>Split stage 8b-2 (docs/ai/PLAN-B-S8C-STORAGE-2026-10-20.md): the chest carts and chest boats (26.3 only,
  * {@code McVersion.TIERED_VEHICLES}) and their wood component {@code boat_wood}.
+ *
+ * <p>Split stage 8c-1 (docs/ai/PLAN-B-S8C1-STORAGE-2026-10-20.md): the bundles, the quivers and the placed bundle (both lines;
+ * 26.2 keeps them in SimpleBuilding). SimpleBuilding's own features on them (Master Builder in the wand and the pick key,
+ * the back layer) recognise them by id and work through Vanilla's {@code bundle_contents}.
  */
 public final class StorageRefs {
     public static final String STORAGE_CRAFTING_TABLE = "storage_crafting_table";
@@ -112,5 +116,35 @@ public final class StorageRefs {
         var component = boatWood();
         if (component != null) stack.set(component, wood);
         return stack;
+    }
+
+    /** Split stage 8c-1: the bundles, then the quivers, in tier order (item paths). */
+    public static final java.util.List<String> BUNDLES = java.util.List.of("reinforced_bundle", "netherite_bundle", "enderite_bundle",
+            "quiver", "reinforced_quiver", "netherite_quiver", "enderite_quiver");
+
+    /** The item key of {@code path} in the storage namespace (datagen tags name the moved items by id). */
+    public static net.minecraft.resources.ResourceKey<Item> itemKey(String path) {
+        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, id(path));
+    }
+
+    /** The bundles and quivers in {@link #BUNDLES} order (air where one is not registered). */
+    public static java.util.List<Item> bundles() {
+        return BUNDLES.stream().map(StorageRefs::item).toList();
+    }
+
+    /** A mod bundle or quiver (a {@code BundleItem} of the storage namespace); never Vanilla's bundles. */
+    public static boolean isStorageBundle(net.minecraft.world.item.ItemStack stack) {
+        return !stack.isEmpty() && stack.getItem() instanceof net.minecraft.world.item.BundleItem
+                && McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace());
+    }
+
+    /** One of the four quivers. */
+    public static boolean isQuiver(net.minecraft.world.item.ItemStack stack) {
+        return isStorageBundle(stack) && BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().endsWith("quiver");
+    }
+
+    /** The placed bundle block (air where it is not registered). */
+    public static Block placedBundle() {
+        return block("placed_bundle");
     }
 }

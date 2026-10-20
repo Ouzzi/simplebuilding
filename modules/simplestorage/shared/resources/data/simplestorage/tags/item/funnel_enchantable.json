@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#simplestorage:bundle_enchantable",
+    {
+      "id": "#simplebuilding:backpacks",
+      "required": false
+    }
+  ]
+}

@@ -165,32 +165,32 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         // Master Builder, Colour Palette und Constructor's Touch, und genau danach fragt der Amboss. Fehlt eine Stufe hier, nimmt sie
         // am Amboss nichts an - eine Aufwertung darf aber nichts wegnehmen.
         builder(ModTags.Items.BUNDLE_ENCHANTABLE)
-                .add(key(ModItems.REINFORCED_BUNDLE))
-                .add(key(ModItems.NETHERITE_BUNDLE))
-                .add(key(ModItems.ENDERITE_BUNDLE))
-                .add(key(ModItems.QUIVER))
-                .add(key(ModItems.REINFORCED_QUIVER))
-                .add(key(ModItems.NETHERITE_QUIVER))
-                .add(key(ModItems.ENDERITE_QUIVER));
+                .add(com.simplebuilding.util.StorageRefs.itemKey("reinforced_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("netherite_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("enderite_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("reinforced_quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("netherite_quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("enderite_quiver"));
 
         builder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
-                .add(key(ModItems.REINFORCED_BUNDLE))
-                .add(key(ModItems.NETHERITE_BUNDLE))
-                .add(key(ModItems.ENDERITE_BUNDLE))
-                .add(key(ModItems.QUIVER))
-                .add(key(ModItems.REINFORCED_QUIVER))
-                .add(key(ModItems.NETHERITE_QUIVER))
-                .add(key(ModItems.ENDERITE_QUIVER));
+                .add(com.simplebuilding.util.StorageRefs.itemKey("reinforced_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("netherite_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("enderite_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("reinforced_quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("netherite_quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("enderite_quiver"));
 
         builder(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)
-                .add(key(ModItems.REINFORCED_BUNDLE))
-                .add(key(ModItems.NETHERITE_BUNDLE))
-                .add(key(ModItems.ENDERITE_BUNDLE))
-                .add(key(ModItems.QUIVER))
-                .add(key(ModItems.REINFORCED_QUIVER))
-                .add(key(ModItems.NETHERITE_QUIVER))
-                .add(key(ModItems.ENDERITE_QUIVER))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("reinforced_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("netherite_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("enderite_bundle"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("reinforced_quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("netherite_quiver"))
+                .add(com.simplebuilding.util.StorageRefs.itemKey("enderite_quiver"))
                 .addTag(ModTags.Items.BACKPACKS)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
@@ -287,14 +287,17 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         var dyeable = com.simplebuilding.version.McVersion.VANILLA_DYEING
                 ? builder(ModTags.Items.DYEABLE_STORAGE) : builder(ItemTags.CAULDRON_CAN_REMOVE_DYE);
         // 26.3 (VANILLA_DYEING): wie Vanillas Buendel - feste Farben, kein Auswaschen; der Tag speist die Faerberezepte.
-        dyeable.addTag(ModTags.Items.BACKPACKS)
-                .add(key(ModItems.REINFORCED_BUNDLE))
-                .add(key(ModItems.NETHERITE_BUNDLE))
-                .add(key(ModItems.ENDERITE_BUNDLE))
-                .add(key(ModItems.QUIVER))
-                .add(key(ModItems.REINFORCED_QUIVER))
-                .add(key(ModItems.NETHERITE_QUIVER))
-                .add(key(ModItems.ENDERITE_QUIVER));
+        dyeable.addTag(ModTags.Items.BACKPACKS);
+        // Split stage 8c-1: on 26.3 Simple Storage dyes its bundles and quivers itself (simplestorage:dyeable_storage).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            dyeable.add(key(ModItems.REINFORCED_BUNDLE))
+                    .add(key(ModItems.NETHERITE_BUNDLE))
+                    .add(key(ModItems.ENDERITE_BUNDLE))
+                    .add(key(ModItems.QUIVER))
+                    .add(key(ModItems.REINFORCED_QUIVER))
+                    .add(key(ModItems.NETHERITE_QUIVER))
+                    .add(key(ModItems.ENDERITE_QUIVER));
+        }
         if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
             builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                     .add(key(com.simplebuilding.util.HammerRefs.item("stone")))

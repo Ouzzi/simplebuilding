@@ -13,12 +13,35 @@ import net.minecraft.world.item.ItemStack;
 /** Loader-neutral registration order: blocks, items, block entities (per loader), menus, creative tab. */
 public final class StorageRegistry {
     public static CreativeModeTab TAB;
+    /** Split stage 8c-1: shaped upgrade that keeps every component of the bundle or quiver in the grid. */
+    public static final net.minecraft.world.item.crafting.RecipeSerializer<com.simplestorage.bundle.ReinforcedBundleRecipe> REINFORCED_BUNDLE_SERIALIZER =
+            new net.minecraft.world.item.crafting.RecipeSerializer<>(com.simplestorage.bundle.ReinforcedBundleRecipe.MAP_CODEC, com.simplestorage.bundle.ReinforcedBundleRecipe.STREAM_CODEC);
+
+    /** In the RECIPE_SERIALIZER phase (Fabric: init). */
+    public static void registerSerializers() {
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleStorage.id("reinforced_bundle"), REINFORCED_BUNDLE_SERIALIZER);
+    }
 
     public static void registerTab() {
         TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleStorage.id("storage"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                 .title(Component.translatable("itemgroup.simplestorage.storage"))
                 .icon(() -> new ItemStack(StorageItems.CRATES.get(com.simplestorage.crate.CrateWood.OAK)))
-                .displayItems((parameters, output) -> tabStacks().forEach(output::accept))
+                .displayItems((parameters, output) -> {
+                    tabStacks().forEach(output::accept);
+                    // Split stage 8c-1: the storage enchantments as books at their highest level.
+                    if (SimpleStorage.on()) parameters.holders().lookup(net.minecraft.core.registries.Registries.ENCHANTMENT).ifPresent(enchantments -> {
+                        for (var key : List.of(com.simplestorage.bundle.BundleEnchantments.DEEP_POCKETS, com.simplestorage.bundle.BundleEnchantments.FUNNEL,
+                                com.simplestorage.bundle.BundleEnchantments.DRAWER)) {
+                            enchantments.get(key).ifPresent(holder -> {
+                                ItemStack book = new ItemStack(net.minecraft.world.item.Items.ENCHANTED_BOOK);
+                                var stored = new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+                                stored.upgrade(holder, holder.value().getMaxLevel());
+                                book.set(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS, stored.toImmutable());
+                                output.accept(book);
+                            });
+                        }
+                    });
+                })
                 .build());
     }
 
@@ -32,6 +55,7 @@ public final class StorageRegistry {
         out.addAll(shulkerBoxStacks());
         out.addAll(chestMinecartStacks());
         out.addAll(chestBoatStacks());
+        out.addAll(bundleStacks());
         out.add(com.simplestorage.guide.StorageGuide.stack());
         return out;
     }
@@ -69,6 +93,13 @@ public final class StorageRegistry {
     public static List<ItemStack> chestBoatStacks() {
         List<ItemStack> out = new ArrayList<>();
         for (Item item : StorageItems.CHEST_BOATS.values()) out.add(new ItemStack(item));
+        return out;
+    }
+
+    /** Split stage 8c-1: the bundles, then the quivers. */
+    public static List<ItemStack> bundleStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : StorageItems.bundles()) out.add(new ItemStack(item));
         return out;
     }
 

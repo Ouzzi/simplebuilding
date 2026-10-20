@@ -29,6 +29,9 @@ public final class StorageItems {
     /** Split stage 8b-2: the chest carts and chest boats per tier (one per slot like Vanilla's, the boat's wood is a component). */
     public static final Map<com.simplestorage.chest.ChestTier, Item> CHEST_MINECARTS = new EnumMap<>(com.simplestorage.chest.ChestTier.class);
     public static final Map<com.simplestorage.chest.ChestTier, Item> CHEST_BOATS = new EnumMap<>(com.simplestorage.chest.ChestTier.class);
+    /** Split stage 8c-1: the three bundles and four quivers (same rarities, Netherite and Enderite fire-proof). */
+    public static Item REINFORCED_BUNDLE, NETHERITE_BUNDLE, ENDERITE_BUNDLE;
+    public static Item QUIVER, REINFORCED_QUIVER, NETHERITE_QUIVER, ENDERITE_QUIVER;
 
     public static void register() {
         StorageBlocks.CRATES.forEach((wood, crate) -> CRATES.put(wood, blockItem(crate, wood.nether() ? 0 : CRATE_FUEL)));
@@ -56,7 +59,38 @@ public final class StorageItems {
             CHEST_BOATS.put(tier, item(tier.textureName() + "_chest_boat", extra, p -> new com.simplestorage.vehicle.TieredChestBoatItem(p.stacksTo(1),
                     () -> StorageEntities.CHEST_BOATS.get(tier))));
         }
+        registerBundles();
         com.simplestorage.guide.StorageGuide.register();
+    }
+
+    /** Split stage 8c-1: bundles and quivers (call inside {@link #register}, after the chests). */
+    private static void registerBundles() {
+        REINFORCED_BUNDLE = item("reinforced_bundle", p -> p.stacksTo(1), com.simplestorage.bundle.ReinforcedBundleItem::new);
+        NETHERITE_BUNDLE = item("netherite_bundle", p -> netherite(p.stacksTo(1)), com.simplestorage.bundle.ReinforcedBundleItem::new);
+        ENDERITE_BUNDLE = item("enderite_bundle", p -> enderite(p.stacksTo(1)), com.simplestorage.bundle.ReinforcedBundleItem::new);
+        QUIVER = item("quiver", p -> p.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
+        // Between quiver and Netherite quiver: neither fire- nor explosion-proof, common rarity (docs/RARITAETEN.md).
+        REINFORCED_QUIVER = item("reinforced_quiver", p -> p.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
+        NETHERITE_QUIVER = item("netherite_quiver", p -> netherite(p.stacksTo(1)).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
+        ENDERITE_QUIVER = item("enderite_quiver", p -> enderite(p.stacksTo(1)).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
+    }
+
+    /** The bundles, then the quivers, in tier order. */
+    public static java.util.List<Item> bundles() {
+        return java.util.List.of(REINFORCED_BUNDLE, NETHERITE_BUNDLE, ENDERITE_BUNDLE, QUIVER, REINFORCED_QUIVER, NETHERITE_QUIVER, ENDERITE_QUIVER);
+    }
+
+    /**
+     * The chest slot of the four quivers: a carrier, not armour (as in SimpleBuilding's {@code ModItems#quiverChestSlot}): no
+     * asset (nothing drawn), no attributes, {@code damageOnHurt} off, not {@code swappable} ({@code QuiverItem#use} passes, a
+     * right click would throw the arrows out), players only (a zombie must not pick up a dropped quiver and wear it).
+     */
+    private static net.minecraft.world.item.equipment.Equippable quiverChestSlot() {
+        return net.minecraft.world.item.equipment.Equippable.builder(net.minecraft.world.entity.EquipmentSlot.CHEST)
+                .setAllowedEntities(net.minecraft.world.entity.EntityTypes.PLAYER)
+                .setDamageOnHurt(false)
+                .setSwappable(false)
+                .build();
     }
 
     private static Item.Properties netherite(Item.Properties p) {

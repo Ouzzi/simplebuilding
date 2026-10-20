@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.simplestorage.funnel"
+  },
+  "max_cost": {
+    "base": 55,
+    "per_level_above_first": 15
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 15,
+    "per_level_above_first": 15
+  },
+  "primary_items": "#simplestorage:funnel_enchantable",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#simplestorage:funnel_enchantable",
+  "weight": 2
+}

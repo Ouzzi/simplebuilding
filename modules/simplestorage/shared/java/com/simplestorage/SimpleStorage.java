@@ -12,7 +12,8 @@ import org.slf4j.LoggerFactory;
  * Simple Storage (split plan stage 8, docs/ai/PLAN-B-S8-STORAGE-2026-10-19.md): part 8a moved the crates of every wood and
  * the Storage Crafting Table out of SimpleBuilding, part 8b (PLAN-B-S8B-STORAGE-2026-10-19.md) the tiered and trapped
  * chests, the trapped copper chests and the tier shulker boxes, part 8b-2 (PLAN-B-S8C-STORAGE-2026-10-20.md) the chest carts
- * and chest boats of every tier; rare finds (8b-3), bundles and quivers (8c-1) and backpacks (8c-2) follow.
+ * and chest boats of every tier, part 8c-1 (PLAN-B-S8C1-STORAGE-2026-10-20.md) the bundles, quivers, the placed bundle and the
+ * storage enchantments Drawer, Deep Pockets and Funnel; rare finds (8b-3) and backpacks (8c-2) follow.
  * Loader entry points call {@link #init} once in their constructor / initializer, before any registry event, so the id
  * moves out of SimpleBuilding are known in time (Forge aliases).
  */
@@ -59,6 +60,7 @@ public final class SimpleStorage {
         List<String> items = new ArrayList<>();
         movedBlocks().forEach(path -> items.add(MOD_ID + ":" + path));
         movedVehicles().forEach(path -> items.add(MOD_ID + ":" + path));
+        movedBundles().forEach(path -> items.add(MOD_ID + ":" + path));
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "storage", "simplestorage.testcentre.station", items);
     }
@@ -98,6 +100,26 @@ public final class SimpleStorage {
         for (String tier : TIERS) out.add(tier + "_chest_minecart");
         for (String tier : TIERS) out.add(tier + "_chest_boat");
         return out;
+    }
+
+    /** Split stage 8c-1: the three bundles and the four quivers (item ids). */
+    public static List<String> movedBundles() {
+        return List.of("reinforced_bundle", "netherite_bundle", "enderite_bundle", "quiver", "reinforced_quiver", "netherite_quiver", "enderite_quiver");
+    }
+
+    /** Split stage 8c-1: the storage enchantments (they apply to bundles, quivers and SimpleBuilding's backpacks). */
+    public static final List<String> MOVED_ENCHANTMENTS = List.of("drawer", "deep_pockets", "funnel");
+
+    /**
+     * Split stage 8c-1: the bundle and quiver recipes (all unlocked under recipes/tools). The dyeing moved only on 26.3's
+     * transmute recipes ({@code simplebuilding:<colour>_dyed_storage} keeps the backpacks; the module has its own).
+     */
+    public static final List<String> MOVED_BUNDLE_RECIPES = List.of("reinforced_bundle", "netherite_bundle_smithing", "enderite_bundle_smithing",
+            "quiver", "reinforced_quiver", "netherite_quiver_smithing", "enderite_quiver_smithing");
+
+    /** Loader entry points call this with their config folder (bundle click option, {@code config/simplestorage.json}). */
+    public static void loadConfig(java.nio.file.Path configDir) {
+        com.simplestorage.config.StorageConfig.load(configDir);
     }
 
     /** Vanilla's boat woods and Simple End's, as the chest boat recipes name them ({@code <tier>_chest_boat_<wood>}). */
@@ -171,6 +193,15 @@ public final class SimpleStorage {
         for (String path : movedVehicleRecipes()) {
             IdMoves.move(Registries.RECIPE, old(path), id(path));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/transportation/" + path), id("recipes/transportation/" + path));
+        }
+        // 8c-1: bundles and quivers (items), the placed bundle (block + block entity), the storage enchantments, their recipes.
+        for (String path : movedBundles()) IdMoves.move(Registries.ITEM, old(path), id(path));
+        IdMoves.move(Registries.BLOCK, old("placed_bundle"), id("placed_bundle"));
+        IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old("placed_bundle"), id("placed_bundle"));
+        for (String path : MOVED_ENCHANTMENTS) IdMoves.move(Registries.ENCHANTMENT, old(path), id(path));
+        for (String path : MOVED_BUNDLE_RECIPES) {
+            IdMoves.move(Registries.RECIPE, old(path), id(path));
+            IdMoves.move(Registries.ADVANCEMENT, old("recipes/tools/" + path), id("recipes/tools/" + path));
         }
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old("crate"), id("crate"));
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old(STORAGE_CRAFTING_TABLE), id(STORAGE_CRAFTING_TABLE));

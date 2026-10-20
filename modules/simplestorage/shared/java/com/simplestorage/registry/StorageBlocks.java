@@ -36,6 +36,8 @@ public final class StorageBlocks {
     public static Block TRAPPED_COPPER_CHEST, EXPOSED_TRAPPED_COPPER_CHEST, WEATHERED_TRAPPED_COPPER_CHEST, OXIDIZED_TRAPPED_COPPER_CHEST,
             WAXED_TRAPPED_COPPER_CHEST, WAXED_EXPOSED_TRAPPED_COPPER_CHEST, WAXED_WEATHERED_TRAPPED_COPPER_CHEST, WAXED_OXIDIZED_TRAPPED_COPPER_CHEST;
     public static Block REINFORCED_SHULKER_BOX, NETHERITE_SHULKER_BOX, ENDERITE_SHULKER_BOX;
+    /** Split stage 8c-1: a bundle set down on a top face (no item; the bundle lives in the block entity). */
+    public static Block PLACED_BUNDLE;
 
     /** {@code simpleEnd}: Simple End is loaded (only then the Ashwood and Duskwood crates exist, as before the move). */
     public static void register(boolean simpleEnd) {
@@ -47,6 +49,15 @@ public final class StorageBlocks {
         }
         STORAGE_CRAFTING_TABLE = block(SimpleStorage.STORAGE_CRAFTING_TABLE, Blocks.CRAFTING_TABLE, StorageCraftingTableBlock::new);
         registerChests();
+        // Soft like wool, popped by pistons, no loot table: the block entity gives the bundle back (getDrops).
+        PLACED_BUNDLE = Registry.register(BuiltInRegistries.BLOCK, key("placed_bundle"), new com.simplestorage.bundle.PlacedBundleBlock(
+                BlockBehaviour.Properties.of().setId(key("placed_bundle")).strength(0.3F).sound(net.minecraft.world.level.block.SoundType.WOOL)
+                        .noLootTable().mapColor(net.minecraft.world.level.material.MapColor.COLOR_BROWN)
+                        .pushReaction(net.minecraft.world.level.material.PushReaction.POPPED)));
+    }
+
+    private static ResourceKey<Block> key(String name) {
+        return ResourceKey.create(Registries.BLOCK, SimpleStorage.id(name));
     }
 
     private static void registerChests() {

@@ -58,7 +58,8 @@ public abstract class MinecraftClientMixin {
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ItemStack stack = inv.getItem(i);
 
-            if (stack.getItem() instanceof ReinforcedBundleItem) {
+            // Split stage 8c-1: the mod bundles by id (on 26.3 Simple Storage's).
+            if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack)) {
                 // FIX: get -> getOrThrow
                 var registry = this.player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
                 // FIX: getEntry -> getOptional (für RegistryKey)

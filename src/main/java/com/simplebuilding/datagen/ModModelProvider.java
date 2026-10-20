@@ -255,7 +255,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createParticleOnlyBlock(ModBlocks.PLACED_SMITHING_TEMPLATE, net.minecraft.world.level.block.Blocks.POLISHED_DEEPSLATE);
         // Abgelegte Blaupause: ebenso, Partikel blau wie das Papier.
         blockStateModelGenerator.createParticleOnlyBlock(ModBlocks.PLACED_BLUEPRINT, net.minecraft.world.level.block.Blocks.LAPIS_BLOCK);
-        registerPlacedBundle(blockStateModelGenerator);
+        // Split stage 8c-1: on 26.3 the placed bundle, the bundles and quivers are Simple Storage's (its own models).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) registerPlacedBundle(blockStateModelGenerator);
 
         // --- 7. Aus Simple Tweaks: Druckplatten und Pads ---
         com.simplebuilding.tweaks.datagen.TweaksModelGen.blocks(blockStateModelGenerator);
@@ -869,11 +870,13 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CORE, ModelTemplates.FLAT_ITEM);
 
-        generateDyeableBundle(itemModelGenerator, ModItems.REINFORCED_BUNDLE);
-        generateDyeableBundle(itemModelGenerator, ModItems.NETHERITE_BUNDLE);
-        generateDyeableItem(itemModelGenerator, ModItems.QUIVER);
-        generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_QUIVER);
-        generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_QUIVER);
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            generateDyeableBundle(itemModelGenerator, ModItems.REINFORCED_BUNDLE);
+            generateDyeableBundle(itemModelGenerator, ModItems.NETHERITE_BUNDLE);
+            generateDyeableItem(itemModelGenerator, ModItems.QUIVER);
+            generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_QUIVER);
+            generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_QUIVER);
+        }
         itemModelGenerator.generateFlatItem(ModItems.LEATHER_SHEET, ModelTemplates.FLAT_ITEM);
         // Handbuecher (GuideBooks): flache Item-Modelle, je Buch eine eigene Textur.
         for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.values()) {
@@ -942,8 +945,10 @@ public class ModModelProvider extends FabricModelProvider {
             ModelTemplates.FLAT_ITEM.create(bookId, TextureMapping.layer0(new Material(bookId)), itemModelGenerator.modelOutput);
         }
 
-        generateDyeableBundle(itemModelGenerator, ModItems.ENDERITE_BUNDLE);
-        generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_QUIVER);
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            generateDyeableBundle(itemModelGenerator, ModItems.ENDERITE_BUNDLE);
+            generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_QUIVER);
+        }
         // Rucksaecke: flaches Symbol im Inventar (textures/item/<id>.png), nicht das Blockmodell.
         generateDyeableItem(itemModelGenerator, ModItems.BACKPACK);
         generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_BACKPACK);

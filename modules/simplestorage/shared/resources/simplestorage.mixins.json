@@ -8,9 +8,19 @@
     "ChestUpgradeClickMixin",
     "FireBlockInvoker",
     "ShulkerBoxUpgradeClickMixin",
-    "DiscoverTipMixin"
+    "DiscoverTipMixin",
+    "AbstractArrowPickupMixin",
+    "BowItemMixin",
+    "BundleDepositMixin",
+    "BundlePlaceMixin",
+    "CrossbowItemMixin",
+    "ItemEntityBundleMixin"
   ],
-  "client": [],
+  "client": [
+    "client.BundleScreenMixin",
+    "client.BundleScrollMixin",
+    "client.ClientBundleTooltipMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

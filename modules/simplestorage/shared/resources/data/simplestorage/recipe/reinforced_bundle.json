@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "simplestorage:reinforced_bundle",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:bundle",
+    "D": "simplelib:diamond_pebble",
+    "S": "minecraft:string",
+    "X": "simplebuilding:leather_sheet"
+  },
+  "pattern": [
+    "DSD",
+    "DBD",
+    "DXD"
+  ],
+  "result": {
+    "id": "simplestorage:reinforced_bundle"
+  }
+}

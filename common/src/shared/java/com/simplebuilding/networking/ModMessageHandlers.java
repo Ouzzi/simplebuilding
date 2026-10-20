@@ -249,7 +249,8 @@ public final class ModMessageHandlers {
 
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ItemStack bundleStack = inv.getItem(i);
-            if (bundleStack.getItem() instanceof ReinforcedBundleItem
+            // Split stage 8c-1: the mod bundles by id (on 26.3 Simple Storage's).
+            if (com.simplebuilding.util.StorageRefs.isStorageBundle(bundleStack)
                     && EnchantmentHelper.getItemEnchantmentLevel(masterBuilderEntry.get(), bundleStack) > 0) {
                 BundleContents contents = bundleStack.get(DataComponents.BUNDLE_CONTENTS);
                 if (contents == null) {

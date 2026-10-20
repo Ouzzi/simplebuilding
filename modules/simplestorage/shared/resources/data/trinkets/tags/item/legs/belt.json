@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "simplestorage:quiver",
+    "simplestorage:reinforced_quiver",
+    "simplestorage:netherite_quiver",
+    "simplestorage:enderite_quiver"
+  ]
+}

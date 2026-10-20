@@ -361,7 +361,8 @@ public class ModBlocks {
     // Schleichen + Rechtsklick mit einem Buendel auf die Oberseite eines Blocks (PlacedBundles): ein
     // 3D-Buendel je Stufe. Kein Item - das Buendel samt Inhalt liegt in der Block-Entity und faellt
     // beim Abbauen wieder heraus (getDrops, keine Loot-Tabelle). Weich wie Wolle, von Kolben zerstoert.
-    public static final Block PLACED_BUNDLE = registerBlock("placed_bundle", s -> new com.simplebuilding.blocks.custom.PlacedBundleBlock(s
+    // Split stage 8c-1: Simple Storage's on 26.3 (null here).
+    public static final Block PLACED_BUNDLE = !McVersion.STORAGE_IN_SB ? null : registerBlock("placed_bundle", s -> new com.simplebuilding.blocks.custom.PlacedBundleBlock(s
             .strength(0.3F).sound(SoundType.WOOL).noLootTable().mapColor(MapColor.COLOR_BROWN)
             .pushReaction(McVersion.PUSH_DESTROYS)));
 

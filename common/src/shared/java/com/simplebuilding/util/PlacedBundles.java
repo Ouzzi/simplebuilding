@@ -153,6 +153,10 @@ public final class PlacedBundles {
     public static @Nullable InteractionResult tryPlace(UseOnContext context) {
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
+        // Split stage 8c-1: on 26.3 Simple Storage places bundles (Vanilla's too) itself.
+        if (!McVersion.STORAGE_IN_SB) {
+            return null;
+        }
         if (player == null || !player.isSecondaryUseActive() || context.getClickedFace() != Direction.UP
                 || tierOf(stack) == null || !player.mayBuild()) {
             return null;

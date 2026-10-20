@@ -198,6 +198,17 @@ public final class TestCentreBuilder {
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity bundle
                             && !fill.contents().isEmpty()) {
                         bundle.setBundle(fill.contents().getFirst());
+                    } else if (level.getBlockEntity(fill.pos()) instanceof net.minecraft.world.level.block.entity.BlockEntity other
+                            && com.simplebuilding.util.StorageRefs.id("placed_bundle").equals(net.minecraft.core.registries.BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(other.getType()))
+                            && !fill.contents().isEmpty()) {
+                        // Split stage 8c-1 (26.3): Simple Storage's placed bundle, no class import - it reads the bundle from the key "Bundle".
+                        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+                        tag.put("Bundle", net.minecraft.world.item.ItemStack.CODEC.encodeStart(
+                                level.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), fill.contents().getFirst()).getOrThrow());
+                        other.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(
+                                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), tag));
+                        other.setChanged();
+                        level.sendBlockUpdated(fill.pos(), other.getBlockState(), other.getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
                     }
                     count++;
                 }

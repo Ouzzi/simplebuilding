@@ -284,7 +284,7 @@ public final class GuideBooks {
             case ENCHANTMENTS -> List.of("minecraft:enchanting_table", "minecraft:bookshelf");
             // The pebble recipes have no recipe advancement (nothing puts them into the recipe book), so they cannot gate.
             case BUILDING -> List.of("minecraft:bricks", "minecraft:stone_bricks", "simplebuilding:copper_building_wand");
-            case STORAGE -> List.of("minecraft:chest", "simplebuilding:backpack", "simplebuilding:quiver", "simplebuilding:reinforced_bundle");
+            case STORAGE -> List.of("minecraft:chest", "simplebuilding:backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle");
             case MACHINES -> List.of("minecraft:piston", "simplebuilding:reinforced_hopper_from_crafting",
                     com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", "simplebuilding:reinforced_piston");
             // The enderite ingot recipes belong to SimpleLib on 26.3 (shared materials, split stage 3d).

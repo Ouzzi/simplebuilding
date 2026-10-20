@@ -235,7 +235,7 @@ public final class ModLootTableModifications {
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (25 -> 28).
                     .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(2).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(com.simplebuilding.util.HammerRefs.item("diamond"), 3))
-                    .add(LootItem.lootTableItem(ModItems.QUIVER).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    .add(LootItem.lootTableItem(com.simplebuilding.util.StorageRefs.item("quiver")).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.NETHERITE_APPLE, 2))
                     .add(item(ModItems.ENCHANTED_NETHERITE_APPLE, 1))
                     .add(counted(ModItems.NETHERITE_NUGGET, 4, 1, 3))
@@ -293,7 +293,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 8))
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (20 -> 23).
                     .add(item(ModItems.OCTANT, 2))
-                    .add(item(ModItems.QUIVER, 5))
+                    .add(item(com.simplebuilding.util.StorageRefs.item("quiver"), 5))
                     .add(item(ModItems.COPPER_CHISEL, 4))
                     .add(EmptyLootItem.emptyItem().setWeight(23)));
         }
@@ -312,7 +312,7 @@ public final class ModLootTableModifications {
                     // Schublade: Moebel-Anwesen, einzige Truhenquelle (dazu Bibliothekar Stufe 4)
                     .add(enchantedBook(ModEnchantments.DRAWER, 1, enchantments, 3))
                     .add(item(ModItems.IRON_BUILDING_WAND, 4))
-                    .add(item(ModItems.QUIVER, 3))
+                    .add(item(com.simplebuilding.util.StorageRefs.item("quiver"), 3))
                     .add(EmptyLootItem.emptyItem().setWeight(30)));
             rareCore(editor, ModItems.IRON_CORE, IRON_CORE_CHANCE);
         }
@@ -339,7 +339,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 3, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 2, enchantments, 12))
-                    .add(item(ModItems.REINFORCED_BUNDLE, 8))
+                    .add(item(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 8))
                     .add(item(ModItems.BASIC_UPGRADE_TEMPLATE, 2))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 6, 1, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(40)));
@@ -350,7 +350,7 @@ public final class ModLootTableModifications {
             editor.addPool(LootPool.lootPool()
                     .setRolls(LootNumbers.between(0, 1))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 10))
-                    .add(item(ModItems.REINFORCED_BUNDLE, 8))
+                    .add(item(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 8))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 10, 1, 4))
                     .add(EmptyLootItem.emptyItem().setWeight(20)));
         }
@@ -374,7 +374,7 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 3, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 3, enchantments, 4))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 3))
-                    .add(LootItem.lootTableItem(ModItems.REINFORCED_BUNDLE).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    .add(LootItem.lootTableItem(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 8, 1, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(30)));
             // Zweite Eisenkern-Quelle (Besitzer 2026-09-28): ~0,5 % je Kistenlore

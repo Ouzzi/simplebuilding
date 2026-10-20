@@ -17,6 +17,7 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
     protected void configure(HolderLookup.Provider registries, Entries entries) {
         // 26.3 (split stage 7): Break Through, Override and Radius are Simple Hammers' (its own files); the bootstrap keeps
         // them under simplehammers: only so the other generated data (loot tables, trades) can name them.
+        // Split stage 8c-1: likewise Drawer, Deep Pockets and Funnel under simplestorage (Simple Storage's files).
         var enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
         if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) {
             entries.addAll(enchantments);

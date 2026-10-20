@@ -643,6 +643,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Faden oben, Buendel in der Mitte, Lederplatte unten und sechs Diamantkiesel in den
                 // beiden Seitenspalten (Besitzer 2026-09-29: sechs statt einem). Als Aufwertung behaelt
                 // das Ergebnis Inhalt, Verzauberungen und Namen des Vanilla-Buendels (ReinforcedBundleRecipe).
+                // Split stage 8c-1: on 26.3 the bundle and quiver recipes are Simple Storage's (data/simplestorage/recipe).
+                if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
                 createContainerUpgrade(ModItems.REINFORCED_BUNDLE, Items.BUNDLE,
                         Map.of('S', Items.STRING, 'D', ModItems.DIAMOND_PEBBLE, 'B', Items.BUNDLE, 'X', ModItems.LEATHER_SHEET),
                         "DSD",
@@ -680,6 +682,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Keine Stufe ueberspringen - wie bei den Buendeln wird nur der verstaerkte Koecher
                 // zum Netherit-Koecher.
                 createSmithing(ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
+                }
 
                 // =================================================================
                 // RUCKSAECKE (die Lederplatte steht oben bei den Buendeln)
@@ -1371,10 +1374,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // --- ENDERITE ITEMS (Smithing Upgrades) ---
                 // Bundle
-                createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BUNDLE);
+                if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BUNDLE);
                 createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_PAINT_BOX);
                 // Quiver
-                createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
+                if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
             }
 
             /** Werkbank-, Steinmetz- und Umfaerbe-Rezepte einer End-Palette (siehe Kommentar am Aufruf). */

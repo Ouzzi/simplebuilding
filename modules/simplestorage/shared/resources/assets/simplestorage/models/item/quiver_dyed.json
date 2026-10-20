@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplestorage:item/quiver_dyed",
+    "layer1": "simplestorage:item/quiver_dyed_overlay"
+  }
+}

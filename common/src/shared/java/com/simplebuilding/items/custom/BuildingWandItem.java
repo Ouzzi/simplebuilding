@@ -289,7 +289,7 @@ public class BuildingWandItem extends Item {
         if (stack.isEmpty()) return;
         if (isBuildingBlock(stack)) {
             list.add(stack.copyWithCount(1));
-        } else if (stack.getItem() instanceof ReinforcedBundleItem) {
+        } else if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack)) {
             boolean bundleHasMB = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (masterBuilder || bundleHasMB) {
                 BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
@@ -310,7 +310,7 @@ public class BuildingWandItem extends Item {
         if (isBuildingBlock(stack)) {
             return stack.copyWithCount(1);
         }
-        if (stack.getItem() instanceof ReinforcedBundleItem) {
+        if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack)) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (wandHasMasterBuilder || bundleHasMasterBuilder) {
                 BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
@@ -379,7 +379,7 @@ public class BuildingWandItem extends Item {
         }
 
         // Ist es ein Bundle?
-        if (stack.getItem() instanceof ReinforcedBundleItem) {
+        if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack)) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             // Bundles dürfen genutzt werden, wenn Wand ODER Bundle MasterBuilder hat
             if (wandHasMasterBuilder || bundleHasMasterBuilder) {
@@ -437,7 +437,7 @@ public class BuildingWandItem extends Item {
         if (isBuildingBlock(stack) && stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
             MaterialResult res = new MaterialResult(); res.sourceStack = stack; res.fromBundle = false; res.stateToPlace = bi.getBlock().defaultBlockState(); res.item = stack.copyWithCount(1); return res;
         }
-        if (stack.getItem() instanceof ReinforcedBundleItem) {
+        if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack)) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (wandHasMasterBuilder || bundleHasMasterBuilder) return findInBundleSpecific(stack, targetBlock);
         }
@@ -516,7 +516,7 @@ public class BuildingWandItem extends Item {
             res.sourceStack = stack;
             return res;
         }
-        if (stack.getItem() instanceof ReinforcedBundleItem && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
+        if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack) && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
             BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
             if (contents == null) return null;
             int i = 0;
@@ -538,7 +538,7 @@ public class BuildingWandItem extends Item {
         if (stack.isEmpty()) return 0;
         if (isPlainSupply(stack, item)) return stack.getCount();
         int total = 0;
-        if (stack.getItem() instanceof ReinforcedBundleItem && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
+        if (com.simplebuilding.util.StorageRefs.isStorageBundle(stack) && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
             BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
             if (contents != null) {
                 for (ItemStackTemplate template : contents.items()) {

@@ -23,6 +23,15 @@ public final class StorageFabric implements ModInitializer {
     public void onInitialize() {
         SimpleStorage.init();
         FabricLoader loader = FabricLoader.getInstance();
+        SimpleStorage.loadConfig(loader.getConfigDir());
+        StorageRegistry.registerSerializers();
+        // Split stage 8c-1: the bundle packets (selection in a slot, scroll on a placed bundle).
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(com.simplestorage.bundle.BundleNet.SelectPayload.TYPE, com.simplestorage.bundle.BundleNet.SelectPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE, com.simplestorage.bundle.BundleNet.ScrollPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplestorage.bundle.BundleNet.SelectPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> com.simplestorage.bundle.BundleNet.handle(payload, context.player())));
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> com.simplestorage.bundle.BundleNet.handle(payload, context.player())));
         com.simplestorage.registry.StorageComponents.register();
         StorageBlocks.register(loader.isModLoaded(com.simplestorage.crate.CrateWood.SIMPLE_END));
         StorageItems.register();
@@ -52,6 +61,8 @@ public final class StorageFabric implements ModInitializer {
                 // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.
                 insertAfter(out, Items.CHEST_MINECART, StorageRegistry.chestMinecartStacks());
                 insertAfter(out, Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
+                // Split stage 8c-1: the bundles and quivers behind Vanilla's bundle.
+                insertAfter(out, Items.BUNDLE, StorageRegistry.bundleStacks());
             }
             if (!SimpleStorage.on()) return;
             var book = List.of(com.simplestorage.guide.StorageGuide.stack());

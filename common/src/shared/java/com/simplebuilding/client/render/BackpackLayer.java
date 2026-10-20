@@ -171,11 +171,11 @@ public class BackpackLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
      */
     public static ItemStack backItem(LivingEntity living) {
         ItemStack chest = living.getItemBySlot(EquipmentSlot.CHEST);
-        if (chest.getItem() instanceof BackpackItem || chest.getItem() instanceof com.simplebuilding.items.custom.QuiverItem) {
+        if (chest.getItem() instanceof BackpackItem || com.simplebuilding.util.StorageRefs.isQuiver(chest)) {
             return chest;
         }
         ItemStack backpack = AccessorySlots.findFirstVisible(living, s -> s.getItem() instanceof BackpackItem);
         return !backpack.isEmpty() ? backpack
-                : AccessorySlots.findFirstVisible(living, s -> s.getItem() instanceof com.simplebuilding.items.custom.QuiverItem);
+                : AccessorySlots.findFirstVisible(living, com.simplebuilding.util.StorageRefs::isQuiver);
     }
 }

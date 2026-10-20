@@ -66,6 +66,21 @@ public final class LibServices {
         // Split stage 8b: the tiered chests and shulker boxes, their upgrade handlers and the double chest parts are Simple
         // Storage's (it registers them itself).
         registerHammerWays();
+        // Split stage 8c-1: Simple Storage's quivers feed the bow from a quiver inside the worn backpack with Master Builder
+        // (SimpleLib CarriedStacks; the entries are copies, a changed one goes back through replaceEntry).
+        com.simplelib.api.CarriedStacks.register(player -> {
+            net.minecraft.world.item.ItemStack backpack = com.simplebuilding.items.custom.BackpackItem.wornBackpackWith(player,
+                    com.simplebuilding.enchantment.ModEnchantments.MASTER_BUILDER);
+            if (backpack.isEmpty()) return java.util.List.of();
+            java.util.List<net.minecraft.world.item.ItemStack> stacks = com.simplebuilding.items.custom.BackpackItem.entryStacks(backpack);
+            java.util.List<com.simplelib.api.CarriedStacks.Entry> out = new java.util.ArrayList<>();
+            for (int i = 0; i < stacks.size(); i++) {
+                final int index = i;
+                out.add(new com.simplelib.api.CarriedStacks.Entry(stacks.get(i),
+                        changed -> com.simplebuilding.items.custom.BackpackItem.replaceEntry(backpack, index, changed)));
+            }
+            return out;
+        });
     }
 
     /** Split stage 7: SimpleBuilding's hammer ways for Simple Hammers (SimpleLib {@link HammerActions}; the engine statics through the overlay subclasses). */

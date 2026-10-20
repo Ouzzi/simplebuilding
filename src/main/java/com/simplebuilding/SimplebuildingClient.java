@@ -89,7 +89,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_TEMPLATE_BE, com.simplebuilding.client.render.PlacedTemplateRenderer::new);
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
-        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
         if (com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
@@ -119,8 +119,10 @@ public class SimplebuildingClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
-                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
-                com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+        // Split stage 8c-1: on 26.3 the placed bundle is Simple Storage's (it tints it itself).
+        if (com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
+                java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE), com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
         if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {

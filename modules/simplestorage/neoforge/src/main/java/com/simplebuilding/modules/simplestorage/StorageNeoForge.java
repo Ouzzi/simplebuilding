@@ -25,6 +25,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public final class StorageNeoForge {
     public StorageNeoForge(IEventBus bus, Dist dist) {
         SimpleStorage.init();
+        SimpleStorage.loadConfig(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
@@ -43,6 +44,15 @@ public final class StorageNeoForge {
             if (key.equals(Registries.ENTITY_TYPE)) com.simplestorage.registry.StorageEntities.register();
             if (key.equals(Registries.MENU)) StorageMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) StorageRegistry.registerTab();
+            if (key.equals(Registries.RECIPE_SERIALIZER)) StorageRegistry.registerSerializers();
+        });
+        // Split stage 8c-1: the bundle packets.
+        bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) -> {
+            var registrar = event.registrar("1").optional();
+            registrar.playToServer(com.simplestorage.bundle.BundleNet.SelectPayload.TYPE, com.simplestorage.bundle.BundleNet.SelectPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplestorage.bundle.BundleNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player())));
+            registrar.playToServer(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE, com.simplestorage.bundle.BundleNet.ScrollPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplestorage.bundle.BundleNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player())));
         });
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             StorageBlocks.registerFlammability();
@@ -64,6 +74,8 @@ public final class StorageNeoForge {
                 // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.
                 insertAfter(event, net.minecraft.world.item.Items.CHEST_MINECART, StorageRegistry.chestMinecartStacks());
                 insertAfter(event, net.minecraft.world.item.Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
+                // Split stage 8c-1: the bundles and quivers behind Vanilla's bundle.
+                insertAfter(event, net.minecraft.world.item.Items.BUNDLE, StorageRegistry.bundleStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.accept(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

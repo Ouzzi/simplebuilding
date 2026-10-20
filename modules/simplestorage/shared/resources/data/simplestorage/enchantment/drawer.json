@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.simplestorage.drawer"
+  },
+  "exclusive_set": "#simplestorage:exclusive_set/builder_group",
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "max_level": 8,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "primary_items": "#simplestorage:bundle_enchantable",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#simplestorage:bundle_enchantable",
+  "weight": 1
+}

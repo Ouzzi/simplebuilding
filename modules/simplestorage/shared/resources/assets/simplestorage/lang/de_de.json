@@ -115,5 +115,19 @@
   "quests.simplestorage.start.title": "Willkommen bei Simple Storage",
   "quests.simplestorage.start.subtitle": "Dein Handbuch gratis",
   "quests.simplestorage.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen."
+  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen.",
+  "item.simplestorage.reinforced_bundle": "Verstärktes Bündel",
+  "item.simplestorage.netherite_bundle": "Netheritbündel",
+  "item.simplestorage.enderite_bundle": "Enderitbündel",
+  "item.simplestorage.quiver": "Köcher",
+  "item.simplestorage.reinforced_quiver": "Verstärkter Köcher",
+  "item.simplestorage.netherite_quiver": "Netheritköcher",
+  "item.simplestorage.enderite_quiver": "Enderitköcher",
+  "block.simplestorage.placed_bundle": "Abgestelltes Bündel",
+  "enchantment.simplestorage.drawer": "Schublade",
+  "enchantment.simplestorage.drawer.description": "Erhöht die Kapazität von Bündeln und Köchern, aber nur für die eine Item-Sorte, die schon darin liegt.",
+  "enchantment.simplestorage.deep_pockets": "Tiefe Taschen",
+  "enchantment.simplestorage.deep_pockets.description": "Erhöht die Kapazität von Bündeln.",
+  "enchantment.simplestorage.funnel": "Trichter",
+  "enchantment.simplestorage.funnel.description": "Füllt Items automatisch in das Bündel."
 }

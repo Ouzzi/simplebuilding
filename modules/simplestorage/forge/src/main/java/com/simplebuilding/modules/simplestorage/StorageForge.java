@@ -24,6 +24,7 @@ public final class StorageForge {
     public StorageForge(FMLJavaModLoadingContext context) {
         com.simplebuilding.modules.simplestorage.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleStorage.init();
+        SimpleStorage.loadConfig(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             // Forge unlocks one registry per event: every part in its own.
@@ -42,7 +43,17 @@ public final class StorageForge {
             if (key.equals(Registries.ENTITY_TYPE)) com.simplestorage.registry.StorageEntities.register();
             if (key.equals(Registries.MENU)) StorageMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) StorageRegistry.registerTab();
+            if (key.equals(Registries.RECIPE_SERIALIZER)) StorageRegistry.registerSerializers();
         });
+        // Split stage 8c-1: the bundle packets (client -> server).
+        channel = net.minecraftforge.network.ChannelBuilder.named(SimpleStorage.id("main")).payloadChannel()
+                .protocol(net.minecraftforge.network.NetworkProtocol.PLAY)
+                .serverbound()
+                    .add(com.simplestorage.bundle.BundleNet.SelectPayload.TYPE, com.simplestorage.bundle.BundleNet.SelectPayload.CODEC.cast(),
+                            (payload, ctx) -> onPlayer(ctx, p -> com.simplestorage.bundle.BundleNet.handle(payload, p)))
+                    .add(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE, com.simplestorage.bundle.BundleNet.ScrollPayload.CODEC.cast(),
+                            (payload, ctx) -> onPlayer(ctx, p -> com.simplestorage.bundle.BundleNet.handle(payload, p)))
+                .build();
         FMLCommonSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(() -> {
             StorageBlocks.registerFlammability();
             com.simplestorage.registry.StorageRegistry.registerBehaviours();
@@ -62,6 +73,8 @@ public final class StorageForge {
                 // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.
                 insertAfter(event, net.minecraft.world.item.Items.CHEST_MINECART, StorageRegistry.chestMinecartStacks());
                 insertAfter(event, net.minecraft.world.item.Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
+                // Split stage 8c-1: the bundles and quivers behind Vanilla's bundle.
+                insertAfter(event, net.minecraft.world.item.Items.BUNDLE, StorageRegistry.bundleStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.getEntries().put(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -69,6 +82,17 @@ public final class StorageForge {
         });
         if (ModList.isLoaded("ftbquests")) com.simplestorage.guide.StorageGuide.installQuests(FMLPaths.CONFIGDIR.get());
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) StorageForgeClient.init(context);
+    }
+
+    /** The bundle packets' channel (split stage 8c-1). */
+    static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
+
+    private static void onPlayer(net.minecraftforge.event.network.CustomPayloadEvent.Context ctx, java.util.function.Consumer<net.minecraft.server.level.ServerPlayer> action) {
+        ctx.setPacketHandled(true);
+        ctx.enqueueWork(() -> {
+            net.minecraft.server.level.ServerPlayer player = ctx.getSender();
+            if (player != null) action.accept(player);
+        });
     }
 
     /** Behind {@code anchor} in this order; never twice; at the end when the anchor is missing. */

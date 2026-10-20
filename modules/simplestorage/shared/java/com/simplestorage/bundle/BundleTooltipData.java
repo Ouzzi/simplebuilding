@@ -1,0 +1,19 @@
+package com.simplestorage.bundle;
+
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.component.BundleContents;
+
+/**
+ * Tooltip-Bild eines Buendels der Mod: Inhalt, Kapazitaet fuer den Fuellbalken und die Farbe des
+ * Buendels ({@link DyedStorage#UNDYED} ohne Farbstoff), in der die Felder leicht getoent werden.
+ */
+public record BundleTooltipData(BundleContents contents, int maxCapacity, int dyeColor) implements TooltipComponent {
+    public String capacityText() {
+        int used = (int) Math.floor(contents.weight().getOrThrow().doubleValue() * 64.0);
+        return used + "/" + maxCapacity;
+    }
+
+    public BundleTooltipData(BundleContents contents, int maxCapacity) {
+        this(contents, maxCapacity, DyedStorage.UNDYED);
+    }
+}

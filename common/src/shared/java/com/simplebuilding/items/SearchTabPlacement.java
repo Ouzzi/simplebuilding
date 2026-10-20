@@ -487,8 +487,8 @@ public final class SearchTabPlacement {
                 ModItems.ENDERITE_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"), ModItems.ENDERITE_BUILDING_WAND,
                 ModItems.CREATIVE_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BUNDLE,
-                ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
-                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
+                com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
+                com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
         List<ItemLike> gadgets = new ArrayList<>(List.of(TweaksItems.ECHO_COMPASS, ModItems.VELOCITY_GAUGE,
                 ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER, ModItems.OCTANT));

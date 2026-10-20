@@ -98,7 +98,8 @@ public class ModBlockEntities {
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new,
                         ModBlocks.PLACED_SMITHING_TEMPLATE, ModBlocks.PLACED_BLUEPRINT).build());
 
-        PLACED_BUNDLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+        // Split stage 8c-1: Simple Storage's on 26.3.
+        if (ModBlocks.PLACED_BUNDLE != null) PLACED_BUNDLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_bundle"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE).build());
 

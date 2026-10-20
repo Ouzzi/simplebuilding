@@ -1,0 +1,685 @@
+package com.simplestorage.bundle;
+
+
+import org.apache.commons.lang3.math.Fraction;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.phys.BlockHitResult;
+
+
+/**
+ * The mod bundles (Reinforced, Netherite, Enderite; split stage 8c-1, docs/ai/PLAN-B-S8C1-STORAGE-2026-10-20.md: moved from
+ * SimpleBuilding, same behaviour). Capacity per tier and enchantment, Drawer (one kind only), Deep Pockets, Funnel; with
+ * SimpleBuilding's Master Builder a bundle places blocks out of itself, with Color Palette a random one.
+ */
+public class ReinforcedBundleItem extends BundleItem {
+
+    /** Vanilla's {@code BundleContents.BUNDLE_IN_BUNDLE_WEIGHT}: what an empty nested bundle costs. */
+    private static final Fraction BUNDLE_IN_BUNDLE_WEIGHT = Fraction.getFraction(1, 16);
+
+    /**
+     * The weight of one item of {@code stack}, the same way vanilla's private
+     * {@code BundleContents.getWeight} counts it: a bundle (or quiver) weighs its own contents plus
+     * 1/16 (a mod bundle that never held anything has no contents component yet and, as in
+     * vanilla's own sum, weighs a whole stack), a beehive with bees a whole bundle, anything else {@code 1 / maxStackSize}. Counting a
+     * nested bundle as {@code 1 / 1} let a full reinforced bundle sit in another one for the price
+     * of a single stack - endless storage and arbitrarily deep NBT (audit 2026-09-26 #13).
+     */
+    static Fraction incomingWeight(ItemStack stack) {
+        try {
+            return incomingWeightUnchecked(stack);
+        } catch (ArithmeticException overflow) {
+            return OVERWEIGHT;
+        }
+    }
+
+    /**
+     * What a bundle counts as whose weight cannot be computed - vanilla's {@code BundleContents}
+     * answers an overflowing sum ("Excessive total bundle weight") with an error, and the mod used to
+     * {@code getOrThrow} it or let the {@code ArithmeticException} of Fraction arithmetic escape
+     * (audit N16): more than any bundle holds, so such a stack is refused instead of crashing the
+     * pickup, the click or the tooltip.
+     */
+    static final Fraction OVERWEIGHT = Fraction.getFraction(1_000_000, 1);
+
+    private static Fraction incomingWeightUnchecked(ItemStack stack) {
+        BundleContents nested = stack.get(DataComponents.BUNDLE_CONTENTS);
+        if (nested != null) {
+            return bundleWeight(nested).add(BUNDLE_IN_BUNDLE_WEIGHT);
+        }
+        if (!stack.getOrDefault(DataComponents.BEES, net.minecraft.world.item.component.Bees.EMPTY).bees().isEmpty()) {
+            return Fraction.ONE;
+        }
+        return Fraction.getFraction(1, stack.getMaxStackSize());
+    }
+
+    private static Fraction bundleWeight(BundleContents contents) {
+        return contents.weight().result().orElse(OVERWEIGHT);
+    }
+
+    private static ItemStack templateAsStack(ItemStackTemplate template) {
+        return template.create();
+    }
+
+    private static List<ItemStackTemplate> stacksAsTemplates(List<ItemStack> stacks) {
+        return stacks.stream().map(ItemStackTemplate::fromNonEmptyStack).toList();
+    }
+
+    private static List<ItemStack> itemsAsStacks(BundleContents contents) {
+        return contents.items().stream().map(ItemStackTemplate::create).toList();
+    }
+
+    private static ItemStack getItemAt(BundleContents contents, int index) {
+        return templateAsStack(contents.items().get(index));
+    }
+
+    public ReinforcedBundleItem(Properties settings) {
+        super(settings);
+    }
+
+    /**
+     * Öffentliche Hilfsmethode, um den ausgewählten Index im Bundle zu setzen.
+     * Ermöglicht Zugriff auf die protected Methode setSelectedStackIndex für den Packet-Handler.
+     */
+    public static void setBundleSelectedItem(ItemStack stack, int index) {
+        toggleSelectedItem(stack, index);
+    }
+
+    /**
+     * Closes the bundle: no entry selected, so the item model's {@code bundle/has_selected_item}
+     * goes back to the closed bundle and the tooltip highlights nothing. The same call vanilla's
+     * {@code BundleMouseActions.unselectedBundleItem} makes on the client stack and vanilla's
+     * {@code BundleItem.overrideOtherStackedOnMe} makes on a click that falls through. Harmless on
+     * a stack without contents or without a selection.
+     */
+    public static void clearBundleSelection(ItemStack stack) {
+        toggleSelectedItem(stack, BundleContents.NO_SELECTED_ITEM_INDEX);
+    }
+
+    /**
+     * The entry a wheel step selects, exactly as vanilla's client-only
+     * {@code ScrollWheelHandler.getNextScrollWheelSelection}: a step down ({@code wheel < 0})
+     * moves to the next entry, from "nothing selected" to the first; a step up from "nothing
+     * selected" goes to the last shown entry; both ends wrap. Lives here, not in the client
+     * handler, so a server test can pin it down.
+     */
+    public static int nextScrollSelection(int wheel, int currentSelected, int shownEntries) {
+        if (shownEntries <= 0) return BundleContents.NO_SELECTED_ITEM_INDEX;
+        int selected = Math.max(-1, currentSelected - Integer.signum(wheel));
+        while (selected < 0) selected += shownEntries;
+        while (selected >= shownEntries) selected -= shownEntries;
+        return selected;
+    }
+
+    @Override
+    public boolean canFitInsideContainerItems() {
+        return true;
+    }
+
+    // --- Helper für Click Invertierung ---
+    // protected, weil QuiverItem seinen Pfeilfilter an denselben Klick haengt.
+    protected ClickAction getInsertClick() {
+        // Prüfen ob Invertierung in der Config aktiv ist
+        if (com.simplestorage.config.StorageConfig.invertBundleInteractions) {
+            return ClickAction.SECONDARY;
+        }
+        return ClickAction.PRIMARY;
+    }
+
+    private ClickAction getRemoveClick() {
+        if (com.simplestorage.config.StorageConfig.invertBundleInteractions) {
+            return ClickAction.PRIMARY;
+        }
+        return ClickAction.SECONDARY;
+    }
+    // -------------------------------------
+
+    @Override
+    public boolean overrideStackedOnOther(ItemStack bundle, Slot slot, ClickAction clickAction, Player player) {
+        ClickAction insertClick = getInsertClick();
+        ClickAction removeClick = getRemoveClick();
+
+        if (clickAction != insertClick && clickAction != removeClick) return false;
+
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContents.EMPTY;
+
+        ItemStack itemInSlot = slot.getItem();
+
+        // Logik angepasst auf dynamische ClickTypes
+        if (clickAction == removeClick && itemInSlot.isEmpty()) {
+            ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
+            if (!removed.isEmpty()) {
+                this.playRemoveOneSound(player);
+                slot.safeInsert(removed);
+                return true;
+            }
+        } else if (clickAction == insertClick && !itemInSlot.isEmpty() && itemInSlot.getItem().canFitInsideContainerItems()) {
+            int added = insertItemIntoBundle(bundle, contents, itemInSlot, getMaxCapacity(bundle, player));
+            if (added > 0) {
+                this.playInsertSound(player);
+                itemInSlot.shrink(added);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean overrideOtherStackedOnMe(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickAction clickAction, Player player, SlotAccess cursorStackReference) {
+        ClickAction insertClick = getInsertClick();
+        ClickAction removeClick = getRemoveClick();
+
+        if (clickAction != insertClick && clickAction != removeClick) return false;
+
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContents.EMPTY;
+
+        if (clickAction == removeClick && cursorStack.isEmpty()) {
+            ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
+            if (!removed.isEmpty()) {
+                this.playRemoveOneSound(player);
+                cursorStackReference.set(removed);
+                return true;
+            }
+        }
+        else if (clickAction == insertClick && !cursorStack.isEmpty() && cursorStack.getItem().canFitInsideContainerItems()) {
+            int added = insertItemIntoBundle(bundle, contents, cursorStack, getMaxCapacity(bundle, player));
+            if (added > 0) {
+                this.playInsertSound(player);
+                cursorStack.shrink(added);
+                return true;
+            }
+        }
+        // The click falls through to vanilla (picking the bundle up, swapping it with the
+        // cursor): like vanilla's BundleItem, close the bundle first, otherwise it stays open on
+        // the cursor and in whichever slot it lands next.
+        clearBundleSelection(bundle);
+        return false;
+    }
+
+    @Override
+    public InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context) {
+        Player player = context.getPlayer();
+        ItemStack bundleStack = context.getItemInHand();
+
+        // Schleichen + Rechtsklick auf eine Oberseite stellt das Buendel ab (vor dem Meisterbauer:
+        // der wuerde sonst ein Item aus dem Buendel setzen). Koecher liefern hier immer null.
+        InteractionResult placed = PlacedBundles.tryPlace(context);
+        if (placed != null) {
+            return placed;
+        }
+
+        assert player != null;
+
+        boolean hasMasterBuilder = BundleEnchantments.has(bundleStack, player.level(), BundleEnchantments.MASTER_BUILDER);
+        if (hasMasterBuilder) {
+            BundleContents contents = bundleStack.get(DataComponents.BUNDLE_CONTENTS);
+            if (contents != null && !contents.isEmpty()) {
+
+                int index = contents.getSelectedItemIndex();
+                if (index == -1 || index >= contents.size()) index = 0;
+
+                boolean hasColorPalette = BundleEnchantments.has(bundleStack, player.level(), BundleEnchantments.COLOR_PALETTE);
+                if (hasColorPalette) {
+                    index = player.level().getRandom().nextInt(contents.size());
+                }
+
+                ItemStack blockToPlace = getItemAt(contents, index).copy();
+
+                if (blockToPlace.getItem() instanceof net.minecraft.world.item.BlockItem blockItem) {
+                    net.minecraft.world.item.context.UseOnContext blockContext = new net.minecraft.world.item.context.UseOnContext(
+                            context.getLevel(),
+                            context.getPlayer(),
+                            context.getHand(),
+                            blockToPlace,
+                            new BlockHitResult(
+                                    context.getClickLocation(),
+                                    context.getClickedFace(),
+                                    context.getClickedPos(),
+                                    false
+                            )
+                    );
+
+                    InteractionResult result = blockItem.useOn(blockContext);
+
+                    if (result.consumesAction()) {
+                        if (!player.getAbilities().instabuild) {
+                            removeOneItemFromBundle(bundleStack, contents, index);
+                        }
+                        return result;
+                    }
+                }
+            }
+        }
+        return super.useOn(context);
+    }
+
+    @Override
+    public InteractionResult use(net.minecraft.world.level.Level world, Player user, InteractionHand hand) {
+        ItemStack stack = user.getItemInHand(hand);
+        BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
+
+        if (contents != null && !contents.isEmpty()) {
+            int index = contents.getSelectedItemIndex();
+            if (index == -1 || index >= contents.size()) index = 0;
+
+            ItemStack itemToDrop = getItemAt(contents, index);
+
+            if (itemToDrop.getItem() instanceof net.minecraft.world.item.BlockItem) {
+                return net.minecraft.world.InteractionResult.FAIL;
+            }
+
+            if (!world.isClientSide()) {
+                ItemStack removed = removeSelectedOrFirstItem(stack, contents);
+                user.drop(removed, true, net.minecraft.util.Prediction.PREDICTED);
+                this.playRemoveOneSound(user);
+            }
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+
+        return super.use(world, user, hand);
+    }
+
+    /** Filled share 0..1; an overflowing weight counts as full instead of throwing. */
+    private static float fillLevel(BundleContents data, Fraction max) {
+        try {
+            return Math.min(1.0f, bundleWeight(data).divideBy(max).floatValue());
+        } catch (ArithmeticException overflow) {
+            return 1.0f;
+        }
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
+        return contents != null && !contents.isEmpty();
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
+        if (data == null) return 0;
+        float fillLevel = fillLevel(data, getMaxCapacityForVisuals(stack));
+        return Math.round(fillLevel * 13.0F);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
+        if (data == null) return super.getBarColor(stack);
+        float fillLevel = fillLevel(data, getMaxCapacityForVisuals(stack));
+        return Mth.hsvToRgb(Math.max(0.0F, (1.0F - fillLevel)) / 3.0F, 1.0F, 1.0F);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        super.appendHoverText(stack, context, displayComponent, textConsumer, type);
+    }
+
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) return Optional.empty();
+
+        // Dynamische Berechnung der Kapazität für den Tooltip
+        Fraction frac = getMaxCapacityForVisuals(stack);
+        int maxCapacity = (int) (frac.doubleValue() * 64);
+
+        return Optional.of(new BundleTooltipData(contents, maxCapacity, DyedStorage.colour(stack)));
+    }
+
+    protected int insertItemIntoBundle(ItemStack bundle, BundleContents contents, ItemStack stackToAdd, Fraction maxCap) {
+        if (stackToAdd.isEmpty()) return 0;
+
+        // Drawer (Besitzer 2026-09-28): mehr Platz (getMaxCapacity), aber nur fuer die eine Sorte,
+        // die schon drin ist - wie eine Schublade. Vorher waren bis zu fuenf Sorten erlaubt.
+        if (BundleEnchantments.drawerLevel(bundle) > 0 && !drawerAccepts(contents, stackToAdd)) {
+            return 0;
+        }
+
+        // Capacity Check. Fraction arithmetic throws ArithmeticException once numerator or
+        // denominator leave int (unusual max stack sizes add up to huge common denominators); that
+        // is a full bundle, not a crash (audit N16).
+        int countThatFits;
+        try {
+            Fraction currentOccupancy = bundleWeight(contents);
+            Fraction itemWeight = incomingWeight(stackToAdd);
+            Fraction remainingSpace = maxCap.subtract(currentOccupancy);
+
+            if (remainingSpace.compareTo(itemWeight) < 0) return 0;
+
+            countThatFits = (int) remainingSpace.divideBy(itemWeight).doubleValue();
+        } catch (ArithmeticException overflow) {
+            return 0;
+        }
+        int countToAdd = Math.min(stackToAdd.getCount(), countThatFits);
+
+        if (countToAdd <= 0) return 0;
+
+        // --- NEW SORTING & MERGING LOGIC ---
+
+        // 1. Create a mutable list of current items
+        List<ItemStack> newItems = new ArrayList<>();
+        for (ItemStack s : itemsAsStacks(contents)) {
+            newItems.add(s.copy());
+        }
+
+        // --- MERGING LOGIC (KORRIGIERT) ---
+        // Wir suchen nach existierenden Stacks, um sie zusammenzufügen und nach oben zu ziehen.
+
+        int totalCount = countToAdd;
+        int maxItemCount = stackToAdd.getMaxStackSize(); // Normalerweise 64
+
+        // Wir entfernen ALLE existierenden Instanzen dieses Items aus der Liste,
+        // addieren ihre Menge zum "totalCount" und fügen sie dann sauber gestapelt oben wieder ein.
+        // Das ist wichtig für den Drawer, der riesige Mengen halten kann.
+
+        // Rückwärts iterieren ist sicherer beim Entfernen, aber hier nutzen wir removeIf oder sammeln Indizes.
+        // Einfacher: Neue Liste bauen ohne die Matches und Count zählen.
+
+        List<ItemStack> itemsKept = new ArrayList<>();
+
+        for (ItemStack stack : newItems) {
+            if (ItemStack.isSameItemSameComponents(stack, stackToAdd)) {
+                totalCount += stack.getCount();
+            } else {
+                itemsKept.add(stack);
+            }
+        }
+
+        // Jetzt füllen wir die Items ganz oben (Index 0) wieder auf.
+        // Wir teilen "totalCount" in Stacks der Größe 64 auf.
+
+        List<ItemStack> itemsToAddBack = new ArrayList<>();
+        while (totalCount > 0) {
+            int take = Math.min(totalCount, maxItemCount);
+            ItemStack chunk = stackToAdd.copy();
+            chunk.setCount(take);
+            itemsToAddBack.add(chunk); // Zur temporären Liste
+            totalCount -= take;
+        }
+
+        // Da wir an Index 0 (oben) einfügen wollen, fügen wir die neuen Stacks VOR die behaltenen.
+        // itemsToAddBack enthält z.B. [64, 64, 10]. Wir wollen, dass der "angebrochene" Stack (10)
+        // ganz oben liegt, damit er zuerst rausgenommen wird (LIFO - Last In First Out).
+        // Das passiert automatisch, wenn wir sie der Reihe nach an Index 0 einfügen oder als Block davor setzen.
+
+        itemsKept.addAll(0, itemsToAddBack);
+
+        // 4. Update Bundle
+        // Kein toggleSelectedItem(bundle, -1) davor: new BundleContents(List) setzt die Auswahl
+        // selbst auf NO_SELECTED_ITEM_INDEX, und das set() unten ueberschreibt die Komponente
+        // ohnehin komplett. Der Aufruf war wirkungslos - wer ihn zurueckholt, gewinnt nichts.
+        BundleContents updated = new BundleContents(stacksAsTemplates(itemsKept));
+        if (updated.weight().isError()) {
+            // The sum just left int: refuse this stack instead of storing a bundle that can
+            // never be weighed again.
+            return 0;
+        }
+        bundle.set(DataComponents.BUNDLE_CONTENTS, updated);
+
+        return countToAdd;
+    }
+
+    /**
+     * Ob ein Behaelter mit Drawer {@code incoming} annimmt: wenn er leer ist (die erste Sorte legt
+     * fest, was er haelt) oder alles darin dieselbe Sorte ist. Eine Sorte ist Item plus Komponenten -
+     * genau das, was auch zu einem Stapel zusammengeht: zwei verschieden benannte Steine oder zwei
+     * verschiedene Trankpfeile sind zwei Sorten. Ein Behaelter, der schon vor dem Drawer mehrere
+     * Sorten hielt, nimmt nichts mehr an, bis nur noch eine uebrig ist.
+     */
+    public static boolean drawerAccepts(BundleContents contents, ItemStack incoming) {
+        for (ItemStack inside : itemsAsStacks(contents)) {
+            if (!ItemStack.isSameItemSameComponents(inside, incoming)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {
+        if (!list.isEmpty()) {
+            ItemStack topStack = list.getFirst();
+            if (ItemStack.isSameItemSameComponents(topStack, stackToAdd)) {
+                int available = topStack.getMaxStackSize() - topStack.getCount();
+                int toMerge = Math.min(available, stackToAdd.getCount());
+                if (toMerge > 0) {
+                    topStack.grow(toMerge);
+                    stackToAdd.shrink(toMerge);
+                }
+            }
+        }
+        if (!stackToAdd.isEmpty()) {
+            list.addFirst(stackToAdd);
+        }
+    }
+
+    protected ItemStack removeSelectedOrFirstItem(ItemStack bundle, BundleContents contents) {
+        if (contents.isEmpty()) return ItemStack.EMPTY;
+
+        int selectedIndex = contents.getSelectedItemIndex();
+        if (selectedIndex == -1) selectedIndex = 0;
+        if (selectedIndex >= contents.size()) selectedIndex = 0;
+
+        ItemStack itemToRemove = getItemAt(contents, selectedIndex).copy();
+
+        List<ItemStack> newItems = new ArrayList<>();
+        int i = 0;
+        for (ItemStack s : itemsAsStacks(contents)) {
+            if (i != selectedIndex) {
+                newItems.add(s.copy());
+            }
+            i++;
+        }
+
+        // Kein toggleSelectedItem(bundle, -1) davor: new BundleContents(List) setzt die Auswahl
+        // selbst auf NO_SELECTED_ITEM_INDEX, und das set() unten ueberschreibt die Komponente
+        // ohnehin komplett. Der Aufruf war wirkungslos - wer ihn zurueckholt, gewinnt nichts.
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(newItems)));
+        return itemToRemove;
+    }
+
+    protected void removeOneItemFromBundle(ItemStack bundle, BundleContents contents, int targetIndex) {
+        if (contents.isEmpty()) return;
+
+        List<ItemStack> newItems = new ArrayList<>();
+        for (ItemStack s : itemsAsStacks(contents)) newItems.add(s.copy());
+
+        if (targetIndex < newItems.size()) {
+            ItemStack targetStack = newItems.get(targetIndex);
+            targetStack.shrink(1);
+            if (targetStack.isEmpty()) {
+                newItems.remove(targetIndex);
+            }
+        }
+
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(newItems)));
+    }
+
+    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, Player player) {
+        if (!stackToInsert.getItem().canFitInsideContainerItems()) return false;
+
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContents.EMPTY;
+
+        Fraction maxCap = getMaxCapacity(bundle, player);
+
+        int added = insertItemIntoBundle(bundle, contents, stackToInsert, maxCap);
+
+        if (added > 0) {
+            stackToInsert.shrink(added);
+            this.playInsertSound(player);
+            return true;
+        }
+        return false;
+    }
+
+    protected Fraction getTierCapacityMultiplier(ItemStack stack) {
+        return getTierCapacityMultiplier(stack.getItem());
+    }
+
+    /**
+     * Dieselbe Stufentabelle ohne Stack. Im Datagen laesst sich keiner bauen:
+     * der ItemStack-Konstruktor liest ab MC 26.2 die Komponenten, die dort noch
+     * nicht gebunden sind. Der Wiki-Export braucht die Stufe trotzdem, und eine
+     * zweite Tabelle im Generator waere eine zweite Wahrheit.
+     */
+    protected Fraction getTierCapacityMultiplier(Item item) {
+        if (item == com.simplestorage.registry.StorageItems.ENDERITE_BUNDLE) {
+            return Fraction.getFraction(3, 1);
+        }
+        if (item == com.simplestorage.registry.StorageItems.NETHERITE_BUNDLE) {
+            return Fraction.getFraction(2, 1);
+        }
+        return Fraction.getFraction(1, 1);
+    }
+
+    /**
+     * Grundkapazitaet als Bruch eines Vanilla-Buendels, ohne Verzauberungen.
+     * Buendel fassen das 1,5-fache ihrer Stufe; Koecher ueberschreiben das.
+     */
+    protected Fraction getBaseCapacity(Item item) {
+        return getTierCapacityMultiplier(item).multiplyBy(Fraction.getFraction(3, 2));
+    }
+
+    /** Grundkapazitaet in Gegenstaenden bei 64er-Stapeln - fuer den Wiki-Export. */
+    public int getBaseCapacityItems() {
+        return getBaseCapacity(this).multiplyBy(Fraction.getFraction(64, 1)).intValue();
+    }
+
+    protected Fraction getMaxCapacity(ItemStack stack, Player player) {
+        // Ergebnis: Normal = 96, Netherite = 192, Enderite = 288 Items
+        Fraction capacity = getBaseCapacity(stack.getItem());
+
+        if (player == null || player.level() == null) return capacity;
+
+        var registry = player.level().registryAccess();
+        var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
+
+        // --- Drawer Logic ---
+        var drawer = enchantments.get(BundleEnchantments.DRAWER);
+        if (drawer.isPresent()) {
+            int level = EnchantmentHelper.getItemEnchantmentLevel(drawer.get(), stack);
+            if (level > 0) {
+                // Multiplikator = (16 + level) / 8, also 2x bei Level I und 3x bei Level VIII.
+                // Beispiel Level 1: 96 * 17/8 = 204 Steine
+                // Beispiel Level 8: 96 * 24/8 = 288 Steine
+                //
+                // UNGEKLAERT, absichtlich so festgehalten: Bis zum 29.12.2025 stand hier
+                // (8 + level) / 8, in Code UND Kommentar. Commit ce9f495 ("some bugfixes and
+                // chissel reverse (sneak) usability", 30.12.2025) hat beide Vorkommen auf 16
+                // gestellt, ohne ein Wort in der Nachricht und ohne den Kommentar mitzuziehen.
+                // Ob das ein gewollter Buff oder ein verrutschtes Literal war, sagt keine Quelle.
+                //
+                // Das Handbuch nennt (16 + level) / 8 - aber es ist beschreibend (jede Aussage
+                // darin muss im Code belegbar sein), also saehe es bei einem Ausrutscher genauso
+                // aus. Es ist hier KEIN Beleg fuer Absicht.
+                //
+                // Bis das entschieden ist, gilt der Code: die Tests halten diese Zahlen fest,
+                // damit sie sich nicht noch einmal unbemerkt bewegen. Wer sie aendert, aendert
+                // Balance und muss Handbuch und Tests mitziehen.
+                Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
+                capacity = capacity.multiplyBy(drawerBonus);
+            }
+        }
+
+        // --- Deep Pockets Logic ---
+        var deepPockets = enchantments.get(BundleEnchantments.DEEP_POCKETS);
+
+        if (deepPockets.isPresent()) {
+            int level = EnchantmentHelper.getItemEnchantmentLevel(deepPockets.get(), stack);
+            if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+            if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+        }
+        return capacity;
+    }
+
+    protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
+        Fraction capacity = getBaseCapacity(stack.getItem());
+
+        var enchantments = stack.getEnchantments();
+        for (var entry : enchantments.entrySet()) {
+            if (entry.getKey().unwrapKey().isPresent()) {
+                String id = entry.getKey().unwrapKey().get().identifier().toString();
+
+                // --- Drawer Visuals ---
+                if (id.contains("drawer")) {
+                    int level = entry.getIntValue();
+                    if (level > 0) {
+                        // Gleiche Formel wie oben: (16 + level) / 8
+                        Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
+                        capacity = capacity.multiplyBy(drawerBonus);
+                    }
+                }
+                // Deep Pockets
+                if (id.contains("deep_pockets")) {
+                    int level = entry.getIntValue();
+                    if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+                    if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+                }
+
+            }
+        }
+        return capacity;
+    }
+
+    protected void playRemoveOneSound(Player entity) {
+        entity.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + entity.level().getRandom().nextFloat() * 0.4F);
+    }
+
+    protected void playInsertSound(Player entity) {
+        entity.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.level().getRandom().nextFloat() * 0.4F);
+    }
+
+    public boolean canAutoPickup(ItemStack bundle, ItemStack itemOnGround, net.minecraft.world.level.Level world) {
+        var registry = world.registryAccess();
+        var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
+        var funnel = enchantments.get(BundleEnchantments.FUNNEL);
+
+        if (funnel.isEmpty()) return false;
+
+        int level = EnchantmentHelper.getItemEnchantmentLevel(funnel.get(), bundle);
+
+        if (level <= 0) return false; // Kein Funnel
+
+        if (level == 1) {
+            // LEVEL 1: Nur aufheben, wenn Item schon im Bundle ist (Filter)
+            BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+            if (contents == null) return false;
+
+            for (ItemStack s : itemsAsStacks(contents)) {
+                if (ItemStack.isSameItemSameComponents(s, itemOnGround)) {
+                    return true; // Match gefunden, darf aufheben
+                }
+            }
+            return false; // Nicht im Bundle, liegen lassen
+        }
+
+        // LEVEL 2+: Alles aufheben (wie bisher)
+        return true;
+    }
+}

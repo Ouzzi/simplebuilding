@@ -32,9 +32,9 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> FAST_CHISELING = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "fast_chiseling")); // final
     public static final ResourceKey<Enchantment> CONSTRUCTORS_TOUCH = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "constructors_touch")); // final
     public static final ResourceKey<Enchantment> RANGE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "range")); // final
-    public static final ResourceKey<Enchantment> DEEP_POCKETS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "deep_pockets")); // final
+    public static final ResourceKey<Enchantment> DEEP_POCKETS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE, "deep_pockets")); // 26.3: Simple Storage's (split stage 8c-1)
     public static final ResourceKey<Enchantment> MASTER_BUILDER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "master_builder")); // final
-    public static final ResourceKey<Enchantment> FUNNEL = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "funnel")); // final
+    public static final ResourceKey<Enchantment> FUNNEL = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE, "funnel")); // 26.3: Simple Storage's (split stage 8c-1)
     public static final ResourceKey<Enchantment> RADIUS = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "radius")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> OVERRIDE = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE, "override")); // 26.3: Simple Hammers' (split stage 7)
     public static final ResourceKey<Enchantment> STRIP_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "strip_miner")); // final
@@ -43,7 +43,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> LINEAR = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "linear")); // final
     public static final ResourceKey<Enchantment> VEIN_MINER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "vein_miner")); // final
     public static final ResourceKey<Enchantment> KINETIC_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "kinetic_protection")); // final
-    public static final ResourceKey<Enchantment> DRAWER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "drawer")); // final
+    public static final ResourceKey<Enchantment> DRAWER = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE, "drawer")); // 26.3: Simple Storage's (split stage 8c-1)
     public static final ResourceKey<Enchantment> VERSATILITY = ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "versatility"));
 
     // todo new enchantment names

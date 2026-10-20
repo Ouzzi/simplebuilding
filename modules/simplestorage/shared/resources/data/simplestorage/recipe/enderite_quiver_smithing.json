@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplelib:enderite_ingot",
+  "base": "simplestorage:netherite_quiver",
+  "result": {
+    "id": "simplestorage:enderite_quiver"
+  },
+  "template": "simplelib:enderite_upgrade_template"
+}
