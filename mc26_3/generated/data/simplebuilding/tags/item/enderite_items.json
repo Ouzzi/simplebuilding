@@ -9,8 +9,6 @@
     "simplebuilding:enderite_building_wand",
     "simplebuilding:enderite_bundle",
     "simplebuilding:enderite_carrot",
-    "simplebuilding:enderite_chest_boat",
-    "simplebuilding:enderite_chest_minecart",
     "simplebuilding:enderite_chestplate",
     "simplebuilding:enderite_chisel",
     "simplebuilding:enderite_chunk_loader",
@@ -65,6 +63,8 @@
     "simpleovens:enderite_furnace_minecart",
     "simpleovens:enderite_smoker",
     "simplestorage:enderite_chest",
+    "simplestorage:enderite_chest_boat",
+    "simplestorage:enderite_chest_minecart",
     "simplestorage:enderite_shulker_box",
     "simplestorage:enderite_trapped_chest"
   ]
