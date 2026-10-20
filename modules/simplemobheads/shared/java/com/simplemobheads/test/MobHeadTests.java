@@ -881,6 +881,8 @@ public final class MobHeadTests {
     public static void herobrineGaze(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = player(helper);
+        // Mobs never target a creative player (the mock player is one).
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         var zombie = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 4));
         zombie.setTarget(player);
         helper.assertTrue(zombie.getTarget() == player, "the zombie does not target the player");
