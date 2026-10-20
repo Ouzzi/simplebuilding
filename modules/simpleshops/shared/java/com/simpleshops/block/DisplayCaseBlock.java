@@ -65,6 +65,12 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     }
 
     @Override
+    public <T extends BlockEntity> @Nullable net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(Level level, BlockState state,
+            net.minecraft.world.level.block.entity.BlockEntityType<T> type) {
+        return level.isClientSide() ? null : createTickerHelper(type, com.simpleshops.ShopsRegistry.CASE_BE, DisplayCaseBlockEntity::tick);
+    }
+
+    @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                           BlockHitResult hit) {
         if (level instanceof ServerLevel server && player instanceof ServerPlayer sp) return ShopActions.quickStock(sp, server, pos, hand);

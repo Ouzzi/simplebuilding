@@ -779,6 +779,7 @@ public final class ShopsTests {
         ServerShopTests.register(ALL);
         StorageTests.register(ALL);
         TransactionTests.register(ALL);
+        EnderTests.register(ALL);
         ALL.put("guide_book", com.simpleshops.guide.ShopsGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simpleshops.discover.ShopsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleshops.discover.ShopsDiscover::behaviourHints);

@@ -280,4 +280,29 @@ public final class ModuleGameTest {
     public void noInsertHoppers(GameTestHelper h) {
         ShopsTests.ALL.get("no_insert_hoppers").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void enderMigrationLossless(GameTestHelper h) {
+        ShopsTests.ALL.get("ender_migration_lossless").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void enderCopiedDataIsEmpty(GameTestHelper h) {
+        ShopsTests.ALL.get("ender_copied_data_is_empty").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void enderBreakDeletesEntry(GameTestHelper h) {
+        ShopsTests.ALL.get("ender_break_deletes_entry").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void enderOrphanKeptAndCleared(GameTestHelper h) {
+        ShopsTests.ALL.get("ender_orphan_kept_and_cleared").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void enderWorldDataRoundtrip(GameTestHelper h) {
+        ShopsTests.ALL.get("ender_world_data_roundtrip").accept(h);
+    }
 }

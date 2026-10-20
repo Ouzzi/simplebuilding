@@ -1,6 +1,7 @@
 package com.simpleshops.block;
 
 import com.simpleshops.ShopsRegistry;
+import com.simpleshops.logic.EnderShops;
 import com.simpleshops.logic.ShopStorage;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,8 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Extra earnings store of a shop (chest size). Not a container for the world (see {@link ListContainer}): no hopper, minecart or
- * mod pipe sees it. It only pulls from the block directly above, and only when that block has the same owner.
+ * mod pipe sees it. It only pulls from the block directly above, and only when that block has the same owner. The 27 slots live
+ * in the world data ({@link EnderShops}) since the shops rework; old storages move their items over on first use.
  */
 public class SalesStorageBlockEntity extends BlockEntity implements EarningsStore {
     /** Pull interval in ticks (like a hopper's 8). */
@@ -27,9 +29,24 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
     private @Nullable UUID owner;
     private String ownerName = "";
     private final NonNullList<ItemStack> earnings = NonNullList.withSize(EARNINGS_SIZE, ItemStack.EMPTY);
+    private final VaultLink link = new VaultLink();
 
     public SalesStorageBlockEntity(BlockPos pos, BlockState state) {
         super(ShopsRegistry.STORAGE_BE, pos, state);
+    }
+
+    public EnderShops.@Nullable Vault vault() {
+        return this.link.resolve(this, EnderShops.Kind.STORAGE, v -> {
+            v.setOwner(this.owner, this.ownerName);
+            for (int i = 0; i < EARNINGS_SIZE; i++) {
+                v.items.set(i, this.earnings.get(i));
+                this.earnings.set(i, ItemStack.EMPTY);
+            }
+        });
+    }
+
+    public EnderShops.@Nullable Vault peekVault() {
+        return this.link.peek(this, EnderShops.Kind.STORAGE);
     }
 
     @Override
@@ -45,30 +62,36 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
         return this.owner != null && this.owner.equals(player);
     }
 
-    /** Placement: owner from the placing player (never from item data), empty. */
+    /** Placement: owner from the placing player (never from item data), empty (a new world entry). */
     public void initFor(ServerPlayer placer) {
+        this.link.reset(this, EnderShops.Kind.STORAGE);
         this.owner = placer.getUUID();
         this.ownerName = placer.getGameProfile().name();
         for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
+        vault();
         changed();
     }
 
     @Override
     public NonNullList<ItemStack> earnings() {
-        return this.earnings;
+        EnderShops.Vault v = vault();
+        return v != null ? v.items : this.earnings;
     }
 
     public ListContainer earningsView() {
-        return new ListContainer(this.earnings, this::changed);
+        return new ListContainer(earnings(), this::changed);
     }
 
     @Override
     public void changed() {
         setChanged();
+        if (this.level != null && !this.level.isClientSide()) vault();
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SalesStorageBlockEntity be) {
-        if (level.isClientSide() || level.getGameTime() % PERIOD != 0) return;
+        if (level.isClientSide()) return;
+        if (!be.link.linked()) be.vault();
+        if (level.getGameTime() % PERIOD != 0) return;
         ShopStorage.pull(be);
     }
 
@@ -77,6 +100,7 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
         super.loadAdditional(input);
         this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
         this.ownerName = input.getStringOr("owner_name", "");
+        this.link.read(input);
         for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input.childOrEmpty("earnings"), this.earnings);
     }
@@ -86,7 +110,15 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
         super.saveAdditional(output);
         if (this.owner != null) output.store("owner", UUIDUtil.CODEC, this.owner);
         output.putString("owner_name", this.ownerName);
-        ContainerHelper.saveAllItems(output.child("earnings"), this.earnings, false);
+        this.link.write(output);
+        if (!this.link.linked()) ContainerHelper.saveAllItems(output.child("earnings"), this.earnings, false);
+    }
+
+    /** Client and item data: the owner only (the earnings stay on the server). */
+    @Override
+    public void saveCustomOnly(ValueOutput output) {
+        if (this.owner != null) output.store("owner", UUIDUtil.CODEC, this.owner);
+        output.putString("owner_name", this.ownerName);
     }
 
     /** Server: the contents drop exactly once when the block goes away. */
@@ -94,7 +126,12 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
         if (this.level != null && !this.level.isClientSide()) {
-            Containers.dropContents(this.level, pos, this.earnings);
+            // The entry even of a block entity already marked removed (a chunk unload in between): its items must drop, not vanish.
+            EnderShops.Vault v = this.link.peek(this, EnderShops.Kind.STORAGE);
+            if (v == null) v = vault();
+            Containers.dropContents(this.level, pos, v != null ? v.items : this.earnings);
+            if (v != null) for (int i = 0; i < EARNINGS_SIZE; i++) v.items.set(i, ItemStack.EMPTY);
+            this.link.drop(this, EnderShops.Kind.STORAGE);
             for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
         }
     }

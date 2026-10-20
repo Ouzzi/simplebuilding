@@ -223,6 +223,9 @@ final class StorageTests {
                 BlockEntity back = be instanceof SalesBlockEntity ? new SalesBlockEntity(be.getBlockPos(), be.getBlockState())
                         : new SalesStorageBlockEntity(be.getBlockPos(), be.getBlockState());
                 back.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, registries, tag));
+                // Ender shops: the chunk keeps only the entry id, the items stay in the world data (so a reload cannot double them).
+                h.assertTrue(tag.contains("ender_id") && !tag.contains("earnings"), "no items in the chunk data");
+                back.setLevel(h.getLevel());
                 for (ItemStack s : ((EarningsStore) back).earnings()) if (s.is(Items.EMERALD)) sum += s.getCount();
                 h.assertTrue(((EarningsStore) back).owner() != null && ((EarningsStore) back).owner().equals(owner.getUUID()), "owner survives");
             }

@@ -66,7 +66,17 @@ public class SalesBlock extends BaseEntityBlock {
         if (level instanceof ServerLevel server && placer instanceof ServerPlayer player && level.getBlockEntity(pos) instanceof SalesBlockEntity be) {
             be.initFor(player);
             ShopLedger.record(server, pos, player.getUUID(), true);
+            // The shop's name in the trade terminal: the anvil name of the placed item (24 characters at most, server side).
+            var name = stack.get(net.minecraft.core.component.DataComponents.CUSTOM_NAME);
+            var vault = be.vault();
+            if (name != null && vault != null) vault.setName(name.getString());
         }
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(Level level, BlockState state,
+            net.minecraft.world.level.block.entity.BlockEntityType<T> type) {
+        return level.isClientSide() ? null : createTickerHelper(type, com.simpleshops.ShopsRegistry.SALES_BE, SalesBlockEntity::tick);
     }
 
     /**

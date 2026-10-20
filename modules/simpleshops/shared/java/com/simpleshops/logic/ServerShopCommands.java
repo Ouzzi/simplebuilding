@@ -45,6 +45,7 @@ import net.minecraft.world.item.ItemStack;
  * price &lt;id&gt; add &lt;item&gt; [count] | remove &lt;position 1-5&gt; | clear
  * goods &lt;id&gt; add &lt;item&gt; [count] | remove &lt;slot 1-5&gt; | clear
  * cash [clear]
+ * orphans [clear]   (ender shop entries whose block is gone: list, or hand their items to the operator and delete them)
  * </pre>
  */
 public final class ServerShopCommands {
@@ -90,7 +91,44 @@ public final class ServerShopCommands {
                                 .executes(c -> removeGoods(c.getSource(), id(c), IntegerArgumentType.getInteger(c, "slot") - 1))))
                         .then(Commands.literal("clear").executes(c -> clearGoods(c.getSource(), id(c))))))
                 .then(Commands.literal("cash").executes(c -> cash(c.getSource(), false))
-                        .then(Commands.literal("clear").executes(c -> cash(c.getSource(), true)))));
+                        .then(Commands.literal("clear").executes(c -> cash(c.getSource(), true))))
+                .then(Commands.literal("orphans").executes(c -> orphans(c.getSource(), false))
+                        .then(Commands.literal("clear").executes(c -> orphans(c.getSource(), true)))));
+    }
+
+    /**
+     * Ender shop entries without their block (KONZ20: never a silent loss). Listing is free; clearing gives every item to the
+     * operator who runs it (a full inventory drops at the operator's feet: the operator asked for it) and deletes the entries.
+     */
+    public static int orphans(CommandSourceStack source, boolean clear) throws CommandSyntaxException {
+        EnderShops data = EnderShops.get(source.getServer());
+        List<EnderShops.Vault> found = data.orphans(source.getServer());
+        if (!clear) {
+            int items = 0;
+            for (EnderShops.Vault v : found) {
+                for (ItemStack s : v.items) items += s.getCount();
+                for (ItemStack s : v.transit()) items += s.getCount();
+            }
+            int n = found.size(), sum = items;
+            source.sendSuccess(() -> Component.translatable(K + "orphans", n, sum), false);
+            for (EnderShops.Vault v : found.subList(0, Math.min(found.size(), 20))) {
+                BlockPos p = v.blockPos();
+                source.sendSuccess(() -> Component.literal("  " + v.id + " " + v.kind.name().toLowerCase(Locale.ROOT) + " " + v.dimension() + " "
+                        + p.getX() + " " + p.getY() + " " + p.getZ() + " " + v.ownerName()), false);
+            }
+            return n;
+        }
+        ServerPlayer player = source.getPlayer();
+        if (player == null) throw NEEDS_PLAYER.create();
+        int n = 0;
+        for (EnderShops.Vault v : found) {
+            if (!v.isServer()) for (ItemStack s : EnderShops.takeAll(v)) player.getInventory().placeItemBackInInventory(s, true, net.minecraft.util.Prediction.SERVER_ONLY);
+            data.delete(v);
+            n++;
+        }
+        int cleared = n;
+        source.sendSuccess(() -> Component.translatable(K + "orphans_cleared", cleared), true);
+        return n;
     }
 
     private static String id(CommandContext<CommandSourceStack> c) {
