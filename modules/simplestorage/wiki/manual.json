@@ -288,6 +288,35 @@
       "de": {
         "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches."
       }
+    },
+    "simplestorage:*_chest": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+      ],
+      "en": {
+        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+      },
+      "de": {
+        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+      }
+    },
+    "simplestorage:*_shulker_box": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+      ],
+      "en": {
+        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step."
+      },
+      "de": {
+        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe."
+      }
     }
   }
 }
