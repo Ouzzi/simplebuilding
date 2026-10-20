@@ -98,4 +98,34 @@ Nicht geprüft (Auftrag): Client-Läufe.
 
 ## 6. Stand und Abweichungen
 
-(wird am Ende ergänzt)
+Umgesetzt wie geplant: Modul `com.simplestorage.bundle.*` (Bündel, Köcher, abgestelltes Bündel, Rezepttyp, Tooltip-Daten,
+Färben, Verzauberungsschlüssel, `BundleNet` mit 2 Paketen auf 3 Loadern), Client (`BundleTooltips`, `BundleScrollHandler`,
+`PlacedBundleRenderer`, `PlacedBundleTint`, `QuiverLayer` auf 3 Loadern), 9 Mixins, `StorageConfig`
+(`config/simplestorage.json`), IdMoves (7 Items, Block + BE `placed_bundle`, 3 Verzauberungen, 7 Rezepte + Freischaltungen),
+112 Ressourcen kopiert (Modelle, Items, Blockstate, Texturen, Rezepte, Verzauberungen), Tags/Färberezepte/Curios-Trinkets-Tags,
+Rezepte `*_without_simplebuilding` mit Leder, Lang EN/DE, Fragentisch, Wiki-Notizen (11, aus SBs Handbuch), Handbuch-Intro,
+Money-Zeilen, `check_data.py`. SimpleLib: `AccessorySlots`, `CarriedStacks`. SB: `STORAGE_IN_SB`-Gates (Items, Block, BE,
+Client-Registrierungen, Datagen), Verzauberungsschlüssel im Lager-Namensraum, `StorageRefs` (Ids, `isStorageBundle`,
+`isQuiver`), Baustab/Meisterbauer-Pick/Rücken-Ebene per Id, `PlacedBundles` auf 26.3 aus, Mixin-Plugin, AccessorySlots als
+Overlay-Paar, Rucksack meldet sich bei `CarriedStacks` an, 26.3-Overlays (Händler, Bibliothekar, Zubehör-Tags, Craftable),
+Testzentrale per Id, Loot/Advancements/Tabs/Guide per Id, Balance- und Wiki-Lootleser kennen `StorageRefs`.
+Tests: 7 Klassen ins Modul (85 Modul-Tests inkl. 41 neu: 39 portiert, Registrierung, Migration alter Bündel/abgestellter Bündel,
+Rezepte allein/mit SB); SB-Tests der Bündel laufen auf 26.3 nicht mehr (26.2 unverändert), Zusammenspiel-Tests per Id.
+
+Belege (sb-test, 2ec539941 / f92c64aeb): Compile 26.3 fabric/neoforge/forge, 26.2 `:compileJava`/`:neoforge`/`:forge`, Modul
+fabric/neoforge/forge; module-simplestorage fabric/neoforge/forge/standalone-fabric/standalone-neoforge 425/425 (je 85);
+fabric-263 + neoforge-263 2404/2404; integration-263 3/3; forge-263 `data_integrity*` 51/51; fabric-262 `*bundle*` 41/41,
+`*quiver*` 20/20, `*storage_enchantment*` 6/6, `*accessory*` 5/5, `*dyed*` 6/6; Datagen 26.3, Guides, Wiki, Discover, Quests,
+Money-Links erzeugt; `./gradlew check` Exit 0.
+
+Abweichungen (bewusst):
+- Tests, die SBs Meisterbauer/Farbpalette/Konstrukteurs-Hand brauchen (4 im Modul), bestehen ohne SB ohne Prüfung; mit SB laufen
+  sie nur, wo Modultests mit SB geladen werden (nicht in den Modulzielen). Ebenso auf 26.3 nicht mehr geprüft: SB-Tests mit
+  Bündel-Klassen (Klick-Umkehr-Config, Rucksack-Waschen/Tooltip-Farbe, Bündelkapazität in ItemBehaviour, Upgrade-Kontinuität im
+  Lederplatte-Test).
+- Quelle der 3 Verzauberungen nur über SB (Loot, Bibliothekar); das Modul allein hat keine Fundquelle. Bücher-Textur nur mit SB.
+- Zubehörplätze (Curios/Trinkets) nur mit SB (Haken in SB); Köcher im Rucksack über `CarriedStacks` bis 8c-2.
+- SBs Config-Option `tools.invertBundleInteractions` wirkt auf 26.3 nicht mehr (Modul-Config); Ausblenden in Stufe 9.
+- Abgestellte Bündel in der Testzentrale per Id; Client-Test `placed-bundle` und Bündel-Teile von `HudAndTooltipClientTest` auf 26.3
+  ausgesetzt (Client-Läufe nicht erlaubt, Client-Sicht offen).
+- FTB-Quest „Verstärkter Köcher“ nennt weiter `simplebuilding:reinforced_quiver` (Generator; IdMoves löst auf).
