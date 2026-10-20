@@ -20,12 +20,13 @@ import net.minecraft.world.inventory.Slot;
  * (tools/ui/simpleinterfaces_preview.py: s_crafter, s_horse).
  */
 public final class StorageDecors {
-    /** Crafter: redstone dust sign (red when powered) and the engraved arrow, where Vanilla's redstone arrow was. */
-    static final int REDSTONE_X = 86, REDSTONE_Y = 22, ARROW_X = 103, ARROW_Y = 36;
+    /**
+     * Crafter: the redstone dust arrow where Vanilla's redstone arrow was - engraved, red while powered (owner
+     * 2026-10-20: the state in the arrow itself, no separate sign above it).
+     */
+    static final int ARROW_X = 103, ARROW_Y = 36;
     /** Crafter result slot (CrafterMenu). */
     static final int RESULT_X = 134, RESULT_Y = 35;
-    /** Powered redstone colour. */
-    static final int REDSTONE_ON = 0xFFD8261E;
     /** Mount inventories: the field behind the live animal preview (AbstractMountInventoryScreen draws it at 26,18 52x52). */
     static final int PREVIEW_X = 26, PREVIEW_Y = 18, PREVIEW_SIZE = 52;
     /** Chest slots of SimpleBuilding's astral vault below the 27 ender chest slots. */
@@ -33,8 +34,7 @@ public final class StorageDecors {
 
     private static final List<BoxLayout.Rect> CRAFTER_ELEMENTS = List.of(
             new BoxLayout.Rect(RESULT_X - 4, RESULT_Y - 4, 25, 25),
-            new BoxLayout.Rect(REDSTONE_X - 2, REDSTONE_Y, 16, 12),
-            new BoxLayout.Rect(ARROW_X, ARROW_Y, UiSymbols.ARROW.width(), UiSymbols.ARROW.height() + 1));
+            new BoxLayout.Rect(ARROW_X, ARROW_Y, UiSymbols.ARROW_DUST.width(), UiSymbols.ARROW_DUST.height() + 1));
 
     private static final Decor MOUNT = new Decor() {
         private final List<BoxLayout.Rect> elements = List.of(new BoxLayout.Rect(PREVIEW_X, PREVIEW_Y, PREVIEW_SIZE + 1, PREVIEW_SIZE + 1));
@@ -63,7 +63,7 @@ public final class StorageDecors {
                 ? ASTRAL_VAULT : Decor.NONE;
     }
 
-    /** The crafter: big result slot, redstone sign from the menu's power state, engraved arrow. */
+    /** The crafter: big result slot, the redstone dust arrow showing the menu's power state. */
     public static Decor crafter(CrafterMenu menu) {
         return new Decor() {
             @Override public List<BoxLayout.Rect> elements() {
@@ -75,12 +75,7 @@ public final class StorageDecors {
             }
 
             @Override public void draw(GuiGraphicsExtractor g, int left, int top, UiPalette block) {
-                if (menu.isPowered()) {
-                    UiSymbols.engrave(g, UiSymbols.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block, REDSTONE_ON, true);
-                } else {
-                    UiSymbols.engrave(g, UiSymbols.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block);
-                }
-                UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + ARROW_X, top + ARROW_Y, block);
+                UiSymbols.redstoneArrow(g, left + ARROW_X, top + ARROW_Y, block, menu.isPowered());
             }
         };
     }

@@ -107,6 +107,7 @@ P = {
     'dispenser': derive('Spender/Werfer', 0xFF878787, 'stone'),
     'crafter': derive('Crafter', 0xFF7A736A, 'redstone'),
     'horse': derive('Reittier (Sattelleder)', 0xFF8B5E3C, 'leather'),
+    'nihil_vault': derive('Nihil-Gewoelbe (Nihilith-Blau)', 0xFF51689C, 'ender'),
     # G2
     'crafting': derive('Werkbank', 0xFFB7935B, 'wood'),
     'furnace': derive('Ofen', 0xFF929699, 'stone'),
@@ -455,6 +456,36 @@ REDSTONE = bitmap([       # 12x12 dust blob (crafter powered sign)
     '....#..#....', '.#.###.##...', '..#####.#.#.', '.########...', '#.#######.#.', '.#########..',
     '..########.#', '.#.######...', '...##.###.#.', '..#..#.#....', '.....#......', '............',
 ])
+ARROW_DOTTED = bitmap([   # 22x15, the old crafters' arrow: shaft as a row of dots (kept: storage crafting table)
+    '..............#.......', '..............##......', '..............###.....', '..............####....',
+    '..............#####...', '..............#####...', '##.##.##.##.#######...', '##.##.##.##.########..',
+    '##.##.##.##.#######...', '..............#####...', '..............#####...', '..............####....',
+    '..............###.....', '..............##......', '..............#.......',
+])
+ARROW_DUST = bitmap([     # 22x15, owner 20.10.: the crafters' state lives in the arrow - a dust chain and a solid head
+    '..............#.......', '..............##......', '..............###.....', '..............####....',
+    '..............#####...', '..#....#....#.#####...', '.###.#####.##########.', '#####.##.####.#######.',
+    '.###.#####.##########.', '..#....#....#.#####...', '..............#####...', '..............####....',
+    '..............###.....', '..............##......', '..............#.......',
+])
+REDSTONE_ON, REDSTONE_GLOW = 0xFFD8261E, 0xFFF4442E
+
+
+def redstone_arrow(c, x, y, p, powered, bm=None, color=None):
+    """UiSymbols.redstoneArrow: engraved while off; powered: red dust, pixels with four dust neighbours glow."""
+    bm = bm or ARROW_DUST
+    if color is not None:
+        symbol(c, bm, x, y, p, color=color)
+        return
+    symbol(c, bm, x, y, p)
+    if not powered:
+        return
+    s = set(bm)
+    for (dx, dy) in bm:
+        core = all(n in s for n in ((dx - 1, dy), (dx + 1, dy), (dx, dy - 1), (dx, dy + 1)))
+        c.px(x + dx, y + dy, REDSTONE_GLOW if core else REDSTONE_ON)
+
+
 ANVIL_HAMMER = bitmap(['.#####....', '.#####....', '.#####....', '...#......', '...#......', '...#......',
                        '...#......', '...#......'])
 XP = bitmap(['..###..', '.#####.', '###.###', '##...##', '###.###', '.#####.', '..###..'])
@@ -807,6 +838,12 @@ def s_ender():
     return render(sc, top)
 
 
+@screen('g1', 'nihil', 'Nihil-Gewoelbe 6 Reihen (SimpleBuilding, Besitzer 20.10.)', vanilla=('generic', 6))
+def s_nihil():
+    sc, top = chest_like('nihil', 'Nihil Vault', P['nihil_vault'], 6, items=[(0, 'ender_pearl', 16), (12, 'diamond', 7), (40, 'emerald', 3)])
+    return render(sc, top)
+
+
 @screen('g1', 'shulker-lila', 'Shulkerkiste (lila)', vanilla=('shulker', 3))
 def s_shulker():
     sc, top = chest_like('shulker1', 'Shulkerkiste', P['shulker_purple'], 3, items=[(0, 'shulker_shell', 2), (6, 'chorus_fruit', 40)])
@@ -855,7 +892,7 @@ def s_crafter():
     sc = Screen('crafter', 'Crafter', 176, 166, p)
     slots = grid(sc, 26, 17, 3, 3)
     res = sc.b(134, 35)
-    sc.add(84, 22, 100, 34)
+    sc.add(103, 36, 125, 52)
 
     def top(c):
         for i, (x, y) in enumerate(slots):
@@ -866,8 +903,7 @@ def s_crafter():
             item(c, n, *slots[i], 2)
         big_slot(c, *res, p)
         item(c, 'bucket', *res)
-        symbol(c, REDSTONE, 86, 22, p, color=0xFFD8261E)          # powered: red dust, else engraved
-        symbol_progress(c, ARROW, 103, 36, p, 0.0)
+        redstone_arrow(c, 103, 36, p, True)                        # owner 20.10.: powered = red dust arrow, else engraved
     return render(sc, top)
 
 
@@ -1488,7 +1524,7 @@ def s_auto():
     p = P['auto_smither']
     sc = Screen('auto', 'Auto-Schmied', 176, 166, p)
     t, b, a, r = sc.s(26, 35), sc.s(44, 35), sc.s(62, 35), sc.b(134, 35)
-    sc.add(84, 22, 96, 34)
+    sc.add(99, 36, 121, 52)
 
     def top(c):
         for s_, spr in ((t, 'smithing_template_netherite_upgrade'), (b, 'chestplate'), (a, 'ingot')):
@@ -1497,8 +1533,7 @@ def s_auto():
         item(c, 'netherite_upgrade_smithing_template', *t, 3)
         item(c, 'diamond_sword', *b)
         item(c, 'netherite_ingot', *a, 3)
-        symbol(c, REDSTONE, 98, 22, p, color=0xFFD8261E)
-        symbol_progress(c, ARROW, 99, 36, p, 0.4)
+        redstone_arrow(c, 99, 36, p, True)
         big_slot(c, *r, p)
         item(c, 'netherite_sword', *r)
     return render(sc, top)

@@ -52,8 +52,11 @@ public final class ModScreenStyleTests {
         Inventory inv = player.getInventory();
         List<String> problems = new ArrayList<>();
         NetheriteHopperScreenHandler hopper = new NetheriteHopperScreenHandler(0, inv, BlockPos.ZERO);
-        twoBoxes(hopper, 176, 133, "hopper", problems);
+        twoBoxes(hopper, 176, com.simplebuilding.screen.ModHopperScreenHandler.IMAGE_HEIGHT, "hopper", problems);
         int[] origin = ModScreenLayout.inventoryOrigin(hopper);
+        // Owner 2026-10-20 ("zu wenig padding unten"): on 26.3 the box keeps at least 5 px under the slot row.
+        int below = ModScreenLayout.container(176, origin[1]).inner().bottom() - (hopper.getSlot(0).y + 17);
+        if (McVersion.CRUCIBLE && below < 5) problems.add("hopper: only " + below + " px under the slot row");
         int keyX = com.simplebuilding.screen.ModHopperScreenHandler.FILTER_BUTTON_X;
         if (!ModScreenLayout.container(176, origin[1]).holds(keyX, 19, 18, 18)) {
             problems.add("hopper: the filter key (" + keyX + ", 19) leaves the box");

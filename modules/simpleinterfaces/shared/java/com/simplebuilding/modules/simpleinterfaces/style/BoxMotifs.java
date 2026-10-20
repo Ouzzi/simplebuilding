@@ -32,6 +32,7 @@ public final class BoxMotifs {
         put(0xFF878787, UiMotifs.Kind.STONE, 7);
         put(0xFF7A736A, UiMotifs.Kind.REDSTONE, 7);
         put(0xFF8B5E3C, UiMotifs.Kind.LEATHER, 5);
+        put(0xFF51689C, UiMotifs.Kind.ENDER, 5); // SimpleBuilding's nihil vault (owner 2026-10-20)
         // copper chests and dyed shulker boxes: their family's marks
         for (UiPalette copper : StorageStyles.COPPER) BY_FILL.putIfAbsent(copper.fill(), new Entry(UiMotifs.Kind.METAL, 5));
         for (DyeColor dye : DyeColor.values()) BY_FILL.putIfAbsent(StorageStyles.dyed(dye).fill(), new Entry(UiMotifs.Kind.SHULKER, 8));

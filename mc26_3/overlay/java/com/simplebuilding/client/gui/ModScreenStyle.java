@@ -52,7 +52,6 @@ public final class ModScreenStyle {
     static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
     /** Astral Enchanting Table: obsidian violet with a hint of enderite. */
     static final UiPalette ASTRAL_ENCHANTING = UiPalette.derived(0xFF4B3866);
-    private static final int REDSTONE_ON = 0xFFD8261E;
     private static final int ERROR = 0xFFC9503E;
 
     private ModScreenStyle() {}
@@ -194,15 +193,13 @@ public final class ModScreenStyle {
         Slot result = menu.getSlot(AutoSmitherMenu.RESULT_SLOT);
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + 104, top + 20, left + 116, top + 32});
         avoid.add(new int[] {left + 99, top + 36, left + 121, top + 52});
         avoid.add(bigRect(result, left, top));
         motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 4);
         slots(g, menu, left, top, p, result);
-        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 20, p, REDSTONE_ON, true);
-        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 20, p);
-        if (menu.hasRecipeError()) UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 99, top + 36, p, ERROR, true);
-        else UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 99, top + 36, p);
+        // owner 2026-10-20: the state in the arrow (Vanilla crafter): recipe error first, else red while powered
+        if (menu.hasRecipeError()) UiSymbols.engrave(g, UiSymbols.ARROW_DUST, left + 99, top + 36, p, ERROR, true);
+        else UiSymbols.redstoneArrow(g, left + 99, top + 36, p, menu.isPowered());
         return true;
     }
 
@@ -219,7 +216,7 @@ public final class ModScreenStyle {
     }
 
     /**
-     * The crafter's layout in the container style: 3x3 grid, redstone sign (red while a signal stops it), arrow, the
+     * The crafter's layout in the container style: 3x3 grid, the redstone dust arrow (red while a signal stops it), the
      * recipe result as the big slot, and over the arrow the filter caption (funnel + colon) and the filter key.
      */
     public static boolean autonomousCrafter(GuiGraphicsExtractor g, AutonomousCrafterMenu menu, Font font, Component title, int left,
@@ -235,15 +232,12 @@ public final class ModScreenStyle {
         int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + 104, top + 56, left + 116, top + 68});
         avoid.add(new int[] {left + 99, top + 36, left + 121, top + 52});
         avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE});
         avoid.add(bigRect(result, left, top));
         motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 5);
         slots(g, menu, left, top, p, result);
-        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 56, p, REDSTONE_ON, true);
-        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 56, p);
-        UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 99, top + 36, p);
+        UiSymbols.redstoneArrow(g, left + 99, top + 36, p, menu.isPowered());
         UiFilterButton.label(g, captionX, keyY + 3, p);
         return true;
     }
