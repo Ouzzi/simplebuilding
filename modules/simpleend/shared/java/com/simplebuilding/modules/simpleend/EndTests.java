@@ -481,15 +481,15 @@ public final class EndTests {
                 h.setBlock(col.below(), Blocks.STONE); // the pigs land IN the leaves, ON the control block
                 for (int y = 0; y < 12; y++) h.setBlock(col.above(y), Blocks.AIR);
             }
-            h.setBlock(ashAt, EndWood.ASHWOOD.leaves);
-            h.setBlock(duskAt, EndWood.DUSKWOOD.leaves);
+            // Persistent: placed leaves are far from any log, so a random tick may decay them. A leaf that vanished before the pig
+            // arrived (the pig needs ~15 ticks, then creeps ~100 ticks through the cobweb-like block) gave the full 8-block fall damage.
+            h.setBlock(ashAt, EndWood.ASHWOOD.leaves.defaultBlockState().setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT, true));
+            h.setBlock(duskAt, EndWood.DUSKWOOD.leaves.defaultBlockState().setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT, true));
             h.setBlock(stoneAt, Blocks.STONE);
             Pig ashPig = h.spawn(EntityTypes.PIG, new BlockPos(20, 12, 20));
             Pig duskPig = h.spawn(EntityTypes.PIG, new BlockPos(22, 12, 20));
             Pig stonePig = h.spawn(EntityTypes.PIG, new BlockPos(24, 12, 20));
-            com.mojang.logging.LogUtils.getLogger().info("[wackel] spawn {} {} {}", ashPig.position(), duskPig.position(), stonePig.position());
             h.succeedWhen(() -> {
-                com.mojang.logging.LogUtils.getLogger().info("[wackel] t={} ash {} {} fd{} dusk {} {} fd{} stone {} {} fd{}", h.getTick(), ashPig.position(), ashPig.getHealth(), ashPig.fallDistance, duskPig.position(), duskPig.getHealth(), duskPig.fallDistance, stonePig.position(), stonePig.getHealth(), stonePig.fallDistance);
                 h.assertTrue(ashPig.onGround() && duskPig.onGround() && stonePig.onGround(), "all pigs landed");
                 h.assertTrue(ashPig.getHealth() >= ashPig.getMaxHealth(), "ashwood leaves catch the fall, health " + ashPig.getHealth());
                 h.assertTrue(duskPig.getHealth() >= duskPig.getMaxHealth(), "duskwood leaves catch the fall, health " + duskPig.getHealth());
