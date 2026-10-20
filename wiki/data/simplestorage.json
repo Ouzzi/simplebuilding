@@ -837,6 +837,645 @@
       }
     },
     {
+      "id": "simplestorage:enderite_chest_boat_acacia",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "acacia"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_acacia.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:acacia_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_ashwood",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "ashwood"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_ashwood.json",
+      "ingredients": [
+        "simpleend:ashwood_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "simpleend:ashwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_boat",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_bamboo",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "bamboo"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_bamboo.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:bamboo_raft"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_birch",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "birch"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_birch.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:birch_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_cherry",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "cherry"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_cherry.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:cherry_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_dark_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "dark_oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_dark_oak.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:dark_oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_duskwood",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "duskwood"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_duskwood.json",
+      "ingredients": [
+        "simpleend:duskwood_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "simpleend:duskwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_boat",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_jungle",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "jungle"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_jungle.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:jungle_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_mangrove",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "mangrove"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_mangrove.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:mangrove_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_oak.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_pale_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "pale_oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_pale_oak.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:pale_oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_poplar",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "poplar"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_poplar.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:poplar_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_smithing.json",
+      "ingredients": [
+        "simplelib:enderite_ingot",
+        "simplelib:enderite_upgrade_template",
+        "simplestorage:netherite_chest_boat"
+      ],
+      "slots": {
+        "template": [
+          "simplelib:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplestorage:netherite_chest_boat"
+        ],
+        "addition": [
+          "simplelib:enderite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplelib:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplelib:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_boat_spruce",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplestorage:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "spruce"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_spruce.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:spruce_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:enderite_chest_minecart",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_chest_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:enderite_chest_minecart",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_minecart_smithing.json",
+      "ingredients": [
+        "simplelib:enderite_ingot",
+        "simplelib:enderite_upgrade_template",
+        "simplestorage:netherite_chest_minecart"
+      ],
+      "slots": {
+        "template": [
+          "simplelib:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplestorage:netherite_chest_minecart"
+        ],
+        "addition": [
+          "simplelib:enderite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplelib:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplelib:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplestorage:enderite_trapped_chest",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -1491,6 +2130,661 @@
       }
     },
     {
+      "id": "simplestorage:netherite_chest_boat_acacia",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "acacia"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_acacia.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:acacia_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_ashwood",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "ashwood"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_ashwood.json",
+      "ingredients": [
+        "simpleend:ashwood_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "simpleend:ashwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_boat",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_bamboo",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "bamboo"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_bamboo.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:bamboo_raft"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_birch",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "birch"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_birch.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:birch_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_cherry",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "cherry"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_cherry.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:cherry_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_dark_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "dark_oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_dark_oak.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:dark_oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_duskwood",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "duskwood"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_duskwood.json",
+      "ingredients": [
+        "simpleend:duskwood_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "simpleend:duskwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_boat",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_jungle",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "jungle"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_jungle.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:jungle_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_mangrove",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "mangrove"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_mangrove.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:mangrove_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_oak.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_pale_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "pale_oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_pale_oak.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:pale_oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_poplar",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "poplar"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_poplar.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:poplar_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplestorage:reinforced_chest_boat"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplestorage:reinforced_chest_boat"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat_spruce",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplestorage:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "spruce"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_boat_spruce.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:spruce_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:netherite_chest_minecart",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_chest_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:netherite_chest_minecart",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_chest_minecart_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplestorage:reinforced_chest_minecart"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplestorage:reinforced_chest_minecart"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplestorage:netherite_trapped_chest",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -1993,6 +3287,657 @@
         ],
         "tagExamples": [
           "#simplestorage:copper_chests"
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_acacia",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "acacia"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_acacia.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:acacia_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_ashwood",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "ashwood"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_ashwood.json",
+      "ingredients": [
+        "simpleend:ashwood_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "simpleend:ashwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "simpleend:ashwood_boat",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_bamboo",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "bamboo"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_bamboo.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:bamboo_raft"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_birch",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "birch"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_birch.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:birch_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_cherry",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "cherry"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_cherry.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:cherry_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_dark_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "dark_oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_dark_oak.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:dark_oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_duskwood",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "duskwood"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_duskwood.json",
+      "ingredients": [
+        "simpleend:duskwood_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "simpleend:duskwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "simpleend:duskwood_boat",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_jungle",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "jungle"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_jungle.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:jungle_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_mangrove",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "mangrove"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_mangrove.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:mangrove_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_oak.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 3.25
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_pale_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "pale_oak"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_pale_oak.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:pale_oak_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_poplar",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "poplar"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_poplar.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:poplar_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat_spruce",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplestorage:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplestorage:boat_wood": "spruce"
+        }
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_boat_spruce.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:spruce_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_chest_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:reinforced_chest_minecart",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_chest_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          }
         ]
       }
     },
@@ -3783,6 +5728,157 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simplestorage:enderite_chest_boat",
+      "name": {
+        "en_us": "Enderite Chest Boat",
+        "de_de": "Enderit-Truhenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestBoat.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestBoatItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/BoatWoods.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageComponents.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageEntities.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/VehicleRenderers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/test/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
+          "details": [
+            "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplestorage:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot (SimpleLib) - the wood stays.",
+            "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
+            "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
+            "Drawn as Vanilla's boat of the wood carrying the tier chest.",
+            "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
+            "Moved from SimpleBuilding (split stage 8b-2): boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+          ]
+        },
+        "de": {
+          "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
+          "details": [
+            "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplestorage:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren (SimpleLib) - die Holzart bleibt.",
+            "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
+            "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
+            "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
+            "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
+            "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a boat that has stopped being afraid of its cargo."
+          ],
+          "use": [
+            "The chest boat of the Enderite tier, in every wood (bamboo: raft). 54 slots with 4x stacks, the same as the chest."
+          ],
+          "secret": [
+            "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+          ],
+          "use": [
+            "Das Truhenboot der Stufe Enderite, in jeder Holzart (Bambus: Floß). 54 Plätze mit 4-fachen Stapeln, wie die Truhe."
+          ],
+          "secret": [
+            "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:enderite_chest_boat_acacia",
+        "simplestorage:enderite_chest_boat_ashwood",
+        "simplestorage:enderite_chest_boat_bamboo",
+        "simplestorage:enderite_chest_boat_birch",
+        "simplestorage:enderite_chest_boat_cherry",
+        "simplestorage:enderite_chest_boat_dark_oak",
+        "simplestorage:enderite_chest_boat_duskwood",
+        "simplestorage:enderite_chest_boat_jungle",
+        "simplestorage:enderite_chest_boat_mangrove",
+        "simplestorage:enderite_chest_boat_oak",
+        "simplestorage:enderite_chest_boat_pale_oak",
+        "simplestorage:enderite_chest_boat_poplar",
+        "simplestorage:enderite_chest_boat_smithing",
+        "simplestorage:enderite_chest_boat_spruce"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:enderite_chest_minecart",
+      "name": {
+        "en_us": "Enderite Chest Minecart",
+        "de_de": "Enderit-Güterlore"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestMinecart.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/OversizedStacks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/ChestMinecartItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageEntities.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/VehicleRenderers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/test/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot (SimpleLib).",
+            "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
+            "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
+            "Drawn as Vanilla's minecart carrying the tier chest.",
+            "Moved from SimpleBuilding (split stage 8b-2): carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+          ]
+        },
+        "de": {
+          "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
+          "details": [
+            "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren (SimpleLib).",
+            "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
+            "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
+            "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
+            "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplestorage/item/enderite_chest_minecart.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a chest that finally got its rails."
+          ],
+          "use": [
+            "The chest minecart of the tier: 54 slots with 4x stacks, the same as the chest of the tier."
+          ],
+          "secret": [
+            "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Truhe, die endlich ihre Schienen bekam."
+          ],
+          "use": [
+            "Die Lore mit Truhe der Stufe: 54 Plätze mit 4-fachen Stapeln, wie die Truhe der Stufe."
+          ],
+          "secret": [
+            "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:enderite_chest_minecart",
+        "simplestorage:enderite_chest_minecart_smithing"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplestorage:guide_book",
       "name": {
         "en_us": "Simple Storage Guide",
@@ -3794,10 +5890,10 @@
           "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
         }
       },
       "texture": "assets/textures/simplestorage/item/guide_book.png",
@@ -3805,6 +5901,314 @@
         "simplestorage:guide_book"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simplestorage:netherite_chest_boat",
+      "name": {
+        "en_us": "Netherite Chest Boat",
+        "de_de": "Netherit-Truhenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestBoat.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestBoatItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/BoatWoods.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageComponents.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageEntities.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/VehicleRenderers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/test/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
+          "details": [
+            "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplestorage:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot (SimpleLib) - the wood stays.",
+            "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
+            "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
+            "Drawn as Vanilla's boat of the wood carrying the tier chest.",
+            "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
+            "Moved from SimpleBuilding (split stage 8b-2): boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+          ]
+        },
+        "de": {
+          "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
+          "details": [
+            "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplestorage:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren (SimpleLib) - die Holzart bleibt.",
+            "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
+            "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
+            "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
+            "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
+            "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a boat that has stopped being afraid of its cargo."
+          ],
+          "use": [
+            "The chest boat of the Netherite tier, in every wood (bamboo: raft). 45 slots with 2x stacks, the same as the chest."
+          ],
+          "secret": [
+            "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+          ],
+          "use": [
+            "Das Truhenboot der Stufe Netherite, in jeder Holzart (Bambus: Floß). 45 Plätze mit 2-fachen Stapeln, wie die Truhe."
+          ],
+          "secret": [
+            "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:netherite_chest_boat_acacia",
+        "simplestorage:netherite_chest_boat_ashwood",
+        "simplestorage:netherite_chest_boat_bamboo",
+        "simplestorage:netherite_chest_boat_birch",
+        "simplestorage:netherite_chest_boat_cherry",
+        "simplestorage:netherite_chest_boat_dark_oak",
+        "simplestorage:netherite_chest_boat_duskwood",
+        "simplestorage:netherite_chest_boat_jungle",
+        "simplestorage:netherite_chest_boat_mangrove",
+        "simplestorage:netherite_chest_boat_oak",
+        "simplestorage:netherite_chest_boat_pale_oak",
+        "simplestorage:netherite_chest_boat_poplar",
+        "simplestorage:netherite_chest_boat_smithing",
+        "simplestorage:netherite_chest_boat_spruce"
+      ],
+      "usedIn": [
+        "simplestorage:enderite_chest_boat_smithing"
+      ]
+    },
+    {
+      "id": "simplestorage:netherite_chest_minecart",
+      "name": {
+        "en_us": "Netherite Chest Minecart",
+        "de_de": "Netherit-Güterlore"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestMinecart.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/OversizedStacks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/ChestMinecartItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageEntities.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/VehicleRenderers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/test/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot (SimpleLib).",
+            "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
+            "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
+            "Drawn as Vanilla's minecart carrying the tier chest.",
+            "Moved from SimpleBuilding (split stage 8b-2): carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+          ]
+        },
+        "de": {
+          "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
+          "details": [
+            "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren (SimpleLib).",
+            "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
+            "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
+            "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
+            "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplestorage/item/netherite_chest_minecart.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a chest that finally got its rails."
+          ],
+          "use": [
+            "The chest minecart of the tier: 45 slots with 2x stacks, the same as the chest of the tier."
+          ],
+          "secret": [
+            "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Truhe, die endlich ihre Schienen bekam."
+          ],
+          "use": [
+            "Die Lore mit Truhe der Stufe: 45 Plätze mit 2-fachen Stapeln, wie die Truhe der Stufe."
+          ],
+          "secret": [
+            "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:netherite_chest_minecart",
+        "simplestorage:netherite_chest_minecart_smithing"
+      ],
+      "usedIn": [
+        "simplestorage:enderite_chest_minecart_smithing"
+      ]
+    },
+    {
+      "id": "simplestorage:reinforced_chest_boat",
+      "name": {
+        "en_us": "Reinforced Chest Boat",
+        "de_de": "Verstärktes Truhenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestBoat.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestBoatItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/BoatWoods.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageComponents.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageEntities.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/VehicleRenderers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/test/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
+          "details": [
+            "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplestorage:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot (SimpleLib) - the wood stays.",
+            "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
+            "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
+            "Drawn as Vanilla's boat of the wood carrying the tier chest.",
+            "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
+            "Moved from SimpleBuilding (split stage 8b-2): boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+          ]
+        },
+        "de": {
+          "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
+          "details": [
+            "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplestorage:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren (SimpleLib) - die Holzart bleibt.",
+            "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
+            "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
+            "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
+            "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
+            "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a boat that has stopped being afraid of its cargo."
+          ],
+          "use": [
+            "The chest boat of the Reinforced tier, in every wood (bamboo: raft). 36 slots, the same as the chest."
+          ],
+          "secret": [
+            "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+          ],
+          "use": [
+            "Das Truhenboot der Stufe Reinforced, in jeder Holzart (Bambus: Floß). 36 Plätze, wie die Truhe."
+          ],
+          "secret": [
+            "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:reinforced_chest_boat_acacia",
+        "simplestorage:reinforced_chest_boat_ashwood",
+        "simplestorage:reinforced_chest_boat_bamboo",
+        "simplestorage:reinforced_chest_boat_birch",
+        "simplestorage:reinforced_chest_boat_cherry",
+        "simplestorage:reinforced_chest_boat_dark_oak",
+        "simplestorage:reinforced_chest_boat_duskwood",
+        "simplestorage:reinforced_chest_boat_jungle",
+        "simplestorage:reinforced_chest_boat_mangrove",
+        "simplestorage:reinforced_chest_boat_oak",
+        "simplestorage:reinforced_chest_boat_pale_oak",
+        "simplestorage:reinforced_chest_boat_poplar",
+        "simplestorage:reinforced_chest_boat_spruce"
+      ],
+      "usedIn": [
+        "simplestorage:netherite_chest_boat_smithing"
+      ]
+    },
+    {
+      "id": "simplestorage:reinforced_chest_minecart",
+      "name": {
+        "en_us": "Reinforced Chest Minecart",
+        "de_de": "Verstärkte Güterlore"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/TieredChestMinecart.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/OversizedStacks.java",
+          "modules/simplestorage/shared/java/com/simplestorage/vehicle/ChestMinecartItem.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageEntities.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/java/com/simplestorage/client/VehicleRenderers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/test/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot (SimpleLib).",
+            "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
+            "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
+            "Drawn as Vanilla's minecart carrying the tier chest.",
+            "Moved from SimpleBuilding (split stage 8b-2): carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+          ]
+        },
+        "de": {
+          "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
+          "details": [
+            "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren (SimpleLib).",
+            "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
+            "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
+            "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
+            "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplestorage/item/reinforced_chest_minecart.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a chest that finally got its rails."
+          ],
+          "use": [
+            "The chest minecart of the tier: 36 slots, the same as the chest of the tier."
+          ],
+          "secret": [
+            "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Truhe, die endlich ihre Schienen bekam."
+          ],
+          "use": [
+            "Die Lore mit Truhe der Stufe: 36 Plätze, wie die Truhe der Stufe."
+          ],
+          "secret": [
+            "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplestorage:reinforced_chest_minecart"
+      ],
+      "usedIn": [
+        "simplestorage:netherite_chest_minecart_smithing"
+      ]
     }
   ],
   "blocks": [
@@ -4071,6 +6475,20 @@
       },
       "craftedBy": [],
       "usedIn": [
+        "simplestorage:enderite_chest_boat_acacia",
+        "simplestorage:enderite_chest_boat_ashwood",
+        "simplestorage:enderite_chest_boat_bamboo",
+        "simplestorage:enderite_chest_boat_birch",
+        "simplestorage:enderite_chest_boat_cherry",
+        "simplestorage:enderite_chest_boat_dark_oak",
+        "simplestorage:enderite_chest_boat_duskwood",
+        "simplestorage:enderite_chest_boat_jungle",
+        "simplestorage:enderite_chest_boat_mangrove",
+        "simplestorage:enderite_chest_boat_oak",
+        "simplestorage:enderite_chest_boat_pale_oak",
+        "simplestorage:enderite_chest_boat_poplar",
+        "simplestorage:enderite_chest_boat_spruce",
+        "simplestorage:enderite_chest_minecart",
         "simplestorage:enderite_trapped_chest"
       ]
     },
@@ -4270,6 +6688,20 @@
       "texture": "assets/textures/simplestorage/block/netherite_chest.png",
       "craftedBy": [],
       "usedIn": [
+        "simplestorage:netherite_chest_boat_acacia",
+        "simplestorage:netherite_chest_boat_ashwood",
+        "simplestorage:netherite_chest_boat_bamboo",
+        "simplestorage:netherite_chest_boat_birch",
+        "simplestorage:netherite_chest_boat_cherry",
+        "simplestorage:netherite_chest_boat_dark_oak",
+        "simplestorage:netherite_chest_boat_duskwood",
+        "simplestorage:netherite_chest_boat_jungle",
+        "simplestorage:netherite_chest_boat_mangrove",
+        "simplestorage:netherite_chest_boat_oak",
+        "simplestorage:netherite_chest_boat_pale_oak",
+        "simplestorage:netherite_chest_boat_poplar",
+        "simplestorage:netherite_chest_boat_spruce",
+        "simplestorage:netherite_chest_minecart",
         "simplestorage:netherite_trapped_chest"
       ]
     },
@@ -4471,6 +6903,20 @@
         "simplestorage:reinforced_chest"
       ],
       "usedIn": [
+        "simplestorage:reinforced_chest_boat_acacia",
+        "simplestorage:reinforced_chest_boat_ashwood",
+        "simplestorage:reinforced_chest_boat_bamboo",
+        "simplestorage:reinforced_chest_boat_birch",
+        "simplestorage:reinforced_chest_boat_cherry",
+        "simplestorage:reinforced_chest_boat_dark_oak",
+        "simplestorage:reinforced_chest_boat_duskwood",
+        "simplestorage:reinforced_chest_boat_jungle",
+        "simplestorage:reinforced_chest_boat_mangrove",
+        "simplestorage:reinforced_chest_boat_oak",
+        "simplestorage:reinforced_chest_boat_pale_oak",
+        "simplestorage:reinforced_chest_boat_poplar",
+        "simplestorage:reinforced_chest_boat_spruce",
+        "simplestorage:reinforced_chest_minecart",
         "simplestorage:reinforced_trapped_chest"
       ]
     },
@@ -4866,12 +7312,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 97,
+    "recipes": 143,
     "lootTables": 32,
     "tags": 1,
     "advancements": 0,
     "enchantments": 0,
-    "items": 1,
+    "items": 7,
     "blocks": 32,
     "trades": 0,
     "config": 0,
