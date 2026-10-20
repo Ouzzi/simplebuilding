@@ -91,6 +91,7 @@ Abweichungen (bewusst):
 - Seltene Funde, Shulker-Hüllen und Shulker-Deckel bleiben SB (Weltfunde/Vanilla-Verhalten; SB nennt die Modul-Blöcke per Id).
 - Lager-Verzauberungen → 8c (nur für Bündel/Rucksäcke/Köcher).
 - Fragentisch-Einträge der Truhen bleiben in SB (wie bei den Hämmern).
+- SB-Lang-Schlüssel der Truhen bleiben auch im 26.3-Overlay (`check_tooltip_text.py`: das Overlay hat nie weniger Schlüssel als `src/main`); das Modul hat eigene `simplestorage`-Schlüssel.
 - SB-Tests, die SB-Klassen casten, prüfen auf 26.3 per Klassenname/Vanilla-API oder überspringen (Modul-Tests decken sie ab).
 - Balancing-Zentrale liest `TieredShulkerBoxes`-Konstanten weiter aus der SB-Kopie (26.2); die Modul-Kopie ist auf 26.3 maßgeblich.
 
