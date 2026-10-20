@@ -19,7 +19,7 @@ plus Besitzer-Wunsch „herobrine kopf soll eine weitere fähigkeit haben wie di
 2. **Textur T1**: eigenes 64×64-Skinblatt (nur Kopf + Hut-Schicht), eigener Generator `tools/textures/herobrine_head_2026_10_20.py`,
    3 Varianten (A Strähnen-Pony + Vollbart, B Mittelscheitel + Kinnbart, C Strubbel + Stoppeln), weiße Augen ohne Pupille, zweite
    Datei `herobrine_eyes.png` (nur Augen) als emissiver Pass (`RenderTypes.eyes` wie Spinne/Enderman). Geometrie `custom: herobrine`
-   = Spielerkopf 8×8×8 + Hut. Empfehlung wird vorläufig eingecheckt, Vorschauen 16-fach im Scratchpad.
+   = Spielerkopf 8×8×8 + Hut. Empfehlung **B** (nach Sichtung: A wirkt mit Haar über fast dem ganzen Gesicht matschig, C unruhig) wird vorläufig eingecheckt, Vorschauen 16-fach im Scratchpad.
 3. **Ritual (H1 t, H4 j)**: Muster relativ zum Netherrack N: 3×3 Gold bei N−2, bemooster Bruchstein bei N−1, Redstone-Fackeln auf den
    vier Kanten-Goldblöcken (N−1 ± x/z). Auslöser: Mixin auf `FlintAndSteelItem#useOn` / `FireChargeItem#useOn` (RETURN, nur Server,
    Ergebnis „verbraucht“, Feuer liegt auf Netherrack) – so ist der Spieler immer bekannt, Feuer ohne Spieler (Blitz, Lava, Spender)

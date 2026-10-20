@@ -2,8 +2,8 @@
 
 Own pixel art, no Mojang/Steve pixels: a 64x64 skin sheet of which only the head (8x8x8 at UV 0,0) and its hat layer (UV 32,0)
 are painted, plus a second sheet with only the white eyes (drawn emissive by the head's eyes pass). Three variants:
-  A  Straehnen-Pony + Vollbart   (asymmetric fringe, full short beard over the jaw)      <- recommendation, committed
-  B  Mittelscheitel + Kinnbart   (centre parting, hair hanging at the sides, chin beard)
+  A  Straehnen-Pony + Vollbart   (asymmetric fringe, full short beard over the jaw)
+  B  Mittelscheitel + Kinnbart   (centre parting, hair hanging at the sides, chin beard)  <- recommendation, committed
   C  Strubbel + Stoppeln         (tousled hair with tufts on the hat layer, stubble)
 All three: white eyes without pupils, a pale grey-tan skin (lifeless), dark brown hair.
 
@@ -20,7 +20,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(ROOT, 'modules', 'simplemobheads', 'shared', 'resources', 'assets', 'simplemobheads', 'textures', 'entity', 'herobrine')
 PREVIEW = os.environ.get('SB_PREVIEW_DIR', os.path.join(ROOT, 'docs', 'ai', 'previews', 'b-herobrine20'))
-CHOSEN = 'A'
+CHOSEN = 'B'
 
 PAL = {
     't': (190, 150, 122), 's': (170, 130, 104), 'S': (146, 108, 86), 'n': (124, 90, 72),   # skin: light, base, shadow, deep
