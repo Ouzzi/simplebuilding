@@ -356,7 +356,7 @@ public final class ShulkerBoxTests {
 
     /**
      * Rarity COMMON/UNCOMMON/EPIC (docs/RARITAETEN.md), netherite and enderite fire resistant, stack
-     * size 1, the right block, and the enderite box in the void-protected (and double despawn) tag.
+     * size 1 and the right block (SimpleBuilding adds its void-protection tags).
      */
     public static void boxItemsFollowTheFamilyScheme(GameTestHelper helper) {
         List<String> summary = new ArrayList<>();
