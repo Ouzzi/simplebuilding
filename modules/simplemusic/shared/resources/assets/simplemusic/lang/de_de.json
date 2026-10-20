@@ -89,5 +89,6 @@
   "simplemusic.command.info": "%s von %s: %s s, %s KiB, %s, %s",
   "simplemusic.command.no_player": "Kein Spieler %s online",
   "simplemusic.command.ban": "%s darf nicht mehr hochladen",
-  "simplemusic.command.unban": "%s darf wieder hochladen"
+  "simplemusic.command.unban": "%s darf wieder hochladen",
+  "tip.simplemusic.sheet_music": "Benutzen: Noten schreiben; das Orchestrion spielt es"
 }
