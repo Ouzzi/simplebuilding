@@ -52,9 +52,9 @@ window.WIKI_MODULES = [
       "asOf": "19.10.2026"
     },
     "counts": {
-      "items": 559,
+      "items": 553,
       "blocks": 323,
-      "recipes": 931,
+      "recipes": 885,
       "config": 239,
       "features": 48
     }
@@ -1166,12 +1166,12 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "counts": {
-      "items": 1,
+      "items": 7,
       "blocks": 32,
-      "recipes": 97,
+      "recipes": 143,
       "features": 6
     },
-    "dataHash": "75ffc79fbc4d"
+    "dataHash": "7a9cd97d290b"
   },
   {
     "id": "simplemusic",

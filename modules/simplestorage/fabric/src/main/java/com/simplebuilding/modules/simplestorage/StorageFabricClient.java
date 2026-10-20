@@ -20,5 +20,13 @@ public final class StorageFabricClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(StorageBlockEntities.TRAPPED_COPPER_CHEST, com.simplestorage.client.TrappedCopperChestRenderer::new);
         BlockEntityRendererRegistry.register(StorageBlockEntities.TIERED_SHULKER_BOX, com.simplestorage.client.TieredShulkerBoxRenderer::new);
         for (var type : StorageMenus.tieredTypes()) MenuScreens.register(type, com.simplestorage.client.TieredChestScreen::new);
+        // Split stage 8b-2: chest carts and chest boats.
+        com.simplestorage.client.VehicleRenderers.register(new com.simplestorage.client.VehicleRenderers.Registrar() {
+            @Override
+            public <T extends net.minecraft.world.entity.Entity> void register(net.minecraft.world.entity.EntityType<? extends T> type,
+                    net.minecraft.client.renderer.entity.EntityRendererProvider<T> provider) {
+                net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(type, provider);
+            }
+        });
     }
 }

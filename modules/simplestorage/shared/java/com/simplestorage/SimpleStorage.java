@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Simple Storage (split plan stage 8, docs/ai/PLAN-B-S8-STORAGE-2026-10-19.md): part 8a moved the crates of every wood and
  * the Storage Crafting Table out of SimpleBuilding, part 8b (PLAN-B-S8B-STORAGE-2026-10-19.md) the tiered and trapped
- * chests, the trapped copper chests and the tier shulker boxes; bundles and backpacks follow (8c).
+ * chests, the trapped copper chests and the tier shulker boxes, part 8b-2 (PLAN-B-S8C-STORAGE-2026-10-20.md) the chest carts
+ * and chest boats of every tier; rare finds (8b-3), bundles and quivers (8c-1) and backpacks (8c-2) follow.
  * Loader entry points call {@link #init} once in their constructor / initializer, before any registry event, so the id
  * moves out of SimpleBuilding are known in time (Forge aliases).
  */
@@ -57,12 +58,16 @@ public final class SimpleStorage {
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         List<String> items = new ArrayList<>();
         movedBlocks().forEach(path -> items.add(MOD_ID + ":" + path));
+        movedVehicles().forEach(path -> items.add(MOD_ID + ":" + path));
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "storage", "simplestorage.testcentre.station", items);
     }
 
-    /** SimpleLib materials the upgrades and recipes use (cracked diamond, netherite and enderite nuggets). */
-    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "enderite");
+    /**
+     * SimpleLib materials the upgrades and recipes use (cracked diamond, netherite and enderite nuggets; 8b-2: the
+     * Enderite upgrade template for the chest carts and boats).
+     */
+    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates");
     public static final List<String> TIERS = List.of("reinforced", "netherite", "enderite");
     public static final List<String> COPPER_STAGES = List.of("", "exposed_", "weathered_", "oxidized_");
     public static final List<String> DYES = List.of("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
@@ -84,6 +89,35 @@ public final class SimpleStorage {
         for (String tier : TIERS) out.add(tier + "_trapped_chest");
         for (String waxed : List.of("", "waxed_")) for (String stage : COPPER_STAGES) out.add(waxed + stage + "trapped_copper_chest");
         for (String tier : TIERS) out.add(tier + "_shulker_box");
+        return out;
+    }
+
+    /** Split stage 8b-2: the chest carts and chest boats (item and entity type of the same id). */
+    public static List<String> movedVehicles() {
+        List<String> out = new ArrayList<>();
+        for (String tier : TIERS) out.add(tier + "_chest_minecart");
+        for (String tier : TIERS) out.add(tier + "_chest_boat");
+        return out;
+    }
+
+    /** Vanilla's boat woods and Simple End's, as the chest boat recipes name them ({@code <tier>_chest_boat_<wood>}). */
+    public static final List<String> RECIPE_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "cherry", "dark_oak",
+            "pale_oak", "mangrove", "poplar", "bamboo", "ashwood", "duskwood");
+
+    /**
+     * Split stage 8b-2: the vehicle recipes (all unlocked under recipes/transportation): cart = tier chest + minecart, boat
+     * of a wood = tier chest + that boat, smithing Reinforced -> Netherite -> Enderite.
+     */
+    public static List<String> movedVehicleRecipes() {
+        List<String> out = new ArrayList<>();
+        for (String tier : TIERS) {
+            out.add(tier + "_chest_minecart");
+            for (String wood : RECIPE_WOODS) out.add(tier + "_chest_boat_" + wood);
+        }
+        for (String tier : List.of("netherite", "enderite")) {
+            out.add(tier + "_chest_minecart_smithing");
+            out.add(tier + "_chest_boat_smithing");
+        }
         return out;
     }
 
@@ -127,6 +161,17 @@ public final class SimpleStorage {
         }
         IdMoves.move(Registries.DATA_COMPONENT_TYPE, old(com.simplestorage.registry.StorageComponents.CONTAINER_COUNTS_ID),
                 id(com.simplestorage.registry.StorageComponents.CONTAINER_COUNTS_ID));
+        // 8b-2: chest carts and chest boats (item + entity), the boat's wood component, their recipes.
+        for (String path : movedVehicles()) {
+            IdMoves.move(Registries.ITEM, old(path), id(path));
+            IdMoves.move(Registries.ENTITY_TYPE, old(path), id(path));
+        }
+        IdMoves.move(Registries.DATA_COMPONENT_TYPE, old(com.simplestorage.registry.StorageComponents.BOAT_WOOD_ID),
+                id(com.simplestorage.registry.StorageComponents.BOAT_WOOD_ID));
+        for (String path : movedVehicleRecipes()) {
+            IdMoves.move(Registries.RECIPE, old(path), id(path));
+            IdMoves.move(Registries.ADVANCEMENT, old("recipes/transportation/" + path), id("recipes/transportation/" + path));
+        }
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old("crate"), id("crate"));
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old(STORAGE_CRAFTING_TABLE), id(STORAGE_CRAFTING_TABLE));
     }

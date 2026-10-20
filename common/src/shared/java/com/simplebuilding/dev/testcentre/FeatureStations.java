@@ -1003,12 +1003,15 @@ public final class FeatureStations {
         // Vorratstruhe (54 Plaetze): alle Fahrzeuge, die Kistenboote in jeder Holzart, Kohle, Schienen.
         c.place(22, 0, 5, TestCentreSections.facing(com.simplebuilding.util.StorageRefs.chestBlock("enderite").defaultBlockState(), Direction.NORTH));
         List<ItemStack> supply = new ArrayList<>();
+        List<Item> boats = List.of(com.simplebuilding.util.StorageRefs.chestBoat("reinforced"), com.simplebuilding.util.StorageRefs.chestBoat("netherite"),
+                com.simplebuilding.util.StorageRefs.chestBoat("enderite"));
         for (Item item : vehicleItems()) {
-            if (!(item instanceof com.simplebuilding.entity.vehicle.TieredChestBoatItem)) supply.add(new ItemStack(item));
+            if (!boats.contains(item)) supply.add(new ItemStack(item));
         }
-        for (Item boat : List.of(ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT)) {
-            for (String wood : com.simplebuilding.entity.vehicle.BoatWoods.ALL) {
-                supply.add(com.simplebuilding.entity.vehicle.BoatWoods.stack(boat, wood));
+        // Split stage 8b-2: the chest boats are Simple Storage's; their wood is its component (by id).
+        for (Item boat : boats) {
+            for (String wood : com.simplebuilding.util.StorageRefs.boatWoods()) {
+                supply.add(com.simplebuilding.util.StorageRefs.chestBoatStack(boat, wood));
             }
         }
         supply.add(new ItemStack(Items.COAL, 64));
@@ -1019,7 +1022,7 @@ public final class FeatureStations {
         int x = 1;
         for (Item item : vehicleItems()) {
             c.wallFrame(x, 1, wallZ, new ItemStack(item));
-            x += item == ModItems.ENDERITE_CHEST_MINECART || item == com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart")
+            x += item == com.simplebuilding.util.StorageRefs.chestMinecart("enderite") || item == com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart")
                     || item == ModItems.ENDERITE_HOPPER_MINECART ? 2 : 1;
         }
         c.wallSign(17, 2, wallZ, TcText.bold(TcText.t("vehicles.furnace", "Furnace carts")),
@@ -1037,10 +1040,10 @@ public final class FeatureStations {
         if (!com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
             return List.of();
         }
-        return List.of(ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART,
+        return List.of(com.simplebuilding.util.StorageRefs.chestMinecart("reinforced"), com.simplebuilding.util.StorageRefs.chestMinecart("netherite"), com.simplebuilding.util.StorageRefs.chestMinecart("enderite"),
                 com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"),
                 ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART,
-                ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT);
+                com.simplebuilding.util.StorageRefs.chestBoat("reinforced"), com.simplebuilding.util.StorageRefs.chestBoat("netherite"), com.simplebuilding.util.StorageRefs.chestBoat("enderite"));
     }
 
     /** Brett aus 4 x 4 Schachbrettern ab {@code x0} (z 1-4) mit der Grundstellung: Weiss im Sueden, Schwarz im Norden. */

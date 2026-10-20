@@ -11054,38 +11054,6 @@
         ]
       }
     },
-    "*_chest_minecart": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestMinecart.java",
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/OversizedStacks.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-        "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
-        "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
-        "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
-      ],
-      "en": {
-        "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
-        "details": [
-          "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
-          "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like vanilla's chest minecart, oversized slots up to the tier's limit.",
-          "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
-          "Drawn as vanilla's minecart carrying the tier chest."
-        ]
-      },
-      "de": {
-        "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
-        "details": [
-          "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
-          "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
-          "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
-          "Gezeigt als Vanilla-Lore mit der Stufen-Truhe."
-        ]
-      }
-    },
     "*_hopper_minecart": {
       "sources": [
         "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
@@ -11116,40 +11084,6 @@
           "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
           "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
           "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
-        ]
-      }
-    },
-    "*_chest_boat": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoat.java",
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoatItem.java",
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/BoatWoods.java",
-        "common/src/shared/java/com/simplebuilding/component/ModDataComponentTypes.java",
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
-        "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
-        "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
-      ],
-      "en": {
-        "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
-        "details": [
-          "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplebuilding:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot - the wood stays.",
-          "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
-          "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
-          "Drawn as vanilla's boat of the wood carrying the tier chest.",
-          "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood."
-        ]
-      },
-      "de": {
-        "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
-        "details": [
-          "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplebuilding:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren - die Holzart bleibt.",
-          "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
-          "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
-          "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
-          "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz."
         ]
       }
     },

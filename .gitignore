@@ -86,6 +86,34 @@ wiki/assets/textures/simplemobs/item/soul_fire_charge.png
 wiki/assets/textures/simplemobs/item/soulfire_powder.png
 wiki/assets/textures/sheets/simplebuilding/simplemobs/entity/blighted_wither/blighted_wither.png
 wiki/assets/textures/sheets/simplebuilding/simplemobs/entity/blighted_wither/abyssal_wither.png
+# Simple Storage (split stage 8b-2): chest cart items and chest boat/raft overlays (vehicles_2026_10_10 art).
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/reinforced_chest_minecart.png
+wiki/assets/textures/simplestorage/item/reinforced_chest_minecart.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_chest_minecart.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/reinforced_chest_boat_overlay.png
+wiki/assets/textures/simplestorage/item/reinforced_chest_boat_overlay.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_chest_boat_overlay.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/reinforced_chest_raft_overlay.png
+wiki/assets/textures/simplestorage/item/reinforced_chest_raft_overlay.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_chest_raft_overlay.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/netherite_chest_minecart.png
+wiki/assets/textures/simplestorage/item/netherite_chest_minecart.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_chest_minecart.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/netherite_chest_boat_overlay.png
+wiki/assets/textures/simplestorage/item/netherite_chest_boat_overlay.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_chest_boat_overlay.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/netherite_chest_raft_overlay.png
+wiki/assets/textures/simplestorage/item/netherite_chest_raft_overlay.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_chest_raft_overlay.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_chest_minecart.png
+wiki/assets/textures/simplestorage/item/enderite_chest_minecart.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_chest_minecart.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_chest_boat_overlay.png
+wiki/assets/textures/simplestorage/item/enderite_chest_boat_overlay.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_chest_boat_overlay.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_chest_raft_overlay.png
+wiki/assets/textures/simplestorage/item/enderite_chest_raft_overlay.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_chest_raft_overlay.png
 # Simple Ovens (split stage 4): furnace minecart items (Vanilla minecart overlay, vehicles_2026_10_10).
 modules/simpleovens/shared/resources/assets/simpleovens/textures/item/reinforced_furnace_minecart.png
 wiki/assets/textures/simpleovens/item/reinforced_furnace_minecart.png

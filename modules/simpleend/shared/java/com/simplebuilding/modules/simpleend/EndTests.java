@@ -175,7 +175,10 @@ public final class EndTests {
                     BlockState state = BuiltInRegistries.BLOCK.getValue(crate).defaultBlockState();
                     h.assertTrue(fire.simpleend$canBurn(state) && state.is(BlockTags.MINEABLE_WITH_AXE), crate + " burns and is mined with the axe");
                 }
-                for (String r : new String[] {"hollow_" + n + "_log", n + "_cauldron", "reinforced_chest_boat_" + n}) {
+                // The tiered chest boats moved too (split stage 8b-2, simplestorage:<tier>_chest_boat_<wood>).
+                var boatRecipe = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplestorage", "reinforced_chest_boat_" + n));
+                h.assertTrue(recipes.byKey(boatRecipe).isPresent() == storage, "recipe " + boatRecipe.identifier() + " only with Simple Storage");
+                for (String r : new String[] {"hollow_" + n + "_log", n + "_cauldron"}) {
                     var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", r));
                     h.assertTrue(recipes.byKey(key).isPresent() == sb, "recipe " + key.identifier() + " only with SimpleBuilding");
                 }

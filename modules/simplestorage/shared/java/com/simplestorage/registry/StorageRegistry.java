@@ -22,7 +22,7 @@ public final class StorageRegistry {
                 .build());
     }
 
-    /** The table, the crates, the chests, the shulker boxes, the guide (empty while the module is switched off: Vanilla hides an empty tab). */
+    /** The table, the crates, the chests, the shulker boxes, the chest carts and chest boats (oak), the guide (empty while the module is switched off: Vanilla hides an empty tab). */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleStorage.on()) return out;
@@ -30,6 +30,8 @@ public final class StorageRegistry {
         out.addAll(crateStacks());
         out.addAll(chestStacks());
         out.addAll(shulkerBoxStacks());
+        out.addAll(chestMinecartStacks());
+        out.addAll(chestBoatStacks());
         out.add(com.simplestorage.guide.StorageGuide.stack());
         return out;
     }
@@ -54,6 +56,20 @@ public final class StorageRegistry {
     public static List<ItemStack> shulkerBoxStacks() {
         return List.of(new ItemStack(StorageItems.REINFORCED_SHULKER_BOX), new ItemStack(StorageItems.NETHERITE_SHULKER_BOX),
                 new ItemStack(StorageItems.ENDERITE_SHULKER_BOX));
+    }
+
+    /** Split stage 8b-2: the chest carts in tier order. */
+    public static List<ItemStack> chestMinecartStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : StorageItems.CHEST_MINECARTS.values()) out.add(new ItemStack(item));
+        return out;
+    }
+
+    /** The chest boats in tier order (oak; the wood is a component the recipes set). */
+    public static List<ItemStack> chestBoatStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : StorageItems.CHEST_BOATS.values()) out.add(new ItemStack(item));
+        return out;
     }
 
     /**

@@ -39,6 +39,7 @@ public final class StorageForge {
                     }
                 });
             }
+            if (key.equals(Registries.ENTITY_TYPE)) com.simplestorage.registry.StorageEntities.register();
             if (key.equals(Registries.MENU)) StorageMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) StorageRegistry.registerTab();
         });
@@ -56,6 +57,11 @@ public final class StorageForge {
                 insertAfter(event, net.minecraft.world.item.Items.BARREL, StorageRegistry.crateStacks());
                 insertAfter(event, net.minecraft.world.item.Items.TRAPPED_CHEST, StorageRegistry.chestStacks());
                 insertAfter(event, net.minecraft.world.item.Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
+            }
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && vanillaTabs) {
+                // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.
+                insertAfter(event, net.minecraft.world.item.Items.CHEST_MINECART, StorageRegistry.chestMinecartStacks());
+                insertAfter(event, net.minecraft.world.item.Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.getEntries().put(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

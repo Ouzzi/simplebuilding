@@ -57,6 +57,8 @@ public final class StorageDiscover {
             "simplelib:enderite_nugget",
             "simplelib:netherite_nugget",
             "simplestorage:*_chest",
+            "simplestorage:*_chest_boat",
+            "simplestorage:*_chest_minecart",
             "simplestorage:*_crate",
             "simplestorage:*_shulker_box",
             "simplestorage:chests",

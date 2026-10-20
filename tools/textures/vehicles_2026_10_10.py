@@ -28,6 +28,8 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
+# Split stage 8b-2 (docs/ai/PLAN-B-S8C-STORAGE-2026-10-20.md): the chest carts and chest boats are Simple Storage's.
+STORAGE_ASSETS = ROOT / "modules/simplestorage/shared/resources/assets/simplestorage"
 OWN_TEX = ROOT / "src/main/resources/assets/simplebuilding/textures"
 CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 TIERS = ["reinforced", "netherite", "enderite"]
@@ -142,9 +144,11 @@ def build():
             img = paint(src, region, shades, LOCK[tier] if kind == "chest" else None)
             name = f"{tier}_{kind}_minecart"
             tex[name] = tier_marks(img, region, tier, "chest" if kind == "chest" else kind)
-            models[name] = {"parent": "minecraft:item/generated",
-                            "textures": {"layer0": "minecraft:item/minecart", "layer1": f"simplebuilding:item/{name}"}}
-            items[name] = {"model": {"type": "minecraft:model", "model": f"simplebuilding:item/{name}"}}
+            ns = "simplestorage" if kind == "chest" else "simplebuilding"
+            key = f"simplestorage:{name}" if kind == "chest" else name
+            models[key] = {"parent": "minecraft:item/generated",
+                           "textures": {"layer0": "minecraft:item/minecart", "layer1": f"{ns}:item/{name}"}}
+            items[key] = {"model": {"type": "minecraft:model", "model": f"{ns}:item/{name}"}}
     chest = chest_palette()
     # the chest is the same on every wood, the hull (and its edge next to the chest) is not: only pixels in the
     # chest colours on all chest boats that differ from the plain boat belong to the chest
@@ -167,23 +171,35 @@ def build():
             ns = "simpleend" if wood in END_WOODS else "minecraft"
             # End-wood models live in simpleend (Nachtrag 66): without that module only this case shows the missing
             # model, instead of the whole item failing to bake over a sprite from a foreign atlas.
-            mkey = f"simpleend:{model}" if wood in END_WOODS else model
+            mkey = f"simpleend:{model}" if wood in END_WOODS else f"simplestorage:{model}"
             models[mkey] = {"parent": "minecraft:item/generated", "textures": {
                 "layer0": f"{ns}:item/" + ("bamboo_chest_raft" if raft else f"{wood}_chest_boat"),
-                "layer1": f"simplebuilding:item/{tier}_chest_{'raft' if raft else 'boat'}_overlay"}}
-            cases.append({"when": wood, "model": {"type": "minecraft:model", "model": f"{'simpleend' if wood in END_WOODS else 'simplebuilding'}:item/{model}"}})
-        items[f"{tier}_chest_boat"] = {"model": {
-            "type": "minecraft:select", "property": "minecraft:component", "component": "simplebuilding:boat_wood",
+                "layer1": f"simplestorage:item/{tier}_chest_{'raft' if raft else 'boat'}_overlay"}}
+            cases.append({"when": wood, "model": {"type": "minecraft:model", "model": f"{'simpleend' if wood in END_WOODS else 'simplestorage'}:item/{model}"}})
+        items[f"simplestorage:{tier}_chest_boat"] = {"model": {
+            "type": "minecraft:select", "property": "minecraft:component", "component": "simplestorage:boat_wood",
             "cases": cases,
-            "fallback": {"type": "minecraft:model", "model": f"simplebuilding:item/{tier}_chest_boat_oak"}}}
+            "fallback": {"type": "minecraft:model", "model": f"simplestorage:item/{tier}_chest_boat_oak"}}}
     return tex, models, items
 
 
+def is_storage(name):
+    """Split stage 8b-2: the chest cart and chest boat sprites are Simple Storage's (simplestorage:item/...)."""
+    return "_chest_" in name
+
+
 def derived(jar):
-    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image (SimpleBuilding's carts)."""
     global CLIENT_JAR
     CLIENT_JAR = Path(jar)
-    return {f"item/{name}.png": img for name, img in build()[0].items()}
+    return {f"item/{name}.png": img for name, img in build()[0].items() if not is_storage(name)}
+
+
+def derived_storage(jar):
+    """The same for Simple Storage (vanilla_derived.py --module simplestorage): chest carts, chest boat/raft overlays."""
+    global CLIENT_JAR
+    CLIENT_JAR = Path(jar)
+    return {f"item/{name}.png": img for name, img in build()[0].items() if is_storage(name)}
 
 
 def preview(tex, out_dir):
@@ -216,11 +232,13 @@ def main():
     tex, models, items = build()
     stale = []
     files = {}
+    roots = {"simpleend": ROOT / "modules/simpleend/shared/resources/assets/simpleend", "simplestorage": STORAGE_ASSETS}
     for name, data in models.items():
-        root = ROOT / "modules/simpleend/shared/resources/assets/simpleend" if name.startswith("simpleend:") else ASSETS
+        root = roots.get(name.split(":")[0], ASSETS) if ":" in name else ASSETS
         files[root / f"models/item/{name.split(':')[-1]}.json"] = json.dumps(data, indent=2) + "\n"
     for name, data in items.items():
-        files[ASSETS / f"items/{name}.json"] = json.dumps(data, indent=2) + "\n"
+        root = roots.get(name.split(":")[0], ASSETS) if ":" in name else ASSETS
+        files[root / f"items/{name.split(':')[-1]}.json"] = json.dumps(data, indent=2) + "\n"
     for path, content in files.items():
         if args.check:
             try:

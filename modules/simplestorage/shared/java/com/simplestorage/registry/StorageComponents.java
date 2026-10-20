@@ -15,10 +15,16 @@ import net.minecraft.core.registries.BuiltInRegistries;
 public final class StorageComponents {
     public static final String CONTAINER_COUNTS_ID = "container_counts";
     public static DataComponentType<ContainerCounts> CONTAINER_COUNTS;
+    /** Split stage 8b-2: the wood of a tiered chest boat item ({@code com.simplestorage.vehicle.BoatWoods}); was {@code simplebuilding:boat_wood}. */
+    public static final String BOAT_WOOD_ID = "boat_wood";
+    public static DataComponentType<String> BOAT_WOOD;
 
     public static void register() {
         CONTAINER_COUNTS = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleStorage.id(CONTAINER_COUNTS_ID),
                 DataComponentType.<ContainerCounts>builder().persistent(ContainerCounts.CODEC).networkSynchronized(ContainerCounts.STREAM_CODEC).build());
+        BOAT_WOOD = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleStorage.id(BOAT_WOOD_ID),
+                DataComponentType.<String>builder().persistent(com.mojang.serialization.Codec.STRING)
+                        .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.STRING_UTF8).build());
     }
 
     private StorageComponents() {}

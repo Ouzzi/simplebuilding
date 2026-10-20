@@ -182,16 +182,16 @@ public final class SearchTabPlacement {
         }
         if (com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
             // Fahrzeug-Stufen (Queue N19/N23) je hinter ihrem Vanilla-Fahrzeug im Werkzeug-Tab.
-            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.CHEST_MINECART, ModItems.REINFORCED_CHEST_MINECART,
-                    ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.CHEST_MINECART, com.simplebuilding.util.StorageRefs.chestMinecart("reinforced"),
+                    com.simplebuilding.util.StorageRefs.chestMinecart("netherite"), com.simplebuilding.util.StorageRefs.chestMinecart("enderite")));
             if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens places its furnace carts itself
                 out.add(Placement.after(TOOLS_AND_UTILITIES, Items.FURNACE_MINECART, com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"),
                         com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart")));
             }
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.HOPPER_MINECART, ModItems.REINFORCED_HOPPER_MINECART,
                     ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART));
-            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BAMBOO_CHEST_RAFT, ModItems.REINFORCED_CHEST_BOAT,
-                    ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BAMBOO_CHEST_RAFT, com.simplebuilding.util.StorageRefs.chestBoat("reinforced"),
+                    com.simplebuilding.util.StorageRefs.chestBoat("netherite"), com.simplebuilding.util.StorageRefs.chestBoat("enderite")));
         }
 
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,

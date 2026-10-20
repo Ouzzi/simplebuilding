@@ -26,6 +26,9 @@ public final class StorageItems {
     /** The eight trapped copper chests in {@link StorageBlocks#trappedCopperChests} order. */
     public static final java.util.List<Item> TRAPPED_COPPER_CHESTS = new java.util.ArrayList<>();
     public static Item REINFORCED_SHULKER_BOX, NETHERITE_SHULKER_BOX, ENDERITE_SHULKER_BOX;
+    /** Split stage 8b-2: the chest carts and chest boats per tier (one per slot like Vanilla's, the boat's wood is a component). */
+    public static final Map<com.simplestorage.chest.ChestTier, Item> CHEST_MINECARTS = new EnumMap<>(com.simplestorage.chest.ChestTier.class);
+    public static final Map<com.simplestorage.chest.ChestTier, Item> CHEST_BOATS = new EnumMap<>(com.simplestorage.chest.ChestTier.class);
 
     public static void register() {
         StorageBlocks.CRATES.forEach((wood, crate) -> CRATES.put(wood, blockItem(crate, wood.nether() ? 0 : CRATE_FUEL)));
@@ -41,6 +44,18 @@ public final class StorageItems {
         REINFORCED_SHULKER_BOX = shulker(StorageBlocks.REINFORCED_SHULKER_BOX, p -> p);
         NETHERITE_SHULKER_BOX = shulker(StorageBlocks.NETHERITE_SHULKER_BOX, StorageItems::netherite);
         ENDERITE_SHULKER_BOX = shulker(StorageBlocks.ENDERITE_SHULKER_BOX, StorageItems::enderite);
+        // The entity types come later (items first on NeoForge/Forge): suppliers.
+        for (com.simplestorage.chest.ChestTier tier : com.simplestorage.chest.ChestTier.values()) {
+            java.util.function.UnaryOperator<Item.Properties> extra = switch (tier) {
+                case REINFORCED -> p -> p;
+                case NETHERITE -> StorageItems::netherite;
+                case ENDERITE -> StorageItems::enderite;
+            };
+            CHEST_MINECARTS.put(tier, item(tier.textureName() + "_chest_minecart", extra, p -> new com.simplestorage.vehicle.ChestMinecartItem(p.stacksTo(1),
+                    () -> StorageEntities.CHEST_MINECARTS.get(tier))));
+            CHEST_BOATS.put(tier, item(tier.textureName() + "_chest_boat", extra, p -> new com.simplestorage.vehicle.TieredChestBoatItem(p.stacksTo(1),
+                    () -> StorageEntities.CHEST_BOATS.get(tier))));
+        }
         com.simplestorage.guide.StorageGuide.register();
     }
 
@@ -63,6 +78,11 @@ public final class StorageItems {
         Item.Properties p = extra.apply(new Item.Properties().setId(key)).stacksTo(1)
                 .component(DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.EMPTY);
         return Registry.register(BuiltInRegistries.ITEM, key, new com.simplestorage.chest.TieredShulkerBoxItem(block, p));
+    }
+
+    private static Item item(String path, java.util.function.UnaryOperator<Item.Properties> extra, java.util.function.Function<Item.Properties, Item> factory) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleStorage.id(path));
+        return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(extra.apply(new Item.Properties().setId(key))));
     }
 
     private static Item blockItem(Block block, int fuel) {

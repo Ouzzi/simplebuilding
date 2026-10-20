@@ -29,13 +29,6 @@ public class ModDataComponentTypes {
 
     // Copper/ceramic bucket components (oxidation, waxed, wax_worn, ceramic_uses) are Simple Crucibles' since split stage 5b.
 
-    /**
-     * Holzart eines gestuften Kistenboots (Queue N19, 26.3): "oak", "spruce", ... "bamboo" (Floss). Siehe
-     * {@code entity.vehicle.BoatWoods}; unbekannte Werte zeigt das Boot als Eiche.
-     */
-    public static final DataComponentType<String> BOAT_WOOD = com.simplebuilding.version.McVersion.TIERED_VEHICLES ? register("boat_wood", builder -> builder
-            .persistent(Codec.STRING).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.STRING_UTF8)) : null;
-
     // NEU: Visueller Glow (RGB Effekt)
     public static final DataComponentType<Boolean> VISUAL_GLOW = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : register("visual_glow", builder -> builder.persistent(Codec.BOOL));
 

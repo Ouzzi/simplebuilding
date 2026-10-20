@@ -63,8 +63,6 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:*_cauldron",
             "simplebuilding:*_checker_s[lt]a*",
             "simplebuilding:*_chess_*",
-            "simplebuilding:*_chest_boat",
-            "simplebuilding:*_chest_minecart",
             "simplebuilding:*_chisel",
             "simplebuilding:*_core",
             "simplebuilding:*_hammock",

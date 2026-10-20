@@ -1,21 +1,22 @@
 package com.simplebuilding.clientgametest;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.simplebuilding.entity.ModEntities;
-import com.simplebuilding.entity.vehicle.TieredChestBoat;
 import com.simplebuilding.version.McVersion;
 import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.AABB;
 
 /**
  * Queue N37 (owner 2026-10-11): standing on the chest of an Enderite chest boat "bugs and walks slowly". The real client
  * player stands on a boat floating in still water: for {@link #STAND_TICKS} ticks its feet must stay on the boat's top
  * (no sinking into the hitbox, never in the water), and {@link #WALK_TICKS} ticks of walking forward on the deck must
- * cover about as much ground as on stone. Measured, not pictured; cleans up behind itself.
+ * cover about as much ground as on stone. Measured, not pictured; cleans up behind itself. The chest boats are Simple
+ * Storage's since split stage 8b-2 (by id).
  */
 public final class BoatDeckClientTest {
     private static final int STAND_TICKS = 40;
@@ -34,7 +35,7 @@ public final class BoatDeckClientTest {
     }
 
     public static void inWorld(Script script) {
-        if (!McVersion.TIERED_VEHICLES || ModEntities.ENDERITE_CHEST_BOAT == null) {
+        if (!McVersion.TIERED_VEHICLES || boatType() == null) {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");
@@ -42,7 +43,7 @@ public final class BoatDeckClientTest {
         script.command("fill 6 -3 12 11 -1 17 minecraft:water");
         onServer(script, "launch an enderite chest boat on the pool", server -> {
             ServerLevel level = server.overworld();
-            TieredChestBoat boat = ModEntities.ENDERITE_CHEST_BOAT.create(level, EntitySpawnReason.COMMAND);
+            var boat = boatType().create(level, EntitySpawnReason.COMMAND);
             boat.setPos(BOAT_X, -0.4, BOAT_Z);
             boat.setYRot(0.0F);
             level.addFreshEntity(boat);
@@ -74,8 +75,9 @@ public final class BoatDeckClientTest {
             worstGap = Math.max(worstGap, Math.abs(client.player.getY() - deck.maxY));
             if (counted[0] < 12) {
                 ServerLevel server = client.getSingleplayerServer() == null ? null : client.getSingleplayerServer().overworld();
-                AABB serverDeck = server == null ? null : server.getEntitiesOfClass(TieredChestBoat.class,
-                        new AABB(BOAT_X - 3, -3, BOAT_Z - 3, BOAT_X + 3, 2, BOAT_Z + 3)).stream().findFirst().map(TieredChestBoat::getBoundingBox).orElse(null);
+                AABB serverDeck = server == null ? null : server.getEntitiesOfClass(AbstractBoat.class,
+                        new AABB(BOAT_X - 3, -3, BOAT_Z - 3, BOAT_X + 3, 2, BOAT_Z + 3), b -> b.getType() == boatType()).stream().findFirst()
+                        .map(AbstractBoat::getBoundingBox).orElse(null);
                 double serverY = server == null ? Double.NaN : server.players().stream().findFirst().map(p -> p.getY()).orElse(Double.NaN);
                 TestLog.info(String.format(java.util.Locale.ROOT, "boat deck tick %d: y %.5f deck %.5f ground %s dy %.4f | server deck %.5f player %.5f",
                         counted[0], client.player.getY(), deck.maxY, client.player.onGround(), client.player.getDeltaMovement().y,
@@ -123,8 +125,13 @@ public final class BoatDeckClientTest {
 
     private static AABB boat(Minecraft client) {
         AABB around = new AABB(BOAT_X - 3, -3, BOAT_Z - 3, BOAT_X + 3, 2, BOAT_Z + 3);
-        return client.level.getEntitiesOfClass(TieredChestBoat.class, around).stream().findFirst()
-                .map(TieredChestBoat::getBoundingBox).orElse(null);
+        return client.level.getEntitiesOfClass(AbstractBoat.class, around, b -> b.getType() == boatType()).stream().findFirst()
+                .map(AbstractBoat::getBoundingBox).orElse(null);
+    }
+
+    /** Simple Storage's Enderite chest boat (null where it is not registered). */
+    private static EntityType<?> boatType() {
+        return net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getOptional(com.simplebuilding.util.StorageRefs.id("enderite_chest_boat")).orElse(null);
     }
 
     private static void onServer(Script script, String name, Consumer<MinecraftServer> work) {

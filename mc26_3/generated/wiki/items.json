@@ -926,14 +926,6 @@
       "id": "simplebuilding:enderite_carrot"
     },
     {
-      "id": "simplebuilding:enderite_chest_boat",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_chest_minecart",
-      "maxStackSize": 1
-    },
-    {
       "durability": 672,
       "enchantability": 18,
       "id": "simplebuilding:enderite_chestplate",
@@ -1500,14 +1492,6 @@
     },
     {
       "id": "simplebuilding:netherite_carrot"
-    },
-    {
-      "id": "simplebuilding:netherite_chest_boat",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_chest_minecart",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 5,
@@ -2261,14 +2245,6 @@
     {
       "bundleCapacityItems": 96,
       "id": "simplebuilding:reinforced_bundle",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_chest_boat",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_chest_minecart",
       "maxStackSize": 1
     },
     {

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "reinforced_chest_boat",
+  "ingredients": [
+    "simplestorage:reinforced_chest",
+    "minecraft:oak_boat"
+  ],
+  "result": {
+    "components": {
+      "simplestorage:boat_wood": "oak"
+    },
+    "id": "simplestorage:reinforced_chest_boat"
+  }
+}

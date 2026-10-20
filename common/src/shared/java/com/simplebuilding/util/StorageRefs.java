@@ -16,6 +16,9 @@ import net.minecraft.world.level.block.Block;
  * <p>Split stage 8b (docs/ai/PLAN-B-S8B-STORAGE-2026-10-19.md): the tiered and trapped chests, the trapped copper chests
  * and the tier shulker boxes followed. They exist on both lines: on 26.2 SimpleBuilding still registers them
  * ({@code McVersion.STORAGE_IN_SB}, {@code simplebuilding:*}), so these lookups work everywhere.
+ *
+ * <p>Split stage 8b-2 (docs/ai/PLAN-B-S8C-STORAGE-2026-10-20.md): the chest carts and chest boats (26.3 only,
+ * {@code McVersion.TIERED_VEHICLES}) and their wood component {@code boat_wood}.
  */
 public final class StorageRefs {
     public static final String STORAGE_CRAFTING_TABLE = "storage_crafting_table";
@@ -77,5 +80,37 @@ public final class StorageRefs {
     /** The crate of a wood ({@code "oak"}, {@code "ashwood"}); air when it is not registered. */
     public static Item crate(String wood) {
         return item(wood + "_crate");
+    }
+
+    /** The chest cart of a tier ({@code "reinforced"}...); air where the line has no tiered vehicles. */
+    public static Item chestMinecart(String tier) {
+        return item(tier + "_chest_minecart");
+    }
+
+    /** The chest boat of a tier (its wood is the component {@link #boatWood()}); air where the line has none. */
+    public static Item chestBoat(String tier) {
+        return item(tier + "_chest_boat");
+    }
+
+    /** Vanilla's boat woods of 26.3 in tab order, then Simple End's (only while it is loaded): the woods a chest boat takes. */
+    public static java.util.List<String> boatWoods() {
+        java.util.List<String> out = new java.util.ArrayList<>(java.util.List.of("oak", "spruce", "birch", "jungle", "acacia",
+                "cherry", "dark_oak", "pale_oak", "mangrove", "poplar", "bamboo"));
+        if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleend")) out.addAll(java.util.List.of("ashwood", "duskwood"));
+        return out;
+    }
+
+    /** The wood component of the chest boats ({@code <storage>:boat_wood}); null where it is not registered. */
+    @SuppressWarnings("unchecked")
+    public static net.minecraft.core.component.DataComponentType<String> boatWood() {
+        return (net.minecraft.core.component.DataComponentType<String>) BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(id("boat_wood"));
+    }
+
+    /** A chest boat stack of {@code wood} (without the component where it is missing). */
+    public static net.minecraft.world.item.ItemStack chestBoatStack(Item boat, String wood) {
+        net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(boat);
+        var component = boatWood();
+        if (component != null) stack.set(component, wood);
+        return stack;
     }
 }

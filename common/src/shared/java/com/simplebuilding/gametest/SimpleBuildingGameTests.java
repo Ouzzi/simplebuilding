@@ -353,8 +353,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_feature_is_registered", WorldPolishTests::sculkJawFeatureIsRegistered)
                     .build(),
-            GameTestSpec.named("world_polish_game_test_standers_stay_on_the_chest_boat_deck", WorldPolishTests::standersStayOnTheChestBoatDeck)
-                    .maxTicks(WorldPolishTests.BOAT_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_sulfur_fire_burns_on_sulfur_and_gives_nausea", FireTests::sulfurFireBurnsOnSulfurAndGivesNausea)
                     .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_copper_fire_burns_on_copper_without_effect", FireTests::copperFireBurnsOnCopperWithoutEffect)
@@ -380,8 +378,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("woodwork_game_test_chisel_carves_sherd_motifs_and_hollows_logs", WoodworkTests::chiselCarvesSherdMotifsAndHollowsLogs)
                     .build(),
             GameTestSpec.named("woodwork_game_test_woodwork_recipes_exist_for_every_wood", WoodworkTests::woodworkRecipesExistForEveryWood)
-                    .build(),
-            GameTestSpec.named("vehicle_game_test_chest_vehicles_hold_the_tier_slots_and_keep_oversized_stacks", VehicleTests::chestVehiclesHoldTheTierSlotsAndKeepOversizedStacks)
                     .build(),
             GameTestSpec.named("vehicle_game_test_furnace_carts_burn_longer_and_run_faster", VehicleTests::furnaceCartsBurnLongerAndRunFaster)
                     .build(),

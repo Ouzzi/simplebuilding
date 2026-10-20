@@ -39,6 +39,7 @@ public final class StorageBlocks {
 
     /** {@code simpleEnd}: Simple End is loaded (only then the Ashwood and Duskwood crates exist, as before the move). */
     public static void register(boolean simpleEnd) {
+        com.simplestorage.vehicle.BoatWoods.useEndWoods(simpleEnd);
         for (CrateWood wood : CrateWood.values()) {
             if (wood.external() && !simpleEnd) continue;
             CRATES.put(wood, block(wood.crateId(), wood.template(),
@@ -94,6 +95,15 @@ public final class StorageBlocks {
     public static Block[] trappedCopperChests() {
         return new Block[]{TRAPPED_COPPER_CHEST, EXPOSED_TRAPPED_COPPER_CHEST, WEATHERED_TRAPPED_COPPER_CHEST, OXIDIZED_TRAPPED_COPPER_CHEST,
                 WAXED_TRAPPED_COPPER_CHEST, WAXED_EXPOSED_TRAPPED_COPPER_CHEST, WAXED_WEATHERED_TRAPPED_COPPER_CHEST, WAXED_OXIDIZED_TRAPPED_COPPER_CHEST};
+    }
+
+    /** The tiered chest of {@code tier} (the chest carts and chest boats show it). */
+    public static Block chest(com.simplestorage.chest.ChestTier tier) {
+        return switch (tier) {
+            case REINFORCED -> REINFORCED_CHEST;
+            case NETHERITE -> NETHERITE_CHEST;
+            case ENDERITE -> ENDERITE_CHEST;
+        };
     }
 
     public static Block[] shulkerBoxes() {

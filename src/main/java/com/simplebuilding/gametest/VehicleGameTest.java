@@ -10,11 +10,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class VehicleGameTest {
 
     @GameTest
-    public void chestVehiclesHoldTheTierSlotsAndKeepOversizedStacks(GameTestHelper helper) {
-        VehicleTests.chestVehiclesHoldTheTierSlotsAndKeepOversizedStacks(helper);
-    }
-
-    @GameTest
     public void furnaceCartsBurnLongerAndRunFaster(GameTestHelper helper) {
         VehicleTests.furnaceCartsBurnLongerAndRunFaster(helper);
     }

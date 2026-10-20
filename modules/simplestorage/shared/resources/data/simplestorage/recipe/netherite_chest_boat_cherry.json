@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "netherite_chest_boat",
+  "ingredients": [
+    "simplestorage:netherite_chest",
+    "minecraft:cherry_boat"
+  ],
+  "result": {
+    "components": {
+      "simplestorage:boat_wood": "cherry"
+    },
+    "id": "simplestorage:netherite_chest_boat"
+  }
+}

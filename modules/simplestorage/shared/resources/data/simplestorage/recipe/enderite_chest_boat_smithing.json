@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplelib:enderite_ingot",
+  "base": "simplestorage:netherite_chest_boat",
+  "result": {
+    "id": "simplestorage:enderite_chest_boat"
+  },
+  "template": "simplelib:enderite_upgrade_template"
+}

@@ -46,8 +46,9 @@ public final class VehicleTiers {
         return ServerTuning.hopperSpeed(level(tier));
     }
 
+    /** Split stage 8b-2: the chest carts and chest boats are Simple Storage's (by id). */
     public static Item chestMinecart(ChestTier tier) {
-        return pick(tier, ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART);
+        return com.simplebuilding.util.StorageRefs.chestMinecart(tier.textureName());
     }
 
     public static Item furnaceMinecart(ChestTier tier) {
@@ -59,7 +60,7 @@ public final class VehicleTiers {
     }
 
     public static Item chestBoat(ChestTier tier) {
-        return pick(tier, ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT);
+        return com.simplebuilding.util.StorageRefs.chestBoat(tier.textureName());
     }
 
     public static Block chest(ChestTier tier) {

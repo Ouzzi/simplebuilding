@@ -3154,9 +3154,9 @@ public final class DataIntegrityTests {
         }
         if (McVersion.TIERED_VEHICLES) {
             // Fahrzeug-Stufen (Queue N19/N23): Kistenloren | Kistenboote, Ofenloren | Trichterloren.
-            expected.add(CreativeTabLayout.Row.of("chest_vehicles", ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART,
-                    ModItems.ENDERITE_CHEST_MINECART, gap, ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT,
-                    ModItems.ENDERITE_CHEST_BOAT));
+            expected.add(CreativeTabLayout.Row.of("chest_vehicles", com.simplebuilding.util.StorageRefs.chestMinecart("reinforced"), com.simplebuilding.util.StorageRefs.chestMinecart("netherite"),
+                    com.simplebuilding.util.StorageRefs.chestMinecart("enderite"), gap, com.simplebuilding.util.StorageRefs.chestBoat("reinforced"), com.simplebuilding.util.StorageRefs.chestBoat("netherite"),
+                    com.simplebuilding.util.StorageRefs.chestBoat("enderite")));
             expected.add(CreativeTabLayout.Row.of("rail_vehicles", com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"),
                     com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), gap, ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART,
                     ModItems.ENDERITE_HOPPER_MINECART));
