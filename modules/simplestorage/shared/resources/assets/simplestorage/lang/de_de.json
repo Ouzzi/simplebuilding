@@ -71,6 +71,7 @@
   "item.simplestorage.waxed_weathered_trapped_copper_chest": "Gewachste verwitterte Redstone-Kupfertruhe",
   "block.simplestorage.waxed_oxidized_trapped_copper_chest": "Gewachste oxidierte Redstone-Kupfertruhe",
   "item.simplestorage.waxed_oxidized_trapped_copper_chest": "Gewachste oxidierte Redstone-Kupfertruhe",
+  "tip.simplestorage.chest_upgrade": "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten",
   "item.simplestorage.guide_book": "Simple-Storage-Handbuch",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, die Werkbank mit Lager, die ihr Raster auf der Platte behält, und Truhen und Shulkerkisten in drei Stufen mit mehr Plätzen und größeren Stapeln.",
@@ -99,6 +100,5 @@
   "quests.simplestorage.start.title": "Willkommen bei Simple Storage",
   "quests.simplestorage.start.subtitle": "Dein Handbuch gratis",
   "quests.simplestorage.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen.",
-  "tip.simplestorage.chest_upgrade": "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten"
+  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen."
 }

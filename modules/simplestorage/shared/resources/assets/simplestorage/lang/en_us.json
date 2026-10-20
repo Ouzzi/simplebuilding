@@ -71,6 +71,7 @@
   "item.simplestorage.waxed_weathered_trapped_copper_chest": "Waxed Weathered Trapped Copper Chest",
   "block.simplestorage.waxed_oxidized_trapped_copper_chest": "Waxed Oxidized Trapped Copper Chest",
   "item.simplestorage.waxed_oxidized_trapped_copper_chest": "Waxed Oxidized Trapped Copper Chest",
+  "tip.simplestorage.chest_upgrade": "Axe or hammer, nugget in off hand: upgrade in place",
   "item.simplestorage.guide_book": "Simple Storage Guide",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Crates of every wood that hold nine stacks of food in layers, the Storage Crafting Table that keeps its grid on its top, and chests and shulker boxes in three tiers with more slots and bigger stacks.",
@@ -99,6 +100,5 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
-  "tip.simplestorage.chest_upgrade": "Axe or hammer, nugget in off hand: upgrade in place"
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
 }
