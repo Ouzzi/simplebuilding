@@ -26,7 +26,7 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
     private Button filterButton;
 
     public NetheriteHopperScreen(NetheriteHopperScreenHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title, 176, 133);
+        super(handler, inventory, title, 176, ModHopperScreenHandler.IMAGE_HEIGHT);
         this.inventoryLabelY = this.imageHeight - 94;
     }
 
@@ -67,7 +67,15 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
         if (ModScreenStyle.hopper(context, this.menu, this.font, this.title, this.leftPos, this.topPos, this.imageWidth)) {
             return;
         }
-        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+        int shift = ModHopperScreenHandler.INVENTORY_SHIFT;
+        if (shift == 0) {
+            context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+        } else {
+            // Style off on 26.3: hopper.png stretched by the shift - the plain rows 38..44 under the slots repeated.
+            context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, 38, 256, 256);
+            context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos + 38, 0, 38, this.imageWidth, shift, 256, 256);
+            context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos + 38 + shift, 0, 38, this.imageWidth, 133 - 38, 256, 256);
+        }
         if (ModHopperScreenHandler.FIRST_SLOT_X != 44) {
             // The style is switched off for a comparison on a line whose slots are centred: hopper.png has its slot
             // frames at Vanilla's x, so they are painted over and copied to where the slots really are.

@@ -201,6 +201,10 @@ public final class ContainerTests {
         h.assertTrue(StorageStyles.HOPPER.equals(new UiPalette(0xFF5A5C63, 0xFF84868B, 0xFF494B51, 0xFF46474D, 0xFF393A3F, 0xFFF2EEE8)),
                 "hopper palette matches the W0-B preview table");
         h.assertTrue(chest(StorageStyles.ASTRAL_VAULT_TITLE, null) == StorageStyles.ENDER, "astral vault: ender chest box");
+        h.assertTrue(chest(StorageStyles.NIHIL_VAULT_TITLE, null) == StorageStyles.NIHIL, "nihil vault: nihilith blue, not oak");
+        h.assertTrue(chest(null, "simplebuilding:nihil_vault") == StorageStyles.NIHIL, "custom-named nihil vault by block");
+        h.assertTrue(com.simplelib.api.client.ui.UiContrast.ratio(StorageStyles.NIHIL.label(), StorageStyles.NIHIL.fill()) >= 4.5,
+                "nihil vault title at least 4.5:1");
         h.assertTrue(StorageStyles.CRAFTER.equals(new UiPalette(0xFF7A736A, 0xFF9A9286, 0xFF645E56, 0xFF5F5952, 0xFF4E4943, 0xFFF2EEE8)),
                 "crafter palette matches the W0-B preview table");
         h.assertTrue(StorageStyles.HORSE.equals(new UiPalette(0xFF8B5E3C, 0xFFA9876E, 0xFF714D31, 0xFF6C492E, 0xFF583C26, 0xFFF2EEE8)),
@@ -208,7 +212,7 @@ public final class ContainerTests {
         h.assertTrue(ContainerStyles.byId("mount").palette().apply(new StyleContext(null, null, null)) == StorageStyles.HORSE
                 && ContainerStyles.byId("nautilus").palette().apply(new StyleContext(null, null, null)) == StorageStyles.HORSE, "mounts: saddle leather");
         List<UiPalette> all = new ArrayList<>(List.of(StorageStyles.OAK, StorageStyles.BARREL, StorageStyles.ENDER, StorageStyles.SHULKER,
-                StorageStyles.HOPPER, StorageStyles.STONE, StorageStyles.CRAFTER, StorageStyles.HORSE));
+                StorageStyles.HOPPER, StorageStyles.STONE, StorageStyles.CRAFTER, StorageStyles.HORSE, StorageStyles.NIHIL));
         all.addAll(StorageStyles.COPPER);
         for (DyeColor dye : DyeColor.values()) all.add(StorageStyles.dyed(dye));
         for (UiPalette p : all) {
@@ -224,7 +228,7 @@ public final class ContainerTests {
         Map<UiPalette, UiMotifs.Kind> expected = Map.of(StorageStyles.OAK, UiMotifs.Kind.WOOD, StorageStyles.BARREL, UiMotifs.Kind.WOOD,
                 StorageStyles.ENDER, UiMotifs.Kind.ENDER, StorageStyles.SHULKER, UiMotifs.Kind.SHULKER, StorageStyles.SHULKER_LIGHT_BLUE, UiMotifs.Kind.SHULKER,
                 StorageStyles.HOPPER, UiMotifs.Kind.METAL, StorageStyles.STONE, UiMotifs.Kind.STONE, StorageStyles.CRAFTER, UiMotifs.Kind.REDSTONE,
-                StorageStyles.HORSE, UiMotifs.Kind.LEATHER);
+                StorageStyles.HORSE, UiMotifs.Kind.LEATHER, StorageStyles.NIHIL, UiMotifs.Kind.ENDER);
         expected.forEach((p, m) -> h.assertValueEqual(BoxMotifs.of(p).motif(), m, "marks of " + Integer.toHexString(p.fill())));
         h.assertValueEqual(BoxMotifs.of(StorageStyles.OAK).seed(), 5, "oak chest seed = preview key 'truhe'");
         for (UiPalette copper : StorageStyles.COPPER) h.assertValueEqual(BoxMotifs.of(copper).motif(), UiMotifs.Kind.METAL, "copper chest marks");
@@ -232,6 +236,9 @@ public final class ContainerTests {
         h.assertValueEqual(BoxMotifs.of(UiPalette.INVENTORY).motif(), UiMotifs.Kind.NONE, "the inventory box stays plain");
         h.assertTrue(UiSymbols.REDSTONE.width() == 12 && UiSymbols.REDSTONE.height() == 11 && UiSymbols.REDSTONE.xs().length == 67,
                 "redstone sign as in the preview");
+        // owner 2026-10-20: the crafters' state in the arrow - same box as the other arrows, so layouts keep their room
+        h.assertTrue(UiSymbols.ARROW_DUST.width() == UiSymbols.ARROW.width() && UiSymbols.ARROW_DUST.height() == UiSymbols.ARROW.height(),
+                "redstone dust arrow has the arrow's size");
         h.succeed();
     }
 

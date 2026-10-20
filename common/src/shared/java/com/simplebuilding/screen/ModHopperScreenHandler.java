@@ -22,6 +22,14 @@ public class ModHopperScreenHandler extends HopperMenu {
     /** x of the filter key: after the five slots and a gap one slot wider than before (4 + 18 px). */
     public static final int FILTER_BUTTON_X = McVersion.CRUCIBLE ? FIRST_SLOT_X - 1 + 5 * 18 + 22 : 44 + 5 * 18 + 4;
     public static final int FILTER_BUTTON_Y = 19;
+    /**
+     * Owner 2026-10-20 ("zu wenig padding unten"): on the 26.3 line the player's slots sit 6 px lower than in Vanilla's
+     * hopper, so the container box keeps 6 px under the slot row - the room between the title and the row. 26.2 keeps
+     * Vanilla's place (its hopper.png background).
+     */
+    public static final int INVENTORY_SHIFT = McVersion.CRUCIBLE ? 6 : 0;
+    /** Height of the screen image: Vanilla's 133 plus {@link #INVENTORY_SHIFT}. */
+    public static final int IMAGE_HEIGHT = 133 + INVENTORY_SHIFT;
 
     /** The hopper behind the menu: a mod hopper block or a tiered hopper cart (Queue N23); null on the client. */
     private final @Nullable FilterHopper blockEntity;
@@ -46,6 +54,13 @@ public class ModHopperScreenHandler extends HopperMenu {
                     FIRST_SLOT_X + index * 18, vanilla.y);
             filtered.index = vanilla.index;
             this.slots.set(index, filtered);
+        }
+        // Spieler-Plaetze (gleicher Index, gleiches Inventar) um INVENTORY_SHIFT tiefer: Rand unter der Trichterreihe.
+        for (int index = HopperMenu.CONTAINER_SIZE; INVENTORY_SHIFT != 0 && index < this.slots.size(); index++) {
+            Slot vanilla = this.slots.get(index);
+            Slot moved = new Slot(vanilla.container, vanilla.getContainerSlot(), vanilla.x, vanilla.y + INVENTORY_SHIFT);
+            moved.index = vanilla.index;
+            this.slots.set(index, moved);
         }
     }
 

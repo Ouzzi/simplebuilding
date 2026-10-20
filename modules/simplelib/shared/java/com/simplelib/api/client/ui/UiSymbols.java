@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
  * Engraved symbols of the N12 container style instead of text (owner image 3; README of the W0-B previews, point 5):
  * a stroke in the slot colour with a 1 px light edge under it, sunk like the slots. Progress fills the symbol white
  * (image 4) from the left or from the top. Pixel art and numbers exactly as {@code tools/ui/simpleinterfaces_preview.py}
- * (ARROW, HEAT, SMOKE, FLAME, ARROW_DOWN, CHECK, CROSS, PYRAMID, STAR); keep both in step. Client only.
+ * (ARROW, ARROW_DUST, HEAT, SMOKE, FLAME, ARROW_DOWN, CHECK, CROSS, PYRAMID, STAR); keep both in step. Client only.
  */
 public final class UiSymbols {
     /** Progress colour (image 4: white arrow). */
@@ -80,6 +80,28 @@ public final class UiSymbols {
             "..............###.....",
             "..............##......",
             "..............#.......");
+    /**
+     * 22x15, the crafters' arrow (owner 2026-10-20: the state lives in the arrow, as on Vanilla's crafter - no separate
+     * redstone sign): a chain of redstone dust as the shaft and a solid head, drawn with {@link #redstoneArrow}.
+     */
+    public static final Bitmap ARROW_DUST = Bitmap.of(
+            "..............#.......",
+            "..............##......",
+            "..............###.....",
+            "..............####....",
+            "..............#####...",
+            "..#....#....#.#####...",
+            ".###.#####.##########.",
+            "#####.##.####.#######.",
+            ".###.#####.##########.",
+            "..#....#....#.#####...",
+            "..............#####...",
+            "..............####....",
+            "..............###.....",
+            "..............##......",
+            "..............#.......");
+    /** Powered redstone: the dust colour and the glow of its inner pixels ({@link #redstoneArrow}). */
+    public static final int REDSTONE_ON = 0xFFD8261E, REDSTONE_GLOW = 0xFFF4442E;
     /** 9x26, brewing progress (Vanilla's 9x28 spot). */
     public static final Bitmap ARROW_DOWN = Bitmap.of(
             "...###...", "...###...", "...###...", "...###...", "...###...", "...###...", "...###...", "...###...",
@@ -123,7 +145,7 @@ public final class UiSymbols {
             "....#..#....", "....#..#....", "....#..#....", "....#..#....", ".....##.....", "............");
     /** 7x7 two stacked boxes (stack multiplier of the mod chests). */
     public static final Bitmap STACK = Bitmap.of("..#####", "..#...#", "#####.#", "#...#.#", "#...###", "#...#..", "#####..");
-    /** 12x12 redstone dust blob (powered sign: crafter, auto smither). */
+    /** 12x12 redstone dust blob (the crafters' former powered sign; replaced by {@link #redstoneArrow} 2026-10-20). */
     public static final Bitmap REDSTONE = Bitmap.of(
             "....#..#....", ".#.###.##...", "..#####.#.#.", ".########...", "#.#######.#.", ".#########..",
             "..########.#", ".#.######...", "...##.###.#.", "..#..#.#....", ".....#......", "............");
@@ -165,6 +187,22 @@ public final class UiSymbols {
             }
         }
         for (int k = 0; k < xs.length; k++) g.fill(x + xs[k], y + ys[k], x + xs[k] + 1, y + ys[k] + 1, color);
+    }
+
+    /**
+     * The crafters' {@link #ARROW_DUST} (crafter, autonomous crafter, auto smither): engraved while unpowered; powered,
+     * the dust glows red - {@link #REDSTONE_ON}, pixels with dust on all four sides in {@link #REDSTONE_GLOW}.
+     */
+    public static void redstoneArrow(GuiGraphicsExtractor g, int x, int y, UiPalette p, boolean powered) {
+        Bitmap bm = ARROW_DUST;
+        engrave(g, bm, x, y, p);
+        if (!powered) return;
+        int[] xs = bm.xs(), ys = bm.ys();
+        for (int k = 0; k < xs.length; k++) {
+            int px = xs[k], py = ys[k];
+            boolean core = bm.has(px - 1, py) && bm.has(px + 1, py) && bm.has(px, py - 1) && bm.has(px, py + 1);
+            g.fill(x + px, y + py, x + px + 1, y + py + 1, core ? REDSTONE_GLOW : REDSTONE_ON);
+        }
     }
 
     /**

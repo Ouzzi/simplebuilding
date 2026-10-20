@@ -40,6 +40,13 @@ public final class StorageStyles {
     public static final UiPalette ASTRAL_SLOTS = new UiPalette(0xFF8E6CB0, 0xFFB99AD6, 0xFF735693, 0xFF70538E, 0xFF594073, 0xFFF7F0FF);
     /** Title key of SimpleBuilding's astral vault (a six-row chest menu; only a string, no class of that mod). */
     public static final String ASTRAL_VAULT_TITLE = "block.simplebuilding.astral_vault";
+    /**
+     * SimpleBuilding's nihil vault (owner 2026-10-20: not oak): the muted blue of its nihilith blocks (#4A64A3..#97B1E0),
+     * light label at 4.8:1. Title key and block id only as strings.
+     */
+    public static final UiPalette NIHIL = UiPalette.derived(0xFF51689C);
+    public static final String NIHIL_VAULT_TITLE = "block.simplebuilding.nihil_vault";
+    static final String NIHIL_VAULT_BLOCK = "simplebuilding:nihil_vault";
     /** Copper chest by weathering: copper, exposed, weathered, oxidized (block texture colours, muted). */
     public static final List<UiPalette> COPPER = List.of(UiPalette.derived(0xFFC0714F), UiPalette.derived(0xFFA27C68),
             UiPalette.derived(0xFF6E9A7E), UiPalette.derived(0xFF52A08C));
@@ -66,6 +73,7 @@ public final class StorageStyles {
             switch (key) {
                 case "container.barrel": return BARREL;
                 case "container.enderchest", ASTRAL_VAULT_TITLE: return ENDER;
+                case NIHIL_VAULT_TITLE: return NIHIL;
                 case "container.chest", "container.chestDouble": return chestBlock(context.blockId());
                 default: break;
             }
@@ -73,6 +81,7 @@ public final class StorageStyles {
         String block = vanillaPath(context.blockId());
         if ("barrel".equals(block)) return BARREL;
         if ("ender_chest".equals(block)) return ENDER;
+        if (NIHIL_VAULT_BLOCK.equals(context.blockId())) return NIHIL;
         return chestBlock(context.blockId());
     }
 
