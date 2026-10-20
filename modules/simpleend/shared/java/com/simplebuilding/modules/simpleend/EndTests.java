@@ -481,17 +481,15 @@ public final class EndTests {
                 h.setBlock(col.below(), Blocks.STONE); // the pigs land IN the leaves, ON the control block
                 for (int y = 0; y < 12; y++) h.setBlock(col.above(y), Blocks.AIR);
             }
-            // Three leaves high: leaves are cobweb-like (no collision), so with a single leaf the pig only touched it in the very
-            // tick it hit the stone below, and whether the fall distance was reset before or after the damage check varied.
-            for (int y = 0; y < 3; y++) {
-                h.setBlock(ashAt.above(y), EndWood.ASHWOOD.leaves);
-                h.setBlock(duskAt.above(y), EndWood.DUSKWOOD.leaves);
-            }
+            h.setBlock(ashAt, EndWood.ASHWOOD.leaves);
+            h.setBlock(duskAt, EndWood.DUSKWOOD.leaves);
             h.setBlock(stoneAt, Blocks.STONE);
             Pig ashPig = h.spawn(EntityTypes.PIG, new BlockPos(20, 12, 20));
             Pig duskPig = h.spawn(EntityTypes.PIG, new BlockPos(22, 12, 20));
             Pig stonePig = h.spawn(EntityTypes.PIG, new BlockPos(24, 12, 20));
+            com.mojang.logging.LogUtils.getLogger().info("[wackel] spawn {} {} {}", ashPig.position(), duskPig.position(), stonePig.position());
             h.succeedWhen(() -> {
+                com.mojang.logging.LogUtils.getLogger().info("[wackel] t={} ash {} {} fd{} dusk {} {} fd{} stone {} {} fd{}", h.getTick(), ashPig.position(), ashPig.getHealth(), ashPig.fallDistance, duskPig.position(), duskPig.getHealth(), duskPig.fallDistance, stonePig.position(), stonePig.getHealth(), stonePig.fallDistance);
                 h.assertTrue(ashPig.onGround() && duskPig.onGround() && stonePig.onGround(), "all pigs landed");
                 h.assertTrue(ashPig.getHealth() >= ashPig.getMaxHealth(), "ashwood leaves catch the fall, health " + ashPig.getHealth());
                 h.assertTrue(duskPig.getHealth() >= duskPig.getMaxHealth(), "duskwood leaves catch the fall, health " + duskPig.getHealth());
