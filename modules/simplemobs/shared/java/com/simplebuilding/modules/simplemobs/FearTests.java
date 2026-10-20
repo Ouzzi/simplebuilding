@@ -373,8 +373,9 @@ final class FearTests {
         add.accept("fear_watcher_hit_new_victim", h -> {
             floor(h, -24, -24, 28, 28);
             var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 3));
-            var near = dummy(h, 8, 3);
-            var far = dummy(h, -6, 3);
+            // Both inside the 8x8 test area: a neighbouring test's structure placement clears entities outside it.
+            var near = dummy(h, 6, 3);
+            var far = dummy(h, 1, 6);
             Vec3 start = watcher.position();
             watcher.setTarget(near);
             h.assertTrue(watcher.hurtServer(h.getLevel(), h.getLevel().damageSources().generic(), 1.0f), "the hit lands");
@@ -382,6 +383,8 @@ final class FearTests {
             h.assertTrue(watcher.position().distanceTo(start) > 1.0, "it blinked away");
             // The arena reaches into neighbouring tests, so their entities can be candidates too: assert the skip, not who wins.
             // Asked directly, because after the blink the range check may already have dropped the chosen target.
+            // Back to the start, so both candidates are surely in range.
+            watcher.teleportTo(start.x, start.y, start.z);
             watcher.setTarget(near);
             for (int i = 0; i < 8; i++) {
                 var next = watcher.pickVictim(h.getLevel());
