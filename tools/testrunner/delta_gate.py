@@ -22,7 +22,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from retry_red import blockers, red_tests  # noqa: E402
 
-CHECK_ONLY = ("docs/", ".claude/", "wiki/", "art/", "previews/", "balance/", "bench-results/", "testing/runs/")
+CHECK_ONLY = ("docs/", ".claude/", "wiki/", "art/", "previews/", "balance/", "bench-results/", "testing/runs/",
+              "tools/textures/")  # generators only; the PNGs they write sit under modules/ or src/
 CHECK_ONLY_FILES = {"readme.md", "readme_modrinth.md", "readme_old.md", "todo.md", "MULTILOADER_TODO.md", "AGENTS.md", "CLAUDE.md"}
 FULL_MODULES = {"simplelib", "wiringexample"}
 CORE = ["fabric-263", "neoforge-263", "forge-263"]

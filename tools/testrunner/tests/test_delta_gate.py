@@ -28,6 +28,10 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(self.plan("docs/ai/X.md", ".claude/QUEUE.md", "wiki/data/a.js"),
                          {"mode": "delta", "modules": [], "targets": []})
 
+    def test_texture_generators_need_check_only(self):
+        self.assertEqual(self.plan("tools/textures/herobrine_head_2026_10_20.py"),
+                         {"mode": "delta", "modules": [], "targets": []})
+
     def test_one_module_runs_its_targets_without_client(self):
         p = self.plan("modules/simplevisuals/shared/java/A.java")
         self.assertEqual(p["targets"], ["module-simplevisuals-fabric-263", "module-simplevisuals-neoforge-263",
