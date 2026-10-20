@@ -882,7 +882,8 @@ public final class MobHeadTests {
         ServerLevel level = helper.getLevel();
         // Mobs never target a creative player: the in-level mock player always is one, so a survival mock player stands here.
         ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
-        player.snapTo(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+        player.setPos(at.x, at.y, at.z);
         HeadAbilities.resetForTests(player);
         var zombie = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 4));
         zombie.setTarget(player);
