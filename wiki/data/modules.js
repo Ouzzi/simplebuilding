@@ -661,7 +661,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpletweaks"
     ],
-    "dataHash": "50a57e8a6fe1"
+    "dataHash": "7c13ab3a1cc5"
   },
   {
     "id": "simplewanderers",

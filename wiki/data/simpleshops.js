@@ -707,7 +707,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simpleshops:trade_terminal"
           ],
