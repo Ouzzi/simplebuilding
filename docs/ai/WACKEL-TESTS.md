@@ -12,14 +12,14 @@ kein FEHLER, höchstens 6 rote Tests), läuft jeder rote Test einmal allein nach
 
 | Datum | Ref | Ziel | Test |
 |---|---|---|---|
-| 2026-10-20 | 4f7b391c8 | module-simpletweaks-fabric-263 | simpletweaks:claims_game_test_claims_rights_action_matrix |
-| 2026-10-20 | 4f7b391c8 | module-simpleend-neoforge-263 | simpleend:module_game_test_end_leaves_catch_fall |
 
 ## Erledigt
 
 | Datum | Test | Ursache / Fix |
 |---|---|---|
 | 2026-10-20 | simplemobs:module_game_test_fear_watcher_hit_new_victim | Schweine außerhalb der 8×8-Testfläche, Nachbar-Struktur räumte sie weg; Fix 371df6b7f |
+| 2026-10-20 | simpletweaks:claims_game_test_claims_rights_action_matrix | Probe-Zelle im Nachbar-Chunk (außerhalb der Struktur) wird von anderen Tests/Mock-Spielern geteilt, Platzieren (Recht B) auf Tick 0 blockiert (probes 0, expected 1); Fix: freie Zelle suchen (`freeGround`), Commit d7b12fc97. Vermutete Ursache (nicht reproduzierbar), 3 Läufe + simpletweaks:* grün |
+| 2026-10-20 | simpleend:module_game_test_end_leaves_catch_fall | Test-Laub war nicht persistent und konnte per Random-Tick zerfallen, bevor das Schwein ankam (~15 Ticks) -> voller Fallschaden (5.0); Fix: PERSISTENT, Commit 5e6e6fb59. 3 Läufe + simpleend:* grün |
 
 ## Delta-Gate
 
