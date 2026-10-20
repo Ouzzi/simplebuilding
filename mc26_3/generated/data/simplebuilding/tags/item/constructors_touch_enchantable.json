@@ -1,0 +1,21 @@
+{
+  "values": [
+    "simplestorage:reinforced_bundle",
+    "simplestorage:netherite_bundle",
+    "simplestorage:enderite_bundle",
+    "simplestorage:quiver",
+    "simplestorage:reinforced_quiver",
+    "simplestorage:netherite_quiver",
+    "simplestorage:enderite_quiver",
+    "#simplebuilding:backpacks",
+    "#simplebuilding:chisel_tools",
+    "#simplebuilding:sledgehammer_tools",
+    "#simplebuilding:building_wand_enchantable",
+    "simplebuilding:velocity_gauge",
+    "simplebuilding:amethyst_lens",
+    "simplebuilding:detector",
+    "simplebuilding:magnet",
+    "#simplebuilding:octants_enchantable",
+    "minecraft:stick"
+  ]
+}

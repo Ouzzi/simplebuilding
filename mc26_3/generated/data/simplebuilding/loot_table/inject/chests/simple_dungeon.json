@@ -22,7 +22,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:funnel": 1
+                "simplestorage:funnel": 1
               }
             }
           },
@@ -83,7 +83,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:reinforced_bundle",
+          "name": "simplestorage:reinforced_bundle",
           "weight": 8
         },
         {

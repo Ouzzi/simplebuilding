@@ -23,7 +23,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:deep_pockets": 2
+                "simplestorage:deep_pockets": 2
               }
             }
           },
@@ -61,7 +61,7 @@
           "modifier": {
             "type": "minecraft:enchant_randomly"
           },
-          "name": "simplebuilding:quiver",
+          "name": "simplestorage:quiver",
           "weight": 3
         },
         {

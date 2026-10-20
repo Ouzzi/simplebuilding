@@ -35,7 +35,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:deep_pockets": 1
+                "simplestorage:deep_pockets": 1
               }
             }
           },

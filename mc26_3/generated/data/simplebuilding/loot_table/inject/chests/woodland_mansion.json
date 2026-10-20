@@ -78,7 +78,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:drawer": 1
+                "simplestorage:drawer": 1
               }
             }
           },
@@ -92,7 +92,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:quiver",
+          "name": "simplestorage:quiver",
           "weight": 3
         },
         {

@@ -40,7 +40,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:quiver",
+          "name": "simplestorage:quiver",
           "weight": 5
         },
         {

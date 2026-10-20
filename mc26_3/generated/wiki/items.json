@@ -214,7 +214,6 @@
     "simplebuilding:pink_hammock",
     "simplebuilding:pink_light_pane",
     "simplebuilding:placed_blueprint",
-    "simplebuilding:placed_bundle",
     "simplebuilding:placed_egg",
     "simplebuilding:placed_small_parts",
     "simplebuilding:placed_smithing_template",
@@ -918,11 +917,6 @@
       "wandSquareDiameter": 13
     },
     {
-      "bundleCapacityItems": 288,
-      "id": "simplebuilding:enderite_bundle",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_carrot"
     },
     {
@@ -1014,11 +1008,6 @@
     },
     {
       "id": "simplebuilding:enderite_pressure_plate"
-    },
-    {
-      "bundleCapacityItems": 192,
-      "id": "simplebuilding:enderite_quiver",
-      "maxStackSize": 1
     },
     {
       "attackDamage": 7.5,
@@ -1486,11 +1475,6 @@
       "wandSquareDiameter": 11
     },
     {
-      "bundleCapacityItems": 192,
-      "id": "simplebuilding:netherite_bundle",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:netherite_carrot"
     },
     {
@@ -1540,11 +1524,6 @@
     },
     {
       "id": "simplebuilding:netherite_pressure_plate"
-    },
-    {
-      "bundleCapacityItems": 128,
-      "id": "simplebuilding:netherite_quiver",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_shulker_shell"
@@ -2160,11 +2139,6 @@
       "maxStackSize": 99
     },
     {
-      "bundleCapacityItems": 64,
-      "id": "simplebuilding:quiver",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:red_copper_light_pane"
     },
     {
@@ -2243,11 +2217,6 @@
       "maxStackSize": 1
     },
     {
-      "bundleCapacityItems": 96,
-      "id": "simplebuilding:reinforced_bundle",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:reinforced_elytra_pad",
       "maxStackSize": 1
     },
@@ -2271,11 +2240,6 @@
     },
     {
       "id": "simplebuilding:reinforced_potion_pad",
-      "maxStackSize": 1
-    },
-    {
-      "bundleCapacityItems": 96,
-      "id": "simplebuilding:reinforced_quiver",
       "maxStackSize": 1
     },
     {

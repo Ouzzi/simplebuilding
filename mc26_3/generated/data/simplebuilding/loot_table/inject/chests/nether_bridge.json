@@ -35,7 +35,7 @@
             "type": "minecraft:set_components",
             "components": {
               "minecraft:stored_enchantments": {
-                "simplebuilding:funnel": 1
+                "simplestorage:funnel": 1
               }
             }
           },

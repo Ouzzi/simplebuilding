@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:storage/sheet_happens",
+  "criteria": {
+    "quiver": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplestorage:quiver",
+              "simplestorage:reinforced_quiver",
+              "simplestorage:netherite_quiver",
+              "simplestorage:enderite_quiver"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.quiver_in_fear.description"
+    },
+    "icon": {
+      "id": "simplestorage:quiver"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.quiver_in_fear.title"
+    }
+  },
+  "requirements": [
+    [
+      "quiver"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

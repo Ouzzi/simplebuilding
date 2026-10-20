@@ -18,7 +18,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:reinforced_bundle",
+          "name": "simplestorage:reinforced_bundle",
           "weight": 8
         },
         {

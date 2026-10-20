@@ -73,7 +73,7 @@
           "modifier": {
             "type": "minecraft:enchant_randomly"
           },
-          "name": "simplebuilding:reinforced_bundle",
+          "name": "simplestorage:reinforced_bundle",
           "weight": 6
         },
         {

@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#simplebuilding:building_wand_enchantable",
+    "simplestorage:reinforced_bundle",
+    "simplestorage:netherite_bundle",
+    "simplestorage:enderite_bundle",
+    "simplestorage:quiver",
+    "simplestorage:reinforced_quiver",
+    "simplestorage:netherite_quiver",
+    "simplestorage:enderite_quiver"
+  ]
+}
