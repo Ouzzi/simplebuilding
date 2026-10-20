@@ -57,7 +57,7 @@ public final class StorageNeoForge {
                 insertAfter(event, net.minecraft.world.item.Items.CRAFTING_TABLE, java.util.List.of(new net.minecraft.world.item.ItemStack(StorageItems.STORAGE_CRAFTING_TABLE)));
                 insertAfter(event, net.minecraft.world.item.Items.BARREL, StorageRegistry.crateStacks());
                 insertAfter(event, net.minecraft.world.item.Items.TRAPPED_CHEST, StorageRegistry.chestStacks());
-                insertAfter(event, net.minecraft.world.item.Items.PINK_SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
+                insertAfter(event, net.minecraft.world.item.Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.accept(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

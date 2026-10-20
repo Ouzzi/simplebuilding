@@ -44,7 +44,7 @@ public final class StorageFabric implements ModInitializer {
             insertAfter(out, Items.CRAFTING_TABLE, List.of(new ItemStack(StorageItems.STORAGE_CRAFTING_TABLE)));
             insertAfter(out, Items.BARREL, StorageRegistry.crateStacks());
             insertAfter(out, Items.TRAPPED_CHEST, StorageRegistry.chestStacks());
-            insertAfter(out, Items.PINK_SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
+            insertAfter(out, Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!SimpleStorage.on()) return;
