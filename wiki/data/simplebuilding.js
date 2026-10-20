@@ -130147,14 +130147,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 8.82,
-        "perChest": 0.0909,
+        "chance": 8.37,
+        "perChest": 0.0862,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130164,7 +130164,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:deep_pockets",
+        "enchantment": "simplestorage:deep_pockets",
         "level": 2
       },
       {
@@ -130175,14 +130175,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 7.1,
-        "perChest": 0.0727,
+        "chance": 6.74,
+        "perChest": 0.069,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130203,14 +130203,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 3.59,
-        "perChest": 0.0364,
+        "chance": 3.41,
+        "perChest": 0.0345,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130230,14 +130230,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 5.36,
-        "perChest": 0.0545,
+        "chance": 5.08,
+        "perChest": 0.0517,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130250,20 +130250,47 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
+        "item": "simplestorage:quiver",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 5.08,
+        "perChest": 0.0517,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
         "item": "simplebuilding:netherite_apple",
         "table": "minecraft:chests/ancient_city",
         "label": {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 3.59,
-        "perChest": 0.0364,
+        "chance": 3.41,
+        "perChest": 0.0345,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130282,14 +130309,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 1.81,
-        "perChest": 0.0182,
+        "chance": 1.71,
+        "perChest": 0.0172,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130308,14 +130335,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 7.1,
-        "perChest": 0.1455,
+        "chance": 6.74,
+        "perChest": 0.1379,
         "count": [
           1,
           3
         ],
         "weight": 4,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130334,14 +130361,14 @@ window.WIKI_DATA = {
           "en": "Ancient city",
           "de": "Antike Stätte"
         },
-        "chance": 10.51,
-        "perChest": 0.3818,
+        "chance": 9.99,
+        "perChest": 0.3621,
         "count": [
           2,
           5
         ],
         "weight": 6,
-        "totalWeight": 55,
+        "totalWeight": 58,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -130380,7 +130407,7 @@ window.WIKI_DATA = {
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:funnel",
+        "enchantment": "simplestorage:funnel",
         "level": 1
       },
       {
@@ -130562,7 +130589,7 @@ window.WIKI_DATA = {
         ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:funnel",
+        "enchantment": "simplestorage:funnel",
         "level": 1
       },
       {
@@ -130912,7 +130939,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:funnel",
+        "enchantment": "simplestorage:funnel",
         "level": 1
       },
       {
@@ -131060,14 +131087,14 @@ window.WIKI_DATA = {
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 11.3,
-        "perChest": 0.1176,
+        "chance": 10.33,
+        "perChest": 0.1071,
         "count": [
           1,
           1
         ],
         "weight": 6,
-        "totalWeight": 51,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131088,14 +131115,14 @@ window.WIKI_DATA = {
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 14.87,
-        "perChest": 0.1569,
+        "chance": 13.61,
+        "perChest": 0.1429,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 51,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131116,14 +131143,40 @@ window.WIKI_DATA = {
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 3.87,
-        "perChest": 0.0392,
+        "chance": 3.53,
+        "perChest": 0.0357,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 51,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplestorage:quiver",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 8.66,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131142,14 +131195,14 @@ window.WIKI_DATA = {
           "en": "Pillager outpost",
           "de": "Plünderer-Außenposten"
         },
-        "chance": 7.64,
-        "perChest": 0.0784,
+        "chance": 6.97,
+        "perChest": 0.0714,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 51,
+        "totalWeight": 56,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131168,14 +131221,14 @@ window.WIKI_DATA = {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.45,
-        "perChest": 0.0556,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 54,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131196,14 +131249,14 @@ window.WIKI_DATA = {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 8.97,
-        "perChest": 0.0926,
+        "chance": 8.52,
+        "perChest": 0.0877,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 54,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131224,14 +131277,14 @@ window.WIKI_DATA = {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 1.84,
-        "perChest": 0.0185,
+        "chance": 1.74,
+        "perChest": 0.0175,
         "count": [
           1,
           1
         ],
         "weight": 1,
-        "totalWeight": 54,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131252,14 +131305,14 @@ window.WIKI_DATA = {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.45,
-        "perChest": 0.0556,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 54,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131280,14 +131333,14 @@ window.WIKI_DATA = {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 5.45,
-        "perChest": 0.0556,
+        "chance": 5.17,
+        "perChest": 0.0526,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 54,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131297,7 +131350,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:drawer",
+        "enchantment": "simplestorage:drawer",
         "level": 1
       },
       {
@@ -131308,14 +131361,40 @@ window.WIKI_DATA = {
           "en": "Woodland mansion",
           "de": "Waldanwesen"
         },
-        "chance": 7.22,
-        "perChest": 0.0741,
+        "chance": 6.85,
+        "perChest": 0.0702,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 54,
+        "totalWeight": 57,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplestorage:quiver",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.17,
+        "perChest": 0.0526,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 57,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131498,14 +131577,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 5.34,
-        "perChest": 0.0543,
+        "chance": 4.92,
+        "perChest": 0.05,
         "count": [
           1,
           1
         ],
         "weight": 5,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131526,14 +131605,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 8.44,
-        "perChest": 0.087,
+        "chance": 7.79,
+        "perChest": 0.08,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131543,7 +131622,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:funnel",
+        "enchantment": "simplestorage:funnel",
         "level": 1
       },
       {
@@ -131554,14 +131633,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 8.44,
-        "perChest": 0.087,
+        "chance": 7.79,
+        "perChest": 0.08,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131582,14 +131661,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 3.23,
-        "perChest": 0.0326,
+        "chance": 2.97,
+        "perChest": 0.03,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131610,14 +131689,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 8.44,
-        "perChest": 0.087,
+        "chance": 7.79,
+        "perChest": 0.08,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131638,14 +131717,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 12.48,
-        "perChest": 0.1304,
+        "chance": 11.52,
+        "perChest": 0.12,
         "count": [
           1,
           1
         ],
         "weight": 12,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131660,20 +131739,46 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
+        "item": "simplestorage:reinforced_bundle",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
         "item": "simplelib:basic_upgrade_template",
         "table": "minecraft:chests/simple_dungeon",
         "label": {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 2.16,
-        "perChest": 0.0217,
+        "chance": 1.99,
+        "perChest": 0.02,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131692,14 +131797,14 @@ window.WIKI_DATA = {
           "en": "Dungeon",
           "de": "Verlies"
         },
-        "chance": 6.38,
-        "perChest": 0.1304,
+        "chance": 5.88,
+        "perChest": 0.12,
         "count": [
           1,
           3
         ],
         "weight": 6,
-        "totalWeight": 92,
+        "totalWeight": 100,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131718,14 +131823,14 @@ window.WIKI_DATA = {
           "en": "Shipwreck treasure",
           "de": "Schiffswrack-Schatz"
         },
-        "chance": 12.5,
-        "perChest": 0.125,
+        "chance": 10.42,
+        "perChest": 0.1042,
         "count": [
           1,
           1
         ],
         "weight": 10,
-        "totalWeight": 40,
+        "totalWeight": 48,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131740,20 +131845,46 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
+        "item": "simplestorage:reinforced_bundle",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 8.33,
+        "perChest": 0.0833,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
         "item": "simplelib:diamond_pebble",
         "table": "minecraft:chests/shipwreck_treasure",
         "label": {
           "en": "Shipwreck treasure",
           "de": "Schiffswrack-Schatz"
         },
-        "chance": 12.5,
-        "perChest": 0.3125,
+        "chance": 10.42,
+        "perChest": 0.2604,
         "count": [
           1,
           4
         ],
         "weight": 10,
-        "totalWeight": 40,
+        "totalWeight": 48,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131854,14 +131985,14 @@ window.WIKI_DATA = {
           "en": "Mineshaft",
           "de": "Verlassene Mine"
         },
-        "chance": 3.41,
-        "perChest": 0.0345,
+        "chance": 3.09,
+        "perChest": 0.0312,
         "count": [
           1,
           1
         ],
         "weight": 2,
-        "totalWeight": 58,
+        "totalWeight": 64,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131882,14 +132013,14 @@ window.WIKI_DATA = {
           "en": "Mineshaft",
           "de": "Verlassene Mine"
         },
-        "chance": 13.16,
-        "perChest": 0.1379,
+        "chance": 11.98,
+        "perChest": 0.125,
         "count": [
           1,
           1
         ],
         "weight": 8,
-        "totalWeight": 58,
+        "totalWeight": 64,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131910,14 +132041,14 @@ window.WIKI_DATA = {
           "en": "Mineshaft",
           "de": "Verlassene Mine"
         },
-        "chance": 5.08,
-        "perChest": 0.0517,
+        "chance": 4.61,
+        "perChest": 0.0469,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 58,
+        "totalWeight": 64,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131938,14 +132069,14 @@ window.WIKI_DATA = {
           "en": "Mineshaft",
           "de": "Verlassene Mine"
         },
-        "chance": 6.74,
-        "perChest": 0.069,
+        "chance": 6.12,
+        "perChest": 0.0625,
         "count": [
           1,
           1
         ],
         "weight": 4,
-        "totalWeight": 58,
+        "totalWeight": 64,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131966,14 +132097,14 @@ window.WIKI_DATA = {
           "en": "Mineshaft",
           "de": "Verlassene Mine"
         },
-        "chance": 5.08,
-        "perChest": 0.0517,
+        "chance": 4.61,
+        "perChest": 0.0469,
         "count": [
           1,
           1
         ],
         "weight": 3,
-        "totalWeight": 58,
+        "totalWeight": 64,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -131988,20 +132119,47 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
+        "item": "simplestorage:reinforced_bundle",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 9.08,
+        "perChest": 0.0938,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
         "item": "simplelib:diamond_pebble",
         "table": "minecraft:chests/abandoned_mineshaft",
         "label": {
           "en": "Mineshaft",
           "de": "Verlassene Mine"
         },
-        "chance": 13.16,
-        "perChest": 0.2759,
+        "chance": 11.98,
+        "perChest": 0.25,
         "count": [
           1,
           3
         ],
         "weight": 8,
-        "totalWeight": 58,
+        "totalWeight": 64,
         "rolls": {
           "type": "uniform",
           "min": 0,
@@ -132678,7 +132836,7 @@ window.WIKI_DATA = {
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:deep_pockets",
+        "enchantment": "simplestorage:deep_pockets",
         "level": 1
       },
       {
@@ -132819,9 +132977,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.923619120851,
-          0.074330385749,
-          0.0020504934
+          0.930272108844,
+          0.068027210884,
+          0.001700680272
         ]
       },
       {
@@ -132919,9 +133077,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.981928374656,
-          0.017961432507,
-          0.000110192837
+          0.982857709076,
+          0.017043202537,
+          9.9088387e-05
         ]
       },
       {
@@ -133104,9 +133262,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.927754915409,
-          0.070416095107,
-          0.001828989483
+          0.931466092131,
+          0.066892377142,
+          0.001641530727
         ]
       },
       {
@@ -133214,9 +133372,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.964077134986,
-          0.035482093664,
-          0.00044077135
+          0.965913594927,
+          0.033690051526,
+          0.000396353547
         ]
       },
       {
@@ -133395,9 +133553,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.961296937075,
-          0.038190439575,
-          0.00051262335
+          0.964710884354,
+          0.034863945578,
+          0.000425170068
         ]
       },
       {
@@ -133411,9 +133569,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.946446280992,
-          0.052561983471,
-          0.000991735537
+          0.949167657551,
+          0.049940546968,
+          0.000891795482
         ]
       },
       {
@@ -133463,9 +133621,9 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.978418399496,
-          0.021424070573,
-          0.000157529931
+          0.980133333333,
+          0.019733333333,
+          0.000133333333
         ]
       },
       {
@@ -133479,13 +133637,13 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.868410622275,
-          0.041749240322,
-          0.042453868851,
-          0.04315849738,
-          0.002113885586,
-          0.001409257057,
-          0.000704628529
+          0.880208333333,
+          0.038194444444,
+          0.038773148148,
+          0.039351851852,
+          0.001736111111,
+          0.001157407407,
+          0.000578703704
         ]
       },
       {
@@ -133499,17 +133657,17 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.894876033058,
+          0.900118906064,
           0.0,
-          0.025289256198,
-          0.025289256198,
-          0.025537190083,
-          0.025785123967,
-          0.000743801653,
-          0.000991735537,
-          0.000743801653,
-          0.000495867769,
-          0.000247933884
+          0.024078478002,
+          0.024078478002,
+          0.024301426873,
+          0.024524375743,
+          0.000668846611,
+          0.000891795482,
+          0.000668846611,
+          0.000445897741,
+          0.00022294887
         ]
       },
       {
@@ -133549,11 +133707,11 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.875,
-          0.03125,
-          0.03125,
-          0.03125,
-          0.03125
+          0.895833333333,
+          0.026041666667,
+          0.026041666667,
+          0.026041666667,
+          0.026041666667
         ]
       },
       {
@@ -133567,13 +133725,13 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.936200378072,
-          0.020793950851,
-          0.020951480781,
-          0.021109010712,
-          0.000472589792,
-          0.000315059861,
-          0.000157529931
+          0.9412,
+          0.0192,
+          0.019333333333,
+          0.019466666667,
+          0.0004,
+          0.000266666667,
+          0.000133333333
         ]
       },
       {
@@ -133699,13 +133857,13 @@ window.WIKI_DATA = {
         "gated": true,
         "requires": [],
         "pmf": [
-          0.929035812672,
-          0.023067033976,
-          0.023262932354,
-          0.023458830732,
-          0.000587695133,
-          0.000391796755,
-          0.000195898378
+          0.932619896948,
+          0.021931562954,
+          0.022107720086,
+          0.022283877218,
+          0.000528471396,
+          0.000352314264,
+          0.000176157132
         ]
       },
       {
@@ -133810,6 +133968,69 @@ window.WIKI_DATA = {
           0.888888888889,
           0.055555555556,
           0.055555555556
+        ]
+      },
+      {
+        "item": "simplestorage:quiver",
+        "table": "minecraft:chests/pillager_outpost",
+        "type": "chest",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.913371598639,
+          0.083971088435,
+          0.002657312925
+        ]
+      },
+      {
+        "item": "simplestorage:quiver",
+        "table": "minecraft:chests/woodland_mansion",
+        "type": "chest",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.948291782087,
+          0.050784856879,
+          0.000923361034
+        ]
+      },
+      {
+        "item": "simplestorage:reinforced_bundle",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.916666666667,
+          0.083333333333
+        ]
+      },
+      {
+        "item": "simplestorage:reinforced_bundle",
+        "table": "minecraft:chests/simple_dungeon",
+        "type": "chest",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.922133333333,
+          0.075733333333,
+          0.002133333333
         ]
       }
     ],
