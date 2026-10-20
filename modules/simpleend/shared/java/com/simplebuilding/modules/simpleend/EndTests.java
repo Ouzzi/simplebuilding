@@ -481,8 +481,12 @@ public final class EndTests {
                 h.setBlock(col.below(), Blocks.STONE); // the pigs land IN the leaves, ON the control block
                 for (int y = 0; y < 12; y++) h.setBlock(col.above(y), Blocks.AIR);
             }
-            h.setBlock(ashAt, EndWood.ASHWOOD.leaves);
-            h.setBlock(duskAt, EndWood.DUSKWOOD.leaves);
+            // Three leaves high: leaves are cobweb-like (no collision), so with a single leaf the pig only touched it in the very
+            // tick it hit the stone below, and whether the fall distance was reset before or after the damage check varied.
+            for (int y = 0; y < 3; y++) {
+                h.setBlock(ashAt.above(y), EndWood.ASHWOOD.leaves);
+                h.setBlock(duskAt.above(y), EndWood.DUSKWOOD.leaves);
+            }
             h.setBlock(stoneAt, Blocks.STONE);
             Pig ashPig = h.spawn(EntityTypes.PIG, new BlockPos(20, 12, 20));
             Pig duskPig = h.spawn(EntityTypes.PIG, new BlockPos(22, 12, 20));

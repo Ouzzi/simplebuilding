@@ -136,10 +136,22 @@ public final class ClaimRightsTests {
         var c = new Claims(roomy(), root, Map.of()); Claims.install(h.getLevel().getServer(), c); return c;
     }
 
+    /**
+     * A cell in the chunk next to the test's own that no entity occupies. The chunk lies outside the 8x8x8 structure, so neighbouring
+     * tests (and mock players left behind there) share the same cell and the placement probe was sometimes blocked by them.
+     */
+    static BlockPos freeGround(net.minecraft.server.level.ServerLevel level, BlockPos base) {
+        int x0 = (base.getX() >> 4) * 16 + 16, z0 = (base.getZ() >> 4) * 16;
+        for (int dz = 2; dz < 15; dz += 3) for (int dx = 2; dx < 12; dx += 3) {
+            var c = new BlockPos(x0 + dx, base.getY(), z0 + dz);
+            if (level.getEntities((net.minecraft.world.entity.Entity) null, new net.minecraft.world.phys.AABB(c).inflate(1.5, 0, 1.5).expandTowards(0, 3, 0), e -> true).isEmpty()) return c;
+        }
+        return new BlockPos(x0 + 8, base.getY(), z0 + 8);
+    }
     /** Every right letter allows exactly its own actions; a stranger, manage-only and legacy @member behave as documented. */
     public static void actionMatrix(GameTestHelper h) {
         var server = h.getLevel().getServer(); var previous = Claims.get(server); var level = h.getLevel();
-        var base = h.absolutePos(new BlockPos(2, 3, 2)); var ground = new BlockPos((base.getX() >> 4) * 16 + 16, base.getY(), (base.getZ() >> 4) * 16 + 8);
+        var base = h.absolutePos(new BlockPos(2, 3, 2)); var ground = freeGround(level, base);
         var key = new ClaimStore.Key(level.dimension().identifier().toString(), ChunkPos.pack(ground));
         var guest = player(h, ground.east(3)); UUID g = guest.getUUID();
         try {
