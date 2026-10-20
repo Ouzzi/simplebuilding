@@ -76,4 +76,22 @@ Nicht geprüft (Auftrag): Client-Läufe (Renderer, Bildschirm).
 
 ## 6. Stand und Abweichungen
 
-(wird am Ende ausgefüllt)
+Umgesetzt (8b-1): 17 Blöcke/Items (Stufen-Truhen, Stufen-Fallentruhen, 8 Fallen-Kupfertruhen, Stufen-Shulkerkisten) mit BE,
+9 Menütypen, Bildschirm (SimpleLib-UI), 3 Renderern, Komponente `container_counts`, Aufwertungsdaten (31 Schritte), Handlern,
+Mixins (Kupfertruhe/Vanilla-Shulker → Axt/Hammer), NeoForge-Capabilities, Tab, Wiki-Kapitel, Discover-Tip, Geld-Zeilen,
+25 portierte Modul-Tests (ChestTests/ShulkerBoxTests) + Registrierung/Migration (alte gefüllte Netherit-Truhe lädt mit 100er-Stapel).
+SB 26.3: `McVersion.STORAGE_IN_SB=false`, Felder `null`, Zugriff über `StorageRefs`; Datagen 26.3 ohne Truhen/Shulker.
+Belege (sb-test, 55a5263d4): fabric-263 1204/1204, neoforge-263 1204/1204, module-simplestorage fabric/neoforge/standalone-fabric
+je 41/41; Forge und `check`: siehe Abschlussbericht.
+
+Abweichungen (bewusst):
+- **Kisten-Boote/-Loren nicht umgezogen (8b-2 offen):** hängen an `BoatWoods`, `TieredMinecartItem`, `VehicleTiers`, Boots-Renderern
+  und Vanilla-abgeleiteten Item-Texturen; SB behält sie samt `TieredChestMenu` (`simplebuilding:tiered_chest`) auf 26.3, sie nennen
+  die Truhen per Id.
+- Seltene Funde, Shulker-Hüllen und Shulker-Deckel bleiben SB (Weltfunde/Vanilla-Verhalten; SB nennt die Modul-Blöcke per Id).
+- Lager-Verzauberungen → 8c (nur für Bündel/Rucksäcke/Köcher).
+- Fragentisch-Einträge der Truhen bleiben in SB (wie bei den Hämmern).
+- SB-Tests, die SB-Klassen casten, prüfen auf 26.3 per Klassenname/Vanilla-API oder überspringen (Modul-Tests decken sie ab).
+- Balancing-Zentrale liest `TieredShulkerBoxes`-Konstanten weiter aus der SB-Kopie (26.2); die Modul-Kopie ist auf 26.3 maßgeblich.
+
+Offen: 8b-2 Fahrzeuge, seltene Funde, 8c; Client-Sicht (Renderer, Bildschirm, Tab), Merge + Gate durch die Hauptsitzung.
