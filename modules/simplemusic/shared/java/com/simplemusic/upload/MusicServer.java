@@ -108,7 +108,7 @@ public final class MusicServer {
             ItemStack rest = stack.copyWithCount(stack.getCount() - 1);
             stack.setCount(1);
             stack.set(MusicComponents.SHEET, written);
-            if (!player.getInventory().add(rest)) player.drop(rest, false);
+            player.getInventory().placeItemBackInInventory(rest, net.minecraft.util.Prediction.SERVER_ONLY);
             return;
         }
         stack.set(MusicComponents.SHEET, written);
@@ -234,7 +234,7 @@ public final class MusicServer {
         disc.set(MusicComponents.TRACK, new TrackRef(track.hash(), upload.session().title(), track.seconds(), player.getName().getString()));
         blank.shrink(1);
         if (blank.isEmpty()) player.setItemInHand(hand, disc);
-        else if (!player.getInventory().add(disc)) player.drop(disc, false);
+        else player.getInventory().placeItemBackInInventory(disc, net.minecraft.util.Prediction.SERVER_ONLY);
         reply(player, track.status() == TrackStore.Status.APPROVED ? "accepted" : "pending", track.hash().substring(0, 8));
     }
 

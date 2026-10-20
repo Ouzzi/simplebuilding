@@ -94,7 +94,7 @@ public final class MusicTests {
         OggFiles f = OggFiles.mono();
         f.channels = channels;
         f.samples = 44100L * seconds;
-        f.serial = (int) (System.nanoTime() ^ Math.random() * Integer.MAX_VALUE);
+        f.serial = (int) (System.nanoTime() ^ (long) (Math.random() * Integer.MAX_VALUE));
         f.audioBytesPerPage = 40000;
         return f.build();
     }
@@ -239,7 +239,7 @@ public final class MusicTests {
             be.insert(sheet(TUNE));
             be.popOut();
             h.assertTrue(be.item().isEmpty() && !h.getBlockState(ORCH).getValue(com.simplemusic.orchestrion.OrchestrionBlock.HAS_RECORD), "empty");
-            h.succeedWhenEntityPresent(net.minecraft.world.entity.EntityType.ITEM, ORCH.above());
+            h.succeedWhenEntityPresent(net.minecraft.world.entity.EntityTypes.ITEM, ORCH.above());
         });
         ALL.put("tone_limit", h -> {
             MusicConfig.maxTonesPerTick = 2;

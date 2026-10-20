@@ -245,6 +245,7 @@ QUEST = {
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
+    "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
     "minecraft:brick": ("a brick", "einem Ziegel"),
     "minecraft:clay_ball": ("a clay ball", "einem Tonklumpen"),
