@@ -9,6 +9,7 @@ new Case("module_game_test_sub_mod_switch",h->{com.simplevisuals.test.VisualsTes
 new Case("module_game_test_launch_smoke",h->{com.simplevisuals.test.VisualsTests.launch(h);}),
 new Case("module_game_test_config_bounds_and_legacy_keys",h->{com.simplevisuals.test.VisualsTests.config(h);}),
 new Case("module_game_test_config_and_language_completeness",h->{com.simplevisuals.test.VisualsTests.language(h);}),
+new Case("module_game_test_speed_lines_math",h->{com.simplevisuals.test.VisualsTests.speedLinesMath(h);}),
 new Case("module_game_test_particle_flood_safety",h->{com.simplevisuals.test.VisualsTests.budgets(h);}),
 new Case("module_game_test_server_anvil_and_cross_mod",h->{com.simplevisuals.test.VisualsTests.formatting(h);}),
 new Case("module_game_test_asset_decompression_bounds",h->{com.simplevisuals.test.VisualsTests.assetBounds(h);}),
