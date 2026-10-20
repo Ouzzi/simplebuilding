@@ -2,6 +2,7 @@ package com.simplestorage.test;
 
 
 import com.simplestorage.registry.StorageItems;
+import com.simplestorage.bundle.BundleTooltipData;
 import com.simplestorage.bundle.QuiverItem;
 import com.simplestorage.bundle.ReinforcedBundleItem;
 import java.util.ArrayList;

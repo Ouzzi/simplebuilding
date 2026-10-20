@@ -411,8 +411,9 @@
           "Trades (only with the enableWanderingTrades option on, condition simplebuilding:config): the wandering trader sells a Reinforced Bundle for 16 emeralds (uncommon pool) and buys one for 12 emeralds (buying pool), each only once per trader.",
           "Books for the bundle enchantments in loot chests: Deep Pockets II in ancient cities; Funnel I in bastions, nether fortresses and dungeons; Master Builder I in stronghold libraries, end city treasure and trial chamber vaults (rare and ominous); Color Palette I in pillager outposts and woodland mansions.",
           "Books from the librarian (only with the enableVillagerTrades option on): the tier 3 book for 25 emeralds can carry Color Palette (a pool shared with Fast Chiseling and Linear); the tier 5 book for 25 emeralds can carry Master Builder or Funnel (a pool shared with Range, Strip Miner and Vein Miner).",
-          "The Invert Bundle Clicks config option (invertBundleInteractions, off by default) swaps left and right click for inserting and removing.",
-          "Offered in the mod's creative tab among the storage items; books for all bundle enchantments at max level sit there too."
+          "The Invert Bundle Clicks config option (invertBundleInteractions in config/simplestorage.json, off by default) swaps left and right click for inserting and removing.",
+          "Offered in the mod's creative tab among the storage items; books for all bundle enchantments at max level sit there too.",
+          "Split stage 8c-1: Simple Storage's item (old simplebuilding:reinforced_bundle stacks migrate). Without SimpleBuilding the recipe takes plain Leather instead of the Leather Sheet (recipe simplestorage:reinforced_bundle_without_simplebuilding, active only then); Master Builder and Color Palette exist only with SimpleBuilding."
         ],
         "controls": [
           "Bundle on the cursor + left-click a slot holding an item: put the item into the bundle",
@@ -430,7 +431,7 @@
           "Drawer comes as a book from woodland mansions (weight 3) and the level 4 librarian (weight 15); it also sits in the mod's creative tab. The randomly enchanted bundle from abandoned mineshafts uses the unfiltered vanilla random enchantment, and the mod code does not rule out Drawer (or Color Palette without Master Builder) there.",
           "Color Palette on its own does nothing on the bundle: the item code only evaluates it inside the Master Builder branch. The anvil block applies to anvil results only.",
           "The in-game description (\"only for the one kind of item already inside\") matches the code since 2026-09-28.",
-          "The config option Invert Bundle Clicks (tools.invertBundleInteractions) swaps left and right click permanently; it has nothing to do with sneaking (until 2026-09-28 its tooltip claimed it did).",
+          "The config option Invert Bundle Clicks (invertBundleInteractions in config/simplestorage.json, taken over once from SimpleBuilding) swaps left and right click permanently; it has nothing to do with sneaking (until 2026-09-28 its tooltip claimed it did).",
           "The tooltip's fill bar truncates the capacity factor to a whole number and does not scale at all at a factor of 1 or less (1.5 becomes 1): on an unenchanted Reinforced Bundle the tooltip bar is therefore left unscaled and already shows full at 64 items. The fill bar on the item itself does the maths correctly.",
           "The tooltip text \"Can hold more items if enchanted.\" sits in the language file but is displayed by no code (appendHoverText only calls super).",
           "Right-click does not drop a selected block; blocks have to be taken out in the inventory or placed with Master Builder.",
@@ -463,8 +464,9 @@
           "Handel (nur bei aktiver Option enableWanderingTrades, Bedingung simplebuilding:config): Der fahrende Händler verkauft ein Verstärktes Bündel für 16 Smaragde (Pool uncommon) und kauft eines für 12 Smaragde (Pool buying), jeweils nur 1 Mal pro Händler.",
           "Bücher der Bündel-Verzauberungen in Beutetruhen: Tiefe Taschen II in Antiken Stätten; Trichter I in Bastionen, Netherfestungen und Verliesen; Baumeister I in Festungsbibliotheken, Endsiedlungen und Prüfungskammer-Tresoren (rare und ominous); Farbpalette I in Plünderer-Außenposten und Waldanwesen.",
           "Bücher beim Bibliothekar (nur bei aktiver Option enableVillagerTrades): Stufe-3-Buch für 25 Smaragde kann Farbpalette enthalten (Pool mit Schnelles Meißeln und Linear); Stufe-5-Buch für 25 Smaragde kann Baumeister oder Trichter enthalten (Pool mit Reichweite, Streckenschürfer, Adernschürfer).",
-          "Konfigurationsoption Bündel-Klicks vertauschen (invertBundleInteractions, Standard: aus) vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
-          "Wird im Kreativ-Reiter der Mod unter den Lagerungs-Items angeboten; dort liegen auch Bücher aller Bündel-Verzauberungen auf Höchststufe."
+          "Konfigurationsoption Bündel-Klicks vertauschen (invertBundleInteractions in config/simplestorage.json, Standard: aus) vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
+          "Wird im Kreativ-Reiter der Mod unter den Lagerungs-Items angeboten; dort liegen auch Bücher aller Bündel-Verzauberungen auf Höchststufe.",
+          "Stufe 8c-1 der Aufteilung: ein Item von Simple Storage (alte simplebuilding:reinforced_bundle-Stapel wandern mit). Ohne SimpleBuilding nimmt das Rezept einfaches Leder statt der Lederplatte (Rezept simplestorage:reinforced_bundle_without_simplebuilding, nur dann aktiv); Meisterbauer und Farbpalette gibt es nur mit SimpleBuilding."
         ],
         "controls": [
           "Bündel auf dem Cursor + Linksklick auf einen Slot mit Gegenstand: Gegenstand ins Bündel legen",
@@ -482,7 +484,7 @@
           "Schublade gibt es als Buch aus Waldanwesen (Gewicht 3) und vom Bibliothekar Stufe 4 (Gewicht 15), außerdem im Kreativ-Reiter der Mod. Das zufällig verzauberte Bündel aus verlassenen Minen nutzt die ungefilterte Vanilla-Zufallsverzauberung; der Mod-Code schließt Schublade (oder Farbpalette ohne Baumeister) dort nicht aus.",
           "Farbpalette allein hat auf dem Bündel keine Wirkung: Der Item-Code wertet sie nur innerhalb des Baumeister-Zweigs aus. Die Amboss-Sperre gilt nur für Amboss-Ergebnisse.",
           "Der Beschreibungstext („nur für die eine Item-Sorte, die schon darin liegt“) stimmt seit 2026-09-28 mit dem Code überein.",
-          "Die Config-Option Bündel-Klicks vertauschen (tools.invertBundleInteractions) vertauscht Links- und Rechtsklick dauerhaft; mit Schleichen hat sie nichts zu tun (bis 2026-09-28 behauptete ihr Tooltip das).",
+          "Die Config-Option Bündel-Klicks vertauschen (invertBundleInteractions in config/simplestorage.json, taken over once from SimpleBuilding) vertauscht Links- und Rechtsklick dauerhaft; mit Schleichen hat sie nichts zu tun (bis 2026-09-28 behauptete ihr Tooltip das).",
           "Die Füllleiste im Tooltip schneidet den Kapazitätsfaktor auf eine ganze Zahl ab und skaliert bei Faktor <= 1 gar nicht (1,5 wird zu 1): Beim unverzauberten Verstärkten Bündel wird die Tooltip-Leiste deshalb nicht skaliert und zeigt schon bei 64 Gegenständen voll an. Der Füllbalken am Item selbst rechnet korrekt.",
           "Der Tooltip-Text Kann mehr Items halten, wenn verzaubert. steht in der Sprachdatei, wird aber von keinem Code angezeigt (appendHoverText ruft nur super auf).",
           "Rechtsklick lässt einen ausgewählten Block nicht fallen; Blöcke müssen im Inventar entnommen oder mit Baumeister platziert werden.",
@@ -533,11 +535,12 @@
         "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
         "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
         "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
         "config/simplebuilding.json",
         "modules/simplestorage/shared/resources/assets/simplestorage/lang/de_de.json",
         "modules/simplestorage/shared/resources/assets/simplestorage/lang/en_us.json",
-        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java"
+        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_bundle_without_simplebuilding.json"
       ]
     },
     "simplestorage:netherite_bundle": {
@@ -721,12 +724,13 @@
           "Constructor's Touch: quivers in slots 9 and up (the main inventory) supply the bow as well.",
           "The quiver itself can be put inside container items (canFitInsideContainerItems returns true).",
           "Loot (only with the config option worldGen.enableLootTableChanges on, default: on): Ancient City chests (weight 3, randomly enchanted), Pillager Outpost (weight 5) and Woodland Mansion (weight 3).",
-          "Creative tab \"SimpleMachines\" (itemgroup.simplebuilding.functional): in the storage group, directly after the three bundles."
+          "Creative tab \"SimpleMachines\" (itemgroup.simplebuilding.functional): in the storage group, directly after the three bundles.",
+          "Split stage 8c-1: a quiver inside a worn container that offers its entries feeds the bow too (SimpleLib CarriedStacks; with SimpleBuilding that is its worn backpack with Master Builder). Accessory slots (Curios, Trinkets) are SimpleLib AccessorySlots; the hooks come from SimpleBuilding."
         ],
         "controls": [
           "Inventory: left-click arrows onto the quiver (or the quiver on the cursor onto a slot holding arrows) inserts them; right-click with an empty cursor on the quiver takes the mouse-wheel-selected stack - or the topmost one if nothing is selected - onto the cursor; right-click with the quiver on the cursor onto an empty slot puts that stack down there.",
           "Scrolling the mouse wheel over the quiver in the inventory picks the stack that comes out on the next right-click; when the mouse leaves the slot the selection is reset (index -1).",
-          "The config option tools.invertBundleInteractions (default: off) swaps left-click and right-click.",
+          "The config option invertBundleInteractions in config/simplestorage.json (default: off, taken over once from SimpleBuilding) swaps left-click and right-click.",
           "Draw and release a bow as usual; arrows from the quiver are used automatically.",
           "Right-clicking with the quiver in hand (into the air or onto a block) does nothing: use and useOn return PASS."
         ],
@@ -764,12 +768,13 @@
           "Berührung des Konstrukteurs: Köcher in den Slots ab 9 (Hauptinventar) versorgen den Bogen ebenfalls.",
           "Der Köcher kann selbst in Behälter-Gegenstände gesteckt werden (canFitInsideContainerItems liefert true).",
           "Loot (nur bei eingeschalteter Config-Option worldGen.enableLootTableChanges, Standard: an): Truhen der Antiken Stadt (Gewicht 3, zufällig verzaubert), des Plünderer-Außenpostens (Gewicht 5) und des Waldanwesens (Gewicht 3).",
-          "Kreativ-Tab „SimpleMachines“ (itemgroup.simplebuilding.functional): in der Lager-Gruppe direkt hinter den drei Bündeln."
+          "Kreativ-Tab „SimpleMachines“ (itemgroup.simplebuilding.functional): in der Lager-Gruppe direkt hinter den drei Bündeln.",
+          "Stufe 8c-1: ein Köcher in einem getragenen Behälter, der seine Einträge anbietet, versorgt den Bogen ebenfalls (SimpleLib CarriedStacks; mit SimpleBuilding ist das dessen getragener Rucksack mit Meisterbauer). Zubehörplätze (Curios, Trinkets) laufen über SimpleLib AccessorySlots; die Haken bringt SimpleBuilding mit."
         ],
         "controls": [
           "Inventar: Linksklick mit Pfeilen auf den Köcher (oder mit dem Köcher am Cursor auf einen Pfeil-Slot) legt ein; Rechtsklick mit leerer Hand auf den Köcher nimmt den per Mausrad gewählten, sonst den obersten Stapel an den Cursor; Rechtsklick mit dem Köcher am Cursor auf einen leeren Slot legt diesen Stapel dort ab.",
           "Mausrad über dem Köcher im Inventar wählt den Stapel, der beim nächsten Rechtsklick herauskommt; verlässt die Maus den Slot, wird die Auswahl zurückgesetzt (Index -1).",
-          "Config-Option tools.invertBundleInteractions (Standard: aus) vertauscht Linksklick und Rechtsklick.",
+          "Config-Option invertBundleInteractions in config/simplestorage.json (Standard: aus, einmal aus SimpleBuilding übernommen) vertauscht Linksklick und Rechtsklick.",
           "Bogen wie gewohnt spannen und loslassen; Pfeile aus dem Köcher werden automatisch verwendet.",
           "Rechtsklick mit dem Köcher in der Hand (in die Luft oder auf einen Block) tut nichts: use und useOn liefern PASS."
         ],
@@ -797,7 +802,7 @@
         "modules/simplestorage/shared/java/com/simplestorage/client/BundleScrollHandler.java",
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
         "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
         "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
         "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
@@ -824,7 +829,8 @@
         "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
         "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
         "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_quiver.json",
-        "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_quiver_smithing.json"
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_quiver_smithing.json",
+        "modules/simplelib/shared/java/com/simplelib/api/CarriedStacks.java"
       ]
     },
     "simplestorage:reinforced_quiver": {
@@ -840,7 +846,8 @@
           "Chest slot: it carries the same equippable component as the other quivers (ModItems.quiverChestSlot), so it can be worn in the chest slot and feeds the bow from there.",
           "Enchantable at an anvil through the tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable: Drawer, Deep Pockets, Funnel, Constructor's Touch, Master Builder and Color Palette; Drawer excludes Master Builder and Color Palette. The enchanting table stays shut, because no quiver carries an enchantable component.",
           "Smithing trims: it is the base of the netherite quiver recipe, so the smithing table's base slot takes it, and its equippable component passes the mod's trim check - the Glowing and the Emitting Armor Trim both work on it.",
-          "The mod's creative tab: in the Storage section, directly after the Quiver."
+          "The mod's creative tab: in the Storage section, directly after the Quiver.",
+          "Split stage 8c-1: without SimpleBuilding the recipe takes plain Leather instead of the Leather Sheet (recipe simplestorage:reinforced_quiver_without_simplebuilding)."
         ],
         "controls": [
           "Handled like the Quiver: left-click inserts arrows, right-click takes a stack out, the mouse wheel picks the stack; drawing and releasing a bow uses arrows from it automatically."
@@ -865,7 +872,8 @@
           "Brustpanzer-Slot: Er trägt dieselbe Ausrüstungs-Komponente wie die anderen Köcher (ModItems.quiverChestSlot), lässt sich also im Brustpanzer-Slot tragen und versorgt von dort den Bogen.",
           "Am Amboss verzauberbar über die Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable: Schublade, Tiefe Taschen, Trichter, Berührung des Konstrukteurs, Baumeister und Farbpalette; Schublade schließt Baumeister und Farbpalette aus. Der Zaubertisch bleibt zu, weil kein Köcher eine Verzauberbarkeit trägt.",
           "Besatz am Schmiedetisch: Er ist Basis des Netheritköcher-Rezepts, der Basis-Slot des Schmiedetischs nimmt ihn also an, und seine Ausrüstungs-Komponente besteht die Besatz-Prüfung der Mod - Leuchtender und Strahlender Rüstungsbesatz wirken beide auf ihn.",
-          "Kreativ-Tab der Mod: im Abschnitt Storage direkt hinter dem Köcher."
+          "Kreativ-Tab der Mod: im Abschnitt Storage direkt hinter dem Köcher.",
+          "Stufe 8c-1: ohne SimpleBuilding nimmt das Rezept einfaches Leder statt der Lederplatte (Rezept simplestorage:reinforced_quiver_without_simplebuilding)."
         ],
         "controls": [
           "Bedienung wie beim Köcher: Linksklick legt Pfeile ein, Rechtsklick nimmt einen Stapel heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile daraus automatisch."
@@ -902,7 +910,8 @@
         "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
         "src/main/generated/wiki/items.json",
         "modules/simplestorage/shared/resources/assets/simplestorage/lang/de_de.json",
-        "modules/simplestorage/shared/resources/assets/simplestorage/lang/en_us.json"
+        "modules/simplestorage/shared/resources/assets/simplestorage/lang/en_us.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_quiver_without_simplebuilding.json"
       ]
     },
     "simplestorage:netherite_quiver": {
@@ -1076,7 +1085,8 @@
           "Indirectly: the mod loot enchants quivers (ancient city, weight 3) and Reinforced Bundles (abandoned mineshaft, weight 6) with EnchantRandomlyFunction.randomEnchantment() and no enchantment list; by vanilla logic any enchantment applicable to the item can turn up that way at a random level.",
           "A book at max level (II) sits in the creative inventory.",
           "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_deep_pockets, selected through the item property simplebuilding:enchant_type).",
-          "A gametest checks that level I holds more than unenchanted and level II more than level I."
+          "A gametest checks that level I holds more than unenchanted and level II more than level I.",
+          "Split stage 8c-1: Simple Storage's enchantment (old simplebuilding:deep_pockets enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
         ],
         "controls": [
           "Left-clicking the bundle with an item stack (or the bundle onto a stack) inserts, provided the item is allowed inside container items; right-clicking with an empty cursor (or onto an empty slot) takes out the selected, otherwise topmost, item. With the config option tools.invertBundleInteractions the two clicks are swapped."
@@ -1106,7 +1116,8 @@
           "Indirekt: Der Mod-Loot verzaubert Köcher (Ancient City, Gewicht 3) und Verstärkte Bündel (verlassene Mine, Gewicht 6) mit EnchantRandomlyFunction.randomEnchantment() ohne Verzauberungsliste; nach Vanilla-Logik kann so jede auf das Item anwendbare Verzauberung mit zufälliger Stufe erscheinen.",
           "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
           "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_deep_pockets, Auswahl über die Item-Eigenschaft simplebuilding:enchant_type).",
-          "Ein Gametest prüft, dass Stufe I mehr fasst als unverzaubert und Stufe II mehr als Stufe I."
+          "Ein Gametest prüft, dass Stufe I mehr fasst als unverzaubert und Stufe II mehr als Stufe I.",
+          "Stufe 8c-1: eine Verzauberung von Simple Storage (alte simplebuilding:deep_pockets-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
         ],
         "controls": [
           "Linksklick mit einem Item-Stapel auf das Bündel (oder mit dem Bündel auf einen Stapel) legt ein, sofern das Item in Behälter-Items passen darf; Rechtsklick mit leerem Cursor (bzw. auf einen leeren Slot) entnimmt das ausgewählte bzw. oberste Item. Mit der Config-Option tools.invertBundleInteractions vertauschen sich beide Klicks."
@@ -1134,7 +1145,7 @@
         "src/main/resources/assets/minecraft/items/enchanted_book.json",
         "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
         "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
         "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
         "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
         "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
@@ -1159,7 +1170,8 @@
           "The fill bar on the item and the tooltip account for the bonus (the tooltip only roughly, see Deep Pockets).",
           "A book at max level (VIII) sits in the creative inventory.",
           "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_drawer).",
-          "A gametest checks that a bundle with Drawer I holds more than an unenchanted one."
+          "A gametest checks that a bundle with Drawer I holds more than an unenchanted one.",
+          "Split stage 8c-1: Simple Storage's enchantment (old simplebuilding:drawer enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
         ],
         "controls": [
           "Left-clicking the bundle with an item stack inserts, provided the type is already inside or a type slot is still free; right-clicking with an empty cursor takes out. Swapped by tools.invertBundleInteractions."
@@ -1187,7 +1199,8 @@
           "Der Füllbalken auf dem Item und der Tooltip berücksichtigen den Bonus (Tooltip nur näherungsweise, siehe Tiefe Taschen).",
           "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (VIII).",
           "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_drawer).",
-          "Ein Gametest prüft, dass ein Bündel mit Schublade I mehr fasst als ein unverzaubertes."
+          "Ein Gametest prüft, dass ein Bündel mit Schublade I mehr fasst als ein unverzaubertes.",
+          "Stufe 8c-1: eine Verzauberung von Simple Storage (alte simplebuilding:drawer-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
         ],
         "controls": [
           "Linksklick mit einem Item-Stapel auf das Bündel legt ein, sofern die Sorte schon enthalten ist oder noch ein Sorten-Platz frei ist; Rechtsklick mit leerem Cursor entnimmt. Mit tools.invertBundleInteractions vertauscht."
@@ -1219,7 +1232,8 @@
         "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
         "modules/simplestorage/shared/resources/assets/simplestorage/lang/de_de.json",
-        "modules/simplestorage/shared/resources/assets/simplestorage/lang/en_us.json"
+        "modules/simplestorage/shared/resources/assets/simplestorage/lang/en_us.json",
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java"
       ]
     },
     "simplestorage:funnel": {
@@ -1242,7 +1256,8 @@
           "Indirectly: the randomly enchanted quivers (ancient city) and Reinforced Bundles (abandoned mineshaft) in the mod loot are enchanted with randomEnchantment() and no enchantment list, so they can carry Funnel too.",
           "A book at max level (II) sits in the creative inventory.",
           "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_funnel).",
-          "A gametest confirms it: without Funnel nothing is picked up, level I filters (empty bundle: nothing; with stone inside: stone yes, dirt no), level II takes everything."
+          "A gametest confirms it: without Funnel nothing is picked up, level I filters (empty bundle: nothing; with stone inside: stone yes, dirt no), level II takes everything.",
+          "Split stage 8c-1: Simple Storage's enchantment (old simplebuilding:funnel enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
         ],
         "controls": [
           "Just walk over items lying on the ground: they land in the bundle.",
@@ -1275,7 +1290,8 @@
           "Indirekt: Zufällig verzauberte Köcher (Ancient City) und Verstärkte Bündel (verlassene Mine) im Mod-Loot werden mit randomEnchantment() ohne Verzauberungsliste verzaubert und können daher auch Trichter tragen.",
           "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
           "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_funnel).",
-          "Ein Gametest bestätigt: ohne Trichter kein Aufsaugen, Stufe I filtert (leer: nichts; mit Stein: Stein ja, Erde nein), Stufe II nimmt alles."
+          "Ein Gametest bestätigt: ohne Trichter kein Aufsaugen, Stufe I filtert (leer: nichts; mit Stein: Stein ja, Erde nein), Stufe II nimmt alles.",
+          "Stufe 8c-1: eine Verzauberung von Simple Storage (alte simplebuilding:funnel-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
         ],
         "controls": [
           "Einfach über liegende Items laufen: Sie landen im Bündel.",
@@ -1303,7 +1319,7 @@
         "src/main/resources/assets/minecraft/items/enchanted_book.json",
         "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
         "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
         "modules/simplestorage/shared/resources/assets/simplestorage/lang/de_de.json",
         "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
         "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",

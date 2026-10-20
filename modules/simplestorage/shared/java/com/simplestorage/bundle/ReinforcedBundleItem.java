@@ -250,7 +250,8 @@ public class ReinforcedBundleItem extends BundleItem {
                 ItemStack blockToPlace = getItemAt(contents, index).copy();
 
                 if (blockToPlace.getItem() instanceof net.minecraft.world.item.BlockItem blockItem) {
-                    net.minecraft.world.item.context.UseOnContext blockContext = new net.minecraft.world.item.context.UseOnContext(
+                    // A BlockPlaceContext is a UseOnContext with the stack of our choice (the plain constructor is protected).
+                    net.minecraft.world.item.context.UseOnContext blockContext = new net.minecraft.world.item.context.BlockPlaceContext(
                             context.getLevel(),
                             context.getPlayer(),
                             context.getHand(),

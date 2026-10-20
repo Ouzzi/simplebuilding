@@ -174,7 +174,7 @@ final class BundleStorageTests {
         // Dyeing (26.3, like Vanilla's bundles): container + dye = one fixed colour, every component kept.
         ItemStack enchanted = new ItemStack(StorageItems.REINFORCED_QUIVER);
         enchanted.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Arrows"));
-        ItemStack dyed = craft(h, List.of(enchanted, new ItemStack(Items.RED_DYE)));
+        ItemStack dyed = craft(h, List.of(enchanted, new ItemStack(Items.DYE.pick(net.minecraft.world.item.DyeColor.RED))));
         if (!dyed.is(StorageItems.REINFORCED_QUIVER) || !dyed.has(DataComponents.DYED_COLOR) || !dyed.has(DataComponents.CUSTOM_NAME)) problems.add("dyed quiver " + dyed);
         TagKey<Item> dyeable = TagKey.create(Registries.ITEM, SimpleStorage.id("dyeable_storage"));
         for (Item item : StorageItems.bundles()) if (!new ItemStack(item).is(dyeable)) problems.add(item + " not dyeable");
