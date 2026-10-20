@@ -50,7 +50,9 @@ public final class OptCompat {
         /** mode "ours" (or a measured win) but both parts would hook the same target: falls back to theirs. */
         OURS_NOT_ALLOWED,
         /** Since 0.1.13: target check (concept §4.5) - a mod not on the area's list hooks one of its target classes. */
-        CONFLICT
+        CONFLICT,
+        /** Since 0.1.14 (concept §4.4): one of the area's mixins did not apply at class load (target changed, clash): off, no crash. */
+        MIXIN_FAILED
     }
 
     /**
@@ -111,6 +113,11 @@ public final class OptCompat {
     public static Decision downgrade(Decision d, String mod) {
         return new Decision(d.area(), d.mode(), false, mod, Reason.CONFLICT, "possible conflict with " + mod
                 + " (same target class); set mode ours or conflictScan false to keep ours");
+    }
+
+    /** Since 0.1.14. The decision after mixin {@code mixinSimpleName} of its area did not apply: off, reason MIXIN_FAILED. */
+    public static Decision mixinFailed(Decision d, String mixinSimpleName) {
+        return new Decision(d.area(), d.mode(), false, d.rival(), Reason.MIXIN_FAILED, "mixin " + mixinSimpleName + " not applied");
     }
 
     /** The startup log block: one line per area. */

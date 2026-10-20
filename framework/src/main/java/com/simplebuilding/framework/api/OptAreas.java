@@ -101,6 +101,28 @@ public final class OptAreas {
         return out;
     }
 
+    /**
+     * Since 0.1.14 (concept §4.4): a mixin of an area failed to apply. Its area goes off at runtime (reason MIXIN_FAILED,
+     * {@link #live} answers false) so the game keeps running. Returns the log line, or null when the mixin lies outside an
+     * area package, the area is unknown or already off.
+     */
+    public synchronized String mixinFailed(String mixinClassName) {
+        String id = areaOf(mixinClassName);
+        if (id == null) return null;
+        String simple = mixinClassName.substring(mixinClassName.lastIndexOf('.') + 1);
+        List<OptCompat.Decision> out = new ArrayList<>();
+        boolean changed = false;
+        for (OptCompat.Decision d : OptCompat.decisions(owner)) {
+            if (d.area().id().equals(id) && d.active()) {
+                out.add(OptCompat.mixinFailed(d, simple));
+                changed = true;
+            } else out.add(d);
+        }
+        if (!changed) return null;
+        publish(out);
+        return "Bereich " + id + " abgeschaltet: Mixin " + simple + " nicht angewendet";
+    }
+
     public void conflictScan(boolean on) {
         conflictScan = on;
     }

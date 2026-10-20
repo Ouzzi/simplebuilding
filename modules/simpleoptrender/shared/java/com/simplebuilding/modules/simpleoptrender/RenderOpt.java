@@ -103,8 +103,8 @@ public final class RenderOpt {
         }
     }
 
-    /** Tests only: puts earlier decisions (and depth) back live. */
-    static void restore(List<OptCompat.Decision> decisions, int depth, MoreCulling.Parts parts, Details.Switches switches) {
+    /** Tests only (public for the fabric-side guard test): puts earlier decisions (and depth) back live. */
+    public static void restore(List<OptCompat.Decision> decisions, int depth, MoreCulling.Parts parts, Details.Switches switches) {
         RUNTIME.publish(decisions);
         leafDepth = depth;
         culling = parts;
