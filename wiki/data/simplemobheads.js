@@ -4629,16 +4629,6 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         "simplemobheads:guide_book"
       ],
       "usedIn": []
-    },
-    {
-      "id": "simplemobheads:herobrine_notes",
-      "name": {
-        "en_us": "Herobrine Notes",
-        "de_de": "Herobrine-Notizen"
-      },
-      "note": null,
-      "craftedBy": [],
-      "usedIn": []
     }
   ],
   "blocks": [
@@ -12362,9 +12352,7 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplemobheads:herobrine_notes"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 12,
@@ -12373,13 +12361,13 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
     "tags": 2,
     "advancements": 95,
     "enchantments": 0,
-    "items": 2,
+    "items": 1,
     "blocks": 188,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
