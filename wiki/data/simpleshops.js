@@ -62,7 +62,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       ],
       "en": {
         "title": "Sales Block",
-        "summary": "The cash register of a shop: a wooden block under the Display Case. One price per Sales Block, up to five price items, plus 27 slots for the earnings. Craft: 6 planks, 2 iron ingots, 1 chest. Its owner is the player who placed it.",
+        "summary": "The cash register of a shop: a wooden block under the Display Case. One price per Sales Block, up to five price items, plus 27 slots for the earnings. Craft: 5 planks, 2 iron ingots, 1 ender pearl, 1 chest. Its owner is the player who placed it.",
         "details": [
           "Price row (filter principle): hold an item on the cursor and click a price slot. Right click adds the cursor stack size, left click adds 1; a different item replaces the entry; an empty cursor removes it. The price slots only hold templates: the cursor stack is never used up and no price item can be taken out.",
           "Layout: five positions. An empty row shows only the middle one; a filled middle shows one empty slot on each side, and a filled side slot shows the next one outward (maximum five). Removing a price moves the outer ones inward.",
@@ -73,7 +73,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       },
       "de": {
         "title": "Verkaufsblock",
-        "summary": "Die Kasse eines Shops: ein Holzblock unter der Vitrine. Ein Preis je Verkaufsblock, bis zu fünf Preis-Items, dazu neun Plätze für die Einnahmen. Rezept: 6 Bretter, 2 Eisenbarren, 1 Truhe. Besitzer ist, wer ihn gesetzt hat.",
+        "summary": "Die Kasse eines Shops: ein Holzblock unter der Vitrine. Ein Preis je Verkaufsblock, bis zu fünf Preis-Items, dazu 27 Plätze für die Einnahmen. Rezept: 5 Bretter, 2 Eisenbarren, 1 Enderperle, 1 Truhe. Besitzer ist, wer ihn gesetzt hat.",
         "details": [
           "Preiszeile (Filter-Prinzip): Item auf den Cursor nehmen und einen Preisplatz anklicken. Rechtsklick addiert die Stapelgröße des Cursors, Linksklick 1; ein anderes Item ersetzt den Eintrag; ein leerer Cursor entfernt ihn. Die Preisplätze halten nur Vorlagen: der Cursor-Stapel wird nie verbraucht und kein Preis-Item lässt sich herausnehmen.",
           "Anordnung: fünf Positionen. Eine leere Zeile zeigt nur die Mitte; ist die Mitte gefüllt, erscheint rechts und links je ein leerer Platz, und ein gefüllter Seitenplatz zeigt den nächsten weiter außen (höchstens fünf). Wird ein Preis entfernt, rücken die äußeren nach innen.",
@@ -143,6 +143,61 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Der Vorrat ist unbegrenzt: Jeder Kauf gibt eine exakte Kopie des gewählten Warenstapels heraus, der Stapel selbst schrumpft nie. Die Zahlung wird genau wie im Spieler-Shop geprüft (gleiches Item samt Komponenten, volle Menge).",
           "Zahlungen verschwinden. Mit der Server-Einstellung collectServerShopIncome werden sie stattdessen in der Admin-Kasse summiert; nichts wird gedroppt oder in einer Kiste gelagert.",
           "Nur Operatoren bauen die Blöcke ab; beim Entfernen eines Server-Shops fällt nichts heraus. Mehrere Spieler können gleichzeitig kaufen (keine Ein-Spieler-Sperre)."
+        ]
+      }
+    },
+    {
+      "id": "ender_shops",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/logic/EnderShops.java",
+        "modules/simpleshops/shared/java/com/simpleshops/block/VaultLink.java"
+      ],
+      "en": {
+        "title": "Ender shops",
+        "summary": "Like an ender chest: the goods, prices and earnings of every shop live in the world data, the blocks are only windows onto them. That is why the Sales Block and the Sales Storage need an ender pearl.",
+        "details": [
+          "Shops from before keep everything: their contents move into the world data the first time the block is used or ticks.",
+          "Breaking a shop block drops its contents once, as before. Copied block data never shares contents (the copy starts empty).",
+          "A shop block removed without its usual side effects leaves its contents in the world data; operators list them with /servershop orphans and take them with /servershop orphans clear.",
+          "No chunk is ever loaded for a shop."
+        ]
+      },
+      "de": {
+        "title": "Ender-Shops",
+        "summary": "Wie bei der Endertruhe: Ware, Preise und Einnahmen jedes Shops liegen in den Weltdaten, die Blöcke sind nur Fenster darauf. Deshalb brauchen Verkaufsblock und Verkaufslager eine Enderperle.",
+        "details": [
+          "Alte Shops behalten alles: ihr Inhalt wandert beim ersten Benutzen oder Tick in die Weltdaten.",
+          "Abbauen droppt den Inhalt einmal, wie bisher. Kopierte Blockdaten teilen nie einen Inhalt (die Kopie ist leer).",
+          "Wird ein Shop-Block ohne seine üblichen Nebenwirkungen entfernt, bleibt sein Inhalt in den Weltdaten; Operatoren listen ihn mit /servershop orphans und holen ihn mit /servershop orphans clear.",
+          "Für einen Shop wird nie ein Chunk geladen."
+        ]
+      }
+    },
+    {
+      "id": "trade_terminal",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/block/TradeTerminalBlock.java",
+        "modules/simpleshops/shared/java/com/simpleshops/menu/TradeTerminalMenu.java",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/TradeTerminal.java"
+      ],
+      "en": {
+        "title": "Trade Terminal",
+        "summary": "Remote access to shops: gold ingots, an eye of ender, bookshelves, a lectern and planks. It holds nothing itself and breaks like any block.",
+        "details": [
+          "Tab My shops: pick one of your shops, collect its earnings (only what fits in your inventory), edit its price row, switch it public or private, and take goods out: only from a public shop with a price, after a delivery time of 2 seconds per stack. Goods go in only at the shop.",
+          "Tab Browse shops: every public shop with a price, also server shops; search by item name, mod id or shop name, show only offers in stock, sort by price, distance or name. Buying works like at the shop: put the exact price into the pay slots and trade (shift = up to 64 times).",
+          "Only shops in the terminal's dimension are reachable (server setting remoteCrossDimension). A shop selected in a terminal is busy for everyone else, like an open shop menu. Your own shops appear in the list but cannot be bought there.",
+          "The name of a shop is the anvil name of its Sales Block item (24 characters at most)."
+        ]
+      },
+      "de": {
+        "title": "Handelskontor",
+        "summary": "Fernzugriff auf Shops: Goldbarren, ein Enderauge, Bücherregale, ein Lesepult und Bretter. Es hält selbst nichts und wird wie jeder Block abgebaut.",
+        "details": [
+          "Tab Meine Shops: einen eigenen Shop wählen, seine Einnahmen abholen (nur was ins Inventar passt), die Preiszeile ändern, ihn öffentlich oder privat schalten und Ware entnehmen: nur aus einem öffentlichen Shop mit Preis, nach einer Lieferzeit von 2 Sekunden je Stapel. Ware hineinlegen geht nur am Shop.",
+          "Tab Shops suchen: jeder öffentliche Shop mit Preis, auch Server-Shops; Suche nach Item-Name, Mod-Id oder Shopname, nur Angebote mit Ware, Sortierung nach Preis, Entfernung oder Name. Kaufen wie am Shop: genauen Preis in die Zahlplätze legen und tauschen (Shift = bis zu 64-mal).",
+          "Erreichbar sind nur Shops der Dimension des Kontors (Server-Einstellung remoteCrossDimension). Ein im Kontor gewählter Shop ist für alle anderen belegt, wie ein offenes Shop-Menü. Eigene Shops stehen in der Liste, sind dort aber nicht kaufbar.",
+          "Der Name eines Shops ist der Amboss-Name seines Verkaufsblock-Items (höchstens 24 Zeichen)."
         ]
       }
     },
@@ -217,6 +272,9 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "maxShopsPerPlayer (16, 1 to 64): Sales Blocks and Display Cases each a player may have placed.",
           "idleTimeoutSeconds (300, 30 to 1800): seconds without a click before the server closes a shop menu.",
           "collectServerShopIncome (false): off = the payments of a server shop vanish; on = they are summed in the admin cash (/servershop cash).",
+          "remoteStock (take): trade terminal and own goods; take = take out only, with a delivery time; none = look only. Putting goods in only works at the shop.",
+          "remoteDelaySeconds (2, 0 to 20): delivery time per stack taken out through a trade terminal.",
+          "remoteCrossDimension (false): off = a trade terminal reaches only shops in its own dimension.",
           "With SimpleBuilding the switch Enable Simple Shops in its config turns the bundled module on or off."
         ]
       },
@@ -228,6 +286,9 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "maxShopsPerPlayer (16, 1 bis 64): Verkaufsblöcke und Vitrinen, die ein Spieler je gesetzt haben darf.",
           "idleTimeoutSeconds (300, 30 bis 1800): Sekunden ohne Klick, bevor der Server ein Shop-Menü schließt.",
           "collectServerShopIncome (false): aus = die Zahlungen eines Server-Shops verschwinden; an = sie werden in der Admin-Kasse summiert (/servershop cash).",
+          "remoteStock (take): Handelskontor und eigene Ware; take = nur entnehmen, mit Lieferzeit; none = nur ansehen. Ware hineinlegen geht nur am Shop.",
+          "remoteDelaySeconds (2, 0 bis 20): Lieferzeit je Stapel, der über ein Handelskontor entnommen wird.",
+          "remoteCrossDimension (false): aus = ein Handelskontor erreicht nur Shops der eigenen Dimension.",
           "Mit SimpleBuilding schaltet der Schalter Simple Shops aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -403,16 +464,20 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       "ingredients": [
         "#minecraft:planks",
         "minecraft:chest",
+        "minecraft:ender_pearl",
         "minecraft:iron_ingot"
       ],
       "pattern": [
         "PPP",
-        "ICI",
-        "PPP"
+        "IEI",
+        "PCP"
       ],
       "key": {
         "I": [
           "minecraft:iron_ingot"
+        ],
+        "E": [
+          "minecraft:ender_pearl"
         ],
         "C": [
           "minecraft:chest"
@@ -426,11 +491,15 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "materials": [
           {
             "id": "minecraft:oak_log",
-            "count": 3.5
+            "count": 3.25
           },
           {
             "id": "minecraft:iron_ingot",
             "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
           }
         ],
         "tagExamples": [
@@ -450,21 +519,21 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       "source": "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json",
       "ingredients": [
         "#minecraft:planks",
-        "minecraft:chest",
+        "minecraft:ender_pearl",
         "minecraft:hopper",
         "minecraft:iron_ingot"
       ],
       "pattern": [
         "PPP",
-        "ICI",
+        "IEI",
         "PHP"
       ],
       "key": {
         "I": [
           "minecraft:iron_ingot"
         ],
-        "C": [
-          "minecraft:chest"
+        "E": [
+          "minecraft:ender_pearl"
         ],
         "P": [
           "#minecraft:planks"
@@ -482,7 +551,83 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 5.25
+            "count": 3.25
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:planks"
+        ]
+      }
+    },
+    {
+      "id": "simpleshops:trade_terminal",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleshops:trade_terminal",
+        "count": 1
+      },
+      "source": "modules/simpleshops/shared/resources/data/simpleshops/recipe/trade_terminal.json",
+      "ingredients": [
+        "#minecraft:planks",
+        "minecraft:bookshelf",
+        "minecraft:ender_eye",
+        "minecraft:gold_ingot",
+        "minecraft:lectern"
+      ],
+      "pattern": [
+        "GEG",
+        "BLB",
+        "PPP"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "E": [
+          "minecraft:ender_eye"
+        ],
+        "B": [
+          "minecraft:bookshelf"
+        ],
+        "L": [
+          "minecraft:lectern"
+        ],
+        "P": [
+          "#minecraft:planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 27
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 9
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 5.75
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
           }
         ],
         "tagExamples": [
@@ -555,6 +700,24 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         }
       ],
       "source": "modules/simpleshops/shared/resources/data/simpleshops/loot_table/blocks/sales_storage.json"
+    },
+    {
+      "id": "simpleshops:blocks/trade_terminal",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simpleshops:trade_terminal"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleshops/shared/resources/data/simpleshops/loot_table/blocks/trade_terminal.json"
     }
   ],
   "tags": [],
@@ -573,10 +736,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
         }
       },
       "texture": "assets/textures/simpleshops/item/guide_book.png",
@@ -695,10 +858,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_block.json"
         ],
         "en": {
-          "summary": "Cash register of a shop: price row of up to five template items and 27 earnings slots. Only the owner opens that menu; everyone else buys. Planks, iron ingots and a chest."
+          "summary": "Cash register of a shop: price row of up to five template items and 27 earnings slots. Only the owner opens that menu; everyone else buys. Planks, iron ingots, an ender pearl and a chest."
         },
         "de": {
-          "summary": "Kasse eines Shops: Preiszeile aus bis zu fünf Vorlagen-Items und 27 Einnahme-Plätzen. Nur der Besitzer öffnet dieses Menü; alle anderen kaufen. Bretter, Eisenbarren und eine Truhe."
+          "summary": "Kasse eines Shops: Preiszeile aus bis zu fünf Vorlagen-Items und 27 Einnahme-Plätzen. Nur der Besitzer öffnet dieses Menü; alle anderen kaufen. Bretter, Eisenbarren, eine Enderperle und eine Truhe."
         }
       },
       "questionary": {
@@ -742,10 +905,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json"
         ],
         "en": {
-          "summary": "Chest-sized extra store for the earnings: it pulls them from the Sales Block (or the storage) directly above, passes them down like a hopper chain, and works only when every block in the chain has the same owner. Same protection as the Sales Block. Planks, iron ingots, a chest and a hopper."
+          "summary": "Chest-sized extra store for the earnings: it pulls them from the Sales Block (or the storage) directly above, passes them down like a hopper chain, and works only when every block in the chain has the same owner. Same protection as the Sales Block. Planks, iron ingots, an ender pearl and a hopper."
         },
         "de": {
-          "summary": "Truhengroßes Zusatzlager für die Einnahmen: zieht sie aus dem Verkaufsblock (oder Lager) direkt darüber, gibt sie wie eine Trichterkette nach unten weiter und arbeitet nur, wenn alle Blöcke der Kette denselben Besitzer haben. Gleicher Schutz wie der Verkaufsblock. Bretter, Eisenbarren, eine Truhe und ein Trichter."
+          "summary": "Truhengroßes Zusatzlager für die Einnahmen: zieht sie aus dem Verkaufsblock (oder Lager) direkt darüber, gibt sie wie eine Trichterkette nach unten weiter und arbeitet nur, wenn alle Blöcke der Kette denselben Besitzer haben. Gleicher Schutz wie der Verkaufsblock. Bretter, Eisenbarren, eine Enderperle und ein Trichter."
         }
       },
       "questionary": {
@@ -776,6 +939,63 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "simpleshops:sales_storage"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleshops:trade_terminal",
+      "name": {
+        "en_us": "Trade Terminal",
+        "de_de": "Handelskontor"
+      },
+      "note": {
+        "en": {
+          "title": "Trade Terminal",
+          "summary": "Remote access to shops: gold ingots, an eye of ender, bookshelves, a lectern and planks. It holds nothing itself and breaks like any block.",
+          "details": [
+            "Tab My shops: pick one of your shops, collect its earnings (only what fits in your inventory), edit its price row, switch it public or private, and take goods out: only from a public shop with a price, after a delivery time of 2 seconds per stack. Goods go in only at the shop.",
+            "Tab Browse shops: every public shop with a price, also server shops; search by item name, mod id or shop name, show only offers in stock, sort by price, distance or name. Buying works like at the shop: put the exact price into the pay slots and trade (shift = up to 64 times).",
+            "Only shops in the terminal's dimension are reachable (server setting remoteCrossDimension). A shop selected in a terminal is busy for everyone else, like an open shop menu. Your own shops appear in the list but cannot be bought there.",
+            "The name of a shop is the anvil name of its Sales Block item (24 characters at most)."
+          ]
+        },
+        "de": {
+          "title": "Handelskontor",
+          "summary": "Fernzugriff auf Shops: Goldbarren, ein Enderauge, Bücherregale, ein Lesepult und Bretter. Es hält selbst nichts und wird wie jeder Block abgebaut.",
+          "details": [
+            "Tab Meine Shops: einen eigenen Shop wählen, seine Einnahmen abholen (nur was ins Inventar passt), die Preiszeile ändern, ihn öffentlich oder privat schalten und Ware entnehmen: nur aus einem öffentlichen Shop mit Preis, nach einer Lieferzeit von 2 Sekunden je Stapel. Ware hineinlegen geht nur am Shop.",
+            "Tab Shops suchen: jeder öffentliche Shop mit Preis, auch Server-Shops; Suche nach Item-Name, Mod-Id oder Shopname, nur Angebote mit Ware, Sortierung nach Preis, Entfernung oder Name. Kaufen wie am Shop: genauen Preis in die Zahlplätze legen und tauschen (Shift = bis zu 64-mal).",
+            "Erreichbar sind nur Shops der Dimension des Kontors (Server-Einstellung remoteCrossDimension). Ein im Kontor gewählter Shop ist für alle anderen belegt, wie ein offenes Shop-Menü. Eigene Shops stehen in der Liste, sind dort aber nicht kaufbar.",
+            "Der Name eines Shops ist der Amboss-Name seines Verkaufsblock-Items (höchstens 24 Zeichen)."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A counting desk with an ender eye: it sees every shop in the world data, like an ender chest sees your ender items."
+          ],
+          "use": [
+            "Right click: tab My shops collects earnings, edits prices, switches public/private and fetches goods (only out, with a delivery time). Tab Browse shops searches every public shop of this dimension and buys from it."
+          ],
+          "secret": [
+            "It never loads a chunk and holds nothing itself: break it like any block. Putting goods in only works at the shop."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Rechenpult mit Enderauge: es sieht jeden Shop in den Weltdaten, so wie eine Endertruhe deine Ender-Items sieht."
+          ],
+          "use": [
+            "Rechtsklick: Tab Meine Shops holt Einnahmen ab, ändert Preise, schaltet öffentlich/privat und holt Ware (nur heraus, mit Lieferzeit). Tab Shops durchsuchen findet jeden öffentlichen Shop dieser Dimension und kauft dort."
+          ],
+          "secret": [
+            "Es lädt nie einen Chunk und hält selbst nichts: abbauen wie jeden Block. Ware hineinlegen geht nur am Shop."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleshops:trade_terminal"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -792,14 +1012,14 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
-    "recipes": 5,
-    "lootTables": 4,
+    "features": 10,
+    "recipes": 6,
+    "lootTables": 5,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 4,
+    "blocks": 5,
     "trades": 0,
     "config": 0,
     "quests": 0,

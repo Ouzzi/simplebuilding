@@ -55,13 +55,15 @@ public final class ShopsDiscover {
             "simpleshops:config_server",
             "simpleshops:creative_tab_switch",
             "simpleshops:display_case",
+            "simpleshops:ender_shops",
             "simpleshops:glow_display_case",
             "simpleshops:guide_book",
             "simpleshops:sales_block",
             "simpleshops:sales_storage",
             "simpleshops:server_shop",
             "simpleshops:shop_compat",
-            "simpleshops:shop_protection");
+            "simpleshops:shop_protection",
+            "simpleshops:trade_terminal");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
