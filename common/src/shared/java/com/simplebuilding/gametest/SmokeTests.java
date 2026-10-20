@@ -104,7 +104,11 @@ public final class SmokeTests {
             Item item = PINNED_ITEMS.get(i);
             String expectedPath = PINNED_IDS.get(i);
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
-            helper.assertTrue(id != null && SimpleBuildingGameTests.MOD_ID.equals(id.getNamespace()),
+            // Split stage 8c-1: on 26.3 the bundles are Simple Storage's; the old id must still find them (IdMoves).
+            String namespace = expectedPath.endsWith("_bundle") ? com.simplebuilding.version.McVersion.STORAGE_NAMESPACE : SimpleBuildingGameTests.MOD_ID;
+            helper.assertTrue(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleBuildingGameTests.MOD_ID, expectedPath)) == item,
+                    "the old id " + SimpleBuildingGameTests.MOD_ID + ":" + expectedPath + " no longer finds " + id);
+            helper.assertTrue(id != null && namespace.equals(id.getNamespace()),
                     "the item behind ModItems." + expectedPath.toUpperCase() + " is not registered in the "
                             + SimpleBuildingGameTests.MOD_ID + " namespace, it came back as " + id);
             helper.assertTrue(expectedPath.equals(id.getPath()),
