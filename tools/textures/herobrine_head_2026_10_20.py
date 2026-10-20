@@ -1,13 +1,15 @@
-"""Herobrine head textures (KONZEPT-HEROBRINE-KOPF-2026-10-19, owner KONZ20 H3 t1, 2026-10-20).
+"""Herobrine head textures (KONZEPT-HEROBRINE-KOPF-2026-10-19; redrawn for TEX20 H0, 2026-10-20).
 
-Own pixel art, no Mojang/Steve pixels: a 64x64 skin sheet of which only the head (8x8x8 at UV 0,0) and its hat layer (UV 32,0)
-are painted, plus a second sheet with only the white eyes (drawn emissive by the head's eyes pass). Three variants:
-  A  Straehnen-Pony + Vollbart   (asymmetric fringe, full short beard over the jaw)
-  B  Mittelscheitel + Kinnbart   (centre parting, hair hanging at the sides, chin beard)  <- recommendation, committed
-  C  Strubbel + Stoppeln         (tousled hair with tufts on the hat layer, stubble)
-All three: white eyes without pupils, a pale grey-tan skin (lifeless), dark brown hair.
+Owner TEX20 H0: "wie vanilla bitte, und auch so wie herobrine. bitte nichts frei erfinden." -> the well-known Herobrine:
+a Steve-like player head (dark brown hair on top, sides and back, skin face, darker nose and mouth/beard part) with plain
+white eyes without pupils, nothing added (no scars, horns, extra colours, hat layer stays empty). Own pixels drawn after the
+motif, no Mojang pixels read or copied. A 64x64 player skin sheet (head 8x8x8 at UV 0,0, hat layer at UV 32,0, as
+SkullModel.createHumanoidHeadLayer() maps it) plus a second sheet with only the white eyes (emissive eyes pass).
+Two variants (TEX21, owner choice pending):
+  A  Steve-hell     (Steve-like tones, a little hair texture)          <- provisional, committed
+  B  dunkler/schlicht (same face a step darker, flat hair)
 
-Run: python3.12 tools/textures/herobrine_head_2026_10_20.py          (writes the PNGs of the recommendation + previews)
+Run: python3.12 tools/textures/herobrine_head_2026_10_20.py          (writes the PNGs of CHOSEN + previews)
      python3.12 tools/textures/herobrine_head_2026_10_20.py --check  (fails if the committed PNGs differ from the generator)
 Previews (all variants, 16x, day and night) go to SB_PREVIEW_DIR (default docs/ai/previews/b-herobrine20, not committed).
 """
@@ -20,178 +22,60 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(ROOT, 'modules', 'simplemobheads', 'shared', 'resources', 'assets', 'simplemobheads', 'textures', 'entity', 'herobrine')
 PREVIEW = os.environ.get('SB_PREVIEW_DIR', os.path.join(ROOT, 'docs', 'ai', 'previews', 'b-herobrine20'))
-CHOSEN = 'B'
+CHOSEN = 'A'
 
-PAL = {
-    't': (190, 150, 122), 's': (170, 130, 104), 'S': (146, 108, 86), 'n': (124, 90, 72),   # skin: light, base, shadow, deep
-    'H': (86, 60, 40), 'h': (60, 41, 28), 'k': (40, 27, 19),                                 # hair: light, base, dark
-    'g': (120, 92, 74),                                                                      # stubble
-    'W': (255, 255, 255),                                                                    # eyes
+PAL_A = {
+    'H': (74, 52, 30), 'h': (58, 40, 22), 'k': (42, 29, 15),                          # hair: light, base, dark
+    's': (184, 132, 102), 'S': (160, 112, 86),                                       # skin: base, shadow
+    'n': (140, 92, 68), 'b': (110, 72, 48), 'm': (86, 54, 34),                       # nose, beard, mouth
+    'W': (255, 255, 255),                                                            # eyes
 }
+PAL_B = dict(PAL_A, H=(48, 33, 18), h=(48, 33, 18), k=(34, 23, 12), s=(166, 118, 92), S=(140, 98, 74),
+             n=(122, 80, 58), b=(94, 60, 40), m=(72, 44, 28))
 
 # Faces of the base layer, 8 rows of 8 pixels. right/left = the head's own right/left side; on the right face the last
 # column touches the front, on the left face the first column does (skin sheet order: right, front, left, back).
-VARIANTS = {
-    'A': {
-        'name': 'Straehnen-Pony + Vollbart',
-        'front': ['hhHhhhHh',
-                  'hHhkhhhh',
-                  'hhkhSsSh',
-                  'hhsstsSh',
-                  'kWWssWWk',
-                  'hssSSssh',
-                  'hhsnnshh',
-                  'khhhhhhk'],
-        'right': ['hhHhhhhh',
-                  'hhhhHhhh',
-                  'khhhhhhh',
-                  'khhhhhSs',
-                  'khhhhSsh',
-                  'kkhhhsSh',
-                  'kkhhhhhh',
-                  'kkkhhhhk'],
-        'left':  ['hhhhhHhh',
-                  'hhhHhhhh',
-                  'hhhhhhhk',
-                  'sShhhhhk',
-                  'hsShhhhk',
-                  'hSshhhkk',
-                  'hhhhhhkk',
-                  'khhhhkkk'],
-        'back':  ['hhhHhhhh',
-                  'hHhhhhHh',
-                  'hhhhhhhh',
-                  'hhhkhhhh',
-                  'hhhhhhkh',
-                  'khhhhhhk',
-                  'kkhhhhkk',
-                  'kkkkkkkk'],
-        'top':   ['hhhhhhhh',
-                  'hHhhhHhh',
-                  'hhHhhhhh',
-                  'hhhhHhhk',
-                  'hHhhhhhh',
-                  'hhhhhHhh',
-                  'HhhHhhhh',
-                  'hhhhhhHh'],
-        'bottom': ['hhhhhhhh',
-                   'hhhhhhhh',
-                   'khSSSShk',
-                   'kSSSSSSk',
-                   'kSSSSSSk',
-                   'kSSSSSSk',
-                   'kkSSSSkk',
-                   'kkkkkkkk'],
-        # hat layer: the long strand falls over the forehead, two tufts on the crown
-        'hat': {'front': ['.H......', 'hh......', 'h.......'], 'top': ['........', '..H.....', '........', '.....h..']},
-    },
-    'B': {
-        'name': 'Mittelscheitel + Kinnbart',
-        'front': ['hhhkkhhh',
-                  'hHhkkhHh',
-                  'hhSssShh',
-                  'hssttssh',
-                  'hWWssWWh',
-                  'ssSSSSss',
-                  'sshnnhss',
-                  'SsskkssS'],
-        'right': ['hhhHhhhh',
-                  'hhhhhhhh',
-                  'hhhhhhhh',
-                  'khhhhhhh',
-                  'khhhhhSs',
-                  'khhhhSss',
-                  'kkhhhSsS',
-                  'kkhhhSSS'],
-        'left':  ['hhhhHhhh',
-                  'hhhhhhhh',
-                  'hhhhhhhh',
-                  'hhhhhhhk',
-                  'sShhhhhk',
-                  'ssShhhhk',
-                  'SsShhhkk',
-                  'SSShhhkk'],
-        'back':  ['hhhkkhhh',
-                  'hHhkkhHh',
-                  'hhhhhhhh',
-                  'hhhhhhhh',
-                  'hhHhhhhh',
-                  'hhhhhhhh',
-                  'khhhhhhk',
-                  'kkhhhhkk'],
-        'top':   ['hhhkkhhh',
-                  'hHhkkhHh',
-                  'hhhkkhhh',
-                  'Hhhkkhhh',
-                  'hhhkkhHh',
-                  'hHhkkhhh',
-                  'hhhkkhhh',
-                  'hhhkkhhh'],
-        'bottom': ['SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS'],
-        'hat': {'front': ['...kk...'], 'top': ['........', '........', '...kk...']},
-    },
-    'C': {
-        'name': 'Strubbel + Stoppeln',
-        'front': ['HhHhhHhH',
-                  'hkhhhkhh',
-                  'shsssshs',
-                  'sssttsss',
-                  'SWWssWWS',
-                  'sssSSsss',
-                  'sgsnnsgs',
-                  'ssgssgss'],
-        'right': ['HhhHhhHh',
-                  'hhkhhhhk',
-                  'hhhhhhsh',
-                  'khhhhhss',
-                  'khhhhSss',
-                  'kkhhhsgs',
-                  'kkhhhSss',
-                  'kkkhhSSs'],
-        'left':  ['hHhhHhhH',
-                  'khhhhkhh',
-                  'hshhhhhh',
-                  'sshhhhhk',
-                  'ssShhhhk',
-                  'sgshhhkk',
-                  'sSshhhkk',
-                  'sSShhkkk'],
-        'back':  ['HhhHhhHh',
-                  'hhkhhkhh',
-                  'hHhhhhhH',
-                  'hhhhkhhh',
-                  'hhhhhhhh',
-                  'khhhhhhk',
-                  'kkhhhhkk',
-                  'kkkhhkkk'],
-        'top':   ['HhhHhhHh',
-                  'hhHhhHhh',
-                  'hkhhkhhH',
-                  'hhhHhhkh',
-                  'Hhkhhhhh',
-                  'hhhhHhkh',
-                  'hHhkhhhh',
-                  'hhhhhHhh'],
-        'bottom': ['ssssssss',
-                   'sgsgsgss',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'SSSSSSSS',
-                   'kSSSSSSk',
-                   'kkSSSSkk'],
-        # hat layer: tufts stand out all around the crown
-        'hat': {'front': ['H..h..H.'], 'right': ['h..H..h.'], 'left': ['.h..H..h'], 'back': ['.H..h..H'],
-                'top': ['H.h..h.H', '........', 'h......h', '........', '........', 'H......h', '........', 'h.H..h.H']},
-    },
-}
+FRONT = ['hhhhhhhh',
+         'hhHhhhhh',
+         'hssssssh',
+         'ssssssss',
+         'sWWssWWs',
+         'sssnnsss',
+         'ssbmmbss',
+         'ssbbbbss']
+RIGHT = ['hhhhhhhh',
+         'hhhhhHhh',
+         'khhhhhhh',
+         'khhhhSss',
+         'khhhSsss',
+         'kkhhSsss',
+         'kkhhSsss',
+         'kkkhSsss']
+BACK = ['hhhhhhhh',
+        'hHhhhhHh',
+        'hhhhhhhh',
+        'hhhhhhhh',
+        'hhhhhhhh',
+        'khhhhhhk',
+        'kkhhhhkk',
+        'kkkkkkkk']
+TOP = ['hhhhhhhh',
+       'hHhhhhhh',
+       'hhhhhHhh',
+       'hhhhhhhh',
+       'hhHhhhhh',
+       'hhhhhhHh',
+       'hhhhhhhh',
+       'hhhHhhhh']
+BOTTOM = ['SSSSSSSS'] * 8
+
+
+def faces(pal, name):
+    return {'name': name, 'pal': pal, 'front': FRONT, 'right': RIGHT, 'left': [r[::-1] for r in RIGHT], 'back': BACK,
+            'top': TOP, 'bottom': BOTTOM, 'hat': {}}
+
+
+VARIANTS = {'A': faces(PAL_A, 'Steve-hell'), 'B': faces(PAL_B, 'dunkler/schlicht')}
 
 # UV origin of each face on the 64x64 sheet (base layer; the hat layer is 32 px to the right).
 FACES = {'top': (8, 0), 'bottom': (16, 0), 'right': (0, 8), 'front': (8, 8), 'left': (16, 8), 'back': (24, 8)}
@@ -201,7 +85,7 @@ def check_rows(variant):
     for face in FACES:
         rows = variant[face]
         assert len(rows) == 8 and all(len(r) == 8 for r in rows), (variant['name'], face)
-        assert all(c in PAL for r in rows for c in r), (variant['name'], face)
+        assert all(c in variant['pal'] for r in rows for c in r), (variant['name'], face)
 
 
 def sheets(variant):
@@ -212,13 +96,13 @@ def sheets(variant):
     for face, (ox, oy) in FACES.items():
         for y, row in enumerate(variant[face]):
             for x, c in enumerate(row):
-                skin.putpixel((ox + x, oy + y), PAL[c] + (255,))
+                skin.putpixel((ox + x, oy + y), variant['pal'][c] + (255,))
                 if c == 'W':
-                    eyes.putpixel((ox + x, oy + y), PAL[c] + (255,))
+                    eyes.putpixel((ox + x, oy + y), variant['pal'][c] + (255,))
         for y, row in enumerate(variant['hat'].get(face, [])):
             for x, c in enumerate(row):
                 if c != '.':
-                    skin.putpixel((ox + 32 + x, oy + y), PAL[c] + (255,))
+                    skin.putpixel((ox + 32 + x, oy + y), variant['pal'][c] + (255,))
     return skin, eyes
 
 
@@ -265,7 +149,7 @@ def previews():
         sheet.save(os.path.join(PREVIEW, f'herobrine_{key}_net_16x.png'))
         f = front(skin)
         fronts.append((scaled(f, 16), scaled(night(f, eyes.crop((8, 8, 16, 16))), 16)))
-    overview = Image.new('RGBA', (3 * 128 + 4 * 16, 2 * 128 + 3 * 16), (40, 40, 48, 255))
+    overview = Image.new('RGBA', (len(fronts) * 128 + (len(fronts) + 1) * 16, 2 * 128 + 3 * 16), (40, 40, 48, 255))
     for i, (day, dark) in enumerate(fronts):
         overview.alpha_composite(day, (16 + i * 144, 16))
         overview.alpha_composite(dark, (16 + i * 144, 160))
