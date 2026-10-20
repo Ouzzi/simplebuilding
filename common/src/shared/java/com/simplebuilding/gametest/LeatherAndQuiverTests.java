@@ -242,6 +242,7 @@ public final class LeatherAndQuiverTests {
      * other than 3/2 for the reinforced quiver.
      */
     public static void upgradesKeepContentsEnchantmentsAndName(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 
@@ -370,8 +371,8 @@ public final class LeatherAndQuiverTests {
     }
 
     private static void insertArrows(ItemStack container, int count, Player player) {
-        container.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(java.util.List.of(
-                net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.ARROW, count))))); // split stage 8c-1: no bundle class (Simple Storage's on 26.3)
+        ((ReinforcedBundleItem) container.getItem()).tryInsertStackFromWorld(container,
+                new ItemStack(Items.ARROW, count), player);
     }
 
     private static int countIn(ItemStack container, Item item) {
