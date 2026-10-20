@@ -777,7 +777,8 @@ public final class MobHeadTests {
         clearShrine(helper);
         buildShrine(helper);
         helper.assertTrue(HerobrineRitual.isShrine(helper.getLevel(), helper.absolutePos(new BlockPos(2, 4, 2))), "the shrine is not seen");
-        helper.assertTrue(ignite(helper, player, false) == HerobrineRitual.Result.DAY, "by day: " + ignite(helper, player, false));
+        var day = ignite(helper, player, false);
+        helper.assertTrue(day == HerobrineRitual.Result.DAY, "by day: " + day);
         helper.assertTrue(count(helper, head) == 0 && helper.getBlockState(new BlockPos(1, 3, 2)).is(Blocks.REDSTONE_TORCH)
                 && helper.getBlockState(new BlockPos(2, 3, 2)).is(Blocks.MOSSY_COBBLESTONE), "the day used the shrine up");
         helper.assertTrue(ignite(helper, null, true) == HerobrineRitual.Result.NO_PLAYER, "fire without a player counts");
@@ -909,12 +910,13 @@ public final class MobHeadTests {
         helper.setBlock(new BlockPos(1, 3, 1), Blocks.TORCH);
         helper.setBlock(new BlockPos(4, 2, 4), Blocks.STONE);
         helper.setBlock(new BlockPos(4, 3, 4), Blocks.SOUL_TORCH);
-        helper.setBlock(new BlockPos(4, 3, 5), Blocks.WALL_TORCH.defaultBlockState()
+        helper.setBlock(new BlockPos(5, 3, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(5, 3, 2), Blocks.WALL_TORCH.defaultBlockState()
                 .setValue(net.minecraft.world.level.block.WallTorchBlock.FACING, net.minecraft.core.Direction.SOUTH));
         helper.setBlock(new BlockPos(1, 2, 4), Blocks.STONE);
         helper.setBlock(new BlockPos(1, 3, 4), Blocks.REDSTONE_TORCH);
         List<BlockPos> torches = List.of(helper.absolutePos(new BlockPos(1, 3, 1)), helper.absolutePos(new BlockPos(4, 3, 4)),
-                helper.absolutePos(new BlockPos(4, 3, 5)));
+                helper.absolutePos(new BlockPos(5, 3, 2)));
         helper.assertTrue(HeadAbilities.flickerTorches(level, player).isEmpty(), "torches flicker without the head");
         wear(player, "herobrine");
         List<BlockPos> flickered = HeadAbilities.flickerTorches(level, player);
@@ -922,7 +924,7 @@ public final class MobHeadTests {
         helper.assertTrue(!flickered.contains(helper.absolutePos(new BlockPos(1, 3, 4))), "a redstone torch flickers");
         helper.assertTrue(flickered.size() <= HeadAbilities.FLICKER_MAX, "too many torches: " + flickered.size());
         wear(player, null);
-        for (BlockPos pos : List.of(new BlockPos(1, 3, 1), new BlockPos(4, 3, 4), new BlockPos(4, 3, 5), new BlockPos(1, 3, 4),
+        for (BlockPos pos : List.of(new BlockPos(1, 3, 1), new BlockPos(4, 3, 4), new BlockPos(5, 3, 2), new BlockPos(5, 3, 1), new BlockPos(1, 3, 4),
                 new BlockPos(1, 2, 1), new BlockPos(4, 2, 4), new BlockPos(1, 2, 4))) {
             helper.setBlock(pos, Blocks.AIR);
         }

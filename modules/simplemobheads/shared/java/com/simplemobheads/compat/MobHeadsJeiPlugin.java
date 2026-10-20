@@ -43,7 +43,8 @@ public final class MobHeadsJeiPlugin implements IModPlugin {
             Component mob = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse(head.mob()))
                     .<Component>map(type -> type.getDescription()).orElse(Component.translatable("block.simplemobheads." + head.item()));
             registration.addItemStackInfo(stacks, Component.translatable(
-                    head.drop().equals("wither") ? "jei.simplemobheads.boss_head_source" : "jei.simplemobheads.head_source", mob));
+                    head.drop().equals("ritual") ? "jei.simplemobheads.ritual_head_source"
+                    : head.drop().equals("wither") ? "jei.simplemobheads.boss_head_source" : "jei.simplemobheads.head_source", mob));
         }
     }
 }
