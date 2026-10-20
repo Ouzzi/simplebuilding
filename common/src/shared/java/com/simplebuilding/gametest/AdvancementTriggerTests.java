@@ -260,7 +260,7 @@ public final class AdvancementTriggerTests {
             helper.assertTrue(done(player, radiance), "an armor piece at Radiance 5 did not earn Full Radiance");
         }
 
-        give(player, new ItemStack(ModItems.QUIVER), 2);
+        give(player, new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), 2);
         helper.assertTrue(!done(player, dyed), "an undyed quiver earned A Splash of Color");
         ItemStack backpack = new ItemStack(ModItems.REINFORCED_BACKPACK);
         backpack.set(DataComponents.DYED_COLOR, new DyedItemColor(0xB02E26));

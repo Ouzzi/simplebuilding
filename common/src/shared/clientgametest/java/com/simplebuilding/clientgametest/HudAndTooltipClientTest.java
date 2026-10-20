@@ -252,9 +252,12 @@ public final class HudAndTooltipClientTest {
      */
     public static void inWorld(Script script) {
         rangefinderHudShowsPositionsAndVolume(script);
-        bundleTooltipBarUsesCapacityScale(script);
-        bundleWheelSelectsAndLeavingClears(script);
-        bundleSubmenuReachesVanillaContainerScreens(script);
+        // Split stage 8c-1: on 26.3 the bundles, their tooltip and wheel are Simple Storage's (its classes; Client-Sicht offen).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            bundleTooltipBarUsesCapacityScale(script);
+            bundleWheelSelectsAndLeavingClears(script);
+            bundleSubmenuReachesVanillaContainerScreens(script);
+        }
         hopperFilterButtonAndFilterSlots(script);
         inventoryShowsTheResonanceFieldAndItsDetails(script);
         oreDetectorGlintMarksTheCalibratedSlot(script);
@@ -741,7 +744,7 @@ public final class HudAndTooltipClientTest {
             BundleContents contents = new BundleContents(List.of(
                     ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.STONE, 64))));
 
-            ItemStack bundle = new ItemStack(ModItems.NETHERITE_BUNDLE);
+            ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle"));
             bundle.set(DataComponents.BUNDLE_CONTENTS, contents);
 
             TooltipComponent data = bundle.getTooltipImage().orElse(null);
@@ -1225,7 +1228,7 @@ public final class HudAndTooltipClientTest {
      */
     private static void placeBundleInInventory(Script script, Supplier<List<ItemStack>> entries) {
         runOnServer(script, "put a netherite bundle in the player inventory", server -> {
-            ItemStack bundle = new ItemStack(ModItems.NETHERITE_BUNDLE);
+            ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle"));
             bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(
                     entries.get().stream().map(ItemStackTemplate::fromNonEmptyStack).toList()));
             firstPlayer(server).getInventory().setItem(SAFE_INVENTORY_SLOT, bundle);

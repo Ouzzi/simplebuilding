@@ -138,32 +138,32 @@ public final class LeatherAndQuiverTests {
     public static void reinforcedQuiverCraftsFromThePlainQuiverWithTheBundlePatternAndSixPebbles(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        ItemStack crafted = craft(helper, level, quiverGrid(new ItemStack(ModItems.QUIVER), 6),
+        ItemStack crafted = craft(helper, level, quiverGrid(new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), 6),
                 "string, leather sheet, six diamond pebbles and a quiver",
-                "simplebuilding:reinforced_quiver");
-        helper.assertTrue(crafted.is(ModItems.REINFORCED_QUIVER),
+                com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_quiver");
+        helper.assertTrue(crafted.is(com.simplebuilding.util.StorageRefs.item("reinforced_quiver")),
                 "the reinforced quiver pattern crafts " + crafted + " instead of a reinforced quiver");
         helper.assertValueEqual(crafted.getCount(), 1, "reinforced quivers per craft");
 
         ItemStack fromBundle = craft(helper, level, quiverGrid(new ItemStack(Items.BUNDLE), 6),
-                "the same pattern with a vanilla bundle in the quiver's place", "simplebuilding:reinforced_bundle");
-        helper.assertTrue(fromBundle.is(ModItems.REINFORCED_BUNDLE),
+                "the same pattern with a vanilla bundle in the quiver's place", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle");
+        helper.assertTrue(fromBundle.is(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 "the pattern with a vanilla bundle in the quiver's place crafts " + fromBundle
                         + " - the plain quiver is supposed to be the quiver's only base");
-        assertCraftsNothing(helper, level, quiverGrid(new ItemStack(ModItems.QUIVER), 5),
+        assertCraftsNothing(helper, level, quiverGrid(new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), 5),
                 "the reinforced quiver pattern with only five diamond pebbles still crafts something");
 
         CraftingInput oldPattern = CraftingInput.of(3, 3, List.of(
                 ItemStack.EMPTY, new ItemStack(Items.STRING), new ItemStack(ModItems.DIAMOND_PEBBLE),
                 new ItemStack(Items.STRING), new ItemStack(ModItems.LEATHER_SHEET), new ItemStack(Items.COPPER_NUGGET),
-                new ItemStack(ModItems.QUIVER), ItemStack.EMPTY, ItemStack.EMPTY));
+                new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), ItemStack.EMPTY, ItemStack.EMPTY));
         assertCraftsNothing(helper, level, oldPattern,
                 "the reinforced quiver pattern before 2026-09-29 (one pebble, copper nugget) still crafts something");
 
         ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE);
         CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
                 d, new ItemStack(ModItems.LEATHER_SHEET), d,
-                d, new ItemStack(ModItems.QUIVER), d,
+                d, new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), d,
                 d, new ItemStack(Items.STRING), d));
         assertCraftsNothing(helper, level, upsideDown,
                 "the reinforced quiver pattern turned upside down crafts something too, so the recipe "
@@ -193,29 +193,29 @@ public final class LeatherAndQuiverTests {
 
         ItemStack netherite = smith(helper, level, new SmithingRecipeInput(
                         new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                        new ItemStack(ModItems.REINFORCED_QUIVER),
+                        new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_quiver")),
                         new ItemStack(Items.NETHERITE_INGOT)),
                 "a reinforced quiver on the netherite template");
-        helper.assertTrue(netherite.is(ModItems.NETHERITE_QUIVER),
+        helper.assertTrue(netherite.is(com.simplebuilding.util.StorageRefs.item("netherite_quiver")),
                 "the reinforced quiver on the netherite template smiths " + netherite
                         + " instead of a netherite quiver");
 
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,
                         new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                                new ItemStack(ModItems.QUIVER), new ItemStack(Items.NETHERITE_INGOT)), level).isEmpty(),
+                                new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), new ItemStack(Items.NETHERITE_INGOT)), level).isEmpty(),
                 "the plain quiver still smiths into a netherite quiver, so the reinforced tier can be "
                         + "skipped");
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,
                         new SmithingRecipeInput(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                                new ItemStack(ModItems.REINFORCED_QUIVER), new ItemStack(ModItems.ENDERITE_INGOT)), level).isEmpty(),
+                                new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_quiver")), new ItemStack(ModItems.ENDERITE_INGOT)), level).isEmpty(),
                 "the reinforced quiver smiths straight into an enderite quiver, skipping netherite");
 
         ItemStack enderite = smith(helper, level, new SmithingRecipeInput(
                         new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                        new ItemStack(ModItems.NETHERITE_QUIVER),
+                        new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_quiver")),
                         new ItemStack(ModItems.ENDERITE_INGOT)),
                 "a netherite quiver on the enderite template");
-        helper.assertTrue(enderite.is(ModItems.ENDERITE_QUIVER),
+        helper.assertTrue(enderite.is(com.simplebuilding.util.StorageRefs.item("enderite_quiver")),
                 "the netherite quiver on the enderite template smiths " + enderite
                         + " instead of an enderite quiver");
 
@@ -256,22 +256,22 @@ public final class LeatherAndQuiverTests {
 
         CraftingInput bundleGrid = quiverGrid(vanillaBundle, 6);
         ItemStack reinforcedBundle = craft(helper, level, bundleGrid, "the reinforced bundle pattern",
-                "simplebuilding:reinforced_bundle");
-        helper.assertTrue(reinforcedBundle.is(ModItems.REINFORCED_BUNDLE),
+                com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle");
+        helper.assertTrue(reinforcedBundle.is(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 "the reinforced bundle pattern crafts " + reinforcedBundle);
         helper.assertValueEqual(countIn(reinforcedBundle, Items.STONE), 5,
                 "stone the reinforced bundle kept from the vanilla bundle it was made of");
         assertKeptNameAndFunnel(helper, reinforcedBundle, "Rocks", "the reinforced bundle");
 
         // --- quiver -> reinforced quiver ---
-        ItemStack quiver = new ItemStack(ModItems.QUIVER);
+        ItemStack quiver = new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver"));
         insertArrows(quiver, 64, player);
         quiver.set(DataComponents.CUSTOM_NAME, Component.literal("Volley"));
         quiver.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
         helper.assertValueEqual(countIn(quiver, Items.ARROW), 64, "setup: arrows in the plain quiver");
 
         ItemStack reinforcedQuiver = craft(helper, level, quiverGrid(quiver, 6),
-                "the reinforced quiver pattern", "simplebuilding:reinforced_quiver");
+                "the reinforced quiver pattern", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_quiver");
         helper.assertValueEqual(countIn(reinforcedQuiver, Items.ARROW), 64,
                 "arrows the reinforced quiver kept from the quiver it was made of");
         assertKeptNameAndFunnel(helper, reinforcedQuiver, "Volley", "the reinforced quiver");
@@ -285,7 +285,7 @@ public final class LeatherAndQuiverTests {
                         new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), reinforcedQuiver,
                         new ItemStack(Items.NETHERITE_INGOT)),
                 "the full reinforced quiver on the netherite template");
-        helper.assertTrue(netheriteQuiver.is(ModItems.NETHERITE_QUIVER),
+        helper.assertTrue(netheriteQuiver.is(com.simplebuilding.util.StorageRefs.item("netherite_quiver")),
                 "the reinforced quiver smiths " + netheriteQuiver + " instead of a netherite quiver");
         helper.assertValueEqual(countIn(netheriteQuiver, Items.ARROW), REINFORCED_QUIVER_ARROWS,
                 "arrows the netherite quiver kept from the reinforced quiver it was smithed from");
@@ -312,7 +312,7 @@ public final class LeatherAndQuiverTests {
      * chest slot.
      */
     public static void reinforcedQuiverIsAnOrdinaryTierInTheContainerTags(GameTestHelper helper) {
-        ItemStack reinforced = new ItemStack(ModItems.REINFORCED_QUIVER);
+        ItemStack reinforced = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_quiver"));
 
         for (TagKey<Item> tag : List.of(ModTags.Items.BUNDLE_ENCHANTABLE,
                 ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE, ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)) {
@@ -322,13 +322,13 @@ public final class LeatherAndQuiverTests {
         helper.assertTrue(!reinforced.is(ModTags.Items.VOID_PROTECTED),
                 "the reinforced quiver landed in simplebuilding:void_protected; only the enderite tier is");
 
-        helper.assertTrue(new ItemStack(ModItems.NETHERITE_QUIVER).get(DataComponents.DAMAGE_RESISTANT) != null,
+        helper.assertTrue(new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_quiver")).get(DataComponents.DAMAGE_RESISTANT) != null,
                 "the netherite quiver lost its fire resistance, so the check below cannot say yes any more");
         helper.assertTrue(reinforced.get(DataComponents.DAMAGE_RESISTANT) == null,
                 "the reinforced quiver resists fire; it is an ordinary tier like the plain quiver");
 
         Equippable worn = reinforced.get(DataComponents.EQUIPPABLE);
-        Equippable plain = new ItemStack(ModItems.QUIVER).get(DataComponents.EQUIPPABLE);
+        Equippable plain = new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")).get(DataComponents.EQUIPPABLE);
         helper.assertTrue(worn != null && plain != null,
                 "the reinforced quiver or the plain quiver has no EQUIPPABLE component any more");
         helper.assertTrue(worn.slot() == EquipmentSlot.CHEST && worn.slot() == plain.slot(),
@@ -370,8 +370,8 @@ public final class LeatherAndQuiverTests {
     }
 
     private static void insertArrows(ItemStack container, int count, Player player) {
-        ((ReinforcedBundleItem) container.getItem()).tryInsertStackFromWorld(container,
-                new ItemStack(Items.ARROW, count), player);
+        container.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(java.util.List.of(
+                net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.ARROW, count))))); // split stage 8c-1: no bundle class (Simple Storage's on 26.3)
     }
 
     private static int countIn(ItemStack container, Item item) {

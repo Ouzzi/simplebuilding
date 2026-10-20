@@ -235,4 +235,198 @@ public final class ModuleGameTest {
     public void vehicleOldVehiclesLoadAsSimpleStorages(GameTestHelper h) {
         StorageTests.ALL.get("vehicle_old_vehicles_load_as_simple_storages").accept(h);
     }
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleInsertionStopsAtTheBrimAndWeighsByStackSize(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_insertion_stops_at_the_brim_and_weighs_by_stack_size").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleInsertionTurnsAwayWhatCannotGoIntoContainerItems(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_insertion_turns_away_what_cannot_go_into_container_items").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleInsertionMergesEqualStacksAndPushesThemToTheTop(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_insertion_merges_equal_stacks_and_pushes_them_to_the_top").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleDrawerHoldsOnlyTheKindAlreadyInside(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_drawer_holds_only_the_kind_already_inside").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleNestedBundlesWeighTheirContents(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_nested_bundles_weigh_their_contents").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleTheSelectedEntryIsTheOneThatComesOut(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_the_selected_entry_is_the_one_that_comes_out").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleRightClickThrowsTheSelectedStackButNeverBlocks(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_right_click_throws_the_selected_stack_but_never_blocks").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleMasterBuilderPlacesFromTheBundleAndColorPaletteScattersIt(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_master_builder_places_from_the_bundle_and_color_palette_scatters_it").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleCapacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_capacity_follows_tier_and_enchantments_and_matches_the_wiki_export").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleBarAndTooltipReadTheSameCapacityTheFillingUses(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_bar_and_tooltip_read_the_same_capacity_the_filling_uses").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void reinforcedBundleOverflowingBundleWeightsAreRefusedInsteadOfCrashing(GameTestHelper h) {
+        StorageTests.ALL.get("reinforced_bundle_overflowing_bundle_weights_are_refused_instead_of_crashing").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverRightClicksDoNothingEvenWithMasterBuilder(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_right_clicks_do_nothing_even_with_master_builder").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverArrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverCapacityDropsTheBundleBonusAndFollowsTierAndEnchantments(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverBarWidthFollowsTheSameCapacityTheFillingUses(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_bar_width_follows_the_same_capacity_the_filling_uses").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverBowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_bow_takes_the_topmost_arrow_and_searches_offhand_chest_hotbar_then_backpack").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverBowConsumesOneArrowFromTheQuiverThatSuppliedIt(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_bow_consumes_one_arrow_from_the_quiver_that_supplied_it").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverBowShootsFromTheQuiverAndBillsItOutsideCreativeOnly(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_bow_shoots_from_the_quiver_and_bills_it_outside_creative_only").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverNetheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_netherite_quiver_survives_an_explosion_like_the_netherite_bundle").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverCrossbowLoadsFromTheQuiverAndBillsOneArrow(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_crossbow_loads_from_the_quiver_and_bills_one_arrow").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverAQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_a_quiver_inside_the_backpack_feeds_the_bow_only_with_master_builder").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void quiverPickedUpArrowsGoIntoTheQuiverOnlyWithFunnel(GameTestHelper h) {
+        StorageTests.ALL.get("quiver_picked_up_arrows_go_into_the_quiver_only_with_funnel").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void storageEnchantmentFunnelFilterDecidesWhatTheTouchSweepsUp(GameTestHelper h) {
+        StorageTests.ALL.get("storage_enchantment_funnel_filter_decides_what_the_touch_sweeps_up").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void storageEnchantmentDrawerKindLockHoldsAgainstTheFunnelToo(GameTestHelper h) {
+        StorageTests.ALL.get("storage_enchantment_drawer_kind_lock_holds_against_the_funnel_too").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void storageEnchantmentFunnelQuiverSweepsArrowsOnlyAndStopsAtItsBrim(GameTestHelper h) {
+        StorageTests.ALL.get("storage_enchantment_funnel_quiver_sweeps_arrows_only_and_stops_at_its_brim").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void storageEnchantmentDrawerAndDeepPocketsMultiplyOnTheSameContainer(GameTestHelper h) {
+        StorageTests.ALL.get("storage_enchantment_drawer_and_deep_pockets_multiply_on_the_same_container").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void placedBundleSneakUsePlacesBundlesOnlyOnTopFaces(GameTestHelper h) {
+        StorageTests.ALL.get("placed_bundle_sneak_use_places_bundles_only_on_top_faces").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = StorageTests.PLACED_BUNDLE_SCROLL_MAX_TICKS)
+    public void placedBundleSneakScrollPacketsCycleTheTopItemAndRightClickTakesIt(GameTestHelper h) {
+        StorageTests.ALL.get("placed_bundle_sneak_scroll_packets_cycle_the_top_item_and_right_click_takes_it").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void placedBundleSneakRightClickWithAnItemDepositsIntoThePlacedBundle(GameTestHelper h) {
+        StorageTests.ALL.get("placed_bundle_sneak_right_click_with_an_item_deposits_into_the_placed_bundle").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void placedBundlePlacedBundlesDropThemselvesWithTheirContents(GameTestHelper h) {
+        StorageTests.ALL.get("placed_bundle_placed_bundles_drop_themselves_with_their_contents").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringFunnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringFunnelHonoursPickupDelayAndTargetInTheHand(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_funnel_honours_pickup_delay_and_target_in_the_hand").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringNetheriteBundleOnTheGroundSurvivesFireAndExplosions(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_netherite_bundle_on_the_ground_survives_fire_and_explosions").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringSelectionPacketReachesEntriesPastTheTwelfth(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_selection_packet_reaches_entries_past_the_twelfth").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringFunnelPickupCountsWhatItTook(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_funnel_pickup_counts_what_it_took").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringBundlesCloseLikeVanillaWhenPickedUpOrLeft(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_bundles_close_like_vanilla_when_picked_up_or_left").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleStorageRegistered(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_storage_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleStorageMigrationFromSimplebuilding(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_storage_migration_from_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void bundleStorageRecipesWorkOnTheirOwn(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_storage_recipes_work_on_their_own").accept(h);
+    }
 }

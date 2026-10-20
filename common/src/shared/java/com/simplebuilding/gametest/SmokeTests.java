@@ -53,9 +53,9 @@ public final class SmokeTests {
     private static final List<Item> PINNED_ITEMS = List.of(
             ModItems.STONE_CHISEL,
             ModItems.OCTANT,
-            ModItems.REINFORCED_BUNDLE,
-            ModItems.NETHERITE_BUNDLE,
-            ModItems.ENDERITE_BUNDLE,
+            com.simplebuilding.util.StorageRefs.item("reinforced_bundle"),
+            com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
+            com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
             ModItems.STONE_SPATULA,
             ModItems.COPPER_SPATULA,
             ModItems.IRON_SPATULA,
@@ -71,9 +71,9 @@ public final class SmokeTests {
     private static final List<Item> TAB_ITEMS = List.of(
             ModItems.STONE_CHISEL,
             ModItems.OCTANT,
-            ModItems.REINFORCED_BUNDLE,
-            ModItems.NETHERITE_BUNDLE,
-            ModItems.ENDERITE_BUNDLE);
+            com.simplebuilding.util.StorageRefs.item("reinforced_bundle"),
+            com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
+            com.simplebuilding.util.StorageRefs.item("enderite_bundle"));
 
     /**
      * Three questions, each of which a registered item can fail on its own: is it in the item

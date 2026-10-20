@@ -1393,7 +1393,7 @@ public final class ClientBootstrapClientTest {
 
         onServer(script, "put a reinforced bundle with stone into the inventory", server -> {
             ServerPlayer player = serverPlayer(server);
-            ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+            ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
 
             if (masterBuilder) {
                 bundle.enchant(server.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)

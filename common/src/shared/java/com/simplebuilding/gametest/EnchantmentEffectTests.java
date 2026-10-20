@@ -317,17 +317,18 @@ public final class EnchantmentEffectTests {
      * not the same as one that compares by kind.
      */
     public static void funnelDecidesWhatTheBundlePicksUp(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper, 0.0F);
         ItemStack stone = new ItemStack(Items.STONE, 1);
         ItemStack dirt = new ItemStack(Items.DIRT, 1);
 
-        ItemStack plain = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack plain = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) plain.getItem();
         helper.assertTrue(!item.canAutoPickup(plain, stone, helper.getLevel()),
                 "a bundle without Funnel picked items off the ground");
 
         // --- Funnel I on an empty bundle: nothing matches, so nothing is taken ---
-        ItemStack funnelOne = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack funnelOne = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         funnelOne.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
         helper.assertTrue(!item.canAutoPickup(funnelOne, stone, helper.getLevel()),
                 "Funnel I picked up an item the empty bundle does not hold");
@@ -347,7 +348,7 @@ public final class EnchantmentEffectTests {
                         + "filter compares by item alone, so every component variant looks like a match");
 
         // --- the same, with the components on the stored side ---
-        ItemStack funnelNamed = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack funnelNamed = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         funnelNamed.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
         helper.assertTrue(item.tryInsertStackFromWorld(funnelNamed, namedStone("funnel stone"), player),
                 "test setup broken: the Funnel bundle refused the named stone");
@@ -358,7 +359,7 @@ public final class EnchantmentEffectTests {
                 "Funnel I took a plain stone although the bundle only holds a named one");
 
         // --- Funnel II: everything, even from an empty bundle ---
-        ItemStack funnelTwo = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack funnelTwo = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         funnelTwo.enchant(enchantment(helper, ModEnchantments.FUNNEL), 2);
         helper.assertTrue(item.canAutoPickup(funnelTwo, dirt, helper.getLevel()),
                 "Funnel II did not take an arbitrary item");

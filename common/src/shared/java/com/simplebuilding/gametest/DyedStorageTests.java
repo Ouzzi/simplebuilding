@@ -73,8 +73,8 @@ public final class DyedStorageTests {
 
     /** The eleven dyeable items: backpacks, bundles, quivers. */
     private static final Item[] DYEABLE = {ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
-            ModItems.ENDERITE_BACKPACK, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
-            ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER};
+            ModItems.ENDERITE_BACKPACK, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
+            com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver")};
 
     /**
      * Each of the eleven items plus red dye, resolved through the live recipe manager the way a
@@ -91,6 +91,7 @@ public final class DyedStorageTests {
      * carrying the components over, or one that is too wide and takes the chisel.
      */
     public static void dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         boolean vanilla = com.simplebuilding.version.McVersion.VANILLA_DYEING;
         int red = vanilla ? com.simplebuilding.util.StorageDyes.colour(DyeColor.RED) : DyeRgb.of(DyeColor.RED);
@@ -159,6 +160,7 @@ public final class DyedStorageTests {
      * wash that does not lower the water, and one that also takes water for an undyed item.
      */
     public static void waterCauldronWashesOnlyTheDyeOffBackpacksAndBundles(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         BlockPos cauldron = new BlockPos(2, 1, 2);
         int washesBefore = washCount(player);
@@ -232,6 +234,7 @@ public final class DyedStorageTests {
      * built without the colour, or a tint that got louder or touches undyed items.
      */
     public static void theDyeColourReachesTheBackpackMenuAndTheBundleTooltip(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         int purple = DyeRgb.of(DyeColor.PURPLE);
@@ -294,11 +297,11 @@ public final class DyedStorageTests {
                 "the broken dyed backpack dropped " + dropped + " with colour " + Integer.toHexString(DyedStorage.colour(dropped)));
 
         // --- bundle tooltip ---
-        ItemStack bundle = filled(helper, ModItems.NETHERITE_BUNDLE);
+        ItemStack bundle = filled(helper, com.simplebuilding.util.StorageRefs.item("netherite_bundle"));
         helper.assertValueEqual(tooltipColour(helper, bundle), DyedStorage.UNDYED, "tooltip colour of an undyed netherite bundle");
         bundle.set(DataComponents.DYED_COLOR, new DyedItemColor(purple));
         helper.assertValueEqual(tooltipColour(helper, bundle), purple, "tooltip colour of a purple netherite bundle");
-        ItemStack quiver = filled(helper, ModItems.ENDERITE_QUIVER);
+        ItemStack quiver = filled(helper, com.simplebuilding.util.StorageRefs.item("enderite_quiver"));
         quiver.set(DataComponents.DYED_COLOR, new DyedItemColor(purple));
         helper.assertValueEqual(tooltipColour(helper, quiver), purple, "tooltip colour of a purple enderite quiver");
 
@@ -317,7 +320,7 @@ public final class DyedStorageTests {
     /** The item with contents, a custom name and Funnel I - everything dyeing must not touch. */
     private static ItemStack filled(GameTestHelper helper, Item item) {
         ItemStack stack = new ItemStack(item);
-        if (item == ModItems.REINFORCED_BUNDLE || item == ModItems.NETHERITE_BUNDLE || item == ModItems.ENDERITE_BUNDLE) {
+        if (item == com.simplebuilding.util.StorageRefs.item("reinforced_bundle") || item == com.simplebuilding.util.StorageRefs.item("netherite_bundle") || item == com.simplebuilding.util.StorageRefs.item("enderite_bundle")) {
             stack.set(DataComponents.BUNDLE_CONTENTS, bundleContents(new ItemStack(Items.COBBLESTONE, 16)));
         } else if (item instanceof QuiverItem) {
             stack.set(DataComponents.BUNDLE_CONTENTS, bundleContents(new ItemStack(Items.ARROW, 16)));

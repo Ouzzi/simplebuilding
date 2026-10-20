@@ -55,6 +55,8 @@ public final class StorageTests {
     static final BlockPos SPOT = new BlockPos(2, 2, 2);
     /** The boat deck test waits 40 ticks for the boat to settle. */
     public static final int VEHICLE_DECK_MAX_TICKS = 100;
+    /** The placed bundle scroll test waits for the shown item not to cycle on its own ({@code PlacedBundleTests.SCROLL_MAX_TICKS}). */
+    public static final int PLACED_BUNDLE_SCROLL_MAX_TICKS = PlacedBundleTests.SCROLL_MAX_TICKS;
 
     static {
         // Split stage 8b: the chests and shulker boxes (bodies from SimpleBuilding's TieredChestTests / TieredShulkerBoxTests).
@@ -93,6 +95,48 @@ public final class StorageTests {
         MAX_TICKS.put("vehicle_standers_stay_on_the_chest_boat_deck", VEHICLE_DECK_MAX_TICKS);
         ALL.put("vehicle_standers_stay_on_the_chest_boat_deck", VehicleTests::standersStayOnTheChestBoatDeck);
         ALL.put("vehicle_old_vehicles_load_as_simple_storages", VehicleTests::oldVehiclesLoadAsSimpleStorages);
+        // Split stage 8c-1: bundles, quivers, the placed bundle, the storage enchantments (bodies from SimpleBuilding's
+        // ReinforcedBundleTests, QuiverTests, StorageEnchantmentTests, PlacedBundleTests and BundleWiringTests).
+        MAX_TICKS.put("placed_bundle_sneak_scroll_packets_cycle_the_top_item_and_right_click_takes_it", PLACED_BUNDLE_SCROLL_MAX_TICKS);
+        ALL.put("reinforced_bundle_insertion_stops_at_the_brim_and_weighs_by_stack_size", BundleTests::insertionStopsAtTheBrimAndWeighsByStackSize);
+        ALL.put("reinforced_bundle_insertion_turns_away_what_cannot_go_into_container_items", BundleTests::insertionTurnsAwayWhatCannotGoIntoContainerItems);
+        ALL.put("reinforced_bundle_insertion_merges_equal_stacks_and_pushes_them_to_the_top", BundleTests::insertionMergesEqualStacksAndPushesThemToTheTop);
+        ALL.put("reinforced_bundle_drawer_holds_only_the_kind_already_inside", BundleTests::drawerHoldsOnlyTheKindAlreadyInside);
+        ALL.put("reinforced_bundle_nested_bundles_weigh_their_contents", BundleTests::nestedBundlesWeighTheirContents);
+        ALL.put("reinforced_bundle_the_selected_entry_is_the_one_that_comes_out", BundleTests::theSelectedEntryIsTheOneThatComesOut);
+        ALL.put("reinforced_bundle_right_click_throws_the_selected_stack_but_never_blocks", BundleTests::rightClickThrowsTheSelectedStackButNeverBlocks);
+        ALL.put("reinforced_bundle_master_builder_places_from_the_bundle_and_color_palette_scatters_it", BundleTests::masterBuilderPlacesFromTheBundleAndColorPaletteScattersIt);
+        ALL.put("reinforced_bundle_capacity_follows_tier_and_enchantments_and_matches_the_wiki_export", BundleTests::capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport);
+        ALL.put("reinforced_bundle_bar_and_tooltip_read_the_same_capacity_the_filling_uses", BundleTests::barAndTooltipReadTheSameCapacityTheFillingUses);
+        ALL.put("reinforced_bundle_overflowing_bundle_weights_are_refused_instead_of_crashing", BundleTests::overflowingBundleWeightsAreRefusedInsteadOfCrashing);
+        ALL.put("quiver_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder);
+        ALL.put("quiver_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt);
+        ALL.put("quiver_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments", QuiverTests::capacityDropsTheBundleBonusAndFollowsTierAndEnchantments);
+        ALL.put("quiver_bar_width_follows_the_same_capacity_the_filling_uses", QuiverTests::barWidthFollowsTheSameCapacityTheFillingUses);
+        ALL.put("quiver_bow_takes_the_topmost_arrow_and_searches_offhand_chest_hotbar_then_backpack", QuiverTests::bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack);
+        ALL.put("quiver_bow_consumes_one_arrow_from_the_quiver_that_supplied_it", QuiverTests::bowConsumesOneArrowFromTheQuiverThatSuppliedIt);
+        ALL.put("quiver_bow_shoots_from_the_quiver_and_bills_it_outside_creative_only", QuiverTests::bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly);
+        ALL.put("quiver_netherite_quiver_survives_an_explosion_like_the_netherite_bundle", QuiverTests::netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle);
+        ALL.put("quiver_crossbow_loads_from_the_quiver_and_bills_one_arrow", QuiverTests::crossbowLoadsFromTheQuiverAndBillsOneArrow);
+        ALL.put("quiver_a_quiver_inside_the_backpack_feeds_the_bow_only_with_master_builder", QuiverTests::aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder);
+        ALL.put("quiver_picked_up_arrows_go_into_the_quiver_only_with_funnel", QuiverTests::pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel);
+        ALL.put("storage_enchantment_funnel_filter_decides_what_the_touch_sweeps_up", StorageEnchantmentTests::funnelFilterDecidesWhatTheTouchSweepsUp);
+        ALL.put("storage_enchantment_drawer_kind_lock_holds_against_the_funnel_too", StorageEnchantmentTests::drawerKindLockHoldsAgainstTheFunnelToo);
+        ALL.put("storage_enchantment_funnel_quiver_sweeps_arrows_only_and_stops_at_its_brim", StorageEnchantmentTests::funnelQuiverSweepsArrowsOnlyAndStopsAtItsBrim);
+        ALL.put("storage_enchantment_drawer_and_deep_pockets_multiply_on_the_same_container", StorageEnchantmentTests::drawerAndDeepPocketsMultiplyOnTheSameContainer);
+        ALL.put("placed_bundle_sneak_use_places_bundles_only_on_top_faces", PlacedBundleTests::sneakUsePlacesBundlesOnlyOnTopFaces);
+        ALL.put("placed_bundle_sneak_scroll_packets_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt);
+        ALL.put("placed_bundle_sneak_right_click_with_an_item_deposits_into_the_placed_bundle", PlacedBundleTests::sneakRightClickWithAnItemDepositsIntoThePlacedBundle);
+        ALL.put("placed_bundle_placed_bundles_drop_themselves_with_their_contents", PlacedBundleTests::placedBundlesDropThemselvesWithTheirContents);
+        ALL.put("bundle_wiring_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks);
+        ALL.put("bundle_wiring_funnel_honours_pickup_delay_and_target_in_the_hand", BundleWiringTests::funnelHonoursPickupDelayAndTargetInTheHand);
+        ALL.put("bundle_wiring_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions);
+        ALL.put("bundle_wiring_selection_packet_reaches_entries_past_the_twelfth", BundleWiringTests::selectionPacketReachesEntriesPastTheTwelfth);
+        ALL.put("bundle_wiring_funnel_pickup_counts_what_it_took", BundleWiringTests::funnelPickupCountsWhatItTook);
+        ALL.put("bundle_wiring_bundles_close_like_vanilla_when_picked_up_or_left", BundleWiringTests::bundlesCloseLikeVanillaWhenPickedUpOrLeft);
+        ALL.put("bundle_storage_registered", BundleStorageTests::registered);
+        ALL.put("bundle_storage_migration_from_simplebuilding", BundleStorageTests::migrationFromSimplebuilding);
+        ALL.put("bundle_storage_recipes_work_on_their_own", BundleStorageTests::recipesWorkOnTheirOwn);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);

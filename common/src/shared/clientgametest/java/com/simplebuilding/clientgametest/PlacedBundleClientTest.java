@@ -56,12 +56,14 @@ public final class PlacedBundleClientTest {
     }
 
     public static void inWorld(Script script) {
+        // Split stage 8c-1: on 26.3 the placed bundle and its renderer are Simple Storage's (Client-Sicht offen).
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) return;
         TestScene.build(script, "minecraft:stone", "survival");
 
         onServer(script, "place a reinforced bundle holding torches, apples and feathers", server -> {
             ServerLevel level = server.overworld();
-            level.setBlock(BUNDLE, ModBlocks.PLACED_BUNDLE.defaultBlockState(), 3);
-            ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+            level.setBlock(BUNDLE, com.simplebuilding.util.StorageRefs.placedBundle().defaultBlockState(), 3);
+            ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
             PlacedBundles.setContents(bundle, List.of(new ItemStack(Items.TORCH, 8), new ItemStack(Items.APPLE, 3),
                     new ItemStack(Items.FEATHER, 5)));
             if (level.getBlockEntity(BUNDLE) instanceof PlacedBundleBlockEntity be) {

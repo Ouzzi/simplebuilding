@@ -138,7 +138,7 @@ public final class BundleWiringTests {
     private static final int WAND_PLANE_BLOCKS = 9;
 
     /** Registry id of the item every claim in this file is about. */
-    private static final String BUNDLE_ID = "simplebuilding:reinforced_bundle";
+    private static final String BUNDLE_ID = com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle";
 
     /**
      * Registry id of the loot function that hands the mineshaft bundle out enchanted, as it is
@@ -198,6 +198,7 @@ public final class BundleWiringTests {
      * Funnel II so the filter never has a say in the outcome.
      */
     public static void funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // --- 1. sneaking: the bundle stays out of it and vanilla's own pickup takes over ---
@@ -303,6 +304,7 @@ public final class BundleWiringTests {
      * 2026-09-26 #14).
      */
     public static void funnelHonoursPickupDelayAndTargetInTheHand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         ItemStack bundle = funnelBundle(helper);
         armHand(player, bundle);
@@ -370,16 +372,17 @@ public final class BundleWiringTests {
      * widening its item check, and dropping {@code fireResistant()} from either upper tier.
      */
     public static void netheriteBundleOnTheGroundSurvivesFireAndExplosions(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
 
         // --- fire: vanilla evaluates the component the mod asks for ---
         // All three drops sit in the far corner, outside the blast radius used further down, so the
         // two halves of this test cannot influence each other.
-        ItemEntity plainInFire = drop(helper, new ItemStack(ModItems.REINFORCED_BUNDLE),
+        ItemEntity plainInFire = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 new Vec3(0.5, 2.0, 0.5), 10);
-        ItemEntity netheriteInFire = drop(helper, new ItemStack(ModItems.NETHERITE_BUNDLE),
+        ItemEntity netheriteInFire = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle")),
                 new Vec3(1.5, 2.0, 0.5), 10);
-        ItemEntity enderiteInFire = drop(helper, new ItemStack(ModItems.ENDERITE_BUNDLE),
+        ItemEntity enderiteInFire = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("enderite_bundle")),
                 new Vec3(0.5, 2.0, 1.5), 10);
 
         DamageSource fire = level.damageSources().onFire();
@@ -400,15 +403,15 @@ public final class BundleWiringTests {
 
         // --- explosion: the mod's own mixin, with the blast kept inside this test room ---
         Vec3 blast = helper.absoluteVec(new Vec3(4.0, 2.0, 4.0));
-        ItemEntity plainInBlast = drop(helper, new ItemStack(ModItems.REINFORCED_BUNDLE),
+        ItemEntity plainInBlast = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 new Vec3(3.8, 2.0, 4.0), 10);
-        ItemEntity netheriteInBlast = drop(helper, new ItemStack(ModItems.NETHERITE_BUNDLE),
+        ItemEntity netheriteInBlast = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle")),
                 new Vec3(4.2, 2.0, 4.0), 10);
         // Same distance from the centre as the other two, so an outcome can only come from the item
         // check in ignoreExplosion and not from a weaker share of the blast.
-        ItemEntity enderiteInBlast = drop(helper, new ItemStack(ModItems.ENDERITE_BUNDLE),
+        ItemEntity enderiteInBlast = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("enderite_bundle")),
                 new Vec3(4.0, 2.0, 4.2), 10);
-        ItemEntity enderiteQuiverInBlast = drop(helper, new ItemStack(ModItems.ENDERITE_QUIVER),
+        ItemEntity enderiteQuiverInBlast = drop(helper, new ItemStack(com.simplebuilding.util.StorageRefs.item("enderite_quiver")),
                 new Vec3(4.0, 2.0, 3.8), 10);
 
         // NONE keeps the room's blocks intact; entities are still hurt.
@@ -447,6 +450,7 @@ public final class BundleWiringTests {
      * that writes an out-of-range index into the component.
      */
     public static void selectionPacketReachesEntriesPastTheTwelfth(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         player.getInventory().clearContent();
         List<ItemStackTemplate> entries = new ArrayList<>();
@@ -455,7 +459,7 @@ public final class BundleWiringTests {
             stack.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("entry " + i));
             entries.add(ItemStackTemplate.fromNonEmptyStack(stack));
         }
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(entries));
         player.getInventory().setItem(1, bundle);
         int slot = menuSlotOf(helper, player, bundle);
@@ -498,12 +502,13 @@ public final class BundleWiringTests {
      * throw or destroy whatever the player was holding.
      */
     public static void bundlePacketsOnlyTouchTheSlotsTheyOwn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         player.getInventory().clearContent();
         player.getInventory().setSelectedSlot(0);
 
         // Two entries, so index 1 is a valid selection - the component rejects out of range ones.
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem bundleItem = (ReinforcedBundleItem) bundle.getItem();
         bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player);
         bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.DIRT, 8), player);
@@ -549,7 +554,7 @@ public final class BundleWiringTests {
                 "an out of range slot id changed the bundle's selection anyway");
 
         // --- the pick has to bail out when there is nowhere to park the stack in the hand ---
-        ItemStack pickBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack pickBundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         pickBundle.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         ((ReinforcedBundleItem) pickBundle.getItem())
                 .tryInsertStackFromWorld(pickBundle, new ItemStack(Items.STONE, 16), player);
@@ -601,7 +606,7 @@ public final class BundleWiringTests {
         ServerPlayer player = mockPlayer(helper);
 
         // --- control: the same anvil, the same rename, no palette involved ---
-        AnvilMenu plain = renameInAnvil(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), "Toolbox");
+        AnvilMenu plain = renameInAnvil(helper, player, new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")), "Toolbox");
         helper.assertTrue(!plain.getSlot(AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
                 "renaming a plain bundle produced no anvil result at all; the restriction below "
                         + "cannot be told apart from a dead anvil");
@@ -609,7 +614,7 @@ public final class BundleWiringTests {
                 "the control rename cost nothing, so a cost of 0 says nothing further down");
 
         // --- palette alone: the output is taken away ---
-        ItemStack paletteOnly = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack paletteOnly = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         paletteOnly.enchant(enchantment(helper, ModEnchantments.COLOR_PALETTE), 1);
         AnvilMenu blocked = renameInAnvil(helper, player, paletteOnly, "Palette");
 
@@ -620,12 +625,12 @@ public final class BundleWiringTests {
                 "the anvil emptied the output but still charged for it");
 
         // --- palette plus builder: allowed again ---
-        ItemStack paletteAndBuilder = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack paletteAndBuilder = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         paletteAndBuilder.enchant(enchantment(helper, ModEnchantments.COLOR_PALETTE), 1);
         paletteAndBuilder.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         AnvilMenu allowed = renameInAnvil(helper, player, paletteAndBuilder, "Palette");
 
-        helper.assertTrue(allowed.getSlot(AnvilMenu.RESULT_SLOT).getItem().is(ModItems.REINFORCED_BUNDLE),
+        helper.assertTrue(allowed.getSlot(AnvilMenu.RESULT_SLOT).getItem().is(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 "a bundle carrying both Colour Palette and Master Builder was refused by the anvil");
 
         helper.succeed();
@@ -698,6 +703,7 @@ public final class BundleWiringTests {
      * owns those, with loose stacks as the material.
      */
     public static void buildingWandBuildsFromTheBundleAndPaysOnePiecePerBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         player.getAbilities().instabuild = false;
 
@@ -723,7 +729,7 @@ public final class BundleWiringTests {
         BlockPos secondAnchor = new BlockPos(5, 1, 5);
         helper.setBlock(secondAnchor, Blocks.STONE);
 
-        ItemStack plainBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack plainBundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ((ReinforcedBundleItem) plainBundle.getItem())
                 .tryInsertStackFromWorld(plainBundle, new ItemStack(Items.STONE, 64), player);
         ItemStack builderWand = radiusOneWand();
@@ -741,7 +747,7 @@ public final class BundleWiringTests {
         BlockPos thirdAnchor = new BlockPos(2, 4, 2);
         helper.setBlock(thirdAnchor, Blocks.STONE);
 
-        ItemStack lockedBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack lockedBundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ((ReinforcedBundleItem) lockedBundle.getItem())
                 .tryInsertStackFromWorld(lockedBundle, new ItemStack(Items.STONE, 64), player);
         ItemStack plainWand = radiusOneWand();
@@ -798,7 +804,7 @@ public final class BundleWiringTests {
         helper.assertTrue(crafted.isPresent(),
                 "string / bundle / leather sheet between six diamond pebbles crafts nothing at all");
         ItemStack result = crafted.get().value().assemble(asShipped);
-        helper.assertTrue(result.is(ModItems.REINFORCED_BUNDLE),
+        helper.assertTrue(result.is(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 "the bundle pattern crafts " + result + " instead of a reinforced bundle");
         helper.assertValueEqual(result.getCount(), 1, "reinforced bundles produced per craft");
 
@@ -821,23 +827,23 @@ public final class BundleWiringTests {
         // --- reinforced -> netherite ---
         SmithingRecipeInput toNetherite = new SmithingRecipeInput(
                 new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                new ItemStack(ModItems.REINFORCED_BUNDLE),
+                new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 new ItemStack(Items.NETHERITE_INGOT));
-        assertSmithingResult(helper, level, recipes, toNetherite, ModItems.NETHERITE_BUNDLE,
+        assertSmithingResult(helper, level, recipes, toNetherite, com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
                 "reinforced bundle + netherite ingot on the netherite template");
 
         // --- netherite -> enderite ---
         SmithingRecipeInput toEnderite = new SmithingRecipeInput(
                 new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                new ItemStack(ModItems.NETHERITE_BUNDLE),
+                new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle")),
                 new ItemStack(ModItems.ENDERITE_INGOT));
-        assertSmithingResult(helper, level, recipes, toEnderite, ModItems.ENDERITE_BUNDLE,
+        assertSmithingResult(helper, level, recipes, toEnderite, com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
                 "netherite bundle + enderite ingot on the enderite template");
 
         // --- no skipping a tier, no mixing the additions up ---
         SmithingRecipeInput skippedTier = new SmithingRecipeInput(
                 new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                new ItemStack(ModItems.REINFORCED_BUNDLE),
+                new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 new ItemStack(ModItems.ENDERITE_INGOT));
         helper.assertTrue(recipes.getRecipeFor(RecipeType.SMITHING, skippedTier, level).isEmpty(),
                 "the enderite upgrade accepted a reinforced bundle as its base, so the netherite "
@@ -845,7 +851,7 @@ public final class BundleWiringTests {
 
         SmithingRecipeInput wrongAddition = new SmithingRecipeInput(
                 new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                new ItemStack(ModItems.NETHERITE_BUNDLE),
+                new ItemStack(com.simplebuilding.util.StorageRefs.item("netherite_bundle")),
                 new ItemStack(Items.NETHERITE_INGOT));
         helper.assertTrue(recipes.getRecipeFor(RecipeType.SMITHING, wrongAddition, level).isEmpty(),
                 "the enderite upgrade accepted a netherite ingot as its addition");
@@ -883,14 +889,14 @@ public final class BundleWiringTests {
         MerchantOffer selling = offerOf(helper, level,
                 "simplebuilding:wandering_trader/emerald_reinforced_bundle", context);
         assertOffer(helper, selling, "wandering_trader/emerald_reinforced_bundle",
-                Items.EMERALD, 16, ModItems.REINFORCED_BUNDLE, 1, 1, 15);
+                Items.EMERALD, 16, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 1, 1, 15);
         helper.assertTrue(selling.getCostB().isEmpty(),
                 "the bundle sale asks for a second item, it should cost emeralds only");
 
         MerchantOffer buying = offerOf(helper, level,
                 "simplebuilding:wandering_trader/reinforced_bundle_emerald", context);
         assertOffer(helper, buying, "wandering_trader/reinforced_bundle_emerald",
-                ModItems.REINFORCED_BUNDLE, 1, Items.EMERALD, 12, 1, 10);
+                com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 1, Items.EMERALD, 12, 1, 10);
 
         helper.succeed();
     }
@@ -1016,9 +1022,9 @@ public final class BundleWiringTests {
         List<ResourceKey<Enchantment>> containerEnchantments = new ArrayList<>(bundleTagEnchantments);
         containerEnchantments.addAll(extraInventoryTagEnchantments);
 
-        for (Item bundle : List.of(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
-                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
-                ModItems.ENDERITE_QUIVER)) {
+        for (Item bundle : List.of(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
+                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"),
+                com.simplebuilding.util.StorageRefs.item("enderite_quiver"))) {
             ItemStack stack = new ItemStack(bundle);
             for (ResourceKey<Enchantment> key : containerEnchantments) {
                 helper.assertTrue(enchantment(helper, key).value().canEnchant(stack),
@@ -1071,6 +1077,7 @@ public final class BundleWiringTests {
      * </ul>
      */
     public static void funnelPickupCountsWhatItTook(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         ItemStack bundle = funnelBundle(helper);
         armHand(player, bundle);
@@ -1135,10 +1142,11 @@ public final class BundleWiringTests {
      * payload handler losing -1, or {@code nextScrollSelection} clamping or skipping.
      */
     public static void bundlesCloseLikeVanillaWhenPickedUpOrLeft(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         player.getInventory().clearContent();
 
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem bundleItem = (ReinforcedBundleItem) bundle.getItem();
         bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player);
         bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.DIRT, 8), player);
@@ -1161,7 +1169,7 @@ public final class BundleWiringTests {
                 "the bundle could not be opened again, so the pickup below would prove nothing");
         player.containerMenu.clicked(slot, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
         ItemStack carried = player.containerMenu.getCarried();
-        helper.assertTrue(carried.is(ModItems.REINFORCED_BUNDLE),
+        helper.assertTrue(carried.is(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                 "a left click with an empty cursor did not pick the bundle up but left " + carried + " on the cursor");
         helper.assertValueEqual(BundleItem.getSelectedItemIndex(carried), BundleContents.NO_SELECTED_ITEM_INDEX,
                 "the bundle is still open on the cursor after being picked up");
@@ -1170,7 +1178,7 @@ public final class BundleWiringTests {
         player.containerMenu.setCarried(ItemStack.EMPTY);
 
         // --- 3. a quiver swapped for a non-arrow closes as well ---
-        ItemStack quiver = new ItemStack(ModItems.QUIVER);
+        ItemStack quiver = new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver"));
         ReinforcedBundleItem quiverItem = (ReinforcedBundleItem) quiver.getItem();
         quiverItem.tryInsertStackFromWorld(quiver, new ItemStack(Items.ARROW, 8), player);
         quiverItem.tryInsertStackFromWorld(quiver, new ItemStack(Items.SPECTRAL_ARROW, 8), player);
@@ -1182,7 +1190,7 @@ public final class BundleWiringTests {
         player.containerMenu.setCarried(new ItemStack(Items.DIRT, 4));
         player.containerMenu.clicked(quiverSlot, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
         ItemStack swapped = player.containerMenu.getCarried();
-        helper.assertTrue(swapped.is(ModItems.QUIVER),
+        helper.assertTrue(swapped.is(com.simplebuilding.util.StorageRefs.item("quiver")),
                 "clicking the quiver with dirt did not swap them; the cursor holds " + swapped);
         helper.assertValueEqual(BundleItem.getSelectedItemIndex(swapped), BundleContents.NO_SELECTED_ITEM_INDEX,
                 "the quiver is still open on the cursor after being swapped for dirt");
@@ -1220,14 +1228,14 @@ public final class BundleWiringTests {
 
     /** A reinforced bundle that takes anything off the floor, so the Funnel filter never decides. */
     private static ItemStack funnelBundle(GameTestHelper helper) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         bundle.enchant(enchantment(helper, ModEnchantments.FUNNEL), 2);
         return bundle;
     }
 
     /** A Master Builder bundle holding a full stack of stone, the wand's only material source. */
     private static ItemStack masterBuilderBundle(GameTestHelper helper, ServerPlayer player) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         bundle.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         ((ReinforcedBundleItem) bundle.getItem())
                 .tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 64), player);

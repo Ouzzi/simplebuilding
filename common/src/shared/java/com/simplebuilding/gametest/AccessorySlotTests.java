@@ -147,12 +147,13 @@ public final class AccessorySlotTests {
      * that never looks at accessory slots.
      */
     public static void quiverLookupGoesChestThenAccessoryThenHotbar(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         TestHook hook = hookFor(helper, player);
 
-        ItemStack worn = filledQuiver(helper, player, ModItems.QUIVER, Items.ARROW);
-        ItemStack accessory = filledQuiver(helper, player, ModItems.QUIVER, Items.SPECTRAL_ARROW);
-        ItemStack hotbar = filledQuiver(helper, player, ModItems.QUIVER, Items.TIPPED_ARROW);
+        ItemStack worn = filledQuiver(helper, player, com.simplebuilding.util.StorageRefs.item("quiver"), Items.ARROW);
+        ItemStack accessory = filledQuiver(helper, player, com.simplebuilding.util.StorageRefs.item("quiver"), Items.SPECTRAL_ARROW);
+        ItemStack hotbar = filledQuiver(helper, player, com.simplebuilding.util.StorageRefs.item("quiver"), Items.TIPPED_ARROW);
         player.setItemSlot(EquipmentSlot.CHEST, worn);
         hook.stacks.add(accessory);
         player.getInventory().setItem(3, hotbar);
@@ -171,7 +172,7 @@ public final class AccessorySlotTests {
         // --- Funnel II on the accessory quiver ---
         hook.stacks.clear();
         player.getInventory().clearContent();
-        ItemStack funnel = new ItemStack(ModItems.QUIVER);
+        ItemStack funnel = new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver"));
         funnel.enchant(enchantment(helper, ModEnchantments.FUNNEL), 2);
         hook.stacks.add(funnel);
         touchArrow(helper, player);
@@ -191,10 +192,11 @@ public final class AccessorySlotTests {
      * <p>What breaks this test: Master Builder or Funnel reading only the chest slot.
      */
     public static void masterBuilderAndFunnelReadTheAccessoryBackpack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         TestHook hook = hookFor(helper, player);
 
-        ItemStack quiver = filledQuiver(helper, player, ModItems.QUIVER, Items.SPECTRAL_ARROW);
+        ItemStack quiver = filledQuiver(helper, player, com.simplebuilding.util.StorageRefs.item("quiver"), Items.SPECTRAL_ARROW);
         ItemStack backpack = new ItemStack(ModItems.BACKPACK);
         backpack.set(ModDataComponentTypes.BACKPACK_CONTENTS,
                 new BackpackContents(List.of(BackpackContents.Entry.of(7, quiver))));

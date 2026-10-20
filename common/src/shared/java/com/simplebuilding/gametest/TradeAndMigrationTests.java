@@ -200,10 +200,10 @@ public final class TradeAndMigrationTests {
             TradeRow.of("wandering_trader/emerald_gold_core", Items.EMERALD, 48, ModItems.GOLD_CORE, 1, 1, 15, 0.1F),
             TradeRow.of("wandering_trader/emerald_diamond_core", Items.EMERALD, 64, ModItems.DIAMOND_CORE, 1, 1, 20, 0.1F),
             TradeRow.of("wandering_trader/emerald_octant", Items.EMERALD, 10, ModItems.OCTANT, 1, 1, 15, 0.1F),
-            TradeRow.of("wandering_trader/emerald_reinforced_bundle", Items.EMERALD, 16, ModItems.REINFORCED_BUNDLE, 1, 1, 15, 0.1F),
+            TradeRow.of("wandering_trader/emerald_reinforced_bundle", Items.EMERALD, 16, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 1, 1, 15, 0.1F),
             TradeRow.of("wandering_trader/emerald_wand_book", Items.EMERALD, 40, Items.ENCHANTED_BOOK, 1, 1, 10, 0.2F),
             TradeRow.of("wandering_trader/octant_emerald", ModItems.OCTANT, 1, Items.EMERALD, 8, 3, 5, 0.1F),
-            TradeRow.of("wandering_trader/reinforced_bundle_emerald", ModItems.REINFORCED_BUNDLE, 1, Items.EMERALD, 12, 1, 10, 0.1F));
+            TradeRow.of("wandering_trader/reinforced_bundle_emerald", com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), 1, Items.EMERALD, 12, 1, 10, 0.1F));
 
     /** The ids of all 20 trade files, derived from {@link #TRADE_TABLE} so both cannot drift apart. */
     private static final List<String> EXPECTED_TRADE_IDS = TRADE_TABLE.stream().map(TradeRow::id).toList();
@@ -235,7 +235,7 @@ public final class TradeAndMigrationTests {
     private static final Set<String> ADVANCED_BOOK_POOL = Set.of(
             "simplebuilding:linear@1",
             "simplebuilding:override@1",
-            "simplebuilding:drawer@1");
+            com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":drawer@1");
 
     /** {@code librarian/5/emerald_master_book} - the only place Master Builder is sold. */
     private static final Set<String> MASTER_BOOK_POOL = Set.of(
@@ -243,7 +243,7 @@ public final class TradeAndMigrationTests {
             "simplebuilding:range@1",
             "simplebuilding:range@2",
             "simplebuilding:range@3",
-            "simplebuilding:funnel@1",
+            com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":funnel@1",
             "simplebuilding:strip_miner@1",
             "simplebuilding:strip_miner@2",
             "simplebuilding:strip_miner@3",
@@ -617,7 +617,7 @@ public final class TradeAndMigrationTests {
      */
     public static void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
         Set<Item> wanted = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
-                ModItems.DIAMOND_CORE, ModItems.DIAMOND_PEBBLE, ModItems.OCTANT, ModItems.REINFORCED_BUNDLE);
+                ModItems.DIAMOND_CORE, ModItems.DIAMOND_PEBBLE, ModItems.OCTANT, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         Set<Item> seen = new LinkedHashSet<>();
         boolean rolledModTrade = false;
         int emptyRolls = 0;

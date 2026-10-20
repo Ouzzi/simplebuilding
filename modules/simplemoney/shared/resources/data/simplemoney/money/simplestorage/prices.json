@@ -1,13 +1,35 @@
 {
   "module": "simplestorage",
-  "derivation": "Crates and the Storage Crafting Table are crafted cheaply from planks, a crafting table and a chest; like in SimpleBuilding before split stage 8a they are not traded. The tiered chests and shulker boxes moved here from SimpleBuilding with the same rows (split stage 8b).",
+  "derivation": "Crates and the Storage Crafting Table are crafted cheaply from planks, a crafting table and a chest; like in SimpleBuilding before split stage 8a they are not traded. The tiered chests and shulker boxes moved here from SimpleBuilding with the same rows (split stage 8b); the bundles and quivers followed with their rows (split stage 8c-1).",
   "excluded": {},
   "prices": [
+    {
+      "item": "simplestorage:enderite_bundle",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
     {
       "item": "simplestorage:enderite_chest",
       "tier": 5,
       "hours": 38.1,
       "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplestorage:enderite_quiver",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 3,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -26,10 +48,32 @@
       "chance": 0.1
     },
     {
+      "item": "simplestorage:netherite_bundle",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplestorage:netherite_chest",
       "tier": 4,
       "hours": 24.9,
       "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplestorage:netherite_quiver",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 3,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -48,7 +92,40 @@
       "chance": 0.1
     },
     {
+      "item": "simplestorage:quiver",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 6,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplestorage:reinforced_bundle",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    },
+    {
       "item": "simplestorage:reinforced_chest",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    },
+    {
+      "item": "simplestorage:reinforced_quiver",
       "tier": 3,
       "hours": 21.0,
       "craft": 9,

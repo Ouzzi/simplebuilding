@@ -56,4 +56,16 @@ final class Refs {
     static Item material(String path) {
         return com.simplelib.api.SimpleLibApi.materialItem(path);
     }
+
+    /**
+     * Split stage 8c-1: SimpleBuilding's Master Builder, Color Palette and Constructor's Touch only exist with SimpleBuilding;
+     * a test about them passes without it (standalone) and says so. True when the test must stop here.
+     */
+    static boolean withoutSimpleBuildingEnchantments(net.minecraft.gametest.framework.GameTestHelper helper) {
+        var registry = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT);
+        if (registry.get(com.simplestorage.bundle.BundleEnchantments.MASTER_BUILDER).isPresent()) return false;
+        SimpleStorage.LOG.info("SimpleBuilding's enchantments are not loaded (standalone), nothing to check");
+        helper.succeed();
+        return true;
+    }
 }

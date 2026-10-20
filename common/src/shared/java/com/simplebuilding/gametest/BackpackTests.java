@@ -956,7 +956,7 @@ public final class BackpackTests {
             }
         }
 
-        helper.assertTrue(enchantment(helper, ModEnchantments.DRAWER).value().canEnchant(new ItemStack(ModItems.REINFORCED_BUNDLE)),
+        helper.assertTrue(enchantment(helper, ModEnchantments.DRAWER).value().canEnchant(new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"))),
                 "Drawer cannot go on a reinforced bundle any more, so its refusal on the backpacks proves nothing");
         helper.assertTrue(enchantment(helper, ModEnchantments.COLOR_PALETTE).value().canEnchant(new ItemStack(ModItems.DIAMOND_BUILDING_WAND)),
                 "Colour Palette cannot go on a building wand any more, so its refusal on the backpacks proves nothing");

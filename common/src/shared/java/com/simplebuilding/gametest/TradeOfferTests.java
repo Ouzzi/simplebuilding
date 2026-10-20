@@ -135,7 +135,7 @@ public final class TradeOfferTests {
             "simplebuilding:range@1",
             "simplebuilding:range@2",
             "simplebuilding:range@3",
-            "simplebuilding:funnel@1",
+            com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":funnel@1",
             "simplebuilding:strip_miner@1",
             "simplebuilding:strip_miner@2",
             "simplebuilding:strip_miner@3",

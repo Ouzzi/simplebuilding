@@ -61,6 +61,7 @@ public final class PlacedBundleTests {
      * abgestellt.
      */
     public static void sneakUsePlacesBundlesOnlyOnTopFaces(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 6.5));
         player.setShiftKeyDown(true);
         List<Item> items = List.of(Items.BUNDLE, vanilla("blue_bundle"), ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
@@ -137,6 +138,7 @@ public final class PlacedBundleTests {
      * hinschaut.
      */
     public static void sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
         // Der Spieler schwebt ueber dem Buendel und schaut senkrecht hinunter.
@@ -238,6 +240,7 @@ public final class PlacedBundleTests {
      * Hand wirklich schrumpft.
      */
     public static void sneakRightClickWithAnItemDepositsIntoThePlacedBundle(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.2, 3.5));
         player.setNoGravity(true);
@@ -314,6 +317,7 @@ public final class PlacedBundleTests {
      * im Kreativmodus faellt ein volles Buendel trotzdem heraus. Mittlere Maustaste liefert das Buendel.
      */
     public static void placedBundlesDropThemselvesWithTheirContents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
         player.setShiftKeyDown(true);
         ItemStack bundle = filled(ModItems.NETHERITE_BUNDLE, new ItemStack(Items.DIAMOND, 4), new ItemStack(Items.TORCH, 16));

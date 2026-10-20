@@ -89,5 +89,93 @@
     "secret": [
       "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
     ]
+  },
+  "reinforced_bundle": {
+    "lore": [
+      "Ein Bündel, das mit Lederplatte und Diamantkieseln lernte, mehr zu halten."
+    ],
+    "use": [
+      "1,5-fache Kapazität eines Vanilla-Bündels, 96 Gegenstände bei Stapelgröße 64. Herstellung: Faden über einem Bündel, Lederplatte darunter, sechs Diamantkiesel in den Seitenspalten. Inhalt, Verzauberungen und Name bleiben erhalten."
+    ],
+    "secret": [
+      "Das Mausrad im Inventar wählt, welchen Eintrag es herausgibt. Es ist die Basis für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette. Schleichen + Rechtsklick setzt es als 3D-Bündel ab."
+    ]
+  },
+  "netherite_bundle": {
+    "lore": [
+      "Ein Bündel, das weder Feuer fürchtet noch das, was es trägt."
+    ],
+    "use": [
+      "Die Schmiedetisch-Aufwertung des Verstärkten Bündels: doppelte Grundkapazität, feuerfest, und als Gegenstand explosionssicher."
+    ],
+    "secret": [
+      "Wie die anderen Stufen nimmt es die Bündel-Verzauberungen am Amboss an. Das Enderit-Bündel ist seine nächste Stufe."
+    ]
+  },
+  "enderite_bundle": {
+    "lore": [
+      "Ein Bündel mit dem ganzen Ende in den Stoff gefaltet."
+    ],
+    "use": [
+      "Die höchste Bündelstufe: dreifache Grundkapazität, feuerfest, als Gegenstand explosions- und leeresicher, und sie nimmt die Bündel-Verzauberungen am Amboss an."
+    ],
+    "secret": [
+      "In der Leere fallen gelassen bleibt es schweben und wartet 10 Minuten, bevor es verschwindet, doppelt so lang wie sonst."
+    ]
+  },
+  "placed_bundle": {
+    "lore": [
+      "Ein Bündel, auf einem Tisch abgelegt, als wolle jemand wiederkommen."
+    ],
+    "use": [
+      "Ein Bündel, abgelegt mit Schleichen + Rechtsklick auf die Oberseite eines Blocks, als 3D-Bündel gezeichnet. Es hat kein eigenes Item; es hält das Bündel samt Inhalt."
+    ],
+    "secret": [
+      "Baust du es ab, kehrt das ganze Bündel zurück, so gefüllt, wie du es ließest."
+    ]
+  },
+  "quiver": {
+    "lore": [
+      "Ein Bündel, das nur Pfeile will und noch nie enttäuscht wurde."
+    ],
+    "use": [
+      "Nimmt nur Pfeile auf, beim Hineinklicken wie beim Aufheben vom Boden, und versorgt einen Bogen automatisch aus der Nebenhand, dem Brustplatz oder der Schnellleiste. Herstellung: Faden, Leder, ein Kupferklumpen und ein Bündel."
+    ],
+    "secret": [
+      "Pfeile, Spektralpfeile und getränkte Pfeile passen hinein, ein Bogen nicht. Am Handwerkstisch wird er zum Verstärkten Köcher und behält seine Pfeile."
+    ]
+  },
+  "reinforced_quiver": {
+    "lore": [
+      "Ein Köcher mit Lederplatte und Diamantkieseln in den Nähten."
+    ],
+    "use": [
+      "Kapazitätsfaktor 3/2, 96 Pfeile. Am Handwerkstisch aus einem Köcher hergestellt, ohne Pfeile zu verlieren. Er ist das Einzige, aus dem der Netherit-Köcher geschmiedet werden kann."
+    ],
+    "secret": [
+      "Verzauberungen und Name bleiben beim Aufwerten erhalten. Am Schmiedetisch wird er zum Netherit-Köcher."
+    ]
+  },
+  "netherite_quiver": {
+    "lore": [
+      "Ein Köcher, der dem Feuer begegnete und von ihm verbessert wurde."
+    ],
+    "use": [
+      "Die Schmiedetisch-Aufwertung des Verstärkten Köchers, Kapazitätsfaktor 2, feuerfest, Seltenheit ungewöhnlich."
+    ],
+    "secret": [
+      "Als Gegenstand übersteht er Explosionen. Es passen nur Pfeile hinein."
+    ]
+  },
+  "enderite_quiver": {
+    "lore": [
+      "Ein Köcher, dessen Ende nicht kommt."
+    ],
+    "use": [
+      "Die höchste Köcherstufe, aus dem Netherit-Köcher geschmiedet: Kapazitätsfaktor 3, feuerfest, episch. Als Gegenstand explosionssicher und leeresicher."
+    ],
+    "secret": [
+      "Er nimmt die Verzauberungen des Mods am Amboss an wie die niedrigeren Stufen."
+    ]
   }
 }

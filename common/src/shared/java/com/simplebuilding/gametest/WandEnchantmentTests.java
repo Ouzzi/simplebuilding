@@ -699,7 +699,7 @@ public final class WandEnchantmentTests {
         touchReaders.addAll(sledgehammers);
         touchReaders.addAll(List.of(
                 ModItems.MAGNET, ModItems.ORE_DETECTOR,
-                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
+                com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 Items.STICK));
         for (Item reader : touchReaders) {
             if (!constructorsTouch.canEnchant(new ItemStack(reader))) {
@@ -1120,9 +1120,9 @@ public final class WandEnchantmentTests {
     // =====================================================================================
 
     private static ItemStack bundleOfStone(ServerPlayer player, int count) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
-        ((ReinforcedBundleItem) bundle.getItem())
-                .tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, count), player);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
+        bundle.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(java.util.List.of(
+                net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.STONE, count))))); // split stage 8c-1: no bundle class (Simple Storage's on 26.3)
         return bundle;
     }
 
@@ -1133,10 +1133,10 @@ public final class WandEnchantmentTests {
      * its capacity while inserting.
      */
     private static ItemStack masterBuilderBundle(GameTestHelper helper, ServerPlayer player, int count) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         bundle.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
-        ((ReinforcedBundleItem) bundle.getItem())
-                .tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, count), player);
+        bundle.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(java.util.List.of(
+                net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.STONE, count))))); // split stage 8c-1: no bundle class (Simple Storage's on 26.3)
         return bundle;
     }
 

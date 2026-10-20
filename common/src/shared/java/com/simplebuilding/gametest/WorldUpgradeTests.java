@@ -471,7 +471,7 @@ public final class WorldUpgradeTests {
         List<ItemStack> oracle = chestOracle(helper, blockEntities.get(0));
         Container chest = (Container) load(helper, CHEST_POS, Blocks.CHEST.defaultBlockState(), blockEntities.get(0));
 
-        helper.assertTrue(chest.getItem(BUNDLE).is(ModItems.REINFORCED_BUNDLE), "the reinforced bundle is gone");
+        helper.assertTrue(chest.getItem(BUNDLE).is(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")), "the reinforced bundle is gone");
 
         ItemStack octant = chest.getItem(OCTANT);
         helper.assertTrue(octant.is(ModItems.OCTANT), "octant slot holds " + octant);

@@ -1,6 +1,7 @@
 """Module-owned data hook: bilingual texts, ids, models, loot, recipes, mixins, structure, questionary and wiki sources
 of Simple Storage (split stage 8a: crates and the Storage Crafting Table; 8b: tiered and trapped chests, trapped copper
-chests, tier shulker boxes; 8b-2: chest carts and chest boats)."""
+chests, tier shulker boxes; 8b-2: chest carts and chest boats; 8c-1: bundles, quivers, the placed bundle and the storage
+enchantments)."""
 import json
 import re
 from pathlib import Path
@@ -62,12 +63,48 @@ for v in VEHICLES:
     for r in recipes:
         assert (RES / f'data/{NS}/recipe/{r}.json').is_file(), r
         assert (RES / f'data/{NS}/advancement/recipes/transportation/{r}.json').is_file(), r
+# 8c-1: bundles and quivers (item definitions, models, recipes), the placed bundle (blockstate, five tier models), the
+# storage enchantments with their tags, the dyeing.
+BUNDLES = [f'{t}_bundle' for t in TIERS] + ['quiver'] + [f'{t}_quiver' for t in TIERS]
+for b in BUNDLES:
+    assert (RES / f'assets/{NS}/items/{b}.json').is_file(), b
+    assert (RES / f'assets/{NS}/models/item/{b}.json').is_file(), b
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(f'item.{NS}.{b}'), (locale, b)
+assert (RES / f'assets/{NS}/blockstates/placed_bundle.json').is_file()
+for t in ('bundle',) + tuple(f'{t}_bundle' for t in TIERS):
+    assert (RES / f'assets/{NS}/models/block/placed_{t}.json').is_file(), t
+for r in ['reinforced_bundle', 'reinforced_quiver', 'reinforced_bundle_without_simplebuilding', 'reinforced_quiver_without_simplebuilding', 'quiver',
+          'netherite_bundle_smithing', 'enderite_bundle_smithing', 'netherite_quiver_smithing', 'enderite_quiver_smithing']:
+    assert (RES / f'data/{NS}/recipe/{r}.json').is_file(), r
+    assert (RES / f'data/{NS}/advancement/recipes/tools/{r}.json').is_file(), r
+for e in ('drawer', 'deep_pockets', 'funnel'):
+    assert (RES / f'data/{NS}/enchantment/{e}.json').is_file(), e
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(f'enchantment.{NS}.{e}') and langs[locale].get(f'enchantment.{NS}.{e}.description'), (locale, e)
+DYES = ('white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
+        'brown', 'green', 'red', 'black')
+for d in DYES:
+    assert (RES / f'data/{NS}/recipe/{d}_dyed_storage.json').is_file(), d
+enchantable = json.loads((RES / f'data/{NS}/tags/item/bundle_enchantable.json').read_text(encoding='utf-8'))['values']
+assert enchantable == [f'{NS}:{b}' for b in BUNDLES], enchantable
+# SimpleBuilding is named only where it is optional: its Leather Sheet behind a mod_loaded condition (with the Leather
+# twin *_without_simplebuilding), its backpacks and enchantments as "required": false tag entries.
+SB_OPTIONAL = {f'data/{NS}/recipe/reinforced_bundle.json', f'data/{NS}/recipe/reinforced_quiver.json',
+               f'data/{NS}/tags/item/deep_pockets_enchantable.json', f'data/{NS}/tags/item/funnel_enchantable.json',
+               f'data/{NS}/tags/enchantment/exclusive_set/builder_group.json'}
 pickaxe = json.loads((RES / 'data/minecraft/tags/block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
 assert {f'{NS}:{b}' for b in CHESTS} == set(pickaxe), set(pickaxe) ^ {f'{NS}:{b}' for b in CHESTS}
 upgrades = json.loads((RES / f'data/{NS}/in_world_upgrades/storage.json').read_text(encoding='utf-8'))['upgrades']
 assert len(upgrades) == 31 and all(u['to'].startswith(NS + ':') for u in upgrades), len(upgrades)
 for path in (RES / f'data/{NS}').rglob('*.json'):
-    assert 'simplebuilding:' not in path.read_text(encoding='utf-8'), path
+    text = path.read_text(encoding='utf-8')
+    if path.relative_to(RES).as_posix() in SB_OPTIONAL:
+        data = json.loads(text)
+        assert 'fabric:load_conditions' in data or all(isinstance(v, str) and not v.startswith(('simplebuilding:', '#simplebuilding:'))
+                                                       or isinstance(v, dict) and v.get('required') is False for v in data.get('values', [])), path
+        continue
+    assert 'simplebuilding:' not in text, path
 for path in (RES / f'assets/{NS}').rglob('*.json'):
     if path.parent.name == 'lang':
         continue  # texts may name the old ids (migration page)
@@ -88,5 +125,5 @@ for note in manual['notes'].values():
         assert (ROOT / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'storage_crafting_table', 'family:crate', *VEHICLES}, (locale, set(q))
-print(f'{NS}: {len(BLOCKS) + len(CHESTS)} blocks, {len(VEHICLES)} vehicles, {len(used)} UI texts, models, loot, recipes, tags, mixins, structure, questionary and wiki valid')
+    assert set(q) == {'storage_crafting_table', 'family:crate', *VEHICLES, *BUNDLES, 'placed_bundle'}, (locale, set(q))
+print(f'{NS}: {len(BLOCKS) + len(CHESTS)} blocks, {len(VEHICLES)} vehicles, {len(BUNDLES)} bundles and quivers, {len(used)} UI texts, models, loot, recipes, tags, mixins, structure, questionary and wiki valid')

@@ -233,9 +233,9 @@ public final class DataIntegrityTests {
             Map.entry(ModEnchantments.FAST_CHISELING, ModTags.Items.CHISEL_TOOLS),
             Map.entry(ModEnchantments.CONSTRUCTORS_TOUCH, ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE),
             Map.entry(ModEnchantments.RANGE, ModTags.Items.RANGE_ENCHANTABLE),
-            Map.entry(ModEnchantments.DEEP_POCKETS, ModTags.Items.DEEP_POCKETS_ENCHANTABLE),
-            Map.entry(ModEnchantments.FUNNEL, ModTags.Items.FUNNEL_ENCHANTABLE),
-            Map.entry(ModEnchantments.DRAWER, ModTags.Items.BUNDLE_ENCHANTABLE),
+            Map.entry(ModEnchantments.DEEP_POCKETS, net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.StorageRefs.id("deep_pockets_enchantable"))), // 26.3: Simple Storage's tag (split stage 8c-1)
+            Map.entry(ModEnchantments.FUNNEL, net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.StorageRefs.id("funnel_enchantable"))),
+            Map.entry(ModEnchantments.DRAWER, net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, com.simplebuilding.util.StorageRefs.id("bundle_enchantable"))),
             Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.MASTER_BUILDER_ENCHANTABLE),
             Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.COLOR_PALETTE_ENCHANTABLE),
             Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.HAMMER_ENCHANTMENT_ITEMS),
@@ -769,17 +769,24 @@ public final class DataIntegrityTests {
         // starts from the reinforced quiver, the tier in between (crafted from the quiver), just as
         // the netherite bundle starts from the reinforced bundle; enderite follows as for the
         // bundles. Nothing else in the suite looks at these three files.
-        assertShapedRecipe(helper, modRecipes, "quiver", ModItems.QUIVER, 1,
+        // Split stage 8c-1: on 26.3 the quiver recipes are Simple Storage's (recipeId maps the paths).
+        Map<Identifier, RecipeHolder<?>> storageRecipes = new HashMap<>(modRecipes);
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
+                storageRecipes.put(holder.id().identifier(), holder);
+            }
+        }
+        assertShapedRecipe(helper, storageRecipes, "quiver", com.simplebuilding.util.StorageRefs.item("quiver"), 1,
                 new String[]{" SL", "SLN", "B  "},
                 Map.of('S', Items.STRING, 'L', Items.LEATHER, 'N', Items.COPPER_NUGGET, 'B', Items.BUNDLE),
                 shapes);
-        assertSmithingRecipe(helper, modRecipes, "netherite_quiver_smithing",
-                Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.REINFORCED_QUIVER, Items.NETHERITE_INGOT,
-                ModItems.NETHERITE_QUIVER, shapes);
-        assertSmithingRecipe(helper, modRecipes, "enderite_quiver_smithing",
-                ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT,
-                ModItems.ENDERITE_QUIVER, shapes);
-        assertNoSmithingRecipe(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.QUIVER,
+        assertSmithingRecipe(helper, storageRecipes, "netherite_quiver_smithing",
+                Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), Items.NETHERITE_INGOT,
+                com.simplebuilding.util.StorageRefs.item("netherite_quiver"), shapes);
+        assertSmithingRecipe(helper, storageRecipes, "enderite_quiver_smithing",
+                ModItems.ENDERITE_UPGRADE_TEMPLATE, com.simplebuilding.util.StorageRefs.item("netherite_quiver"), ModItems.ENDERITE_INGOT,
+                com.simplebuilding.util.StorageRefs.item("enderite_quiver"), shapes);
+        assertNoSmithingRecipe(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, com.simplebuilding.util.StorageRefs.item("quiver"),
                 ModItems.ENDERITE_INGOT,
                 "the enderite quiver upgrade straight from the plain quiver", shapes);
 
@@ -1489,8 +1496,8 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_SWORD,
                 ModItems.ENDERITE_HELMET,
                 ModItems.ENDERITE_BLOCK_ITEM,
-                ModItems.ENDERITE_BUNDLE,
-                ModItems.ENDERITE_QUIVER,
+                com.simplebuilding.util.StorageRefs.item("enderite_bundle"),
+                com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 com.simplebuilding.util.HammerRefs.item("enderite"),
                 ModItems.ENDERITE_BUILDING_WAND,
                 ModItems.ENDERITE_UPGRADE_TEMPLATE,
@@ -2400,6 +2407,8 @@ public final class DataIntegrityTests {
     /** The mod's own loaded recipes by id. */
     /** A recipe id by path; the sledgehammer recipes are Simple Hammers' on 26.3 (split stage 7). */
     private static Identifier recipeId(String path) {
+        // Split stage 8c-1: the bundle and quiver recipes are Simple Storage's on 26.3.
+        if (path.matches("(reinforced_|netherite_|enderite_)?(bundle|quiver)(_smithing)?")) return com.simplebuilding.util.StorageRefs.id(path);
         return Identifier.fromNamespaceAndPath(path.contains("_sledgehammer") ? com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE : MOD_ID, path);
     }
 
@@ -2830,7 +2839,7 @@ public final class DataIntegrityTests {
                 ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
                 ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"),
-                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, com.simplebuilding.util.StorageRefs.chest("enderite")));
+                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("quiver"), ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, com.simplebuilding.util.StorageRefs.chest("enderite")));
         pinned.put(ModItemGroupsContent.Tab.PADS, List.of(
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(),
                 TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.LAUNCHPAD.asItem(),
@@ -3103,8 +3112,8 @@ public final class DataIntegrityTests {
         }
         expected.addAll(List.of(
                 CreativeTabLayout.Row.of("bundles_and_quivers",
-                        Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE, gap,
-                        ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
+                        Items.BUNDLE, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle"), gap,
+                        com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver")),
                 CreativeTabLayout.Row.of("backpacks",
                         ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
                 // Farbkaesten aller Stufen (N30) bei Buendeln und Rucksaecken.
@@ -3521,7 +3530,7 @@ public final class DataIntegrityTests {
         for (Item anchor : List.of(ModItems.ENDERITE_INGOT, ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP,
                 ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_CHESTPLATE,
                 ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_APPLE,
-                ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_BLOCK_ITEM, ModItems.ENDERITE_QUIVER,
+                ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_BLOCK_ITEM, com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem())) {
             if (!found.contains(BuiltInRegistries.ITEM.getKey(anchor).toString())) {
                 problems.add("test broken: the enderite finder does not see " + BuiltInRegistries.ITEM.getKey(anchor));
@@ -3559,7 +3568,7 @@ public final class DataIntegrityTests {
             problems.add(ModTags.Items.ENDERITE_ITEMS.location() + " additionally holds " + extra
                     + " and lacks " + lacking + " (datagen not re-run, or the rule drifted from this test)");
         }
-        for (Item control : List.of(ModItems.NETHERITE_QUIVER, ModItems.NETHERITE_CORE, ModItems.ENDER_QUARTZ,
+        for (Item control : List.of(com.simplebuilding.util.StorageRefs.item("netherite_quiver"), ModItems.NETHERITE_CORE, ModItems.ENDER_QUARTZ,
                 TweaksBlocks.NETHERITE_FLYPAD.asItem(), ModItems.GUIDE_BOOK_END, Items.NETHERITE_INGOT,
                 Items.NETHERITE_HORSE_ARMOR, Items.ENDER_PEARL)) {
             ItemStack stack = new ItemStack(control);
@@ -4090,7 +4099,7 @@ public final class DataIntegrityTests {
         helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
 
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
-                ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
+                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
                 ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
                 Items.STICK);
@@ -4106,8 +4115,8 @@ public final class DataIntegrityTests {
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
                 com.simplebuilding.util.HammerRefs.item("stone"), com.simplebuilding.util.HammerRefs.item("copper"), com.simplebuilding.util.HammerRefs.item("iron"),
                 com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
-                ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
-                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
+                com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
+                com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"),
                 ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
                 Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
                 Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK,

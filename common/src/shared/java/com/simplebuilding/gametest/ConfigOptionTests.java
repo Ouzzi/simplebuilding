@@ -355,7 +355,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.RADIUS, 1),
                     id(ModItems.OCTANT),
                     id(com.simplebuilding.util.HammerRefs.item("diamond")),
-                    id(ModItems.QUIVER),
+                    id(com.simplebuilding.util.StorageRefs.item("quiver")),
                     id(ModItems.NETHERITE_APPLE),
                     id(ModItems.ENCHANTED_NETHERITE_APPLE),
                     id(ModItems.NETHERITE_NUGGET),
@@ -378,7 +378,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.COVER, 1),
                     book(ModEnchantments.LINEAR, 1),
                     id(ModItems.OCTANT),
-                    id(ModItems.QUIVER),
+                    id(com.simplebuilding.util.StorageRefs.item("quiver")),
                     id(ModItems.COPPER_CHISEL))),
             Map.entry(BuiltInLootTables.WOODLAND_MANSION, Set.of(
                     book(ModEnchantments.COLOR_PALETTE, 1),
@@ -389,7 +389,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.DRAWER, 1),
                     id(ModItems.IRON_BUILDING_WAND),
                     id(ModItems.IRON_CORE),
-                    id(ModItems.QUIVER))),
+                    id(com.simplebuilding.util.StorageRefs.item("quiver")))),
             Map.entry(BuiltInLootTables.BURIED_TREASURE, Set.of(
                     book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
                     book(ModEnchantments.FAST_CHISELING, 2),
@@ -403,12 +403,12 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VEIN_MINER, 2),
                     book(ModEnchantments.VEIN_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 4),
-                    id(ModItems.REINFORCED_BUNDLE),
+                    id(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                     id(ModItems.BASIC_UPGRADE_TEMPLATE),
                     id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, Set.of(
                     book(ModEnchantments.FAST_CHISELING, 1),
-                    id(ModItems.REINFORCED_BUNDLE),
+                    id(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                     id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.IGLOO_CHEST, Set.of(
                     book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
@@ -420,7 +420,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.STRIP_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 4),
-                    id(ModItems.REINFORCED_BUNDLE),
+                    id(com.simplebuilding.util.StorageRefs.item("reinforced_bundle")),
                     id(ModItems.IRON_CORE),
                     id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, VAULT_COMMON_LOOT),
@@ -874,6 +874,7 @@ public final class ConfigOptionTests {
      * capacity rather than a copied number.
      */
     public static void bundleClickInversionFollowsTheConfiguredOption(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         SimplebuildingConfig config = liveConfig(helper);
         ServerPlayer player = mockPlayer(helper);
         boolean original = config.tools.invertBundleInteractions;
@@ -2027,7 +2028,7 @@ public final class ConfigOptionTests {
      */
     private static void assertSlotFillClick(GameTestHelper helper, ServerPlayer player, ClickAction action,
                                             boolean expectFill, String what) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) bundle.getItem();
         SimpleContainer container = new SimpleContainer(1);
         container.setItem(0, new ItemStack(Items.STONE, 8));
@@ -2084,7 +2085,7 @@ public final class ConfigOptionTests {
      */
     private static void assertCursorFillClick(GameTestHelper helper, ServerPlayer player, ClickAction action,
                                               boolean expectFill, String what) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) bundle.getItem();
         ItemStack cursor = new ItemStack(Items.STONE, 8);
         SimpleContainer container = new SimpleContainer(1);
@@ -2208,7 +2209,7 @@ public final class ConfigOptionTests {
      * depend on the option under test.
      */
     private static int measureStoneCapacity(GameTestHelper helper, ServerPlayer player) {
-        ItemStack scratch = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack scratch = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) scratch.getItem();
         for (int offer = 0; offer < 16; offer++) {
             if (!item.tryInsertStackFromWorld(scratch, new ItemStack(Items.STONE, 64), player)) {
@@ -2223,7 +2224,7 @@ public final class ConfigOptionTests {
 
     /** A reinforced bundle holding exactly one vanilla stack of stone, so a little room is left. */
     private static ItemStack nearlyFullBundle(GameTestHelper helper, ServerPlayer player, String what) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) bundle.getItem();
         helper.assertTrue(item.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 64), player),
                 what + " / partial: could not put the first 64 stone into the bundle to begin with");
@@ -2237,7 +2238,7 @@ public final class ConfigOptionTests {
      * that one carries no config gate, so the setup cannot quietly depend on the option under test.
      */
     private static ItemStack filledBundle(GameTestHelper helper, ServerPlayer player, String what) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) bundle.getItem();
         helper.assertTrue(item.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player),
                 what + ": could not put stone into the bundle to begin with");

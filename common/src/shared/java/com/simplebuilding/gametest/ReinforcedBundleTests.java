@@ -210,6 +210,7 @@ public final class ReinforcedBundleTests {
      * would delete the caller's stack.
      */
     public static void insertionStopsAtTheBrimAndWeighsByStackSize(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         int capacity = fillWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), Items.STONE);
@@ -279,6 +280,7 @@ public final class ReinforcedBundleTests {
      * away.
      */
     public static void insertionTurnsAwayWhatCannotGoIntoContainerItems(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         pinDefaultClickBinding(helper);
 
@@ -370,6 +372,7 @@ public final class ReinforcedBundleTests {
      * constant instead of by {@code getMaxStackSize}.
      */
     public static void insertionMergesEqualStacksAndPushesThemToTheTop(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
@@ -453,6 +456,7 @@ public final class ReinforcedBundleTests {
      * exempting the quiver.
      */
     public static void drawerHoldsOnlyTheKindAlreadyInside(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // --- the first kind decides: 80 stone in two entries, one kind ---
@@ -540,6 +544,7 @@ public final class ReinforcedBundleTests {
      * 16 stone takes 16/64 + 1/16 of a stack, so after it exactly {@code capacity - 20} stone still fit.
      */
     public static void nestedBundlesWeighTheirContents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         int capacity = fillWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), Items.STONE);
 
@@ -594,6 +599,7 @@ public final class ReinforcedBundleTests {
      * insert click into the remove click.
      */
     public static void theSelectedEntryIsTheOneThatComesOut(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         pinDefaultClickBinding(helper);
 
@@ -681,6 +687,7 @@ public final class ReinforcedBundleTests {
      * index 0 regardless of the selection.
      */
     public static void rightClickThrowsTheSelectedStackButNeverBlocks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // Arrows first, stone on top of them: index 0 is the stone, index 1 the arrows.
@@ -760,6 +767,7 @@ public final class ReinforcedBundleTests {
      * coloured.
      */
     public static void masterBuilderPlacesFromTheBundleAndColorPaletteScattersIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         BlockPos anchor = new BlockPos(4, 1, 4);
 
@@ -888,6 +896,7 @@ public final class ReinforcedBundleTests {
      * how the wiki starts printing a number the game does not honour.
      */
     public static void capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // Setup guards: the levels below have to be levels a player can actually reach.
@@ -975,6 +984,7 @@ public final class ReinforcedBundleTests {
      * width, or losing the "no bar on an empty bundle" rule.
      */
     public static void barAndTooltipReadTheSameCapacityTheFillingUses(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // An empty bundle reports width 0 where vanilla's own formula would report 1, so this one
@@ -1052,6 +1062,7 @@ public final class ReinforcedBundleTests {
      * the four goes into no bundle that would overflow with it.
      */
     public static void overflowingBundleWeightsAreRefusedInsteadOfCrashing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         Item[] kinds = {Items.STONE, Items.DIRT, Items.SAND, Items.GRAVEL, Items.CLAY_BALL, Items.FLINT};
         int[] sizes = {97, 89, 83, 79, 73, 71};

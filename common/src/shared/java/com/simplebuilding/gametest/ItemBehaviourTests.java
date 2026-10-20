@@ -184,9 +184,10 @@ public final class ItemBehaviourTests {
      * cannot drift back to a fixed {@code ClickAction.PRIMARY}.
      */
     public static void quiverTakesArrowsAndRefusesEverythingElse(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
-        ItemStack quiver = new ItemStack(ModItems.QUIVER);
+        ItemStack quiver = new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver"));
         ReinforcedBundleItem item = (ReinforcedBundleItem) quiver.getItem();
 
         helper.assertTrue(item.tryInsertStackFromWorld(quiver, new ItemStack(Items.ARROW, 8), player),
@@ -202,7 +203,7 @@ public final class ItemBehaviourTests {
                 "the quiver accepted a bow");
 
         // The reinforced bundle it inherits from has no such restriction.
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         helper.assertTrue(((ReinforcedBundleItem) bundle.getItem())
                         .tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player),
                 "the reinforced bundle refused stone");
@@ -234,11 +235,12 @@ public final class ItemBehaviourTests {
      * dropped.
      */
     public static void bundleCapacityGrowsWithTierAndEnchantments(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
-        int plain = fillUntilFull(helper, player, ModItems.REINFORCED_BUNDLE, null, 0);
-        int netherite = fillUntilFull(helper, player, ModItems.NETHERITE_BUNDLE, null, 0);
-        int enderite = fillUntilFull(helper, player, ModItems.ENDERITE_BUNDLE, null, 0);
+        int plain = fillUntilFull(helper, player, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), null, 0);
+        int netherite = fillUntilFull(helper, player, com.simplebuilding.util.StorageRefs.item("netherite_bundle"), null, 0);
+        int enderite = fillUntilFull(helper, player, com.simplebuilding.util.StorageRefs.item("enderite_bundle"), null, 0);
 
         helper.assertTrue(plain > 0, "the plain reinforced bundle took nothing at all");
         helper.assertTrue(netherite > plain,
@@ -246,9 +248,9 @@ public final class ItemBehaviourTests {
         helper.assertTrue(enderite > netherite,
                 "the enderite bundle (" + enderite + ") holds no more than the netherite one (" + netherite + ")");
 
-        int deepPockets1 = fillUntilFull(helper, player, ModItems.REINFORCED_BUNDLE, ModEnchantments.DEEP_POCKETS, 1);
-        int deepPockets2 = fillUntilFull(helper, player, ModItems.REINFORCED_BUNDLE, ModEnchantments.DEEP_POCKETS, 2);
-        int drawer = fillUntilFull(helper, player, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, 1);
+        int deepPockets1 = fillUntilFull(helper, player, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.DEEP_POCKETS, 1);
+        int deepPockets2 = fillUntilFull(helper, player, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.DEEP_POCKETS, 2);
+        int drawer = fillUntilFull(helper, player, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.DRAWER, 1);
 
         helper.assertTrue(deepPockets1 > plain,
                 "Deep Pockets I did not raise the capacity (" + deepPockets1 + " vs " + plain + ")");

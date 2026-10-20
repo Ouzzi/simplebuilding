@@ -89,5 +89,93 @@
     "secret": [
       "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
     ]
+  },
+  "reinforced_bundle": {
+    "lore": [
+      "A bundle that took a leather sheet and diamond pebbles to learn how to hold more."
+    ],
+    "use": [
+      "1.5x the capacity of a vanilla bundle, 96 items at stack size 64. Craft: string above a bundle, a leather sheet below, six diamond pebbles in the side columns. The bundle's contents, enchantments and name carry over."
+    ],
+    "secret": [
+      "The mouse wheel in the inventory picks which entry it hands back. It is the base for the bundle enchantments Deep Pockets, Funnel, Drawer, Master Builder and Color Palette. Sneak and right-click sets it down as a 3D bundle."
+    ]
+  },
+  "netherite_bundle": {
+    "lore": [
+      "A bundle that is not afraid of fire, nor of what it carries."
+    ],
+    "use": [
+      "The smithing table upgrade of the Reinforced Bundle: double the base capacity, fire resistant, and it survives explosions as a dropped item."
+    ],
+    "secret": [
+      "Like the other tiers it takes the bundle enchantments at an anvil. The Enderite Bundle is its next step."
+    ]
+  },
+  "enderite_bundle": {
+    "lore": [
+      "A bundle with the whole End folded into the cloth."
+    ],
+    "use": [
+      "The top bundle tier: triple the base capacity, fire resistant, safe from explosions and from the void as a dropped item, and it takes the bundle enchantments at an anvil."
+    ],
+    "secret": [
+      "Dropped in the void it hangs in place and waits 10 minutes before it despawns, twice the usual time."
+    ]
+  },
+  "placed_bundle": {
+    "lore": [
+      "A bundle set down on a table, as if someone meant to come back."
+    ],
+    "use": [
+      "A bundle set down with sneak and right-click on the top of a block, drawn as a 3D bundle. It has no item of its own; it holds the bundle and its contents."
+    ],
+    "secret": [
+      "Break it and the whole bundle returns, filled as you left it."
+    ]
+  },
+  "quiver": {
+    "lore": [
+      "A bundle that only wants arrows, and has never once been disappointed."
+    ],
+    "use": [
+      "Takes only arrows, both when clicked in and when picked up off the ground, and feeds a bow automatically from the off hand, the chest slot or the hotbar. Craft: string, leather, a copper nugget and a bundle."
+    ],
+    "secret": [
+      "Arrows, spectral arrows and tipped arrows go in; a bow does not. Upgrade it at the crafting table into the Reinforced Quiver and it keeps its arrows."
+    ]
+  },
+  "reinforced_quiver": {
+    "lore": [
+      "A quiver with leather sheet and pebbles of diamond in its seams."
+    ],
+    "use": [
+      "Capacity factor 3/2, 96 arrows. Crafted from a Quiver at the crafting table without losing its arrows. It is the only item the Netherite Quiver can be smithed from."
+    ],
+    "secret": [
+      "Enchantments and name carry over when it is upgraded. At the smithing table it becomes the Netherite Quiver."
+    ]
+  },
+  "netherite_quiver": {
+    "lore": [
+      "A quiver that has met fire and been improved by it."
+    ],
+    "use": [
+      "The smithing table upgrade of the Reinforced Quiver, capacity factor 2, fire resistant, rarity uncommon."
+    ],
+    "secret": [
+      "It survives explosions as a dropped item. Only arrows go in."
+    ]
+  },
+  "enderite_quiver": {
+    "lore": [
+      "A quiver with an end that does not come."
+    ],
+    "use": [
+      "The top quiver tier, smithed from the Netherite Quiver: capacity factor 3, fire resistant, epic. As a dropped item it is immune to explosions and safe from the void."
+    ],
+    "secret": [
+      "It takes the mod's enchantments at an anvil like the lower tiers."
+    ]
   }
 }

@@ -718,17 +718,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_bundle",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_carrot",
       "tier": 5,
       "hours": 38.1,
@@ -928,17 +917,6 @@
     },
     {
       "item": "simplebuilding:enderite_pressure_plate",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_quiver",
       "tier": 5,
       "hours": 38.1,
       "craft": 3,
@@ -1257,17 +1235,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:netherite_bundle",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:netherite_carrot",
       "tier": 4,
       "hours": 24.9,
@@ -1379,17 +1346,6 @@
     },
     {
       "item": "simplebuilding:netherite_pressure_plate",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_quiver",
       "tier": 4,
       "hours": 24.9,
       "craft": 3,
@@ -1917,17 +1873,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:quiver",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 6,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:raw_enderite",
       "tier": 5,
       "hours": 38.1,
@@ -1940,17 +1885,6 @@
     },
     {
       "item": "simplebuilding:reinforced_backpack",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:reinforced_bundle",
       "tier": 3,
       "hours": 21.0,
       "craft": 9,
@@ -2014,17 +1948,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:reinforced_quiver",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
     },
     {
       "item": "simplebuilding:reinforced_sticky_piston",

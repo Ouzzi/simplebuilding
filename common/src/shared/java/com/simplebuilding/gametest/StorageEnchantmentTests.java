@@ -266,6 +266,7 @@ public final class StorageEnchantmentTests {
      * make the drop disappear from both places; or one of Funnel's definition numbers moving.
      */
     public static void funnelFilterDecidesWhatTheTouchSweepsUp(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         helper.assertValueEqual(enchantment(helper, ModEnchantments.FUNNEL).value().getMaxLevel(),
@@ -275,7 +276,7 @@ public final class StorageEnchantmentTests {
                 /* min cost */ 15, 15, /* max cost */ 55, 15);
 
         // --- Funnel I, holding stone: stone yes ---
-        ItemStack filtering = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.FUNNEL, 1);
+        ItemStack filtering = enchanted(helper, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.FUNNEL, 1);
         insertExactly(helper, player, filtering, Items.STONE, KIND_STOCK);
         armHand(player, filtering);
 
@@ -300,7 +301,7 @@ public final class StorageEnchantmentTests {
                         + "instead of stepping aside and letting the vanilla pickup finish it");
 
         // --- control: Funnel II takes the very same kind, so "refused" was about the filter ---
-        ItemStack open = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.FUNNEL, 2);
+        ItemStack open = enchanted(helper, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.FUNNEL, 2);
         armHand(player, open);
         ItemEntity forOpen = drop(helper, new ItemStack(Items.DIRT, KIND_STOCK), new Vec3(4.5, 2.0, 2.5));
         forOpen.playerTouch(player);
@@ -310,7 +311,7 @@ public final class StorageEnchantmentTests {
                         + "nothing about the filter");
 
         // --- control: without the enchantment nothing is swept up at all ---
-        ItemStack plain = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack plain = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         armHand(player, plain);
         ItemEntity forPlain = drop(helper, new ItemStack(Items.DIRT, KIND_STOCK), new Vec3(5.5, 2.0, 2.5));
         forPlain.playerTouch(player);
@@ -348,6 +349,7 @@ public final class StorageEnchantmentTests {
      * bundle already holds, or the mixin treating a refused insert as a successful pickup.
      */
     public static void drawerKindLockHoldsAgainstTheFunnelToo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // Setup guard: the pairing under test has to be one an anvil would allow. Drawer is
@@ -358,9 +360,9 @@ public final class StorageEnchantmentTests {
                 "Drawer and Funnel have become mutually exclusive, so the bundle this test builds is "
                         + "no longer a state the game can reach");
 
-        ItemStack drawer = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.FUNNEL, 2);
+        ItemStack drawer = enchanted(helper, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.FUNNEL, 2);
         drawer.enchant(enchantment(helper, ModEnchantments.DRAWER), 1);
-        ItemStack control = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.FUNNEL, 2);
+        ItemStack control = enchanted(helper, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), ModEnchantments.FUNNEL, 2);
 
         insertExactly(helper, player, drawer, LOCKED_KIND, KIND_STOCK);
         insertExactly(helper, player, control, LOCKED_KIND, KIND_STOCK);
@@ -420,10 +422,11 @@ public final class StorageEnchantmentTests {
      * would duplicate the leftover into the inventory.
      */
     public static void funnelQuiverSweepsArrowsOnlyAndStopsAtItsBrim(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // --- arrows in, everything else past it ---
-        ItemStack quiver = enchanted(helper, ModItems.QUIVER, ModEnchantments.FUNNEL, 2);
+        ItemStack quiver = enchanted(helper, com.simplebuilding.util.StorageRefs.item("quiver"), ModEnchantments.FUNNEL, 2);
         armHand(player, quiver);
 
         ItemEntity arrows = drop(helper, new ItemStack(Items.ARROW, 16), new Vec3(2.5, 2.0, 2.5));
@@ -441,12 +444,12 @@ public final class StorageEnchantmentTests {
                 "the stone the quiver refused is in neither the quiver nor the inventory");
 
         // --- the brim: only what fits goes in, the rest stays with the player ---
-        int capacity = fillWith(helper, player, new ItemStack(ModItems.QUIVER), Items.ARROW);
+        int capacity = fillWith(helper, player, new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), Items.ARROW);
         helper.assertTrue(capacity > BRIM_GAP,
                 "setup guard: a quiver holds " + capacity + " arrows, which is not more than the "
                         + BRIM_GAP + " this case wants to leave free");
 
-        ItemStack nearlyFull = enchanted(helper, ModItems.QUIVER, ModEnchantments.FUNNEL, 2);
+        ItemStack nearlyFull = enchanted(helper, com.simplebuilding.util.StorageRefs.item("quiver"), ModEnchantments.FUNNEL, 2);
         insertExactly(helper, player, nearlyFull, Items.ARROW, capacity - BRIM_GAP);
         armHand(player, nearlyFull);
 
@@ -511,6 +514,7 @@ public final class StorageEnchantmentTests {
      * disagreeing about the pair, or one of the definition numbers moving.
      */
     public static void drawerAndDeepPocketsMultiplyOnTheSameContainer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // Setup guards: the levels below have to be levels a player can reach. ItemStack#enchant
@@ -534,13 +538,13 @@ public final class StorageEnchantmentTests {
                 /* weight */ 2, /* anvil cost */ 4, DEEP_POCKETS_MAX_LEVEL,
                 /* min cost */ 15, 10, /* max cost */ 65, 10);
 
-        assertFactorsMultiply(helper, player, ModItems.REINFORCED_BUNDLE, Items.STONE, "the reinforced bundle");
-        assertFactorsMultiply(helper, player, ModItems.QUIVER, Items.ARROW, "the quiver");
+        assertFactorsMultiply(helper, player, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), Items.STONE, "the reinforced bundle");
+        assertFactorsMultiply(helper, player, com.simplebuilding.util.StorageRefs.item("quiver"), Items.ARROW, "the quiver");
 
         // --- and the second formula, the one the bar and the tooltip read - in both copies ---
-        assertVisualsMatchTheFilling(helper, player, ModItems.REINFORCED_BUNDLE, Items.STONE,
+        assertVisualsMatchTheFilling(helper, player, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), Items.STONE,
                 "the combined bundle");
-        assertVisualsMatchTheFilling(helper, player, ModItems.QUIVER, Items.ARROW,
+        assertVisualsMatchTheFilling(helper, player, com.simplebuilding.util.StorageRefs.item("quiver"), Items.ARROW,
                 "the combined quiver");
 
         helper.succeed();
@@ -690,8 +694,8 @@ public final class StorageEnchantmentTests {
             for (ResourceKey<Enchantment> key : QUIVER_ENCHANTMENTS) {
                 expected.add(key.identifier());
             }
-            for (Item quiver : List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
-                    ModItems.ENDERITE_QUIVER)) {
+            for (Item quiver : List.of(com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"),
+                    com.simplebuilding.util.StorageRefs.item("enderite_quiver"))) {
                 Set<Identifier> accepting = enchantmentsAccepting(helper, quiver);
                 helper.assertTrue(accepting.equals(expected),
                         BuiltInRegistries.ITEM.getKey(quiver) + " is a legal target for " + accepting
@@ -701,7 +705,7 @@ public final class StorageEnchantmentTests {
 
             // --- 2. the entry: a random enchantment, drawn from everything the tags allow ---
             JsonObject ancientEntry = lootEntry(helper, registries, BuiltInLootTables.ANCIENT_CITY,
-                    ModItems.QUIVER);
+                    com.simplebuilding.util.StorageRefs.item("quiver"));
             helper.assertTrue(ancientEntry != null,
                     "the ancient city chest has no quiver entry at all");
             JsonObject randomEnchant = functionNamed(ancientEntry, ENCHANT_RANDOMLY);
@@ -713,7 +717,7 @@ public final class StorageEnchantmentTests {
                             + "item tags no longer decide what a chest can produce");
 
             JsonObject outpostEntry = lootEntry(helper, registries, BuiltInLootTables.PILLAGER_OUTPOST,
-                    ModItems.QUIVER);
+                    com.simplebuilding.util.StorageRefs.item("quiver"));
             helper.assertTrue(outpostEntry != null,
                     "the pillager outpost has no quiver entry at all, so the control below is empty");
             helper.assertTrue(functionNamed(outpostEntry, ENCHANT_RANDOMLY) == null,
@@ -722,7 +726,7 @@ public final class StorageEnchantmentTests {
 
             // --- 3. and what the chest really hands over ---
             List<ItemStack> ancientQuivers = rollFor(helper, registries, BuiltInLootTables.ANCIENT_CITY,
-                    ModItems.QUIVER);
+                    com.simplebuilding.util.StorageRefs.item("quiver"));
             helper.assertTrue(ancientQuivers.size() >= MIN_QUIVER_SAMPLE,
                     "only " + ancientQuivers.size() + " quivers came out of " + QUIVER_ROLLS + " rolls of the "
                             + "ancient city pools; that sample is too thin to judge - raise QUIVER_ROLLS "
@@ -738,7 +742,7 @@ public final class StorageEnchantmentTests {
             }
 
             List<ItemStack> outpostQuivers = rollFor(helper, registries, BuiltInLootTables.PILLAGER_OUTPOST,
-                    ModItems.QUIVER);
+                    com.simplebuilding.util.StorageRefs.item("quiver"));
             helper.assertTrue(outpostQuivers.size() >= MIN_QUIVER_SAMPLE,
                     "only " + outpostQuivers.size() + " quivers came out of " + QUIVER_ROLLS + " rolls of the "
                             + "pillager outpost pool; the control is too thin to say anything");

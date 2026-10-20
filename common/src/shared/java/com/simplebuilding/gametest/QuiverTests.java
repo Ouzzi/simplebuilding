@@ -217,6 +217,7 @@ public final class QuiverTests {
      * either to fall through to {@code super}.
      */
     public static void rightClicksDoNothingEvenWithMasterBuilder(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
 
@@ -317,6 +318,7 @@ public final class QuiverTests {
      * answering {@code true} instead of {@code false} when the filter turns an item away.
      */
     public static void arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         boolean original = Simplebuilding.getConfig().tools.invertBundleInteractions;
         helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().tools.invertBundleInteractions = original);
@@ -407,6 +409,7 @@ public final class QuiverTests {
      * branch in either copy of the formula, or letting the wiki export drift away from the live one.
      */
     public static void capacityDropsTheBundleBonusAndFollowsTierAndEnchantments(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // Setup guard: the Deep Pockets case below enchants to level 2. ItemStack#enchant does not
@@ -508,6 +511,7 @@ public final class QuiverTests {
      * that is the split this test exists for), or letting the visuals use the bundle base capacity.
      */
     public static void barWidthFollowsTheSameCapacityTheFillingUses(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // --- one vanilla stack in each variant: a plain quiver is full, the others are not ---
@@ -575,6 +579,7 @@ public final class QuiverTests {
      * does moving it to another slot, giving it an equipment asset, or opening it up to mobs.
      */
     public static void bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         ItemStack offhand = filledContainer(helper, player, ModItems.QUIVER, Items.ARROW, 8);
@@ -688,6 +693,7 @@ public final class QuiverTests {
      * shortening its hotbar loop, or dropping the Constructor's Touch gate on the backpack half.
      */
     public static void bowConsumesOneArrowFromTheQuiverThatSuppliedIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // --- the stack the search handed over is the stack that pays ---
@@ -834,6 +840,7 @@ public final class QuiverTests {
      * no assertion can hold it.
      */
     public static void bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
 
@@ -995,6 +1002,7 @@ public final class QuiverTests {
      * reinforced tier an immunity the mod does not grant it.
      */
     public static void netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
 
         // Setup guard: vanilla's ItemEntity ignores every explosion while mobGriefing is off, so
@@ -1037,6 +1045,7 @@ public final class QuiverTests {
      * quiver on a creative load, or the quiver winning over a held rocket.
      */
     public static void crossbowLoadsFromTheQuiverAndBillsOneArrow(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemStack crossbow = new ItemStack(Items.CROSSBOW);
@@ -1092,6 +1101,7 @@ public final class QuiverTests {
      * that never goes back into the backpack.
      */
     public static void aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
         ItemStack quiver = filledContainer(helper, player, ModItems.QUIVER, Items.SPECTRAL_ARROW, 4);
         ItemStack backpack = new ItemStack(ModItems.BACKPACK);
@@ -1125,6 +1135,7 @@ public final class QuiverTests {
      * Funnel.
      */
     public static void pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-1: Simple Storage tests the bundles on 26.3
         ServerPlayer player = mockPlayer(helper);
 
         // --- no Funnel: into the inventory ---

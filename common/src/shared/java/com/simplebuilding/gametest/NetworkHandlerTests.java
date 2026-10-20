@@ -582,7 +582,7 @@ public final class NetworkHandlerTests {
         ServerPlayer player = mockPlayer(helper);
         player.getInventory().clearContent();
 
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack bundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         bundle.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         fill(helper, bundle, player, Items.STONE);
 
@@ -631,7 +631,7 @@ public final class NetworkHandlerTests {
 
         // --- a full inventory: nowhere to park the hand, so nothing may happen at all ---
         player.getInventory().clearContent();
-        ItemStack fullBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack fullBundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         fullBundle.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         fill(helper, fullBundle, player, Items.STONE);
         player.getInventory().setItem(1, fullBundle);
@@ -657,7 +657,7 @@ public final class NetworkHandlerTests {
 
         // --- without the enchantment nothing may be pulled out at all ---
         player.getInventory().clearContent();
-        ItemStack plainBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack plainBundle = new ItemStack(com.simplebuilding.util.StorageRefs.item("reinforced_bundle"));
         fill(helper, plainBundle, player, Items.STONE);
         player.getInventory().setItem(1, plainBundle);
         player.getInventory().setSelectedSlot(0);
@@ -786,9 +786,8 @@ public final class NetworkHandlerTests {
      * free of the {@code BundleContents} constructor differences between the two Minecraft lines.
      */
     private static void fill(GameTestHelper helper, ItemStack bundle, ServerPlayer player, Item item) {
-        boolean inserted = ((ReinforcedBundleItem) bundle.getItem())
-                .tryInsertStackFromWorld(bundle, new ItemStack(item, BUNDLE_STONE), player);
-        helper.assertTrue(inserted, "test setup broken: the reinforced bundle refused the " + item);
+        bundle.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(java.util.List.of(
+                net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(item, BUNDLE_STONE))))); // split stage 8c-1: no bundle class (Simple Storage's on 26.3)
         helper.assertValueEqual(countInBundle(bundle, item), BUNDLE_STONE,
                 "test setup broken: what the bundle holds after being filled");
     }
