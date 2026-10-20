@@ -63,7 +63,7 @@
   "entity.simplemobs.abyssal_wither": "Abgrund-Wither",
   "item.simplemobs.wither_heart": "Witherherz",
   "item.simplemobs.biome_brush": "Biom-Pinsel",
-  "item.simplemobs.biome_brush.tooltip": "Biom-Material in der Nebenhand",
+  "item.simplemobs.biome_brush.tooltip": "Biom-Material in der Nebenhand; Schleichen für eine einzelne Stelle",
   "tip.simplemobs.trick_mirror": "3 s Benutzen halten: enttarnt Verkleidete",
   "tip.simplemobs.deceiver_cloak": "Tragen; leere Hand am Mob: seine Gestalt annehmen",
   "tip.simplemobs.shellker_shell": "An einem Shulker benutzen: wird zum Shellker",

@@ -95,6 +95,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void witherNovaPush(GameTestHelper helper) { MobsTests.ALL.get("wither_nova_push").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void biomeBrushItem(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_item").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void biomeBrushPaint(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_paint").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void biomeBrushSneak(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_sneak").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void biomeBrushClaims(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_claims").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerVsWarden(GameTestHelper helper) { MobsTests.ALL.get("howler_vs_warden").accept(helper); }
