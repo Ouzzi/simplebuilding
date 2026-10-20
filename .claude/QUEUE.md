@@ -68,6 +68,7 @@ Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 
 - Forge: Clientdarstellung, Config-Persistenz, Default-Einschaltung abnehmen (Offen-Liste)
 - Abnahme Simple Money; NeoForge-Client/alte Spielwelt prüfen (Offen-Liste)
 - Weiter offen als Abnahme (Branches gemergt, Details in Memory uebergabe-2026-10-08.md): UI-Konzepte (claude-ui-concepts), Respawn, Soulbound/Death Vault, Claims, Howler, Shellker, Nibblemite, Texturen N44–N46
+- Verwaiste TODOs 20.10.: 26 Punkte (weder in Queue noch umgesetzt) – aufnehmen oder verwerfen (Block „Verwaiste TODOs 20.10.“ unten, Seite todos.html; b-orphtodos)
 
 ### (E) Bewusst später
 - Hammer-Tempo später evtl. testen: 1. Block 2x, Block 2–9 je +0,6x, ab 10. je +0,5x oder +0,4x (große Flächen sparen viel, kleine wenig) (N54)
@@ -696,4 +697,32 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [~] (B, b-gatefast, 20.10.) Gate schneller (Plan von A, Besitzer-OK): (1) automatischer Zweitversuch roter Tests im Gate – einzeln nochmal; grün beim 2. Mal → Gate grün + Eintrag in Wackel-Liste (docs/ai/WACKEL-TESTS.md), wieder rot → rot; (2) Delta-Gate: nach rotem Gate nur check + rote Tests + geänderte Module, volles Gate bei Änderungen in common/simplelib/framework; (3) nachts weiterhin voller Lauf (sb-night.sh). Zuerst (1). Skripte auf sb-test (/root/sb-gate.sh, heavy.sh) vorher sichern.
 - [x] (B, b-speedlines, 20.10.) Simple Visuals: Speedlines-Animation an die Geschwindigkeit koppeln (bei schnellem Flug, z. B. Zuschauermodus, wirken sie wie Zeitlupe) – Animationstempo/Dichte proportional zur Geschwindigkeit. -- Erledigt: SpeedLinesMath (tempo=speed/0.5 geklemmt 0.4..8, Dichte sqrt 0.6..1.6, Cap 90), GameTest speed_lines_math; Compile 3 Loader gruen, module-simplevisuals fabric+neoforge-263 42/42 gruen (b-speedlines). Client-Sichtprobe offen.
 - [~] (B, b-wikiallmods, 20.10.) Wiki: Seite „Alle Mods“ mit Aufschlüsselung der Mod-Übersicht (Super-Mods → Sub-Mods, Stand, Inhalt; Grundlage docs/ai/UEBERSICHT-MODS-2026-10-19.md); im Mod-Dropdown jede Super-Mod als eigener Eintrag.
-- [~] (B, b-orphtodos, 20.10.) Verwaiste TODOs finden (weder in Queue noch umgesetzt): Liste als HTML /tmp/claude-0/ash/todos.html + Queue-Block „Verwaiste TODOs 20.10.“, veraltete Memory korrigieren (Auftrag /root/b-auftrag-todos.md).
+- [x] (B, b-orphtodos, 20.10.) Verwaiste TODOs finden (weder in Queue noch umgesetzt): Liste als HTML /tmp/claude-0/ash/todos.html + Queue-Block „Verwaiste TODOs 20.10.“, veraltete Memory korrigieren (Auftrag /root/b-auftrag-todos.md). **Erledigt:** 69 Funde geprüft (Code, docs/**, Memory), davon 19 schon in Queue/Archiv, 24 schon erledigt, 26 verwaist → Block unten; Memory: 28 MEMORY.md-Zeilen „Merge offen“ korrigiert (43 Branches per `git merge-base --is-ancestor` in wave1 e39578d3b) + Notizen in 13 Topic-Dateien. Plan/Methode `docs/ai/PLAN-B-ORPHTODOS-2026-10-20.md`. Nebenbefunde: Überblick (A) und mehrere [~]-Zeilen nennen „Merge offen“ für gemergte Branches; Z. 480 M-05 abgehakt, `tools/audit_modules_checks.py` meldet simpleaesthetics weiter ohne Forge-Ziel.
+
+### Verwaiste TODOs 20.10. (b-orphtodos; Besitzer entscheidet über Verwerfen; Belege in /tmp/claude-0/ash/todos.html)
+- [ ] (übergreifend) Simple Hearts: bestehende GitHub-Mod erweitern/vervollständigen (Besitzer 01.10. „später“) – `docs/ai/BACKLOG-2026-10-01.md:83`.
+- [ ] (übergreifend, Audit M-08) Server-Configs ohne UI/Tooltips: Lib, Maps, Sandwiches, Trims (nur `simpletrims.config.enabled` ohne Tooltip), Tweaks-Claims, Simple Stats (kein Config-Bildschirm/ModMenu) – `docs/ai/AUDIT-MODULE-2026-10-11.md:24`, `docs/ai/memory/simple-stats-2026-10-15.md:13`.
+- [ ] (Testzentrale, Nachtrag 13 Besitzer 06.10., nie in der Queue) Testzentralen-Module (Kleinteile/Truhen/Rahmen/Ständer/Hotbar-Befehlsblöcke, UI-Blöcke + Tooltip-UIs mit Befüll-Knopf, In-World-Umwandlungen nach Stufen, Interaktionen, Crafting-Rezepte; Standardbau baut alle) + Wiki-Dev-Tab; Wiki für Gelegenheits-/Profispieler aufräumen – Memory `testzentralen-n13-offen.md`, `docs/ai/ROADMAP-2026-10-09.md:65,110`.
+- [ ] (Build) Groovy-Fallback ohne Python zeichnet die 38 `placed_disc_*` nicht (Regex `mc26_3/resources.gradle:183` erkennt die Dict-Comprehension `tools/textures/vanilla_derived.py:106` nicht) → magenta statt grau.
+- [ ] (Betrieb) `dist-publish.sh` mit `-PsbVanillaDerivedStrict` + `placeholder_audit.py --fail-on-placeholder`; `/setup/starter.ps1` auf sb-web neu ausliefern – Memory `uebergabe-B.md:231,259`.
+- [ ] (Zentrale) Test `tools/zentrale-web/tests/test_mods.py:130` `test_selection_per_user` rot (`simpleoctets` landet in `off`; nicht im gradlew check).
+- [ ] (übergreifend, vermutlich verwerfen) Offline-Testlauf (Windows, `offline_gate.ps1`): Probelauf der finalen Fassung – Memory `simplebuilding-offline-gate.md:22`; Gates laufen seit 08.10. auf sb-test.
+- [ ] (SB-Handbuch, erst prüfen) 2 zu lange DE-Themenseiten (topics 1/3, 14/15 Zeilen > 13) laut `tools/guide_book_pages.py` – `docs/ai/PLAN-REDSTONE-TRUHEN-2026-10-02.md:105`; Skript nicht im Gate, braucht Pillow + Client-Jar (sb-test).
+- [ ] (Simple Tweaks, vermutlich verwerfen) Alte Ideenliste: Kompost, Wachs-Varianten, Werfer, Chat-Rechner, Questbuch, Challenges, Extra-Inventar, Holzdruckplatte – `docs/SIMPLETWEAKS-UEBERNAHME.md:81`.
+- [ ] (SB, Fragebogen D13) Laufender Baustab-Bau folgt nach Portal/Teleport/Respawn in die andere Dimension (nur Origin+Face gespeichert, `BuildingWandItem.java:612-614,715`) – `docs/FRAGEBOGEN-BAUWERKZEUGE.md:109`.
+- [ ] (SB, Fragebogen D15) Manipulierte `Face`-NBT wirft jeden Tick (`Direction.values()[…]` ohne Grenze, `BuildingWandItem.java:717`) – `docs/FRAGEBOGEN-BAUWERKZEUGE.md:123`.
+- [ ] (SB/Simple Enderite, Besitzer klärt) Enderit-Werkzeuge/-Rüstung reparieren mit Netherit-Material („Platzhalter“) – `ModToolMaterials.java:16-21`, `ModArmorMaterials.java:37`.
+- [ ] (Simple Hammers) Modul allein ohne Umriss/Risse/Ausholen und Aufwertungs-Tooltips – `docs/ai/PLAN-S7-HAMMERS-2026-10-18.md:55,141`.
+- [ ] (Simple Hammers, Stufe 9) SB-Config `server.tools.*` der Hämmer auf 26.3 wirkungslos → ausblenden; `InWorldTransformations.diamondCrush` zeigt SB- statt Modul-Kieselzahl – `PLAN-S7-HAMMERS:80-81,141`, Memory `uebergabe-A.md:242`.
+- [ ] (Simple Crucibles) Fass-Aufwertung per Axt teilt den Schlagzähler mit dem Anbringen (`CrucibleUpgrades.java:75` → `CrucibleBarrelBlockEntity.addAttachStrike`) – `docs/ai/INWORLD-UMWANDLUNGEN-2026-10-06.md:51`.
+- [ ] (Simple Octets) 24 Stamm-Achtel in `mineable/pickaxe` statt `axe` (`modules/simpleoctets/shared/resources/data/minecraft/tags/block/mineable/pickaxe.json`) – `docs/ai/PLAN-S6-OCTETS-2026-10-17.md:113`.
+- [ ] (Simple Wanderers/Money) Schalter `enableWandererTrades`, `balance/simplewanderers/`, 14 Kopf-Links nicht beim fahrenden Händler – `docs/ai/BERICHT-OC-WANDERERS.md:11`.
+- [ ] (Simple Stats) Mob-Varianten-Namen im DE-Client englisch (`StatNames.java:66` Literal-Fallback) – `docs/ai/memory/simple-stats-2026-10-15.md:12`.
+- [ ] (Simple Stats, klein/verwerfen) Tragezeit nur alle 10 s übergeben (Rüstungswechsel schreibt Zeit dem neuen Teil zu) – `simple-stats-2026-10-15.md:11`.
+- [ ] (Simple Tools) Death Vault: NeoForge-Itemlebensdauer (`getEntityLifespan`) nicht ausgewertet – `docs/ai/BERICHT-OC-DEATHVAULT2.md:11`.
+- [ ] (Simple Interfaces, Audit M-11) `LegacyMigration.run` schreibt `options.txt` – Reihenfolge zum Laden ungeprüft – `docs/ai/AUDIT-MODULE-2026-10-11.md:27`.
+- [ ] (Simple Shops) Karte zeigt auch entladene öffentliche Shops (Shops-Umbau Stufe 4) – `docs/ai/KONZEPT-SHOPS-UMBAU-2026-10-19.md:93`.
+- [ ] (Simple Mobheads) Herobrine: Wiki-Spoiler fehlt; Ritual-Abklingzeiten nur im Speicher (`HerobrineRitual.java:43-56`) – Memory `uebergabe-B.md:248`.
+- [ ] (Simple Music, Besitzer: welcher Super-Mod?) Bündeln als Sub-Mod mit Enable-Schalter; Standalone-NeoForge-Ziel nie gelaufen – Memory `uebergabe-B.md:256`.
+- [ ] (Simple Maps) Wiki nennt die Claims-Ebene (mit Simple Tweaks) nicht (nur `modules/simpletweaks/wiki/manual.json:114`) – Memory `uebergabe-B.md:61`.
+- [ ] (Simple Models, Besitzer entscheidet) UX-Vorschläge: Server-Reiter als Schalter, Mausrad/Sortierung/Filter, Tooltip-Vorschau, Tab vs. Rezeptbuch – `docs/ai/AUDIT-SIMPLEMODELS-2026-10-10.md:18`.
