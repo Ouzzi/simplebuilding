@@ -200,6 +200,13 @@ MODULES = [
          intro=("New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
                 "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der "
                 "Biom-Pinsel.")),
+    dict(module="simplemusic", ns="simplemusic", package="com.simplemusic.guide", cls="MusicGuide", kind="item",
+         author="Simple Music", recipe="minecraft:note_block",
+         name=("Simple Music Guide", "Simple-Music-Handbuch"),
+         intro=("Write sheet music as text, listen to it in the editor and let the Orchestrion play it on a loop. Burn "
+                "your own mono Ogg files onto blank discs.",
+                "Notenblätter als Text schreiben, im Editor probehören und vom Orchestrion in Schleife spielen lassen. "
+                "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
     dict(module="simplestats", ns="simplestats", package="com.simplebuilding.modules.simplestats.guide", cls="StatsGuide",
          kind="item", author="Simple Stats", recipe="minecraft:flint",
          name=("Simple Stats Guide", "Simple-Stats-Handbuch"),
@@ -238,6 +245,7 @@ QUEST = {
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
+    "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
     "minecraft:brick": ("a brick", "einem Ziegel"),
     "minecraft:clay_ball": ("a clay ball", "einem Tonklumpen"),
@@ -511,6 +519,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:iron_ingot": ("iron ingot", "Eisenbarren"),
     "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:lead": ("lead", "Leine"),
+    "minecraft:note_block": ("note block", "Notenblock"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
     "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),

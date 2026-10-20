@@ -1,0 +1,37 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplemusic"
+version="${version}"
+displayName="Simple Music"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
+description="Sheet music as a text note code (editor with test listening, .txt/.nbs import), the Orchestrion (redstone loop, chest above = next sheet, comparator progress) and uploaded mono Ogg discs with quota and OP approval, also in the Vanilla jukebox."
+[[dependencies.simplemusic]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simplemusic]]
+modId="simplelib"
+type="required"
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simplemusic]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplemusic]]
+modId="simplemobheads"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="simplemusic.mixins.json"

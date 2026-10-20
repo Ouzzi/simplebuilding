@@ -43,7 +43,8 @@
     "simpleoptrender",
     "simpleoptmemory",
     "simpleoptserver",
-    "simplestorage"
+    "simplestorage",
+    "simplemusic"
   ],
   "devMods": [
     "jei",

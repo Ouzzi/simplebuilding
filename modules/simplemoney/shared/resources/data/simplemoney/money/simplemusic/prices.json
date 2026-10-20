@@ -1,0 +1,12 @@
+{
+  "module": "simplemusic",
+  "derivation": "Simple Music sells nothing yet: sheets, Orchestrion and discs are crafted from Vanilla materials; custom discs carry player uploads and must never be traded by villagers.",
+  "excluded": {
+    "simplemusic:sheet_music": "Crafted from paper, an ink sac and a feather.",
+    "simplemusic:orchestrion": "Crafted from a note block, a jukebox and two copper ingots.",
+    "simplemusic:blank_disc": "Crafted from coal, blackstone and an amethyst shard.",
+    "simplemusic:custom_disc": "Only made by burning an upload onto a blank disc.",
+    "simplemusic:guide_book": "Crafted from a book and a note block."
+  },
+  "prices": []
+}
