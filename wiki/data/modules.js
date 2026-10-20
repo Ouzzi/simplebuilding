@@ -52,9 +52,9 @@ window.WIKI_MODULES = [
       "asOf": "19.10.2026"
     },
     "counts": {
-      "items": 559,
+      "items": 553,
       "blocks": 323,
-      "recipes": 931,
+      "recipes": 885,
       "config": 239,
       "features": 48
     }
