@@ -55,8 +55,13 @@ public final class HeadDrops {
     private HeadDrops() {
     }
 
-    /** Adds the head pools to {@code charged_creeper}; every loader calls this from its loot table event. */
+    /** Adds the head pools to {@code charged_creeper} (and the Herobrine hint book to mineshaft chests); every loader calls this from its loot table event. */
     public static void apply(ResourceKey<LootTable> key, Consumer<LootPool.Builder> add, HolderGetter.Provider registries) {
+        if (BuiltInLootTables.ABANDONED_MINESHAFT.equals(key) && SimpleMobHeads.config().hintBook) {
+            // The Herobrine ritual's hint (concept §4, rule A6): a rare book in mineshaft chests.
+            add.accept(com.simplemobheads.ritual.HerobrineRitual.hintBookPool());
+            return;
+        }
         if (!BuiltInLootTables.CHARGED_CREEPER.equals(key)) {
             return;
         }

@@ -4,7 +4,7 @@
       "id": "heads",
       "en": {
         "title": "A Head for Every Mob",
-        "summary": "93 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding.",
+        "summary": "94 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding, plus one secret head.",
         "details": [
           "Monsters, Nether mobs, animals, water mobs and bosses; the creeper, zombie, skeleton, wither skeleton, piglin and ender dragon keep their Vanilla heads, the player head stays Vanilla.",
           "Each head shows its mob's real texture (by reference, so resource packs repaint the heads too) and the head of the mob's own model, set on the floor or hung on a wall.",
@@ -13,7 +13,7 @@
       },
       "de": {
         "title": "Ein Kopf für jeden Mob",
-        "summary": "93 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen.",
+        "summary": "94 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen, dazu ein geheimer Kopf.",
         "details": [
           "Monster, Nether-Mobs, Tiere, Wassermobs und Bosse; Creeper, Zombie, Skelett, Witherskelett, Piglin und Enderdrache behalten ihre Vanilla-Köpfe, der Spielerkopf bleibt Vanilla.",
           "Jeder Kopf zeigt die echte Textur seines Mobs (per Verweis, Ressourcenpakete färben die Köpfe mit um) und den Kopf aus dem Modell des Mobs, stehend auf dem Boden oder an der Wand.",
@@ -261,6 +261,37 @@
       },
       "sources": [
         "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java"
+      ]
+    },
+    {
+      "id": "herobrine",
+      "en": {
+        "title": "He Was Never Removed",
+        "summary": "A secret head that no mob drops: an old shrine of gold, moss, four redstone torches and netherrack, lit by a player at night.",
+        "details": [
+          "The shrine: 3x3 gold blocks, a mossy cobblestone in the middle, a redstone torch on each of the four edge gold blocks, netherrack on top; light the netherrack with flint and steel or a fire charge.",
+          "Only at night. The lightning is only a show (no fire, no damage); the torches go out, the moss turns to cobblestone, gold and netherrack stay. One head per shrine and per player per in-game day (server switch and cooldown).",
+          "Afterwards, for five minutes and only for that player, something with white eyes watches from far away.",
+          "Worn, torches nearby flicker, and in the dark hostile mobs that target the wearer hesitate for a moment (each mob at most every 30 seconds).",
+          "A rare book in mineshaft chests hints at the shrine."
+        ]
+      },
+      "de": {
+        "title": "Er wurde nie entfernt",
+        "summary": "Ein geheimer Kopf, den kein Mob fallen lässt: ein alter Schrein aus Gold, Moos, vier Redstone-Fackeln und Netherrack, den ein Spieler nachts anzündet.",
+        "details": [
+          "Der Schrein: 3×3 Goldblöcke, in der Mitte bemooster Bruchstein, auf jedem der vier Kanten-Goldblöcke eine Redstone-Fackel, obendrauf Netherrack; das Netherrack mit Feuerzeug oder Feuerkugel anzünden.",
+          "Nur nachts. Der Blitz ist nur Schau (kein Feuer, kein Schaden); die Fackeln erlöschen, das Moos wird zu Bruchstein, Gold und Netherrack bleiben. Ein Kopf je Schrein und je Spieler pro Ingame-Tag (Server-Schalter und Abklingzeit).",
+          "Danach beobachtet fünf Minuten lang, nur für diesen Spieler, etwas mit weißen Augen aus der Ferne.",
+          "Getragen flackern Fackeln in der Nähe, und im Dunkeln zögern feindliche Mobs, die den Träger angreifen wollen, kurz (jeder Mob höchstens alle 30 Sekunden).",
+          "Ein seltenes Buch in Minenschacht-Truhen deutet den Schrein an."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/ritual/HerobrineRitual.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/ritual/HerobrineHaunt.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/IgniteItemMixin.java"
       ]
     }
   ],

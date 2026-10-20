@@ -10,7 +10,7 @@ import java.util.List;
  * heads in their groups, so every head can be looked at, placed and worn.
  */
 public final class TestCentre {
-    public static final List<String> GROUPS = List.of("monster", "nether", "boss", "passive", "water", "mod");
+    public static final List<String> GROUPS = List.of("monster", "nether", "boss", "passive", "water", "mod", "secret");
 
     private TestCentre() {
     }

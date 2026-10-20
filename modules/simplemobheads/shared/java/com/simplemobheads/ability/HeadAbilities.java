@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import org.jspecify.annotations.Nullable;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,6 +29,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +42,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TorchBlock;
+import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
@@ -48,7 +55,8 @@ import net.minecraft.world.level.block.state.BlockState;
  *
  * <p>Moved in unchanged: blaze, enderman, husk, spider, cave spider, stray, bogged, slime, silverfish (item attributes),
  * breeze, shulker, drowned (SimpleBuilding); cow, sheep, chicken, pig (Simple Fun). New (owner 13.10.): bee, fox, frog,
- * goat, cat, mooshroom, sniffer, allay, turtle, polar bear, wolf, warden. Every head: camouflage against its own mob
+ * goat, cat, mooshroom, sniffer, allay, turtle, polar bear, wolf, warden; the secret Herobrine head (owner KONZ20 + 20.10.:
+ * torches flicker, hostile mobs hesitate in the dark). Every head: camouflage against its own mob
  * (Vanilla {@code mob_visibility}), its mob's note block sound, and a quiet greeting when sneaking.
  */
 public final class HeadAbilities {
@@ -73,6 +81,16 @@ public final class HeadAbilities {
     public static final double GOAT_KNOCKBACK = 0.4;
     /** Greeting: one at most every 5 seconds. */
     public static final int GREETING_COOLDOWN = 100;
+    /** Herobrine head: torches within this range flicker, at most {@link #FLICKER_MAX} of them each second. */
+    public static final int FLICKER_RANGE = 8;
+    public static final int FLICKER_MAX = 6;
+    /** Herobrine head: in light up to this level (like monster spawns) hostile mobs that target the wearer hesitate. */
+    public static final int GAZE_MAX_LIGHT = 7;
+    public static final double GAZE_RANGE = 8.0;
+    /** The hesitation: path stopped and Slowness IV for 2 seconds, each mob at most every 30 seconds. */
+    public static final int GAZE_TICKS = 40;
+    public static final int GAZE_AMPLIFIER = 3;
+    public static final int GAZE_COOLDOWN = 600;
 
     private static final Map<UUID, Long> SHORN = new ConcurrentHashMap<>();
     private static final Map<UUID, Long> STEW = new ConcurrentHashMap<>();
@@ -80,6 +98,7 @@ public final class HeadAbilities {
     private static final Map<Player, Integer> SNIFFING = new WeakHashMap<>();
     private static final Map<UUID, Long> SNIFF_READY = new ConcurrentHashMap<>();
     private static final Map<Player, Long> NEXT_GREETING = new WeakHashMap<>();
+    private static final Map<Mob, Long> GAZE_READY = new WeakHashMap<>();
 
     private HeadAbilities() {
     }
@@ -296,9 +315,77 @@ public final class HeadAbilities {
                 }
             }
         }
+        if (now % 10 == 0 && active(player, "herobrine")) {
+            gaze(level, player, level.getMaxLocalRawBrightness(player.blockPosition()) <= GAZE_MAX_LIGHT);
+            if (now % 20 == 0) {
+                flickerTorches(level, player);
+            }
+        }
         if (player.isShiftKeyDown() && SimpleMobHeads.config().greeting) {
             greet(level, player);
         }
+    }
+
+    /**
+     * Herobrine head, Herobrine's gaze (owner 20.10.: "one more ability like the mob heads"): in the dark the white eyes make
+     * every hostile mob within {@link #GAZE_RANGE} that targets the wearer hesitate - its path stops, Slowness IV for 2 s; each
+     * mob at most every 30 s, the wither and the warden do not care. Returns how many mobs hesitated.
+     *
+     * @param dark whether the wearer stands in the dark (light at most {@link #GAZE_MAX_LIGHT}); the tick reads the real light
+     */
+    public static int gaze(ServerLevel level, ServerPlayer player, boolean dark) {
+        if (!dark || !active(player, "herobrine")) {
+            return 0;
+        }
+        long now = level.getGameTime();
+        int hesitated = 0;
+        for (Mob mob : level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(GAZE_RANGE),
+                m -> m instanceof Enemy && m.getTarget() == player && !(m instanceof WitherBoss) && !(m instanceof Warden))) {
+            if (GAZE_READY.getOrDefault(mob, Long.MIN_VALUE) > now) {
+                continue;
+            }
+            GAZE_READY.put(mob, now + GAZE_COOLDOWN);
+            mob.getNavigation().stop();
+            mob.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, GAZE_TICKS, GAZE_AMPLIFIER), player);
+            hesitated++;
+        }
+        return hesitated;
+    }
+
+    /**
+     * Herobrine head (owner KONZ20 H5 f): torches near the wearer flicker - smoke and a small flame on up to
+     * {@link #FLICKER_MAX} random torches (every {@code TorchBlock}: torch, soul and copper torch, their wall forms) within
+     * {@link #FLICKER_RANGE}. Purely cosmetic particles; returns the torches that flickered.
+     */
+    public static java.util.List<BlockPos> flickerTorches(ServerLevel level, ServerPlayer player) {
+        if (!active(player, "herobrine")) {
+            return java.util.List.of();
+        }
+        java.util.List<BlockPos> torches = new java.util.ArrayList<>();
+        BlockPos center = player.blockPosition();
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-FLICKER_RANGE, -FLICKER_RANGE, -FLICKER_RANGE),
+                center.offset(FLICKER_RANGE, FLICKER_RANGE, FLICKER_RANGE))) {
+            if (level.isLoaded(pos) && level.getBlockState(pos).getBlock() instanceof TorchBlock) {
+                torches.add(pos.immutable());
+            }
+        }
+        net.minecraft.util.Util.shuffle(torches, level.getRandom());
+        java.util.List<BlockPos> flickered = java.util.List.copyOf(torches.subList(0, Math.min(FLICKER_MAX, torches.size())));
+        for (BlockPos pos : flickered) {
+            BlockState state = level.getBlockState(pos);
+            double x = pos.getX() + 0.5;
+            double y = pos.getY() + 0.7;
+            double z = pos.getZ() + 0.5;
+            if (state.hasProperty(WallTorchBlock.FACING)) {
+                Direction away = state.getValue(WallTorchBlock.FACING).getOpposite();
+                x += 0.27 * away.getStepX();
+                y += 0.22;
+                z += 0.27 * away.getStepZ();
+            }
+            level.sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0.03, 0.05, 0.03, 0.01);
+            level.sendParticles(ParticleTypes.SMALL_FLAME, x, y, z, 1, 0.02, 0.02, 0.02, 0.0);
+        }
+        return flickered;
     }
 
     /** The mob head {@code entity} wears: an extra head slot first (it has precedence, owner N55), then the helmet slot. */
@@ -379,5 +466,6 @@ public final class HeadAbilities {
         NEXT_EGG.remove(player);
         SNIFFING.remove(player);
         NEXT_GREETING.remove(player);
+        GAZE_READY.clear();
     }
 }

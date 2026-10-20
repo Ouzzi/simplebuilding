@@ -13,6 +13,9 @@ public class MobHeadsConfig {
     public static final float MAX_PLAYER_KILL_CHANCE = 0.1F;
     /** Highest bonus per looting level (5 %). */
     public static final float MAX_LOOTING_BONUS = 0.05F;
+    /** Ritual cooldown bounds: one minute to seven in-game days. */
+    public static final int MIN_RITUAL_COOLDOWN = 1200;
+    public static final int MAX_RITUAL_COOLDOWN = 168000;
 
     /** Master switch: drops, abilities and greetings (the heads always stay registered, worlds keep them). */
     public boolean enabled = true;
@@ -30,6 +33,14 @@ public class MobHeadsConfig {
     public boolean playerHeadDrops = true;
     /** Sneaking with a head on: a quiet greeting in the mob's voice (moved in from Simple Fun, cosmetic). */
     public boolean greeting = true;
+    /** Easter egg (KONZEPT-HEROBRINE-KOPF-2026-10-19, owner KONZ20): lighting the gold shrine at night gives the Herobrine head. */
+    public boolean herobrineRitual = true;
+    /** Ticks until the same shrine position or the same player may do the ritual again (one in-game day). */
+    public int ritualCooldownTicks = 24000;
+    /** After the ritual: five minutes of distant white eyes and footsteps, only for the player who lit it (no world change). */
+    public boolean hauntPhase = true;
+    /** A rare "Herobrine Notes" book in mineshaft chests hints at the ritual (read when loot tables load). */
+    public boolean hintBook = true;
     /** One switch per head ability, keyed by ability id ({@code blaze}, {@code bee}, ...). */
     public Map<String, Boolean> abilities = new LinkedHashMap<>();
 
@@ -55,5 +66,6 @@ public class MobHeadsConfig {
         abilities = ordered;
         playerKillChance = bounded(playerKillChance, 0.0F, 0.0F, MAX_PLAYER_KILL_CHANCE);
         playerKillLootingBonus = bounded(playerKillLootingBonus, 0.01F, 0.0F, MAX_LOOTING_BONUS);
+        ritualCooldownTicks = Math.max(MIN_RITUAL_COOLDOWN, Math.min(MAX_RITUAL_COOLDOWN, ritualCooldownTicks));
     }
 }
