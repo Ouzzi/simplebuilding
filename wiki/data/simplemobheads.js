@@ -23,7 +23,7 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "id": "heads",
       "en": {
         "title": "A Head for Every Mob",
-        "summary": "93 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding.",
+        "summary": "94 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding, plus one secret head.",
         "details": [
           "Monsters, Nether mobs, animals, water mobs and bosses; the creeper, zombie, skeleton, wither skeleton, piglin and ender dragon keep their Vanilla heads, the player head stays Vanilla.",
           "Each head shows its mob's real texture (by reference, so resource packs repaint the heads too) and the head of the mob's own model, set on the floor or hung on a wall.",
@@ -32,7 +32,7 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       },
       "de": {
         "title": "Ein Kopf für jeden Mob",
-        "summary": "93 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen.",
+        "summary": "94 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen, dazu ein geheimer Kopf.",
         "details": [
           "Monster, Nether-Mobs, Tiere, Wassermobs und Bosse; Creeper, Zombie, Skelett, Witherskelett, Piglin und Enderdrache behalten ihre Vanilla-Köpfe, der Spielerkopf bleibt Vanilla.",
           "Jeder Kopf zeigt die echte Textur seines Mobs (per Verweis, Ressourcenpakete färben die Köpfe mit um) und den Kopf aus dem Modell des Mobs, stehend auf dem Boden oder an der Wand.",
@@ -280,6 +280,37 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       },
       "sources": [
         "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java"
+      ]
+    },
+    {
+      "id": "herobrine",
+      "en": {
+        "title": "He Was Never Removed",
+        "summary": "A secret head that no mob drops: an old shrine of gold, moss, four redstone torches and netherrack, lit by a player at night.",
+        "details": [
+          "The shrine: 3x3 gold blocks, a mossy cobblestone in the middle, a redstone torch on each of the four edge gold blocks, netherrack on top; light the netherrack with flint and steel or a fire charge.",
+          "Only at night. The lightning is only a show (no fire, no damage); the torches go out, the moss turns to cobblestone, gold and netherrack stay. One head per shrine and per player per in-game day (server switch and cooldown).",
+          "Afterwards, for five minutes and only for that player, something with white eyes watches from far away.",
+          "Worn, torches nearby flicker, and in the dark hostile mobs that target the wearer hesitate for a moment (each mob at most every 30 seconds).",
+          "A rare book in mineshaft chests hints at the shrine."
+        ]
+      },
+      "de": {
+        "title": "Er wurde nie entfernt",
+        "summary": "Ein geheimer Kopf, den kein Mob fallen lässt: ein alter Schrein aus Gold, Moos, vier Redstone-Fackeln und Netherrack, den ein Spieler nachts anzündet.",
+        "details": [
+          "Der Schrein: 3×3 Goldblöcke, in der Mitte bemooster Bruchstein, auf jedem der vier Kanten-Goldblöcke eine Redstone-Fackel, obendrauf Netherrack; das Netherrack mit Feuerzeug oder Feuerkugel anzünden.",
+          "Nur nachts. Der Blitz ist nur Schau (kein Feuer, kein Schaden); die Fackeln erlöschen, das Moos wird zu Bruchstein, Gold und Netherrack bleiben. Ein Kopf je Schrein und je Spieler pro Ingame-Tag (Server-Schalter und Abklingzeit).",
+          "Danach beobachtet fünf Minuten lang, nur für diesen Spieler, etwas mit weißen Augen aus der Ferne.",
+          "Getragen flackern Fackeln in der Nähe, und im Dunkeln zögern feindliche Mobs, die den Träger angreifen wollen, kurz (jeder Mob höchstens alle 30 Sekunden).",
+          "Ein seltenes Buch in Minenschacht-Truhen deutet den Schrein an."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/ritual/HerobrineRitual.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/ritual/HerobrineHaunt.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/IgniteItemMixin.java"
       ]
     }
   ],
@@ -901,6 +932,22 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         }
       ],
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/happy_ghast_head.json"
+    },
+    {
+      "id": "simplemobheads:blocks/herobrine_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobheads:herobrine_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/herobrine_head.json"
     },
     {
       "id": "simplemobheads:blocks/hoglin_head",
@@ -2191,6 +2238,10 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         {
           "id": "simplemobheads:dragonmite_head",
           "required": true
+        },
+        {
+          "id": "simplemobheads:herobrine_head",
+          "required": true
         }
       ],
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/tags/item/heads.json"
@@ -3107,6 +3158,32 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       ],
       "needs": "any",
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/happy_ghast.json"
+    },
+    {
+      "id": "simplemobheads:heads/herobrine",
+      "parent": "simplemobheads:heads/root",
+      "icon": "simplemobheads:herobrine_head",
+      "frame": "task",
+      "hidden": true,
+      "title": {
+        "en_us": "He Was Never Removed",
+        "de_de": "Er wurde nie entfernt"
+      },
+      "description": {
+        "en_us": "Light the old shrine at night",
+        "de_de": "Entzünde nachts den alten Schrein"
+      },
+      "criteria": [
+        {
+          "name": "has_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplemobheads:herobrine_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/herobrine.json"
     },
     {
       "id": "simplemobheads:heads/hoglin",
@@ -4517,10 +4594,10 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
           "modules/simplemobheads/shared/resources/data/simplemobheads/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + skeleton skull. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + skeleton skull. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Skelettschädel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Skelettschädel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
         }
       },
       "texture": "assets/textures/simplemobheads/item/guide_book.png",
@@ -4551,6 +4628,16 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "craftedBy": [
         "simplemobheads:guide_book"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:herobrine_notes",
+      "name": {
+        "en_us": "Herobrine Notes",
+        "de_de": "Herobrine-Notizen"
+      },
+      "note": null,
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -7501,6 +7588,88 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
           ],
           "secret": [
             "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:herobrine_head",
+      "name": {
+        "en_us": "Herobrine Head",
+        "de_de": "Herobrine-Kopf"
+      },
+      "note": {
+        "en": {
+          "summary": "A mob head: only a charged creeper's explosion killing the mob drops it, with the mob's variant. Wear it, place it or put it on a note block."
+        },
+        "de": {
+          "summary": "Ein Mob-Kopf: nur die Explosion eines geladenen Creepers, die den Mob tötet, lässt ihn fallen, mit der Variante des Mobs. Tragen, aufstellen oder auf einen Notenblock setzen."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: he was never removed."
+          ],
+          "use": [
+            "No mob drops it. Gold carries moss, moss carries netherrack, four red lights keep watch - light it at night. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: er wurde nie entfernt."
+          ],
+          "use": [
+            "Kein Mob lässt ihn fallen. Gold trägt Moos, Moos trägt Netherrack, vier rote Lichter wachen - zünde es nachts an. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:herobrine_wall_head",
+      "name": {
+        "en_us": "Herobrine Head",
+        "de_de": "Herobrine-Kopf"
+      },
+      "note": {
+        "en": {
+          "summary": "The wall form of the head (placed against a wall); drops and names like the standing head."
+        },
+        "de": {
+          "summary": "Die Wandform des Kopfes (an eine Wand gesetzt); Beute und Name wie beim stehenden Kopf."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: he was never removed."
+          ],
+          "use": [
+            "No mob drops it. Gold carries moss, moss carries netherrack, four red lights keep watch - light it at night. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: er wurde nie entfernt."
+          ],
+          "use": [
+            "Kein Mob lässt ihn fallen. Gold trägt Moos, Moos trägt Netherrack, vier rote Lichter wachen - zünde es nachts an. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."
           ]
         }
       },
@@ -12193,22 +12362,24 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplemobheads:herobrine_notes"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 11,
+    "features": 12,
     "recipes": 1,
-    "lootTables": 93,
+    "lootTables": 94,
     "tags": 2,
-    "advancements": 94,
+    "advancements": 95,
     "enchantments": 0,
-    "items": 1,
-    "blocks": 186,
+    "items": 2,
+    "blocks": 188,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }
