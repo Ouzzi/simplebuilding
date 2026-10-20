@@ -63,6 +63,9 @@
     "simpleovens:enderite_blast_furnace",
     "simpleovens:enderite_furnace",
     "simpleovens:enderite_furnace_minecart",
-    "simpleovens:enderite_smoker"
+    "simpleovens:enderite_smoker",
+    "simplestorage:enderite_chest",
+    "simplestorage:enderite_shulker_box",
+    "simplestorage:enderite_trapped_chest"
   ]
 }

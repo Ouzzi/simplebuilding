@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 618,
+      "count": 601,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -1068,78 +1068,6 @@ window.WIKI_DATA = {
           "Färben: wie beim Vanilla-Bündel – Rucksack plus ein Farbstoff in der Werkbank ergibt die feste Farbe dieses Farbstoffs (die Lederfarben der Vanilla-Bündel); ein neuer Farbstoff ersetzt die Farbe, Farben mischen sich nicht, und ein Wasserkessel wäscht sie nicht ab. Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
           "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu.",
           "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Rucksack auch in den Rücken-Accessoire-Slot und nimmt dann Brustpanzer oder Elytra nicht mehr den Brust-Slot weg. Ein Rucksack dort gilt als getragen: die Rucksack-Taste öffnet ihn (nach einem im Brust-Slot, vor einem im Inventar), Trichter, Konstrukteurs Hand und Meisterbauer nutzen ihn, und er ist auf dem Rücken zu sehen, solange der Anzeige-Schalter des Slots ihn nicht ausblendet. Ohne Accessoire-Mod ändert sich nichts. Fuer Forge 26.2 gibt es keinen Build einer Accessoire-Mod."
-        ]
-      }
-    },
-    {
-      "id": "chests",
-      "related": [
-        "minecraft:copper_chest",
-        "simplebuilding:reinforced_chest",
-        "simplebuilding:netherite_chest",
-        "simplebuilding:enderite_chest",
-        "simplebuilding:cracked_diamond",
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget",
-        "simplebuilding:reinforced_trapped_chest",
-        "simplebuilding:netherite_trapped_chest",
-        "simplebuilding:enderite_trapped_chest",
-        "simplebuilding:trapped_copper_chest",
-        "simplebuilding:exposed_trapped_copper_chest",
-        "simplebuilding:weathered_trapped_copper_chest",
-        "simplebuilding:oxidized_trapped_copper_chest",
-        "simplebuilding:waxed_trapped_copper_chest",
-        "simplebuilding:waxed_exposed_trapped_copper_chest",
-        "simplebuilding:waxed_weathered_trapped_copper_chest",
-        "simplebuilding:waxed_oxidized_trapped_copper_chest"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-        "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-        "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-        "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java",
-        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TrappedCopperChestBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java"
-      ],
-      "en": {
-        "title": "Chest tiers",
-        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside.",
-        "details": [
-          "Upgrading: hold right-click on the placed chest for 5 seconds with a sledgehammer in the main hand and the tier material in the off hand - Cracked Diamond (any sledgehammer) for copper -> reinforced, Netherite Nugget (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nugget (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name and lock stay; a double chest is upgraded as a whole and takes two pieces of material.",
-          "The Reinforced Chest can also be crafted (3 copper chests + 6 Cracked Diamonds -> 3); netherite and enderite only come from the hammer, like the machines.",
-          "Double chests form only from equal tiers.",
-          "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted; a trapped chest's menu carries the same title as the normal chest of its tier.",
-          "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
-          "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
-          "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect.",
-          "26.3 also adds the trapped copper chest: a copper chest of any stage (waxed too) + tripwire hook. It signals its viewer count like the Vanilla trapped chest, ages through the four copper stages like the copper chest (a pair takes the less oxidized stage), and a plain right-click with honeycomb waxes it or with an axe scrapes wax or one stage off. It pairs only with other trapped copper chests; a hint below the latch marks it."
-        ]
-      },
-      "de": {
-        "title": "Truhen-Stufen",
-        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt.",
-        "details": [
-          "Aufwerten: 5 Sekunden Rechtsklick auf die gesetzte Truhe halten, Vorschlaghammer in der Haupthand und das Stufenmaterial in der Nebenhand - Rissiger Diamant (jeder Vorschlaghammer) für Kupfer -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name und Schloss bleiben; eine Doppeltruhe wird als Ganzes aufgewertet und braucht zwei Stück Material.",
-          "Die Verstärkte Truhe lässt sich auch herstellen (3 Kupfertruhen + 6 Rissige Diamanten -> 3); Netherit und Enderit gibt es nur mit dem Hammer, wie bei den Maschinen.",
-          "Doppeltruhen bilden sich nur aus gleichen Stufen.",
-          "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt; eine Fallentruhe trägt im Menü denselben Titel wie die normale Truhe ihrer Stufe.",
-          "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
-          "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht.",
-          "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich.",
-          "26.3 bringt dazu die Redstone-Kupfertruhe: Kupfertruhe jeder Stufe (auch gewachst) + Haken. Sie gibt wie die Vanilla-Redstone-Truhe die Zahl der Betrachter als Signal, oxidiert wie die Kupfertruhe in vier Stufen (ein Paar nimmt die weniger oxidierte Stufe), und ein einfacher Rechtsklick mit Honigwabe wachst sie bzw. mit einer Axt kratzt er Wachs oder eine Stufe ab. Sie verbindet sich nur mit anderen Redstone-Kupfertruhen; ein Haken unter dem Schloss verrät sie."
         ]
       }
     },
@@ -3177,63 +3105,25 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "shulker_boxes",
+      "id": "shulker_lids",
       "related": [
         "minecraft:shulker_box",
-        "simplebuilding:reinforced_shulker_box",
-        "simplebuilding:netherite_shulker_box",
-        "simplebuilding:enderite_shulker_box",
-        "simplebuilding:cracked_diamond",
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget"
+        "minecraft:shulker_shell"
       ],
       "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-        "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-        "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-        "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-        "tools/textures/tiered_shulker_box_textures.py",
-        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java",
         "common/src/shared/java/com/simplebuilding/util/ShulkerLids.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ShulkerOpenStateMixin.java"
+        "common/src/shared/java/com/simplebuilding/mixin/ShulkerOpenStateMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java"
       ],
       "en": {
-        "title": "Shulker box tiers",
-        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step.",
-        "details": [
-          "Upgrading: hold right-click on the placed box for 10 seconds with a sledgehammer in the main hand and 2 pieces of the tier material in the off hand - Cracked Diamonds (any sledgehammer) for a vanilla shulker box of any color -> reinforced, Netherite Nuggets (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nuggets (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name, lock, facing and color stay; an interrupted upgrade keeps its blows.",
-          "The Reinforced Shulker Box can also be crafted from any vanilla shulker box and 4 Cracked Diamonds; netherite and enderite only come from the hammer.",
-          "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
-          "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
-          "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
-          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots.",
-          "Open shulker boxes: right-click a closed placed Vanilla shulker box with a shulker shell (not used up) and its lid stays up. A right-click on an open box closes it without opening the menu; the next right-click opens the menu as usual. Broken, an open box drops as an open item with its own open model and is placed open again."
-        ]
+        "title": "Open shulker boxes",
+        "summary": "Open shulker boxes: right-click a closed placed Vanilla shulker box with a shulker shell (not used up) and its lid stays up. A right-click on an open box closes it without opening the menu; the next right-click opens the menu as usual. Broken, an open box drops as an open item with its own open model and is placed open again.",
+        "details": []
       },
       "de": {
-        "title": "Shulkerkisten-Stufen",
-        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe.",
-        "details": [
-          "Aufwerten: 10 Sekunden Rechtsklick auf die gesetzte Kiste halten, Vorschlaghammer in der Haupthand und 2 Stück des Stufenmaterials in der Nebenhand - Rissige Diamanten (jeder Vorschlaghammer) für eine Vanilla-Shulkerkiste jeder Farbe -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name, Schloss, Blickrichtung und Farbe bleiben; eine abgebrochene Aufwertung behält ihre Schläge.",
-          "Die Verstärkte Shulkerkiste lässt sich auch aus einer beliebigen Vanilla-Shulkerkiste und 4 Rissigen Diamanten herstellen; Netherit und Enderit gibt es nur mit dem Hammer.",
-          "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
-          "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
-          "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
-          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt.",
-          "Offene Shulkerkisten: Rechtsklick mit einer Shulkerschale (wird nicht verbraucht) auf eine geschlossene platzierte Vanilla-Shulkerkiste, und ihr Deckel bleibt oben. Ein Rechtsklick auf eine offene Kiste schließt sie, ohne das Menü zu öffnen; der nächste Rechtsklick öffnet das Menü wie gewohnt. Abgebaut fällt eine offene Kiste als offenes Item mit eigenem offenen Modell heraus und wird wieder offen platziert."
-        ]
+        "title": "Offene Shulkerkisten",
+        "summary": "Offene Shulkerkisten: Rechtsklick mit einer Shulkerschale (wird nicht verbraucht) auf eine geschlossene platzierte Vanilla-Shulkerkiste, und ihr Deckel bleibt oben. Ein Rechtsklick auf eine offene Kiste schließt sie, ohne das Menü zu öffnen; der nächste Rechtsklick öffnet das Menü wie gewohnt. Abgebaut fällt eine offene Kiste als offenes Item mit eigenem offenen Modell heraus und wird wieder offen platziert.",
+        "details": []
       }
     },
     {
@@ -12717,105 +12607,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_chest",
-      "name": {
-        "en_us": "Enderite Chest",
-        "de_de": "Enderittruhe"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:enderite_chest_boat_acacia",
-        "simplebuilding:enderite_chest_boat_ashwood",
-        "simplebuilding:enderite_chest_boat_bamboo",
-        "simplebuilding:enderite_chest_boat_birch",
-        "simplebuilding:enderite_chest_boat_cherry",
-        "simplebuilding:enderite_chest_boat_dark_oak",
-        "simplebuilding:enderite_chest_boat_duskwood",
-        "simplebuilding:enderite_chest_boat_jungle",
-        "simplebuilding:enderite_chest_boat_mangrove",
-        "simplebuilding:enderite_chest_boat_oak",
-        "simplebuilding:enderite_chest_boat_pale_oak",
-        "simplebuilding:enderite_chest_boat_poplar",
-        "simplebuilding:enderite_chest_boat_spruce",
-        "simplebuilding:enderite_chest_minecart",
-        "simplebuilding:enderite_trapped_chest"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_chest.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The End makes a chest as big as a double chest, with fourfold stacks."
-          ],
-          "use": [
-            "54 slots, 108 as a double chest. Each slot holds 4x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Hold right-click for 5 seconds on a placed Netherite Chest, with an Enderite Nugget in the off hand and a Netherite Sledgehammer. The chest keeps everything inside. Void-proof and fire resistant as an item."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das Ende macht eine Truhe so groß wie eine Doppeltruhe, mit vierfachen Stapeln."
-          ],
-          "use": [
-            "54 Plätze, 108 als Doppeltruhe. Jeder Platz fasst das 4-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Halte 5 Sekunden Rechtsklick auf einer platzierten Netherittruhe, mit einem Enderitklumpen in der Nebenhand und einem Netherit-Vorschlaghammer. Die Truhe behält alles darin. Als Gegenstand leerensicher und feuerfest."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "The Enderite Chest is the top chest tier: 54 slots (double chest 108), each with four times the normal stack size (256 cobblestone).",
-          "details": [
-            "No crafting recipe: a placed Netherite Chest becomes an Enderite Chest after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
-            "Stacks above 99 are saved in an extra list next to vanilla's item list (which holds a capped copy of 99), so nothing is lost on saving or loading.",
-            "Fire resistant item, rarity epic, hardness 6 and blast resistance 1500.",
-            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
-            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
-            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
-            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
-            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
-          ]
-        },
-        "de": {
-          "summary": "Die Enderittruhe ist die höchste Truhenstufe: 54 Plätze (Doppeltruhe 108), jeder mit vierfacher Stapelgröße (256 Bruchstein).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Netherittruhe wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen in der Nebenhand zur Enderittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
-            "Stapel über 99 werden in einer eigenen Liste neben Vanillas Item-Liste gespeichert (die eine gekappte Kopie mit 99 hält), beim Speichern und Laden geht also nichts verloren.",
-            "Feuerfestes Item, Seltenheit episch, Härte 6 und Explosionsresistenz 1500.",
-            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
-            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
-            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
-            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
-            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_chest_boat",
       "name": {
         "en_us": "Enderite Chest Boat",
@@ -14006,128 +13797,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_shulker_box",
-      "name": {
-        "en_us": "Enderite Shulker Box",
-        "de_de": "Enderit-Shulkerkiste"
-      },
-      "texture": "assets/textures/block/enderite_shulker_box.png",
-      "craftedBy": [
-        "simplebuilding:black_enderite_shulker_box",
-        "simplebuilding:blue_enderite_shulker_box",
-        "simplebuilding:brown_enderite_shulker_box",
-        "simplebuilding:cyan_enderite_shulker_box",
-        "simplebuilding:enderite_shulker_box_from_shells",
-        "simplebuilding:gray_enderite_shulker_box",
-        "simplebuilding:green_enderite_shulker_box",
-        "simplebuilding:light_blue_enderite_shulker_box",
-        "simplebuilding:light_gray_enderite_shulker_box",
-        "simplebuilding:lime_enderite_shulker_box",
-        "simplebuilding:magenta_enderite_shulker_box",
-        "simplebuilding:orange_enderite_shulker_box",
-        "simplebuilding:pink_enderite_shulker_box",
-        "simplebuilding:purple_enderite_shulker_box",
-        "simplebuilding:red_enderite_shulker_box",
-        "simplebuilding:white_enderite_shulker_box",
-        "simplebuilding:yellow_enderite_shulker_box"
-      ],
-      "usedIn": [
-        "simplebuilding:black_enderite_shulker_box",
-        "simplebuilding:blue_enderite_shulker_box",
-        "simplebuilding:brown_enderite_shulker_box",
-        "simplebuilding:cyan_enderite_shulker_box",
-        "simplebuilding:gray_enderite_shulker_box",
-        "simplebuilding:green_enderite_shulker_box",
-        "simplebuilding:light_blue_enderite_shulker_box",
-        "simplebuilding:light_gray_enderite_shulker_box",
-        "simplebuilding:lime_enderite_shulker_box",
-        "simplebuilding:magenta_enderite_shulker_box",
-        "simplebuilding:orange_enderite_shulker_box",
-        "simplebuilding:pink_enderite_shulker_box",
-        "simplebuilding:purple_enderite_shulker_box",
-        "simplebuilding:red_enderite_shulker_box",
-        "simplebuilding:white_enderite_shulker_box",
-        "simplebuilding:yellow_enderite_shulker_box"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a box that has learned to keep more than it shows."
-          ],
-          "use": [
-            "54 slots, each with 4x the normal stack size. No recipe: a placed Netherite one becomes this after 10 blows with a Netherite Sledgehammer or better and 2 Enderite Nuggets in the off hand."
-          ],
-          "secret": [
-            "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Kiste, die mehr behält, als sie zeigt."
-          ],
-          "use": [
-            "54 Plätze, jeder mit dem 4-Fachen der normalen Stapelgröße. Kein Rezept: Eine platzierte Netherit-Kiste wird nach 10 Schlägen mit einem Netherit-Vorschlaghammer oder besser und 2 Enderitklumpen in der Nebenhand zu dieser."
-          ],
-          "secret": [
-            "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-          "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-          "tools/textures/tiered_shulker_box_textures.py",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-        ],
-        "en": {
-          "summary": "The Enderite Shulker Box is the top shulker box tier: 54 slots, each with four times the normal stack size (256 cobblestone).",
-          "details": [
-            "No crafting recipe: a placed Netherite Shulker Box becomes an Enderite Shulker Box after 10 blows with a Netherite Sledgehammer (or better) and 2 Enderite Nuggets in the off hand.",
-            "Protected from the void and lies twice as long on the ground as other items, like every enderite item.",
-            "Keeps its contents when broken, like a vanilla shulker box: the item carries everything, including stacks above the normal size (they are stored in the item data as simplebuilding:container_counts next to minecraft:container). Pistons break it and it drops with its contents; dispensers place it.",
-            "Never fits into another shulker box (of any tier), a bundle or a backpack; its own slots refuse shulker boxes, and hoppers cannot put one in.",
-            "Dyeable like a vanilla shulker box: craft it with any dye (16 colors), wash it in a water cauldron to undye it. The color stays through every upgrade.",
-            "Same shape, lid animation and behavior as a vanilla shulker box: it only opens when the lid has room, pushes entities aside while opening and counts as 'Shulker Boxes opened'.",
-            "Hoppers fill oversized slots up to the tier's limit; comparators count against it.",
-            "Fire resistant item, rarity epic, hardness 5 and blast resistance 1500."
-          ]
-        },
-        "de": {
-          "summary": "Die Enderit-Shulkerkiste ist die oberste Shulkerkisten-Stufe: 54 Plätze, jeder mit vierfacher Stapelgröße (256 Bruchstein).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Netherit-Shulkerkiste wird nach 10 Schlägen mit einem Netherit-Vorschlaghammer (oder besser) und 2 Enderitklumpen in der Nebenhand zur Enderit-Shulkerkiste.",
-            "Geschützt vor der Leere und liegt doppelt so lange am Boden wie andere Items, wie jedes Enderit-Item.",
-            "Behält beim Abbauen den Inhalt wie eine Vanilla-Shulkerkiste: das Item trägt alles, auch Stapel über der normalen Größe (sie stehen als simplebuilding:container_counts neben minecraft:container in den Item-Daten). Kolben zerstören sie, sie fällt mit Inhalt heraus; Werfer stellen sie auf.",
-            "Passt nie in eine andere Shulkerkiste (jeder Stufe), ein Bündel oder einen Rucksack; ihre eigenen Plätze nehmen keine Shulkerkisten an, und Trichter können keine hineinlegen.",
-            "Färbbar wie eine Vanilla-Shulkerkiste: mit einem beliebigen Farbstoff verarbeiten (16 Farben), im Wasserkessel wieder entfärben. Die Farbe bleibt bei jeder Aufwertung erhalten.",
-            "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
-            "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
-            "Feuerfestes Item, Seltenheit episch, Härte 5 und Explosionsresistenz 1500."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_shulker_shell",
       "name": {
         "en_us": "Enderite Shulker Shell",
@@ -14231,95 +13900,6 @@ window.WIKI_DATA = {
         "enchantability": 18,
         "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_trapped_chest",
-      "name": {
-        "en_us": "Enderite Trapped Chest",
-        "de_de": "Enderit-Redstone-Truhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:enderite_trapped_chest"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_trapped_chest.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a chest with a held breath."
-          ],
-          "use": [
-            "Trapped version of the chest of its tier: 54 slots, 108 in a double chest, and it signals its viewer count like the vanilla trapped chest. Each slot holds 4x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Truhe, die den Atem anhält."
-          ],
-          "use": [
-            "Redstone-Variante der Truhe ihrer Stufe: 54 Plätze, 108 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe. Jeder Platz fasst das 4-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "Enderite Trapped Chest (26.3): 54 slots, 108 in a double chest; stack limit x4 (unstackable items remain at 1).",
-          "details": [
-            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
-            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
-            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
-            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
-            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
-          ]
-        },
-        "de": {
-          "summary": "Enderit-Redstone-Truhe (26.3): 54 Plätze, 108 als Doppeltruhe; Stapelgrenze x4 (nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
-            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
-            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
-            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
-            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:exposed_trapped_copper_chest",
-      "name": {
-        "en_us": "Exposed Trapped Copper Chest",
-        "de_de": "Angelaufene Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:exposed_trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/exposed_trapped_copper_chest.png",
       "hasCustomBehaviour": false
     },
     {
@@ -21104,107 +20684,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:netherite_chest",
-      "name": {
-        "en_us": "Netherite Chest",
-        "de_de": "Netherittruhe"
-      },
-      "texture": "assets/textures/item/netherite_chest.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:netherite_chest_boat_acacia",
-        "simplebuilding:netherite_chest_boat_ashwood",
-        "simplebuilding:netherite_chest_boat_bamboo",
-        "simplebuilding:netherite_chest_boat_birch",
-        "simplebuilding:netherite_chest_boat_cherry",
-        "simplebuilding:netherite_chest_boat_dark_oak",
-        "simplebuilding:netherite_chest_boat_duskwood",
-        "simplebuilding:netherite_chest_boat_jungle",
-        "simplebuilding:netherite_chest_boat_mangrove",
-        "simplebuilding:netherite_chest_boat_oak",
-        "simplebuilding:netherite_chest_boat_pale_oak",
-        "simplebuilding:netherite_chest_boat_poplar",
-        "simplebuilding:netherite_chest_boat_spruce",
-        "simplebuilding:netherite_chest_minecart",
-        "simplebuilding:netherite_trapped_chest"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_chest.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Netherite makes the chest hold twice as much per slot."
-          ],
-          "use": [
-            "45 slots, 90 as a double chest. Each slot holds 2x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Hold right-click for 5 seconds on a placed Reinforced Chest, with a Netherite Nugget in the off hand and a Diamond Sledgehammer or better. The chest keeps its items, name and lock. Double chests only form from equal tiers."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Netherit lässt die Truhe pro Platz doppelt so viel halten."
-          ],
-          "use": [
-            "45 Plätze, 90 als Doppeltruhe. Jeder Platz fasst das 2-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Halte 5 Sekunden Rechtsklick auf einer platzierten Verstärkten Truhe, mit einem Netheritklumpen in der Nebenhand und einem Diamant-Vorschlaghammer oder besser. Die Truhe behält Inhalt, Namen und Schloss. Doppeltruhen entstehen nur aus gleichen Stufen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "The Netherite Chest holds 45 slots (double chest 90), each with twice the normal stack size (128 cobblestone, 32 ender pearls; unstackable items stay at 1).",
-          "details": [
-            "No crafting recipe: a placed Reinforced Chest becomes a Netherite Chest after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
-            "Hammered on into the Enderite Chest with a Netherite Sledgehammer (or better) and an Enderite Nugget.",
-            "Oversized stacks never leave the chest whole: taking, shift-clicking and number keys move at most one normal stack at a time, like the backpack with Deep Pockets.",
-            "Fire resistant item, rarity uncommon, hardness 5 and blast resistance 1200.",
-            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
-            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
-            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
-            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
-            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
-          ]
-        },
-        "de": {
-          "summary": "Die Netherittruhe fasst 45 Plätze (Doppeltruhe 90), jeder mit doppelter Stapelgröße (128 Bruchstein, 32 Enderperlen; nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Verstärkte Truhe wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zur Netherittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
-            "Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen weiter zur Enderittruhe.",
-            "Übergroße Stapel verlassen die Truhe nie im Ganzen: Nehmen, Shift-Klick und Zifferntasten bewegen höchstens einen normalen Stapel auf einmal, wie beim Rucksack mit Tiefe Taschen.",
-            "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 5 und Explosionsresistenz 1200.",
-            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
-            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
-            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
-            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
-            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_chest_boat",
       "name": {
         "en_us": "Netherite Chest Boat",
@@ -22250,130 +21729,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:netherite_shulker_box",
-      "name": {
-        "en_us": "Netherite Shulker Box",
-        "de_de": "Netherit-Shulkerkiste"
-      },
-      "texture": "assets/textures/block/netherite_shulker_box.png",
-      "craftedBy": [
-        "simplebuilding:black_netherite_shulker_box",
-        "simplebuilding:blue_netherite_shulker_box",
-        "simplebuilding:brown_netherite_shulker_box",
-        "simplebuilding:cyan_netherite_shulker_box",
-        "simplebuilding:gray_netherite_shulker_box",
-        "simplebuilding:green_netherite_shulker_box",
-        "simplebuilding:light_blue_netherite_shulker_box",
-        "simplebuilding:light_gray_netherite_shulker_box",
-        "simplebuilding:lime_netherite_shulker_box",
-        "simplebuilding:magenta_netherite_shulker_box",
-        "simplebuilding:netherite_shulker_box_from_shells",
-        "simplebuilding:orange_netherite_shulker_box",
-        "simplebuilding:pink_netherite_shulker_box",
-        "simplebuilding:purple_netherite_shulker_box",
-        "simplebuilding:red_netherite_shulker_box",
-        "simplebuilding:white_netherite_shulker_box",
-        "simplebuilding:yellow_netherite_shulker_box"
-      ],
-      "usedIn": [
-        "simplebuilding:black_netherite_shulker_box",
-        "simplebuilding:blue_netherite_shulker_box",
-        "simplebuilding:brown_netherite_shulker_box",
-        "simplebuilding:cyan_netherite_shulker_box",
-        "simplebuilding:gray_netherite_shulker_box",
-        "simplebuilding:green_netherite_shulker_box",
-        "simplebuilding:light_blue_netherite_shulker_box",
-        "simplebuilding:light_gray_netherite_shulker_box",
-        "simplebuilding:lime_netherite_shulker_box",
-        "simplebuilding:magenta_netherite_shulker_box",
-        "simplebuilding:orange_netherite_shulker_box",
-        "simplebuilding:pink_netherite_shulker_box",
-        "simplebuilding:purple_netherite_shulker_box",
-        "simplebuilding:red_netherite_shulker_box",
-        "simplebuilding:white_netherite_shulker_box",
-        "simplebuilding:yellow_netherite_shulker_box"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a box that has learned to keep more than it shows."
-          ],
-          "use": [
-            "45 slots, each with 2x the normal stack size. No recipe: a placed Reinforced one becomes this after 10 blows with a Diamond Sledgehammer or better and 2 Netherite Nuggets in the off hand."
-          ],
-          "secret": [
-            "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Kiste, die mehr behält, als sie zeigt."
-          ],
-          "use": [
-            "45 Plätze, jeder mit dem 2-Fachen der normalen Stapelgröße. Kein Rezept: Eine platzierte Verstärkte wird nach 10 Schlägen mit einem Diamant-Vorschlaghammer oder besser und 2 Netheritklumpen in der Nebenhand zu dieser."
-          ],
-          "secret": [
-            "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-          "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-          "tools/textures/tiered_shulker_box_textures.py",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-        ],
-        "en": {
-          "summary": "The Netherite Shulker Box holds 45 slots, each with twice the normal stack size (128 cobblestone, 32 ender pearls; unstackable items stay at 1).",
-          "details": [
-            "No crafting recipe: a placed Reinforced Shulker Box becomes a Netherite Shulker Box after 10 blows with a Diamond Sledgehammer (or better) and 2 Netherite Nuggets in the off hand.",
-            "Hammered on into the Enderite Shulker Box with a Netherite Sledgehammer (or better) and 2 Enderite Nuggets.",
-            "Oversized stacks never leave the box whole: taking, shift-clicking and number keys move at most one normal stack at a time.",
-            "Keeps its contents when broken, like a vanilla shulker box: the item carries everything, including stacks above the normal size (they are stored in the item data as simplebuilding:container_counts next to minecraft:container). Pistons break it and it drops with its contents; dispensers place it.",
-            "Never fits into another shulker box (of any tier), a bundle or a backpack; its own slots refuse shulker boxes, and hoppers cannot put one in.",
-            "Dyeable like a vanilla shulker box: craft it with any dye (16 colors), wash it in a water cauldron to undye it. The color stays through every upgrade.",
-            "Same shape, lid animation and behavior as a vanilla shulker box: it only opens when the lid has room, pushes entities aside while opening and counts as 'Shulker Boxes opened'.",
-            "Hoppers fill oversized slots up to the tier's limit; comparators count against it.",
-            "Fire resistant item, rarity uncommon, hardness 4 and blast resistance 1200."
-          ]
-        },
-        "de": {
-          "summary": "Die Netherit-Shulkerkiste fasst 45 Plätze, jeder mit doppelter Stapelgröße (128 Bruchstein, 32 Enderperlen; nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Verstärkte Shulkerkiste wird nach 10 Schlägen mit einem Diamant-Vorschlaghammer (oder besser) und 2 Netheritklumpen in der Nebenhand zur Netherit-Shulkerkiste.",
-            "Mit einem Netherit-Vorschlaghammer (oder besser) und 2 Enderitklumpen weiter zur Enderit-Shulkerkiste.",
-            "Übergroße Stapel verlassen die Kiste nie im Ganzen: Nehmen, Shift-Klick und Zifferntasten bewegen höchstens einen normalen Stapel auf einmal.",
-            "Behält beim Abbauen den Inhalt wie eine Vanilla-Shulkerkiste: das Item trägt alles, auch Stapel über der normalen Größe (sie stehen als simplebuilding:container_counts neben minecraft:container in den Item-Daten). Kolben zerstören sie, sie fällt mit Inhalt heraus; Werfer stellen sie auf.",
-            "Passt nie in eine andere Shulkerkiste (jeder Stufe), ein Bündel oder einen Rucksack; ihre eigenen Plätze nehmen keine Shulkerkisten an, und Trichter können keine hineinlegen.",
-            "Färbbar wie eine Vanilla-Shulkerkiste: mit einem beliebigen Farbstoff verarbeiten (16 Farben), im Wasserkessel wieder entfärben. Die Farbe bleibt bei jeder Aufwertung erhalten.",
-            "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
-            "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
-            "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 4 und Explosionsresistenz 1200."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_shulker_shell",
       "name": {
         "en_us": "Netherite Shulker Shell",
@@ -22434,78 +21789,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:netherite_trapped_chest",
-      "name": {
-        "en_us": "Netherite Trapped Chest",
-        "de_de": "Netherit-Redstone-Truhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:netherite_trapped_chest"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_trapped_chest.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a chest with a held breath."
-          ],
-          "use": [
-            "Trapped version of the chest of its tier: 45 slots, 90 in a double chest, and it signals its viewer count like the vanilla trapped chest. Each slot holds 2x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Truhe, die den Atem anhält."
-          ],
-          "use": [
-            "Redstone-Variante der Truhe ihrer Stufe: 45 Plätze, 90 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe. Jeder Platz fasst das 2-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "Netherite Trapped Chest (26.3): 45 slots, 90 in a double chest; stack limit x2 (unstackable items remain at 1).",
-          "details": [
-            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
-            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
-            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
-            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
-            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
-          ]
-        },
-        "de": {
-          "summary": "Netherit-Redstone-Truhe (26.3): 45 Plätze, 90 als Doppeltruhe; Stapelgrenze x2 (nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
-            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
-            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
-            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
-            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -24780,23 +24063,6 @@ window.WIKI_DATA = {
           "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:oxidized_trapped_copper_chest",
-      "name": {
-        "en_us": "Oxidized Trapped Copper Chest",
-        "de_de": "Oxidierte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:oxidized_trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/oxidized_trapped_copper_chest.png",
       "hasCustomBehaviour": false
     },
     {
@@ -30940,107 +30206,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:reinforced_chest",
-      "name": {
-        "en_us": "Reinforced Chest",
-        "de_de": "Verstärkte Truhe"
-      },
-      "texture": "assets/textures/item/reinforced_chest.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:reinforced_chest_boat_acacia",
-        "simplebuilding:reinforced_chest_boat_ashwood",
-        "simplebuilding:reinforced_chest_boat_bamboo",
-        "simplebuilding:reinforced_chest_boat_birch",
-        "simplebuilding:reinforced_chest_boat_cherry",
-        "simplebuilding:reinforced_chest_boat_dark_oak",
-        "simplebuilding:reinforced_chest_boat_duskwood",
-        "simplebuilding:reinforced_chest_boat_jungle",
-        "simplebuilding:reinforced_chest_boat_mangrove",
-        "simplebuilding:reinforced_chest_boat_oak",
-        "simplebuilding:reinforced_chest_boat_pale_oak",
-        "simplebuilding:reinforced_chest_boat_poplar",
-        "simplebuilding:reinforced_chest_boat_spruce",
-        "simplebuilding:reinforced_chest_minecart",
-        "simplebuilding:reinforced_trapped_chest"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_chest.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step above the copper chest."
-          ],
-          "use": [
-            "36 slots, 72 as a double chest."
-          ],
-          "secret": [
-            "Craft: 3 copper chests of any oxidation, waxed or not, plus 6 Cracked Diamonds make 3. Or hold right-click for 5 seconds on a placed copper chest with any sledgehammer and a Cracked Diamond in the off hand; the contents stay."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt über der Kupfertruhe."
-          ],
-          "use": [
-            "36 Plätze, 72 als Doppeltruhe."
-          ],
-          "secret": [
-            "Herstellung: 3 Kupfertruhen beliebiger Oxidation, gewachst oder nicht, plus 6 Rissige Diamanten ergeben 3. Oder halte 5 Sekunden Rechtsklick auf einer platzierten Kupfertruhe mit einem Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand; der Inhalt bleibt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "The Reinforced Chest is the first chest tier above the vanilla copper chest: 36 slots (double chest 72).",
-          "details": [
-            "Crafted from 3 copper chests (any oxidation stage, waxed or not - item tag simplebuilding:copper_chests) and 6 Cracked Diamonds: DDD / CCC / DDD gives 3.",
-            "With contents: hold right-click for 5 seconds on any placed copper chest with any sledgehammer and a Cracked Diamond in the off hand (2 durability per blow); the chest keeps its items, name and lock. A double copper chest is upgraded as a whole and takes 2 Cracked Diamonds.",
-            "Hammered on into the Netherite Chest with a Diamond Sledgehammer (or better) and a Netherite Nugget, like the reinforced machines.",
-            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
-            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
-            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
-            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
-            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
-          ]
-        },
-        "de": {
-          "summary": "Die Verstärkte Truhe ist die erste Truhenstufe über der Vanilla-Kupfertruhe: 36 Plätze (Doppeltruhe 72).",
-          "details": [
-            "Hergestellt aus 3 Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht - Item-Tag simplebuilding:copper_chests) und 6 Rissigen Diamanten: DDD / CCC / DDD ergibt 3.",
-            "Mit Inhalt: 5 Sekunden Rechtsklick auf eine gesetzte Kupfertruhe halten, mit einem beliebigen Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand (2 Haltbarkeit je Schlag); die Truhe behält Inhalt, Namen und Schloss. Eine Doppel-Kupfertruhe wird als Ganzes aufgewertet und braucht 2 Rissige Diamanten.",
-            "Mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen weiter zur Netherittruhe, wie die verstärkten Maschinen.",
-            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
-            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
-            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
-            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
-            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_chest_boat",
       "name": {
         "en_us": "Reinforced Chest Boat",
@@ -31714,147 +30879,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:reinforced_shulker_box",
-      "name": {
-        "en_us": "Reinforced Shulker Box",
-        "de_de": "Verstärkte Shulkerkiste"
-      },
-      "texture": "assets/textures/block/reinforced_shulker_box.png",
-      "craftedBy": [
-        "simplebuilding:black_reinforced_shulker_box",
-        "simplebuilding:blue_reinforced_shulker_box",
-        "simplebuilding:brown_reinforced_shulker_box",
-        "simplebuilding:cyan_reinforced_shulker_box",
-        "simplebuilding:gray_reinforced_shulker_box",
-        "simplebuilding:green_reinforced_shulker_box",
-        "simplebuilding:light_blue_reinforced_shulker_box",
-        "simplebuilding:light_gray_reinforced_shulker_box",
-        "simplebuilding:lime_reinforced_shulker_box",
-        "simplebuilding:magenta_reinforced_shulker_box",
-        "simplebuilding:orange_reinforced_shulker_box",
-        "simplebuilding:pink_reinforced_shulker_box",
-        "simplebuilding:purple_reinforced_shulker_box",
-        "simplebuilding:red_reinforced_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_black_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_blue_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_brown_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_cyan_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_gray_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_green_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_light_blue_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_light_gray_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_lime_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_magenta_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_orange_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_shells",
-        "simplebuilding:reinforced_shulker_box_from_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
-        "simplebuilding:white_reinforced_shulker_box",
-        "simplebuilding:yellow_reinforced_shulker_box"
-      ],
-      "usedIn": [
-        "simplebuilding:black_reinforced_shulker_box",
-        "simplebuilding:blue_reinforced_shulker_box",
-        "simplebuilding:brown_reinforced_shulker_box",
-        "simplebuilding:cyan_reinforced_shulker_box",
-        "simplebuilding:gray_reinforced_shulker_box",
-        "simplebuilding:green_reinforced_shulker_box",
-        "simplebuilding:light_blue_reinforced_shulker_box",
-        "simplebuilding:light_gray_reinforced_shulker_box",
-        "simplebuilding:lime_reinforced_shulker_box",
-        "simplebuilding:magenta_reinforced_shulker_box",
-        "simplebuilding:orange_reinforced_shulker_box",
-        "simplebuilding:pink_reinforced_shulker_box",
-        "simplebuilding:purple_reinforced_shulker_box",
-        "simplebuilding:red_reinforced_shulker_box",
-        "simplebuilding:white_reinforced_shulker_box",
-        "simplebuilding:yellow_reinforced_shulker_box"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a box that has learned to keep more than it shows."
-          ],
-          "use": [
-            "36 slots. Craft any vanilla shulker box with 4 Cracked Diamonds, shapeless, or hold right-click on a placed one for 10 blows with any sledgehammer and 2 Cracked Diamonds in the off hand."
-          ],
-          "secret": [
-            "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Kiste, die mehr behält, als sie zeigt."
-          ],
-          "use": [
-            "36 Plätze. Eine Vanilla-Shulkerkiste mit 4 Rissigen Diamanten formlos herstellen, oder 10 Schläge Rechtsklick auf eine platzierte mit einem Vorschlaghammer und 2 Rissigen Diamanten in der Nebenhand."
-          ],
-          "secret": [
-            "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-          "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-          "tools/textures/tiered_shulker_box_textures.py",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-        ],
-        "en": {
-          "summary": "The Reinforced Shulker Box is the first shulker box tier: 36 slots.",
-          "details": [
-            "Upgrade in the world: hold right-click on a placed vanilla shulker box (any of the 17 colors) for 10 seconds (10 blows) with any sledgehammer and 2 Cracked Diamonds in the off hand. Contents, name, lock, facing and color stay.",
-            "Or craft it: any vanilla shulker box + 4 Cracked Diamonds (shapeless) - contents, name and color come along.",
-            "Hammered on into the Netherite Shulker Box with a Diamond Sledgehammer (or better) and 2 Netherite Nuggets.",
-            "Keeps its contents when broken, like a vanilla shulker box: the item carries everything, including stacks above the normal size (they are stored in the item data as simplebuilding:container_counts next to minecraft:container). Pistons break it and it drops with its contents; dispensers place it.",
-            "Never fits into another shulker box (of any tier), a bundle or a backpack; its own slots refuse shulker boxes, and hoppers cannot put one in.",
-            "Dyeable like a vanilla shulker box: craft it with any dye (16 colors), wash it in a water cauldron to undye it. The color stays through every upgrade.",
-            "Same shape, lid animation and behavior as a vanilla shulker box: it only opens when the lid has room, pushes entities aside while opening and counts as 'Shulker Boxes opened'.",
-            "Hoppers fill oversized slots up to the tier's limit; comparators count against it.",
-            "Rarity common, hardness 3 and blast resistance 6."
-          ]
-        },
-        "de": {
-          "summary": "Die Verstärkte Shulkerkiste ist die erste Shulkerkisten-Stufe: 36 Plätze.",
-          "details": [
-            "Aufwerten in der Welt: 10 Sekunden (10 Schläge) Rechtsklick auf eine gesetzte Vanilla-Shulkerkiste (jede der 17 Farben) halten, mit einem beliebigen Vorschlaghammer und 2 Rissigen Diamanten in der Nebenhand. Inhalt, Name, Schloss, Blickrichtung und Farbe bleiben.",
-            "Oder herstellen: eine beliebige Vanilla-Shulkerkiste + 4 Rissige Diamanten (formlos) - Inhalt, Name und Farbe kommen mit.",
-            "Mit einem Diamant-Vorschlaghammer (oder besser) und 2 Netheritklumpen weiter zur Netherit-Shulkerkiste.",
-            "Behält beim Abbauen den Inhalt wie eine Vanilla-Shulkerkiste: das Item trägt alles, auch Stapel über der normalen Größe (sie stehen als simplebuilding:container_counts neben minecraft:container in den Item-Daten). Kolben zerstören sie, sie fällt mit Inhalt heraus; Werfer stellen sie auf.",
-            "Passt nie in eine andere Shulkerkiste (jeder Stufe), ein Bündel oder einen Rucksack; ihre eigenen Plätze nehmen keine Shulkerkisten an, und Trichter können keine hineinlegen.",
-            "Färbbar wie eine Vanilla-Shulkerkiste: mit einem beliebigen Farbstoff verarbeiten (16 Farben), im Wasserkessel wieder entfärben. Die Farbe bleibt bei jeder Aufwertung erhalten.",
-            "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
-            "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
-            "Seltenheit gewöhnlich, Härte 3 und Explosionsresistenz 6."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_shulker_shell",
       "name": {
         "en_us": "Reinforced Shulker Shell",
@@ -32023,78 +31047,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:reinforced_trapped_chest",
-      "name": {
-        "en_us": "Reinforced Trapped Chest",
-        "de_de": "Verstärkte Redstone-Truhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:reinforced_trapped_chest"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_trapped_chest.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a chest with a held breath."
-          ],
-          "use": [
-            "Trapped version of the chest of its tier: 36 slots, 72 in a double chest, and it signals its viewer count like the vanilla trapped chest."
-          ],
-          "secret": [
-            "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Truhe, die den Atem anhält."
-          ],
-          "use": [
-            "Redstone-Variante der Truhe ihrer Stufe: 36 Plätze, 72 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe."
-          ],
-          "secret": [
-            "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "Reinforced Trapped Chest (26.3): 36 slots, 72 in a double chest; stack limit x1 (unstackable items remain at 1).",
-          "details": [
-            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
-            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
-            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
-            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
-            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
-          ]
-        },
-        "de": {
-          "summary": "Verstärkte Redstone-Truhe (26.3): 36 Plätze, 72 als Doppeltruhe; Stapelgrenze x1 (nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
-            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
-            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
-            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
-            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:resin_chess_bishop",
@@ -34939,23 +33891,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:trapped_copper_chest",
-      "name": {
-        "en_us": "Trapped Copper Chest",
-        "de_de": "Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/trapped_copper_chest.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -35272,87 +34207,6 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Exposed Trapped Copper Chest",
-        "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_exposed_trapped_copper_chest",
-        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_exposed_trapped_copper_chest.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Oxidized Trapped Copper Chest",
-        "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_oxidized_trapped_copper_chest",
-        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_oxidized_trapped_copper_chest.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:waxed_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Trapped Copper Chest",
-        "de_de": "Gewachste Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_trapped_copper_chest",
-        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_trapped_copper_chest.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Weathered Trapped Copper Chest",
-        "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_weathered_trapped_copper_chest",
-        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_weathered_trapped_copper_chest.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:weathered_trapped_copper_chest",
-      "name": {
-        "en_us": "Weathered Trapped Copper Chest",
-        "de_de": "Verwitterte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:weathered_trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/weathered_trapped_copper_chest.png",
       "hasCustomBehaviour": false
     },
     {
@@ -40613,109 +39467,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:enderite_chest",
-      "name": {
-        "en_us": "Enderite Chest",
-        "de_de": "Enderittruhe"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:enderite_chest_boat_acacia",
-        "simplebuilding:enderite_chest_boat_ashwood",
-        "simplebuilding:enderite_chest_boat_bamboo",
-        "simplebuilding:enderite_chest_boat_birch",
-        "simplebuilding:enderite_chest_boat_cherry",
-        "simplebuilding:enderite_chest_boat_dark_oak",
-        "simplebuilding:enderite_chest_boat_duskwood",
-        "simplebuilding:enderite_chest_boat_jungle",
-        "simplebuilding:enderite_chest_boat_mangrove",
-        "simplebuilding:enderite_chest_boat_oak",
-        "simplebuilding:enderite_chest_boat_pale_oak",
-        "simplebuilding:enderite_chest_boat_poplar",
-        "simplebuilding:enderite_chest_boat_spruce",
-        "simplebuilding:enderite_chest_minecart",
-        "simplebuilding:enderite_trapped_chest"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_chest.png",
-      "lootTable": "simplebuilding:blocks/enderite_chest",
-      "drops": [
-        "simplebuilding:enderite_chest"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The End makes a chest as big as a double chest, with fourfold stacks."
-          ],
-          "use": [
-            "54 slots, 108 as a double chest. Each slot holds 4x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Hold right-click for 5 seconds on a placed Netherite Chest, with an Enderite Nugget in the off hand and a Netherite Sledgehammer. The chest keeps everything inside. Void-proof and fire resistant as an item."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das Ende macht eine Truhe so groß wie eine Doppeltruhe, mit vierfachen Stapeln."
-          ],
-          "use": [
-            "54 Plätze, 108 als Doppeltruhe. Jeder Platz fasst das 4-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Halte 5 Sekunden Rechtsklick auf einer platzierten Netherittruhe, mit einem Enderitklumpen in der Nebenhand und einem Netherit-Vorschlaghammer. Die Truhe behält alles darin. Als Gegenstand leerensicher und feuerfest."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "The Enderite Chest is the top chest tier: 54 slots (double chest 108), each with four times the normal stack size (256 cobblestone).",
-          "details": [
-            "No crafting recipe: a placed Netherite Chest becomes an Enderite Chest after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
-            "Stacks above 99 are saved in an extra list next to vanilla's item list (which holds a capped copy of 99), so nothing is lost on saving or loading.",
-            "Fire resistant item, rarity epic, hardness 6 and blast resistance 1500.",
-            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
-            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
-            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
-            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
-            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
-          ]
-        },
-        "de": {
-          "summary": "Die Enderittruhe ist die höchste Truhenstufe: 54 Plätze (Doppeltruhe 108), jeder mit vierfacher Stapelgröße (256 Bruchstein).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Netherittruhe wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen in der Nebenhand zur Enderittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
-            "Stapel über 99 werden in einer eigenen Liste neben Vanillas Item-Liste gespeichert (die eine gekappte Kopie mit 99 hält), beim Speichern und Laden geht also nichts verloren.",
-            "Feuerfestes Item, Seltenheit episch, Härte 6 und Explosionsresistenz 1500.",
-            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
-            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
-            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
-            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
-            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_chunk_loader",
       "name": {
         "en_us": "Enderite Chunk Loader III",
@@ -41440,132 +40191,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_shulker_box",
-      "name": {
-        "en_us": "Enderite Shulker Box",
-        "de_de": "Enderit-Shulkerkiste"
-      },
-      "texture": "assets/textures/block/enderite_shulker_box.png",
-      "craftedBy": [
-        "simplebuilding:black_enderite_shulker_box",
-        "simplebuilding:blue_enderite_shulker_box",
-        "simplebuilding:brown_enderite_shulker_box",
-        "simplebuilding:cyan_enderite_shulker_box",
-        "simplebuilding:enderite_shulker_box_from_shells",
-        "simplebuilding:gray_enderite_shulker_box",
-        "simplebuilding:green_enderite_shulker_box",
-        "simplebuilding:light_blue_enderite_shulker_box",
-        "simplebuilding:light_gray_enderite_shulker_box",
-        "simplebuilding:lime_enderite_shulker_box",
-        "simplebuilding:magenta_enderite_shulker_box",
-        "simplebuilding:orange_enderite_shulker_box",
-        "simplebuilding:pink_enderite_shulker_box",
-        "simplebuilding:purple_enderite_shulker_box",
-        "simplebuilding:red_enderite_shulker_box",
-        "simplebuilding:white_enderite_shulker_box",
-        "simplebuilding:yellow_enderite_shulker_box"
-      ],
-      "usedIn": [
-        "simplebuilding:black_enderite_shulker_box",
-        "simplebuilding:blue_enderite_shulker_box",
-        "simplebuilding:brown_enderite_shulker_box",
-        "simplebuilding:cyan_enderite_shulker_box",
-        "simplebuilding:gray_enderite_shulker_box",
-        "simplebuilding:green_enderite_shulker_box",
-        "simplebuilding:light_blue_enderite_shulker_box",
-        "simplebuilding:light_gray_enderite_shulker_box",
-        "simplebuilding:lime_enderite_shulker_box",
-        "simplebuilding:magenta_enderite_shulker_box",
-        "simplebuilding:orange_enderite_shulker_box",
-        "simplebuilding:pink_enderite_shulker_box",
-        "simplebuilding:purple_enderite_shulker_box",
-        "simplebuilding:red_enderite_shulker_box",
-        "simplebuilding:white_enderite_shulker_box",
-        "simplebuilding:yellow_enderite_shulker_box"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "lootTable": "simplebuilding:blocks/enderite_shulker_box",
-      "drops": [
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a box that has learned to keep more than it shows."
-          ],
-          "use": [
-            "54 slots, each with 4x the normal stack size. No recipe: a placed Netherite one becomes this after 10 blows with a Netherite Sledgehammer or better and 2 Enderite Nuggets in the off hand."
-          ],
-          "secret": [
-            "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Kiste, die mehr behält, als sie zeigt."
-          ],
-          "use": [
-            "54 Plätze, jeder mit dem 4-Fachen der normalen Stapelgröße. Kein Rezept: Eine platzierte Netherit-Kiste wird nach 10 Schlägen mit einem Netherit-Vorschlaghammer oder besser und 2 Enderitklumpen in der Nebenhand zu dieser."
-          ],
-          "secret": [
-            "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-          "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-          "tools/textures/tiered_shulker_box_textures.py",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-        ],
-        "en": {
-          "summary": "The Enderite Shulker Box is the top shulker box tier: 54 slots, each with four times the normal stack size (256 cobblestone).",
-          "details": [
-            "No crafting recipe: a placed Netherite Shulker Box becomes an Enderite Shulker Box after 10 blows with a Netherite Sledgehammer (or better) and 2 Enderite Nuggets in the off hand.",
-            "Protected from the void and lies twice as long on the ground as other items, like every enderite item.",
-            "Keeps its contents when broken, like a vanilla shulker box: the item carries everything, including stacks above the normal size (they are stored in the item data as simplebuilding:container_counts next to minecraft:container). Pistons break it and it drops with its contents; dispensers place it.",
-            "Never fits into another shulker box (of any tier), a bundle or a backpack; its own slots refuse shulker boxes, and hoppers cannot put one in.",
-            "Dyeable like a vanilla shulker box: craft it with any dye (16 colors), wash it in a water cauldron to undye it. The color stays through every upgrade.",
-            "Same shape, lid animation and behavior as a vanilla shulker box: it only opens when the lid has room, pushes entities aside while opening and counts as 'Shulker Boxes opened'.",
-            "Hoppers fill oversized slots up to the tier's limit; comparators count against it.",
-            "Fire resistant item, rarity epic, hardness 5 and blast resistance 1500."
-          ]
-        },
-        "de": {
-          "summary": "Die Enderit-Shulkerkiste ist die oberste Shulkerkisten-Stufe: 54 Plätze, jeder mit vierfacher Stapelgröße (256 Bruchstein).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Netherit-Shulkerkiste wird nach 10 Schlägen mit einem Netherit-Vorschlaghammer (oder besser) und 2 Enderitklumpen in der Nebenhand zur Enderit-Shulkerkiste.",
-            "Geschützt vor der Leere und liegt doppelt so lange am Boden wie andere Items, wie jedes Enderit-Item.",
-            "Behält beim Abbauen den Inhalt wie eine Vanilla-Shulkerkiste: das Item trägt alles, auch Stapel über der normalen Größe (sie stehen als simplebuilding:container_counts neben minecraft:container in den Item-Daten). Kolben zerstören sie, sie fällt mit Inhalt heraus; Werfer stellen sie auf.",
-            "Passt nie in eine andere Shulkerkiste (jeder Stufe), ein Bündel oder einen Rucksack; ihre eigenen Plätze nehmen keine Shulkerkisten an, und Trichter können keine hineinlegen.",
-            "Färbbar wie eine Vanilla-Shulkerkiste: mit einem beliebigen Farbstoff verarbeiten (16 Farben), im Wasserkessel wieder entfärben. Die Farbe bleibt bei jeder Aufwertung erhalten.",
-            "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
-            "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
-            "Feuerfestes Item, Seltenheit episch, Härte 5 und Explosionsresistenz 1500."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "name": {
         "en_us": "Spawn Teleporter III",
@@ -41651,82 +40276,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_trapped_chest",
-      "name": {
-        "en_us": "Enderite Trapped Chest",
-        "de_de": "Enderit-Redstone-Truhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:enderite_trapped_chest"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_trapped_chest.png",
-      "lootTable": "simplebuilding:blocks/enderite_trapped_chest",
-      "drops": [
-        "simplebuilding:enderite_trapped_chest"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a chest with a held breath."
-          ],
-          "use": [
-            "Trapped version of the chest of its tier: 54 slots, 108 in a double chest, and it signals its viewer count like the vanilla trapped chest. Each slot holds 4x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Truhe, die den Atem anhält."
-          ],
-          "use": [
-            "Redstone-Variante der Truhe ihrer Stufe: 54 Plätze, 108 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe. Jeder Platz fasst das 4-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "Enderite Trapped Chest (26.3): 54 slots, 108 in a double chest; stack limit x4 (unstackable items remain at 1).",
-          "details": [
-            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
-            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
-            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
-            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
-            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
-          ]
-        },
-        "de": {
-          "summary": "Enderit-Redstone-Truhe (26.3): 54 Plätze, 108 als Doppeltruhe; Stapelgrenze x4 (nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
-            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
-            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
-            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
-            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:exposed_copper_pressure_plate",
       "name": {
         "en_us": "Exposed Copper Pressure Plate",
@@ -41775,27 +40324,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:exposed_trapped_copper_chest",
-      "name": {
-        "en_us": "Exposed Trapped Copper Chest",
-        "de_de": "Angelaufene Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:exposed_trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/exposed_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/exposed_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:exposed_trapped_copper_chest"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -45598,111 +44126,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:netherite_chest",
-      "name": {
-        "en_us": "Netherite Chest",
-        "de_de": "Netherittruhe"
-      },
-      "texture": "assets/textures/block/netherite_chest.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:netherite_chest_boat_acacia",
-        "simplebuilding:netherite_chest_boat_ashwood",
-        "simplebuilding:netherite_chest_boat_bamboo",
-        "simplebuilding:netherite_chest_boat_birch",
-        "simplebuilding:netherite_chest_boat_cherry",
-        "simplebuilding:netherite_chest_boat_dark_oak",
-        "simplebuilding:netherite_chest_boat_duskwood",
-        "simplebuilding:netherite_chest_boat_jungle",
-        "simplebuilding:netherite_chest_boat_mangrove",
-        "simplebuilding:netherite_chest_boat_oak",
-        "simplebuilding:netherite_chest_boat_pale_oak",
-        "simplebuilding:netherite_chest_boat_poplar",
-        "simplebuilding:netherite_chest_boat_spruce",
-        "simplebuilding:netherite_chest_minecart",
-        "simplebuilding:netherite_trapped_chest"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_chest.png",
-      "lootTable": "simplebuilding:blocks/netherite_chest",
-      "drops": [
-        "simplebuilding:netherite_chest"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: Netherite makes the chest hold twice as much per slot."
-          ],
-          "use": [
-            "45 slots, 90 as a double chest. Each slot holds 2x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Hold right-click for 5 seconds on a placed Reinforced Chest, with a Netherite Nugget in the off hand and a Diamond Sledgehammer or better. The chest keeps its items, name and lock. Double chests only form from equal tiers."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Netherit lässt die Truhe pro Platz doppelt so viel halten."
-          ],
-          "use": [
-            "45 Plätze, 90 als Doppeltruhe. Jeder Platz fasst das 2-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Halte 5 Sekunden Rechtsklick auf einer platzierten Verstärkten Truhe, mit einem Netheritklumpen in der Nebenhand und einem Diamant-Vorschlaghammer oder besser. Die Truhe behält Inhalt, Namen und Schloss. Doppeltruhen entstehen nur aus gleichen Stufen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "The Netherite Chest holds 45 slots (double chest 90), each with twice the normal stack size (128 cobblestone, 32 ender pearls; unstackable items stay at 1).",
-          "details": [
-            "No crafting recipe: a placed Reinforced Chest becomes a Netherite Chest after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
-            "Hammered on into the Enderite Chest with a Netherite Sledgehammer (or better) and an Enderite Nugget.",
-            "Oversized stacks never leave the chest whole: taking, shift-clicking and number keys move at most one normal stack at a time, like the backpack with Deep Pockets.",
-            "Fire resistant item, rarity uncommon, hardness 5 and blast resistance 1200.",
-            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
-            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
-            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
-            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
-            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
-          ]
-        },
-        "de": {
-          "summary": "Die Netherittruhe fasst 45 Plätze (Doppeltruhe 90), jeder mit doppelter Stapelgröße (128 Bruchstein, 32 Enderperlen; nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Verstärkte Truhe wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zur Netherittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
-            "Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen weiter zur Enderittruhe.",
-            "Übergroße Stapel verlassen die Truhe nie im Ganzen: Nehmen, Shift-Klick und Zifferntasten bewegen höchstens einen normalen Stapel auf einmal, wie beim Rucksack mit Tiefe Taschen.",
-            "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 5 und Explosionsresistenz 1200.",
-            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
-            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
-            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
-            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
-            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_chunk_loader",
       "name": {
         "en_us": "Netherite Chunk Loader II",
@@ -46490,210 +44913,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:netherite_shulker_box",
-      "name": {
-        "en_us": "Netherite Shulker Box",
-        "de_de": "Netherit-Shulkerkiste"
-      },
-      "texture": "assets/textures/block/netherite_shulker_box.png",
-      "craftedBy": [
-        "simplebuilding:black_netherite_shulker_box",
-        "simplebuilding:blue_netherite_shulker_box",
-        "simplebuilding:brown_netherite_shulker_box",
-        "simplebuilding:cyan_netherite_shulker_box",
-        "simplebuilding:gray_netherite_shulker_box",
-        "simplebuilding:green_netherite_shulker_box",
-        "simplebuilding:light_blue_netherite_shulker_box",
-        "simplebuilding:light_gray_netherite_shulker_box",
-        "simplebuilding:lime_netherite_shulker_box",
-        "simplebuilding:magenta_netherite_shulker_box",
-        "simplebuilding:netherite_shulker_box_from_shells",
-        "simplebuilding:orange_netherite_shulker_box",
-        "simplebuilding:pink_netherite_shulker_box",
-        "simplebuilding:purple_netherite_shulker_box",
-        "simplebuilding:red_netherite_shulker_box",
-        "simplebuilding:white_netherite_shulker_box",
-        "simplebuilding:yellow_netherite_shulker_box"
-      ],
-      "usedIn": [
-        "simplebuilding:black_netherite_shulker_box",
-        "simplebuilding:blue_netherite_shulker_box",
-        "simplebuilding:brown_netherite_shulker_box",
-        "simplebuilding:cyan_netherite_shulker_box",
-        "simplebuilding:gray_netherite_shulker_box",
-        "simplebuilding:green_netherite_shulker_box",
-        "simplebuilding:light_blue_netherite_shulker_box",
-        "simplebuilding:light_gray_netherite_shulker_box",
-        "simplebuilding:lime_netherite_shulker_box",
-        "simplebuilding:magenta_netherite_shulker_box",
-        "simplebuilding:orange_netherite_shulker_box",
-        "simplebuilding:pink_netherite_shulker_box",
-        "simplebuilding:purple_netherite_shulker_box",
-        "simplebuilding:red_netherite_shulker_box",
-        "simplebuilding:white_netherite_shulker_box",
-        "simplebuilding:yellow_netherite_shulker_box"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "lootTable": "simplebuilding:blocks/netherite_shulker_box",
-      "drops": [
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a box that has learned to keep more than it shows."
-          ],
-          "use": [
-            "45 slots, each with 2x the normal stack size. No recipe: a placed Reinforced one becomes this after 10 blows with a Diamond Sledgehammer or better and 2 Netherite Nuggets in the off hand."
-          ],
-          "secret": [
-            "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Kiste, die mehr behält, als sie zeigt."
-          ],
-          "use": [
-            "45 Plätze, jeder mit dem 2-Fachen der normalen Stapelgröße. Kein Rezept: Eine platzierte Verstärkte wird nach 10 Schlägen mit einem Diamant-Vorschlaghammer oder besser und 2 Netheritklumpen in der Nebenhand zu dieser."
-          ],
-          "secret": [
-            "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-          "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-          "tools/textures/tiered_shulker_box_textures.py",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-        ],
-        "en": {
-          "summary": "The Netherite Shulker Box holds 45 slots, each with twice the normal stack size (128 cobblestone, 32 ender pearls; unstackable items stay at 1).",
-          "details": [
-            "No crafting recipe: a placed Reinforced Shulker Box becomes a Netherite Shulker Box after 10 blows with a Diamond Sledgehammer (or better) and 2 Netherite Nuggets in the off hand.",
-            "Hammered on into the Enderite Shulker Box with a Netherite Sledgehammer (or better) and 2 Enderite Nuggets.",
-            "Oversized stacks never leave the box whole: taking, shift-clicking and number keys move at most one normal stack at a time.",
-            "Keeps its contents when broken, like a vanilla shulker box: the item carries everything, including stacks above the normal size (they are stored in the item data as simplebuilding:container_counts next to minecraft:container). Pistons break it and it drops with its contents; dispensers place it.",
-            "Never fits into another shulker box (of any tier), a bundle or a backpack; its own slots refuse shulker boxes, and hoppers cannot put one in.",
-            "Dyeable like a vanilla shulker box: craft it with any dye (16 colors), wash it in a water cauldron to undye it. The color stays through every upgrade.",
-            "Same shape, lid animation and behavior as a vanilla shulker box: it only opens when the lid has room, pushes entities aside while opening and counts as 'Shulker Boxes opened'.",
-            "Hoppers fill oversized slots up to the tier's limit; comparators count against it.",
-            "Fire resistant item, rarity uncommon, hardness 4 and blast resistance 1200."
-          ]
-        },
-        "de": {
-          "summary": "Die Netherit-Shulkerkiste fasst 45 Plätze, jeder mit doppelter Stapelgröße (128 Bruchstein, 32 Enderperlen; nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Kein Werkbankrezept: eine gesetzte Verstärkte Shulkerkiste wird nach 10 Schlägen mit einem Diamant-Vorschlaghammer (oder besser) und 2 Netheritklumpen in der Nebenhand zur Netherit-Shulkerkiste.",
-            "Mit einem Netherit-Vorschlaghammer (oder besser) und 2 Enderitklumpen weiter zur Enderit-Shulkerkiste.",
-            "Übergroße Stapel verlassen die Kiste nie im Ganzen: Nehmen, Shift-Klick und Zifferntasten bewegen höchstens einen normalen Stapel auf einmal.",
-            "Behält beim Abbauen den Inhalt wie eine Vanilla-Shulkerkiste: das Item trägt alles, auch Stapel über der normalen Größe (sie stehen als simplebuilding:container_counts neben minecraft:container in den Item-Daten). Kolben zerstören sie, sie fällt mit Inhalt heraus; Werfer stellen sie auf.",
-            "Passt nie in eine andere Shulkerkiste (jeder Stufe), ein Bündel oder einen Rucksack; ihre eigenen Plätze nehmen keine Shulkerkisten an, und Trichter können keine hineinlegen.",
-            "Färbbar wie eine Vanilla-Shulkerkiste: mit einem beliebigen Farbstoff verarbeiten (16 Farben), im Wasserkessel wieder entfärben. Die Farbe bleibt bei jeder Aufwertung erhalten.",
-            "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
-            "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
-            "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 4 und Explosionsresistenz 1200."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:netherite_trapped_chest",
-      "name": {
-        "en_us": "Netherite Trapped Chest",
-        "de_de": "Netherit-Redstone-Truhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:netherite_trapped_chest"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_trapped_chest.png",
-      "lootTable": "simplebuilding:blocks/netherite_trapped_chest",
-      "drops": [
-        "simplebuilding:netherite_trapped_chest"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a chest with a held breath."
-          ],
-          "use": [
-            "Trapped version of the chest of its tier: 45 slots, 90 in a double chest, and it signals its viewer count like the vanilla trapped chest. Each slot holds 2x the normal stack size (unstackable items stay at 1)."
-          ],
-          "secret": [
-            "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Truhe, die den Atem anhält."
-          ],
-          "use": [
-            "Redstone-Variante der Truhe ihrer Stufe: 45 Plätze, 90 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe. Jeder Platz fasst das 2-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
-          ],
-          "secret": [
-            "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "Netherite Trapped Chest (26.3): 45 slots, 90 in a double chest; stack limit x2 (unstackable items remain at 1).",
-          "details": [
-            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
-            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
-            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
-            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
-            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
-          ]
-        },
-        "de": {
-          "summary": "Netherit-Redstone-Truhe (26.3): 45 Plätze, 90 als Doppeltruhe; Stapelgrenze x2 (nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
-            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
-            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
-            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
-            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -47790,27 +46009,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:oxidized_trapped_copper_chest",
-      "name": {
-        "en_us": "Oxidized Trapped Copper Chest",
-        "de_de": "Oxidierte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:oxidized_trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/oxidized_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/oxidized_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:oxidized_trapped_copper_chest"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -50119,111 +48317,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:reinforced_chest",
-      "name": {
-        "en_us": "Reinforced Chest",
-        "de_de": "Verstärkte Truhe"
-      },
-      "texture": "assets/textures/block/reinforced_chest.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:reinforced_chest_boat_acacia",
-        "simplebuilding:reinforced_chest_boat_ashwood",
-        "simplebuilding:reinforced_chest_boat_bamboo",
-        "simplebuilding:reinforced_chest_boat_birch",
-        "simplebuilding:reinforced_chest_boat_cherry",
-        "simplebuilding:reinforced_chest_boat_dark_oak",
-        "simplebuilding:reinforced_chest_boat_duskwood",
-        "simplebuilding:reinforced_chest_boat_jungle",
-        "simplebuilding:reinforced_chest_boat_mangrove",
-        "simplebuilding:reinforced_chest_boat_oak",
-        "simplebuilding:reinforced_chest_boat_pale_oak",
-        "simplebuilding:reinforced_chest_boat_poplar",
-        "simplebuilding:reinforced_chest_boat_spruce",
-        "simplebuilding:reinforced_chest_minecart",
-        "simplebuilding:reinforced_trapped_chest"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_chest.png",
-      "lootTable": "simplebuilding:blocks/reinforced_chest",
-      "drops": [
-        "simplebuilding:reinforced_chest"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step above the copper chest."
-          ],
-          "use": [
-            "36 slots, 72 as a double chest."
-          ],
-          "secret": [
-            "Craft: 3 copper chests of any oxidation, waxed or not, plus 6 Cracked Diamonds make 3. Or hold right-click for 5 seconds on a placed copper chest with any sledgehammer and a Cracked Diamond in the off hand; the contents stay."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt über der Kupfertruhe."
-          ],
-          "use": [
-            "36 Plätze, 72 als Doppeltruhe."
-          ],
-          "secret": [
-            "Herstellung: 3 Kupfertruhen beliebiger Oxidation, gewachst oder nicht, plus 6 Rissige Diamanten ergeben 3. Oder halte 5 Sekunden Rechtsklick auf einer platzierten Kupfertruhe mit einem Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand; der Inhalt bleibt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "The Reinforced Chest is the first chest tier above the vanilla copper chest: 36 slots (double chest 72).",
-          "details": [
-            "Crafted from 3 copper chests (any oxidation stage, waxed or not - item tag simplebuilding:copper_chests) and 6 Cracked Diamonds: DDD / CCC / DDD gives 3.",
-            "With contents: hold right-click for 5 seconds on any placed copper chest with any sledgehammer and a Cracked Diamond in the off hand (2 durability per blow); the chest keeps its items, name and lock. A double copper chest is upgraded as a whole and takes 2 Cracked Diamonds.",
-            "Hammered on into the Netherite Chest with a Diamond Sledgehammer (or better) and a Netherite Nugget, like the reinforced machines.",
-            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
-            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
-            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
-            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
-            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
-          ]
-        },
-        "de": {
-          "summary": "Die Verstärkte Truhe ist die erste Truhenstufe über der Vanilla-Kupfertruhe: 36 Plätze (Doppeltruhe 72).",
-          "details": [
-            "Hergestellt aus 3 Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht - Item-Tag simplebuilding:copper_chests) und 6 Rissigen Diamanten: DDD / CCC / DDD ergibt 3.",
-            "Mit Inhalt: 5 Sekunden Rechtsklick auf eine gesetzte Kupfertruhe halten, mit einem beliebigen Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand (2 Haltbarkeit je Schlag); die Truhe behält Inhalt, Namen und Schloss. Eine Doppel-Kupfertruhe wird als Ganzes aufgewertet und braucht 2 Rissige Diamanten.",
-            "Mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen weiter zur Netherittruhe, wie die verstärkten Maschinen.",
-            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
-            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
-            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
-            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
-            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_elytra_pad",
       "name": {
         "en_us": "Reinforced Elytra Pad (Legacy)",
@@ -50772,151 +48865,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:reinforced_shulker_box",
-      "name": {
-        "en_us": "Reinforced Shulker Box",
-        "de_de": "Verstärkte Shulkerkiste"
-      },
-      "texture": "assets/textures/block/reinforced_shulker_box.png",
-      "craftedBy": [
-        "simplebuilding:black_reinforced_shulker_box",
-        "simplebuilding:blue_reinforced_shulker_box",
-        "simplebuilding:brown_reinforced_shulker_box",
-        "simplebuilding:cyan_reinforced_shulker_box",
-        "simplebuilding:gray_reinforced_shulker_box",
-        "simplebuilding:green_reinforced_shulker_box",
-        "simplebuilding:light_blue_reinforced_shulker_box",
-        "simplebuilding:light_gray_reinforced_shulker_box",
-        "simplebuilding:lime_reinforced_shulker_box",
-        "simplebuilding:magenta_reinforced_shulker_box",
-        "simplebuilding:orange_reinforced_shulker_box",
-        "simplebuilding:pink_reinforced_shulker_box",
-        "simplebuilding:purple_reinforced_shulker_box",
-        "simplebuilding:red_reinforced_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_black_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_blue_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_brown_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_cyan_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_gray_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_green_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_light_blue_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_light_gray_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_lime_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_magenta_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_orange_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_shells",
-        "simplebuilding:reinforced_shulker_box_from_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
-        "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
-        "simplebuilding:white_reinforced_shulker_box",
-        "simplebuilding:yellow_reinforced_shulker_box"
-      ],
-      "usedIn": [
-        "simplebuilding:black_reinforced_shulker_box",
-        "simplebuilding:blue_reinforced_shulker_box",
-        "simplebuilding:brown_reinforced_shulker_box",
-        "simplebuilding:cyan_reinforced_shulker_box",
-        "simplebuilding:gray_reinforced_shulker_box",
-        "simplebuilding:green_reinforced_shulker_box",
-        "simplebuilding:light_blue_reinforced_shulker_box",
-        "simplebuilding:light_gray_reinforced_shulker_box",
-        "simplebuilding:lime_reinforced_shulker_box",
-        "simplebuilding:magenta_reinforced_shulker_box",
-        "simplebuilding:orange_reinforced_shulker_box",
-        "simplebuilding:pink_reinforced_shulker_box",
-        "simplebuilding:purple_reinforced_shulker_box",
-        "simplebuilding:red_reinforced_shulker_box",
-        "simplebuilding:white_reinforced_shulker_box",
-        "simplebuilding:yellow_reinforced_shulker_box"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "lootTable": "simplebuilding:blocks/reinforced_shulker_box",
-      "drops": [
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a box that has learned to keep more than it shows."
-          ],
-          "use": [
-            "36 slots. Craft any vanilla shulker box with 4 Cracked Diamonds, shapeless, or hold right-click on a placed one for 10 blows with any sledgehammer and 2 Cracked Diamonds in the off hand."
-          ],
-          "secret": [
-            "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Kiste, die mehr behält, als sie zeigt."
-          ],
-          "use": [
-            "36 Plätze. Eine Vanilla-Shulkerkiste mit 4 Rissigen Diamanten formlos herstellen, oder 10 Schläge Rechtsklick auf eine platzierte mit einem Vorschlaghammer und 2 Rissigen Diamanten in der Nebenhand."
-          ],
-          "secret": [
-            "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-          "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-          "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-          "tools/textures/tiered_shulker_box_textures.py",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-        ],
-        "en": {
-          "summary": "The Reinforced Shulker Box is the first shulker box tier: 36 slots.",
-          "details": [
-            "Upgrade in the world: hold right-click on a placed vanilla shulker box (any of the 17 colors) for 10 seconds (10 blows) with any sledgehammer and 2 Cracked Diamonds in the off hand. Contents, name, lock, facing and color stay.",
-            "Or craft it: any vanilla shulker box + 4 Cracked Diamonds (shapeless) - contents, name and color come along.",
-            "Hammered on into the Netherite Shulker Box with a Diamond Sledgehammer (or better) and 2 Netherite Nuggets.",
-            "Keeps its contents when broken, like a vanilla shulker box: the item carries everything, including stacks above the normal size (they are stored in the item data as simplebuilding:container_counts next to minecraft:container). Pistons break it and it drops with its contents; dispensers place it.",
-            "Never fits into another shulker box (of any tier), a bundle or a backpack; its own slots refuse shulker boxes, and hoppers cannot put one in.",
-            "Dyeable like a vanilla shulker box: craft it with any dye (16 colors), wash it in a water cauldron to undye it. The color stays through every upgrade.",
-            "Same shape, lid animation and behavior as a vanilla shulker box: it only opens when the lid has room, pushes entities aside while opening and counts as 'Shulker Boxes opened'.",
-            "Hoppers fill oversized slots up to the tier's limit; comparators count against it.",
-            "Rarity common, hardness 3 and blast resistance 6."
-          ]
-        },
-        "de": {
-          "summary": "Die Verstärkte Shulkerkiste ist die erste Shulkerkisten-Stufe: 36 Plätze.",
-          "details": [
-            "Aufwerten in der Welt: 10 Sekunden (10 Schläge) Rechtsklick auf eine gesetzte Vanilla-Shulkerkiste (jede der 17 Farben) halten, mit einem beliebigen Vorschlaghammer und 2 Rissigen Diamanten in der Nebenhand. Inhalt, Name, Schloss, Blickrichtung und Farbe bleiben.",
-            "Oder herstellen: eine beliebige Vanilla-Shulkerkiste + 4 Rissige Diamanten (formlos) - Inhalt, Name und Farbe kommen mit.",
-            "Mit einem Diamant-Vorschlaghammer (oder besser) und 2 Netheritklumpen weiter zur Netherit-Shulkerkiste.",
-            "Behält beim Abbauen den Inhalt wie eine Vanilla-Shulkerkiste: das Item trägt alles, auch Stapel über der normalen Größe (sie stehen als simplebuilding:container_counts neben minecraft:container in den Item-Daten). Kolben zerstören sie, sie fällt mit Inhalt heraus; Werfer stellen sie auf.",
-            "Passt nie in eine andere Shulkerkiste (jeder Stufe), ein Bündel oder einen Rucksack; ihre eigenen Plätze nehmen keine Shulkerkisten an, und Trichter können keine hineinlegen.",
-            "Färbbar wie eine Vanilla-Shulkerkiste: mit einem beliebigen Farbstoff verarbeiten (16 Farben), im Wasserkessel wieder entfärben. Die Farbe bleibt bei jeder Aufwertung erhalten.",
-            "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
-            "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
-            "Seltenheit gewöhnlich, Härte 3 und Explosionsresistenz 6."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_sticky_piston",
       "name": {
         "en_us": "Reinforced Sticky Piston",
@@ -51025,82 +48973,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:reinforced_trapped_chest",
-      "name": {
-        "en_us": "Reinforced Trapped Chest",
-        "de_de": "Verstärkte Redstone-Truhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:reinforced_trapped_chest"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_trapped_chest.png",
-      "lootTable": "simplebuilding:blocks/reinforced_trapped_chest",
-      "drops": [
-        "simplebuilding:reinforced_trapped_chest"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a chest with a held breath."
-          ],
-          "use": [
-            "Trapped version of the chest of its tier: 36 slots, 72 in a double chest, and it signals its viewer count like the vanilla trapped chest."
-          ],
-          "secret": [
-            "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Truhe, die den Atem anhält."
-          ],
-          "use": [
-            "Redstone-Variante der Truhe ihrer Stufe: 36 Plätze, 72 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe."
-          ],
-          "secret": [
-            "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
-        ],
-        "en": {
-          "summary": "Reinforced Trapped Chest (26.3): 36 slots, 72 in a double chest; stack limit x1 (unstackable items remain at 1).",
-          "details": [
-            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
-            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
-            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
-            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
-            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
-          ]
-        },
-        "de": {
-          "summary": "Verstärkte Redstone-Truhe (26.3): 36 Plätze, 72 als Doppeltruhe; Stapelgrenze x1 (nicht stapelbare Items bleiben bei 1).",
-          "details": [
-            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
-            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
-            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
-            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
-            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:resin_quartz_checker",
@@ -53166,27 +51038,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:trapped_copper_chest",
-      "name": {
-        "en_us": "Trapped Copper Chest",
-        "de_de": "Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/trapped_copper_chest",
-      "drops": [
-        "simplebuilding:trapped_copper_chest"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -53499,26 +51350,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Exposed Trapped Copper Chest",
-        "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_exposed_trapped_copper_chest",
-        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_exposed_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/waxed_exposed_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:waxed_exposed_trapped_copper_chest"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
       "name": {
         "en_us": "Waxed Oxidized Copper Pressure Plate",
@@ -53567,46 +51398,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Oxidized Trapped Copper Chest",
-        "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_oxidized_trapped_copper_chest",
-        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_oxidized_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/waxed_oxidized_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:waxed_oxidized_trapped_copper_chest"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:waxed_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Trapped Copper Chest",
-        "de_de": "Gewachste Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_trapped_copper_chest",
-        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/waxed_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:waxed_trapped_copper_chest"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -53661,26 +51452,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
-      "name": {
-        "en_us": "Waxed Weathered Trapped Copper Chest",
-        "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:waxed_weathered_trapped_copper_chest",
-        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/waxed_weathered_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/waxed_weathered_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:waxed_weathered_trapped_copper_chest"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:weathered_copper_pressure_plate",
       "name": {
         "en_us": "Weathered Copper Pressure Plate",
@@ -53729,27 +51500,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:weathered_trapped_copper_chest",
-      "name": {
-        "en_us": "Weathered Trapped Copper Chest",
-        "de_de": "Verwitterte Redstone-Kupfertruhe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:weathered_trapped_copper_chest"
-      ],
-      "usedIn": [
-        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/weathered_trapped_copper_chest.png",
-      "lootTable": "simplebuilding:blocks/weathered_trapped_copper_chest",
-      "drops": [
-        "simplebuilding:weathered_trapped_copper_chest"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -57213,36 +54963,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:black_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "black"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/black_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:black_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:black_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -57409,66 +55129,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:black_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "black"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/black_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:black_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:black_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:black_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "black"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/black_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:black_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:black_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:blackstone_chess_bishop_flat_from_blackstone_octet_stonecutting",
@@ -58349,36 +56009,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:blue_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/blue_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:blue_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:blue_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -58545,66 +56175,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:blue_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/blue_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:blue_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:blue_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:blue_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/blue_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:blue_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:blue_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:blueprint",
@@ -60629,36 +58199,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brown_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "brown"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/brown_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:brown_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:brown_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brown_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -60825,66 +58365,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:brown_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "brown"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/brown_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:brown_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:brown_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brown_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "brown"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/brown_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:brown_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:brown_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:cherry_cauldron",
@@ -62495,36 +59975,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:cyan_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "cyan"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/cyan_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:cyan_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:cyan_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:cyan_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -62703,66 +60153,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:cyan_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "cyan"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/cyan_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:cyan_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:cyan_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:cyan_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "cyan"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/cyan_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:cyan_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:cyan_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:dark_oak_cauldron",
@@ -66679,11 +64069,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_acacia.json",
       "ingredients": [
         "minecraft:acacia_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:acacia_boat"
@@ -66700,7 +64090,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -66763,11 +64153,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_bamboo.json",
       "ingredients": [
         "minecraft:bamboo_raft",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:bamboo_raft"
@@ -66784,7 +64174,7 @@ window.WIKI_DATA = {
             "count": 22.5
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -66805,11 +64195,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_birch.json",
       "ingredients": [
         "minecraft:birch_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:birch_boat"
@@ -66826,7 +64216,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -66847,11 +64237,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_cherry.json",
       "ingredients": [
         "minecraft:cherry_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:cherry_boat"
@@ -66868,7 +64258,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -66889,11 +64279,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_dark_oak.json",
       "ingredients": [
         "minecraft:dark_oak_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:dark_oak_boat"
@@ -66910,7 +64300,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -66973,11 +64363,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_jungle.json",
       "ingredients": [
         "minecraft:jungle_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:jungle_boat"
@@ -66994,7 +64384,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67015,11 +64405,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_mangrove.json",
       "ingredients": [
         "minecraft:mangrove_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:mangrove_boat"
@@ -67036,7 +64426,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67057,11 +64447,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_oak.json",
       "ingredients": [
         "minecraft:oak_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:oak_boat"
@@ -67078,7 +64468,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67099,11 +64489,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_pale_oak.json",
       "ingredients": [
         "minecraft:pale_oak_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:pale_oak_boat"
@@ -67120,7 +64510,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67141,11 +64531,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_poplar.json",
       "ingredients": [
         "minecraft:poplar_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:poplar_boat"
@@ -67162,7 +64552,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67205,15 +64595,15 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
-            "count": 1
-          },
-          {
             "id": "simplelib:enderite_ingot",
             "count": 1
           },
           {
             "id": "simplelib:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -67234,11 +64624,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_spruce.json",
       "ingredients": [
         "minecraft:spruce_boat",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:spruce_boat"
@@ -67255,7 +64645,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67273,11 +64663,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_minecart.json",
       "ingredients": [
         "minecraft:minecart",
-        "simplebuilding:enderite_chest"
+        "simplestorage:enderite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:enderite_chest"
+          "simplestorage:enderite_chest"
         ],
         [
           "minecraft:minecart"
@@ -67294,7 +64684,7 @@ window.WIKI_DATA = {
             "count": 5
           },
           {
-            "id": "simplebuilding:enderite_chest",
+            "id": "simplestorage:enderite_chest",
             "count": 1
           }
         ]
@@ -67337,15 +64727,15 @@ window.WIKI_DATA = {
             "count": 5
           },
           {
-            "id": "simplebuilding:netherite_chest",
-            "count": 1
-          },
-          {
             "id": "simplelib:enderite_ingot",
             "count": 1
           },
           {
             "id": "simplelib:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -69189,7 +66579,7 @@ window.WIKI_DATA = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:enderite_shulker_box",
+        "id": "simplestorage:enderite_shulker_box",
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_shulker_box_from_shells.json",
@@ -69565,92 +66955,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.125
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:enderite_trapped_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_trapped_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_trapped_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "simplebuilding:enderite_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:enderite_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:enderite_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:exposed_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:exposed_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/exposed_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:exposed_copper_chest",
-        "minecraft:tripwire_hook"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:exposed_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:exposed_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
           }
         ]
       }
@@ -70648,36 +67952,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:gray_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/gray_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:gray_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:gray_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:gray_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -70858,66 +68132,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:gray_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/gray_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:gray_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:gray_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:gray_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/gray_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:gray_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:gray_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:green_copper_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -70994,36 +68208,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:green_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "green"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/green_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:green_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:green_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -71194,66 +68378,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:green_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "green"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/green_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:green_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:green_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:green_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "green"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/green_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:green_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:green_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:guide_book",
@@ -73922,36 +71046,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:light_blue_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/light_blue_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_blue_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:light_blue_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -74120,66 +71214,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:light_blue_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/light_blue_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_blue_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:light_blue_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:light_blue_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/light_blue_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_blue_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:light_blue_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:light_gray_copper_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -74256,36 +71290,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:light_gray_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/light_gray_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_gray_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:light_gray_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -74458,66 +71462,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:light_gray_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/light_gray_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_gray_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:light_gray_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:light_gray_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/light_gray_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_gray_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:light_gray_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -74640,36 +71584,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:lime_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "lime"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/lime_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:lime_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:lime_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -74854,66 +71768,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:lime_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "lime"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/lime_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:lime_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:lime_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:lime_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "lime"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/lime_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:lime_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:lime_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:magenta_copper_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -74990,36 +71844,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:magenta_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "magenta"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/magenta_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:magenta_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:magenta_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -75190,66 +72014,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:magenta_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "magenta"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/magenta_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:magenta_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:magenta_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:magenta_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "magenta"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/magenta_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:magenta_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:magenta_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:magnet",
@@ -76477,11 +73241,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_acacia.json",
       "ingredients": [
         "minecraft:acacia_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:acacia_boat"
@@ -76498,7 +73262,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76561,11 +73325,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_bamboo.json",
       "ingredients": [
         "minecraft:bamboo_raft",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:bamboo_raft"
@@ -76582,7 +73346,7 @@ window.WIKI_DATA = {
             "count": 22.5
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76603,11 +73367,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_birch.json",
       "ingredients": [
         "minecraft:birch_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:birch_boat"
@@ -76624,7 +73388,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76645,11 +73409,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_cherry.json",
       "ingredients": [
         "minecraft:cherry_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:cherry_boat"
@@ -76666,7 +73430,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76687,11 +73451,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_dark_oak.json",
       "ingredients": [
         "minecraft:dark_oak_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:dark_oak_boat"
@@ -76708,7 +73472,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76771,11 +73535,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_jungle.json",
       "ingredients": [
         "minecraft:jungle_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:jungle_boat"
@@ -76792,7 +73556,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76813,11 +73577,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_mangrove.json",
       "ingredients": [
         "minecraft:mangrove_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:mangrove_boat"
@@ -76834,7 +73598,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76855,11 +73619,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_oak.json",
       "ingredients": [
         "minecraft:oak_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:oak_boat"
@@ -76876,7 +73640,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76897,11 +73661,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_pale_oak.json",
       "ingredients": [
         "minecraft:pale_oak_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:pale_oak_boat"
@@ -76918,7 +73682,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76939,11 +73703,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_poplar.json",
       "ingredients": [
         "minecraft:poplar_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:poplar_boat"
@@ -76960,7 +73724,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -76999,18 +73763,6 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:acacia_log",
             "count": 1.25
           },
@@ -77020,6 +73772,10 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
             "count": 1
           }
         ]
@@ -77040,11 +73796,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_spruce.json",
       "ingredients": [
         "minecraft:spruce_boat",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:spruce_boat"
@@ -77061,7 +73817,7 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -77079,11 +73835,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_minecart.json",
       "ingredients": [
         "minecraft:minecart",
-        "simplebuilding:netherite_chest"
+        "simplestorage:netherite_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:netherite_chest"
+          "simplestorage:netherite_chest"
         ],
         [
           "minecraft:minecart"
@@ -77100,7 +73856,7 @@ window.WIKI_DATA = {
             "count": 5
           },
           {
-            "id": "simplebuilding:netherite_chest",
+            "id": "simplestorage:netherite_chest",
             "count": 1
           }
         ]
@@ -77139,20 +73895,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
             "id": "minecraft:iron_ingot",
             "count": 5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
           },
           {
             "id": "minecraft:netherite_ingot",
@@ -77160,6 +73904,10 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
             "count": 1
           }
         ]
@@ -77817,7 +74565,7 @@ window.WIKI_DATA = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:netherite_shulker_box",
+        "id": "simplestorage:netherite_shulker_box",
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_shulker_box_from_shells.json",
@@ -77862,49 +74610,6 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#simplebuilding:copper_chests"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_trapped_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_trapped_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_trapped_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "simplebuilding:netherite_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:netherite_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:netherite_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
         ]
       }
     },
@@ -81555,36 +78260,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:orange_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "orange"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/orange_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:orange_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:orange_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:orange_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -81749,109 +78424,6 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#simplebuilding:light_panes"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:orange_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "orange"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/orange_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:orange_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:orange_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:orange_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "orange"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/orange_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:orange_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:orange_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:oxidized_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:oxidized_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/oxidized_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:oxidized_copper_chest",
-        "minecraft:tripwire_hook"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:oxidized_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oxidized_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
         ]
       }
     },
@@ -82074,36 +78646,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:pink_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "pink"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/pink_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:pink_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:pink_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -82270,66 +78812,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:pink_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "pink"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/pink_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:pink_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:pink_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:pink_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "pink"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/pink_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:pink_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:pink_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:polished_astralit",
@@ -86475,36 +82957,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:purple_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "purple"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/purple_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:purple_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:purple_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:purple_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -86683,66 +83135,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:purple_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "purple"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/purple_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:purple_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:purple_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:purple_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "purple"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/purple_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:purple_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:purple_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:purpur_chess_bishop_flat_from_purpur_octet_stonecutting",
@@ -88065,36 +84457,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:red_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "red"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/red_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:red_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:red_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:red_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -89004,66 +85366,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:red_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "red"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/red_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:red_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:red_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:red_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "red"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/red_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:red_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:red_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:redstone_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -89344,98 +85646,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:reinforced_chest",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_chest",
-        "count": 3
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest.json",
-      "ingredients": [
-        "#simplebuilding:copper_chests",
-        "simplelib:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "CCC",
-        "DDD"
-      ],
-      "key": {
-        "C": [
-          "#simplebuilding:copper_chests"
-        ],
-        "D": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "#simplebuilding:copper_chests",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "#simplebuilding:copper_chests",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "#simplebuilding:copper_chests"
-                ],
-                "D": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "C": [
-                  "#simplebuilding:copper_chests"
-                ],
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_chest.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 3,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 24
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 6
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_chests"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:reinforced_chest_boat_acacia",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -89450,11 +85660,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_acacia.json",
       "ingredients": [
         "minecraft:acacia_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:acacia_boat"
@@ -89467,20 +85677,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:acacia_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89517,16 +85719,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
+            "id": "simplebuilding:reinforced_chest",
+            "count": 1
           },
           {
             "id": "simpleend:ashwood_boat",
@@ -89550,11 +85744,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_bamboo.json",
       "ingredients": [
         "minecraft:bamboo_raft",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:bamboo_raft"
@@ -89571,16 +85765,8 @@ window.WIKI_DATA = {
             "count": 22.5
           },
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89600,11 +85786,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_birch.json",
       "ingredients": [
         "minecraft:birch_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:birch_boat"
@@ -89617,20 +85803,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:birch_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89650,11 +85828,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_cherry.json",
       "ingredients": [
         "minecraft:cherry_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:cherry_boat"
@@ -89667,20 +85845,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:cherry_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89700,11 +85870,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_dark_oak.json",
       "ingredients": [
         "minecraft:dark_oak_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:dark_oak_boat"
@@ -89717,20 +85887,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:dark_oak_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89767,16 +85929,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
+            "id": "simplebuilding:reinforced_chest",
+            "count": 1
           },
           {
             "id": "simpleend:duskwood_boat",
@@ -89800,11 +85954,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_jungle.json",
       "ingredients": [
         "minecraft:jungle_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:jungle_boat"
@@ -89817,20 +85971,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:jungle_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89850,11 +85996,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_mangrove.json",
       "ingredients": [
         "minecraft:mangrove_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:mangrove_boat"
@@ -89867,20 +86013,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:mangrove_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89900,11 +86038,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_oak.json",
       "ingredients": [
         "minecraft:oak_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:oak_boat"
@@ -89917,16 +86055,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 3.25
+            "count": 1.25
           },
           {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89946,11 +86080,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_pale_oak.json",
       "ingredients": [
         "minecraft:pale_oak_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:pale_oak_boat"
@@ -89963,20 +86097,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:pale_oak_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -89996,11 +86122,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_poplar.json",
       "ingredients": [
         "minecraft:poplar_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:poplar_boat"
@@ -90013,20 +86139,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:poplar_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -90046,11 +86164,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_spruce.json",
       "ingredients": [
         "minecraft:spruce_boat",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:spruce_boat"
@@ -90063,20 +86181,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:spruce_log",
             "count": 1.25
+          },
+          {
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -90093,11 +86203,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_minecart.json",
       "ingredients": [
         "minecraft:minecart",
-        "simplebuilding:reinforced_chest"
+        "simplestorage:reinforced_chest"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:reinforced_chest"
+          "simplestorage:reinforced_chest"
         ],
         [
           "minecraft:minecart"
@@ -90110,20 +86220,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
             "id": "minecraft:iron_ingot",
             "count": 5
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
+            "id": "simplestorage:reinforced_chest",
+            "count": 1
           }
         ]
       }
@@ -90753,978 +86855,12 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:reinforced_shulker_box_from_black_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "black"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json",
-      "ingredients": [
-        "minecraft:black_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:black_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:black_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:black_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:black_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:black_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_blue_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "blue"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json",
-      "ingredients": [
-        "minecraft:blue_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:blue_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:blue_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:blue_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:blue_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:blue_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_brown_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "brown"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json",
-      "ingredients": [
-        "minecraft:brown_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:brown_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:brown_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:brown_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:brown_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:brown_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_cyan_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "cyan"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json",
-      "ingredients": [
-        "minecraft:cyan_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:cyan_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cyan_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:cyan_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:cyan_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:cyan_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_gray_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "gray"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json",
-      "ingredients": [
-        "minecraft:gray_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:gray_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gray_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:gray_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:gray_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:gray_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_green_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "green"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json",
-      "ingredients": [
-        "minecraft:green_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:green_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:green_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:green_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:green_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:green_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_light_blue_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_blue"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_blue_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:light_blue_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:light_blue_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:light_blue_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:light_blue_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:light_blue_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_light_gray_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_gray"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_gray_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:light_gray_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:light_gray_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:light_gray_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:light_gray_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:light_gray_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_lime_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "lime"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json",
-      "ingredients": [
-        "minecraft:lime_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lime_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:lime_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:lime_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:lime_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:lime_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_magenta_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "magenta"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json",
-      "ingredients": [
-        "minecraft:magenta_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:magenta_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:magenta_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:magenta_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:magenta_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:magenta_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_orange_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "orange"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json",
-      "ingredients": [
-        "minecraft:orange_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:orange_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:orange_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:orange_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:orange_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:orange_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "pink"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json",
-      "ingredients": [
-        "minecraft:pink_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:pink_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:pink_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:pink_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:pink_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:pink_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "purple"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json",
-      "ingredients": [
-        "minecraft:purple_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:purple_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:purple_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:purple_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:purple_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:purple_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "red"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json",
-      "ingredients": [
-        "minecraft:red_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:red_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:red_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:red_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:red_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:red_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_shulker_box_from_shells",
       "type": "minecraft:crafting_shapeless",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
+        "id": "simplestorage:reinforced_shulker_box",
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shells.json",
@@ -91771,210 +86907,6 @@ window.WIKI_DATA = {
           "#simplebuilding:copper_chests"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json",
-      "ingredients": [
-        "minecraft:shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "white"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json",
-      "ingredients": [
-        "minecraft:white_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:white_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:white_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:white_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:white_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:white_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "yellow"
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json",
-      "ingredients": [
-        "minecraft:yellow_shulker_box",
-        "simplelib:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:yellow_shulker_box"
-        ],
-        "material": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:yellow_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:yellow_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:yellow_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:yellow_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston",
@@ -92033,53 +86965,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.75
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:reinforced_trapped_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_trapped_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_trapped_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "simplebuilding:reinforced_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:reinforced_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2.188
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
           }
         ]
       }
@@ -94950,49 +89835,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:sand",
             "count": 0.75
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:copper_chest",
-        "minecraft:tripwire_hook"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2.188
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
           }
         ]
       }
@@ -98651,100 +93493,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "minecraft:waxed_exposed_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:waxed_exposed_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:exposed_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_trapped_copper_chest_from_honeycomb.json",
-      "ingredients": [
-        "minecraft:honeycomb",
-        "simplebuilding:exposed_trapped_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:exposed_trapped_copper_chest"
-        ],
-        [
-          "minecraft:honeycomb"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:exposed_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -98786,194 +93534,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "minecraft:waxed_oxidized_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:waxed_oxidized_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oxidized_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_trapped_copper_chest_from_honeycomb.json",
-      "ingredients": [
-        "minecraft:honeycomb",
-        "simplebuilding:oxidized_trapped_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:oxidized_trapped_copper_chest"
-        ],
-        [
-          "minecraft:honeycomb"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oxidized_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:waxed_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "minecraft:waxed_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:waxed_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2.188
-          },
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:waxed_trapped_copper_chest_from_honeycomb",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_trapped_copper_chest_from_honeycomb.json",
-      "ingredients": [
-        "minecraft:honeycomb",
-        "simplebuilding:trapped_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:trapped_copper_chest"
-        ],
-        [
-          "minecraft:honeycomb"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 8
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2.188
-          },
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -99010,143 +93570,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:weathered_copper_pressure_plate",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "minecraft:waxed_weathered_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:waxed_weathered_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:weathered_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_trapped_copper_chest_from_honeycomb.json",
-      "ingredients": [
-        "minecraft:honeycomb",
-        "simplebuilding:weathered_trapped_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:weathered_trapped_copper_chest"
-        ],
-        [
-          "minecraft:honeycomb"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:weathered_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:weathered_trapped_copper_chest",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:weathered_trapped_copper_chest",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/weathered_trapped_copper_chest.json",
-      "ingredients": [
-        "minecraft:tripwire_hook",
-        "minecraft:weathered_copper_chest"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:weathered_copper_chest"
-        ],
-        [
-          "minecraft:tripwire_hook"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:weathered_copper_chest",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.188
           }
         ]
       }
@@ -99228,36 +93651,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:white_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "white"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/white_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:white_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:white_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -99430,66 +93823,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:white_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "white"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/white_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:white_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:white_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:white_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "white"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/white_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:white_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:white_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:wool_from_yarn_balls",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -99634,36 +93967,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:yellow_enderite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "enderite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:enderite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "yellow"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/yellow_enderite_shulker_box.json",
-      "ingredients": [
-        "minecraft:yellow_dye",
-        "simplebuilding:enderite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:enderite_shulker_box"
-        ],
-        "material": [
-          "minecraft:yellow_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -99834,66 +94137,6 @@ window.WIKI_DATA = {
           "#simplebuilding:light_panes"
         ]
       }
-    },
-    {
-      "id": "simplebuilding:yellow_netherite_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "netherite_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:netherite_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "yellow"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/yellow_netherite_shulker_box.json",
-      "ingredients": [
-        "minecraft:yellow_dye",
-        "simplebuilding:netherite_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:netherite_shulker_box"
-        ],
-        "material": [
-          "minecraft:yellow_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:yellow_reinforced_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box_dye",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "yellow"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/yellow_reinforced_shulker_box.json",
-      "ingredients": [
-        "minecraft:yellow_dye",
-        "simplebuilding:reinforced_shulker_box"
-      ],
-      "slots": {
-        "input": [
-          "simplebuilding:reinforced_shulker_box"
-        ],
-        "material": [
-          "minecraft:yellow_dye"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
     }
   ],
   "recipesOtherLines": [
@@ -100059,6 +94302,180 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:black_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/black_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:black_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:black_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:black_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/black_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:black_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:black_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:black_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/black_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:black_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:black_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:blue_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/blue_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:blue_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:blue_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:blue_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/blue_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:blue_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:blue_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:blue_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/blue_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:blue_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:blue_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:blueprint",
       "type": "minecraft:crafting_shapeless",
       "category": "equipment",
@@ -100086,6 +94503,93 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:brown_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/brown_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:brown_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:brown_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:brown_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/brown_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:brown_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:brown_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:brown_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/brown_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:brown_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:brown_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -100266,6 +94770,93 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:cyan_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/cyan_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:cyan_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:cyan_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:cyan_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/cyan_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:cyan_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:cyan_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:cyan_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/cyan_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:cyan_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:cyan_dye"
+        ]
+      },
+      "lines": [
         "26.2"
       ]
     },
@@ -101782,6 +96373,180 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:gray_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/gray_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:gray_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:gray_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:gray_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/gray_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:gray_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:gray_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:gray_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/gray_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:gray_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:gray_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:green_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/green_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:green_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:green_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:green_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/green_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:green_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:green_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:green_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/green_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:green_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:green_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:guide_book_admin",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -102324,6 +97089,354 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:light_blue_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/light_blue_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:light_blue_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:light_blue_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:light_blue_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/light_blue_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:light_blue_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:light_blue_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:light_blue_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/light_blue_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:light_blue_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:light_blue_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:light_gray_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/light_gray_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:light_gray_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:light_gray_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:light_gray_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/light_gray_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:light_gray_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:light_gray_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:light_gray_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/light_gray_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:light_gray_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:light_gray_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:lime_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/lime_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:lime_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:lime_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:lime_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/lime_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:lime_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:lime_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:lime_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/lime_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:lime_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:lime_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:magenta_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/magenta_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:magenta_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:magenta_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:magenta_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/magenta_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:magenta_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:magenta_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:magenta_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/magenta_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:magenta_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:magenta_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:magnet",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -102661,6 +97774,93 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:orange_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/orange_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:orange_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:orange_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:orange_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/orange_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:orange_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:orange_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:orange_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/orange_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:orange_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:orange_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:ore_detector",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -102697,6 +97897,93 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:pink_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/pink_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:pink_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:pink_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:pink_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/pink_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:pink_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:pink_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:pink_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/pink_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:pink_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:pink_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -102950,6 +98237,93 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:purple_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/purple_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:purple_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:purple_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:purple_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/purple_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:purple_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:purple_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:purple_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/purple_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:purple_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:purple_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:quiver_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -103010,6 +98384,93 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:red_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/red_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:red_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:red_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:red_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/red_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:red_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:red_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:red_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/red_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:red_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:red_dye"
+        ]
+      },
+      "lines": [
         "26.2"
       ]
     },
@@ -105455,6 +100916,180 @@ window.WIKI_DATA = {
       "lines": [
         "26.2"
       ]
+    },
+    {
+      "id": "simplebuilding:white_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/white_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:white_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:white_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:white_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/white_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:white_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:white_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:white_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/white_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:white_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:white_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:yellow_enderite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "enderite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/yellow_enderite_shulker_box.json",
+      "ingredients": [
+        "minecraft:yellow_dye",
+        "simplebuilding:enderite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:enderite_shulker_box"
+        ],
+        "material": [
+          "minecraft:yellow_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:yellow_netherite_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "netherite_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/yellow_netherite_shulker_box.json",
+      "ingredients": [
+        "minecraft:yellow_dye",
+        "simplebuilding:netherite_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:netherite_shulker_box"
+        ],
+        "material": [
+          "minecraft:yellow_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:yellow_reinforced_shulker_box",
+      "type": "minecraft:crafting_transmute",
+      "category": null,
+      "group": "reinforced_shulker_box_dye",
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/yellow_reinforced_shulker_box.json",
+      "ingredients": [
+        "minecraft:yellow_dye",
+        "simplebuilding:reinforced_shulker_box"
+      ],
+      "slots": {
+        "input": [
+          "simplebuilding:reinforced_shulker_box"
+        ],
+        "material": [
+          "minecraft:yellow_dye"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
     }
   ],
   "lootTables": [
@@ -107246,24 +102881,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/enderite_chunk_loader",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -107408,22 +103025,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_pressure_plate.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_shulker_box",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_shulker_box"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_shulker_box.json"
-    },
-    {
       "id": "simplebuilding:blocks/enderite_spawn_teleporter",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -107442,24 +103043,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_spawn_teleporter.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_trapped_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_trapped_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_trapped_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/exposed_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -107476,24 +103059,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_copper_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/exposed_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:exposed_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/fine_elytra_pad",
@@ -108712,24 +104277,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/netherite_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/netherite_chunk_loader",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -108872,40 +104419,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/netherite_shulker_box",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_shulker_box"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_shulker_box.json"
-    },
-    {
-      "id": "simplebuilding:blocks/netherite_trapped_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_trapped_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_trapped_chest.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_end_stone",
@@ -109351,24 +104864,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/oxidized_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:oxidized_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/pale_oak_cauldron",
@@ -110119,24 +105614,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/reinforced_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/reinforced_elytra_pad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -110227,22 +105704,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_potion_pad.json"
     },
     {
-      "id": "simplebuilding:blocks/reinforced_shulker_box",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_shulker_box"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_shulker_box.json"
-    },
-    {
       "id": "simplebuilding:blocks/reinforced_sticky_piston",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -110259,24 +105720,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json"
-    },
-    {
-      "id": "simplebuilding:blocks/reinforced_trapped_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_trapped_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_trapped_chest.json"
     },
     {
       "id": "simplebuilding:blocks/resin_quartz_checker",
@@ -111085,24 +106528,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/transparent_light_pane.json"
     },
     {
-      "id": "simplebuilding:blocks/trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/trapped_copper_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/veined_astralit",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -111246,24 +106671,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
     },
     {
-      "id": "simplebuilding:blocks/waxed_exposed_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:waxed_exposed_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_trapped_copper_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -111280,42 +106687,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/waxed_oxidized_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:waxed_oxidized_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_trapped_copper_chest.json"
-    },
-    {
-      "id": "simplebuilding:blocks/waxed_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:waxed_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
@@ -111336,24 +106707,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
     },
     {
-      "id": "simplebuilding:blocks/waxed_weathered_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:waxed_weathered_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_trapped_copper_chest.json"
-    },
-    {
       "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -111370,24 +106723,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/weathered_trapped_copper_chest",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:weathered_trapped_copper_chest"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/white_copper_light_pane",
@@ -117152,10 +112487,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_chest",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_chest_boat",
           "required": true
         },
@@ -117248,10 +112579,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_shulker_box",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_shulker_shell",
           "required": true
         },
@@ -117265,10 +112592,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_sword",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_trapped_chest",
           "required": true
         },
         {
@@ -117346,6 +112669,18 @@ window.WIKI_DATA = {
         {
           "id": "simpleovens:enderite_smoker",
           "required": true
+        },
+        {
+          "id": "simplestorage:enderite_chest",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_trapped_chest",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
@@ -117388,10 +112723,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_carrot",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_chest",
           "required": true
         },
         {
@@ -117487,10 +112818,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_shulker_box",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_shulker_shell",
           "required": true
         },
@@ -117504,10 +112831,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_sword",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_trapped_chest",
           "required": true
         },
         {
@@ -117620,6 +112943,18 @@ window.WIKI_DATA = {
         },
         {
           "id": "simpleovens:enderite_smoker",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_chest",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_trapped_chest",
           "required": true
         }
       ],
@@ -124639,71 +119974,6 @@ window.WIKI_DATA = {
     ],
     "entries": [
       {
-        "id": "sledgehammer_upgrade/minecraft:copper_chest",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "minecraft:copper_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:copper_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:reinforced_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 2,
-          "damage": 10
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/minecraft:shulker_box",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "minecraft:shulker_box",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          }
-        ],
-        "tools": [
-          "simplehammers:copper_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:reinforced_shulker_box",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 200,
-          "hits": 10,
-          "damagePerHit": 2,
-          "damage": 20
-        },
-        "lines": [
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
         "id": "sledgehammer_upgrade/minecraft:enchanting_table",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -124731,39 +120001,6 @@ window.WIKI_DATA = {
           "damage": 200
         },
         "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_chest",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 10,
-          "damage": 50
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
           "26.3"
         ]
       },
@@ -124826,102 +120063,6 @@ window.WIKI_DATA = {
           "hits": 5,
           "damagePerHit": 10,
           "damage": 50
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_shulker_box",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_shulker_box",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 2
-          }
-        ],
-        "tools": [
-          "simplehammers:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_shulker_box",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 200,
-          "hits": 10,
-          "damagePerHit": 10,
-          "damage": 100
-        },
-        "lines": [
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_trapped_chest",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_trapped_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_trapped_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 10,
-          "damage": 50
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_chest",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 4,
-          "damage": 20
         },
         "lines": [
           "1.21.11",
@@ -124996,38 +120137,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_shulker_box",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_shulker_box",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 2
-          }
-        ],
-        "tools": [
-          "simplehammers:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_shulker_box",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 200,
-          "hits": 10,
-          "damagePerHit": 4,
-          "damage": 40
-        },
-        "lines": [
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
         "id": "sledgehammer_upgrade/simplebuilding:reinforced_sticky_piston",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -125056,37 +120165,6 @@ window.WIKI_DATA = {
         },
         "lines": [
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_trapped_chest",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_trapped_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_trapped_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 4,
-          "damage": 20
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -145150,7 +140228,7 @@ window.WIKI_DATA = {
             "simplebuilding:reinforced_hopper",
             "simplebuilding:reinforced_piston",
             "simplebuilding:reinforced_sticky_piston",
-            "simplebuilding:reinforced_chest"
+            "simplestorage:reinforced_chest"
           ]
         }
       ],
@@ -148988,17 +144066,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 576,
-    "blocks": 340,
-    "recipes": 1012,
-    "lootTables": 358,
+    "items": 559,
+    "blocks": 323,
+    "recipes": 931,
+    "lootTables": 341,
     "trades": 20,
     "enchantments": 16,
     "tags": 57,
     "config": 239,
-    "inWorld": 489,
+    "inWorld": 481,
     "advancements": 116,
-    "features": 49,
+    "features": 48,
     "undocumented": 0,
     "incompleteProse": 0
   },

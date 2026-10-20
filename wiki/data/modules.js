@@ -840,7 +840,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplestorage",
     "displayName": "Simple Storage",
-    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work) and the Storage Crafting Table (a crafting table that keeps its grid), moved from SimpleBuilding (ids migrate). Tiered chests, shulker boxes, bundles and backpacks follow in stages 8b/8c.",
+    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest boats/minecarts, bundles and backpacks follow.",
     "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
@@ -855,6 +855,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
-    "dataHash": "d0740d71b507"
+    "dataHash": "9880c72074ab"
   }
 ];
