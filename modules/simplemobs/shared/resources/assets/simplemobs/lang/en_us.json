@@ -63,7 +63,7 @@
   "entity.simplemobs.abyssal_wither": "Abyssal Wither",
   "item.simplemobs.wither_heart": "Wither Heart",
   "item.simplemobs.biome_brush": "Biome Brush",
-  "item.simplemobs.biome_brush.tooltip": "Biome material in off hand; sneak for a single spot",
+  "item.simplemobs.biome_brush.tooltip": "Biome material in off hand; sneak: one spot",
   "tip.simplemobs.trick_mirror": "Hold use for 3 s: reveals disguises ahead",
   "tip.simplemobs.deceiver_cloak": "Wear it; empty hand on a mob takes its shape",
   "tip.simplemobs.shellker_shell": "Use on a Shulker to turn it into a Shellker",
