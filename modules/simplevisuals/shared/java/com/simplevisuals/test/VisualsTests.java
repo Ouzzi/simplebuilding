@@ -67,6 +67,15 @@ public final class VisualsTests {
   c.particles.globalLevel=null;c.particles.overrides.put("unknown",Intensity.MAXIMUM);c.particles.overrides.put("cold_breath",null);ConfigOptions.normalize(c);
   h.assertTrue(c.particles.globalLevel==Intensity.SUBTLE&&c.particles.overrides.isEmpty(),"Corrupt levels and unknown effect ids rejected");h.succeed();
  }
+ public static void speedLinesMath(GameTestHelper h){
+  h.assertTrue(SpeedLinesMath.tempo(SpeedLinesMath.REFERENCE)==1f&&SpeedLinesMath.density(SpeedLinesMath.REFERENCE)==1f,"Reference speed gives base values");
+  h.assertTrue(SpeedLinesMath.tempo(1.0)>SpeedLinesMath.tempo(.5)&&SpeedLinesMath.tempo(.5)>SpeedLinesMath.tempo(.25),"Tempo rises with speed");
+  h.assertTrue(SpeedLinesMath.tempo(1.0)==2f,"Tempo proportional in range");
+  h.assertTrue(SpeedLinesMath.tempo(0)==SpeedLinesMath.MIN_TEMPO&&SpeedLinesMath.tempo(-3)==SpeedLinesMath.MIN_TEMPO&&SpeedLinesMath.tempo(Double.NaN)==SpeedLinesMath.MIN_TEMPO,"Tempo lower clamp");
+  h.assertTrue(SpeedLinesMath.tempo(100)==SpeedLinesMath.MAX_TEMPO&&SpeedLinesMath.tempo(Double.POSITIVE_INFINITY)==SpeedLinesMath.MAX_TEMPO,"Tempo upper clamp");
+  h.assertTrue(SpeedLinesMath.density(0)==SpeedLinesMath.MIN_DENSITY&&SpeedLinesMath.density(100)==SpeedLinesMath.MAX_DENSITY&&SpeedLinesMath.density(1.0)>1f,"Density clamp and growth");
+  h.succeed();
+ }
  public static void language(GameTestHelper h){
   var json=new HashMap<String,com.google.gson.JsonObject>();
   for(String locale:List.of("en_us","de_de"))try(var input=VisualsTests.class.getResourceAsStream("/assets/simplevisuals/lang/"+locale+".json")){

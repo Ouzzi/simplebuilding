@@ -7,6 +7,7 @@ public final class ModuleGameTest {
  @GameTest public void launchSmoke(GameTestHelper h){com.simplevisuals.test.VisualsTests.launch(h);}
  @GameTest public void configBoundsAndLegacyKeys(GameTestHelper h){com.simplevisuals.test.VisualsTests.config(h);}
  @GameTest public void configAndLanguageCompleteness(GameTestHelper h){com.simplevisuals.test.VisualsTests.language(h);}
+ @GameTest public void speedLinesMath(GameTestHelper h){com.simplevisuals.test.VisualsTests.speedLinesMath(h);}
  @GameTest public void particleFloodSafety(GameTestHelper h){com.simplevisuals.test.VisualsTests.budgets(h);}
  @GameTest public void serverAnvilAndCrossMod(GameTestHelper h){com.simplevisuals.test.VisualsTests.formatting(h);}
  @GameTest public void assetDecompressionBounds(GameTestHelper h){com.simplevisuals.test.VisualsTests.assetBounds(h);}

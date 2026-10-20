@@ -27,7 +27,7 @@ public final class VisualsHud {
     private static int biomeUntil, ticks;
     private static net.minecraft.client.multiplayer.ClientLevel level;
     private static float speedOpacity, animation;
-    private static double lastSpeed;
+    private static double lastSpeed, smoothSpeed;
     public static void tick(Minecraft mc) {
         if (!Visuals.on()) { if (!pickups.isEmpty() || !damages.isEmpty() || !cache.isEmpty()) reset(); return; }
         if (mc.level != level) { reset(); level = mc.level; }
@@ -40,7 +40,8 @@ public final class VisualsHud {
         double speed = mc.player.isFallFlying() ? mc.player.getDeltaMovement().length() : mc.player.getDeltaMovement().horizontalDistance();
         float opacity = (float)Math.max(Math.max(0, Math.min(1, (speed - c.speedLines.speedThreshold) * 2)), Math.max(0, Math.min(1, (speed - lastSpeed) * 15)));
         speedOpacity += (opacity - speedOpacity) * .1f; lastSpeed = speed;
-        animation = (animation + c.speedLines.speedLinesSpeed * 4) % 10000;
+        smoothSpeed += (speed - smoothSpeed) * .2;
+        animation = (animation + c.speedLines.speedLinesSpeed * 4 * com.simplevisuals.SpeedLinesMath.tempo(smoothSpeed)) % 10000;
         if (ticks % 10 == 0 && c.biomeInfo.enable) {
             var id = mc.level.getBiome(mc.player.blockPosition()).unwrapKey().map(k -> k.identifier()).orElse(null);
             if (id != null && !id.equals(biome)) {
@@ -51,7 +52,7 @@ public final class VisualsHud {
             }
         }
     }
-    public static void reset() { pickups.clear(); damages.clear(); cache.clear(); durations.clear(); biomeCooldowns.clear(); biome = null; biomeUntil = ticks = 0; speedOpacity = animation = 0; lastSpeed = 0; }
+    public static void reset() { pickups.clear(); damages.clear(); cache.clear(); durations.clear(); biomeCooldowns.clear(); biome = null; biomeUntil = ticks = 0; speedOpacity = animation = 0; lastSpeed = smoothSpeed = 0; }
     public static int notificationCount() { return pickups.size(); }
     public static void cache(int id, net.minecraft.world.entity.Entity entity) {
         if (!Visuals.on()) return;
@@ -87,7 +88,7 @@ public final class VisualsHud {
         var c = Visuals.CONFIG.visuals;
         int w = g.guiWidth(), h = g.guiHeight();
         if (c.speedLines.enableSpeedLines && speedOpacity > .02 && mc.options.getCameraType().isFirstPerson()) {
-            var s = c.speedLines; int n = Math.min(60, (int)(30 * s.speedLinesAmount));
+            var s = c.speedLines; int n = Math.min(90, (int)(30 * s.speedLinesAmount * com.simplevisuals.SpeedLinesMath.density(smoothSpeed)));
             for (int i = 0; i < n; i++) {
                 float angle = i * 2.399963f; float distance = h * s.speedLinesRadius + (animation + i * 71) % Math.max(1, h);
                 g.pose().pushMatrix(); g.pose().translate(w / 2f, h / 2f); g.pose().rotate(angle); g.pose().translate(distance, 0);
