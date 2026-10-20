@@ -32,7 +32,8 @@ Vorbild Simple Ovens (Ofenloren, Stufe 4: `OvensRegistry.CARTS`, Vanilla-abgelei
   Layer, Upgrade-Rezept). 8c-1 beginnt auf diesem Branch nur, wenn 8b-2 grün ist und Zeit bleibt; sonst bleibt er mit
   diesem Zuschnitt im Plan/Queue/Memory. b-bundles/b-tooltips sind in der Basis enthalten (Abhängigkeit erfüllt).
   Begründung: Auftrag „lieber ein Teil fertig und grün als alles halb“; 8b-3/8c betreffen beide Linien und brauchen das
-  8b-1-Muster mit SB-Kopie.
+  8b-1-Muster mit SB-Kopie. **Ergebnis:** 8c-1 wurde auf diesem Branch nicht begonnen (Umfang ~45 Produktions- und
+  ~6000 Testzeilen über beide Linien; ein halber Umzug wäre schlechter als keiner) – Zuschnitt und Inventar in §7.
 - **E2 Modul-Code (8b-2):** `com.simplestorage.vehicle.{BoatWoods, OversizedStacks, TieredChestMinecart, ChestMinecartItem,
   TieredChestBoat, TieredChestBoatItem}`, `com.simplestorage.client.VehicleRenderers` (Kistenlore + Kistenboot, Holzarten,
   End-Hölzer nur mit Simple End), Registrierung `StorageEntities` (ENTITY_TYPE-Phase), Items in `StorageItems`,
