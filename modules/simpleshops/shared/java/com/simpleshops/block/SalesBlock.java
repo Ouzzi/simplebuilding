@@ -74,7 +74,7 @@ public class SalesBlock extends BaseEntityBlock {
     }
 
     @Override
-    public <T extends BlockEntity> @Nullable net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(Level level, BlockState state,
+    public <T extends BlockEntity> net.minecraft.world.level.block.entity.@Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state,
             net.minecraft.world.level.block.entity.BlockEntityType<T> type) {
         return level.isClientSide() ? null : createTickerHelper(type, com.simpleshops.ShopsRegistry.SALES_BE, SalesBlockEntity::tick);
     }

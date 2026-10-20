@@ -65,9 +65,9 @@ public final class ShopsRegistry {
                 base(MapColor.WOOD).noOcclusion().sound(SoundType.GLASS).isSuffocating((s, l, pos) -> false));
         GLOW_DISPLAY_CASE = block("glow_display_case", p -> new DisplayCaseBlock(p, true),
                 base(MapColor.WOOD).noOcclusion().sound(SoundType.GLASS).lightLevel(s -> 6).isSuffocating((s, l, pos) -> false));
-        // Holds nothing: an ordinary wooden block (normal hardness and blast resistance, pistons may not move it like a lectern).
+        // Holds nothing: an ordinary wooden block (normal hardness, blast resistance and piston behaviour).
         TRADE_TERMINAL = block("trade_terminal", com.simpleshops.block.TradeTerminalBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
-                .strength(2.5F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).pushReaction(PushReaction.BLOCK));
+                .strength(2.5F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
     }
 
     public static void registerItems() {

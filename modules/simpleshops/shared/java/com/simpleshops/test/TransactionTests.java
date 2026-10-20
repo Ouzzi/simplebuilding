@@ -173,7 +173,7 @@ final class TransactionTests {
             ItemStack back = menu.getCarried();
             menu.setCarried(ItemStack.EMPTY);
             p.getInventory().add(back);
-            if (!back.isEmpty()) p.drop(back, false);
+            if (!back.isEmpty()) p.drop(back, false, net.minecraft.util.Prediction.SERVER_ONLY);
         }
         if (item == null) return;
         for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
