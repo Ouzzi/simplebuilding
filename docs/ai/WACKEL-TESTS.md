@@ -12,6 +12,8 @@ kein FEHLER, höchstens 6 rote Tests), läuft jeder rote Test einmal allein nach
 
 | Datum | Ref | Ziel | Test |
 |---|---|---|---|
+| 2026-10-20 | 4f7b391c8 | module-simpletweaks-fabric-263 | simpletweaks:claims_game_test_claims_rights_action_matrix |
+| 2026-10-20 | 4f7b391c8 | module-simpleend-neoforge-263 | simpleend:module_game_test_end_leaves_catch_fall |
 
 ## Erledigt
 
