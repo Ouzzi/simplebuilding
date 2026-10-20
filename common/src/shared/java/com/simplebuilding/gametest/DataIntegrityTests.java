@@ -1460,7 +1460,9 @@ public final class DataIntegrityTests {
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
                     // Split stage 7: plus the Enderite sledgehammer of the required sub-mod Simple Hammers.
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
+                    // Split stage 8b: plus the Enderite chests and shulker box of the required sub-mod Simple Storage.
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -3496,7 +3498,9 @@ public final class DataIntegrityTests {
                     // split stage 5: so do Simple Crucibles' Enderite crucible and barrel
                     || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
                     // split stage 7: and Simple Hammers' Enderite sledgehammer
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
+                    // split stage 8b: and Simple Storage's Enderite chests and shulker box
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }

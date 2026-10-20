@@ -560,7 +560,8 @@ public final class TieredChestTests {
             helper.setBlock(pos, block);
             helper.setBlock(wire, Blocks.REDSTONE_WIRE);
             var chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) container(helper, pos);
-            helper.assertTrue(chest instanceof com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity,
+            // By class name: on 26.3 (split stage 8b) the entity is Simple Storage's.
+            helper.assertTrue(chest.getClass().getSimpleName().equals("TrappedCopperChestBlockEntity"),
                     block + " has the trapped copper chest entity");
             standOn(helper, player, pos);
             chest.startOpen(player);

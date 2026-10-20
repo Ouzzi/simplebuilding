@@ -66,6 +66,10 @@ public final class InWorldExportTests {
         }
         // 26.3: the six furnace steps belong to Simple Ovens (data/simpleovens/in_world_upgrades), not to the export.
         boolean ovens = com.simplebuilding.version.McVersion.OVENS_IN_SB;
+        // 26.3 (split stage 8b): the tier chest and shulker box steps belong to Simple Storage (data/simplestorage/in_world_upgrades);
+        // the steps out of the Vanilla copper chest and shulker box stay in the export (their sources are Vanilla blocks).
+        boolean chests = com.simplebuilding.version.McVersion.STORAGE_IN_SB;
+        boolean trapped = chests && com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS;
         // Shulkerkisten: zwei Stueck Material und zehn Schlaege je Stufe, also doppelte Haltbarkeit.
         String expected = "[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
                 + "minecraft:shulker_box>copper_sledgehammer/cracked_diamondx2/2per/20, "
@@ -73,23 +77,23 @@ public final class InWorldExportTests {
                 + (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
                         ? "minecraft:enchanting_table>netherite_sledgehammer/enderite_nuggetx1/10per/200, " : "")
                 + (ovens ? "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
-                + "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + (chests ? "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (ovens ? "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + "netherite_hopper>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_piston>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
-                + "netherite_shulker_box>netherite_sledgehammer/enderite_nuggetx2/10per/100, "
+                + (chests ? "netherite_shulker_box>netherite_sledgehammer/enderite_nuggetx2/10per/100, " : "")
                 + (ovens ? "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
-                + (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+                + (trapped
                         ? "netherite_trapped_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (ovens ? "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
-                + "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + (chests ? "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + (ovens ? "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
-                + "reinforced_shulker_box>diamond_sledgehammer/netherite_nuggetx2/4per/40, "
+                + (chests ? "reinforced_shulker_box>diamond_sledgehammer/netherite_nuggetx2/4per/40, " : "")
                 + (ovens ? "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + "reinforced_sticky_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20"
-                + (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+                + (trapped
                         ? ", reinforced_trapped_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20" : "") + "]";
         helper.assertTrue(summary.toString().equals(expected), "upgrade steps: expected " + expected + " but were " + summary);
         String timing = up.get("durationTicks").getAsInt() + "/" + up.get("hitIntervalTicks").getAsInt() + "/" + up.get("hits").getAsInt();
