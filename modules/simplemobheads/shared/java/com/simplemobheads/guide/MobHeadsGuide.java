@@ -39,7 +39,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 public final class MobHeadsGuide {
     public static final String NAMESPACE = "simplemobheads";
     public static final String AUTHOR = "Simple Mobheads";
-    public static final int PAGES = 13;
+    public static final int PAGES = 14;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
     public static final Item RECIPE_ITEM = Items.SKELETON_SKULL;

@@ -62,6 +62,7 @@ public final class MobHeadsDiscover {
             "simplemobheads:greeting",
             "simplemobheads:guide_book",
             "simplemobheads:heads",
+            "simplemobheads:herobrine",
             "simplemobheads:migration",
             "simplemobheads:mod_mobs",
             "simplemobheads:player_heads",
