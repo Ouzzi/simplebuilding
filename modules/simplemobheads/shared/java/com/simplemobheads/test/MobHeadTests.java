@@ -880,12 +880,13 @@ public final class MobHeadTests {
     /** The Herobrine head's extra ability: in the dark a hostile mob that targets the wearer hesitates, once per cooldown. */
     public static void herobrineGaze(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        ServerPlayer player = player(helper);
-        // Mobs never target a creative player (the mock player is one).
-        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        // Mobs never target a creative player: the in-level mock player always is one, so a survival mock player stands here.
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.snapTo(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
+        HeadAbilities.resetForTests(player);
         var zombie = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 4));
         zombie.setTarget(player);
-        helper.assertTrue(zombie.getTarget() == player, "the zombie does not target the player");
+        helper.assertTrue(zombie.getTarget() == player, "the zombie does not target the player (difficulty " + level.getDifficulty() + ")");
         helper.assertValueEqual(HeadAbilities.gaze(level, player, true), 0, "hesitation without the head");
         wear(player, "herobrine");
         helper.assertValueEqual(HeadAbilities.gaze(level, player, false), 0, "hesitation in the light");

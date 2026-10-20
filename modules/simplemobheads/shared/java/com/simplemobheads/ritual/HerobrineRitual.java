@@ -154,7 +154,7 @@ public final class HerobrineRitual {
     public static ItemStack hintBook() {
         ItemStack book = new ItemStack(Items.WRITTEN_BOOK);
         book.set(DataComponents.WRITTEN_BOOK_CONTENT, content());
-        book.set(DataComponents.ITEM_NAME, Component.translatable("item.simplemobheads.herobrine_notes"));
+        book.set(DataComponents.ITEM_NAME, Component.translatable("book.simplemobheads.herobrine_notes.title"));
         return book;
     }
 
@@ -174,7 +174,7 @@ public final class HerobrineRitual {
                 .add(LootItem.lootTableItem(Items.WRITTEN_BOOK)
                         .apply(SetComponentsFunction.setComponent(DataComponents.WRITTEN_BOOK_CONTENT, content()))
                         .apply(SetComponentsFunction.setComponent(DataComponents.ITEM_NAME,
-                                (Component) Component.translatable("item.simplemobheads.herobrine_notes"))))
+                                (Component) Component.translatable("book.simplemobheads.herobrine_notes.title"))))
                 .when(LootItemRandomChanceCondition.randomChance(HINT_BOOK_CHANCE));
     }
 
