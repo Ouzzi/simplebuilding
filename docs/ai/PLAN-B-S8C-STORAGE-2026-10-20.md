@@ -82,7 +82,25 @@ Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava`; `module-simplestorage-
 
 ## 6. Stand und Abweichungen
 
-(Belege werden nach den Läufen ergänzt)
+Umgesetzt (8b-2) wie geplant: 6 Fahrzeuge (Klassen `com.simplestorage.vehicle.*`, `StorageEntities`, Items, Komponente
+`boat_wood`, `VehicleRenderers`), 46 Rezepte + Freischaltungen, 39 Item-Modelle/-Definitionen (`git mv`, Namensraum umgeschrieben),
+6 End-Holz-Modelle in simpleend auf `simplestorage:`-Overlay, Vanilla-abgeleitete Sprites über `MODULE_OUTPUTS['simplestorage']`
+(`storage_vehicles_2026_10_20.py`), Lang/Fragentisch/Wiki-Notizen ins Modul, 5 Modul-Tests (Plätze/Speichern/Menü, Drops,
+Rezepte inkl. End-Hölzer und Schmieden, Bootsdeck, Migration alter Lore + Boot-Item mit alter Komponente), `check_data.py` erweitert.
+SB: Klassen/Registrierungen/Komponente/Lang/Datagen-Rezepte weg, `StorageRefs.chestMinecart/chestBoat/boatWoods/chestBoatStack`,
+Tabs/Suchtab/Testzentrale/DataIntegrity per Id, `VehicleTests` nur noch Ofen-/Trichterloren, Client-Tests per Id (Boote per `summon`).
+
+Belege (sb-test, 271dd630f): Compile 26.3 fabric (+ gametest)/neoforge/forge, 26.2 `:compileJava`, Modul fabric/neoforge/forge;
+module-simplestorage fabric/neoforge/standalone-fabric/standalone-neoforge 184/184, module-simplestorage-forge 46/46,
+module-simpleend-fabric 36/36, fabric-263+neoforge-263 `vehicle*` 12/12, `world_polish*` 8/8, `data_integrity*` 102/102,
+`tiered_chest*` 34/34, `discover*` 6/6, integration-263 3/3, `./gradlew check` Exit 0; Datagen 26.3 (nur Enderit-Tags, wiki/items).
+
+Abweichungen (bewusst):
+- 8b-3/8c nicht auf diesem Branch (E1, §7).
+- Vanilla-abgeleitete Wiki-Sheets landen unter `wiki/assets/textures/sheets/simplebuilding/simplestorage/` (in `.gitignore`).
+- `:compileGametestJava` (26.2-Client-Tests) scheitert schon vorher an `HudAndTooltipClientTest` (SimpleLib-UI fehlt auf 26.2) –
+  nicht von 8b-2, nicht behoben.
+- Nicht geprüft (Auftrag): Client-Läufe (Renderer, Boots-/Loren-Bild, Tab, Vanilla-abgeleitete Sprites im Spiel).
 
 ## 7. Zuschnitt der Folgeteile (für die nächste Sitzung, je eigener Branch von `claude-wave1` nach Merge von 8b-2)
 
