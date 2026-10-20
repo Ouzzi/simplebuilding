@@ -43,7 +43,7 @@ public final class SheetSounds {
             }
             // Vanilla mob heads play their instrument's sound on a note block
             for (NoteBlockInstrument nbi : NoteBlockInstrument.values()) {
-                if (!nbi.isTunable() && nbi.worksAboveNoteBlock()) nbi.getSoundEvent().unwrapKey().ifPresent(k -> out.add(k.identifier()));
+                if (!nbi.isTunable() && nbi.worksAboveNoteBlock()) out.add(nbi.getSoundEvent().value().location());
             }
             headSounds = out;
         }
