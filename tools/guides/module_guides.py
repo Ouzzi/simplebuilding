@@ -519,6 +519,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:iron_ingot": ("iron ingot", "Eisenbarren"),
     "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:lead": ("lead", "Leine"),
+    "minecraft:note_block": ("note block", "Notenblock"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
     "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),
