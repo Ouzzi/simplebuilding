@@ -97,10 +97,12 @@ final class TransactionTests {
         all.put("no_insert_hoppers", h -> {
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             StorageTests.Column c = StorageTests.column(h, owner, 1);
-            // A hopper beside the sales block and one beside the storage, both facing into the shop, full of sticks.
-            List<BlockPos> hoppers = List.of(c.sales.east(), c.storagePos(0).east());
+            // A hopper beside the sales block and one beside the storage (other side, so they never feed each other), both facing
+            // into the shop, full of sticks.
+            List<BlockPos> hoppers = List.of(c.sales.east(), c.storagePos(0).west());
             for (BlockPos p : hoppers) {
-                h.getLevel().setBlock(p, Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING, Direction.WEST), 3);
+                Direction into = p.getX() > c.sales.getX() ? Direction.WEST : Direction.EAST;
+                h.getLevel().setBlock(p, Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING, into), 3);
                 ((HopperBlockEntity) h.getLevel().getBlockEntity(p)).setItem(0, new ItemStack(Items.STICK, 5));
             }
             h.runAfterDelay(60, () -> {
