@@ -81,4 +81,30 @@ Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava`; `module-simplestorage-
 
 ## 6. Stand und Abweichungen
 
-(wird nach der Umsetzung ergänzt)
+(Belege werden nach den Läufen ergänzt)
+
+## 7. Zuschnitt der Folgeteile (für die nächste Sitzung, je eigener Branch von `claude-wave1` nach Merge von 8b-2)
+
+Alle drei betreffen **beide Linien** → Muster 8b-1: SB-Klassen bleiben in `common/src/shared` für 26.2, auf 26.3 registriert SB
+sie nicht (`McVersion.STORAGE_IN_SB`), das Modul hat Kopien unter `com.simplestorage.*`, SB greift per `StorageRefs` (Id) zu.
+
+- **8b-3 Seltene Funde** (`util/BetterChests`, `util/RareShulkers`, `util/ShulkerShells` + Hüllen-Items, Mixins
+  `StructureTemplateBetterChestMixin`, `StructurePieceBetterChestMixin`, `EndCityPieceMixin`, `ShulkerEscortMixin`,
+  `MobShulkerShellDropMixin`, `ShulkerOpenComponentsMixin`/`ShulkerOpenStateMixin`/`client/ShulkerRendererMixin`
+  (Deckel, nur Vanilla-Shulker), Textur `entity/rare_shulker/*` (Vanilla-abgeleitet), Tests `RareStructureFindsTests` 519 Z.).
+  Offene Frage zuerst klären: Shulker-Deckel/-Hüllen sind Vanilla-Verhalten, gehören eher zu Simple Mobs/Tweaks als zu Lager;
+  nur die Weltfunde (bessere Truhen, seltene Shulker mit Stufen-Kiste) sind sicher Lager.
+- **8c-1 Bündel, Köcher, platziertes Bündel, Lager-Verzauberungen** (~45 Produktionsdateien): `ReinforcedBundleItem` (686 Z.),
+  `QuiverItem` (erbt vom Bündel, 352 Z.), `PlacedBundleBlock`/`-BlockEntity`/`PlacedBundleRenderer`/`util/PlacedBundles`,
+  `recipe/ReinforcedBundleRecipe` (eigener Serializer), `util/BundleUtil`, `util/DyedStorage` (auch Rucksack → SimpleLib
+  oder Kopie), Tooltips (`ReinforcedBundleTooltipData`, `client/gui/tooltip/ReinforcedBundleTooltip*`, Overlay
+  `BundleTooltipComponentMixin`), Netzwerk (`ReinforcedBundleSelectionPayload`, `PlacedBundleScrollPayload`, 3 Loader-
+  Registrierungen), Mixins (`BowItemMixin`, `CrossbowItemMixin`, `AbstractArrowPickupMixin`, `ItemEntityMixin` (Funnel),
+  `client/MouseMixin`, `client/HandledScreenMixin`), `QuiverLayer` + Accessory-Slot-Kompat (`compat/accessory`),
+  Verzauberungen Drawer/Deep Pockets/Funnel (`ModEnchantments`, Datagen `ModEnchantmentTagProvider`, Tags
+  `*_enchantable`, Bücher-Texturen `VanillaBookTextures`). Die Verzauberungen ziehen mit (sie gelten für Bündel, Köcher
+  **und** Rucksäcke): SBs Rucksack liest sie auf 26.3 per `ResourceKey` im Namensraum `McVersion.STORAGE_NAMESPACE`.
+  Tests: `ReinforcedBundleTests` (1397 Z.), `QuiverTests` (1410), `BundleWiringTests` (1525), `StorageEnchantmentTests`
+  (1227), `DyedStorageTests`, `LeatherAndQuiverTests` (Köcher-Teil). Abhängigkeit b-bundles/b-tooltips: in der Basis enthalten.
+- **8c-2 Rucksäcke** (~15 Klassen + Menü/Taste/Layer/Upgrade-Rezept, `BackpackTests`, `BackpackClientTest`, ~100 Dateien
+  nennen `BackpackItem`; `BackpackItem.maxStackSizeIn` vorher überall durch SimpleLib `StackLimits.max` ersetzen).

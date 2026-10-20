@@ -199,7 +199,8 @@ final class VehicleTests {
         count.putInt("Count", 128);
         extra.add(count);
         cart.put(com.simplestorage.chest.TieredChestBlockEntity.EXTRA_COUNTS, extra);
-        Optional<Entity> loaded = EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), cart), level, EntitySpawnReason.LOAD);
+        Optional<Entity> loaded = Optional.ofNullable(EntityType.loadEntityRecursive(TagValueInput.create(ProblemReporter.DISCARDING,
+                level.registryAccess(), cart), level, EntitySpawnReason.LOAD, net.minecraft.world.entity.EntityProcessor.NOP));
         if (loaded.isEmpty() || loaded.get().getType() != StorageEntities.CHEST_MINECARTS.get(ChestTier.NETHERITE)) {
             problems.add("old cart loaded as " + loaded.map(e -> e.getType().toShortString()).orElse("nothing"));
         } else {
