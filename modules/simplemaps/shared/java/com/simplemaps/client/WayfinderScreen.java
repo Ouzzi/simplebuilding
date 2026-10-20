@@ -385,7 +385,8 @@ public final class WayfinderScreen extends Screen {
         }
         g.disableScissor();
         Component status = status(mapId);
-        if (status != null) g.centeredText(font, status, mapX + mapW / 2, mapY + mapH / 2 - 4, 0xFFE8E2D0);
+        // A new map says so in the middle; "another dimension" sits at the top so the explored map stays readable.
+        if (status != null) g.centeredText(font, status, mapX + mapW / 2, mapId < 0 ? mapY + mapH / 2 - 4 : mapY + 6, 0xFFE8E2D0);
         drawFooter(g, mouseX, mouseY);
         if (picking) {
             UiBookmarks.greyOut(g, left, top, panelW, panelH);

@@ -4,11 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.simplebuilding.framework.api.MapLayerSources;
 import com.simplebuilding.framework.api.Protection;
+import com.simplemaps.MapsConfig;
+import com.simplemaps.MapsIcons;
 import com.simplemaps.Reveal;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.WayfinderData;
 import com.simplemaps.WayfinderIds;
+import com.simplemaps.net.LayerDataPayload;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +55,9 @@ public final class WebExport {
     public static final int TILE = WayfinderData.TILE, MAX_ZOOM = 4, CHUNKS_PER_TILE = (TILE / 16) * (TILE / 16), PYRAMID_COST = 16;
     /** Actor of the protection check for "hide claims": somebody who is member of nothing. */
     private static final UUID NOBODY = new UUID(0L, 0L);
+    /** Layer id of Simple Shops' shops (framework {@link MapLayerSources}) and the most shops one export lists. */
+    public static final String SHOP_SOURCE = "shops";
+    public static final int MAX_SHOPS = 2048;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     /** One dimension: explored 1:1 tile keys (sorted), the maps that explored them, tiles touched per zoom. */
@@ -345,7 +352,9 @@ public final class WebExport {
 
     private void finish() throws IOException {
         Files.createDirectories(dir);
-        writeText("markers.json", GSON.toJson(markers()));
+        JsonObject markers = markers();
+        writeText("markers.json", GSON.toJson(markers));
+        if (markers.has("shops") && MapsIcons.shopIcon().isPresent()) writeShopIcon();
         try (InputStream in = WebExport.class.getResourceAsStream("/assets/" + SimpleMaps.MOD_ID + "/web/index.html")) {
             if (in != null) writeText("index.html", new String(in.readAllBytes(), StandardCharsets.UTF_8));
             else SimpleMaps.LOG.warn("Simple Maps: web viewer index.html missing in the mod jar");
@@ -389,7 +398,68 @@ public final class WebExport {
             players.add(o);
         }
         root.add("players", players);
+        if (MapsConfig.webShops) root.add("shops", shops());
         return root;
+    }
+
+    /**
+     * Shops of the {@code shops} map layer (Simple Shops, framework contract, absent without it) on explored tiles only,
+     * never in a protected chunk with {@code webHideClaims}; only with {@code webShops} (default off, like players).
+     * {@code icon}: {@code money_bill} when Simple Money is loaded (owner 19.10.), else {@code diamond}.
+     */
+    JsonArray shops() {
+        JsonArray out = new JsonArray();
+        MapLayerSources.Source source = MapLayerSources.get(SHOP_SOURCE);
+        if (source == null) return out;
+        for (Dim d : dims) {
+            for (long key : d.tiles) {
+                int x0 = WayfinderData.tileX(key) * TILE, z0 = WayfinderData.tileZ(key) * TILE;
+                List<MapLayerSources.Marker> found;
+                try {
+                    found = MapLayerSources.collect(source, d.level, NOBODY, x0, z0, x0 + TILE - 1, z0 + TILE - 1);
+                } catch (RuntimeException e) {
+                    SimpleMaps.LOG.warn("Simple Maps web: shop layer failed: {}", e.toString());
+                    return out;
+                }
+                for (MapLayerSources.Marker m : found) {
+                    if (out.size() >= MAX_SHOPS) return out;
+                    if (m.x() < x0 || m.x() >= x0 + TILE || m.z() < z0 || m.z() >= z0 + TILE) continue;
+                    if (hideClaims && hidden(d.level, m.x() >> 4, m.z() >> 4)) continue;
+                    JsonObject o = new JsonObject();
+                    o.addProperty("dimension", d.level.dimension().identifier().toString());
+                    o.addProperty("x", m.x());
+                    o.addProperty("z", m.z());
+                    o.addProperty("icon", MapsIcons.webIcon(m.kind()));
+                    JsonArray lines = new JsonArray();
+                    for (String line : m.lines()) {
+                        if (lines.size() < LayerDataPayload.MAX_LINES) lines.add(line.length() > LayerDataPayload.MAX_LINE ? line.substring(0, LayerDataPayload.MAX_LINE) : line);
+                    }
+                    o.add("lines", lines);
+                    out.add(o);
+                }
+            }
+        }
+        return out;
+    }
+
+    /** Copies Simple Money's bill texture next to the viewer (the viewer draws a plain bill when it is missing). */
+    private void writeShopIcon() throws IOException {
+        String resource = "assets/" + MapsIcons.MONEY_MOD + "/textures/item/" + MapsIcons.MONEY_BILL.getPath() + ".png";
+        java.util.LinkedHashSet<ClassLoader> loaders = new java.util.LinkedHashSet<>();
+        MapsIcons.shopIcon().ifPresent(item -> loaders.add(item.getClass().getClassLoader()));
+        loaders.add(Thread.currentThread().getContextClassLoader());
+        loaders.add(WebExport.class.getClassLoader());
+        for (ClassLoader loader : loaders) {
+            if (loader == null) continue;
+            try (InputStream in = loader.getResourceAsStream(resource)) {
+                if (in == null) continue;
+                Path file = dir.resolve("icons/" + MapsIcons.MONEY_BILL.getPath() + ".png"), tmp = file.resolveSibling(file.getFileName() + ".tmp");
+                Files.createDirectories(file.getParent());
+                Files.write(tmp, in.readAllBytes());
+                move(tmp, file);
+                return;
+            }
+        }
     }
 
     private void writeText(String name, String text) throws IOException {

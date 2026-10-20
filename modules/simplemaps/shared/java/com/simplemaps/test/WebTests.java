@@ -2,6 +2,7 @@ package com.simplemaps.test;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.simplebuilding.framework.api.MapLayerSources;
 import com.simplebuilding.framework.api.Protection;
 import com.simplemaps.MapsConfig;
 import com.simplemaps.Reveal;
@@ -21,6 +22,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import javax.imageio.ImageIO;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,6 +45,7 @@ final class WebTests {
         all.put("web_markers_opt_in", WebTests::markersOptIn);
         all.put("web_auto_off", WebTests::autoOff);
         all.put("web_command_permissions", WebTests::commandPermissions);
+        all.put("web_shops", WebTests::shops);
     }
 
     private WebTests() {}
@@ -302,6 +305,66 @@ final class WebTests {
             h.assertTrue(WebMap.running(server) == null, "export command does nothing while webEnabled is off");
         } finally {
             MapsConfig.webEnabled = enabled;
+        }
+        h.succeed();
+    }
+
+    private static JsonArray shopsOf(MinecraftServer server, Path dir, boolean hideClaims, WayfinderData data) {
+        run(WebExport.of(server, dir, hideClaims, List.of(data)));
+        try {
+            JsonObject root = com.google.gson.JsonParser.parseString(Files.readString(dir.resolve("markers.json"))).getAsJsonObject();
+            return root.has("shops") ? root.getAsJsonArray("shops") : null;
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * Owner 19.10.: shops in markers.json only with webShops (default off), only on explored tiles, never in a protected
+     * chunk with webHideClaims; the icon is Simple Money's bill only when that mod is loaded.
+     */
+    private static void shops(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        int b = FAR_TILE * 128;
+        WayfinderData data = farMap(new int[]{b + 5, b + 7});
+        MapLayerSources.Source real = MapLayerSources.get(WebExport.SHOP_SOURCE);
+        // Stand-in for Simple Shops' layer: one shop on the explored tile, one outside the asked area, one on another tile.
+        MapLayerSources.register("simplemaps", WebExport.SHOP_SOURCE, "layer.test", (level, x0, z0, x1, z1) -> List.of(
+                new MapLayerSources.Marker(b + 5, b + 7, "shop", List.of("Shop of Tester", "Offer: Bread", "Price: 1x Gold Nugget")),
+                new MapLayerSources.Marker(b + 128 * 5, b + 7, "shop", List.of("far"))));
+        boolean shops = MapsConfig.webShops;
+        Predicate<String> saved = SimpleMaps.modLoaded;
+        Path dir = temp();
+        try {
+            MapsConfig.webShops = false;
+            h.assertTrue(shopsOf(server, dir, false, data) == null, "no shops in markers.json by default");
+            MapsConfig.webShops = true;
+            SimpleMaps.modLoaded = id -> false;
+            JsonArray list = shopsOf(server, dir, false, data);
+            h.assertTrue(list != null && list.size() == 1, "only the shop on the explored tile, got " + list);
+            JsonObject shop = list.get(0).getAsJsonObject();
+            h.assertTrue(shop.get("x").getAsInt() == b + 5 && shop.get("z").getAsInt() == b + 7
+                    && shop.get("dimension").getAsString().equals(Level.OVERWORLD.identifier().toString())
+                    && shop.getAsJsonArray("lines").size() == 3, "position, dimension and lines");
+            h.assertTrue(shop.get("icon").getAsString().equals("diamond"), "diamond without Simple Money");
+            SimpleMaps.modLoaded = id -> id.equals("simplemoney");
+            boolean bill = BuiltInRegistries.ITEM.containsKey(com.simplemaps.MapsIcons.MONEY_BILL);
+            h.assertTrue(shopsOf(server, dir, false, data).get(0).getAsJsonObject().get("icon").getAsString().equals(bill ? "money_bill" : "diamond"),
+                    "bill with Simple Money (registered: " + bill + ")");
+            int cx = (b + 5) >> 4, cz = (b + 7) >> 4;
+            Protection.register(server, "simplemaps_web_shop_test", t -> !((t.x() >> 4) == cx && (t.z() >> 4) == cz));
+            try {
+                h.assertTrue(shopsOf(server, dir, true, data).isEmpty(), "webHideClaims hides a shop in a protected chunk");
+                h.assertTrue(shopsOf(server, dir, false, data).size() == 1, "without webHideClaims it is listed");
+            } finally {
+                Protection.unregister(server, "simplemaps_web_shop_test");
+            }
+        } finally {
+            MapsConfig.webShops = shops;
+            SimpleMaps.modLoaded = saved;
+            if (real != null) MapLayerSources.register(real.owner(), real.id(), real.titleKey(), real.collector());
+            else MapLayerSources.register("simplemaps", WebExport.SHOP_SOURCE, "layer.test", (level, x0, z0, x1, z1) -> List.of());
+            delete(dir);
         }
         h.succeed();
     }

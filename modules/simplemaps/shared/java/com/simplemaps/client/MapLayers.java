@@ -3,6 +3,7 @@ package com.simplemaps.client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.simplemaps.MapsIcons;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.LayerRequestPayload;
@@ -18,16 +19,19 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Client side of the map layers and the coordinate labels of the wayfinder screen: the switches (saved in
  * {@code config/simplemaps-client.json}), the request to the server and the drawing of what comes back - loaded chunks
- * as a green wash, every other source (shops, chunk loaders ...) as small diamonds with a tooltip. The server decides
- * what exists; this class knows no other module.
+ * as a green wash, every other source (shops, chunk loaders ...) as small diamonds with a tooltip; shops carry Simple
+ * Money's bill when that mod is loaded ({@link MapsIcons}, by id). The server decides what exists; this class imports
+ * no other module.
  */
 public final class MapLayers {
     public static final String CHUNKS = "chunks";
-    private static final int RIM = 0xFF1A1208, WASH = 0x3C3CC864, REQUEST_MS = 1000, MAX_CHUNKS = LayerDataPayload.MAX_SPAN_CHUNKS;
+    private static final int RIM = 0xFF1A1208, WASH = 0x3C3CC864, REQUEST_MS = 1000, MAX_CHUNKS = LayerDataPayload.MAX_SPAN_CHUNKS, ICON = 10;
+    private static ItemStack shopIcon;
     private static boolean loaded, coords;
     private static final Set<String> ON = new LinkedHashSet<>();
     private static LayerDataPayload data;
@@ -170,10 +174,27 @@ public final class MapLayers {
             }
             int x = sx(m.x(), mapX, originX, bpp, mag) + mag / 2, y = sx(m.z(), mapY, originZ, bpp, mag) + mag / 2;
             if (x < mapX - 5 || x > mapX + mapW + 5 || y < mapY - 5 || y > mapY + mapH + 5) continue;
+            ItemStack icon = icon(m);
+            if (!icon.isEmpty()) {
+                // Shop with Simple Money (owner 19.10.): the bill, 10 px, centred on the shop.
+                g.pose().pushMatrix();
+                g.pose().translate(x - ICON / 2.0F, y - ICON / 2.0F);
+                g.pose().scale(ICON / 16.0F, ICON / 16.0F);
+                g.fakeItem(icon, 0, 0);
+                g.pose().popMatrix();
+                continue;
+            }
             int color = 0xFF000000 | Mth.hsvToRgb((m.source().hashCode() & 0xFFFF) / 65536.0F, 0.55F, 0.95F);
             for (int r = 0; r <= 4; r++) g.fill(x - (4 - r), y - r, x + (4 - r) + 1, y - r + 1, r == 4 ? RIM : color);
             for (int r = 1; r <= 4; r++) g.fill(x - (4 - r), y + r, x + (4 - r) + 1, y + r + 1, r == 4 ? RIM : color);
         }
+    }
+
+    /** The item drawn instead of the diamond: Simple Money's bill for a shop (when loaded), else empty. */
+    private static ItemStack icon(LayerDataPayload.Marker m) {
+        if (!MapsIcons.SHOP_KIND.equals(m.kind())) return ItemStack.EMPTY;
+        if (shopIcon == null) shopIcon = MapsIcons.shopIcon().map(item -> new ItemStack(item)).orElse(ItemStack.EMPTY);
+        return shopIcon;
     }
 
     /** Hover text of the marker under the cursor, drawn after the scissor. */
@@ -183,7 +204,8 @@ public final class MapLayers {
             if (!on(m.source())) continue;
             int[] area = m.area();
             int x = sx(m.x(), mapX, originX, bpp, mag) + mag / 2, y = sx(m.z(), mapY, originZ, bpp, mag) + mag / 2;
-            boolean over = area == null ? Math.abs(x - mouseX) <= 4 && Math.abs(y - mouseY) <= 4
+            int reach = icon(m).isEmpty() ? 4 : ICON / 2;
+            boolean over = area == null ? Math.abs(x - mouseX) <= reach && Math.abs(y - mouseY) <= reach
                     : mouseX >= sx(m.x(), mapX, originX, bpp, mag) && mouseX < sx(m.x() + 16.0 * area[2], mapX, originX, bpp, mag)
                     && mouseY >= sx(m.z(), mapY, originZ, bpp, mag) && mouseY < sx(m.z() + 16.0, mapY, originZ, bpp, mag);
             if (over) {

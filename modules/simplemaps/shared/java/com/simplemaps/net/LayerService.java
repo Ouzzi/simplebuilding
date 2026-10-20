@@ -24,6 +24,9 @@ import net.minecraft.world.level.Level;
  * Server side of the map layers (loaded chunks and the sources other modules register, see {@link MapLayerSources}).
  * Authority stays here: the player must hold that map, the area is capped, requests are rate limited, and only chunks
  * and markers inside tiles the map has already explored are answered (the map never shows more than it knows).
+ * Loaded chunks are only the viewer's own (inside the server view distance around them, same dimension) and forced ones
+ * (chunk loaders, {@code /forceload}): chunks another player keeps loaded never show, the map must not betray where
+ * somebody (maybe vanished) is (owner 19.10.).
  */
 public final class LayerService {
     /** Minimum ticks between two layer requests of one player; the largest area (blocks per side) one answer covers. */
@@ -64,7 +67,7 @@ public final class LayerService {
             for (int dz = 0; dz < ch; dz++) {
                 for (int dx = 0; dx < cw; dx++) {
                     int cx = minCx + dx, cz = minCz + dz;
-                    if (explored(data, cx << 4, cz << 4) && level.getChunkSource().getChunkNow(cx, cz) != null) {
+                    if (explored(data, cx << 4, cz << 4) && shownChunk(level, player, cx, cz)) {
                         int bit = dz * cw + dx;
                         loaded[bit >> 3] |= (byte) (1 << (bit & 7));
                     }
@@ -93,6 +96,17 @@ public final class LayerService {
             }
         }
         SimpleMaps.toClient.accept(player, new LayerDataPayload(p.mapId(), new LayerDataPayload.Area(minCx, minCz, cw, ch), loaded, markers, available));
+    }
+
+    /**
+     * Whether the loaded-chunks layer may flag this chunk for {@code viewer}: loaded and either forced (chunk loader,
+     * {@code /forceload}) or within the server view distance around the viewer in the same dimension.
+     */
+    public static boolean shownChunk(ServerLevel level, ServerPlayer viewer, int cx, int cz) {
+        if (level.getChunkSource().getChunkNow(cx, cz) == null) return false;
+        if (level.getForceLoadedChunks().contains(net.minecraft.world.level.ChunkPos.pack(cx, cz))) return true;
+        return viewer.level() == level && net.minecraft.server.level.ChunkTrackingView.isInViewDistance(
+                viewer.getBlockX() >> 4, viewer.getBlockZ() >> 4, level.getServer().getPlayerList().getViewDistance(), cx, cz);
     }
 
     private static boolean explored(WayfinderData data, int x, int z) {

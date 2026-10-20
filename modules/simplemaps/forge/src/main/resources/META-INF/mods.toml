@@ -26,3 +26,10 @@ mandatory=true
 versionRange="[0.2.0,)"
 ordering="AFTER"
 side="BOTH"
+[[dependencies.simplemaps]]
+modId="simplemoney"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+

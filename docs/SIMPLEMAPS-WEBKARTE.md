@@ -19,6 +19,7 @@ Code: `modules/simplemaps/shared/java/com/simplemaps/web/`, Ansicht `modules/sim
 | `webChunksPerTick` | `32` (1–512) | Chunks je Tick; eine Pyramiden-Kachel zählt 16 |
 | `webIntervalMinutes` | `0` (0–1440) | automatischer Export alle n Minuten, 0 = aus |
 | `webHideClaims` | `false` | Chunks leer lassen, in denen ein Schutz (framework `Protection`, z. B. Simple-Tweaks-Claims) Fremden das Bauen verbietet |
+| `webShops` | `false` | Shops (Ebene `shops` von Simple Shops) in `markers.json`: Dimension, x/z, Angebot/Preis/Besitzername, `icon` `money_bill` (Simple Money geladen, Bild `icons/money_bill.png`) sonst `diamond`; nur erkundete Kacheln, mit `webHideClaims` nie in geschützten Chunks |
 | `webAutoOffWith` | `bluemap, dynmap, squaremap, pl3xmap, journeymap` | einer geladen → Export aus (Logzeile); leere Liste hält ihn an |
 
 Spieler erscheinen nur nach eigenem Opt-in: `/simplemaps web show` bzw. `hide` (gespeichert in der Welt,

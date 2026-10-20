@@ -1,5 +1,6 @@
 package com.simplemaps.client;
 
+import com.simplemaps.JamNoise;
 import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
@@ -70,7 +71,6 @@ public final class MapsClient {
             HANDS.clear();
             FRAMES.values().forEach(ViewTexture::release);
             FRAMES.clear();
-            StaticTexture.releaseAll();
             lastLevel = mc.level;
         }
         if (mc.player == null || mc.level == null) return;
@@ -78,11 +78,16 @@ public final class MapsClient {
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack stack = mc.player.getItemInHand(hand);
             MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
-            if (!MapsItems.isWayfinder(stack) || ref == null || jammed(stack, mc.level)) continue;
+            if (!MapsItems.isWayfinder(stack) || ref == null) continue;
             ViewTexture view = HANDS.computeIfAbsent(hand, h -> new ViewTexture(h == InteractionHand.MAIN_HAND ? "hand_main" : "hand_off"));
             MapsComponents.Display display = stack.getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT);
-            view.compose(CACHE, ref.id(), display.handZoom(), Mth.floor(mc.player.getX()), Mth.floor(mc.player.getZ()),
-                    stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY), display.contour());
+            // Another dimension (owner 19.10.): the explored map stays, centred on the holder's position converted
+            // to the map's dimension (Nether 1:8); only unexplored pixels get the faint static.
+            WayfinderMapItem.Kind kind = ((WayfinderMapItem) stack.getItem()).kind;
+            boolean jam = jammed(stack, mc.level);
+            double scale = jam ? WayfinderMapItem.coordScale(kind, WayfinderMapItem.kindOf(mc.level.dimensionTypeRegistration())) : 1.0;
+            view.compose(CACHE, ref.id(), display.handZoom(), Mth.floor(mc.player.getX() * scale), Mth.floor(mc.player.getZ() * scale),
+                    stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY), display.contour(), jam ? JamNoise.tint(kind) : -1, ticks);
         }
         Iterator<Map.Entry<Integer, ViewTexture>> it = FRAMES.entrySet().iterator();
         while (it.hasNext()) {
@@ -92,7 +97,6 @@ public final class MapsClient {
                 it.remove();
             }
         }
-        StaticTexture.tick(ticks);
         CACHE.tick();
     }
 
@@ -125,16 +129,13 @@ public final class MapsClient {
         Minecraft mc = Minecraft.getInstance();
         InteractionHand hand = mainHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
         if (mc.player == null || !MapsItems.isWayfinder(stack)) return false;
-        if (jammed(stack, mc.player.level())) {
-            state.texture = StaticTexture.of(((WayfinderMapItem) stack.getItem()).kind, ticks).id;
-            state.decorations.clear();
-            return true;
-        }
         ViewTexture view = HANDS.get(hand);
         // No picture of another map: a fresh map without id shows the empty paper until the server binds it.
         if (view == null || !stack.has(MapsComponents.MAP_ID)) return false;
         state.texture = view.id;
         state.decorations.clear();
+        // Map of another dimension: the picture only, no holder arrow and no death cross (the holder is not there).
+        if (jammed(stack, mc.player.level())) return true;
         var atlas = mc.getAtlasManager().getAtlasOrThrow(AtlasIds.MAP_DECORATIONS);
         float yaw = mc.player.getYRot();
         MapRenderState.MapDecorationRenderState player = new MapRenderState.MapDecorationRenderState();
