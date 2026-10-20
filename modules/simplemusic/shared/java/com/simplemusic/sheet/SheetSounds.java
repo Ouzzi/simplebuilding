@@ -41,6 +41,10 @@ public final class SheetSounds {
                 Identifier sound = item.components().get(DataComponents.NOTE_BLOCK_SOUND);
                 if (sound != null) out.add(sound);
             }
+            // Vanilla mob heads play their instrument's sound on a note block
+            for (NoteBlockInstrument nbi : NoteBlockInstrument.values()) {
+                if (!nbi.isTunable() && nbi.worksAboveNoteBlock()) nbi.getSoundEvent().unwrapKey().ifPresent(k -> out.add(k.identifier()));
+            }
             headSounds = out;
         }
         return headSounds;

@@ -154,7 +154,8 @@ public class OrchestrionBlockEntity extends BlockEntity {
         if (level instanceof ServerLevel server) be.tick(server);
     }
 
-    void tick(ServerLevel level) {
+    /** One server tick (public for the tone cap test, which ticks it by hand). */
+    public void tick(ServerLevel level) {
         if (item.isEmpty() || !com.simplemusic.SimpleMusic.on()) {
             if (playing) {
                 playing = false;

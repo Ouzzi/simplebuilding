@@ -30,8 +30,8 @@ assert recipes['orchestrion']['key'] == {'C': 'minecraft:copper_ingot', 'N': 'mi
 assert sorted(recipes['sheet_music']['ingredients']) == ['minecraft:feather', 'minecraft:ink_sac', 'minecraft:paper']
 assert recipes['blank_disc']['key']['A'] == 'minecraft:amethyst_shard'
 for r in recipes.values():
-    for value in json.dumps(r).split('"'):
-        if ':' in value and not value.startswith(('minecraft:', '#minecraft:', f'{NS}:')):
+    for value in re.findall(r'"(#?[a-z0-9_.-]+:[a-z0-9_./-]+)"', json.dumps(r)):
+        if not value.startswith(('minecraft:', '#minecraft:', f'{NS}:')):
             raise AssertionError(('foreign id in a recipe without condition', value))
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 mixins = json.loads((RES / f'{NS}.mixins.json').read_text(encoding='utf-8'))

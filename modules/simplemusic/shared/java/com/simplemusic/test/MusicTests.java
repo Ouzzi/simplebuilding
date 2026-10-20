@@ -67,19 +67,24 @@ public final class MusicTests {
         return h.getBlockEntity(pos, OrchestrionBlockEntity.class);
     }
 
-    /** Captures what the server sends to clients while {@code body} runs, restores the hook afterwards. */
-    static List<CustomPacketPayload> capture(List<CustomPacketPayload> out) {
-        BiConsumer<ServerPlayer, CustomPacketPayload> before = SimpleMusic.toClient;
-        SimpleMusic.toClient = (p, payload) -> out.add(payload);
-        RESTORE = before;
-        return out;
+    /** What the server sent to each player (tests run in parallel, so one recorder for all, read per player). */
+    static final Map<java.util.UUID, List<CustomPacketPayload>> SENT = new java.util.concurrent.ConcurrentHashMap<>();
+    private static boolean recording;
+
+    /** The payloads sent to {@code player} from now on. */
+    static List<CustomPacketPayload> capture(ServerPlayer player) {
+        if (!recording) {
+            recording = true;
+            BiConsumer<ServerPlayer, CustomPacketPayload> loader = SimpleMusic.toClient;
+            SimpleMusic.toClient = (p, payload) -> {
+                SENT.computeIfAbsent(p.getUUID(), k -> new java.util.concurrent.CopyOnWriteArrayList<>()).add(payload);
+                loader.accept(p, payload);
+            };
+        }
+        return SENT.computeIfAbsent(player.getUUID(), k -> new java.util.concurrent.CopyOnWriteArrayList<>());
     }
 
-    private static BiConsumer<ServerPlayer, CustomPacketPayload> RESTORE;
-
     static void restore() {
-        if (RESTORE != null) SimpleMusic.toClient = RESTORE;
-        RESTORE = null;
         MusicServer.clock = System::currentTimeMillis;
         MusicConfig.reset();
     }
@@ -242,20 +247,21 @@ public final class MusicTests {
             h.succeedWhenEntityPresent(net.minecraft.world.entity.EntityTypes.ITEM, ORCH.above());
         });
         ALL.put("tone_limit", h -> {
-            MusicConfig.maxTonesPerTick = 2;
             OrchestrionBlockEntity be = orchestrion(h, ORCH);
             be.insert(sheet("tempo 20\nharp: [c4 e4 g4 c5]"));
-            h.runAfterDelay(2, () -> {
-                h.assertTrue(be.tonesPlayed() == 2, "at most maxTonesPerTick: " + be.tonesPlayed());
-                MusicConfig.reset();
-                h.succeed();
-            });
+            // ticked by hand within this callback: other tests reset the shared config between ticks
+            MusicConfig.maxTonesPerTick = 2;
+            be.tick(h.getLevel());
+            int played = be.tonesPlayed();
+            MusicConfig.reset();
+            h.assertTrue(played == 2, "at most maxTonesPerTick: " + played);
+            h.succeed();
         });
         ALL.put("upload_moderation_download", h -> {
-            List<CustomPacketPayload> sent = capture(new ArrayList<>());
+            ServerPlayer alice = h.makeMockServerPlayerInLevel();
+            ServerPlayer bob = h.makeMockServerPlayerInLevel();
+            List<CustomPacketPayload> sent = capture(alice);
             try {
-                ServerPlayer alice = h.makeMockServerPlayerInLevel();
-                ServerPlayer bob = h.makeMockServerPlayerInLevel();
                 alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.BLANK_DISC));
                 byte[] stereo = uniqueOgg(2, 5);
                 upload(alice, stereo, "Stereo");
@@ -320,8 +326,8 @@ public final class MusicTests {
         });
         MAX_TICKS.put("upload_moderation_download", 100);
         ALL.put("upload_rejects_bad_chunks", h -> {
-            List<CustomPacketPayload> sent = capture(new ArrayList<>());
             ServerPlayer player = h.makeMockServerPlayerInLevel();
+            List<CustomPacketPayload> sent = capture(player);
             player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.BLANK_DISC));
             MusicServer.clock = () -> 5_000_000L;
             MusicServer.handleUploadBegin(new UploadBeginPayload(0, "Gap", 100_000), player);
@@ -338,7 +344,6 @@ public final class MusicTests {
             h.succeed();
         });
         ALL.put("jukebox_custom_disc", h -> {
-            List<CustomPacketPayload> sent = capture(new ArrayList<>());
             BlockPos pos = new BlockPos(1, 1, 1);
             h.setBlock(pos, Blocks.JUKEBOX.defaultBlockState());
             ServerPlayer player = h.makeMockServerPlayerInLevel();
