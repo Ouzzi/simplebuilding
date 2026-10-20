@@ -44,7 +44,20 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers"
-    ]
+    ],
+    "overview": {
+      "status": "in Arbeit",
+      "open": "86",
+      "missing": "Modulfamilie-Umzug läuft: Blocks, Tiegel, polierter Endstein, Octets fertig; Hämmer in wave1 (noch nicht im master, check rot); offen Gadgets, Lager (Stufe 8), Enderite, Release (Stufe 9); dazu Abnahmen im Spiel.",
+      "asOf": "19.10.2026"
+    },
+    "counts": {
+      "items": 576,
+      "blocks": 340,
+      "recipes": 1012,
+      "config": 239,
+      "features": 49
+    }
   },
   {
     "id": "wiringexample",
@@ -59,6 +72,10 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "counts": {
+      "items": 1,
+      "features": 1
+    },
     "dataHash": "b1da0996bb98"
   },
   {
@@ -89,6 +106,13 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 8,
+      "recipes": 9,
+      "features": 73
+    },
     "dataHash": "0eb60ca09c8f"
   },
   {
@@ -109,6 +133,13 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 8,
+      "recipes": 8,
+      "features": 35
+    },
     "dataHash": "f5b68cb55fb7"
   },
   {
@@ -127,6 +158,13 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "parent": "simpleaesthetics",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "recipes": 1,
+      "features": 14
+    },
     "dataHash": "5173fcf52c53"
   },
   {
@@ -148,6 +186,13 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 2,
+      "recipes": 2,
+      "features": 38
+    },
     "dataHash": "883701b8f26c"
   },
   {
@@ -169,6 +214,11 @@ window.WIKI_MODULES = [
       "simplemodels",
       "modmenu"
     ],
+    "parent": "simpleaesthetics",
+    "bundle": "required",
+    "counts": {
+      "features": 77
+    },
     "dataHash": "01baf1f68bef"
   },
   {
@@ -190,6 +240,11 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "parent": "simpleaesthetics",
+    "bundle": "required",
+    "counts": {
+      "features": 20
+    },
     "dataHash": "033c5483dd22"
   },
   {
@@ -217,6 +272,17 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "overview": {
+      "status": "in Arbeit",
+      "open": "16",
+      "missing": "Grundstock fertig; neu Item-Rahmen (in wave1) und Container-Tooltips (auf Branch), Bündel-Ansicht geplant; Abnahmen im Spiel offen.",
+      "asOf": "19.10.2026"
+    },
+    "counts": {
+      "items": 1,
+      "recipes": 1,
+      "features": 9
+    },
     "dataHash": "69f8f3e604c3"
   },
   {
@@ -239,6 +305,14 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleweather"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 2,
+      "blocks": 1,
+      "recipes": 4,
+      "features": 39
+    },
     "dataHash": "8f7275ae7f45"
   },
   {
@@ -264,6 +338,14 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 1,
+      "blocks": 2,
+      "recipes": 1,
+      "features": 7
+    },
     "dataHash": "4d2fff5f6bf4"
   },
   {
@@ -282,6 +364,14 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 6,
+      "blocks": 18,
+      "recipes": 17,
+      "features": 6
+    },
     "dataHash": "fc7348a0ab85"
   },
   {
@@ -297,6 +387,18 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "overview": {
+      "status": "fertig (wächst mit)",
+      "open": "4",
+      "missing": "Basis für alle Mods; offen Kreativtab-Zeilenlayout-Abnahme und Stil-Bausteine, wächst mit jeder Familienstufe.",
+      "asOf": "19.10.2026"
+    },
+    "counts": {
+      "items": 10,
+      "blocks": 7,
+      "recipes": 29,
+      "features": 2
+    },
     "dataHash": "315e187b9f71"
   },
   {
@@ -318,6 +420,11 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "features": 43
+    },
     "dataHash": "9e46375155db"
   },
   {
@@ -337,6 +444,13 @@ window.WIKI_MODULES = [
     "optional": [
       "simplemoney"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 4,
+      "recipes": 4,
+      "features": 7
+    },
     "dataHash": "4573d7263297"
   },
   {
@@ -357,6 +471,14 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 4,
+      "blocks": 1,
+      "recipes": 8,
+      "features": 6
+    },
     "dataHash": "722f6419ce54"
   },
   {
@@ -372,6 +494,13 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 22,
+      "recipes": 63,
+      "features": 13
+    },
     "dataHash": "c7c041b22b79"
   },
   {
@@ -392,6 +521,11 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "features": 3
+    },
     "dataHash": "bc9c18e432a3"
   },
   {
@@ -412,6 +546,11 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "features": 17
+    },
     "dataHash": "63a7f7372029"
   },
   {
@@ -433,6 +572,14 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "blocks": 1,
+      "recipes": 2,
+      "features": 28
+    },
     "dataHash": "f3e59d31b9bb"
   },
   {
@@ -454,6 +601,11 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "features": 8
+    },
     "dataHash": "c881b63a533d"
   },
   {
@@ -474,6 +626,12 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "features": 11
+    },
     "dataHash": "564d3430f293"
   },
   {
@@ -494,6 +652,11 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "parent": "simplequalityoflife",
+    "bundle": "required",
+    "counts": {
+      "features": 5
+    },
     "dataHash": "13210b0e0ad4"
   },
   {
@@ -511,6 +674,13 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "blocks": 1,
+      "recipes": 1,
+      "features": 2
+    },
     "dataHash": "6e84609aa395"
   },
   {
@@ -530,6 +700,15 @@ window.WIKI_MODULES = [
       "simplemodels"
     ],
     "optional": [],
+    "overview": {
+      "status": "fertig (Abnahme offen)",
+      "open": "6",
+      "missing": "Funktionen fertig; offen nur Abnahme im Spiel (Modelle-UI, Stufen/Stärke der Effekte und Sounds) und Stil-Audit-Reste.",
+      "asOf": "19.10.2026"
+    },
+    "counts": {
+      "features": 1
+    },
     "dataHash": "b443b496e486"
   },
   {
@@ -545,6 +724,13 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "parent": "simpleend",
+    "bundle": "optional",
+    "counts": {
+      "items": 3,
+      "recipes": 1,
+      "features": 6
+    },
     "dataHash": "5c8bd4f16cf9"
   },
   {
@@ -562,6 +748,20 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "overview": {
+      "status": "fertig (Abnahme offen)",
+      "open": "4",
+      "missing": "Funktionen fertig; offen Client-Sicht im Spiel, Stil-Audit-Reste und die Nebelwand-Frage (Lohen-Seite).",
+      "asOf": "19.10.2026"
+    },
+    "counts": {
+      "items": 8,
+      "blocks": 47,
+      "recipes": 35,
+      "features": 8
+    },
     "dataHash": "8743da5d21e0"
   },
   {
@@ -577,6 +777,13 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 1,
+      "recipes": 1,
+      "features": 6
+    },
     "dataHash": "0060d25a18d6"
   },
   {
@@ -596,6 +803,14 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 2,
+      "blocks": 2,
+      "recipes": 6,
+      "features": 7
+    },
     "dataHash": "a4ad90b686de"
   },
   {
@@ -615,6 +830,14 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 4,
+      "blocks": 9,
+      "recipes": 9,
+      "features": 7
+    },
     "dataHash": "e7d902bed624"
   },
   {
@@ -640,6 +863,14 @@ window.WIKI_MODULES = [
       "jei",
       "modmenu"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "blocks": 188,
+      "recipes": 1,
+      "features": 12
+    },
     "dataHash": "0806bcdef644"
   },
   {
@@ -661,6 +892,14 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpletweaks"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 1,
+      "blocks": 5,
+      "recipes": 6,
+      "features": 10
+    },
     "dataHash": "7c13ab3a1cc5"
   },
   {
@@ -680,6 +919,13 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "counts": {
+      "items": 2,
+      "recipes": 1,
+      "features": 6
+    },
     "dataHash": "34ebe8a6188b"
   },
   {
@@ -697,6 +943,11 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "counts": {
+      "items": 1,
+      "recipes": 1,
+      "features": 10
+    },
     "dataHash": "70d5c51abaf6"
   },
   {
@@ -717,6 +968,14 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "blocks": 53,
+      "recipes": 282,
+      "features": 8
+    },
     "dataHash": "b95cfeeec4d6"
   },
   {
@@ -738,6 +997,14 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 27,
+      "blocks": 11,
+      "recipes": 6,
+      "features": 7
+    },
     "dataHash": "2fa7157b41ba"
   },
   {
@@ -759,6 +1026,14 @@ window.WIKI_MODULES = [
       "simpleend",
       "jei"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "blocks": 176,
+      "recipes": 521,
+      "features": 6
+    },
     "dataHash": "c1e7c62e3e26"
   },
   {
@@ -781,6 +1056,13 @@ window.WIKI_MODULES = [
       "simplecrucibles",
       "jei"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 8,
+      "recipes": 11,
+      "features": 9
+    },
     "dataHash": "f0a1c9263c15"
   },
   {
@@ -798,6 +1080,15 @@ window.WIKI_MODULES = [
       "simpleoptserver"
     ],
     "optional": [],
+    "overview": {
+      "status": "in Arbeit",
+      "open": "13",
+      "missing": "Stufe 1 + Teile von Stufe 2 nur auf claude-wave1 und nur Fabric; offen Kompat-Ziel, 2. Messreihe, Benchmark beim Besitzer (Stufe 3), Stufen 4/5.",
+      "asOf": "19.10.2026"
+    },
+    "counts": {
+      "features": 1
+    },
     "dataHash": "c6d6d341c731"
   },
   {
@@ -811,6 +1102,11 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "parent": "simpleoptimization",
+    "bundle": "required",
+    "counts": {
+      "features": 7
+    },
     "dataHash": "b2d1f93d90d8"
   },
   {
@@ -824,6 +1120,11 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "parent": "simpleoptimization",
+    "bundle": "required",
+    "counts": {
+      "features": 2
+    },
     "dataHash": "6f05fd404d00"
   },
   {
@@ -837,6 +1138,11 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "parent": "simpleoptimization",
+    "bundle": "required",
+    "counts": {
+      "features": 2
+    },
     "dataHash": "c718c2a98ad5"
   },
   {
@@ -857,6 +1163,14 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "counts": {
+      "items": 1,
+      "blocks": 15,
+      "recipes": 16,
+      "features": 4
+    },
     "dataHash": "d0740d71b507"
   },
   {
@@ -877,6 +1191,12 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
+    "counts": {
+      "items": 4,
+      "blocks": 1,
+      "recipes": 4,
+      "features": 13
+    },
     "dataHash": "270eca38c4d5"
   }
 ];

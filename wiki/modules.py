@@ -295,6 +295,23 @@ def extract(entry, g, check=False):
     return data, problems
 
 
+def overview_status(repo):
+    """Status per super-mod from 'Tabelle A' of the newest docs/ai/UEBERSICHT-MODS-*.md (hand-maintained text, optional)."""
+    docs = sorted((repo / 'docs/ai').glob('UEBERSICHT-MODS-*.md'))
+    if not docs:
+        return {}
+    text = docs[-1].read_text(encoding='utf-8')
+    as_of = re.search(r'Stand:\s*([\d.]+)', text)
+    block = text.split('## Tabelle A', 1)[-1].split('## Tabelle B', 1)[0]
+    out = {}
+    for line in block.splitlines():
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        match = re.fullmatch(r'`([a-z0-9_-]+)`', cells[1]) if len(cells) >= 6 else None
+        if match:
+            out[match[1]] = {'status': cells[3], 'open': cells[4], 'missing': cells[5], 'asOf': as_of[1] if as_of else ''}
+    return out
+
+
 def sync(g, entries, selected, check=False, strict=False):
     problems = []
     outputs = {}
@@ -312,7 +329,22 @@ def sync(g, entries, selected, check=False, strict=False):
     # Metadata remains separate to preserve SimpleBuilding's existing payload bytes.
     properties = dict(re.findall(r'^([\w]+)=(.*)$', (g.REPO / 'gradle.properties').read_text(encoding='utf-8'), re.M))
     catalog = [{k: e[k] for k in ('id', 'displayName', 'description', 'version', 'minecraft', 'loaders', 'requires', 'optional')} for e in entries]
+    meta = {e['id']: e for e in entries}
+    overview = overview_status(g.REPO)
     for e in catalog:
+        # Super-/sub-mod structure for the "All mods" page and the grouped mod dropdown.
+        for key in ('parent', 'bundle'):
+            if meta[e['id']].get(key):
+                e[key] = meta[e['id']][key]
+        if e['id'] in overview:
+            e['overview'] = overview[e['id']]
+        payload = outputs.get(e['id'] + '.json')
+        stored = g.WIKI / 'data' / (e['id'] + '.json')
+        if payload is None and stored.exists():
+            payload = stored.read_text(encoding='utf-8')
+        if payload:
+            counts = json.loads(payload).get('counts', {})
+            e['counts'] = {k: counts[k] for k in ('items', 'blocks', 'recipes', 'config', 'features') if counts.get(k)}
         e['version'] = re.sub(r'\$\{(\w+)\}', lambda m: properties.get(m[1], m[0]), e['version'])
         if e['id'] != 'simplebuilding':
             name = e['id'] + '.js'

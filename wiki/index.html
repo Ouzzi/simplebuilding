@@ -797,6 +797,8 @@ en: {
   navLoot: 'Loot tables', navTrades: 'Trades', navEnchantments: 'Enchantments',
   navTags: 'Tags', navConfig: 'Config',
   navFeatureCount: '{0} features',
+  navAllMods: 'All mods', amIntro: 'Every super-mod with its sub-mods, generated from the module manifests (modules/modules.json) and the wiki data.', amSuper: 'Super-mod', amSub: 'Sub-mods', amStandalone: 'Standalone mods', amOtherGroup: 'Other mods',
+  amRequired: 'required', amOptional: 'optional', amStatus: 'Status', amOpen: 'open points', amMissing: 'Missing until done', amAsOf: 'status as of {0} (docs/ai overview, German)', amNoSubs: 'No sub-mods', amBundle: 'Bundle', amLoaders: 'Loaders', amContent: 'Content',
   sbNote: 'Generated from the mod’s own data: <code>{0}</code>',
   metaData: 'Data: {0}',
   metaDataTitle: 'Data state of this wiki build',
@@ -1330,6 +1332,8 @@ de: {
   navLoot: 'Loot-Tabellen', navTrades: 'Handel', navEnchantments: 'Verzauberungen',
   navTags: 'Tags', navConfig: 'Konfiguration',
   navFeatureCount: '{0} Features',
+  navAllMods: 'Alle Mods', amIntro: 'Jeder Super-Mod mit seinen Sub-Mods, erzeugt aus den Modul-Manifesten (modules/modules.json) und den Wiki-Daten.', amSuper: 'Super-Mod', amSub: 'Sub-Mods', amStandalone: 'Eigenständige Mods', amOtherGroup: 'Weitere Mods',
+  amRequired: 'Pflicht', amOptional: 'optional', amStatus: 'Stand', amOpen: 'offene Punkte', amMissing: 'Was bis „fertig“ fehlt', amAsOf: 'Stand vom {0} (Mod-Übersicht in docs/ai)', amNoSubs: 'Keine Sub-Mods', amBundle: 'Bündel', amLoaders: 'Loader', amContent: 'Inhalt',
   sbNote: 'Erzeugt aus den Daten der Mod: <code>{0}</code>',
   metaData: 'Daten: {0}',
   metaDataTitle: 'Datenstand dieser Wiki-Erzeugung',
@@ -1893,12 +1897,33 @@ if (!MODULE_DATA[selectedMod]) selectedMod = 'simplebuilding';
 var D = isObj(MODULE_DATA[selectedMod]) ? MODULE_DATA[selectedMod] : null;
 try { localStorage.setItem('simple-wiki-mod', selectedMod); } catch (err) {}
 var modSelect = document.getElementById('mod-select');
-MODULES.forEach(function (m, i) {
-  var option = document.createElement('option'); option.value = m.id;
-  option.textContent = (i % 2 ? '◆ ' : '● ') + m.displayName;
-  option.selected = m.id === selectedMod; modSelect.appendChild(option);
-});
+function modChildren(id) { return MODULES.filter(function (c) { return c.parent === id; }); }
+function buildModSelect() {
+  var de = LANG === 'de';
+  modSelect.innerHTML = '';
+  function opt(parent, value, label, sel) {
+    var o = document.createElement('option'); o.value = value; o.textContent = label; o.selected = !!sel; parent.appendChild(o);
+  }
+  opt(modSelect, '#allmods', '★ ' + (de ? 'Alle Mods' : 'All mods'), false);
+  var other = [];
+  MODULES.forEach(function (m) {
+    if (m.parent) return;
+    var subs = modChildren(m.id);
+    if (!subs.length) { other.push(m); return; }
+    var g = document.createElement('optgroup'); g.label = m.displayName;
+    opt(g, m.id, '● ' + m.displayName, m.id === selectedMod);
+    subs.forEach(function (c) { opt(g, c.id, '   ◆ ' + c.displayName, c.id === selectedMod); });
+    modSelect.appendChild(g);
+  });
+  if (other.length) {
+    var og = document.createElement('optgroup'); og.label = T('amOtherGroup');
+    other.forEach(function (m) { opt(og, m.id, m.displayName, m.id === selectedMod); });
+    modSelect.appendChild(og);
+  }
+}
+buildModSelect();
 modSelect.addEventListener('change', function () {
+  if (modSelect.value === '#allmods') { var u = new URL(location.href); u.searchParams.set('mod', selectedMod); u.hash = '#/allmods'; location.assign(u.href); return; }
   var url = new URL(location.href); url.searchParams.set('mod', modSelect.value);
   ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat'].forEach(function (key) { url.searchParams.delete(key); });
   url.hash = '#/'; location.assign(url.href);
@@ -2689,6 +2714,34 @@ function pageGuides() {
   feats.forEach(function (f) { var k = featureCat(f); if (!k) general.push(f); else { if (!byCat.has(k)) byCat.set(k, []); byCat.get(k).push(f); } });
   if (general.length) h += '<h3>' + esc(T('navOverview')) + '</h3><div class="guide-grid">' + general.map(guideLink).join('') + '</div>';
   CATS.forEach(function (c) { var l = byCat.get(c.key); if (l) h += '<h3><a href="#/cat/' + c.key + '">' + esc(catLabel(c.key)) + '</a></h3><div class="guide-grid">' + l.map(guideLink).join('') + '</div>'; });
+  return h;
+}
+
+function amCounts(m) {
+  var c = m.counts || {}, names = [['items', 'navItems'], ['blocks', 'navBlocks'], ['recipes', 'navRecipes'], ['config', 'navConfig']];
+  return names.filter(function (n) { return c[n[0]]; }).map(function (n) { return c[n[0]] + ' ' + T(n[1]); }).join(' · ');
+}
+function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + esc(m.displayName) + '</a>'; }
+function pageAllMods() {
+  var h = '<section class="home-hero"><h1>' + esc(T('navAllMods')) + '</h1></section><p>' + esc(T('amIntro')) + '</p>';
+  var supers = MODULES.filter(function (m) { return modChildren(m.id).length; });
+  supers.forEach(function (m) {
+    var o = m.overview, subs = modChildren(m.id);
+    h += '<section class="box" id="mod-' + esc(m.id) + '"><h2>' + amLink(m) + ' <span class="muted tiny">' + esc(T('amSuper')) + ' · <code>' + esc(m.id) + '</code></span></h2><p>' + esc(m.description) + '</p>';
+    h += '<p class="muted">' + esc('v' + m.version + ' · ' + T('amLoaders') + ': ' + m.loaders.join(', ') + (amCounts(m) ? ' · ' + amCounts(m) : '')) + '</p>';
+    if (o) h += '<p><strong>' + esc(T('amStatus')) + ':</strong> ' + esc(o.status) + ' · ' + esc(o.open + ' ' + T('amOpen')) + '<br><strong>' + esc(T('amMissing')) + ':</strong> ' + esc(o.missing) + '<br><span class="muted tiny">' + esc(T('amAsOf', o.asOf)) + '</span></p>';
+    h += '<h3>' + esc(T('amSub')) + ' · ' + subs.length + '</h3><div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('amSub')) + '</th><th>' + esc(T('amBundle')) + '</th><th>' + esc(T('amContent')) + '</th><th>' + esc(T('amLoaders')) + '</th></tr></thead><tbody>';
+    subs.forEach(function (c) {
+      h += '<tr><td>' + amLink(c) + '<br><code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(c.bundle ? T(c.bundle === 'required' ? 'amRequired' : 'amOptional') : '–') + '</td><td>' + esc(c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td><td>' + esc(c.loaders.join(', ')) + '</td></tr>';
+    });
+    h += '</tbody></table></div></section>';
+  });
+  var alone = MODULES.filter(function (m) { return !m.parent && !modChildren(m.id).length; });
+  if (alone.length) {
+    h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap"><table class="table"><tbody>' + alone.map(function (c) {
+      return '<tr><td>' + amLink(c) + '<br><code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td></tr>';
+    }).join('') + '</tbody></table></div></section>';
+  }
   return h;
 }
 
@@ -4808,7 +4861,7 @@ var NAV_PROG = [
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
   if (MODID !== 'simplebuilding') {
-    var links = [['', T('navOverview')], ['features', T('navGuides')]];
+    var links = [['', T('navOverview')], ['allmods', T('navAllMods')], ['features', T('navGuides')]];
     NAV_REF.concat(NAV_PROG).forEach(function (entry) {
       var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
       var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
@@ -4823,7 +4876,7 @@ function renderSidebar(active) {
   }
   function plain(n) { return link('#/' + n.key, n.key, T(n.labelKey), '<span class="glyph" aria-hidden="true">' + n.glyph + '</span>', n.count ? n.count() : null); }
   var ce = catEntries();
-  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + '</div>';
+  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + link('#/allmods', 'allmods', T('navAllMods'), '<span class="glyph" aria-hidden="true">★</span>', null) + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbCategories')) + '</div>' + CATS.map(function (c) { return link('#/cat/' + c.key, 'cat:' + c.key, catLabel(c.key), iconHtml(c.icon) || '', ce[c.key].length); }).join('') + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbReference')) + '</div>' + NAV_REF.map(plain).join('') + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbProgress')) + '</div>' + NAV_PROG.map(plain).join('') + '</div>';
@@ -5137,6 +5190,7 @@ function renderMeta() {
   $meta.innerHTML = (MOD.version ? '<span>v' + esc(MOD.version) + '</span>' : '') + '<span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
   document.getElementById('all-mods-label').textContent = LANG === 'de' ? 'Alle Mods' : 'All mods';
   modSelect.setAttribute('aria-label', LANG === 'de' ? 'Mod auswählen' : 'Select mod');
+  buildModSelect();
   var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : null;
   document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
   document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
@@ -5166,6 +5220,7 @@ function render(opts) {
       case 'trades': html = r.id ? pageTrade(r.id) : pageTrades(); title = r.id ? T('titleTradePrefix', r.id) : T('navTrades'); break;
       case 'enchantments': html = r.id ? pageEnchantment(r.id) : pageEnchantments(); title = r.id ? displayName(r.id) : T('navEnchantments'); break;
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
+      case 'allmods': html = pageAllMods(); title = T('navAllMods'); active = 'allmods'; break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
       case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
