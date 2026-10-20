@@ -56,7 +56,11 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       "sources": [
         "modules/simplemaps/shared/java/com/simplemaps/client/WayfinderScreen.java",
         "modules/simplemaps/shared/java/com/simplemaps/client/Contours.java",
-        "modules/simplemaps/shared/java/com/simplemaps/client/MapsClient.java"
+        "modules/simplemaps/shared/java/com/simplemaps/client/MapsClient.java",
+        "modules/simplemaps/shared/java/com/simplemaps/net/LayerService.java",
+        "modules/simplemaps/shared/java/com/simplemaps/client/MapLayers.java",
+        "modules/simplemaps/shared/java/com/simplemaps/MapsIcons.java",
+        "modules/simplemaps/shared/java/com/simplemaps/JamNoise.java"
       ],
       "en": {
         "title": "Map screen",
@@ -64,7 +68,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "details": [
           "The map area is 4:3 with a 16-pixel grid that always fits (12 x 9 cells). Left bookmarks: snap to grid, grid on/off, zoom, height lines. Right bookmarks: player and waypoints 1–8; a click centres the view (with snap the player's grid cell).",
           "Height lines color explored land in bands of 8 blocks with a dark line between bands.",
-          "With a recovery compass in the other hand the last death point appears on the map, also over unexplored ground."
+          "With a recovery compass in the other hand the last death point appears on the map, also over unexplored ground.",
+          "The loaded-chunks layer shows only your own chunks (within the server view distance around you) and chunks kept loaded by chunk loaders or /forceload, never chunks other players load.",
+          "A map of another dimension (for example the End map in the Overworld) still shows what it explored; only unexplored spots carry a faint static. In the hand it is centred on your position converted to that dimension (Nether 1:8), without the player arrow.",
+          "Shops (with Simple Shops) are marked with Simple Money's bill when Simple Money is loaded, otherwise with a diamond."
         ]
       },
       "de": {
@@ -73,7 +80,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "details": [
           "Die Kartenfläche ist 4:3 mit einem 16-Pixel-Raster, das immer ganz passt (12 × 9 Zellen). Lesezeichen links: am Raster einrasten, Raster an/aus, Zoom, Höhenlinien. Lesezeichen rechts: Spieler und Wegpunkte 1–8; ein Klick zentriert die Ansicht (mit Einrasten die Rasterzelle des Spielers).",
           "Höhenlinien färben erkundetes Land in Stufen zu 8 Blöcken mit dunkler Linie zwischen den Stufen.",
-          "Mit Bergungskompass in der anderen Hand erscheint der letzte Todespunkt auf der Karte, auch über unerkundetem Gebiet."
+          "Mit Bergungskompass in der anderen Hand erscheint der letzte Todespunkt auf der Karte, auch über unerkundetem Gebiet.",
+          "Die Ebene „Geladene Chunks“ zeigt nur die eigenen Chunks (Server-Sichtweite um dich) und Chunks, die Chunkloader oder /forceload geladen halten – nie Chunks, die andere Spieler laden.",
+          "Eine Karte einer anderen Dimension (z. B. die End-Karte in der Oberwelt) zeigt weiter, was sie erkundet hat; nur unerkundete Stellen tragen ein dezentes Rauschen. In der Hand ist sie auf deine in jene Dimension umgerechnete Position zentriert (Nether 1:8), ohne Spielerpfeil.",
+          "Shops (mit Simple Shops) tragen das Geldschein-Symbol von Simple Money, wenn Simple Money geladen ist, sonst eine Raute."
         ]
       }
     },
@@ -167,6 +177,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "The export runs on the server at webChunksPerTick chunks per tick (default 32, bounds 1–512). The folder is <world>/simplemaps-web unless webExportDir says otherwise; serve it with any web server (nginx, Caddy), the mod opens no port.",
           "Players are hidden by default; each player shows or hides themselves with /simplemaps web show or /simplemaps web hide. markers.json holds only names and positions of those players, no UUIDs.",
           "webHideClaims (default off) leaves chunks empty where a protection (for example claims of Simple Tweaks) forbids strangers to build.",
+          "webShops (default off) adds shops (with Simple Shops) to markers.json: position, offer, price and owner name, only on explored tiles and, with webHideClaims, never in protected chunks. With Simple Money they carry its bill icon.",
           "If BlueMap, Dynmap, squaremap, Pl3xMap or JourneyMap is loaded, the web export switches itself off (webAutoOffWith, log line); the maps themselves stay."
         ]
       },
@@ -179,6 +190,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "Der Export läuft auf dem Server mit webChunksPerTick Chunks je Tick (Standard 32, Grenzen 1–512). Ordner ist <Welt>/simplemaps-web, sofern webExportDir nichts anderes sagt; ausgeliefert wird er mit einem beliebigen Webserver (nginx, Caddy), die Mod öffnet keinen Port.",
           "Spieler sind standardmäßig verborgen; jeder zeigt oder verbirgt sich selbst mit /simplemaps web show bzw. /simplemaps web hide. markers.json enthält nur Namen und Positionen dieser Spieler, keine UUIDs.",
           "webHideClaims (Standard aus) lässt Chunks leer, in denen ein Schutz (z. B. Claims von Simple Tweaks) Fremden das Bauen verbietet.",
+          "webShops (Standard aus) nimmt Shops (mit Simple Shops) in markers.json auf: Position, Angebot, Preis und Besitzername, nur auf erkundeten Kacheln und mit webHideClaims nie in geschützten Chunks. Mit Simple Money tragen sie dessen Geldschein-Symbol.",
           "Ist BlueMap, Dynmap, squaremap, Pl3xMap oder JourneyMap geladen, schaltet sich der Webkarten-Export selbst aus (webAutoOffWith, Logzeile); die Karten selbst bleiben."
         ]
       }
