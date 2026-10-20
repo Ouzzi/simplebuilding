@@ -123,28 +123,31 @@ public class ModBlocks {
     public static final Block ENDERITE_SMOKER = McVersion.OVENS_IN_SB ? registerBlock("enderite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
     public static final Block ENDERITE_BLAST_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
 
+    // Split stage 8b (docs/ai/PLAN-B-S8B-STORAGE-2026-10-19.md): on 26.3 the chests and shulker boxes below are Simple
+    // Storage's (McVersion.STORAGE_IN_SB false, fields null, SimpleBuilding reaches them through util/StorageRefs).
     // Truhen-Stufen ueber der Vanilla-Kupfertruhe (siehe ChestTier, TieredChests). Haerte wie die
     // Maschinen derselben Stufe, abbaubar mit der Spitzhacke wie die Kupfertruhe (Werkzeug noetig).
-    public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.REINFORCED,
+    public static final Block REINFORCED_CHEST = !McVersion.STORAGE_IN_SB ? null : registerBlock("reinforced_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.REINFORCED,
             net.minecraft.sounds.SoundEvents.COPPER_CHEST_OPEN, net.minecraft.sounds.SoundEvents.COPPER_CHEST_CLOSE,
             s.strength(3.5F, 6.0F).sound(SoundType.COPPER).mapColor(MapColor.METAL)));
-    public static final Block NETHERITE_CHEST = registerBlock("netherite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.NETHERITE,
+    public static final Block NETHERITE_CHEST = !McVersion.STORAGE_IN_SB ? null : registerBlock("netherite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.NETHERITE,
             s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_BLACK)));
-    public static final Block ENDERITE_CHEST = registerBlock("enderite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.ENDERITE,
+    public static final Block ENDERITE_CHEST = !McVersion.STORAGE_IN_SB ? null : registerBlock("enderite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.ENDERITE,
             s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE)));
 
-    public static final Block REINFORCED_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS
+    public static final Block REINFORCED_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB
             ? registerBlock("reinforced_trapped_chest", REINFORCED_CHEST,
                     s -> new com.simplebuilding.blocks.custom.TieredTrappedChestBlock((TieredChestBlock) REINFORCED_CHEST, s)) : null;
-    public static final Block NETHERITE_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS
+    public static final Block NETHERITE_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB
             ? registerBlock("netherite_trapped_chest", NETHERITE_CHEST,
                     s -> new com.simplebuilding.blocks.custom.TieredTrappedChestBlock((TieredChestBlock) NETHERITE_CHEST, s)) : null;
-    public static final Block ENDERITE_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS
+    public static final Block ENDERITE_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB
             ? registerBlock("enderite_trapped_chest", ENDERITE_CHEST,
                     s -> new com.simplebuilding.blocks.custom.TieredTrappedChestBlock((TieredChestBlock) ENDERITE_CHEST, s)) : null;
 
     /** Every registered block sharing the tier chest entity, without nulls on older lines. */
     public static Block[] tieredChests() {
+        if (!McVersion.STORAGE_IN_SB) return new Block[0];
         return McVersion.TRAPPED_TIERED_CHESTS
                 ? new Block[]{REINFORCED_CHEST, NETHERITE_CHEST, ENDERITE_CHEST,
                         REINFORCED_TRAPPED_CHEST, NETHERITE_TRAPPED_CHEST, ENDERITE_TRAPPED_CHEST}
@@ -152,21 +155,21 @@ public class ModBlocks {
     }
 
     // Fallen-Kupfertruhe (Besitzer N16): vier Oxidationsstufen, je auch gewachst, wie Vanillas Kupfertruhe.
-    public static final Block TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("trapped_copper_chest",
+    public static final Block TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.UNAFFECTED, false, MapColor.COLOR_ORANGE) : null;
-    public static final Block EXPOSED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("exposed_trapped_copper_chest",
+    public static final Block EXPOSED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("exposed_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.EXPOSED, false, MapColor.TERRACOTTA_LIGHT_GRAY) : null;
-    public static final Block WEATHERED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("weathered_trapped_copper_chest",
+    public static final Block WEATHERED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("weathered_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.WEATHERED, false, MapColor.WARPED_STEM) : null;
-    public static final Block OXIDIZED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("oxidized_trapped_copper_chest",
+    public static final Block OXIDIZED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("oxidized_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.OXIDIZED, false, MapColor.WARPED_NYLIUM) : null;
-    public static final Block WAXED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_trapped_copper_chest",
+    public static final Block WAXED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("waxed_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.UNAFFECTED, true, MapColor.COLOR_ORANGE) : null;
-    public static final Block WAXED_EXPOSED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_exposed_trapped_copper_chest",
+    public static final Block WAXED_EXPOSED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("waxed_exposed_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.EXPOSED, true, MapColor.TERRACOTTA_LIGHT_GRAY) : null;
-    public static final Block WAXED_WEATHERED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_weathered_trapped_copper_chest",
+    public static final Block WAXED_WEATHERED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("waxed_weathered_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.WEATHERED, true, MapColor.WARPED_STEM) : null;
-    public static final Block WAXED_OXIDIZED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_oxidized_trapped_copper_chest",
+    public static final Block WAXED_OXIDIZED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB ? trappedCopperChest("waxed_oxidized_trapped_copper_chest",
             net.minecraft.world.level.block.WeatheringCopper.WeatherState.OXIDIZED, true, MapColor.WARPED_NYLIUM) : null;
 
     private static Block trappedCopperChest(String name, net.minecraft.world.level.block.WeatheringCopper.WeatherState state,
@@ -177,7 +180,7 @@ public class ModBlocks {
 
     /** The eight trapped copper chests (oxidation order, then waxed), empty on older lines. */
     public static Block[] trappedCopperChests() {
-        return McVersion.TRAPPED_TIERED_CHESTS
+        return McVersion.TRAPPED_TIERED_CHESTS && McVersion.STORAGE_IN_SB
                 ? new Block[]{TRAPPED_COPPER_CHEST, EXPOSED_TRAPPED_COPPER_CHEST, WEATHERED_TRAPPED_COPPER_CHEST, OXIDIZED_TRAPPED_COPPER_CHEST,
                         WAXED_TRAPPED_COPPER_CHEST, WAXED_EXPOSED_TRAPPED_COPPER_CHEST, WAXED_WEATHERED_TRAPPED_COPPER_CHEST, WAXED_OXIDIZED_TRAPPED_COPPER_CHEST}
                 : new Block[0];
@@ -187,12 +190,12 @@ public class ModBlocks {
     // Stapelfaktor der Truhen derselben Stufe. Aus Vanillas Shulkerkiste kopiert (dynamische Form,
     // keine Verdeckung, vom Kolben zerstoert und mit Inhalt fallen gelassen, kein Werkzeug noetig),
     // fester und explosionsfester wie die Truhen; offen nicht erstickend.
-    public static final Block REINFORCED_SHULKER_BOX = registerBlock("reinforced_shulker_box", Blocks.SHULKER_BOX,
+    public static final Block REINFORCED_SHULKER_BOX = !McVersion.STORAGE_IN_SB ? null : registerBlock("reinforced_shulker_box", Blocks.SHULKER_BOX,
             s -> new TieredShulkerBoxBlock(ChestTier.REINFORCED, shulkerBoxProperties(s).strength(3.0F, 6.0F).mapColor(MapColor.METAL)));
-    public static final Block NETHERITE_SHULKER_BOX = registerBlock("netherite_shulker_box", Blocks.SHULKER_BOX,
+    public static final Block NETHERITE_SHULKER_BOX = !McVersion.STORAGE_IN_SB ? null : registerBlock("netherite_shulker_box", Blocks.SHULKER_BOX,
             s -> new TieredShulkerBoxBlock(ChestTier.NETHERITE, shulkerBoxProperties(s).strength(4.0F, 1200.0F)
                     .sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_BLACK)));
-    public static final Block ENDERITE_SHULKER_BOX = registerBlock("enderite_shulker_box", Blocks.SHULKER_BOX,
+    public static final Block ENDERITE_SHULKER_BOX = !McVersion.STORAGE_IN_SB ? null : registerBlock("enderite_shulker_box", Blocks.SHULKER_BOX,
             s -> new TieredShulkerBoxBlock(ChestTier.ENDERITE, shulkerBoxProperties(s).strength(5.0F, 1500.0F)
                     .sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE)));
 

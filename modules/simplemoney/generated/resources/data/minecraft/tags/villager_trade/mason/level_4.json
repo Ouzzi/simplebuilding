@@ -34,10 +34,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/reinforced_chest",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/reinforced_elytra_pad",
       "required": false
     },
@@ -67,6 +63,10 @@
     },
     {
       "id": "simplemoney:links/simpleovens/reinforced_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/reinforced_chest",
       "required": false
     }
   ]

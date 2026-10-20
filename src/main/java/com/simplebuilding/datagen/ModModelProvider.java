@@ -207,25 +207,28 @@ public class ModModelProvider extends FabricModelProvider {
         // Truhen: wie Vanillas Truhen nur ein Partikel-Blockmodell (gezeichnet wird vom
         // TieredChestRenderer), das Item ueber Vanillas Spezialmodell "minecraft:chest" mit der
         // Stufen-Textur aus dem Truhen-Atlas.
-        registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
-        registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
-        registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_CHEST, ModBlocks.ENDERITE_BLOCK);
-        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
-            registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
-            registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_TRAPPED_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
-            registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_BLOCK);
-            Block[] trappedCopper = ModBlocks.trappedCopperChests();
-            for (int i = 0; i < trappedCopper.length; i++) {
-                registerTrappedCopperChest(blockStateModelGenerator, trappedCopper[i], i % 4);
+        // Split stage 8b: on 26.3 the chests and shulker boxes (and their models) are Simple Storage's.
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
+            registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
+            registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_CHEST, ModBlocks.ENDERITE_BLOCK);
+            if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+                registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
+                registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_TRAPPED_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
+                registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_BLOCK);
+                Block[] trappedCopper = ModBlocks.trappedCopperChests();
+                for (int i = 0; i < trappedCopper.length; i++) {
+                    registerTrappedCopperChest(blockStateModelGenerator, trappedCopper[i], i % 4);
+                }
             }
-        }
 
-        // Gestufte Shulkerkisten: wie Vanillas Shulkerkisten ein Partikel-Blockmodell (gezeichnet wird
-        // vom TieredShulkerBoxRenderer), das Item ueber Vanillas Spezialmodell "minecraft:shulker_box",
-        // je nach minecraft:base_color mit der Textur aus Stufe und Farbe (TieredShulkerBoxRenderer#textureId).
-        registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.REINFORCED_SHULKER_BOX);
-        registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.NETHERITE_SHULKER_BOX);
-        registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.ENDERITE_SHULKER_BOX);
+            // Gestufte Shulkerkisten: wie Vanillas Shulkerkisten ein Partikel-Blockmodell (gezeichnet wird
+            // vom TieredShulkerBoxRenderer), das Item ueber Vanillas Spezialmodell "minecraft:shulker_box",
+            // je nach minecraft:base_color mit der Textur aus Stufe und Farbe (TieredShulkerBoxRenderer#textureId).
+            registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.REINFORCED_SHULKER_BOX);
+            registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.NETHERITE_SHULKER_BOX);
+            registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.ENDERITE_SHULKER_BOX);
+        }
 
         // --- 4. Hoppers ---
         registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);

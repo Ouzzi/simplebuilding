@@ -1460,7 +1460,9 @@ public final class DataIntegrityTests {
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
                     // Split stage 7: plus the Enderite sledgehammer of the required sub-mod Simple Hammers.
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
+                    // Split stage 8b: plus the Enderite chests and shulker box of the required sub-mod Simple Storage.
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -2828,7 +2830,7 @@ public final class DataIntegrityTests {
                 ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
                 ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"),
-                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_CHEST));
+                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, com.simplebuilding.util.StorageRefs.chest("enderite")));
         pinned.put(ModItemGroupsContent.Tab.PADS, List.of(
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(),
                 TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.LAUNCHPAD.asItem(),
@@ -3111,25 +3113,25 @@ public final class DataIntegrityTests {
                 // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
                 CreativeTabLayout.Row.of("chests",
                         Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
-                        ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST)));
+                        com.simplebuilding.util.StorageRefs.chest("reinforced"), com.simplebuilding.util.StorageRefs.chest("netherite"), com.simplebuilding.util.StorageRefs.chest("enderite"))));
         if (McVersion.END_SYSTEMS) {
             // 26.3: nach einer Luecke Endertruhe und Astral-Lager in derselben Zeile (Audit 2026-10-02).
             expected.add(CreativeTabLayout.Row.besides("astral_storage",
                     Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT));
         }
         if (McVersion.TRAPPED_TIERED_CHESTS) {
-            expected.add(CreativeTabLayout.Row.of("trapped_chests", Items.TRAPPED_CHEST, ModItems.REINFORCED_TRAPPED_CHEST,
-                    ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
+            expected.add(CreativeTabLayout.Row.of("trapped_chests", Items.TRAPPED_CHEST, com.simplebuilding.util.StorageRefs.trappedChest("reinforced"),
+                    com.simplebuilding.util.StorageRefs.trappedChest("netherite"), com.simplebuilding.util.StorageRefs.trappedChest("enderite")));
             // Redstone-Kupfertruhen (N16): vier Stufen, dann gewachst.
-            expected.add(CreativeTabLayout.Row.of("trapped_copper_chests", ModItems.trappedCopperChests()));
+            expected.add(CreativeTabLayout.Row.of("trapped_copper_chests", com.simplebuilding.util.StorageRefs.trappedCopperChests().toArray(net.minecraft.world.item.Item[]::new)));
         }
         // 26.3: nach einer Luecke die drei Stufen-Shulkerschalen (seltene Strukturfunde, 2026-10-02).
         expected.add(McVersion.RARE_STRUCTURE_FINDS
-                ? CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
-                        ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX, gap,
+                ? CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
+                        com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite"), gap,
                         ModItems.REINFORCED_SHULKER_SHELL, ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL)
-                : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
-                        ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+                : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
+                        com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));
         if (McVersion.END_SYSTEMS) {
             expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.BRIDGE_REDSTONE, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
@@ -3496,7 +3498,9 @@ public final class DataIntegrityTests {
                     // split stage 5: so do Simple Crucibles' Enderite crucible and barrel
                     || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
                     // split stage 7: and Simple Hammers' Enderite sledgehammer
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
+                    // split stage 8b: and Simple Storage's Enderite chests and shulker box
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
@@ -4107,7 +4111,7 @@ public final class DataIntegrityTests {
                 ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
                 Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
                 Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK,
-                Items.SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+                Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));
         absent.addAll(ModItems.COLORED_OCTANT_ITEMS.values());
         for (Item item : absent) {
             if (byItem.containsKey(item)) {

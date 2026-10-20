@@ -11,7 +11,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Crates for every wood (open food boxes for nine stacks, hoppers and comparators work) and the Storage Crafting Table that keeps its grid, moved from SimpleBuilding (ids migrate).",
+  "description": "Crates for every wood (open food boxes for nine stacks, hoppers and comparators work), the Storage Crafting Table that keeps its grid, and tiered chests, trapped chests and tier shulker boxes with more slots and bigger stacks, moved from SimpleBuilding (ids migrate).",
   "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {

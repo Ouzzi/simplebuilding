@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "group": "enderite_chest_boat",
   "ingredients": [
-    "simplebuilding:enderite_chest",
+    "simplestorage:enderite_chest",
     "minecraft:oak_boat"
   ],
   "result": {

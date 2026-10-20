@@ -164,7 +164,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             AdvancementHolder reinforced = node("machines/reinforcements", cracked, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), AdvancementType.TASK,
                     "reinforced_machine", any(com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"),
                             ModItems.REINFORCED_HOPPER, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
-                            ModItems.REINFORCED_CHEST));
+                            com.simplebuilding.util.StorageRefs.chest("reinforced")));
             AdvancementHolder netherite = feature("machines/forged_in_place", reinforced, com.simplebuilding.util.OvenRefs.item("netherite_furnace"), AdvancementType.GOAL,
                     ModTriggers.HAMMER_UPGRADE_NETHERITE);
             feature("machines/end_of_the_line", netherite, com.simplebuilding.util.OvenRefs.item("enderite_furnace"), AdvancementType.CHALLENGE,

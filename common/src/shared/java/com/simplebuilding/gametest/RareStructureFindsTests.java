@@ -138,7 +138,7 @@ public final class RareStructureFindsTests {
         for (StructureTemplate.StructureBlockInfo info : out) {
             byPos.put(info.pos(), info);
         }
-        helper.assertTrue(byPos.get(hit).state().is(ModBlocks.NETHERITE_CHEST), "rolled bastion chest is " + byPos.get(hit).state());
+        helper.assertTrue(byPos.get(hit).state().is(com.simplebuilding.util.StorageRefs.chestBlock("netherite")), "rolled bastion chest is " + byPos.get(hit).state());
         helper.assertValueEqual(byPos.get(hit).state().getValue(ChestBlock.FACING), Direction.SOUTH, "facing kept");
         helper.assertValueEqual(byPos.get(hit).nbt().getString("LootTable").orElse(""), "minecraft:chests/bastion_other", "loot table kept");
         helper.assertTrue(byPos.get(miss).state().is(Blocks.CHEST), "missed bastion chest changed: " + byPos.get(miss).state());
@@ -169,7 +169,7 @@ public final class RareStructureFindsTests {
             ((RandomizableContainer) level.getBlockEntity(pos)).setLootTable(BuiltInLootTables.END_CITY_TREASURE, lootSeed);
         }
         helper.assertTrue(BetterChests.upgradePlaced(level, betterPos, 1.0), "chance 1 did not upgrade");
-        helper.assertTrue(level.getBlockState(betterPos).is(ModBlocks.ENDERITE_CHEST), "not an enderite chest: " + level.getBlockState(betterPos));
+        helper.assertTrue(level.getBlockState(betterPos).is(com.simplebuilding.util.StorageRefs.chestBlock("enderite")), "not an enderite chest: " + level.getBlockState(betterPos));
         RandomizableContainer better = (RandomizableContainer) level.getBlockEntity(betterPos);
         helper.assertValueEqual(better.getLootTable(), BuiltInLootTables.END_CITY_TREASURE, "loot table");
         helper.assertValueEqual(better.getLootTableSeed(), lootSeed, "loot seed");
@@ -489,9 +489,9 @@ public final class RareStructureFindsTests {
         }
         ServerLevel level = helper.getLevel();
         Item[][] cases = {
-                {ModItems.REINFORCED_SHULKER_SHELL, ModItems.REINFORCED_SHULKER_BOX},
-                {ModItems.NETHERITE_SHULKER_SHELL, ModItems.NETHERITE_SHULKER_BOX},
-                {ModItems.ENDERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_BOX}};
+                {ModItems.REINFORCED_SHULKER_SHELL, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced")},
+                {ModItems.NETHERITE_SHULKER_SHELL, com.simplebuilding.util.StorageRefs.shulkerBox("netherite")},
+                {ModItems.ENDERITE_SHULKER_SHELL, com.simplebuilding.util.StorageRefs.shulkerBox("enderite")}};
         Item copperChest = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("exposed_copper_chest"));
         for (Item[] c : cases) {
             CraftingInput grid = CraftingInput.of(3, 1, List.of(new ItemStack(Items.SHULKER_SHELL), new ItemStack(copperChest), new ItemStack(c[0])));
@@ -502,7 +502,7 @@ public final class RareStructureFindsTests {
         // Two vanilla shells and a copper chest stay the vanilla recipe's business (no tier box).
         CraftingInput plain = CraftingInput.of(3, 1, List.of(new ItemStack(Items.SHULKER_SHELL), new ItemStack(copperChest), new ItemStack(Items.SHULKER_SHELL)));
         Optional<RecipeHolder<CraftingRecipe>> none = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, plain, level);
-        helper.assertTrue(none.isEmpty() || com.simplebuilding.util.TieredShulkerBoxes.items().stream()
+        helper.assertTrue(none.isEmpty() || com.simplebuilding.util.StorageRefs.TIERS.stream().map(com.simplebuilding.util.StorageRefs::shulkerBox)
                 .noneMatch(box -> none.get().value().assemble(plain).is(box)), "two vanilla shells made a tier box");
 
         ServerTuningConfig config = new ServerTuningConfig();

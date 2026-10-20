@@ -712,7 +712,8 @@ public final class TestCentreSections {
         bx = placedBundles(c, bx);
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
             lines.add(new TcCanvas.Line(TcText.t("storage.trapped_chests", "Trapped chests"), ctx.row("trapped_chests")));
-            for (Block chest : List.of(ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST)) {
+            for (String tier : com.simplebuilding.util.StorageRefs.TIERS) {
+                Block chest = com.simplebuilding.util.StorageRefs.trappedChestBlock(tier); // 26.3: Simple Storage's (split stage 8b)
                 c.place(bx, 0, 1, facing(chest.defaultBlockState(), Direction.NORTH));
                 c.place(bx + 1, 0, 1, Blocks.REDSTONE_LAMP);
                 c.sign(bx, 0, 2, Direction.NORTH, chest.getName());

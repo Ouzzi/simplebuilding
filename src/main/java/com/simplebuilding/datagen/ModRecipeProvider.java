@@ -836,74 +836,77 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
                         .save(output, "reinforced_hopper_from_crafting");
 
-                // Verstaerkte Truhe aus drei Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht), wie
-                // die verstaerkten Oefen. Mit Inhalt geht es in der Welt: Vorschlaghammer plus Rissiger
-                // Diamant in der Nebenhand (SledgehammerUpgrades). Netherit- und Enderittruhe entstehen
-                // nur so, wie die Maschinen.
-                ShapedRecipeBuilder.shaped(items(), RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST, 3)
-                        .pattern("DDD")
-                        .pattern("CCC")
-                        .pattern("DDD")
-                        .define('D', ModItems.CRACKED_DIAMOND)
-                        .define('C', tag(com.simplebuilding.util.ModTags.Items.COPPER_CHESTS))
-                        .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
-                        .save(output);
-
-                if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
-                    Item[] normal = {ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST};
-                    Item[] trapped = {ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST};
-                    for (int i = 0; i < normal.length; i++) {
-                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trapped[i])
-                                .requires(normal[i]).requires(Items.TRIPWIRE_HOOK)
-                                .unlockedBy(getHasName(normal[i]), has(normal[i])).save(output);
-                    }
-                    // Fallen-Kupfertruhe (N16): Kupfertruhe derselben Stufe (auch gewachst) + Haken; Honigwabe wachst.
-                    String[] copper = {"copper_chest", "exposed_copper_chest", "weathered_copper_chest", "oxidized_copper_chest",
-                            "waxed_copper_chest", "waxed_exposed_copper_chest", "waxed_weathered_copper_chest", "waxed_oxidized_copper_chest"};
-                    Item[] trappedCopper = ModItems.trappedCopperChests();
-                    for (int i = 0; i < copper.length; i++) {
-                        Item chest = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(copper[i]));
-                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trappedCopper[i])
-                                .requires(chest).requires(Items.TRIPWIRE_HOOK)
-                                .unlockedBy(getHasName(chest), has(chest)).save(output);
-                    }
-                    for (int i = 0; i < 4; i++) {
-                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trappedCopper[i + 4])
-                                .requires(trappedCopper[i]).requires(Items.HONEYCOMB)
-                                .unlockedBy(getHasName(trappedCopper[i]), has(trappedCopper[i]))
-                                .save(output, getConversionRecipeName(trappedCopper[i + 4], Items.HONEYCOMB));
-                    }
-                }
-
-                // Verstaerkte Shulkerkiste aus einer Vanilla-Shulkerkiste (jede Farbe) und vier Rissigen
-                // Diamanten - doppelt so viel wie die Aufwertung in der Welt (zwei, TieredShulkerBoxes).
-                // crafting_transmute behaelt Inhalt und Namen; die Farbe der Vanilla-Kiste (ihr Block)
-                // wird zu minecraft:base_color. Netherit- und Enderit-Shulkerkiste nur in der Welt.
-                for (Block vanillaBox : BuiltInRegistries.BLOCK) {
-                    if (!com.simplebuilding.util.TieredShulkerBoxes.isVanillaShulkerBox(vanillaBox)) {
-                        continue;
-                    }
-                    DyeColor boxColor = ((net.minecraft.world.level.block.ShulkerBoxBlock) vanillaBox).getColor();
-                    net.minecraft.data.recipes.TransmuteRecipeBuilder.transmute(RecipeCategory.DECORATIONS,
-                                    Ingredient.of(vanillaBox.asItem()), Ingredient.of(ModItems.CRACKED_DIAMOND),
-                                    dyedShulkerBox(ModItems.REINFORCED_SHULKER_BOX, boxColor))
-                            .setMaterialCount(net.minecraft.advancements.predicates.MinMaxBounds.Ints.exactly(
-                                    com.simplebuilding.util.TieredShulkerBoxes.REINFORCED_RECIPE_CRACKED_DIAMOND_COST))
-                            .group("reinforced_shulker_box")
+                // Split stage 8b: on 26.3 these recipes are Simple Storage's (data/simplestorage/recipe, id moves).
+                if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+                    // Verstaerkte Truhe aus drei Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht), wie
+                    // die verstaerkten Oefen. Mit Inhalt geht es in der Welt: Vorschlaghammer plus Rissiger
+                    // Diamant in der Nebenhand (SledgehammerUpgrades). Netherit- und Enderittruhe entstehen
+                    // nur so, wie die Maschinen.
+                    ShapedRecipeBuilder.shaped(items(), RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST, 3)
+                            .pattern("DDD")
+                            .pattern("CCC")
+                            .pattern("DDD")
+                            .define('D', ModItems.CRACKED_DIAMOND)
+                            .define('C', tag(com.simplebuilding.util.ModTags.Items.COPPER_CHESTS))
                             .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
-                            .save(output, Simplebuilding.MOD_ID + ":reinforced_shulker_box_from_"
-                                    + (boxColor == null ? "" : boxColor.getName() + "_") + "shulker_box");
-                }
-                // Faerben wie Vanillas Shulkerkisten: Kiste + Farbstoff, Inhalt bleibt (crafting_transmute).
-                for (Item box : com.simplebuilding.util.TieredShulkerBoxes.items()) {
-                    String boxPath = BuiltInRegistries.ITEM.getKey(box).getPath();
-                    for (DyeColor color : DyeColor.values()) {
-                        Item dye = getDyeItem(color);
+                            .save(output);
+
+                    if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+                        Item[] normal = {ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST};
+                        Item[] trapped = {ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST};
+                        for (int i = 0; i < normal.length; i++) {
+                            ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trapped[i])
+                                    .requires(normal[i]).requires(Items.TRIPWIRE_HOOK)
+                                    .unlockedBy(getHasName(normal[i]), has(normal[i])).save(output);
+                        }
+                        // Fallen-Kupfertruhe (N16): Kupfertruhe derselben Stufe (auch gewachst) + Haken; Honigwabe wachst.
+                        String[] copper = {"copper_chest", "exposed_copper_chest", "weathered_copper_chest", "oxidized_copper_chest",
+                                "waxed_copper_chest", "waxed_exposed_copper_chest", "waxed_weathered_copper_chest", "waxed_oxidized_copper_chest"};
+                        Item[] trappedCopper = ModItems.trappedCopperChests();
+                        for (int i = 0; i < copper.length; i++) {
+                            Item chest = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(copper[i]));
+                            ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trappedCopper[i])
+                                    .requires(chest).requires(Items.TRIPWIRE_HOOK)
+                                    .unlockedBy(getHasName(chest), has(chest)).save(output);
+                        }
+                        for (int i = 0; i < 4; i++) {
+                            ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trappedCopper[i + 4])
+                                    .requires(trappedCopper[i]).requires(Items.HONEYCOMB)
+                                    .unlockedBy(getHasName(trappedCopper[i]), has(trappedCopper[i]))
+                                    .save(output, getConversionRecipeName(trappedCopper[i + 4], Items.HONEYCOMB));
+                        }
+                    }
+
+                    // Verstaerkte Shulkerkiste aus einer Vanilla-Shulkerkiste (jede Farbe) und vier Rissigen
+                    // Diamanten - doppelt so viel wie die Aufwertung in der Welt (zwei, TieredShulkerBoxes).
+                    // crafting_transmute behaelt Inhalt und Namen; die Farbe der Vanilla-Kiste (ihr Block)
+                    // wird zu minecraft:base_color. Netherit- und Enderit-Shulkerkiste nur in der Welt.
+                    for (Block vanillaBox : BuiltInRegistries.BLOCK) {
+                        if (!com.simplebuilding.util.TieredShulkerBoxes.isVanillaShulkerBox(vanillaBox)) {
+                            continue;
+                        }
+                        DyeColor boxColor = ((net.minecraft.world.level.block.ShulkerBoxBlock) vanillaBox).getColor();
                         net.minecraft.data.recipes.TransmuteRecipeBuilder.transmute(RecipeCategory.DECORATIONS,
-                                        Ingredient.of(box), Ingredient.of(dye), dyedShulkerBox(box, color))
-                                .group(boxPath + "_dye")
-                                .unlockedBy(getHasName(box), has(box))
-                                .save(output, Simplebuilding.MOD_ID + ":" + color.getName() + "_" + boxPath);
+                                        Ingredient.of(vanillaBox.asItem()), Ingredient.of(ModItems.CRACKED_DIAMOND),
+                                        dyedShulkerBox(ModItems.REINFORCED_SHULKER_BOX, boxColor))
+                                .setMaterialCount(net.minecraft.advancements.predicates.MinMaxBounds.Ints.exactly(
+                                        com.simplebuilding.util.TieredShulkerBoxes.REINFORCED_RECIPE_CRACKED_DIAMOND_COST))
+                                .group("reinforced_shulker_box")
+                                .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
+                                .save(output, Simplebuilding.MOD_ID + ":reinforced_shulker_box_from_"
+                                        + (boxColor == null ? "" : boxColor.getName() + "_") + "shulker_box");
+                    }
+                    // Faerben wie Vanillas Shulkerkisten: Kiste + Farbstoff, Inhalt bleibt (crafting_transmute).
+                    for (Item box : com.simplebuilding.util.TieredShulkerBoxes.items()) {
+                        String boxPath = BuiltInRegistries.ITEM.getKey(box).getPath();
+                        for (DyeColor color : DyeColor.values()) {
+                            Item dye = getDyeItem(color);
+                            net.minecraft.data.recipes.TransmuteRecipeBuilder.transmute(RecipeCategory.DECORATIONS,
+                                            Ingredient.of(box), Ingredient.of(dye), dyedShulkerBox(box, color))
+                                    .group(boxPath + "_dye")
+                                    .unlockedBy(getHasName(box), has(box))
+                                    .save(output, Simplebuilding.MOD_ID + ":" + color.getName() + "_" + boxPath);
+                        }
                     }
                 }
 
@@ -912,11 +915,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
                     for (com.simplebuilding.blocks.custom.ChestTier tier : com.simplebuilding.blocks.custom.ChestTier.values()) {
                         Item shell = com.simplebuilding.util.ShulkerShells.shellOf(tier);
-                        Item box = switch (tier) {
-                            case REINFORCED -> ModItems.REINFORCED_SHULKER_BOX;
-                            case NETHERITE -> ModItems.NETHERITE_SHULKER_BOX;
-                            case ENDERITE -> ModItems.ENDERITE_SHULKER_BOX;
-                        };
+                        // The box by id (split stage 8b: on 26.3 Simple Storage's; the shells and this recipe stay here).
+                        Item box = com.simplebuilding.util.StorageRefs.shulkerBox(tier.textureName());
                         ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.DECORATIONS, box)
                                 .requires(tag(com.simplebuilding.util.ModTags.Items.COPPER_CHESTS))
                                 .requires(shell)

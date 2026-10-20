@@ -2,14 +2,6 @@
   "upgrades": [
     {
       "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_chest",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_chest"
-    },
-    {
-      "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_hopper",
       "material": "simplelib:netherite_nugget",
       "min_tool": "diamond",
@@ -26,29 +18,11 @@
     },
     {
       "damage_per_hit": 4,
-      "duration_factor": 2,
-      "from": "simplebuilding:reinforced_shulker_box",
-      "material": "simplelib:netherite_nugget",
-      "material_count": 2,
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_shulker_box"
-    },
-    {
-      "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_sticky_piston",
       "material": "simplelib:netherite_nugget",
       "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_piston"
-    },
-    {
-      "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_trapped_chest",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_trapped_chest"
     },
     {
       "damage_per_hit": 4,

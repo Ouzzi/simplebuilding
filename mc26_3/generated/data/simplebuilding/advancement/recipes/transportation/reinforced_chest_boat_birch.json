@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:reinforced_chest"
+            "items": "simplestorage:reinforced_chest"
           }
         ]
       },

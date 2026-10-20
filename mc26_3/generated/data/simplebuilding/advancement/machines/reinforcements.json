@@ -12,7 +12,7 @@
               "simplebuilding:reinforced_hopper",
               "simplebuilding:reinforced_piston",
               "simplebuilding:reinforced_sticky_piston",
-              "simplebuilding:reinforced_chest"
+              "simplestorage:reinforced_chest"
             ]
           }
         ]

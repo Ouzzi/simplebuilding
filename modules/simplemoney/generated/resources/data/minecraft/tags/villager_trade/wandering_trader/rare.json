@@ -202,10 +202,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_chest",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_chestplate",
       "required": false
     },
@@ -290,10 +286,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_shulker_box",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_spawn_teleporter",
       "required": false
     },
@@ -354,10 +346,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/netherite_chest",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/netherite_chisel",
       "required": false
     },
@@ -399,10 +387,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_quiver",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_shulker_box",
       "required": false
     },
     {
@@ -951,6 +935,22 @@
     },
     {
       "id": "simplemoney:links/simpleovens/netherite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/enderite_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/enderite_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/netherite_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/netherite_shulker_box",
       "required": false
     }
   ]

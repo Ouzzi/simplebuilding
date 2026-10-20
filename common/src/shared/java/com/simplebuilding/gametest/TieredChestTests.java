@@ -90,14 +90,14 @@ public final class TieredChestTests {
         start.setItem(COPPER_SLOTS - 1, new ItemStack(Items.OAK_LOG, 64));
 
         hammer(helper, player, pos, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, 2, "copper -> reinforced");
-        assertTier(helper, pos, ModBlocks.REINFORCED_CHEST, REINFORCED_SLOTS, "copper -> reinforced");
+        assertTier(helper, pos, com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), REINFORCED_SLOTS, "copper -> reinforced");
         helper.assertTrue(player.getOffhandItem().getCount() == 1, "copper -> reinforced: cracked diamonds left: "
                 + player.getOffhandItem().getCount() + ", expected 1");
 
         hammer(helper, player, pos, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, 2, "reinforced -> netherite");
-        assertTier(helper, pos, ModBlocks.NETHERITE_CHEST, NETHERITE_SLOTS, "reinforced -> netherite");
+        assertTier(helper, pos, com.simplebuilding.util.StorageRefs.chestBlock("netherite"), NETHERITE_SLOTS, "reinforced -> netherite");
         hammer(helper, player, pos, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, 2, "netherite -> enderite");
-        assertTier(helper, pos, ModBlocks.ENDERITE_CHEST, ENDERITE_SLOTS, "netherite -> enderite");
+        assertTier(helper, pos, com.simplebuilding.util.StorageRefs.chestBlock("enderite"), ENDERITE_SLOTS, "netherite -> enderite");
         helper.assertTrue(player.getOffhandItem().getCount() == 1, "netherite -> enderite: nuggets left: "
                 + player.getOffhandItem().getCount() + ", expected 1");
 
@@ -137,14 +137,14 @@ public final class TieredChestTests {
         hammer(helper, player, left, com.simplebuilding.util.HammerRefs.item("stone"), ModItems.CRACKED_DIAMOND, 3, "double copper -> reinforced");
         helper.assertTrue(player.getOffhandItem().getCount() == 1,
                 "double copper -> reinforced: diamonds left " + player.getOffhandItem().getCount() + ", expected 3 - 2 = 1");
-        assertDouble(helper, ModBlocks.REINFORCED_CHEST, left, right, "double copper -> reinforced");
+        assertDouble(helper, com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), left, right, "double copper -> reinforced");
         hammer(helper, player, right, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, 2, "double reinforced -> netherite");
         helper.assertTrue(player.getOffhandItem().isEmpty(), "double reinforced -> netherite: both nuggets should be gone");
-        assertDouble(helper, ModBlocks.NETHERITE_CHEST, left, right, "double reinforced -> netherite");
+        assertDouble(helper, com.simplebuilding.util.StorageRefs.chestBlock("netherite"), left, right, "double reinforced -> netherite");
 
         String contents = describe(container(helper, left).getItem(3)) + "|" + describe(container(helper, right).getItem(20));
         helper.assertTrue(contents.equals("12 iron_ingot|7 gold_ingot"), "contents of the two halves: " + contents);
-        Container both = ChestBlock.getContainer((ChestBlock) ModBlocks.NETHERITE_CHEST, helper.getBlockState(left),
+        Container both = ChestBlock.getContainer((ChestBlock) com.simplebuilding.util.StorageRefs.chestBlock("netherite"), helper.getBlockState(left),
                 helper.getLevel(), helper.absolutePos(left), true);
         helper.assertTrue(both != null && both.getContainerSize() == 2 * NETHERITE_SLOTS,
                 "the upgraded double chest is " + (both == null ? "no container" : both.getContainerSize() + " slots"));
@@ -161,8 +161,10 @@ public final class TieredChestTests {
      * 338 x 222 at most, which fits the default GUI scale 4 at 1080p (480 x 270).
      */
     public static void slotCountsAndStackLimitsFollowTheTier(GameTestHelper helper) {
+        // 26.3 (split stage 8b): menu geometry is Simple Storage's (module test tiered_chest_slot_counts_and_stack_limits_follow_the_tier).
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; }
         List<String> summary = new ArrayList<>();
-        Block[] chests = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
+        Block[] chests = {com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), com.simplebuilding.util.StorageRefs.chestBlock("netherite"), com.simplebuilding.util.StorageRefs.chestBlock("enderite")};
         for (int i = 0; i < chests.length; i++) {
             BlockPos pos = new BlockPos(1 + 2 * i, 1, 1);
             helper.setBlock(pos, chests[i].defaultBlockState());
@@ -195,12 +197,12 @@ public final class TieredChestTests {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setShiftKeyDown(false);
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        place(helper, player, ModItems.REINFORCED_CHEST, new BlockPos(1, 1, 1));
-        place(helper, player, ModItems.REINFORCED_CHEST, new BlockPos(2, 1, 1));
-        place(helper, player, ModItems.REINFORCED_CHEST, new BlockPos(1, 1, 4));
-        place(helper, player, ModItems.NETHERITE_CHEST, new BlockPos(2, 1, 4));
+        place(helper, player, com.simplebuilding.util.StorageRefs.chest("reinforced"), new BlockPos(1, 1, 1));
+        place(helper, player, com.simplebuilding.util.StorageRefs.chest("reinforced"), new BlockPos(2, 1, 1));
+        place(helper, player, com.simplebuilding.util.StorageRefs.chest("reinforced"), new BlockPos(1, 1, 4));
+        place(helper, player, com.simplebuilding.util.StorageRefs.chest("netherite"), new BlockPos(2, 1, 4));
         place(helper, player, Items.COPPER_CHEST.weathering().unaffected(), new BlockPos(1, 1, 7));
-        place(helper, player, ModItems.REINFORCED_CHEST, new BlockPos(2, 1, 7));
+        place(helper, player, com.simplebuilding.util.StorageRefs.chest("reinforced"), new BlockPos(2, 1, 7));
         String types = type(helper, 1, 1) + "," + type(helper, 2, 1) + "|" + type(helper, 1, 4) + "," + type(helper, 2, 4)
                 + "|" + type(helper, 1, 7) + "," + type(helper, 2, 7);
         helper.assertTrue(types.equals("right/south,left/south|single/south,single/south|single/south,single/south"),
@@ -221,7 +223,7 @@ public final class TieredChestTests {
      */
     public static void vanillaHoppersFillAndEmptyOversizedSlots(GameTestHelper helper) {
         BlockPos netherite = new BlockPos(1, 1, 1);
-        helper.setBlock(netherite, ModBlocks.NETHERITE_CHEST.defaultBlockState());
+        helper.setBlock(netherite, com.simplebuilding.util.StorageRefs.chestBlock("netherite").defaultBlockState());
         Container single = container(helper, netherite);
         single.setItem(0, new ItemStack(Items.COBBLESTONE, 127));
         ItemStack rest = HopperBlockEntity.addItem(null, single, new ItemStack(Items.COBBLESTONE, 2), Direction.UP);
@@ -230,8 +232,8 @@ public final class TieredChestTests {
 
         BlockPos left = new BlockPos(4, 1, 1);
         BlockPos right = new BlockPos(5, 1, 1);
-        placeDouble(helper, ModBlocks.ENDERITE_CHEST, left, right);
-        Container both = ChestBlock.getContainer((ChestBlock) ModBlocks.ENDERITE_CHEST, helper.getBlockState(left),
+        placeDouble(helper, com.simplebuilding.util.StorageRefs.chestBlock("enderite"), left, right);
+        Container both = ChestBlock.getContainer((ChestBlock) com.simplebuilding.util.StorageRefs.chestBlock("enderite"), helper.getBlockState(left),
                 helper.getLevel(), helper.absolutePos(left), true);
         helper.assertTrue(both != null && both.getContainerSize() == 2 * ENDERITE_SLOTS, "the enderite double chest is no double container");
         both.setItem(ENDERITE_SLOTS, new ItemStack(Items.STONE, 255));
@@ -244,7 +246,7 @@ public final class TieredChestTests {
 
         // Real hoppers: one pushes into a netherite chest full of 64s, one pulls out of a slot of 120.
         BlockPos fed = new BlockPos(1, 1, 4);
-        helper.setBlock(fed, ModBlocks.NETHERITE_CHEST.defaultBlockState());
+        helper.setBlock(fed, com.simplebuilding.util.StorageRefs.chestBlock("netherite").defaultBlockState());
         Container fedChest = container(helper, fed);
         for (int i = 0; i < NETHERITE_SLOTS; i++) {
             fedChest.setItem(i, new ItemStack(Items.COBBLESTONE, 64));
@@ -253,7 +255,7 @@ public final class TieredChestTests {
         ((Container) helper.getLevel().getBlockEntity(helper.absolutePos(fed.above()))).setItem(0, new ItemStack(Items.COBBLESTONE, 2));
 
         BlockPos drained = new BlockPos(4, 2, 4);
-        helper.setBlock(drained, ModBlocks.NETHERITE_CHEST.defaultBlockState());
+        helper.setBlock(drained, com.simplebuilding.util.StorageRefs.chestBlock("netherite").defaultBlockState());
         container(helper, drained).setItem(0, new ItemStack(Items.COBBLESTONE, 120));
         helper.setBlock(drained.below(), Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING, Direction.EAST));
 
@@ -279,7 +281,7 @@ public final class TieredChestTests {
      */
     public static void comparatorReadsOversizedSlotsAgainstTheTierLimit(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 1, 1);
-        helper.setBlock(pos, ModBlocks.NETHERITE_CHEST.defaultBlockState());
+        helper.setBlock(pos, com.simplebuilding.util.StorageRefs.chestBlock("netherite").defaultBlockState());
         Container chest = container(helper, pos);
         for (int i = 0; i < NETHERITE_SLOTS; i++) {
             chest.setItem(i, new ItemStack(Items.COBBLESTONE, 64));
@@ -300,8 +302,8 @@ public final class TieredChestTests {
      */
     public static void oversizedStacksSurviveSavingAndLoading(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 1, 1);
-        helper.setBlock(pos, ModBlocks.ENDERITE_CHEST.defaultBlockState());
-        TieredChestBlockEntity chest = (TieredChestBlockEntity) container(helper, pos);
+        helper.setBlock(pos, com.simplebuilding.util.StorageRefs.chestBlock("enderite").defaultBlockState());
+        net.minecraft.world.level.block.entity.ChestBlockEntity chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) container(helper, pos);
         chest.setItem(5, new ItemStack(Items.COBBLESTONE, 256));
         chest.setItem(6, new ItemStack(Items.ENDER_PEARL, 40));
         CompoundTag tag = chest.saveWithoutMetadata(helper.getLevel().registryAccess());
@@ -321,11 +323,11 @@ public final class TieredChestTests {
     /** Rarity COMMON/UNCOMMON/EPIC (docs/RARITAETEN.md), netherite and enderite fire resistant, ids and blocks. */
     public static void chestItemsFollowTheFamilyScheme(GameTestHelper helper) {
         List<String> summary = new ArrayList<>();
-        for (Item item : List.of(ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST)) {
+        for (Item item : List.of(com.simplebuilding.util.StorageRefs.chest("reinforced"), com.simplebuilding.util.StorageRefs.chest("netherite"), com.simplebuilding.util.StorageRefs.chest("enderite"))) {
             ItemStack stack = new ItemStack(item);
             summary.add(BuiltInRegistries.ITEM.getKey(item).getPath() + ":" + stack.getRarity()
                     + ":" + (stack.has(DataComponents.DAMAGE_RESISTANT) ? "fireproof" : "burns")
-                    + ":" + (item instanceof net.minecraft.world.item.BlockItem block && block.getBlock() instanceof TieredChestBlock));
+                    + ":" + (item instanceof net.minecraft.world.item.BlockItem block && block.getBlock() instanceof ChestBlock));
         }
         String expected = "[reinforced_chest:" + Rarity.COMMON + ":burns:true, netherite_chest:" + Rarity.UNCOMMON
                 + ":fireproof:true, enderite_chest:" + Rarity.EPIC + ":fireproof:true]";
@@ -339,14 +341,14 @@ public final class TieredChestTests {
 
     public static void trappedCapacityComparatorAndPropertiesMatchNormalTiers(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
-        Block[] normal = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
+        Block[] normal = {com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), com.simplebuilding.util.StorageRefs.chestBlock("netherite"), com.simplebuilding.util.StorageRefs.chestBlock("enderite")};
         Block[] trapped = trappedChests();
         int[] slots = {36, 45, 54};
         int[] limits = {64, 128, 256};
         for (int i = 0; i < trapped.length; i++) {
             BlockPos pos = new BlockPos(1 + i * 3, 1, 1);
             helper.setBlock(pos, trapped[i]);
-            TieredChestBlockEntity chest = (TieredChestBlockEntity) container(helper, pos);
+            net.minecraft.world.level.block.entity.ChestBlockEntity chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) container(helper, pos);
             helper.assertValueEqual(chest.getContainerSize(), slots[i], "single capacity");
             helper.assertValueEqual(chest.getMaxStackSize(new ItemStack(Items.STONE)), limits[i], "stone limit");
             helper.assertValueEqual(chest.getMaxStackSize(new ItemStack(Items.IRON_SWORD)), 1, "unstackable limit");
@@ -376,7 +378,7 @@ public final class TieredChestTests {
         if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
         ServerPlayer player = smith(helper);
         Block[] trapped = trappedChests();
-        Block[] normal = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
+        Block[] normal = {com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), com.simplebuilding.util.StorageRefs.chestBlock("netherite"), com.simplebuilding.util.StorageRefs.chestBlock("enderite")};
         for (int i = 0; i < trapped.length; i++) {
             for (Block candidate : new Block[]{trapped[i], normal[i], trapped[(i + 1) % 3], Blocks.TRAPPED_CHEST}) {
                 BlockPos first = new BlockPos(1, 1, 1);
@@ -396,7 +398,7 @@ public final class TieredChestTests {
 
     public static void trappedRecipesUseTheMatchingChestAndHook(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
-        Item[] normal = {ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST};
+        Item[] normal = {com.simplebuilding.util.StorageRefs.chest("reinforced"), com.simplebuilding.util.StorageRefs.chest("netherite"), com.simplebuilding.util.StorageRefs.chest("enderite")};
         Block[] trapped = trappedChests();
         for (int i = 0; i < normal.length; i++) {
             for (boolean reverse : new boolean[]{false, true}) {
@@ -440,7 +442,7 @@ public final class TieredChestTests {
             helper.setBlock(pos, block);
             helper.setBlock(wire, Blocks.REDSTONE_WIRE);
             helper.setBlock(lowerWire, Blocks.REDSTONE_WIRE);
-            TieredChestBlockEntity chest = (TieredChestBlockEntity) container(helper, pos);
+            net.minecraft.world.level.block.entity.ChestBlockEntity chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) container(helper, pos);
             helper.assertTrue(chest.getType().isValid(block.defaultBlockState()), "entity type supports trapped block");
             standOn(helper, player, pos);
             openChestMenu(helper, player, pos);
@@ -475,7 +477,7 @@ public final class TieredChestTests {
         // Both halves count every viewer of the shared menu.
         BlockPos other = pos.east();
         helper.setBlock(other, Blocks.AIR);
-        placeDouble(helper, ModBlocks.ENDERITE_TRAPPED_CHEST, pos, other);
+        placeDouble(helper, com.simplebuilding.util.StorageRefs.trappedChestBlock("enderite"), pos, other);
         standOn(helper, player, pos);
         openChestMenu(helper, player, pos);
         assertTrappedSignal(helper, pos, 1);
@@ -491,16 +493,16 @@ public final class TieredChestTests {
         ServerPlayer player = smith(helper);
         BlockPos left = new BlockPos(1, 1, 1);
         BlockPos right = left.east();
-        placeDouble(helper, ModBlocks.REINFORCED_TRAPPED_CHEST, left, right);
+        placeDouble(helper, com.simplebuilding.util.StorageRefs.trappedChestBlock("reinforced"), left, right);
         container(helper, left).applyComponents(DataComponentMap.builder()
                 .set(DataComponents.CUSTOM_NAME, Component.literal("Redstone stock")).build(), DataComponentPatch.EMPTY);
         container(helper, left).setItem(3, new ItemStack(Items.IRON_INGOT, 12));
         container(helper, right).setItem(20, new ItemStack(Items.GOLD_INGOT, 7));
         hammer(helper, player, left, com.simplebuilding.util.HammerRefs.item("diamond"), ModItems.NETHERITE_NUGGET, 2, "trapped -> netherite");
-        assertDouble(helper, ModBlocks.NETHERITE_TRAPPED_CHEST, left, right, "trapped netherite");
+        assertDouble(helper, com.simplebuilding.util.StorageRefs.trappedChestBlock("netherite"), left, right, "trapped netherite");
         helper.assertTrue(player.getOffhandItem().isEmpty(), "two netherite nuggets consumed");
         hammer(helper, player, left, com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, 2, "trapped -> enderite");
-        assertDouble(helper, ModBlocks.ENDERITE_TRAPPED_CHEST, left, right, "trapped enderite");
+        assertDouble(helper, com.simplebuilding.util.StorageRefs.trappedChestBlock("enderite"), left, right, "trapped enderite");
         helper.assertTrue(player.getOffhandItem().isEmpty(), "two enderite nuggets consumed");
         helper.assertValueEqual(container(helper, left).getItem(3).getCount(), 12, "first half contents");
         helper.assertValueEqual(container(helper, right).getItem(20).getCount(), 7, "second half contents");
@@ -510,8 +512,8 @@ public final class TieredChestTests {
 
     public static void trappedTitlesMatchNormalTiers(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
-        Block[] normal = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
-        Block[] trapped = {ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST};
+        Block[] normal = {com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), com.simplebuilding.util.StorageRefs.chestBlock("netherite"), com.simplebuilding.util.StorageRefs.chestBlock("enderite")};
+        Block[] trapped = {com.simplebuilding.util.StorageRefs.trappedChestBlock("reinforced"), com.simplebuilding.util.StorageRefs.trappedChestBlock("netherite"), com.simplebuilding.util.StorageRefs.trappedChestBlock("enderite")};
         for (int i = 0; i < normal.length; i++) {
             BlockPos normalPos = new BlockPos(1 + 2 * i, 1, 1);
             BlockPos trappedPos = normalPos.east();
@@ -529,7 +531,7 @@ public final class TieredChestTests {
     }
 
     private static Block[] trappedChests() {
-        return new Block[]{ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST};
+        return new Block[]{com.simplebuilding.util.StorageRefs.trappedChestBlock("reinforced"), com.simplebuilding.util.StorageRefs.trappedChestBlock("netherite"), com.simplebuilding.util.StorageRefs.trappedChestBlock("enderite")};
     }
 
     private static void openChestMenu(GameTestHelper helper, ServerPlayer player, BlockPos pos) {
@@ -538,7 +540,7 @@ public final class TieredChestTests {
         var provider = helper.getBlockState(pos).getMenuProvider(helper.getLevel(), helper.absolutePos(pos));
         helper.assertTrue(provider != null, "unblocked chest offers a menu");
         var menu = provider.createMenu(1, player.getInventory(), player);
-        helper.assertTrue(menu instanceof TieredChestMenu, "chest offers the tier menu");
+        helper.assertTrue(menu != null && menu.getClass().getSimpleName().equals("TieredChestMenu"), "chest offers the tier menu: " + menu);
         player.containerMenu = menu;
     }
 
@@ -554,11 +556,12 @@ public final class TieredChestTests {
         BlockPos wire = pos.east();
         helper.setBlock(pos.below(), Blocks.STONE);
         helper.setBlock(wire.below(), Blocks.STONE);
-        for (Block block : ModBlocks.trappedCopperChests()) {
+        for (Block block : com.simplebuilding.util.StorageRefs.trappedCopperChests().stream().map(i -> ((net.minecraft.world.item.BlockItem) i).getBlock()).toArray(net.minecraft.world.level.block.Block[]::new)) {
             helper.setBlock(pos, block);
             helper.setBlock(wire, Blocks.REDSTONE_WIRE);
             var chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) container(helper, pos);
-            helper.assertTrue(chest instanceof com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity,
+            // By class name: on 26.3 (split stage 8b) the entity is Simple Storage's.
+            helper.assertTrue(chest.getClass().getSimpleName().equals("TrappedCopperChestBlockEntity"),
                     block + " has the trapped copper chest entity");
             standOn(helper, player, pos);
             chest.startOpen(player);
@@ -582,14 +585,14 @@ public final class TieredChestTests {
         ServerPlayer player = smith(helper);
         BlockPos pos = new BlockPos(2, 2, 2);
         helper.setBlock(pos.below(), Blocks.STONE);
-        helper.setBlock(pos, ModBlocks.TRAPPED_COPPER_CHEST);
+        helper.setBlock(pos, com.simplebuilding.util.StorageRefs.block("trapped_copper_chest"));
         container(helper, pos).setItem(0, new ItemStack(Items.DIAMOND, 5));
         StringBuilder steps = new StringBuilder(name(helper, pos));
         use(helper, player, pos, new ItemStack(Items.HONEYCOMB));
         steps.append(" > ").append(name(helper, pos));
         use(helper, player, pos, new ItemStack(Items.IRON_AXE));
         steps.append(" > ").append(name(helper, pos));
-        helper.getLevel().setBlock(helper.absolutePos(pos), ModBlocks.WEATHERED_TRAPPED_COPPER_CHEST.withPropertiesOf(helper.getBlockState(pos)), 3);
+        helper.getLevel().setBlock(helper.absolutePos(pos), com.simplebuilding.util.StorageRefs.block("weathered_trapped_copper_chest").withPropertiesOf(helper.getBlockState(pos)), 3);
         steps.append(" > ").append(name(helper, pos));
         use(helper, player, pos, new ItemStack(Items.IRON_AXE));
         steps.append(" > ").append(name(helper, pos));
@@ -597,8 +600,8 @@ public final class TieredChestTests {
         helper.assertTrue(steps.toString().equals(expected), "stages: expected " + expected + " but were " + steps);
         ItemStack kept = container(helper, pos).getItem(0);
         helper.assertTrue(kept.is(Items.DIAMOND) && kept.getCount() == 5, "contents survive every stage change, got " + kept);
-        helper.assertTrue(helper.getBlockState(pos).isRandomlyTicking() && !ModBlocks.WAXED_TRAPPED_COPPER_CHEST.defaultBlockState().isRandomlyTicking()
-                && !ModBlocks.OXIDIZED_TRAPPED_COPPER_CHEST.defaultBlockState().isRandomlyTicking(), "only unwaxed, not fully oxidized chests age");
+        helper.assertTrue(helper.getBlockState(pos).isRandomlyTicking() && !com.simplebuilding.util.StorageRefs.block("waxed_trapped_copper_chest").defaultBlockState().isRandomlyTicking()
+                && !com.simplebuilding.util.StorageRefs.block("oxidized_trapped_copper_chest").defaultBlockState().isRandomlyTicking(), "only unwaxed, not fully oxidized chests age");
         helper.succeed();
     }
 
@@ -611,10 +614,10 @@ public final class TieredChestTests {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setShiftKeyDown(false);
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        place(helper, player, ModItems.EXPOSED_TRAPPED_COPPER_CHEST, new BlockPos(1, 1, 1));
-        place(helper, player, ModItems.TRAPPED_COPPER_CHEST, new BlockPos(2, 1, 1));
+        place(helper, player, com.simplebuilding.util.StorageRefs.item("exposed_trapped_copper_chest"), new BlockPos(1, 1, 1));
+        place(helper, player, com.simplebuilding.util.StorageRefs.item("trapped_copper_chest"), new BlockPos(2, 1, 1));
         place(helper, player, Items.COPPER_CHEST.weathering().unaffected(), new BlockPos(1, 1, 4));
-        place(helper, player, ModItems.TRAPPED_COPPER_CHEST, new BlockPos(2, 1, 4));
+        place(helper, player, com.simplebuilding.util.StorageRefs.item("trapped_copper_chest"), new BlockPos(2, 1, 4));
         String types = type(helper, 1, 1) + "," + type(helper, 2, 1) + "|" + type(helper, 1, 4) + "," + type(helper, 2, 4);
         helper.assertTrue(types.equals("right/south,left/south|single/south,single/south"),
                 "chest types (two trapped copper | copper beside trapped copper): " + types);

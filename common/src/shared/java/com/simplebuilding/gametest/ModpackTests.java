@@ -453,6 +453,18 @@ public final class ModpackTests {
             }
             if (ovenSteps != 6) problems.add("Simple Ovens' file should load 6 furnace upgrade steps, loaded " + ovenSteps);
         }
+        // Split stage 8b: on 26.3 the 31 chest and shulker box steps (out of the Vanilla copper chests and shulker boxes
+        // too) come from Simple Storage's file (data/simplestorage/in_world_upgrades).
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            int storageSteps = 0;
+            for (var it = loaded.values().iterator(); it.hasNext(); ) {
+                if (com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.BLOCK.getKey(it.next().to()).getNamespace())) {
+                    it.remove();
+                    storageSteps++;
+                }
+            }
+            if (storageSteps != 31) problems.add("Simple Storage's file should load 31 chest and shulker box upgrade steps, loaded " + storageSteps);
+        }
         if (!loaded.equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
                     + loaded.size() + " against " + SledgehammerUpgrades.builtInTable().size());

@@ -1001,7 +1001,7 @@ public final class FeatureStations {
         c.fill(20, 0, 3, 20, 0, 6, Blocks.STONE.defaultBlockState());
         c.fill(11, 0, 3, 19, 0, 6, Blocks.WATER.defaultBlockState());
         // Vorratstruhe (54 Plaetze): alle Fahrzeuge, die Kistenboote in jeder Holzart, Kohle, Schienen.
-        c.place(22, 0, 5, TestCentreSections.facing(ModBlocks.ENDERITE_CHEST.defaultBlockState(), Direction.NORTH));
+        c.place(22, 0, 5, TestCentreSections.facing(com.simplebuilding.util.StorageRefs.chestBlock("enderite").defaultBlockState(), Direction.NORTH));
         List<ItemStack> supply = new ArrayList<>();
         for (Item item : vehicleItems()) {
             if (!(item instanceof com.simplebuilding.entity.vehicle.TieredChestBoatItem)) supply.add(new ItemStack(item));

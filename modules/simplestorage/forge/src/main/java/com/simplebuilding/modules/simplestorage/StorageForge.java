@@ -1,13 +1,11 @@
 package com.simplebuilding.modules.simplestorage;
 
 import com.simplestorage.SimpleStorage;
-import com.simplestorage.crate.CrateBlockEntity;
 import com.simplestorage.registry.StorageBlockEntities;
 import com.simplestorage.registry.StorageBlocks;
 import com.simplestorage.registry.StorageItems;
 import com.simplestorage.registry.StorageMenus;
 import com.simplestorage.registry.StorageRegistry;
-import com.simplestorage.table.StorageCraftingTableBlockEntity;
 import java.util.Set;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
@@ -29,16 +27,25 @@ public final class StorageForge {
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             // Forge unlocks one registry per event: every part in its own.
+            if (key.equals(Registries.DATA_COMPONENT_TYPE)) com.simplestorage.registry.StorageComponents.register();
             if (key.equals(Registries.BLOCK)) StorageBlocks.register(ModList.isLoaded(com.simplestorage.crate.CrateWood.SIMPLE_END));
             if (key.equals(Registries.ITEM)) StorageItems.register();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                StorageBlockEntities.register(new BlockEntityType<>(CrateBlockEntity::new, Set.of(StorageBlocks.crates())),
-                        new BlockEntityType<>(StorageCraftingTableBlockEntity::new, Set.of(StorageBlocks.STORAGE_CRAFTING_TABLE)));
+                StorageBlockEntities.register(new StorageBlockEntities.Types() {
+                    @Override
+                    public <T extends net.minecraft.world.level.block.entity.BlockEntity> BlockEntityType<T> create(
+                            BlockEntityType.BlockEntitySupplier<? extends T> factory, Set<net.minecraft.world.level.block.Block> blocks) {
+                        return new BlockEntityType<>(factory, blocks);
+                    }
+                });
             }
             if (key.equals(Registries.MENU)) StorageMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) StorageRegistry.registerTab();
         });
-        FMLCommonSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(StorageBlocks::registerFlammability));
+        FMLCommonSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(() -> {
+            StorageBlocks.registerFlammability();
+            com.simplestorage.registry.StorageRegistry.registerBehaviours();
+        }));
         boolean sb = ModList.isLoaded("simplebuilding");
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             boolean vanillaTabs = StorageRegistry.fillsVanillaTabs(sb,
@@ -47,6 +54,8 @@ public final class StorageForge {
                 // On its own: the table behind the crafting table, the crates behind the barrel.
                 insertAfter(event, net.minecraft.world.item.Items.CRAFTING_TABLE, java.util.List.of(new net.minecraft.world.item.ItemStack(StorageItems.STORAGE_CRAFTING_TABLE)));
                 insertAfter(event, net.minecraft.world.item.Items.BARREL, StorageRegistry.crateStacks());
+                insertAfter(event, net.minecraft.world.item.Items.TRAPPED_CHEST, StorageRegistry.chestStacks());
+                insertAfter(event, net.minecraft.world.item.Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.getEntries().put(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

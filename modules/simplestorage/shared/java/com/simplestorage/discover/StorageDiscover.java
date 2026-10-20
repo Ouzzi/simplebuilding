@@ -51,13 +51,40 @@ public final class StorageDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "minecraft:copper_chest",
+            "minecraft:shulker_box",
+            "simplelib:cracked_diamond",
+            "simplelib:enderite_nugget",
+            "simplelib:netherite_nugget",
+            "simplestorage:*_chest",
             "simplestorage:*_crate",
+            "simplestorage:*_shulker_box",
+            "simplestorage:chests",
             "simplestorage:crates",
             "simplestorage:creative_tab_switch",
+            "simplestorage:enderite_chest",
+            "simplestorage:enderite_shulker_box",
+            "simplestorage:enderite_trapped_chest",
+            "simplestorage:exposed_trapped_copper_chest",
             "simplestorage:guide_book",
             "simplestorage:migration",
-            "simplestorage:storage_crafting_table");
-    static final List<Tip> TIPS = List.of();
+            "simplestorage:netherite_chest",
+            "simplestorage:netherite_shulker_box",
+            "simplestorage:netherite_trapped_chest",
+            "simplestorage:oxidized_trapped_copper_chest",
+            "simplestorage:reinforced_chest",
+            "simplestorage:reinforced_shulker_box",
+            "simplestorage:reinforced_trapped_chest",
+            "simplestorage:shulker_boxes",
+            "simplestorage:storage_crafting_table",
+            "simplestorage:trapped_copper_chest",
+            "simplestorage:waxed_exposed_trapped_copper_chest",
+            "simplestorage:waxed_oxidized_trapped_copper_chest",
+            "simplestorage:waxed_trapped_copper_chest",
+            "simplestorage:waxed_weathered_trapped_copper_chest",
+            "simplestorage:weathered_trapped_copper_chest");
+    static final List<Tip> TIPS = List.of(
+            new Tip("chest_upgrade", List.of("reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest", "netherite_trapped_chest", "netherite_shulker_box")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

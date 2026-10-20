@@ -2,7 +2,6 @@ package com.simplebuilding.util;
 
 import com.google.gson.JsonElement;
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.blocks.custom.TieredShulkerBoxBlock;
 import com.simplebuilding.data.SledgehammerUpgradeData;
 import com.simplelib.api.HammerActions;
 import com.simplelib.api.InWorldUpgrades;
@@ -16,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ChestBlock;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -26,12 +24,12 @@ import org.jetbrains.annotations.Nullable;
  * <ul>
  *   <li>The sledgehammer upgrades are the data type {@code in_world_upgrades} ({@link InWorldUpgrades}); the old folder
  *       {@code sledgehammer_upgrades} is still read (modpacks), SimpleBuilding's files apply first.</li>
- *   <li>Tiered chests and shulker boxes move their contents through upgrade handlers; crucibles and barrels through
- *       SimpleLib's own.</li>
+ *   <li>Tiered chests and shulker boxes are Simple Storage's since split stage 8b (it registers their upgrade handlers);
+ *       crucibles and barrels move through Simple Crucibles' own.</li>
  *   <li>Simple Octets registers the octet cells with {@link OctetCells} (split stage 6); the sledgehammer carves through it.</li>
  *   <li>The sledgehammer is Simple Hammers' (split stage 7); SimpleBuilding plugs its hammer ways in through
  *       {@link HammerActions} ({@link #registerHammerWays}): placed trim templates, flat discs, chips, the octant
- *       selection, double chests, fresh breaker pistons, its advancements and counters.</li>
+ *       selection, fresh breaker pistons, its advancements and counters.</li>
  * </ul>
  */
 public final class LibServices {
@@ -65,12 +63,8 @@ public final class LibServices {
         // loot for mods without a partner (Simple Ovens alone) stay idle.
         InWorldUpgrades.loadedByPartner();
         SimpleLibApi.materialLootByPartner();
-        // Same split as SledgehammerUpgrades.Upgrade#isChest / #isShulkerBox: every chest target moves like a tiered chest.
-        SimpleLibApi.registerUpgradeHandler(block -> block instanceof ChestBlock, TieredChests::upgradeInPlace);
-        SimpleLibApi.registerUpgradeHandler(block -> block instanceof TieredShulkerBoxBlock, (level, pos, to) -> {
-            TieredShulkerBoxes.upgradeInPlace(level, pos, to);
-            return 1;
-        });
+        // Split stage 8b: the tiered chests and shulker boxes, their upgrade handlers and the double chest parts are Simple
+        // Storage's (it registers them itself).
         registerHammerWays();
     }
 
@@ -99,7 +93,6 @@ public final class LibServices {
         HammerActions.registerArea(OctantHammerArea::selection);
         HammerActions.registerAreaVeto(BuildPermissions::isProbing);
         // Claims: Simple Hammers asks framework Protection itself (what WorldPermissions bridges to on 26.3), per action.
-        HammerActions.registerParts(block -> block instanceof ChestBlock, TieredChests::halves);
         HammerActions.registerUpgradedState(state -> com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(state, 0));
         SledgehammerUpgrades.setFallbackTable(SledgehammerUpgrades::builtInTable);
         HammerActions.listen(HammerActions.RESHAPE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,

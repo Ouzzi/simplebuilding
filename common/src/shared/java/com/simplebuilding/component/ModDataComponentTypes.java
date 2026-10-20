@@ -92,7 +92,8 @@ public class ModDataComponentTypes {
     // Gestufte Shulkerkisten (Netherit x2, Enderit x4): die echten Anzahlen der Plaetze ueber 99, die
     // minecraft:container nicht speichert (dort steht eine lesbare Kopie mit 99). Zum Client
     // synchronisiert, sonst verloere das Kreativinventar sie beim Verschieben.
-    public static final DataComponentType<ContainerCounts> CONTAINER_COUNTS =
+    // Split stage 8b: on 26.3 the tier shulker boxes and this component are Simple Storage's (simplestorage:container_counts).
+    public static final DataComponentType<ContainerCounts> CONTAINER_COUNTS = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null :
             register("container_counts", builder -> builder
                     .persistent(ContainerCounts.CODEC)
                     .networkSynchronized(ContainerCounts.STREAM_CODEC));

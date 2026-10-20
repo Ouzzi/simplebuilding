@@ -1,0 +1,15 @@
+{
+  "values": [
+    "simplestorage:trapped_copper_chest",
+    "simplestorage:exposed_trapped_copper_chest",
+    "simplestorage:weathered_trapped_copper_chest",
+    "simplestorage:oxidized_trapped_copper_chest",
+    "simplestorage:waxed_trapped_copper_chest",
+    "simplestorage:waxed_exposed_trapped_copper_chest",
+    "simplestorage:waxed_weathered_trapped_copper_chest",
+    "simplestorage:waxed_oxidized_trapped_copper_chest",
+    "simplestorage:reinforced_trapped_chest",
+    "simplestorage:netherite_trapped_chest",
+    "simplestorage:enderite_trapped_chest"
+  ]
+}

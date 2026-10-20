@@ -737,40 +737,40 @@ public class ModItems {
 
     // Truhen-Stufen: Verstaerkt COMMON, Netherit UNCOMMON und Enderit EPIC wie die Maschinen
     // (docs/RARITAETEN.md), Netherit und Enderit feuerfest.
-    public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
+    public static final Item REINFORCED_CHEST = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
 
-    public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_CHEST = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireResistant().rarity(UNCOMMON)));
 
-    public static final Item ENDERITE_CHEST = registerItem("enderite_chest", s -> new BlockItem(ModBlocks.ENDERITE_CHEST, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_CHEST = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_chest", s -> new BlockItem(ModBlocks.ENDERITE_CHEST, s.fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item REINFORCED_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item REINFORCED_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("reinforced_trapped_chest", s -> new BlockItem(ModBlocks.REINFORCED_TRAPPED_CHEST, s)) : null;
-    public static final Item NETHERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item NETHERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("netherite_trapped_chest", s -> new BlockItem(ModBlocks.NETHERITE_TRAPPED_CHEST, s.fireResistant().rarity(UNCOMMON))) : null;
-    public static final Item ENDERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item ENDERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("enderite_trapped_chest", s -> new BlockItem(ModBlocks.ENDERITE_TRAPPED_CHEST, s.fireResistant().rarity(Rarity.EPIC))) : null;
 
     // Fallen-Kupfertruhen (N16), Reihenfolge wie ModBlocks.trappedCopperChests().
-    public static final Item TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("trapped_copper_chest", s -> new BlockItem(ModBlocks.TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item EXPOSED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item EXPOSED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("exposed_trapped_copper_chest", s -> new BlockItem(ModBlocks.EXPOSED_TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item WEATHERED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item WEATHERED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("weathered_trapped_copper_chest", s -> new BlockItem(ModBlocks.WEATHERED_TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item OXIDIZED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item OXIDIZED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("oxidized_trapped_copper_chest", s -> new BlockItem(ModBlocks.OXIDIZED_TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item WAXED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item WAXED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("waxed_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item WAXED_EXPOSED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item WAXED_EXPOSED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("waxed_exposed_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_EXPOSED_TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item WAXED_WEATHERED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item WAXED_WEATHERED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("waxed_weathered_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_WEATHERED_TRAPPED_COPPER_CHEST, s)) : null;
-    public static final Item WAXED_OXIDIZED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+    public static final Item WAXED_OXIDIZED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
             ? registerItem("waxed_oxidized_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_OXIDIZED_TRAPPED_COPPER_CHEST, s)) : null;
 
     /** The eight trapped copper chest items, empty on older lines. */
     public static Item[] trappedCopperChests() {
-        return com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+        return com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS && com.simplebuilding.version.McVersion.STORAGE_IN_SB
                 ? new Item[]{TRAPPED_COPPER_CHEST, EXPOSED_TRAPPED_COPPER_CHEST, WEATHERED_TRAPPED_COPPER_CHEST, OXIDIZED_TRAPPED_COPPER_CHEST,
                         WAXED_TRAPPED_COPPER_CHEST, WAXED_EXPOSED_TRAPPED_COPPER_CHEST, WAXED_WEATHERED_TRAPPED_COPPER_CHEST, WAXED_OXIDIZED_TRAPPED_COPPER_CHEST}
                 : new Item[0];
@@ -778,13 +778,13 @@ public class ModItems {
 
     // Shulkerkisten-Stufen: wie die Truhen Verstaerkt COMMON, Netherit UNCOMMON, Enderit EPIC, Netherit
     // und Enderit feuerfest; Stapelgroesse 1 und leerer Inhalt wie Vanillas Shulkerkiste.
-    public static final Item REINFORCED_SHULKER_BOX = registerItem("reinforced_shulker_box",
+    public static final Item REINFORCED_SHULKER_BOX = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("reinforced_shulker_box",
             s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.REINFORCED_SHULKER_BOX, shulkerBox(s)));
 
-    public static final Item NETHERITE_SHULKER_BOX = registerItem("netherite_shulker_box",
+    public static final Item NETHERITE_SHULKER_BOX = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("netherite_shulker_box",
             s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.NETHERITE_SHULKER_BOX, shulkerBox(s).fireResistant().rarity(UNCOMMON)));
 
-    public static final Item ENDERITE_SHULKER_BOX = registerItem("enderite_shulker_box",
+    public static final Item ENDERITE_SHULKER_BOX = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_shulker_box",
             s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.ENDERITE_SHULKER_BOX, shulkerBox(s).fireResistant().rarity(Rarity.EPIC)));
 
     public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));

@@ -411,21 +411,21 @@ public final class SearchTabPlacement {
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BLAST_FURNACE,
                     com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace")));
         }
-        // Hinter der letzten Kupfertruhe (Vanilla fuehrt alle Oxidations- und Wachsstufen).
+        // Hinter der letzten Kupfertruhe (Vanilla fuehrt alle Oxidations- und Wachsstufen). Seit Stufe 8b per Id (26.3 Simple Storage).
         List<ItemLike> chests = new ArrayList<>(List.of(
-                ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST));
+                com.simplebuilding.util.StorageRefs.chest("reinforced"), com.simplebuilding.util.StorageRefs.chest("netherite"), com.simplebuilding.util.StorageRefs.chest("enderite")));
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
-            chests.addAll(List.of(ModItems.REINFORCED_TRAPPED_CHEST,
-                    ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
-            chests.addAll(List.of(ModItems.trappedCopperChests()));
+            chests.addAll(List.of(com.simplebuilding.util.StorageRefs.trappedChest("reinforced"),
+                    com.simplebuilding.util.StorageRefs.trappedChest("netherite"), com.simplebuilding.util.StorageRefs.trappedChest("enderite")));
+            chests.addAll(com.simplebuilding.util.StorageRefs.trappedCopperChests());
         }
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.COPPER_CHEST.asList().getLast(), chests.toArray(ItemLike[]::new)));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SHULKER_BOX,
-                ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+                com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"), com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
-            List<ItemLike> trapped = new ArrayList<>(List.of(ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST,
-                    ModItems.ENDERITE_TRAPPED_CHEST));
-            trapped.addAll(List.of(ModItems.trappedCopperChests()));
+            List<ItemLike> trapped = new ArrayList<>(List.of(com.simplebuilding.util.StorageRefs.trappedChest("reinforced"), com.simplebuilding.util.StorageRefs.trappedChest("netherite"),
+                    com.simplebuilding.util.StorageRefs.trappedChest("enderite")));
+            trapped.addAll(com.simplebuilding.util.StorageRefs.trappedCopperChests());
             out.add(Placement.after(REDSTONE_BLOCKS, Items.TRAPPED_CHEST, trapped.toArray(ItemLike[]::new)).asSecondary());
         }
         // 26.3: Simple Mobheads places every head itself (behind the dragon head).
@@ -449,7 +449,7 @@ public final class SearchTabPlacement {
         out.add(Placement.before(REDSTONE_BLOCKS, Items.SCULK_SENSOR,
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE).asSecondary());
         out.add(Placement.after(REDSTONE_BLOCKS, Items.COPPER_CHEST.waxed().unaffected(),
-                ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST).asSecondary());
+                com.simplebuilding.util.StorageRefs.chest("reinforced"), com.simplebuilding.util.StorageRefs.chest("netherite"), com.simplebuilding.util.StorageRefs.chest("enderite")).asSecondary());
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.FURNACE,
                     com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_furnace")).asSecondary());

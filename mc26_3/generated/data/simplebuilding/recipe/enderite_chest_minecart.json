@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "simplebuilding:enderite_chest",
+    "simplestorage:enderite_chest",
     "minecraft:minecart"
   ],
   "result": {

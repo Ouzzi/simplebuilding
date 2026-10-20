@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:enderite_chest"
+            "items": "simplestorage:enderite_chest"
           }
         ]
       },

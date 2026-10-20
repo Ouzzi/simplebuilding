@@ -1,7 +1,7 @@
 package com.simplebuilding.compat;
 
 import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
-import com.simplebuilding.blocks.custom.TieredChestBlock;
+import com.simplebuilding.blocks.custom.ChestTier;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity;
@@ -291,16 +291,19 @@ public final class BlockInfo {
                     lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(com.simplebuilding.util.NihilVaultStorage.SLOTS)));
                     lines.add(Line.of("jade.simplebuilding.nihil_vault.shared"));
                 }
-                if (state.getBlock() instanceof TieredChestBlock chest) {
+                // The tier chests and shulker boxes by id (split stage 8b: on 26.3 they are Simple Storage's).
+                ChestTier chestTier = storageTier(state.getBlock(), false);
+                ChestTier boxTier = storageTier(state.getBlock(), true);
+                if (chestTier != null) {
                     boolean isDouble = state.hasProperty(ChestBlock.TYPE) && state.getValue(ChestBlock.TYPE) != ChestType.SINGLE;
-                    lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(chest.tier().slots() * (isDouble ? 2 : 1))));
-                    if (chest.tier().stackMultiplier() > 1) {
-                        lines.add(Line.of("jade.simplebuilding.chest.stacks", Arg.literal(chest.tier().stackMultiplier())));
+                    lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(chestTier.slots() * (isDouble ? 2 : 1))));
+                    if (chestTier.stackMultiplier() > 1) {
+                        lines.add(Line.of("jade.simplebuilding.chest.stacks", Arg.literal(chestTier.stackMultiplier())));
                     }
-                } else if (state.getBlock() instanceof com.simplebuilding.blocks.custom.TieredShulkerBoxBlock box) {
-                    lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(box.tier().slots())));
-                    if (box.tier().stackMultiplier() > 1) {
-                        lines.add(Line.of("jade.simplebuilding.chest.stacks", Arg.literal(box.tier().stackMultiplier())));
+                } else if (boxTier != null) {
+                    lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(boxTier.slots())));
+                    if (boxTier.stackMultiplier() > 1) {
+                        lines.add(Line.of("jade.simplebuilding.chest.stacks", Arg.literal(boxTier.stackMultiplier())));
                     }
                 }
             }
@@ -435,5 +438,17 @@ public final class BlockInfo {
             lines.add(new Line(key, args));
         }
         return lines;
+    }
+
+    /** The tier of a tiered (trapped) chest, or with {@code shulkerBox} of a tier shulker box; null for any other block. */
+    static @org.jetbrains.annotations.Nullable ChestTier storageTier(net.minecraft.world.level.block.Block block, boolean shulkerBox) {
+        for (ChestTier tier : ChestTier.values()) {
+            String name = tier.textureName();
+            if (shulkerBox ? block == com.simplebuilding.util.StorageRefs.shulkerBoxBlock(name)
+                    : block == com.simplebuilding.util.StorageRefs.chestBlock(name) || block == com.simplebuilding.util.StorageRefs.trappedChestBlock(name)) {
+                return block == net.minecraft.world.level.block.Blocks.AIR ? null : tier;
+            }
+        }
+        return null;
     }
 }

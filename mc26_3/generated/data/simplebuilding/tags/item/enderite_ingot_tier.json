@@ -7,7 +7,6 @@
     "simplebuilding:enderite_building_wand",
     "simplebuilding:enderite_bundle",
     "simplebuilding:enderite_carrot",
-    "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chest_boat",
     "simplebuilding:enderite_chest_minecart",
     "simplebuilding:enderite_chestplate",
@@ -31,12 +30,10 @@
     "simplebuilding:enderite_pressure_plate",
     "simplebuilding:enderite_quiver",
     "simplebuilding:enderite_shovel",
-    "simplebuilding:enderite_shulker_box",
     "simplebuilding:enderite_shulker_shell",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderite_spear",
     "simplebuilding:enderite_sword",
-    "simplebuilding:enderite_trapped_chest",
     "simplecrucibles:enderite_barrel",
     "simplecrucibles:enderite_bucket",
     "simplecrucibles:enderite_crucible",
@@ -55,6 +52,9 @@
     "simpleovens:enderite_blast_furnace",
     "simpleovens:enderite_furnace",
     "simpleovens:enderite_furnace_minecart",
-    "simpleovens:enderite_smoker"
+    "simpleovens:enderite_smoker",
+    "simplestorage:enderite_chest",
+    "simplestorage:enderite_shulker_box",
+    "simplestorage:enderite_trapped_chest"
   ]
 }

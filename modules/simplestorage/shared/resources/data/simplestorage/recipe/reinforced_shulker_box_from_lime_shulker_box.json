@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "reinforced_shulker_box",
+  "input": "minecraft:lime_shulker_box",
+  "material": "simplelib:cracked_diamond",
+  "material_count": 4,
+  "result": {
+    "components": {
+      "minecraft:base_color": "lime"
+    },
+    "id": "simplestorage:reinforced_shulker_box"
+  }
+}

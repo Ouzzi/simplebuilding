@@ -16,9 +16,14 @@ final class StorageForgeClient {
         EntityRenderersEvent.RegisterRenderers.BUS.addListener(event -> {
             event.registerBlockEntityRenderer(StorageBlockEntities.CRATE, CrateRenderer::new);
             event.registerBlockEntityRenderer(StorageBlockEntities.STORAGE_CRAFTING_TABLE, StorageCraftingTableRenderer::new);
+            event.registerBlockEntityRenderer(StorageBlockEntities.TIERED_CHEST, com.simplestorage.client.TieredChestRenderer::new);
+            event.registerBlockEntityRenderer(StorageBlockEntities.TRAPPED_COPPER_CHEST, com.simplestorage.client.TrappedCopperChestRenderer::new);
+            event.registerBlockEntityRenderer(StorageBlockEntities.TIERED_SHULKER_BOX, com.simplestorage.client.TieredShulkerBoxRenderer::new);
         });
-        FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event ->
-                event.enqueueWork(() -> MenuScreens.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new)));
+        FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(() -> {
+            MenuScreens.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new);
+            for (var type : StorageMenus.tieredTypes()) MenuScreens.register(type, com.simplestorage.client.TieredChestScreen::new);
+        }));
     }
 
     private StorageForgeClient() {}

@@ -146,7 +146,13 @@ public final class TieredChests {
      */
     public static int maxStackSize(@Nullable Container container, ItemStack stack, int vanilla) {
         Container storage = oversizedStorage(container);
-        return storage == null ? vanilla : storage.getMaxStackSize(stack);
+        if (storage != null) {
+            return storage.getMaxStackSize(stack);
+        }
+        // Any other container with a raised limit (split stage 8b: Simple Storage's chests and boxes on 26.3, SimpleLib's
+        // crucibles): its own getMaxStackSize(stack), never less than Vanilla's; a double chest asks its first half.
+        Container own = container instanceof CompoundContainer compound ? ((CompoundContainerAccessor) compound).simplebuilding$first() : container;
+        return own == null ? vanilla : Math.max(vanilla, own.getMaxStackSize(stack));
     }
 
     /**

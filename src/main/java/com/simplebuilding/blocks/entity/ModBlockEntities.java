@@ -73,6 +73,8 @@ public class ModBlockEntities {
                         ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK,
                         ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK).build());
 
+        // Split stage 8b: on 26.3 Simple Storage registers the chest and shulker box block entities (simplestorage:*).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
         TIERED_CHEST_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_chest"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
@@ -89,6 +91,7 @@ public class ModBlockEntities {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_shulker_box"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity::new,
                         ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX).build());
+        }
 
         PLACED_TEMPLATE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_smithing_template"),
