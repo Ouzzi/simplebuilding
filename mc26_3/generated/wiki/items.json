@@ -97,7 +97,6 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:enderite_backpack",
-    "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chunk_loader",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
@@ -107,11 +106,8 @@
     "simplebuilding:enderite_piston_head",
     "simplebuilding:enderite_pole",
     "simplebuilding:enderite_pressure_plate",
-    "simplebuilding:enderite_shulker_box",
     "simplebuilding:enderite_spawn_teleporter",
-    "simplebuilding:enderite_trapped_chest",
     "simplebuilding:exposed_copper_pressure_plate",
-    "simplebuilding:exposed_trapped_copper_chest",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
     "simplebuilding:frosted_nihilith",
@@ -178,7 +174,6 @@
     "simplebuilding:nether_brick_quartz_checker_stairs",
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
-    "simplebuilding:netherite_chest",
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
@@ -188,8 +183,6 @@
     "simplebuilding:netherite_piston_head",
     "simplebuilding:netherite_pole",
     "simplebuilding:netherite_pressure_plate",
-    "simplebuilding:netherite_shulker_box",
-    "simplebuilding:netherite_trapped_chest",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
@@ -215,7 +208,6 @@
     "simplebuilding:orange_hammock",
     "simplebuilding:orange_light_pane",
     "simplebuilding:oxidized_copper_pressure_plate",
-    "simplebuilding:oxidized_trapped_copper_chest",
     "simplebuilding:pale_oak_cauldron",
     "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_copper_light_pane",
@@ -263,16 +255,13 @@
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
     "simplebuilding:redstone_light_pane",
     "simplebuilding:reinforced_backpack",
-    "simplebuilding:reinforced_chest",
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
     "simplebuilding:reinforced_hopper",
     "simplebuilding:reinforced_piston",
     "simplebuilding:reinforced_piston_head",
     "simplebuilding:reinforced_potion_pad",
-    "simplebuilding:reinforced_shulker_box",
     "simplebuilding:reinforced_sticky_piston",
-    "simplebuilding:reinforced_trapped_chest",
     "simplebuilding:resin_quartz_checker",
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
@@ -317,7 +306,6 @@
     "simplebuilding:sulfur_torch",
     "simplebuilding:sulfur_wall_torch",
     "simplebuilding:transparent_light_pane",
-    "simplebuilding:trapped_copper_chest",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
     "simplebuilding:warped_blazewood_bookshelf",
@@ -326,14 +314,9 @@
     "simplebuilding:warped_sheet",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
-    "simplebuilding:waxed_exposed_trapped_copper_chest",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
-    "simplebuilding:waxed_oxidized_trapped_copper_chest",
-    "simplebuilding:waxed_trapped_copper_chest",
     "simplebuilding:waxed_weathered_copper_pressure_plate",
-    "simplebuilding:waxed_weathered_trapped_copper_chest",
     "simplebuilding:weathered_copper_pressure_plate",
-    "simplebuilding:weathered_trapped_copper_chest",
     "simplebuilding:white_copper_light_pane",
     "simplebuilding:white_hammock",
     "simplebuilding:white_light_pane",
@@ -943,9 +926,6 @@
       "id": "simplebuilding:enderite_carrot"
     },
     {
-      "id": "simplebuilding:enderite_chest"
-    },
-    {
       "id": "simplebuilding:enderite_chest_boat",
       "maxStackSize": 1
     },
@@ -1057,10 +1037,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_shulker_box",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_shulker_shell"
     },
     {
@@ -1084,13 +1060,7 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_trapped_chest"
-    },
-    {
       "id": "simplebuilding:exposed_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:exposed_trapped_copper_chest"
     },
     {
       "id": "simplebuilding:fine_elytra_pad",
@@ -1532,9 +1502,6 @@
       "id": "simplebuilding:netherite_carrot"
     },
     {
-      "id": "simplebuilding:netherite_chest"
-    },
-    {
       "id": "simplebuilding:netherite_chest_boat",
       "maxStackSize": 1
     },
@@ -1596,10 +1563,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:netherite_shulker_box",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:netherite_shulker_shell"
     },
     {
@@ -1609,9 +1572,6 @@
       "enchantability": 15,
       "id": "simplebuilding:netherite_spatula",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_trapped_chest"
     },
     {
       "id": "simplebuilding:nihil_end_stone"
@@ -1848,9 +1808,6 @@
     },
     {
       "id": "simplebuilding:oxidized_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:oxidized_trapped_copper_chest"
     },
     {
       "id": "simplebuilding:paint_box",
@@ -2307,9 +2264,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:reinforced_chest"
-    },
-    {
       "id": "simplebuilding:reinforced_chest_boat",
       "maxStackSize": 1
     },
@@ -2349,17 +2303,10 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:reinforced_shulker_box",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:reinforced_shulker_shell"
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston"
-    },
-    {
-      "id": "simplebuilding:reinforced_trapped_chest"
     },
     {
       "id": "simplebuilding:resin_chess_bishop",
@@ -2587,9 +2534,6 @@
       "id": "simplebuilding:transparent_light_pane"
     },
     {
-      "id": "simplebuilding:trapped_copper_chest"
-    },
-    {
       "id": "simplebuilding:veined_astralit"
     },
     {
@@ -2621,28 +2565,13 @@
       "id": "simplebuilding:waxed_exposed_copper_pressure_plate"
     },
     {
-      "id": "simplebuilding:waxed_exposed_trapped_copper_chest"
-    },
-    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest"
-    },
-    {
-      "id": "simplebuilding:waxed_trapped_copper_chest"
     },
     {
       "id": "simplebuilding:waxed_weathered_copper_pressure_plate"
     },
     {
-      "id": "simplebuilding:waxed_weathered_trapped_copper_chest"
-    },
-    {
       "id": "simplebuilding:weathered_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:weathered_trapped_copper_chest"
     },
     {
       "id": "simplebuilding:white_copper_light_pane"

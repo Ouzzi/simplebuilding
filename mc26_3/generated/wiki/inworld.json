@@ -9402,28 +9402,6 @@
     "hits": 5,
     "steps": [
       {
-        "damagePerHit": 2,
-        "durationTicks": 100,
-        "from": "minecraft:copper_chest",
-        "hits": 5,
-        "minimumHammer": "simplehammers:copper_sledgehammer",
-        "nugget": "simplelib:cracked_diamond",
-        "nuggetCount": 1,
-        "to": "simplebuilding:reinforced_chest",
-        "totalDamage": 10
-      },
-      {
-        "damagePerHit": 2,
-        "durationTicks": 200,
-        "from": "minecraft:shulker_box",
-        "hits": 10,
-        "minimumHammer": "simplehammers:copper_sledgehammer",
-        "nugget": "simplelib:cracked_diamond",
-        "nuggetCount": 2,
-        "to": "simplebuilding:reinforced_shulker_box",
-        "totalDamage": 20
-      },
-      {
         "damagePerHit": 10,
         "durationTicks": 400,
         "from": "minecraft:enchanting_table",
@@ -9433,17 +9411,6 @@
         "nuggetCount": 1,
         "to": "simplebuilding:astral_enchanting_table",
         "totalDamage": 200
-      },
-      {
-        "damagePerHit": 10,
-        "durationTicks": 100,
-        "from": "simplebuilding:netherite_chest",
-        "hits": 5,
-        "minimumHammer": "simplehammers:netherite_sledgehammer",
-        "nugget": "simplelib:enderite_nugget",
-        "nuggetCount": 1,
-        "to": "simplebuilding:enderite_chest",
-        "totalDamage": 50
       },
       {
         "damagePerHit": 10,
@@ -9466,39 +9433,6 @@
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_piston",
         "totalDamage": 50
-      },
-      {
-        "damagePerHit": 10,
-        "durationTicks": 200,
-        "from": "simplebuilding:netherite_shulker_box",
-        "hits": 10,
-        "minimumHammer": "simplehammers:netherite_sledgehammer",
-        "nugget": "simplelib:enderite_nugget",
-        "nuggetCount": 2,
-        "to": "simplebuilding:enderite_shulker_box",
-        "totalDamage": 100
-      },
-      {
-        "damagePerHit": 10,
-        "durationTicks": 100,
-        "from": "simplebuilding:netherite_trapped_chest",
-        "hits": 5,
-        "minimumHammer": "simplehammers:netherite_sledgehammer",
-        "nugget": "simplelib:enderite_nugget",
-        "nuggetCount": 1,
-        "to": "simplebuilding:enderite_trapped_chest",
-        "totalDamage": 50
-      },
-      {
-        "damagePerHit": 4,
-        "durationTicks": 100,
-        "from": "simplebuilding:reinforced_chest",
-        "hits": 5,
-        "minimumHammer": "simplehammers:diamond_sledgehammer",
-        "nugget": "simplelib:netherite_nugget",
-        "nuggetCount": 1,
-        "to": "simplebuilding:netherite_chest",
-        "totalDamage": 20
       },
       {
         "damagePerHit": 4,
@@ -9524,17 +9458,6 @@
       },
       {
         "damagePerHit": 4,
-        "durationTicks": 200,
-        "from": "simplebuilding:reinforced_shulker_box",
-        "hits": 10,
-        "minimumHammer": "simplehammers:diamond_sledgehammer",
-        "nugget": "simplelib:netherite_nugget",
-        "nuggetCount": 2,
-        "to": "simplebuilding:netherite_shulker_box",
-        "totalDamage": 40
-      },
-      {
-        "damagePerHit": 4,
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_sticky_piston",
         "hits": 5,
@@ -9542,17 +9465,6 @@
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_piston",
-        "totalDamage": 20
-      },
-      {
-        "damagePerHit": 4,
-        "durationTicks": 100,
-        "from": "simplebuilding:reinforced_trapped_chest",
-        "hits": 5,
-        "minimumHammer": "simplehammers:diamond_sledgehammer",
-        "nugget": "simplelib:netherite_nugget",
-        "nuggetCount": 1,
-        "to": "simplebuilding:netherite_trapped_chest",
         "totalDamage": 20
       }
     ]

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "group": "netherite_chest_boat",
   "ingredients": [
-    "simplebuilding:netherite_chest",
+    "simplestorage:netherite_chest",
     "minecraft:mangrove_boat"
   ],
   "result": {

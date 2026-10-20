@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:netherite_chest"
+            "items": "simplestorage:netherite_chest"
           }
         ]
       },
