@@ -75,6 +75,8 @@ class Pool:
         if rm.is_file():
             removed = {l.strip() for l in rm.read_text('utf-8').splitlines() if l.strip() and not l.startswith('#')}
         overlay_files: set[str] = set()
+        # Atlas files merge across packs in game (every mod adds sources), so all copies count, not just the winner.
+        self.atlas_files: dict[str, list[Path]] = {}
         for name, root in layer_roots():
             for f in (root / 'assets').rglob('*'):
                 if not f.is_file():
@@ -86,6 +88,8 @@ class Pool:
                     continue
                 if name == 'overlay':
                     overlay_files.add(rel)
+                if re.fullmatch(r'assets/[^/]+/atlases/[a-z_]+\.json', rel):
+                    self.atlas_files.setdefault(rel, []).append(f)
                 self.files.setdefault(rel, f)
         for d in self.derived:
             self.files.setdefault(d, ROOT / 'build/vanilla-derived' / d)
@@ -98,10 +102,9 @@ class Pool:
 
     def _atlas_permutations(self) -> None:
         """Sprites made by atlas paletted_permutations (<texture>_<key>, e.g. the trim item overlays)."""
-        for rel in sorted(self.files):
-            if not re.fullmatch(r'assets/[^/]+/atlases/[a-z_]+\.json', rel):
-                continue
-            for src in self.json(rel).get('sources', []):
+        for rel in sorted(self.atlas_files):
+          for atlas in self.atlas_files[rel]:
+            for src in json.loads(atlas.read_text('utf-8')).get('sources', []):
                 kind = src.get('type', '').split(':')[-1]
                 if kind == 'directory' and rel.endswith(('/blocks.json', '/items.json')):
                     self.atlas_prefixes.add(src.get('prefix', ''))
