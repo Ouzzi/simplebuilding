@@ -13,6 +13,8 @@ EMPTY_BY_DESIGN = {
     "simplebuilding:mob_effect/potion_pad/public": "datapack opt-in: harmful effects that potion pads may still give to everyone",
     "simplecrucibles:block/heat_source/extreme": "filled by consumer mods; Simple Crucibles alone has none",
     "simplelib:item/hammers": "filled by a hammer mod; SimpleBuilding's sledgehammer is deliberately not in it (InWorldUpgradeTests)",
+    "curios:item/belt": "26.3 overlay of SimpleBuilding (split stage 8c-1): only quivers go on the belt, they are Simple Storage's (its own tag)",
+    "trinkets:item/legs/belt": "26.3 overlay of SimpleBuilding (split stage 8c-1): only quivers go on the belt, they are Simple Storage's (its own tag)",
     "simplebeacons:block/strong_base_blocks": "modpack opt-in for extra Strong Beacon pyramid blocks (check_data.py asserts it is empty)",
 }
 TAG = re.compile(r"(?:^|/)data/([^/]+)/tags/(.+)\.json$")
