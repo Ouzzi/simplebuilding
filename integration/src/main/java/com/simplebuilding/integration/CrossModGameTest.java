@@ -191,7 +191,9 @@ public final class CrossModGameTest {
      * old worlds, and the wiring example mod is a developer sample.
      */
     private static final Set<String> HIDDEN_BY_DESIGN = Set.of("simplemobs:trick_mirror",
-            "simpleenddragonfight:dragonmite_spawn_egg", "simpledimension:light_blue_portal", "wiringexample:token");
+            "simpleenddragonfight:dragonmite_spawn_egg", "simpledimension:light_blue_portal", "wiringexample:token",
+            // Only made by burning an uploaded track onto a blank disc; an empty one would be meaningless.
+            "simplemusic:custom_disc");
 
     /** Items kept out of every tab on purpose (see SimpleBuilding's DataIntegrityTests list). */
     private static final Set<String> LEGACY_OR_HIDDEN = Set.of(
