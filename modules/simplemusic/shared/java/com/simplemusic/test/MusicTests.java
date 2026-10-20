@@ -150,7 +150,7 @@ public final class MusicTests {
             h.assertTrue(policy.check("minecraft:entity.cat.ambient") == null, "any registered sound");
             h.assertTrue("blocked_sound".equals(policy.check("minecraft:music.game")), "music blocked");
             h.assertTrue("unknown_sound".equals(policy.check("minecraft:no.such.sound")), "unknown");
-            h.assertTrue(SheetSounds.headSounds().contains(net.minecraft.resources.Identifier.withDefaultNamespace("entity.zombie.ambient")), "zombie head sound");
+            h.assertTrue(SheetSounds.headSounds().contains(net.minecraft.resources.Identifier.withDefaultNamespace("block.note_block.imitate.zombie")), "zombie head sound");
             NoteCode.Song song = NoteCode.parse("$c = sound minecraft:entity.cat.ambient\n$c: f#4\nbass: c3\ncreeper: c4", policy).song();
             h.assertTrue(Arrays.stream(SheetSounds.sounds(song)).allMatch(java.util.Objects::nonNull), "every instrument resolves");
             MusicConfig.sheetSounds = MusicConfig.SheetSounds.INSTRUMENTS;
