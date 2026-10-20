@@ -194,10 +194,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_bundle",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_carrot",
       "required": false
     },
@@ -274,10 +270,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_quiver",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_scrap",
       "required": false
     },
@@ -338,10 +330,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/netherite_bundle",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/netherite_carrot",
       "required": false
     },
@@ -383,10 +371,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_quiver",
       "required": false
     },
     {
@@ -938,7 +922,15 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplestorage/enderite_bundle",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplestorage/enderite_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/enderite_quiver",
       "required": false
     },
     {
@@ -946,7 +938,15 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplestorage/netherite_bundle",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplestorage/netherite_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/netherite_quiver",
       "required": false
     },
     {

@@ -70,10 +70,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/quiver",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/reinforced_sticky_piston",
       "required": false
     },
@@ -131,6 +127,10 @@
     },
     {
       "id": "simplemoney:links/simplemobheads/bogged_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/quiver",
       "required": false
     },
     {

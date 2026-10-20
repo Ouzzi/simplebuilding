@@ -338,7 +338,6 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:paint_box",
             "simplebuilding:pistons_and_falling",
             "simplebuilding:placed_blueprint",
-            "simplebuilding:placed_bundle",
             "simplebuilding:placed_bundles",
             "simplebuilding:placed_egg",
             "simplebuilding:placed_small_parts",

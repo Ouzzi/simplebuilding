@@ -30,10 +30,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/reinforced_bundle",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/reinforced_elytra_pad",
       "required": false
     },
@@ -43,10 +39,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/reinforced_piston",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/reinforced_quiver",
       "required": false
     },
     {
@@ -66,7 +58,15 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplestorage/reinforced_bundle",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplestorage/reinforced_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/reinforced_quiver",
       "required": false
     }
   ]
