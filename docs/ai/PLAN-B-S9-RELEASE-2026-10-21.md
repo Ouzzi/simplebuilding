@@ -32,7 +32,7 @@ PLAN-B-S8B3:41/102, PLAN-B-S8C1:128, PLAN-B-S8C2:105, Memory uebergabe-A.md:124/
 - **E2 Kieselzahl (R4)**: statisches `SledgehammerItem.catalogDiamondPebbles()` in beiden Zwillingen (26.2:
   `ServerTuning`, 26.3-Overlay: `HammerConfig.diamondBlockPebbles` – Pflicht-Sub-Mod, Overlay importiert Simple Hammers
   bereits); `InWorldTransformations` ruft es.
-- **E3 Audit (R5)**: kein Code nötig; Beleg im Plan + neuer Wächter in `tools/multimod.py`? → nein (YAGNI); Beleg reicht.
+- **E3 Audit (R5)**: kein Code nötig; der Beleg in §1 reicht (kein zusätzlicher Wächter, YAGNI).
 - **E4 GuideChapters (R6)**: **nicht** bauen. Grund: die Modulbücher sind eigenständig (Besitzer-Entscheid „Buch je
   Modul“); ein Leser in SBs Mega-Guide hätte keinen Anmelder und würde Inhalte doppeln. Der Vertrag bleibt (framework-API,
   harmlos). Folgepunkt nur, wenn ein Modul Kapitel in SBs Buch liefern soll.
@@ -65,4 +65,15 @@ gen (Guides, Wiki --all, Discover) + `./gradlew check`. Nicht: Client-Läufe (ve
 
 ## 5. Ergebnis
 
-_(nach Umsetzung)_
+**Teil 1 umgesetzt (21.10.):** E1, E2, E5, E6 wie geplant, E3 belegt, E4 entschieden.
+Abweichung: der AutoConfig-Transformer steht direkt in `SimplebuildingClient` (Fabric) und `SimplebuildingNeoForgeClient`
+(`ConfigOptions.hiddenFields()`), nicht in einer gemeinsamen Klasse – Forge 26.3 hat kein cloth `gui.registry` im Klassenpfad.
+Belege: Compile `:mc26_3:{fabric,neoforge,forge}:compileJava :compileJava :neoforge:compileJava` Exit 0; fabric-263 und
+neoforge-263 `simplebuilding:config_option*` je 19/19 (inkl. neuem `config_option_game_test_moved_options_are_hidden_but_still_load`);
+Standalone Simple Ovens/Hammers/Storage (fabric) 18+14+113 = 145/145; Guides/Wiki --all/Discover erzeugt (Wiki-Config-Liste
+26.3 −15 Optionen, `modules.js` 2.0.0); `./gradlew check` siehe Queue-Beleg.
+Nicht geprüft: Client-Sicht der Config-Bildschirme (Client-Läufe verboten), 26.2-Gametests (nur Compile), Forge-263-Gametests.
+
+**Offen (Teil 2):** R7 Wiki-Umzug, R10 Brücken-Version 1.3.x-bridge, Backup-Marker (§3.4), SimpleLib-Version
+(0.2.0 seit Stufe 3a trotz neuer APIs → vor Release 0.3.0 und `simplelib >=0.3.0` in allen Modul-Metadaten),
+volles Gate + alle Standalone + alle Migrations-Targets (Hauptsitzung).
