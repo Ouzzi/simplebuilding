@@ -158,6 +158,16 @@ public final class StorageTests {
         ALL.put("backpack_storage_refuses_the_not_allowed_tag", BackpackStorageTests::refusesTheNotAllowedTag);
         ALL.put("backpack_storage_unreadable_entry_keeps_the_rest", BackpackStorageTests::unreadableEntryKeepsTheRest);
         ALL.put("backpack_storage_accessory_backpack_counts_as_worn", BackpackStorageTests::accessoryBackpackCountsAsWorn);
+        // Split stage 8b-3: the rare finds (bodies from SimpleBuilding's RareStructureFindsTests).
+        ALL.put("rare_finds_better_chest_tables_rate_and_double_chest_rule", RareFindsTests::betterChestTablesRateAndDoubleChestRule);
+        ALL.put("rare_finds_bastion_template_chest_becomes_netherite_chest", RareFindsTests::bastionTemplateChestBecomesNetheriteChest);
+        ALL.put("rare_finds_placed_end_city_chest_becomes_enderite_chest_with_double_loot", RareFindsTests::placedEndCityChestBecomesEnderiteChestWithDoubleLoot);
+        ALL.put("rare_finds_rare_shulkers_have_tiered_health_and_drop_their_shells", RareFindsTests::rareShulkersHaveTieredHealthAndDropTheirShells);
+        ALL.put("rare_finds_living_shulkers_climb_the_tiers_but_upgraded_ones_drop_no_shells", RareFindsTests::livingShulkersClimbTheTiersButUpgradedOnesDropNoShells);
+        ALL.put("rare_finds_rare_shulker_calls_four_endermites_once_when_players_come_near", RareFindsTests::rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear);
+        ALL.put("rare_finds_shell_recipes_and_config_caps", RareFindsTests::shellRecipesAndConfigCaps);
+        ALL.put("rare_finds_registered", RareFindsTests::registered);
+        ALL.put("rare_finds_migration_from_simplebuilding", RareFindsTests::migrationFromSimplebuilding);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);

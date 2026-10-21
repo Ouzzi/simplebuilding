@@ -82,6 +82,12 @@ public final class StorageFabric implements ModInitializer {
             insertAfter(out, Items.TRAPPED_CHEST, StorageRegistry.chestStacks());
             insertAfter(out, Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
         });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            // Split stage 8b-3, on its own: the tier shulker shells behind Vanilla's shell.
+            if (StorageRegistry.fillsVanillaTabs(sb, com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(loader.getConfigDir(), SimpleStorage.MOD_ID))) {
+                insertAfter(out, Items.SHULKER_SHELL, StorageRegistry.shellStacks());
+            }
+        });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (StorageRegistry.fillsVanillaTabs(sb, com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(loader.getConfigDir(), SimpleStorage.MOD_ID))) {
                 // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.

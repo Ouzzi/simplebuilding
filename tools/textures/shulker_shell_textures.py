@@ -8,7 +8,8 @@ the outline becomes the tier's plating, the lower rim a plating band, and three 
 on the lid. Same plating colors as the boxes, so shell, box and the rare shulker's hull match.
 
 Output (Vanilla-derived, never committed): item/<tier>_shulker_shell.png (26.3-only items) and
-entity/rare_shulker/<tier>.png, built by tools/textures/vanilla_derived.py through derived(jar).
+entity/rare_shulker/<tier>.png under assets/simplestorage (split stage 8b-3), built by tools/textures/vanilla_derived.py
+--module simplestorage through derived(jar).
 --preview also writes a labeled, 16x upscaled preview: A/B/C the shells next to vanilla, D/E the hull of the
 reinforced and enderite shulker: the existing tier box entity texture with vanilla's shulker head, written to
 textures/entity/rare_shulker/<tier>.png (outside entity/shulker, so the shulker box atlas does not pick it up).
@@ -24,7 +25,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from tiered_shulker_box_textures import PLATING  # noqa: E402
 
 JAR = os.environ.get("SB_CLIENT_JAR") or os.path.expanduser(r"~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
-ENTITY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "src/main/resources/assets/simplebuilding/textures/entity/shulker")
+ENTITY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..",
+                      "modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/shulker")
 TIERS = ("reinforced", "netherite", "enderite")
 
 # Vanilla shell colors (item/shulker_shell.png) by role.

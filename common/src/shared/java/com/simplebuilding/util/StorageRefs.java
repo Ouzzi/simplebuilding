@@ -27,6 +27,10 @@ import net.minecraft.world.level.block.Block;
  * <p>Split stage 8c-2 (docs/ai/PLAN-B-S8C2-STORAGE-2026-10-21.md): the four backpacks (both lines; 26.2 keeps them in
  * SimpleBuilding). Master Builder, Constructor's Touch and the pick key reach the worn backpack's entries through
  * {@code util/WornStorage} (26.3: SimpleLib {@code CarriedStacks}).
+ *
+ * <p>Split stage 8b-3 (docs/ai/PLAN-B-S8B3-STORAGE-2026-10-21.md): the rare finds (better structure chests, rare shulkers) and the
+ * tier shulker shells (26.3 only, {@code McVersion.RARE_STRUCTURE_FINDS}); SimpleBuilding keeps the in-world shell upgrade on its
+ * pile ({@code util/ShulkerShells}), by id.
  */
 public final class StorageRefs {
     public static final String STORAGE_CRAFTING_TABLE = "storage_crafting_table";
@@ -178,6 +182,11 @@ public final class StorageRefs {
         if (stack.isEmpty()) return false;
         Identifier key = BuiltInRegistries.ITEM.getKey(stack.getItem());
         return McVersion.STORAGE_NAMESPACE.equals(key.getNamespace()) && key.getPath().endsWith("backpack");
+    }
+
+    /** Split stage 8b-3: the tier shulker shell of {@code tier} ({@code "reinforced"}...); air where it is not registered. */
+    public static Item shulkerShell(String tier) {
+        return item(tier + "_shulker_shell");
     }
 
     /** The placed bundle block (air where it is not registered). */

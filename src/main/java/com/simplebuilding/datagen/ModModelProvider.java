@@ -911,11 +911,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.NETHERITE_NUGGET, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NUGGET, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
-        if (ModItems.REINFORCED_SHULKER_SHELL != null) {
-            itemModelGenerator.generateFlatItem(ModItems.REINFORCED_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
-        }
+        // Split stage 8b-3: the tier shulker shells are Simple Storage's (models in the module).
         for (Item disc : com.simplebuilding.util.MusicDiscs.items()) {
             itemModelGenerator.generateFlatItem(disc, ModelTemplates.FLAT_ITEM);
         }

@@ -1,6 +1,5 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.blocks.custom.ChestTier;
 import com.simplebuilding.blocks.custom.PlacedSmallPartsBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity;
 import com.simplebuilding.items.ModItems;
@@ -21,7 +20,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Stufen-Shulkerschalen (Besitzer 2026-10-02): Verstaerkt, Netherit, Enderit.
+ * Stufen-Shulkerschalen (Besitzer 2026-10-02): Verstaerkt, Netherit, Enderit. Seit Split-Stufe 8b-3
+ * (docs/ai/PLAN-B-S8B3-STORAGE-2026-10-21.md) sind die Schalen, die seltenen Shulker und die Schalen-Rezepte Simple Storages;
+ * SimpleBuilding nennt die Schalen nur per Id ({@link StorageRefs#shulkerShell}) und behaelt das Aufwerten auf seinem Haeufchen.
  *
  * <p><b>Aufwertung in der Welt.</b> Eine Schale liegt abgelegt auf dem Boden (Schleichen + Rechtsklick, sie steht im
  * Tag {@code simplebuilding:placeable_small}, siehe {@link PlacedSmallParts}). Ein Rechtsklick mit dem passenden Klumpen
@@ -38,34 +39,30 @@ public final class ShulkerShells {
     public record Step(Item shell, Item nugget, Item result) {
     }
 
-    /** Die Kette, von unten nach oben (leer ohne das Feature). */
+    /** Die Kette, von unten nach oben (leer ohne das Feature oder ohne die Schalen in der Registry). */
     public static List<Step> steps() {
-        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS || ModItems.REINFORCED_SHULKER_SHELL == null) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS || tierShells().isEmpty()) {
             return List.of();
         }
+        List<Item> shells = tierShells();
         return List.of(
-                new Step(Items.SHULKER_SHELL, Items.IRON_NUGGET, ModItems.REINFORCED_SHULKER_SHELL),
-                new Step(ModItems.REINFORCED_SHULKER_SHELL, ModItems.NETHERITE_NUGGET, ModItems.NETHERITE_SHULKER_SHELL),
-                new Step(ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_SHULKER_SHELL));
+                new Step(Items.SHULKER_SHELL, Items.IRON_NUGGET, shells.get(0)),
+                new Step(shells.get(0), ModItems.NETHERITE_NUGGET, shells.get(1)),
+                new Step(shells.get(1), ModItems.ENDERITE_NUGGET, shells.get(2)));
     }
 
-    /** Die Stufen-Schale einer Truhen-/Shulkerstufe (null ohne das Feature). */
-    public static @Nullable Item shellOf(ChestTier tier) {
-        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
-            return null;
-        }
-        return switch (tier) {
-            case REINFORCED -> ModItems.REINFORCED_SHULKER_SHELL;
-            case NETHERITE -> ModItems.NETHERITE_SHULKER_SHELL;
-            case ENDERITE -> ModItems.ENDERITE_SHULKER_SHELL;
-        };
-    }
-
-    /** Die drei Stufen-Schalen (leer ohne das Feature). */
+    /** Die drei Stufen-Schalen per Id (leer ohne das Feature oder wenn eine fehlt). */
     public static List<Item> tierShells() {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            return List.of();
+        }
         List<Item> out = new ArrayList<>();
-        for (Step step : steps()) {
-            out.add(step.result());
+        for (String tier : StorageRefs.TIERS) {
+            Item shell = StorageRefs.shulkerShell(tier);
+            if (shell == Items.AIR) {
+                return List.of();
+            }
+            out.add(shell);
         }
         return out;
     }

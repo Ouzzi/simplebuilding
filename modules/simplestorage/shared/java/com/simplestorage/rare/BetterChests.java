@@ -1,9 +1,9 @@
-package com.simplebuilding.util;
+package com.simplestorage.rare;
 
-import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.ChestTier;
-import com.simplebuilding.blocks.custom.TieredChestBlock;
-import com.simplebuilding.config.ServerTuning;
+import com.simplestorage.chest.ChestTier;
+import com.simplestorage.chest.TieredChestBlock;
+import com.simplestorage.config.StorageConfig;
+import com.simplestorage.registry.StorageBlocks;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,30 +26,28 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Bessere Truhen in Strukturen (Besitzer 2026-10-02): eine Vanilla-Loot-Truhe entsteht mit
- * {@code server.loot.betterChestPercent} (Standard 1 %, hoechstens 5 %) als Stufen-Truhe mit doppelter Beute
- * ({@code TieredChestBlockEntity#unpackLootTable}) - in der Festung die Verstaerkte Truhe, in Bastion und Netherfestung
- * die Netherit-Truhe, in End-Stadt und End-Schiff die Enderit-Truhe. Entscheidet die Loot-Tabelle der Truhe
+ * Better chests in structures (owner 2026-10-02, split stage 8b-3 from SimpleBuilding, docs/ai/PLAN-B-S8B3-STORAGE-2026-10-21.md):
+ * a Vanilla loot chest generates with {@code betterChestPercent} (default 1 %, at most 5 %, {@link StorageConfig}) as a tiered
+ * chest with double loot ({@code TieredChestBlockEntity#unpackLootTable}) - the Reinforced Chest in strongholds, the Netherite
+ * Chest in bastions and nether fortresses, the Enderite Chest in end cities and end ships. The chest's loot table decides
  * ({@link #tierFor}).
  *
- * <p><b>Wuerfel.</b> Deterministisch aus Weltseed und Position ({@link #rolls}): beide Haelften einer Doppeltruhe
- * kommen zum selben Ergebnis, auch wenn sie in getrennten Chunk-Durchlaeufen entstehen. Doppeltruhe (Besitzerregel):
- * die erste Haelfte wuerfelt, trifft sie, wuerfelt die zweite noch einmal mit derselben Chance; nur wenn beide
- * treffen, werden beide besser, sonst bleiben beide normale Truhen ({@link #decides}).
+ * <p><b>Roll.</b> Fixed by world seed and position ({@link #rolls}): both halves of a double chest reach the same result, even
+ * when they generate in separate chunk passes. Double chest (owner rule): the first half rolls; if it hits, the second rolls again
+ * with the same chance; only if both hit do both become better, otherwise both stay normal chests ({@link #decides}).
  *
- * <p><b>Haken</b> (Mixins): {@code StructurePiece#createChest} (Festung, Netherfestung),
- * {@code EndCityPieces$EndCityPiece#handleDataMarker} (End-Stadt, End-Schiff) und
- * {@code StructureTemplate#processBlockInfos} (Bastion: die Truhen tragen ihre Tabelle im Vorlagen-NBT).
- * Bestehende Welten aendern sich nicht.
+ * <p><b>Hooks</b> (mixins): {@code StructurePiece#createChest} (stronghold, nether fortress),
+ * {@code EndCityPieces$EndCityPiece#handleDataMarker} (end city, end ship) and {@code StructureTemplate#processBlockInfos}
+ * (bastion: its chests carry their table in the template NBT). Existing worlds do not change.
  */
 public final class BetterChests {
-    /** Salz des Wuerfels, damit er nicht mit anderen positionsgebundenen Wuerfeln gleichlaeuft. */
+    /** Salt of the roll, so that it does not run in step with other position-bound rolls (unchanged from SimpleBuilding). */
     private static final long SALT = 0x5B3C_C4E5_7A11_0D2FL;
 
     private BetterChests() {
     }
 
-    /** Die Loot-Tabellen und ihre Stufe (feste Liste, im Wiki nachlesbar). */
+    /** The loot tables and their tier (a fixed list, in the wiki). */
     public static Map<ResourceKey<LootTable>, ChestTier> tables() {
         Map<ResourceKey<LootTable>, ChestTier> map = new LinkedHashMap<>();
         map.put(BuiltInLootTables.STRONGHOLD_CORRIDOR, ChestTier.REINFORCED);
@@ -69,15 +67,15 @@ public final class BetterChests {
     }
 
     public static Block chestOf(ChestTier tier) {
-        // Split stage 8b: on 26.3 the chests are Simple Storage's (by id).
-        return StorageRefs.chestBlock(tier.textureName());
+        return StorageBlocks.chest(tier);
     }
 
+    /** Switched on (super-mod switch) and a chance above 0. */
     public static boolean enabled() {
-        return com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS && ServerTuning.betterChestChance() > 0.0;
+        return com.simplestorage.SimpleStorage.on() && StorageConfig.betterChestChance() > 0.0;
     }
 
-    /** Der Wuerfel einer Truhenhaelfte: fest fuer Weltseed und Position. */
+    /** The roll of one chest half: fixed for world seed and position. */
     public static boolean rolls(long worldSeed, BlockPos pos, double chance) {
         if (chance <= 0.0) {
             return false;
@@ -86,8 +84,8 @@ public final class BetterChests {
     }
 
     /**
-     * Ob die Truhe {@code state} bei {@code pos} besser wird: einzeln ihr eigener Wurf, als Doppeltruhe beide Wuerfe
-     * (erste Haelfte trifft und die zweite trifft neu) - fuer beide Haelften dasselbe Ergebnis.
+     * Whether the chest {@code state} at {@code pos} becomes better: alone its own roll, as a double chest both rolls (the first
+     * half hits and the second hits anew) - the same result for both halves.
      */
     public static boolean decides(long worldSeed, BlockPos pos, BlockState state, double chance) {
         Optional<BlockPos> partner = state.hasProperty(net.minecraft.world.level.block.ChestBlock.TYPE) ? TieredChestBlock.partner(state, pos) : Optional.empty();
@@ -100,19 +98,15 @@ public final class BetterChests {
     }
 
     /**
-     * Nach dem Setzen einer Loot-Truhe in der Weltgenerierung ({@code createChest}, End-Stadt-Marker): ist es eine
-     * Vanilla-Truhe mit einer Tabelle aus {@link #tables} und faellt der Wurf, wird sie zur Stufen-Truhe mit derselben
-     * Tabelle und demselben Seed. Liefert true, wenn ersetzt wurde.
+     * After world generation placed a loot chest ({@code createChest}, end city marker): a Vanilla chest with a table of
+     * {@link #tables} whose roll hits becomes the tiered chest with the same table and seed. True when it was replaced.
      */
     public static boolean upgradePlaced(ServerLevelAccessor level, BlockPos pos) {
-        return enabled() && upgradePlaced(level, pos, ServerTuning.betterChestChance());
+        return enabled() && upgradePlaced(level, pos, StorageConfig.betterChestChance());
     }
 
-    /** {@link #upgradePlaced(ServerLevelAccessor, BlockPos)} mit ausdruecklicher Chance (Tests). */
+    /** {@link #upgradePlaced(ServerLevelAccessor, BlockPos)} with an explicit chance (tests). */
     public static boolean upgradePlaced(ServerLevelAccessor level, BlockPos pos, double chance) {
-        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
-            return false;
-        }
         BlockState state = level.getBlockState(pos);
         if (!state.is(Blocks.CHEST) || !(level.getBlockEntity(pos) instanceof RandomizableContainer container)) {
             return false;
@@ -131,9 +125,9 @@ public final class BetterChests {
     }
 
     /**
-     * Vorlagen-Truhen (Bastion): die verarbeiteten Bloecke einer Vorlage, Vanilla-Truhen mit passender Tabelle im NBT
-     * werden zur Stufen-Truhe (der Zustand wird hier noch vor Spiegelung/Drehung getauscht, die Pruefung der
-     * Doppeltruhe nimmt die gedrehte Lage). Liefert dieselbe Liste, wenn sich nichts aendert.
+     * Template chests (bastion): of the processed blocks of a template, Vanilla chests with a matching table in their NBT become
+     * the tiered chest (the state is swapped here before mirroring/rotation, the double chest check takes the rotated position).
+     * Returns the same list when nothing changes.
      */
     public static List<StructureTemplate.StructureBlockInfo> upgradeTemplate(ServerLevelAccessor level, StructurePlaceSettings settings,
                                                                              List<StructureTemplate.StructureBlockInfo> infos) {
@@ -141,7 +135,7 @@ public final class BetterChests {
             return infos;
         }
         List<StructureTemplate.StructureBlockInfo> out = null;
-        double chance = ServerTuning.betterChestChance();
+        double chance = StorageConfig.betterChestChance();
         long worldSeed = level.getLevel().getSeed();
         for (int i = 0; i < infos.size(); i++) {
             StructureTemplate.StructureBlockInfo info = infos.get(i);
@@ -161,7 +155,7 @@ public final class BetterChests {
         return out == null ? infos : out;
     }
 
-    /** Die Loot-Tabelle aus dem Vorlagen-NBT ({@code LootTable}), oder null. */
+    /** The loot table out of the template NBT ({@code LootTable}), or null. */
     public static @Nullable ResourceKey<LootTable> lootTableOf(CompoundTag nbt) {
         Optional<String> id = nbt.getString(RandomizableContainer.LOOT_TABLE_TAG);
         if (id.isEmpty()) {

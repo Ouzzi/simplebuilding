@@ -43,8 +43,6 @@
     "HubWorldOpenFlowsMixin",
     "InputConstantsGuardMixin",
     "SmithingScreenMixin",
-    "ShulkerRendererMixin",
-    "ShulkerRenderStateMixin",
     "GhostSlotsInvoker",
     "GuiSetScreenMixin",
     "ShiveringCrosshairMixin",

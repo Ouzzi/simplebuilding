@@ -432,17 +432,7 @@ public class ModItems {
 
     public static final Item ENDERITE_NUGGET = com.simplebuilding.util.SharedMaterials.item("enderite_nugget", () -> registerItem("enderite_nugget", settings -> new Item(settings.fireResistant())));
 
-    /**
-     * Stufen-Shulkerschalen (Besitzer 2026-10-02): verstaerkte und Enderit-Shulker der End-Stadt lassen 0-2 fallen
-     * ({@link com.simplebuilding.util.RareShulkers}); abgelegt wertet ein Klumpen eine Schale um eine Stufe auf
-     * ({@link com.simplebuilding.util.ShulkerShells}). Rezept: Kupfertruhe + Stufen-Schale + Shulkerschale.
-     */
-    public static final Item REINFORCED_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
-            ? registerItem("reinforced_shulker_shell", settings -> new Item(settings)) : null;
-    public static final Item NETHERITE_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
-            ? registerItem("netherite_shulker_shell", settings -> new Item(settings.fireResistant().rarity(UNCOMMON))) : null;
-    public static final Item ENDERITE_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
-            ? registerItem("enderite_shulker_shell", settings -> new Item(settings.fireResistant().rarity(Rarity.EPIC))) : null;
+    // Split stage 8b-3: the tier shulker shells are Simple Storage's (simplestorage:*_shulker_shell, StorageRefs.shulkerShell).
 
     /**
      * Schallplatten der Dimensionen (Besitzer 2026-10-03, {@link com.simplebuilding.util.MusicDiscs}): End, Oberwelt 1,

@@ -1,7 +1,7 @@
 """Module-owned data hook: bilingual texts, ids, models, loot, recipes, mixins, structure, questionary and wiki sources
 of Simple Storage (split stage 8a: crates and the Storage Crafting Table; 8b: tiered and trapped chests, trapped copper
 chests, tier shulker boxes; 8b-2: chest carts and chest boats; 8c-1: bundles, quivers, the placed bundle and the storage
-enchantments)."""
+enchantments; 8c-2: backpacks; 8b-3: tier shulker shells and the rare finds' config)."""
 import json
 import re
 from pathlib import Path
@@ -96,6 +96,20 @@ for r in ['backpack', 'reinforced_backpack', 'backpack_without_simplebuilding', 
     assert (RES / f'data/{NS}/recipe/{r}.json').is_file(), r
     assert (RES / f'data/{NS}/advancement/recipes/tools/{r}.json').is_file(), r
 assert json.loads((RES / f'data/{NS}/tags/item/backpacks.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:{b}' for b in BACKPACKS]
+# 8b-3: the tier shulker shells (item definitions, models, texts), their box recipes, the rare finds' config keys.
+SHELLS = [f'{t}_shulker_shell' for t in TIERS]
+for b in SHELLS:
+    assert (RES / f'assets/{NS}/items/{b}.json').is_file(), b
+    assert (RES / f'assets/{NS}/models/item/{b}.json').is_file(), b
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(f'item.{NS}.{b}'), (locale, b)
+for t in TIERS:
+    r = f'{t}_shulker_box_from_shells'
+    assert (RES / f'data/{NS}/recipe/{r}.json').is_file(), r
+    assert (RES / f'data/{NS}/advancement/recipes/decorations/{r}.json').is_file(), r
+config = (JAVA / 'config/StorageConfig.java').read_text(encoding='utf-8')
+for key in ('betterChestPercent', 'reinforcedShulkerPercent', 'netheriteShulkerPercent', 'enderiteShulkerPercent', 'endermitesPerRareShulker'):
+    assert f'"{key}"' in config, key
 DYES = ('white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
         'brown', 'green', 'red', 'black')
 for d in DYES:
@@ -141,5 +155,5 @@ for note in manual['notes'].values():
         assert (ROOT / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'storage_crafting_table', 'family:crate', *VEHICLES, *BUNDLES, 'placed_bundle', *BACKPACKS}, (locale, set(q))
-print(f'{NS}: {len(BLOCKS) + len(CHESTS)} blocks, {len(VEHICLES)} vehicles, {len(BUNDLES)} bundles and quivers, {len(BACKPACKS)} backpacks, {len(used)} UI texts, models, loot, recipes, tags, mixins, structure, questionary and wiki valid')
+    assert set(q) == {'storage_crafting_table', 'family:crate', *VEHICLES, *BUNDLES, 'placed_bundle', *BACKPACKS, *SHELLS}, (locale, set(q))
+print(f'{NS}: {len(BLOCKS) + len(CHESTS)} blocks, {len(VEHICLES)} vehicles, {len(BUNDLES)} bundles and quivers, {len(BACKPACKS)} backpacks, {len(SHELLS)} shells, {len(used)} UI texts, models, loot, recipes, tags, mixins, structure, questionary and wiki valid')

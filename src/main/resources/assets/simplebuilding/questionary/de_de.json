@@ -772,17 +772,6 @@
       "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
     ]
   },
-  "reinforced_shulker_shell": {
-    "lore": [
-      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
-    ],
-    "use": [
-      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
-    ],
-    "secret": [
-      "Jede Stufe entsteht auch aus der Schale der Stufe darunter in der Welt. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
-    ]
-  },
   "netherite_chest": {
     "lore": [
       "{name}: Netherit lässt die Truhe pro Platz doppelt so viel halten."
@@ -816,17 +805,6 @@
       "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
     ]
   },
-  "netherite_shulker_shell": {
-    "lore": [
-      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
-    ],
-    "use": [
-      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
-    ],
-    "secret": [
-      "Jede Stufe entsteht auch aus der Schale der Stufe darunter in der Welt. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
-    ]
-  },
   "enderite_chest": {
     "lore": [
       "{name}: Das Ende macht eine Truhe so groß wie eine Doppeltruhe, mit vierfachen Stapeln."
@@ -858,17 +836,6 @@
     ],
     "secret": [
       "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
-    ]
-  },
-  "enderite_shulker_shell": {
-    "lore": [
-      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
-    ],
-    "use": [
-      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
-    ],
-    "secret": [
-      "Jede Stufe entsteht auch aus der Schale der Stufe darunter in der Welt. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
     ]
   },
   "paint_box": {

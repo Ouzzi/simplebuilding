@@ -14,13 +14,20 @@
     "BundleDepositMixin",
     "BundlePlaceMixin",
     "CrossbowItemMixin",
-    "ItemEntityBundleMixin"
+    "ItemEntityBundleMixin",
+    "StructurePieceBetterChestMixin",
+    "StructureTemplateBetterChestMixin",
+    "EndCityPieceMixin",
+    "RareShulkerMobMixin",
+    "ShulkerEscortMixin"
   ],
   "client": [
     "client.BackpackKeyScreenMixin",
     "client.BundleScreenMixin",
     "client.BundleScrollMixin",
-    "client.ClientBundleTooltipMixin"
+    "client.ClientBundleTooltipMixin",
+    "client.ShulkerRenderStateMixin",
+    "client.ShulkerRendererMixin"
   ],
   "server": [],
   "injectors": {

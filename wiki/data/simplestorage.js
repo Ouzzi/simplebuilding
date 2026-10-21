@@ -258,6 +258,58 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
           "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt."
         ]
       }
+    },
+    {
+      "id": "rare_structure_finds",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/rare/BetterChests.java",
+        "modules/simplestorage/shared/java/com/simplestorage/rare/RareShulkers.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/StructurePieceBetterChestMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/EndCityPieceMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/StructureTemplateBetterChestMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/RareShulkerMobMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/client/ShulkerRendererMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/ShulkerEscortMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/RareFindsTests.java"
+      ],
+      "related": [
+        "simplestorage:reinforced_chest",
+        "simplestorage:netherite_chest",
+        "simplestorage:enderite_chest",
+        "simplestorage:reinforced_shulker_shell",
+        "simplestorage:netherite_shulker_shell",
+        "simplestorage:enderite_shulker_shell"
+      ],
+      "en": {
+        "title": "Rare structure finds",
+        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced, netherite or enderite.",
+        "details": [
+          "Better chests (betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships. It keeps the chest's loot table and rolls it twice.",
+          "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
+          "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
+          "Rare shulkers (reinforcedShulkerPercent 2 %, at most 10 %; netheriteShulkerPercent 1 %, at most 5 %; enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, a netherite shulker 2x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
+          "Besides the vanilla drop they drop 0-2 shells of their own tier.",
+          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again.",
+          "A living shulker also takes the nugget of its next tier (iron, netherite, enderite nugget; one per step). A shulker upgraded this way drops no tier shells and calls no endermites.",
+          "The chances are server settings in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), each clamped to the limits above; on the first start Simple Storage takes them over from SimpleBuilding's config."
+        ]
+      },
+      "de": {
+        "title": "Seltene Strukturfunde",
+        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt, aus Netherit oder aus Enderit.",
+        "details": [
+          "Bessere Truhen (betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff. Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
+          "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
+          "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
+          "Seltene Shulker (reinforcedShulkerPercent 2 %, höchstens 10 %; netheriteShulkerPercent 1 %, höchstens 5 %; enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Netherit-Shulker 2-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
+          "Neben der Vanilla-Beute lassen sie 0–2 Schalen ihrer eigenen Stufe fallen.",
+          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder.",
+          "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten.",
+          "Die Chancen sind Server-Einstellungen in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), je auf die Obergrenzen oben begrenzt; beim ersten Start übernimmt Simple Storage sie aus der Config von SimpleBuilding."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1851,6 +1903,57 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
             "id": "simplestorage:reinforced_quiver",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_shulker_box_from_shells",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:enderite_shulker_box",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_shulker_box_from_shells.json",
+      "ingredients": [
+        "#simplestorage:copper_chests",
+        "minecraft:shulker_shell",
+        "simplestorage:enderite_shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplestorage:copper_chests"
+        ],
+        [
+          "simplestorage:enderite_shulker_shell"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:enderite_shulker_shell",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplestorage:copper_chests"
         ]
       }
     },
@@ -3454,6 +3557,57 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
             "id": "simplestorage:reinforced_quiver",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_shulker_box_from_shells",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:netherite_shulker_box",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_shulker_box_from_shells.json",
+      "ingredients": [
+        "#simplestorage:copper_chests",
+        "minecraft:shulker_shell",
+        "simplestorage:netherite_shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplestorage:copper_chests"
+        ],
+        [
+          "simplestorage:netherite_shulker_shell"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_shulker_shell",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplestorage:copper_chests"
         ]
       }
     },
@@ -5352,6 +5506,57 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         ],
         "material": [
           "simplelib:cracked_diamond"
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_shulker_box_from_shells",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:reinforced_shulker_box",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_shulker_box_from_shells.json",
+      "ingredients": [
+        "#simplestorage:copper_chests",
+        "minecraft:shulker_shell",
+        "simplestorage:reinforced_shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplestorage:copper_chests"
+        ],
+        [
+          "simplestorage:reinforced_shulker_shell"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:reinforced_shulker_shell",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplestorage:copper_chests"
         ]
       }
     },
@@ -7790,6 +7995,68 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
       "usedIn": []
     },
     {
+      "id": "simplestorage:enderite_shulker_shell",
+      "name": {
+        "en_us": "Enderite Shulker Shell",
+        "de_de": "Enderit-Shulkerschale"
+      },
+      "note": {
+        "en": {
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; with SimpleBuilding every tier also comes from the shell one tier below in the world.",
+          "details": [
+            "With SimpleBuilding, upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
+            "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
+            "Crafting: any copper chest + a tier shell + a vanilla Shulker Shell gives the shulker box of that tier (in addition to the existing ways)."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; mit SimpleBuilding entsteht jede Stufe außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "details": [
+            "Mit SimpleBuilding Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
+            "Herstellen: eine beliebige Kupfertruhe + eine Stufen-Schale + eine Vanilla-Shulkerschale ergibt die Shulkerkiste dieser Stufe (zusätzlich zu den bisherigen Wegen)."
+          ]
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java",
+          "modules/simplestorage/shared/java/com/simplestorage/rare/RareShulkers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_shulker_box_from_shells.json",
+          "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+        ]
+      },
+      "texture": "assets/textures/simplestorage/item/enderite_shulker_shell.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a shell that grew another layer while no one watched."
+          ],
+          "use": [
+            "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+          ],
+          "secret": [
+            "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+          ],
+          "use": [
+            "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+          ],
+          "secret": [
+            "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplestorage:enderite_shulker_box_from_shells"
+      ]
+    },
+    {
       "id": "simplestorage:guide_book",
       "name": {
         "en_us": "Simple Storage Guide",
@@ -7801,10 +8068,10 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
           "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
         }
       },
       "texture": "assets/textures/simplestorage/item/guide_book.png",
@@ -8180,6 +8447,68 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
       ],
       "usedIn": [
         "simplestorage:enderite_quiver_smithing"
+      ]
+    },
+    {
+      "id": "simplestorage:netherite_shulker_shell",
+      "name": {
+        "en_us": "Netherite Shulker Shell",
+        "de_de": "Netherit-Shulkerschale"
+      },
+      "note": {
+        "en": {
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; with SimpleBuilding every tier also comes from the shell one tier below in the world.",
+          "details": [
+            "With SimpleBuilding, upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
+            "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
+            "Crafting: any copper chest + a tier shell + a vanilla Shulker Shell gives the shulker box of that tier (in addition to the existing ways)."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; mit SimpleBuilding entsteht jede Stufe außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "details": [
+            "Mit SimpleBuilding Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
+            "Herstellen: eine beliebige Kupfertruhe + eine Stufen-Schale + eine Vanilla-Shulkerschale ergibt die Shulkerkiste dieser Stufe (zusätzlich zu den bisherigen Wegen)."
+          ]
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java",
+          "modules/simplestorage/shared/java/com/simplestorage/rare/RareShulkers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_shulker_box_from_shells.json",
+          "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+        ]
+      },
+      "texture": "assets/textures/simplestorage/item/netherite_shulker_shell.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a shell that grew another layer while no one watched."
+          ],
+          "use": [
+            "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+          ],
+          "secret": [
+            "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+          ],
+          "use": [
+            "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+          ],
+          "secret": [
+            "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplestorage:netherite_shulker_box_from_shells"
       ]
     },
     {
@@ -8826,6 +9155,68 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
       ],
       "usedIn": [
         "simplestorage:netherite_quiver_smithing"
+      ]
+    },
+    {
+      "id": "simplestorage:reinforced_shulker_shell",
+      "name": {
+        "en_us": "Reinforced Shulker Shell",
+        "de_de": "Verstärkte Shulkerschale"
+      },
+      "note": {
+        "en": {
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; with SimpleBuilding every tier also comes from the shell one tier below in the world.",
+          "details": [
+            "With SimpleBuilding, upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
+            "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
+            "Crafting: any copper chest + a tier shell + a vanilla Shulker Shell gives the shulker box of that tier (in addition to the existing ways)."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; mit SimpleBuilding entsteht jede Stufe außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "details": [
+            "Mit SimpleBuilding Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
+            "Herstellen: eine beliebige Kupfertruhe + eine Stufen-Schale + eine Vanilla-Shulkerschale ergibt die Shulkerkiste dieser Stufe (zusätzlich zu den bisherigen Wegen)."
+          ]
+        },
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java",
+          "modules/simplestorage/shared/java/com/simplestorage/rare/RareShulkers.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_shulker_box_from_shells.json",
+          "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+        ]
+      },
+      "texture": "assets/textures/simplestorage/item/reinforced_shulker_shell.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a shell that grew another layer while no one watched."
+          ],
+          "use": [
+            "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+          ],
+          "secret": [
+            "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+          ],
+          "use": [
+            "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+          ],
+          "secret": [
+            "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplestorage:reinforced_shulker_box_from_shells"
       ]
     }
   ],
@@ -9522,6 +9913,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "simplestorage:blue_enderite_shulker_box",
         "simplestorage:brown_enderite_shulker_box",
         "simplestorage:cyan_enderite_shulker_box",
+        "simplestorage:enderite_shulker_box_from_shells",
         "simplestorage:gray_enderite_shulker_box",
         "simplestorage:green_enderite_shulker_box",
         "simplestorage:light_blue_enderite_shulker_box",
@@ -9934,6 +10326,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "simplestorage:light_gray_netherite_shulker_box",
         "simplestorage:lime_netherite_shulker_box",
         "simplestorage:magenta_netherite_shulker_box",
+        "simplestorage:netherite_shulker_box_from_shells",
         "simplestorage:orange_netherite_shulker_box",
         "simplestorage:pink_netherite_shulker_box",
         "simplestorage:purple_netherite_shulker_box",
@@ -10416,6 +10809,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "simplestorage:reinforced_shulker_box_from_pink_shulker_box",
         "simplestorage:reinforced_shulker_box_from_purple_shulker_box",
         "simplestorage:reinforced_shulker_box_from_red_shulker_box",
+        "simplestorage:reinforced_shulker_box_from_shells",
         "simplestorage:reinforced_shulker_box_from_shulker_box",
         "simplestorage:reinforced_shulker_box_from_white_shulker_box",
         "simplestorage:reinforced_shulker_box_from_yellow_shulker_box",
@@ -10757,13 +11151,13 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
-    "recipes": 174,
+    "features": 7,
+    "recipes": 177,
     "lootTables": 36,
     "tags": 8,
     "advancements": 0,
     "enchantments": 3,
-    "items": 14,
+    "items": 17,
     "blocks": 37,
     "trades": 0,
     "config": 0,
