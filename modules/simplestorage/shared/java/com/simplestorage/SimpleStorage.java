@@ -13,8 +13,9 @@ import org.slf4j.LoggerFactory;
  * the Storage Crafting Table out of SimpleBuilding, part 8b (PLAN-B-S8B-STORAGE-2026-10-19.md) the tiered and trapped
  * chests, the trapped copper chests and the tier shulker boxes, part 8b-2 (PLAN-B-S8C-STORAGE-2026-10-20.md) the chest carts
  * and chest boats of every tier, part 8c-1 (PLAN-B-S8C1-STORAGE-2026-10-20.md) the bundles, quivers, the placed bundle and the
- * storage enchantments Drawer, Deep Pockets and Funnel, part 8c-2 (PLAN-B-S8C2-STORAGE-2026-10-21.md) the four backpacks;
- * rare finds (8b-3) follow.
+ * storage enchantments Drawer, Deep Pockets and Funnel, part 8c-2 (PLAN-B-S8C2-STORAGE-2026-10-21.md) the four backpacks,
+ * part 8b-3 (PLAN-B-S8B3-STORAGE-2026-10-21.md) the rare finds: better structure chests, rare end city shulkers and the tier
+ * shulker shells.
  * Loader entry points call {@link #init} once in their constructor / initializer, before any registry event, so the id
  * moves out of SimpleBuilding are known in time (Forge aliases).
  */
@@ -63,6 +64,7 @@ public final class SimpleStorage {
         movedVehicles().forEach(path -> items.add(MOD_ID + ":" + path));
         movedBundles().forEach(path -> items.add(MOD_ID + ":" + path));
         movedBackpacks().forEach(path -> items.add(MOD_ID + ":" + path));
+        MOVED_SHELLS.forEach(path -> items.add(MOD_ID + ":" + path));
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "storage", "simplestorage.testcentre.station", items);
         // Split stage 8c-2: the worn backpack offers its entries (SimpleLib CarriedStacks): the quivers' bow search and, with
@@ -120,6 +122,13 @@ public final class SimpleStorage {
     /** Split stage 8c-2: the backpack recipes (unlocked under recipes/tools). */
     public static final List<String> MOVED_BACKPACK_RECIPES = List.of("backpack", "reinforced_backpack", "netherite_backpack_smithing",
             "enderite_backpack_smithing");
+
+    /** Split stage 8b-3: the tier shulker shells (items). */
+    public static final List<String> MOVED_SHELLS = List.of("reinforced_shulker_shell", "netherite_shulker_shell", "enderite_shulker_shell");
+
+    /** Split stage 8b-3: copper chest + tier shell + shulker shell -> tier shulker box (unlocked under recipes/decorations). */
+    public static final List<String> MOVED_SHELL_RECIPES = List.of("reinforced_shulker_box_from_shells", "netherite_shulker_box_from_shells",
+            "enderite_shulker_box_from_shells");
 
     /** Split stage 8c-1: the storage enchantments (they apply to bundles, quivers and SimpleBuilding's backpacks). */
     public static final List<String> MOVED_ENCHANTMENTS = List.of("drawer", "deep_pockets", "funnel");
@@ -233,6 +242,12 @@ public final class SimpleStorage {
         for (String dye : DYES) {
             IdMoves.move(Registries.RECIPE, old(dye + "_dyed_storage"), id(dye + "_dyed_storage"));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/tools/" + dye + "_dyed_storage"), id("recipes/tools/" + dye + "_dyed_storage"));
+        }
+        // 8b-3: the tier shulker shells and their shulker box recipes.
+        for (String path : MOVED_SHELLS) IdMoves.move(Registries.ITEM, old(path), id(path));
+        for (String path : MOVED_SHELL_RECIPES) {
+            IdMoves.move(Registries.RECIPE, old(path), id(path));
+            IdMoves.move(Registries.ADVANCEMENT, old("recipes/decorations/" + path), id("recipes/decorations/" + path));
         }
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old("crate"), id("crate"));
         IdMoves.move(Registries.BLOCK_ENTITY_TYPE, old(STORAGE_CRAFTING_TABLE), id(STORAGE_CRAFTING_TABLE));

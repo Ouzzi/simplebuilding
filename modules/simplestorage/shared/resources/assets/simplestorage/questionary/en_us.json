@@ -221,5 +221,38 @@
     "secret": [
       "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
     ]
+  },
+  "reinforced_shulker_shell": {
+    "lore": [
+      "{name}: a shell that grew another layer while no one watched."
+    ],
+    "use": [
+      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+    ],
+    "secret": [
+      "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
+  },
+  "netherite_shulker_shell": {
+    "lore": [
+      "{name}: a shell that grew another layer while no one watched."
+    ],
+    "use": [
+      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+    ],
+    "secret": [
+      "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
+  },
+  "enderite_shulker_shell": {
+    "lore": [
+      "{name}: a shell that grew another layer while no one watched."
+    ],
+    "use": [
+      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+    ],
+    "secret": [
+      "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
   }
 }

@@ -9310,20 +9310,20 @@
       {
         "nugget": "minecraft:iron_nugget",
         "nuggetCount": 1,
-        "result": "simplebuilding:reinforced_shulker_shell",
+        "result": "simplestorage:reinforced_shulker_shell",
         "shell": "minecraft:shulker_shell"
       },
       {
         "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
-        "result": "simplebuilding:netherite_shulker_shell",
-        "shell": "simplebuilding:reinforced_shulker_shell"
+        "result": "simplestorage:netherite_shulker_shell",
+        "shell": "simplestorage:reinforced_shulker_shell"
       },
       {
         "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
-        "result": "simplebuilding:enderite_shulker_shell",
-        "shell": "simplebuilding:netherite_shulker_shell"
+        "result": "simplestorage:enderite_shulker_shell",
+        "shell": "simplestorage:netherite_shulker_shell"
       }
     ]
   },

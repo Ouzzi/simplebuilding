@@ -3146,7 +3146,7 @@ public final class DataIntegrityTests {
         expected.add(McVersion.RARE_STRUCTURE_FINDS
                 ? CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
                         com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite"), gap,
-                        ModItems.REINFORCED_SHULKER_SHELL, ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL)
+                        com.simplebuilding.util.StorageRefs.shulkerShell("reinforced"), com.simplebuilding.util.StorageRefs.shulkerShell("netherite"), com.simplebuilding.util.StorageRefs.shulkerShell("enderite"))
                 : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("reinforced"),
                         com.simplebuilding.util.StorageRefs.shulkerBox("netherite"), com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));
         if (McVersion.END_SYSTEMS) {

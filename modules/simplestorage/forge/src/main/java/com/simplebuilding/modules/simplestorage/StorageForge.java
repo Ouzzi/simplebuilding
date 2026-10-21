@@ -79,6 +79,10 @@ public final class StorageForge {
                 insertAfter(event, net.minecraft.world.item.Items.TRAPPED_CHEST, StorageRegistry.chestStacks());
                 insertAfter(event, net.minecraft.world.item.Items.SHULKER_BOX, StorageRegistry.shulkerBoxStacks());
             }
+            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS) && vanillaTabs) {
+                // Split stage 8b-3, on its own: the tier shulker shells behind Vanilla's shell.
+                insertAfter(event, net.minecraft.world.item.Items.SHULKER_SHELL, StorageRegistry.shellStacks());
+            }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && vanillaTabs) {
                 // On its own: the chest carts behind Vanilla's chest cart, the chest boats behind the bamboo chest raft.
                 insertAfter(event, net.minecraft.world.item.Items.CHEST_MINECART, StorageRegistry.chestMinecartStacks());

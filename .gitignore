@@ -114,6 +114,25 @@ wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_chest_boa
 modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_chest_raft_overlay.png
 wiki/assets/textures/simplestorage/item/enderite_chest_raft_overlay.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_chest_raft_overlay.png
+# Simple Storage (split stage 8b-3): tier shulker shells and rare shulker hulls (shulker_shell_textures).
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/reinforced_shulker_shell.png
+wiki/assets/textures/simplestorage/item/reinforced_shulker_shell.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_shulker_shell.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/netherite_shulker_shell.png
+wiki/assets/textures/simplestorage/item/netherite_shulker_shell.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_shulker_shell.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_shulker_shell.png
+wiki/assets/textures/simplestorage/item/enderite_shulker_shell.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_shulker_shell.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/rare_shulker/reinforced.png
+wiki/assets/textures/simplestorage/entity/rare_shulker/reinforced.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/rare_shulker/reinforced.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/rare_shulker/netherite.png
+wiki/assets/textures/simplestorage/entity/rare_shulker/netherite.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/rare_shulker/netherite.png
+modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/rare_shulker/enderite.png
+wiki/assets/textures/simplestorage/entity/rare_shulker/enderite.png
+wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/rare_shulker/enderite.png
 # Simple Ovens (split stage 4): furnace minecart items (Vanilla minecart overlay, vehicles_2026_10_10).
 modules/simpleovens/shared/resources/assets/simpleovens/textures/item/reinforced_furnace_minecart.png
 wiki/assets/textures/simpleovens/item/reinforced_furnace_minecart.png

@@ -524,4 +524,49 @@ public final class ModuleGameTest {
     public void backpackStorageAccessoryBackpackCountsAsWorn(GameTestHelper h) {
         StorageTests.ALL.get("backpack_storage_accessory_backpack_counts_as_worn").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsBetterChestTablesRateAndDoubleChestRule(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_better_chest_tables_rate_and_double_chest_rule").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsBastionTemplateChestBecomesNetheriteChest(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_bastion_template_chest_becomes_netherite_chest").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsPlacedEndCityChestBecomesEnderiteChestWithDoubleLoot(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_placed_end_city_chest_becomes_enderite_chest_with_double_loot").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsRareShulkersHaveTieredHealthAndDropTheirShells(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_rare_shulkers_have_tiered_health_and_drop_their_shells").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsLivingShulkersClimbTheTiersButUpgradedOnesDropNoShells(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_living_shulkers_climb_the_tiers_but_upgraded_ones_drop_no_shells").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsRareShulkerCallsFourEndermitesOnceWhenPlayersComeNear(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_rare_shulker_calls_four_endermites_once_when_players_come_near").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsShellRecipesAndConfigCaps(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_shell_recipes_and_config_caps").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsRegistered(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsMigrationFromSimplebuilding(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_migration_from_simplebuilding").accept(h);
+    }
 }

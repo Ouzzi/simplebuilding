@@ -46,7 +46,7 @@ public final class StorageRegistry {
                 .build());
     }
 
-    /** The table, the crates, the chests, the shulker boxes, the chest carts and chest boats (oak), the guide (empty while the module is switched off: Vanilla hides an empty tab). */
+    /** The table, the crates, the chests, the shulker boxes and shells, the chest carts and chest boats (oak), the guide (empty while the module is switched off: Vanilla hides an empty tab). */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleStorage.on()) return out;
@@ -54,6 +54,7 @@ public final class StorageRegistry {
         out.addAll(crateStacks());
         out.addAll(chestStacks());
         out.addAll(shulkerBoxStacks());
+        out.addAll(shellStacks());
         out.addAll(chestMinecartStacks());
         out.addAll(chestBoatStacks());
         out.addAll(bundleStacks());
@@ -82,6 +83,13 @@ public final class StorageRegistry {
     public static List<ItemStack> shulkerBoxStacks() {
         return List.of(new ItemStack(StorageItems.REINFORCED_SHULKER_BOX), new ItemStack(StorageItems.NETHERITE_SHULKER_BOX),
                 new ItemStack(StorageItems.ENDERITE_SHULKER_BOX));
+    }
+
+    /** Split stage 8b-3: the tier shulker shells in tier order. */
+    public static List<ItemStack> shellStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : com.simplestorage.rare.ShulkerShells.tierShells()) out.add(new ItemStack(item));
+        return out;
     }
 
     /** Split stage 8b-2: the chest carts in tier order. */

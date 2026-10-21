@@ -772,17 +772,6 @@
       "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
     ]
   },
-  "reinforced_shulker_shell": {
-    "lore": [
-      "{name}: a shell that grew another layer while no one watched."
-    ],
-    "use": [
-      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
-    ],
-    "secret": [
-      "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
-    ]
-  },
   "netherite_chest": {
     "lore": [
       "{name}: Netherite makes the chest hold twice as much per slot."
@@ -816,17 +805,6 @@
       "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
     ]
   },
-  "netherite_shulker_shell": {
-    "lore": [
-      "{name}: a shell that grew another layer while no one watched."
-    ],
-    "use": [
-      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
-    ],
-    "secret": [
-      "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
-    ]
-  },
   "enderite_chest": {
     "lore": [
       "{name}: The End makes a chest as big as a double chest, with fourfold stacks."
@@ -858,17 +836,6 @@
     ],
     "secret": [
       "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
-    ]
-  },
-  "enderite_shulker_shell": {
-    "lore": [
-      "{name}: a shell that grew another layer while no one watched."
-    ],
-    "use": [
-      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
-    ],
-    "secret": [
-      "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
     ]
   },
   "paint_box": {

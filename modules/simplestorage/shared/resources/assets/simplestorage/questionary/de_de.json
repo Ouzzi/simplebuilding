@@ -221,5 +221,38 @@
     "secret": [
       "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
     ]
+  },
+  "reinforced_shulker_shell": {
+    "lore": [
+      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+    ],
+    "use": [
+      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+    ],
+    "secret": [
+      "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
+  },
+  "netherite_shulker_shell": {
+    "lore": [
+      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+    ],
+    "use": [
+      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+    ],
+    "secret": [
+      "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
+  },
+  "enderite_shulker_shell": {
+    "lore": [
+      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+    ],
+    "use": [
+      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+    ],
+    "secret": [
+      "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
   }
 }

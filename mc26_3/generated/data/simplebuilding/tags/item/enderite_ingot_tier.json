@@ -25,7 +25,6 @@
     "simplebuilding:enderite_pole",
     "simplebuilding:enderite_pressure_plate",
     "simplebuilding:enderite_shovel",
-    "simplebuilding:enderite_shulker_shell",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderite_spear",
     "simplebuilding:enderite_sword",
@@ -55,6 +54,7 @@
     "simplestorage:enderite_chest_minecart",
     "simplestorage:enderite_quiver",
     "simplestorage:enderite_shulker_box",
+    "simplestorage:enderite_shulker_shell",
     "simplestorage:enderite_trapped_chest"
   ]
 }

@@ -329,8 +329,8 @@ public final class SearchTabPlacement {
                     ModItems.CRYING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
-            out.add(Placement.after(INGREDIENTS, Items.SHULKER_SHELL, ModItems.REINFORCED_SHULKER_SHELL,
-                    ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL));
+            // Split stage 8b-3: Simple Storage's shells, by id.
+            out.add(Placement.after(INGREDIENTS, Items.SHULKER_SHELL, com.simplebuilding.util.StorageRefs.shulkerShell("reinforced"), com.simplebuilding.util.StorageRefs.shulkerShell("netherite"), com.simplebuilding.util.StorageRefs.shulkerShell("enderite")));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.LIGHTNING_ROD.waxed().unaffected(), ModItems.IRON_POLE, ModItems.GOLD_POLE,

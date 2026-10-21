@@ -904,21 +904,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                 }
 
-                // Zusaetzlich zu den Stufenwegen oben (Besitzer 2026-10-02): Kupfertruhe (jede) + eine Stufen-Shulkerschale
-                // + eine Shulkerschale ergibt die Shulkerkiste dieser Stufe (ShulkerShells).
-                if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
-                    for (com.simplebuilding.blocks.custom.ChestTier tier : com.simplebuilding.blocks.custom.ChestTier.values()) {
-                        Item shell = com.simplebuilding.util.ShulkerShells.shellOf(tier);
-                        // The box by id (split stage 8b: on 26.3 Simple Storage's; the shells and this recipe stay here).
-                        Item box = com.simplebuilding.util.StorageRefs.shulkerBox(tier.textureName());
-                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.DECORATIONS, box)
-                                .requires(tag(com.simplebuilding.util.ModTags.Items.COPPER_CHESTS))
-                                .requires(shell)
-                                .requires(Items.SHULKER_SHELL)
-                                .unlockedBy(getHasName(shell), has(shell))
-                                .save(output, Simplebuilding.MOD_ID + ":" + BuiltInRegistries.ITEM.getKey(box).getPath() + "_from_shells");
-                    }
-                }
+                // Split stage 8b-3: copper chest + tier shell + shulker shell -> tier box is Simple Storage's recipe.
 
                 // Netherit- und Enderit-Trichter (wie alle Netherit- und Enderit-Maschinen) haben kein
                 // Werkbankrezept mehr: sie entstehen in der Welt, per Vorschlaghammer und Nugget

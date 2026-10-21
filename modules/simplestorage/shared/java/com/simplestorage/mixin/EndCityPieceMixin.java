@@ -1,7 +1,7 @@
-package com.simplebuilding.mixin;
+package com.simplestorage.mixin;
 
-import com.simplebuilding.util.BetterChests;
-import com.simplebuilding.util.RareShulkers;
+import com.simplestorage.rare.BetterChests;
+import com.simplestorage.rare.RareShulkers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -15,14 +15,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * End-Stadt und End-Schiff: Loot-Truhen der Marker "Chest" werden selten zur Enderit-Truhe ({@link BetterChests}),
- * Wachposten-Shulker selten verstaerkt oder Enderit ({@link RareShulkers}).
+ * End city and end ship: loot chests of the "Chest" markers rarely become the Enderite Chest ({@link BetterChests}), sentry
+ * shulkers rarely reinforced, Netherite or Enderite ({@link RareShulkers}).
  */
 @Mixin(targets = "net.minecraft.world.level.levelgen.structure.structures.EndCityPieces$EndCityPiece")
 public abstract class EndCityPieceMixin {
     @Inject(method = "handleDataMarker", at = @At("TAIL"))
-    private void simplebuilding$betterChest(String markerId, BlockPos position, ServerLevelAccessor level, RandomSource random,
-                                            BoundingBox chunkBB, CallbackInfo ci) {
+    private void simplestorage$betterChest(String markerId, BlockPos position, ServerLevelAccessor level, RandomSource random,
+                                           BoundingBox chunkBB, CallbackInfo ci) {
         if (markerId.startsWith("Chest") && chunkBB.isInside(position.below())) {
             BetterChests.upgradePlaced(level, position.below());
         }
@@ -30,7 +30,7 @@ public abstract class EndCityPieceMixin {
 
     @ModifyArg(method = "handleDataMarker", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/level/ServerLevelAccessor;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
-    private Entity simplebuilding$rareShulker(Entity entity) {
+    private Entity simplestorage$rareShulker(Entity entity) {
         if (entity instanceof Shulker shulker) {
             RareShulkers.onEndCitySpawn(shulker, shulker.getRandom());
         }

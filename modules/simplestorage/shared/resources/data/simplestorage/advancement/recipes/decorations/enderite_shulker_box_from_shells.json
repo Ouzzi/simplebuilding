@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:enderite_shulker_shell"
+            "items": "simplestorage:enderite_shulker_shell"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:enderite_shulker_box_from_shells"
+        "recipes": "simplestorage:enderite_shulker_box_from_shells"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:enderite_shulker_box_from_shells"
+      "simplestorage:enderite_shulker_box_from_shells"
     ]
   }
 }

@@ -34,6 +34,8 @@ public final class StorageItems {
     public static Item QUIVER, REINFORCED_QUIVER, NETHERITE_QUIVER, ENDERITE_QUIVER;
     /** Split stage 8c-2: the four backpacks in tier order (worn in the chest slot, placeable as a block). */
     public static final Map<com.simplestorage.backpack.BackpackTier, Item> BACKPACKS = new EnumMap<>(com.simplestorage.backpack.BackpackTier.class);
+    /** Split stage 8b-3: the tier shulker shells (rare shulkers drop them; Netherite uncommon and Enderite epic, both fire-proof). */
+    public static Item REINFORCED_SHULKER_SHELL, NETHERITE_SHULKER_SHELL, ENDERITE_SHULKER_SHELL;
 
     public static void register() {
         StorageBlocks.CRATES.forEach((wood, crate) -> CRATES.put(wood, blockItem(crate, wood.nether() ? 0 : CRATE_FUEL)));
@@ -63,6 +65,9 @@ public final class StorageItems {
         }
         registerBundles();
         registerBackpacks();
+        REINFORCED_SHULKER_SHELL = item("reinforced_shulker_shell", p -> p, Item::new);
+        NETHERITE_SHULKER_SHELL = item("netherite_shulker_shell", StorageItems::netherite, Item::new);
+        ENDERITE_SHULKER_SHELL = item("enderite_shulker_shell", StorageItems::enderite, Item::new);
         com.simplestorage.guide.StorageGuide.register();
     }
 

@@ -440,8 +440,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         }
         // Shulkerschalen (Vanilla und Stufen) liegen abgelegt, damit ein Klumpen sie aufwerten kann (ShulkerShells).
         tag.add(BuiltInRegistries.ITEM.getResourceKey(net.minecraft.world.item.Items.SHULKER_SHELL).orElseThrow());
-        for (net.minecraft.world.item.Item shell : com.simplebuilding.util.ShulkerShells.tierShells()) {
-            tag.add(BuiltInRegistries.ITEM.getResourceKey(shell).orElseThrow());
+        // Split stage 8b-3: the tier shells are Simple Storage's (26.3 only), by id.
+        if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            for (String tier : com.simplebuilding.util.StorageRefs.TIERS) {
+                tag.add(com.simplebuilding.util.StorageRefs.itemKey(tier + "_shulker_shell"));
+            }
         }
     }
 
