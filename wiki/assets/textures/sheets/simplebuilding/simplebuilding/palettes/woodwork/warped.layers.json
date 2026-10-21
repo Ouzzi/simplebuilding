@@ -1,0 +1,13 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 15,
+  "height": 1,
+  "digits": 2,
+  "palette": ["#183f3eff", "#1e4e4cff", "#235d5bff"],
+  "layers": [
+    {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "000102........................"
+    ]}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#ddddddff", "#c3c3c3ff", "#878787ff", "#bdbdbdff", "#b1b1b1ff", "#7d7d7dff", "#c8c8c8ff", "#a7a7a7ff", "#9a9a9aff", "#bebebeff", "#929292ff", "#8b8b8bff", "#cfcfcfff", "#adadadff", "#afafafff", "#cbcbcbff", "#717171ff", "#c2c2c2ff", "#989898ff", "#808080ff", "#8e8e8eff", "#dcdcdcff", "#9d9d9dff", "#868686ff", "#b2b2b2ff", "#848484ff", "#b5b5b5ff", "#b6b6b6ff", "#dfdfdfff", "#dadadaff", "#abababff", "#d1d1d1ff", "#b9b9b9ff", "#606060ff", "#a2a2a2ff", "#c6c6c6ff", "#888888ff", "#9c9c9cff", "#c9c9c9ff", "#bababaff", "#636363ff", "#b7b7b7ff", "#d7d7d7ff", "#727272ff", "#8d8d8dff", "#858585ff", "#aeaeaeff", "#a4a4a4ff", "#b0b0b0ff", "#aaaaaaff", "#a6a6a6ff", "#696969ff", "#bbbbbbff", "#cacacaff", "#a0a0a0ff", "#838383ff", "#e0e0e0ff", "#787878ff", "#d0d0d0ff", "#cdcdcdff", "#767676ff", "#cececeff", "#8a8a8aff", "#d3d3d3ff", "#6f6f6fff", "#dededeff", "#b3b3b3ff", "#909090ff", "#a3a3a3ff", "#7b7b7bff", "#a8a8a8ff", "#8c8c8cff", "#949494ff", "#c4c4c4ff", "#7c7c7cff", "#7f7f7fff", "#b8b8b8ff", "#818181ff", "#a5a5a5ff", "#757575ff", "#d5d5d5ff", "#b4b4b4ff", "#7e7e7eff", "#6a6a6aff", "#8f8f8fff", "#e1e1e1ff", "#999999ff", "#d6d6d6ff", "#919191ff", "#dbdbdbff", "#c0c0c0ff", "#9b9b9bff", "#959595ff", "#6c6c6cff", "#9f9f9fff", "#777777ff", "#9e9e9eff", "#979797ff", "#797979ff", "#ccccccff"],
+  "layers": [
+    {"name": "Blätter", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "000102030405..06070802090a0b..0c",
+      "0d0e0f10050c11121314151617..0918",
+      "191a1b011c1d1e02..1f2021....1622",
+      "2324250d262728..0f252923..2a2b07",
+      "....2c2d0b2e....2f3031....322033",
+      "....1f343533..01362237..3839083a",
+      "00..3b3c1a3d092d373e..3f0d..4041",
+      "421d0f4143441835....062d4511410c",
+      "021a46011c4743481f..2b11494a....",
+      "..4b4c0e011c4d0a4e2a01164f....50",
+      "09002d5132351d504d521d53......54",
+      "4e06..171b51..530c15260c55....3a",
+      "2443....3e3c504956570f5832..3f59",
+      "..0e06......5a2247..071a1701275b",
+      "..3736....3b5c5d..1f5e31..0f1b5f",
+      "....602a..6162..012e084b633024.."
+    ]}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#9e887bff", "#9d7866ff", "#927563ff", "#8d796eff", "#a68073ff", "#aaa287ff", "#cdc5a1ff", "#968275ff", "#a06e5eff", "#98705fff", "#bcb494ff", "#807b60ff", "#866758ff", "#927d6aff", "#948e6dff", "#bfb49aff", "#ccc09aff", "#ebddcbff", "#e3dfd9ff", "#e3d5c2ff", "#b9ae8bff", "#9a9075ff", "#99907eff", "#79695fff", "#97745eff", "#c9be9aff", "#cbbb9cff", "#d0c19cff", "#dfd8ceff", "#c1a6b6ff", "#dccebbff", "#bbad8aff", "#a89c79ff", "#9b9478ff", "#745a4dff", "#967866ff", "#e9dbc8ff", "#e3d4bdff", "#ddd0b9ff", "#ddd4c8ff", "#c0b0b3ff", "#d9c5b0ff", "#c8baa5ff", "#c0b39dff", "#b8ab94ff", "#705245ff", "#927463ff", "#e7d9c9ff", "#d8c1c1ff", "#beb1b7ff", "#d6cbbdff", "#dcc8b7ff", "#d6c1afff", "#d0bcabff", "#c9b3a3ff", "#a99d87ff", "#675448ff", "#7f6d5dff", "#e4d0c0ff", "#d2c5b2ff", "#d3c3b2ff", "#d4bfafff", "#b3a2a2ff", "#9d9297ff", "#c1a592ff", "#63564eff", "#866151ff", "#b5a992ff", "#d6c2b0ff", "#d0b9a3ff", "#ccb6a6ff", "#c5ac97ff", "#a79393ff", "#b6a091ff", "#5d4c42ff", "#80635aff", "#bbac96ff", "#ceb8a8ff", "#c8b3a3ff", "#c1ac9cff", "#bba596ff", "#b49e8eff", "#5c4a41ff", "#574338ff", "#79685fff", "#a99e83ff", "#c6af9eff", "#9e8d8eff", "#b6a192ff", "#ab9a89ff", "#54483fff", "#4d4e4bff", "#4b4f4bff", "#4b3d36ff", "#6c5c4fff", "#b4ab9bff", "#c1ab9bff", "#a4908cff", "#8b8086ff", "#968282ff", "#544339ff", "#52544dff", "#525149ff", "#555146ff", "#463833ff", "#6c574bff", "#8d8573ff", "#8a7f68ff", "#8c7f6bff", "#93807fff", "#544943ff", "#4f4f4bff", "#5b5549ff", "#514c3fff", "#40342fff", "#655750ff", "#5b5945ff", "#615b45ff", "#7c735fff", "#948677ff", "#4e4037ff", "#4e4c45ff", "#48453bff", "#413430ff", "#5d4943ff", "#4d4c3dff", "#696456ff", "#6d6a60ff", "#4f443fff", "#3d3530ff", "#3b302cff", "#52413bff", "#453c35ff", "#42352eff", "#3c312bff"],
+  "layers": [
+    {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "................................",
+      "........0001......0203..........",
+      "......0405060708090a0b0c........",
+      "....0d0e0f1011121314151617......",
+      "....18191a1b1c1d1e1f202122......",
+      "....232425262728292a2b2c2d......",
+      "....2e2f303132333435363738......",
+      "......393a3b3c3d3e3f4041........",
+      "......42434445464748494a........",
+      "......4b4c4d4e4f50515253........",
+      "....545546565758595a5b5c5d......",
+      "....5e5f606162636465666768......",
+      "....696a6b6c6d6e6f707172........",
+      "....737475767778797a7b..........",
+      "......7c7d7e7f808182............",
+      "........83848586................"
+    ]}
+  ]
+}
