@@ -125,7 +125,7 @@ MODS = [
                ("pocket_jukebox", ["*pocket_jukebox"], "Put discs in like a bundle; use it to play or pause",
                 "Platten wie ins Bündel legen; benutzen: abspielen/pausieren"),
                ("disc_press", ["disc_press"], "Sheet on top, blanks below: presses discs, the sheet stays",
-                "Notenblatt oben, Rohlinge unten: presst Platten, das Blatt bleibt")]),
+                "Blatt oben, Rohlinge unten: presst Platten, Blatt bleibt")]),
     dict(id="simpleshops", ns=["simpleshops"], cls="ShopsDiscover", package="com.simpleshops.discover",
          own_packages=["com.simpleshops."]),
     dict(id="simplewanderers", ns=["simplewanderers"], cls="WanderersDiscover", package="com.simplewanderers.discover",

@@ -240,9 +240,10 @@ public final class MusicServer {
         ItemStack done = sheet.copyWithCount(1);
         done.set(MusicComponents.TRACK, new TrackRef(track.hash(), upload.session().title(), track.seconds(), player.getName().getString()));
         done.set(MusicComponents.SHEET, new SheetContent("", upload.session().title(), player.getName().getString(), true));
-        sheet.shrink(1);
-        if (sheet.isEmpty()) player.setItemInHand(hand, done);
-        else player.getInventory().placeItemBackInInventory(done, net.minecraft.util.Prediction.SERVER_ONLY);
+        // like saving a sheet: the hand keeps the written one, the rest of a stack goes back blank
+        ItemStack rest = sheet.getCount() > 1 ? sheet.copyWithCount(sheet.getCount() - 1) : ItemStack.EMPTY;
+        player.setItemInHand(hand, done);
+        if (!rest.isEmpty()) player.getInventory().placeItemBackInInventory(rest, net.minecraft.util.Prediction.SERVER_ONLY);
         reply(player, track.status() == TrackStore.Status.APPROVED ? "accepted" : "pending", track.hash().substring(0, 8));
     }
 
