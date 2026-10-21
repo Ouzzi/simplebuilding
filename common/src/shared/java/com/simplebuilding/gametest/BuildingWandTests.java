@@ -752,6 +752,7 @@ public final class BuildingWandTests {
             helper.assertTrue(blocksIn(helper, SMALL_SITE, Blocks.GLASS).isEmpty(),
                     "a tampered " + key + " still placed blocks");
         }
+        helper.succeed();
     }
 
     /**
