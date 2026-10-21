@@ -282,7 +282,8 @@ def tracked() -> list[Path]:
                              capture_output=True, timeout=60).stdout.decode("utf-8", "replace")
     except (OSError, subprocess.SubprocessError):
         return []
-    return [ROOT / p for p in out.split("\0") if p]
+    # wiki/assets/textures/sheets holds copies for the editor (wiki/textures.py), their PNG may sit elsewhere
+    return [ROOT / p for p in out.split("\0") if p and not p.startswith("wiki/")]
 
 
 def check_file(path: Path) -> list[str]:
