@@ -292,7 +292,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "69f8f3e604c3"
+    "dataHash": "9064acea586d"
   },
   {
     "id": "simpletweaks",
@@ -500,7 +500,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemobs",
     "displayName": "Simple Mobs",
-    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush.",
+    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Nether Gem, and the Potion of Silence.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -508,17 +508,20 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWklEQVR42mNgGDSAh0vgPykYqwF6Wlb/vVwiwDQ2DJPDawAxmLYGPGj4D8cwDehieA3osjoBVgiiYQagi9EvDIT4JMCYZANgGtExSQagu4AkA8gOA4qS8oABAIMU3cFQUaIiAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 22,
-      "recipes": 63,
-      "features": 13
+      "items": 20,
+      "blocks": 2,
+      "recipes": 62,
+      "features": 12
     },
-    "dataHash": "c7c041b22b79"
+    "dataHash": "af33db89594f"
   },
   {
     "id": "simpleweather",
@@ -575,7 +578,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
-    "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -595,12 +598,12 @@ window.WIKI_MODULES = [
     "bundle": "required",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAV0lEQVR42mNgGFRAV1f3Py5MlOZbt25hxQsWLCDOIFy2wwyBGUSW18gyBKSwK8kIwyVEhwlMM7oriAoLZM0kGYBNM7IBZGkmygB8mpHVkK2ZqATEMCQBAJ72mgHP7heTAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 1,
+      "items": 2,
       "blocks": 1,
-      "recipes": 2,
-      "features": 28
+      "recipes": 4,
+      "features": 32
     },
-    "dataHash": "6ce3bc4d2fec"
+    "dataHash": "7b2c7b8013b7"
   },
   {
     "id": "simplefarming",
@@ -835,12 +838,12 @@ window.WIKI_MODULES = [
     "bundle": "optional",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAi0lEQVR42mNgoCWQs3L5D8Jka/zy/z8YE20QssYVT96gYLwGYdNY/+c/CsZrEIhz4t0nuJPRDUHWDMIgtRgG1Jy4ApbAZhCyRhCOWrEFuwEwjG4QskYYxmsAukHIGvEaAPMzLgNg8gQNgBmCbACyHFYDtJQsMDDMAGxyeNMDLgNITpEwAyjOEzTNsQBPlprgNs/M0QAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 2,
+      "items": 3,
       "blocks": 2,
       "recipes": 6,
       "features": 7
     },
-    "dataHash": "a4ad90b686de"
+    "dataHash": "405f79eb15ce"
   },
   {
     "id": "simpleovens",
