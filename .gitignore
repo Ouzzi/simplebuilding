@@ -585,3 +585,8 @@ bench-results/*/logs/
 
 # A Windows default path run on Linux lands as a relative folder "C:" (17.10.: broke the Windows checkout)
 /C:/
+
+# 26.4 jukebox (b-jukebox264): copied from the 26.4-snapshot-4 client jar at build time (gradle/jukebox-264.gradle), never committed
+**/assets/simplebuilding/textures/jukebox_264/
+**/assets/minecraft/models/block/jukebox.json
+**/assets/minecraft/textures/block/jukebox_*.png

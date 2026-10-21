@@ -33,6 +33,7 @@ public final class ConfigOptions {
             "creativeTabSpacers",
             "vanillaEnchantedBookTextures",
             "modEnchantedBookTextures",
+            "jukebox264Textures",
             "visibleTrimIconsVanillaArmor",
             "visibleTrimIconsModArmor",
             "showModHud",

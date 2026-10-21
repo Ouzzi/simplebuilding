@@ -45,6 +45,8 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
    Skript + Argumente (`vanilla_derived.py --probe`).
    Gleiches gilt für **aus Vanilla abgeleitete Sounds**: nur beim Build (`tools/sounds/vanilla_derived_sounds.py`,
    `gradle/module-vanilla-derived-sounds.gradle`, Howler-Variante B mit `-PsbHowlerSounds=vanilla`), nie einchecken.
+   Die 26.4-Jukebox (Snapshot 4) auf 26.2/26.3/1.21.11 kopiert `gradle/jukebox-264.gradle` beim Build aus dem gepinnten
+   Snapshot-Jar (piston-meta, SHA-1 geprüft, Gradle-Cache; offline ohne Cache: Vanilla-Jukebox + WARNING), nie auf mc26_4.
 8. **Server-Autorität:** alle Gameplay-Stellschrauben serverseitig, mit Obergrenzen, die Vanilla nicht gefährden.
 9. Orchestrator committet auf `master`; Worker auf ihrem Arbeitsbranch (kein Push/Merge). Nachricht endet mit `Co-Authored-By: <Assistent> <noreply@anthropic.com>` (bei Claude), sonst passende Zeile.
 10. Gegenprobe/Mutationstests **nie** mit `git checkout` zurücksetzen – vorher committen. Nie `find` über das ganze Laufwerk.

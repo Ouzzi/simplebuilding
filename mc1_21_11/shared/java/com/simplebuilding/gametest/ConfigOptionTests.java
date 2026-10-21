@@ -435,6 +435,7 @@ public final class ConfigOptionTests {
             "root.giveGuideBookOnFirstJoin boolean=true",
             "root.vanillaEnchantedBookTextures boolean=true",
             "root.modEnchantedBookTextures boolean=true",
+            "root.jukebox264Textures boolean=true",
             "root.visibleTrimIconsVanillaArmor boolean=true",
             "root.visibleTrimIconsModArmor boolean=true",
             "root.showModHud boolean=true",

@@ -145,6 +145,7 @@ tasks.named('jar').configure {
 
 // Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
 apply from: rootProject.file('gradle/check-atlases.gradle')
+apply from: rootProject.file('gradle/jukebox-264.gradle')  // 26.4 jukebox from the snapshot jar (never on mc26_4)
 
 // Fabric owns the canonical datagen; all 26.3 loaders consume the same layered output.
 tasks.register('runDatagen') { dependsOn ':mc26_3:fabric:runDatagen' }
