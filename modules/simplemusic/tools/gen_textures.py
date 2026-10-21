@@ -462,7 +462,7 @@ def main(argv):
         bad = []
         for path, px in imgs.items():
             f = TEX / f'{path}.png'
-            if not f.is_file() or list(Image.open(f).convert('RGBA').getdata()) != list(to_image(px).getdata()):
+            if not f.is_file() or Image.open(f).convert('RGBA').tobytes() != to_image(px).tobytes():
                 bad.append(str(f))
         for path, tex in texs.items():
             f = LAYERS / (path.split('/')[1] + '.json')
