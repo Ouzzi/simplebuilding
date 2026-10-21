@@ -36,7 +36,7 @@ def jbCacheOk = { -> jbFiles.every { e, v -> File f = jbCached(e); f.isFile() &&
 def jbDownload = { String url ->
     def c = new URL(url).openConnection()
     c.connectTimeout = 15000
-    c.readTimeout = 60000
+    c.readTimeout = 120000
     c.inputStream.withCloseable { it.readAllBytes() }
 }
 
@@ -52,29 +52,42 @@ def jbTask = tasks.register('generateJukebox264') {
         project.delete(jbOut)
         if (jbSkip) { logger.lifecycle('generateJukebox264: -PsbSkipJukebox264 -> Vanilla jukebox of this line.'); return }
         try {
-            if (!jbCacheOk()) {
-                if (jbOffline) throw new GradleException("--offline and no ${jbVersion} jukebox in ${jbCache}")
-                byte[] json = jbDownload(jbVersionJsonUrl)
-                if (jbSha1(json) != jbVersionJsonSha1) throw new GradleException("${jbVersionJsonUrl}: SHA-1 mismatch")
-                def client = new groovy.json.JsonSlurper().parse(json).downloads.client
-                if (client.sha1 != jbClientSha1) throw new GradleException("${jbVersion} client SHA-1 ${client.sha1} != pinned ${jbClientSha1}")
-                jbCache.mkdirs()
-                File jar = new File(jbCache, 'client.jar.part')
-                try {
-                    logger.lifecycle("generateJukebox264: downloading the ${jbVersion} client jar (once) from ${client.url}")
-                    jar.bytes = jbDownload(client.url as String)
-                    if (jbSha1(jar.bytes) != jbClientSha1) throw new GradleException("${client.url}: SHA-1 mismatch")
-                    new java.util.zip.ZipFile(jar).withCloseable { zip ->
-                        jbFiles.each { e, v ->
-                            def entry = zip.getEntry(e)
-                            if (entry == null) throw new GradleException("${jbVersion} client jar has no ${e}")
-                            byte[] data = zip.getInputStream(entry).withCloseable { it.readAllBytes() }
-                            if (jbSha1(data) != v[1]) throw new GradleException("${e} in ${jbVersion}: SHA-1 ${jbSha1(data)} != pinned ${v[1]}")
-                            jbCached(e).bytes = data
+            // One download per machine: the loader projects run in parallel (and several builds may share the
+            // Gradle home), so the cache is filled under a JVM-wide monitor plus a file lock.
+            jbCache.mkdirs()
+            synchronized (jbCache.absolutePath.intern()) {
+                new RandomAccessFile(new File(jbCache, '.lock'), 'rw').withCloseable { raf ->
+                    def lock = raf.channel.lock()
+                    try {
+                        if (!jbCacheOk()) {
+                            if (jbOffline) throw new GradleException("--offline and no ${jbVersion} jukebox in ${jbCache}")
+                            byte[] json = jbDownload(jbVersionJsonUrl)
+                            if (jbSha1(json) != jbVersionJsonSha1) throw new GradleException("${jbVersionJsonUrl}: SHA-1 mismatch")
+                            def client = new groovy.json.JsonSlurper().parse(json).downloads.client
+                            if (client.sha1 != jbClientSha1) throw new GradleException("${jbVersion} client SHA-1 ${client.sha1} != pinned ${jbClientSha1}")
+                            File jar = new File(jbCache, "client-${ProcessHandle.current().pid()}.jar.part")
+                            try {
+                                logger.lifecycle("generateJukebox264: downloading the ${jbVersion} client jar (once) from ${client.url}")
+                                jar.bytes = jbDownload(client.url as String)
+                                if (jbSha1(jar.bytes) != jbClientSha1) throw new GradleException("${client.url}: SHA-1 mismatch")
+                                new java.util.zip.ZipFile(jar).withCloseable { zip ->
+                                    jbFiles.each { e, v ->
+                                        def entry = zip.getEntry(e)
+                                        if (entry == null) throw new GradleException("${jbVersion} client jar has no ${e}")
+                                        byte[] data = zip.getInputStream(entry).withCloseable { it.readAllBytes() }
+                                        if (jbSha1(data) != v[1]) throw new GradleException("${e} in ${jbVersion}: SHA-1 ${jbSha1(data)} != pinned ${v[1]}")
+                                        File part = new File(jbCache, jbCached(e).name + '.part')
+                                        part.bytes = data
+                                        java.nio.file.Files.move(part.toPath(), jbCached(e).toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING, java.nio.file.StandardCopyOption.ATOMIC_MOVE)
+                                    }
+                                }
+                            } finally {
+                                jar.delete()
+                            }
                         }
+                    } finally {
+                        lock.release()
                     }
-                } finally {
-                    jar.delete()
                 }
             }
             jbFiles.each { e, v ->
