@@ -1862,13 +1862,11 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemusic:disc_press"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
