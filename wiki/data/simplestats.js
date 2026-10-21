@@ -122,11 +122,11 @@ window.WIKI_MODULE_DATA["simplestats"] = {
       ],
       "en": {
         "title": "Tooltip and statistics screen",
-        "summary": "The tooltip shows one headline value and the hint Shift: details; with Shift it shows the most important values. Hold an item (or hover it in any inventory, chest or trading screen) and press the key (default I, rebindable) to open the statistics screen of that item: totals and records, then every counted block, mob, catch and damage type with its amount and share, sorted by amount, with a scroll bar."
+        "summary": "The tooltip shows one headline value and the hint \"Hold Shift for more\"; with Shift it shows the most important values. Hold an item (or hover it in any inventory, chest or trading screen) and press the key (default I, rebindable) to open the statistics screen of that item: totals and records, then every counted block, mob, catch and damage type with its amount and share, sorted by amount, with a scroll bar."
       },
       "de": {
         "title": "Tooltip und Statistik-Bildschirm",
-        "summary": "Der Tooltip zeigt einen Hauptwert und den Hinweis Shift: Details; mit Shift die wichtigsten Werte. Mit einem Gegenstand in der Hand (oder mit der Maus darüber in einem Inventar-, Truhen- oder Handelsbildschirm) öffnet die Taste (Standard I, umbelegbar) den Statistik-Bildschirm dieses Gegenstands: Summen und Rekorde, danach jeder gezählte Block, Mob, Fang und jede Schadensart mit Menge und Anteil, nach Menge sortiert, mit Scrollleiste."
+        "summary": "Der Tooltip zeigt einen Hauptwert und den Hinweis „Umschalt halten für mehr“; mit Shift die wichtigsten Werte. Mit einem Gegenstand in der Hand (oder mit der Maus darüber in einem Inventar-, Truhen- oder Handelsbildschirm) öffnet die Taste (Standard I, umbelegbar) den Statistik-Bildschirm dieses Gegenstands: Summen und Rekorde, danach jeder gezählte Block, Mob, Fang und jede Schadensart mit Menge und Anteil, nach Menge sortiert, mit Scrollleiste."
       }
     },
     {
