@@ -777,11 +777,6 @@
     S.colorBox = h('div');
     side.appendChild(section('colors', T('colors'), 'colors', [S.colorBox]));
     refreshColors();
-    var own = C.colorsOf(m);
-    side.appendChild(section('colors', T('palTex') + ' (' + own.length + ')', 'colors', [palette(own.slice(0, 256), 't'),
-      h('p', { class: 'pe-note', text: T('palHint') }),
-      h('div', { class: 'pe-row', style: 'margin-top:6px' }, [ibtn('exp', T('gpl'), function () { download(baseName() + '.gpl', C.gpl(baseName(), own), 'text/plain'); }, { cls: 'pe-soft', 'data-k': 'gpl' }, T('gpl'))])]));
-    side.appendChild(section('colors', T('palVan'), 'colors', [palette(C.VANILLA_NEAR, 'v')]));
     // layers (top first, like Resprite/Aseprite)
     var list = h('div', { class: 'pe-layers', role: 'listbox', 'aria-label': T('layers') });
     S.thumbs = []; S.rows = [];
@@ -808,6 +803,12 @@
         ibtn('rename', tip('rename'), function () { startRename(S.active); }, { 'data-k': 'rename' }),
         ibtn('del', T('del'), delLayer, { disabled: m.layers.length < 2, cls: 'pe-danger', 'data-k': 'del' })]),
       h('p', { class: 'pe-note', text: T('layersHint') })]));
+    // palettes below the layers, so the layer list stays in view on the desktop
+    var own = C.colorsOf(m);
+    side.appendChild(section('colors', T('palTex') + ' (' + own.length + ')', 'colors', [palette(own.slice(0, 256), 't'),
+      h('p', { class: 'pe-note', text: T('palHint') }),
+      h('div', { class: 'pe-row', style: 'margin-top:6px' }, [ibtn('exp', T('gpl'), function () { download(baseName() + '.gpl', C.gpl(baseName(), own), 'text/plain'); }, { cls: 'pe-soft', 'data-k': 'gpl' }, T('gpl'))])]));
+    side.appendChild(section('colors', T('palVan'), 'colors', [palette(C.VANILLA_NEAR, 'v')]));
     // view (phone only; the desktop has these in the header)
     side.appendChild(section('more', T('view'), 'grid', [h('div', { class: 'pe-row' }, [ibtn('grid', tip('grid'), toggleGrid, { 'data-toggle': 'grid', cls: 'pe-soft', 'data-k': 'grid' }, T('grid'))])], { class: 'pe-phone-only' }));
     // region transforms (also in the context bar of Select/Move)
