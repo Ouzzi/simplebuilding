@@ -26,7 +26,7 @@
   "item.simplesandwiches.sandwich.more": "%s and %s Sandwich (+%s)",
   "item.simplesandwiches.sandwich.one": "%s Sandwich",
   "item.simplesandwiches.sandwich.two": "%s and %s Sandwich",
-  "itemgroup.simplesandwiches.kitchen": "Simple Sandwiches – Kitchen",
+  "itemgroup.simplesandwiches.kitchen": "Simple Sandwiches",
   "tooltip.simplesandwiches.buttered": "Buttered",
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, saturation %s",

@@ -1,5 +1,5 @@
 plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
-ext.moduleVersion = '1.2.16'
+ext.moduleVersion = '0.9.0'
 ext.forgeExcludedSources = []
 ext.forgeMixinConfigs = ['simplemoney.links.mixins.json', 'simplemoney.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')

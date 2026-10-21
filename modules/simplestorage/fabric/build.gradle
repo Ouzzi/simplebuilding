@@ -1,6 +1,6 @@
 plugins { id 'net.fabricmc.fabric-loom' }
-// 1.0.0: SimpleBuilding 26.3 requires simplestorage >=1.0.0 (split plan section 5: new sub-mods start at 1.0.0).
-ext.moduleVersion = '1.0.0'
+// 0.9.0: SimpleBuilding 26.3 requires simplestorage >=0.9.0 (modules stay 0.x until the owner's approval, then 1.0.0).
+ext.moduleVersion = '0.9.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // Bundles the shared framework API for standalone runs.
 dependencies { include project(':framework') }

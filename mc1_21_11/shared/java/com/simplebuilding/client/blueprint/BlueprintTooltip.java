@@ -103,7 +103,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
         renderPreview(graphics, model, viewX, y, VIEW);
         int ty = y + VIEW + 4;
         if (!showMaterials()) {
-            graphics.drawString(font, Component.translatable("simplebuilding.blueprint.tooltip.shift").withStyle(ChatFormatting.DARK_GRAY), x, ty, 0xFFFFFFFF);
+            graphics.drawString(font, Component.translatable("simplebuilding.blueprint.tooltip.shift").withStyle(ChatFormatting.GRAY), x, ty, 0xFFFFFFFF);
             return;
         }
         for (int i = 0; i < rows(); i++) {

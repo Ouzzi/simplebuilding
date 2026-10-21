@@ -395,6 +395,20 @@ public final class EnderiteMachineTests {
         helper.assertTrue(ModArmorMaterials.ENDERITE.knockbackResistance() >= ArmorMaterials.NETHERITE.knockbackResistance(),
                 "enderite armour resists knockback less than netherite armour: "
                         + ModArmorMaterials.ENDERITE.knockbackResistance() + " < " + ArmorMaterials.NETHERITE.knockbackResistance());
+
+        // Reparatur nur mit Enderit (Besitzer 21.10.): der Amboss nimmt den Enderit-Barren, den Netherit-Barren nicht.
+        var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);
+        for (Item gear : new Item[] {ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_CHESTPLATE}) {
+            ItemStack worn = new ItemStack(gear);
+            worn.setDamageValue(worn.getMaxDamage() - 1);
+            var menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory());
+            menu.getSlot(0).set(worn.copy());
+            menu.getSlot(1).set(new ItemStack(ModItems.ENDERITE_INGOT));
+            ItemStack fixed = menu.getSlot(2).getItem();
+            helper.assertTrue(!fixed.isEmpty() && fixed.getDamageValue() < worn.getDamageValue(), gear + " is not repaired with an enderite ingot: " + fixed);
+            menu.getSlot(1).set(new ItemStack(net.minecraft.world.item.Items.NETHERITE_INGOT));
+            helper.assertTrue(menu.getSlot(2).getItem().isEmpty(), gear + " is repaired with a netherite ingot");
+        }
         helper.succeed();
     }
 

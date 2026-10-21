@@ -58,6 +58,13 @@ public final class ExpansionTests {
         var d = ClaimConfig.DEFAULT;
         yes(h, d.expansionEnabled() && d.startChunks() == 4 && d.expansionTiers().size() == 8 && d.expansionTiers().get(7).chunks() == 64 && d.maxClaimsPerPlayer() == 64,
                 "Default curve: 4 chunks to start, eight steps up to 64");
+        int[] levels = {10, 15, 20, 30, 35, 40, 50, 60};
+        boolean costs = true;
+        for (int i = 0; i < 8; i++) {
+            var t = d.expansionTiers().get(i);
+            costs &= t.levels() == levels[i] && t.items().equals(List.of(new Cost("minecraft:diamond", i + 1)));
+        }
+        yes(h, costs, "Default costs: step n takes n diamonds and levels 10, 15, 20, 30, 35, 40, 50, 60");
         h.succeed();
     }
 

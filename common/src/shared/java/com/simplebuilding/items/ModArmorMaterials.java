@@ -6,7 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
@@ -34,7 +33,7 @@ public class ModArmorMaterials {
             SoundEvents.ARMOR_EQUIP_NETHERITE,
             4.0F,
             0.2F,
-            ItemTags.NETHERITE_TOOL_MATERIALS,
+            ModToolMaterials.REPAIRS_ENDERITE,
             ENDERITE_ASSET_KEY
     );
 }

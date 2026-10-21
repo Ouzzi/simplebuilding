@@ -14,7 +14,7 @@
   "tooltip.simplemoney.refined_blank_note.tooltip": "Treated for durability and quality.",
   "tooltip.simplemoney.raw_bill.tooltip": "Still damp from the press.",
   "tooltip.simplemoney.money_bill.tooltip": "Highest trading value.",
-  "itemgroup.simplemoney.money_items": "Currency Materials",
+  "itemgroup.simplemoney.money_items": "Simple Money",
   "text.autoconfig.simplemoney.title": "SimpleMoney Config",
   "text.autoconfig.simplemoney.category.default": "General",
   "text.autoconfig.simplemoney.option.trades": "Trades Settings",

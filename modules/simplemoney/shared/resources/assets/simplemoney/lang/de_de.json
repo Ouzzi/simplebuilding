@@ -10,7 +10,7 @@
   "tooltip.simplemoney.blank_note.tooltip": "Unbedrucktes, hochwertiges Papier.",
   "tooltip.simplemoney.raw_bill.tooltip": "Noch feucht von der Presse.",
   "tooltip.simplemoney.money_bill.tooltip": "Höchster Handelswert.",
-  "itemgroup.simplemoney.money_items": "Währungsmaterialien",
+  "itemgroup.simplemoney.money_items": "Simple Money",
   "text.autoconfig.simplemoney.title": "Simplemoney Konfiguration",
   "text.autoconfig.simplemoney.category.default": "Allgemein",
   "text.autoconfig.simplemoney.option.trades": "Handelseinstellungen",

@@ -38,12 +38,12 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, claimVisibility, start, true, tiers);
     }
     /** The default curve of the owner-approved plan: 4 chunks to start, 64 at the end (copper ... nether star). */
+    /** Owner 2026-10-21: step n costs n diamonds, levels rise 10, 15, 20, 30, 35, 40, 50, 60. */
     public static final List<Tier> DEFAULT_TIERS = List.of(
-            new Tier(6, List.of(new Cost("minecraft:copper_ingot", 8)), 1), new Tier(8, List.of(new Cost("minecraft:iron_ingot", 8)), 2),
-            new Tier(12, List.of(new Cost("minecraft:gold_ingot", 8)), 3), new Tier(16, List.of(new Cost("minecraft:diamond", 4)), 5),
-            new Tier(24, List.of(new Cost("minecraft:diamond", 8), new Cost("minecraft:emerald", 8)), 8),
-            new Tier(32, List.of(new Cost("minecraft:netherite_ingot", 2)), 10), new Tier(48, List.of(new Cost("minecraft:netherite_ingot", 4)), 15),
-            new Tier(64, List.of(new Cost("minecraft:nether_star", 1)), 20));
+            new Tier(6, diamonds(1), 10), new Tier(8, diamonds(2), 15), new Tier(12, diamonds(3), 20), new Tier(16, diamonds(4), 30),
+            new Tier(24, diamonds(5), 35), new Tier(32, diamonds(6), 40), new Tier(48, diamonds(7), 50), new Tier(64, diamonds(8), 60));
+
+    private static List<Cost> diamonds(int count) { return List.of(new Cost("minecraft:diamond", count)); }
     /**
      * Land a player may hold, from the stored budget (null = never bought: the start size). Never below what they already
      * hold (nobody loses land); without expansion it is the hard limit {@code maxClaimsPerPlayer}; never above that limit.

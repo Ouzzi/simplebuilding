@@ -61,7 +61,7 @@
         "summary": "A head keeps its mob's variant: a Siamese cat drops a Siamese cat head, a red sheep a red sheep head.",
         "details": [
           "Variants: cat, wolf, frog, pig, cow, chicken, sheep (16 wool colors), shulker (17 colors), axolotl, fox, parrot, rabbit, horse, llama, trader llama, mooshroom, panda, copper golem (oxidation), strider, villager and zombie villager (biome), zombie nautilus and tropical fish (pattern).",
-          "The item name adds the variant (\"Cat Head (Siamese)\"); the Mob Heads tab lists every variant. A placed head keeps it and drops it again."
+          "The item name adds the variant (\"Cat Head (Siamese)\"); the Simple Mob Heads tab lists every variant. A placed head keeps it and drops it again."
         ]
       },
       "de": {
@@ -69,7 +69,7 @@
         "summary": "Ein Kopf behält die Variante seines Mobs: eine Siamkatze lässt einen Siam-Katzenkopf fallen, ein rotes Schaf einen roten Schafskopf.",
         "details": [
           "Varianten: Katze, Wolf, Frosch, Schwein, Kuh, Huhn, Schaf (16 Wollfarben), Shulker (17 Farben), Axolotl, Fuchs, Papagei, Kaninchen, Pferd, Lama, Händlerlama, Pilzkuh, Panda, Kupfergolem (Oxidation), Schreiter, Dorfbewohner und Zombiedorfbewohner (Biom), Zombie-Nautilus und Tropenfisch (Muster).",
-          "Der Itemname nennt die Variante (\"Katzenkopf (Siam)\"); der Tab Mob-Köpfe zeigt jede Variante. Ein aufgestellter Kopf behält sie und lässt sie wieder fallen."
+          "Der Itemname nennt die Variante (\"Katzenkopf (Siam)\"); der Tab Simple Mob Heads zeigt jede Variante. Ein aufgestellter Kopf behält sie und lässt sie wieder fallen."
         ]
       },
       "sources": [
@@ -247,14 +247,14 @@
       "id": "creative_tab",
       "en": {
         "title": "Creative Tab",
-        "summary": "Own tab \"Mob Heads\" with every head and variant; in Functional Blocks and the search tab the heads stand right behind the dragon head.",
+        "summary": "Own tab \"Simple Mob Heads\" with every head and variant; in Functional Blocks and the search tab the heads stand right behind the dragon head.",
         "details": [
           "The shared switch in config/simple-creative-tabs.properties keeps the Vanilla tabs unchanged."
         ]
       },
       "de": {
         "title": "Kreativ-Tab",
-        "summary": "Eigener Tab \"Mob-Köpfe\" mit jedem Kopf und jeder Variante; in Funktionsblöcken und im Suchtab stehen die Köpfe direkt hinter dem Drachenkopf.",
+        "summary": "Eigener Tab \"Simple Mob Heads\" mit jedem Kopf und jeder Variante; in Funktionsblöcken und im Suchtab stehen die Köpfe direkt hinter dem Drachenkopf.",
         "details": [
           "Der gemeinsame Schalter in config/simple-creative-tabs.properties lässt die Vanilla-Tabs unverändert."
         ]

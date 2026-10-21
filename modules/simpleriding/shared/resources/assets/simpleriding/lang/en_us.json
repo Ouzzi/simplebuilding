@@ -1,5 +1,5 @@
 {
-  "itemgroup.simpleriding.riding_items": "Riding Items",
+  "itemgroup.simpleriding.riding_items": "Simple Riding",
   "enchantment.simpleriding.tailwind": "Tailwind",
   "enchantment.simpleriding.tailwind.desc": "Increases ridden mount speed. Server defaults per level: horses 30%, other mounts and nautiluses 20%, Happy Ghasts 85%; level III maximum.",
   "enchantment.simpleriding.leaping": "Leaping",
