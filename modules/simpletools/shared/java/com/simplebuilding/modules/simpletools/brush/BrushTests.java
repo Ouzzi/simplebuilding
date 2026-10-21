@@ -191,6 +191,14 @@ public final class BrushTests {
             h.assertTrue(craft(h, List.of(e, e, e, e, new ItemStack(Items.NETHERITE_INGOT), e, e, b, e)).isEmpty(), "no ingot-only recipe");
             h.succeed();
         });
+        ALL.put("biome_brush_rarity", h -> {
+            // owner 21.10.: the Biome Brush is cursed (SimpleLib tier above Epic)
+            ItemStack brush = brush();
+            h.assertTrue(com.simplelib.api.SimpleRarity.of(brush) == com.simplelib.api.SimpleRarity.CURSED, "cursed tier");
+            h.assertTrue(brush.getRarity() == net.minecraft.world.item.Rarity.EPIC, "Epic fallback");
+            h.assertTrue(Integer.valueOf(com.simplelib.api.SimpleRarity.CURSED.shadow()).equals(brush.getHoverName().getStyle().getShadowColor()), "black shadow");
+            h.succeed();
+        });
         ALL.put("biome_brush_moved", h -> {
             // worlds from before 21.10.: the Simple Mobs id finds the Simple Tools brush (SimpleLib IdMoves)
             Item old = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplemobs", "biome_brush"));

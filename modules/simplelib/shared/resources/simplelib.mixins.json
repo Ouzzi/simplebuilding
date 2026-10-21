@@ -18,13 +18,15 @@
     "WarmSteamMixin",
     "WarmStackingMixin",
     "WarmUseDurationMixin",
-    "DiscoverTipMixin"
+    "DiscoverTipMixin",
+    "SimpleRarityNameMixin"
   ],
   "client": [
     "client.WarmGlowEntityMixin",
     "client.WarmGlowSlotMixin",
     "client.SlotIconTintMixin",
-    "client.CodeAreaSelectAccessor"
+    "client.CodeAreaSelectAccessor",
+    "client.RarityClientThreadMixin"
   ],
   "server": [],
   "injectors": {

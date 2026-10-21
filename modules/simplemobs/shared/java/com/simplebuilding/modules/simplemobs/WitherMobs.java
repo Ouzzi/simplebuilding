@@ -15,7 +15,6 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.DamageResistant;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -70,7 +69,7 @@ public final class WitherMobs {
     }
 
     private static Item.Properties lootItem() {
-        return new Item.Properties().rarity(Rarity.EPIC).useBlockDescriptionPrefix()
+        return com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties()).useBlockDescriptionPrefix()
                 .delayedComponent(DataComponents.DAMAGE_RESISTANT, registries -> new DamageResistant(registries.getOrThrow(LOOT_RESISTANT)));
     }
 

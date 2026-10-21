@@ -425,6 +425,18 @@ final class WitherTests {
             h.assertTrue(BuiltInRegistries.ITEM.getKey(WitherMobs.HEART).equals(WitherLoot.HEART), "saved under the new id");
             h.succeed();
         });
+        add.accept("nether_loot_rarity", h -> {
+            // owner 21.10.: Nether Heart and Red Nether Gem are cursed (SimpleLib tier above Epic, Vanilla Epic as fallback)
+            for (Item item : java.util.List.of(WitherMobs.HEART, WitherMobs.GEM)) {
+                ItemStack stack = new ItemStack(item);
+                h.assertTrue(com.simplelib.api.SimpleRarity.of(stack) == com.simplelib.api.SimpleRarity.CURSED, "cursed: " + item);
+                h.assertTrue(stack.getRarity() == net.minecraft.world.item.Rarity.EPIC, "Epic fallback: " + item);
+                h.assertTrue(stack.getHoverName().getStyle().getColor().getValue() == com.simplelib.api.SimpleRarity.CURSED.color(), "red name: " + item);
+            }
+            h.assertTrue(new ItemStack(WitherMobs.GEM).getHoverName().getString().equals("Red Nether Gem")
+                    || !net.minecraft.locale.Language.getInstance().has("block.simplemobs.nether_gem"), "renamed to Red Nether Gem");
+            h.succeed();
+        });
         add.accept("wither_attacks", h -> normal(h, () -> {
             ServerLevel level = h.getLevel();
             floor(h, 0, 0, 7, 7);

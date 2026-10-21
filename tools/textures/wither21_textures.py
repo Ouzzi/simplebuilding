@@ -2,10 +2,13 @@
 Strong Upgrade Shard. Own pixels, close to Vanilla (dark tone of the main colour as outline, light from the top left),
 each as a layer source (docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md): layer 1 "Grundform", layer 2 "Licht".
 Two variants per texture; variant A is built in. Pure Python (tools/textures/layers.py), no Pillow.
+Owner 21.10. (queue b-rarity21): Nether Heart and Red Nether Gem (item + block) are animated: now and then their golden
+veins/glints run over into blue from the top down and back (5-frame strip 16x80 + .png.mcmeta, long golden rest).
 
     python tools/textures/wither21_textures.py            # write variant A (PNG + .layers.json) into the modules
     python tools/textures/wither21_textures.py --check    # fail when a committed PNG/layer source differs
     python tools/textures/wither21_textures.py --preview DIR   # 16x PNGs of both variants (for the choice page)
+    python tools/textures/wither21_textures.py --strips DIR    # 1x animation strips + mcmeta (preview page)
 """
 from __future__ import annotations
 
@@ -303,22 +306,64 @@ GEM_BLOCK_LIGHT = [
 
 
 def doc(shape, light, pal) -> dict:
-    """A two-layer source: shape (Grundform) and light/glow (Licht); unknown letters fail loudly."""
+    """A two-layer source: shape (Grundform) and light/glow (Licht); unknown letters fail loudly. Height = rows (16 or a
+    strip of 16-high frames)."""
     chars = sorted({c for row in shape + light for c in row if c != '.'})
     palette = [pal[c] + 'ff' for c in chars]
     index = {c: i for i, c in enumerate(chars)}
     d = layers.digits_for(len(palette))
 
+    h = len(shape)
+
     def rows(grid):
-        assert len(grid) == 16 and all(len(r) == 16 for r in grid), grid
+        assert len(grid) == h and h % 16 == 0 and all(len(r) == 16 for r in grid), grid
         return [''.join('.' * d if c == '.' else format(index[c], f'0{d}x') for c in r) for r in grid]
 
     for y, row in enumerate(light):
         for x, c in enumerate(row):
             assert c == '.' or shape[y][x] != '.', f'light pixel outside the shape at {x},{y}'
-    return {'format': layers.FORMAT, 'version': 1, 'width': 16, 'height': 16, 'digits': d, 'palette': palette,
+    return {'format': layers.FORMAT, 'version': 1, 'width': 16, 'height': h, 'digits': d, 'palette': palette,
             'layers': [{'name': 'Grundform', 'visible': True, 'opacity': 100, 'blend': 'normal', 'rows': rows(shape)},
                        {'name': 'Licht', 'visible': True, 'opacity': 100, 'blend': 'normal', 'rows': rows(light)}]}
+
+
+# ---------------------------------------------------------------- animation: golden veins -> blue and back
+FRAMES = 5
+BLUE = {'e': '#3a9cff', 'c': '#b4ecff', 'f': '#5ab4ff', 'g': '#e4f8ff'}
+HEART_TO_BLUE = {'E': 'e', 'C': 'c'}
+GEM_TO_BLUE = {'F': 'f', 'C': 'g'}
+
+
+def strip(shape, light, to_blue):
+    """5 frames stacked: frame 0 golden, then the swapped letters turn blue from the top row down, frame 4 all blue."""
+    ys = [y for y, row in enumerate(light) for c in row if c in to_blue]
+    lo, hi = min(ys), max(ys) + 1
+    out_shape, out_light = [], []
+    for k in range(FRAMES):
+        limit = lo + (hi - lo) * k // (FRAMES - 1)
+        out_shape += shape
+        out_light += [''.join(to_blue.get(c, c) if y < limit else c for c in row) for y, row in enumerate(light)]
+    return out_shape, out_light
+
+
+def mcmeta(rest: int, blue: int = 40, step: int = 2) -> str:
+    """Long golden rest, short run over to blue, a little blue, the same run back (Vanilla animation frames)."""
+    order = [(0, rest)] + [(i, step) for i in range(1, FRAMES - 1)] + [(FRAMES - 1, blue)] \
+        + [(i, step) for i in range(FRAMES - 2, 0, -1)]
+    frames = ',\n      '.join(f'{{"index": {i}, "time": {t}}}' for i, t in order)
+    return '{\n  "animation": {\n    "frames": [\n      ' + frames + '\n    ]\n  }\n}\n'
+
+
+def animated() -> dict[str, tuple[dict, str]]:
+    """name -> (strip layer source, mcmeta text); heart and gem rest differently long so they never blink together."""
+    hb = heart_block(HEART_BLOCK_LIGHT_A)
+    hp, gp = {**HEART_A, **BLUE}, {**GEM_A, **BLUE}
+    return {
+        'nether_heart': (doc(*strip(HEART_SHAPE, HEART_LIGHT_A, HEART_TO_BLUE), hp), mcmeta(200)),
+        'nether_gem': (doc(*strip(GEM_SHAPE, GEM_LIGHT, GEM_TO_BLUE), gp), mcmeta(260)),
+        'nether_heart_block': (doc(*strip(hb[0], hb[1], HEART_TO_BLUE), hp), mcmeta(200)),
+        'nether_gem_block': (doc(*strip(GEM_BLOCK_SHAPE, GEM_BLOCK_LIGHT, GEM_TO_BLUE), gp), mcmeta(260)),
+    }
 
 
 def variants() -> dict[str, tuple[Path, dict, dict]]:
@@ -359,20 +404,36 @@ def main(argv: list[str]) -> int:
             (out / f'{name}_B_1x.png').write_bytes(scaled(b, 1))
         print(f'previews in {out}')
         return 0
+    if '--strips' in argv:
+        out = Path(argv[argv.index('--strips') + 1])
+        out.mkdir(parents=True, exist_ok=True)
+        for name, (a, meta) in animated().items():
+            (out / f'{name}_strip.png').write_bytes(scaled(a, 1))
+            (out / f'{name}.mcmeta').write_text(meta, encoding='utf-8')
+        print(f'strips in {out}')
+        return 0
     bad = []
+    anim = animated()
     for name, (png, a, _) in variants().items():
+        meta = None
+        if name in anim:
+            a, meta = anim[name]
         src = layers.layers_path(png)
+        mpath = png.with_name(png.name + '.mcmeta')
         text = layers.dumps(a)
-        image = layers.png_write(16, 16, bytes(layers.compose(a)))
+        image = layers.png_write(16, a['height'], bytes(layers.compose(a)))
         if '--check' in argv:
             if not src.is_file() or src.read_text(encoding='utf-8') != text or not png.is_file() \
-                    or layers.png_read(png.read_bytes())[2] != layers.compose(a):
+                    or layers.png_read(png.read_bytes())[2] != layers.compose(a) \
+                    or (meta is not None and (not mpath.is_file() or mpath.read_text(encoding='utf-8') != meta)):
                 bad.append(str(png))
             continue
         png.parent.mkdir(parents=True, exist_ok=True)
         src.write_text(text, encoding='utf-8', newline='\n')
         png.write_bytes(image)
-        print(f'wrote {png.relative_to(ROOT)} (+ layers)')
+        if meta is not None:
+            mpath.write_text(meta, encoding='utf-8', newline='\n')
+        print(f'wrote {png.relative_to(ROOT)} (+ layers{", mcmeta" if meta else ""})')
     if bad:
         print('stale:', *bad, sep='\n  ')
         return 1

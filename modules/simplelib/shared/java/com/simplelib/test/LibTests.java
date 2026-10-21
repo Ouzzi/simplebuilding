@@ -50,6 +50,7 @@ public final class LibTests {
         ALL.put("pixel_dither_deterministic", PixelArtTests::ditherDeterministic);
         ALL.put("pixel_rle_round_trip", PixelArtTests::rleRoundTrip);
         ALL.put("pixel_size_limit", PixelArtTests::sizeLimit);
+        ALL.put("simple_rarity_names", LibTests::simpleRarityNames);
     }
 
     // ------------------------------------------------------------ helpers
@@ -338,5 +339,51 @@ public final class LibTests {
         ALL.put("discover_behaviour_hints", com.simplelib.discover.LibDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplelib.discover.LibDiscover::firstPickupTips);
         WarpedWartTests.register();
+    }
+
+    /**
+     * Owner 21.10.: tiers above Epic. The component sits on the stack (Vanilla rarity stays Epic), the name carries the
+     * tier style as the child of every Vanilla wrapper (tooltip, chat item), the codec round-trips and the colours read
+     * 4.5:1 on the dark tooltip background. Server thread: the mythic name stays one translatable text.
+     */
+    private static void simpleRarityNames(GameTestHelper h) {
+        var cursed = new ItemStack(Items.STICK);
+        cursed.set(LibComponents.RARITY, com.simplelib.api.SimpleRarity.CURSED);
+        check(h, com.simplelib.api.SimpleRarity.of(cursed) == com.simplelib.api.SimpleRarity.CURSED, "component set");
+        var name = cursed.getHoverName();
+        check(h, name.getStyle().getColor() != null && name.getStyle().getColor().getValue() == 0xFF3030, "cursed red: " + name.getStyle());
+        check(h, Integer.valueOf(0xFF000000).equals(name.getStyle().getShadowColor()), "cursed black shadow");
+        var styled = cursed.getStyledHoverName();
+        check(h, styled.getSiblings().size() == 1 && styled.getSiblings().get(0).getStyle().getColor().getValue() == 0xFF3030,
+                "tooltip name keeps the tier colour as child: " + styled);
+        boolean[] red = {false};
+        cursed.getDisplayName().visit((style, text) -> {
+            if (text.contains("Stick") && style.getColor() != null && style.getColor().getValue() == 0xFF3030) red[0] = true;
+            return java.util.Optional.empty();
+        }, net.minecraft.network.chat.Style.EMPTY);
+        check(h, red[0], "chat item [name] red");
+
+        var mythic = new ItemStack(Items.STICK);
+        mythic.set(LibComponents.RARITY, com.simplelib.api.SimpleRarity.MYTHIC);
+        var mName = mythic.getHoverName();
+        check(h, mName.getStyle().getColor().getValue() == 0x3CF0D2 && mName.getSiblings().get(0).getContents()
+                instanceof net.minecraft.network.chat.contents.TranslatableContents, "mythic on the server: translatable, turquoise");
+        var letters = com.simplelib.api.SimpleRarity.gradient("Mythic", 0L, false);
+        check(h, letters.getSiblings().size() == 6 && letters.getString().equals("Mythic"), "gradient letter by letter");
+        check(h, !com.simplelib.api.SimpleRarity.onClient(), "game tests run off the render thread");
+
+        for (var r : com.simplelib.api.SimpleRarity.values()) {
+            var json = com.simplelib.api.SimpleRarity.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, r).getOrThrow();
+            check(h, com.simplelib.api.SimpleRarity.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, json).getOrThrow() == r, "codec " + r);
+        }
+        check(h, net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(LibComponents.RARITY)
+                .equals(com.simplelib.SimpleLib.id("rarity")), "registered as simplelib:rarity");
+        int tooltipBg = 0xFF100010;
+        for (int c : new int[] {com.simplelib.api.SimpleRarity.CURSED.color(), com.simplelib.api.SimpleRarity.MYTHIC.color(),
+                com.simplelib.api.SimpleRarity.MYTHIC_GREEN}) {
+            double ratio = com.simplelib.api.client.ui.UiContrast.ratio(0xFF000000 | c, tooltipBg);
+            check(h, ratio >= com.simplelib.api.client.ui.UiContrast.MIN, "contrast " + Integer.toHexString(c) + " " + ratio);
+        }
+        h.succeed();
     }
 }

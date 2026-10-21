@@ -149,4 +149,9 @@ public final class ModuleGameTest {
     public void pixelSizeLimit(GameTestHelper h) {
         LibTests.ALL.get("pixel_size_limit").accept(h);
     }
+
+    @GameTest
+    public void simpleRarityNames(GameTestHelper h) {
+        LibTests.ALL.get("simple_rarity_names").accept(h);
+    }
 }
