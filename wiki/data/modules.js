@@ -1168,12 +1168,12 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "counts": {
-      "items": 14,
+      "items": 17,
       "blocks": 37,
-      "recipes": 174,
-      "features": 6
+      "recipes": 177,
+      "features": 7
     },
-    "dataHash": "579492a35aea"
+    "dataHash": "1d3988fc50d1"
   },
   {
     "id": "simplemusic",
