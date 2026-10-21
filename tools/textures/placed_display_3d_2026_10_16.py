@@ -55,6 +55,8 @@ VANILLA_DISCS = ['11', '13', '5', 'blocks', 'bounce', 'cat', 'chirp', 'creator',
 SONGS = ['voidline', 'driftwood', 'daybreak', 'brimstone']
 TRACKS = ['', '_b_side', '_track_3', '_track_4']
 MOD_DISCS = [song + track for song in SONGS for track in TRACKS]
+# Simple Music (MU21): top views are committed (own pixels, modules/simplemusic/tools/gen_textures.py), not derived
+MUSIC_DISCS = ['blank_disc', 'custom_disc']
 
 
 def mask_rows(hexmask: str) -> list[list[bool]]:
@@ -206,6 +208,10 @@ def sb_files() -> dict[str, dict]:
         slab(f'{s}_pottery_sherd', 'sherd', f'minecraft:item/{s}_pottery_sherd')
     for d in VANILLA_DISCS + MOD_DISCS:
         item = f'music_disc_{d}'
+        tex = f'simplebuilding:block/placed_disc_{item}'
+        files[f'models/block/placed_{item}.json'] = child('simplebuilding:block/placed_disc_round', {'disc': tex, 'particle': tex})
+        files[f'items/placed_{item}.json'] = item_def(f'simplebuilding:block/placed_{item}')
+    for item in MUSIC_DISCS:
         tex = f'simplebuilding:block/placed_disc_{item}'
         files[f'models/block/placed_{item}.json'] = child('simplebuilding:block/placed_disc_round', {'disc': tex, 'particle': tex})
         files[f'items/placed_{item}.json'] = item_def(f'simplebuilding:block/placed_{item}')

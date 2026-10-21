@@ -112,6 +112,14 @@
     "minecraft:shelter_pottery_sherd",
     "minecraft:skull_pottery_sherd",
     "minecraft:snort_pottery_sherd",
+    {
+      "id": "simplemusic:blank_disc",
+      "required": false
+    },
+    {
+      "id": "simplemusic:custom_disc",
+      "required": false
+    },
     "minecraft:shulker_shell",
     "simplestorage:reinforced_shulker_shell",
     "simplestorage:netherite_shulker_shell",

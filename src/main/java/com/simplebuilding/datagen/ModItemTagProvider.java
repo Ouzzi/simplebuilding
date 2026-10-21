@@ -436,6 +436,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 com.simplebuilding.util.PlacedSolids.SLABS.stream().filter(id -> id.endsWith("_pottery_sherd"))).toList())) {
             if (disc.startsWith("minecraft:")) {
                 tag.add(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse(disc)));
+            } else if (disc.startsWith("simplemusic:")) {
+                tag.addOptional(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse(disc)));
             }
         }
         // Shulkerschalen (Vanilla und Stufen) liegen abgelegt, damit ein Klumpen sie aufwerten kann (ShulkerShells).
