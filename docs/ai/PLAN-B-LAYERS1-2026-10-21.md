@@ -65,3 +65,29 @@ Zusammensetzung. Teil 1 = alle eingecheckten eigenen Texturen; **kein Pixel änd
   Hinweis in AGENTS.md (Texturen-Regel).
 - Repo-/Jar-Größe +5 MB Text; Wiki-Kopien noch einmal so viel.
 - Laufzeit `check`: reines Python über 2 Mio. Pixel (Ziel < 60 s).
+
+## Ergebnis Inventar (Messung sb-test, 211 Skripte je einzeln ab Branch-Stand)
+
+- **2086 eigene Texturen im Umfang.** 1306 davon schreibt mindestens ein Generator pixelgleich neu (553 davon mehrere
+  Skripte, weil Runden-Skripte frühere Generatoren importieren), 780 haben keinen laufenden Generator (handgemalt bzw.
+  Besitzer-Vorlagen, z. B. `tools/textures/hand/`).
+- 14 datierte Skripte schreiben **abweichende** Pixel (veraltet: u. a. `copper_barrels_2026_10_05` 10,
+  `round5_settled_2026_10_02` 9, `cores_*` 6, `crucibles_2026_10_04` 6, `end_system_textures` 6) → nicht umgebaut, ihre
+  Texturen bekamen die Ein-Ebenen-Quelle.
+- `generate_textures.py` erzeugt seine 516 Texturen pixelgleich, aber nicht byte-gleich (Pillow-Kodierung auf sb-test);
+  PNGs bleiben deshalb die eingecheckten Bytes, die Quellen vergleichen Pixel.
+
+## Umsetzung (Abweichungen vom Plan benannt)
+
+- **Mit Zeichenschritt-Ebenen** (Generator schreibt `.layers.json` selbst): `modules/simpleend` (Rinde/Astknoten,
+  Bretter/Rahmen/Fenster, Blätter/Pollen, Endstein/Gänge/Krümel …), `modules/simpleenddragonfight` (Körper/Gesicht/
+  Stacheln/Flügel; Items nach Material), `modules/simplemaps` (Papier/Motiv/Falz/Kontur/Kompass), `modules/simplemusic`
+  (seine vorhandenen benannten Ebenen), `modules/simplequestionary` + `modules/simpletools` (nach Material),
+  `tools/textures/generate_textures.py` (Grundform aus der Pixelkarte, Glimmer, Griff, Grundplatte/Schleier/Sterne der
+  Pads; sonst eine Ebene), `tools/textures/generate_trim_overlays.py` (Muster + dunkle Kontur 6/7).
+- **Abweichung:** weitere pixelgleich laufende, aber datierte Einmal-Skripte (`light_panes_2026_10_14` 56,
+  `copper_light_panes_2026_10_16` 52, `pad_fade` 34, `chess_2026_10_06` 26, `module_guide_books_2026_10_05` 26 …) schreiben
+  keine Ebenen; ihre Texturen haben die Ein-Ebenen-Quelle, `layers.py sync` hält sie nach einem Lauf aktuell.
+  `gen_resources.py`/`generate_heads.py` der Module schreiben keine PNGs (die Messung zeigte zunächst Fehltreffer).
+- Ergebnis: 2130 Quellen (2086 Texturen + Icons), 216 mehrlagig, 1914 einlagig; `git diff --stat -- '*.png'` leer;
+  rund 2 MB JSON.
