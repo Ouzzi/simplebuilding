@@ -49,6 +49,7 @@ import obtain_time  # noqa: E402  (time to the k-th piece, scenario defaults)
 import base_materials  # noqa: E402  (raw materials of a recipe in total)
 import trade_sources  # noqa: E402
 import config_metadata  # noqa: E402
+import enchanting  # noqa: E402  (enchanting view: data/enchanting.js)
 sys.path.append(str(Path(__file__).resolve().parents[1] / "tools" / "textures"))
 import vanilla_derived  # noqa: E402  (Vanilla-derived textures: built from the client jar, never committed)
 
@@ -1122,6 +1123,8 @@ def collect_enchantments(roots: dict, lang: dict) -> tuple[list[dict], list[str]
             "description": display_name(lang, f"enchantment.{roots.get('namespace', NS)}.{name}.desc", ""),
             "maxLevel": data.get("max_level"),
             "weight": data.get("weight"),
+            "minCost": data.get("min_cost"),
+            "maxCost": data.get("max_cost"),
             "anvilCost": data.get("anvil_cost"),
             "slots": data.get("slots", []),
             "supportedItems": data.get("supported_items"),
@@ -2571,6 +2574,7 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
                     referenced.add(v)
     referenced |= vanilla_recipe_ids(roots)
     referenced |= {a["icon"] for a in advancements if isinstance(a.get("icon"), str) and a["icon"].startswith("minecraft:")}
+    referenced |= enchanting.icon_ids(WIKI)  # enchanting view (?tab=enchanting)
     vanilla = copy_vanilla_textures(roots, referenced, icons)
     icons.finish()
     # Jeder Gegenstand und jeder Block braucht ein Bild: eine Textur oder ein 3D-Bild aus
@@ -2812,8 +2816,11 @@ def main() -> int:
             if len(incomplete) > 20:
                 print(f"   ... and {len(incomplete) - 20} more")
             print("Fix: the wiki is bilingual - every entry needs an \"en\" and a \"de\" block.")
+        enchanting_problems = enchanting.sync(sys.modules[__name__], check=True)
+        for problem in enchanting_problems:
+            print("PROBLEM:", problem)
         if (stale or undocumented or incomplete or missing_props or in_world_problems or vanilla_problems
-                or duplicates):
+                or duplicates or enchanting_problems):
             return 1
         print("wiki: up to date, everything documented.")
         return module_result
@@ -2840,6 +2847,9 @@ def main() -> int:
                  "// The app reads this file so it also works when index.html is opened\n"
                  "// straight from disk, where the browser blocks fetch() of a local file.\n"
                  "window.WIKI_DATA = " + payload + ";\n")
+
+    for problem in enchanting.sync(sys.modules[__name__], check=False):
+        print("PROBLEM:", problem)
 
     counts = data["counts"]
     print(f"SimpleBuilding wiki, Minecraft line {args.line}")
