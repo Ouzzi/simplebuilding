@@ -80,4 +80,33 @@ Datagen 26.3; Guides/Wiki/Discover; `check`. Nicht geprüft (Auftrag): Client-L�
 
 ## 6. Stand und Abweichungen
 
-(wird am Ende ergänzt)
+Umgesetzt wie geplant: Modul `com.simplestorage.backpack.*` (Item, Tier, Block, BE, Contents, Container, WornContainer, Menü
+mit Slots/Layout/OpenData/Providers, UpgradeRecipe, TooltipData, `BackpackNet`, `BackpackKeyMigration`), Client
+(`BackpackScreen` mit Kasten-Stil aus SimpleLib-UI, `BackpackTooltip`, `BackpackBlockTint`, `BackpackLayer`, `BackpackKeyHandler`,
+Mixin `BackpackKeyScreenMixin`), Trichter am getragenen Rucksack in `ItemEntityBundleMixin`, 3 Loader (Menütyp je Loader,
+Öffnen über `BackpackMenuProviders.opener`, Paket, Taste B, Tönung, Ebene, Tooltip, Vanilla-Tabs allein), Curios-/Trinkets-Haken
+(`CuriosHook`, `TrinketsHook`, compileOnly) + Daten, IdMoves (4 Items/Blöcke, BE, Komponente, 4 Rezepte + Freischaltungen,
+16 `<farbe>_dyed_storage`), Ressourcen (Modelle, Items, Blockstates, Texturen im 26.3-Stand, Loot, Rezepte mit
+`*_without_simplebuilding`, Tags `backpacks`/`not_allowed_in_backpack`/Färben/Verzauberungen, Lang, Fragentisch, Wiki-Notiz,
+Money-Zeilen, Discover-Tipp). SimpleLib: `CarriedStacks.Entry.container`, `InventoryExtras`, `client.InventoryExtrasClient`.
+SB: `STORAGE_IN_SB`-Gates (Items, Blöcke, BE, Komponente, Client-Tönung/Taste, Accessory-Haken, Datagen), `StorageRefs.backpack*`,
+`util/WornStorage` (Overlay-Paar) für Baustab/Pick/Konstrukteurs Hand, Kopfplatz + Resonanzknopf über `InventoryExtras`
+(`LibServices`, `client/LibClientServices`), Advancement `pitching_camp` über Vanillas `placed_block` (`AdvancementCompat`),
+Guide/Tabs/Suchtab per Id, 26.3-Färberezepte von SB entfernt, Tests per Id (`StorageBackpacks`) oder `STORAGE_IN_SB`-Wächter.
+
+Belege (sb-test, 542ed9057 bzw. davor): Compile 26.3 fabric(+gametest)/neoforge/forge, Modul fabric/neoforge/forge, 26.2
+`:compileJava`/`:neoforge`/`:forge` Exit 0; fabric-263 + neoforge-263 2398/2404 → nach Fix advancement_tree* 16/16,
+server_tuning* 16/16; module-simplestorage fabric/neoforge/forge/standalone-fabric/standalone-neoforge je 104 (520/520,
+fabric + standalone-fabric nach Namensfix erneut 208/208); integration-263 3/3; forge-263 `data_integrity*` 51/51; fabric-262
+`backpack*` 16/16, `*accessory*` 5/5 (`*world_upgrade*` 7/8: `fixtures_are_what_twenty_six_two_writes` scheitert an
+`GhostItems` des Trichters – vorbestehend, nicht Rucksack); Datagen 26.3, Guides, Wiki, Discover, Money-Links; `./gradlew check` Exit 0.
+
+Abweichungen (bewusst):
+- SBs Schalter `server.features.backpack` wirkt auf 26.3 nicht mehr (Rucksäcke sind Modul-Inhalt; Ausblenden in Stufe 9); sein
+  Rezeptfilter-Test läuft nur auf 26.2.
+- Rucksack-Taste heißt `key.simplestorage.open_backpack` (Kategorie Inventar); die alte Belegung wird einmal aus `options.txt`
+  übernommen.
+- Discover-Tipp „Rucksack“ ist Simple Storages (26.2 verliert den SB-Tipp, wie bei den Hämmern in Stufe 7).
+- Meisterbauer/Konstrukteurs-Hand-Tests mit Modul-Rucksack laufen in SBs `BackpackTests` (per Id), nicht in den Modulzielen.
+- Client-Tests `BackpackClientTest` auf 26.3 ausgesetzt; `ModUiStyleClientTest`/`HudAndTooltipClientTest` bauen weiter SBs
+  (26.2-)Rucksack-Bildschirm. Client-Sicht (Bildschirm, Ebene, Tönung, Taste, Kopfplatz) offen.
