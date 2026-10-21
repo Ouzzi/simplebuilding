@@ -35,6 +35,8 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
 
     private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
     private int progress;
+    private ItemStack checkedSheet = ItemStack.EMPTY;
+    private boolean checkedOk;
     /** Pressed discs since load (tests). */
     private int pressed;
 
@@ -73,9 +75,7 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
 
     /** One server tick (public for tests). */
     public void tick(ServerLevel level) {
-        ItemStack result = SimpleMusic.on() && items.get(OUTPUT).isEmpty()
-                ? DiscPress.result(items.get(SHEET), items.get(BLANK)) : ItemStack.EMPTY;
-        if (result.isEmpty()) {
+        if (!SimpleMusic.on() || !items.get(OUTPUT).isEmpty() || !items.get(BLANK).is(MusicRegistry.BLANK_DISC) || !pressable(items.get(SHEET))) {
             if (progress != 0) {
                 progress = 0;
                 setChanged();
@@ -87,11 +87,22 @@ public class DiscPressBlockEntity extends BaseContainerBlockEntity implements Wo
         }
         if (++progress < DiscPress.PRESS_TICKS) return;
         progress = 0;
+        ItemStack result = DiscPress.result(items.get(SHEET), items.get(BLANK));
+        if (result.isEmpty()) return;
         items.get(BLANK).shrink(1);
         items.set(OUTPUT, result);
         pressed++;
         level.playSound(null, worldPosition, SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 0.5F, 1.0F);
         setChanged();
+    }
+
+    /** {@link DiscPress#pressable}, parsed once per sheet (a code may be 32000 characters long). */
+    private boolean pressable(ItemStack sheet) {
+        if (!ItemStack.matches(sheet, checkedSheet)) {
+            checkedSheet = sheet.copy();
+            checkedOk = DiscPress.pressable(sheet);
+        }
+        return checkedOk;
     }
 
     @Override

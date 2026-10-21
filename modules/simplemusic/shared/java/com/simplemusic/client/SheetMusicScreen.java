@@ -104,7 +104,7 @@ public class SheetMusicScreen extends Screen {
             importing = true;
             rebuildWidgets();
         }).width(80).build());
-        buttons.add(Button.builder(Component.translatable("simplemusic.editor.copy"),
+        if (track == null) buttons.add(Button.builder(Component.translatable("simplemusic.editor.copy"),
                 b -> minecraft.keyboardHandler.setClipboard(code)).width(80).build());
         if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.sign"), b -> sign()).width(80).build());
         if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.upload"), b -> upload()).width(80).build());
