@@ -51,6 +51,7 @@ window.WIKI_MODULES = [
       "missing": "Modulfamilie-Umzug läuft: Blocks, Tiegel, polierter Endstein, Octets fertig; Hämmer in wave1 (noch nicht im master, check rot); offen Gadgets, Lager (Stufe 8), Enderite, Release (Stufe 9); dazu Abnahmen im Spiel.",
       "asOf": "19.10.2026"
     },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
       "items": 542,
       "blocks": 318,
@@ -72,6 +73,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVUlEQVR42mNgGLTAiovjPzImy4AbGhL/Z0kJkG8ASDPIENq7AN2/MPw/ywuMccljtQ1GgzVf2ADBQDayHIa3kP0Lo9ENQLcAwwCKvDAMopEmSZluAACaP5eFFrcfyQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "features": 1
@@ -108,6 +110,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABoUlEQVR42r2TS0sbURiG/V2CgjQBtaUxxFEhtQS7ELWWpG4CophfoFatmlSdgAUxCyt00ZBKQUSCF7zhQry1CUWN8TImxpnODI8ns3e0iC5evsN3Pp7znpdzSuKJOR6jkicBtL59g8/twVvtsvSuxm3VewHFofWpTo4Xo3g/uzBNzVLHpGT11r52ERkO3w0onnqa7EFN/eCV7KB+vpT2ZA37qRhqOs7FZpTJ0cG7AaEWL6Z+jKn+FVWhOdaAS35BINYkeinMm12+jEbsHRhnK6BfEpQ/IEWq6E2E2D/dAO0E/eQX8ti4fQa/EyMWJDAngalgahn2MutincO4WrV3UAQUdnppCzfyWlhvm/axuBenccJD93QQXdftQ+xwV2BcH4ornPMy6iCV3UJe/kTfQgizILLRzxgYHLLPQMunhQ7oX+oS9s9R81kBWkK9yWLkth8Qohgq5I7w/6zD0BT06yP+ZDYtwD9lyx4QHhoh+L6Wb2N+8tkdtEvhRkmzlhzgu/zR2puZmb3/KTfVS5SXlSE5q6l1OvBUOvFJnmf8TP+jW3RFGn0zsn8bAAAAAElFTkSuQmCC",
     "counts": {
       "items": 8,
       "recipes": 9,
@@ -135,6 +138,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA2UlEQVR42mO4devWf3z4//MpOOW+7C/4z4AuQCz/+6M+MM2AbipMAp2NCzOAnIhuEzr2kGD/X6MvCMcoBhCyDab5f1cIGL+OV0YxhAGfrTDNIE0gvNpVAmwIiIYZgmIAsjNBimAakTFMHMMAbM7EZghMXFuADWIALABhToY5E6QYxke2HWQASBxuAHpgIWsC0TA+DCNrxhkGME3obJBGEB9rNOKLe5BGmK0wAzBSIno6gGlCdi7c4MwYRF4gJiUi422z2v772FvCMxpJeQFbasWbG3HlSOQsDgBbY+6dp3ZhZwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
       "recipes": 8,
@@ -160,6 +164,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR42mNgoCXQmnXgPwhTrJFogwgpxClPqlMx1MM48z78/w/CuDQiy2M1AJtCXAbjNQCfxuFsADZDcBlAdHpAN4DkFAkzgGp5giYAAE3ZsoFvU8gYAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "recipes": 1,
@@ -188,6 +193,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASUlEQVR42mNgGAUYwEte5D8hjFfzyaoovHhFkBV2Q4jVnGeggNsAkAJ8GKSZoAFdDgYYGmFiRBmATSPRLoApwIcJxgLZUTiCAQDgnaqZkmw6uwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 2,
       "recipes": 2,
@@ -216,6 +222,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABgWlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kb9LQlEUxz9qUZRhUENDkIQ1ZZiB1NJglAXVoAb9WvTp08Afj/eMiNagNSiIWvo11F9Qa9AcBEURRHOtRS0lr/M0UCLP5Z77ud97zuHec8EezShZo84H2VxBD4eC7rn5BXfDK05aseGhK6YY2nRkPEpN+7yXSLFbr1Wrdty/1pxIGgrYGoVHFE0vCE8IT60WNIt3hNuVdCwhfCbcp8sFhe8sPV7mF4tTZf62WI+GR8HeKuxOVXG8ipW0nhWWl+PJZlaU3/tYL3Emc7MRWbtldmIQJkQQN5OMMUqAAYbFB/Dip1921Mj3lfJnyEuuIl5jDZ1lUqQp0CfqilRPyqqKnpSRYc3q/9++Guqgv1zdGYT6Z9N874GGbShumebXkWkWj8HxBJe5Sn7+EIY+RN+qaJ4DcG3A+VVFi+/CxSZ0PGoxPVaSHDLtqgpvp9AyD2030LRY7tnvOScPEF2Xr7qGvX3olXjX0g9t+GfpNyGCNQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAdBJREFUKJFlUjFo20AUfTp9nQylWWwQGGtJsySQkkkYCh06FDp7KF1STMC0NDHNoMWTS7t5CcZD6SI6ZCiN505dDO3gbim4BIqH4LiYKhlaGmrrpOvwhawmx3F3uv/+e1/3vrF3dOZ7cWdoAujWyk/fT5EbloDvxa7rNvvpvbF3dAagvjoLxg4A34vbA82xGwXKuLIheGN0lCAMQ6Uinn/+qjAMowQsniporQE0+9MowWKhlIp0oji2v3XZGxWlpFZ1qWNebDY+fPvte/F64efnH5ZO1Hy+GLy4X77z6EtY0BrP1i8Ojm8mGqaBbq1MrNgeaKVWGJ2VO58vbBsHxytEanfjvFQqNftTApaV5NH5HKXQGxWlNAFQPvzp1YPr53svP+ZfOU14+/gWANQn/FmpVCaTSZ5r5/CUDwRASto5PM2qevdkk2MPX3+1bWkIIrKkTKlFqxo31mZSEpFlCLJtuR2cANgOTq6gG2uzpdPs2hUfGL27cZ4563ux4K2+OuPant/+ZQgyBO1vXTJ3MHaCseN7MYDO0BTdWrkzNIOxYwm0qvGb7w6RRWT1RsX2XcNKWweu66b/kLUhZ7IOzwwEoNmfcjv95wO/9HUQk/L6Dx4w4ZYODKssAAAAAElFTkSuQmCC",
     "counts": {
       "features": 77
     },
@@ -242,6 +249,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQklEQVR42mNgGL5AS0vrPwiTrXnWrFkYBlgtOPGfoI0gnJ2djWIAskachsA0ImNkFxA0ZHAYQFEYUBwLVE0HIwwAAP9zav+fL3wUAAAAAElFTkSuQmCC",
     "counts": {
       "features": 20
     },
@@ -278,6 +286,7 @@ window.WIKI_MODULES = [
       "missing": "Grundstock fertig; neu Item-Rahmen (in wave1) und Container-Tooltips (auf Branch), Bündel-Ansicht geplant; Abnahmen im Spiel offen.",
       "asOf": "19.10.2026"
     },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mNgGNTASkXgPwiTrfnkkiwwpsgQsjTDNKJjojWvKLHBwN1R2oQNQdYM0oCOs5wUcBuCTfM1AysUGq8hMAOQNaNjggagOxldM8kGYHM+wXDAZghRmgmlAYqSNU0BAAMAuIkP/7YKAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "recipes": 1,
@@ -307,6 +316,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAS0lEQVR42mNgGFRATsXgPwyTbcCcEof/yAahY6IM0K+/gBPjNQTZgKwNH0g3hBgXUGyAfNQM8g3Aq5nYWCDaAIrTAf0NIDnVDRoAAIaOsHDvv2PuAAAAAElFTkSuQmCC",
     "counts": {
       "items": 2,
       "blocks": 1,
@@ -340,6 +350,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mNgoCbgYhP6TwzGa4C1Vsx/KQENrBgkR9AAkMIq/Qtg7Cc1A0xvKPgBpkFyRBsA0wQzhCQDkDUhG0SSC9BtBxlEtAEwW9ENIskFIE3oBpHthSEWCxSnRIrywoAAAPBu4526BoA/AAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "blocks": 2,
@@ -366,6 +377,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mNgGH7AS0vgPz5MUPOcKCW8GKchMM2PdhTixTgNAQkS0gzDGAaABGL2GP3Xr5UB08hsXGJYDfl0wogojNMLF1KywPhFVz+cjU2M+mFAbBQSFZXE4GGWdwD48wNSn1Od5gAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
       "blocks": 18,
@@ -393,6 +405,7 @@ window.WIKI_MODULES = [
       "missing": "Basis für alle Mods; offen Kreativtab-Zeilenlayout-Abnahme und Stil-Bausteine, wächst mit jeder Familienstufe.",
       "asOf": "19.10.2026"
     },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mNgoCbQluL7TyzGqjnOUPr/rDADghivAVUOKnCFN27cQKFBGCRPlAEgTTA8a9YsuCFEGQDXiOx0qCEkuQDdAIpdAMKkuQCqCY5JCURkZ8NpYg0ghLEmJpgBLx6eIIiP7JyF2wCQJDEYpzcoyg8DAgAuSlC0PXgRPgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 10,
       "blocks": 7,
@@ -422,6 +435,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVklEQVR42mNgGEzgP4kYVTMp4NixYxiGwCWIwaGhobgNMDc3h2OYBnQxggZ43XiA4iKQWHd3N1yMoAHIfsUmhteAwREGyP4dQmEAkyAWY03OlOQFsgEAK4m6owJ67PsAAAAASUVORK5CYII=",
     "counts": {
       "features": 43
     },
@@ -446,6 +460,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZElEQVR42mNgGDQgO8rqPykYqwGPLy8lCuM1IH+BGwoGidmXHYFjogzo2RsFpkEajmhpodBEuwDZVphmog3AphlEw7yE1wBkzejhAfIa0Qaga0QOVIIGoNuMHiu0SwcUpcShCwB/1UvDTpoglgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
       "recipes": 4,
@@ -473,6 +488,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42s2S0QnAIAxEnSiDulX/Mky+uoAlhYNoT5v2y8CB5M6nhJSyTYlIgz5nvGFmTVVvMcgyM5oIRDG/A3jzPKQLMSHzAGQg8TKdg5u1VgpBz306aAAYJJ5TgAgZf5MGIOz6DWBaAvDim6bbOi7PTGWrugCa5XK+5A41vgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
       "blocks": 1,
@@ -496,6 +512,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWklEQVR42mNgGDSAh0vgPykYqwF6Wlb/vVwiwDQ2DJPDawAxmLYGPGj4D8cwDehieA3osjoBVgiiYQagi9EvDIT4JMCYZANgGtExSQagu4AkA8gOA4qS8oABAIMU3cFQUaIiAAAAAElFTkSuQmCC",
     "counts": {
       "items": 22,
       "recipes": 63,
@@ -523,6 +540,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAT0lEQVR42mNgGLQgq7jhPzImWfOnT59QMFGGwGxD14xsCE4X4dOIyzCyNVNswI4DZzANAAmSgjHCAT3aCGGssWBf/+A/KXzqaaYqGHreAADTuTuTrcEQpQAAAABJRU5ErkJggg==",
     "counts": {
       "features": 3
     },
@@ -548,6 +566,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASklEQVR42mNgGL5AS5z7PzImy4AVGVb/u/21iDPAa8WD/zBMlgEUuQDZdpq5gGBg4nMBMibaNbgMINoQkCIvLVGcmGhDcOFhlGcAsVt4i/+x0cwAAAAASUVORK5CYII=",
     "counts": {
       "features": 17
     },
@@ -574,6 +593,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAV0lEQVR42mNgGFRAV1f3Py5MlOZbt25hxQsWLCDOIFy2wwyBGUSW18gyBKSwK8kIwyVEhwlMM7oriAoLZM0kGYBNM7IBZGkmygB8mpHVkK2ZqATEMCQBAJ72mgHP7heTAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "blocks": 1,
@@ -603,6 +623,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR42mNgGHTgxYGA/4TYeDXvaNP5D6JxsfEaAFMEonGxB7kLQKBrlsF/QmyiDUGniQJWGgL/s7wUMDBInD4GUOwFigIRXREh/uAAAOxjpIXG8ulhAAAAAElFTkSuQmCC",
     "counts": {
       "features": 8
     },
@@ -628,6 +649,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASklEQVR42mNgGDSgq6vr/8AaQFVDopwUCGKcBoAkQYbcOTEPL8ZqCEgQJGmlJUKZATDclWWFFeM0AJsh2PCOBQWEw4HsQBwFpAMAYbepucO4K78AAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "features": 11
@@ -654,6 +676,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASElEQVR42mNgGD5AS4rnPykYqwErSmz+H+nyAtP4MF4DiMG0MwAdf7rgAMYkhQEy3jFBAYyHUBhQbECWkwJRmOhYICklDhgAAJ1Y/Ym0HbQxAAAAAElFTkSuQmCC",
     "counts": {
       "features": 5
     },
@@ -676,6 +699,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAUElEQVR42mNgGAVwYKUi8h8dEyMHV/DhxQUMfGLHBDDGJodiCMyArKwqOEY3AF0OqwF0cQFeA6jmAmwG0D4Mqqy0MDAsznHJEUxI+PDgyQIAjO1hNnAX8v0AAAAASUVORK5CYII=",
     "counts": {
       "blocks": 1,
       "recipes": 1,
@@ -706,6 +730,7 @@ window.WIKI_MODULES = [
       "missing": "Funktionen fertig; offen nur Abnahme im Spiel (Modelle-UI, Stufen/Stärke der Effekte und Sounds) und Stil-Audit-Reste.",
       "asOf": "19.10.2026"
     },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYElEQVR42mNgGH7AS0/kPy5MlOYT06NwYrwGwTTfMDAAY5gmg4QbYIxuEE6biTEAwxBCTofhDxcMwBinAQYLHMAY3c9kGYCsAN2FWAMSmzfQXYBTM3oaIBSVtE1MQw8AAAjx+VMmT7OpAAAAAElFTkSuQmCC",
     "counts": {
       "features": 1
     },
@@ -726,6 +751,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleend",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXUlEQVR42mNgGLRAS8LhPzImWbOVVsB/ORENOCbaEGyaSTIEpAimYYPDA9IMwGU7skF4DYHZjm4z0a5Adj7J3sAXeES5Al/gERUO2JxPcjigG4LNJURFJT48+DIdAGchpOHp8eH/AAAAAElFTkSuQmCC",
     "counts": {
       "items": 3,
       "recipes": 1,
@@ -756,6 +782,7 @@ window.WIKI_MODULES = [
       "missing": "Funktionen fertig; offen Client-Sicht im Spiel, Stil-Audit-Reste und die Nebelwand-Frage (Lohen-Seite).",
       "asOf": "19.10.2026"
     },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mNgoBXQUjD4j4xJ1txVNQuO4wIKiDcEWTNII0mGwDQja0TmEzQEm9NJ9gpIATaNJIcDCHtZaYExWTEBAiDNWSEO/8lOCyQZgJ5wsHkBb8ICCb54tAKMTxzogLOxieE0AF0jLoNwGkAKZhg0AACWON/fmynZCAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
       "blocks": 47,
@@ -779,6 +806,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mNgGFTAioPjPzImJI6h+UNBwf8rWlpwDNOALAYTx6oZ3QB8GMUQbLaDMAwQZQA2jeiAagZ0iYhgDwdivIBVMyGXEKUZn0uI1ozLEJI0oxtClmb0JMwwqAEADqoDIJnrl/wAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "recipes": 1,
@@ -805,6 +833,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAi0lEQVR42mNgoCWQs3L5D8Jka/zy/z8YE20QssYVT96gYLwGYdNY/+c/CsZrEIhz4t0nuJPRDUHWDMIgtRgG1Jy4ApbAZhCyRhCOWrEFuwEwjG4QskYYxmsAukHIGvEaAPMzLgNg8gQNgBmCbACyHFYDtJQsMDDMAGxyeNMDLgNITpEwAyjOEzTNsQBPlprgNs/M0QAAAABJRU5ErkJggg==",
     "counts": {
       "items": 2,
       "blocks": 2,
@@ -832,6 +861,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbklEQVR42mNgGDRAS0vrPykYqwFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcjRUl5wAAAJdYeR2tTbIkAAAAASUVORK5CYII=",
     "counts": {
       "items": 4,
       "blocks": 9,
@@ -865,6 +895,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mNgGDRAzkriPykYqwFRG7z+23WZgGl0NjIfrwH4NMLYBF0gJCUAxjBNMD7RLkDXgG4gTgPQnY6ukSgvoGtGNoQoL6A7G5sriHYBcqAS5QL0MMCFSUoH2NIETgMoSsoDBgBbGgsoCNwxDwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 188,
@@ -894,6 +925,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mNgGDTASkXgPykYQ/MJAwMw/vDhAxgT4qMYQrEBFHsBBrqSjP4TCiu8amCSBgcS/oMwTPzDAaDTgZi2BlAcBiDBFSU2RGG8BlQFaeDUCJOjnQsoTgcDAgCgcAEa0k9XxAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 5,
@@ -921,6 +953,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXElEQVR42mNgGDRARMXtPykYqwF6MSuIwngNkHdqwKkRJkfQgBOzsrBiogwAKfzw4cN/rS4ruEYQGyQGYhNlAAyvqPACY2SxIWAAxYEIMwQbJiodUJSQKErKAwYAOJMxXGc87qkAAAAASUVORK5CYII=",
     "counts": {
       "items": 2,
       "recipes": 1,
@@ -943,6 +976,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPklEQVR42mNgGBTAysrqP10McNgQ8B+Etaos/tPHgBcHDP6D8Iouhf9DxIAbDg7/QXiWhsb/kWgAOZhheAAA37Wzr1wvbGAAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "recipes": 1,
@@ -970,6 +1004,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42rWTOwqAMBBEPUQKT2BlaaellaWQ1gOktrL23sosDGzWGH8oPDBu5pksSVH8+ThXbuB1cFlW4baIE6uqFijg+FTEQghzBIP2+0GEgffTIWhXwHrTtGkB0EELaghfCoZhFBjsul7IClC0AsCwFrChkQCTudecAOA9KdASinSQ4aRAr0L3Q+9b/z17HigADLNxj04kBZ/vxK83dge1/vmbzn96sgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 53,
@@ -999,6 +1034,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVR42mNgGB5AS0vrPzkYxYAdO3b8/9CgAMb/LzjA2djEQGpRDEA2hBiMoRnZgK6uLoJ4YA2IiooaQANAmnEaADOEbM3EJiqG4QcATrQP6mvw4N4AAAAASUVORK5CYII=",
     "counts": {
       "items": 27,
       "blocks": 11,
@@ -1028,6 +1064,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR42mNgoCWw0hD4D8Jka9zSFfD/xIKU/yQZBFII0gTDIEOQDSLKgFlFDmAMM6QqzACMSTYAhGGaiTIA5ld8BmA1BFegwQwgGKj4Ag1foMINwBdo+AIVwwBcfsYlTz0DcAUasfJEp32y8wZNAQCTMATmlTDdBwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 176,
@@ -1058,6 +1095,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAR0lEQVR42mNgoDXQ1dX9jw0TrfnKlSsYeMWKFcQZAjMApAEZ5+XlDSUDQIqxYYIGgBR0JRn9JysWkDWTFe8jTTNyemcYkgAAE2aY9RWWl1oAAAAASUVORK5CYII=",
     "counts": {
       "items": 8,
       "recipes": 11,
@@ -1086,6 +1124,7 @@ window.WIKI_MODULES = [
       "missing": "Stufe 1 + Teile von Stufe 2 nur auf claude-wave1 und nur Fabric; offen Kompat-Ziel, 2. Messreihe, Benchmark beim Besitzer (Stufe 3), Stufen 4/5.",
       "asOf": "19.10.2026"
     },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPElEQVR42mNgoAfI8uL4j4xJ1vz/gQMYP1igQJoBg0sz0eGArBkbJugabLaR7RVkF41EzSRrRI8FhiEDAPo7nRcln1LoAAAAAElFTkSuQmCC",
     "counts": {
       "features": 1
     },
@@ -1104,6 +1143,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleoptimization",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQUlEQVR42mNgGAVYgZaW1X9smGiNHz58wIrxGoSu0arrBgpGN4gozSAgIKFA2BBcBoA0E2UAxV6gSiBSJRpHKAAAfvbmCghP7nEAAAAASUVORK5CYII=",
     "counts": {
       "features": 7
     },
@@ -1122,6 +1162,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleoptimization",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPElEQVR42mNgGAVgwGcl8p8cjGKAVpcVSRirAVJSUmAMU4SPTxsDKPLCiwMO/+WytIimMQygKBZGAWUAAHYMpAPD1ZcjAAAAAElFTkSuQmCC",
     "counts": {
       "features": 2
     },
@@ -1140,6 +1181,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleoptimization",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPklEQVR42mNgGFRASkbhPzEYrwGzFqzAi4kyQEvPBAWDxBweJBBvwDB1wYcDBiMmDKISMvBiggZQlJQHBAAAY4P/EVMhQ0IAAAAASUVORK5CYII=",
     "counts": {
       "features": 2
     },
@@ -1167,6 +1209,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR42mNgGDTASkXgPykYqwE7ugKIwngNOLEgAYy7koywYoIGgBThM4QoA/AZQrQBuAwhyQBshpBsALohZBmAbAjZBsAMIWgARQmJoqQ8YAAAaFgsZn/BQuAAAAAASUVORK5CYII=",
     "counts": {
       "items": 14,
       "blocks": 37,
@@ -1193,6 +1236,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATElEQVR42mNgoBbIirL6TwrGasCHFxeIwiQZICUlhYLxGrBjwwIMDNKEzibZBejsIeQCWMChs4l2AXLIkx0L2DDtEtLAu4CizEQuAAAPpsyAzRZtVQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 21,
       "blocks": 2,
