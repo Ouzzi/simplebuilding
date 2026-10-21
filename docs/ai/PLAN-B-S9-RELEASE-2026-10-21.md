@@ -49,7 +49,7 @@ PLAN-B-S8B3:41/102, PLAN-B-S8C1:128, PLAN-B-S8C2:105, Memory uebergabe-A.md:124/
 ## 3. Dateien
 
 - `common/src/shared/java/com/simplebuilding/config/ConfigOptions.java` (Liste, `hidden()`, `visible()`)
-- `common/src/shared/java/com/simplebuilding/client/ConfigScreenHiding.java` (neu, AutoConfig-Transformer)
+- `ConfigOptions.hiddenFields()` + Prädikat-Transformer direkt in den Fabric-/NeoForge-Client-Klassen (Forge 26.3 hat kein volles cloth `gui.registry` im Klassenpfad)
 - `src/main/java/com/simplebuilding/SimplebuildingClient.java`, `neoforge/.../SimplebuildingNeoForgeClient.java`,
   `mc26_3/forge/.../ForgeConfigScreen.java`, `common/.../command/SimplebuildingCommand.java`
 - `common/src/mc26_2/.../SledgehammerItem.java`, `mc26_3/overlay/.../SledgehammerItem.java`, `InWorldTransformations.java`

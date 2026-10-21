@@ -176,6 +176,15 @@ public final class ConfigOptions {
         return ALL;
     }
 
+    /**
+     * The fields of the {@link Option#hidden} options. Fabric (ModMenu's {@code AutoConfigClient.getGuiRegistry}) and
+     * NeoForge (its own registry) register a cloth predicate transformer that turns these into no row and no tooltip;
+     * Forge's own screen walks {@link #visible}. The screens save the whole object, so the values stay in the file.
+     */
+    public static Set<Field> hiddenFields() {
+        return ALL.stream().filter(Option::hidden).map(Option::field).collect(java.util.stream.Collectors.toSet());
+    }
+
     /** {@link #all} without the {@link Option#hidden} ones: what the config screens and {@code config list} show. */
     public static List<Option> visible() {
         return ALL.stream().filter(option -> !option.hidden()).toList();
