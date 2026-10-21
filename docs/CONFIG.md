@@ -122,6 +122,14 @@ ihr Besitzer online ist. Grenzen stehen in `ServerTuning` (Konstanten) und werde
 | `blueprint` | `maxBlocksPerTick` 32768 (1..32768), `pictureImport` an, `picturePermission` 0 (0..4), `pictureMaxSide` 128 (16..128) | Obergrenze je Tick; der Standard liegt über allem, was ein Bau heute nutzt. Bild-Bauplan (`pixels`-Zeilen, `BlueprintPicture.refusal`): Schalter, Rechtestufe, längste Kante (docs/BLUEPRINT.md 1.9) |
 | `trimStrengths` | 27 Faktoren, je Wirkung (1,0; 0..2) | Faktor auf die Rate einer Wirkung aus allen Mustern/Materialien; Deckel bleiben; Tooltips zeigen den Server-Wert |
 
+**In Sub-Mods umgezogene Schlüssel (26.3, Modulaufteilung Stufe 9):** `server.machines.*FurnaceSpeed` (Simple Ovens),
+`server.tools.sledgehammerUpgradeSeconds`/`*UpgradeDamagePerHit`/`diamondBlockPebbles` (Simple Hammers),
+`tools.invertBundleInteractions`, `server.features.backpack`, `server.loot.betterChestPercent`/`*ShulkerPercent`/
+`endermitesPerRareShulker` (Simple Storage). Das Modul übernimmt den Wert einmal aus `simplebuilding.json` und liest dann
+seine eigene Datei. In SB bleiben die Felder (alte Dateien laden fehlerfrei, Werte bleiben beim Speichern erhalten), aber
+Config-Bildschirm (Fabric/NeoForge/Forge), `/simplebuilding config list` samt Vorschlägen und Wiki-Liste zeigen sie auf 26.3
+nicht mehr (`ConfigOptions.MOVED_TO_*`, `hidden()`); `config get/set/reset` mit vollem Pfad antworten weiter. 26.2 zeigt alle.
+
 **Rezepte abgeschalteter Funktionen** (`recipe/RecipeFilter` + `mixin/RecipeMapFilterMixin`): der private
 `RecipeMap`-Konstruktor ist auf 1.21.11/26.2/26.3/26.4 gleich; dort fallen Rezepte im Namensraum
 `simplebuilding` weg, deren ID zur Funktion passt (`backpack`, `magnet`/`attractor`, `echo_sounder`/`echo_compass`,
@@ -223,6 +231,6 @@ Seit Modulaufteilung Stufe 7 liest der Hammer-Motor seine Werte aus `config/simp
 `upgradeSeconds` (1–30, Standard 5), `reinforcedDamagePerHit` (2), `netheriteDamagePerHit` (4), `enderiteDamagePerHit` (10)
 (je 0–64) und `diamondBlockPebbles` (1–81, Standard 81). Beim ersten Start übernimmt das Modul die Werte aus
 `simplebuilding.json` → `server.tools` (`sledgehammerUpgradeSeconds`, `*UpgradeDamagePerHit`, `diamondBlockPebbles`);
-danach wirken diese SB-Schlüssel auf 26.3 nicht mehr (sie bleiben bis Stufe 9 sichtbar, 26.2 nutzt sie weiter).
+danach wirken diese SB-Schlüssel auf 26.3 nicht mehr und sind dort seit Stufe 9 ausgeblendet (26.2 nutzt sie weiter).
 Die Werte sind serverlokal (wie Simple Ovens): ein Client rechnet mit seiner eigenen Datei, der Server beendet eine
 Aufwertung früher, wenn sein Wert kleiner ist.

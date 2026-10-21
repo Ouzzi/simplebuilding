@@ -128,6 +128,39 @@ public final class ConfigOptions {
             "server.oreGeneration.dimensionalScrap",
             "server.oreGeneration.crackedIceFields");
 
+    /**
+     * Split stage 9: options whose feature moved into a required sub-mod on this line. The sub-mod took the value
+     * over once from {@code simplebuilding.json} (framework {@code ConfigFiles.adoptLegacy}) and reads its own file
+     * since, so here they do nothing. The fields stay (old files load without error and keep the value when saved);
+     * only the config screens, {@code config list} and the wiki leave them out ({@link Option#hidden}). Each set
+     * belongs to the flag that says the feature is SimpleBuilding's own; 26.2 keeps all of them.
+     */
+    public static final Set<String> MOVED_TO_OVENS = Set.of(
+            "server.machines.reinforcedFurnaceSpeed",
+            "server.machines.netheriteFurnaceSpeed",
+            "server.machines.enderiteFurnaceSpeed");
+    public static final Set<String> MOVED_TO_HAMMERS = Set.of(
+            "server.tools.diamondBlockPebbles",
+            "server.tools.sledgehammerUpgradeSeconds",
+            "server.tools.reinforcedUpgradeDamagePerHit",
+            "server.tools.netheriteUpgradeDamagePerHit",
+            "server.tools.enderiteUpgradeDamagePerHit");
+    public static final Set<String> MOVED_TO_STORAGE = Set.of(
+            "tools.invertBundleInteractions",
+            "server.features.backpack",
+            "server.loot.betterChestPercent",
+            "server.loot.reinforcedShulkerPercent",
+            "server.loot.netheriteShulkerPercent",
+            "server.loot.enderiteShulkerPercent",
+            "server.loot.endermitesPerRareShulker");
+
+    /** True if {@code path} belongs to a sub-mod on this line (see {@link #MOVED_TO_OVENS}). */
+    public static boolean hidden(String path) {
+        return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
+                || !com.simplebuilding.version.McVersion.HAMMERS_IN_SB && MOVED_TO_HAMMERS.contains(path)
+                || !com.simplebuilding.version.McVersion.STORAGE_IN_SB && MOVED_TO_STORAGE.contains(path);
+    }
+
     private static final List<Option> ALL;
 
     static {
@@ -139,9 +172,23 @@ public final class ConfigOptions {
     private ConfigOptions() {
     }
 
-    /** All options in declaration order (= the order of the config screen). */
+    /** All options in declaration order (the config screens show {@link #visible}). */
     public static List<Option> all() {
         return ALL;
+    }
+
+    /**
+     * The fields of the {@link Option#hidden} options. Fabric (ModMenu's {@code AutoConfigClient.getGuiRegistry}) and
+     * NeoForge (its own registry) register a cloth predicate transformer that turns these into no row and no tooltip;
+     * Forge's own screen walks {@link #visible}. The screens save the whole object, so the values stay in the file.
+     */
+    public static Set<Field> hiddenFields() {
+        return ALL.stream().filter(Option::hidden).map(Option::field).collect(java.util.stream.Collectors.toSet());
+    }
+
+    /** {@link #all} without the {@link Option#hidden} ones: what the config screens and {@code config list} show. */
+    public static List<Option> visible() {
+        return ALL.stream().filter(option -> !option.hidden()).toList();
     }
 
     public static @Nullable Option byPath(String path) {
@@ -202,6 +249,11 @@ public final class ConfigOptions {
 
         public boolean restartRequired() {
             return RESTART_REQUIRED.contains(path);
+        }
+
+        /** Moved to a sub-mod on this line: still loaded and saved, no longer shown ({@link #hidden(String)}). */
+        public boolean hidden() {
+            return ConfigOptions.hidden(path);
         }
 
         /** The object holding the field inside {@code root}; null if a group is missing. */

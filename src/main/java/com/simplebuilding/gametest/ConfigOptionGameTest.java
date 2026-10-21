@@ -72,6 +72,11 @@ public final class ConfigOptionGameTest {
     }
 
     @GameTest
+    public void movedOptionsAreHiddenButStillLoad(GameTestHelper helper) {
+        ConfigOptionTests.movedOptionsAreHiddenButStillLoad(helper);
+    }
+
+    @GameTest
     public void superModSwitchesReachTheBundledSubMods(GameTestHelper helper) {
         ConfigOptionTests.superModSwitchesReachTheBundledSubMods(helper);
     }

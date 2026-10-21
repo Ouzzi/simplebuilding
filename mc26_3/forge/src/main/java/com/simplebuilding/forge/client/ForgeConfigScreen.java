@@ -14,7 +14,7 @@ public final class ForgeConfigScreen {
         var draft = AutoConfig.read(AutoConfig.path(SimplebuildingConfig.class), SimplebuildingConfig.class);
         var builder = ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("text.autoconfig.simplebuilding.title"));
         boolean remote = Minecraft.getInstance().level != null && !Minecraft.getInstance().hasSingleplayerServer();
-        for (var option : ConfigOptions.all()) {
+        for (var option : ConfigOptions.visible()) { // split stage 9: no rows for options a sub-mod took over
             String tab = "default";
             var chain = new java.util.ArrayList<>(option.parents()); chain.add(option.field());
             for (var field : chain) if (field.isAnnotationPresent(ConfigEntry.Category.class)) tab = field.getAnnotation(ConfigEntry.Category.class).value();

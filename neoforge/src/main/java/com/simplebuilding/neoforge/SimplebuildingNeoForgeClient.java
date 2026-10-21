@@ -172,6 +172,10 @@ public final class SimplebuildingNeoForgeClient {
         ConfigManager<SimplebuildingConfig> manager =
                 (ConfigManager<SimplebuildingConfig>) AutoConfig.getConfigHolder(SimplebuildingConfig.class);
         GuiRegistry registry = DefaultGuiTransformers.apply(DefaultGuiProviders.apply(new GuiRegistry()));
+        // Split stage 9: no row and no tooltip for the options a sub-mod took over (ConfigOptions.hidden).
+        var hiddenOptions = com.simplebuilding.config.ConfigOptions.hiddenFields();
+        if (!hiddenOptions.isEmpty()) registry.registerPredicateTransformer(
+                (guis, i18n, field, config, defaults, access) -> new java.util.ArrayList<>(), hiddenOptions::contains);
         return new ConfigScreenProvider<>(manager, registry, parent).get();
     }
 

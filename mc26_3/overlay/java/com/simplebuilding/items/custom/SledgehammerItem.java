@@ -13,4 +13,13 @@ public class SledgehammerItem extends com.simplehammers.item.SledgehammerItem {
     public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, int durability, Properties settings) {
         super(material, attackDamage, attackSpeed, durability, settings);
     }
+
+    /**
+     * Pebbles of one crushed diamond block as the recipe catalog shows them: Simple Hammers' own value
+     * ({@code config/simplehammers-server.json}); SimpleBuilding's old {@code server.tools.diamondBlockPebbles} is only
+     * its first-start seed (split stage 9).
+     */
+    public static int catalogDiamondPebbles() {
+        return com.simplehammers.config.HammerConfig.diamondBlockPebbles;
+    }
 }

@@ -97,7 +97,13 @@ class ConfigMetadataTests(unittest.TestCase):
         self.assertEqual('client', configs['hudScale']['side'])
         self.assertEqual('server', configs['worldGen.enableLootTableChanges']['side'])
         self.assertEqual('yes', configs['worldGen.enableLootTableChanges']['reload'])
-        self.assertEqual('recipes', configs['server.features.backpack']['reload'])
+        self.assertEqual('recipes', configs['server.features.attractor']['reload'])
+        # Split stage 9: options a sub-mod took over are left out on 26.3 only (ConfigOptions.MOVED_TO_*).
+        self.assertEqual('recipes', legacy['server.features.backpack']['reload'])
+        for name in ('server.features.backpack', 'tools.invertBundleInteractions', 'server.machines.reinforcedFurnaceSpeed',
+                     'server.tools.diamondBlockPebbles', 'server.loot.betterChestPercent'):
+            self.assertNotIn(name, configs, name)
+            self.assertIn(name, legacy, name)
         self.assertEqual('restart', configs['server.charges.lensMaxCharge']['reload'])
         for name, maximum in [('tools.wandHungerMultiplier', 10), ('tools.magnetRangeMultiplier', 4),
                               ('tools.rotatorChargePerTurn', 4096), ('worldGen.buildingCoreLootChanceMultiplier', 1000),
