@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -15,7 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
-/** Blighted Wither and Biome Brush on screen: the figure with the Netherite Helmet on the middle skull, the Abyssal Wither, the Blighted Wither next to a Vanilla Wither, the nova warning, the brush in hand before and after a stroke, the items. */
+/** Blighted Wither on screen: the figure with the Netherite Helmet on the middle skull, the Abyssal Wither, the Blighted Wither next to a Vanilla Wither, the nova warning, the placed loot (Nether Heart, Nether Gem), the items. */
 public final class WitherClientSmoke implements FabricClientGameTest {
     private static ServerLevel level(MinecraftServer server) { return server.getLevel(Level.OVERWORLD); }
 
@@ -89,29 +88,21 @@ public final class WitherClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(4);
             context.takeScreenshot("simplemobs-wither-nova-warning");
-            // Biome Brush: grass field, brush in the main hand, snow in the off hand, before and after a stroke
+            // Nether Heart and Nether Gem in their placed form on a stone floor (the Biome Brush moved to Simple Tools)
             world.getServer().runOnServer(server -> {
                 clear(server);
                 var l = level(server);
-                var at = front(server, 5).below();
-                for (int dx = -8; dx <= 8; dx++) for (int dz = -6; dz <= 6; dz++) l.setBlockAndUpdate(at.offset(dx, 0, dz), Blocks.GRASS_BLOCK.defaultBlockState());
-                var p = server.getPlayerList().getPlayers().getFirst();
-                p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(WitherMobs.BRUSH));
-                p.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.SAND, 16));
+                var at = front(server, 4);
+                for (int dx = -2; dx <= 2; dx++) for (int dz = -1; dz <= 1; dz++) l.setBlockAndUpdate(at.offset(dx, -1, dz), Blocks.STONE.defaultBlockState());
+                l.setBlockAndUpdate(at.offset(-1, 0, 0), WitherMobs.HEART_BLOCK.defaultBlockState());
+                l.setBlockAndUpdate(at.offset(1, 0, 0), WitherMobs.GEM_BLOCK.defaultBlockState());
             });
             context.waitTicks(20);
-            context.takeScreenshot("simplemobs-wither-brush-before");
-            world.getServer().runOnServer(server -> {
-                var p = server.getPlayerList().getPlayers().getFirst();
-                var r = BiomeBrushItem.stroke(level(server), p, front(server, 5).below(), p.getMainHandItem(), p.getOffhandItem());
-                if (r != BiomeBrush.Result.PAINTED) throw new AssertionError("stroke: " + r);
-            });
-            context.waitTicks(40);
-            context.takeScreenshot("simplemobs-wither-brush-after");
+            context.takeScreenshot("simplemobs-wither-loot-placed");
             world.getServer().runOnServer(server -> {
                 var l = level(server);
                 var at = front(server, 3);
-                ItemStack[] items = {new ItemStack(WitherMobs.HEART), new ItemStack(WitherMobs.BRUSH)};
+                ItemStack[] items = {new ItemStack(WitherMobs.HEART), new ItemStack(WitherMobs.GEM)};
                 for (int i = 0; i < items.length; i++) {
                     ArmorStand stand = EntityTypes.ARMOR_STAND.create(l, EntitySpawnReason.COMMAND);
                     stand.snapTo(at.getX() + 0.5 + (i - 0.5) * 1.5, at.getY(), at.getZ() + 0.5, 180f, 0f);

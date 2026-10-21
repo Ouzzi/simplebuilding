@@ -3,7 +3,7 @@
   "id": "simplemobs",
   "version": "${version}",
   "name": "Simple Mobs",
-  "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush.",
+  "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Nether Gem, and the Potion of Silence.",
   "authors": [
     "Ouzzi"
   ],
@@ -28,7 +28,8 @@
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
-    "java": ">=25"
+    "java": ">=25",
+    "simplelib": ">=0.2.0"
   },
   "mixins": [
     "simplemobs.mixins.json"

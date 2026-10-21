@@ -41,6 +41,12 @@ public final class ToolsConfig {
     public int deathVaultMaxPerOffering = 3;
     /** Future redeem option: deaths kept per player, 1-100 (the oldest are forgotten); without it only the last death is kept. */
     public int deathVaultMaxDeaths = 20;
+    /** Biome Brush on/off (moved from Simple Mobs on 21.10.). */
+    public boolean biomeBrushEnabled = true;
+    /** Biome Brush only for operators. */
+    public boolean biomeBrushOpsOnly = false;
+    /** Biome Brush radius in 4-block biome cells, 0-2 (0 = one cell). */
+    public int biomeBrushRadius = 1;
 
     public static double bounded(double v, double min, double max, double fallback) {
         return Double.isFinite(v) ? Math.clamp(v, min, max) : fallback;
@@ -56,6 +62,7 @@ public final class ToolsConfig {
         deathVaultCostPerItem = Math.clamp(deathVaultCostPerItem, 1, 64);
         deathVaultMaxPerOffering = Math.clamp(deathVaultMaxPerOffering, 1, 27);
         deathVaultMaxDeaths = Math.clamp(deathVaultMaxDeaths, 1, 100);
+        biomeBrushRadius = Math.clamp(biomeBrushRadius, 0, 2);
     }
 
     public void normalize() {

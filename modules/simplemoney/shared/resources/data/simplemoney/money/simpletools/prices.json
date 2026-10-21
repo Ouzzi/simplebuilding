@@ -2,6 +2,7 @@
   "module": "simpletools",
   "derivation": "Simple Tools sells nothing: the Death Vault is a crafted block, the Soulbound book comes only from the wandering trader (diamonds) and End City loot (owner 2026-10-12). Money bills count as Death Vault offerings through the optional tag simpletools:death_vault_offerings.",
   "excluded": {
+    "simpletools:biome_brush": "Crafted from Nether Stars or the Nether Heart boss drop; not for sale.",
     "simpletools:death_vault": "Crafted only (KONZEPT-DEATH-VAULT, owner 2026-10-12); bills are accepted as offerings instead.",
     "simpletools:guide_book": "Crafted from a book and an anvil."
   },

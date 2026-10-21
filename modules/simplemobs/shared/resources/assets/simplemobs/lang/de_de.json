@@ -61,9 +61,6 @@
   "item.minecraft.tipped_arrow.effect.focus": "Pfeil des Fokus",
   "entity.simplemobs.blighted_wither": "Verdorrter Wither",
   "entity.simplemobs.abyssal_wither": "Abgrund-Wither",
-  "item.simplemobs.wither_heart": "Witherherz",
-  "item.simplemobs.biome_brush": "Biom-Pinsel",
-  "item.simplemobs.biome_brush.tooltip": "Material in Nebenhand; Schleichen: eine Stelle",
   "tip.simplemobs.trick_mirror": "3 s Benutzen halten: enttarnt Verkleidete",
   "tip.simplemobs.deceiver_cloak": "Tragen; leere Hand am Mob: seine Gestalt annehmen",
   "tip.simplemobs.shellker_shell": "An einem Shulker benutzen: wird zum Shellker",
@@ -126,5 +123,8 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
+  "block.simplemobs.nether_heart": "Netherherz",
+  "block.simplemobs.nether_gem": "Nether-Juwel",
+  "item.simplemobs.nether_gem.tooltip": "Sein Zweck folgt später"
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.item.Items;
 
 public final class MobsFabric implements ModInitializer {
     @Override public void onInitialize() {
+        WitherLoot.idMoves();
         MobsConfig.load(FabricLoader.getInstance().getConfigDir());
         MobsRegistry.registerAll();
         DisguiseRegistry.registerAll();
@@ -38,11 +39,7 @@ public final class MobsFabric implements ModInitializer {
         FabricDefaultAttributeRegistry.register(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!MobsConfig.vanillaTabs()) return;
-            out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        });
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            out.insertAfter(Items.BRUSH, java.util.List.of(new ItemStack(WitherMobs.BRUSH)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART), new ItemStack(WitherMobs.GEM)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack()));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {

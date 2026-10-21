@@ -80,7 +80,7 @@ public final class BeaconsTests {
         });
         ALL.put("registered", h -> {
             h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleBeacons.id("beacons")), "own creative tab beacons is registered");
-            for (String id : List.of("strong_upgrade_template", "strong_beacon", "strong_conduit", "guide_book")) {
+            for (String id : List.of("strong_upgrade_template", "strong_upgrade_shard", "strong_beacon", "strong_conduit", "guide_book")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBeacons.id(id)), "item missing: " + id);
             }
             h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleBeacons.id("strong_beacon")) == BeaconsRegistry.STRONG_BEACON, "block");
@@ -274,14 +274,54 @@ public final class BeaconsTests {
             h.assertTrue(beacon.is(BeaconsRegistry.STRONG_BEACON_ITEM), "smithing: beacon + template + nether star");
             h.assertTrue(smith(h, new ItemStack(Items.CONDUIT)).is(BeaconsRegistry.STRONG_CONDUIT_ITEM), "smithing: conduit");
             ItemStack o = new ItemStack(Items.OBSIDIAN), d = new ItemStack(Items.DIAMOND), n = new ItemStack(Items.NETHER_STAR);
-            CraftingInput first = CraftingInput.of(3, 3, List.of(o, d, o, d, n, d, o, d, o));
-            h.assertTrue(server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, first, h.getLevel())
-                    .map(r -> r.value().assemble(first)).orElse(ItemStack.EMPTY).is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE), "first template");
+            // Owner 21.10.: not craftable from base materials - the Nether Star way and the Basic Upgrade way are gone
+            h.assertTrue(craft(h, List.of(o, d, o, d, n, d, o, d, o)).isEmpty(), "no template from a Nether Star");
+            h.assertTrue(server.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    SimpleBeacons.id("strong_upgrade_template_from_basic"))).isEmpty(), "no Basic Upgrade way");
+            // nine shards (the Vanilla Wither drop) make one template
+            ItemStack s = new ItemStack(BeaconsRegistry.STRONG_UPGRADE_SHARD);
+            ItemStack fromShards = craft(h, List.of(s, s, s, s, s, s, s, s, s));
+            h.assertTrue(fromShards.is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE) && fromShards.getCount() == 1, "9 shards -> 1 template");
+            h.assertTrue(craft(h, List.of(s, s, s, s, s, s, s, s, ItemStack.EMPTY)).isEmpty(), "8 shards are not enough");
+            // with Simple Mobs: the Nether Heart takes the Nether Star's place (image 18)
+            var heart = BuiltInRegistries.ITEM.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "nether_heart"));
+            if (heart.isPresent()) {
+                ItemStack hs = new ItemStack(heart.get());
+                h.assertTrue(craft(h, List.of(o, d, o, d, hs, d, o, d, o)).is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE), "Nether Heart in the middle -> template");
+            } else {
+                h.assertTrue(server.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        SimpleBeacons.id("strong_upgrade_template"))).isEmpty(), "[standalone] no Nether Heart recipe without Simple Mobs");
+            }
             ItemStack t = new ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE);
             CraftingInput dup = CraftingInput.of(3, 3, List.of(d, t, d, d, o, d, d, d, d));
             ItemStack two = server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, dup, h.getLevel())
                     .map(r -> r.value().assemble(dup)).orElse(ItemStack.EMPTY);
             h.assertTrue(two.is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE) && two.getCount() == 2, "duplication gives 2");
+            h.succeed();
+        });
+        ALL.put("strong_upgrade_shard", h -> {
+            var level = h.getLevel();
+            h.getEntities(net.minecraft.world.entity.EntityTypes.ITEM).forEach(e -> e.discard());
+            // the Vanilla Wither always drops exactly one shard (next to its Nether Star)
+            net.minecraft.world.entity.boss.wither.WitherBoss wither = h.spawn(net.minecraft.world.entity.EntityTypes.WITHER, 7, 2, 7);
+            wither.setNoAi(true);
+            wither.kill(level);
+            var items = h.getEntities(net.minecraft.world.entity.EntityTypes.ITEM);
+            int shards = items.stream().filter(i -> i.getItem().is(BeaconsRegistry.STRONG_UPGRADE_SHARD)).mapToInt(i -> i.getItem().getCount()).sum();
+            h.assertTrue(shards == 1, "Vanilla Wither: one Strong Upgrade Shard: " + shards);
+            h.assertTrue(items.stream().anyMatch(i -> i.getItem().is(Items.NETHER_STAR)), "and its Nether Star");
+            items.forEach(e -> e.discard());
+            h.getEntities(net.minecraft.world.entity.EntityTypes.EXPERIENCE_ORB).forEach(e -> e.discard());
+            // the shard survives an explosion that destroys an ordinary item next to it
+            Vec3 at = Vec3.atCenterOf(h.absolutePos(new BlockPos(7, 2, 7)));
+            var shard = new net.minecraft.world.entity.item.ItemEntity(level, at.x, at.y, at.z, new ItemStack(BeaconsRegistry.STRONG_UPGRADE_SHARD));
+            var dirt = new net.minecraft.world.entity.item.ItemEntity(level, at.x, at.y, at.z, new ItemStack(Items.DIRT));
+            level.addFreshEntity(shard);
+            level.addFreshEntity(dirt);
+            level.explode(null, at.x, at.y, at.z, 4.0F, net.minecraft.world.level.Level.ExplosionInteraction.NONE);
+            h.assertTrue(dirt.isRemoved(), "the explosion destroys an ordinary item");
+            h.assertTrue(!shard.isRemoved() && shard.getItem().is(BeaconsRegistry.STRONG_UPGRADE_SHARD), "the shard is explosion proof");
+            shard.discard();
             h.succeed();
         });
         ALL.put("conduit_frames", h -> {
@@ -353,6 +393,13 @@ public final class BeaconsTests {
         ALL.put("discover_behaviour_hints", com.simplebeacons.discover.BeaconsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplebeacons.discover.BeaconsDiscover::firstPickupTips);
         MAX_TICKS.put("pyramid_levels", 200);
+    }
+
+    /** The result of crafting a 3 x 3 grid, or empty. */
+    static ItemStack craft(GameTestHelper h, List<ItemStack> grid) {
+        CraftingInput input = CraftingInput.of(3, 3, grid);
+        return h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, h.getLevel())
+                .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
     }
 
     /** Pyramid of {@code levels} levels below {@link #CENTER}. */

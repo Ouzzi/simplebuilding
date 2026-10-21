@@ -159,6 +159,82 @@
       }
     },
     {
+      "id": "biome_brush",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/brush/BiomeBrushItem.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/brush/BiomeBrush.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsRegistry.java",
+        "modules/simpletools/shared/resources/data/simpletools/recipe/biome_brush.json",
+        "modules/simpletools/shared/resources/data/simpletools/recipe/biome_brush_nether_heart.json"
+      ],
+      "en": {
+        "title": "Biome Brush",
+        "summary": "Brush in the main hand, a biome material in the off hand, right-click a block: the biome around it becomes the material's biome. One material and one durability point per stroke.",
+        "details": [
+          "Recipe (shaped): three Nether Stars in the top row, a Netherite Nugget in the middle, a Brush below. With Simple Mobs instead (one column): Nether Heart, Netherite Nugget, Brush. Durability 512, repaired with Netherite Ingots, takes Unbreaking and Mending. Moved from Simple Mobs (21.10.); old brushes keep working.",
+          "A stroke sets the 4x4x4 biome cells (Vanilla stores biomes in such cells) around the clicked block: 3x3x3 cells, 12 blocks wide (server config biomeBrushRadius, 0 to 2 cells). The chunks are sent again at once, so grass, leaf and water colors, weather, mob spawns and plant growth follow the new biome. Holding the button keeps painting, one stroke per 5 ticks. Creative uses no material and no durability.",
+          "Sneaking paints only the clicked cell (one 4x4x4 cell, the smallest spot a biome can have) - for borders and details.",
+          "Materials: Grass Block = Plains, Sand = Desert, Snow Block = Snowy Plains, Mycelium = Mushroom Fields, Cherry Leaves = Cherry Grove, Jungle Log = Jungle, Red Sand = Badlands, Podzol = Taiga, Mangrove Roots = Mangrove Swamp, Pale Moss Block = Pale Garden, Oak Log = Forest, Birch Log = Birch Forest, Dark Oak Log = Dark Forest, Acacia Log = Savanna, Lily Pad = Swamp, Packed Ice = Ice Spikes; Nether: Soul Sand or Soul Soil = Soul Sand Valley, Crimson Nylium = Crimson Forest, Warped Nylium = Warped Forest, Basalt = Basalt Deltas, Netherrack = Nether Wastes; End: Chorus Flower = End Highlands, End Stone = End Barrens. Data packs add more in data/<namespace>/biome_brush/*.json.",
+          "Limits: biomes only in their own dimension (Overworld biomes in the Overworld ...). Cave biomes (Deep Dark, Dripstone and Lush Caves) and structures are never painted over.",
+          "Multiplayer-safe: every cell is checked like a block edit - claims (Simple Tweaks or any mod using the shared protection check), spawn protection and adventure mode. Refused cells keep their biome; a refused clicked cell refuses the stroke and uses nothing (a puff of smoke). Server config: biomeBrushEnabled, biomeBrushOpsOnly, biomeBrushRadius."
+        ]
+      },
+      "de": {
+        "title": "Biom-Pinsel",
+        "summary": "Pinsel in der Haupthand, ein Biom-Material in der Nebenhand, Rechtsklick auf einen Block: Das Biom ringsum wird zum Biom des Materials. Ein Material und ein Haltbarkeitspunkt je Strich.",
+        "details": [
+          "Rezept (geformt): drei Nethersterne in der oberen Reihe, ein Netheritnugget in der Mitte, ein Pinsel darunter. Mit Simple Mobs stattdessen (eine Spalte): Netherherz, Netheritnugget, Pinsel. Haltbarkeit 512, Reparatur mit Netheritbarren, nimmt Haltbarkeit und Reparatur an. Aus Simple Mobs umgezogen (21.10.); alte Pinsel bleiben gültig.",
+          "Ein Strich setzt die 4×4×4-Biomzellen (so speichert Vanilla Biome) um den geklickten Block: 3×3×3 Zellen, 12 Blöcke breit (Server-Config biomeBrushRadius, 0 bis 2 Zellen). Die Chunks werden sofort neu gesendet, Gras-, Laub- und Wasserfarbe, Wetter, Mob-Spawns und Pflanzenwachstum folgen dem neuen Biom. Gedrückt halten malt weiter, ein Strich je 5 Ticks. Kreativ verbraucht weder Material noch Haltbarkeit.",
+          "Schleichen malt nur die geklickte Zelle (eine 4×4×4-Zelle, die kleinste Stelle, die ein Biom haben kann) – für Ränder und Details.",
+          "Materialien: Grasblock = Ebene, Sand = Wüste, Schneeblock = Verschneite Ebene, Myzel = Pilzinsel, Kirschlaub = Kirschhain, Tropenbaumstamm = Dschungel, Roter Sand = Tafelberge, Podsol = Taiga, Mangrovenwurzeln = Mangrovensumpf, Blassmoosblock = Blasser Garten, Eichenstamm = Wald, Birkenstamm = Birkenwald, Schwarzeichenstamm = Dichter Wald, Akazienstamm = Savanne, Seerosenblatt = Sumpf, Packeis = Eiszapfentundra; Nether: Seelensand oder Seelenerde = Seelensandtal, Karmesin-Nyzel = Karmesinwald, Wirr-Nyzel = Wirrwald, Basalt = Basaltdeltas, Netherrack = Netherödland; End: Chorusblüte = End-Hochland, Endstein = Kargland des Ends. Datenpakete ergänzen weitere unter data/<namespace>/biome_brush/*.json.",
+          "Grenzen: Biome nur in ihrer eigenen Dimension (Oberwelt-Biome in der Oberwelt …). Höhlenbiome (Tiefes Dunkel, Tropfsteinhöhlen, Üppige Höhlen) und Bauwerke werden nie übermalt.",
+          "Mehrspielersicher: Jede Zelle wird wie ein Blockeingriff geprüft - Claims (Simple Tweaks oder jede Mod mit der gemeinsamen Schutzprüfung), Spawnschutz und Abenteuermodus. Verweigerte Zellen behalten ihr Biom; ist die geklickte Zelle verweigert, wird nichts gemalt und nichts verbraucht (ein Rauchwölkchen). Server-Config: biomeBrushEnabled, biomeBrushOpsOnly, biomeBrushRadius."
+        ]
+      }
+    },
+    {
+      "id": "config_biomeBrushEnabled",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "biomeBrushEnabled",
+        "summary": "Server setting. Default: true. Off: every Biome Brush stroke is refused."
+      },
+      "de": {
+        "title": "biomeBrushEnabled",
+        "summary": "Servereinstellung. Standard: true. Aus: jeder Strich des Biom-Pinsels wird abgelehnt."
+      }
+    },
+    {
+      "id": "config_biomeBrushOpsOnly",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "biomeBrushOpsOnly",
+        "summary": "Server setting. Default: false. Only operators may paint biomes."
+      },
+      "de": {
+        "title": "biomeBrushOpsOnly",
+        "summary": "Servereinstellung. Standard: false. Nur Operatoren dürfen Biome malen."
+      }
+    },
+    {
+      "id": "config_biomeBrushRadius",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "biomeBrushRadius",
+        "summary": "Server setting. Default: 1 (0-2). Biome cells (4 blocks each) painted around the clicked cell."
+      },
+      "de": {
+        "title": "biomeBrushRadius",
+        "summary": "Servereinstellung. Standard: 1 (0-2). Biomzellen (je 4 Blöcke) um die geklickte Zelle."
+      }
+    },
+    {
       "id": "thrift",
       "sources": [
         "modules/simpletools/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
@@ -424,6 +500,14 @@
       },
       "de": {
         "summary": "Handbuch zu dieser Mod: 33 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Amboss. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tools\" eins."
+      }
+    },
+    "simpletools:biome_brush": {
+      "en": {
+        "summary": "Main hand: brush, off hand: biome material. Right-click paints the biome around the block (3x3x3 cells), one material and one durability point per stroke."
+      },
+      "de": {
+        "summary": "Haupthand: Pinsel, Nebenhand: Biom-Material. Rechtsklick malt das Biom um den Block (3×3×3 Zellen), ein Material und ein Haltbarkeitspunkt je Strich."
       }
     }
   }

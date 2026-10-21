@@ -18,6 +18,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 @Mod("simplemobs")
 public final class MobsNeoForge {
     public MobsNeoForge(IEventBus bus, Dist dist) {
+        WitherLoot.idMoves();
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
@@ -119,6 +120,7 @@ event.register(Registries.ENTITY_TYPE, h -> {
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> FearServer.tick(event.getServer()));
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> WitherMobs.entityTypes(h::register));
+            event.register(Registries.BLOCK, h -> WitherMobs.blocks(h::register));
             event.register(Registries.ITEM, h -> WitherMobs.items(h::register));
             if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
             if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MobsRegistry.registerTab();
@@ -126,8 +128,7 @@ event.register(Registries.ENTITY_TYPE, h -> {
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); }
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) { if (MobsConfig.vanillaTabs()) insertAfter(event, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH)); }
+            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) { insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.GEM)); insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); } }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) event.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());

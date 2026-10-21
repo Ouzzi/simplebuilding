@@ -25,6 +25,12 @@ public final class ToolsScreen {
                 .setTooltip(tip("anvilRepairKeepsCost")).setSaveConsumer(v -> c.anvilRepairKeepsCost = v).build());
         general.addEntry(e.startBooleanToggle(name("enableFurnaceLavaFill"), c.enableFurnaceLavaFill).setDefaultValue(true)
                 .setTooltip(tip("enableFurnaceLavaFill")).setSaveConsumer(v -> c.enableFurnaceLavaFill = v).build());
+        general.addEntry(e.startBooleanToggle(name("biomeBrushEnabled"), c.biomeBrushEnabled).setDefaultValue(true)
+                .setTooltip(tip("biomeBrushEnabled")).setSaveConsumer(v -> c.biomeBrushEnabled = v).build());
+        general.addEntry(e.startBooleanToggle(name("biomeBrushOpsOnly"), c.biomeBrushOpsOnly).setDefaultValue(false)
+                .setTooltip(tip("biomeBrushOpsOnly")).setSaveConsumer(v -> c.biomeBrushOpsOnly = v).build());
+        general.addEntry(e.startIntField(name("biomeBrushRadius"), c.biomeBrushRadius).setMin(0).setMax(2).setDefaultValue(1)
+                .setTooltip(tip("biomeBrushRadius")).setSaveConsumer(v -> c.biomeBrushRadius = v).build());
         var frames = b.getOrCreateCategory(Component.translatable("simpletools.tab.itemframes"));
         frames.addEntry(e.startBooleanToggle(name("enableItemFrameInvisibility"), c.enableItemFrameInvisibility).setDefaultValue(true)
                 .setTooltip(tip("enableItemFrameInvisibility")).setSaveConsumer(v -> c.enableItemFrameInvisibility = v).build());

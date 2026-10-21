@@ -16,7 +16,8 @@ for option in fields:
     for lang in (en, de):
         tip = lang.get(f'{MID}.option.{option}.tooltip', '')
         assert f'{MID}.option.{option}' in lang and ('Default:' in tip or 'Standard:' in tip), option
-assert [k for k in en if k.startswith(('item.', 'block.'))] == ['block.simpletools.death_vault', 'item.simpletools.guide_book'], 'only the Death Vault block and the guide book'
+assert sorted(k for k in en if k.startswith(('item.', 'block.'))) == ['block.simpletools.death_vault', 'item.simpletools.biome_brush',
+    'item.simpletools.biome_brush.tooltip', 'item.simpletools.guide_book'], 'only the Death Vault block, the Biome Brush and the guide book'
 assert all(chr(195) not in v and chr(194) not in v for v in de.values()), 'German text has mojibake'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for feature in manual['features']:

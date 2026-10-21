@@ -1,4 +1,7 @@
-package com.simplebuilding.modules.simplemobs;
+package com.simplebuilding.modules.simpletools.brush;
+
+import com.simplebuilding.modules.simpletools.SimpleTools;
+import com.simplebuilding.modules.simpletools.ToolsConfig;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -33,7 +36,7 @@ public class BiomeBrushItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<net.minecraft.network.chat.Component> builder, net.minecraft.world.item.TooltipFlag flag) {
-        builder.accept(net.minecraft.network.chat.Component.translatable("item.simplemobs.biome_brush.tooltip").withStyle(net.minecraft.ChatFormatting.GRAY));
+        builder.accept(net.minecraft.network.chat.Component.translatable("item.simpletools.biome_brush.tooltip").withStyle(net.minecraft.ChatFormatting.GRAY));
     }
 
     @Override
@@ -48,8 +51,9 @@ public class BiomeBrushItem extends Item {
 
     /** One stroke at {@code target} (server). Public for the GameTests. */
     public static BiomeBrush.Result stroke(ServerLevel level, ServerPlayer player, BlockPos target, ItemStack brush, ItemStack material) {
-        if (!MobsRegistry.on() || !MobsConfig.biomeBrushEnabled) return fizzle(level, target, BiomeBrush.Result.DISABLED);
-        if (MobsConfig.biomeBrushOpsOnly && !net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS).test(player.createCommandSourceStack()))
+        ToolsConfig config = SimpleTools.config();
+        if (!SimpleTools.active() || !config.biomeBrushEnabled) return fizzle(level, target, BiomeBrush.Result.DISABLED);
+        if (config.biomeBrushOpsOnly && !net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS).test(player.createCommandSourceStack()))
             return fizzle(level, target, BiomeBrush.Result.DISABLED);
         if (player.getCooldowns().isOnCooldown(brush)) return BiomeBrush.Result.UNCHANGED;
         var entry = BiomeBrush.material(level.getServer(), material);
@@ -58,7 +62,7 @@ public class BiomeBrushItem extends Item {
         if (biome == null || !BiomeBrush.fitsDimension(level, biome)) return fizzle(level, target, BiomeBrush.Result.WRONG_DIMENSION);
         if (!BiomeBrush.centreAllowed(level, player, target)) return fizzle(level, target, BiomeBrush.Result.DENIED);
         player.getCooldowns().addCooldown(brush, STROKE_TICKS);
-        int changed = BiomeBrush.paint(level, player, target, biome, player.isShiftKeyDown() ? 0 : MobsConfig.biomeBrushRadius);
+        int changed = BiomeBrush.paint(level, player, target, biome, player.isShiftKeyDown() ? 0 : config.biomeBrushRadius);
         if (changed <= 0) return BiomeBrush.Result.UNCHANGED;
         if (!player.hasInfiniteMaterials()) {
             material.shrink(1);

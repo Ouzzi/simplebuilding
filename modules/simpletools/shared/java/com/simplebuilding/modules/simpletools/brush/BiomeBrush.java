@@ -1,4 +1,4 @@
-package com.simplebuilding.modules.simplemobs;
+package com.simplebuilding.modules.simpletools.brush;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,7 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Biome Brush logic (concept N26 B): which material paints which biome, and painting a stroke - server side, claim-safe.
+ * Biome Brush logic (concept N26 B; moved from Simple Mobs to Simple Tools on 21.10.): which material paints which biome, and painting a stroke - server side, claim-safe.
  *
  * <p>Materials come from data files {@code data/<namespace>/biome_brush/<name>.json}:
  * {@code {"biome": "minecraft:desert", "items": ["minecraft:sand", "#minecraft:sand"], "color": "#DBCB8B"}}
@@ -51,10 +51,10 @@ import org.slf4j.LoggerFactory;
  * painted over nor painted.
  */
 public final class BiomeBrush {
-    private static final Logger LOG = LoggerFactory.getLogger("simplemobs");
+    private static final Logger LOG = LoggerFactory.getLogger("simpletools");
     public static final String DIR = "biome_brush";
     /** Biomes that are never painted over (Deep Dark, caves). */
-    public static final TagKey<Biome> LOCKED = TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "biome_brush_locked"));
+    public static final TagKey<Biome> LOCKED = TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(com.simplebuilding.modules.simpletools.SimpleTools.MOD_ID, "biome_brush_locked"));
 
     /** One material: items and item tags, the biome it paints, the stroke color. */
     public record Entry(Identifier biome, List<Identifier> items, List<TagKey<Item>> tags, int color) {

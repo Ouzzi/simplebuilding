@@ -61,9 +61,6 @@
   "item.minecraft.tipped_arrow.effect.focus": "Arrow of Focus",
   "entity.simplemobs.blighted_wither": "Blighted Wither",
   "entity.simplemobs.abyssal_wither": "Abyssal Wither",
-  "item.simplemobs.wither_heart": "Wither Heart",
-  "item.simplemobs.biome_brush": "Biome Brush",
-  "item.simplemobs.biome_brush.tooltip": "Biome material in off hand; sneak: one spot",
   "tip.simplemobs.trick_mirror": "Hold use for 3 s: reveals disguises ahead",
   "tip.simplemobs.deceiver_cloak": "Wear it; empty hand on a mob takes its shape",
   "tip.simplemobs.shellker_shell": "Use on a Shulker to turn it into a Shellker",
@@ -126,5 +123,8 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
+  "block.simplemobs.nether_heart": "Nether Heart",
+  "block.simplemobs.nether_gem": "Nether Gem",
+  "item.simplemobs.nether_gem.tooltip": "Its use is still to come"
 }

@@ -1,0 +1,45 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplemobs"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simplemobs"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simplemobs"
+    }
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": "minecraft:nether_star",
+    "N": "#c:nuggets/netherite",
+    "B": "minecraft:brush"
+  },
+  "pattern": [
+    "SSS",
+    " N ",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpletools:biome_brush"
+  }
+}

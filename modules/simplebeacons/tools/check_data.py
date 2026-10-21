@@ -21,7 +21,7 @@ langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
-    for k in sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.strong_upgrade_template', f'block.{NS}.strong_beacon',
+    for k in sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.strong_upgrade_template', f'item.{NS}.strong_upgrade_shard', f'block.{NS}.strong_beacon',
                              f'block.{NS}.strong_conduit', f'{NS}.testcentre.station'] + [f'{NS}.screen.effect.{e}' for e in effects]:
         assert data.get(k), (locale, k)
     for k, v in data.items():
@@ -32,8 +32,14 @@ recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'd
 assert recipes['strong_beacon_smithing']['base'] == 'minecraft:beacon' and recipes['strong_conduit_smithing']['base'] == 'minecraft:conduit'
 assert all(recipes[r]['addition'] == 'minecraft:nether_star' for r in ('strong_beacon_smithing', 'strong_conduit_smithing'))
 assert recipes['strong_upgrade_template_duplication']['result']['count'] == 2
-basic = recipes['strong_upgrade_template_from_basic']
-assert 'fabric:load_conditions' in basic and 'neoforge:conditions' in basic and 'forge:conditions' in basic, 'SB recipe must be conditional'
+# Owner 21.10.: no template from plain materials - only 9 shards, the Nether Heart (with Simple Mobs) and duplication
+assert 'strong_upgrade_template_from_basic' not in recipes, 'Basic Upgrade way removed (21.10.)'
+assert all('minecraft:nether_star' not in json.dumps(recipes[r]) for r in recipes if r.startswith('strong_upgrade_template')), 'no Nether Star template recipe'
+heart = recipes['strong_upgrade_template']
+assert heart['key']['N'] == 'simplemobs:nether_heart', heart['key']
+assert 'fabric:load_conditions' in heart and 'neoforge:conditions' in heart and 'forge:condition' in heart, 'Simple Mobs recipe must be conditional'
+shards = recipes['strong_upgrade_template_from_shards']
+assert shards['pattern'] == ['SSS', 'SSS', 'SSS'] and shards['key']['S'] == f'{NS}:strong_upgrade_shard' and shards['result']['count'] == 1
 assert json.loads((RES / f'data/{NS}/tags/block/strong_base_blocks.json').read_text(encoding='utf-8'))['values'] == []
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 mixins = json.loads((RES / f'{NS}.mixins.json').read_text(encoding='utf-8'))
@@ -50,5 +56,5 @@ for f in manual['features']:
         assert (MODULE.parents[1] / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'strong_upgrade_template', 'strong_beacon', 'strong_conduit'}, (locale, set(q))
+    assert set(q) == {'strong_upgrade_template', 'strong_upgrade_shard', 'strong_beacon', 'strong_conduit'}, (locale, set(q))
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure, questionary and wiki valid')

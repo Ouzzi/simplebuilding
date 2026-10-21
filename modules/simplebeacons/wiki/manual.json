@@ -4,25 +4,28 @@
       "id": "strong_upgrade_template",
       "sources": [
         "modules/simplebeacons/shared/java/com/simplebeacons/BeaconsRegistry.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/mixin/WitherShardMixin.java",
         "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template.json",
-        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_duplication.json",
-        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_from_basic.json"
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_from_shards.json",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_upgrade_template_duplication.json"
       ],
       "en": {
         "title": "Strong Upgrade",
-        "summary": "A smithing template crafted from a nether star in the middle, four diamonds on the edges and four obsidian in the corners. It turns a beacon into a Strong Beacon and a conduit into a Strong Conduit.",
+        "summary": "A smithing template you cannot craft from plain materials: it comes from the Wither. It turns a beacon into a Strong Beacon and a conduit into a Strong Conduit.",
         "details": [
+          "The Vanilla Wither always drops one Strong Upgrade Shard (it survives explosions); 9 shards make one template.",
+          "With Simple Mobs the heavy Withers drop a Nether Heart: Nether Heart in the middle, four diamonds on the edges and four obsidian in the corners make a template.",
           "Duplicate it like Vanilla templates: 7 diamonds, 1 obsidian and the template give 2 templates.",
-          "With SimpleBuilding a Basic Upgrade can replace the four diamonds of the first template (obsidian in the corners, Basic Upgrade on top, nether star in the middle).",
           "It is used up by both upgrade ways."
         ]
       },
       "de": {
         "title": "Starke Aufwertungsvorlage",
-        "summary": "Eine Schmiedevorlage aus einem Netherstern in der Mitte, vier Diamanten an den Kanten und vier Obsidian in den Ecken. Sie macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer und aus einem Aquisator einen Starken Aquisator.",
+        "summary": "Eine Schmiedevorlage, die sich nicht aus einfachen Materialien herstellen lässt: sie kommt vom Wither. Sie macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer und aus einem Aquisator einen Starken Aquisator.",
         "details": [
+          "Der Vanilla-Wither lässt immer einen Splitter der Starken Aufwertung fallen (übersteht Explosionen); 9 Splitter ergeben eine Vorlage.",
+          "Mit Simple Mobs lassen die schweren Wither ein Netherherz fallen: Netherherz in der Mitte, vier Diamanten an den Kanten und vier Obsidian in den Ecken ergeben eine Vorlage.",
           "Vervielfältigen wie Vanilla-Vorlagen: 7 Diamanten, 1 Obsidian und die Vorlage ergeben 2 Vorlagen.",
-          "Mit SimpleBuilding ersetzt eine Basis-Aufwertung die vier Diamanten der ersten Vorlage (Obsidian in den Ecken, Basis-Aufwertung oben, Netherstern in der Mitte).",
           "Beide Aufwertungswege verbrauchen sie."
         ]
       }
@@ -201,6 +204,14 @@
       },
       "de": {
         "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
+      }
+    },
+    "simplebeacons:strong_upgrade_shard": {
+      "en": {
+        "summary": "Dropped by every Vanilla Wither, survives explosions. Nine make a Strong Upgrade."
+      },
+      "de": {
+        "summary": "Fällt von jedem Vanilla-Wither, übersteht Explosionen. Neun ergeben eine Starke Aufwertungsvorlage."
       }
     }
   }

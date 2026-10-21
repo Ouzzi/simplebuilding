@@ -11,6 +11,12 @@
   "simpletools.option.anvilRepairKeepsCost.tooltip": "Reparieren oder Umbenennen am Amboss ohne\nneue Verzauberung erhöht die Ambosskosten des\nGegenstands nicht. Nur Verzaubern tut das.\nStandard: true.",
   "simpletools.option.enableFurnaceLavaFill": "Ofen mit Lava befüllen",
   "simpletools.option.enableFurnaceLavaFill.tooltip": "Einen Lavaeimer in den leeren Brennstoffplatz\neinsetzen oder einen verbliebenen Eimer\ntauschen. Der leere Eimer bleibt nach dem\nVerbrennen im Ofen. Standard: true.",
+  "simpletools.option.biomeBrushEnabled": "Biom-Pinsel",
+  "simpletools.option.biomeBrushEnabled.tooltip": "Der Biom-Pinsel malt das Biom um einen\ngeklickten Block. Aus: jeder Strich wird\nabgelehnt. Standard: true.",
+  "simpletools.option.biomeBrushOpsOnly": "Biom-Pinsel nur für Operatoren",
+  "simpletools.option.biomeBrushOpsOnly.tooltip": "Nur Operatoren dürfen Biome malen.\nStandard: false.",
+  "simpletools.option.biomeBrushRadius": "Biom-Pinsel-Radius",
+  "simpletools.option.biomeBrushRadius.tooltip": "Biomzellen (je 4 Blöcke) um die geklickte\nZelle. Standard: 1. Bereich: 0–2.",
   "command.simpletools.changed": "Konfiguration gespeichert: %s = %s",
   "enchantment.simplequalityoflife.thrift": "Sparsamkeit",
   "simpletools.tab.death": "Tod",
@@ -140,5 +146,7 @@
   "quests.simpletools.start.title": "Willkommen bei Simple Tools",
   "quests.simpletools.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletools.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletools.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tools-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Amboss herstellen."
+  "quests.simpletools.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tools-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Amboss herstellen.",
+  "item.simpletools.biome_brush": "Biom-Pinsel",
+  "item.simpletools.biome_brush.tooltip": "Material in Nebenhand; Schleichen: eine Stelle"
 }

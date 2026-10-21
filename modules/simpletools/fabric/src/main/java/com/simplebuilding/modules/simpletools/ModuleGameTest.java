@@ -46,5 +46,11 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void frameReveal(GameTestHelper h){FrameTests.reveal(h);}
  @GameTest(maxTicks=100) public void frameConfigOff(GameTestHelper h){FrameTests.configOff(h);}
  @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.firstPickupTips(h); }
+ @GameTest(maxTicks=100) public void biomeBrushItem(GameTestHelper h){ToolsTests.ALL.get("biome_brush_item").accept(h);}
+ @GameTest(maxTicks=100) public void biomeBrushPaint(GameTestHelper h){ToolsTests.ALL.get("biome_brush_paint").accept(h);}
+ @GameTest(maxTicks=100) public void biomeBrushSneak(GameTestHelper h){ToolsTests.ALL.get("biome_brush_sneak").accept(h);}
+ @GameTest(maxTicks=100) public void biomeBrushClaims(GameTestHelper h){ToolsTests.ALL.get("biome_brush_claims").accept(h);}
+ @GameTest(maxTicks=100) public void biomeBrushRecipes(GameTestHelper h){ToolsTests.ALL.get("biome_brush_recipes").accept(h);}
+ @GameTest(maxTicks=100) public void biomeBrushMoved(GameTestHelper h){ToolsTests.ALL.get("biome_brush_moved").accept(h);}
  // CAT-END
 }

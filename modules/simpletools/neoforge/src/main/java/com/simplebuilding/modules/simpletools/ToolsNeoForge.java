@@ -5,6 +5,7 @@ import net.neoforged.fml.common.Mod;
 @Mod("simpletools")
 public final class ToolsNeoForge {
     public ToolsNeoForge(net.neoforged.bus.api.IEventBus bus) {
+        SimpleTools.registerMoves();
         SimpleTools.configDir = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleTools.load();
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
@@ -24,6 +25,12 @@ public final class ToolsNeoForge {
         bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e) -> {
             if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS))
                 ToolsRegistry.tabStacks().forEach(st -> e.accept(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))
+                ToolsRegistry.brushStacks().forEach(st -> {
+                    var brush = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BRUSH);
+                    if (e.getParentEntries().contains(brush)) e.insertAfter(brush, st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    else e.accept(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                });
         });
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.LootTableLoadEvent e) -> ToolsLoot.apply(
                 net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, e.getName()), pool -> e.getTable().addPool(pool.build()), e.getRegistries()));

@@ -11,6 +11,12 @@
   "simpletools.option.anvilRepairKeepsCost.tooltip": "Repairing or renaming at the anvil without\nnew enchantments does not raise the item's\nanvil cost. Only enchanting does. Default:\ntrue.",
   "simpletools.option.enableFurnaceLavaFill": "Fill Furnace with Lava",
   "simpletools.option.enableFurnaceLavaFill.tooltip": "Insert one lava bucket into an empty fuel\nslot or exchange one leftover bucket. An\nempty bucket remains in the furnace after\nburning. Default: true.",
+  "simpletools.option.biomeBrushEnabled": "Biome Brush",
+  "simpletools.option.biomeBrushEnabled.tooltip": "The Biome Brush paints the biome around a\nclicked block. Off: every stroke is refused.\nDefault: true.",
+  "simpletools.option.biomeBrushOpsOnly": "Biome Brush Only for Operators",
+  "simpletools.option.biomeBrushOpsOnly.tooltip": "Only operators may paint biomes. Default:\nfalse.",
+  "simpletools.option.biomeBrushRadius": "Biome Brush Radius",
+  "simpletools.option.biomeBrushRadius.tooltip": "Biome cells (4 blocks each) painted around\nthe clicked cell. Default: 1. Allowed range:\n0–2.",
   "command.simpletools.changed": "Configuration saved: %s = %s",
   "enchantment.simplequalityoflife.thrift": "Thrift",
   "simpletools.tab.death": "Death",
@@ -140,5 +146,7 @@
   "quests.simpletools.start.title": "Welcome to Simple Tools",
   "quests.simpletools.start.subtitle": "Your free guide",
   "quests.simpletools.start.welcome.title": "A free guide",
-  "quests.simpletools.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tools Guide as a reward. You can also craft it from a book and an anvil."
+  "quests.simpletools.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tools Guide as a reward. You can also craft it from a book and an anvil.",
+  "item.simpletools.biome_brush": "Biome Brush",
+  "item.simpletools.biome_brush.tooltip": "Biome material in off hand; sneak: one spot"
 }
