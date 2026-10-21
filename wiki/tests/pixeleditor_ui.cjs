@@ -81,7 +81,8 @@ async function desktop(browser, base) {
   // the active tool is clearly marked (accent background, contrast of the icon >= 4.5)
   const tools = page.locator('.pe-tools [data-tool="pencil"]');
   await page.keyboard.press('b');
-  assert.ok(await tools.evaluate(CONTRAST) >= 4.5, 'active tool contrast');
+  const tc = await tools.evaluate(CONTRAST);
+  assert.ok(tc >= 4.5, 'active tool contrast ' + tc + ' ' + await tools.evaluate(el => getComputedStyle(el).color + ' / ' + getComputedStyle(el).backgroundColor + ' ' + el.getAttribute('aria-pressed')));
   // draw a stroke -> undo/redo
   const undo = page.locator('.pe-head [data-act="undo"]');
   assert.ok(await undo.isDisabled());
