@@ -113,6 +113,7 @@
   "item.simplemusic.red_pocket_jukebox": "Rote Taschen-Jukebox",
   "item.simplemusic.black_pocket_jukebox": "Schwarze Taschen-Jukebox",
   "tip.simplemusic.pocket_jukebox": "Platten wie ins Bündel legen; benutzen: abspielen/pausieren",
+  "tip.simplemusic.disc_press": "Blatt oben, Rohlinge unten: presst Platten, Blatt bleibt",
   "item.simplemusic.guide_book": "Simple-Music-Handbuch",
   "simplemusic.guide.page.1.title": "Simple Music",
   "simplemusic.guide.page.1": "Notenblätter als Text schreiben, im Editor probehören und vom Orchestrion in Schleife spielen lassen. Eigene Mono-Ogg-Dateien auf Rohlinge brennen.",
@@ -159,6 +160,5 @@
   "quests.simplemusic.start.title": "Willkommen bei Simple Music",
   "quests.simplemusic.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemusic.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemusic.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Music-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Notenblock herstellen.",
-  "tip.simplemusic.disc_press": "Blatt oben, Rohlinge unten: presst Platten, Blatt bleibt"
+  "quests.simplemusic.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Music-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Notenblock herstellen."
 }
