@@ -39,7 +39,7 @@ for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colo
         assert (RES / f'assets/{NS}/textures/item/{k}{suffix}.png').is_file(), (k, suffix)
 for r in recipes.values():
     for value in re.findall(r'"(#?[a-z0-9_.-]+:[a-z0-9_./-]+)"', json.dumps(r)):
-        if not value.startswith(('minecraft:', '#minecraft:', f'{NS}:')):
+        if not value.startswith(('minecraft:', '#minecraft:', f'{NS}:', f'#{NS}:')):
             raise AssertionError(('foreign id in a recipe without condition', value))
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 mixins = json.loads((RES / f'{NS}.mixins.json').read_text(encoding='utf-8'))
