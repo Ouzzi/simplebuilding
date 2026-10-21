@@ -52,5 +52,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void biomeBrushClaims(GameTestHelper h){ToolsTests.ALL.get("biome_brush_claims").accept(h);}
  @GameTest(maxTicks=100) public void biomeBrushRecipes(GameTestHelper h){ToolsTests.ALL.get("biome_brush_recipes").accept(h);}
  @GameTest(maxTicks=100) public void biomeBrushMoved(GameTestHelper h){ToolsTests.ALL.get("biome_brush_moved").accept(h);}
+ @GameTest(maxTicks=100) public void biomeBrushRarity(GameTestHelper h){ToolsTests.ALL.get("biome_brush_rarity").accept(h);}
  // CAT-END
 }

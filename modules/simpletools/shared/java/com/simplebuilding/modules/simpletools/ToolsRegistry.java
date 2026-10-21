@@ -15,7 +15,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -46,8 +45,8 @@ public final class ToolsRegistry {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, DEATH_VAULT_ID);
         DEATH_VAULT_ITEM = Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(DEATH_VAULT, new Item.Properties().setId(key).useBlockDescriptionPrefix()));
         ResourceKey<Item> brush = ResourceKey.create(Registries.ITEM, BIOME_BRUSH_ID);
-        BIOME_BRUSH = Registry.register(BuiltInRegistries.ITEM, brush, new BiomeBrushItem(new Item.Properties().durability(BiomeBrushItem.DURABILITY)
-                .repairable(Items.NETHERITE_INGOT).enchantable(15).rarity(Rarity.EPIC).fireResistant().setId(brush)));
+        BIOME_BRUSH = Registry.register(BuiltInRegistries.ITEM, brush, new BiomeBrushItem(com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties().durability(BiomeBrushItem.DURABILITY)
+                .repairable(Items.NETHERITE_INGOT).enchantable(15)).fireResistant().setId(brush)));
     }
 
     public static void registerMenus() {

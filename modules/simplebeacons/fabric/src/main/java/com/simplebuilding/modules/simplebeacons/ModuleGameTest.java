@@ -16,6 +16,11 @@ public final class ModuleGameTest {
         BeaconsTests.ALL.get("registered").accept(h);
     }
 
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void strongItemsRarity(GameTestHelper h) {
+        BeaconsTests.ALL.get("strong_items_rarity").accept(h);
+    }
+
     @GameTest(structure = "simplebeacons:arena", maxTicks = 200)
     public void pyramidLevels(GameTestHelper h) {
         BeaconsTests.ALL.get("pyramid_levels").accept(h);

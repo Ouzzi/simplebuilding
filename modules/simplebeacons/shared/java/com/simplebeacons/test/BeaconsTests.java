@@ -88,6 +88,16 @@ public final class BeaconsTests {
             h.assertTrue(BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimpleBeacons.id("strong_conduit")), "conduit block entity type");
             h.succeed();
         });
+        ALL.put("strong_items_rarity", h -> {
+            // owner 21.10.: the rarest items get SimpleLib's mythic tier (turquoise-green name, glint)
+            for (var item : List.of(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE, BeaconsRegistry.STRONG_BEACON_ITEM, BeaconsRegistry.STRONG_CONDUIT_ITEM)) {
+                var stack = new net.minecraft.world.item.ItemStack(item);
+                h.assertTrue(com.simplelib.api.SimpleRarity.of(stack) == com.simplelib.api.SimpleRarity.MYTHIC, "mythic: " + item);
+                h.assertTrue(stack.getRarity() == net.minecraft.world.item.Rarity.EPIC && stack.hasFoil(), "Epic fallback + glint: " + item);
+            }
+            h.assertTrue(com.simplelib.api.SimpleRarity.of(new net.minecraft.world.item.ItemStack(BeaconsRegistry.STRONG_UPGRADE_SHARD)) == null, "the shard stays plain");
+            h.succeed();
+        });
         ALL.put("pyramid_levels", h -> {
             BeaconsConfig.reset();
             pyramid(h, 6, Blocks.IRON_BLOCK);

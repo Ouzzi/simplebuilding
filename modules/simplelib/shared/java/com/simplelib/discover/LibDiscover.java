@@ -66,6 +66,7 @@ public final class LibDiscover {
             "simplelib:polished_end_stone_slab",
             "simplelib:polished_end_stone_stairs",
             "simplelib:polished_end_stone_wall",
+            "simplelib:rarity_tiers",
             "simplelib:raw_enderite",
             "simplelib:shared_materials",
             "simplelib:warm_food",

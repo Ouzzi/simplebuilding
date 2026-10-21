@@ -5,6 +5,7 @@ import com.simplebeacons.beacon.StrongBeaconBlockEntity;
 import com.simplebeacons.beacon.StrongBeaconMenu;
 import com.simplebeacons.conduit.StrongConduitBlock;
 import com.simplebeacons.conduit.StrongConduitBlockEntity;
+import com.simplelib.api.SimpleRarity;
 import java.util.List;
 import java.util.function.Function;
 import net.minecraft.ChatFormatting;
@@ -53,14 +54,14 @@ public final class BeaconsRegistry {
                 Component.translatable("item.simplebeacons.strong_upgrade_template.ingredients").withStyle(ChatFormatting.BLUE),
                 Component.translatable("item.simplebeacons.strong_upgrade_template.base_slot_description"),
                 Component.translatable("item.simplebeacons.strong_upgrade_template.additions_slot_description"),
-                List.of(), List.of(), p.rarity(Rarity.EPIC)), new Item.Properties());
+                List.of(), List.of(), p), SimpleRarity.MYTHIC.apply(new Item.Properties()));
         // Owner 21.10.: the Vanilla Wither always drops one; nine make a template. Survives explosions like the Nether Star.
         STRONG_UPGRADE_SHARD = item("strong_upgrade_shard", Item::new, new Item.Properties().rarity(Rarity.UNCOMMON)
                 .delayedComponent(DataComponents.DAMAGE_RESISTANT, registries -> new DamageResistant(registries.getOrThrow(DamageTypeTags.IS_EXPLOSION))));
         STRONG_BEACON_ITEM = item("strong_beacon", p -> new BlockItem(STRONG_BEACON, p),
-                new Item.Properties().useBlockDescriptionPrefix().rarity(Rarity.EPIC));
+                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
         STRONG_CONDUIT_ITEM = item("strong_conduit", p -> new BlockItem(STRONG_CONDUIT, p),
-                new Item.Properties().useBlockDescriptionPrefix().rarity(Rarity.EPIC));
+                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
         com.simplebeacons.guide.BeaconsGuide.register();
     }
 
