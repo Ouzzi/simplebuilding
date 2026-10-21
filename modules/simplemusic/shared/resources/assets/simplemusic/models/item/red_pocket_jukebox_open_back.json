@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplemusic:item/red_pocket_jukebox_open_back"
+  }
+}

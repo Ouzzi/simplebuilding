@@ -85,4 +85,24 @@ public final class ModuleGameTest {
     public void discoverFirstPickupTips(GameTestHelper h) {
         MusicTests.ALL.get("discover_first_pickup_tips").accept(h);
     }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pocketRecipe(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_recipe").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pocketInsertRemove(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_insert_remove").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
+    public void pocketPlayPause(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_play_pause").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 40)
+    public void pocketStops(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_stops").accept(h);
+    }
 }

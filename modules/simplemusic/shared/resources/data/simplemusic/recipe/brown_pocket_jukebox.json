@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "pocket_jukebox",
+  "pattern": [
+    "NDN",
+    "NBN",
+    "NNN"
+  ],
+  "key": {
+    "N": "minecraft:copper_nugget",
+    "D": "minecraft:diamond",
+    "B": "minecraft:brown_bundle"
+  },
+  "result": {
+    "id": "simplemusic:brown_pocket_jukebox",
+    "count": 1
+  }
+}

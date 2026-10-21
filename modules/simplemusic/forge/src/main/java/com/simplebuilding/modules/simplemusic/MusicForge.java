@@ -57,6 +57,7 @@ public final class MusicForge {
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleMusic.on()) {
                 event.getEntries().put(com.simplemusic.guide.MusicGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                MusicRegistry.toolStacks().forEach(s -> event.getEntries().put(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             }
         });
         channel = ChannelBuilder.named(SimpleMusic.id("main")).payloadChannel().protocol(NetworkProtocol.PLAY)

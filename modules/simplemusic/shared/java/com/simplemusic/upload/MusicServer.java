@@ -82,6 +82,7 @@ public final class MusicServer {
         UPLOADS.clear();
         DOWNLOADS.clear();
         DiscPlayback.clear();
+        com.simplemusic.pocket.PocketPlayback.clear();
     }
 
     private static boolean op(ServerPlayer player) {
@@ -245,7 +246,8 @@ public final class MusicServer {
         if (!UploadSession.isHash(hash)) return;
         TrackStore s = store(player.level().getServer());
         TrackStore.Track track = s.get(hash);
-        if (track == null || !track.audibleFor(player.getUUID()) || !DiscPlayback.playsFor(player, hash)) return;
+        if (track == null || !track.audibleFor(player.getUUID()) || !DiscPlayback.playsFor(player, hash)
+                && !com.simplemusic.pocket.PocketPlayback.playsFor(player, hash)) return;
         Deque<Download> queue = DOWNLOADS.computeIfAbsent(player.getUUID(), k -> new ArrayDeque<>());
         if (queue.stream().anyMatch(d -> d.hash.equals(hash)) || queue.size() >= 3) return;
         try {
@@ -257,6 +259,7 @@ public final class MusicServer {
 
     /** Sends download chunks within the global rate (config {@code downloadKiBPerSecond}), round robin. */
     public static void tick(MinecraftServer current) {
+        com.simplemusic.pocket.PocketPlayback.tick(current);
         if (DOWNLOADS.isEmpty()) return;
         long budget = MusicConfig.downloadKiBPerSecond * 1024L / 20;
         boolean sent = true;

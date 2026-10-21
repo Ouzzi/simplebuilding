@@ -29,6 +29,14 @@ recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'd
 assert recipes['orchestrion']['key'] == {'C': 'minecraft:copper_ingot', 'N': 'minecraft:note_block', 'J': 'minecraft:jukebox'}
 assert sorted(recipes['sheet_music']['ingredients']) == ['minecraft:feather', 'minecraft:ink_sac', 'minecraft:paper']
 assert recipes['blank_disc']['key']['A'] == 'minecraft:amethyst_shard'
+pockets = [k for k in recipes if k.endswith('pocket_jukebox')]
+assert len(pockets) == 17 and len([k for k in recipes if k.endswith('pocket_jukebox_dyeing')]) == 16, 'pocket jukebox recipes'
+for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colour comes from the bundle
+    r = recipes[k]
+    assert r['pattern'] == ['NDN', 'NBN', 'NNN'] and r['key']['N'] == 'minecraft:copper_nugget' and r['key']['D'] == 'minecraft:diamond', k
+    assert r['key']['B'] == 'minecraft:' + k.replace('pocket_jukebox', 'bundle').lstrip('_'), k
+    for suffix in ('', '_open_back', '_open_front'):
+        assert (RES / f'assets/{NS}/textures/item/{k}{suffix}.png').is_file(), (k, suffix)
 for r in recipes.values():
     for value in re.findall(r'"(#?[a-z0-9_.-]+:[a-z0-9_./-]+)"', json.dumps(r)):
         if not value.startswith(('minecraft:', '#minecraft:', f'{NS}:')):

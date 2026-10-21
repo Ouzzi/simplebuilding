@@ -53,6 +53,7 @@ public final class MusicNeoForge {
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleMusic.on()) {
                 event.accept(com.simplemusic.guide.MusicGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                MusicRegistry.toolStacks().forEach(s -> event.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             }
         });
         bus.addListener((RegisterPayloadHandlersEvent event) -> {
@@ -79,6 +80,6 @@ public final class MusicNeoForge {
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Post e) -> MusicServer.tick(e.getServer()));
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStoppedEvent e) -> MusicServer.stopped());
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplemusic.guide.MusicGuide.installQuests(FMLPaths.CONFIGDIR.get());
-        if (dist == Dist.CLIENT) MusicNeoClient.init();
+        if (dist == Dist.CLIENT) MusicNeoClient.init(bus);
     }
 }

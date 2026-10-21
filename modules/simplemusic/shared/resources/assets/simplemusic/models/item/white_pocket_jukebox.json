@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplemusic:item/white_pocket_jukebox"
+  }
+}

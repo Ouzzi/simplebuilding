@@ -2,6 +2,7 @@ package com.simplemusic.registry;
 
 import com.simplemusic.SimpleMusic;
 import com.simplemusic.disc.TrackRef;
+import com.simplemusic.pocket.PocketState;
 import com.simplemusic.sheet.SheetContent;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -13,10 +14,13 @@ public final class MusicComponents {
             .persistent(SheetContent.CODEC).networkSynchronized(SheetContent.STREAM_CODEC).cacheEncoding().build();
     public static final DataComponentType<TrackRef> TRACK = DataComponentType.<TrackRef>builder()
             .persistent(TrackRef.CODEC).networkSynchronized(TrackRef.STREAM_CODEC).build();
+    public static final DataComponentType<PocketState> POCKET = DataComponentType.<PocketState>builder()
+            .persistent(PocketState.CODEC).networkSynchronized(PocketState.STREAM_CODEC).build();
 
     public static void register() {
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMusic.id("sheet"), SHEET);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMusic.id("track"), TRACK);
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMusic.id("pocket"), POCKET);
     }
 
     private MusicComponents() {}

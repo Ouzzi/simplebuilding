@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "equipment",
+  "group": "pocket_jukebox_dye",
+  "input": "#simplemusic:pocket_jukeboxes",
+  "material": "minecraft:gray_dye",
+  "result": {
+    "id": "simplemusic:gray_pocket_jukebox"
+  }
+}

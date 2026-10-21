@@ -5,7 +5,9 @@ import com.simplemusic.disc.BlankDiscItem;
 import com.simplemusic.disc.CustomDiscItem;
 import com.simplemusic.orchestrion.OrchestrionBlock;
 import com.simplemusic.orchestrion.OrchestrionBlockEntity;
+import com.simplemusic.pocket.PocketJukeboxItem;
 import com.simplemusic.sheet.SheetMusicItem;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
@@ -15,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -33,6 +36,13 @@ public final class MusicRegistry {
     public static Block ORCHESTRION;
     public static Item SHEET_MUSIC, ORCHESTRION_ITEM, BLANK_DISC, CUSTOM_DISC;
     public static BlockEntityType<OrchestrionBlockEntity> ORCHESTRION_BE;
+    /** Undyed first, then the 16 colours in {@link DyeColor} order (like Vanilla's bundles). */
+    public static final List<Item> POCKET_JUKEBOXES = new ArrayList<>();
+
+    /** {@code pocket_jukebox} or {@code <colour>_pocket_jukebox}. */
+    public static String pocketJukeboxId(DyeColor color) {
+        return color == null ? "pocket_jukebox" : color.getSerializedName() + "_pocket_jukebox";
+    }
 
     public static void registerBlocks() {
         ORCHESTRION = block("orchestrion", OrchestrionBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
@@ -44,11 +54,21 @@ public final class MusicRegistry {
         ORCHESTRION_ITEM = item("orchestrion", p -> new BlockItem(ORCHESTRION, p), new Item.Properties().useBlockDescriptionPrefix());
         BLANK_DISC = item("blank_disc", BlankDiscItem::new, new Item.Properties().stacksTo(16));
         CUSTOM_DISC = item("custom_disc", CustomDiscItem::new, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+        POCKET_JUKEBOXES.add(item(pocketJukeboxId(null), p -> new PocketJukeboxItem(p, null), new Item.Properties()));
+        for (DyeColor color : DyeColor.values()) {
+            POCKET_JUKEBOXES.add(item(pocketJukeboxId(color), p -> new PocketJukeboxItem(p, color), new Item.Properties()));
+        }
         com.simplemusic.guide.MusicGuide.register();
     }
 
     public static void registerBlockEntities(BlockEntityType<OrchestrionBlockEntity> orchestrion) {
         ORCHESTRION_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("orchestrion"), orchestrion);
+    }
+
+    /** The 17 Pocket Jukeboxes for the Vanilla tools tab (empty while the module is switched off). */
+    public static List<ItemStack> toolStacks() {
+        if (!SimpleMusic.on()) return List.of();
+        return POCKET_JUKEBOXES.stream().map(ItemStack::new).toList();
     }
 
     /** Creative tab stacks (empty while the module is switched off). */
@@ -66,6 +86,7 @@ public final class MusicRegistry {
                             if (!SimpleMusic.on()) return;
                             out.accept(com.simplemusic.guide.MusicGuide.stack());
                             tabStacks().forEach(out::accept);
+                            toolStacks().forEach(out::accept);
                         }).build());
     }
 
