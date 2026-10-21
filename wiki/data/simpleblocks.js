@@ -37,7 +37,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       ],
       "en": {
         "title": "Shapecutter",
-        "summary": "The Vanilla stonecutter on a polished iron base with copper corner caps (the blade is Vanilla's), for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
+        "summary": "The Vanilla stonecutter on a polished iron base with copper corner caps and a polished steel blade, for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
         "details": [
           "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
           "The same screen as the stonecutter: put a block in on the left, pick a cut in the middle, take the result on the right. The list shows 4 x 3 cuts at a time; scroll with the wheel or drag the bar. Shift-click takes the whole stack at once. The old id simpleblocks:shaping_saw (Shaping Saw) turns into the Shapecutter by itself in existing worlds.",
@@ -48,7 +48,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       },
       "de": {
         "title": "Formsäge",
-        "summary": "Die Vanilla-Steinsäge auf polierter Eisenbasis mit Kupfer-Eckkappen (das Sägeblatt ist das von Vanilla), für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
+        "summary": "Die Vanilla-Steinsäge auf polierter Eisenbasis mit Kupfer-Eckkappen und poliertem Stahl-Sägeblatt, für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
         "details": [
           "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
           "Derselbe Bildschirm wie an der Steinsäge: links einen Block einlegen, in der Mitte einen Schnitt wählen, rechts das Ergebnis nehmen. Die Liste zeigt 4 x 3 Schnitte auf einmal; mit dem Mausrad oder der Leiste blättern. Shift-Klick nimmt den ganzen Stapel auf einmal. Die alte ID simpleblocks:shaping_saw (Shaping Saw) wird in bestehenden Welten von selbst zur Formsäge.",
@@ -9163,7 +9163,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "note": {
         "en": {
           "title": "Shapecutter",
-          "summary": "The Vanilla stonecutter on a polished iron base with copper corner caps (the blade is Vanilla's), for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
+          "summary": "The Vanilla stonecutter on a polished iron base with copper corner caps and a polished steel blade, for stone AND wood: it cuts everything the stonecutter cuts, plus planks, logs, wool and every other block whose stairs or slabs the stonecutter cannot make.",
           "details": [
             "Recipe: the stonecutter recipe with copper - copper ingot, iron ingot, copper ingot over three stone. Or upgrade a placed stonecutter in the world: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets; the nuggets are used up and it keeps its facing.",
             "The same screen as the stonecutter: put a block in on the left, pick a cut in the middle, take the result on the right. The list shows 4 x 3 cuts at a time; scroll with the wheel or drag the bar. Shift-click takes the whole stack at once. The old id simpleblocks:shaping_saw (Shaping Saw) turns into the Shapecutter by itself in existing worlds.",
@@ -9174,7 +9174,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         },
         "de": {
           "title": "Formsäge",
-          "summary": "Die Vanilla-Steinsäge auf polierter Eisenbasis mit Kupfer-Eckkappen (das Sägeblatt ist das von Vanilla), für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
+          "summary": "Die Vanilla-Steinsäge auf polierter Eisenbasis mit Kupfer-Eckkappen und poliertem Stahl-Sägeblatt, für Stein UND Holz: Sie schneidet alles, was die Steinsäge schneidet, dazu Bretter, Stämme, Wolle und jeden anderen Block, dessen Treppen oder Stufen die Steinsäge nicht kann.",
           "details": [
             "Rezept: das Steinsägen-Rezept mit Kupfer – Kupferbarren, Eisenbarren, Kupferbarren über drei Stein. Oder eine platzierte Steinsäge in der Welt aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast; die Nuggets werden verbraucht, die Ausrichtung bleibt.",
             "Derselbe Bildschirm wie an der Steinsäge: links einen Block einlegen, in der Mitte einen Schnitt wählen, rechts das Ergebnis nehmen. Die Liste zeigt 4 x 3 Schnitte auf einmal; mit dem Mausrad oder der Leiste blättern. Shift-Klick nimmt den ganzen Stapel auf einmal. Die alte ID simpleblocks:shaping_saw (Shaping Saw) wird in bestehenden Welten von selbst zur Formsäge.",
