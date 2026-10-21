@@ -51,6 +51,8 @@ Kein Text auf dem Bildschirm für Gadgets (3.4). Amerikanisches Englisch, EN+DE 
 Neue Pixelkunst im Stil des Besitzers, immer mit 16-fach-Vorschau alt neben neu; alte Besitzer-Texturen respektieren (3.7). **Aus Vanilla abgeleitete Pixel werden nie eingecheckt**
 (auch keine Wiki-Kopien oder Vorschau-PNGs), sondern beim Build erzeugt: `tools/textures/vanilla_derived.py`, Pfade in `.gitignore`.
 
+**Besitzer 21.10.:** (a) Alle Texturen so nah wie möglich an Vanilla halten – Formensprache, Schattierung, Farbgebung/Paletten, Kontur wie bei Minecraft (eigene Pixel, keine kopierten). (b) Jede Textur wird in Grundform **als Ebenen** gespeichert (Ebenen-Quelle neben dem PNG, Format siehe Pixeleditor-Plan), damit sie im Wiki-Pixeleditor (Dev) angepasst werden kann; das PNG ist das zusammengesetzte Ergebnis.
+
 ### A9 Server-Autorität und Belege
 Alle Stellschrauben serverseitig mit Obergrenzen, die Vanilla nicht gefährden (3.8). Wiki-Aussagen müssen im Code beweisbar sein (3.6); Handbücher/Wiki nach Änderungen neu erzeugen.
 
