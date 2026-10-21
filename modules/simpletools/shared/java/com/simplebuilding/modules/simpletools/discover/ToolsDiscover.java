@@ -52,8 +52,12 @@ public final class ToolsDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simpletools:anvil_repair_cost",
+            "simpletools:biome_brush",
             "simpletools:commands",
             "simpletools:config_anvilRepairKeepsCost",
+            "simpletools:config_biomeBrushEnabled",
+            "simpletools:config_biomeBrushOpsOnly",
+            "simpletools:config_biomeBrushRadius",
             "simpletools:config_deathDurabilityCap",
             "simpletools:config_deathVaultCostPerItem",
             "simpletools:config_deathVaultMaxDeaths",

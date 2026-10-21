@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "simplemobs:block/nether_gem",
+    "particle": "simplemobs:block/nether_gem"
+  }
+}

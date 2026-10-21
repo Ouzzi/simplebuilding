@@ -2,6 +2,8 @@ plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // framework (SubMods switch of the SimpleBuilding super-mod) nested per principle 3.
 dependencies { include project(':framework') }
+// SimpleLib (IdMoves: Wither Heart -> Nether Heart) nested per principle 6a; compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Shellker Shell item texture is Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
 // Hollow Howler voice: variant A committed, variant B (Vanilla-derived) with -PsbHowlerSounds=vanilla.

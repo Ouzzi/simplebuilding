@@ -4,11 +4,22 @@
       "A slab of obsidian around a captured star; it hums when a beacon is near."
     ],
     "use": [
-      "Hold it in the off hand and hit a placed beacon or conduit 8 times with an axe (with a hammer mod: the sledgehammer) while you carry a nether star; or smith it at the smithing table.",
-      "Crafted from a nether star, 4 diamonds and 4 obsidian; 7 diamonds, an obsidian and one template make 2."
+      "Off hand, then hit a beacon or conduit 8 times with an axe (or sledgehammer) while carrying a nether star; or use the smithing table.",
+      "9 shards from the Vanilla Wither make one; with Simple Mobs also a Nether Heart, 4 diamonds and 4 obsidian. 7 diamonds, an obsidian and a template make 2."
     ],
     "secret": [
       "The upgraded block keeps its chosen powers, its lock and its name."
+    ]
+  },
+  "strong_upgrade_shard": {
+    "lore": [
+      "A splinter of a template, still warm from the Wither's last breath."
+    ],
+    "use": [
+      "Every Vanilla Wither drops one. Nine of them make a Strong Upgrade."
+    ],
+    "secret": [
+      "It survives explosions, like the Nether Star beside it."
     ]
   },
   "strong_beacon": {

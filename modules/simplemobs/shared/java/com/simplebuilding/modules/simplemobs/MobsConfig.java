@@ -52,10 +52,6 @@ public final class MobsConfig {
     public static boolean witherSummonEnabled = true;
     /** Blighted Wither phase 3 wilts plants and natural leaves (also needs the mobGriefing game rule). */
     public static boolean witherWilt = true;
-    /** Biome Brush on/off, only for operators, and its radius in 4-block biome cells (0 = one cell, max 2). */
-    public static boolean biomeBrushEnabled = true;
-    public static boolean biomeBrushOpsOnly = false;
-    public static int biomeBrushRadius = 1;
     /** Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on. */
     public static boolean trickMirrorEnabled = false;
 
@@ -175,9 +171,6 @@ public final class MobsConfig {
         watcherGazeEdge = Math.max(watcherGazeSlow, Math.min(120.0f, edge));
         witherSummonEnabled = bool(json, "witherSummonEnabled", true);
         witherWilt = bool(json, "witherWilt", true);
-        biomeBrushEnabled = bool(json, "biomeBrushEnabled", true);
-        biomeBrushOpsOnly = bool(json, "biomeBrushOpsOnly", false);
-        biomeBrushRadius = Math.max(0, Math.min(2, integer(json, "biomeBrushRadius", 1)));
         trickMirrorEnabled = bool(json, "trickMirrorEnabled", false);
     }
 
@@ -220,9 +213,6 @@ public final class MobsConfig {
         o.addProperty("watcherGazeEdge", watcherGazeEdge);
         o.addProperty("witherSummonEnabled", witherSummonEnabled);
         o.addProperty("witherWilt", witherWilt);
-        o.addProperty("biomeBrushEnabled", biomeBrushEnabled);
-        o.addProperty("biomeBrushOpsOnly", biomeBrushOpsOnly);
-        o.addProperty("biomeBrushRadius", biomeBrushRadius);
         o.addProperty("trickMirrorEnabled", trickMirrorEnabled);
         return o;
     }

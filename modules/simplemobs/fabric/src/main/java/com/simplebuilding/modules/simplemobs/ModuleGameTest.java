@@ -87,17 +87,16 @@ public final class ModuleGameTest {
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.firstPickupTips(h); }
     @GameTest(structure = "simplemobs:empty") public void witherValues(GameTestHelper helper) { MobsTests.ALL.get("wither_values").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherSummon(GameTestHelper helper) { MobsTests.ALL.get("wither_summon").accept(helper); }
-    @GameTest(structure = "simplemobs:empty") public void witherDrop(GameTestHelper helper) { MobsTests.ALL.get("wither_drop").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void witherDrop(GameTestHelper helper) { MobsTests.ALL.get("wither_drop").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void witherDeathPlacesLoot(GameTestHelper helper) { MobsTests.ALL.get("wither_death_places_loot").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void witherLootPlace(GameTestHelper helper) { MobsTests.ALL.get("wither_loot_place").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void witherHeartMoved(GameTestHelper helper) { MobsTests.ALL.get("wither_heart_moved").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherAttacks(GameTestHelper helper) { MobsTests.ALL.get("wither_attacks").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherMinionArmor(GameTestHelper helper) { MobsTests.ALL.get("wither_minion_armor").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherNovaPush(GameTestHelper helper) { MobsTests.ALL.get("wither_nova_push").accept(helper); }
-    @GameTest(structure = "simplemobs:empty") public void biomeBrushItem(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_item").accept(helper); }
-    @GameTest(structure = "simplemobs:empty") public void biomeBrushPaint(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_paint").accept(helper); }
-    @GameTest(structure = "simplemobs:empty") public void biomeBrushSneak(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_sneak").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }
-    @GameTest(structure = "simplemobs:empty") public void biomeBrushClaims(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_claims").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerVsWarden(GameTestHelper helper) { MobsTests.ALL.get("howler_vs_warden").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void bossPhaseNotches(GameTestHelper helper) { MobsTests.ALL.get("boss_phase_notches").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerBossbar(GameTestHelper helper) { MobsTests.ALL.get("howler_bossbar").accept(helper); }

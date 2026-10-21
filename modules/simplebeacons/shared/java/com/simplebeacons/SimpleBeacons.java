@@ -27,7 +27,7 @@ public final class SimpleBeacons {
         BeaconsConfig.load(configDir);
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "beacons", "simplebeacons.testcentre.station",
-                java.util.List.of("simplebeacons:strong_upgrade_template", "simplebeacons:strong_beacon",
+                java.util.List.of("simplebeacons:strong_upgrade_template", "simplebeacons:strong_upgrade_shard", "simplebeacons:strong_beacon",
                         "simplebeacons:strong_conduit", "simplebeacons:guide_book"));
     }
 

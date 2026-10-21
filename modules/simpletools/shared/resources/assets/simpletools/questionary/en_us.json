@@ -20,5 +20,16 @@
     "secret": [
       "Its pages open in your language and nothing is consumed."
     ]
+  },
+  "biome_brush": {
+    "lore": [
+      "Paint the land itself. The heart in the ferrule remembers every place it has seen."
+    ],
+    "use": [
+      "Hold it in the main hand and a biome material in the off hand, then right-click a block: sand paints desert, snow paints snowy plains, soul sand paints a soul sand valley. One material and one durability point per stroke."
+    ],
+    "secret": [
+      "Biomes stay in their dimension, and claimed land or caves cannot be painted. Unbreaking and Mending work on it."
+    ]
   }
 }

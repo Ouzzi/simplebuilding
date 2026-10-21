@@ -8,6 +8,7 @@ public final class ToolsForge {
     private static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
 
     public ToolsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simpletools.forge.ModuleForgeTests.register(context.getModBusGroup());
+        SimpleTools.registerMoves();
         SimpleTools.configDir = net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleTools.load();
         net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
@@ -26,6 +27,12 @@ public final class ToolsForge {
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
             if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS))
                 ToolsRegistry.tabStacks().forEach(st -> e.getEntries().put(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))
+                ToolsRegistry.brushStacks().forEach(st -> {
+                    var brush = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BRUSH);
+                    if (e.getEntries().contains(brush)) e.getEntries().putAfter(brush, st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    else e.getEntries().put(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                });
         });
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) ToolsForgeClient.init(context);
         net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(e -> ToolsCommands.register(e.getDispatcher()));

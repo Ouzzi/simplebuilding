@@ -9,7 +9,7 @@ public final class WitherLogic {
     public static final double HEALTH = 600.0;
     public static final double ARMOR = 8.0;
     public static final int XP = 100;
-    /** Wither Hearts per kill: always one (Looting does not change it; only the Blighted Wither drops it). */
+    /** Nether Hearts per kill: always one (Looting does not change it; only the Blighted and Abyssal Wither drop it). */
     public static final int HEARTS = 1;
     /** Phase 2 below half health (the Vanilla armor/shield phase), phase 3 "Blight" below 15 %. */
     public static final float PHASE_2 = 0.5f, PHASE_3 = 0.15f;
@@ -30,7 +30,7 @@ public final class WitherLogic {
 
     /** Owner N50: below this share the called Wither Skeletons come armored (iron at stage 1, diamond at stage 2). */
     public static final float ARMORED_SHARE = 0.3f;
-    /** Owner N50: drops besides the heart - 3 to 5 nuggets of the helmet's metal and 1 to 2 Nether Stars. */
+    /** Owner N50: drops besides the heart - 3 to 5 nuggets of the helmet's metal and 1 to 2 Nether Stars (stage 2 only, 21.10.). */
     public static final int NUGGETS_MIN = 3, NUGGETS_MAX = 5, STARS_MIN = 1, STARS_MAX = 2;
 
     /**
@@ -38,7 +38,7 @@ public final class WitherLogic {
      * Enderite Helmet the Abyssal Wither. Warnings stay the same at both stages (fair), only the numbers grow.
      */
     public record Stage(String metal, double health, double armor, int xp, int volleySkulls, int minions, int minionCap,
-                        float pause, double novaPush, double novaLift) {
+                        float pause, double novaPush, double novaLift, boolean stars, int gems) {
         /** Pause between attacks of a kind at this stage (ticks). */
         public int interval(int base) {
             return Math.round(base * pause);
@@ -50,8 +50,9 @@ public final class WitherLogic {
         }
     }
 
-    public static final Stage NETHERITE = new Stage("netherite", HEALTH, ARMOR, XP, VOLLEY_SKULLS, MINIONS, MINION_CAP, 1.0f, 2.8, 0.6);
-    public static final Stage ENDERITE = new Stage("enderite", 1000.0, 14.0, 200, 3, 4, 8, 0.75f, 3.4, 0.7);
+    /** Owner 21.10.: stage 2 keeps its 1-2 Nether Stars; stage 3 drops no star but one Nether Gem. */
+    public static final Stage NETHERITE = new Stage("netherite", HEALTH, ARMOR, XP, VOLLEY_SKULLS, MINIONS, MINION_CAP, 1.0f, 2.8, 0.6, true, 0);
+    public static final Stage ENDERITE = new Stage("enderite", 1000.0, 14.0, 200, 3, 4, 8, 0.75f, 3.4, 0.7, false, 1);
 
     /** Whether minions called at this health share come armored. */
     public static boolean armoredMinions(float health, float max) {

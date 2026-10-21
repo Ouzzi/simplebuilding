@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +92,19 @@ public final class SimpleTools {
 
     static Path path() {
         return configDir.resolve(MOD_ID + ".json");
+    }
+
+    /**
+     * Ids taken over from Simple Mobs (21.10.: the Biome Brush moved here) and the shared Netherite nugget its recipes use.
+     * Called first in every loader entry, before registry events and data packs.
+     */
+    public static void registerMoves() {
+        Identifier from = Identifier.fromNamespaceAndPath("simplemobs", "biome_brush");
+        com.simplelib.api.IdMoves.move(Registries.ITEM, from, ToolsRegistry.BIOME_BRUSH_ID);
+        com.simplelib.api.IdMoves.move(Registries.RECIPE, from, ToolsRegistry.BIOME_BRUSH_ID);
+        com.simplelib.api.IdMoves.move(Registries.ADVANCEMENT, Identifier.fromNamespaceAndPath("simplemobs", "recipes/tools/biome_brush"),
+                Identifier.fromNamespaceAndPath(MOD_ID, "recipes/tools/biome_brush"));
+        com.simplelib.api.SimpleLibApi.requestMaterial("netherite_nugget");
     }
 
     public static void load() {

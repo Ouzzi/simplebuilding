@@ -3,6 +3,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
 ext.forgeMixinConfigs = ['simplemobs.mixins.json', 'simplemobs.forge.mixins.json']
+// SimpleLib (IdMoves: Wither Heart -> Nether Heart) nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
 // Shellker Shell item texture is Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

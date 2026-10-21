@@ -8,7 +8,7 @@ displayName="Simple Tools"
 iconFile="assets/simpletools/icon.png"
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-description="Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone."
+description="Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simpletools]]
 modId="minecraft"
 type="required"

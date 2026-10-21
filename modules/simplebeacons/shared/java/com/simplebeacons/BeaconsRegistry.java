@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.function.Function;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -20,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
+import net.minecraft.world.item.component.DamageResistant;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -32,7 +35,7 @@ import net.minecraft.world.level.material.MapColor;
  */
 public final class BeaconsRegistry {
     public static Block STRONG_BEACON, STRONG_CONDUIT;
-    public static Item STRONG_UPGRADE_TEMPLATE, STRONG_BEACON_ITEM, STRONG_CONDUIT_ITEM;
+    public static Item STRONG_UPGRADE_TEMPLATE, STRONG_UPGRADE_SHARD, STRONG_BEACON_ITEM, STRONG_CONDUIT_ITEM;
     public static BlockEntityType<StrongBeaconBlockEntity> STRONG_BEACON_BE;
     public static BlockEntityType<StrongConduitBlockEntity> STRONG_CONDUIT_BE;
     public static MenuType<StrongBeaconMenu> STRONG_BEACON_MENU;
@@ -51,6 +54,9 @@ public final class BeaconsRegistry {
                 Component.translatable("item.simplebeacons.strong_upgrade_template.base_slot_description"),
                 Component.translatable("item.simplebeacons.strong_upgrade_template.additions_slot_description"),
                 List.of(), List.of(), p.rarity(Rarity.EPIC)), new Item.Properties());
+        // Owner 21.10.: the Vanilla Wither always drops one; nine make a template. Survives explosions like the Nether Star.
+        STRONG_UPGRADE_SHARD = item("strong_upgrade_shard", Item::new, new Item.Properties().rarity(Rarity.UNCOMMON)
+                .delayedComponent(DataComponents.DAMAGE_RESISTANT, registries -> new DamageResistant(registries.getOrThrow(DamageTypeTags.IS_EXPLOSION))));
         STRONG_BEACON_ITEM = item("strong_beacon", p -> new BlockItem(STRONG_BEACON, p),
                 new Item.Properties().useBlockDescriptionPrefix().rarity(Rarity.EPIC));
         STRONG_CONDUIT_ITEM = item("strong_conduit", p -> new BlockItem(STRONG_CONDUIT, p),
@@ -86,6 +92,16 @@ public final class BeaconsRegistry {
 
     private BeaconsRegistry() {}
 
+    /**
+     * Owner 21.10.: the Vanilla Wither (only {@code minecraft:wither}, not the stronger Withers of other mods) always drops
+     * one Strong Upgrade Shard - the way to the template without Simple Mobs or without beating the heavy Wither.
+     */
+    public static void witherDied(net.minecraft.world.entity.boss.wither.WitherBoss wither, net.minecraft.server.level.ServerLevel level) {
+        if (!SimpleBeacons.on() || STRONG_UPGRADE_SHARD == null || wither.getType() != net.minecraft.world.entity.EntityTypes.WITHER) return;
+        var drop = wither.spawnAtLocation(level, new ItemStack(STRONG_UPGRADE_SHARD));
+        if (drop != null) drop.setExtendedLifetime();
+    }
+
     /** The module's own creative tab (items are also sorted into the Vanilla tabs, see the loader hooks). */
     public static void registerTab() {
         net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB,
@@ -98,6 +114,8 @@ public final class BeaconsRegistry {
                             out.accept(com.simplebeacons.guide.BeaconsGuide.stack());
                             tabStacks().forEach(out::accept);
                             out.accept(new net.minecraft.world.item.ItemStack(STRONG_UPGRADE_TEMPLATE));
+                            out.accept(new net.minecraft.world.item.ItemStack(STRONG_UPGRADE_SHARD));
                         }).build());
     }
 }
+

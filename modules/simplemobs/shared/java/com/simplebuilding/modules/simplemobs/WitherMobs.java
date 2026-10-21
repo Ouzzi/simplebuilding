@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemobs;
 
 import java.util.function.BiConsumer;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -10,13 +11,23 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.DamageResistant;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 /**
- * Blighted Wither and Biome Brush (concept N26, docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md): the stronger Wither,
- * the Wither Heart it drops and the Biome Brush made of it. Both in Simple Mobs so the module stays playable alone.
+ * Blighted and Abyssal Wither (concept N26, owner N50) and their loot (owner 21.10., docs/ai/PLAN-B-WITHER21-2026-10-21.md):
+ * the Nether Heart (stage 2 and 3, replaces the Wither Heart) and the Nether Gem (stage 3, for later). Both are small
+ * blocks: the Wither sets them under itself when its death ends ({@link WitherLoot}), broken they give the item back.
+ * The Biome Brush moved to Simple Tools.
  */
 public final class WitherMobs {
     public static final String ID = MobsRegistry.ID;
@@ -38,13 +49,43 @@ public final class WitherMobs {
     /** Helmets that summon the Abyssal Wither (optional Enderite Helmets of other mods; empty when none is installed). */
     public static final TagKey<Item> ABYSSAL_CROWNS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "abyssal_wither_crowns"));
 
-    public static final ResourceKey<Item> HEART_KEY = itemKey("wither_heart");
-    public static final ResourceKey<Item> BRUSH_KEY = itemKey("biome_brush");
-    public static final Item HEART = new Item(new Item.Properties().rarity(Rarity.EPIC).fireResistant().setId(HEART_KEY));
-    public static final Item BRUSH = new BiomeBrushItem(new Item.Properties().durability(BiomeBrushItem.DURABILITY)
-            .repairable(Items.NETHERITE_INGOT).enchantable(15).rarity(Rarity.EPIC).fireResistant().setId(BRUSH_KEY));
+    /** Fire and explosions: the loot survives the fight's skulls and lava (damage type tag of this mod). */
+    public static final TagKey<DamageType> LOOT_RESISTANT = TagKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(ID, "wither_loot_resistant"));
+
+    public static final ResourceKey<Block> HEART_BLOCK_KEY = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(ID, "nether_heart"));
+    public static final ResourceKey<Block> GEM_BLOCK_KEY = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(ID, "nether_gem"));
+    public static final Block HEART_BLOCK = new WitherLootBlock(Block.box(4, 0, 4, 12, 8, 12), lootBlock(SoundType.WART_BLOCK, MapColor.CRIMSON_NYLIUM, 7).setId(HEART_BLOCK_KEY));
+    public static final Block GEM_BLOCK = new WitherLootBlock(Block.box(3, 0, 3, 13, 11, 13), lootBlock(SoundType.AMETHYST_CLUSTER, MapColor.COLOR_RED, 5).setId(GEM_BLOCK_KEY));
+
+    public static final ResourceKey<Item> HEART_KEY = itemKey("nether_heart");
+    public static final ResourceKey<Item> GEM_KEY = itemKey("nether_gem");
+    public static final Item HEART = new BlockItem(HEART_BLOCK, lootItem().setId(HEART_KEY));
+    public static final Item GEM = new NetherGemItem(GEM_BLOCK, lootItem().setId(GEM_KEY));
 
     private WitherMobs() {}
+
+    private static BlockBehaviour.Properties lootBlock(SoundType sound, MapColor color, int light) {
+        return BlockBehaviour.Properties.of().mapColor(color).strength(1.5F, 1200.0F).sound(sound).lightLevel(s -> light)
+                .noOcclusion().pushReaction(PushReaction.POPPED);
+    }
+
+    private static Item.Properties lootItem() {
+        return new Item.Properties().rarity(Rarity.EPIC).useBlockDescriptionPrefix()
+                .delayedComponent(DataComponents.DAMAGE_RESISTANT, registries -> new DamageResistant(registries.getOrThrow(LOOT_RESISTANT)));
+    }
+
+    /** Nether Gem: its use is still to come (one tooltip line says so). */
+    static final class NetherGemItem extends BlockItem {
+        NetherGemItem(Block block, Item.Properties properties) {
+            super(block, properties);
+        }
+
+        @Override
+        public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
+                                    java.util.function.Consumer<net.minecraft.network.chat.Component> builder, net.minecraft.world.item.TooltipFlag flag) {
+            builder.accept(net.minecraft.network.chat.Component.translatable("item.simplemobs.nether_gem.tooltip").withStyle(net.minecraft.ChatFormatting.GRAY));
+        }
+    }
 
     private static ResourceKey<Item> itemKey(String path) {
         return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, path));
@@ -55,14 +96,20 @@ public final class WitherMobs {
         sink.accept(ABYSSAL_WITHER_KEY, ABYSSAL_WITHER);
     }
 
+    public static void blocks(BiConsumer<ResourceKey<Block>, Block> sink) {
+        sink.accept(HEART_BLOCK_KEY, HEART_BLOCK);
+        sink.accept(GEM_BLOCK_KEY, GEM_BLOCK);
+    }
+
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {
         sink.accept(HEART_KEY, HEART);
-        sink.accept(BRUSH_KEY, BRUSH);
+        sink.accept(GEM_KEY, GEM);
     }
 
     /** Fabric: direct registration. */
     public static void registerAll() {
         entityTypes((k, v) -> Registry.register(BuiltInRegistries.ENTITY_TYPE, k, v));
+        blocks((k, v) -> Registry.register(BuiltInRegistries.BLOCK, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
     }
 }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_wither_heart": {
+    "has_strong_upgrade_shard": {
       "conditions": {
         "items": [
           {
-            "items": "simplemobs:wither_heart"
+            "items": "simplebeacons:strong_upgrade_shard"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplemobs:biome_brush"
+        "recipes": "simplebeacons:strong_upgrade_template_from_shards"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_wither_heart"
+      "has_strong_upgrade_shard"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplemobs:biome_brush"
+      "simplebeacons:strong_upgrade_template_from_shards"
     ]
   }
 }

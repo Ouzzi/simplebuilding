@@ -1,19 +1,14 @@
 package com.simplebuilding.modules.simplemobs;
 
-import com.simplebuilding.framework.api.Protection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.QuartPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
@@ -25,13 +20,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.WitherSkullBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
-/** Blighted Wither and Biome Brush GameTests (Fabric wrappers, NeoForge, Forge). Standalone-safe. */
+/** Blighted/Abyssal Wither and their loot GameTests (Fabric wrappers, NeoForge, Forge). Standalone-safe. */
 final class WitherTests {
     private WitherTests() {}
 
@@ -111,31 +106,20 @@ final class WitherTests {
         return items.stream().map(ItemEntity::getItem).filter(s -> s.is(item)).mapToInt(ItemStack::getCount).sum();
     }
 
-    private static ResourceKey<Biome> cellBiome(GameTestHelper h, BlockPos rel) {
-        BlockPos p = h.absolutePos(rel);
-        return h.getLevel().getNoiseBiome(QuartPos.fromBlock(p.getX()), QuartPos.fromBlock(p.getY()), QuartPos.fromBlock(p.getZ()))
-                .unwrapKey().orElseThrow();
+    private static int count(java.util.Collection<ItemStack> stacks, Item item) {
+        return stacks.stream().filter(s -> s.is(item)).mapToInt(ItemStack::getCount).sum();
     }
 
-    /** A fresh survival-like player (mock players are creative; instabuild off means no infinite materials). */
-    private static ServerPlayer painter(GameTestHelper h, ItemStack brush, ItemStack material) {
-        ServerPlayer p = h.makeMockServerPlayerInLevel();
-        p.getAbilities().instabuild = false;
-        p.setItemInHand(InteractionHand.MAIN_HAND, brush);
-        p.setItemInHand(InteractionHand.OFF_HAND, material);
-        return p;
+    /** Air above the floor (y 2..6) of the test area: removes placed loot of earlier tests. */
+    private static void clearAbove(GameTestHelper h) {
+        for (BlockPos p : BlockPos.betweenClosed(new BlockPos(0, 2, 0), new BlockPos(6, 6, 6))) h.getLevel().setBlock(h.absolutePos(p), Blocks.AIR.defaultBlockState(), 3);
     }
 
-    /** Test worlds are kept between runs: paint the area back to Plains first (two cells around, no checks). */
-    private static void reset(GameTestHelper h, BlockPos rel) {
-        ServerPlayer p = h.makeMockServerPlayerInLevel();
-        var plains = BiomeBrush.biome(h.getLevel(), Biomes.PLAINS.identifier());
-        BiomeBrush.paint(h.getLevel(), p, h.absolutePos(rel), plains, 2);
-        h.assertTrue(cellBiome(h, rel) == Biomes.PLAINS, "reset to plains");
-    }
-
-    private static BiomeBrush.Result stroke(GameTestHelper h, ServerPlayer p, BlockPos rel) {
-        return BiomeBrushItem.stroke(h.getLevel(), p, h.absolutePos(rel), p.getMainHandItem(), p.getOffhandItem());
+    /** How many of {@code block} stand in the 3 x 3 around {@code rel} (same height). */
+    private static int around(GameTestHelper h, BlockPos rel, net.minecraft.world.level.block.Block block) {
+        int n = 0;
+        for (BlockPos p : BlockPos.betweenClosed(rel.offset(-1, 0, -1), rel.offset(1, 0, 1))) if (h.getLevel().getBlockState(h.absolutePos(p)).is(block)) n++;
+        return n;
     }
 
     static void addAll(BiConsumer<String, Consumer<GameTestHelper>> add) {
@@ -157,8 +141,11 @@ final class WitherTests {
         }));
         add.accept("wither_values", h -> {
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(WitherMobs.BLIGHTED_WITHER_KEY.identifier()), "entity type");
-            for (var key : java.util.List.of(WitherMobs.HEART_KEY, WitherMobs.BRUSH_KEY))
+            for (var key : java.util.List.of(WitherMobs.HEART_KEY, WitherMobs.GEM_KEY))
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(key.identifier()), "item " + key.identifier());
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(WitherMobs.HEART_BLOCK_KEY.identifier()) && BuiltInRegistries.BLOCK.containsKey(WitherMobs.GEM_BLOCK_KEY.identifier()), "placed forms");
+            h.assertTrue(BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath(MobsRegistry.ID, "biome_brush"))
+                    .map(i -> !BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(MobsRegistry.ID)).orElse(true), "the Biome Brush moved to Simple Tools");
             var a = BlightedWither.createAttributes().build();
             h.assertTrue(a.getBaseValue(Attributes.MAX_HEALTH) == 600.0 && a.getBaseValue(Attributes.ARMOR) == 8.0, "600 health, armor 8 (Vanilla 300/4)");
             h.assertTrue(WitherLogic.phase(600, 600) == 1 && WitherLogic.phase(301, 600) == 1, "phase 1 above half");
@@ -318,15 +305,23 @@ final class WitherTests {
         }));
         add.accept("wither_drop", h -> normal(h, () -> {
             ServerLevel level = h.getLevel();
+            clearBosses(h);
             floor(h, 0, 0, 6, 6);
+            clearAbove(h);
+            // stage 2 (Blighted): Nether Heart (placed later), 1-2 Nether Stars, nuggets; stage 3 (Abyssal): heart + gem, no star
             for (WitherLogic.Stage stage : java.util.List.of(WitherLogic.NETHERITE, WitherLogic.ENDERITE)) {
                 BlightedWither w = stage == WitherLogic.NETHERITE ? still(h) : h.spawn(WitherMobs.ABYSSAL_WITHER, 3, 2, 3);
                 w.setNoAi(true);
                 w.kill(level);
                 var items = h.getEntities(EntityTypes.ITEM);
-                int hearts = count(items, WitherMobs.HEART), stars = count(items, Items.NETHER_STAR);
-                h.assertTrue(hearts == WitherLogic.HEARTS && hearts == 1, stage.metal() + ": exactly one Wither Heart: " + hearts);
-                h.assertTrue(stars >= 1 && stars <= 2, stage.metal() + ": 1-2 Nether Stars: " + stars);
+                int stars = count(items, Items.NETHER_STAR);
+                if (stage == WitherLogic.NETHERITE) h.assertTrue(stars >= 1 && stars <= 2, "Blighted: 1-2 Nether Stars: " + stars);
+                else h.assertTrue(stars == 0, "Abyssal: no Nether Star: " + stars);
+                h.assertTrue(count(items, WitherMobs.HEART) == 0 && count(items, WitherMobs.GEM) == 0, stage.metal() + ": heart and gem wait for the end of the death");
+                int hearts = count(w.placeLater(), WitherMobs.HEART), gems = count(w.placeLater(), WitherMobs.GEM);
+                h.assertTrue(hearts == WitherLogic.HEARTS && hearts == 1, stage.metal() + ": exactly one Nether Heart: " + hearts);
+                h.assertTrue(gems == stage.gems() && gems == (stage == WitherLogic.ENDERITE ? 1 : 0), stage.metal() + ": Nether Gem only at stage 3: " + gems);
+                h.assertTrue(count(items, Items.WITHER_SKELETON_SKULL) == 0, "no skull");
                 ItemStack nugget = BlightedWither.nuggets(stage, 1);
                 if (nugget.isEmpty()) {
                     h.assertTrue(stage == WitherLogic.ENDERITE, "only Enderite nuggets may be missing");
@@ -338,15 +333,98 @@ final class WitherTests {
                 }
                 items.forEach(e -> e.discard());
                 h.getEntities(EntityTypes.EXPERIENCE_ORB).forEach(e -> e.discard());
+                w.discard(); // ends the death at once: the loot is placed now
+                BlockState heart = level.getBlockState(h.absolutePos(new BlockPos(3, 2, 3)));
+                h.assertTrue(heart.is(WitherMobs.HEART_BLOCK), stage.metal() + ": the Nether Heart is placed under the Wither: " + heart);
+                if (stage == WitherLogic.ENDERITE) {
+                    h.assertTrue(around(h, new BlockPos(3, 2, 3), WitherMobs.GEM_BLOCK) == 1, "Abyssal: the Nether Gem is placed next to it");
+                } else {
+                    h.assertTrue(around(h, new BlockPos(3, 2, 3), WitherMobs.GEM_BLOCK) == 0, "Blighted: no gem");
+                }
+                h.assertTrue(count(h.getEntities(EntityTypes.ITEM), WitherMobs.HEART) == 0, "placed, not dropped");
+                clearAbove(h);
             }
             WitherBoss vanilla = h.spawn(EntityTypes.WITHER, 3, 2, 3);
             vanilla.setNoAi(true);
             vanilla.kill(level);
-            h.assertTrue(h.getEntities(EntityTypes.ITEM).stream().noneMatch(i -> i.getItem().is(WitherMobs.HEART)), "the Vanilla Wither drops no heart");
+            h.assertTrue(h.getEntities(EntityTypes.ITEM).stream().noneMatch(i -> i.getItem().is(WitherMobs.HEART) || i.getItem().is(WitherMobs.GEM)), "the Vanilla Wither drops no heart");
+            h.assertTrue(count(h.getEntities(EntityTypes.ITEM), Items.NETHER_STAR) == 1, "the Vanilla Wither keeps its Nether Star");
+            vanilla.discard();
+            h.assertTrue(around(h, new BlockPos(3, 2, 3), WitherMobs.HEART_BLOCK) == 0, "and places nothing");
             h.getEntities(EntityTypes.ITEM).forEach(e -> e.discard());
             h.getEntities(EntityTypes.EXPERIENCE_ORB).forEach(e -> e.discard());
             h.succeed();
         }));
+        add.accept("wither_death_places_loot", h -> normal(h, () -> {
+            // the real death: the heart appears only once the death animation has ended (20 ticks)
+            ServerLevel level = h.getLevel();
+            clearBosses(h);
+            floor(h, 0, 0, 6, 6);
+            clearAbove(h);
+            BlightedWither w = still(h);
+            w.kill(level);
+            h.runAfterDelay(5, () -> {
+                if (!w.isRemoved()) h.assertTrue(level.getBlockState(h.absolutePos(new BlockPos(3, 2, 3))).isAir(), "not yet during the death");
+            });
+            h.runAfterDelay(30, () -> {
+                h.assertTrue(w.isRemoved(), "the death has ended");
+                h.assertTrue(level.getBlockState(h.absolutePos(new BlockPos(3, 2, 3))).is(WitherMobs.HEART_BLOCK), "then the Nether Heart is placed");
+                clearAbove(h);
+                h.getEntities(EntityTypes.ITEM).forEach(e -> e.discard());
+                h.getEntities(EntityTypes.EXPERIENCE_ORB).forEach(e -> e.discard());
+                h.succeed();
+            });
+        }));
+        add.accept("wither_loot_place", h -> {
+            ServerLevel level = h.getLevel();
+            floor(h, 0, 0, 6, 6);
+            clearAbove(h);
+            Vec3 above = Vec3.atBottomCenterOf(h.absolutePos(new BlockPos(3, 6, 3)));
+            // ground below: both blocks are set, side by side, on the floor
+            var placed = WitherLoot.place(level, above, java.util.List.of(new ItemStack(WitherMobs.HEART), new ItemStack(WitherMobs.GEM)));
+            h.assertTrue(placed.size() == 2 && !placed.get(0).equals(placed.get(1)), "two spots: " + placed);
+            h.assertTrue(level.getBlockState(placed.get(0)).is(WitherMobs.HEART_BLOCK) && level.getBlockState(placed.get(1)).is(WitherMobs.GEM_BLOCK), "heart and gem placed");
+            h.assertTrue(placed.get(0).equals(h.absolutePos(new BlockPos(3, 2, 3))), "straight under the Wither, on the floor: " + placed.get(0));
+            // blast resistant blocks: an explosion leaves them, broken they give the item back (obsidian floor keeps their support)
+            for (int x = 0; x <= 6; x++) for (int z = 0; z <= 6; z++) level.setBlock(h.absolutePos(new BlockPos(x, 1, z)), Blocks.OBSIDIAN.defaultBlockState(), 3);
+            h.assertTrue(WitherMobs.HEART_BLOCK.getExplosionResistance() >= 1200.0F && WitherMobs.GEM_BLOCK.getExplosionResistance() >= 1200.0F, "resistance 1200");
+            Vec3 boom = Vec3.atCenterOf(placed.get(0).above());
+            level.explode(null, boom.x, boom.y, boom.z, 4.0F, net.minecraft.world.level.Level.ExplosionInteraction.TNT);
+            h.assertTrue(level.getBlockState(placed.get(0)).is(WitherMobs.HEART_BLOCK) && level.getBlockState(placed.get(1)).is(WitherMobs.GEM_BLOCK), "explosion: both blocks stay");
+            h.getEntities(EntityTypes.ITEM).forEach(e -> e.discard());
+            level.destroyBlock(placed.get(0), true);
+            h.assertTrue(count(h.getEntities(EntityTypes.ITEM), WitherMobs.HEART) == 1, "broken: the Nether Heart item");
+            clearAbove(h);
+            h.getEntities(EntityTypes.ITEM).forEach(e -> e.discard());
+            floor(h, 0, 0, 6, 6);
+            // no ground below (high in the air): items instead, explosion and fire proof, long-lived
+            Vec3 sky = new Vec3(above.x, level.getMaxY() - 2, above.z);
+            h.assertTrue(WitherLoot.ground(level, BlockPos.containing(sky)) == null, "no ground within " + WitherLoot.SEARCH_DEPTH + " blocks");
+            h.assertTrue(WitherLoot.place(level, sky, java.util.List.of(new ItemStack(WitherMobs.HEART), new ItemStack(WitherMobs.GEM))).isEmpty(), "nothing placed");
+            var drops = level.getEntitiesOfClass(ItemEntity.class, new net.minecraft.world.phys.AABB(sky, sky).inflate(2.0));
+            h.assertTrue(count(drops, WitherMobs.HEART) == 1 && count(drops, WitherMobs.GEM) == 1, "heart and gem dropped as items: " + drops.size());
+            drops.forEach(e -> e.discard());
+            // the items survive an explosion that destroys an ordinary item
+            Vec3 at = Vec3.atCenterOf(h.absolutePos(new BlockPos(3, 2, 3)));
+            ItemEntity heart = new ItemEntity(level, at.x, at.y, at.z, new ItemStack(WitherMobs.HEART));
+            ItemEntity gem = new ItemEntity(level, at.x, at.y, at.z, new ItemStack(WitherMobs.GEM));
+            ItemEntity dirt = new ItemEntity(level, at.x, at.y, at.z, new ItemStack(Items.DIRT));
+            for (ItemEntity e : java.util.List.of(heart, gem, dirt)) level.addFreshEntity(e);
+            level.explode(null, at.x, at.y, at.z, 4.0F, net.minecraft.world.level.Level.ExplosionInteraction.NONE);
+            h.assertTrue(dirt.isRemoved(), "the explosion destroys an ordinary item");
+            h.assertTrue(!heart.isRemoved() && !gem.isRemoved(), "Nether Heart and Nether Gem are explosion proof");
+            h.assertTrue(heart.getItem().has(DataComponents.DAMAGE_RESISTANT) && gem.getItem().has(DataComponents.DAMAGE_RESISTANT), "damage resistant component");
+            heart.discard();
+            gem.discard();
+            h.succeed();
+        });
+        add.accept("wither_heart_moved", h -> {
+            // worlds from before 21.10.: the Wither Heart id finds the Nether Heart (SimpleLib IdMoves)
+            var old = BuiltInRegistries.ITEM.getValue(WitherLoot.OLD_HEART);
+            h.assertTrue(old == WitherMobs.HEART, "simplemobs:wither_heart -> simplemobs:nether_heart: " + old);
+            h.assertTrue(BuiltInRegistries.ITEM.getKey(WitherMobs.HEART).equals(WitherLoot.HEART), "saved under the new id");
+            h.succeed();
+        });
         add.accept("wither_attacks", h -> normal(h, () -> {
             ServerLevel level = h.getLevel();
             floor(h, 0, 0, 7, 7);
@@ -416,105 +494,6 @@ final class WitherTests {
                     w.discard();
                 }
             });
-            h.succeed();
-        });
-        add.accept("biome_brush_item", h -> {
-            ItemStack brush = new ItemStack(WitherMobs.BRUSH);
-            h.assertTrue(brush.getMaxDamage() == 512, "durability 512");
-            h.assertTrue(brush.isValidRepairItem(new ItemStack(Items.NETHERITE_INGOT)), "repaired with Netherite Ingots");
-            h.assertTrue(brush.get(DataComponents.ENCHANTABLE) != null
-                    && brush.is(TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("enchantable/durability"))), "takes Unbreaking and Mending");
-            var recipe = h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "biome_brush")));
-            h.assertTrue(recipe.isPresent(), "recipe heart + netherite ingot + brush");
-            var entries = BiomeBrush.entries(h.getLevel().getServer());
-            h.assertTrue(entries.size() >= 20, "biome materials loaded from data: " + entries.size());
-            h.assertTrue(BiomeBrush.material(h.getLevel().getServer(), new ItemStack(Items.SAND)).map(e -> e.biome().equals(Biomes.DESERT.identifier())).orElse(false), "sand paints desert");
-            h.assertTrue(BiomeBrush.material(h.getLevel().getServer(), new ItemStack(Items.DIRT)).isEmpty(), "dirt paints nothing");
-            h.succeed();
-        });
-        add.accept("biome_brush_paint", h -> {
-            ServerLevel level = h.getLevel();
-            BlockPos at = new BlockPos(3, 2, 3);
-            level.setBlock(h.absolutePos(at), Blocks.STONE.defaultBlockState(), 3);
-            reset(h, at);
-            // snow -> snowy plains: the clicked cell and its neighbours change, one snow and one durability point are used
-            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
-            var first = stroke(h, p, at);
-            h.assertTrue(first == BiomeBrush.Result.PAINTED, "stroke painted: " + first + " (was " + cellBiome(h, at) + ")");
-            h.assertTrue(cellBiome(h, at) == Biomes.SNOWY_PLAINS, "clicked cell is snowy plains: " + cellBiome(h, at));
-            h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.SNOWY_PLAINS, "neighbouring cell too (radius 1 cell)");
-            h.assertTrue(p.getOffhandItem().getCount() == 3, "one material per stroke: " + p.getOffhandItem().getCount());
-            h.assertTrue(p.getMainHandItem().getDamageValue() == 1, "one durability point per stroke");
-            ServerPlayer again = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
-            h.assertTrue(stroke(h, again, at) == BiomeBrush.Result.UNCHANGED && again.getOffhandItem().getCount() == 4, "same biome again: nothing used");
-            // a Nether material in the Overworld: refused, nothing used
-            ServerPlayer q = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.NETHERRACK, 2));
-            h.assertTrue(stroke(h, q, at) == BiomeBrush.Result.WRONG_DIMENSION && q.getOffhandItem().getCount() == 2, "Nether biome refused in the Overworld");
-            ServerPlayer r = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.DIRT, 2));
-            h.assertTrue(stroke(h, r, at) == BiomeBrush.Result.NO_MATERIAL && r.getMainHandItem().getDamageValue() == 0, "no biome material: nothing");
-            // creative: no material, no durability
-            ServerPlayer c = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 1));
-            c.getAbilities().instabuild = true;
-            h.assertTrue(stroke(h, c, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.DESERT, "sand paints desert");
-            h.assertTrue(c.getOffhandItem().getCount() == 1 && c.getMainHandItem().getDamageValue() == 0, "creative uses nothing");
-            // the last durability point breaks the brush
-            ItemStack worn = new ItemStack(WitherMobs.BRUSH);
-            worn.setDamageValue(worn.getMaxDamage() - 1);
-            ServerPlayer b = painter(h, worn, new ItemStack(Items.MYCELIUM, 1));
-            h.assertTrue(stroke(h, b, at) == BiomeBrush.Result.PAINTED && b.getMainHandItem().isEmpty(), "brush breaks at 0 durability");
-            h.succeed();
-        });
-        add.accept("biome_brush_sneak", h -> {
-            BlockPos at = new BlockPos(3, 2, 3);
-            reset(h, at);
-            // sneaking: only the clicked cell changes, the neighbouring cell keeps its biome
-            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 2));
-            p.setShiftKeyDown(true);
-            h.assertTrue(stroke(h, p, at) == BiomeBrush.Result.PAINTED, "sneaking stroke painted");
-            h.assertTrue(cellBiome(h, at) == Biomes.SNOWY_PLAINS, "clicked cell is snowy plains: " + cellBiome(h, at));
-            h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.PLAINS, "neighbouring cell unchanged: " + cellBiome(h, at.offset(4, 0, 0)));
-            h.assertTrue(p.getOffhandItem().getCount() == 1, "one material per stroke");
-            h.succeed();
-        });
-        add.accept("biome_brush_claims", h -> {
-            ServerLevel level = h.getLevel();
-            BlockPos at = new BlockPos(3, 2, 3);
-            reset(h, at);
-            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
-            var first = stroke(h, p, at);
-            h.assertTrue(first == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.SNOWY_PLAINS, "unclaimed: painted: " + first + " " + cellBiome(h, at));
-            String id = "simplemobs_test_claim";
-            Object server = level.getServer();
-            try {
-                Protection.register(server, id, t -> false);
-                ServerPlayer q = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.MYCELIUM, 4));
-                h.assertTrue(stroke(h, q, at) == BiomeBrush.Result.DENIED, "claimed: refused");
-                h.assertTrue(cellBiome(h, at) == Biomes.SNOWY_PLAINS, "claimed: biome unchanged");
-                h.assertTrue(q.getOffhandItem().getCount() == 4 && q.getMainHandItem().getDamageValue() == 0, "claimed: nothing used");
-                // a claim on part of the stroke: only the free cells change
-                BlockPos claimed = h.absolutePos(at.offset(4, 0, 0));
-                int cx = QuartPos.fromBlock(claimed.getX());
-                Protection.unregister(server, id);
-                Protection.register(server, id, t -> QuartPos.fromBlock(t.x()) != cx);
-                ServerPlayer s = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.MYCELIUM, 4));
-                h.assertTrue(stroke(h, s, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.MUSHROOM_FIELDS, "free cells painted");
-                h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.SNOWY_PLAINS, "claimed cell keeps its biome");
-            } finally {
-                Protection.unregister(server, id);
-            }
-            // adventure mode cannot paint
-            ServerPlayer adv = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 4));
-            adv.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);
-            h.assertTrue(stroke(h, adv, at) == BiomeBrush.Result.DENIED, "adventure mode: refused");
-            boolean ops = MobsConfig.biomeBrushOpsOnly;
-            try {
-                MobsConfig.biomeBrushOpsOnly = true;
-                ServerPlayer o = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
-                var res = stroke(h, o, at);
-                h.assertTrue(res == BiomeBrush.Result.DISABLED || o.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER), "ops only: refused for players: " + res);
-            } finally {
-                MobsConfig.biomeBrushOpsOnly = ops;
-            }
             h.succeed();
         });
     }

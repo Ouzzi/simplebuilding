@@ -1,6 +1,7 @@
 {
   "itemgroup.simplebeacons.beacons": "Simple Beacons",
   "item.simplebeacons.strong_upgrade_template": "Starke Aufwertungsvorlage",
+  "item.simplebeacons.strong_upgrade_shard": "Splitter der Starken Aufwertung",
   "item.simplebeacons.strong_upgrade_template.applies_to": "Leuchtfeuer, Aquisator",
   "item.simplebeacons.strong_upgrade_template.ingredients": "Netherstern",
   "item.simplebeacons.strong_upgrade_template.base_slot_description": "Leuchtfeuer oder Aquisator hinzufügen",
@@ -24,7 +25,7 @@
   "simplebeacons.guide.page.1.title": "Simple Beacons",
   "simplebeacons.guide.page.1": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen und sechs weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.",
   "simplebeacons.guide.page.2.title": "Starke Aufwertungsvorlage",
-  "simplebeacons.guide.page.2": "Eine Schmiedevorlage aus einem Netherstern in der Mitte, vier Diamanten an den Kanten und vier Obsidian in den Ecken.",
+  "simplebeacons.guide.page.2": "Eine Schmiedevorlage, die sich nicht aus einfachen Materialien herstellen lässt: sie kommt vom Wither.",
   "simplebeacons.guide.page.3.title": "Starke Aufwertungsvorlage",
   "simplebeacons.guide.page.3": "Sie macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer und aus einem Aquisator einen Starken Aquisator.",
   "simplebeacons.guide.page.4.title": "Starkes Leuchtfeuer",

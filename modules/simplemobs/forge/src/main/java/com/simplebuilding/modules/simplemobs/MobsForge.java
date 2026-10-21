@@ -16,6 +16,7 @@ import net.minecraftforge.registries.RegisterEvent;
 @Mod("simplemobs")
 public final class MobsForge {
     public MobsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemobs.forge.ModuleForgeTests.register(context.getModBusGroup());
+        WitherLoot.idMoves();
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
         var bus = context.getModBusGroup();
         RegisterEvent.getBus(bus).addListener(event -> {
@@ -117,6 +118,7 @@ public final class MobsForge {
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> FearServer.tick(e.server()));
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> WitherMobs.entityTypes(r::register));
+            event.register(Registries.BLOCK, r -> WitherMobs.blocks(r::register));
             event.register(Registries.ITEM, r -> WitherMobs.items(r::register));
             if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
             if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MobsRegistry.registerTab();
@@ -124,8 +126,7 @@ public final class MobsForge {
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
-            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); }
-            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) { if (MobsConfig.vanillaTabs()) putAfter(e, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH)); }
+            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) { putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.GEM)); putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); } }
             if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
         });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());

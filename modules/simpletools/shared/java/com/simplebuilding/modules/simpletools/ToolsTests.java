@@ -34,6 +34,7 @@ public final class ToolsTests {
   ALL.put("cross_mod",ToolsTests::crossMod);
   ALL.put("soulbound_registered",DeathTests::soulboundRegistered);ALL.put("soulbound_death",DeathTests::soulboundDeath);ALL.put("soulbound_switch",DeathTests::soulboundSwitch);ALL.put("soulbound_hardcore",DeathTests::soulboundHardcore);ALL.put("death_durability_cap",DeathTests::durabilityCap);ALL.put("soulbound_anvil",DeathTests::soulboundAnvil);ALL.put("soulbound_grindstone",DeathTests::soulboundGrindstone);ALL.put("soulbound_sources",DeathTests::soulboundSources);ALL.put("vault_lying",DeathTests::vaultLying);ALL.put("vault_lost",DeathTests::vaultLost);ALL.put("vault_taken",DeathTests::vaultTaken);ALL.put("vault_pvp",DeathTests::vaultPvp);ALL.put("vault_weights",DeathTests::vaultWeights);ALL.put("vault_dupe",DeathTests::vaultDupe);ALL.put("vault_persistence",DeathTests::vaultPersistence);ALL.put("vault_fates",DeathTests::vaultFates);ALL.put("vault_last_death",DeathTests::vaultLastDeath);ALL.put("vault_menu_rows",DeathTests::vaultMenuRows);
   ALL.put("frame_invisible",FrameTests::invisible);ALL.put("frame_empty",FrameTests::empty);ALL.put("frame_reverse",FrameTests::reverse);ALL.put("frame_lock",FrameTests::lock);ALL.put("frame_glow",FrameTests::glow);ALL.put("frame_glass",FrameTests::glass);ALL.put("frame_migrate",FrameTests::migrate);ALL.put("frame_reveal",FrameTests::reveal);ALL.put("frame_config_off",FrameTests::configOff);
+  com.simplebuilding.modules.simpletools.brush.BrushTests.addAll(ALL);
   // ALL-END
  }
  private ToolsTests(){}

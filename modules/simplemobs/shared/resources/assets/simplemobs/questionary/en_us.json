@@ -202,26 +202,26 @@
       "Gunpowder, Soulfire Powder and coal or charcoal make 3. Use it on a block to light fire; a dispenser shoots it like the Soulfire Blaze does. A hit burns and, with Simple Building, adds Soul Burn."
     ]
   },
-  "wither_heart": {
+  "nether_heart": {
     "lore": [
-      "It still beats, slowly, long after the Wither has stopped. Ash falls from it if you shake it."
+      "It still beats, slowly, long after the Wither has stopped. Embers glow in its cracks."
     ],
     "use": [
-      "Dropped by the Blighted and the Abyssal Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
+      "Dropped by the Blighted and the Abyssal Wither, exactly one per kill; it is set down under the Wither when it is gone. With Simple Beacons it makes the Strong Upgrade, with Simple Tools the Biome Brush."
     ],
     "secret": [
-      "Only the stronger Withers have one. Put a Netherite Helmet on the middle skull of the Wither figure before the third skull; an Enderite Helmet calls the Abyssal Wither."
+      "Explosions and fire cannot harm it. Put a Netherite Helmet on the middle skull of the Wither figure before the third skull; an Enderite Helmet calls the Abyssal Wither."
     ]
   },
-  "biome_brush": {
+  "nether_gem": {
     "lore": [
-      "Paint the land itself. The heart in the ferrule remembers every place it has seen."
+      "A shard of the Nether's own fire, cut by the deepest Wither."
     ],
     "use": [
-      "Hold it in the main hand and a biome material in the off hand, then right-click a block: sand paints desert, snow paints snowy plains, soul sand paints a soul sand valley. One material and one durability point per stroke."
+      "Dropped only by the Abyssal Wither, one per kill, set down next to the Nether Heart. Its use is still to come."
     ],
     "secret": [
-      "Biomes stay in their dimension, and claimed land or caves cannot be painted. Unbreaking and Mending work on it."
+      "Keep it safe: explosions and fire cannot harm it."
     ]
   }
 }

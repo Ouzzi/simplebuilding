@@ -82,6 +82,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void strongUpgradeShard(GameTestHelper h) {
+        BeaconsTests.ALL.get("strong_upgrade_shard").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void subModSwitch(GameTestHelper h) {
         BeaconsTests.ALL.get("sub_mod_switch").accept(h);
     }

@@ -2,10 +2,11 @@
   "module": "simplebeacons",
   "derivation": "Simple Beacons sells nothing: the owner keeps every Strong item crafted only (concept question 4: the nether star is the hurdle).",
   "excluded": {
+    "simplebeacons:guide_book": "Crafted from a book and a prismarine shard.",
     "simplebeacons:strong_beacon": "Needs a beacon and a nether star on top of the template; a trade would skip the boss.",
     "simplebeacons:strong_conduit": "Needs a conduit and a nether star on top of the template; a trade would skip the boss.",
-    "simplebeacons:guide_book": "Crafted from a book and a prismarine shard.",
-    "simplebeacons:strong_upgrade_template": "Crafted only: a nether star, 4 diamonds and 4 obsidian (concept question 4)."
+    "simplebeacons:strong_upgrade_shard": "Vanilla Wither drop only (one per kill); a trade would skip the boss.",
+    "simplebeacons:strong_upgrade_template": "Never crafted from plain materials (owner 21.10.): 9 shards from the Wither, a Nether Heart (Simple Mobs) or duplication."
   },
   "prices": []
 }

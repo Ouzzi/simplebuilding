@@ -1,10 +1,10 @@
-"""Blighted Wither + Biome Brush textures (Simple Mobs), own pixel art plus one Vanilla-derived skin.
+"""Blighted Wither skins (Simple Mobs) + Biome Brush texture (Simple Tools since 21.10.), own pixel art plus one Vanilla-derived skin.
 
     python tools/textures/wither_textures.py          # write PNGs + previews (~/previews/wither)
     python tools/textures/wither_textures.py --check  # fail if the committed PNGs differ
 
-Wither Heart: a charred anatomical heart (not a card heart) with two vessel stubs, its cracks glowing in the pale
-soul-white of the Wither's eyes. Biome Brush: a netherite-dark handle with a heart-charcoal ferrule, the bristles fan
+The Wither Heart became the Nether Heart on 21.10. (tools/textures/wither21_textures.py); HEART stays here only as the
+old design for comparison. Biome Brush: a netherite-dark handle with a heart-charcoal ferrule, the bristles fan
 out in bands of biome colors (grass, leaf, sand, snow). Both drawn here.
 The Blighted Wither skin is the Vanilla Wither skin remapped to an ash ramp with soul-cyan eyes: Vanilla-derived,
 so it is only built (tools/textures/vanilla_derived.py, MODULE_OUTPUTS['simplemobs']) and never committed.
@@ -16,6 +16,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/textures'
+TOOLS = ROOT / 'modules/simpletools/shared/resources/assets/simpletools/textures'
 PREVIEW = Path(os.environ.get('SB_PREVIEW_DIR', os.path.expanduser('~/previews')) + '/wither')
 
 PAL = {
@@ -116,7 +117,7 @@ def draw(rows):
 
 
 def outputs():
-    return {RES / 'item/wither_heart.png': draw(HEART), RES / 'item/biome_brush.png': draw(BRUSH)}
+    return {TOOLS / 'item/biome_brush.png': draw(BRUSH)}
 
 
 def blighted(skin):

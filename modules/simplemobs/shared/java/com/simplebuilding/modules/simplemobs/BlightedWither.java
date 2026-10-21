@@ -61,7 +61,9 @@ import org.jspecify.annotations.Nullable;
  *   <li>Phase 3 "Blight" (below 15 %): a nova - a ring of soul smoke marks 8 blocks for 2 s, who is still inside gets
  *       Wither II and is thrown far away - and the wilt: plants and natural leaves around it wither (mobGriefing, config).</li>
  * </ul>
- * Drops a Wither Heart, 1-2 Nether Stars and 3-5 nuggets of the helmet's metal (Looting does not change it).
+ * Drops (owner 21.10.) a Nether Heart, 1-2 Nether Stars and 3-5 nuggets of the helmet's metal; the Abyssal Wither a Nether
+ * Heart, a Nether Gem and its nuggets, no Nether Star (Looting does not change it). Heart and gem appear in their placed
+ * form under the Wither once the death has ended ({@link WitherLoot}).
  */
 public class BlightedWither extends WitherBoss {
     private static final Identifier NO_LOOT = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "entities/summoned");
@@ -325,14 +327,35 @@ public class BlightedWither extends WitherBoss {
         return null;
     }
 
+    /** Loot that is placed when the death ends (the Vanilla puff after 20 ticks), see {@link #remove}. */
+    private final List<ItemStack> placeLater = new ArrayList<>();
+
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean killedByPlayer) {
-        super.dropCustomDeathLoot(level, source, killedByPlayer);
-        keep(this.spawnAtLocation(level, new ItemStack(WitherMobs.HEART, WitherLogic.HEARTS)));
-        int stars = WitherLogic.STARS_MIN + this.random.nextInt(WitherLogic.STARS_MAX - WitherLogic.STARS_MIN + 1);
-        if (stars > 1) keep(this.spawnAtLocation(level, new ItemStack(Items.NETHER_STAR, stars - 1)));
+        if (stage().stars()) {
+            super.dropCustomDeathLoot(level, source, killedByPlayer); // the Vanilla Nether Star
+            int stars = WitherLogic.STARS_MIN + this.random.nextInt(WitherLogic.STARS_MAX - WitherLogic.STARS_MIN + 1);
+            if (stars > 1) keep(this.spawnAtLocation(level, new ItemStack(Items.NETHER_STAR, stars - 1)));
+        }
+        placeLater.add(new ItemStack(WitherMobs.HEART, WitherLogic.HEARTS));
+        if (stage().gems() > 0) placeLater.add(new ItemStack(WitherMobs.GEM, stage().gems()));
         ItemStack nuggets = nuggets(stage(), WitherLogic.NUGGETS_MIN + this.random.nextInt(WitherLogic.NUGGETS_MAX - WitherLogic.NUGGETS_MIN + 1));
         if (!nuggets.isEmpty()) keep(this.spawnAtLocation(level, nuggets));
+    }
+
+    /** Loot that waits for the end of the death (dropped as items if the Wither goes away otherwise). */
+    public List<ItemStack> placeLater() {
+        return placeLater;
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        if (!placeLater.isEmpty() && this.level() instanceof ServerLevel level) {
+            List<ItemStack> loot = List.copyOf(placeLater);
+            placeLater.clear();
+            WitherLoot.place(level, this.position(), loot);
+        }
+        super.remove(reason);
     }
 
     private static void keep(@Nullable ItemEntity drop) {
