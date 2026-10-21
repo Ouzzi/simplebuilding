@@ -104,3 +104,7 @@ Drops wie eine Kuh (kein Leder-/Fleisch-Exploit), Milch normal.
 | Riesen-Kuh Erhalt | CO-1 / CO-2 / CO-3 | CO-1 |
 
 Antwortbeispiel: `EH21 N-A TO-1 F-A KO-1 G-A ZO-1 CO-1`.
+
+## Besitzer-Entscheidung 21.10.
+„EH21 N-A TO-1 F-A KO-2 G-A ZO-1 CO-2 aber das beachten: riesen zombie soll größer sein, und man wird als effekt 1,5 mal größer und stepheight höher plus leicht schneller plus zombie vorteile je nach variante (alle varianten mit). riesenzombie soll nur per charged creeper den kopf droppen. killerkaninchen soll einem leicht schaden machen und schnell sein, und immer aggr werden. die riesen kuh soll nur eine chance haben also 1 von 5000 dass sie zur riesen kuh wird, das nur mit weizen blöcken. 64 stück. vorteil soll genau wie kuh sein und riesen vorteile wie riesen zombie mit größe und stepheight.“
+Umsetzung siehe Queue-Zeile „Umsetzung Easter-Egg-Köpfe“ (Auslegung dort).
