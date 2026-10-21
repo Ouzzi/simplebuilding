@@ -503,6 +503,8 @@
   "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures.@Tooltip": "Jede Vanilla-Verzauberung bekommt ihr eigenes\nBuch. Aus: wieder das Vanilla-Buch, etwa wenn\nein Ressourcenpaket oder eine andere Mod die\nBücher neu gestaltet. Wirkt sofort. Standard:\nan.",
   "text.autoconfig.simplebuilding.option.modEnchantedBookTextures": "Eigene Texturen für Mod-Zauberbücher",
   "text.autoconfig.simplebuilding.option.modEnchantedBookTextures.@Tooltip": "Jede Verzauberung dieser Mod hat ihr eigenes\nBuch. Aus: das schlichte Vanilla-Zauberbuch.\nWirkt sofort. Standard: an.",
+  "text.autoconfig.simplebuilding.option.jukebox264Textures": "26.4-Jukebox",
+  "text.autoconfig.simplebuilding.option.jukebox264Textures.@Tooltip": "Die Jukebox aus 26.4 Snapshot 4 (neue\nSeiten, Oberseite und Unterseite). Aus:\ndie Jukebox dieser Version. Ein\nRessourcenpaket, das die Jukebox ändert,\ngewinnt. Wirkt nach dem Neuladen der\nRessourcen (F3+T). Standard: an.",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsVanillaArmor": "Besatzmuster auf Vanilla-Rüstungs-Icons",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsVanillaArmor.@Tooltip": "Die Icons besetzter Vanilla-Rüstung (auch des\nSchildkrötenpanzers) zeigen das Besatzmuster\nin den Farben des Materials. Aus: das\nVanilla-Icon mit nur einem Farbfleck. Wirkt\nsofort. Standard: an.",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsModArmor": "Besatzmuster auf Enderit-Rüstungs-Icons",

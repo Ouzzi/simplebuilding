@@ -1,0 +1,130 @@
+// The 26.4 jukebox on the older lines (owner 21.10.; plan docs/ai/PLAN-B-JUKEBOX264-2026-10-21.md). 26.4 Snapshot 4
+// redrew the jukebox (new side/top, a new bottom texture, model cube_top -> cube_bottom_top). Mojang pixels are never
+// committed (PRINZIPIEN A8): generateJukebox264 copies the three textures and the model from the official
+// 26.4-snapshot-4 client jar at build time into build/generated-resources/jukebox264, and processResources ships them:
+//   assets/simplebuilding/textures/jukebox_264/jukebox_{side,top,bottom}.png  (put into the block atlas as
+//       minecraft:block/jukebox_* by JukeboxSnapshotSpritesMixin - only with the client option jukebox264Textures)
+//   assets/minecraft/models/block/jukebox.json                                 (the 26.4 model)
+// Applied by the simplebuilding loader projects of 26.2, 1.21.11 and 26.3 - never by mc26_4 (26.4 has it itself).
+// The jar comes via the Mojang version manifest (piston-meta, pinned version JSON) and is checked by SHA-1, each
+// extracted file as well; only the four files stay in GRADLE_USER_HOME/caches/simplebuilding/jukebox264/<version>.
+// Without network (gradle --offline with a cold cache, a download error) or with a wrong hash the build goes on with a
+// WARNING and ships none of the four (the Vanilla jukebox of that line); -PsbVanillaDerivedStrict fails instead,
+// -PsbSkipJukebox264 leaves them out without trying. checkJukebox264 (part of check): all four or none, pinned hashes.
+
+def jbVersion = '26.4-snapshot-4'
+// 26.4-snapshot-4.json from version_manifest_v2.json (content-addressed by its SHA-1)
+def jbVersionJsonUrl = 'https://piston-meta.mojang.com/v1/packages/ae3f2d7557dce9a5daf01c67a11d4d35f3888b75/26.4-snapshot-4.json'
+def jbVersionJsonSha1 = 'ae3f2d7557dce9a5daf01c67a11d4d35f3888b75'
+def jbClientSha1 = 'ac783fa45b137dd545c7ffb76bbd595ea85fda0a'
+// entry in the client jar -> [path in the mod's resources, SHA-1 of the snapshot file]
+def jbFiles = [
+        'assets/minecraft/textures/block/jukebox_side.png'  : ['assets/simplebuilding/textures/jukebox_264/jukebox_side.png', '5457dbdb1394d070b799f2598b65b5e574e6960b'],
+        'assets/minecraft/textures/block/jukebox_top.png'   : ['assets/simplebuilding/textures/jukebox_264/jukebox_top.png', 'a0e2b88c2b6caeddcf959638b60fb040436fca76'],
+        'assets/minecraft/textures/block/jukebox_bottom.png': ['assets/simplebuilding/textures/jukebox_264/jukebox_bottom.png', '9bf2887cee8bb1a6cd5932e2ca33af6cd59a84d8'],
+        'assets/minecraft/models/block/jukebox.json'        : ['assets/minecraft/models/block/jukebox.json', '2d941990e04fc36596176c4746aebe3c01e17c32'],
+]
+File jbCache = new File(gradle.gradleUserHomeDir, "caches/simplebuilding/jukebox264/${jbVersion}")
+File jbOut = layout.buildDirectory.dir('generated-resources/jukebox264').get().asFile
+boolean jbSkip = project.hasProperty('sbSkipJukebox264')
+boolean jbStrict = project.hasProperty('sbVanillaDerivedStrict')
+boolean jbOffline = gradle.startParameter.offline
+
+def jbSha1 = { byte[] data -> java.security.MessageDigest.getInstance('SHA-1').digest(data).encodeHex().toString() }
+def jbCached = { String entry -> new File(jbCache, entry.substring(entry.lastIndexOf('/') + 1)) }
+def jbCacheOk = { -> jbFiles.every { e, v -> File f = jbCached(e); f.isFile() && jbSha1(f.bytes) == v[1] } }
+def jbDownload = { String url ->
+    def c = new URL(url).openConnection()
+    c.connectTimeout = 15000
+    c.readTimeout = 120000
+    c.inputStream.withCloseable { it.readAllBytes() }
+}
+
+def jbTask = tasks.register('generateJukebox264') {
+    description = "Copies the 26.4 jukebox (textures + model) from the ${jbVersion} client jar (never committed)."
+    inputs.property('version', jbVersion)
+    inputs.property('files', jbFiles.toString())
+    inputs.property('skip', jbSkip)
+    outputs.dir(jbOut)
+    // a run that shipped nothing (offline, no network) must not stay up to date once the files can be had
+    outputs.upToDateWhen { jbSkip || jbFiles.values().every { new File(jbOut, it[0]).isFile() } }
+    doLast {
+        project.delete(jbOut)
+        if (jbSkip) { logger.lifecycle('generateJukebox264: -PsbSkipJukebox264 -> Vanilla jukebox of this line.'); return }
+        try {
+            // One download per machine: the loader projects run in parallel (and several builds may share the
+            // Gradle home), so the cache is filled under a JVM-wide monitor plus a file lock.
+            jbCache.mkdirs()
+            synchronized (jbCache.absolutePath.intern()) {
+                new RandomAccessFile(new File(jbCache, '.lock'), 'rw').withCloseable { raf ->
+                    def lock = raf.channel.lock()
+                    try {
+                        if (!jbCacheOk()) {
+                            if (jbOffline) throw new GradleException("--offline and no ${jbVersion} jukebox in ${jbCache}")
+                            byte[] json = jbDownload(jbVersionJsonUrl)
+                            if (jbSha1(json) != jbVersionJsonSha1) throw new GradleException("${jbVersionJsonUrl}: SHA-1 mismatch")
+                            def client = new groovy.json.JsonSlurper().parse(json).downloads.client
+                            if (client.sha1 != jbClientSha1) throw new GradleException("${jbVersion} client SHA-1 ${client.sha1} != pinned ${jbClientSha1}")
+                            File jar = new File(jbCache, "client-${ProcessHandle.current().pid()}.jar.part")
+                            try {
+                                logger.lifecycle("generateJukebox264: downloading the ${jbVersion} client jar (once) from ${client.url}")
+                                jar.bytes = jbDownload(client.url as String)
+                                if (jbSha1(jar.bytes) != jbClientSha1) throw new GradleException("${client.url}: SHA-1 mismatch")
+                                new java.util.zip.ZipFile(jar).withCloseable { zip ->
+                                    jbFiles.each { e, v ->
+                                        def entry = zip.getEntry(e)
+                                        if (entry == null) throw new GradleException("${jbVersion} client jar has no ${e}")
+                                        byte[] data = zip.getInputStream(entry).withCloseable { it.readAllBytes() }
+                                        if (jbSha1(data) != v[1]) throw new GradleException("${e} in ${jbVersion}: SHA-1 ${jbSha1(data)} != pinned ${v[1]}")
+                                        File part = new File(jbCache, jbCached(e).name + '.part')
+                                        part.bytes = data
+                                        java.nio.file.Files.move(part.toPath(), jbCached(e).toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING, java.nio.file.StandardCopyOption.ATOMIC_MOVE)
+                                    }
+                                }
+                            } finally {
+                                jar.delete()
+                            }
+                        }
+                    } finally {
+                        lock.release()
+                    }
+                }
+            }
+            jbFiles.each { e, v ->
+                File target = new File(jbOut, v[0])
+                target.parentFile.mkdirs()
+                target.bytes = jbCached(e).bytes
+            }
+            logger.lifecycle("generateJukebox264: ${jbFiles.size()} files of ${jbVersion} -> ${jbOut}")
+        } catch (Exception ex) {
+            project.delete(jbOut)
+            if (jbStrict) throw new GradleException("generateJukebox264: ${ex.message}", ex)
+            logger.warn("WARNING generateJukebox264 (${project.path}): ${ex.message}\n-> the Vanilla jukebox of this " +
+                    'line instead (the 26.4 jukebox needs network once; afterwards it comes from the Gradle cache).')
+        }
+    }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    dependsOn jbTask
+    from(jbOut)
+}
+
+def jbCheck = tasks.register('checkJukebox264') {
+    group = 'verification'
+    description = 'Checks that the shipped 26.4 jukebox is complete (all four files or none) and has the pinned hashes.'
+    dependsOn 'processResources'
+    File resources = sourceSets.main.output.resourcesDir
+    doLast {
+        def shipped = jbFiles.values().findAll { new File(resources, it[0]).isFile() }
+        List<String> problems = []
+        if (shipped && shipped.size() != jbFiles.size()) problems << "only ${shipped.size()} of ${jbFiles.size()} files shipped"
+        shipped.each { v ->
+            String h = jbSha1(new File(resources, v[0]).bytes)
+            if (h != v[1]) problems << "${v[0]}: SHA-1 ${h} != ${jbVersion} ${v[1]}"
+        }
+        if (problems) throw new GradleException("checkJukebox264 (${project.path}):\n  " + problems.join('\n  '))
+        logger.lifecycle("checkJukebox264: ${shipped ? 'the ' + jbVersion + ' jukebox (' + shipped.size() + ' files, hashes ok)' : 'no 26.4 jukebox (offline build)'}")
+    }
+}
+tasks.named('check') { dependsOn jbCheck }

@@ -32,6 +32,7 @@ public final class ConfigOptions {
             "showDevEnchantedTab",
             "vanillaEnchantedBookTextures",
             "modEnchantedBookTextures",
+            "jukebox264Textures",
             "visibleTrimIconsVanillaArmor",
             "visibleTrimIconsModArmor",
             "showModHud",

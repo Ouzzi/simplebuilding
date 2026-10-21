@@ -329,3 +329,4 @@ tasks.named('runClientGameTest', JavaExec).configure {
 
 // Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
 apply from: rootProject.file('gradle/check-atlases.gradle')
+apply from: rootProject.file('gradle/jukebox-264.gradle')  // 26.4 jukebox from the snapshot jar (never on mc26_4)

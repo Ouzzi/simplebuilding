@@ -262,6 +262,12 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean modEnchantedBookTextures = true;
 
+    // Client: die Jukebox aus 26.4 Snapshot 4 (Texturen + Modell aus dem Snapshot-Jar, beim Build kopiert,
+    // JukeboxSnapshotSpritesMixin). Aus: die Jukebox dieser Version. Wirkt beim Neuladen der Ressourcen.
+    @ConfigEntry.Category("visuals")
+    @ConfigEntry.Gui.Tooltip
+    public boolean jukebox264Textures = true;
+
     // Client: sichtbare Besatzmuster auf den Icons von Vanilla- bzw. Mod-Ruestung (VisibleTrimIcons).
     // Aus: Vanillas Icon mit nur dem Materialfleck. Beide wirken sofort.
     @ConfigEntry.Category("visuals")
