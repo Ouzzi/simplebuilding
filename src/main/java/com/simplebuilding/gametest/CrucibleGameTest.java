@@ -80,4 +80,9 @@ public final class CrucibleGameTest {
     public void attachedBarrelDoesNotOccludeItsNeighbours(GameTestHelper helper) {
         CrucibleTests.attachedBarrelDoesNotOccludeItsNeighbours(helper);
     }
+
+    @GameTest
+    public void blazingObsidianHeatsTheCrucibleHigh(GameTestHelper helper) {
+        CrucibleTests.blazingObsidianHeatsTheCrucibleHigh(helper);
+    }
 }

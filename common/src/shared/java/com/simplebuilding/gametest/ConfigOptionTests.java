@@ -719,6 +719,7 @@ public final class ConfigOptionTests {
             "server.features.endPistons boolean=true",
             "server.features.endRails boolean=true",
             "server.features.astralVault boolean=true",
+            "server.features.blazingHeat boolean=true",
             "server.features.nihilVault boolean=true",
             "server.features.dynamicLight boolean=true",
             "server.features.anvilRepairKeepsCost boolean=true",

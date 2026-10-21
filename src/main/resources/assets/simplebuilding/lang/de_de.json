@@ -2472,6 +2472,8 @@
   "text.autoconfig.simplebuilding.option.server.features.astralVault": "Astralgewölbe",
   "text.autoconfig.simplebuilding.option.server.features.nihilVault": "Nihil-Gewölbe",
   "text.autoconfig.simplebuilding.option.server.features.astralVault.@Tooltip": "Astralgewölbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true.",
+  "text.autoconfig.simplebuilding.option.server.features.blazingHeat": "Hitze des Lohen-Obsidians",
+  "text.autoconfig.simplebuilding.option.server.features.blazingHeat.@Tooltip": "Lohen-Obsidian unter einem Tiegel\ngibt hohe Hitze wie Lava.\nStandard: true.",
   "text.autoconfig.simplebuilding.option.server.features.nihilVault.@Tooltip": "Nihil-Gewölbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true.",
   "text.autoconfig.simplebuilding.option.server.machines.endPistonCooldownTicks": "End-Kolben-Abklingzeit (4–100)",
   "text.autoconfig.simplebuilding.option.server.machines.endPistonCooldownTicks.@Tooltip": "Ticks Wartezeit nach dem Auslösen,\nbegrenzt auf 4-100. Standard: 8.",

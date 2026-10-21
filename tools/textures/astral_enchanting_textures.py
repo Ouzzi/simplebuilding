@@ -260,11 +260,19 @@ def textures():
         'block/warped_blazewood_bookshelf': n41.bookshelf('warped', 2),
         # N45 addendum (2026-10-12): animated top and sides, nebula under the cloth.
         **__import__('n45_astral_2026_10_12').textures(),
-        # N45 (2026-10-12): B1 animated and seamless (veins run over the tile edges), 8 frames.
-        'block/blazing_obsidian': __import__('n45_obsidian_2026_10_12').blazing_strip(),
+        # LOHEN17 (owner 2026-10-21): T1 = C1 lava crust, animated, seams dim and flare region by region, 16 frames.
+        'block/blazing_obsidian': blazing_t1(),
         # item/blaze_book (owner pick N41 round 3, D9) is drawn on the Vanilla written-book layout read from the
         # client jar: built at build time only, see tools/textures/vanilla_derived.py (never committed).
     }
+
+
+def blazing_t1():
+    from layers import snap
+    strip, steps = __import__('blazing_obsidian_t1_2026_10_21').strip_steps()
+    for name, pixels in steps:
+        snap(strip, name, pixels)   # layer source: Grund, Kruste, Naehte, Lava (PRINZIPIEN A8 b)
+    return strip
 
 
 def textures_before_n41():
@@ -282,7 +290,7 @@ def textures_before_n41():
 
 
 def animations():
-    a, b = __import__('n45_obsidian_2026_10_12').ANIMATION, __import__('n45_astral_2026_10_12').ANIMATION
+    a, b = __import__('blazing_obsidian_t1_2026_10_21').ANIMATION, __import__('n45_astral_2026_10_12').ANIMATION
     return {'block/blazing_obsidian': a, 'block/astral_enchanting_table_top': b, 'block/astral_enchanting_table_side': b}
 
 
@@ -309,6 +317,9 @@ def main():
         else:
             os.makedirs(os.path.dirname(path), exist_ok=True)
             im.save(path)
+            from layers import steps_of, write_layers_for
+            if steps_of(im):
+                write_layers_for(im, path)
     import json
     for name, anim in animations().items():
         path = os.path.join(ROOT, name + '.png.mcmeta')

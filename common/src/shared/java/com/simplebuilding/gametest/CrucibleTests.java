@@ -553,6 +553,32 @@ public final class CrucibleTests {
     }
 
     /**
+     * LOHEN17 V3 (owner 2026-10-21): blazing obsidian directly under a crucible gives high heat (like lava, through
+     * Simple Crucibles' heat-source API); with {@code server.features.blazingHeat} off it gives none.
+     */
+    public static void blazingObsidianHeatsTheCrucibleHigh(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE || com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN == null) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        BlockPos at = new BlockPos(2, 2, 2);
+        helper.setBlock(at.below(), com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN);
+        helper.setBlock(at, lib("iron_crucible"));
+        BlockPos abs = helper.absolutePos(at);
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        boolean before = features.blazingHeat;
+        try {
+            features.blazingHeat = true;
+            String on = CrucibleCompat.heatAt(level, abs);
+            helper.assertTrue("high".equals(on), "blazing obsidian below: high heat, got " + on);
+            features.blazingHeat = false;
+            String off = CrucibleCompat.heatAt(level, abs);
+            helper.assertTrue("none".equals(off), "blazingHeat off: no heat, got " + off);
+        } finally {
+            features.blazingHeat = before;
+        }
+        helper.succeed();
+    }
+
+    /**
      * Owner N15: the attached barrel's outline follows its model - the body element of
      * {@code *_barrel_attached.json} turned by the y-rotation of its blockstate variant, for every facing and every
      * barrel tier. The expected box is read from the blockstate and the model on the classpath, so moving the model

@@ -45,6 +45,15 @@ public final class SimpleCruciblesApi {
         HEAT_SOURCES.add(source);
     }
 
+    /**
+     * A partner's heat source by name ("medium", "high", "extreme"), so the partner needs no implementation class
+     * (principle 6a): {@code test} says whether a block state below the crucible gives that heat.
+     */
+    public static void registerHeatSource(String heat, java.util.function.Predicate<BlockState> test) {
+        HeatLevel level = HeatLevel.valueOf(heat.toUpperCase(java.util.Locale.ROOT));
+        registerHeatSource((world, pos, state) -> test.test(state) ? level : HeatLevel.NONE);
+    }
+
     public static HeatLevel heatOf(Level level, BlockPos pos, BlockState state) {
         HeatLevel best = HeatLevel.NONE;
         for (HeatSource source : HEAT_SOURCES) {

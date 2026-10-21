@@ -2472,6 +2472,8 @@
   "text.autoconfig.simplebuilding.option.server.features.astralVault": "Astral Vault",
   "text.autoconfig.simplebuilding.option.server.features.nihilVault": "Nihil Vault",
   "text.autoconfig.simplebuilding.option.server.features.astralVault.@Tooltip": "Enable Astral Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
+  "text.autoconfig.simplebuilding.option.server.features.blazingHeat": "Blazing Obsidian Heat",
+  "text.autoconfig.simplebuilding.option.server.features.blazingHeat.@Tooltip": "Blazing Obsidian under a crucible\ngives high heat, like lava.\nDefault: true.",
   "text.autoconfig.simplebuilding.option.server.features.nihilVault.@Tooltip": "Enable Nihil Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
   "text.autoconfig.simplebuilding.option.server.machines.endPistonCooldownTicks": "End Piston Cooldown (4–100)",
   "text.autoconfig.simplebuilding.option.server.machines.endPistonCooldownTicks.@Tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",

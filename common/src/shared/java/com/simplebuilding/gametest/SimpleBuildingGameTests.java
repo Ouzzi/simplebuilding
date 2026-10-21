@@ -744,6 +744,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_crucible_step_on_hurts_only_on_high_heat_and_not_when_sneaking", CrucibleTests::crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking)
                     .build(),
+            GameTestSpec.named("crucible_game_test_blazing_obsidian_heats_the_crucible_high", CrucibleTests::blazingObsidianHeatsTheCrucibleHigh)
+                    .build(),
             GameTestSpec.named("crucible_game_test_attached_barrel_hitbox_follows_its_model", CrucibleTests::attachedBarrelHitboxFollowsItsModel)
                     .build(),
             GameTestSpec.named("crucible_game_test_attached_barrel_does_not_occlude_its_neighbours", CrucibleTests::attachedBarrelDoesNotOccludeItsNeighbours)
@@ -913,6 +915,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("astral_enchanting_game_test_stock_stays_in_the_table", AstralEnchantingTests::stockStaysInTheTable).build(),
             GameTestSpec.named("astral_enchanting_game_test_enchanting_uses_up_what_the_rules_say", AstralEnchantingTests::enchantingUsesUpWhatTheRulesSay).build(),
             GameTestSpec.named("astral_enchanting_game_test_recipes_are_loaded", AstralEnchantingTests::recipesAreLoaded).build(),
+            GameTestSpec.named("astral_enchanting_game_test_blazing_obsidian_keeps_fire_burning", AstralEnchantingTests::blazingObsidianKeepsFireBurning).build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)
