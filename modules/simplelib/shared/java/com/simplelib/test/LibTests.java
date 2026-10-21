@@ -132,13 +132,13 @@ public final class LibTests {
         check(h, brief.size() == 2 && brief.get(0) == full.get(0), "without Shift: first line plus hint, got " + brief.size() + " lines");
         check(h, brief.get(1).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t
                 && t.getKey().equals(com.simplelib.api.client.ui.UiShiftTooltip.KEY), "second line is not the hold-Shift hint: " + brief.get(1));
-        check(h, brief.get(1).getStyle().getColor() != null && brief.get(1).getStyle().getColor().getValue()
-                == net.minecraft.ChatFormatting.GRAY.getColor(), "hint is not the shared grey");
+        var gray = net.minecraft.network.chat.TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.GRAY);
+        check(h, gray != null && gray.equals(brief.get(1).getStyle().getColor()), "hint is not the shared grey");
         check(h, com.simplelib.api.client.ui.UiShiftTooltip.collapse(full, 1, true).equals(full), "with Shift not every line");
         var two = com.simplelib.api.client.ui.UiShiftTooltip.collapse(full, 2, false);
         check(h, two.size() == 3 && two.get(1) == full.get(1), "brief 2 keeps two lines");
         check(h, com.simplelib.api.client.ui.UiShiftTooltip.collapse(full.subList(0, 1), 1, false).size() == 1, "nothing hidden, still a hint");
-        int grey = 0xFF000000 | net.minecraft.ChatFormatting.GRAY.getColor();
+        int grey = 0xFF000000 | gray.getValue();
         double ratio = com.simplelib.api.client.ui.UiContrast.ratio(grey, com.simplelib.api.client.ui.UiShiftTooltip.TOOLTIP_BACKGROUND);
         check(h, ratio >= com.simplelib.api.client.ui.UiContrast.MIN, "hint contrast " + ratio);
         for (String lang : new String[] {"en_us", "de_de"}) {
