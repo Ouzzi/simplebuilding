@@ -113,6 +113,7 @@
   "item.simpleblocks.shapecutter": "Formsäge",
   "container.simpleblocks.shapecutter": "Formsäge",
   "jei.simpleblocks.info.shapecutter": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.",
+  "tip.simpleblocks.shapecutter": "Schneidet Stein und Holz zu Treppen, Stufen und mehr",
   "item.simpleblocks.guide_book": "Simple-Blocks-Handbuch",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "Die fehlenden Baublöcke:",
@@ -141,6 +142,5 @@
   "quests.simpleblocks.start.title": "Willkommen bei Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleblocks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen.",
-  "tip.simpleblocks.shapecutter": "Schneidet Stein und Holz zu Treppen, Stufen und mehr"
+  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen."
 }

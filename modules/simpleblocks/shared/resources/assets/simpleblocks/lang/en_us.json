@@ -113,6 +113,7 @@
   "item.simpleblocks.shapecutter": "Shapecutter",
   "container.simpleblocks.shapecutter": "Shapecutter",
   "jei.simpleblocks.info.shapecutter": "Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. The nuggets are used up and the stonecutter becomes a Shapecutter facing the same way.",
+  "tip.simpleblocks.shapecutter": "Cuts stone and wood into stairs, slabs and more",
   "item.simpleblocks.guide_book": "Simple Blocks Guide",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, the missing",
@@ -141,6 +142,5 @@
   "quests.simpleblocks.start.title": "Welcome to Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Your free guide",
   "quests.simpleblocks.start.welcome.title": "A free guide",
-  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball.",
-  "tip.simpleblocks.shapecutter": "Cuts stone and wood into stairs, slabs and more"
+  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball."
 }
