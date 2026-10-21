@@ -6,10 +6,10 @@
         "items": [
           {
             "items": [
-              "simplebuilding:backpack",
-              "simplebuilding:reinforced_backpack",
-              "simplebuilding:netherite_backpack",
-              "simplebuilding:enderite_backpack",
+              "simplestorage:backpack",
+              "simplestorage:reinforced_backpack",
+              "simplestorage:netherite_backpack",
+              "simplestorage:enderite_backpack",
               "simplestorage:reinforced_bundle",
               "simplestorage:netherite_bundle",
               "simplestorage:enderite_bundle",

@@ -23,7 +23,6 @@
     "simplebuilding:astralit_quartz_checker_stairs",
     "simplebuilding:auto_smither",
     "simplebuilding:autonomous_crafter",
-    "simplebuilding:backpack",
     "simplebuilding:bamboo_cauldron",
     "simplebuilding:bamboo_sheet",
     "simplebuilding:birch_cauldron",
@@ -96,7 +95,6 @@
     "simplebuilding:ender_quartz_pillar",
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
-    "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_chunk_loader",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
@@ -173,7 +171,6 @@
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
     "simplebuilding:nether_dimensional_scrap",
-    "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
@@ -253,7 +250,6 @@
     "simplebuilding:red_nether_brick_quartz_checker_slab",
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
     "simplebuilding:redstone_light_pane",
-    "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
     "simplebuilding:reinforced_hopper",
@@ -453,10 +449,6 @@
     },
     {
       "id": "simplebuilding:autonomous_crafter"
-    },
-    {
-      "id": "simplebuilding:backpack",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:bamboo_cauldron"
@@ -897,10 +889,6 @@
       "durability": 2530,
       "enchantability": 18,
       "id": "simplebuilding:enderite_axe",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_backpack",
       "maxStackSize": 1
     },
     {
@@ -1462,10 +1450,6 @@
     },
     {
       "id": "simplebuilding:netherite_apple"
-    },
-    {
-      "id": "simplebuilding:netherite_backpack",
-      "maxStackSize": 1
     },
     {
       "durability": 16248,
@@ -2211,10 +2195,6 @@
     },
     {
       "id": "simplebuilding:redstone_light_pane"
-    },
-    {
-      "id": "simplebuilding:reinforced_backpack",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_elytra_pad",

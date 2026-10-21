@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:storage/sheet_happens",
+  "criteria": {
+    "backpack": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplestorage:backpack",
+              "simplestorage:reinforced_backpack",
+              "simplestorage:netherite_backpack",
+              "simplestorage:enderite_backpack"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.pack_mule.description"
+    },
+    "icon": {
+      "id": "simplestorage:backpack"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.pack_mule.title"
+    }
+  },
+  "requirements": [
+    [
+      "backpack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
