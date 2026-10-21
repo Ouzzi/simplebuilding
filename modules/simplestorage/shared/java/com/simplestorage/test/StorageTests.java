@@ -152,7 +152,7 @@ public final class StorageTests {
         ALL.put("backpack_tooltip_image_carries_the_stored_items_of_every_tier_dyed_too", BackpackTests::tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo);
         ALL.put("backpack_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents);
         ALL.put("backpack_backpack_key_locks_the_inventory_slot_of_the_backpack_it_opened", BackpackTests::backpackKeyLocksTheInventorySlotOfTheBackpackItOpened);
-        ALL.put("backpack_placed_backpack_outputs_its_fill_level_to_a_comparator", BackpackTests::placedBackpackOutputsItsFillLevelToAComparator);
+        ALL.put("backpack_placed_backpack_outputs_its_fill_level_to_acomparator", BackpackTests::placedBackpackOutputsItsFillLevelToAComparator);
         ALL.put("backpack_storage_registered", BackpackStorageTests::registered);
         ALL.put("backpack_storage_migration_from_simplebuilding", BackpackStorageTests::migrationFromSimplebuilding);
         ALL.put("backpack_storage_refuses_the_not_allowed_tag", BackpackStorageTests::refusesTheNotAllowedTag);

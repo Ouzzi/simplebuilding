@@ -38,6 +38,7 @@
   "suggests": {
     "simplebuilding": "*",
     "simpleend": "*",
-    "trinkets_updated": "*"
+    "trinkets_updated": "*",
+    "curios": "*"
   }
 }

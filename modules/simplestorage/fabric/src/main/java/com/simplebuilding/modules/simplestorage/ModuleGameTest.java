@@ -497,7 +497,7 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplestorage:empty")
     public void backpackPlacedBackpackOutputsItsFillLevelToAComparator(GameTestHelper h) {
-        StorageTests.ALL.get("backpack_placed_backpack_outputs_its_fill_level_to_a_comparator").accept(h);
+        StorageTests.ALL.get("backpack_placed_backpack_outputs_its_fill_level_to_acomparator").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")
