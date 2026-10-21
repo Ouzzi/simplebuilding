@@ -55,5 +55,14 @@ class RealCache(unittest.TestCase):
                 self.assertEqual(vd.find_jar(), home.joinpath(*vd.CACHE_JARS[1]))
 
 
+class GroovyFallbackParse(unittest.TestCase):
+    def test_every_output_is_a_literal_line(self):
+        """mc26_3/resources.gradle (sbVanillaDerivedPlaceholders) greps OUTPUTS with this regex: no comprehension may hide an entry."""
+        import re
+        text = Path(vd.__file__).read_text(encoding='utf-8')
+        found = set(re.findall(r"(?m)^\s+'([a-z0-9_\/]+\.png)': \(\((\d+), (\d+)\)", text))
+        self.assertLessEqual(set(vd.OUTPUTS), {m[0] for m in found})
+
+
 if __name__ == '__main__':
     unittest.main()

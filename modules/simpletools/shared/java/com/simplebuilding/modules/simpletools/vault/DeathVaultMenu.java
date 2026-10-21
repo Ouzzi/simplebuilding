@@ -35,7 +35,7 @@ public class DeathVaultMenu extends AbstractContainerMenu {
     public static final int BUTTON_OFFER = 0;
     /**
      * Data: redeem option on (offering shown), redeemable count, cost per item, returns per offering, shown fields, further
-     * drops not shown, minutes since the death (-1 none); then per field {@link #D_ROWS} + 2 * i: flags, age in ticks.
+     * drops not shown, minutes since the death (-1 none); then per field {@link #D_ROWS} + 3 * i: flags, age in ticks, despawn age (lifespan) in ticks.
      */
     public static final int D_OFFER = 0, D_LOST = 1, D_COST = 2, D_MAX = 3, D_COUNT = 4, D_MORE = 5, D_SINCE = 6, D_ROWS = 7;
 
@@ -61,7 +61,7 @@ public class DeathVaultMenu extends AbstractContainerMenu {
         super(ToolsRegistry.DEATH_VAULT_MENU, id);
         this.access = access;
         this.player = inventory.player;
-        this.data = new SimpleContainerData(D_ROWS + 2 * SHOWN);
+        this.data = new SimpleContainerData(D_ROWS + 3 * SHOWN);
         for (int i = 0; i < SHOWN; i++) addSlot(new Shown(shown, i, GRID_X + (i % COLS) * 18, GRID_Y + (i / COLS) * 18, () -> data.get(D_COUNT)));
         addSlot(new Slot(offering, 0, OFFER_X, OFFER_Y) {
             @Override
@@ -118,16 +118,18 @@ public class DeathVaultMenu extends AbstractContainerMenu {
         for (int i = 0; i < SHOWN; i++) {
             if (i >= n) {
                 shown.setItem(i, ItemStack.EMPTY);
-                data.set(D_ROWS + 2 * i, 0);
-                data.set(D_ROWS + 2 * i + 1, 0);
+                data.set(D_ROWS + 3 * i, 0);
+                data.set(D_ROWS + 3 * i + 1, 0);
+                data.set(D_ROWS + 3 * i + 2, DeathLedger.LIFETIME);
                 continue;
             }
             DeathVault.Row row = rows.get(i);
             ItemStack copy = row.entry().stack.copy();
             copy.set(DataComponents.LORE, copy.getOrDefault(DataComponents.LORE, ItemLore.EMPTY).withLineAdded(row.fate().line(row.entry().who)));
             shown.setItem(i, copy);
-            data.set(D_ROWS + 2 * i, row.flags());
-            data.set(D_ROWS + 2 * i + 1, row.age());
+            data.set(D_ROWS + 3 * i, row.flags());
+            data.set(D_ROWS + 3 * i + 1, row.age());
+            data.set(D_ROWS + 3 * i + 2, row.lifespan());
         }
         long since = -1;
         var last = ledger.last(player.getUUID());

@@ -69,6 +69,7 @@
           "Height lines color explored land in bands of 8 blocks with a dark line between bands.",
           "With a recovery compass in the other hand the last death point appears on the map, also over unexplored ground.",
           "The loaded-chunks layer shows only your own chunks (within the server view distance around you) and chunks kept loaded by chunk loaders or /forceload, never chunks other players load.",
+          "With Simple Tweaks a Claims layer (layers button) shows claims as colored strips on explored terrain, your own land framed. The server decides what you see (claimVisibility of Simple Tweaks claims); without Simple Tweaks there is no Claims layer.",
           "A map of another dimension (for example the End map in the Overworld) still shows what it explored; only unexplored spots carry a faint static. In the hand it is centred on your position converted to that dimension (Nether 1:8), without the player arrow.",
           "Shops (with Simple Shops) are marked with Simple Money's bill when Simple Money is loaded, otherwise with a diamond."
         ]
@@ -81,6 +82,7 @@
           "Höhenlinien färben erkundetes Land in Stufen zu 8 Blöcken mit dunkler Linie zwischen den Stufen.",
           "Mit Bergungskompass in der anderen Hand erscheint der letzte Todespunkt auf der Karte, auch über unerkundetem Gebiet.",
           "Die Ebene „Geladene Chunks“ zeigt nur die eigenen Chunks (Server-Sichtweite um dich) und Chunks, die Chunkloader oder /forceload geladen halten – nie Chunks, die andere Spieler laden.",
+          "Mit Simple Tweaks zeigt die Ebene „Claims“ (Ebenen-Knopf) Claims als farbige Streifen auf erkundetem Gelände, dein Land umrahmt. Was du siehst, entscheidet der Server (claimVisibility der Simple-Tweaks-Claims); ohne Simple Tweaks gibt es die Ebene nicht.",
           "Eine Karte einer anderen Dimension (z. B. die End-Karte in der Oberwelt) zeigt weiter, was sie erkundet hat; nur unerkundete Stellen tragen ein dezentes Rauschen. In der Hand ist sie auf deine in jene Dimension umgerechnete Position zentriert (Nether 1:8), ohne Spielerpfeil.",
           "Shops (mit Simple Shops) tragen das Geldschein-Symbol von Simple Money, wenn Simple Money geladen ist, sonst eine Raute."
         ]

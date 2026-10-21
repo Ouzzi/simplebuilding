@@ -8,6 +8,8 @@ public final class ToolsNeoForge {
         SimpleTools.registerMoves();
         SimpleTools.configDir = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleTools.load();
+        // Death Vault: the despawn timer follows the entity's own lifespan (Item#getEntityLifespan, saved "Lifespan")
+        com.simplebuilding.modules.simpletools.vault.DeathLedger.lifespanOf = e -> e.lifespan;
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
             if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simpletools.guide.ToolsGuide.register();
         });

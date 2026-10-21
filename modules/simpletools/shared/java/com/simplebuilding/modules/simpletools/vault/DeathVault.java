@@ -68,7 +68,7 @@ public final class DeathVault {
     public static final int F_FATE_MASK = 15, F_RUNNING = 16, F_NEVER = 32;
 
     /** One shown drop of the last death: the entry, its flags and the despawn age (ticks, capped to a short). */
-    public record Row(DeathLedger.Entry entry, int flags, int age) {
+    public record Row(DeathLedger.Entry entry, int flags, int age, int lifespan) {
         public Fate fate() {
             return entry.fate();
         }
@@ -85,18 +85,20 @@ public final class DeathVault {
             for (DeathLedger.Entry entry : death.entries) {
                 int flags = entry.state & F_FATE_MASK;
                 int age = entry.age;
+                int lifespan = entry.lifespan;
                 if (entry.state == Fate.LYING.id) {
                     for (ServerLevel level : server.getAllLevels()) {
                         if (level.getEntity(entry.entity) instanceof ItemEntity item && !item.isRemoved()) {
                             age = item.getAge();
                             entry.age = Math.max(0, age);
+                            lifespan = entry.lifespan = DeathLedger.lifespan(item);
                             if (level.isPositionEntityTicking(item.blockPosition())) flags |= F_RUNNING;
                             break;
                         }
                     }
                     if (age < 0) flags |= F_NEVER;
                 }
-                out.add(new Row(entry, flags, Math.clamp(age, 0, Short.MAX_VALUE)));
+                out.add(new Row(entry, flags, Math.clamp(age, 0, Short.MAX_VALUE), Math.clamp(lifespan, 1, Short.MAX_VALUE)));
             }
         });
         out.sort(Comparator.comparingInt(r -> r.fate().order()));

@@ -39,6 +39,15 @@ import net.minecraft.world.level.saveddata.SavedDataType;
 public final class DeathLedger extends SavedData {
     /** Vanilla item lifetime in ticks. */
     public static final int LIFETIME = 6000;
+    /**
+     * Despawn age of an item entity in ticks. Vanilla: {@link #LIFETIME}; the NeoForge entrypoint swaps in the entity's
+     * own {@code lifespan} (items with {@code getEntityLifespan}, saved "Lifespan"), so the timer and the despawn check follow it.
+     */
+    public static volatile java.util.function.ToIntFunction<ItemEntity> lifespanOf = e -> LIFETIME;
+
+    public static int lifespan(ItemEntity entity) {
+        return Math.clamp(lifespanOf.applyAsInt(entity), 1, Short.MAX_VALUE);
+    }
     /** Ledger state of the first version: "lost" (redeemable); read as {@link Fate#OTHER} + redeemable. */
     private static final int LEGACY_LOST = 1;
 
@@ -54,6 +63,13 @@ public final class DeathLedger extends SavedData {
         public boolean redeemable;
         /** Age of the entity in ticks when it was last seen (unloaded or shown), 0 at the death. */
         public int age;
+        /** Despawn age of the entity in ticks when it was last seen ({@link #LIFETIME} for Vanilla items). */
+        public int lifespan = LIFETIME;
+
+        public Entry(UUID entity, ItemStack stack, int state, String who, boolean redeemable, int age, int lifespan) {
+            this(entity, stack, state, who, redeemable, age);
+            this.lifespan = lifespan;
+        }
 
         public Entry(UUID entity, ItemStack stack, int state, String who, boolean redeemable, int age) {
             this.entity = entity;
@@ -78,7 +94,8 @@ public final class DeathLedger extends SavedData {
                 Codec.INT.fieldOf("state").forGetter(e -> e.state),
                 Codec.STRING.optionalFieldOf("who", "").forGetter(e -> e.who),
                 Codec.BOOL.optionalFieldOf("redeemable", false).forGetter(e -> e.redeemable),
-                Codec.INT.optionalFieldOf("age", 0).forGetter(e -> e.age)).apply(i, Entry::new));
+                Codec.INT.optionalFieldOf("age", 0).forGetter(e -> e.age),
+                Codec.INT.optionalFieldOf("lifespan", LIFETIME).forGetter(e -> e.lifespan)).apply(i, Entry::new));
     }
 
     /** One death. */
@@ -194,6 +211,7 @@ public final class DeathLedger extends SavedData {
         ref.entry.state = fate.id;
         ref.entry.redeemable = intact && lostBy(ref.death, despawn, hurt, voidFall);
         ref.entry.age = Math.max(0, entity.getAge());
+        ref.entry.lifespan = lifespan(entity);
         setDirty();
     }
 
@@ -213,6 +231,7 @@ public final class DeathLedger extends SavedData {
         Ref ref = index.get(entity.getUUID());
         if (ref == null) return;
         ref.entry.age = Math.max(0, entity.getAge());
+        ref.entry.lifespan = lifespan(entity);
         setDirty();
     }
 

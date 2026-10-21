@@ -43,7 +43,7 @@ public final class RemovalContext {
             ledger.pickedUp(entity.getUUID(), toucher);
             return;
         }
-        boolean despawn = ticking == entity && entity.getAge() >= DeathLedger.LIFETIME;
+        boolean despawn = ticking == entity && entity.getAge() >= DeathLedger.lifespan(entity);
         DamageSource hurt = hurtTarget == entity ? hurtSource : null;
         boolean voidFall = entity.getY() < entity.level().getMinY() - 64;
         ledger.removed(entity, despawn && hurt == null, hurt, voidFall);

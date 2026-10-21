@@ -127,12 +127,13 @@ class ModsApiTest(unittest.TestCase):
         self.assertTrue(data['state']['simplemoney']['on'])
         status, data = self.call('PUT', '/api/mods/selection', {'off': ['simplemoney', 'simpleoctets']})
         self.assertEqual(status, 200)
-        self.assertEqual(data['off'], ['simplemoney'])  # planned ids are not stored
+        # simpleoctets is a registered module since split stage 6 (no longer in modselect.PLANNED), so it is stored too
+        self.assertEqual(data['off'], ['simplemoney', 'simpleoctets'])
         self.assertFalse(data['state']['simplemoney']['on'])
         self.assertFalse(data['launch']['configSwitches']['simplebuilding.json']['enableSimpleMoney'])
         other = dict(AUTH, **{'Cf-Access-Authenticated-User-Email': 'other@test'})
         self.assertEqual(self.call('GET', '/api/mods', headers=other)[1]['off'], [])
-        self.assertEqual(self.call('GET', '/api/mods')[1]['off'], ['simplemoney'])
+        self.assertEqual(self.call('GET', '/api/mods')[1]['off'], ['simplemoney', 'simpleoctets'])
         files = list((Path(self.tmp.name) / 'selections').glob('*.json'))
         self.assertEqual(len(files), 1)
         self.assertNotIn('@', files[0].name)
