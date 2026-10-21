@@ -4,6 +4,8 @@ import argparse
 import sys
 from pathlib import Path
 from PIL import Image
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'tools/textures'))
+from layers import grid_rgba, save, snap  # noqa: E402  layer sources beside the PNGs (A8 b)
 
 MODULE = Path(__file__).resolve().parents[1]
 OUT = MODULE / 'shared/resources/assets/simplemaps/textures/item'
@@ -86,19 +88,23 @@ def render(name):
         for y in range(y0, y1 + 1):
             for x in range(x0, x1 + 1):
                 grid[y][x] = 'q' if i == 1 else 'p'
+    stages = [('Papier', [r[:] for r in grid])]
     for (x, y), key in motif.items():
         if grid[y][x] in 'pq':
             grid[y][x] = key
+    stages.append(('Motiv', [r[:] for r in grid]))
     # Fold lines where panels meet.
     for x, (top, bottom) in ((6, (3, 12)), (11, (3, 12))):
         for y in range(top, bottom + 1):
             grid[y][x] = 'f'
+    stages.append(('Falz', [r[:] for r in grid]))
     # Outline of the silhouette (4-neighbourhood).
     filled = {(x, y) for y in range(16) for x in range(16) if grid[y][x] != '.'}
     out = [row[:] for row in grid]
     for (x, y) in filled:
         if any((x + dx, y + dy) not in filled for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
             out[y][x] = 'o'
+    stages.append(('Kontur', [r[:] for r in out]))
     bx, by = BADGE_AT
     for j, row in enumerate(BADGE):
         for i, key in enumerate(row):
@@ -109,6 +115,8 @@ def render(name):
         for x in range(16):
             if out[y][x] != '.':
                 img.putpixel((x, y), pal[out[y][x]] + (255,))
+    for name, g in stages + [('Kompass', out)]:
+        snap(img, name, grid_rgba([''.join(r) for r in g], pal))
     return img
 
 
@@ -126,7 +134,7 @@ def main():
                 bad.append(name)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
-            img.save(path)
+            save(img, path)
     if args.preview:
         sheet = Image.new('RGBA', (16 * 16 * len(MAPS) + 16 * (len(MAPS) - 1), 16 * 16), (60, 60, 60, 255))
         for i, name in enumerate(MAPS):

@@ -5,6 +5,8 @@ import argparse
 import sys
 from pathlib import Path
 from PIL import Image
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'tools/textures'))
+from layers import save, snap, snap_grid  # noqa: E402  layer sources beside the PNGs (A8 b)
 
 MODULE = Path(__file__).resolve().parents[1]
 OUT = MODULE / 'shared/resources/assets/simpletools/textures/block'
@@ -90,14 +92,14 @@ def main():
     args = ap.parse_args()
     stale = []
     for name, rows in TEXTURES.items():
-        img = grid(rows)
+        img = snap_grid(grid(rows), rows, C, [('Holz', 'stu'), ('Seelenlicht', 'edcw')], 'Obsidian')
         path = OUT / f'{name}.png'
         if args.check:
             if not path.is_file() or list(Image.open(path).convert('RGBA').getdata()) != list(img.getdata()):
                 stale.append(name)
         else:
             OUT.mkdir(parents=True, exist_ok=True)
-            img.save(path)
+            save(img, path)
         if args.preview:
             Path(args.preview).mkdir(parents=True, exist_ok=True)
             img.resize((256, 256), Image.NEAREST).save(Path(args.preview) / f'{name}_16x.png')

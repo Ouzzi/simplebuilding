@@ -69,6 +69,15 @@ import vanilla_style  # Vanilla-Stil fuer verrauschte Pads (Textur-Audit Q1)
 from texture_round6_2026_10_05 import more_contrast  # Besitzer-Buecher kontrastreicher (Runde 6)
 from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 import shimmer_2026_10_06 as shimmer  # Runde 7: wandernder Glanz (Enderit-Speer)
+from layers import carry, snap, steps_of, write_layers_for  # Ebenen-Quellen: Zeichenschritte als benannte Ebenen
+
+
+def continued(src, dst, base=None):
+    """dst setzt src fort (Kopie/Umwandlung): uebernimmt dessen Zeichenschritte; hat src keine, wird es als `base` die
+    unterste Ebene (z. B. eine Vorlage aus tools/textures/hand/)."""
+    if steps_of(src) or base is None:
+        return carry(src, dst)
+    return carry(src, dst, base)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -1306,7 +1315,7 @@ def render(name, rows, palette, opaque, template=None):
             else:
                 c = hexrgb(palette[ch])
             px[x, y] = c if opaque else c + (255,)
-    return img
+    return snap(img, "Grundform")
 
 
 # ---------------------------------------------------------------------------
@@ -2301,7 +2310,7 @@ def mix(base, color, a):
 
 def pad_overlay(base, overlay, stars=None):
     """Legt die Auflage (PAD_VEIL + PAD_STARS) in den Farben einer Stufe auf eine Grundplatte."""
-    img = base.convert("RGB").copy()
+    img = continued(base, base.convert("RGB").copy(), "Grundplatte")
     px = img.load()
     veil = hexrgb(overlay["veil"]) if overlay.get("veil") else None
     stars = stars if stars is not None else overlay.get("stars")
@@ -2309,11 +2318,14 @@ def pad_overlay(base, overlay, stars=None):
         for x in range(16):
             if veil is not None:
                 px[x, y] = mix(px[x, y], veil, int(PAD_VEIL[y][x]) * 0.05 * overlay["k"])
+    snap(img, "Schleier")  # Ebenen-Quelle: Schleier und Sterne getrennt (pixelweise unabhaengig, Ergebnis gleich)
+    for y in range(16):
+        for x in range(16):
             ch = PAD_STARS[y][x]
             if stars and ch != ".":
                 col, a = (stars[0], stars[1]) if ch == "S" else (stars[2], stars[3])
                 px[x, y] = mix(px[x, y], hexrgb(col), a)
-    return img
+    return snap(img, "Sterne")
 
 
 def pad_textures(tex):
@@ -2978,12 +2990,12 @@ def glimmer_pixels(img, rel):
 
 
 def apply_glimmer(img, rel):
-    img = img.convert("RGBA").copy()
+    img = continued(img, img.convert("RGBA").copy(), "Grundform")
     pixels = glimmer_pixels(img, rel)
     GLIMMER_DONE[rel] = set(pixels)
     for q, colour in pixels.items():
         img.putpixel(q, colour + (255,))
-    return img
+    return snap(img, "Glimmer")
 
 
 def glimmer_points(rel):
@@ -3203,7 +3215,8 @@ def build():
         tex[rel] = apply_glimmer(render(f"{prefix}backpack", BACKPACK_ITEM, pal, False), rel)
         for face, rows in (("front", BACKPACK_FRONT), ("back", BACKPACK_BACK), ("side", BACKPACK_SIDE), ("top", BACKPACK_TOP)):
             rel = f"block/{prefix}backpack_{face}.png"
-            tex[rel] = apply_glimmer(render(f"{prefix}backpack_{face}", rows, pal, True), rel).convert("RGB")
+            glimmered = apply_glimmer(render(f"{prefix}backpack_{face}", rows, pal, True), rel)
+            tex[rel] = continued(glimmered, glimmered.convert("RGB"))
     for rel in ("item/enderite_apple.png", "item/enderite_carrot.png"):
         hand_drawn(tex, rel)
 
@@ -4398,14 +4411,14 @@ def apply_enderite_handles(tex):
     """Ersetzt in den Enderit-Werkzeug-Icons die Griffpixel durch die Netherit-Griffe mit violetten Wicklungen."""
     for name, rows in ENDERITE_HANDLE_MAPS.items():
         rel = f"item/enderite_{name}.png"
-        img = tex[rel].copy()
+        img = continued(tex[rel], tex[rel].copy(), "Grundform")
         colours = dict(ENDERITE_HANDLE_PALS[name])
         colours.update(ENDERITE_HANDLE_WRAP)
         for y, row in enumerate(rows):
             for x, c in enumerate(row):
                 if c != ".":
                     img.putpixel((x, y), hexrgb(colours[c]) + (255,))
-        tex[rel] = img
+        tex[rel] = snap(img, "Griff")
 
 
 # Griffe der Netherit-Werkzeuge des Mods (2026-09-27): Vorschlaghammer, Meissel, Baustab und Spachtel hatten
@@ -4441,14 +4454,14 @@ def apply_netherite_handles(tex):
             for name in ("sledgehammer", "chisel", "building_wand")]
     maps.append(("spatula", NETHERITE_SPATULA_HANDLE, tex["item/netherite_spatula.png"]))
     for name, rows, src in maps:
-        img = src.convert("RGBA").copy()
+        img = continued(src, src.convert("RGBA").copy(), "Grundform")
         colours = dict(ENDERITE_HANDLE_PALS.get(name, ENDERITE_HANDLE_PALS["chisel"]))
         colours.update(NETHERITE_HANDLE_WRAP)
         for y, row in enumerate(rows):
             for x, c in enumerate(row):
                 if c != ".":
                     img.putpixel((x, y), hexrgb(colours[c]) + (255,))
-        tex[f"item/netherite_{name}.png"] = img
+        tex[f"item/netherite_{name}.png"] = snap(img, "Griff")
 
 
 
@@ -4507,6 +4520,7 @@ def main():
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, "wb") as f:
                     f.write(data)
+                write_layers_for(img, path)  # Ebenen-Quelle daneben (nur eigene Texturbaeume, PRINZIPIEN A8 b)
     for rel, animation in sorted(MACHINE_ANIMATIONS.items()):
         if tex[rel].height % 16 or tex[rel].height // 16 < 2:
             raise ValueError(f"{rel}: kein Animationsstreifen ({tex[rel].size})")

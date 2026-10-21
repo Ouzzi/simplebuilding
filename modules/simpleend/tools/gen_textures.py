@@ -23,6 +23,7 @@ MODULE = Path(__file__).resolve().parents[1]
 ROOT = MODULE.parents[1]
 sys.path.insert(0, str(ROOT / 'tools/textures'))
 from n41_proposals_2026_10_12 import H, hsh, mix, new, put, ramp, rect, vnoise  # noqa: E402
+from layers import save, snap  # noqa: E402  layer sources: drawing steps become named layers
 
 TEX = MODULE / 'shared/resources/assets/simpleend/textures'
 GUI = MODULE / 'shared/resources/assets/minecraft/textures/gui'
@@ -77,6 +78,7 @@ def log_side(s):
             else:
                 t = 0.5 + 0.4 * vnoise(x, y, 4, sd) - (0.35 if (x + y // 2) % 5 == 0 else 0)
             put(im, x, y, b[min(5, max(0, int(t * 6)))])
+    snap(im, 'Rinde')
     if s['key'] == 'b1':
         for kx, ky in ((3, 4), (11, 10), (7, 14)):
             put(im, kx, ky, a[1])
@@ -88,7 +90,7 @@ def log_side(s):
         for x, y in ((2, 3), (9, 8), (13, 13)):
             put(im, x, y, a[1])
             put(im, x + 1, y - 1, a[2])
-    return im
+    return snap(im, 'Astknoten')
 
 
 def rings(s, stripped):
@@ -107,11 +109,12 @@ def rings(s, stripped):
                 if d < 1.5:
                     c = a[2] if s['key'] == 'b1' else w[1]
             put(im, x, y, c)
+    snap(im, 'Jahresringe')
     if stripped:
         for i in range(16):
             for p in ((i, 0), (0, i), (i, 15), (15, i)):
                 put(im, p[0], p[1], w[1])
-    return im
+    return snap(im, 'Rand')
 
 
 def stripped_side(s):
@@ -144,13 +147,14 @@ def planks(s):
             elif hi:
                 c = mix(c, w[5], 0.4)
             put(im, x, y, c)
+    snap(im, 'Bretter')
     if s['key'] == 'b1':
         for x, y in ((3, 1), (11, 6), (5, 9), (12, 13)):
             put(im, x, y, w[1])
     else:
         for x, y in ((3, 3), (11, 11)):
             put(im, x, y, a[1])
-    return im
+    return snap(im, 'Astlöcher')
 
 
 def planks_vertical(s):
@@ -168,7 +172,7 @@ def planks_vertical(s):
 
 def door(s, half):
     w, a = s['wood'], s['accent']
-    im = planks_vertical(s)
+    im = snap(planks_vertical(s), 'Bretter')
     for i in range(16):
         put(im, 0, i, w[0])
         put(im, 15, i, w[0])
@@ -195,15 +199,16 @@ def door(s, half):
         rect(im, 13, 3, 13, 13, w[1])
         rect(im, 11, 1, 12, 1, a[2])
         put(im, 12, 2, a[1])
-    return im
+    return snap(im, 'Rahmen und Fenster')
 
 
 def trapdoor(s):
     w, a = s['wood'], s['accent']
-    im = planks_vertical(s)
+    im = snap(planks_vertical(s), 'Bretter')
     for i in range(16):
         for p in ((i, 0), (0, i), (i, 15), (15, i)):
             put(im, p[0], p[1], w[0])
+    snap(im, 'Rahmen')
     if s['key'] == 'b1':
         for cx, cy in ((4, 4), (11, 4), (4, 11), (11, 11)):
             rect(im, cx - 1, cy - 1, cx + 1, cy + 1, CLEAR)
@@ -213,7 +218,7 @@ def trapdoor(s):
             for x in range(2, 14):
                 if (x - 2) % 4 in (1, 2) and (y - 2) % 4 in (1, 2):
                     put(im, x, y, CLEAR)
-    return im
+    return snap(im, 'Löcher')
 
 
 def door_item(top, bot):
@@ -273,13 +278,14 @@ def leaf_clumps(s, seed, want, big, dark, specks):
                 t -= 0.09                       # sparse midrib
             v = int(255 * max(0.32, min(0.98, t)))
             put(im, x, y, (v, v, v, 255))
+    snap(im, 'Blätter')
     for k in range(specks):                      # rare pollen specks (a pixel and sometimes a neighbour), uneven
         x, y = int(hsh(k, 31, sd) * 16), int(hsh(k, 32, sd) * 16)
         if owner[y][x] >= 0:
             put(im, x, y, (255, 255, 255, 255))
             if hsh(k, 33, sd) > 0.5 and owner[y][(x + 1) % 16] >= 0:
                 put(im, (x + 1) % 16, y, (232, 232, 232, 255))
-    return im
+    return snap(im, 'Pollen')
 
 
 def leaves(s):
@@ -327,15 +333,17 @@ def spoiled_drift_fruit():
             if r > 3.2:
                 col = body[0]
             put(im, x, y, col)
+    snap(im, 'Frucht')
     for x, y in ((6, 9), (7, 10), (9, 11), (8, 12)):            # wrinkles
         put(im, x, y, body[1])
     for x, y, c in ((9, 8, '9aa28a'), (10, 9, '7f8a72'), (9, 9, 'b9c2a6')):   # mould
         put(im, x, y, H(c))
+    snap(im, 'Falten und Schimmel')
     wilt = ramp('4e4a3c', '6b6650', '8a8468')
     for x, y, c in ((7, 6, 0), (6, 5, 1), (5, 5, 1), (4, 6, 2), (3, 7, 2), (8, 6, 0), (9, 5, 1)):
         put(im, x, y, wilt[c])
     put(im, 8, 7, H('2f2a26'))
-    return im
+    return snap(im, 'Blatt')
 
 
 def drifting_icon():
@@ -358,9 +366,10 @@ def drifting_icon():
                 if int(t * 18) % 3 == 0 and abs(d) > 1.2:
                     col = c[2] if d < 0 else c[1]
             im.putpixel((x, y), col)
+    snap(im, 'Feder')
     for x, y in ((2, 5), (3, 4), (4, 4), (5, 5), (14, 13), (13, 14), (14, 14), (15, 13)):
         im.putpixel((x, y), c[1])
-    return im
+    return snap(im, 'Wind')
 
 
 def bud(s):
@@ -373,6 +382,7 @@ def bud(s):
     put(im, 10, 10, w[3])
     put(im, 6, 13, b[3])
     put(im, 5, 12, w[3])
+    snap(im, 'Stiel')
     pet = [(7, 3), (6, 4), (8, 4), (5, 5), (6, 5), (7, 5), (8, 5), (9, 5), (6, 6), (7, 6), (8, 6), (6, 7), (7, 7), (8, 7), (7, 8)]
     if s['key'] == 'b3':
         pet += [(7, 2), (4, 6), (10, 6)]
@@ -384,7 +394,7 @@ def bud(s):
             c = a[3]
         put(im, x, y, c)
     put(im, 7, 5, a[3])
-    return im
+    return snap(im, 'Knospe')
 
 
 def sticks_side(s):
@@ -429,10 +439,11 @@ def sign_item(s):
             elif y == 5 and 3 <= x <= 12:
                 c = w[1]
             put(im, x, y, c)
+    snap(im, 'Schild')
     for y in range(10, 15):
         put(im, 7, y, b[3])
         put(im, 8, y, b[1])
-    return im
+    return snap(im, 'Pfosten')
 
 
 def hanging_sign_item(s):
@@ -443,6 +454,7 @@ def hanging_sign_item(s):
     for x in (4, 11):
         for y in range(3, 6):
             put(im, x, y, a[0] if y % 2 else a[1])
+    snap(im, 'Ketten')
     for y in range(6, 14):
         for x in range(2, 14):
             t = 0.5 + 0.35 * vnoise(x, y * 4, 4, s['seed'] + 9)
@@ -450,7 +462,7 @@ def hanging_sign_item(s):
             if y in (6, 13) or x in (2, 13):
                 c = w[0]
             put(im, x, y, c)
-    return im
+    return snap(im, 'Schild')
 
 
 def end_grass():
@@ -464,9 +476,10 @@ def end_grass():
             put(im, x, y, (v, v, v, 255))
             if lean and (15 - y) % 4 == 3:
                 x += lean
+    snap(im, 'Halme')
     for x, y in ((3, 13), (9, 12), (12, 14), (6, 14)):
         put(im, x, y, (120, 120, 120, 255))
-    return im
+    return snap(im, 'Boden')
 
 
 def end_bush():
@@ -504,6 +517,7 @@ def drift_fruit():
             if r > 3.9:
                 c = body[0]
             put(im, x, y, c)
+    snap(im, 'Frucht')
     for x, y in ((6, 9), (9, 11), (8, 7)):
         put(im, x, y, H('b18acb'))
     put(im, 6, 7, body[4])
@@ -511,7 +525,7 @@ def drift_fruit():
     for x, y, c in ((7, 4, 0), (6, 3, 1), (5, 3, 2), (4, 2, 2), (8, 4, 0), (9, 3, 1), (10, 3, 2), (11, 2, 2), (7, 5, 0)):
         put(im, x, y, wing[c])
     put(im, 8, 5, H('4a4250'))
-    return im
+    return snap(im, 'Flügelblätter')
 
 
 # ---------------------------------------------------------------- big layouts: Vanilla shape, own colours
@@ -551,6 +565,7 @@ def fill_wood(mask, s, metal=False, vertical=False, ramp_name='wood'):
 
 def boat_entity(mask, s, chest):
     out = fill_wood(mask, s)
+    snap(out, 'Holz')
     if chest:   # chest part of the chest-boat sheet (lower half): bark lid band and a violet latch
         px = mask.load()
         for y in range(64, mask.height):
@@ -560,7 +575,7 @@ def boat_entity(mask, s, chest):
         for x, y in ((1, 65), (2, 65), (1, 66), (2, 66)):
             if px[x, y][3] >= 20:
                 out.putpixel((x, y), s['accent'][2])
-    return out
+    return snap(out, 'Truhe')
 
 
 # ---------------------------------------------------------------- stage 9: Nibblemite and Burrowed End Stone
@@ -575,6 +590,7 @@ def burrowed_top():
         for x in range(16):
             t = 0.55 + 0.35 * vnoise(x, y, 4, 71) + (0.12 if hsh(x, y, 72) > 0.85 else 0)
             put(im, x, y, STONE[min(4, max(1, int(t * 5)))])
+    snap(im, 'Endstein')
     grooves = [[(1, 3), (2, 3), (3, 4), (4, 4), (5, 5), (6, 5), (7, 5), (8, 6)],
                [(9, 2), (10, 3), (10, 4), (11, 5), (12, 5), (13, 6)],
                [(2, 9), (3, 10), (4, 10), (5, 11), (6, 11), (7, 12), (8, 12), (9, 12)],
@@ -583,9 +599,10 @@ def burrowed_top():
         for x, y in g:
             put(im, x, y, STONE[0])
             put(im, x, y + 1, STONE[1])
+    snap(im, 'Gänge')
     for x, y in ((6, 8), (10, 7), (4, 14), (14, 3), (8, 14), (1, 12)):
         put(im, x, y, STONE[4])
-    return im
+    return snap(im, 'Krümel')
 
 
 NIBBLE_COLOURS = {
@@ -613,6 +630,7 @@ def nibblemite(kind):
                 if hsh(x, y, 80 + i) > 0.86 and i < 4:
                     c = spot
                 im.putpixel((x, y), c)
+    snap(im, 'Körper')
     # head front face (north) of segment 0: two big shiny eyes and a tiny smile
     fx, fy = 0 + 3, 0 + 3
     for ex in (fx, fx + 3):
@@ -625,7 +643,7 @@ def nibblemite(kind):
     # feeler tips glow in the spot colour
     for u in (24, 28):
         im.putpixel((u + 1, 1), spot)
-    return im
+    return snap(im, 'Gesicht')
 
 
 def nibble_egg():
@@ -667,6 +685,7 @@ def shelf(s):
     for x in range(16, 32):
         px(x, 0, w[5])
         px(x, 15, w[1])
+    snap(im, 'Korpus')
     # bars: lit top edge, shadowed bottom edge, grain running lengthwise
     for y0 in (0, 12):
         for y in range(y0, y0 + 4):
@@ -680,6 +699,7 @@ def shelf(s):
         for y in range(y0, y0 + 4):
             px(0, y, w[2])
             px(15, y, w[2])
+    snap(im, 'Leisten')
     # empty back between the bars: recessed (darker grain) with three cubbies split by 1 px posts
     for y in range(4, 12):
         for x in range(16):
@@ -692,6 +712,7 @@ def shelf(s):
     for x0 in (1, 6, 11):
         for y in range(5, 12):
             px(x0, y, mix(g(x0, y, 0.35), w[0], 0.5))
+    snap(im, 'Fächer')
     # back panels (powered/connected): recessed grain, dark frame on the open sides of each piece, light sill below
     panels = {(0, 16): (True, False), (16, 16): (False, True), (0, 24): (False, False), (16, 24): (True, True)}
     for (x0, y0), (left, right) in panels.items():
@@ -707,12 +728,12 @@ def shelf(s):
                 px(x0 + 1, y, w[1])
             if right:
                 px(x0 + 15, y, w[0])
-    return im
+    return snap(im, 'Rückwände')
 
 
 def write(img, path, written):
     path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(path)
+    save(img, path)  # PNG plus its layer source (tools/textures/layers.py, A8 b)
     written.append(path)
 
 

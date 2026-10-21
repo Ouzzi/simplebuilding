@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 from PIL import Image
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'tools/textures'))
+from layers import save, snap, snap_grid  # noqa: E402  layer sources beside the PNGs (A8 b)
 
 MODULE = Path(__file__).resolve().parents[1]
 ASSETS = MODULE / 'shared/resources/assets/simplequestionary'
@@ -188,14 +190,14 @@ def main():
     bad = []
     model_text = json.dumps(model(), indent=2) + '\n'
     for name, rows in TEXTURES.items():
-        img = grid(rows)
+        img = snap_grid(grid(rows), rows, C, [('Lapis', '456adehiyz'), ('Obsidian', 'tuvwx'), ('Bücher', '789bcfgklnrCF')], 'Holz')
         path = OUT / f'{name}.png'
         if args.check:
             if not path.exists() or list(Image.open(path).convert('RGBA').getdata()) != list(img.getdata()):
                 bad.append(name)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
-            img.save(path)
+            save(img, path)
     if args.check:
         if not MODEL.exists() or MODEL.read_text() != model_text:
             bad.append('model')

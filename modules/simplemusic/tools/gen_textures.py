@@ -51,6 +51,19 @@ class Tex:
                         out[y][x] = pal[ch] + (255,)
         return out
 
+    def layer_doc(self, palette=None):
+        """The texture in the shared layer format (tools/textures/layers.py), one layer per named layer here."""
+        pal = palette or self.palette
+        found = []
+        for name, rows in self.layers:
+            img = bytearray(16 * 16 * 4)
+            for y, row in enumerate(rows):
+                for x, ch in enumerate(row):
+                    if ch != '.':
+                        img[(y * 16 + x) * 4:(y * 16 + x) * 4 + 4] = bytes(pal[ch] + (255,))
+            found.append((name, bytes(img)))
+        return found
+
     def json(self):
         hexc = lambda c: '#%02x%02x%02x' % c
         data = {'size': [16, 16], 'palette': {k: hexc(v) for k, v in sorted(self.palette.items())},
@@ -438,15 +451,20 @@ def placed_texs():
     return {name: disc('A', palette, PLACED_SCALE) for name, (palette, _) in PLACED.items()}
 
 
-def images(textures_):
-    """{texture path: 16x16 RGBA rows}; a tinted texture gives one image per tint variant (17 Pocket Jukeboxes)."""
+def images(textures_, docs=None):
+    """{texture path: 16x16 RGBA rows}; a tinted texture gives one image per tint variant (17 Pocket Jukeboxes).
+    docs (a dict) receives {texture path: layers for tools/textures/layers.py} of the same images."""
     out = {}
     for path, tex in textures_.items():
         if tex.tint:
             for variant, colors in tex.tint['variants'].items():
                 out[path.replace('pocket_jukebox', variant)] = tex.pixels(dict(tex.palette, **colors))
+                if docs is not None:
+                    docs[path.replace('pocket_jukebox', variant)] = tex.layer_doc(dict(tex.palette, **colors))
         else:
             out[path] = tex.pixels()
+            if docs is not None:
+                docs[path] = tex.layer_doc()
     return out
 
 
@@ -471,7 +489,8 @@ def to_image(px):
 def main(argv):
     check_rules()
     texs = textures()
-    imgs = images(texs)
+    docs = {}
+    imgs = images(texs, docs)
     placed = placed_texs()
     if '--check' in argv:
         from PIL import Image
@@ -493,12 +512,16 @@ def main(argv):
             sys.exit(1)
         print(f'simplemusic textures up to date ({len(imgs) + len(placed)} PNGs, {len(texs) + len(placed)} layer files)')
         return
+    sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
+    import layers as sb_layers  # the shared layer source beside each PNG (wiki pixel editor, A8 b)
     for path, px in imgs.items():
         (TEX / path).parent.mkdir(parents=True, exist_ok=True)
         to_image(px).save(TEX / f'{path}.png')
+        sb_layers.write_beside(TEX / f'{path}.png', sb_layers.from_layers(16, 16, docs[path]))
     SB_TEX.mkdir(parents=True, exist_ok=True)
     for name, tex in placed.items():
         to_image(tex.pixels()).save(SB_TEX / f'{name}.png')
+        sb_layers.write_beside(SB_TEX / f'{name}.png', sb_layers.from_layers(16, 16, tex.layer_doc()))
     LAYERS.mkdir(exist_ok=True)
     for path, tex in list(texs.items()) + [('block/' + n, t) for n, t in placed.items()]:
         (LAYERS / (path.split('/')[1] + '.json')).write_text(json.dumps(tex.json(), indent=1) + '\n', encoding='utf-8')
