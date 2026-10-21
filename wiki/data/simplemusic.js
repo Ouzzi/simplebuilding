@@ -246,6 +246,38 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       }
     },
     {
+      "id": "pocket_jukebox",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketPlayback.java",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketPlayer.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json"
+      ],
+      "en": {
+        "title": "Pocket Jukebox",
+        "summary": "A bundle for up to 20 discs (Vanilla and custom discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
+        "details": [
+          "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
+          "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
+          "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
+          "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+          "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
+        ]
+      },
+      "de": {
+        "title": "Taschen-Jukebox",
+        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und eigene Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
+        "details": [
+          "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
+          "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
+          "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+          "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+          "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
+        ]
+      }
+    },
+    {
       "id": "moderation",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/upload/MusicCommands.java",
@@ -317,6 +349,78 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   ],
   "recipes": [
     {
+      "id": "simplemusic:black_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:black_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/black_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:black_bundle",
+        "minecraft:copper_nugget",
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:black_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:black_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:black_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:black_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/black_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:black_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:black_dye"
+        ]
+      }
+    },
+    {
       "id": "simplemusic:blank_disc",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -369,6 +473,366 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       }
     },
     {
+      "id": "simplemusic:blue_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:blue_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/blue_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:blue_bundle",
+        "minecraft:copper_nugget",
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:blue_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blue_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:blue_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:blue_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/blue_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:blue_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:blue_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:brown_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:brown_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/brown_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:brown_bundle",
+        "minecraft:copper_nugget",
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:brown_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:brown_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:brown_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:brown_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/brown_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:brown_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:brown_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:cyan_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:cyan_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/cyan_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:cyan_bundle",
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:cyan_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cyan_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:cyan_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:cyan_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/cyan_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:cyan_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:cyan_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:gray_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:gray_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/gray_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:gray_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:gray_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:gray_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:gray_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:gray_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/gray_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:gray_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:gray_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:green_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:green_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/green_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:green_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:green_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:green_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:green_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:green_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/green_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:green_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:green_dye"
+        ]
+      }
+    },
+    {
       "id": "simplemusic:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -409,6 +873,366 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
             "id": "minecraft:redstone",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:light_blue_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:light_blue_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/light_blue_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:light_blue_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:light_blue_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:light_blue_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:light_blue_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:light_blue_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/light_blue_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:light_blue_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:light_blue_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:light_gray_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:light_gray_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/light_gray_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:light_gray_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:light_gray_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:light_gray_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:light_gray_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:light_gray_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/light_gray_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:light_gray_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:light_gray_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:lime_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:lime_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/lime_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:lime_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:lime_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:lime_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:lime_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:lime_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/lime_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:lime_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:lime_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:magenta_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:magenta_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/magenta_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:magenta_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:magenta_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:magenta_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:magenta_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:magenta_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/magenta_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:magenta_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:magenta_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:orange_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:orange_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/orange_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:orange_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:orange_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:orange_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:orange_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:orange_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/orange_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:orange_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:orange_dye"
         ]
       }
     },
@@ -465,6 +1289,275 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       }
     },
     {
+      "id": "simplemusic:pink_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:pink_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/pink_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:pink_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:pink_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:pink_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:pink_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:pink_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/pink_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:pink_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:pink_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:bundle",
+        "minecraft:copper_nugget",
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:string",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:purple_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:purple_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/purple_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:purple_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:purple_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:purple_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:purple_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:purple_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/purple_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:purple_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:purple_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:red_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:red_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:red_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:red_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:red_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:red_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:red_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:red_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:red_dye"
+        ]
+      }
+    },
+    {
       "id": "simplemusic:sheet_music",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -505,6 +1598,150 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
             "id": "minecraft:sugar_cane",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:white_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:white_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/white_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:white_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:white_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:white_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:white_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:white_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/white_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:white_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:white_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:yellow_pocket_jukebox",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": "pocket_jukebox",
+      "result": {
+        "id": "simplemusic:yellow_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/yellow_pocket_jukebox.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:yellow_bundle"
+      ],
+      "pattern": [
+        "NDN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "minecraft:yellow_bundle"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:yellow_bundle",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.778
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemusic:yellow_pocket_jukebox_dyeing",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "pocket_jukebox_dye",
+      "result": {
+        "id": "simplemusic:yellow_pocket_jukebox",
+        "count": 1
+      },
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/yellow_pocket_jukebox_dyeing.json",
+      "ingredients": [
+        "#simplemusic:pocket_jukeboxes",
+        "minecraft:yellow_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplemusic:pocket_jukeboxes"
+        ],
+        "material": [
+          "minecraft:yellow_dye"
         ]
       }
     }
@@ -578,11 +1815,100 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         }
       ],
       "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/block/playlist_containers.json"
+    },
+    {
+      "id": "simplemusic:item/pocket_jukeboxes",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplemusic:pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:white_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:orange_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:magenta_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:light_blue_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:yellow_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:lime_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:pink_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:gray_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:light_gray_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:cyan_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:purple_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:blue_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:brown_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:green_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:red_pocket_jukebox",
+          "required": true
+        },
+        {
+          "id": "simplemusic:black_pocket_jukebox",
+          "required": true
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/item/pocket_jukeboxes.json"
     }
   ],
   "advancements": [],
   "enchantments": [],
   "items": [
+    {
+      "id": "simplemusic:black_pocket_jukebox",
+      "name": {
+        "en_us": "Black Pocket Jukebox",
+        "de_de": "Schwarze Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/black_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:black_pocket_jukebox",
+        "simplemusic:black_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
     {
       "id": "simplemusic:blank_disc",
       "name": {
@@ -608,6 +1934,34 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "texture": "assets/textures/simplemusic/item/blank_disc.png",
       "craftedBy": [
         "simplemusic:blank_disc"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:blue_pocket_jukebox",
+      "name": {
+        "en_us": "Blue Pocket Jukebox",
+        "de_de": "Blaue Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/blue_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:blue_pocket_jukebox",
+        "simplemusic:blue_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:brown_pocket_jukebox",
+      "name": {
+        "en_us": "Brown Pocket Jukebox",
+        "de_de": "Braune Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/brown_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:brown_pocket_jukebox",
+        "simplemusic:brown_pocket_jukebox_dyeing"
       ],
       "usedIn": []
     },
@@ -640,6 +1994,48 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "usedIn": []
     },
     {
+      "id": "simplemusic:cyan_pocket_jukebox",
+      "name": {
+        "en_us": "Cyan Pocket Jukebox",
+        "de_de": "Türkise Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/cyan_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:cyan_pocket_jukebox",
+        "simplemusic:cyan_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:gray_pocket_jukebox",
+      "name": {
+        "en_us": "Gray Pocket Jukebox",
+        "de_de": "Graue Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/gray_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:gray_pocket_jukebox",
+        "simplemusic:gray_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:green_pocket_jukebox",
+      "name": {
+        "en_us": "Green Pocket Jukebox",
+        "de_de": "Grüne Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/green_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:green_pocket_jukebox",
+        "simplemusic:green_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemusic:guide_book",
       "name": {
         "en_us": "Simple Music Guide",
@@ -651,15 +2047,163 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
       "craftedBy": [
         "simplemusic:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:light_blue_pocket_jukebox",
+      "name": {
+        "en_us": "Light Blue Pocket Jukebox",
+        "de_de": "Hellblaue Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/light_blue_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:light_blue_pocket_jukebox",
+        "simplemusic:light_blue_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:light_gray_pocket_jukebox",
+      "name": {
+        "en_us": "Light Gray Pocket Jukebox",
+        "de_de": "Hellgraue Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/light_gray_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:light_gray_pocket_jukebox",
+        "simplemusic:light_gray_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:lime_pocket_jukebox",
+      "name": {
+        "en_us": "Lime Pocket Jukebox",
+        "de_de": "Hellgrüne Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/lime_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:lime_pocket_jukebox",
+        "simplemusic:lime_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:magenta_pocket_jukebox",
+      "name": {
+        "en_us": "Magenta Pocket Jukebox",
+        "de_de": "Magenta Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/magenta_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:magenta_pocket_jukebox",
+        "simplemusic:magenta_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:orange_pocket_jukebox",
+      "name": {
+        "en_us": "Orange Pocket Jukebox",
+        "de_de": "Orange Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/orange_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:orange_pocket_jukebox",
+        "simplemusic:orange_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:pink_pocket_jukebox",
+      "name": {
+        "en_us": "Pink Pocket Jukebox",
+        "de_de": "Rosa Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/pink_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:pink_pocket_jukebox",
+        "simplemusic:pink_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:pocket_jukebox",
+      "name": {
+        "en_us": "Pocket Jukebox",
+        "de_de": "Taschen-Jukebox"
+      },
+      "note": {
+        "en": {
+          "title": "Pocket Jukebox",
+          "summary": "A bundle for up to 20 discs (Vanilla and custom discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
+          "details": [
+            "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
+            "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
+            "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
+            "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+            "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
+          ]
+        },
+        "de": {
+          "title": "Taschen-Jukebox",
+          "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und eigene Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
+          "details": [
+            "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
+            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
+            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+            "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+            "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:pocket_jukebox"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:purple_pocket_jukebox",
+      "name": {
+        "en_us": "Purple Pocket Jukebox",
+        "de_de": "Violette Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/purple_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:purple_pocket_jukebox",
+        "simplemusic:purple_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:red_pocket_jukebox",
+      "name": {
+        "en_us": "Red Pocket Jukebox",
+        "de_de": "Rote Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/red_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:red_pocket_jukebox",
+        "simplemusic:red_pocket_jukebox_dyeing"
       ],
       "usedIn": []
     },
@@ -690,6 +2234,34 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "texture": "assets/textures/simplemusic/item/sheet_music.png",
       "craftedBy": [
         "simplemusic:sheet_music"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:white_pocket_jukebox",
+      "name": {
+        "en_us": "White Pocket Jukebox",
+        "de_de": "Weiße Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/white_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:white_pocket_jukebox",
+        "simplemusic:white_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:yellow_pocket_jukebox",
+      "name": {
+        "en_us": "Yellow Pocket Jukebox",
+        "de_de": "Gelbe Taschen-Jukebox"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemusic/item/yellow_pocket_jukebox.png",
+      "craftedBy": [
+        "simplemusic:yellow_pocket_jukebox",
+        "simplemusic:yellow_pocket_jukebox_dyeing"
       ],
       "usedIn": []
     }
@@ -736,22 +2308,39 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplemusic:black_pocket_jukebox",
+    "simplemusic:blue_pocket_jukebox",
+    "simplemusic:brown_pocket_jukebox",
+    "simplemusic:cyan_pocket_jukebox",
+    "simplemusic:gray_pocket_jukebox",
+    "simplemusic:green_pocket_jukebox",
+    "simplemusic:light_blue_pocket_jukebox",
+    "simplemusic:light_gray_pocket_jukebox",
+    "simplemusic:lime_pocket_jukebox",
+    "simplemusic:magenta_pocket_jukebox",
+    "simplemusic:orange_pocket_jukebox",
+    "simplemusic:pink_pocket_jukebox",
+    "simplemusic:purple_pocket_jukebox",
+    "simplemusic:red_pocket_jukebox",
+    "simplemusic:white_pocket_jukebox",
+    "simplemusic:yellow_pocket_jukebox"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
-    "recipes": 4,
+    "features": 14,
+    "recipes": 37,
     "lootTables": 1,
-    "tags": 1,
+    "tags": 2,
     "advancements": 0,
     "enchantments": 0,
-    "items": 4,
+    "items": 21,
     "blocks": 1,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 16,
     "inWorld": 0,
     "incompleteProse": 0
   }

@@ -1192,11 +1192,11 @@ window.WIKI_MODULES = [
       "simplemobheads"
     ],
     "counts": {
-      "items": 4,
+      "items": 21,
       "blocks": 1,
-      "recipes": 4,
-      "features": 13
+      "recipes": 37,
+      "features": 14
     },
-    "dataHash": "270eca38c4d5"
+    "dataHash": "aa8c9211aae0"
   }
 ];
