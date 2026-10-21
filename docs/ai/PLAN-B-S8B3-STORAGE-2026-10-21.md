@@ -94,7 +94,13 @@ Modul-Tests `RareFindsTests` (9: 7 portiert + `rare_finds_registered` + `rare_fi
 SB: Klassen/Mixins/Items/Lang/Datagen (Modelle, Rezepte) raus, `ShulkerShells` per `StorageRefs.shulkerShell`, Tabs/Suchtab/
 DataIntegrity/Tags per Id, `RareStructureFindsTests` nur noch Häufchen-Test, `docs/MODS-UND-FEATURES.md`.
 
-Belege: (ausstehend, siehe unten)
+Belege (sb-test, 54b394286 / 58ae0c924 / b2e5a3e8d): Compile 26.3 fabric (+gametest)/neoforge/forge, 26.2 `:compileJava`, Modul
+fabric/neoforge/forge Exit 0; module-simplestorage fabric/neoforge/forge/standalone-fabric/standalone-neoforge 565/565; fabric-263 +
+neoforge-263 `rare_structure*` 2/2, `data_integrity*` 102/102, `tiered_shulker*` 20/20, `config_option*` 36/36,
+`placed_template*` 54/54; integration-263 3/3; Datagen 26.3 ohne Diff (Handanpassungen stimmen); Guides/Wiki/Discover erzeugt
+(zweiter Wiki-Lauf nötig: `modules.js` zählte im ersten noch die Schalen); `./gradlew check` Exit 0; keine PNGs im `git status`.
+**Stufe 8 ist damit komplett.** Für Stufe 9 übrig: SB-Schalter `tools.invertBundleInteractions`, `server.features.backpack`,
+`server.loot.*` (5 Werte) ausblenden; Shulker-Deckel ggf. nach Simple Tweaks. Nicht geprüft (Auftrag): Client-Sicht (Hülle, Tab).
 
 Abweichungen (bewusst):
 - Shulker-Deckel bleiben SB (E2a), Aufwerten der abgelegten Schale bleibt SB (E2b), SB-Felder `server.loot.*` bleiben (E2c, Stufe 9).
