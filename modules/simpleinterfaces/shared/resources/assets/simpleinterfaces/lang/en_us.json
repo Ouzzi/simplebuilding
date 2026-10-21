@@ -81,7 +81,7 @@
   "simpleinterfaces.option.bundleMaxRows.tooltip": "Rows of four entries the bundle tooltip shows\nbefore it pages. Default: 6. Allowed range: 3–16.",
   "simpleinterfaces.option.enableEnderChestTooltip": "Ender chest tooltip",
   "simpleinterfaces.option.enableEnderChestTooltip.tooltip": "Send each player their own ender chest contents\nat login and when closing it, for the ender\nchest item tooltip. Never another player's chest.\nDefault: true.",
-  "simpleinterfaces.tooltip.shulker.shift": "Shift: show contents",
-  "simpleinterfaces.tooltip.ender_chest.shift": "Shift: show your ender chest",
+  "simpleinterfaces.tooltip.shulker.shift": "Hold Shift for contents",
+  "simpleinterfaces.tooltip.ender_chest.shift": "Hold Shift for your ender chest",
   "simpleinterfaces.tooltip.ender_chest.empty": "Your ender chest is empty"
 }

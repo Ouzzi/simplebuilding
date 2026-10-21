@@ -10,7 +10,8 @@ Writes three GUI sprites:
 N49 (owner 2026-10-12): the resonance button beside the off-hand slot shows one of eight tier hearts
 (resonance_heart_<tier>.png: cobblestone, stone, copper, iron, gold, diamond, netherite, enderite), each with its own
 fill pattern in the Vanilla heart silhouette, and the extra head slot gets its empty-slot icon
-(container/slot/extra_head.png, a skull silhouette in the #555555 of Vanilla's empty-slot icons).
+(container/slot/extra_head.png, in the #555555 of Vanilla's empty-slot icons; since 2026-10-21 a blocky player head
+in front view, layers in extra_head.layers.json).
 
 Run: python3.12 tools/textures/resonance_heart_2026_10_09.py
 """
@@ -98,21 +99,21 @@ TIER_HEARTS = {
     "netherite": (NETHERITE, tones(h="7D7579", l="5A5257", m="443D41", d="2B2528")),
     "enderite": (ENDERITE, tones(h="E2C2FF", l="B47FE0", m="8550B8", d="5A2F86")),
 }
-EXTRA_HEAD_ICON = [  # 16x16 skull silhouette, eyes/nose/teeth cut out
+EXTRA_HEAD_ICON = [  # 16x16 blocky player head (owner 2026-10-21, b-ui21 variant A): outline, hair, eyes, mouth
     "................",
     "................",
-    ".....######.....",
+    "................",
     "...##########...",
+    "...##########...",
+    "...##......##...",
+    "...#........#...",
     "...#.##..##.#...",
-    "...#.##..##.#...",
-    "..###..##..###..",
-    "..###..##..###..",
-    "...#.##..##.#...",
-    "..#####..#####..",
-    "...###....###...",
-    "....########....",
-    "...#.##..##.#...",
-    "....########....",
+    "...#........#...",
+    "...#........#...",
+    "...#..####..#...",
+    "...#........#...",
+    "...##########...",
+    "................",
     "................",
     "................",
 ]

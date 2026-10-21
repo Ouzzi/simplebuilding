@@ -113,7 +113,7 @@
   "key.simplestorage.open_backpack": "Rucksack öffnen",
   "tooltip.simplestorage.backpack.slots": "%s / %s Plätze belegt",
   "tooltip.simplestorage.backpack.more": "...und %s weitere",
-  "tooltip.simplestorage.backpack.shift_hint": "Umschalt halten, um den Inhalt zu sehen",
+  "tooltip.simplestorage.backpack.shift_hint": "Umschalt halten für Inhalt",
   "tooltip.simplestorage.backpack.open_hint": "%s: öffnen, getragen oder im Inventar",
   "tooltip.simplestorage.backpack.place_hint": "Schleich-Rechtsklick auf Block: abstellen",
   "tip.simplestorage.backpack": "Benutzen zum Anlegen, dann Rucksack-Taste (B)",

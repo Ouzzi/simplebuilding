@@ -12,7 +12,8 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Draws a {@link ContainerPreview}: a Vanilla-like panel (gray, tinted by the box dye or ender teal) with Vanilla slots
- * like the shulker box screen, items with their counts; without the grid one gray note line.
+ * like the shulker box screen, items with their counts; without the grid one gray note line ("Hold Shift for contents", in
+ * the grey of SimpleLib's {@code UiShiftTooltip}, which also reads Shift).
  */
 public final class ContainerPreviewTooltip implements ClientTooltipComponent {
     static final int SLOT = 18;
@@ -39,7 +40,7 @@ public final class ContainerPreviewTooltip implements ClientTooltipComponent {
     public static @Nullable ContainerPreview of(ItemStack stack) {
         Minecraft mc = Minecraft.getInstance();
         if (mc == null || !SimpleInterfaces.active(mc.level)) return null;
-        return ContainerTooltips.preview(stack, mc.hasShiftDown(), ContainersClient.config(),
+        return ContainerTooltips.preview(stack, com.simplelib.api.client.ui.UiShiftTooltip.held(), ContainersClient.config(),
                 SimpleInterfaces.configFor(mc.level).enableEnderChestTooltip, ContainerTooltips.enderSnapshot).orElse(null);
     }
 

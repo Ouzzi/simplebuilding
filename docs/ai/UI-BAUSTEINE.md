@@ -19,6 +19,7 @@ werden hier beschrieben. Stil: N12 (Bild 3/4), Maße PLAN-CRUCIBLE-N12B. Alles f
 | **Werkzeug-Knopf** (N38, Simple Maps) | `UiBookmarks.button` | quadratischer Knopf auf dem Vanilla-Button-Sprite, Hover = highlighted, eingeschaltet = weißer Strich unter dem Symbol (wie Blueprint-Reiter) |
 | **Zweitklick-Bestätigung** (neu) | `UiBookmarks.confirm` | erster Klick färbt rot, zweiter Klick bestätigt (z. B. belegten Wegpunkt ersetzen) |
 | **Ausgrauen** (neu) | `UiBookmarks.greyOut` | Bereiche, die im aktuellen Modus nicht wählbar sind |
+| **Umschalt für mehr** (Besitzer 21.10.) | `UiShiftTooltip` | einheitliches „Hold Shift for more“ / „Umschalt halten für mehr“: `held()` (einzige Umschalt-Abfrage), `hint()`/`hint(key)` in GRAY #AAAAAA (8,8:1 auf #100010), `collapse(lines, brief)` = erste Zeilen + Hinweis, mit Umschalt alles; eigene Hinweise heißen „Hold Shift for …“. Nutzer: Resonanz (SB), Simple Stats, Simple Interfaces, Simple Storage, SB-Rucksack/Bauplan |
 
 Nutzung: der Mod bündelt SimpleLib (Fabric `include`, NeoForge `jarJar`, Forge `forgeBundleSimplelib`) und importiert
 nur `com.simplelib.api.*`. Erster Nutzer der neuen Bausteine: `modules/simplemaps/.../client/WayfinderScreen.java`.

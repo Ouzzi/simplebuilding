@@ -825,7 +825,7 @@
   "key.simplebuilding.toggle_hud": "Mod-HUD ein/aus",
   "tooltip.simplebuilding.backpack.slots": "%s / %s Plätze belegt",
   "tooltip.simplebuilding.backpack.more": "...und %s weitere",
-  "tooltip.simplebuilding.backpack.shift_hint": "Umschalt halten, um den Inhalt zu sehen",
+  "tooltip.simplebuilding.backpack.shift_hint": "Umschalt halten für Inhalt",
   "tooltip.simplebuilding.backpack.open_hint": "%s: öffnen, getragen oder im Inventar",
   "tooltip.simplebuilding.backpack.place_hint": "Schleich-Rechtsklick auf Block: abstellen",
   "jei.simplebuilding.category.machine_upgrade": "Maschinen-Aufwertung (Vorschlaghammer)",

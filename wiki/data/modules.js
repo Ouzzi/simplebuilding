@@ -982,7 +982,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 10
     },
-    "dataHash": "70d5c51abaf6"
+    "dataHash": "c2498e0550c4"
   },
   {
     "id": "simpleblocks",

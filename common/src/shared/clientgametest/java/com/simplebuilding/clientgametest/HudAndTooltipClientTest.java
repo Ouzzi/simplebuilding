@@ -1895,26 +1895,14 @@ public final class HudAndTooltipClientTest {
             field.set(new int[] {x, y, com.simplebuilding.util.TrimStatsLayout.SIZE});
         });
 
-        script.act("hovering the resonance field lists the factors with their maximum and the cap", client -> {
-            int[] f = field.get();
-            List<String> texts = new ArrayList<>();
-            for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, f[0] + f[2] / 2, f[1] + com.simplebuilding.util.TrimStatsLayout.SIZE / 2))) {
-                texts.add(text.text());
-            }
-            List<String> expected = new ArrayList<>();
-            for (net.minecraft.network.chat.Component line : TrimStatsPanel.tooltip(client.player)) {
-                if (!line.getString().isEmpty()) {
-                    expected.add(line.getString());
-                }
-            }
-            List<String> missing = new ArrayList<>(expected);
-            missing.removeAll(texts);
-            long withMax = expected.stream().filter(line -> line.contains("1.00")).count();
-            if (!missing.isEmpty() || withMax < 3) {
-                throw new AssertionError("Hovering the resonance field did not show its details: missing " + missing
-                        + " (lines naming the factor maximum 1.00: " + withMax + "), the screen drew " + texts);
-            }
-        });
+        // Owner 2026-10-21: without Shift only "Resonance: x" and "Hold Shift for more", with Shift every factor line.
+        script.act("hovering the resonance field without Shift shows the first line and the Shift hint", client ->
+                assertResonanceTooltip(client, field.get(), false));
+        script.harness("hold Shift over the resonance field", harness -> harness.holdKey(InputConstants.KEY_LSHIFT));
+        script.idle("let Shift register", 2);
+        script.act("hovering the resonance field with Shift lists the factors with their maximum and the cap", client ->
+                assertResonanceTooltip(client, field.get(), true));
+        script.harness("release Shift", harness -> harness.releaseKey(InputConstants.KEY_LSHIFT));
 
         parkCursor(script);
         clearWidgetFocus(script);
@@ -2304,6 +2292,29 @@ public final class HudAndTooltipClientTest {
      * {@link #extractScreenState} with the mouse at a GUI position and the deferred elements -
      * the tooltips - included, which is what the real frame does after the widgets.
      */
+    /** The resonance tooltip as drawn: {@code TrimStatsPanel.shown} for this Shift state, factor lines only with Shift (26.3). */
+    private static void assertResonanceTooltip(Minecraft client, int[] f, boolean shift) {
+        List<String> texts = new ArrayList<>();
+        for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, f[0] + f[2] / 2, f[1] + com.simplebuilding.util.TrimStatsLayout.SIZE / 2))) {
+            texts.add(text.text());
+        }
+        List<String> expected = new ArrayList<>();
+        for (net.minecraft.network.chat.Component line : TrimStatsPanel.shown(client.player, shift)) {
+            if (!line.getString().isEmpty()) {
+                expected.add(line.getString());
+            }
+        }
+        List<String> missing = new ArrayList<>(expected);
+        missing.removeAll(texts);
+        boolean folds = TrimStatsPanel.shown(client.player, false).size() < TrimStatsPanel.tooltip(client.player).size();
+        long withMax = texts.stream().filter(line -> line.contains("1.00")).count();
+        boolean factorsRight = shift || !folds ? withMax >= 3 : withMax == 0;
+        if (!missing.isEmpty() || !factorsRight) {
+            throw new AssertionError("Hovering the resonance field " + (shift ? "with" : "without") + " Shift: missing " + missing
+                    + " (factor lines naming the maximum 1.00: " + withMax + "), the screen drew " + texts);
+        }
+    }
+
     private static GuiRenderState extractScreenStateWithTooltip(Minecraft client, int mouseX, int mouseY) {
         GuiRenderState state = new GuiRenderState();
         GuiGraphicsExtractor graphics = new GuiGraphicsExtractor(client, state,

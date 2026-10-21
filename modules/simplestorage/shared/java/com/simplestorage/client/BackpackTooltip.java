@@ -1,9 +1,8 @@
 package com.simplestorage.client;
 
+import com.simplelib.api.client.ui.UiShiftTooltip;
 import com.simplestorage.backpack.BackpackTooltipData;
 import java.util.List;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -21,8 +20,8 @@ public final class BackpackTooltip implements ClientTooltipComponent {
     static final int MAX_ROWS = 3;
     static final int CELL = 18;
     private static final int GAP_BELOW = 2;
-    private static final Component HINT = Component.translatable("tooltip.simplestorage.backpack.shift_hint")
-            .withStyle(ChatFormatting.DARK_GRAY);
+    /** "Hold Shift for contents" in SimpleLib's shared hint grey ({@link UiShiftTooltip}). */
+    private static final Component HINT = UiShiftTooltip.hint("tooltip.simplestorage.backpack.shift_hint");
 
     private final List<ItemStack> items;
 
@@ -35,7 +34,7 @@ public final class BackpackTooltip implements ClientTooltipComponent {
     }
 
     private static boolean showContents() {
-        return Minecraft.getInstance().hasShiftDown();
+        return UiShiftTooltip.held();
     }
 
     /** Gezeichnete Zellen: Items plus ggf. die "+N"-Zelle. */

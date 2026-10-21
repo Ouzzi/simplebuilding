@@ -825,7 +825,7 @@
   "key.simplebuilding.toggle_hud": "Toggle Mod HUD",
   "tooltip.simplebuilding.backpack.slots": "%s / %s slots used",
   "tooltip.simplebuilding.backpack.more": "...and %s more",
-  "tooltip.simplebuilding.backpack.shift_hint": "Hold Shift to see contents",
+  "tooltip.simplebuilding.backpack.shift_hint": "Hold Shift for contents",
   "tooltip.simplebuilding.backpack.open_hint": "Press %s: open while worn or carried",
   "tooltip.simplebuilding.backpack.place_hint": "Sneak + right-click a block: place",
   "jei.simplebuilding.category.machine_upgrade": "Machine Upgrade (Sledgehammer)",

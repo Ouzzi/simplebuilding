@@ -91,6 +91,11 @@ public final class ModuleGameTest {
         LibTests.ALL.get("ui_text_contrast").accept(h);
     }
 
+    @GameTest
+    public void shiftTooltipCollapse(GameTestHelper h) {
+        LibTests.ALL.get("shift_tooltip_collapse").accept(h);
+    }
+
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplelib.discover.LibDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplelib.discover.LibDiscover.behaviourHints(h); }
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplelib.discover.LibDiscover.firstPickupTips(h); }

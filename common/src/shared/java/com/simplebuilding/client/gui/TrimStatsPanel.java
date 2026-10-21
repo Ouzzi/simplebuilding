@@ -1,5 +1,6 @@
 package com.simplebuilding.client.gui;
 
+import com.simplebuilding.client.LibClientServices;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import com.simplebuilding.util.TrimMultiplierLogic;
 import com.simplebuilding.util.TrimStatsLayout;
@@ -18,6 +19,8 @@ import net.minecraft.world.entity.player.Player;
  * The resonance of the armour-trim bonuses in the inventory (owner N49, 2026-10-12): a slot-sized button between the
  * extra head slot and the off-hand slot, framed like the Vanilla recipe-book button (blue when hovered), showing only
  * the heart of the current tier ({@link TrimStatsLayout#heartSprite}); the value and its parts are in the tooltip.
+ * The tooltip shows only its first line and "Hold Shift for more", with Shift everything (owner 2026-10-21, SimpleLib
+ * {@code UiShiftTooltip} through {@link LibClientServices}).
  *
  * <p>Both inventories show it: the normal one (E, via {@code InventoryScreenMixin}) and the backpack inventory
  * ({@link BackpackScreen}) - one shared class instead of a copy.
@@ -29,6 +32,8 @@ public final class TrimStatsPanel {
     public static final int HEIGHT = TrimStatsLayout.HEIGHT;
     /** Each of the three factors lies in 0.1..1.0. */
     public static final double FACTOR_MIN = 0.1, FACTOR_MAX = 1.0;
+    /** Lines shown without Shift: "Resonance: 0.21x (max 2.0x)" (owner 2026-10-21). */
+    public static final int BRIEF_LINES = 1;
 
     /** The compact value, e.g. "0.22x". */
     public static String compact(double resonance) {
@@ -49,7 +54,7 @@ public final class TrimStatsPanel {
         context.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.fromNamespaceAndPath("simplebuilding", TrimStatsLayout.heartSprite(total, base)),
                 x + TrimStatsLayout.ICON_INSET, y + TrimStatsLayout.ICON_INSET, TrimStatsLayout.ICON_WIDTH, TrimStatsLayout.ICON_HEIGHT);
         if (hovered) {
-            context.setComponentTooltipForNextFrame(font, tooltip(player), mouseX, mouseY);
+            context.setComponentTooltipForNextFrame(font, shown(player, LibClientServices.shiftHeld()), mouseX, mouseY);
         }
     }
 
@@ -60,6 +65,11 @@ public final class TrimStatsPanel {
         g.fill(x, y, x + 1, y + 17, 0xFF373737);
         g.fill(x + 1, y + 17, x + 18, y + 18, 0xFFFFFFFF);
         g.fill(x + 17, y + 1, x + 18, y + 18, 0xFFFFFFFF);
+    }
+
+    /** What the hovered button shows: the first line and the Shift hint, with {@code shift} every line of {@link #tooltip}. */
+    public static List<Component> shown(Player player, boolean shift) {
+        return LibClientServices.moreOnShift(tooltip(player), BRIEF_LINES, shift);
     }
 
     /** Die Einzelheiten beim Ueberfahren; oeffentlich fuer die Client-Tests. */

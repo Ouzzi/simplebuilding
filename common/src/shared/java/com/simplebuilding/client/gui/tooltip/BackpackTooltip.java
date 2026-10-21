@@ -3,7 +3,6 @@ package com.simplebuilding.client.gui.tooltip;
 import com.simplebuilding.items.tooltip.BackpackTooltipData;
 import java.util.List;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -22,7 +21,7 @@ public final class BackpackTooltip implements ClientTooltipComponent {
     static final int CELL = 18;
     private static final int GAP_BELOW = 2;
     private static final Component HINT = Component.translatable("tooltip.simplebuilding.backpack.shift_hint")
-            .withStyle(ChatFormatting.DARK_GRAY);
+            .withStyle(ChatFormatting.GRAY); // the hint grey of every Simple mod (SimpleLib UiShiftTooltip), 8.8:1
 
     private final List<ItemStack> items;
 
@@ -35,7 +34,7 @@ public final class BackpackTooltip implements ClientTooltipComponent {
     }
 
     private static boolean showContents() {
-        return Minecraft.getInstance().hasShiftDown();
+        return com.simplebuilding.client.LibClientServices.shiftHeld();
     }
 
     /** Gezeichnete Zellen: Items plus ggf. die "+N"-Zelle. */

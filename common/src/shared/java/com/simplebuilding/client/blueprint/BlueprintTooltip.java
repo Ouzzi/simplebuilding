@@ -6,7 +6,6 @@ import com.simplebuilding.blueprint.BlueprintModel;
 import com.simplebuilding.items.tooltip.BlueprintTooltipData;
 import java.util.List;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -40,7 +39,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
     }
 
     private static boolean showMaterials() {
-        return Minecraft.getInstance().hasShiftDown();
+        return com.simplebuilding.client.LibClientServices.shiftHeld();
     }
 
     private int rows() {
@@ -103,7 +102,7 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
         extractPreview(graphics, model, viewX, y, VIEW);
         int ty = y + VIEW + 4;
         if (!showMaterials()) {
-            graphics.text(font, Component.translatable("simplebuilding.blueprint.tooltip.shift").withStyle(ChatFormatting.DARK_GRAY), x, ty, 0xFFFFFFFF);
+            graphics.text(font, Component.translatable("simplebuilding.blueprint.tooltip.shift").withStyle(ChatFormatting.GRAY), x, ty, 0xFFFFFFFF);
             return;
         }
         for (int i = 0; i < rows(); i++) {
