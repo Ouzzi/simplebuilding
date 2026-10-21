@@ -51,6 +51,7 @@ public final class MusicDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simplemusic:*_pocket_jukebox",
             "simplemusic:blank_disc",
             "simplemusic:config_server",
             "simplemusic:creative_tab_switch",
@@ -61,12 +62,14 @@ public final class MusicDiscover {
             "simplemusic:orchestrion",
             "simplemusic:orchestrion_playlist",
             "simplemusic:orchestrion_redstone",
+            "simplemusic:pocket_jukebox",
             "simplemusic:sheet_editor",
             "simplemusic:sheet_import",
             "simplemusic:sheet_music",
             "simplemusic:upload_check");
     static final List<Tip> TIPS = List.of(
-            new Tip("sheet_music", List.of("sheet_music")));
+            new Tip("sheet_music", List.of("sheet_music")),
+            new Tip("pocket_jukebox", List.of("*pocket_jukebox")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

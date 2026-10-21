@@ -14,5 +14,6 @@ public final class MusicClient {
     public static void tick() {
         SheetPreview.tick();
         TrackPlayer.tick();
+        PocketPlayer.tick();
     }
 }

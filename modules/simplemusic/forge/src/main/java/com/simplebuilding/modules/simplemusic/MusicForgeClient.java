@@ -15,6 +15,8 @@ final class MusicForgeClient {
         MusicClient.init();
         SimpleMusic.toServer = payload -> MusicForge.channel.send(payload, PacketDistributor.SERVER.noArg());
         net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(event -> MusicClient.tick());
+        net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent.BUS.addListener(event ->
+                event.register(com.simplemusic.pocket.PocketContents.class, com.simplemusic.client.PocketTooltip::new));
     }
 
     static void receive(UploadResultPayload p) {

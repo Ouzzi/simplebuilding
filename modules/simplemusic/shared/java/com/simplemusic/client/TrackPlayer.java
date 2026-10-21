@@ -24,6 +24,10 @@ public final class TrackPlayer {
     private TrackPlayer() {}
 
     public static void receive(TrackPlayPayload payload) {
+        if (payload.carried()) {
+            PocketPlayer.receive(payload);
+            return;
+        }
         BlockPos pos = payload.pos();
         stop(pos);
         if (payload.isStop()) return;
@@ -39,6 +43,7 @@ public final class TrackPlayer {
 
     public static void receive(TrackDataPayload chunk) {
         if (!TrackCache.receive(chunk)) return;
+        PocketPlayer.arrived(chunk.sha256());
         WAITING.entrySet().removeIf(e -> {
             if (!e.getValue().hash().equals(chunk.sha256())) return false;
             start(e.getKey(), e.getValue());
@@ -69,5 +74,6 @@ public final class TrackPlayer {
         for (CustomDiscSound s : PLAYING.values()) Minecraft.getInstance().getSoundManager().stop(s);
         PLAYING.clear();
         WAITING.clear();
+        PocketPlayer.clear();
     }
 }

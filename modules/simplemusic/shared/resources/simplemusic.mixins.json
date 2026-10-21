@@ -9,7 +9,8 @@
     "DiscoverTipMixin"
   ],
   "client": [
-    "client.SoundBufferLibraryMixin"
+    "client.SoundBufferLibraryMixin",
+    "client.ClientBundleTooltipMixin"
   ],
   "server": [],
   "injectors": {

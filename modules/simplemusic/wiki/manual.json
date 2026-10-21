@@ -227,6 +227,38 @@
       }
     },
     {
+      "id": "pocket_jukebox",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketPlayback.java",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketPlayer.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json"
+      ],
+      "en": {
+        "title": "Pocket Jukebox",
+        "summary": "A bundle for up to 20 discs (Vanilla and custom discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
+        "details": [
+          "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
+          "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
+          "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
+          "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+          "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
+        ]
+      },
+      "de": {
+        "title": "Taschen-Jukebox",
+        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und eigene Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
+        "details": [
+          "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
+          "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
+          "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+          "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+          "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
+        ]
+      }
+    },
+    {
       "id": "moderation",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/upload/MusicCommands.java",
@@ -303,10 +335,22 @@
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+        "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+        "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+      }
+    },
+    "simplemusic:*_pocket_jukebox": {
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+        "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+      ],
+      "en": {
+        "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+      },
+      "de": {
+        "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
       }
     }
   }

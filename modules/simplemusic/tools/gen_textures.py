@@ -1,8 +1,9 @@
-"""Own pixel art of Simple Music (no Mojang pixels): sheet music, blank/custom disc, Orchestrion side/top.
+"""Own pixel art of Simple Music (no Mojang pixels): sheet music, blank/custom disc, Orchestrion side/top, Pocket Jukebox.
 
 python3 modules/simplemusic/tools/gen_textures.py              write the chosen variants into the module
 python3 modules/simplemusic/tools/gen_textures.py --variants D also write every variant and a 16x preview sheet to D
-Needs Pillow. Variants: sheet A/B, disc A/B (TEX21), orchestrion A/B (side + top). Chosen (provisional): see CHOSEN.
+Needs Pillow. Variants: sheet A/B, disc A/B (TEX21), orchestrion A/B (side + top), pocket jukebox A/B (PJ21: 17 colours,
+closed and open back/front). Chosen (provisional): see CHOSEN.
 """
 import math
 import sys
@@ -12,7 +13,7 @@ from PIL import Image, ImageDraw
 
 MODULE = Path(__file__).resolve().parents[1]
 TEX = MODULE / 'shared/resources/assets/simplemusic/textures'
-CHOSEN = {'sheet': 'A', 'disc': 'A', 'orchestrion': 'B'}  # TEX20: O=B; TEX21 (sheet/disc A or B) pending
+CHOSEN = {'sheet': 'A', 'disc': 'A', 'orchestrion': 'B', 'pocket': 'A'}  # TEX20: O=B; TEX21 (sheet/disc), PJ21 (pocket) pending
 
 # Sheet music (TEX20 S0 "like vanilla or the blueprint"): the outline of our own blueprint item
 # (src/main/resources/assets/simplebuilding/textures/item/blueprint.png) as a mask, paper instead of blue,
@@ -213,6 +214,69 @@ def variants():
     return out
 
 
+# Pocket Jukebox (PJ21): a dyed pouch with a copper rim (the recipe's copper nuggets), a diamond clasp and a small
+# record turntable on the front. Closed sprite plus Vanilla's bundle pair for the open state: open_back is drawn
+# behind the playing disc, open_front in front of it. o/s/f/h = outline/shadow/mid/highlight of the fabric,
+# x = inside, k/c/C = copper dark/mid/light, D/d/w = diamond, r/g = record rim/groove, l = label.
+# Colours: Vanilla's bundle leather colours as measured for Simple Storage (StorageDyes), undyed = leather brown.
+POCKET_DYES = {
+    None: 0x9C6B3F, 'white': 0xE6E6E6, 'orange': 0xFB9320, 'magenta': 0xCC49B9, 'light_blue': 0x30AFE5,
+    'yellow': 0xF2C705, 'lime': 0x9BDF39, 'pink': 0xF8A6BD, 'gray': 0x6C7B83, 'light_gray': 0xB1ACA3, 'cyan': 0x14B4B4,
+    'purple': 0x942ACA, 'blue': 0x4573C7, 'brown': 0xD18A59, 'green': 0x77A119, 'red': 0xD2382E, 'black': 0x38364F,
+}
+POCKET_FIXED = {'k': (140, 74, 46), 'c': (198, 116, 76), 'C': (232, 160, 112), 'D': (32, 150, 150), 'd': (98, 222, 212),
+                'w': (214, 255, 250), 'r': (24, 22, 26), 'g': (60, 58, 66), 'l': (232, 160, 112), '.': None}
+_E = '................'
+_BODY = '.ohffffffffffso.'
+POCKET = {
+    # A: round pouch, rim band with the diamond on top, turntable with a copper tone arm on the belly
+    'A': dict(
+        closed=[_E, '.......wd.......', '....kkkdDkkk....', '...kcCCCCCCck...', '...kcccccccck...', '...okkkkkkkko...',
+                '..ohhfffffffso..', '.ohhfffffffffso.', '.ohfffrrrrfkfso.', '.ohffrggggrcfso.', '.ohffrgllgcffso.',
+                '.ohffrgllgrffso.', '.ohffrggggrffso.', '.ohfffrrrrfffso.', '..oooooooooooo..', _E],
+        back=[_E, _E, '..kkkkkkkkkkkk..', '.kcCCCCCCCCCCck.', '.okkkkkkkkkkkko.', '.ohxxxxxxxxxxso.', '.ohxxxxxxxxxxso.',
+              '.ohfxxxxxxxxfso.', _BODY, _BODY, _BODY, _BODY, _BODY, _BODY, '..oooooooooooo..', _E],
+        front=[_E] * 8 + ['.kcCCCCwdCCCCck.', '.okkkkkdDkkkkko.', _BODY, _BODY, _BODY, _BODY, '..oooooooooooo..', _E]),
+    # B: a small carrying case with a copper handle, the diamond in the lid band and the turntable in the front
+    'B': dict(
+        closed=[_E, _E, '......kkkk......', '.....kC..Ck.....', '.kkkkCkkkkCkkkk.', '.kcCCCCwdCCCCck.', '.kccccCdDCcccck.',
+                '.oooooooooooooo.', _BODY, '.ohfffrrrrfkfso.', '.ohffrgllgrcfso.', '.ohffrgllgcffso.', '.ohfffrrrrfffso.',
+                '.osssssssssssso.', '.oooooooooooooo.', _E],
+        back=[_E, _E, '......kkkk......', '.....kC..Ck.....', '.kkkkCkkkkCkkkk.', '.kcCCCCCCCCCCck.', '.oxxxxxxxxxxxxo.',
+              '.ohxxxxxxxxxxso.', '.ohxxxxxxxxxxso.', _BODY, _BODY, _BODY, _BODY, '.osssssssssssso.', '.oooooooooooooo.', _E],
+        front=[_E] * 9 + ['.kcCCCCwdCCCCck.', '.okkkkkdDkkkkko.', _BODY, _BODY, '.osssssssssssso.', '.oooooooooooooo.', _E]),
+}
+
+
+def _mix(rgb, other, t):
+    return tuple(round(a + (b - a) * t) for a, b in zip(rgb, other))
+
+
+def pocket_palette(color):
+    base = ((color >> 16) & 255, (color >> 8) & 255, color & 255)
+    dark = 0.45 if sum(base) > 200 else 0.6  # very dark dyes keep a visible outline
+    return dict(POCKET_FIXED, f=base, h=_mix(base, (255, 255, 255), 0.3), s=_mix(base, (0, 0, 0), 0.25),
+                o=_mix(base, (0, 0, 0), dark), x=_mix(base, (0, 0, 0), 0.75))
+
+
+def pocket_id(dye):
+    return 'pocket_jukebox' if dye is None else f'{dye}_pocket_jukebox'
+
+
+def pocket_images(variant):
+    """{texture name: image} of one variant: per colour the closed sprite and the open back/front pair."""
+    spec = POCKET[variant]
+    for part in spec.values():
+        assert len(part) == 16 and all(len(r) == 16 and r[0] == '.' and r[15] == '.' for r in part), part
+        assert part[0] == _E and part[15] == _E, 'never paint on the edge'
+    out = {}
+    for dye, color in POCKET_DYES.items():
+        palette = pocket_palette(color)
+        for part, suffix in (('closed', ''), ('back', '_open_back'), ('front', '_open_front')):
+            out[pocket_id(dye) + suffix] = grid(spec[part], palette)
+    return out
+
+
 def preview(images, path):
     names = list(images)
     scale = 8
@@ -239,6 +303,8 @@ def main(argv):
     images[f"custom_disc_{CHOSEN['disc']}"].save(TEX / 'item/custom_disc.png')
     images[f"orchestrion_side_{CHOSEN['orchestrion']}"].save(TEX / 'block/orchestrion_side.png')
     images[f"orchestrion_top_{CHOSEN['orchestrion']}"].save(TEX / 'block/orchestrion_top.png')
+    for name, img in pocket_images(CHOSEN['pocket']).items():
+        img.save(TEX / f'item/{name}.png')
     if '--variants' in argv:
         out = Path(argv[argv.index('--variants') + 1])
         out.mkdir(parents=True, exist_ok=True)
@@ -246,6 +312,9 @@ def main(argv):
             img.save(out / f'{name}.png')
             img.resize((256, 256), Image.NEAREST).save(out / f'{name}_16x.png')
         preview(images, out / 'preview_8x.png')
+        for k in POCKET:
+            for name, img in pocket_images(k).items():
+                img.save(out / f'{name}_{k}.png')
     print(f'simplemusic textures written (chosen {CHOSEN})')
 
 

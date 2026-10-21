@@ -47,8 +47,10 @@ public final class SimpleMusic {
         configDir = dir;
         MusicConfig.load(dir);
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "music", "simplemusic.testcentre.station",
-                java.util.List.of("simplemusic:sheet_music", "simplemusic:orchestrion", "simplemusic:blank_disc",
-                        "simplemusic:custom_disc", "simplemusic:guide_book"));
+                java.util.stream.Stream.concat(java.util.stream.Stream.of("simplemusic:sheet_music", "simplemusic:orchestrion",
+                        "simplemusic:blank_disc", "simplemusic:custom_disc", "simplemusic:guide_book", "simplemusic:pocket_jukebox"),
+                        java.util.Arrays.stream(net.minecraft.world.item.DyeColor.values()).map(c -> "simplemusic:" + c.getSerializedName() + "_pocket_jukebox"))
+                        .toList());
     }
 
     private SimpleMusic() {}
