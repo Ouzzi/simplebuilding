@@ -64,10 +64,13 @@ for name in ('hushed_deepslate_tiles', 'sculk_deepslate', 'blue_nether_bricks'):
     assert (tex / f'{name}.png').exists(), name
 sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
 import vanilla_derived  # noqa: E402
-assert {f'block/shaping_saw_{n}.png' for n in ('top', 'side', 'saw')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'saw textures are Vanilla-derived'
-assert (tex / 'shaping_saw_saw.png.mcmeta').exists(), 'saw blade animation'
+assert {f'block/shapecutter_{n}.png' for n in ('top', 'side', 'bottom')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'shapecutter textures are Vanilla-derived'
+# The blade is Vanilla's own (owner 21.10.): the model references minecraft:block/stonecutter_saw, nothing of it is ours.
+saw_model = json.loads((RES / f'assets/{NS}/models/block/{g.SAW}.json').read_text(encoding='utf-8'))
+assert saw_model['textures']['saw'] == 'minecraft:block/stonecutter_saw', 'shapecutter blade must stay Vanilla'
+assert not (tex / 'shapecutter_saw.png.mcmeta').exists() and not (tex / 'shaping_saw_saw.png.mcmeta').exists(), 'no own blade animation'
 
-# Shaping Saw (A4b): Java ids match the generator; every wood family and every wool colour has its cuts; optional mods conditioned.
+# Shapecutter (A4b): Java ids match the generator; every wood family and every wool colour has its cuts; optional mods conditioned.
 saw_java = (MODULE / 'shared/java/com/simpleblocks/saw/Sawing.java').read_text(encoding='utf-8')
 assert f'NAME = "{g.SAW}"' in saw_java and 'id("sawing")' in saw_java, 'Sawing.java: saw id or recipe type id changed'
 cuts = g.sawing_list()
@@ -80,4 +83,4 @@ for color in g.WOOLS:
 for path, ingredient, out, count, mod in cuts:
     foreign = {ingredient.lstrip('#').split(':')[0], out.split(':')[0]} - {'minecraft', NS}
     assert foreign <= ({mod} if mod else set()), (path, 'needs a mod-loaded condition for', foreign)
-print(f'simpleblocks: 37 blocks + 15 moved from SimpleBuilding + Shaping Saw ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+print(f'simpleblocks: 37 blocks + 15 moved from SimpleBuilding + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

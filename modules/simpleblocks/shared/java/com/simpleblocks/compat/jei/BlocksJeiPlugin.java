@@ -11,7 +11,7 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.resources.Identifier;
 
 /**
- * Optional JEI plugin of Simple Blocks: the Shaping Saw category (cuts only the saw has) and the saw as a station of
+ * Optional JEI plugin of Simple Blocks: the Shapecutter category (cuts only the saw has) and the saw as a station of
  * JEI's stonecutting category too (it cuts all of those). The cuts come from the server's list
  * ({@link Sawing.Payload}), which may arrive after JEI started, so they are added as soon as they are there.
  * Only JEI loads it (Fabric entrypoint {@code jei_mod_plugin}, NeoForge annotation); Forge builds without it.
@@ -37,7 +37,7 @@ public final class BlocksJeiPlugin implements IModPlugin {
     public void registerRecipes(mezz.jei.api.registration.IRecipeRegistration registration) {
         registration.addItemStackInfo(java.util.List.of(new net.minecraft.world.item.ItemStack(Sawing.SAW_ITEM),
                 new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STONECUTTER)),
-                net.minecraft.network.chat.Component.translatable("jei.simpleblocks.info.shaping_saw"));
+                net.minecraft.network.chat.Component.translatable("jei.simpleblocks.info.shapecutter"));
     }
 
     @Override

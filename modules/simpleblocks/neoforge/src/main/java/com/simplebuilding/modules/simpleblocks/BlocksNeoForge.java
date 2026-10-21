@@ -31,7 +31,7 @@ public final class BlocksNeoForge {
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
             if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
         });
-        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
+        // Stonecutter -> Shapecutter in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
         com.simpleblocks.saw.SawUpgrade.hammerMode = net.neoforged.fml.ModList.get().isLoaded("simplehammers");
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock e) -> {
             if (e.isCanceled()) return;
@@ -40,7 +40,7 @@ public final class BlocksNeoForge {
                 e.setCanceled(true);
             }
         });
-        // Shaping Saw: its recipe list goes to every client on join and after /reload.
+        // Shapecutter: its recipe list goes to every client on join and after /reload.
         bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) ->
                 event.registrar("1").optional().playToClient(com.simpleblocks.saw.Sawing.Payload.TYPE, com.simpleblocks.saw.Sawing.Payload.CODEC,
                         (payload, context) -> context.enqueueWork(() -> com.simpleblocks.saw.Sawing.receive(payload.entries()))));

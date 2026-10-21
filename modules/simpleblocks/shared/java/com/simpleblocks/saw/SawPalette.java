@@ -1,21 +1,13 @@
 package com.simpleblocks.saw;
 
 /**
- * Colours of the saw screen: SimpleLib's {@code UiPalette.INVENTORY} (the Vanilla inventory grey), copied as constants
- * because Simple Blocks runs without SimpleLib. Nothing new is invented (AGENTS.md rule 15). The GameTest
- * {@code saw_ui_contrast} checks label and search text against their backgrounds (>= 4.5:1).
+ * Text colours of the Shapecutter screen: it draws Vanilla's stonecutter background (referenced, see ShapecutterScreen), so
+ * the title and inventory label are Vanilla's 404040 on Vanilla's container grey C6C6C6 (SimpleLib's {@code UiPalette.INVENTORY};
+ * copied as constants so the test needs no client class). The GameTest {@code saw_ui_contrast} checks them (>= 4.5:1).
  */
 public final class SawPalette {
     public static final int FILL = 0xFFC6C6C6;
-    public static final int LIGHT = 0xFFFFFFFF;
-    public static final int SHADOW = 0xFF555555;
-    public static final int SLOT = 0xFF8B8B8B;
-    public static final int DARK = 0xFF373737;
     public static final int LABEL = 0xFF404040;
-    public static final int BORDER = 0xFF000000;
-    /** Search field: Vanilla's white EditBox text on its black box. */
-    public static final int FIELD = 0xFF000000;
-    public static final int FIELD_TEXT = 0xFFE0E0E0;
     public static final double MIN_CONTRAST = 4.5;
 
     private SawPalette() {}

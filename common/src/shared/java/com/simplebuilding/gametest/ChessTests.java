@@ -296,7 +296,7 @@ public final class ChessTests {
         ServerLevel level = helper.getLevel();
         ContextMap context = SlotDisplayContext.fromLevel(level);
         Set<String> cuts = new TreeSet<>();
-        // Octets are exclusive to the Shaping Saw of Simple Blocks (docs/ai/PRINZIPIEN.md A4b): its simpleblocks:sawing
+        // Octets are exclusive to the Shapecutter of Simple Blocks (docs/ai/PRINZIPIEN.md A4b): its simpleblocks:sawing
         // recipes have no recipe-book display, so their cuts come from the input and the assembled result.
         Set<String> sawCuts = new TreeSet<>();
         boolean saw = com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleblocks");

@@ -129,7 +129,7 @@ MODULES = [
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),
          intro=("The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, "
-                "the missing Vanilla stairs, slabs and walls, cracked and mossy bricks and the Shaping Saw, which cuts stone and wood.",
+                "the missing Vanilla stairs, slabs and walls, cracked and mossy bricks and the Shapecutter, which cuts stone and wood.",
                 "Die fehlenden Baublöcke: Gedämpfte Tiefenschieferfliesen, die Vibrationen wie Wolle schlucken, "
                 "Sculk-Tiefenschiefer, die fehlenden Vanilla-Treppen, -Stufen und -Mauern, rissige und bemooste Ziegel "
                 "und die Formsäge, die Stein und Holz schneidet.")),
@@ -170,7 +170,7 @@ MODULES = [
          author="Simple Octets", recipe="minecraft:stonecutter",
          name=("Simple Octets Guide", "Simple-Octets-Handbuch"),
          intro=("Octets - half-block cubes of every wood, of every block with stairs and slabs and of the melon - cut in the "
-                "Shaping Saw (Simple Blocks; without it in the stonecutter), placed into the clicked corner and mixed in one cell.",
+                "Shapecutter (Simple Blocks; without it in the stonecutter), placed into the clicked corner and mixed in one cell.",
                 "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - in der Formsäge "
                 "(Simple Blocks; ohne sie im Steinmetz) geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt.")),
     dict(module="simplehammers", ns="simplehammers", package="com.simplehammers.guide", cls="HammersGuide", kind="item",

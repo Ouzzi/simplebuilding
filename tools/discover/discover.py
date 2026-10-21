@@ -132,7 +132,7 @@ MODS = [
          own_packages=["com.simplewanderers."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",
          mixin_package="com.simpleblocks.mixin", own_packages=["com.simpleblocks."],
-         tips=[("shaping_saw", ["shaping_saw"], "Cuts stone and wood into stairs, slabs and more",
+         tips=[("shapecutter", ["shapecutter"], "Cuts stone and wood into stairs, slabs and more",
                 "Schneidet Stein und Holz zu Treppen, Stufen und mehr")]),
     dict(id="simpleovens", ns=["simpleovens"], cls="OvensDiscover", package="com.simpleovens.discover",
          mixin_package="com.simpleovens.mixin", own_packages=["com.simpleovens."],

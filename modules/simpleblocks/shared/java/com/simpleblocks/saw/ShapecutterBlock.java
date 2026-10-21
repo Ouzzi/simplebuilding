@@ -12,11 +12,11 @@ import net.minecraft.world.level.block.StonecutterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-/** The Shaping Saw: the stonecutter's shape and facing, its own menu ({@link ShapingSawMenu}). */
-public class ShapingSawBlock extends StonecutterBlock {
-    private static final Component TITLE = Component.translatable("container.simpleblocks.shaping_saw");
+/** The Shapecutter: the stonecutter's shape and facing, its own menu ({@link ShapecutterMenu}). */
+public class ShapecutterBlock extends StonecutterBlock {
+    private static final Component TITLE = Component.translatable("container.simpleblocks.shapecutter");
 
-    public ShapingSawBlock(Properties properties) {
+    public ShapecutterBlock(Properties properties) {
         super(properties);
     }
 
@@ -28,6 +28,6 @@ public class ShapingSawBlock extends StonecutterBlock {
 
     @Override
     protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        return new SimpleMenuProvider((id, inventory, player) -> new ShapingSawMenu(id, inventory, ContainerLevelAccess.create(level, pos)), TITLE);
+        return new SimpleMenuProvider((id, inventory, player) -> new ShapecutterMenu(id, inventory, ContainerLevelAccess.create(level, pos)), TITLE);
     }
 }

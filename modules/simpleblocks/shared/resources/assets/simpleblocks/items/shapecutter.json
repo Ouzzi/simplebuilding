@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simpleblocks:block/shaping_saw"
+    "model": "simpleblocks:block/shapecutter"
   }
 }

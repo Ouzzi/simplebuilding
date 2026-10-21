@@ -102,6 +102,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawMenuLayout(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_menu_layout").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawIdMoved(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_id_moved").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void sawUpgradeAxe(GameTestHelper h) {
         BlocksTests.ALL.get("saw_upgrade_axe").accept(h);
     }

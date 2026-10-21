@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simpleblocks:shaping_saw"
+          "name": "simpleblocks:shapecutter"
         }
       ],
       "rolls": 1

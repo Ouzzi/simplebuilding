@@ -75,16 +75,7 @@
   "item.simpleblocks.blue_nether_brick_slab": "Blaue Netherziegelstufe",
   "block.simpleblocks.blue_nether_brick_wall": "Blaue Netherziegelmauer",
   "item.simpleblocks.blue_nether_brick_wall": "Blaue Netherziegelmauer",
-  "block.simpleblocks.shaping_saw": "Formsäge",
-  "item.simpleblocks.shaping_saw": "Formsäge",
-  "container.simpleblocks.shaping_saw": "Formsäge",
   "jei.simpleblocks.category.sawing": "Formsäge",
-  "container.simpleblocks.shaping_saw.search": "Schnitte suchen",
-  "container.simpleblocks.shaping_saw.empty": "Links Stein, Holz oder Wolle einlegen",
-  "container.simpleblocks.shaping_saw.no_cuts": "Daraus lässt sich nichts schneiden",
-  "container.simpleblocks.shaping_saw.no_match": "Kein Schnitt passt zur Suche",
-  "tip.simpleblocks.shaping_saw": "Schneidet Stein und Holz zu Treppen, Stufen und mehr",
-  "jei.simpleblocks.info.shaping_saw": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.",
   "block.simpleblocks.suspended_sand": "Schwebender Sand",
   "item.simpleblocks.suspended_sand": "Schwebender Sand",
   "block.simpleblocks.suspended_gravel": "Schwebender Kies",
@@ -144,5 +135,9 @@
   "quests.simpleblocks.start.title": "Willkommen bei Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleblocks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen."
+  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen.",
+  "block.simpleblocks.shapecutter": "Formsäge",
+  "item.simpleblocks.shapecutter": "Formsäge",
+  "container.simpleblocks.shapecutter": "Formsäge",
+  "jei.simpleblocks.info.shapecutter": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung."
 }

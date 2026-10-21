@@ -80,8 +80,8 @@ MOVED_TEXT = {
     'de_de': {'tooltip.simpleblocks.levitating': 'Fällt nach oben statt nach unten', 'tooltip.simpleblocks.suspended': 'Schwebt in der Luft und fällt nie',
               'entity.simpleblocks.levitating_block': 'Aufsteigender Block'}}
 
-# --- Shaping Saw (owner 17.10., principle A4b): the block and its sawing recipes -----------------------------------------
-SAW = 'shaping_saw'
+# --- Shapecutter (owner 17.10., principle A4b): the block and its sawing recipes -----------------------------------------
+SAW = 'shapecutter'
 # Wood families: (namespace, wood, log word, wood word, mod condition or None). Ratios as at the crafting table and the
 # Vanilla stonecutter: planks -> 1 stairs / 2 slabs / 1 fence; any log or wood -> 4 planks; bark/strip shapes 1:1.
 WOODS = [('minecraft', w, 'log', 'wood', None) for w in
@@ -212,11 +212,12 @@ def models_and_states():
 
 
 def saw_model():
-    """The stonecutter's model (9 px table, blade across the middle): own top/side/blade (Vanilla-derived, copper), Vanilla bottom."""
+    """The stonecutter's model (9 px table, blade across the middle): polished metal top/side/bottom (Vanilla-derived,
+    tools/textures/shapecutter_2026_10_21.py) and Vanilla's own animated blade (owner 21.10.: "die blade wieder vanilla")."""
     t = f'{NS}:block/{SAW}'
     put(f'assets/{NS}/models/block/{SAW}.json', {
         'parent': 'minecraft:block/block',
-        'textures': {'particle': 'minecraft:block/stonecutter_bottom', 'bottom': 'minecraft:block/stonecutter_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': f'{t}_saw'},
+        'textures': {'particle': f'{t}_bottom', 'bottom': f'{t}_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': 'minecraft:block/stonecutter_saw'},
         'elements': [
             {'from': [0, 0, 0], 'to': [16, 9, 16], 'faces': {
                 'down': {'uv': [0, 0, 16, 16], 'texture': '#bottom', 'cullface': 'down'},
@@ -307,7 +308,7 @@ def recipes():
         else:
             recipe(f'{name}_from_moss_block', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
                                                'ingredients': [brick, 'minecraft:moss_block'], 'result': result(name)}, 'minecraft:moss_block')
-    # Shaping Saw: the Vanilla stonecutter recipe (iron ingot over 3 stone) with a copper ingot on each side of the iron.
+    # Shapecutter: the Vanilla stonecutter recipe (iron ingot over 3 stone) with a copper ingot on each side of the iron.
     recipe(SAW, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'C': 'minecraft:copper_ingot', 'I': 'minecraft:iron_ingot', '#': 'minecraft:stone'},
                  'pattern': ['CIC', '###'], 'result': result(SAW)}, 'minecraft:copper_ingot', 'decorations')
     # Gravity blocks (b-blocksmove): SimpleBuilding's way (Nihilith shard / Astralit dust, same recipe ids as before the move)
@@ -421,12 +422,10 @@ def names():
 
 
 SAW_LANG = {
-    'en_us': dict(name='Shaping Saw', search='Search cuts', empty='Put stone, wood or wool in on the left',
-                  no_cuts='Nothing to cut from this item', no_match='No cut matches the search',
+    'en_us': dict(name='Shapecutter',
                   info='Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. '
-                       'The nuggets are used up and the stonecutter becomes a Shaping Saw facing the same way.'),
-    'de_de': dict(name='Formsäge', search='Schnitte suchen', empty='Links Stein, Holz oder Wolle einlegen',
-                  no_cuts='Daraus lässt sich nichts schneiden', no_match='Kein Schnitt passt zur Suche',
+                       'The nuggets are used up and the stonecutter becomes a Shapecutter facing the same way.'),
+    'de_de': dict(name='Formsäge',
                   info='Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, '
                        'während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.'),
 }
@@ -447,8 +446,6 @@ def lang():
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
         data[f'jei.{NS}.info.{SAW}'] = saw['info']
-        for key in ('search', 'empty', 'no_cuts', 'no_match'):
-            data[f'container.{NS}.{SAW}.{key}'] = saw[key]
         data[f'itemgroup.{NS}.blocks'] = tab
         data[f'{NS}.testcentre.station'] = station
         out[locale] = data
