@@ -294,7 +294,7 @@
         var t = st.open ? '<div class="mc-tip mc-static">' + linesHtml(lines) + '</div>' : '';
         return '<div class="ench-cell"><span class="ench-slot ench-glint" tabindex="0"' + tip(lines) + ' aria-label="' + esc(linesText(lines)) + '">' + iconHtml(ctx, id, name) + '</span><span class="c-label">' + label + '</span>' + t + '</div>';
       }
-      function modLabel(e) { return '<small>' + esc(e.module) + (e.id.split(':')[0] === 'minecraft' ? ' · ' + tr(lang, 'overridden', e.module) : '') + (e.curse ? ' · ' + tr(lang, 'curse') : '') + (e.treasure ? ' · ' + tr(lang, 'treasure') : '') + '</small>'; }
+      function modLabel(e) { return '<small>' + esc(e.id.split(':')[0] === 'minecraft' ? tr(lang, 'overridden', e.module) : e.module) + (e.curse ? ' · ' + tr(lang, 'curse') : '') + (e.treasure ? ' · ' + tr(lang, 'treasure') : '') + '</small>'; }
       h += '<h2>' + esc(tr(lang, 'books')) + '</h2><p class="muted">' + esc(tr(lang, 'booksIntro')) + '</p><div class="ench-grid" data-sec="books">';
       fam.forEach(function (e) {
         var lines = itemTooltip(data, lang, { id: 'minecraft:enchanted_book' }, [{ id: e.id, level: e.maxLevel }], st.desc);
