@@ -554,7 +554,9 @@ public final class MusicTests {
                 h.assertTrue(SheetMusicItem.content(press.getItem(DiscPressBlockEntity.SHEET)).code().equals(TUNE), "the sheet stays");
                 h.assertTrue(press.getItem(DiscPressBlockEntity.BLANK).getCount() == 1 && press.pressed() == 1, "one blank used");
                 h.assertTrue(OrchestrionBlockEntity.playable(out) && JukeboxDiscs.isDisc(out), "plays in the Orchestrion and the jukebox");
-                h.assertTrue(out.getHoverName().getString().contains("Test"), "named after the sheet: " + out.getHoverName().getString());
+                // the name is "Disc: <title>"; Forge's test server has no lang file, so read the argument, not the text
+                h.assertTrue(out.getHoverName().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t
+                        && Arrays.asList(t.getArgs()).contains("Test"), "named after the sheet: " + out.getHoverName());
             });
             h.runAfterDelay(2 * DiscPress.PRESS_TICKS + 10, () -> {
                 h.assertTrue(press.pressed() == 1 && press.progress() == 0, "a full output waits");
