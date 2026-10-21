@@ -47,8 +47,10 @@ public final class MusicForge {
             if (key.equals(Registries.ITEM)) MusicRegistry.registerItems();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) MusicRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION)));
+                MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION)),
+                        new BlockEntityType<>(com.simplemusic.press.DiscPressBlockEntity::new, Set.of(MusicRegistry.DISC_PRESS)));
             }
+            if (key.equals(Registries.MENU)) MusicRegistry.registerMenus();
         });
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             boolean vanillaTabs = com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleMusic.MOD_ID);
@@ -87,7 +89,7 @@ public final class MusicForge {
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> MusicServer.tick(e.server()));
         net.minecraftforge.event.server.ServerStoppedEvent.BUS.addListener(e -> MusicServer.stopped());
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplemusic.guide.MusicGuide.installQuests(FMLPaths.CONFIGDIR.get());
-        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) MusicForgeClient.init();
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) MusicForgeClient.init(context);
     }
 
     private static void onPlayer(CustomPayloadEvent.Context ctx, Consumer<ServerPlayer> action) {

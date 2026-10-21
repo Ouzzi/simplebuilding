@@ -19,7 +19,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     for k in sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.sheet_music', f'block.{NS}.orchestrion', f'item.{NS}.blank_disc',
-                             f'item.{NS}.custom_disc', f'{NS}.testcentre.station']:
+                             f'item.{NS}.custom_disc', f'block.{NS}.disc_press', f'{NS}.testcentre.station']:
         assert data.get(k), (locale, k)
     for k, v in data.items():
         if k.startswith('item.') and '.length' in k:
@@ -29,6 +29,11 @@ recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'd
 assert recipes['orchestrion']['key'] == {'C': 'minecraft:copper_ingot', 'N': 'minecraft:note_block', 'J': 'minecraft:jukebox'}
 assert sorted(recipes['sheet_music']['ingredients']) == ['minecraft:feather', 'minecraft:ink_sac', 'minecraft:paper']
 assert recipes['blank_disc']['key']['A'] == 'minecraft:amethyst_shard'
+# owner 21.10.: disc press like Vanilla's stone/iron workstations, the piston presses
+assert recipes['disc_press']['pattern'] == [' P ', 'I I', 'SSS'] and recipes['disc_press']['key'] == {
+    'P': 'minecraft:piston', 'I': 'minecraft:iron_ingot', 'S': 'minecraft:smooth_stone'}
+for tex in ('block/disc_press_side', 'block/disc_press_top', 'item/custom_disc_composed'):
+    assert (RES / f'assets/{NS}/textures/{tex}.png').is_file(), tex
 pockets = [k for k in recipes if k.endswith('pocket_jukebox')]
 assert len(pockets) == 17 and len([k for k in recipes if k.endswith('pocket_jukebox_dyeing')]) == 16, 'pocket jukebox recipes'
 for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colour comes from the bundle

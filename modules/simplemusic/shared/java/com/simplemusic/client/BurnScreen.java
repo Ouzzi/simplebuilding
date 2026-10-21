@@ -20,7 +20,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 /**
- * Burn window of the blank disc (upload concept §2.2, owner decision U5 o): lists the {@code .ogg} files of
+ * Upload window of the sheet of music (upload concept §2.2, owner decision U5 o; opened from the sheet editor since the
+ * disc press, owner 21.10.): lists the {@code .ogg} files of
  * {@code config/simplemusic/upload/}, checks the chosen one locally with the same {@link OggCheck} as the server
  * (format, mono, length, size), takes a title and sends the file in chunks, paced below the server's rate. The server
  * checks everything again and answers with {@link UploadResultPayload}.

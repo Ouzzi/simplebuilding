@@ -56,6 +56,7 @@ public final class MusicDiscover {
             "simplemusic:config_server",
             "simplemusic:creative_tab_switch",
             "simplemusic:custom_disc",
+            "simplemusic:disc_press",
             "simplemusic:guide_book",
             "simplemusic:moderation",
             "simplemusic:note_code",
@@ -63,13 +64,15 @@ public final class MusicDiscover {
             "simplemusic:orchestrion_playlist",
             "simplemusic:orchestrion_redstone",
             "simplemusic:pocket_jukebox",
+            "simplemusic:sheet_copy",
             "simplemusic:sheet_editor",
             "simplemusic:sheet_import",
             "simplemusic:sheet_music",
             "simplemusic:upload_check");
     static final List<Tip> TIPS = List.of(
             new Tip("sheet_music", List.of("sheet_music")),
-            new Tip("pocket_jukebox", List.of("*pocket_jukebox")));
+            new Tip("pocket_jukebox", List.of("*pocket_jukebox")),
+            new Tip("disc_press", List.of("disc_press")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

@@ -9,18 +9,20 @@
       ],
       "en": {
         "title": "Sheet Music",
-        "summary": "Shapeless from paper, an ink sac and a feather. Use it to open the note code editor; signing with a title makes it read-only, like a written book.",
+        "summary": "Shapeless from paper, an ink sac and a feather. Use it to open the note code editor; signing with a title makes it read-only, like a written book. A sheet holds either a composition or an uploaded track.",
         "details": [
           "A draft may still contain problems; signing needs a title and a code without problems. The server checks every save again (code at most 32000 characters, title at most 32).",
-          "From a stack only one sheet is written, the rest stays blank."
+          "From a stack only one sheet is written, the rest stays blank.",
+          "Upload (editor button) turns an unsigned sheet into an upload sheet: the track, its title and you as uploader, read-only."
         ]
       },
       "de": {
         "title": "Notenblatt",
-        "summary": "Formlos aus Papier, Tintenbeutel und Feder. Benutzen öffnet den Notencode-Editor; Signieren mit Titel macht es schreibgeschützt, wie ein beschriebenes Buch.",
+        "summary": "Formlos aus Papier, Tintenbeutel und Feder. Benutzen öffnet den Notencode-Editor; Signieren mit Titel macht es schreibgeschützt, wie ein beschriebenes Buch. Ein Blatt trägt entweder eine Komposition oder einen hochgeladenen Titel.",
         "details": [
           "Ein Entwurf darf noch Fehler enthalten; Signieren braucht einen Titel und einen fehlerfreien Code. Der Server prüft jedes Speichern erneut (Code höchstens 32000 Zeichen, Titel höchstens 32).",
-          "Von einem Stapel wird nur ein Blatt beschrieben, der Rest bleibt leer."
+          "Von einem Stapel wird nur ein Blatt beschrieben, der Rest bleibt leer.",
+          "Hochladen (Knopf im Editor) macht aus einem unsignierten Blatt ein Upload-Blatt: Titel, Name und du als Hochladender, schreibgeschützt."
         ]
       }
     },
@@ -57,20 +59,23 @@
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/client/SheetMusicScreen.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/SheetPreview.java",
+        "modules/simplemusic/shared/java/com/simplemusic/client/BurnScreen.java",
         "modules/simplelib/shared/java/com/simplelib/api/client/ui/UiCodeArea.java"
       ],
       "en": {
         "title": "Editor",
         "summary": "Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
         "details": [
-          "Buttons: Listen/Stop, Import, Copy (code to the clipboard), Sign, Done. Closing saves the draft."
+          "Buttons: Listen/Stop, Import, Copy (code to the clipboard), Sign, Upload, Done. Closing saves the draft.",
+          "Upload opens the upload window: it lists the .ogg files in config/simplemusic/upload/; choose a file, give a title, Upload. The client checks the file first, then sends it in parts. Only upload your own or free music."
         ]
       },
       "de": {
         "title": "Editor",
         "summary": "Farbiges Codefeld mit Zeilennummern und unterstrichenen Fehlern (das Feld des Blaupausen-Editors, jetzt in SimpleLib). Probehören spielt den Code nur auf deinem Client.",
         "details": [
-          "Knöpfe: Probehören/Stopp, Importieren, Kopieren (Code in die Zwischenablage), Signieren, Fertig. Schließen speichert den Entwurf."
+          "Knöpfe: Probehören/Stopp, Importieren, Kopieren (Code in die Zwischenablage), Signieren, Hochladen, Fertig. Schließen speichert den Entwurf.",
+          "Hochladen öffnet das Upload-Fenster mit den .ogg-Dateien aus config/simplemusic/upload/; Datei wählen, Titel geben, Hochladen. Der Client prüft die Datei zuerst und schickt sie dann in Stücken. Nur eigene oder freie Musik hochladen."
         ]
       }
     },
@@ -96,6 +101,27 @@
       }
     },
     {
+      "id": "sheet_copy",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/sheet/SheetCopy.java",
+        "modules/simplemusic/shared/java/com/simplemusic/mixin/CartographyTableMenuMixin.java"
+      ],
+      "en": {
+        "title": "Copying at the cartography table",
+        "summary": "Like a blueprint: a signed sheet on top, an empty sheet below gives a copy; only the empty sheet is used up.",
+        "details": [
+          "A composition gives an unsigned copy you can edit again (code and title, no author); an upload sheet gives an exact copy."
+        ]
+      },
+      "de": {
+        "title": "Kopieren am Kartentisch",
+        "summary": "Wie beim Bauplan: oben ein signiertes Notenblatt, unten ein leeres ergibt eine Kopie; nur das leere Blatt wird verbraucht.",
+        "details": [
+          "Eine Komposition gibt eine unsignierte, wieder bearbeitbare Kopie (Code und Titel, ohne Autor); ein Upload-Blatt gibt eine genaue Kopie."
+        ]
+      }
+    },
+    {
       "id": "orchestrion",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlock.java",
@@ -104,7 +130,7 @@
       ],
       "en": {
         "title": "Orchestrion",
-        "summary": "Two copper ingots beside a note block over a jukebox. Right-click with a signed or valid sheet or a custom disc to put it in, with an empty hand to take it out. It plays on a loop and never ejects.",
+        "summary": "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc (composition or track) to put it in, with an empty hand to take it out. It plays on a loop and never ejects.",
         "details": [
           "The server plays each step's tones like a note block (Jukebox/Note Blocks volume, 48 blocks), at most 8 tones per step; one note particle per step.",
           "Comparator: 1-15 by progress through the piece, 0 when empty."
@@ -112,7 +138,7 @@
       },
       "de": {
         "title": "Orchestrion",
-        "summary": "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem gültigen Notenblatt oder einer eigenen Platte legt sie ein, mit leerer Hand nimmt man sie heraus. Es spielt in Schleife und wirft nie aus.",
+        "summary": "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Notenblatt oder einer gepressten Platte (Komposition oder Titel) legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus.",
         "details": [
           "Der Server spielt die Töne jedes Schritts wie ein Notenblock (Lautstärke Jukebox/Notenblöcke, 48 Blöcke), höchstens 8 Töne je Schritt; ein Notenpartikel je Schritt.",
           "Komparator: 1-15 nach Fortschritt im Stück, 0 wenn leer."
@@ -160,21 +186,45 @@
       "id": "blank_disc",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/disc/BlankDiscItem.java",
-        "modules/simplemusic/shared/java/com/simplemusic/client/BurnScreen.java",
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/blank_disc.json"
       ],
       "en": {
         "title": "Blank Disc",
-        "summary": "Four coal or charcoal and four blackstone around an amethyst shard. Use it to open the burn window: it lists the .ogg files in config/simplemusic/upload/.",
+        "summary": "Four coal or charcoal and four blackstone around an amethyst shard. The disc press presses the music of a sheet onto it.",
         "details": [
-          "Choose a file, give a title, Burn: the client checks the file first, then sends it in parts. Only upload your own or free music."
+          "It no longer opens a window: uploads go through the sheet music editor, discs come out of the disc press."
         ]
       },
       "de": {
         "title": "Rohling",
-        "summary": "Vier Kohle oder Holzkohle und vier Schwarzstein um einen Amethystsplitter. Benutzen öffnet das Brennfenster mit den .ogg-Dateien aus config/simplemusic/upload/.",
+        "summary": "Vier Kohle oder Holzkohle und vier Schwarzstein um einen Amethystsplitter. Die Plattenpresse presst die Musik eines Notenblatts darauf.",
         "details": [
-          "Datei wählen, Titel geben, Brennen: der Client prüft die Datei zuerst und schickt sie dann in Stücken. Nur eigene oder freie Musik hochladen."
+          "Er öffnet kein Fenster mehr: Hochladen läuft über den Notenblatt-Editor, Platten kommen aus der Plattenpresse."
+        ]
+      }
+    },
+    {
+      "id": "disc_press",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/press/DiscPress.java",
+        "modules/simplemusic/shared/java/com/simplemusic/press/DiscPressBlockEntity.java",
+        "modules/simplemusic/shared/java/com/simplemusic/press/DiscPressMenu.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/disc_press.json"
+      ],
+      "en": {
+        "title": "Disc Press",
+        "summary": "A piston over two iron ingots over three smooth stone. Put a sheet of music on top and blank discs below: it presses the sheet's music (composition or uploaded track) onto a blank in 2 seconds. The sheet always stays.",
+        "details": [
+          "Only compositions without problems are pressed. The pressed disc waits in the output slot; the next one follows when it is taken.",
+          "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe."
+        ]
+      },
+      "de": {
+        "title": "Plattenpresse",
+        "summary": "Ein Kolben über zwei Eisenbarren über drei glatten Steinen. Oben ein Notenblatt, unten Rohlinge: sie presst die Musik des Blatts (Komposition oder hochgeladener Titel) in 2 Sekunden auf einen Rohling. Das Notenblatt bleibt immer erhalten.",
+        "details": [
+          "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
+          "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke."
         ]
       }
     },
@@ -206,23 +256,25 @@
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/disc/CustomDiscItem.java",
         "modules/simplemusic/shared/java/com/simplemusic/disc/DiscPlayback.java",
+        "modules/simplemusic/shared/java/com/simplemusic/disc/SheetPlayback.java",
+        "modules/simplemusic/shared/java/com/simplemusic/disc/JukeboxDiscs.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/TrackPlayer.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/TrackCache.java"
       ],
       "en": {
         "title": "Custom Disc",
-        "summary": "A burned disc carries the track's hash, title, length and uploader, never audio. It plays in the Orchestrion (loop, playlist) and in the Vanilla jukebox (once).",
+        "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play in the Orchestrion (loop, playlist) and in the Vanilla jukebox (once); the Pocket Jukebox takes track discs.",
         "details": [
-          "Players within 64 blocks get the file from the server in parts the first time (cache in simplemusic-cache/ of the game folder, 512 MiB) and join at the current position.",
-          "A deleted track leaves a silent disc."
+          "Track discs: players within 64 blocks get the file from the server in parts the first time (cache in simplemusic-cache/ of the game folder, 512 MiB) and join at the current position. A deleted track leaves a silent disc.",
+          "Composition discs in the jukebox: the server plays the tones like the Orchestrion, once."
         ]
       },
       "de": {
         "title": "Eigene Platte",
-        "summary": "Eine gebrannte Platte trägt Hash, Titel, Länge und Hochladenden des Titels, nie Audiodaten. Sie spielt im Orchestrion (Schleife, Playlist) und in der Vanilla-Jukebox (einmal).",
+        "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen im Orchestrion (Schleife, Playlist) und in der Vanilla-Jukebox (einmal); die Taschen-Jukebox nimmt Titel-Platten.",
         "details": [
-          "Spieler in 64 Blöcken bekommen die Datei beim ersten Mal in Stücken vom Server (Cache in simplemusic-cache/ im Spielordner, 512 MiB) und steigen an der aktuellen Stelle ein.",
-          "Ein gelöschter Titel hinterlässt eine stumme Platte."
+          "Titel-Platten: Spieler in 64 Blöcken bekommen die Datei beim ersten Mal in Stücken vom Server (Cache in simplemusic-cache/ im Spielordner, 512 MiB) und steigen an der aktuellen Stelle ein. Ein gelöschter Titel hinterlässt eine stumme Platte.",
+          "Kompositions-Platten in der Jukebox: der Server spielt die Töne wie das Orchestrion, einmal."
         ]
       }
     },
@@ -237,7 +289,7 @@
       ],
       "en": {
         "title": "Pocket Jukebox",
-        "summary": "A bundle for up to 20 discs (Vanilla and custom discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
+        "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
         "details": [
           "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
           "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
@@ -248,7 +300,7 @@
       },
       "de": {
         "title": "Taschen-Jukebox",
-        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und eigene Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
+        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
         "details": [
           "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
           "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
@@ -266,7 +318,7 @@
       ],
       "en": {
         "title": "Moderation",
-        "summary": "Everyone may burn up to 5 discs; others hear a disc only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once.",
+        "summary": "Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once.",
         "details": [
           "Operators: /music list [pending], /music approve|reject|delete <hash>, /music info <hash> (hash or its first 6+ characters), /music ban|unban <player>.",
           "Tracks live in <world>/simplemusic/tracks/ with an index.json; the same file is stored once."
@@ -274,7 +326,7 @@
       },
       "de": {
         "title": "Moderation",
-        "summary": "Jeder darf bis zu 5 Platten brennen; andere hören eine Platte erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist sie sofort frei.",
+        "summary": "Jeder darf bis zu 5 Titel hochladen; andere hören einen Titel erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist er sofort frei.",
         "details": [
           "Operatoren: /music list [pending], /music approve|reject|delete <hash>, /music info <hash> (Hash oder seine ersten 6+ Zeichen), /music ban|unban <spieler>.",
           "Titel liegen in <welt>/simplemusic/tracks/ mit einer index.json; dieselbe Datei wird einmal gespeichert."
@@ -335,10 +387,10 @@
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+        "summary": "Guide to this mod: 21 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+        "summary": "Handbuch zu dieser Mod: 21 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
       }
     },
     "simplemusic:*_pocket_jukebox": {

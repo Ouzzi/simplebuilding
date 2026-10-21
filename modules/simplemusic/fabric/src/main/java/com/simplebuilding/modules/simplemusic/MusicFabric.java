@@ -36,7 +36,9 @@ public final class MusicFabric implements ModInitializer {
         MusicComponents.register();
         MusicRegistry.registerBlocks();
         MusicRegistry.registerItems();
-        MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION)));
+        MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION)),
+                new BlockEntityType<>(com.simplemusic.press.DiscPressBlockEntity::new, Set.of(MusicRegistry.DISC_PRESS)));
+        MusicRegistry.registerMenus();
         MusicRegistry.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleMusic.MOD_ID)) return;

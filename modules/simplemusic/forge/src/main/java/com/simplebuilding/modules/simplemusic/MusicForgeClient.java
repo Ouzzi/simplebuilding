@@ -11,8 +11,10 @@ import net.minecraftforge.network.PacketDistributor;
 
 /** Forge client: screen openers, sender and tick. Loaded only on the client. */
 final class MusicForgeClient {
-    static void init() {
+    static void init(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context) {
         MusicClient.init();
+        net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(() ->
+                net.minecraft.client.gui.screens.MenuScreens.register(com.simplemusic.registry.MusicRegistry.DISC_PRESS_MENU, com.simplemusic.client.DiscPressScreen::new)));
         SimpleMusic.toServer = payload -> MusicForge.channel.send(payload, PacketDistributor.SERVER.noArg());
         net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(event -> MusicClient.tick());
         net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent.BUS.addListener(event ->

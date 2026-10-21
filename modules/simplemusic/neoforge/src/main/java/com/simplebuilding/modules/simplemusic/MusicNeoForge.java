@@ -43,8 +43,10 @@ public final class MusicNeoForge {
             if (key.equals(Registries.ITEM)) MusicRegistry.registerItems();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) MusicRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION), false));
+                MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION), false),
+                        new BlockEntityType<>(com.simplemusic.press.DiscPressBlockEntity::new, Set.of(MusicRegistry.DISC_PRESS), false));
             }
+            if (key.equals(Registries.MENU)) MusicRegistry.registerMenus();
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             boolean vanillaTabs = com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleMusic.MOD_ID);

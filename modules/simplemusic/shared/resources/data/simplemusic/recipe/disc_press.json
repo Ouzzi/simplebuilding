@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " P ",
+    "I I",
+    "SSS"
+  ],
+  "key": {
+    "P": "minecraft:piston",
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "simplemusic:disc_press",
+    "count": 1
+  }
+}

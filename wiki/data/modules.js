@@ -1195,10 +1195,10 @@ window.WIKI_MODULES = [
     ],
     "counts": {
       "items": 21,
-      "blocks": 1,
-      "recipes": 37,
-      "features": 14
+      "blocks": 2,
+      "recipes": 38,
+      "features": 16
     },
-    "dataHash": "ccbc81fb2145"
+    "dataHash": "787e9d90d89c"
   }
 ];

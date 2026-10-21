@@ -8,7 +8,6 @@ public final class MusicClient {
 
     public static void init() {
         SimpleMusic.openSheet = SheetMusicScreen::open;
-        SimpleMusic.openBurn = BurnScreen::open;
     }
 
     public static void tick() {
