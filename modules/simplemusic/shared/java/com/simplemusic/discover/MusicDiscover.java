@@ -51,37 +51,22 @@ public final class MusicDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simplemusic:black_pocket_jukebox",
+            "simplemusic:*_pocket_jukebox",
             "simplemusic:blank_disc",
-            "simplemusic:blue_pocket_jukebox",
-            "simplemusic:brown_pocket_jukebox",
             "simplemusic:config_server",
             "simplemusic:creative_tab_switch",
             "simplemusic:custom_disc",
-            "simplemusic:cyan_pocket_jukebox",
-            "simplemusic:gray_pocket_jukebox",
-            "simplemusic:green_pocket_jukebox",
             "simplemusic:guide_book",
-            "simplemusic:light_blue_pocket_jukebox",
-            "simplemusic:light_gray_pocket_jukebox",
-            "simplemusic:lime_pocket_jukebox",
-            "simplemusic:magenta_pocket_jukebox",
             "simplemusic:moderation",
             "simplemusic:note_code",
-            "simplemusic:orange_pocket_jukebox",
             "simplemusic:orchestrion",
             "simplemusic:orchestrion_playlist",
             "simplemusic:orchestrion_redstone",
-            "simplemusic:pink_pocket_jukebox",
             "simplemusic:pocket_jukebox",
-            "simplemusic:purple_pocket_jukebox",
-            "simplemusic:red_pocket_jukebox",
             "simplemusic:sheet_editor",
             "simplemusic:sheet_import",
             "simplemusic:sheet_music",
-            "simplemusic:upload_check",
-            "simplemusic:white_pocket_jukebox",
-            "simplemusic:yellow_pocket_jukebox");
+            "simplemusic:upload_check");
     static final List<Tip> TIPS = List.of(
             new Tip("sheet_music", List.of("sheet_music")),
             new Tip("pocket_jukebox", List.of("*pocket_jukebox")));
