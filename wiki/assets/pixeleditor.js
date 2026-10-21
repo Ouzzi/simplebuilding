@@ -168,7 +168,7 @@
     '.pe-vsep{width:1px;align-self:stretch;margin:6px 6px;background:var(--pe-line)}',
     '.pe-zoom{min-width:3.6em;text-align:center;font:600 13px ui-monospace,monospace;color:var(--pe-muted)}',
     /* buttons */
-    '.pe-btn{border:1px solid transparent;background:transparent;border-radius:8px;min-height:44px;min-width:44px;padding:0 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;touch-action:manipulation;white-space:nowrap}',
+    '.pe-btn{border:1px solid transparent;background:transparent;border-radius:8px;min-height:44px;min-width:44px;padding:0 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;touch-action:manipulation;white-space:nowrap;-webkit-tap-highlight-color:transparent}',
     '.pe-btn:hover:not(:disabled){background:var(--pe-hover)}',
     '.pe-btn.pe-icon{padding:0;width:44px}',
     '.pe-btn.pe-soft{background:var(--pe-btn);border-color:var(--pe-line)}',
@@ -683,7 +683,7 @@
     var c = inside && comp ? C.pixelAt(comp, m.w, p[0], p[1]) : null;
     var sw = h('i'); if (c) sw.style.background = cssColor(c); else sw.style.visibility = 'hidden';
     b.appendChild(h('span', { 'data-st': 'pos', text: inside ? p[0] + ', ' + p[1] : '–, –' }));
-    b.appendChild(h('span', { 'data-st': 'color' }, [sw, c ? hexOf(c) : '#--------']));
+    b.appendChild(h('span', { 'data-st': 'color' }, [sw, c ? hexOf(c) : '–']));
     b.appendChild(h('span', { class: 'pe-dkst', 'data-st': 'size', text: m.w + '×' + m.h }));
     b.appendChild(h('span', { 'data-st': 'zoom', text: S.zoom + '×' }));
     var ls = h('span', { class: 'pe-st-sp', 'data-st': 'layer', text: l ? l.name : '' });
