@@ -356,6 +356,10 @@ Großansicht „✎ Bearbeiten“. Das lädt `assets/pixeleditor-core.js` (Forma
 Funktionen) und `assets/pixeleditor.js` (Oberfläche). Das öffentliche Wiki lädt beides nie. Ablauf:
 
 1. Bearbeiten (Stift, Radierer, Füllen, Pipette, Linie, Rechteck, Auswahl/Verschieben, Spiegel-Symmetrie, Ebenen).
+   Oberfläche (Plan `docs/ai/PLAN-B-PIXELEDITOR2-2026-10-21.md`): eigene SVG-Icons, Tooltip = Name + Tastenkürzel,
+   Kontextleiste je Werkzeug (Pinselgröße 1–3, Pixel Perfect, Symmetrie, Gefüllt, Überall), Statusleiste, Ebenen mit
+   Vorschau, Auge/Sperre und Ziehgriff; Handy: Werkzeuge unten, Farben/Ebenen/Mehr als Blätter. Browser-Test:
+   `wiki/tests/pixeleditor_ui.cjs` (Playwright, auf sb-test).
 2. „PNG + Ebenen“ lädt `<name>.png` und `<name>.layers.json` herunter (die Seite ist statisch, sie schreibt nichts ins Repo).
 3. Beide in den Ordner des Originals legen (Pfad steht im Editor), dann
    `python tools/textures/layers.py check` und `python wiki/generate.py --all`, committen.

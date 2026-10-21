@@ -1,6 +1,7 @@
 """Wiki pixel editor (docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md): dev hook, scripts, JS core == tools/textures/layers.py."""
 import json
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -39,6 +40,27 @@ class EditorWiring(unittest.TestCase):
             self.assertIn(needle, ui)
         index = (ROOT / 'wiki' / 'index.html').read_text(encoding='utf-8')
         self.assertIn("devHook('texture-zoom'", index, 'the overlay finds the zoomed texture through this hook')
+
+    def test_every_button_has_a_defined_svg_icon(self):
+        """Plan b-pixeleditor2: own SVG icons (24 grid, currentColor) instead of Unicode glyphs on buttons."""
+        ui = (ROOT / 'wiki' / 'assets' / 'pixeleditor.js').read_text(encoding='utf-8')
+        block = ui[ui.index('var ICONS = {'):ui.index('function icon(name)')]
+        defined = set(re.findall(r"^\s+(\w+): '<", block, re.M))
+        used = set(re.findall(r"\b(?:ibtn|icon)\('(\w+)'[,)]", ui))
+        tools = set(re.findall(r"\['(\w+)', '[a-z]', 'g[A-Z]\w+'\]", ui))
+        self.assertEqual(len(tools), 8, tools)
+        used |= tools | {'size1', 'size2', 'size3'}
+        self.assertTrue(used <= defined, sorted(used - defined))
+        self.assertIn('viewBox="0 0 24 24"', ui)
+        self.assertIn('stroke="currentColor"', ui)
+        self.assertNotIn('<path d="M', ui.replace(block, ''), 'icons live only in ICONS')
+        # no glyph-only buttons left (old style btn('✎', ...)); tooltips carry the shortcut
+        self.assertNotRegex(ui, r"\bbtn\('[^a-zA-Z]")
+        for glyph in ('📂', '🗑', '🔒', '📋', '⤓', '✥', '⬚'):
+            self.assertNotIn(glyph, ui)
+        self.assertIn("function tip(k)", ui)
+        for tool, key in (('pencil', 'B'), ('eraser', 'E'), ('fill', 'G'), ('picker', 'I'), ('line', 'L'), ('rect', 'U'), ('select', 'M'), ('move', 'V')):
+            self.assertRegex(ui, rf"\b{tool}: '{key}'")
 
     def test_pilot_layer_source_is_in_the_index(self):
         text = (ROOT / 'wiki' / 'data' / 'textures.js').read_text(encoding='utf-8')

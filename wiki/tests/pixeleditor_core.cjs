@@ -45,6 +45,12 @@ async function selfTests() {
   assert.equal(C.rectPoints(0, 0, 2, 2, true).length, 9);
   assert.deepEqual(C.pixelPerfect([[0, 0], [1, 0], [1, 1], [2, 1]]), [[0, 0], [1, 1], [2, 1]]);
   assert.deepEqual(C.mirror([[0, 0]], 4, 4, { x: true, y: true }).sort(), [[0, 0], [0, 3], [3, 0], [3, 3]].sort());
+  // square brush 1/2/3 (2 grows right/down, 3 is centred, overlaps counted once)
+  assert.deepEqual(C.brush([[2, 2]], 1), [[2, 2]]);
+  assert.deepEqual(C.brush([[2, 2]], 2), [[2, 2], [3, 2], [2, 3], [3, 3]]);
+  assert.equal(C.brush([[2, 2]], 3).length, 9);
+  assert.deepEqual(C.brush([[2, 2]], 3)[0], [1, 1]);
+  assert.equal(C.brush([[0, 0], [1, 0]], 2).length, 6);
   const f = new Uint8ClampedArray(3 * 3 * 4);
   C.plot(f, 3, 3, [[1, 0], [1, 1], [1, 2]], [9, 9, 9, 255]);
   assert.equal(C.fill(f, 3, 3, 0, 0, [5, 5, 5, 255], false).length, 3, 'wall stops the fill');

@@ -296,6 +296,19 @@
     }
     return out;
   }
+  /* Square brush: every point grows to size x size (size 2 grows right/down, 3 is centred), duplicates removed. */
+  function brush(pts, size) {
+    size = Math.max(1, Math.min(8, size | 0));
+    if (size === 1) return pts;
+    var lo = -((size - 1) >> 1), hi = lo + size - 1, seen = new Set(), out = [];
+    pts.forEach(function (p) {
+      for (var dy = lo; dy <= hi; dy++) for (var dx = lo; dx <= hi; dx++) {
+        var x = p[0] + dx, y = p[1] + dy, k = x + ',' + y;
+        if (!seen.has(k)) { seen.add(k); out.push([x, y]); }
+      }
+    });
+    return out;
+  }
   /* Points mirrored at the texture centre: sym = {x: vertical axis, y: horizontal axis} */
   function mirror(pts, w, h, sym) {
     if (!sym || (!sym.x && !sym.y)) return pts;
@@ -445,7 +458,7 @@
     compose: compose, cloneModel: cloneModel, mergeDown: mergeDown, colorsOf: colorsOf, gpl: gpl,
     crc32: crc32, inflate: inflate, deflate: deflate, deflateStored: deflateStored, pngChunks: pngChunks, pngPixels: pngPixels,
     pngDecode: pngDecode, pngEncode: pngEncode,
-    linePoints: linePoints, rectPoints: rectPoints, pixelPerfect: pixelPerfect, mirror: mirror, plot: plot, fill: fill, pixelAt: pixelAt,
+    linePoints: linePoints, rectPoints: rectPoints, pixelPerfect: pixelPerfect, brush: brush, mirror: mirror, plot: plot, fill: fill, pixelAt: pixelAt,
     clipRect: clipRect, copyRect: copyRect, clearRect: clearRect, pasteBuf: pasteBuf, flipBuf: flipBuf, rotateBuf: rotateBuf, transformRect: transformRect,
     History: History
   };
