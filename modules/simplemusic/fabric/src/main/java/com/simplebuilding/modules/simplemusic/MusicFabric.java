@@ -50,7 +50,7 @@ public final class MusicFabric implements ModInitializer {
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.WRITABLE_BOOK))) out.insertBefore(Items.WRITABLE_BOOK, book, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             else book.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             var pockets = MusicRegistry.toolStacks();
-            if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.PINK_BUNDLE))) out.insertAfter(Items.PINK_BUNDLE, pockets, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.DYED_BUNDLE.black()))) out.insertAfter(Items.DYED_BUNDLE.black(), pockets, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             else pockets.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
         PayloadTypeRegistry.serverboundPlay().register(SheetEditPayload.TYPE, SheetEditPayload.CODEC);

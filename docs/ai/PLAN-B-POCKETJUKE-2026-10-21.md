@@ -41,7 +41,7 @@ diamant um konsistent zu bleiben“, Ort Simple Music. Vorbild und Vorschlag: `d
    Vanilla-Platten über `simplemusic:sounds/seek/<s>/<ns>/<pfad>` im vorhandenen `SoundBufferLibraryMixin`.
    Upload-Platten: Download-Sperre erlaubt auch die Pocket-Sitzung (`PocketPlayback.playsFor`).
 6. Tooltip-Zeile (Nachtrag 38 (a), Bedienung nicht offensichtlich): eine Zeile „Benutzen: abspielen/pausieren“.
-7. Kreativ: eigener Musik-Tab (alle 17) und Vanilla-Tab Werkzeuge (nach den Bündeln, Fabric `insertAfter(PINK_BUNDLE)`).
+7. Kreativ: eigener Musik-Tab (alle 17) und Vanilla-Tab Werkzeuge (nach den Bündeln, Fabric `insertAfter(DYED_BUNDLE.black())`).
 8. Rückport-Regel: Java hat kein Gegenstück; Port-Notiz im Wiki.
 
 ## Dateien

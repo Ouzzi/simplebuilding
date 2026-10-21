@@ -384,10 +384,10 @@ public final class MusicTests {
             ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(0));
             PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_CAT));
             PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_13));
-            ItemStack blue = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(jukebox, new ItemStack(Items.BLUE_DYE))));
+            ItemStack blue = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(jukebox, new ItemStack(Items.DYE.blue()))));
             h.assertTrue(blue.is(MusicRegistry.POCKET_JUKEBOXES.get(1 + net.minecraft.world.item.DyeColor.BLUE.ordinal())), "dyed blue: " + blue);
             h.assertTrue(PocketJukeboxItem.contents(blue).size() == 2, "dyeing keeps the discs");
-            ItemStack red = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(blue, new ItemStack(Items.RED_DYE))));
+            ItemStack red = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(blue, new ItemStack(Items.DYE.red()))));
             h.assertTrue(red.getItem() instanceof PocketJukeboxItem p && p.color == net.minecraft.world.item.DyeColor.RED, "dyed again: " + red);
             h.assertTrue(!jukebox.is(net.minecraft.tags.ItemTags.BUNDLES), "not a Vanilla bundle (its dye recipes would eat it)");
             h.succeed();
