@@ -30,6 +30,8 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     private NonNullList<ItemStack> items;
     private int attachStrikes;
     private long lastStrike;
+    private int upgradeStrikes; // own counter: attaching and upgrading with the axe must not feed each other
+    private long lastUpgradeStrike;
 
     public CrucibleBarrelBlockEntity(BlockPos pos, BlockState state) {
         this(CrucibleBlockEntities.BARREL, pos, state);
@@ -55,6 +57,13 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
         if (now - lastStrike > 600) attachStrikes = 0;
         lastStrike = now;
         return ++attachStrikes;
+    }
+
+    public int addUpgradeStrike() {
+        long now = level == null ? 0 : level.getGameTime();
+        if (now - lastUpgradeStrike > 600) upgradeStrikes = 0;
+        lastUpgradeStrike = now;
+        return ++upgradeStrikes;
     }
 
     @Override

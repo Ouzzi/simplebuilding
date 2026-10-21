@@ -63,7 +63,7 @@ public final class StatNames {
         if (part.equals("baby") || part.equals("charged")) return Component.translatable("stat.simplestats.variant." + part);
         if (part.startsWith("size_")) return Component.translatable("stat.simplestats.variant.size", part.substring(5));
         if (DyeColor.byName(part, null) != null) return Component.translatable("color.minecraft." + part);
-        return Component.literal(title(part));
+        return Component.translatableWithFallback("stat.simplestats.variant.part." + part, title(part));
     }
 
     /** "stone_brick" becomes "Stone Brick" (readable fallback when no translation exists). */

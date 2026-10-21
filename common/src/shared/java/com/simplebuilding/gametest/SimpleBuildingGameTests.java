@@ -1574,6 +1574,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_wand_game_test_wand_armed_without_material_searches_again_and_palette_falls_back_to_stone", BuildingWandTests::wandArmedWithoutMaterialSearchesAgainAndPaletteFallsBackToStone)
                     .build(),
+            GameTestSpec.named("building_wand_game_test_wand_stops_on_broken_face_or_other_dimension", BuildingWandTests::wandStopsOnBrokenFaceOrOtherDimension)
+                    .build(),
             GameTestSpec.named("building_wand_game_test_wand_enchantments_only_stick_to_the_wands_in_their_item_tag", BuildingWandTests::wandEnchantmentsOnlyStickToTheWandsInTheirItemTag)
                     .build(),
             GameTestSpec.named("building_wand_game_test_wand_recipes_craft_the_lower_tiers_and_forge_the_upper_ones", BuildingWandTests::wandRecipesCraftTheLowerTiersAndForgeTheUpperOnes)

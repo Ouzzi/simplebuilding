@@ -72,7 +72,7 @@ public final class CrucibleUpgrades {
             player.getCooldowns().addCooldown(tool, CrucibleBlankBlock.STRIKE_COOLDOWN);
             return true;
         }
-        else if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) done = barrel.addAttachStrike();
+        else if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) done = barrel.addUpgradeStrike();
         else if (state.is(net.minecraft.world.level.block.Blocks.CAULDRON)) {
             done = cauldronStrike(server, pos);
             needed = CAULDRON_STRIKES;

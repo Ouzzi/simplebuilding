@@ -67,6 +67,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void logOctetsMineWithTheAxe(GameTestHelper h) {
+        OctetTests.ALL.get("log_octets_mine_with_the_axe").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void woodAndWoolOctetsBurn(GameTestHelper h) {
         OctetTests.ALL.get("wood_and_wool_octets_burn").accept(h);
     }

@@ -57,6 +57,11 @@ public final class BuildingWandGameTest {
     }
 
     @GameTest
+    public void wandStopsOnBrokenFaceOrOtherDimension(GameTestHelper helper) {
+        BuildingWandTests.wandStopsOnBrokenFaceOrOtherDimension(helper);
+    }
+
+    @GameTest
     public void wandEnchantmentsOnlyStickToTheWandsInTheirItemTag(GameTestHelper helper) {
         BuildingWandTests.wandEnchantmentsOnlyStickToTheWandsInTheirItemTag(helper);
     }

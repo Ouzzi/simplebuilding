@@ -137,6 +137,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
+    public void barrelStrikeCountersAreSeparate(GameTestHelper h) {
+        CrucibleTests.ALL.get("barrel_strike_counters_are_separate").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
     public void axeUpgradesCauldron(GameTestHelper h) {
         CrucibleTests.ALL.get("axe_upgrades_cauldron").accept(h);
     }

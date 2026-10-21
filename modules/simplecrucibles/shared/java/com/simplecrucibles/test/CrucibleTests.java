@@ -66,6 +66,7 @@ public final class CrucibleTests {
         ALL.put("client_menu_shows_the_raised_stack_limit", CrucibleTests::clientMenuStackLimit);
         ALL.put("axe_click_reaches_axe_not_menu", CrucibleTests::axeClickReachesAxe);
         ALL.put("axe_upgrades_cauldron", CrucibleTests::axeUpgradesCauldron);
+        ALL.put("barrel_strike_counters_are_separate", CrucibleTests::barrelStrikeCountersAreSeparate);
         ALL.put("reinforced_cauldron_holds_buckets", CrucibleTests::reinforcedCauldronBuckets);
         ALL.put("reinforced_cauldron_inherits_vanilla", CrucibleTests::reinforcedCauldronInheritsVanilla);
         ALL.put("axe_upgrades_barrel_to_netherite", CrucibleTests::axeUpgradesBarrelToNetherite);
@@ -822,6 +823,17 @@ public final class CrucibleTests {
     }
 
     /** Owner 56 B: without SimpleBuilding a cauldron becomes reinforced with an axe and 8 diamonds (doubled 2026-10-06). */
+    /** Attaching and upgrading a barrel with the axe count their strikes apart (they used to share one counter). */
+    private static void barrelStrikeCountersAreSeparate(GameTestHelper h) {
+        BlockPos rel = new BlockPos(2, 2, 2);
+        h.setBlock(rel, CrucibleBlocks.COPPER_BARREL);
+        var barrel = (com.simplecrucibles.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
+        check(h, barrel.addAttachStrike() == 1 && barrel.addAttachStrike() == 2, "attach strikes count up");
+        check(h, barrel.addUpgradeStrike() == 1, "upgrade strikes start at 1, not after the attach strikes");
+        check(h, barrel.addAttachStrike() == 3 && barrel.addUpgradeStrike() == 2, "each counter keeps its own count");
+        h.succeed();
+    }
+
     private static void axeUpgradesCauldron(GameTestHelper h) {
         BlockPos rel = new BlockPos(1, 2, 1);
         h.setBlock(rel, Blocks.CAULDRON);
