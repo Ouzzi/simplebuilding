@@ -1481,13 +1481,7 @@
           "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
           "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
         ]
-      },
-      "items": [
-        "simplestorage:backpack",
-        "simplestorage:reinforced_backpack",
-        "simplestorage:netherite_backpack",
-        "simplestorage:enderite_backpack"
-      ]
+      }
     }
   }
 }
