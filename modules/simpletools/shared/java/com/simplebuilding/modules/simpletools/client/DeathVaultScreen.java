@@ -1,6 +1,5 @@
 package com.simplebuilding.modules.simpletools.client;
 
-import com.simplebuilding.modules.simpletools.vault.DeathLedger;
 import com.simplebuilding.modules.simpletools.vault.DeathVault;
 import com.simplebuilding.modules.simpletools.vault.DeathVaultMenu;
 import com.simplebuilding.modules.simpletools.vault.Fate;
@@ -49,11 +48,15 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     // --- data of one field -------------------------------------------------------------------------------------------
 
     private int flags(int index) {
-        return menu.data(DeathVaultMenu.D_ROWS + 2 * index);
+        return menu.data(DeathVaultMenu.D_ROWS + 3 * index);
     }
 
     private int age(int index) {
-        return menu.data(DeathVaultMenu.D_ROWS + 2 * index + 1);
+        return menu.data(DeathVaultMenu.D_ROWS + 3 * index + 1);
+    }
+
+    private int lifespan(int index) {
+        return menu.data(DeathVaultMenu.D_ROWS + 3 * index + 2);
     }
 
     private boolean shownField(int index) {
@@ -133,7 +136,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
 
     /** Despawn bar over the lower edge of the item (like a durability bar): full = just dropped, empty = about to vanish. */
     private void timerBar(GuiGraphicsExtractor g, int x, int y, int index) {
-        float left = never(index) ? 1.0F : Mth.clamp(1.0F - age(index) / (float) DeathLedger.LIFETIME, 0.0F, 1.0F);
+        float left = never(index) ? 1.0F : Mth.clamp(1.0F - age(index) / (float) lifespan(index), 0.0F, 1.0F);
         int color = never(index) ? 0xFFB8B8FF : running(index) ? ARGB.opaque(Mth.hsvToRgb(left / 3.0F, 1.0F, 1.0F)) : PAUSE;
         g.fill(x + 2, y + 13, x + 15, y + 16, 0xFF000000);
         g.fill(x + 2, y + 14, x + 2 + Math.round(13 * left), y + 16, color);
@@ -153,8 +156,8 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         if (slot != null && slot.index < DeathVaultMenu.SHOWN && lying(slot.index)) {
             int i = slot.index;
             if (never(i)) lines.add(Component.translatable("screen.simpletools.death_vault.timer.never").withColor(0xB8B8FF));
-            else if (running(i)) lines.add(Component.translatable("screen.simpletools.death_vault.timer", clock(DeathLedger.LIFETIME - age(i))).withColor(0x55D05A));
-            else lines.add(Component.translatable("screen.simpletools.death_vault.paused.tip", clock(DeathLedger.LIFETIME - age(i))).withColor(0xE08A30));
+            else if (running(i)) lines.add(Component.translatable("screen.simpletools.death_vault.timer", clock(lifespan(i) - age(i))).withColor(0x55D05A));
+            else lines.add(Component.translatable("screen.simpletools.death_vault.paused.tip", clock(lifespan(i) - age(i))).withColor(0xE08A30));
         }
         return lines;
     }
@@ -208,7 +211,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
             if (lying(i) && !never(i)) {
                 if (running(i)) {
                     lyingRunning++;
-                    next = Math.min(next, DeathLedger.LIFETIME - age(i));
+                    next = Math.min(next, lifespan(i) - age(i));
                 } else lyingStalled++;
             }
         }

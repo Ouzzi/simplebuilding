@@ -358,6 +358,22 @@ public final class DeathTests {
     /** Despawn, lava, fire, explosion and void make a stack redeemable; the entity is gone, so the return never duplicates. */
     public static void vaultLost(GameTestHelper h) {
         redeeming(() -> {
+            UUID shortOwner = UUID.randomUUID();
+            ItemEntity brief = spawn(h, new ItemStack(Items.QUARTZ, 2), new BlockPos(1, 2, 2));
+            ledger(h).record(shortOwner, 0, Optional.empty(), List.of(brief));
+            var vanilla = DeathLedger.lifespanOf;
+            DeathLedger.lifespanOf = e -> 200; // like NeoForge's getEntityLifespan / ItemEntity.lifespan
+            try {
+                ((ItemEntityAgeAccessor) brief).simpletools$setAge(150);
+                brief.tick();
+                h.assertTrue(!brief.isRemoved(), "custom lifespan 200: still lying at age 151");
+                h.assertValueEqual(DeathVault.rows(h.getLevel().getServer(), shortOwner).get(0).lifespan(), 200, "the row carries the lifespan");
+                ((ItemEntityAgeAccessor) brief).simpletools$setAge(199);
+                brief.tick();
+                h.assertTrue(brief.isRemoved() && lost(h, shortOwner) == 1, "custom lifespan 200: despawn at 200 counts as despawned");
+            } finally {
+                DeathLedger.lifespanOf = vanilla;
+            }
             UUID owner = UUID.randomUUID();
             ServerLevel level = h.getLevel();
             ItemEntity despawn = spawn(h, new ItemStack(Items.IRON_INGOT, 3), new BlockPos(1, 2, 1));
@@ -539,9 +555,9 @@ public final class DeathTests {
                 h.assertTrue(menu.data(DeathVaultMenu.D_SINCE) == 0, "death age in minutes");
                 int[] fate = new int[4], flags = new int[4], age = new int[4];
                 for (int i = 0; i < 4; i++) {
-                    flags[i] = menu.data(DeathVaultMenu.D_ROWS + 2 * i);
+                    flags[i] = menu.data(DeathVaultMenu.D_ROWS + 3 * i);
                     fate[i] = flags[i] & DeathVault.F_FATE_MASK;
-                    age[i] = menu.data(DeathVaultMenu.D_ROWS + 2 * i + 1);
+                    age[i] = menu.data(DeathVaultMenu.D_ROWS + 3 * i + 1);
                 }
                 h.assertTrue(fate[0] == Fate.LYING.id && fate[1] == Fate.LYING.id && fate[2] == Fate.LYING.id && fate[3] == Fate.BURNED.id, "lying first, burned last");
                 for (int i = 0; i < 3; i++) {
