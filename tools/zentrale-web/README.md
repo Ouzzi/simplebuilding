@@ -15,7 +15,7 @@ Die Knöpfe unter „Laptop-Start“ nutzen das Protokoll `simplemods://` des La
 ## Dateien
 - `index.html` – Status-Dashboard mit KI-Queue
 - `devqueue.py` – HTTP-Server für die KI-Queue
-- `dev-overlay.js` – Overlay für Wiki (dev), lädt `window.sbDevHook` und sendet Anfragen an die API
+- `dev-overlay.js` – Overlay für Wiki (dev), lädt `window.sbDevHook` und sendet Anfragen an die API; ✎/„Bearbeiten“ an Texturen öffnet den Pixeleditor der Wiki (`wiki/assets/pixeleditor*.js`, siehe `wiki/README.md`)
 - `modselect.py` – Mod-Baum (Super-Mod ▸ Sub-Mods aus `modules/modules.json` + geplante Sub-Mods), Regeln, Start-Auswahl
 - `collect_downloads.py` / `publish_downloads.sh` – Jars eines gate-grünen Stands für den Reiter Downloads einsammeln
 - `starter/` – Windows-Starter (`starter.ps1`, Protokoll `simplemods://`) und Installer (`install.ps1`), siehe „Neuer PC“

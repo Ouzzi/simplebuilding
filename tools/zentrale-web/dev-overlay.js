@@ -1,7 +1,9 @@
 /* Dev overlay for the wiki mirror in the Zentrale (only the Zentrale loads this file).
  * Adds selection boxes to texture and item tiles, a bar to send the selection with one optional comment to the
  * dev queue (/api/queue), a request button in the texture zoom and a panel on item pages.
- * The wiki calls window.sbDevHook after rendering; a MutationObserver covers renders before this script loaded. */
+ * The wiki calls window.sbDevHook after rendering; a MutationObserver covers renders before this script loaded.
+ * "Bearbeiten" (zoom) and the pencil on texture tiles open the pixel editor of the wiki (wiki/assets/pixeleditor*.js,
+ * loaded on first use relative to the wiki page; docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md). */
 (function () {
   if (window.sbDevHook) return;
   var sel = new Map();          // key -> {id, label, path}
@@ -47,6 +49,34 @@
     }).catch(function () {});
   }
 
+  /* ---- pixel editor ---- */
+  var editorLoad = null;
+  function loadScript(src) {
+    return new Promise(function (ok, fail) {
+      var s = document.createElement('script');
+      s.src = src; s.onload = ok; s.onerror = function () { fail(new Error(src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function loadEditor() {
+    if (window.SBPixelEditor) return Promise.resolve();
+    if (!editorLoad) editorLoad = loadScript('assets/pixeleditor-core.js').then(function () { return loadScript('assets/pixeleditor.js'); })
+      .catch(function (e) { editorLoad = null; throw e; });
+    return editorLoad;
+  }
+  function textureById(id) {
+    var all = window.WIKI_TEXTURES && window.WIKI_TEXTURES.textures || [];
+    for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
+    return null;
+  }
+  function editTexture(t) {
+    if (!t || !t.file) { toast('Textur nicht gefunden', false); return; }
+    var name = t.name && typeof t.name === 'object' ? (t.name[window.LANG] || t.name.en || t.id) : (t.name || t.id);
+    loadEditor().then(function () {
+      return window.SBPixelEditor.open({ id: t.id, name: name, png: t.file, layers: t.layers || null, source: t.source || '' });
+    }).catch(function (e) { toast('Editor nicht ladbar: ' + (e && e.message || e), false); });
+  }
+
   /* ---- tiles ---- */
   /* item id from a wiki link: query mode (?item=ns:id) or hash mode (#/items/ns:id) */
   function itemOf(href) {
@@ -83,6 +113,15 @@
         paint();
       });
       t.appendChild(cb);
+    }
+    if (info.kind === 'textures' && !t.querySelector(':scope > .dev-edit')) {
+      var pen = el('span', 'position:absolute;bottom:4px;right:4px;z-index:5;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#3b5b8c;color:#fff;font:700 16px system-ui,sans-serif;cursor:pointer', '✎');
+      pen.className = 'dev-edit';
+      pen.setAttribute('role', 'button');
+      pen.title = 'Im Pixeleditor bearbeiten';
+      // a span, not a button: the tile itself is a <button>
+      pen.addEventListener('click', function (e) { e.stopPropagation(); e.preventDefault(); editTexture(textureById(info.target.id)); });
+      t.appendChild(pen);
     }
     cb.checked = sel.has(info.key);
     t.style.outline = cb.checked ? '3px solid #3b5b8c' : '';
@@ -162,7 +201,11 @@
     b.onclick = function () {
       send('textures', 'texture', [{ id: t.id, label: t.name || t.id, path: t.file || '' }], c.value).then(function (ok) { if (ok) c.value = ''; });
     };
-    wrap.appendChild(c); wrap.appendChild(b); head.appendChild(wrap);
+    var edit = el('button', SECOND.replace('min-height:38px', 'min-height:32px'), '✎ Bearbeiten');
+    edit.className = 'dev-edit';
+    edit.title = 'Im Pixeleditor bearbeiten (Ebenen)';
+    edit.onclick = function () { editTexture(t); };
+    wrap.appendChild(edit); wrap.appendChild(c); wrap.appendChild(b); head.appendChild(wrap);
   }
   function itemPanel(info) {
     var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '');
@@ -212,7 +255,7 @@
     for (var i = 0; i < records.length; i++) {
       var n = records[i].target;
       if (bar && bar.contains(n)) continue;
-      if (n.nodeType === 1 && n.closest && n.closest('.dev-item, .dev-zoom')) continue;
+      if (n.nodeType === 1 && n.closest && n.closest('.dev-item, .dev-zoom, .pe-root')) continue;
       later();
       return;
     }

@@ -123,6 +123,18 @@ class TextureIndexTests(unittest.TestCase):
         self.assertTrue(any('out of date' in p for p in problems))
         self.assertTrue(any('ghost2.png' in p for p in problems))
 
+    def test_layer_source_is_copied_and_named(self):
+        self.put('src/main/resources/assets/simplebuilding/textures/item/rod.png', png(16, 16))
+        self.put('src/main/resources/assets/simplebuilding/textures/item/rod.layers.json', '{"format": "sb-layers"}')
+        self.put('src/main/resources/assets/simplebuilding/textures/item/bare.png', png(16, 16, 4))
+        index, writes = tx.build(self.repo, self.wiki, self.entries())
+        by_id = {t['id']: t for t in index['textures']}
+        self.assertEqual(by_id['simplebuilding:item/rod']['layers'],
+                         'assets/textures/sheets/simplebuilding/simplebuilding/item/rod.layers.json')
+        self.assertEqual(writes[by_id['simplebuilding:item/rod']['layers']], b'{"format": "sb-layers"}')
+        self.assertNotIn('layers', by_id['simplebuilding:item/bare'])
+        self.assertEqual(len(index['textures']), 2, 'the layer source is no texture of its own')
+
     def test_check_ignores_commit_dates(self):
         self.put('src/main/resources/assets/simplebuilding/textures/item/a.png', png(16, 16))
         tx.sync(self.repo, self.wiki, self.entries())

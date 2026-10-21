@@ -7,7 +7,8 @@ kept by hand: generate.py calls sync() on its default run and on --all.
 
 Images: a byte-identical copy that the wiki already holds under assets/textures/ (item and
 block icons) is reused; everything else is copied to assets/textures/sheets/<module>/<ns>/.
-Copies nothing references any more are removed.
+Copies nothing references any more are removed. A layer source next to a PNG (<name>.layers.json,
+tools/textures/layers.py) is copied beside the sheets and named in the entry as "layers" (wiki pixel editor).
 
 UI screenshots (--ui-shots DIR) land in assets/ui/ and data/ui-shots.js. Both are ignored
 by git and not published: they are local client-test output.
@@ -228,6 +229,11 @@ def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, 
             entry["itemMod"] = link["mod"]
             if link["icon"] and link["icon"] != file:
                 entry["icon"] = link["icon"]
+        layer_src = src["source"].with_name(stem + ".layers.json")
+        if layer_src.is_file():
+            # layer source of the pixel editor (tools/textures/layers.py, PRINZIPIEN A8 b): copied beside the sheets
+            entry["layers"] = f"{SHEETS}/{src['module']}/{src['ns']}/{src['path'][:-4]}.layers.json"
+            writes[entry["layers"]] = layer_src.read_bytes()
         if anim:
             entry["anim"] = anim
         if meta is not None:

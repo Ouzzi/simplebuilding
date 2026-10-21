@@ -314,7 +314,8 @@ tasks.named('check') { dependsOn 'checkBalance' }
 // and empty tag files (only documented extension points). Same skip switch as checkWiki.
 ['checkLangText': 'tools/check_tooltip_text.py', 'checkEmptyTags': 'tools/check_empty_tags.py',
  'checkLootFormat': 'tools/check_loot_format.py --strict', 'checkUiContrast': 'tools/check_ui_contrast.py',
- 'checkItemProperties': 'tools/check_item_properties.py', 'checkMissingTextures': 'tools/check_missing_textures.py'].each { taskName, script ->
+ 'checkItemProperties': 'tools/check_item_properties.py', 'checkMissingTextures': 'tools/check_missing_textures.py',
+ 'checkTextureLayers': 'tools/textures/layers.py check'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."
