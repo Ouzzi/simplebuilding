@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#b9bbbdff", "#6a5e5cff", "#605153ff", "#5b4a4fff", "#635051ff", "#d0a87bff", "#e8c6a1ff", "#5b964fff", "#fdfdf9ff", "#73a455ff", "#cfa57dff", "#9b979aff", "#ebc880ff", "#f8e2b8ff", "#4ca044ff", "#57c23aff", "#6dc850ff", "#dde2abff", "#f8e3b9ff", "#efd2a1ff", "#a49994ff", "#81695bff", "#fdfbe8ff", "#fdf8e5ff", "#fdfbf1ff", "#67ab58ff", "#4fa043ff", "#71ab62ff", "#fdf8e2ff", "#fdf7dbff", "#9c999bff", "#fcedccff", "#fffbf0ff", "#78a06eff", "#559b49ff", "#8fbb81ff", "#ddebd1ff", "#fff9e9ff", "#fbe9bfff", "#a09d9eff", "#e0bb98ff", "#71bd55ff", "#fffdf1ff", "#fdf9eaff", "#dcead0ff", "#fffdf3ff", "#fcf2cdff", "#f6d98fff", "#6b9a5dff", "#4ea043ff", "#6baa60ff", "#c6dcb9ff", "#5d9f53ff", "#7eaa78ff", "#fbfbfbff", "#735141ff", "#fcf5dfff", "#fffbeeff", "#4ba144ff", "#e2ecd3ff", "#a0cb92ff", "#90c481ff", "#fdf6e8ff", "#fdfbedff", "#939495ff", "#f9f4e3ff", "#f9f4deff", "#91ca7dff", "#fdf9eeff", "#f8f4ecff", "#e2eccaff", "#f8f7ecff", "#fcf3d5ff", "#f6f3e7ff", "#70bc56ff", "#fcf9f1ff", "#fbf5e7ff", "#e1ead2ff", "#faf1d3ff", "#9a9598ff", "#786c54ff", "#b09d70ff", "#f4ecd9ff", "#f9f0e3ff", "#f9f1e3ff", "#cfc893ff", "#b4a072ff", "#afafb1ff", "#625755ff", "#3e3d3dff", "#55454aff", "#544544ff", "#534845ff", "#605553ff"],
+  "layers": [
+    {"name": "Besitzer-Bild", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "00000000000000000000000000000000",
+      "00000000000000000000000000000000",
+      "00000000000102030304030000000000",
+      "00000003050607080809060a0b000000",
+      "000000020c0d0e0f1011121314000000",
+      "00000015161718191a1b1c1d1e000000",
+      "000000021f2021222324252627000000",
+      "00000003281f292a2b2c2d2e1e000000",
+      "000000032f303132333435360b000000",
+      "0000003738393a3b3c3d3e3f40000000",
+      "0000000241424344454647481e000000",
+      "0000000248494a4b4c4d474e1e000000",
+      "0000004f505152535455565057000000",
+      "000000000058595a5b5c5d0000000000",
+      "00000000000000000000000000000000",
+      "00000000000000000000000000000000"
+    ]}
+  ]
+}

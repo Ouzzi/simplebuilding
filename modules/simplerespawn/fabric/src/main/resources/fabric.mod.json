@@ -3,6 +3,7 @@
   "id": "simplerespawn",
   "version": "${version}",
   "name": "Simple Respawn",
+  "icon": "assets/simplerespawn/icon.png",
   "authors": [
     "Ouzzi"
   ],

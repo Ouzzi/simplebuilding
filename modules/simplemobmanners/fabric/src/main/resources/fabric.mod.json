@@ -3,6 +3,7 @@
   "id": "simplemobmanners",
   "version": "${version}",
   "name": "Simple Mob Manners",
+  "icon": "assets/simplemobmanners/icon.png",
   "authors": [
     "Ouzzi"
   ],

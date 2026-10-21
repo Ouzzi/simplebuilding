@@ -3,6 +3,7 @@
   "id": "simpleend",
   "version": "${version}",
   "name": "Simple End",
+  "icon": "assets/simpleend/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -3,6 +3,7 @@
   "id": "simplefun",
   "version": "${version}",
   "name": "Simple Fun",
+  "icon": "assets/simplefun/icon.png",
   "description": "Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).",
   "authors": [
     "Ouzzi"

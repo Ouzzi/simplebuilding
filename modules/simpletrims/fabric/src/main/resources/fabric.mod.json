@@ -3,6 +3,7 @@
   "id": "simpletrims",
   "version": "${version}",
   "name": "Simple Trims",
+  "icon": "assets/simpletrims/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -3,6 +3,7 @@
   "id": "simpleshops",
   "version": "${version}",
   "name": "Simple Shops",
+  "icon": "assets/simpleshops/icon.png",
   "authors": [
     "Ouzzi"
   ],

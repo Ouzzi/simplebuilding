@@ -3,6 +3,7 @@
   "id": "simplemusic",
   "version": "${version}",
   "name": "Simple Music",
+  "icon": "assets/simplemusic/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -3,6 +3,7 @@
   "id": "simplewanderers",
   "version": "${version}",
   "name": "Simple Wanderers",
+  "icon": "assets/simplewanderers/icon.png",
   "authors": [
     "Ouzzi"
   ],

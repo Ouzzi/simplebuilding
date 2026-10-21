@@ -1,1 +1,1 @@
-{"schemaVersion":1,"id":"wiringexample","version":"${version}","name":"Wiring Example","environment":"*","entrypoints":{"main":["com.simplebuilding.modules.wiringexample.WiringExampleFabric"]},"depends":{"fabricloader":">=0.19.5","minecraft":"~26.3","java":">=25"}}
+{"schemaVersion":1,"id":"wiringexample","version":"${version}","name":"Wiring Example","icon":"assets/wiringexample/icon.png","environment":"*","entrypoints":{"main":["com.simplebuilding.modules.wiringexample.WiringExampleFabric"]},"depends":{"fabricloader":">=0.19.5","minecraft":"~26.3","java":">=25"}}

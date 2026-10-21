@@ -3,6 +3,7 @@
   "id": "simplequalityoflife",
   "version": "${version}",
   "name": "Simple Quality of Life",
+  "icon": "assets/simplequalityoflife/icon.png",
   "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
   "authors": [
     "Ouzzi"

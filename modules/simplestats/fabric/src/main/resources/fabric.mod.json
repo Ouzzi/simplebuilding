@@ -3,6 +3,7 @@
   "id": "simplestats",
   "version": "${version}",
   "name": "Simple Stats",
+  "icon": "assets/simplestats/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -3,6 +3,7 @@
   "id": "simplesandwiches",
   "version": "${version}",
   "name": "Simple Sandwiches",
+  "icon": "assets/simplesandwiches/icon.png",
   "authors": [
     "Ouzzi"
   ],

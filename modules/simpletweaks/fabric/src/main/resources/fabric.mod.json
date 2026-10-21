@@ -3,6 +3,7 @@
   "id": "simpletweaks",
   "version": "${version}",
   "name": "Simple Tweaks",
+  "icon": "assets/simpletweaks/icon.png",
   "description": "Legacy compatibility and server-authoritative claims, on by default.",
   "authors": [
     "Ouzzi"

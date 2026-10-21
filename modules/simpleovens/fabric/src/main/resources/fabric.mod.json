@@ -3,6 +3,7 @@
   "id": "simpleovens",
   "version": "${version}",
   "name": "Simple Ovens",
+  "icon": "assets/simpleovens/icon.png",
   "authors": [
     "Ouzzi"
   ],

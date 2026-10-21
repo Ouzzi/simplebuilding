@@ -3,6 +3,7 @@
   "id": "simplemovement",
   "version": "${version}",
   "name": "Simple Movement",
+  "icon": "assets/simplemovement/icon.png",
   "authors": [
     "Ouzzi"
   ],

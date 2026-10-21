@@ -3,6 +3,7 @@
   "id": "simplebeacons",
   "version": "${version}",
   "name": "Simple Beacons",
+  "icon": "assets/simplebeacons/icon.png",
   "authors": [
     "Ouzzi"
   ],

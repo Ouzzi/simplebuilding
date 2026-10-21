@@ -3,6 +3,7 @@
   "id": "simpleinterfaces",
   "version": "${version}",
   "name": "Simple Interfaces",
+  "icon": "assets/simpleinterfaces/icon.png",
   "authors": [
     "Ouzzi"
   ],

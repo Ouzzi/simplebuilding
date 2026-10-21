@@ -3,6 +3,7 @@
   "id": "simplehammers",
   "version": "${version}",
   "name": "Simple Hammers",
+  "icon": "assets/simplehammers/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -3,6 +3,7 @@
   "id": "simplequestionary",
   "version": "${version}",
   "name": "Simple Questionary",
+  "icon": "assets/simplequestionary/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -3,6 +3,7 @@
   "id": "simplesounds",
   "version": "${version}",
   "name": "Simple Sounds",
+  "icon": "assets/simplesounds/icon.png",
   "description": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
   "authors": [
     "Ouzzi"

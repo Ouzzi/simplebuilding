@@ -3,6 +3,7 @@
   "id": "simpleoptrender",
   "version": "${version}",
   "name": "Simple Opt Render",
+  "icon": "assets/simpleoptrender/icon.png",
   "description": "Client optimizations of Simple Optimization: leaf culling, light-map cache, fast IP ping, telemetry off. Each area steps back when a known optimization mod covers it.",
   "authors": [
     "Ouzzi"

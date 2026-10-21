@@ -3,6 +3,7 @@
   "id": "simplefarming",
   "version": "${version}",
   "name": "Simple Farming",
+  "icon": "assets/simplefarming/icon.png",
   "authors": [
     "Ouzzi"
   ],
