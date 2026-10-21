@@ -3,7 +3,7 @@ window.WIKI_MODULES = [
     "id": "simplebuilding",
     "displayName": "SimpleBuilding",
     "description": "Building tools, storage, machines, and enchantments.",
-    "version": "1.3.1",
+    "version": "2.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
