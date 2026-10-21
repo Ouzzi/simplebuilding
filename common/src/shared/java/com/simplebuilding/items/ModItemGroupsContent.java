@@ -644,7 +644,7 @@ public final class ModItemGroupsContent {
                         CreativeTabLayout.GAP,
                         com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver")),
                 CreativeTabLayout.Row.of("backpacks",
-                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                        com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite")),
                 // Farbkaesten aller Stufen bei Buendeln und Rucksaecken (Besitzer N30, 2026-10-10).
                 CreativeTabLayout.Row.of("paint_boxes",
                         ModItems.PAINT_BOX, ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX),

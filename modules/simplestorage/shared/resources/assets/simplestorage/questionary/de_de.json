@@ -177,5 +177,49 @@
     "secret": [
       "Er nimmt die Verzauberungen des Mods am Amboss an wie die niedrigeren Stufen."
     ]
+  },
+  "backpack": {
+    "lore": [
+      "{name}: Lederplatte, Faden, schwere Druckplatte und Kupferklumpen: Jedes Abenteuer beginnt mit einem Beutel."
+    ],
+    "use": [
+      "Tragbares Lager mit 9 Plätzen; gibt 1 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Herstellung: Kupferklumpen, Faden, schwere Druckplatten und Lederplatten."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "reinforced_backpack": {
+    "lore": [
+      "{name}: Ein Beutel mit Diamantnaht, gebaut, das Gewicht eines langen Tages zu tragen."
+    ],
+    "use": [
+      "Tragbares Lager mit 18 Plätzen; gibt 2 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Rucksack am Handwerkstisch mit vier Diamantkieseln aufwerten; der Inhalt bleibt."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "netherite_backpack": {
+    "lore": [
+      "{name}: Ein Beutel, der durch Feuer ging und seinen Inhalt trotzdem behält."
+    ],
+    "use": [
+      "Tragbares Lager mit 33 Plätzen; gibt 3 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Schmiedetisch-Aufwertung des Verstärkten Rucksacks. Als Gegenstand übersteht er Explosionen."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "enderite_backpack": {
+    "lore": [
+      "{name}: Das Ende hat Platz für alles, und dieser Beutel ebenso."
+    ],
+    "use": [
+      "Tragbares Lager mit 50 Plätzen; gibt 4 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Schmiedetisch-Aufwertung des Netherit-Rucksacks. Er übersteht Explosionen und ist vor der Leere sicher."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
   }
 }

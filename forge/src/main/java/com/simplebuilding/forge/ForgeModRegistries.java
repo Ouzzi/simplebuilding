@@ -158,7 +158,8 @@ public final class ForgeModRegistries {
                     Set.of(ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX))) : null;
 
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>> BACKPACK_BE =
-            BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>(
+            !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null // split stage 8c-2: Simple Storage's on 26.3
+            : BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.BackpackBlockEntity::new,
                     Set.of(ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK, ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK)));
 
@@ -333,7 +334,7 @@ public final class ForgeModRegistries {
         if (TIERED_CHEST_BE != null) ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         if (TRAPPED_COPPER_CHEST_BE != null) ModBlockEntities.TRAPPED_COPPER_CHEST_BE = TRAPPED_COPPER_CHEST_BE.get();
         if (TIERED_SHULKER_BOX_BE != null) ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
-        ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
+        if (BACKPACK_BE != null) ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         if (PLACED_BUNDLE_BE != null) ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();

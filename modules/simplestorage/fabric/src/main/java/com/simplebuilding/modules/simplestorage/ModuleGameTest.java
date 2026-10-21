@@ -429,4 +429,99 @@ public final class ModuleGameTest {
     public void bundleStorageRecipesWorkOnTheirOwn(GameTestHelper h) {
         StorageTests.ALL.get("bundle_storage_recipes_work_on_their_own").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackRightClickWearsTheBackpackAndSwapsItWithTheChestplate(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_right_click_wears_the_backpack_and_swaps_it_with_the_chestplate").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackTiersCarryTheirArmorSlotCountAndSlotLayout(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_tiers_carry_their_armor_slot_count_and_slot_layout").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackContentsSurviveTheReinforcedRecipeAndBothSmithingUpgrades(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_contents_survive_the_reinforced_recipe_and_both_smithing_upgrades").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackSneakRightClickPlacesTheBackpackAndBreakingItDropsEverything(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_sneak_right_click_places_the_backpack_and_breaking_it_drops_everything").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackOpenKeyOpensTheWornBackpackOrElseTheFirstOneCarried(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_open_key_opens_the_worn_backpack_or_else_the_first_one_carried").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackShiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_shift_click_from_the_hotbar_fills_inventory_and_backpack_as_one_storage").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackShiftClickSendsStorageToTheHotbarAndArmorToItsSlot(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_shift_click_sends_storage_to_the_hotbar_and_armor_to_its_slot").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackDeepPocketsRaisesStackLimitsOnlyForStackables(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_deep_pockets_raises_stack_limits_only_for_stackables").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackFunnelPullsPickedUpItemsIntoTheWornBackpack(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_funnel_pulls_picked_up_items_into_the_worn_backpack").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackBackpacksTakeTheirFourEnchantmentsButNeitherDrawerNorColorPalette(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_backpacks_take_their_four_enchantments_but_neither_drawer_nor_color_palette").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackTooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_tooltip_image_carries_the_stored_items_of_every_tier_dyed_too").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackUpperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackBackpackKeyLocksTheInventorySlotOfTheBackpackItOpened(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_backpack_key_locks_the_inventory_slot_of_the_backpack_it_opened").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackPlacedBackpackFeedsItsFillLevelToComparators(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_placed_backpack_feeds_its_fill_level_to_comparators").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackStorageRegistered(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_storage_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackStorageMigrationFromSimplebuilding(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_storage_migration_from_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackStorageRefusesTheNotAllowedTag(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_storage_refuses_the_not_allowed_tag").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackStorageUnreadableEntryKeepsTheRest(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_storage_unreadable_entry_keeps_the_rest").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackStorageAccessoryBackpackCountsAsWorn(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_storage_accessory_backpack_counts_as_worn").accept(h);
+    }
 }

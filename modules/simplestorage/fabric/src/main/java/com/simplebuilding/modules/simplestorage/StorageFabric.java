@@ -32,6 +32,30 @@ public final class StorageFabric implements ModInitializer {
                 (payload, context) -> context.server().execute(() -> com.simplestorage.bundle.BundleNet.handle(payload, context.player())));
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE,
                 (payload, context) -> context.server().execute(() -> com.simplestorage.bundle.BundleNet.handle(payload, context.player())));
+        // Split stage 8c-2: the backpack key packet; menus open through Fabric's ExtendedMenuProvider (opening data in the buffer).
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(com.simplestorage.backpack.BackpackNet.OpenPayload.TYPE, com.simplestorage.backpack.BackpackNet.OpenPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplestorage.backpack.BackpackNet.OpenPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> com.simplestorage.backpack.BackpackNet.handle(payload, context.player())));
+        com.simplestorage.backpack.BackpackMenuProviders.opener = (player, opening) -> player.openMenu(
+                new net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider<com.simplestorage.backpack.BackpackOpenData>() {
+                    @Override
+                    public net.minecraft.network.chat.Component getDisplayName() {
+                        return opening.provider().getDisplayName();
+                    }
+
+                    @Override
+                    public net.minecraft.world.inventory.AbstractContainerMenu createMenu(int syncId, net.minecraft.world.entity.player.Inventory inventory,
+                            net.minecraft.world.entity.player.Player menuPlayer) {
+                        return opening.provider().createMenu(syncId, inventory, menuPlayer);
+                    }
+
+                    @Override
+                    public com.simplestorage.backpack.BackpackOpenData getScreenOpeningData(net.minecraft.server.level.ServerPlayer serverPlayer) {
+                        return opening.data();
+                    }
+                });
+        // Trinkets Updated (optional): backpacks and quivers in the back and belt slots count as worn (SimpleLib AccessorySlots).
+        if (loader.isModLoaded(TrinketsHook.MOD_ID)) TrinketsHook.register();
         com.simplestorage.registry.StorageComponents.register();
         StorageBlocks.register(loader.isModLoaded(com.simplestorage.crate.CrateWood.SIMPLE_END));
         StorageItems.register();
@@ -44,6 +68,8 @@ public final class StorageFabric implements ModInitializer {
         });
         com.simplestorage.registry.StorageEntities.register();
         StorageMenus.register();
+        StorageMenus.registerBackpack(new net.fabricmc.fabric.api.menu.v1.ExtendedMenuType<>(com.simplestorage.backpack.BackpackMenu::new,
+                com.simplestorage.backpack.BackpackOpenData.STREAM_CODEC));
         StorageRegistry.registerTab();
         StorageBlocks.registerFlammability();
         com.simplestorage.registry.StorageRegistry.registerBehaviours();
@@ -63,6 +89,8 @@ public final class StorageFabric implements ModInitializer {
                 insertAfter(out, Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
                 // Split stage 8c-1: the bundles and quivers behind Vanilla's bundle.
                 insertAfter(out, Items.BUNDLE, StorageRegistry.bundleStacks());
+                // Split stage 8c-2: the backpacks behind the last quiver.
+                insertAfter(out, StorageItems.ENDERITE_QUIVER, StorageRegistry.backpackStacks());
             }
             if (!SimpleStorage.on()) return;
             var book = List.of(com.simplestorage.guide.StorageGuide.stack());

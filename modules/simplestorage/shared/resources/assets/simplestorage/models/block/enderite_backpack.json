@@ -1,0 +1,10 @@
+{
+  "parent": "simplestorage:block/template_backpack",
+  "textures": {
+    "back": "simplestorage:block/enderite_backpack_back",
+    "front": "simplestorage:block/enderite_backpack_front",
+    "particle": "simplestorage:block/enderite_backpack_side",
+    "side": "simplestorage:block/enderite_backpack_side",
+    "top": "simplestorage:block/enderite_backpack_top"
+  }
+}

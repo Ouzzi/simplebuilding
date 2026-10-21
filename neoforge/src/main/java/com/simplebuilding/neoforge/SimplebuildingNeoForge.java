@@ -41,7 +41,8 @@ public final class SimplebuildingNeoForge {
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         // Curios (optional): backpacks and quivers in the back/belt accessory slots count as worn.
         // The literal id keeps CuriosCompat (and the Curios API behind it) unloaded without Curios.
-        if (ModList.get().isLoaded("curios")) {
+        // Split stage 8c-2: on 26.3 Simple Storage brings the hook for its backpacks and quivers.
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB && ModList.get().isLoaded("curios")) {
             com.simplebuilding.neoforge.compat.CuriosCompat.register();
         }
         NeoForgeModRegistries.register(modEventBus);

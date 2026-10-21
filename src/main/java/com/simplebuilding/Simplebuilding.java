@@ -61,7 +61,8 @@ public class Simplebuilding implements ModInitializer {
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(FabricLoader.getInstance().getConfigDir());
         // Trinkets (optional): backpacks and quivers in the back/belt accessory slots count as worn.
         // The literal id keeps TrinketsCompat (and the Trinkets API behind it) unloaded without Trinkets.
-        if (FabricLoader.getInstance().isModLoaded("trinkets_updated")) {
+        // Split stage 8c-2: on 26.3 Simple Storage brings the hook for its backpacks and quivers.
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB && FabricLoader.getInstance().isModLoaded("trinkets_updated")) {
             com.simplebuilding.compat.TrinketsCompat.register();
         }
         LOGGER.info("Starting Simplebuilding initialization...");

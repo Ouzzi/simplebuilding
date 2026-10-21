@@ -1,0 +1,46 @@
+{
+  "parent": "block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#particle"
+  },
+  "elements": [
+    {
+      "__comment": "Sack, 10 x 13 x 6 Pixel, Vorderseite nach Norden",
+      "from": [3, 0, 5],
+      "to": [13, 13, 11],
+      "faces": {
+        "north": {"uv": [3, 3, 13, 16], "texture": "#front"},
+        "south": {"uv": [3, 3, 13, 16], "texture": "#back"},
+        "east": {"uv": [5, 3, 11, 16], "texture": "#side"},
+        "west": {"uv": [5, 3, 11, 16], "texture": "#side"},
+        "up": {"uv": [3, 5, 13, 11], "texture": "#top"},
+        "down": {"uv": [3, 5, 13, 11], "texture": "#top", "cullface": "down"}
+      }
+    },
+    {
+      "__comment": "Vordertasche, 8 x 8 x 2 Pixel",
+      "from": [4, 0, 3],
+      "to": [12, 8, 5],
+      "faces": {
+        "north": {"uv": [4, 8, 12, 16], "texture": "#front"},
+        "east": {"uv": [3, 8, 5, 16], "texture": "#side"},
+        "west": {"uv": [11, 8, 13, 16], "texture": "#side"},
+        "up": {"uv": [4, 3, 12, 5], "texture": "#top"},
+        "down": {"uv": [4, 3, 12, 5], "texture": "#top", "cullface": "down"}
+      }
+    },
+    {
+      "__comment": "Tragegriff oben",
+      "from": [6, 13, 7.5],
+      "to": [10, 14.5, 8.5],
+      "faces": {
+        "north": {"uv": [6, 1, 10, 2.5], "texture": "#top"},
+        "south": {"uv": [6, 1, 10, 2.5], "texture": "#top"},
+        "east": {"uv": [7.5, 1, 8.5, 2.5], "texture": "#top"},
+        "west": {"uv": [7.5, 1, 8.5, 2.5], "texture": "#top"},
+        "up": {"uv": [6, 7.5, 10, 8.5], "texture": "#top"}
+      }
+    }
+  ]
+}

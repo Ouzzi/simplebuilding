@@ -100,6 +100,8 @@ public final class ModTriggers {
         List<String> all = new java.util.ArrayList<>(base);
         // 26.3: forging trim templates (and its advancement Glow Up) moved to Simple Trims (N18).
         if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) all.remove(TRIM_TEMPLATE_FORGED);
+        // 26.3: the backpacks are Simple Storage's; Pitching Camp waits for Vanilla's placed_block (split stage 8c-2).
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) all.remove(BACKPACK_PLACED);
         if (!com.simplebuilding.version.McVersion.CRUCIBLE) return List.copyOf(all);
         all.add(CRUCIBLE_BUILT);
         all.add(SOUL_LAVA_SCOOPED);

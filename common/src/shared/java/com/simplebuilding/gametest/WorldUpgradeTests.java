@@ -438,10 +438,11 @@ public final class WorldUpgradeTests {
         helper.assertValueEqual(furnaceResaved.getIntOr("cooking_time_spent", -1), 40000, "blast furnace cooking timer (int, > short)");
         helper.assertValueEqual(furnaceResaved.getIntOr("lit_time_remaining", -1), 40001, "blast furnace fuel left (int, > short)");
 
-        BlockEntity backpack = load(helper, BACKPACK_POS, ModBlocks.ENDERITE_BACKPACK.defaultBlockState(), blockEntities.get(3));
+        // Split stage 8c-2: on 26.3 the backpack is Simple Storage's (by id; the old simplebuilding:backpack migrates).
+        BlockEntity backpack = load(helper, BACKPACK_POS, StorageBackpacks.block("enderite").defaultBlockState(), blockEntities.get(3));
         DyedItemColor colour = backpack.collectComponents().get(DataComponents.DYED_COLOR);
         helper.assertValueEqual(colour == null ? -1 : colour.rgb(), BACKPACK_COLOUR, "placed backpack colour");
-        assertBackpackContents(helper, backpack.collectComponents().get(ModDataComponentTypes.BACKPACK_CONTENTS), oracle,
+        assertBackpackContents(helper, StorageBackpacks.read(helper, backpack.collectComponents()), oracle,
                 "placed backpack");
         helper.succeed();
     }
@@ -491,10 +492,10 @@ public final class WorldUpgradeTests {
         helper.assertValueEqual(blueprint.get(ModDataComponentTypes.BLUEPRINT_ROTATION), 2, "blueprint rotation");
 
         ItemStack backpack = chest.getItem(BACKPACK_ITEM);
-        helper.assertTrue(backpack.is(ModItems.ENDERITE_BACKPACK), "backpack slot holds " + backpack);
+        helper.assertTrue(backpack.is(StorageBackpacks.item("enderite")), "backpack slot holds " + backpack);
         DyedItemColor colour = backpack.get(DataComponents.DYED_COLOR);
         helper.assertValueEqual(colour == null ? -1 : colour.rgb(), BACKPACK_COLOUR, "backpack item colour");
-        assertBackpackContents(helper, backpack.get(ModDataComponentTypes.BACKPACK_CONTENTS), oracle, "backpack item");
+        assertBackpackContents(helper, StorageBackpacks.read(helper, backpack), oracle, "backpack item");
 
         ItemStack chestplate = chest.getItem(CHESTPLATE);
         var trim = chestplate.get(DataComponents.TRIM);
@@ -574,8 +575,8 @@ public final class WorldUpgradeTests {
         ItemStack map = player.getInventory().getItem(0);
         helper.assertTrue(!map.isEmpty(), "vanilla itself lost the explorer map in the inventory - the oracle is broken");
         for (ItemStack backpack : List.of(player.getInventory().getItem(1), player.getItemBySlot(EquipmentSlot.CHEST))) {
-            helper.assertTrue(backpack.is(ModItems.ENDERITE_BACKPACK), "backpack slot holds " + backpack);
-            BackpackContents contents = backpack.get(ModDataComponentTypes.BACKPACK_CONTENTS);
+            helper.assertTrue(backpack.is(StorageBackpacks.item("enderite")), "backpack slot holds " + backpack);
+            BackpackContents contents = StorageBackpacks.read(helper, backpack);
             helper.assertTrue(contents != null && contents.size() == 4,
                     "the player's backpack has " + (contents == null ? "no" : contents.size()) + " entries instead of 4");
             assertSameStack(helper, contents.stackAt(0), map, "explorer map in the player's backpack");

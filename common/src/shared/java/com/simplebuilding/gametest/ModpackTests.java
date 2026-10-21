@@ -396,6 +396,7 @@ public final class ModpackTests {
      * its built-in rule (no backpacks, no shulker boxes), and still takes ordinary items.
      */
     public static void backpackRefusesItemsFromTheNotAllowedTag(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         helper.assertTrue(!BackpackItem.mayStore(new ItemStack(Items.STRUCTURE_VOID)),
                 "the backpack takes an item from simplebuilding:not_allowed_in_backpack");
         helper.assertTrue(!BackpackItem.mayStore(new ItemStack(Items.SHULKER_BOX)), "the backpack takes a shulker box");

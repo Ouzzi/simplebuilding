@@ -23,6 +23,8 @@ public final class StorageBlockEntities {
     public static BlockEntityType<TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX;
     /** Split stage 8c-1: the placed bundle ({@code placed_bundle}). */
     public static BlockEntityType<com.simplestorage.bundle.PlacedBundleBlockEntity> PLACED_BUNDLE;
+    /** Split stage 8c-2: the placed backpack (was {@code simplebuilding:backpack}). */
+    public static BlockEntityType<com.simplestorage.backpack.BackpackBlockEntity> BACKPACK;
 
     /** The loader's {@code BlockEntityType} constructor. */
     public interface Types {
@@ -37,6 +39,7 @@ public final class StorageBlockEntities {
         TRAPPED_COPPER_CHEST = register("trapped_copper_chest", types.create(TrappedCopperChestBlockEntity::new, Set.of(StorageBlocks.trappedCopperChests())));
         TIERED_SHULKER_BOX = register("tiered_shulker_box", types.create(TieredShulkerBoxBlockEntity::new, Set.of(StorageBlocks.shulkerBoxes())));
         PLACED_BUNDLE = register("placed_bundle", types.create(com.simplestorage.bundle.PlacedBundleBlockEntity::new, Set.of(StorageBlocks.PLACED_BUNDLE)));
+        BACKPACK = register("backpack", types.create(com.simplestorage.backpack.BackpackBlockEntity::new, Set.copyOf(StorageBlocks.BACKPACKS.values())));
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType<T> type) {

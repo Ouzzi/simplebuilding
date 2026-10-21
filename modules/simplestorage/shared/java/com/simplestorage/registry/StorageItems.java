@@ -32,6 +32,8 @@ public final class StorageItems {
     /** Split stage 8c-1: the three bundles and four quivers (same rarities, Netherite and Enderite fire-proof). */
     public static Item REINFORCED_BUNDLE, NETHERITE_BUNDLE, ENDERITE_BUNDLE;
     public static Item QUIVER, REINFORCED_QUIVER, NETHERITE_QUIVER, ENDERITE_QUIVER;
+    /** Split stage 8c-2: the four backpacks in tier order (worn in the chest slot, placeable as a block). */
+    public static final Map<com.simplestorage.backpack.BackpackTier, Item> BACKPACKS = new EnumMap<>(com.simplestorage.backpack.BackpackTier.class);
 
     public static void register() {
         StorageBlocks.CRATES.forEach((wood, crate) -> CRATES.put(wood, blockItem(crate, wood.nether() ? 0 : CRATE_FUEL)));
@@ -60,6 +62,7 @@ public final class StorageItems {
                     () -> StorageEntities.CHEST_BOATS.get(tier))));
         }
         registerBundles();
+        registerBackpacks();
         com.simplestorage.guide.StorageGuide.register();
     }
 
@@ -73,6 +76,43 @@ public final class StorageItems {
         REINFORCED_QUIVER = item("reinforced_quiver", p -> p.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
         NETHERITE_QUIVER = item("netherite_quiver", p -> netherite(p.stacksTo(1)).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
         ENDERITE_QUIVER = item("enderite_quiver", p -> enderite(p.stacksTo(1)).component(DataComponents.EQUIPPABLE, quiverChestSlot()), com.simplestorage.bundle.QuiverItem::new);
+    }
+
+    /**
+     * Split stage 8c-2 (as SimpleBuilding's {@code ModItems#backpack}): one per slot, worn in the chest slot (right click
+     * swaps like a chestplate, players only, no damage on hurt), armour 1/2/3/4 per tier; Netherite uncommon and Enderite epic,
+     * both fire-proof. No default contents component: an empty backpack has none, so the stack stays canonical.
+     */
+    private static void registerBackpacks() {
+        for (com.simplestorage.backpack.BackpackTier tier : com.simplestorage.backpack.BackpackTier.values()) {
+            String path = StorageBlocks.BACKPACK_IDS.get(tier.ordinal());
+            boolean metal = tier.ordinal() >= com.simplestorage.backpack.BackpackTier.NETHERITE.ordinal();
+            java.util.function.UnaryOperator<Item.Properties> extra = switch (tier) {
+                case NETHERITE -> StorageItems::netherite;
+                case ENDERITE -> StorageItems::enderite;
+                default -> p -> p;
+            };
+            var sound = metal ? net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_NETHERITE : net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_LEATHER;
+            Block block = StorageBlocks.BACKPACKS.get(tier);
+            BACKPACKS.put(tier, item(path, p -> extra.apply(p).stacksTo(1)
+                    .component(DataComponents.EQUIPPABLE, net.minecraft.world.item.equipment.Equippable.builder(net.minecraft.world.entity.EquipmentSlot.CHEST)
+                            .setEquipSound(sound)
+                            .setAllowedEntities(net.minecraft.world.entity.EntityTypes.PLAYER)
+                            .setDamageOnHurt(false)
+                            .setSwappable(true)
+                            .build())
+                    .attributes(net.minecraft.world.item.component.ItemAttributeModifiers.builder()
+                            .add(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR,
+                                    new net.minecraft.world.entity.ai.attributes.AttributeModifier(SimpleStorage.id("armor.backpack"),
+                                            tier.armor(), net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE),
+                                    net.minecraft.world.entity.EquipmentSlotGroup.CHEST)
+                            .build()), p -> new com.simplestorage.backpack.BackpackItem(tier, block, p)));
+        }
+    }
+
+    /** The four backpacks in tier order. */
+    public static java.util.List<Item> backpacks() {
+        return java.util.List.copyOf(BACKPACKS.values());
     }
 
     /** The bundles, then the quivers, in tier order. */

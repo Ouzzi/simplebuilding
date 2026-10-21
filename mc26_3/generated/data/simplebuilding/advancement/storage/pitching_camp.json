@@ -1,0 +1,61 @@
+{
+  "parent": "simplebuilding:storage/pack_mule",
+  "criteria": {
+    "placed_backpack": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "simplestorage:backpack"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "placed_enderite_backpack": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "simplestorage:enderite_backpack"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "placed_netherite_backpack": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "simplestorage:netherite_backpack"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "placed_reinforced_backpack": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "simplestorage:reinforced_backpack"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.pitching_camp.description"
+    },
+    "icon": {
+      "id": "minecraft:campfire"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.pitching_camp.title"
+    }
+  },
+  "requirements": [
+    [
+      "placed_backpack",
+      "placed_reinforced_backpack",
+      "placed_netherite_backpack",
+      "placed_enderite_backpack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

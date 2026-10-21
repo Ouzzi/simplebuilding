@@ -17,9 +17,10 @@ public final class StorageRegistry {
     public static final net.minecraft.world.item.crafting.RecipeSerializer<com.simplestorage.bundle.ReinforcedBundleRecipe> REINFORCED_BUNDLE_SERIALIZER =
             new net.minecraft.world.item.crafting.RecipeSerializer<>(com.simplestorage.bundle.ReinforcedBundleRecipe.MAP_CODEC, com.simplestorage.bundle.ReinforcedBundleRecipe.STREAM_CODEC);
 
-    /** In the RECIPE_SERIALIZER phase (Fabric: init). */
+    /** In the RECIPE_SERIALIZER phase (Fabric: init); 8c-2: the backpack upgrade that keeps the backpack's components. */
     public static void registerSerializers() {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleStorage.id("reinforced_bundle"), REINFORCED_BUNDLE_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleStorage.id("backpack_upgrade"), com.simplestorage.backpack.BackpackUpgradeRecipe.SERIALIZER);
     }
 
     public static void registerTab() {
@@ -56,6 +57,7 @@ public final class StorageRegistry {
         out.addAll(chestMinecartStacks());
         out.addAll(chestBoatStacks());
         out.addAll(bundleStacks());
+        out.addAll(backpackStacks());
         out.add(com.simplestorage.guide.StorageGuide.stack());
         return out;
     }
@@ -100,6 +102,13 @@ public final class StorageRegistry {
     public static List<ItemStack> bundleStacks() {
         List<ItemStack> out = new ArrayList<>();
         for (Item item : StorageItems.bundles()) out.add(new ItemStack(item));
+        return out;
+    }
+
+    /** Split stage 8c-2: the backpacks in tier order. */
+    public static List<ItemStack> backpackStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : StorageItems.backpacks()) out.add(new ItemStack(item));
         return out;
     }
 

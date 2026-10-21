@@ -89,12 +89,12 @@ public abstract class MinecraftClientMixin {
         }
 
         // Getragener Rucksack - wie bei Buendeln nur mit Meisterbauer auf dem Rucksack selbst.
-        ItemStack backpack = BackpackItem.wornBackpackWith(this.player, ModEnchantments.MASTER_BUILDER);
-        if (!backpack.isEmpty()) {
-            final ItemStack target = targetStack;
-            if (BackpackItem.findEntry(backpack, s -> ItemStack.isSameItem(s, target)) >= 0) {
+        // (util/WornStorage: 26.3 Simple Storage's worn backpack, its synced contents.)
+        for (com.simplebuilding.util.WornStorage.Entry entry : com.simplebuilding.util.WornStorage.entries(this.player, ModEnchantments.MASTER_BUILDER)) {
+            if (ItemStack.isSameItem(entry.stack(), targetStack)) {
                 ClientNetworking.send(new MasterBuilderPickPayload(targetStack));
                 ci.cancel();
+                return;
             }
         }
     }

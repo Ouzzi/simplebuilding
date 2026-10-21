@@ -64,6 +64,8 @@ public class SimplebuildingClient implements ClientModInitializer {
     @SuppressWarnings("deprecation")
     public void onInitializeClient() {
         ClientNetworking.setSender(ClientPlayNetworking::send);
+        // Split stage 8c-2: what SimpleBuilding draws into Simple Storage's backpack screen (26.3; nothing on 26.2).
+        com.simplebuilding.client.LibClientServices.init();
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         if (ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks (b-blocksmove)
@@ -116,7 +118,8 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_SHULKER_BOX_BE, com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
-        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
+        // Split stage 8c-2: on 26.3 the backpacks are Simple Storage's (it tints them itself).
+        if (com.simplebuilding.blocks.ModBlocks.BACKPACK != null) net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
@@ -147,7 +150,8 @@ public class SimplebuildingClient implements ClientModInitializer {
                 InputConstants.KEY_K,
             KEY_CATEGORY_SIMPLEMODS
         ));
-        ClientState.backpackKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+        // Split stage 8c-2: on 26.3 the backpack key is Simple Storage\'s (key.simplestorage.open_backpack).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) ClientState.backpackKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.simplebuilding.open_backpack",
                 InputConstants.KEY_B,
                 KEY_CATEGORY_SIMPLEMODS

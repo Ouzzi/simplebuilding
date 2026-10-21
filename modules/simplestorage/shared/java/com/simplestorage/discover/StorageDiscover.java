@@ -61,6 +61,7 @@ public final class StorageDiscover {
             "simplestorage:*_chest_minecart",
             "simplestorage:*_crate",
             "simplestorage:*_shulker_box",
+            "simplestorage:*backpack",
             "simplestorage:chests",
             "simplestorage:crates",
             "simplestorage:creative_tab_switch",
@@ -97,7 +98,8 @@ public final class StorageDiscover {
             "simplestorage:waxed_weathered_trapped_copper_chest",
             "simplestorage:weathered_trapped_copper_chest");
     static final List<Tip> TIPS = List.of(
-            new Tip("chest_upgrade", List.of("reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest", "netherite_trapped_chest", "netherite_shulker_box")));
+            new Tip("chest_upgrade", List.of("reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest", "netherite_trapped_chest", "netherite_shulker_box")),
+            new Tip("backpack", List.of("backpack", "*_backpack")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

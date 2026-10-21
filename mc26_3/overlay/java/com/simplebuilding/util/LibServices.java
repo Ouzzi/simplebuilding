@@ -66,20 +66,20 @@ public final class LibServices {
         // Split stage 8b: the tiered chests and shulker boxes, their upgrade handlers and the double chest parts are Simple
         // Storage's (it registers them itself).
         registerHammerWays();
-        // Split stage 8c-1: Simple Storage's quivers feed the bow from a quiver inside the worn backpack with Master Builder
-        // (SimpleLib CarriedStacks; the entries are copies, a changed one goes back through replaceEntry).
-        com.simplelib.api.CarriedStacks.register(player -> {
-            net.minecraft.world.item.ItemStack backpack = com.simplebuilding.items.custom.BackpackItem.wornBackpackWith(player,
-                    com.simplebuilding.enchantment.ModEnchantments.MASTER_BUILDER);
-            if (backpack.isEmpty()) return java.util.List.of();
-            java.util.List<net.minecraft.world.item.ItemStack> stacks = com.simplebuilding.items.custom.BackpackItem.entryStacks(backpack);
-            java.util.List<com.simplelib.api.CarriedStacks.Entry> out = new java.util.ArrayList<>();
-            for (int i = 0; i < stacks.size(); i++) {
-                final int index = i;
-                out.add(new com.simplelib.api.CarriedStacks.Entry(stacks.get(i),
-                        changed -> com.simplebuilding.items.custom.BackpackItem.replaceEntry(backpack, index, changed)));
+        // Split stage 8c-2: the worn backpack is Simple Storage's; it offers its entries through SimpleLib CarriedStacks itself
+        // (SimpleBuilding's wand, pick key and Constructor's Touch read them through util/WornStorage).
+        // Its backpack menu rebuilds the player inventory: SimpleBuilding's extra head slot (N49) joins through SimpleLib
+        // InventoryExtras, placed and preferred on a shift-click as in the inventory (helmet slot taken).
+        com.simplelib.api.InventoryExtras.register(new com.simplelib.api.InventoryExtras.ExtraSlot() {
+            @Override
+            public net.minecraft.world.inventory.Slot create(net.minecraft.world.entity.player.Player player, int x, int y) {
+                return new ExtraHead.HeadSlot(player, x + TrimStatsLayout.HEAD_SLOT_X, y + TrimStatsLayout.HEAD_SLOT_Y);
             }
-            return out;
+
+            @Override
+            public boolean takesOnQuickMove(net.minecraft.world.entity.player.Player player, ItemStack stack) {
+                return ExtraHead.fits(stack) && !player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).isEmpty();
+            }
         });
     }
 

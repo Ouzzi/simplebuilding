@@ -1,0 +1,45 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplebuilding"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simplebuilding"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "N": "minecraft:copper_nugget",
+    "P": "minecraft:leather",
+    "S": "minecraft:string",
+    "W": "minecraft:heavy_weighted_pressure_plate"
+  },
+  "pattern": [
+    "NSN",
+    "PPP",
+    "WWW"
+  ],
+  "result": {
+    "id": "simplestorage:backpack"
+  }
+}

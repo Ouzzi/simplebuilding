@@ -87,13 +87,18 @@ public class BuildingWandItem extends Item {
         ItemStack sourceStack;
         int bundleIndex;
         boolean fromBundle;
-        // Getragener Rucksack: sourceStack ist der Rucksack, bundleIndex der Eintrag in seiner Komponente.
+        // Getragener Rucksack: der Eintrag (Kopie + Rueckschreiben, util/WornStorage; 26.3 Simple Storages Rucksack).
         boolean fromBackpack;
+        com.simplebuilding.util.WornStorage.Entry backpackEntry;
         BlockState stateToPlace;
         /** Ein Stueck des verbrauchten Items (mit Komponenten) - fuer den Platzier-Kontext. */
         ItemStack item = ItemStack.EMPTY;
         public void consume() {
-            if (fromBackpack) BackpackItem.consumeOne(sourceStack, bundleIndex);
+            if (fromBackpack) {
+                ItemStack left = backpackEntry.stack().copy();
+                left.shrink(1);
+                backpackEntry.write(left);
+            }
             else if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex);
             else sourceStack.shrink(1);
         }
@@ -105,7 +110,7 @@ public class BuildingWandItem extends Item {
      * wuerde sie samt Inhalt in einen leeren Block verwandeln.
      */
     private static boolean isBuildingBlock(ItemStack stack) {
-        return stack.getItem() instanceof BlockItem && !(stack.getItem() instanceof BackpackItem);
+        return stack.getItem() instanceof BlockItem && !com.simplebuilding.util.StorageRefs.isBackpack(stack);
     }
 
     /**
@@ -113,8 +118,16 @@ public class BuildingWandItem extends Item {
      * selbst Meisterbauer traegt (Entscheidung des Mod-Autors: nicht schon durch Meisterbauer auf
      * dem Zauberstab).
      */
-    private static ItemStack masterBuilderBackpack(Player player) {
-        return BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);
+    private static java.util.List<com.simplebuilding.util.WornStorage.Entry> masterBuilderBackpack(Player player) {
+        return com.simplebuilding.util.WornStorage.entries(player, ModEnchantments.MASTER_BUILDER);
+    }
+
+    /** Erster Eintrag des getragenen Meisterbauer-Rucksacks, dessen Stapel {@code test} erfuellt, sonst null. */
+    private static com.simplebuilding.util.WornStorage.Entry backpackEntry(Player player, java.util.function.Predicate<ItemStack> test) {
+        for (com.simplebuilding.util.WornStorage.Entry entry : masterBuilderBackpack(player)) {
+            if (test.test(entry.stack())) return entry;
+        }
+        return null;
     }
 
     public BuildingWandItem(Properties settings) {
@@ -229,12 +242,8 @@ public class BuildingWandItem extends Item {
             }
         }
         // 4. Getragener Rucksack mit Meisterbauer
-        ItemStack backpack = masterBuilderBackpack(player);
-        if (!backpack.isEmpty()) {
-            int index = BackpackItem.findEntry(backpack, BuildingWandItem::isBuildingBlock);
-            if (index >= 0) return BackpackItem.entryStack(backpack, index).copyWithCount(1);
-        }
-        return null;
+        com.simplebuilding.util.WornStorage.Entry entry = backpackEntry(player, BuildingWandItem::isBuildingBlock);
+        return entry == null ? null : entry.stack().copyWithCount(1);
     }
 
     /**
@@ -276,11 +285,8 @@ public class BuildingWandItem extends Item {
             collectBlocksFromStack(player.getInventory().getItem(i), world, hasMasterBuilder, blocks);
         }
         // Getragener Rucksack mit Meisterbauer
-        ItemStack backpack = masterBuilderBackpack(player);
-        if (!backpack.isEmpty()) {
-            for (ItemStack s : BackpackItem.entryStacks(backpack)) {
-                if (isBuildingBlock(s)) blocks.add(s.copyWithCount(1));
-            }
+        for (com.simplebuilding.util.WornStorage.Entry entry : masterBuilderBackpack(player)) {
+            if (isBuildingBlock(entry.stack())) blocks.add(entry.stack().copyWithCount(1));
         }
         return blocks;
     }
@@ -352,16 +358,13 @@ public class BuildingWandItem extends Item {
 
     /** Erster passender Eintrag im getragenen Meisterbauer-Rucksack, sonst null. */
     private static MaterialResult findInBackpack(Player player, java.util.function.Predicate<ItemStack> test) {
-        ItemStack backpack = masterBuilderBackpack(player);
-        if (backpack.isEmpty()) return null;
-        int index = BackpackItem.findEntry(backpack, test);
-        if (index < 0) return null;
+        com.simplebuilding.util.WornStorage.Entry entry = backpackEntry(player, test);
+        if (entry == null) return null;
         MaterialResult res = new MaterialResult();
-        res.sourceStack = backpack;
         res.fromBackpack = true;
-        res.bundleIndex = index;
-        res.stateToPlace = ((BlockItem) BackpackItem.entryStack(backpack, index).getItem()).getBlock().defaultBlockState();
-        res.item = BackpackItem.entryStack(backpack, index).copyWithCount(1);
+        res.backpackEntry = entry;
+        res.stateToPlace = ((BlockItem) entry.stack().getItem()).getBlock().defaultBlockState();
+        res.item = entry.stack().copyWithCount(1);
         return res;
     }
 
@@ -472,7 +475,7 @@ public class BuildingWandItem extends Item {
      * P2 #10).
      */
     public static boolean isPlainSupply(ItemStack stack, Item item) {
-        return stack.is(item) && !(stack.getItem() instanceof BackpackItem) && stack.getComponentsPatch().isEmpty();
+        return stack.is(item) && !com.simplebuilding.util.StorageRefs.isBackpack(stack) && stack.getComponentsPatch().isEmpty();
     }
 
     /** Erste Quelle fuer ein Item, oder {@code null}. {@link Runnable#run()} verbraucht ein Stueck. */
@@ -500,11 +503,8 @@ public class BuildingWandItem extends Item {
         for (int i = 0; i < limit; i++) {
             total += countIn(player.getInventory().getItem(i), item, world, mb);
         }
-        ItemStack backpack = masterBuilderBackpack(player);
-        if (!backpack.isEmpty()) {
-            for (ItemStack s : BackpackItem.entryStacks(backpack)) {
-                if (isPlainSupply(s, item)) total += s.getCount();
-            }
+        for (com.simplebuilding.util.WornStorage.Entry entry : masterBuilderBackpack(player)) {
+            if (isPlainSupply(entry.stack(), item)) total += entry.stack().getCount();
         }
         return total;
     }

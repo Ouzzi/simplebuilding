@@ -190,6 +190,8 @@ public final class BackpackClientTest {
      * be a statement about a different screen.
      */
     public static void inWorld(Script script) {
+        // Split stage 8c-2: on 26.3 the backpacks, their screen and layer are Simple Storage's (Client-Sicht offen).
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) return;
         TestScene.build(script, "minecraft:stone", "survival");
         closeWhatTheServerStillHolds(script);
 

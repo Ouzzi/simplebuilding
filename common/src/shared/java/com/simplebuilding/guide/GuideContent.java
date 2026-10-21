@@ -117,7 +117,7 @@ public final class GuideContent {
 
     static {
         STYLES.put(GuideBooks.Book.GUIDE, new BookStyle(0xE8B84A, List.of(
-                ch("simplebuilding:guide_book", List.of(), List.of("simplebuilding:stone_chisel", "simplebuilding:stone_sledgehammer", "simplebuilding:copper_building_wand", "simplebuilding:octant", "simplebuilding:backpack")),
+                ch("simplebuilding:guide_book", List.of(), List.of("simplebuilding:stone_chisel", "simplebuilding:stone_sledgehammer", "simplebuilding:copper_building_wand", "simplebuilding:octant", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
                 ch("simplebuilding:stone_chisel", List.of("simplebuilding:stone_chisel"), List.of("minecraft:chiseled_stone_bricks")),
                 ch("simplebuilding:stone_sledgehammer", List.of("simplebuilding:stone_sledgehammer"), List.of("simplebuilding:iron_sledgehammer")),
                 ch("minecraft:stone_stairs", List.of(), List.of("minecraft:stone", "minecraft:stone_stairs", "minecraft:stone_slab", "simplebuilding:stone_sledgehammer")),
@@ -126,7 +126,7 @@ public final class GuideContent {
                 ch("simplebuilding:netherite_nugget", List.of(), List.of("simplebuilding:cracked_diamond", "simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")),
                 ch("simplebuilding:copper_building_wand", List.of("simplebuilding:copper_building_wand"), List.of("minecraft:cobblestone")),
                 ch("simplebuilding:octant", List.of("simplebuilding:octant"), List.of()),
-                ch("simplebuilding:backpack", List.of("simplebuilding:leather_sheet", "simplebuilding:backpack"), List.of()),
+                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", List.of("simplebuilding:leather_sheet", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack"), List.of()),
                 ch("simplebuilding:basic_upgrade_template", List.of("simplebuilding:basic_upgrade_template", "simplebuilding:iron_chisel@upgrade_copper_chisel_to_iron_chisel"), List.of()),
                 ch("minecraft:enchanting_table", List.of(), List.of("minecraft:enchanting_table", "minecraft:enchanted_book")),
                 ch("minecraft:ward_armor_trim_smithing_template", List.of(), List.of("minecraft:ward_armor_trim_smithing_template")))));
@@ -147,18 +147,18 @@ public final class GuideContent {
                 ch("simplebuilding:iron_sledgehammer", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:iron_sledgehammer", "simplebuilding:diamond_sledgehammer", "minecraft:stone_slab")),
                 ch("simplebuilding:gold_building_wand", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch("simplebuilding:octant", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:octant", "simplebuilding:octant_blue")),
-                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", "simplebuilding:backpack")),
+                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
                 ch("simplebuilding:magnet", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "simplebuilding:magnet", "simplebuilding:detector", "simplebuilding:amethyst_lens", "simplebuilding:velocity_gauge")),
                 ch("minecraft:stick", List.of(), List.of("minecraft:enchanted_book#simplebuilding:constructors_touch", "minecraft:stick", "minecraft:oak_stairs")),
                 ch("minecraft:spyglass", List.of(), List.of("minecraft:enchanted_book#simplebuilding:range", "simplebuilding:diamond_chisel", "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":deep_pockets", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
-                ch("simplebuilding:backpack", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":deep_pockets", "simplebuilding:backpack", "simplebuilding:netherite_backpack")),
+                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":deep_pockets", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_backpack")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_bundle", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":drawer", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_quiver", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":funnel", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
-                ch("simplebuilding:reinforced_backpack", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":funnel", "simplebuilding:backpack", "simplebuilding:netherite_backpack")),
+                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_backpack", List.of(), List.of("minecraft:enchanted_book#" + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":funnel", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_backpack")),
                 ch("simplebuilding:iron_building_wand", List.of(), List.of("minecraft:enchanted_book#simplebuilding:master_builder", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":enderite_bundle", List.of(), List.of("minecraft:enchanted_book#simplebuilding:master_builder", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
-                ch("simplebuilding:enderite_backpack", List.of(), List.of("minecraft:enchanted_book#simplebuilding:master_builder", "simplebuilding:backpack", "simplebuilding:netherite_backpack")),
+                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":enderite_backpack", List.of(), List.of("minecraft:enchanted_book#simplebuilding:master_builder", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_backpack")),
                 ch("simplebuilding:diamond_building_wand", List.of(), List.of("minecraft:enchanted_book#simplebuilding:color_palette", "simplebuilding:copper_building_wand", "simplebuilding:diamond_building_wand")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(), List.of("minecraft:enchanted_book#simplebuilding:color_palette", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver")),
                 ch("simplebuilding:diamond_sledgehammer", List.of(), List.of("minecraft:enchanted_book#simplebuilding:radius", "simplebuilding:iron_sledgehammer", "simplebuilding:diamond_sledgehammer")),
@@ -176,7 +176,7 @@ public final class GuideContent {
                 ch("minecraft:elytra", List.of(), List.of("minecraft:enchanted_book#simplebuilding:kinetic_protection", "minecraft:iron_chestplate", "minecraft:iron_leggings")))));
         STYLES.put(GuideBooks.Book.BUILDING, new BookStyle(0xD8664C, List.of(
                 ch("simplebuilding:iron_building_wand", List.of("simplebuilding:iron_building_wand"), List.of("simplebuilding:copper_building_wand", "simplebuilding:gold_building_wand", "simplebuilding:diamond_building_wand", "simplebuilding:netherite_building_wand", "simplebuilding:enderite_building_wand")),
-                ch("minecraft:chest", List.of(), List.of("minecraft:cobblestone", "simplebuilding:backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle")),
+                ch("minecraft:chest", List.of(), List.of("minecraft:cobblestone", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle")),
                 ch("simplebuilding:gold_building_wand", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:gold_building_wand")),
                 ch("simplebuilding:copper_building_wand", List.of(), List.of("simplebuilding:copper_building_wand", "minecraft:cooked_beef")),
                 ch("minecraft:rail", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:iron_building_wand")),
@@ -192,12 +192,12 @@ public final class GuideContent {
         STYLES.put(GuideBooks.Book.STORAGE, new BookStyle(0xC99A62, List.of(
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle"), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":enderite_bundle")),
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver"), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":enderite_quiver")),
-                ch("simplebuilding:backpack", List.of("simplebuilding:backpack", "simplebuilding:reinforced_backpack"), List.of("simplebuilding:netherite_backpack", "simplebuilding:enderite_backpack")),
-                ch("minecraft:leather_chestplate", List.of(), List.of("simplebuilding:backpack", "minecraft:elytra")),
+                ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_backpack"), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":enderite_backpack")),
+                ch("minecraft:leather_chestplate", List.of(), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", "minecraft:elytra")),
                 ch("simplebuilding:reinforced_chest", List.of(), List.of("simplebuilding:reinforced_chest", "simplebuilding:netherite_chest", "simplebuilding:enderite_chest")),
                 ch("minecraft:enchanted_book", List.of(), List.of("minecraft:enchanted_book", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle")),
-                ch("minecraft:hopper", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:backpack")),
-                ch("simplebuilding:copper_building_wand", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:backpack", "simplebuilding:copper_building_wand")),
+                ch("minecraft:hopper", List.of(), List.of("minecraft:enchanted_book", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack")),
+                ch("simplebuilding:copper_building_wand", List.of(), List.of("minecraft:enchanted_book", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", "simplebuilding:copper_building_wand")),
                 ch("simplebuilding:reinforced_shulker_box", List.of("simplebuilding:reinforced_shulker_box"), List.of("simplebuilding:netherite_shulker_box", "simplebuilding:enderite_shulker_box", "simplebuilding:cracked_diamond", "simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")))));
         STYLES.put(GuideBooks.Book.MACHINES, new BookStyle(0x7FA7D9, List.of(
                 ch("simplebuilding:reinforced_hopper", List.of("simplebuilding:reinforced_hopper"), List.of("simplebuilding:netherite_hopper", "simplebuilding:enderite_hopper")),
@@ -270,7 +270,7 @@ public final class GuideContent {
                 ch("minecraft:emerald", List.of(), List.of("minecraft:emerald")),
                 ch("minecraft:comparator", List.of(), List.of("minecraft:ward_armor_trim_smithing_template", "minecraft:iron_boots")),
                 ch("minecraft:piston", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:iron_building_wand")),
-                ch("minecraft:barrier", List.of(), List.of("simplebuilding:backpack", "simplebuilding:magnet", "simplebuilding:blueprint")))));
+                ch("minecraft:barrier", List.of(), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", "simplebuilding:magnet", "simplebuilding:blueprint")))));
     }
 
     static {

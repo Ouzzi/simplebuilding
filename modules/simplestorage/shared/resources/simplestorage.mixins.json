@@ -17,6 +17,7 @@
     "ItemEntityBundleMixin"
   ],
   "client": [
+    "client.BackpackKeyScreenMixin",
     "client.BundleScreenMixin",
     "client.BundleScrollMixin",
     "client.ClientBundleTooltipMixin"

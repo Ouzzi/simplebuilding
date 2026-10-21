@@ -116,6 +116,7 @@ public final class ModScreenStyleTests {
 
     /** Backpacks (every tier, extra columns included): one box; the upper part above the seam, the rows below it. */
     public static void backpackSlotsSitInsideTheOneBox(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         List<String> problems = new ArrayList<>();
         for (BackpackTier tier : BackpackTier.values()) {

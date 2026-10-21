@@ -206,14 +206,24 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         private void storage(AdvancementHolder root) {
             AdvancementHolder sheet = node("storage/sheet_happens", root, ModItems.LEATHER_SHEET, AdvancementType.TASK, "leather_sheet",
                     any(ModItems.LEATHER_SHEET));
-            AdvancementHolder backpack = node("storage/pack_mule", sheet, ModItems.BACKPACK, AdvancementType.TASK, "backpack",
-                    any(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
-            node("storage/heavy_luggage", backpack, ModItems.NETHERITE_BACKPACK, AdvancementType.GOAL, "netherite_backpack",
-                    any(ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
-            feature("storage/pitching_camp", backpack, Items.CAMPFIRE, AdvancementType.TASK, ModTriggers.BACKPACK_PLACED);
+            // Split stage 8c-2: the backpacks by id (26.3 Simple Storage's); setting one down is Vanilla's placed_block there.
+            AdvancementHolder backpack = node("storage/pack_mule", sheet, com.simplebuilding.util.StorageRefs.backpack(""), AdvancementType.TASK, "backpack",
+                    any(com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite")));
+            node("storage/heavy_luggage", backpack, com.simplebuilding.util.StorageRefs.backpack("netherite"), AdvancementType.GOAL, "netherite_backpack",
+                    any(com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite")));
+            if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+                feature("storage/pitching_camp", backpack, Items.CAMPFIRE, AdvancementType.TASK, ModTriggers.BACKPACK_PLACED);
+            } else {
+                Map<String, Criterion<?>> placed = new java.util.LinkedHashMap<>();
+                for (String tier : com.simplebuilding.util.StorageRefs.BACKPACK_TIERS) {
+                    placed.put("placed_" + (tier.isEmpty() ? "backpack" : tier + "_backpack"),
+                            AdvancementCompat.placedBlock(com.simplebuilding.util.StorageRefs.backpackBlock(tier)));
+                }
+                node("storage/pitching_camp", backpack, Items.CAMPFIRE, AdvancementType.TASK, placed, AdvancementRequirements.Strategy.OR);
+            }
             node("storage/splash_of_color", sheet, Items.DYE.pick(DyeColor.RED), AdvancementType.TASK, "dyed_storage",
-                    InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, ModItems.BACKPACK,
-                                    ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK,
+                    InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, com.simplebuilding.util.StorageRefs.backpack(""),
+                                    com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite"),
                                     com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("quiver"),
                                     com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"))
                             .withComponents(DataComponentMatchers.Builder.components().any(DataComponents.DYED_COLOR).build())));
@@ -369,7 +379,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("enderite/hammer_of_the_end", template, com.simplebuilding.util.HammerRefs.item("enderite"), AdvancementType.CHALLENGE,
                     "enderite_sledgehammer", any(com.simplebuilding.util.HammerRefs.item("enderite")));
             node("enderite/endless_pockets", template, com.simplebuilding.util.StorageRefs.item("enderite_bundle"), AdvancementType.GOAL, "enderite_storage",
-                    any(com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), ModItems.ENDERITE_BACKPACK));
+                    any(com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite")));
             node("enderite/heart_of_the_end", template, ModItems.ENDERITE_CORE, AdvancementType.GOAL, "enderite_core",
                     any(ModItems.ENDERITE_CORE));
         }

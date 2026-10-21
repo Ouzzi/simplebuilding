@@ -265,17 +265,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:backpack",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:basic_upgrade_template",
       "tier": 0,
       "hours": 0.5,
@@ -684,17 +673,6 @@
     },
     {
       "item": "simplebuilding:enderite_axe",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_backpack",
       "tier": 5,
       "hours": 38.1,
       "craft": 3,
@@ -1226,17 +1204,6 @@
       "tier": 4,
       "hours": 24.9,
       "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_backpack",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 3,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1902,17 +1869,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:reinforced_backpack",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
     },
     {
       "item": "simplebuilding:reinforced_elytra_pad",
@@ -3664,6 +3620,28 @@
       "tier": 1
     },
     {
+      "item": "simplestorage:backpack",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplestorage:enderite_backpack",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplestorage:enderite_bundle",
       "tier": 5,
       "hours": 38.1,
@@ -3701,6 +3679,17 @@
       "tier": 5,
       "hours": 38.1,
       "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplestorage:netherite_backpack",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 3,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -3760,6 +3749,17 @@
       "merchant": "mason",
       "level": 1,
       "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplestorage:reinforced_backpack",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
       "chance": 1
     },
     {

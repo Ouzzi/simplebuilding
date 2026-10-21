@@ -82,6 +82,20 @@ for e in ('drawer', 'deep_pockets', 'funnel'):
     assert (RES / f'data/{NS}/enchantment/{e}.json').is_file(), e
     for locale in ('en_us', 'de_de'):
         assert langs[locale].get(f'enchantment.{NS}.{e}') and langs[locale].get(f'enchantment.{NS}.{e}.description'), (locale, e)
+# 8c-2: the backpacks (item definitions, block states, loot, texts, recipes with the Leather twin, the upgrade type).
+BACKPACKS = ['backpack'] + [f'{t}_backpack' for t in TIERS]
+for b in BACKPACKS:
+    for kind in ('blockstates', 'items'):
+        assert (RES / f'assets/{NS}/{kind}/{b}.json').is_file(), (kind, b)
+    assert (RES / f'data/{NS}/loot_table/blocks/{b}.json').is_file(), b
+    for locale in ('en_us', 'de_de'):
+        lang = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
+        assert f'item.{NS}.{b}' in lang and f'block.{NS}.{b}' in lang, (locale, b)
+for r in ['backpack', 'reinforced_backpack', 'backpack_without_simplebuilding', 'reinforced_backpack_without_simplebuilding',
+          'netherite_backpack_smithing', 'enderite_backpack_smithing']:
+    assert (RES / f'data/{NS}/recipe/{r}.json').is_file(), r
+    assert (RES / f'data/{NS}/advancement/recipes/tools/{r}.json').is_file(), r
+assert json.loads((RES / f'data/{NS}/tags/item/backpacks.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:{b}' for b in BACKPACKS]
 DYES = ('white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
         'brown', 'green', 'red', 'black')
 for d in DYES:
@@ -91,6 +105,8 @@ assert enchantable == [f'{NS}:{b}' for b in BUNDLES], enchantable
 # SimpleBuilding is named only where it is optional: its Leather Sheet behind a mod_loaded condition (with the Leather
 # twin *_without_simplebuilding), its backpacks and enchantments as "required": false tag entries.
 SB_OPTIONAL = {f'data/{NS}/recipe/reinforced_bundle.json', f'data/{NS}/recipe/reinforced_quiver.json',
+               f'data/{NS}/recipe/backpack.json', f'data/{NS}/recipe/reinforced_backpack.json',
+               f'data/{NS}/advancement/recipes/tools/backpack.json', f'data/{NS}/advancement/recipes/tools/reinforced_backpack.json',
                f'data/{NS}/tags/item/deep_pockets_enchantable.json', f'data/{NS}/tags/item/funnel_enchantable.json',
                f'data/{NS}/tags/enchantment/exclusive_set/builder_group.json'}
 pickaxe = json.loads((RES / 'data/minecraft/tags/block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
@@ -125,5 +141,5 @@ for note in manual['notes'].values():
         assert (ROOT / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'storage_crafting_table', 'family:crate', *VEHICLES, *BUNDLES, 'placed_bundle'}, (locale, set(q))
-print(f'{NS}: {len(BLOCKS) + len(CHESTS)} blocks, {len(VEHICLES)} vehicles, {len(BUNDLES)} bundles and quivers, {len(used)} UI texts, models, loot, recipes, tags, mixins, structure, questionary and wiki valid')
+    assert set(q) == {'storage_crafting_table', 'family:crate', *VEHICLES, *BUNDLES, 'placed_bundle', *BACKPACKS}, (locale, set(q))
+print(f'{NS}: {len(BLOCKS) + len(CHESTS)} blocks, {len(VEHICLES)} vehicles, {len(BUNDLES)} bundles and quivers, {len(BACKPACKS)} backpacks, {len(used)} UI texts, models, loot, recipes, tags, mixins, structure, questionary and wiki valid')

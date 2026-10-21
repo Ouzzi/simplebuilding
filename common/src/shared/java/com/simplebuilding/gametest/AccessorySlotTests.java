@@ -60,6 +60,7 @@ public final class AccessorySlotTests {
      * the inventory, or handing out a copy instead of the slot's stack.
      */
     public static void backpackLookupGoesChestThenAccessoryThenInventory(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = mockPlayer(helper);
         TestHook hook = hookFor(helper, player);
 
@@ -105,6 +106,7 @@ public final class AccessorySlotTests {
      * that never notices the backpack is gone.
      */
     public static void backpackKeyOpensAndWritesBackTheAccessoryBackpack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = mockPlayer(helper);
         TestHook hook = hookFor(helper, player);
         ItemStack backpack = new ItemStack(ModItems.REINFORCED_BACKPACK);
@@ -228,6 +230,7 @@ public final class AccessorySlotTests {
      * <p>What breaks this test: letting the error through, or asking a broken hook again and again.
      */
     public static void anIncompatibleAccessoryModIsDroppedInsteadOfCrashing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = mockPlayer(helper);
         AtomicInteger calls = new AtomicInteger();
         AccessorySlots.Hook broken = entity -> {

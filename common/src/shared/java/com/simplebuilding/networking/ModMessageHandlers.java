@@ -295,12 +295,15 @@ public final class ModMessageHandlers {
 
         // Getragener Rucksack - wie bei Buendeln nur mit Meisterbauer auf dem Rucksack selbst.
         // Genommen wird hoechstens ein normaler Stapel (ein Tiefe-Taschen-Stapel kann groesser sein).
-        ItemStack backpack = BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);
-        if (backpack.isEmpty()) {
-            return;
+        // (util/WornStorage: 26.3 Simple Storage's worn backpack.)
+        com.simplebuilding.util.WornStorage.Entry entry = null;
+        for (com.simplebuilding.util.WornStorage.Entry candidate : com.simplebuilding.util.WornStorage.entries(player, ModEnchantments.MASTER_BUILDER)) {
+            if (ItemStack.isSameItem(candidate.stack(), requestedItem)) {
+                entry = candidate;
+                break;
+            }
         }
-        int entry = BackpackItem.findEntry(backpack, s -> ItemStack.isSameItem(s, requestedItem));
-        if (entry < 0) {
+        if (entry == null) {
             return;
         }
         int selectedSlot = inv.getSelectedSlot();
@@ -312,10 +315,12 @@ public final class ModMessageHandlers {
                 return;
             }
         }
-        ItemStack picked = BackpackItem.take(backpack, entry, BackpackItem.entryStack(backpack, entry).getMaxStackSize());
+        ItemStack left = entry.stack().copy();
+        ItemStack picked = left.split(left.getMaxStackSize());
         if (picked.isEmpty()) {
             return;
         }
+        entry.write(left);
         if (freeSlot != -1) {
             inv.setItem(freeSlot, currentHandStack);
         }

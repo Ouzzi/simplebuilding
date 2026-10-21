@@ -229,10 +229,13 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
         // Rucksaecke: immer das Rucksack-Item mit allen Komponenten des Blocks (Inhalt, Name,
         // Verzauberungen). Bewusst ohne survives_explosion und ohne Werkzeugbedingung.
-        add(ModBlocks.BACKPACK, backpackDrop(ModBlocks.BACKPACK));
-        add(ModBlocks.REINFORCED_BACKPACK, backpackDrop(ModBlocks.REINFORCED_BACKPACK));
-        add(ModBlocks.NETHERITE_BACKPACK, backpackDrop(ModBlocks.NETHERITE_BACKPACK));
-        add(ModBlocks.ENDERITE_BACKPACK, backpackDrop(ModBlocks.ENDERITE_BACKPACK));
+        // Split stage 8c-2: on 26.3 Simple Storage's (its own loot tables).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            add(ModBlocks.BACKPACK, backpackDrop(ModBlocks.BACKPACK));
+            add(ModBlocks.REINFORCED_BACKPACK, backpackDrop(ModBlocks.REINFORCED_BACKPACK));
+            add(ModBlocks.NETHERITE_BACKPACK, backpackDrop(ModBlocks.NETHERITE_BACKPACK));
+            add(ModBlocks.ENDERITE_BACKPACK, backpackDrop(ModBlocks.ENDERITE_BACKPACK));
+        }
     }
 
     private static LootTable.Builder backpackDrop(Block block) {

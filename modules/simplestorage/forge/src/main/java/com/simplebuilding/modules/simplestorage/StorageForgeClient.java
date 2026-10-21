@@ -31,16 +31,32 @@ final class StorageForgeClient {
         });
         // Split stage 8c-1: bundle packets, dyed placed bundle, tooltip, the quiver on the back (both player models, mannequins).
         com.simplestorage.bundle.BundleNet.toServer = payload -> StorageForge.channel.send(payload, net.minecraftforge.network.PacketDistributor.SERVER.noArg());
-        net.minecraftforge.client.event.RegisterColorHandlersEvent.Block.BUS.addListener(event ->
-                event.register(java.util.List.of(com.simplestorage.client.PlacedBundleTint.INSTANCE), com.simplestorage.registry.StorageBlocks.PLACED_BUNDLE));
-        net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent.BUS.addListener(event ->
-                event.register(com.simplestorage.bundle.BundleTooltipData.class, com.simplestorage.client.BundleTooltips::create));
+        net.minecraftforge.client.event.RegisterColorHandlersEvent.Block.BUS.addListener(event -> {
+            event.register(java.util.List.of(com.simplestorage.client.PlacedBundleTint.INSTANCE), com.simplestorage.registry.StorageBlocks.PLACED_BUNDLE);
+            event.register(java.util.List.of(com.simplestorage.client.BackpackBlockTint.INSTANCE),
+                    com.simplestorage.registry.StorageBlocks.BACKPACKS.values().toArray(new net.minecraft.world.level.block.Block[0]));
+        });
+        net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent.BUS.addListener(event -> {
+            event.register(com.simplestorage.bundle.BundleTooltipData.class, com.simplestorage.client.BundleTooltips::create);
+            event.register(com.simplestorage.backpack.BackpackTooltipData.class, com.simplestorage.client.BackpackTooltip::create);
+        });
+        // Split stage 8c-2: the backpack key (B), checked every client tick.
+        com.simplestorage.backpack.BackpackNet.toServer = payload -> StorageForge.channel.send(payload, net.minecraftforge.network.PacketDistributor.SERVER.noArg());
+        net.minecraftforge.client.event.RegisterKeyMappingsEvent.BUS.addListener(event -> {
+            com.simplestorage.backpack.BackpackKeyMigration.run(net.minecraftforge.fml.loading.FMLPaths.GAMEDIR.get());
+            com.simplestorage.client.BackpackKeyHandler.KEY = com.simplestorage.client.BackpackKeyHandler.create();
+            event.register(com.simplestorage.client.BackpackKeyHandler.KEY);
+        });
+        net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(event ->
+                com.simplestorage.client.BackpackKeyHandler.tick(net.minecraft.client.Minecraft.getInstance()));
         EntityRenderersEvent.AddLayers.BUS.addListener(event -> {
             for (net.minecraft.world.entity.player.PlayerModelType type : event.getModelTypes()) {
                 if (event.getPlayerRenderer(type) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> player) {
+                    player.addLayer(new com.simplestorage.client.BackpackLayer(player));
                     player.addLayer(new com.simplestorage.client.QuiverLayer(player));
                 }
                 if (event.getMannequinRenderer(type) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> mannequin) {
+                    mannequin.addLayer(new com.simplestorage.client.BackpackLayer(mannequin));
                     mannequin.addLayer(new com.simplestorage.client.QuiverLayer(mannequin));
                 }
             }
@@ -48,6 +64,7 @@ final class StorageForgeClient {
         FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(() -> {
             MenuScreens.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new);
             for (var type : StorageMenus.tieredTypes()) MenuScreens.register(type, com.simplestorage.client.TieredChestScreen::new);
+            MenuScreens.register(StorageMenus.BACKPACK, com.simplestorage.client.BackpackScreen::new);
         }));
     }
 

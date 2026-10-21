@@ -23,8 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Bundles and quivers on the ground (split stage 8c-1, the bundle parts of SimpleBuilding's {@code ItemEntityMixin}):
  * the Netherite and Enderite tiers ignore explosions, and a bundle with Funnel in the hands or the inventory sweeps up
- * what the player touches (hands first, then the inventory). Priority below the default, so the bundles come before
- * SimpleBuilding's worn backpack with Funnel, as they always did.
+ * what the player touches (hands first, then the inventory). Priority below the default, so the bundles came before
+ * SimpleBuilding's worn backpack with Funnel; since split stage 8c-2 the worn backpack is the module's and comes right
+ * after the bundles here (its Netherite and Enderite tiers are blast-proof on the ground too).
  */
 @Mixin(value = ItemEntity.class, priority = 900)
 public abstract class ItemEntityBundleMixin extends Entity {
@@ -41,7 +42,9 @@ public abstract class ItemEntityBundleMixin extends Entity {
     private void simplestorage$topTierIgnoresExplosion(Explosion explosion, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = this.getItem();
         if (stack.is(StorageItems.NETHERITE_BUNDLE) || stack.is(StorageItems.ENDERITE_BUNDLE)
-                || stack.is(StorageItems.NETHERITE_QUIVER) || stack.is(StorageItems.ENDERITE_QUIVER)) {
+                || stack.is(StorageItems.NETHERITE_QUIVER) || stack.is(StorageItems.ENDERITE_QUIVER)
+                || stack.is(StorageItems.BACKPACKS.get(com.simplestorage.backpack.BackpackTier.NETHERITE))
+                || stack.is(StorageItems.BACKPACKS.get(com.simplestorage.backpack.BackpackTier.ENDERITE))) {
             cir.setReturnValue(true);
         }
     }
@@ -68,6 +71,10 @@ public abstract class ItemEntityBundleMixin extends Entity {
                 simplestorage$picked(player, itemOnGround, pickedItem, countBefore, ci);
                 return;
             }
+        }
+        // 8c-2: the worn backpack with Funnel - after every bundle.
+        if (com.simplestorage.backpack.BackpackItem.tryFunnelPickup(player, itemOnGround)) {
+            simplestorage$picked(player, itemOnGround, pickedItem, countBefore, ci);
         }
     }
 

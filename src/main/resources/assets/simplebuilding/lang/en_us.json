@@ -3550,7 +3550,6 @@
   "tip.simplebuilding.blueprint": "Build it with a building wand in the other hand",
   "tip.simplebuilding.magnet": "Hold it to pull in items; sneak to pause",
   "tip.simplebuilding.rotator": "Use on a block to turn it in place",
-  "tip.simplebuilding.backpack": "Use to wear it, then press the backpack key (B)",
   "tip.simplebuilding.autonomous_crafter": "Crafts by itself onto a hopper below; redstone stops it",
   "tip.simplebuilding.auto_smither": "Smiths once per redstone pulse",
   "tip.simplebuilding.detector": "Hold it: the needle points to the nearest ore",

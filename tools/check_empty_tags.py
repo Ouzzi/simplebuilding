@@ -15,6 +15,9 @@ EMPTY_BY_DESIGN = {
     "simplelib:item/hammers": "filled by a hammer mod; SimpleBuilding's sledgehammer is deliberately not in it (InWorldUpgradeTests)",
     "curios:item/belt": "26.3 overlay of SimpleBuilding (split stage 8c-1): only quivers go on the belt, they are Simple Storage's (its own tag)",
     "trinkets:item/legs/belt": "26.3 overlay of SimpleBuilding (split stage 8c-1): only quivers go on the belt, they are Simple Storage's (its own tag)",
+    "curios:item/back": "26.3 overlay of SimpleBuilding (split stage 8c-2): backpacks and quivers go on the back, both are Simple Storage's (its own tag)",
+    "trinkets:item/chest/back": "26.3 overlay of SimpleBuilding (split stage 8c-2): backpacks and quivers go on the back, both are Simple Storage's (its own tag)",
+    "simplebuilding:item/dyeable_storage": "26.3 datagen (split stage 8c-2): every dyeable storage item is Simple Storage's (simplestorage:dyeable_storage)",
     "simplebeacons:block/strong_base_blocks": "modpack opt-in for extra Strong Beacon pyramid blocks (check_data.py asserts it is empty)",
 }
 TAG = re.compile(r"(?:^|/)data/([^/]+)/tags/(.+)\.json$")

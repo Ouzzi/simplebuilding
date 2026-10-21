@@ -1,0 +1,480 @@
+package com.simplestorage.backpack;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractCraftingMenu;
+import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.inventory.RecipeBookType;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+
+/**
+ * Das Rucksack-Menue (split stage 8c-2, from SimpleBuilding's {@code BackpackMenu}): exakt das Spielerinventar ({@code InventoryMenu}, Slots 0 bis 45 in derselben
+ * Reihenfolge - Ergebnis, 2x2-Raster, Ruestung, Hauptinventar, Hotbar, Nebenhand) und dahinter ab
+ * {@link #BACKPACK_SLOT_START} die Slots des Rucksacks.
+ *
+ * <p>{@code InventoryMenu} selbst laesst sich nicht wiederverwenden: sein Konstruktor legt die
+ * Container-Id fest auf 0 (das Spielerinventar ist immer offen). Deshalb ein eigenes
+ * {@link AbstractCraftingMenu} mit derselben Slot-Anordnung; das Crafting-Ergebnis berechnet
+ * Vanillas eigene {@code CraftingMenu#slotChangedCraftingGrid} (siehe {@link CraftingGrid}).
+ *
+ * <p>Getragener oder im Inventar liegender Rucksack: sein Slot ist gesperrt, solange das Menue offen
+ * ist - der Brust-Slot ueber {@link BackpackArmorSlot}, ein Inventar-Slot ueber {@link LockableSlot},
+ * und die Zifferntaste dieses Slots tauscht nicht ({@link #clicked}); welcher Slot, steht in
+ * {@link BackpackOpenData#lockedSlot()}. Abgestellter Rucksack: kein Slot gesperrt; das Menue schliesst,
+ * sobald der Block weg ist oder der Spieler sich entfernt.
+ */
+public class BackpackMenu extends AbstractCraftingMenu {
+    public static final int RESULT_SLOT = InventoryMenu.RESULT_SLOT;
+    public static final int ARMOR_SLOT_START = InventoryMenu.ARMOR_SLOT_START;
+    public static final int INV_SLOT_START = InventoryMenu.INV_SLOT_START;
+    public static final int INV_SLOT_END = InventoryMenu.INV_SLOT_END;
+    public static final int USE_ROW_SLOT_START = InventoryMenu.USE_ROW_SLOT_START;
+    public static final int USE_ROW_SLOT_END = InventoryMenu.USE_ROW_SLOT_END;
+    public static final int SHIELD_SLOT = InventoryMenu.SHIELD_SLOT;
+    public static final int BACKPACK_SLOT_START = SHIELD_SLOT + 1;
+
+    private static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+    private static final Map<EquipmentSlot, Identifier> EMPTY_ARMOR_ICONS = Map.of(
+            EquipmentSlot.FEET, InventoryMenu.EMPTY_ARMOR_SLOT_BOOTS,
+            EquipmentSlot.LEGS, InventoryMenu.EMPTY_ARMOR_SLOT_LEGGINGS,
+            EquipmentSlot.CHEST, InventoryMenu.EMPTY_ARMOR_SLOT_CHESTPLATE,
+            EquipmentSlot.HEAD, InventoryMenu.EMPTY_ARMOR_SLOT_HELMET);
+
+    private final Player owner;
+    private final BackpackContainer backpack;
+    private final BackpackOpenData data;
+    private final BackpackLayout layout;
+    private final int backpackSlotEnd;
+    private final List<Slot> storageSlots;
+    /** Inventar-Index des geoeffneten Rucksacks, der gesperrt bleibt; -1 = keiner (abgestellt). */
+    private final int lockedSlot;
+    /**
+     * Extra slots of the player inventory from SimpleLib {@link com.simplelib.api.InventoryExtras} (with SimpleBuilding its
+     * extra head slot, owner N49), after the backpack; each with the rule that sends a shift-clicked stack there first.
+     */
+    private final List<Slot> extraSlots = new ArrayList<>();
+    private final List<com.simplelib.api.InventoryExtras.ExtraSlot> extraKinds = new ArrayList<>();
+
+    /** Client: der Server schickt Stufe und Faktor, den Inhalt liefern die normalen Slot-Pakete. */
+    public BackpackMenu(int containerId, Inventory inventory, BackpackOpenData data) {
+        this(containerId, inventory, new BackpackContainer(data.tier(), data.stackMultiplier()), data);
+    }
+
+    /** Server: {@code backpack} ist der Container des getragenen oder des abgestellten Rucksacks. */
+    public BackpackMenu(int containerId, Inventory inventory, BackpackContainer backpack, BackpackOpenData data) {
+        super(com.simplestorage.registry.StorageMenus.BACKPACK, containerId, 2, 2);
+        this.owner = inventory.player;
+        this.backpack = backpack;
+        this.data = data;
+        this.layout = new BackpackLayout(backpack.tier());
+        int vx = this.layout.vanillaX();
+        int locked = data.placed() ? -1 : data.lockedSlot();
+        this.lockedSlot = locked;
+
+        // 0: Ergebnis, 1-4: Raster - wie InventoryMenu
+        this.addResultSlot(this.owner, vx + 154, 28);
+        this.addCraftingGridSlots(vx + 98, 18);
+
+        // 5-8: Ruestung; der Slot des geoeffneten Rucksacks (meist die Brust) ist gesperrt
+        for (int i = 0; i < 4; i++) {
+            EquipmentSlot slot = ARMOR_SLOTS[i];
+            boolean lockable = 39 - i == locked;
+            this.addSlot(new BackpackArmorSlot(inventory, this.owner, slot, 39 - i, vx + 8, 8 + i * 18,
+                    EMPTY_ARMOR_ICONS.get(slot), () -> lockable));
+        }
+
+        // 9-35: Hauptinventar, 36-44: Hotbar
+        for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < 9; column++) {
+                this.addSlot(new LockableSlot(inventory, column + (row + 1) * 9, this.layout.gridX(column), this.layout.mainRowY(row), locked));
+            }
+        }
+        for (int column = 0; column < 9; column++) {
+            this.addSlot(new LockableSlot(inventory, column, this.layout.gridX(column), this.layout.hotbarY(), locked));
+        }
+
+        // 45: Nebenhand
+        Player owner = this.owner;
+        this.addSlot(new LockableSlot(inventory, Inventory.SLOT_OFFHAND, vx + 77, 62, locked) {
+            @Override
+            public void setByPlayer(ItemStack itemStack, ItemStack previous) {
+                owner.onEquipItem(EquipmentSlot.OFFHAND, previous, itemStack);
+                super.setByPlayer(itemStack, previous);
+            }
+
+            @Override
+            public Identifier getNoItemIcon() {
+                return InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD;
+            }
+        });
+
+        // 46..: Rucksack (erst die Reihen, dann die Zusatzspalten)
+        for (int i = 0; i < backpack.getContainerSize(); i++) {
+            this.addSlot(new BackpackSlot(backpack, i, this.layout.backpackSlotX(i), this.layout.backpackSlotY(i)));
+        }
+        this.backpackSlotEnd = this.slots.size();
+
+        // Extra inventory slots (SimpleBuilding's head slot, N49), after the backpack (its indices stay), placed like in the inventory
+        for (com.simplelib.api.InventoryExtras.ExtraSlot kind : com.simplelib.api.InventoryExtras.all()) {
+            this.extraSlots.add(this.addSlot(kind.create(this.owner, vx, 0)));
+            this.extraKinds.add(kind);
+        }
+
+        // Hauptinventar + Rucksack als ein Lager in Bildreihenfolge (oben nach unten, links nach rechts).
+        List<Slot> storage = new ArrayList<>(this.slots.subList(INV_SLOT_START, INV_SLOT_END));
+        storage.addAll(this.slots.subList(BACKPACK_SLOT_START, this.backpackSlotEnd));
+        storage.sort(Comparator.<Slot>comparingInt(s -> s.y).thenComparingInt(s -> s.x));
+        this.storageSlots = List.copyOf(storage);
+    }
+
+    public BackpackTier tier() {
+        return this.backpack.tier();
+    }
+
+    public BackpackLayout layout() {
+        return this.layout;
+    }
+
+    public BackpackOpenData openData() {
+        return this.data;
+    }
+
+    public BackpackContainer backpack() {
+        return this.backpack;
+    }
+
+    public int backpackSlotEnd() {
+        return this.backpackSlotEnd;
+    }
+
+    /** Inventar-Index des gesperrten Rucksack-Slots, -1 beim abgestellten Rucksack. */
+    public int lockedSlot() {
+        return this.lockedSlot;
+    }
+
+    /**
+     * Inventar-Slot, der sich sperrt, wenn in ihm der gerade offene Rucksack liegt: weder
+     * herausnehmen noch etwas hineinlegen (Schnellverschieben, Werfen und Doppelklick fragen
+     * {@code mayPickup}, Einlegen {@code mayPlace}).
+     */
+    public static class LockableSlot extends Slot {
+        private final int lockedIndex;
+
+        public LockableSlot(net.minecraft.world.Container container, int slot, int x, int y, int lockedIndex) {
+            super(container, slot, x, y);
+            this.lockedIndex = lockedIndex;
+        }
+
+        public boolean isLocked() {
+            return this.lockedIndex >= 0 && getContainerSlot() == this.lockedIndex;
+        }
+
+        @Override
+        public boolean mayPickup(Player player) {
+            return !isLocked() && super.mayPickup(player);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return !isLocked() && super.mayPlace(stack);
+        }
+    }
+
+    public boolean isBackpackSlot(int slotIndex) {
+        return slotIndex >= BACKPACK_SLOT_START && slotIndex < this.backpackSlotEnd;
+    }
+
+    // =================================================================================
+    // Klicks
+    // =================================================================================
+
+    @Override
+    public void clicked(int slotIndex, int buttonNum, ContainerInput containerInput, Player player) {
+        // Hat der Zauberstab, Trichter oder Konstrukteurs Hand inzwischen aus der Komponente
+        // genommen, gilt das - vor jedem Lesen neu laden.
+        this.backpack.syncFromSource();
+        if (containerInput == ContainerInput.SWAP && buttonNum >= 0 && buttonNum == this.lockedSlot) {
+            // Zifferntaste (oder F) des Slots, in dem der offene Rucksack liegt: Vanillas SWAP fragt
+            // nur den Ziel-Slot, nicht den Schnellleisten-Slot - der Rucksack wuerde sonst verschoben.
+            return;
+        }
+        if (isBackpackSlot(slotIndex)) {
+            Slot slot = this.slots.get(slotIndex);
+            ItemStack inSlot = slot.getItem();
+            if (!inSlot.isEmpty() && inSlot.getCount() > inSlot.getMaxStackSize()) {
+                // Ein uebergrosser Stapel (Tiefe Taschen) darf nie ganz auf den Cursor oder in die Hotbar.
+                if (containerInput == ContainerInput.SWAP) {
+                    swapOversized(slot, buttonNum, player);
+                    return;
+                }
+                if (containerInput == ContainerInput.PICKUP && !getCarried().isEmpty()
+                        && !ItemStack.isSameItemSameComponents(getCarried(), inSlot)) {
+                    // Vanilla wuerde Cursor und Slot tauschen und den ganzen Stapel auf den Cursor legen.
+                    return;
+                }
+            }
+        }
+        super.clicked(slotIndex, buttonNum, containerInput, player);
+    }
+
+    /** Zifferntaste auf einem uebergrossen Stapel: ein normaler Stapel in einen leeren Hotbar-Slot. */
+    private void swapOversized(Slot slot, int buttonNum, Player player) {
+        if (!(buttonNum >= 0 && buttonNum < 9 || buttonNum == Inventory.SLOT_OFFHAND)) {
+            return;
+        }
+        Inventory inventory = player.getInventory();
+        if (!inventory.getItem(buttonNum).isEmpty()) {
+            return;
+        }
+        ItemStack taken = slot.safeTake(slot.getItem().getMaxStackSize(), Integer.MAX_VALUE, player);
+        if (!taken.isEmpty()) {
+            inventory.setItem(buttonNum, taken);
+        }
+    }
+
+    /**
+     * Schnellverschieben (Shift-Klick) - wie Vanillas {@code InventoryMenu}, nur dass Hauptinventar
+     * und Rucksack <em>ein</em> Lager sind ({@link #storageSlots()}): erst werden vorhandene Stapel
+     * aufgefuellt, dann leere Slots von oben links nach unten rechts in Bildreihenfolge, egal ob
+     * sie zum Rucksack, zum Hauptinventar oder zu einer Zusatzspalte gehoeren.
+     * <ul>
+     *   <li>Hotbar -> Lager; Lager (Hauptinventar wie Rucksack) -> Hotbar;</li>
+     *   <li>Ruestung und Schild aus Hotbar oder Lager in ihren leeren Slot, wie Vanilla;</li>
+     *   <li>Raster, Ruestung und Nebenhand -> Lager, dann Hotbar; das Ergebnis wie Vanilla
+     *       rueckwaerts (Hotbar von rechts, dann das Lager von unten).</li>
+     * </ul>
+     */
+    @Override
+    public ItemStack quickMoveStack(Player player, int slotIndex) {
+        Slot slot = this.slots.get(slotIndex);
+        if (!slot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack stack = slot.getItem();
+        ItemStack clicked = stack.copy();
+        EquipmentSlot equipmentSlot = player.getEquipmentSlotForItem(clicked);
+        boolean hotbar = slotIndex >= USE_ROW_SLOT_START && slotIndex < USE_ROW_SLOT_END;
+        boolean storage = slotIndex >= INV_SLOT_START && slotIndex < INV_SLOT_END || isBackpackSlot(slotIndex);
+
+        if (slotIndex == RESULT_SLOT) {
+            List<Slot> targets = new ArrayList<>(this.slots.subList(USE_ROW_SLOT_START, USE_ROW_SLOT_END).reversed());
+            targets.addAll(this.storageSlots.reversed());
+            if (!moveItemStackTo(stack, targets)) {
+                return ItemStack.EMPTY;
+            }
+            slot.onQuickCraft(stack, clicked);
+        } else if (slotIndex > RESULT_SLOT && slotIndex < INV_SLOT_START) {
+            if (!moveItemStackTo(stack, storageThenHotbar())) {
+                return ItemStack.EMPTY;
+            }
+        } else if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR
+                && !this.slots.get(8 - equipmentSlot.getIndex()).hasItem()) {
+            int pos = 8 - equipmentSlot.getIndex();
+            if (!this.moveItemStackTo(stack, pos, pos + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (equipmentSlot == EquipmentSlot.OFFHAND && !this.slots.get(SHIELD_SLOT).hasItem()) {
+            if (!this.moveItemStackTo(stack, SHIELD_SLOT, SHIELD_SLOT + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if ((storage || hotbar) && extraSlotFor(player, clicked) != null) {
+            // An extra slot that wants it (N49: helmet slot taken - a head goes into the extra head slot)
+            Slot extra = extraSlotFor(player, clicked);
+            if (!this.moveItemStackTo(stack, extra.index, extra.index + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (storage) {
+            if (!this.moveItemStackTo(stack, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (hotbar) {
+            if (!moveItemStackTo(stack, this.storageSlots)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (!moveItemStackTo(stack, storageThenHotbar())) {
+            return ItemStack.EMPTY;
+        }
+
+        if (stack.isEmpty()) {
+            slot.setByPlayer(ItemStack.EMPTY, clicked);
+        } else {
+            slot.setChanged();
+        }
+        if (stack.getCount() == clicked.getCount()) {
+            return ItemStack.EMPTY;
+        }
+        slot.onTake(player, stack);
+        if (slotIndex == RESULT_SLOT) {
+            player.drop(stack, false, net.minecraft.util.Prediction.SERVER_ONLY);
+        }
+        return clicked;
+    }
+
+    /** The first empty extra slot whose rule takes {@code stack} on a shift-click, or null. */
+    private Slot extraSlotFor(Player player, ItemStack stack) {
+        for (int i = 0; i < this.extraSlots.size(); i++) {
+            Slot slot = this.extraSlots.get(i);
+            if (!slot.hasItem() && this.extraKinds.get(i).takesOnQuickMove(player, stack)) return slot;
+        }
+        return null;
+    }
+
+    /** The extra inventory slots (SimpleLib InventoryExtras), in menu order. */
+    public List<Slot> extraSlots() {
+        return this.extraSlots;
+    }
+
+    /**
+     * Hauptinventar und Rucksack als ein Lager, in Bildreihenfolge: Reihe fuer Reihe von oben nach
+     * unten, in jeder Reihe von links nach rechts (Enderit-Spalte, Raster, Netherit-Spalte). Diese
+     * Reihenfolge nutzt das Schnellverschieben; eine Sortierfunktion sollte sie ebenso nutzen.
+     */
+    public List<Slot> storageSlots() {
+        return this.storageSlots;
+    }
+
+    private List<Slot> storageThenHotbar() {
+        List<Slot> targets = new ArrayList<>(this.storageSlots);
+        targets.addAll(this.slots.subList(USE_ROW_SLOT_START, USE_ROW_SLOT_END));
+        return targets;
+    }
+
+    /**
+     * Vanillas {@code moveItemStackTo} ueber eine beliebige Slot-Folge statt eines Index-Bereichs:
+     * erst vorhandene gleiche Stapel bis zu ihrer Grenze auffuellen, dann den Rest in den ersten
+     * leeren Slot legen, der ihn annimmt.
+     */
+    private static boolean moveItemStackTo(ItemStack stack, List<Slot> targets) {
+        boolean changed = false;
+        if (stack.isStackable()) {
+            for (Slot target : targets) {
+                if (stack.isEmpty()) {
+                    break;
+                }
+                ItemStack present = target.getItem();
+                if (present.isEmpty() || !ItemStack.isSameItemSameComponents(stack, present)) {
+                    continue;
+                }
+                int max = target.getMaxStackSize(present);
+                int total = present.getCount() + stack.getCount();
+                if (total <= max) {
+                    stack.setCount(0);
+                    present.setCount(total);
+                    target.setChanged();
+                    changed = true;
+                } else if (present.getCount() < max) {
+                    stack.shrink(max - present.getCount());
+                    present.setCount(max);
+                    target.setChanged();
+                    changed = true;
+                }
+            }
+        }
+        if (!stack.isEmpty()) {
+            for (Slot target : targets) {
+                if (target.getItem().isEmpty() && target.mayPlace(stack)) {
+                    target.setByPlayer(stack.split(Math.min(stack.getCount(), target.getMaxStackSize(stack))));
+                    target.setChanged();
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        return changed;
+    }
+
+    @Override
+    public boolean canTakeItemForPickAll(ItemStack carried, Slot target) {
+        return target.container != this.resultSlots && super.canTakeItemForPickAll(carried, target);
+    }
+
+    // =================================================================================
+    // Lebenszyklus
+    // =================================================================================
+
+    @Override
+    public void slotsChanged(net.minecraft.world.Container container) {
+        if (this.owner.level() instanceof ServerLevel level) {
+            CraftingGrid.update(this, level, this.owner, this.craftSlots, this.resultSlots);
+        }
+    }
+
+    @Override
+    public void broadcastChanges() {
+        this.backpack.syncFromSource();
+        // Faengt Aenderungen ohne setChanged ab, etwa die Buendel-Auswahl per Mausrad.
+        this.backpack.flush();
+        super.broadcastChanges();
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        this.resultSlots.clearContent();
+        if (!player.level().isClientSide()) {
+            this.clearContainer(player, this.craftSlots);
+            this.backpack.flush();
+        }
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return this.backpack.stillValid(player);
+    }
+
+    // =================================================================================
+    // Rezeptbuch (wie InventoryMenu)
+    // =================================================================================
+
+    @Override
+    public Slot getResultSlot() {
+        return this.slots.get(RESULT_SLOT);
+    }
+
+    @Override
+    public List<Slot> getInputGridSlots() {
+        return this.slots.subList(1, 5);
+    }
+
+    @Override
+    public RecipeBookType getRecipeBookType() {
+        return RecipeBookType.CRAFTING;
+    }
+
+    @Override
+    protected Player owner() {
+        return this.owner;
+    }
+
+    /**
+     * Zugang zu Vanillas {@code protected static CraftingMenu#slotChangedCraftingGrid}: eine
+     * Unterklasse darf geschuetzte statische Methoden ihrer Oberklasse aufrufen. Instanziert wird
+     * sie nie - so rechnet das 2x2-Raster exakt wie im Spielerinventar, ohne Mixin und ohne Kopie.
+     */
+    private static final class CraftingGrid extends CraftingMenu {
+        private CraftingGrid() {
+            super(0, null);
+        }
+
+        static void update(AbstractContainerMenu menu, ServerLevel level, Player player,
+                           CraftingContainer craftSlots, ResultContainer resultSlots) {
+            RecipeHolder<CraftingRecipe> noHint = null;
+            slotChangedCraftingGrid(menu, level, player, craftSlots, resultSlots, noHint);
+        }
+    }
+}

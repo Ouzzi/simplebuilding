@@ -41,7 +41,12 @@ public final class StorageForge {
                 });
             }
             if (key.equals(Registries.ENTITY_TYPE)) com.simplestorage.registry.StorageEntities.register();
-            if (key.equals(Registries.MENU)) StorageMenus.register();
+            if (key.equals(Registries.MENU)) {
+                StorageMenus.register();
+                // Split stage 8c-2: the opening data travel in Forge's menu buffer.
+                StorageMenus.registerBackpack(net.minecraftforge.common.extensions.IForgeMenuType.create((syncId, inventory, buffer) ->
+                        new com.simplestorage.backpack.BackpackMenu(syncId, inventory, com.simplestorage.backpack.BackpackOpenData.STREAM_CODEC.decode(buffer))));
+            }
             if (key.equals(Registries.CREATIVE_MODE_TAB)) StorageRegistry.registerTab();
             if (key.equals(Registries.RECIPE_SERIALIZER)) StorageRegistry.registerSerializers();
         });
@@ -53,7 +58,12 @@ public final class StorageForge {
                             (payload, ctx) -> onPlayer(ctx, p -> com.simplestorage.bundle.BundleNet.handle(payload, p)))
                     .add(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE, com.simplestorage.bundle.BundleNet.ScrollPayload.CODEC.cast(),
                             (payload, ctx) -> onPlayer(ctx, p -> com.simplestorage.bundle.BundleNet.handle(payload, p)))
+                    // Split stage 8c-2: the backpack key.
+                    .add(com.simplestorage.backpack.BackpackNet.OpenPayload.TYPE, com.simplestorage.backpack.BackpackNet.OpenPayload.CODEC.cast(),
+                            (payload, ctx) -> onPlayer(ctx, p -> com.simplestorage.backpack.BackpackNet.handle(payload, p)))
                 .build();
+        com.simplestorage.backpack.BackpackMenuProviders.opener = (player, opening) -> ((net.minecraftforge.common.extensions.IForgeServerPlayer) player).openMenu(
+                opening.provider(), (net.minecraft.network.FriendlyByteBuf buffer) -> com.simplestorage.backpack.BackpackOpenData.STREAM_CODEC.encode(buffer, opening.data()));
         FMLCommonSetupEvent.getBus(context.getModBusGroup()).addListener(event -> event.enqueueWork(() -> {
             StorageBlocks.registerFlammability();
             com.simplestorage.registry.StorageRegistry.registerBehaviours();
@@ -75,6 +85,8 @@ public final class StorageForge {
                 insertAfter(event, net.minecraft.world.item.Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
                 // Split stage 8c-1: the bundles and quivers behind Vanilla's bundle.
                 insertAfter(event, net.minecraft.world.item.Items.BUNDLE, StorageRegistry.bundleStacks());
+                // Split stage 8c-2: the backpacks behind the last quiver.
+                insertAfter(event, StorageItems.ENDERITE_QUIVER, StorageRegistry.backpackStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.getEntries().put(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

@@ -9,18 +9,24 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Stacks a player carries inside a worn container that tools may draw from (split stage 8c-1,
- * docs/ai/PLAN-B-S8C1-STORAGE-2026-10-20.md): SimpleBuilding's worn backpack with Master Builder offers its entries, and
- * Simple Storage's quivers take arrows from a quiver in there - neither mod imports the other. A {@link Source} answers
- * with copies plus a write-back; a tool changes the copy and hands it to {@link Entry#write}. Without a source a player
- * carries nothing here.
+ * docs/ai/PLAN-B-S8C1-STORAGE-2026-10-20.md): Simple Storage's worn backpack offers its entries (since 8c-2,
+ * PLAN-B-S8C2-STORAGE-2026-10-21.md; before that SimpleBuilding's), its quivers take arrows from a quiver in there and
+ * SimpleBuilding's wand, pick key and Constructor's Touch draw blocks - neither mod imports the other. A {@link Source}
+ * answers with copies plus a write-back; a tool changes the copy and hands it to {@link Entry#write}. Each entry names the
+ * worn container it sits in ({@link Entry#container}, the live stack), so a tool can ask for its own enchantment there
+ * (Master Builder, Constructor's Touch). Without a source a player carries nothing here.
  */
 public final class CarriedStacks {
     private static final List<Source> SOURCES = new CopyOnWriteArrayList<>();
 
     private CarriedStacks() {}
 
-    /** One stack inside a worn container: a copy, and how a changed copy goes back in. */
-    public record Entry(ItemStack stack, Consumer<ItemStack> writeBack) {
+    /** One stack inside a worn container: a copy, how a changed copy goes back in, and the container (live; EMPTY when unknown). */
+    public record Entry(ItemStack stack, Consumer<ItemStack> writeBack, ItemStack container) {
+        public Entry(ItemStack stack, Consumer<ItemStack> writeBack) {
+            this(stack, writeBack, ItemStack.EMPTY);
+        }
+
         public void write(ItemStack changed) {
             writeBack.accept(changed);
         }

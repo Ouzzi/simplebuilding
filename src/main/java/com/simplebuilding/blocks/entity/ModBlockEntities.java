@@ -67,7 +67,8 @@ public class ModBlockEntities {
                             ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER).build());
         }
 
-        BACKPACK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+        // Split stage 8c-2: Simple Storage's on 26.3.
+        if (ModBlocks.BACKPACK != null) BACKPACK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "backpack"),
                 FabricBlockEntityTypeBuilder.create(BackpackBlockEntity::new,
                         ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK,

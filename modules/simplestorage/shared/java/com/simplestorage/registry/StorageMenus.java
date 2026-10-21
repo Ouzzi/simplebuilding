@@ -19,6 +19,11 @@ import net.minecraft.world.inventory.MenuType;
  */
 public final class StorageMenus {
     public static MenuType<StorageCraftingMenu> STORAGE_CRAFTING_TABLE;
+    /**
+     * Split stage 8c-2: the backpack menu. Its opening data ({@code BackpackOpenData}) travel in the loader's menu buffer, so
+     * each loader builds the type itself ({@link #registerBackpack}, in the MENU phase).
+     */
+    public static MenuType<com.simplestorage.backpack.BackpackMenu> BACKPACK;
     private static final Map<TieredChestOpenData, MenuType<TieredChestMenu>> TIERED = new LinkedHashMap<>();
 
     public static void register() {
@@ -29,6 +34,11 @@ public final class StorageMenus {
             tiered(tier.textureName() + "_double_chest", TieredChestOpenData.of(tier, true));
             tiered(tier.textureName() + "_shulker_box", TieredChestOpenData.shulker(tier));
         }
+    }
+
+    /** Registers the loader's backpack menu type as {@code simplestorage:backpack}. */
+    public static void registerBackpack(MenuType<com.simplestorage.backpack.BackpackMenu> type) {
+        BACKPACK = Registry.register(BuiltInRegistries.MENU, SimpleStorage.id("backpack"), type);
     }
 
     private static void tiered(String path, TieredChestOpenData data) {

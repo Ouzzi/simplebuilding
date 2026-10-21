@@ -871,50 +871,6 @@
       "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
     ]
   },
-  "backpack": {
-    "lore": [
-      "{name}: Leather sheet, string, a heavy weighted pressure plate and copper nuggets: every adventure starts with a bag."
-    ],
-    "use": [
-      "Wearable storage with 9 slots; grants 1 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Craft: copper nuggets, string, heavy weighted pressure plates and leather sheets."
-    ],
-    "secret": [
-      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
-    ]
-  },
-  "reinforced_backpack": {
-    "lore": [
-      "{name}: A bag with diamond stitching, built to carry the weight of a long day."
-    ],
-    "use": [
-      "Wearable storage with 18 slots; grants 2 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Upgrade a backpack in the crafting table with four diamond pebbles; the contents stay."
-    ],
-    "secret": [
-      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
-    ]
-  },
-  "netherite_backpack": {
-    "lore": [
-      "{name}: A bag that has been through fire and keeps its contents anyway."
-    ],
-    "use": [
-      "Wearable storage with 33 slots; grants 3 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Smithing table upgrade of the Reinforced Backpack. It survives explosions as a dropped item."
-    ],
-    "secret": [
-      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
-    ]
-  },
-  "enderite_backpack": {
-    "lore": [
-      "{name}: The End has room for anything, and so does this bag."
-    ],
-    "use": [
-      "Wearable storage with 50 slots; grants 4 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Smithing table upgrade of the Netherite Backpack. It survives explosions and is safe from the void."
-    ],
-    "secret": [
-      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
-    ]
-  },
   "paint_box": {
     "lore": [
       "{name}: Three dyes over three planks: a palette in a box."

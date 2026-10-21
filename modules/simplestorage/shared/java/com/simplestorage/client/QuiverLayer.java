@@ -104,18 +104,8 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
                 ? living : null;
     }
 
-    /** SimpleBuilding's backpacks, by tag (no import): the back shows a backpack before an accessory quiver. */
-    private static final net.minecraft.tags.TagKey<net.minecraft.world.item.Item> BACKPACKS = net.minecraft.tags.TagKey.create(
-            net.minecraft.core.registries.Registries.ITEM, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "backpacks"));
-
-    /**
-     * What the back shows - at most one thing, the same rule as SimpleBuilding's {@code BackpackLayer#backItem}: a backpack or
-     * quiver in the chest slot, else a backpack in a visible accessory slot, else a quiver there; otherwise EMPTY.
-     */
+    /** What the back shows - at most one thing ({@link BackpackLayer#backItem}, since split stage 8c-2 the module's own backpacks). */
     public static ItemStack backItem(LivingEntity living) {
-        ItemStack chest = living.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST);
-        if (chest.is(BACKPACKS) || chest.getItem() instanceof QuiverItem) return chest;
-        ItemStack backpack = com.simplelib.api.AccessorySlots.findFirstVisible(living, s -> s.is(BACKPACKS));
-        return !backpack.isEmpty() ? backpack : com.simplelib.api.AccessorySlots.findFirstVisible(living, s -> s.getItem() instanceof QuiverItem);
+        return BackpackLayer.backItem(living);
     }
 }

@@ -42,7 +42,12 @@ public final class StorageNeoForge {
                 });
             }
             if (key.equals(Registries.ENTITY_TYPE)) com.simplestorage.registry.StorageEntities.register();
-            if (key.equals(Registries.MENU)) StorageMenus.register();
+            if (key.equals(Registries.MENU)) {
+                StorageMenus.register();
+                // Split stage 8c-2: the opening data travel in NeoForge's menu buffer.
+                StorageMenus.registerBackpack(net.neoforged.neoforge.common.extensions.IMenuTypeExtension.create((syncId, inventory, buffer) ->
+                        new com.simplestorage.backpack.BackpackMenu(syncId, inventory, com.simplestorage.backpack.BackpackOpenData.STREAM_CODEC.decode(buffer))));
+            }
             if (key.equals(Registries.CREATIVE_MODE_TAB)) StorageRegistry.registerTab();
             if (key.equals(Registries.RECIPE_SERIALIZER)) StorageRegistry.registerSerializers();
         });
@@ -53,7 +58,14 @@ public final class StorageNeoForge {
                     (payload, context) -> context.enqueueWork(() -> com.simplestorage.bundle.BundleNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player())));
             registrar.playToServer(com.simplestorage.bundle.BundleNet.ScrollPayload.TYPE, com.simplestorage.bundle.BundleNet.ScrollPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> com.simplestorage.bundle.BundleNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player())));
+            // Split stage 8c-2: the backpack key.
+            registrar.playToServer(com.simplestorage.backpack.BackpackNet.OpenPayload.TYPE, com.simplestorage.backpack.BackpackNet.OpenPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplestorage.backpack.BackpackNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player())));
         });
+        com.simplestorage.backpack.BackpackMenuProviders.opener = (player, opening) -> ((net.neoforged.neoforge.common.extensions.IPlayerExtension) player).openMenu(
+                opening.provider(), (net.minecraft.network.RegistryFriendlyByteBuf buffer) -> com.simplestorage.backpack.BackpackOpenData.STREAM_CODEC.encode(buffer, opening.data()));
+        // Curios (optional): backpacks and quivers in the back and belt slots count as worn (SimpleLib AccessorySlots).
+        if (ModList.get().isLoaded(CuriosHook.MOD_ID)) CuriosHook.register();
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             StorageBlocks.registerFlammability();
             com.simplestorage.registry.StorageRegistry.registerBehaviours();
@@ -76,6 +88,8 @@ public final class StorageNeoForge {
                 insertAfter(event, net.minecraft.world.item.Items.BAMBOO_CHEST_RAFT, StorageRegistry.chestBoatStacks());
                 // Split stage 8c-1: the bundles and quivers behind Vanilla's bundle.
                 insertAfter(event, net.minecraft.world.item.Items.BUNDLE, StorageRegistry.bundleStacks());
+                // Split stage 8c-2: the backpacks behind the last quiver.
+                insertAfter(event, StorageItems.ENDERITE_QUIVER, StorageRegistry.backpackStacks());
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleStorage.on()) {
                 event.accept(com.simplestorage.guide.StorageGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

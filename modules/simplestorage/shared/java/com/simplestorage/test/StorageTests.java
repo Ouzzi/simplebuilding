@@ -137,6 +137,27 @@ public final class StorageTests {
         ALL.put("bundle_storage_registered", BundleStorageTests::registered);
         ALL.put("bundle_storage_migration_from_simplebuilding", BundleStorageTests::migrationFromSimplebuilding);
         ALL.put("bundle_storage_recipes_work_on_their_own", BundleStorageTests::recipesWorkOnTheirOwn);
+        // Split stage 8c-2: the backpacks (bodies from SimpleBuilding's BackpackTests; the Master Builder / Constructor's Touch
+        // interplay stays a SimpleBuilding test, it needs its enchantments and wand).
+        ALL.put("backpack_right_click_wears_the_backpack_and_swaps_it_with_the_chestplate", BackpackTests::rightClickWearsTheBackpackAndSwapsItWithTheChestplate);
+        ALL.put("backpack_tiers_carry_their_armor_slot_count_and_slot_layout", BackpackTests::tiersCarryTheirArmorSlotCountAndSlotLayout);
+        ALL.put("backpack_contents_survive_the_reinforced_recipe_and_both_smithing_upgrades", BackpackTests::contentsSurviveTheReinforcedRecipeAndBothSmithingUpgrades);
+        ALL.put("backpack_sneak_right_click_places_the_backpack_and_breaking_it_drops_everything", BackpackTests::sneakRightClickPlacesTheBackpackAndBreakingItDropsEverything);
+        ALL.put("backpack_open_key_opens_the_worn_backpack_or_else_the_first_one_carried", BackpackTests::openKeyOpensTheWornBackpackOrElseTheFirstOneCarried);
+        ALL.put("backpack_shift_click_from_the_hotbar_fills_inventory_and_backpack_as_one_storage", BackpackTests::shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage);
+        ALL.put("backpack_shift_click_sends_storage_to_the_hotbar_and_armor_to_its_slot", BackpackTests::shiftClickSendsStorageToTheHotbarAndArmorToItsSlot);
+        ALL.put("backpack_deep_pockets_raises_stack_limits_only_for_stackables", BackpackTests::deepPocketsRaisesStackLimitsOnlyForStackables);
+        ALL.put("backpack_funnel_pulls_picked_up_items_into_the_worn_backpack", BackpackTests::funnelPullsPickedUpItemsIntoTheWornBackpack);
+        ALL.put("backpack_backpacks_take_their_four_enchantments_but_neither_drawer_nor_color_palette", BackpackTests::backpacksTakeTheirFourEnchantmentsButNeitherDrawerNorColorPalette);
+        ALL.put("backpack_tooltip_image_carries_the_stored_items_of_every_tier_dyed_too", BackpackTests::tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo);
+        ALL.put("backpack_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents);
+        ALL.put("backpack_backpack_key_locks_the_inventory_slot_of_the_backpack_it_opened", BackpackTests::backpackKeyLocksTheInventorySlotOfTheBackpackItOpened);
+        ALL.put("backpack_placed_backpack_feeds_its_fill_level_to_comparators", BackpackTests::placedBackpackOutputsItsFillLevelToAComparator);
+        ALL.put("backpack_storage_registered", BackpackStorageTests::registered);
+        ALL.put("backpack_storage_migration_from_simplebuilding", BackpackStorageTests::migrationFromSimplebuilding);
+        ALL.put("backpack_storage_refuses_the_not_allowed_tag", BackpackStorageTests::refusesTheNotAllowedTag);
+        ALL.put("backpack_storage_unreadable_entry_keeps_the_rest", BackpackStorageTests::unreadableEntryKeepsTheRest);
+        ALL.put("backpack_storage_accessory_backpack_counts_as_worn", BackpackStorageTests::accessoryBackpackCountsAsWorn);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);

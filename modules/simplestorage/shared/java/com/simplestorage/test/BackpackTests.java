@@ -1,0 +1,1246 @@
+package com.simplestorage.test;
+
+import com.simplestorage.backpack.BackpackBlockEntity;
+import com.simplestorage.backpack.BackpackContainer;
+import com.simplestorage.backpack.BackpackContents;
+import com.simplestorage.backpack.BackpackItem;
+import com.simplestorage.backpack.BackpackLayout;
+import com.simplestorage.backpack.BackpackMenu;
+import com.simplestorage.backpack.BackpackMenuProviders;
+import com.simplestorage.backpack.BackpackNet;
+import com.simplestorage.backpack.BackpackOpenData;
+import com.simplestorage.backpack.BackpackTier;
+import com.simplestorage.bundle.BundleEnchantments;
+import com.simplestorage.registry.StorageBlocks;
+import com.simplestorage.registry.StorageComponents;
+import com.simplestorage.registry.StorageItems;
+import java.util.List;
+import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * The four backpacks, server side: wearing, the tiers, the contents through every upgrade, placing
+ * and breaking, the menu behind the backpack key, and the four enchantments that reach them.
+ *
+ * <p>The word "backpack" means the item {@code simplestorage:backpack} and its three upper tiers
+ * here - not the main inventory, which older tests call the backpack.
+ *
+ * <p><b>Players.</b> Where a plain {@code Player} is enough (wearing, placing, the pickup, the hand
+ * refill) the tests use {@code GameTestHelper#makeMockPlayer(GameType.SURVIVAL)}: it exists on both
+ * Minecraft lines, is really in survival - so a right click moves the backpack instead of copying it,
+ * as vanilla's {@code Equippable#swapWithEquipmentSlot} does for creative players - and it is never
+ * put into the player list. Where the mod's code insists on a {@code ServerPlayer} (the menu gate,
+ * the payload handlers, the building wand) the in-level mock is used and handed back at the end.
+ *
+ * <p><b>Menus are built, not sent.</b> The backpack key's real path ends in
+ * {@code BackpackMenus#openWorn}, which on NeoForge sends {@code neoforge:advanced_open_screen}; a mock
+ * player's connection refuses that packet. The tests therefore build the menu through the same
+ * loader-neutral {@code BackpackMenuProviders#worn} the platform class uses and drive it directly, the
+ * way {@code HopperTests} does.
+ *
+ * <h2>Not covered</h2>
+ * <ul>
+ *   <li><b>The screen</b>: tint, the extra columns' art, the recipe book. Client side.</li>
+ *   <li><b>A placed backpack's own menu</b> ({@code BackpackBlock#useWithoutItem}): it goes through the
+ *       same platform send as the key.</li>
+ *   <li><b>The creative break</b> ({@code BackpackBlock#playerWillDestroy}), which needs a creative
+ *       player breaking the block through the game mode.</li>
+ * </ul>
+ */
+public final class BackpackTests {
+    /** The four tiers by item (split stage 8c-2: the module's backpacks; the bodies came from SimpleBuilding's BackpackTests). */
+    private static final Item BASIC = StorageItems.BACKPACKS.get(BackpackTier.BASIC);
+    private static final Item REINFORCED = StorageItems.BACKPACKS.get(BackpackTier.REINFORCED);
+    private static final Item NETHERITE = StorageItems.BACKPACKS.get(BackpackTier.NETHERITE);
+    private static final Item ENDERITE = StorageItems.BACKPACKS.get(BackpackTier.ENDERITE);
+    private static final net.minecraft.tags.TagKey<Item> BACKPACKS = net.minecraft.tags.TagKey.create(Registries.ITEM,
+            com.simplestorage.SimpleStorage.id("backpacks"));
+
+    /** First menu index of the backpack's own slots, behind vanilla's 46. */
+    private static final int FIRST_BACKPACK_SLOT = BackpackMenu.BACKPACK_SLOT_START;
+
+    /** Menu index of the chest armour slot, as in {@code InventoryMenu}. */
+    private static final int CHEST_SLOT = 6;
+
+    /** More than an {@code ItemEntity}'s five hit points. */
+    private static final float LETHAL_DAMAGE = 6.0F;
+
+    private BackpackTests() {
+    }
+
+    // =====================================================================================
+    // WEARING
+    // =====================================================================================
+
+    /**
+     * A right click with a backpack in hand wears it in the chest slot, through vanilla's
+     * {@code EQUIPPABLE} swap - the same click that wears a chestplate.
+     *
+     * <ul>
+     *   <li><b>Empty chest:</b> the backpack goes on and the hand is empty afterwards (a survival
+     *       player; creative would copy).</li>
+     *   <li><b>A chestplate worn:</b> the backpack goes on, the chestplate comes into the hand, and the
+     *       backpack's contents travel with it.</li>
+     *   <li><b>And back:</b> right clicking with the chestplate swaps the backpack into the hand again,
+     *       contents and all.</li>
+     *   <li><b>Only players:</b> a zombie may not wear it - the component names players only, so no mob
+     *       picks up a lost backpack and walks off with its contents.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: a backpack that is not swappable, one that equips into another slot,
+     * losing the contents on the way, and allowing other entities to wear it.
+     */
+    public static void rightClickWearsTheBackpackAndSwapsItWithTheChestplate(GameTestHelper helper) {
+        Player player = survivalPlayer(helper);
+
+        // --- empty chest ---
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BASIC));
+        rightClick(player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.CHEST).is(BASIC),
+                "a right click with the backpack did not put it into the chest slot, the chest holds "
+                        + player.getItemBySlot(EquipmentSlot.CHEST));
+        helper.assertTrue(player.getMainHandItem().isEmpty(),
+                "the backpack went on but stayed in the survival player's hand as well: " + player.getMainHandItem());
+
+        // --- a chestplate worn: swapped into the hand, the contents travel along ---
+        BackpackContents contents = contentsOf(new ItemStack(Items.COBBLESTONE, 32), new ItemStack(Items.TORCH, 5));
+        ItemStack netherite = backpackWith(NETHERITE, contents);
+        player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
+        player.setItemInHand(InteractionHand.MAIN_HAND, netherite);
+        rightClick(player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.CHEST).is(NETHERITE),
+                "a right click with the backpack did not swap it with the worn chestplate");
+        helper.assertTrue(player.getMainHandItem().is(Items.DIAMOND_CHESTPLATE),
+                "the chestplate did not come into the hand when the backpack took its place: "
+                        + player.getMainHandItem());
+        helper.assertValueEqual(BackpackItem.contents(player.getItemBySlot(EquipmentSlot.CHEST)), contents,
+                "contents of the backpack after it was put on");
+
+        // --- and back again with the chestplate ---
+        rightClick(player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.CHEST).is(Items.DIAMOND_CHESTPLATE)
+                        && player.getMainHandItem().is(NETHERITE),
+                "right clicking with the chestplate did not swap the backpack back into the hand");
+        helper.assertValueEqual(BackpackItem.contents(player.getMainHandItem()), contents,
+                "contents of the backpack after it was taken off again");
+
+        // --- only players ---
+        Zombie zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(1, 1, 1));
+        helper.assertTrue(!zombie.isEquippableInSlot(new ItemStack(BASIC), EquipmentSlot.CHEST),
+                "a zombie may wear the backpack; the component is meant for players only");
+        helper.assertTrue(zombie.isEquippableInSlot(new ItemStack(Items.DIAMOND_CHESTPLATE), EquipmentSlot.CHEST),
+                "a zombie may not wear a diamond chestplate either, so the check above proves nothing");
+        zombie.discard();
+
+        helper.succeed();
+    }
+
+    /**
+     * The four tiers, their numbers and where their slots sit.
+     *
+     * <ul>
+     *   <li><b>Armour</b> 1 / 2 / 3 / 4, read from the item's attribute modifiers for the chest slot -
+     *       and 0 for the head slot, so the modifier is bound to the chest.</li>
+     *   <li><b>Capacity</b> 9 / 18 / 33 / 50 slots, and the menu is vanilla's 46 slots plus exactly
+     *       that many.</li>
+     *   <li><b>The vanilla part</b> of the menu is the player inventory in {@code InventoryMenu}'s own
+     *       order: every armour, main, hotbar and off hand slot reads the same inventory index as the
+     *       player's inventory menu, and for the basic tier the top part sits at the same place.</li>
+     *   <li><b>Slot ids</b> in the contents component are the same for every tier: rows use 0 to 35, the
+     *       extra columns start at 36. The netherite backpack's first column slot is id 36, and the
+     *       enderite backpack puts id 36 into its first column too - so an upgrade keeps a column item
+     *       in a column. The basic backpack has no slot for id 36 at all.</li>
+     *   <li><b>Layout</b>: the netherite column stands right of the grid at x 170, the enderite
+     *       backpack's second column left of it, and the image grows by 18 pixels per row and column.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: another armour value or slot group in {@code StorageItems#registerBackpacks},
+     * another row or column count in {@code BackpackTier}, slot ids that depend on the tier, and a
+     * vanilla part that is not {@code InventoryMenu}'s.
+     */
+    public static void tiersCarryTheirArmorSlotCountAndSlotLayout(GameTestHelper helper) {
+        Player player = survivalPlayer(helper);
+        Item[] items = {BASIC, REINFORCED, NETHERITE, ENDERITE};
+        int[] armor = {1, 2, 3, 4};
+        int[] slots = {9, 18, 33, 50};
+
+        for (int i = 0; i < items.length; i++) {
+            ItemStack stack = new ItemStack(items[i]);
+            ItemAttributeModifiers modifiers = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+            helper.assertValueEqual(modifiers.compute(Attributes.ARMOR, 0.0D, EquipmentSlot.CHEST), (double) armor[i],
+                    "armor of the worn " + items[i]);
+            helper.assertValueEqual(modifiers.compute(Attributes.ARMOR, 0.0D, EquipmentSlot.HEAD), 0.0D,
+                    "armor of " + items[i] + " in the head slot");
+
+            BackpackTier tier = ((BackpackItem) items[i]).getTier();
+            helper.assertValueEqual(tier.slotCount(), slots[i], "slots of " + items[i]);
+            BackpackMenu menu = menuFor(player, tier);
+            // + 1: the extra head slot after the backpack (owner N49)
+            helper.assertValueEqual(menu.slots.size(), FIRST_BACKPACK_SLOT + slots[i] + com.simplelib.api.InventoryExtras.all().size(), "menu slots (+ extra inventory slots, with SimpleBuilding its head slot) of " + items[i]);
+            assertVanillaPart(helper, player, menu, tier == BackpackTier.BASIC);
+        }
+
+        // --- slot ids that mean the same on every tier ---
+        BackpackTier netherite = BackpackTier.NETHERITE;
+        BackpackTier enderite = BackpackTier.ENDERITE;
+        helper.assertValueEqual(netherite.componentSlot(netherite.rowSlots()), BackpackTier.COLUMN_SLOT_BASE,
+                "component id of the netherite backpack's first column slot");
+        helper.assertValueEqual(enderite.containerIndex(BackpackTier.COLUMN_SLOT_BASE), enderite.rowSlots(),
+                "enderite slot that takes over the netherite column's first item");
+        helper.assertTrue(enderite.isColumnSlot(enderite.containerIndex(BackpackTier.COLUMN_SLOT_BASE)),
+                "the netherite column's first item lands in a row of the enderite backpack, not in its column");
+        helper.assertValueEqual(BackpackTier.BASIC.containerIndex(BackpackTier.COLUMN_SLOT_BASE), -1,
+                "basic backpack slot for a column id");
+        helper.assertValueEqual(enderite.componentSlot(enderite.rowSlots() + enderite.columnHeight()),
+                BackpackTier.COLUMN_SLOT_BASE + BackpackTier.MAX_COLUMN_HEIGHT,
+                "component id of the enderite backpack's second column");
+
+        // --- where they sit ---
+        BackpackLayout basicLayout = new BackpackLayout(BackpackTier.BASIC);
+        helper.assertValueEqual(basicLayout.backpackSlotX(0), 8, "x of the basic backpack's first slot");
+        helper.assertValueEqual(basicLayout.backpackSlotY(0), 84, "y of the basic backpack's first slot");
+        helper.assertValueEqual(basicLayout.mainRowY(0), 102, "y of the main inventory under one backpack row");
+        helper.assertValueEqual(basicLayout.imageHeight(), 184, "height of the basic backpack screen");
+        BackpackLayout netheriteLayout = new BackpackLayout(netherite);
+        helper.assertValueEqual(netheriteLayout.backpackSlotX(netherite.rowSlots()), 170,
+                "x of the netherite backpack's column");
+        helper.assertValueEqual(netheriteLayout.backpackSlotY(netherite.slotCount() - 1), 84 + 18 * 5,
+                "y of the netherite column's last slot, level with the last main inventory row");
+        helper.assertValueEqual(netheriteLayout.imageWidth(), 194, "width of the netherite backpack screen");
+        BackpackLayout enderiteLayout = new BackpackLayout(enderite);
+        helper.assertValueEqual(enderiteLayout.backpackSlotX(enderite.rowSlots() + enderite.columnHeight()), 8,
+                "x of the enderite backpack's left column");
+        helper.assertValueEqual(enderiteLayout.imageWidth(), 212, "width of the enderite backpack screen");
+        helper.assertValueEqual(enderiteLayout.imageHeight(), 238, "height of the enderite backpack screen");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // CONTENTS THROUGH EVERY UPGRADE, PLACING AND BREAKING
+    // =====================================================================================
+
+    /**
+     * Crafting and smithing a backpack up keeps everything it carries.
+     *
+     * <ul>
+     *   <li><b>Basic recipe:</b> {@code NSN / PPP / WWW} (copper nuggets, string, leather sheets, three
+     *       heavy weighted pressure plates) crafts one empty backpack; wooden pressure plates (the
+     *       previous bottom row) and the former iron bars no longer do.</li>
+     *   <li><b>Reinforced recipe</b> ({@code simplestorage:backpack_upgrade}, {@code " S " / DBD / LLL}):
+     *       contents, name and enchantments of the backpack in the middle arrive on the reinforced one.
+     *       The same items with the backpack in a corner craft nothing.</li>
+     *   <li><b>Netherite and enderite smithing</b> keep them too, and an item in the netherite
+     *       backpack's column keeps its slot id and sits in the enderite backpack's column afterwards.</li>
+     *   <li><b>No skipped tier:</b> the enderite upgrade refuses a reinforced backpack.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: a reinforced recipe that builds a fresh backpack (plain
+     * {@code crafting_shaped}), smithing that loses components, slot ids renumbered per tier, and a
+     * tier chain with a gap or a shortcut.
+     */
+    public static void contentsSurviveTheReinforcedRecipeAndBothSmithingUpgrades(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+
+        // --- the basic backpack ---
+        ItemStack n = new ItemStack(Items.COPPER_NUGGET);
+        ItemStack s = new ItemStack(Items.STRING);
+        // With SimpleBuilding its leather sheet, alone Vanilla's leather (the *_without_simplebuilding recipes).
+        boolean sb = sbLoaded();
+        ItemStack p = sb ? new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "leather_sheet"))) : new ItemStack(Items.LEATHER);
+        String suffix = sb ? "" : "_without_simplebuilding";
+        ItemStack heavy = new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE);
+        ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, heavy, heavy, heavy)),
+                "copper nuggets, string, leather sheets and heavy weighted pressure plates", "simplestorage:backpack" + suffix);
+        ItemStack oak = new ItemStack(Items.OAK_PRESSURE_PLATE);
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, oak, oak, oak)), level).isEmpty(),
+                "the backpack pattern with wooden pressure plates still crafts something");
+        ItemStack bars = new ItemStack(Items.IRON_BARS);
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, bars, bars, bars)), level).isEmpty(),
+                "the old backpack pattern with iron bars still crafts something");
+        helper.assertTrue(basic.is(BASIC) && basic.getCount() == 1,
+                "the backpack pattern crafts " + basic + " instead of one backpack");
+        helper.assertTrue(BackpackItem.contents(basic).isEmpty(), "a freshly crafted backpack is not empty");
+
+        // --- basic -> reinforced ---
+        BackpackContents contents = contentsOf(new ItemStack(Items.COBBLESTONE, 64), new ItemStack(Items.DIAMOND, 3));
+        ItemStack worn = backpackWith(BASIC, contents);
+        worn.set(DataComponents.CUSTOM_NAME, Component.literal("Kit"));
+        worn.enchant(enchantment(helper, BundleEnchantments.FUNNEL), 1);
+
+        ItemStack d = new ItemStack(Refs.material("diamond_pebble"));
+        // "DSD" / "DBD" / "LLL": four diamond pebbles since 2026-09-29; the old two-pebble grid crafts nothing.
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, d, worn, d, p, p, p)), level).isEmpty(),
+                "the old reinforced backpack pattern with two diamond pebbles still crafts something");
+        ItemStack reinforced = craft(helper, level, CraftingInput.of(3, 3, List.of(d, s, d, d, worn, d, p, p, p)),
+                "the reinforced backpack pattern", "simplestorage:reinforced_backpack" + suffix);
+        helper.assertTrue(reinforced.is(REINFORCED),
+                "the reinforced backpack pattern crafts " + reinforced);
+        helper.assertValueEqual(BackpackItem.contents(reinforced), contents,
+                "contents the reinforced backpack kept from the backpack it was made of");
+        assertKeptNameAndFunnel(helper, reinforced, "Kit", "the reinforced backpack");
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(d, s, d, worn, d, d, p, p, p)), level).isEmpty(),
+                "the reinforced backpack pattern with the backpack in a corner crafts something, so the "
+                        + "upgrade recipe is not shaped");
+
+        // --- reinforced -> netherite ---
+        ItemStack netherite = smith(helper, level, new SmithingRecipeInput(
+                new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), reinforced, new ItemStack(Items.NETHERITE_INGOT)),
+                "the reinforced backpack on the netherite template");
+        helper.assertTrue(netherite.is(NETHERITE), "netherite smithing made " + netherite);
+        helper.assertValueEqual(BackpackItem.contents(netherite), contents,
+                "contents the netherite backpack kept from the reinforced one");
+        assertKeptNameAndFunnel(helper, netherite, "Kit", "the netherite backpack");
+
+        // --- netherite -> enderite, with an item in the netherite column ---
+        BackpackTier netheriteTier = BackpackTier.NETHERITE;
+        BackpackContents withColumn = new BackpackContents(List.of(
+                BackpackContents.Entry.of(0, new ItemStack(Items.COBBLESTONE, 64)),
+                BackpackContents.Entry.of(netheriteTier.componentSlot(netheriteTier.rowSlots()), new ItemStack(Items.EMERALD, 7))));
+        netherite.set(StorageComponents.BACKPACK_CONTENTS, withColumn);
+        ItemStack enderite = smith(helper, level, new SmithingRecipeInput(
+                new ItemStack(Refs.material("enderite_upgrade_template")), netherite, new ItemStack(Refs.material("enderite_ingot"))),
+                "the netherite backpack on the enderite template");
+        helper.assertTrue(enderite.is(ENDERITE), "enderite smithing made " + enderite);
+        helper.assertValueEqual(BackpackItem.contents(enderite), withColumn,
+                "contents the enderite backpack kept from the netherite one");
+        BackpackContainer opened = new BackpackContainer(BackpackTier.ENDERITE, 1);
+        opened.load(BackpackItem.contents(enderite));
+        int columnSlot = BackpackTier.ENDERITE.rowSlots();
+        helper.assertTrue(opened.getItem(columnSlot).is(Items.EMERALD) && BackpackTier.ENDERITE.isColumnSlot(columnSlot),
+                "the emeralds from the netherite column did not land in the enderite backpack's column");
+        assertKeptNameAndFunnel(helper, enderite, "Kit", "the enderite backpack");
+
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,
+                        new SmithingRecipeInput(new ItemStack(Refs.material("enderite_upgrade_template")),
+                                new ItemStack(REINFORCED), new ItemStack(Refs.material("enderite_ingot"))), level).isEmpty(),
+                "the enderite upgrade accepts a reinforced backpack, so the netherite tier can be skipped");
+
+        helper.succeed();
+    }
+
+    /**
+     * Sneak + right click on a block sets the backpack down as a block; a plain right click does not.
+     * Breaking the placed backpack gives back exactly one item, the backpack, with its contents, its
+     * name and its enchantments - and nothing spills.
+     *
+     * <p>The player is in survival, so the placed backpack also leaves the hand.
+     *
+     * <p>What breaks this test: placing without sneaking, a block entity that does not take the item's
+     * contents, a loot table without {@code copy_components} (the backpack drops empty), one that
+     * spills the contents as separate stacks, and one that drops nothing.
+     */
+    public static void sneakRightClickPlacesTheBackpackAndBreakingItDropsEverything(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        Player player = survivalPlayer(helper);
+        BlockPos support = new BlockPos(2, 1, 2);
+        BlockPos placed = support.above();
+        helper.setBlock(support, Blocks.STONE);
+        helper.setBlock(placed, Blocks.AIR);
+
+        BackpackContents contents = contentsOf(new ItemStack(Items.COBBLESTONE, 64), new ItemStack(Items.DIAMOND, 3));
+        ItemStack backpack = backpackWith(REINFORCED, contents);
+        backpack.set(DataComponents.CUSTOM_NAME, Component.literal("Camp"));
+        backpack.enchant(enchantment(helper, BundleEnchantments.FUNNEL), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, backpack);
+
+        // --- a plain right click on a block does not place it ---
+        player.setShiftKeyDown(false);
+        InteractionResult plain = backpack.useOn(clickTop(helper, player, support));
+        helper.assertTrue(!plain.consumesAction() && helper.getBlockState(placed).isAir(),
+                "a right click without sneaking placed the backpack; only sneak + right click may set it down");
+
+        // --- sneaking places it ---
+        player.setShiftKeyDown(true);
+        backpack.useOn(clickTop(helper, player, support));
+        player.setShiftKeyDown(false);
+        helper.assertTrue(helper.getBlockState(placed).is(StorageBlocks.BACKPACKS.get(BackpackTier.REINFORCED)),
+                "sneak + right click did not place the backpack, found " + helper.getBlockState(placed));
+        helper.assertTrue(player.getMainHandItem().isEmpty(),
+                "the placed backpack is still in the survival player's hand");
+        helper.assertTrue(level.getBlockEntity(helper.absolutePos(placed)) instanceof BackpackBlockEntity,
+                "the placed backpack has no backpack block entity");
+        BackpackBlockEntity entity = (BackpackBlockEntity) level.getBlockEntity(helper.absolutePos(placed));
+        helper.assertValueEqual(entity.container().toContents(), contents, "contents of the placed backpack");
+
+        // --- breaking it drops exactly the backpack, with everything ---
+        level.destroyBlock(helper.absolutePos(placed), true);
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, helper.getBounds());
+        helper.assertValueEqual(drops.size(), 1, "item entities after breaking the placed backpack");
+        ItemStack dropped = drops.get(0).getItem();
+        helper.assertTrue(dropped.is(REINFORCED),
+                "breaking the placed backpack dropped " + dropped + " instead of the backpack");
+        helper.assertValueEqual(BackpackItem.contents(dropped), contents,
+                "contents of the backpack that dropped from the broken block");
+        assertKeptNameAndFunnel(helper, dropped, "Camp", "the dropped backpack");
+        drops.get(0).discard();
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // THE MENU
+    // =====================================================================================
+
+    /**
+     * The backpack key ({@code OpenBackpackPayload}) opens the worn backpack, or - since the owner's
+     * decision of 2026-09-28 - the first backpack anywhere in the inventory; the server picks and
+     * checks it itself.
+     *
+     * <ul>
+     *   <li><b>No backpack at all:</b> the gate is shut and the handler leaves the player in vanilla's
+     *       own inventory menu with its 46 slots - the client shows the normal inventory then.</li>
+     *   <li><b>A backpack only in the inventory:</b> the gate opens, the real handler opens a backpack
+     *       menu on that backpack and locks exactly its slot.</li>
+     *   <li><b>Worn and in the inventory:</b> the worn one wins.</li>
+     *   <li><b>Another menu already open:</b> shut again, so the key never stacks a menu on a menu.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: a gate that ignores the inventory, one that opens a menu without any
+     * backpack, one that prefers the inventory over the worn backpack, and one that ignores an open
+     * menu.
+     */
+    public static void openKeyOpensTheWornBackpackOrElseTheFirstOneCarried(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        player.getInventory().clearContent();
+
+        // --- no backpack anywhere ---
+        helper.assertFalse(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may open a menu for a player without any backpack");
+        BackpackNet.handle(new BackpackNet.OpenPayload(), player);
+        helper.assertTrue(player.containerMenu == player.inventoryMenu,
+                "the backpack key opened " + player.containerMenu + " without a backpack");
+        helper.assertTrue(player.inventoryMenu.slots.size() >= 46, "slots of the vanilla inventory menu (+ SimpleBuilding's extra head slot, N49)");
+
+        // --- only in the inventory: the first one found is opened, and its slot is locked ---
+        ItemStack carried = new ItemStack(BASIC);
+        player.getInventory().setItem(20, carried);
+        player.getInventory().setItem(30, new ItemStack(REINFORCED));
+        helper.assertTrue(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may not open a backpack that lies in the inventory");
+        helper.assertValueEqual(BackpackItem.carriedBackpackSlot(player), 20,
+                "inventory slot of the backpack the key picks - the first one in inventory order");
+        BackpackMenu fromInventory = (BackpackMenu) BackpackMenuProviders.carried(player).provider()
+                .createMenu(1, player.getInventory(), player);
+        helper.assertValueEqual(fromInventory.tier(), BackpackTier.BASIC, "tier of the backpack the key opened");
+        helper.assertValueEqual(fromInventory.lockedSlot(), 20, "inventory slot the backpack menu locks");
+
+        // --- worn and carried: the worn one wins ---
+        player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(NETHERITE));
+        helper.assertValueEqual(BackpackItem.carriedBackpackSlot(player), BackpackItem.CHEST_INVENTORY_SLOT,
+                "slot the key picks with a worn backpack and one in the inventory");
+        AbstractContainerMenu menu = BackpackMenuProviders.worn(player).provider()
+                .createMenu(1, player.getInventory(), player);
+        helper.assertTrue(menu instanceof BackpackMenu,
+                "the worn backpack's provider built " + menu + " instead of a backpack menu");
+
+        // --- another menu open ---
+        player.containerMenu = menu;
+        helper.assertFalse(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may open a second menu on top of an open one");
+        player.containerMenu = player.inventoryMenu;
+
+        helper.succeed();
+    }
+
+    /**
+     * Shift-click from the hotbar treats the main inventory and the backpack as one storage, the way
+     * vanilla treats the main inventory alone: first every stack of the same item that still has room,
+     * then the first empty slot from top left to bottom right as the screen shows them - the backpack
+     * rows above the main inventory, the enderite column left and the netherite column right of each
+     * row.
+     *
+     * <ul>
+     *   <li><b>Stacks first:</b> 20 glass from the hotbar top up 60 glass in backpack slot 5 to 64 and
+     *       put the other 16 on the 10 glass in the last main inventory slot, while plenty of empty
+     *       slots come earlier.</li>
+     *   <li><b>Empty storage:</b> the first item lands in the enderite column's top slot (it stands left
+     *       of the first backpack row), the next one in the first backpack row slot.</li>
+     *   <li><b>Row by row:</b> with only the netherite column's second slot, backpack row 3 and the
+     *       main inventory's first slot free, three items fill them in exactly that order.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: a hotbar move that fills the backpack and the main inventory one after
+     * the other, empty slots taken before same-item stacks, and slot index order instead of the order
+     * on screen.
+     */
+    public static void shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.clearContent();
+        BackpackTier tier = BackpackTier.ENDERITE;
+        BackpackMenu menu = menuFor(player, tier);
+        BackpackContainer backpack = menu.backpack();
+        int hotbar = BackpackMenu.USE_ROW_SLOT_START;
+        // Column 0 is the netherite column on the right, column 1 the enderite column on the left.
+        int enderiteTop = tier.rowSlots() + tier.columnHeight();
+        int netheriteSecond = tier.rowSlots() + 1;
+
+        // --- stacks of the same item first, in the backpack and in the main inventory ---
+        backpack.setItem(5, new ItemStack(Items.GLASS, 60));
+        inventory.setItem(35, new ItemStack(Items.GLASS, 10));
+        inventory.setItem(0, new ItemStack(Items.GLASS, 20));
+        shiftClick(menu, hotbar, player);
+        helper.assertValueEqual(backpack.getItem(5).getCount(), 64,
+                "glass in the partly filled backpack slot after a shift-click from the hotbar");
+        helper.assertValueEqual(inventory.getItem(35).getCount(), 26,
+                "glass in the partly filled last main inventory slot after a shift-click from the hotbar");
+        helper.assertTrue(inventory.getItem(0).isEmpty() && backpack.getItem(enderiteTop).isEmpty(),
+                "shift-click from the hotbar used an empty slot while stacks of the same item still had room");
+
+        // --- empty storage: top left first, and that is the enderite column ---
+        backpack.clearContent();
+        inventory.clearContent();
+        inventory.setItem(0, new ItemStack(Items.COBBLESTONE));
+        shiftClick(menu, hotbar, player);
+        helper.assertTrue(backpack.getItem(enderiteTop).is(Items.COBBLESTONE),
+                "the first empty storage slot on screen is the enderite column's top slot; the cobblestone went to menu slot "
+                        + slotHolding(menu, Items.COBBLESTONE));
+        inventory.setItem(0, new ItemStack(Items.STONE));
+        shiftClick(menu, hotbar, player);
+        helper.assertTrue(backpack.getItem(0).is(Items.STONE),
+                "the second empty storage slot on screen is the first backpack row slot; the stone went to menu slot "
+                        + slotHolding(menu, Items.STONE));
+
+        // --- row by row, backpack, columns and main inventory interleaved ---
+        for (int i = 0; i < backpack.getContainerSize(); i++) {
+            backpack.setItem(i, new ItemStack(Items.DIRT, 64));
+        }
+        for (int i = 9; i < 36; i++) {
+            inventory.setItem(i, new ItemStack(Items.DIRT, 64));
+        }
+        backpack.setItem(netheriteSecond, ItemStack.EMPTY);
+        backpack.setItem(2 * 9 + 4, ItemStack.EMPTY);
+        inventory.setItem(9, ItemStack.EMPTY);
+        inventory.setItem(0, new ItemStack(Items.OAK_PLANKS));
+        inventory.setItem(1, new ItemStack(Items.SAND));
+        inventory.setItem(2, new ItemStack(Items.GLASS));
+        shiftClick(menu, hotbar, player);
+        shiftClick(menu, hotbar + 1, player);
+        shiftClick(menu, hotbar + 2, player);
+        helper.assertTrue(backpack.getItem(netheriteSecond).is(Items.OAK_PLANKS),
+                "the netherite column's second slot (second row on screen) was not filled first; the planks went to menu slot "
+                        + slotHolding(menu, Items.OAK_PLANKS));
+        helper.assertTrue(backpack.getItem(2 * 9 + 4).is(Items.SAND),
+                "the third backpack row was not filled second; the sand went to menu slot " + slotHolding(menu, Items.SAND));
+        helper.assertTrue(inventory.getItem(9).is(Items.GLASS),
+                "the main inventory under the backpack rows was not filled last; the glass went to menu slot "
+                        + slotHolding(menu, Items.GLASS));
+
+        helper.succeed();
+    }
+
+    /**
+     * Shift-click everywhere else in the backpack menu goes where it goes in vanilla's inventory, with
+     * the backpack counted as main inventory - and the worn backpack's own chest slot stays locked.
+     *
+     * <ul>
+     *   <li><b>Main inventory to hotbar</b>, as vanilla, not into the backpack.</li>
+     *   <li><b>Backpack to hotbar</b> as well, written straight through to the worn backpack's
+     *       component.</li>
+     *   <li><b>Armour</b> shift-clicked in the backpack goes onto the empty head slot, as it does from
+     *       vanilla's main inventory.</li>
+     *   <li><b>The crafting grid</b> empties into the storage, and the basic backpack's row is the first
+     *       storage row on screen.</li>
+     *   <li><b>The chest slot</b> keeps the worn backpack while its menu is open.</li>
+     *   <li><b>Hotbar to storage</b> lands in the backpack's next free slot, again written through.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: the backpack filled before the hotbar, backpack stacks going to the main
+     * inventory, armour that stays in the backpack, a chest slot that is not locked, and a container that
+     * does not write through to the worn stack.
+     */
+    public static void shiftClickSendsStorageToTheHotbarAndArmorToItsSlot(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.clearContent();
+        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(BASIC));
+        BackpackMenu menu = openWorn(player);
+        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+
+        // --- main inventory -> hotbar ---
+        inventory.setItem(9, new ItemStack(Items.COBBLESTONE, 32));
+        shiftClick(menu, 9, player);
+        helper.assertTrue(inventory.getItem(0).is(Items.COBBLESTONE) && inventory.getItem(9).isEmpty(),
+                "shift-click from the main inventory did not go to the hotbar as in vanilla; the cobblestone went to menu slot "
+                        + slotHolding(menu, Items.COBBLESTONE));
+
+        // --- backpack -> hotbar ---
+        menu.getSlot(FIRST_BACKPACK_SLOT).set(new ItemStack(Items.GLASS, 10));
+        shiftClick(menu, FIRST_BACKPACK_SLOT, player);
+        helper.assertTrue(inventory.getItem(1).is(Items.GLASS),
+                "shift-click out of the backpack did not go to the hotbar; the glass went to menu slot "
+                        + slotHolding(menu, Items.GLASS));
+        helper.assertValueEqual(BackpackItem.contents(chest), contentsOf(),
+                "contents of the worn backpack after shift-clicking its only stack out");
+
+        // --- armour in the backpack -> its armour slot ---
+        menu.getSlot(FIRST_BACKPACK_SLOT).set(new ItemStack(Items.IRON_HELMET));
+        shiftClick(menu, FIRST_BACKPACK_SLOT, player);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.HEAD).is(Items.IRON_HELMET),
+                "shift-click on a helmet in the backpack did not put it on the empty head slot");
+
+        // --- crafting grid -> storage, backpack row first ---
+        menu.getSlot(1).set(new ItemStack(Items.OAK_PLANKS, 3));
+        shiftClick(menu, 1, player);
+        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT).getItem().is(Items.OAK_PLANKS),
+                "shift-click on the crafting grid did not put the planks into the first storage slot on screen (the "
+                        + "backpack row); they went to menu slot " + slotHolding(menu, Items.OAK_PLANKS));
+
+        // --- the worn backpack's chest slot is locked ---
+        shiftClick(menu, CHEST_SLOT, player);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.CHEST).is(BASIC),
+                "shift-click took the worn backpack out of the chest slot while its own menu was open");
+
+        // --- hotbar -> storage, into the backpack's next free slot ---
+        shiftClick(menu, BackpackMenu.USE_ROW_SLOT_START + 1, player);
+        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT + 1).getItem().is(Items.GLASS),
+                "shift-click from the hotbar did not put the glass into the backpack's next free slot; it went to menu slot "
+                        + slotHolding(menu, Items.GLASS));
+        helper.assertValueEqual(BackpackItem.contents(player.getItemBySlot(EquipmentSlot.CHEST)),
+                contentsOf(new ItemStack(Items.OAK_PLANKS, 3), new ItemStack(Items.GLASS, 10)),
+                "contents of the worn backpack after the planks and the glass went in");
+
+        helper.succeed();
+    }
+
+    /**
+     * Deep Pockets multiplies a backpack slot's stack limit by 1 / 2 / 4 - for stackable items only -
+     * and an oversized stack only ever leaves the backpack one normal stack at a time.
+     *
+     * <ul>
+     *   <li><b>Limits</b> per level 0 / I / II: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64, a
+     *       sword 1 / 1 / 1.</li>
+     *   <li><b>Merging:</b> with Deep Pockets II, four stacks of cobblestone shift-clicked in end up as
+     *       one slot of 256, and the worn backpack's component stores 256.</li>
+     *   <li><b>Taking out:</b> picking that slot up puts 64 on the cursor and leaves 192.</li>
+     *   <li><b>Saving:</b> 192 is above vanilla's count limit of 99; it survives the component codec.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: another multiplier table, scaling unstackable items, a pickup that puts
+     * the whole oversized stack on the cursor, and a codec capped at vanilla's 99.
+     */
+    public static void deepPocketsRaisesStackLimitsOnlyForStackables(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.clearContent();
+
+        int[] multipliers = {1, 2, 4};
+        for (int level = 0; level <= 2; level++) {
+            ItemStack backpack = new ItemStack(BASIC);
+            if (level > 0) {
+                backpack.enchant(enchantment(helper, BundleEnchantments.DEEP_POCKETS), level);
+            }
+            player.setItemSlot(EquipmentSlot.CHEST, backpack);
+            Slot slot = openWorn(player).getSlot(FIRST_BACKPACK_SLOT);
+            int m = multipliers[level];
+            helper.assertValueEqual(slot.getMaxStackSize(new ItemStack(Items.COBBLESTONE)), 64 * m,
+                    "cobblestone per backpack slot at Deep Pockets " + level);
+            helper.assertValueEqual(slot.getMaxStackSize(new ItemStack(Items.ENDER_PEARL)), 16 * m,
+                    "ender pearls per backpack slot at Deep Pockets " + level);
+            helper.assertValueEqual(slot.getMaxStackSize(new ItemStack(Items.DIAMOND_SWORD)), 1,
+                    "swords per backpack slot at Deep Pockets " + level + " - unstackable items never stack");
+        }
+
+        // --- Deep Pockets II: four stacks become one slot of 256 ---
+        ItemStack backpack = new ItemStack(BASIC);
+        backpack.enchant(enchantment(helper, BundleEnchantments.DEEP_POCKETS), 2);
+        player.setItemSlot(EquipmentSlot.CHEST, backpack);
+        BackpackMenu menu = openWorn(player);
+        for (int i = 0; i < 4; i++) {
+            inventory.setItem(i, new ItemStack(Items.COBBLESTONE, 64));
+        }
+        for (int i = 0; i < 4; i++) {
+            shiftClick(menu, BackpackMenu.USE_ROW_SLOT_START + i, player);
+        }
+        helper.assertValueEqual(menu.getSlot(FIRST_BACKPACK_SLOT).getItem().getCount(), 256,
+                "cobblestone in the first slot of a Deep Pockets II backpack after four stacks went in");
+        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT + 1).getItem().isEmpty(),
+                "four stacks of cobblestone spilled into a second backpack slot instead of filling one to 256");
+        helper.assertValueEqual(BackpackItem.contents(backpack).stackAt(0).getCount(), 256,
+                "cobblestone the worn backpack's component stores");
+
+        // --- an oversized stack leaves one normal stack at a time ---
+        leftClick(menu, FIRST_BACKPACK_SLOT, player);
+        helper.assertValueEqual(menu.getCarried().getCount(), 64,
+                "cobblestone on the cursor after picking up the oversized stack");
+        helper.assertValueEqual(menu.getSlot(FIRST_BACKPACK_SLOT).getItem().getCount(), 192,
+                "cobblestone left in the slot after picking up one stack");
+        menu.setCarried(ItemStack.EMPTY);
+
+        // --- 192 is more than vanilla's 99, and the component still saves it ---
+        BackpackContents written = BackpackItem.contents(backpack);
+        RegistryOps<Tag> ops = helper.getLevel().registryAccess().createSerializationContext(NbtOps.INSTANCE);
+        Tag encoded = BackpackContents.CODEC.encodeStart(ops, written).getOrThrow();
+        BackpackContents decoded = BackpackContents.CODEC.parse(ops, encoded).getOrThrow();
+        helper.assertValueEqual(decoded, written, "backpack contents after a save and load");
+        helper.assertValueEqual(decoded.stackAt(0).getCount(), 192, "cobblestone after a save and load");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // THE ENCHANTMENTS AT WORK
+    // =====================================================================================
+
+    /**
+     * Funnel on the worn backpack vacuums picked-up items into it, the way Funnel does on a bundle.
+     *
+     * <ul>
+     *   <li><b>Funnel II:</b> cobblestone touched by the player goes into the worn backpack, not into
+     *       the inventory, and the item entity is gone.</li>
+     *   <li><b>Funnel I:</b> only sorts that are already in the backpack - dirt joins the dirt inside,
+     *       stone goes into the inventory.</li>
+     *   <li><b>No Funnel:</b> everything goes into the inventory, the backpack stays empty.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: dropping the worn-backpack branch from {@code ItemEntityMixin}, a
+     * Funnel I that takes anything, and a backpack without Funnel that vacuums anyway.
+     */
+    public static void funnelPullsPickedUpItemsIntoTheWornBackpack(GameTestHelper helper) {
+        Player player = survivalPlayer(helper);
+
+        // --- Funnel II ---
+        ItemStack funnelTwo = new ItemStack(BASIC);
+        funnelTwo.enchant(enchantment(helper, BundleEnchantments.FUNNEL), 2);
+        player.setItemSlot(EquipmentSlot.CHEST, funnelTwo);
+        ItemEntity cobble = drop(helper, new ItemStack(Items.COBBLESTONE, 8), new Vec3(2.5, 2.0, 2.5));
+        cobble.playerTouch(player);
+        helper.assertValueEqual(countIn(funnelTwo, Items.COBBLESTONE), 8,
+                "cobblestone a worn Funnel II backpack took from the ground");
+        helper.assertTrue(cobble.isRemoved() && carried(player, Items.COBBLESTONE) == 0,
+                "the cobblestone went into the Funnel II backpack but also stayed on the ground or reached the inventory");
+
+        // --- Funnel I: only what is already in there ---
+        ItemStack funnelOne = backpackWith(BASIC, contentsOf(new ItemStack(Items.DIRT, 1)));
+        funnelOne.enchant(enchantment(helper, BundleEnchantments.FUNNEL), 1);
+        player.setItemSlot(EquipmentSlot.CHEST, funnelOne);
+        drop(helper, new ItemStack(Items.DIRT, 5), new Vec3(3.5, 2.0, 2.5)).playerTouch(player);
+        drop(helper, new ItemStack(Items.STONE, 5), new Vec3(4.5, 2.0, 2.5)).playerTouch(player);
+        helper.assertValueEqual(countIn(funnelOne, Items.DIRT), 6, "dirt in the Funnel I backpack that already held dirt");
+        helper.assertValueEqual(countIn(funnelOne, Items.STONE), 0,
+                "stone a Funnel I backpack took although it held none - Funnel I only takes sorts that are already in");
+        helper.assertValueEqual(carried(player, Items.STONE), 5, "stone that reached the inventory past the Funnel I backpack");
+
+        // --- no Funnel ---
+        ItemStack plain = new ItemStack(BASIC);
+        player.setItemSlot(EquipmentSlot.CHEST, plain);
+        drop(helper, new ItemStack(Items.GRAVEL, 5), new Vec3(5.5, 2.0, 2.5)).playerTouch(player);
+        helper.assertTrue(BackpackItem.contents(plain).isEmpty(), "a backpack without Funnel took an item from the ground");
+        helper.assertValueEqual(carried(player, Items.GRAVEL), 5, "gravel that reached the inventory past a plain backpack");
+
+        helper.succeed();
+    }
+
+    /**
+     * Four enchantments reach the backpacks and two deliberately do not. The anvil's question
+     * ({@code Enchantment#canEnchant}) is asked for all four tiers:
+     * <ul>
+     *   <li><b>Deep Pockets, Funnel, Master Builder, Constructor's Touch:</b> accepted.</li>
+     *   <li><b>Drawer and Colour Palette:</b> refused. They share their tags with Deep Pockets and Master
+     *       Builder, which is why the backpacks come in through tags of their own
+     *       ({@code deep_pockets_enchantable}, {@code funnel_enchantable},
+     *       {@code master_builder_enchantable}) instead of joining {@code bundle_enchantable} or
+     *       {@code extra_inventory_items}.</li>
+     * </ul>
+     * Controls: Drawer still goes on a reinforced bundle and Colour Palette on a building wand, so the
+     * refusals are about the backpacks.
+     *
+     * <p>What breaks this test: a backpack missing from one of the four tags, backpacks added to
+     * {@code bundle_enchantable} or {@code extra_inventory_items}, and one tier left out.
+     */
+    public static void backpacksTakeTheirFourEnchantmentsButNeitherDrawerNorColorPalette(GameTestHelper helper) {
+        // Deep Pockets and Funnel are the module's; Master Builder, Constructor's Touch and Colour Palette SimpleBuilding's
+        // (by key, only checked while it is loaded).
+        boolean sb = sbLoaded();
+        List<ResourceKey<Enchantment>> accepted = sb ? List.of(BundleEnchantments.DEEP_POCKETS, BundleEnchantments.FUNNEL,
+                BundleEnchantments.MASTER_BUILDER, BundleEnchantments.CONSTRUCTORS_TOUCH)
+                : List.of(BundleEnchantments.DEEP_POCKETS, BundleEnchantments.FUNNEL);
+        List<ResourceKey<Enchantment>> refused = sb ? List.of(BundleEnchantments.DRAWER, BundleEnchantments.COLOR_PALETTE)
+                : List.of(BundleEnchantments.DRAWER);
+
+        for (Item item : List.of(BASIC, REINFORCED, NETHERITE, ENDERITE)) {
+            ItemStack stack = new ItemStack(item);
+            helper.assertTrue(stack.is(BACKPACKS), item + " is missing from simplestorage:backpacks");
+            for (ResourceKey<Enchantment> key : accepted) {
+                helper.assertTrue(enchantment(helper, key).value().canEnchant(stack),
+                        key.identifier() + " cannot be put on " + item);
+            }
+            for (ResourceKey<Enchantment> key : refused) {
+                helper.assertTrue(!enchantment(helper, key).value().canEnchant(stack),
+                        key.identifier() + " can be put on " + item + ", but it means nothing on a backpack");
+            }
+        }
+
+        helper.assertTrue(enchantment(helper, BundleEnchantments.DRAWER).value().canEnchant(new ItemStack(StorageItems.REINFORCED_BUNDLE)),
+                "Drawer cannot go on a reinforced bundle any more, so its refusal on the backpacks proves nothing");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // TOOLTIP
+    // =====================================================================================
+
+    /**
+     * The Shift preview in the tooltip reads everything from the stack: {@code getTooltipImage} hands
+     * the client a {@link com.simplestorage.backpack.BackpackTooltipData} with the stored contents
+     * and the tier's slot count - for all four tiers, dyed or not. An empty backpack gets no image
+     * (no grid, no "Hold Shift" line).
+     *
+     * <p>The grid shows the items in slot order, not in entry order, and keeps oversized Deep Pockets
+     * stacks and item components (a renamed sword) intact.
+     *
+     * <p>What breaks this test: a tier without {@code getTooltipImage}, the data losing an entry, a
+     * count or a component, dyeing replacing the image, and an image for an empty backpack.
+     */
+    public static void tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(GameTestHelper helper) {
+        ItemStack sword = new ItemStack(Items.IRON_SWORD);
+        sword.set(DataComponents.CUSTOM_NAME, Component.literal("Preview Blade"));
+        // Entry order deliberately differs from slot order.
+        BackpackContents contents = new BackpackContents(List.of(
+                BackpackContents.Entry.of(7, new ItemStack(Items.DIAMOND, 3)),
+                BackpackContents.Entry.of(0, new ItemStack(Items.STONE, 200)),
+                BackpackContents.Entry.of(2, sword)));
+        List<ItemStack> expected = List.of(new ItemStack(Items.STONE, 200), sword, new ItemStack(Items.DIAMOND, 3));
+
+        for (Item item : List.of(BASIC, REINFORCED, NETHERITE,
+                ENDERITE)) {
+            ItemStack empty = new ItemStack(item);
+            helper.assertTrue(item.getTooltipImage(empty).isEmpty(),
+                    "an empty " + item + " has a tooltip image: " + item.getTooltipImage(empty));
+
+            ItemStack filled = new ItemStack(item);
+            filled.set(StorageComponents.BACKPACK_CONTENTS, contents);
+            ItemStack dyed = filled.copy();
+            dyed.set(DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(0x3366CC));
+
+            for (ItemStack stack : List.of(filled, dyed)) {
+                String what = (stack == dyed ? "dyed " : "") + item;
+                Optional<net.minecraft.world.inventory.tooltip.TooltipComponent> image = item.getTooltipImage(stack);
+                helper.assertTrue(image.isPresent() && image.get() instanceof com.simplestorage.backpack.BackpackTooltipData,
+                        "the tooltip image of the " + what + " is " + image + " instead of a BackpackTooltipData");
+                com.simplestorage.backpack.BackpackTooltipData data =
+                        (com.simplestorage.backpack.BackpackTooltipData) image.get();
+                helper.assertTrue(data.contents().equals(contents),
+                        "the tooltip of the " + what + " carries " + data.contents() + " instead of " + contents);
+                helper.assertTrue(data.slotCount() == ((BackpackItem) item).getTier().slotCount(),
+                        "the tooltip of the " + what + " claims " + data.slotCount() + " slots");
+                List<ItemStack> shown = data.itemsInSlotOrder();
+                helper.assertTrue(shown.size() == expected.size(),
+                        "the tooltip of the " + what + " shows " + shown.size() + " stacks instead of " + expected.size());
+                for (int i = 0; i < expected.size(); i++) {
+                    helper.assertTrue(ItemStack.matches(shown.get(i), expected.get(i)),
+                            "grid cell " + i + " of the " + what + " shows " + shown.get(i) + " instead of " + expected.get(i));
+                }
+            }
+        }
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // FIRE AND EXPLOSIONS
+    // =====================================================================================
+
+    /**
+     * The netherite and enderite backpacks survive fire and explosions as dropped items, like the
+     * matching bundles; the basic and reinforced ones do not - and a destroyed backpack spills what it
+     * carried instead of taking it along.
+     *
+     * <ul>
+     *   <li><b>Fire:</b> all four drops are set on fire. The lower two burn, the upper two carry the
+     *       netherite ingot's {@code DAMAGE_RESISTANT} and stay.</li>
+     *   <li><b>Explosion:</b> four drops stand at the same distance around a small blast. The lower two
+     *       are destroyed, the upper two ignore it ({@code ItemEntityMixin#ignoreExplosion}).</li>
+     *   <li><b>Spill:</b> the basic backpack in the blast held three diamonds; they lie in the room
+     *       afterwards.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: dropping {@code fireResistant()} from an upper tier, removing an upper
+     * backpack from {@code ignoreExplosion} or adding a lower one, and a destroyed backpack that does not
+     * spill its contents.
+     */
+    public static void upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        for (int x = 0; x <= 7; x++) {
+            for (int z = 0; z <= 7; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+            }
+        }
+
+        // --- fire ---
+        ItemEntity basicInFire = drop(helper, new ItemStack(BASIC), new Vec3(0.5, 1.2, 0.5));
+        ItemEntity reinforcedInFire = drop(helper, new ItemStack(REINFORCED), new Vec3(1.5, 1.2, 0.5));
+        ItemEntity netheriteInFire = drop(helper, new ItemStack(NETHERITE), new Vec3(0.5, 1.2, 1.5));
+        ItemEntity enderiteInFire = drop(helper, new ItemStack(ENDERITE), new Vec3(1.5, 1.2, 1.5));
+        for (ItemEntity entity : List.of(basicInFire, reinforcedInFire, netheriteInFire, enderiteInFire)) {
+            entity.hurtServer(level, level.damageSources().onFire(), LETHAL_DAMAGE);
+        }
+        helper.assertTrue(basicInFire.isRemoved() && reinforcedInFire.isRemoved(),
+                "a basic or reinforced backpack survived being set on fire, so the fire cannot tell the tiers apart");
+        helper.assertTrue(!netheriteInFire.isRemoved(), "the netherite backpack burned up; it is registered fireResistant()");
+        helper.assertTrue(!enderiteInFire.isRemoved(), "the enderite backpack burned up; it is registered fireResistant()");
+
+        // --- explosion ---
+        ItemEntity basicInBlast = drop(helper, backpackWith(BASIC, contentsOf(new ItemStack(Items.DIAMOND, 3))),
+                new Vec3(4.8, 1.2, 5.0));
+        ItemEntity reinforcedInBlast = drop(helper, new ItemStack(REINFORCED), new Vec3(5.2, 1.2, 5.0));
+        ItemEntity netheriteInBlast = drop(helper, new ItemStack(NETHERITE), new Vec3(5.0, 1.2, 5.2));
+        ItemEntity enderiteInBlast = drop(helper, new ItemStack(ENDERITE), new Vec3(5.0, 1.2, 4.8));
+        Vec3 blast = helper.absoluteVec(new Vec3(5.0, 1.2, 5.0));
+        level.explode(null, blast.x, blast.y, blast.z, 2.0F, Level.ExplosionInteraction.NONE);
+        helper.assertTrue(basicInBlast.isRemoved() && reinforcedInBlast.isRemoved(),
+                "a basic or reinforced backpack survived the blast it stood in, so the blast is too weak to "
+                        + "say anything about the upper tiers");
+        helper.assertTrue(!netheriteInBlast.isRemoved(),
+                "the netherite backpack was destroyed by the explosion it is supposed to ignore");
+        helper.assertTrue(!enderiteInBlast.isRemoved(),
+                "the enderite backpack was destroyed by the explosion it is supposed to ignore");
+
+        // --- the destroyed basic backpack spilled its diamonds ---
+        int diamonds = 0;
+        for (ItemEntity entity : level.getEntitiesOfClass(ItemEntity.class, helper.getBounds())) {
+            if (entity.getItem().is(Items.DIAMOND)) {
+                diamonds += entity.getItem().getCount();
+                entity.discard();
+            }
+        }
+        helper.assertValueEqual(diamonds, 3, "diamonds the destroyed backpack spilled");
+
+        helper.succeed();
+    }
+
+    // ---- owner decisions 2026-09-28 (begin)
+
+    /**
+     * The backpack key opens a backpack that lies in the inventory (owner, 2026-09-28), and the menu
+     * locks exactly the slot that backpack lies in: it cannot be picked up, shift-clicked, swapped away
+     * with its number key or covered, and what goes into the menu is written into that very stack.
+     * Once the backpack is gone from its slot the menu is no longer valid.
+     *
+     * <p>What breaks it: a lock that looks at the chest slot only, the missing SWAP guard in
+     * {@code BackpackMenu#clicked} (vanilla's SWAP asks only the target slot), and a container that
+     * writes back to the chest slot instead of the slot the backpack was opened from.
+     */
+    public static void backpackKeyLocksTheInventorySlotOfTheBackpackItOpened(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        player.getInventory().clearContent();
+        ItemStack backpack = new ItemStack(BASIC);
+        player.getInventory().setItem(2, backpack);
+        player.getInventory().setItem(5, new ItemStack(Items.STONE, 16));
+
+        helper.assertTrue(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may not open a backpack in hotbar slot 2");
+        BackpackMenu menu = (BackpackMenu) BackpackMenuProviders.carried(player).provider()
+                .createMenu(1, player.getInventory(), player);
+        player.containerMenu = menu;
+        helper.assertValueEqual(menu.lockedSlot(), 2, "inventory slot the menu locks");
+
+        int lockedIndex = BackpackMenu.USE_ROW_SLOT_START + 2;
+        net.minecraft.world.inventory.Slot locked = menu.getSlot(lockedIndex);
+        helper.assertFalse(locked.mayPickup(player), "the open backpack can be picked up out of its own slot");
+        helper.assertFalse(locked.mayPlace(new ItemStack(Items.DIRT)), "something can be put into the open backpack's slot");
+        helper.assertTrue(menu.getSlot(BackpackMenu.USE_ROW_SLOT_START + 5).mayPickup(player),
+                "the lock spread to a hotbar slot that holds no open backpack");
+        helper.assertTrue(menu.getSlot(BackpackMenu.ARMOR_SLOT_START + 1).mayPlace(new ItemStack(Items.IRON_CHESTPLATE)),
+                "the chest slot is locked although the backpack was opened from the inventory");
+
+        // --- every click path leaves the backpack where it is ---
+        menu.clicked(lockedIndex, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
+        menu.clicked(lockedIndex, 0, net.minecraft.world.inventory.ContainerInput.QUICK_MOVE, player);
+        menu.clicked(BackpackMenu.INV_SLOT_START, 2, net.minecraft.world.inventory.ContainerInput.SWAP, player);
+        menu.clicked(lockedIndex, 0, net.minecraft.world.inventory.ContainerInput.THROW, player);
+        helper.assertTrue(player.getInventory().getItem(2) == backpack,
+                "the open backpack left hotbar slot 2 (now " + player.getInventory().getItem(2) + ")");
+        helper.assertTrue(menu.getCarried().isEmpty(), "the open backpack ended up on the cursor");
+        helper.assertTrue(player.getInventory().getItem(9).isEmpty(),
+                "the number key 3 swapped the open backpack into the main inventory");
+
+        // --- the menu writes into the backpack in slot 2 ---
+        menu.clicked(BackpackMenu.USE_ROW_SLOT_START + 5, 0, net.minecraft.world.inventory.ContainerInput.QUICK_MOVE, player);
+        helper.assertValueEqual(BackpackItem.contents(backpack).size(), 1,
+                "entries in the carried backpack after shift-clicking stone from the hotbar");
+        helper.assertTrue(menu.stillValid(player), "the menu of the carried backpack is not valid");
+
+        // --- gone from its slot, the menu closes ---
+        player.getInventory().setItem(2, ItemStack.EMPTY);
+        helper.assertFalse(menu.stillValid(player), "the menu stays valid although its backpack left slot 2");
+        player.containerMenu = player.inventoryMenu;
+
+        helper.succeed();
+    }
+
+    /**
+     * A placed backpack gives a comparator its fill level, the way a chest does but with the
+     * backpack's own stack limits: empty 0, every slot full 15. Checked on the block itself and on a
+     * real comparator that reads it, which also shows that a change of the contents wakes the
+     * comparator up.
+     *
+     * <p>What breaks it: {@code hasAnalogOutputSignal} missing, a signal that ignores the contents, or
+     * a container change that no longer calls {@code setChanged} on the block entity.
+     */
+    public static void placedBackpackOutputsItsFillLevelToAComparator(GameTestHelper helper) {
+        BlockPos backpackPos = new BlockPos(2, 1, 2);
+        BlockPos comparatorPos = backpackPos.east();
+        helper.setBlock(backpackPos.below(), Blocks.STONE);
+        helper.setBlock(comparatorPos.below(), Blocks.STONE);
+        helper.setBlock(backpackPos, StorageBlocks.BACKPACKS.get(BackpackTier.BASIC));
+        helper.setBlock(comparatorPos, Blocks.COMPARATOR.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.ComparatorBlock.FACING, Direction.WEST));
+        BlockPos absolute = helper.absolutePos(backpackPos);
+        ServerLevel level = helper.getLevel();
+        BackpackBlockEntity entity = (BackpackBlockEntity) level.getBlockEntity(absolute);
+        net.minecraft.world.level.block.state.BlockState state = level.getBlockState(absolute);
+
+        helper.assertTrue(state.hasAnalogOutputSignal(), "a placed backpack has no comparator output");
+        helper.assertValueEqual(state.getAnalogOutputSignal(level, absolute, Direction.EAST), 0,
+                "comparator signal of an empty backpack");
+        entity.container().setItem(0, new ItemStack(Items.STONE, 1));
+        int one = state.getAnalogOutputSignal(level, absolute, Direction.EAST);
+        helper.assertTrue(one >= 1 && one < 15, "one stone in a backpack gives signal " + one);
+        for (int slot = 0; slot < entity.container().getContainerSize(); slot++) {
+            entity.container().setItem(slot, new ItemStack(Items.STONE, 64));
+        }
+        helper.assertValueEqual(state.getAnalogOutputSignal(level, absolute, Direction.EAST), 15,
+                "comparator signal of a backpack with every slot full");
+
+        helper.succeedWhen(() -> {
+            net.minecraft.world.level.block.entity.BlockEntity comparator = level.getBlockEntity(helper.absolutePos(comparatorPos));
+            helper.assertTrue(comparator instanceof net.minecraft.world.level.block.entity.ComparatorBlockEntity c
+                            && c.getOutputSignal() == 15,
+                    "the comparator behind the full backpack does not read 15");
+        });
+    }
+
+    // ---- owner decisions 2026-09-28 (end)
+
+    // =====================================================================================
+    // HELPERS - PLAYERS AND MENUS
+    // =====================================================================================
+
+    /** A survival player that exists on both lines and is never put into the player list. */
+    private static Player survivalPlayer(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        Vec3 pos = helper.absoluteVec(new Vec3(3.5, 1.0, 6.5));
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        return player;
+    }
+
+    /**
+     * The in-level mock player, for code that insists on a {@code ServerPlayer}. It is creative, but
+     * {@code instabuild} is switched off so blocks and materials are really spent. Handed back to the
+     * player list when the test ends; a leaked mock player stalls the gametest server's shutdown.
+     */
+    @SuppressWarnings("removal")
+    private static ServerPlayer serverPlayer(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        Vec3 pos = helper.absoluteVec(new Vec3(3.5, 1.0, 6.5));
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        player.getAbilities().instabuild = false;
+        helper.runBeforeTestEnd(() -> {
+            player.containerMenu = player.inventoryMenu;
+            helper.getLevel().getServer().getPlayerList().remove(player);
+        });
+        return player;
+    }
+
+    /** Right click with the hand's item, applying the transformed hand stack the way the game mode does. */
+    private static void rightClick(Player player, InteractionHand hand) {
+        ItemStack held = player.getItemInHand(hand);
+        InteractionResult result = held.use(player.level(), player, hand);
+        if (result instanceof InteractionResult.Success success && success.heldItemTransformedTo() != null) {
+            player.setItemInHand(hand, success.heldItemTransformedTo());
+        }
+    }
+
+    /** The worn backpack's menu, built through the same provider the backpack key uses. */
+    private static BackpackMenu openWorn(ServerPlayer player) {
+        return (BackpackMenu) BackpackMenuProviders.worn(player).provider().createMenu(1, player.getInventory(), player);
+    }
+
+    /** A worn-mode menu for {@code tier} on an empty container. */
+    private static BackpackMenu menuFor(Player player, BackpackTier tier) {
+        return new BackpackMenu(1, player.getInventory(), new BackpackContainer(tier, 1), BackpackOpenData.worn(tier, 1));
+    }
+
+    /** Menu slots 0 to 45 read what the player's own inventory menu reads there. */
+    private static void assertVanillaPart(GameTestHelper helper, Player player, BackpackMenu menu, boolean samePlace) {
+        for (int i = 0; i < BackpackMenu.BACKPACK_SLOT_START; i++) {
+            Slot ours = menu.getSlot(i);
+            Slot vanilla = player.inventoryMenu.getSlot(i);
+            if (i >= BackpackMenu.ARMOR_SLOT_START) {
+                helper.assertTrue(ours.container == vanilla.container && ours.getContainerSlot() == vanilla.getContainerSlot(),
+                        "backpack menu slot " + i + " reads inventory index " + ours.getContainerSlot()
+                                + " where the vanilla inventory menu reads " + vanilla.getContainerSlot());
+            }
+            if (samePlace && (i < BackpackMenu.INV_SLOT_START || i == BackpackMenu.SHIELD_SLOT)) {
+                helper.assertTrue(ours.x == vanilla.x && ours.y == vanilla.y,
+                        "backpack menu slot " + i + " sits at " + ours.x + "/" + ours.y + " instead of vanilla's "
+                                + vanilla.x + "/" + vanilla.y);
+            }
+        }
+    }
+
+    /** Menu index of the first slot holding {@code item}, or -1; for failure messages. */
+    private static int slotHolding(AbstractContainerMenu menu, Item item) {
+        for (int i = 0; i < menu.slots.size(); i++) {
+            if (menu.getSlot(i).getItem().is(item)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /** Shift-click; the click type is called ContainerInput on this line. */
+    private static void shiftClick(AbstractContainerMenu menu, int slot, Player player) {
+        menu.clicked(slot, 0, ContainerInput.QUICK_MOVE, player);
+    }
+
+    /** Left click (pick up); the click type is called ContainerInput on this line. */
+    private static void leftClick(AbstractContainerMenu menu, int slot, Player player) {
+        menu.clicked(slot, 0, ContainerInput.PICKUP, player);
+    }
+
+    // =====================================================================================
+    // HELPERS - STACKS
+    // =====================================================================================
+
+    /** Contents with the given stacks in component slots 0, 1, 2, ... */
+    private static BackpackContents contentsOf(ItemStack... stacks) {
+        List<BackpackContents.Entry> entries = new java.util.ArrayList<>();
+        for (int i = 0; i < stacks.length; i++) {
+            entries.add(BackpackContents.Entry.of(i, stacks[i]));
+        }
+        return new BackpackContents(entries);
+    }
+
+    private static ItemStack backpackWith(Item item, BackpackContents contents) {
+        ItemStack stack = new ItemStack(item);
+        stack.set(StorageComponents.BACKPACK_CONTENTS, contents);
+        return stack;
+    }
+
+    private static int countIn(ItemStack backpack, Item item) {
+        int total = 0;
+        for (ItemStack stack : BackpackItem.entryStacks(backpack)) {
+            if (stack.is(item)) {
+                total += stack.getCount();
+            }
+        }
+        return total;
+    }
+
+    /** Everything of {@code item} in the player's inventory, hands included. */
+    private static int carried(Player player, Item item) {
+        int total = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(item)) {
+                total += stack.getCount();
+            }
+        }
+        return total;
+    }
+
+    private static ItemEntity drop(GameTestHelper helper, ItemStack stack, Vec3 relative) {
+        Vec3 pos = helper.absoluteVec(relative);
+        ItemEntity entity = new ItemEntity(helper.getLevel(), pos.x, pos.y, pos.z, stack);
+        entity.setDeltaMovement(Vec3.ZERO);
+        entity.setPickUpDelay(0);
+        helper.getLevel().addFreshEntity(entity);
+        helper.runBeforeTestEnd(entity::discard);
+        return entity;
+    }
+
+    /** A click on the middle of the top face of {@code support}. */
+    private static UseOnContext clickTop(GameTestHelper helper, Player player, BlockPos support) {
+        BlockPos absolute = helper.absolutePos(support);
+        Vec3 hit = new Vec3(absolute.getX() + 0.5, absolute.getY() + 1.0, absolute.getZ() + 0.5);
+        return new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(hit, Direction.UP, absolute, false));
+    }
+
+    private static void assertKeptNameAndFunnel(GameTestHelper helper, ItemStack stack, String name, String what) {
+        Component customName = stack.get(DataComponents.CUSTOM_NAME);
+        helper.assertTrue(customName != null && name.equals(customName.getString()),
+                what + " lost its name, it is called " + customName);
+        helper.assertValueEqual(stack.getEnchantments().getLevel(enchantment(helper, BundleEnchantments.FUNNEL)), 1,
+                "Funnel level " + what + " kept");
+    }
+
+    /** SimpleBuilding is loaded (its leather sheet and enchantments exist). */
+    private static boolean sbLoaded() {
+        return net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "leather_sheet"));
+    }
+
+    private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
+        return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+    }
+
+    /** Crafts through the live recipe manager; the one place a crafting result is assembled. */
+    private static ItemStack craft(GameTestHelper helper, ServerLevel level, CraftingInput grid, String what, String recipeId) {
+        Optional<RecipeHolder<CraftingRecipe>> match =
+                level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isPresent(), what + " crafts nothing at all");
+        helper.assertValueEqual(match.get().id().identifier().toString(), recipeId, "recipe matched by " + what);
+        return match.get().value().assemble(grid);
+    }
+
+    /** Smiths through the live recipe manager; the one place a smithing result is assembled. */
+    private static ItemStack smith(GameTestHelper helper, ServerLevel level, SmithingRecipeInput input, String what) {
+        Optional<RecipeHolder<SmithingRecipe>> match =
+                level.getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING, input, level);
+        helper.assertTrue(match.isPresent(), what + " matches no smithing recipe at all");
+        return match.get().value().assemble(input);
+    }
+}

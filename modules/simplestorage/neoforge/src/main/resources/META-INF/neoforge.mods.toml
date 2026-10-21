@@ -33,5 +33,19 @@ versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.simplestorage]]
+modId="trinkets_updated"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplestorage]]
+modId="curios"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
 [[mixins]]
 config="simplestorage.mixins.json"
