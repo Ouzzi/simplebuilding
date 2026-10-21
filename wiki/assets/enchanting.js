@@ -167,7 +167,7 @@
       table: 'Offers in plain text', thSlot: 'Row', thCost: 'Level requirement', thPay: 'Pays', thClue: 'Hint shown', thAll: 'All enchantments (hidden in game)', none: '–', emptyRow: 'no offer',
       books: 'Enchanted books of the Simple Mods', booksIntro: 'Each family enchantment at its highest level.', items: 'Enchanted items', itemsIntro: 'The family enchantments an item accepts (anvil, commands); enchantments that exclude each other are split over several items.',
       never: 'Never offered by the table', neverIntro: 'These family enchantments are not in #minecraft:in_enchanting_table: loot, trades, the anvil or commands only.',
-      curse: 'curse', treasure: 'treasure', module: 'module', result: 'Enchanted', offer: 'Offer {0}', pays: '{0} lapis, {1} levels', noTable: 'This item gets no table offers from any enchantment.', missing: 'data/enchanting.js is missing - run python wiki/generate.py.',
+      curse: 'curse', treasure: 'treasure', module: 'module', result: 'Enchanted', offer: 'Offer {0}', noTable: 'This item gets no table offers from any enchantment.', missing: 'data/enchanting.js is missing - run python wiki/generate.py.',
       overridden: 'changed by {0}'
     },
     de: {
@@ -178,7 +178,7 @@
       table: 'Angebote als Text', thSlot: 'Zeile', thCost: 'Erforderliche Stufe', thPay: 'Kosten', thClue: 'Gezeigter Hinweis', thAll: 'Alle Verzauberungen (im Spiel verborgen)', none: '–', emptyRow: 'kein Angebot',
       books: 'Verzauberte Bücher der Simple Mods', booksIntro: 'Jede Verzauberung der Familie auf ihrer höchsten Stufe.', items: 'Verzauberte Gegenstände', itemsIntro: 'Die Familien-Verzauberungen, die ein Gegenstand annimmt (Amboss, Befehle); sich ausschließende Verzauberungen stehen auf mehreren Gegenständen.',
       never: 'Nie am Zaubertisch', neverIntro: 'Diese Familien-Verzauberungen stehen nicht in #minecraft:in_enchanting_table: nur Beute, Handel, Amboss oder Befehle.',
-      curse: 'Fluch', treasure: 'Schatz', module: 'Modul', result: 'Verzaubert', offer: 'Angebot {0}', pays: '{0} Lapis, {1} Stufen', noTable: 'Dieser Gegenstand bekommt am Tisch keine Angebote.', missing: 'data/enchanting.js fehlt – python wiki/generate.py ausführen.',
+      curse: 'Fluch', treasure: 'Schatz', module: 'Modul', result: 'Verzaubert', offer: 'Angebot {0}', noTable: 'Dieser Gegenstand bekommt am Tisch keine Angebote.', missing: 'data/enchanting.js fehlt – python wiki/generate.py ausführen.',
       overridden: 'geändert von {0}'
     }
   };
@@ -220,7 +220,9 @@
     '.mc-aqua{color:#5ff;text-shadow:2px 2px 0 #153f3f}.mc-yellow{color:#ff5;text-shadow:2px 2px 0 #3f3f15}.mc-desc{color:#aaa;font-style:italic;text-shadow:2px 2px 0 #2a2a2a}' +
     '.ench-grid{display:flex;flex-wrap:wrap;gap:.8rem}.ench-cell{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;max-width:100%}' +
     '.ench-cell .ench-slot{position:relative}.ench-cell .c-label{font-size:.85rem;color:var(--text);max-width:12rem}.ench-cell .c-label small{color:var(--muted)}' +
-    '.ench-open .ench-cell{flex-basis:100%}' +
+    '.ench-open .ench-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));align-items:start}' +
+    '.ench-glint{overflow:hidden}.ench-glint::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(168,92,255,.55) 45%,transparent 60%);background-size:300% 300%;mix-blend-mode:screen;animation:ench-glint 3.2s linear infinite}' +
+    '@keyframes ench-glint{from{background-position:100% 0}to{background-position:0 100%}}@media (prefers-reduced-motion:reduce){.ench-glint::after{animation:none;background-position:50% 50%}}' +
     '.ench-tbl td,.ench-tbl th{vertical-align:top}';
 
   function iconHtml(ctx, id, name) {
@@ -260,7 +262,7 @@
       h += '<div class="ench-gui" role="group" aria-label="' + esc(S(data, lang, 'container.enchant')) + '"><span class="g-title">' + esc(S(data, lang, 'container.enchant')) + '</span><span class="ench-book" aria-hidden="true"><i></i><i></i></span>';
       var slotName = shown ? (shown.id === 'minecraft:enchanted_book' ? S(data, lang, 'item.minecraft.enchanted_book') : nm(it.name, lang)) : nm(it.name, lang);
       var slotTip = shown ? itemTooltip(data, lang, { id: shown.id, name: it.name }, shown.list, st.desc) : [[[nm(it.name, lang), 'white']]];
-      h += '<span class="ench-slot" tabindex="0" style="left:calc(var(--mcpx)*14);top:calc(var(--mcpx)*46)"' + tip(slotTip) + ' aria-label="' + esc(linesText(slotTip)) + '">' + iconHtml(ctx, shown ? shown.id : it.id, slotName) + '</span>';
+      h += '<span class="ench-slot' + (shown ? ' ench-glint' : '') + '" tabindex="0" style="left:calc(var(--mcpx)*14);top:calc(var(--mcpx)*46)"' + tip(slotTip) + ' aria-label="' + esc(linesText(slotTip)) + '">' + iconHtml(ctx, shown ? shown.id : it.id, slotName) + '</span>';
       var lapisTip = [[[S(data, lang, 'item.minecraft.lapis_lazuli'), 'white']]];
       h += '<span class="ench-slot" tabindex="0" style="left:calc(var(--mcpx)*34);top:calc(var(--mcpx)*46)"' + (st.lapis ? tip(lapisTip) : '') + ' aria-label="' + esc(S(data, lang, 'item.minecraft.lapis_lazuli') + ' ' + st.lapis) + '">' + (st.lapis ? iconHtml(ctx, 'minecraft:lapis_lazuli', 'Lapis') + (st.lapis > 1 ? '<span class="s-cnt">' + st.lapis + '</span>' : '') : '') + '</span>';
       off.forEach(function (o) {
@@ -275,9 +277,13 @@
       if (!it.table.length) h += '<p class="hint">' + esc(tr(lang, 'noTable')) + '</p>';
 
       /* plain text table */
+      function payText(n) {
+        return (n === 1 ? S(data, lang, 'container.enchant.lapis.one') : fmt(S(data, lang, 'container.enchant.lapis.many'), n)) + ', ' +
+          (n === 1 ? S(data, lang, 'container.enchant.level.one') : fmt(S(data, lang, 'container.enchant.level.many'), n));
+      }
       h += '<h2>' + esc(tr(lang, 'table')) + '</h2><div class="table-wrap"><table class="table ench-tbl"><thead><tr><th>' + esc(tr(lang, 'thSlot')) + '</th><th>' + esc(tr(lang, 'thCost')) + '</th><th>' + esc(tr(lang, 'thPay')) + '</th><th>' + esc(tr(lang, 'thClue')) + '</th><th>' + esc(tr(lang, 'thAll')) + '</th></tr></thead><tbody>';
       off.forEach(function (o) {
-        h += '<tr data-row="' + o.slot + '"><td>' + (o.slot + 1) + '</td><td>' + (o.cost || tr(lang, 'none')) + '</td><td>' + (o.cost ? esc(tr(lang, 'pays', o.slot + 1, o.slot + 1)) : tr(lang, 'none')) + '</td><td>' + (o.clue ? esc(fullName(data, lang, o.clue.id, o.clue.level)[0]) : esc(tr(lang, 'emptyRow'))) + '</td><td>' + (o.list.length ? esc(o.list.map(function (x) { return fullName(data, lang, x.id, x.level)[0]; }).join(', ')) : tr(lang, 'none')) + '</td></tr>';
+        h += '<tr data-row="' + o.slot + '"><td>' + (o.slot + 1) + '</td><td>' + (o.cost || tr(lang, 'none')) + '</td><td>' + (o.cost ? esc(payText(o.slot + 1)) : tr(lang, 'none')) + '</td><td>' + (o.clue ? esc(fullName(data, lang, o.clue.id, o.clue.level)[0]) : esc(tr(lang, 'emptyRow'))) + '</td><td>' + (o.list.length ? esc(o.list.map(function (x) { return fullName(data, lang, x.id, x.level)[0]; }).join(', ')) : tr(lang, 'none')) + '</td></tr>';
       });
       h += '</tbody></table></div>';
       h += '<details class="box box-info"><summary class="box-title">' + esc(tr(lang, 'limitsTitle')) + '</summary><ul>' + tr(lang, 'limits').map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></details>';
@@ -286,7 +292,7 @@
       var fam = data.enchantments.filter(function (e) { return e.family; }).sort(function (a, b) { return nm(a.name, lang).localeCompare(nm(b.name, lang)); });
       function cell(id, name, lines, label) {
         var t = st.open ? '<div class="mc-tip mc-static">' + linesHtml(lines) + '</div>' : '';
-        return '<div class="ench-cell"><span class="ench-slot" tabindex="0"' + tip(lines) + ' aria-label="' + esc(linesText(lines)) + '">' + iconHtml(ctx, id, name) + '</span><span class="c-label">' + label + '</span>' + t + '</div>';
+        return '<div class="ench-cell"><span class="ench-slot ench-glint" tabindex="0"' + tip(lines) + ' aria-label="' + esc(linesText(lines)) + '">' + iconHtml(ctx, id, name) + '</span><span class="c-label">' + label + '</span>' + t + '</div>';
       }
       function modLabel(e) { return '<small>' + esc(e.module) + (e.id.split(':')[0] === 'minecraft' ? ' · ' + tr(lang, 'overridden', e.module) : '') + (e.curse ? ' · ' + tr(lang, 'curse') : '') + (e.treasure ? ' · ' + tr(lang, 'treasure') : '') + '</small>'; }
       h += '<h2>' + esc(tr(lang, 'books')) + '</h2><p class="muted">' + esc(tr(lang, 'booksIntro')) + '</p><div class="ench-grid" data-sec="books">';
