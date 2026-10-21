@@ -254,6 +254,24 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json"
       ],
+      "related": [
+        "simplemusic:white_pocket_jukebox",
+        "simplemusic:orange_pocket_jukebox",
+        "simplemusic:magenta_pocket_jukebox",
+        "simplemusic:light_blue_pocket_jukebox",
+        "simplemusic:yellow_pocket_jukebox",
+        "simplemusic:lime_pocket_jukebox",
+        "simplemusic:pink_pocket_jukebox",
+        "simplemusic:gray_pocket_jukebox",
+        "simplemusic:light_gray_pocket_jukebox",
+        "simplemusic:cyan_pocket_jukebox",
+        "simplemusic:purple_pocket_jukebox",
+        "simplemusic:blue_pocket_jukebox",
+        "simplemusic:brown_pocket_jukebox",
+        "simplemusic:green_pocket_jukebox",
+        "simplemusic:red_pocket_jukebox",
+        "simplemusic:black_pocket_jukebox"
+      ],
       "en": {
         "title": "Pocket Jukebox",
         "summary": "A bundle for up to 20 discs (Vanilla and custom discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",

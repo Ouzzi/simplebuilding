@@ -109,6 +109,7 @@
   "item.simplemusic.green_pocket_jukebox": "Green Pocket Jukebox",
   "item.simplemusic.red_pocket_jukebox": "Red Pocket Jukebox",
   "item.simplemusic.black_pocket_jukebox": "Black Pocket Jukebox",
+  "tip.simplemusic.pocket_jukebox": "Put discs in like a bundle; use it to play or pause",
   "item.simplemusic.guide_book": "Simple Music Guide",
   "simplemusic.guide.page.1.title": "Simple Music",
   "simplemusic.guide.page.1": "Write sheet music as text, listen to it in the editor and let the Orchestrion play it on a loop. Burn your own mono Ogg files onto blank discs.",
@@ -145,6 +146,5 @@
   "quests.simplemusic.start.title": "Welcome to Simple Music",
   "quests.simplemusic.start.subtitle": "Your free guide",
   "quests.simplemusic.start.welcome.title": "A free guide",
-  "quests.simplemusic.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Music Guide as a reward. You can also craft it from a book and a note block.",
-  "tip.simplemusic.pocket_jukebox": "Put discs in like a bundle; use it to play or pause"
+  "quests.simplemusic.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Music Guide as a reward. You can also craft it from a book and a note block."
 }
