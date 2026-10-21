@@ -340,7 +340,7 @@ def strip(shape, light, to_blue):
     lo, hi = min(ys), max(ys) + 1
     out_shape, out_light = [], []
     for k in range(FRAMES):
-        limit = lo + (hi - lo) * k // (FRAMES - 1)
+        limit = lo - (-(hi - lo) * k // (FRAMES - 1))  # ceil: frame 1 already changes something
         out_shape += shape
         out_light += [''.join(to_blue.get(c, c) if y < limit else c for c in row) for y, row in enumerate(light)]
     return out_shape, out_light

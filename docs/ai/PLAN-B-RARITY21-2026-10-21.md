@@ -58,6 +58,6 @@ Queue: zwei Zeilen „(B, b-rarity21, 21.10.)“ – (1) Seltenheitsstufen über
 
 ## Verifikation
 - Gametests: `simplelib:*rarity*` (Komponente, Stil, Codec), `simplemobs:*rarity*`, `simpletools:*rarity*`,
-  `simplebeacons:*rarity*` auf fabric-263 + neoforge-263, Standalone-Targets der drei Module, `simplebuilding:data_integrity`.
+  `simplebeacons:strong_items_rarity` auf fabric-263 + neoforge-263, Standalone-Targets der drei Module, `simplebuilding:data_integrity`.
 - Compile Fabric/NeoForge/Forge 26.3, `wither21_textures.py --check`, `layers.py check`, gen (Guides/Wiki/Discover), `check`.
 - Keine Client-Läufe (Optik nur per Vorschau-HTML; Client-Sicht bleibt Besitzer-Abnahme).

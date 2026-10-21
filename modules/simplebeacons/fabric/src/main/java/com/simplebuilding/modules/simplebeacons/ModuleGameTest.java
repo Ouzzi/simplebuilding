@@ -17,8 +17,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
-    public void strongItemsMythic(GameTestHelper h) {
-        BeaconsTests.ALL.get("strong_items_mythic").accept(h);
+    public void strongItemsRarity(GameTestHelper h) {
+        BeaconsTests.ALL.get("strong_items_rarity").accept(h);
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 200)
