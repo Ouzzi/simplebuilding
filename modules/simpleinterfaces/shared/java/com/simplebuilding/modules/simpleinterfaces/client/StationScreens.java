@@ -73,6 +73,15 @@ public final class StationScreens {
      * stays Vanilla.
      */
     public static boolean draw(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth, int imageHeight) {
+        // reported like the screens of drawBackground: SimpleBuilding then leaves out its Vanilla frame of the extra head slot,
+        // which the style draws as a slot like the armour slots (owner 2026-10-21, image 16)
+        boolean styled = drawStyled(screen, g, left, top, imageWidth, imageHeight);
+        StyledScreens.markStyled(screen, styled);
+        return styled;
+    }
+
+    private static boolean drawStyled(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth,
+            int imageHeight) {
         ScreenStyle style = style(screen);
         if (style == null) return false;
         String id = style.id();

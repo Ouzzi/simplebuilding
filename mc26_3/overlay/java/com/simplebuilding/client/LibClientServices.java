@@ -4,6 +4,8 @@ import com.simplebuilding.client.gui.TrimStatsPanel;
 import com.simplebuilding.util.ExtraHead;
 import com.simplebuilding.util.TrimStatsLayout;
 import com.simplelib.api.client.InventoryExtrasClient;
+import com.simplelib.api.client.ui.UiShiftTooltip;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
  * Storage's backpack screen rebuilds the player inventory and draws what SimpleBuilding adds to it through SimpleLib
  * {@link InventoryExtrasClient} - the frame of the extra head slot (owner N49), the resonance button and the empty slot's
  * hint, as in the inventory. The slot itself comes through SimpleLib {@code InventoryExtras} ({@code LibServices.init}).
+ * Tooltips fold behind SimpleLib's "Hold Shift for more" ({@link UiShiftTooltip}, owner 2026-10-21).
  */
 public final class LibClientServices {
     private LibClientServices() {
@@ -40,5 +43,15 @@ public final class LibClientServices {
                 }
             }
         });
+    }
+
+    /** Shift held, as every Simple mod reads it ({@link UiShiftTooltip#held}). */
+    public static boolean shiftHeld() {
+        return UiShiftTooltip.held();
+    }
+
+    /** The first {@code brief} lines and "Hold Shift for more" without {@code shift}, else all ({@link UiShiftTooltip#collapse}). */
+    public static List<Component> moreOnShift(List<Component> lines, int brief, boolean shift) {
+        return UiShiftTooltip.collapse(lines, brief, shift);
     }
 }

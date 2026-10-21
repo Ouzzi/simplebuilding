@@ -99,6 +99,15 @@ public final class StyledScreens {
         return Boolean.TRUE.equals(STYLED.get(screen));
     }
 
+    /**
+     * Records whether {@code screen}'s background was drawn in the style this frame, for screens drawn outside
+     * {@link #drawBackground} (the G3 screens, {@link StationScreens#draw}); {@link #isStyled} and the framework's
+     * restyling hint read it (owner 2026-10-21: SimpleBuilding's extra head slot frame).
+     */
+    static void markStyled(AbstractContainerScreen<?> screen, boolean styled) {
+        STYLED.put(screen, styled);
+    }
+
     /** Box layout of {@code screen} from its active slots (and its decor's elements), or {@code null}. */
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();

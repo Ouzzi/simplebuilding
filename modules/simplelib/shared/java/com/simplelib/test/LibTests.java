@@ -35,6 +35,7 @@ public final class LibTests {
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
         ALL.put("inventory_brightness_tones_palettes", LibTests::inventoryBrightness);
         ALL.put("ui_text_contrast", LibTests::uiTextContrast);
+        ALL.put("shift_tooltip_collapse", LibTests::shiftTooltipCollapse);
         ALL.put("id_moves_registries", IdMovesTests::registries);
         ALL.put("id_moves_recipe_book_and_advancements", IdMovesTests::recipeBookAndAdvancements);
         ALL.put("id_moves_refuse_loops", IdMovesTests::refuseLoops);
@@ -115,6 +116,40 @@ public final class LibTests {
         check(h, com.simplelib.api.client.ui.UiContrast.readable(fixed, grey), "white on grey not fixed: " + Integer.toHexString(fixed));
         check(h, com.simplelib.api.client.ui.UiContrast.ratio(0xFF000000, 0xFFFFFFFF) > 20.9
                 && com.simplelib.api.client.ui.UiContrast.ratio(0xFF808080, 0xFF808080) == 1.0, "ratio maths");
+        h.succeed();
+    }
+
+    /**
+     * "Hold Shift for more" (owner 2026-10-21, {@code UiShiftTooltip}): without Shift only the first lines and the hint, with
+     * Shift every line; a tooltip with nothing to hide gets no hint; the hint names its key in both languages and reads on
+     * the tooltip background (4.5:1).
+     */
+    private static void shiftTooltipCollapse(GameTestHelper h) {
+        java.util.List<net.minecraft.network.chat.Component> full = java.util.List.of(net.minecraft.network.chat.Component.literal("Resonance"),
+                net.minecraft.network.chat.Component.literal("(E + S + C) / 3"), net.minecraft.network.chat.Component.empty(),
+                net.minecraft.network.chat.Component.literal("Experience"));
+        var brief = com.simplelib.api.client.ui.UiShiftTooltip.collapse(full, 1, false);
+        check(h, brief.size() == 2 && brief.get(0) == full.get(0), "without Shift: first line plus hint, got " + brief.size() + " lines");
+        check(h, brief.get(1).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t
+                && t.getKey().equals(com.simplelib.api.client.ui.UiShiftTooltip.KEY), "second line is not the hold-Shift hint: " + brief.get(1));
+        check(h, brief.get(1).getStyle().getColor() != null && brief.get(1).getStyle().getColor().getValue()
+                == net.minecraft.ChatFormatting.GRAY.getColor(), "hint is not the shared grey");
+        check(h, com.simplelib.api.client.ui.UiShiftTooltip.collapse(full, 1, true).equals(full), "with Shift not every line");
+        var two = com.simplelib.api.client.ui.UiShiftTooltip.collapse(full, 2, false);
+        check(h, two.size() == 3 && two.get(1) == full.get(1), "brief 2 keeps two lines");
+        check(h, com.simplelib.api.client.ui.UiShiftTooltip.collapse(full.subList(0, 1), 1, false).size() == 1, "nothing hidden, still a hint");
+        int grey = 0xFF000000 | net.minecraft.ChatFormatting.GRAY.getColor();
+        double ratio = com.simplelib.api.client.ui.UiContrast.ratio(grey, com.simplelib.api.client.ui.UiShiftTooltip.TOOLTIP_BACKGROUND);
+        check(h, ratio >= com.simplelib.api.client.ui.UiContrast.MIN, "hint contrast " + ratio);
+        for (String lang : new String[] {"en_us", "de_de"}) {
+            try (var in = LibTests.class.getResourceAsStream("/assets/simplelib/lang/" + lang + ".json")) {
+                check(h, in != null, lang + " missing");
+                JsonObject json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                check(h, json.has(com.simplelib.api.client.ui.UiShiftTooltip.KEY), lang + " has no " + com.simplelib.api.client.ui.UiShiftTooltip.KEY);
+            } catch (java.io.IOException e) {
+                throw new AssertionError(e);
+            }
+        }
         h.succeed();
     }
 

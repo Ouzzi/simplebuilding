@@ -5,17 +5,18 @@ import com.simplebuilding.modules.simplestats.StatsComponents;
 import com.simplebuilding.modules.simplestats.data.StatData;
 import com.simplebuilding.modules.simplestats.data.StatFormat;
 import com.simplebuilding.modules.simplestats.data.StatKeys;
+import com.simplelib.api.client.ui.UiShiftTooltip;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Tooltip lines (tooltip rule, number 14 of the project): nothing for items without statistics; one headline plus the hint
- * "Shift: details"; with Shift the most important values and the key that opens the full screen.
+ * Tooltip lines (tooltip rule, number 14 of the project): nothing for items without statistics; one headline plus SimpleLib's
+ * "Hold Shift for more" ({@link UiShiftTooltip}, the same hint in every Simple mod); with Shift the most important values
+ * and the key that opens the full screen.
  */
 public final class StatsTooltip {
     /** Values listed with Shift (the screen shows everything). */
@@ -30,8 +31,8 @@ public final class StatsTooltip {
         String primary = primary(data);
         if (primary == null) return;
         builder.accept(headline(data, primary, locale));
-        if (!Minecraft.getInstance().hasShiftDown()) {
-            builder.accept(Component.translatable("tooltip.simplestats.shift").withStyle(ChatFormatting.DARK_GRAY));
+        if (!UiShiftTooltip.held()) {
+            builder.accept(UiShiftTooltip.hint());
             return;
         }
         int shown = 0;

@@ -12,7 +12,6 @@
   "stat.simplestats.catch.fish": "Fish",
   "stat.simplestats.catch.treasure": "Treasure",
   "stat.simplestats.catch.junk": "Junk",
-  "tooltip.simplestats.shift": "Shift: details",
   "tooltip.simplestats.open": "%s: all statistics",
   "tooltip.simplestats.value": "%s: %s",
   "command.simplestats.reset": "Cleared the statistics of %s",

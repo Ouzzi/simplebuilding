@@ -110,7 +110,7 @@
   "key.simplestorage.open_backpack": "Open Backpack",
   "tooltip.simplestorage.backpack.slots": "%s / %s slots used",
   "tooltip.simplestorage.backpack.more": "...and %s more",
-  "tooltip.simplestorage.backpack.shift_hint": "Hold Shift to see contents",
+  "tooltip.simplestorage.backpack.shift_hint": "Hold Shift for contents",
   "tooltip.simplestorage.backpack.open_hint": "Press %s: open while worn or carried",
   "tooltip.simplestorage.backpack.place_hint": "Sneak + right-click a block: place",
   "tip.simplestorage.backpack": "Use to wear it, then press the backpack key (B)",

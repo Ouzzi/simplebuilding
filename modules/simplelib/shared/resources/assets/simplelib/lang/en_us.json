@@ -1,6 +1,7 @@
 {
   "tooltip.simplelib.warm": "Warm (about %s min)",
   "tooltip.simplelib.warm.faster": "Eaten %s%% faster",
+  "tooltip.simplelib.hold_shift": "Hold Shift for more",
   "item.simplelib.diamond_pebble": "Diamond Pebble",
   "item.simplelib.cracked_diamond": "Cracked Diamond",
   "item.simplelib.netherite_nugget": "Netherite Nugget",

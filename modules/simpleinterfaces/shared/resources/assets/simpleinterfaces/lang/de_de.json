@@ -81,7 +81,7 @@
   "simpleinterfaces.option.bundleMaxRows.tooltip": "Reihen zu vier Einträgen, die der Bündel-Tooltip\nzeigt, bevor er blättert. Standard: 6.\nErlaubter Bereich: 3–16.",
   "simpleinterfaces.option.enableEnderChestTooltip": "Endertruhen-Tooltip",
   "simpleinterfaces.option.enableEnderChestTooltip.tooltip": "Schickt jedem Spieler den Inhalt seiner eigenen\nEndertruhe beim Einloggen und beim Schließen,\nfür den Tooltip der Endertruhe. Nie fremde\nTruhen. Standard: true.",
-  "simpleinterfaces.tooltip.shulker.shift": "Umschalt: Inhalt zeigen",
-  "simpleinterfaces.tooltip.ender_chest.shift": "Umschalt: eigene Endertruhe zeigen",
+  "simpleinterfaces.tooltip.shulker.shift": "Umschalt halten für Inhalt",
+  "simpleinterfaces.tooltip.ender_chest.shift": "Umschalt halten für deine Endertruhe",
   "simpleinterfaces.tooltip.ender_chest.empty": "Deine Endertruhe ist leer"
 }
