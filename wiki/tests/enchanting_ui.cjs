@@ -59,7 +59,7 @@ const report = [];
           await lvl.fill('5'); await lvl.press('Enter'); await lvl.blur();
           ok(await page.locator('.ench-row.r-off').count() >= 1, 'rows above the level are disabled');
           const off3 = page.locator('.ench-row[data-slot="2"]');
-          if (view.touch) await off3.tap(); else await off3.hover();
+          if (view.touch) await off3.tap({ force: true }); else await off3.hover({ force: true });
           const req = await tip.innerText();
           ok(lang === 'de' ? /Erforderliche Erfahrungsstufe: 30/.test(req) : /Level Requirement: 30/.test(req), 'requirement: ' + req);
           ok(await tip.locator('.mc-red').count() >= 1, 'requirement in red');
