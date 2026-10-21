@@ -322,6 +322,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void mapShowsUnloadedPublicShops(GameTestHelper h) {
+        ShopsTests.ALL.get("map_shows_unloaded_public_shops").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void terminalLockSharedWithSite(GameTestHelper h) {
         ShopsTests.ALL.get("terminal_lock_shared_with_site").accept(h);
     }

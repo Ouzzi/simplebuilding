@@ -771,7 +771,7 @@ public final class MobHeadTests {
      */
     public static void herobrineRitual(GameTestHelper helper) {
         ServerPlayer player = player(helper);
-        HerobrineRitual.resetForTests();
+        HerobrineRitual.resetForTests(helper.getLevel().getServer());
         HerobrineHaunt.resetForTests();
         Item head = MobHeads.item("herobrine");
         clearShrine(helper);
@@ -806,8 +806,17 @@ public final class MobHeadTests {
         ServerPlayer other = player(helper);
         helper.assertTrue(ignite(helper, other, true) == HerobrineRitual.Result.COOLDOWN, "no cooldown for the shrine");
         helper.assertValueEqual(count(helper, head), 0, "heads during the cooldown");
+        // The cooldowns live in the world save: a save/load round trip (a restart) keeps them.
+        var saved = com.simplemobheads.ritual.RitualCooldowns.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE,
+                com.simplemobheads.ritual.RitualCooldowns.get(helper.getLevel().getServer())).getOrThrow();
+        var loaded = com.simplemobheads.ritual.RitualCooldowns.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, saved).getOrThrow();
+        String shrineId = helper.getLevel().dimension().identifier() + "@" + helper.absolutePos(new BlockPos(2, 4, 2)).asLong();
+        long now = helper.getLevel().getGameTime();
+        helper.assertTrue(loaded.waiting(shrineId, java.util.UUID.randomUUID(), now) && loaded.waiting("none", player.getUUID(), now),
+                "cooldowns lost by save/load");
+        helper.assertTrue(!loaded.waiting(shrineId, player.getUUID(), now + SimpleMobHeads.config().ritualCooldownTicks + 1), "cooldown never ends");
         // The real item: flint and steel on the netherrack (the mixin asks the world's time).
-        HerobrineRitual.resetForTests();
+        HerobrineRitual.resetForTests(helper.getLevel().getServer());
         helper.setBlock(SHRINE_FIRE, Blocks.AIR);
         boolean night = helper.getLevel().isDarkOutside();
         other.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FLINT_AND_STEEL));
@@ -821,7 +830,7 @@ public final class MobHeadTests {
         bounded.normalize(SimpleMobHeads.abilityIds());
         helper.assertValueEqual(bounded.ritualCooldownTicks, MobHeadsConfig.MIN_RITUAL_COOLDOWN, "cooldown bound");
         HerobrineHaunt.resetForTests();
-        HerobrineRitual.resetForTests();
+        HerobrineRitual.resetForTests(helper.getLevel().getServer());
         clearShrine(helper);
         helper.succeed();
     }
@@ -829,7 +838,7 @@ public final class MobHeadTests {
     /** H1: a missing torch, no moss (cobblestone), an incomplete gold square or a torch of the wrong kind - no ritual. */
     public static void herobrineRitualWrongShrines(GameTestHelper helper) {
         ServerPlayer player = player(helper);
-        HerobrineRitual.resetForTests();
+        HerobrineRitual.resetForTests(helper.getLevel().getServer());
         Map<String, Consumer<GameTestHelper>> wrong = new LinkedHashMap<>();
         wrong.put("a torch missing", h -> h.setBlock(new BlockPos(3, 3, 2), Blocks.AIR));
         wrong.put("a plain torch", h -> h.setBlock(new BlockPos(2, 3, 1), Blocks.TORCH));
@@ -849,7 +858,7 @@ public final class MobHeadTests {
         }
         clearShrine(helper);
         helper.assertTrue(problems.isEmpty(), "wrong shrines: " + problems);
-        HerobrineRitual.resetForTests();
+        HerobrineRitual.resetForTests(helper.getLevel().getServer());
         HerobrineHaunt.resetForTests();
         helper.succeed();
     }

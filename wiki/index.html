@@ -431,6 +431,8 @@ a.chip { cursor: pointer; }
 details summary { cursor: pointer; color: var(--accent); }
 details.more { margin: -.2rem 0 .6rem; }
 details.more > summary { font-size: .88rem; font-weight: 600; margin-left: 1.3rem; }
+details.spoiler { margin: .4rem 0 .8rem; padding: .5rem .8rem; border: 1px dashed var(--border); border-radius: var(--radius-sm); }
+details.spoiler > summary { font-weight: 600; cursor: pointer; }
 .search-group { margin-top: 1.2rem; }
 mark { background: color-mix(in srgb, var(--warn-border) 40%, transparent); color: inherit; padding: 0 .1em; border-radius: 2px; }
 .notfound { padding: 2rem 1rem; text-align: center; color: var(--muted); }
@@ -1229,6 +1231,7 @@ en: {
   'vn.minecraft:furnace': 'Furnace', 'vn.minecraft:smoker': 'Smoker', 'vn.minecraft:blast_furnace': 'Blast Furnace', 'vn.minecraft:hopper': 'Hopper',
   foldHint: 'click to fold',
   showMore: 'Show {0} more points',
+  spoilerShow: 'Spoiler: show the solution',
   /* Neue Oberflaeche: Kategorien, Navigation, Schnellsuche */
   sbCategories: 'Browse', sbReference: 'Reference', sbProgress: 'Progress & settings',
   navGuides: 'Guides', navHome: 'Home',
@@ -1764,6 +1767,7 @@ de: {
   'vn.minecraft:furnace': 'Ofen', 'vn.minecraft:smoker': 'Räucherofen', 'vn.minecraft:blast_furnace': 'Schmelzofen', 'vn.minecraft:hopper': 'Trichter',
   foldHint: 'zum Einklappen klicken',
   showMore: '{0} weitere Punkte zeigen',
+  spoilerShow: 'Spoiler: Lösung zeigen',
   sbCategories: 'Stöbern', sbReference: 'Nachschlagen', sbProgress: 'Fortschritt & Einstellungen',
   navGuides: 'Anleitungen', navHome: 'Start',
   'cat.tools': 'Werkzeuge & Ausrüstung', 'cat.building': 'Baublöcke', 'cat.storage': 'Aufbewahrung',
@@ -2211,18 +2215,23 @@ function sourcesList(src) {
   if (!src.length) return '';
   return '<div class="src">' + esc(T('srcFoundIn')) + ' ' + src.map(function (s) { return '<code>' + esc(s) + '</code>'; }).join(' ') + '</div>';
 }
+/* Versteckte Inhalte ("spoiler": true in manual.json, z. B. Herobrine): die Lösung bleibt zugeklappt, bis der Leser sie öffnet. */
+function spoilerHtml(inner) {
+  return inner ? '<details class="spoiler"><summary>' + esc(T('spoilerShow')) + '</summary>' + inner + '</details>' : '';
+}
 function noteBlock(note, what, opts) {
   opts = opts || {};
   if (!noteHasContent(note)) return hintNoText(what);
   var loc = localised(note), n = loc.v;
   var h = loc.fallback ? '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>' : '';
   if (strs([n.summary]).length) h += '<p class="lead">' + proseHtml(n.summary) + '</p>';
-  var det = strs(n.details);
-  if (det.length && opts.clamp && det.length > opts.clamp + 1) h += listHtml(det.slice(0, opts.clamp)) + '<details class="more"><summary>' + esc(T('showMore', det.length - opts.clamp)) + '</summary>' + listHtml(det.slice(opts.clamp)) + '</details>';
-  else if (det.length) h += listHtml(det);
-  var ctl = strs(n.controls); if (ctl.length) h += '<div class="box box-controls"><div class="box-title">' + esc(T('boxControls')) + '</div>' + listHtml(ctl) + '</div>';
-  var tiers = strs(n.tiers); if (tiers.length) h += '<h3>' + esc(T('headingTiers')) + '</h3>' + tiersTable(tiers);
-  var cav = strs(n.caveats); if (cav.length) h += '<div class="box box-caveat"><div class="box-title">' + esc(T('boxCaveats')) + '</div>' + listHtml(cav) + '</div>';
+  var det = strs(n.details), b = '';
+  if (det.length && opts.clamp && !note.spoiler && det.length > opts.clamp + 1) b += listHtml(det.slice(0, opts.clamp)) + '<details class="more"><summary>' + esc(T('showMore', det.length - opts.clamp)) + '</summary>' + listHtml(det.slice(opts.clamp)) + '</details>';
+  else if (det.length) b += listHtml(det);
+  var ctl = strs(n.controls); if (ctl.length) b += '<div class="box box-controls"><div class="box-title">' + esc(T('boxControls')) + '</div>' + listHtml(ctl) + '</div>';
+  var tiers = strs(n.tiers); if (tiers.length) b += '<h3>' + esc(T('headingTiers')) + '</h3>' + tiersTable(tiers);
+  var cav = strs(n.caveats); if (cav.length) b += '<div class="box box-caveat"><div class="box-title">' + esc(T('boxCaveats')) + '</div>' + listHtml(cav) + '</div>';
+  h += note.spoiler ? spoilerHtml(b) : b;
   if (opts.noSources) return h;
   h += sourcesList(strs(note.sources).length ? strs(note.sources) : strs(n.sources));
   if (note.key) h +='<div class="src">' + esc(T('srcNoteKey')) + ' <code>manual.json</code>: <code>' + esc(note.key) + '</code></div>';
@@ -2806,7 +2815,7 @@ function pageFeature(id) {
   h += '<article class="hero-card"><h1>' + esc(featureTitle(f)) + '</h1>';
   if (loc.fallback) h += '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>';
   h += strs([fl.summary]).length ? '<p class="lead">' + proseHtml(fl.summary) + '</p>' : '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
-  var det = strs(fl.details); if (det.length) h += listHtml(det);
+  var det = strs(fl.details); if (det.length) h += f.spoiler ? spoilerHtml(listHtml(det)) : listHtml(det);
   h += '</article>';
   var rel = strs(f.related);
   var relItems = rel.filter(kindOfId), relOther = rel.filter(function (r) { return !kindOfId(r); });

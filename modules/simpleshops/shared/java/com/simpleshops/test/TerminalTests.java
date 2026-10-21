@@ -121,6 +121,38 @@ final class TerminalTests {
             data.delete(box);
             h.succeed();
         });
+        all.put("map_shows_unloaded_public_shops", h -> {
+            // KONZ20 stage 4: the map layer reads shops in unloaded chunks from the world data, public ones only, never loading them.
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ServerLevel level = h.getLevel();
+            BlockPos far = new BlockPos(27_000_000 + (int) (level.getGameTime() % 1000) * 16, 70, 27_000_000);
+            h.assertTrue(!level.hasChunkAt(far), "far chunk unloaded");
+            EnderShops data = EnderShops.get(level.getServer());
+            EnderShops.Vault sales = data.create(EnderShops.Kind.SALES, level, far);
+            EnderShops.Vault box = data.create(EnderShops.Kind.CASE, level, far.above());
+            sales.setOwner(owner.getUUID(), owner.getGameProfile().name());
+            box.setOwner(owner.getUUID(), owner.getGameProfile().name());
+            data.linkCase(sales, box);
+            sales.prices.set(0, new ItemStack(Items.EMERALD, 2));
+            var layer = com.simplebuilding.framework.api.MapLayerSources.get("shops");
+            h.assertTrue(layer != null, "shops map layer registered");
+            java.util.function.Supplier<List<com.simplebuilding.framework.api.MapLayerSources.Marker>> markers =
+                    () -> layer.collector().collect(level, far.getX() - 8, far.getZ() - 8, far.getX() + 8, far.getZ() + 8);
+            h.assertTrue(markers.get().isEmpty(), "sold out: no marker");
+            box.items.set(0, new ItemStack(Items.NAUTILUS_SHELL, 3));
+            var seen = markers.get();
+            h.assertTrue(seen.size() == 1 && seen.get(0).x() == far.getX() && seen.get(0).z() == far.getZ()
+                    && seen.get(0).lines().get(0).contains(owner.getGameProfile().name()) && seen.get(0).lines().get(2).contains("2x"),
+                    "public unloaded shop on the map: " + seen);
+            sales.setListed(false);
+            h.assertTrue(markers.get().isEmpty(), "private shop: no marker");
+            sales.setListed(true);
+            h.assertTrue(layer.collector().collect(level, far.getX() + 16, far.getZ(), far.getX() + 32, far.getZ() + 8).isEmpty(), "outside the rectangle");
+            h.assertTrue(!level.hasChunkAt(far) && !level.hasChunkAt(far.above()), "the map loaded the far chunk");
+            data.delete(sales);
+            data.delete(box);
+            h.succeed();
+        });
         all.put("terminal_lock_shared_with_site", h -> {
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             ServerPlayer remote = player(h, GameType.SURVIVAL);

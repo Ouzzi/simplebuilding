@@ -284,12 +284,13 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
     },
     {
       "id": "herobrine",
+      "spoiler": true,
       "en": {
         "title": "He Was Never Removed",
-        "summary": "A secret head that no mob drops: an old shrine of gold, moss, four redstone torches and netherrack, lit by a player at night.",
+        "summary": "A secret head that no mob drops. A rare book in mineshaft chests and the Questionary hint at how to get it.",
         "details": [
-          "The shrine: 3x3 gold blocks, a mossy cobblestone in the middle, a redstone torch on each of the four edge gold blocks, netherrack on top; light the netherrack with flint and steel or a fire charge.",
-          "Only at night. The lightning is only a show (no fire, no damage); the torches go out, the moss turns to cobblestone, gold and netherrack stay. One head per shrine and per player per in-game day (server switch and cooldown).",
+          "Found by lighting an old shrine at night. The shrine: 3x3 gold blocks, a mossy cobblestone in the middle, a redstone torch on each of the four edge gold blocks, netherrack on top; light the netherrack with flint and steel or a fire charge.",
+          "Only at night. The lightning is only a show (no fire, no damage); the torches go out, the moss turns to cobblestone, gold and netherrack stay. One head per shrine and per player per in-game day (server switch and cooldown, kept across restarts).",
           "Afterwards, for five minutes and only for that player, something with white eyes watches from far away.",
           "Worn, torches nearby flicker, and in the dark hostile mobs that target the wearer hesitate for a moment (each mob at most every 30 seconds).",
           "A rare book in mineshaft chests hints at the shrine."
@@ -297,10 +298,10 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       },
       "de": {
         "title": "Er wurde nie entfernt",
-        "summary": "Ein geheimer Kopf, den kein Mob fallen lässt: ein alter Schrein aus Gold, Moos, vier Redstone-Fackeln und Netherrack, den ein Spieler nachts anzündet.",
+        "summary": "Ein geheimer Kopf, den kein Mob fallen lässt. Ein seltenes Buch in Minenschacht-Truhen und der Fragentisch deuten an, wie man ihn bekommt.",
         "details": [
-          "Der Schrein: 3×3 Goldblöcke, in der Mitte bemooster Bruchstein, auf jedem der vier Kanten-Goldblöcke eine Redstone-Fackel, obendrauf Netherrack; das Netherrack mit Feuerzeug oder Feuerkugel anzünden.",
-          "Nur nachts. Der Blitz ist nur Schau (kein Feuer, kein Schaden); die Fackeln erlöschen, das Moos wird zu Bruchstein, Gold und Netherrack bleiben. Ein Kopf je Schrein und je Spieler pro Ingame-Tag (Server-Schalter und Abklingzeit).",
+          "Man findet ihn, indem man nachts einen alten Schrein anzündet. Der Schrein: 3×3 Goldblöcke, in der Mitte bemooster Bruchstein, auf jedem der vier Kanten-Goldblöcke eine Redstone-Fackel, obendrauf Netherrack; das Netherrack mit Feuerzeug oder Feuerkugel anzünden.",
+          "Nur nachts. Der Blitz ist nur Schau (kein Feuer, kein Schaden); die Fackeln erlöschen, das Moos wird zu Bruchstein, Gold und Netherrack bleiben. Ein Kopf je Schrein und je Spieler pro Ingame-Tag (Server-Schalter und Abklingzeit, übersteht Neustarts).",
           "Danach beobachtet fünf Minuten lang, nur für diesen Spieler, etwas mit weißen Augen aus der Ferne.",
           "Getragen flackern Fackeln in der Nähe, und im Dunkeln zögern feindliche Mobs, die den Träger angreifen wollen, kurz (jeder Mob höchstens alle 30 Sekunden).",
           "Ein seltenes Buch in Minenschacht-Truhen deutet den Schrein an."
@@ -7591,12 +7592,25 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         "de_de": "Herobrine-Kopf"
       },
       "note": {
+        "spoiler": true,
         "en": {
-          "summary": "A mob head: only a charged creeper's explosion killing the mob drops it, with the mob's variant. Wear it, place it or put it on a note block."
+          "summary": "A secret head that no mob drops (see the guide \"He Was Never Removed\").",
+          "details": [
+            "Lit at night, an old shrine of 3x3 gold, a mossy cobblestone, four redstone torches and netherrack gives it once per shrine and player per cooldown (an in-game day by default, kept across restarts).",
+            "Worn, torches nearby flicker and hostile mobs that target the wearer in the dark hesitate. Place it, wear it or put it on a note block."
+          ]
         },
         "de": {
-          "summary": "Ein Mob-Kopf: nur die Explosion eines geladenen Creepers, die den Mob tötet, lässt ihn fallen, mit der Variante des Mobs. Tragen, aufstellen oder auf einen Notenblock setzen."
-        }
+          "summary": "Ein geheimer Kopf, den kein Mob fallen lässt (siehe Anleitung \"Er wurde nie entfernt\").",
+          "details": [
+            "Ein alter Schrein aus 3×3 Gold, bemoostem Bruchstein, vier Redstone-Fackeln und Netherrack, nachts angezündet, gibt ihn einmal je Schrein und Spieler pro Abklingzeit (standardmäßig ein Ingame-Tag, übersteht Neustarts).",
+            "Getragen flackern Fackeln in der Nähe, und im Dunkeln zögern feindliche Mobs, die den Träger angreifen wollen. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ]
+        },
+        "sources": [
+          "modules/simplemobheads/shared/java/com/simplemobheads/ritual/HerobrineRitual.java",
+          "modules/simplemobheads/shared/java/com/simplemobheads/ritual/RitualCooldowns.java"
+        ]
       },
       "questionary": {
         "en": {
