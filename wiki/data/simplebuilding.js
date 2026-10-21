@@ -106555,6 +106555,14 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplemusic:blank_disc",
+          "required": false
+        },
+        {
+          "id": "simplemusic:custom_disc",
+          "required": false
+        },
+        {
           "id": "minecraft:shulker_shell",
           "required": true
         },
