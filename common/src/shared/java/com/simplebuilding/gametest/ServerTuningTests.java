@@ -267,6 +267,8 @@ public final class ServerTuningTests {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static void disabledFeaturesLoseTheirRecipes(GameTestHelper helper) {
+        // Split stage 8c-2: on 26.3 the backpack recipes are Simple Storage's; SimpleBuilding's switch filters only its own.
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; }
         SimplebuildingConfig config = Simplebuilding.getConfig();
         boolean backpack = config.server.features.backpack;
         Identifier backpackId = Identifier.fromNamespaceAndPath("simplebuilding", "backpack");
