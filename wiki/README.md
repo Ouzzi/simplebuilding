@@ -344,6 +344,26 @@ kopiert alle PNGs des Ordners (rekursiv) nach `wiki/assets/ui/` und schreibt `wi
 Das Modul ergibt sich aus dem Pfad oder Dateinamen (z. B. `module-simplefun-client-263/…`). Beides
 steht in `.gitignore`; `tools/wiki_site.py` veröffentlicht es nicht.
 
+### Pixeleditor mit Ebenen (nur Wiki-Spiegel der Zentrale)
+
+Plan und Format: `docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md`, Vorbild: `docs/ai/ANALYSE-RESPRITE-2026-10-21.md`.
+Jede Textur kann ihre Ebenen als `<name>.layers.json` **neben dem PNG** tragen (PRINZIPIEN A8 b); das PNG ist
+deren Zusammensetzung. `textures.py` kopiert die Quelle zu den Sheets und schreibt `"layers"` in den Eintrag.
+
+Im Dev-Spiegel (`/wiki/` der Zentrale, `tools/zentrale-web/dev-overlay.js`) hat jede Textur-Kachel ein ✎ und die
+Großansicht „✎ Bearbeiten“. Das lädt `assets/pixeleditor-core.js` (Format, Zusammensetzung, PNG-Codec, reine
+Funktionen) und `assets/pixeleditor.js` (Oberfläche). Das öffentliche Wiki lädt beides nie. Ablauf:
+
+1. Bearbeiten (Stift, Radierer, Füllen, Pipette, Linie, Rechteck, Auswahl/Verschieben, Spiegel-Symmetrie, Ebenen).
+2. „PNG + Ebenen“ lädt `<name>.png` und `<name>.layers.json` herunter (die Seite ist statisch, sie schreibt nichts ins Repo).
+3. Beide in den Ordner des Originals legen (Pfad steht im Editor), dann
+   `python tools/textures/layers.py check` und `python wiki/generate.py --all`, committen.
+
+`gradlew check` prüft jede eingecheckte Ebenen-Quelle (`checkTextureLayers`): Format gültig, PNG daneben,
+Pixel gleich der Zusammensetzung, keine Quelle an Vanilla-abgeleiteten (git-ignorierten) Texturen.
+Bestehendes PNG übernehmen: `python tools/textures/layers.py import <png> --name Grundform`;
+aus Ebenen ein PNG schreiben: `python tools/textures/layers.py compose <name>.layers.json`.
+
 ### Der Zwang, nicht die Bitte
 
 Ein Wiki, das „bitte aktuell halten" sagt, veraltet. Deshalb ist die Pflicht in den Build
