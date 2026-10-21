@@ -11,8 +11,9 @@ to top. tools/layers/<texture>.json keeps that source next to the PNG (plan docs
 Pillow and easy to turn into the wiki pixel editor's layer format. Pillow is only needed to write/compare PNGs.
 
 Textures: sheet music, blank disc, custom disc (track = amethyst label, composition = paper label), Orchestrion side/top,
-Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front), disc press side/top.
-Variants (owner choice code MU21 R=? P=? D=?): blank/custom disc A round like Vanilla's discs / B oval like the
+Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front), disc press side/top, the placed
+records' round top views (written into SimpleBuilding's assets).
+Variants (owner choice MU21 R=B P=A D=B, 21.10.): blank/custom disc A round like Vanilla's discs / B oval like the
 reference; Pocket Jukebox A flat record case / B chunky player box; disc press A iron / B iron with copper.
 """
 import json
@@ -23,7 +24,8 @@ from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
 TEX = MODULE / 'shared/resources/assets/simplemusic/textures'
 LAYERS = Path(__file__).resolve().parent / 'layers'
-CHOSEN = {'disc': 'A', 'pocket': 'A', 'press': 'A'}  # MU21 pending: R (disc), P (pocket), D (disc press)
+SB_TEX = MODULE.parents[1] / 'mc26_3/overlay/resources/assets/simplebuilding/textures/block'
+CHOSEN = {'disc': 'B', 'pocket': 'A', 'press': 'B'}  # MU21 (owner 21.10.): R=B, P=A, D=B; the round form A lies placed
 
 
 class Tex:
@@ -145,14 +147,15 @@ LABEL_TRACK = {'l': (160, 112, 204), 'L': (116, 76, 158)}  # amethyst: the blank
 LABEL_SHEET = {'l': (232, 224, 200), 'L': (190, 178, 148)}  # sheet music paper
 
 
-def disc_rows(form):
-    """Character rows of one disc form: o outline, b body, g groove, h/H glints, l/L label, x hole."""
+def disc_rows(form, scale=1.0):
+    """Character rows of one disc form: o outline, b body, g groove, h/H glints, l/L label, x hole.
+    scale 6/7 draws the 12 px disc of a placed record (SimpleBuilding's PlacedSolids.DISC_ROWS) with the same proportions."""
     squash = DISC_FORM[form]
     rows = []
     for y in range(16):
         row = ''
         for x in range(16):
-            dx, dy = x + 0.5 - 8, (y + 0.5 - 8) / squash
+            dx, dy = (x + 0.5 - 8) / scale, (y + 0.5 - 8) / squash / scale
             r = math.hypot(dx, dy)
             a = math.degrees(math.atan2(dy, dx)) % 360
             if r > 7.0:
@@ -179,9 +182,16 @@ def disc_rows(form):
     return rows
 
 
-def disc(form, palette):
-    rows = disc_rows(form)
+def disc(form, palette, scale=1.0):
+    rows = disc_rows(form, scale)
     return Tex(palette, split(rows, [('grundform', 'ob'), ('rillen', 'g'), ('glanz', 'hH'), ('etikett', 'lL'), ('loch', 'x')]))
+
+
+# Owner 21.10. (MU21): "die runden platten als platzierbare platten nutzen" - the placed record (Shift + right click, the
+# SimpleBuilding feature of Vanilla's discs) is the round form A as a 12 px top view; the item sprite stays the oval B.
+# The files go into SimpleBuilding's assets (its placed_<item> models read simplebuilding:block/placed_disc_<item>).
+PLACED_SCALE = 6 / 7
+PLACED = {'placed_disc_blank_disc': (BLANK, 'item/blank_disc'), 'placed_disc_custom_disc': (dict(VINYL, **LABEL_TRACK), 'item/custom_disc')}
 
 
 # ------------------------------------------------------------------ Orchestrion
@@ -423,6 +433,11 @@ def textures(choice=None):
     return out
 
 
+def placed_texs():
+    """{name: Tex} of the placed records: round form A, 12 px, for SimpleBuilding's placed-disc models."""
+    return {name: disc('A', palette, PLACED_SCALE) for name, (palette, _) in PLACED.items()}
+
+
 def images(textures_):
     """{texture path: 16x16 RGBA rows}; a tinted texture gives one image per tint variant (17 Pocket Jukeboxes)."""
     out = {}
@@ -457,6 +472,7 @@ def main(argv):
     check_rules()
     texs = textures()
     imgs = images(texs)
+    placed = placed_texs()
     if '--check' in argv:
         from PIL import Image
         bad = []
@@ -464,20 +480,27 @@ def main(argv):
             f = TEX / f'{path}.png'
             if not f.is_file() or Image.open(f).convert('RGBA').tobytes() != to_image(px).tobytes():
                 bad.append(str(f))
-        for path, tex in texs.items():
+        for name, tex in placed.items():
+            f = SB_TEX / f'{name}.png'
+            if not f.is_file() or Image.open(f).convert('RGBA').tobytes() != to_image(tex.pixels()).tobytes():
+                bad.append(str(f))
+        for path, tex in list(texs.items()) + [('block/' + n, t) for n, t in placed.items()]:
             f = LAYERS / (path.split('/')[1] + '.json')
             if not f.is_file() or json.loads(f.read_text(encoding='utf-8')) != tex.json():
                 bad.append(str(f))
         if bad:
             print('out of date (run gen_textures.py):\n  ' + '\n  '.join(bad))
             sys.exit(1)
-        print(f'simplemusic textures up to date ({len(imgs)} PNGs, {len(texs)} layer files)')
+        print(f'simplemusic textures up to date ({len(imgs) + len(placed)} PNGs, {len(texs) + len(placed)} layer files)')
         return
     for path, px in imgs.items():
         (TEX / path).parent.mkdir(parents=True, exist_ok=True)
         to_image(px).save(TEX / f'{path}.png')
+    SB_TEX.mkdir(parents=True, exist_ok=True)
+    for name, tex in placed.items():
+        to_image(tex.pixels()).save(SB_TEX / f'{name}.png')
     LAYERS.mkdir(exist_ok=True)
-    for path, tex in texs.items():
+    for path, tex in list(texs.items()) + [('block/' + n, t) for n, t in placed.items()]:
         (LAYERS / (path.split('/')[1] + '.json')).write_text(json.dumps(tex.json(), indent=1) + '\n', encoding='utf-8')
     if '--variants' in argv:
         out = Path(argv[argv.index('--variants') + 1])
@@ -487,7 +510,7 @@ def main(argv):
                 for path, px in images(textures({key: v})).items():
                     if key in path.replace('pocket_jukebox', 'pocket').replace('disc_press', 'press'):
                         to_image(px).save(out / f"{path.split('/')[1]}_{v}.png")
-    print(f'simplemusic textures written (chosen {CHOSEN}): {len(imgs)} PNGs, {len(texs)} layer files')
+    print(f'simplemusic textures written (chosen {CHOSEN}): {len(imgs) + len(placed)} PNGs, {len(texs) + len(placed)} layer files')
 
 
 if __name__ == '__main__':

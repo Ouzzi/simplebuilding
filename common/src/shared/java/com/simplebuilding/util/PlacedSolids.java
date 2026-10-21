@@ -81,6 +81,9 @@ public final class PlacedSolids {
                 discs.add("simplebuilding:music_disc_" + song + track);
             }
         }
+        // Simple Music (MU21, 21.10.): the blank and the pressed disc lie as the round form; absent without that mod
+        discs.add("simplemusic:blank_disc");
+        discs.add("simplemusic:custom_disc");
         DISCS = Set.copyOf(discs);
     }
 

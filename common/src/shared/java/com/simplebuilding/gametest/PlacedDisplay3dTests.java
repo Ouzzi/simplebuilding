@@ -159,6 +159,14 @@ public final class PlacedDisplay3dTests {
                     resources(helper, "simplebuilding", "music_disc_" + song + track, true);
                 }
             }
+            // Simple Music's blank and pressed discs (MU21) lie as the round form, when that mod is loaded
+            for (String musicDisc : List.of("blank_disc", "custom_disc")) {
+                Item music = item("simplemusic:" + musicDisc);
+                if (music != Items.AIR) {
+                    helper.assertTrue(PlacedSolids.shape(music) == PlacedSolids.Shape.DISC, musicDisc + " has no disc model");
+                    resources(helper, "simplebuilding", musicDisc, true);
+                }
+            }
             // trims and the mod's upgrade templates are slabs; a flat plate stays for everything else
             for (Item slab : List.of(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
                     Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.BASIC_UPGRADE_TEMPLATE)) {
