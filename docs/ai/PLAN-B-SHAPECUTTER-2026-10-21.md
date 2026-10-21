@@ -70,3 +70,10 @@ Hintergrund: `docs/ai/PLAN-FORMSAEGE-2026-10-17.md` (Textur vom 19.10. wird bewu
   und Standalone (module-simpleblocks-standalone-fabric-263); data_integrity; `generate_data.py` + `check_data.py`;
   module_guides, wiki `--all`, discover; `./gradlew check -q`. Keine Client-Läufe (Bildschirm nur per Vorschau-Mock).
 - Vorschau-HTML (lokal, nicht im Repo): Block alt/neu, Variante B, UI-Mock mit Vanilla-Hintergrund.
+
+## Nachtrag Besitzer 21.10. abends
+„a bitte und sägeblatt etwas dunkler in einer variante und in der anderen heller bzw polierter“: Sockel A (Eisen) bleibt,
+Variante B (Kupfer) entfällt. Das Sägeblatt wird zur Build-Zeit aus `minecraft:block/stonecutter_saw` abgeleitet
+(`shapecutter_saw.png`, alle Animationsbilder, eigene `.mcmeta` mit Vanillas Werten): S1 etwas dunkler, S2 heller/poliert
+(hellere Glanzlichter, dunklere Zähne = mehr Kontrast). Schalter `BLADE` im Generator (`--blade s1|s2` für die Vorschau),
+eingebaut S2. Die Besitzer-Wahl kommt über das Code-Feld der Vorschau („SC21 S1“/„SC21 S2“).

@@ -64,11 +64,9 @@ for name in ('hushed_deepslate_tiles', 'sculk_deepslate', 'blue_nether_bricks'):
     assert (tex / f'{name}.png').exists(), name
 sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
 import vanilla_derived  # noqa: E402
-assert {f'block/shapecutter_{n}.png' for n in ('top', 'side', 'bottom')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'shapecutter textures are Vanilla-derived'
-# The blade is Vanilla's own (owner 21.10.): the model references minecraft:block/stonecutter_saw, nothing of it is ours.
-saw_model = json.loads((RES / f'assets/{NS}/models/block/{g.SAW}.json').read_text(encoding='utf-8'))
-assert saw_model['textures']['saw'] == 'minecraft:block/stonecutter_saw', 'shapecutter blade must stay Vanilla'
-assert not (tex / 'shapecutter_saw.png.mcmeta').exists() and not (tex / 'shaping_saw_saw.png.mcmeta').exists(), 'no own blade animation'
+assert {f'block/shapecutter_{n}.png' for n in ('top', 'side', 'bottom', 'saw')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'shapecutter textures are Vanilla-derived'
+# The blade is Vanilla's strip regreyed at build time (variant S1/S2); its animation stays Vanilla's (own .mcmeta, same values).
+assert json.loads((tex / 'shapecutter_saw.png.mcmeta').read_text(encoding='utf-8')) == {'animation': {'interpolate': False, 'frametime': 1}}, 'blade animation'
 
 # Shapecutter (A4b): Java ids match the generator; every wood family and every wool colour has its cuts; optional mods conditioned.
 saw_java = (MODULE / 'shared/java/com/simpleblocks/saw/Sawing.java').read_text(encoding='utf-8')

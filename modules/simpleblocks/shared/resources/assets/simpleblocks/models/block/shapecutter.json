@@ -5,7 +5,7 @@
     "bottom": "simpleblocks:block/shapecutter_bottom",
     "top": "simpleblocks:block/shapecutter_top",
     "side": "simpleblocks:block/shapecutter_side",
-    "saw": "minecraft:block/stonecutter_saw"
+    "saw": "simpleblocks:block/shapecutter_saw"
   },
   "elements": [
     {

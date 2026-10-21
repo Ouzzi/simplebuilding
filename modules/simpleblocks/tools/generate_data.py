@@ -213,11 +213,11 @@ def models_and_states():
 
 def saw_model():
     """The stonecutter's model (9 px table, blade across the middle): polished metal top/side/bottom (Vanilla-derived,
-    tools/textures/shapecutter_2026_10_21.py) and Vanilla's own animated blade (owner 21.10.: "die blade wieder vanilla")."""
+    tools/textures/shapecutter_2026_10_21.py) and the Vanilla blade regreyed there (variant S1/S2, BLADE; animation kept)."""
     t = f'{NS}:block/{SAW}'
     put(f'assets/{NS}/models/block/{SAW}.json', {
         'parent': 'minecraft:block/block',
-        'textures': {'particle': f'{t}_bottom', 'bottom': f'{t}_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': 'minecraft:block/stonecutter_saw'},
+        'textures': {'particle': f'{t}_bottom', 'bottom': f'{t}_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': f'{t}_saw'},
         'elements': [
             {'from': [0, 0, 0], 'to': [16, 9, 16], 'faces': {
                 'down': {'uv': [0, 0, 16, 16], 'texture': '#bottom', 'cullface': 'down'},

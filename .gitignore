@@ -590,6 +590,10 @@ modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecu
 wiki/assets/textures/simpleblocks/block/shapecutter_bottom.png
 wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_bottom.png
 wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_bottom.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_saw.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecutter_saw.png
+wiki/assets/textures/simpleblocks/block/shapecutter_saw.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_saw.png
 # Vanilla-derived bucket / soul lava wiki textures (built at wiki generation, never committed; 18.10.)
 wiki/assets/textures/block/soul_lava_still.png
 wiki/assets/textures/item/copper_*bucket*.png
