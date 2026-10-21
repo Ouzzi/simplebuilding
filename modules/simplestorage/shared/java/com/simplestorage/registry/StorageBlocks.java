@@ -38,6 +38,8 @@ public final class StorageBlocks {
     public static Block REINFORCED_SHULKER_BOX, NETHERITE_SHULKER_BOX, ENDERITE_SHULKER_BOX;
     /** Split stage 8c-1: a bundle set down on a top face (no item; the bundle lives in the block entity). */
     public static Block PLACED_BUNDLE;
+    /** Split stage 8c-2: the four placed backpacks in tier order (Basic, Reinforced, Netherite, Enderite). */
+    public static final Map<com.simplestorage.backpack.BackpackTier, Block> BACKPACKS = new EnumMap<>(com.simplestorage.backpack.BackpackTier.class);
 
     /** {@code simpleEnd}: Simple End is loaded (only then the Ashwood and Duskwood crates exist, as before the move). */
     public static void register(boolean simpleEnd) {
@@ -54,6 +56,22 @@ public final class StorageBlocks {
                 BlockBehaviour.Properties.of().setId(key("placed_bundle")).strength(0.3F).sound(net.minecraft.world.level.block.SoundType.WOOL)
                         .noLootTable().mapColor(net.minecraft.world.level.material.MapColor.COLOR_BROWN)
                         .pushReaction(net.minecraft.world.level.material.PushReaction.POPPED)));
+        registerBackpacks();
+    }
+
+    /** Ids of the four backpacks (item and block) in tier order. */
+    public static final java.util.List<String> BACKPACK_IDS = java.util.List.of("backpack", "reinforced_backpack", "netherite_backpack", "enderite_backpack");
+
+    /** Like wool, popped by pistons; Netherite and Enderite blast-proof (as in SimpleBuilding's {@code backpackProperties}). */
+    private static void registerBackpacks() {
+        for (com.simplestorage.backpack.BackpackTier tier : com.simplestorage.backpack.BackpackTier.values()) {
+            String path = BACKPACK_IDS.get(tier.ordinal());
+            boolean blastProof = tier.ordinal() >= com.simplestorage.backpack.BackpackTier.NETHERITE.ordinal();
+            BACKPACKS.put(tier, Registry.register(BuiltInRegistries.BLOCK, key(path), new com.simplestorage.backpack.BackpackBlock(tier,
+                    BlockBehaviour.Properties.of().setId(key(path)).strength(0.8F, blastProof ? 1200.0F : 0.8F)
+                            .sound(net.minecraft.world.level.block.SoundType.WOOL).mapColor(net.minecraft.world.level.material.MapColor.COLOR_BROWN)
+                            .pushReaction(net.minecraft.world.level.material.PushReaction.POPPED))));
+        }
     }
 
     private static ResourceKey<Block> key(String name) {

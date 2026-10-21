@@ -178,10 +178,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_backpack",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_block",
       "required": false
     },
@@ -319,10 +315,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_apple",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_backpack",
       "required": false
     },
     {
@@ -922,6 +914,10 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplestorage/enderite_backpack",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplestorage/enderite_bundle",
       "required": false
     },
@@ -935,6 +931,10 @@
     },
     {
       "id": "simplemoney:links/simplestorage/enderite_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/netherite_backpack",
       "required": false
     },
     {

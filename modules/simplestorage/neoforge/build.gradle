@@ -19,3 +19,11 @@ neoForge.runs {
 }
 // Chest cart and chest boat item textures are Vanilla-derived (built, never committed; split stage 8b-2).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Split stage 8c-2: Curios API for CuriosHook (optional accessory slots, compileOnly; loaded only with curios).
+repositories {
+    exclusiveContent {
+        forRepository { maven { url = 'https://maven.theillusivec4.top/' } }
+        filter { includeGroup 'top.theillusivec4.curios' }
+    }
+}
+dependencies { compileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.mc263_curios_version}:api") { transitive = false } }

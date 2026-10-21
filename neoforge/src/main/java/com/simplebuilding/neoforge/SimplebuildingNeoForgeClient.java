@@ -71,6 +71,8 @@ public final class SimplebuildingNeoForgeClient {
     private boolean wasJumpPressed = false;
 
     public SimplebuildingNeoForgeClient(IEventBus modEventBus, ModContainer modContainer) {
+        // Split stage 8c-2: what SimpleBuilding draws into Simple Storage's backpack screen (26.3; nothing on 26.2).
+        com.simplebuilding.client.LibClientServices.init();
         // Config button in the NeoForge mods list -> opens the cloth AutoConfig GUI.
         modContainer.registerExtensionPoint(IConfigScreenFactory.class,
                 (container, parent) -> buildConfigScreen(parent));
@@ -207,7 +209,8 @@ public final class SimplebuildingNeoForgeClient {
                 InputConstants.KEY_K,
                 KEY_CATEGORY_SIMPLEMODS
         );
-        ClientState.backpackKey = new KeyMapping(
+        // Split stage 8c-2: on 26.3 the backpack key is Simple Storage\'s (key.simplestorage.open_backpack).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) ClientState.backpackKey = new KeyMapping(
                 "key.simplebuilding.open_backpack",
                 InputConstants.KEY_B,
                 KEY_CATEGORY_SIMPLEMODS
@@ -215,7 +218,7 @@ public final class SimplebuildingNeoForgeClient {
         event.register(ClientState.highlightToggleKey);
         event.register(ClientState.octantFigureToggleKey);
         event.register(ClientState.settingsKey);
-        event.register(ClientState.backpackKey);
+        if (ClientState.backpackKey != null) event.register(ClientState.backpackKey);
         ClientState.hudToggleKey = new KeyMapping(
                 "key.simplebuilding.toggle_hud",
                 InputConstants.UNKNOWN.getValue(),
@@ -254,7 +257,8 @@ public final class SimplebuildingNeoForgeClient {
 
     /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */
     public static void registerBlockTints(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.BlockTintSources event) {
-        event.register(java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
+        // Split stage 8c-2: on 26.3 the backpacks are Simple Storage's (it tints them itself).
+        if (com.simplebuilding.blocks.ModBlocks.BACKPACK != null) event.register(java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
         // Split stage 8c-1: on 26.3 the placed bundle is Simple Storage's (it tints it itself).

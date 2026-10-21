@@ -713,13 +713,15 @@ public class ModItems {
     public static final Item ENDERITE_QUIVER = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
     // Rucksaecke: im Brust-Slot getragen (Rechtsklick legt an), per Schleichen + Rechtsklick als
     // Block abstellbar; backpack(...) sagt, was die Komponenten mitbringen.
-    public static final Item BACKPACK = registerItem("backpack", settings -> new BackpackItem(BackpackTier.BASIC, ModBlocks.BACKPACK,
+    // Split stage 8c-2 (docs/ai/PLAN-B-S8C2-STORAGE-2026-10-21.md): on 26.3 the backpacks are Simple Storage's (null here,
+    // SimpleBuilding reaches them through util/StorageRefs).
+    public static final Item BACKPACK = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("backpack", settings -> new BackpackItem(BackpackTier.BASIC, ModBlocks.BACKPACK,
             backpack(settings, BackpackTier.BASIC, SoundEvents.ARMOR_EQUIP_LEATHER)));
-    public static final Item REINFORCED_BACKPACK = registerItem("reinforced_backpack", settings -> new BackpackItem(BackpackTier.REINFORCED, ModBlocks.REINFORCED_BACKPACK,
+    public static final Item REINFORCED_BACKPACK = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("reinforced_backpack", settings -> new BackpackItem(BackpackTier.REINFORCED, ModBlocks.REINFORCED_BACKPACK,
             backpack(settings, BackpackTier.REINFORCED, SoundEvents.ARMOR_EQUIP_LEATHER)));
-    public static final Item NETHERITE_BACKPACK = registerItem("netherite_backpack", settings -> new BackpackItem(BackpackTier.NETHERITE, ModBlocks.NETHERITE_BACKPACK,
+    public static final Item NETHERITE_BACKPACK = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("netherite_backpack", settings -> new BackpackItem(BackpackTier.NETHERITE, ModBlocks.NETHERITE_BACKPACK,
             backpack(settings.fireResistant().rarity(UNCOMMON), BackpackTier.NETHERITE, SoundEvents.ARMOR_EQUIP_NETHERITE)));
-    public static final Item ENDERITE_BACKPACK = registerItem("enderite_backpack", settings -> new BackpackItem(BackpackTier.ENDERITE, ModBlocks.ENDERITE_BACKPACK,
+    public static final Item ENDERITE_BACKPACK = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_backpack", settings -> new BackpackItem(BackpackTier.ENDERITE, ModBlocks.ENDERITE_BACKPACK,
             backpack(settings.fireResistant().rarity(Rarity.EPIC), BackpackTier.ENDERITE, SoundEvents.ARMOR_EQUIP_NETHERITE)));
 
 

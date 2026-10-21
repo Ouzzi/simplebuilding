@@ -687,6 +687,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // RUCKSAECKE (die Lederplatte steht oben bei den Buendeln)
                 // =================================================================
+                // Split stage 8c-2: on 26.3 Simple Storage's (its own recipes, old ids migrate).
+                if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
                 shaped(RecipeCategory.TOOLS, ModItems.BACKPACK)
                         .pattern("NSN")
                         .pattern("PPP")
@@ -726,6 +728,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Netherit und Enderit am Schmiedetisch; smithing_transform behaelt alle Komponenten.
                 createSmithing(ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, RecipeCategory.TOOLS);
                 createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BACKPACK);
+                }
 
                 // Fahrzeug-Stufen (Queue N19/N23): Werkbank Lore + Stufen-Ofen/-Trichter; Schmiedetisch Verstaerkt ->
                 // Netherit -> Enderit wie der Rucksack. Kistenloren/-boote: Simple Storage (Stufe 8b-2).

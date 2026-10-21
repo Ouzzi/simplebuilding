@@ -129,5 +129,20 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
+  "item.simplestorage.backpack": "Backpack",
+  "item.simplestorage.reinforced_backpack": "Reinforced Backpack",
+  "item.simplestorage.netherite_backpack": "Netherite Backpack",
+  "item.simplestorage.enderite_backpack": "Enderite Backpack",
+  "block.simplestorage.backpack": "Backpack",
+  "block.simplestorage.reinforced_backpack": "Reinforced Backpack",
+  "block.simplestorage.netherite_backpack": "Netherite Backpack",
+  "block.simplestorage.enderite_backpack": "Enderite Backpack",
+  "key.simplestorage.open_backpack": "Open Backpack",
+  "tooltip.simplestorage.backpack.slots": "%s / %s slots used",
+  "tooltip.simplestorage.backpack.more": "...and %s more",
+  "tooltip.simplestorage.backpack.shift_hint": "Hold Shift to see contents",
+  "tooltip.simplestorage.backpack.open_hint": "Press %s: open while worn or carried",
+  "tooltip.simplestorage.backpack.place_hint": "Sneak + right-click a block: place",
+  "tip.simplestorage.backpack": "Use to wear it, then press the backpack key (B)"
 }

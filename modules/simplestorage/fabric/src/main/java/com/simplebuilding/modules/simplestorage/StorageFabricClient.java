@@ -28,12 +28,25 @@ public final class StorageFabricClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(java.util.List.of(com.simplestorage.client.PlacedBundleTint.INSTANCE),
                 com.simplestorage.registry.StorageBlocks.PLACED_BUNDLE);
         net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback.EVENT.register(data ->
-                data instanceof com.simplestorage.bundle.BundleTooltipData bundle ? com.simplestorage.client.BundleTooltips.create(bundle) : null);
+                data instanceof com.simplestorage.bundle.BundleTooltipData bundle ? com.simplestorage.client.BundleTooltips.create(bundle)
+                        : data instanceof com.simplestorage.backpack.BackpackTooltipData backpack ? com.simplestorage.client.BackpackTooltip.create(backpack) : null);
         net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
+                helper.register(new com.simplestorage.client.BackpackLayer(avatar));
                 helper.register(new com.simplestorage.client.QuiverLayer(avatar));
             }
         });
+        // Split stage 8c-2: the backpack screen, key (B), the dyed placed backpack.
+        com.simplestorage.backpack.BackpackNet.toServer = payload -> {
+            if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
+        };
+        MenuScreens.register(StorageMenus.BACKPACK, com.simplestorage.client.BackpackScreen::new);
+        com.simplestorage.backpack.BackpackKeyMigration.run(net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir());
+        com.simplestorage.client.BackpackKeyHandler.KEY = net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper.registerKeyMapping(
+                com.simplestorage.client.BackpackKeyHandler.create());
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplestorage.client.BackpackKeyHandler::tick);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(java.util.List.of(com.simplestorage.client.BackpackBlockTint.INSTANCE),
+                com.simplestorage.registry.StorageBlocks.BACKPACKS.values().toArray(new net.minecraft.world.level.block.Block[0]));
         // Split stage 8b-2: chest carts and chest boats.
         com.simplestorage.client.VehicleRenderers.register(new com.simplestorage.client.VehicleRenderers.Registrar() {
             @Override

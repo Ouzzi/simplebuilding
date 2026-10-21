@@ -49,7 +49,8 @@ public final class GuideBooks {
     public static final String TOPICS_KEY = "book.simplebuilding.guide.topics";
     /** Tasten, die jeder Kapiteltext als {@code %1$s} und {@code %2$s} bekommt. */
     public static final String SETTINGS_KEYBIND = "key.simplebuilding.simple_settings";
-    public static final String BACKPACK_KEYBIND = "key.simplebuilding.open_backpack";
+    /** Split stage 8c-2: on 26.3 the backpack key is Simple Storage's. */
+    public static final String BACKPACK_KEYBIND = "key." + com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ".open_backpack";
     /** Hoechstens so viele Zeilen je Vanilla-Seite (14 zeichnet der Bildschirm, eine Zeile Reserve). */
     public static final int MAX_LINES = 13;
     /** So viele Themenbuecher nennt die erste Themenseite eines Einstiegsbuchs, der Rest steht auf weiteren. */
@@ -284,7 +285,7 @@ public final class GuideBooks {
             case ENCHANTMENTS -> List.of("minecraft:enchanting_table", "minecraft:bookshelf");
             // The pebble recipes have no recipe advancement (nothing puts them into the recipe book), so they cannot gate.
             case BUILDING -> List.of("minecraft:bricks", "minecraft:stone_bricks", "simplebuilding:copper_building_wand");
-            case STORAGE -> List.of("minecraft:chest", "simplebuilding:backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle");
+            case STORAGE -> List.of("minecraft:chest", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle");
             case MACHINES -> List.of("minecraft:piston", "simplebuilding:reinforced_hopper_from_crafting",
                     com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", "simplebuilding:reinforced_piston");
             // The enderite ingot recipes belong to SimpleLib on 26.3 (shared materials, split stage 3d).

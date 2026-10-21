@@ -56,8 +56,7 @@ SB_TIPS = [
      "Halten zieht Items an; Schleichen pausiert"),
     ("rotator", ["rotator"], "Use on a block to turn it in place",
      "Auf Block benutzen: dreht ihn an Ort und Stelle"),
-    ("backpack", ["backpack", "*_backpack"], "Use to wear it, then press the backpack key (B)",
-     "Benutzen zum Anlegen, dann Rucksack-Taste (B)"),
+    # split stage 8c-2: the backpack tip is Simple Storage's (simplestorage id below)
     ("autonomous_crafter", ["autonomous_crafter"], "Crafts by itself onto a hopper below; redstone stops it",
      "Craftet selbst in einen Trichter darunter; Redstone stoppt"),
     ("auto_smither", ["auto_smither"], "Smiths once per redstone pulse",
@@ -143,7 +142,10 @@ MODS = [
          tips=[("chest_upgrade", ["reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest",
                                   "netherite_trapped_chest", "netherite_shulker_box"],
                 "Axe or hammer, nugget in off hand: upgrade in place",
-                "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten")]),
+                "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten"),
+               # split stage 8c-2: the backpacks
+               ("backpack", ["backpack", "*_backpack"], "Use to wear it, then press the backpack key (B)",
+                "Benutzen zum Anlegen, dann Rucksack-Taste (B)")]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

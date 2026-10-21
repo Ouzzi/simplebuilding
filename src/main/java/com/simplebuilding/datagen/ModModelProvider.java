@@ -245,11 +245,13 @@ public class ModModelProvider extends FabricModelProvider {
         registerPistonHead(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON_HEAD, ModBlocks.NETHERITE_PISTON, false);
         registerPistonHead(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON_HEAD, ModBlocks.ENDERITE_PISTON, false);
 
-        // --- 6. Rucksaecke (abgestellt) ---
-        registerBackpack(blockStateModelGenerator, ModBlocks.BACKPACK);
-        registerBackpack(blockStateModelGenerator, ModBlocks.REINFORCED_BACKPACK);
-        registerBackpack(blockStateModelGenerator, ModBlocks.NETHERITE_BACKPACK);
-        registerBackpack(blockStateModelGenerator, ModBlocks.ENDERITE_BACKPACK);
+        // --- 6. Rucksaecke (abgestellt); split stage 8c-2: on 26.3 Simple Storage's (its own models) ---
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
+            registerBackpack(blockStateModelGenerator, ModBlocks.BACKPACK);
+            registerBackpack(blockStateModelGenerator, ModBlocks.REINFORCED_BACKPACK);
+            registerBackpack(blockStateModelGenerator, ModBlocks.NETHERITE_BACKPACK);
+            registerBackpack(blockStateModelGenerator, ModBlocks.ENDERITE_BACKPACK);
+        }
         // Abgelegte Schmiedevorlage: gezeichnet vom PlacedTemplateRenderer, das Blockmodell traegt
         // nur die Partikeltextur (dunkel wie die Vorlagen selbst).
         blockStateModelGenerator.createParticleOnlyBlock(ModBlocks.PLACED_SMITHING_TEMPLATE, net.minecraft.world.level.block.Blocks.POLISHED_DEEPSLATE);
@@ -950,10 +952,12 @@ public class ModModelProvider extends FabricModelProvider {
             generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_QUIVER);
         }
         // Rucksaecke: flaches Symbol im Inventar (textures/item/<id>.png), nicht das Blockmodell.
-        generateDyeableItem(itemModelGenerator, ModItems.BACKPACK);
-        generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_BACKPACK);
-        generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_BACKPACK);
-        generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_BACKPACK);
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) { // split stage 8c-2: Simple Storage's on 26.3
+            generateDyeableItem(itemModelGenerator, ModItems.BACKPACK);
+            generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_BACKPACK);
+            generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_BACKPACK);
+            generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_BACKPACK);
+        }
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM);
 

@@ -262,7 +262,7 @@ public final class AdvancementTriggerTests {
 
         give(player, new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), 2);
         helper.assertTrue(!done(player, dyed), "an undyed quiver earned A Splash of Color");
-        ItemStack backpack = new ItemStack(ModItems.REINFORCED_BACKPACK);
+        ItemStack backpack = new ItemStack(com.simplebuilding.util.StorageRefs.backpack("reinforced"));
         backpack.set(DataComponents.DYED_COLOR, new DyedItemColor(0xB02E26));
         give(player, backpack, 3);
         helper.assertTrue(done(player, dyed), "a dyed backpack did not earn A Splash of Color");
@@ -318,7 +318,7 @@ public final class AdvancementTriggerTests {
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 3.5));
         BlockPos floor = new BlockPos(1, 1, 1);
         helper.setBlock(floor, Blocks.STONE);
-        ItemStack backpack = new ItemStack(ModItems.BACKPACK);
+        ItemStack backpack = new ItemStack(com.simplebuilding.util.StorageRefs.backpack(""));
         player.setItemInHand(InteractionHand.MAIN_HAND, backpack);
         BlockPos absolute = helper.absolutePos(floor);
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(absolute).add(0, 0.5, 0), Direction.UP, absolute, false);
@@ -329,7 +329,7 @@ public final class AdvancementTriggerTests {
         player.setShiftKeyDown(true);
         backpack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit));
         player.setShiftKeyDown(false);
-        helper.assertTrue(helper.getBlockState(floor.above()).is(ModBlocks.BACKPACK), "test setup broken: the backpack was not set down");
+        helper.assertTrue(helper.getBlockState(floor.above()).is(com.simplebuilding.util.StorageRefs.backpackBlock("")), "test setup broken: the backpack was not set down");
         helper.assertTrue(done(player, camp), "setting the backpack down did not earn Pitching Camp");
         helper.succeed();
     }

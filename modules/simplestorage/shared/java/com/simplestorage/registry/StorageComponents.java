@@ -18,6 +18,12 @@ public final class StorageComponents {
     /** Split stage 8b-2: the wood of a tiered chest boat item ({@code com.simplestorage.vehicle.BoatWoods}); was {@code simplebuilding:boat_wood}. */
     public static final String BOAT_WOOD_ID = "boat_wood";
     public static DataComponentType<String> BOAT_WOOD;
+    /**
+     * Split stage 8c-2: the contents of a backpack ({@code com.simplestorage.backpack.BackpackContents}, stacks above 99 with
+     * Deep Pockets); was {@code simplebuilding:backpack_contents}. Synced: the worn backpack travels in the equipment packets.
+     */
+    public static final String BACKPACK_CONTENTS_ID = "backpack_contents";
+    public static DataComponentType<com.simplestorage.backpack.BackpackContents> BACKPACK_CONTENTS;
 
     public static void register() {
         CONTAINER_COUNTS = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleStorage.id(CONTAINER_COUNTS_ID),
@@ -25,6 +31,9 @@ public final class StorageComponents {
         BOAT_WOOD = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleStorage.id(BOAT_WOOD_ID),
                 DataComponentType.<String>builder().persistent(com.mojang.serialization.Codec.STRING)
                         .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.STRING_UTF8).build());
+        BACKPACK_CONTENTS = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleStorage.id(BACKPACK_CONTENTS_ID),
+                DataComponentType.<com.simplestorage.backpack.BackpackContents>builder().persistent(com.simplestorage.backpack.BackpackContents.CODEC)
+                        .networkSynchronized(com.simplestorage.backpack.BackpackContents.STREAM_CODEC).cacheEncoding().build());
     }
 
     private StorageComponents() {}

@@ -129,5 +129,20 @@
   "quests.simplestorage.start.title": "Willkommen bei Simple Storage",
   "quests.simplestorage.start.subtitle": "Dein Handbuch gratis",
   "quests.simplestorage.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen."
+  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen.",
+  "item.simplestorage.backpack": "Rucksack",
+  "item.simplestorage.reinforced_backpack": "Verstärkter Rucksack",
+  "item.simplestorage.netherite_backpack": "Netherit-Rucksack",
+  "item.simplestorage.enderite_backpack": "Enderit-Rucksack",
+  "block.simplestorage.backpack": "Rucksack",
+  "block.simplestorage.reinforced_backpack": "Verstärkter Rucksack",
+  "block.simplestorage.netherite_backpack": "Netherit-Rucksack",
+  "block.simplestorage.enderite_backpack": "Enderit-Rucksack",
+  "key.simplestorage.open_backpack": "Rucksack öffnen",
+  "tooltip.simplestorage.backpack.slots": "%s / %s Plätze belegt",
+  "tooltip.simplestorage.backpack.more": "...und %s weitere",
+  "tooltip.simplestorage.backpack.shift_hint": "Umschalt halten, um den Inhalt zu sehen",
+  "tooltip.simplestorage.backpack.open_hint": "%s: öffnen, getragen oder im Inventar",
+  "tooltip.simplestorage.backpack.place_hint": "Schleich-Rechtsklick auf Block: abstellen",
+  "tip.simplestorage.backpack": "Benutzen zum Anlegen, dann Rucksack-Taste (B)"
 }

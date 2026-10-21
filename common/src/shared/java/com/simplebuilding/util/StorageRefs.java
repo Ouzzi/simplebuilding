@@ -23,6 +23,10 @@ import net.minecraft.world.level.block.Block;
  * <p>Split stage 8c-1 (docs/ai/PLAN-B-S8C1-STORAGE-2026-10-20.md): the bundles, the quivers and the placed bundle (both lines;
  * 26.2 keeps them in SimpleBuilding). SimpleBuilding's own features on them (Master Builder in the wand and the pick key,
  * the back layer) recognise them by id and work through Vanilla's {@code bundle_contents}.
+ *
+ * <p>Split stage 8c-2 (docs/ai/PLAN-B-S8C2-STORAGE-2026-10-21.md): the four backpacks (both lines; 26.2 keeps them in
+ * SimpleBuilding). Master Builder, Constructor's Touch and the pick key reach the worn backpack's entries through
+ * {@code util/WornStorage} (26.3: SimpleLib {@code CarriedStacks}).
  */
 public final class StorageRefs {
     public static final String STORAGE_CRAFTING_TABLE = "storage_crafting_table";
@@ -141,6 +145,39 @@ public final class StorageRefs {
     /** One of the four quivers. */
     public static boolean isQuiver(net.minecraft.world.item.ItemStack stack) {
         return isStorageBundle(stack) && BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().endsWith("quiver");
+    }
+
+    /** Split stage 8c-2: the backpack tiers in order ({@code ""} is the basic backpack). */
+    public static final java.util.List<String> BACKPACK_TIERS = java.util.List.of("", "reinforced", "netherite", "enderite");
+
+    private static String backpackPath(String tier) {
+        return tier.isEmpty() ? "backpack" : tier + "_backpack";
+    }
+
+    /** The backpack of {@code tier} ({@code ""}, {@code "reinforced"}, {@code "netherite"}, {@code "enderite"}); air when not registered. */
+    public static Item backpack(String tier) {
+        return item(backpackPath(tier));
+    }
+
+    public static Block backpackBlock(String tier) {
+        return block(backpackPath(tier));
+    }
+
+    /** The four backpacks in tier order. */
+    public static java.util.List<Item> backpacks() {
+        return BACKPACK_TIERS.stream().map(StorageRefs::backpack).toList();
+    }
+
+    /** The item key of a backpack (datagen tags name them by id). */
+    public static net.minecraft.resources.ResourceKey<Item> backpackKey(String tier) {
+        return itemKey(backpackPath(tier));
+    }
+
+    /** One of the four backpacks (by id in the storage namespace). */
+    public static boolean isBackpack(net.minecraft.world.item.ItemStack stack) {
+        if (stack.isEmpty()) return false;
+        Identifier key = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return McVersion.STORAGE_NAMESPACE.equals(key.getNamespace()) && key.getPath().endsWith("backpack");
     }
 
     /** The placed bundle block (air where it is not registered). */

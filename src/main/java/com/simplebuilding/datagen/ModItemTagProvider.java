@@ -265,11 +265,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         // Rucksaecke: eigene Tags fuer Tiefe Taschen, Trichter und Meisterbauer, damit Schublade
         // (bundle_enchantable) und Farbpalette (extra_inventory_items) sie nicht mitbekommen.
-        builder(ModTags.Items.BACKPACKS)
-                .add(key(ModItems.BACKPACK))
-                .add(key(ModItems.REINFORCED_BACKPACK))
-                .add(key(ModItems.NETHERITE_BACKPACK))
-                .add(key(ModItems.ENDERITE_BACKPACK));
+        // Split stage 8c-2: on 26.3 the backpacks are Simple Storage's (by id); SimpleBuilding's tag still names them, so
+        // Master Builder and Constructor's Touch reach them.
+        var backpacks = builder(ModTags.Items.BACKPACKS);
+        for (String tier : com.simplebuilding.util.StorageRefs.BACKPACK_TIERS) {
+            backpacks.add(com.simplebuilding.version.McVersion.STORAGE_IN_SB
+                    ? key(com.simplebuilding.util.StorageRefs.backpack(tier)) : com.simplebuilding.util.StorageRefs.backpackKey(tier));
+        }
         builder(ModTags.Items.DEEP_POCKETS_ENCHANTABLE)
                 .addTag(ModTags.Items.BUNDLE_ENCHANTABLE)
                 .addTag(ModTags.Items.BACKPACKS);
@@ -287,7 +289,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         var dyeable = com.simplebuilding.version.McVersion.VANILLA_DYEING
                 ? builder(ModTags.Items.DYEABLE_STORAGE) : builder(ItemTags.CAULDRON_CAN_REMOVE_DYE);
         // 26.3 (VANILLA_DYEING): wie Vanillas Buendel - feste Farben, kein Auswaschen; der Tag speist die Faerberezepte.
-        dyeable.addTag(ModTags.Items.BACKPACKS);
+        // Split stage 8c-2: on 26.3 Simple Storage dyes its backpacks itself (simplestorage:dyeable_storage).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) dyeable.addTag(ModTags.Items.BACKPACKS);
         // Split stage 8c-1: on 26.3 Simple Storage dyes its bundles and quivers itself (simplestorage:dyeable_storage).
         if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
             dyeable.add(key(ModItems.REINFORCED_BUNDLE))

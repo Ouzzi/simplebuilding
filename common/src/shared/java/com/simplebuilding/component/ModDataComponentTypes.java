@@ -53,7 +53,8 @@ public class ModDataComponentTypes {
 
     // Rucksack-Inhalt (getragen, im Inventar und als Block-Drop). Eigener Codec statt
     // minecraft:container, weil Tiefe Taschen Stapel ueber 99 zulaesst; siehe BackpackContents.
-    public static final DataComponentType<BackpackContents> BACKPACK_CONTENTS =
+    // Split stage 8c-2: Simple Storage's on 26.3 (simplestorage:backpack_contents, null here).
+    public static final DataComponentType<BackpackContents> BACKPACK_CONTENTS = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null :
             register("backpack_contents", builder -> builder
                     .persistent(BackpackContents.CODEC)
                     .networkSynchronized(BackpackContents.STREAM_CODEC)

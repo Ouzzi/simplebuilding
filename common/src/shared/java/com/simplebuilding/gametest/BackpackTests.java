@@ -136,6 +136,7 @@ public final class BackpackTests {
      * losing the contents on the way, and allowing other entities to wear it.
      */
     public static void rightClickWearsTheBackpackAndSwapsItWithTheChestplate(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         Player player = survivalPlayer(helper);
 
         // --- empty chest ---
@@ -204,6 +205,7 @@ public final class BackpackTests {
      * vanilla part that is not {@code InventoryMenu}'s.
      */
     public static void tiersCarryTheirArmorSlotCountAndSlotLayout(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         Player player = survivalPlayer(helper);
         Item[] items = {ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK};
         int[] armor = {1, 2, 3, 4};
@@ -285,6 +287,7 @@ public final class BackpackTests {
      * tier chain with a gap or a shortcut.
      */
     public static void contentsSurviveTheReinforcedRecipeAndBothSmithingUpgrades(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerLevel level = helper.getLevel();
 
         // --- the basic backpack ---
@@ -377,6 +380,7 @@ public final class BackpackTests {
      * spills the contents as separate stacks, and one that drops nothing.
      */
     public static void sneakRightClickPlacesTheBackpackAndBreakingItDropsEverything(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerLevel level = helper.getLevel();
         Player player = survivalPlayer(helper);
         BlockPos support = new BlockPos(2, 1, 2);
@@ -447,6 +451,7 @@ public final class BackpackTests {
      * menu.
      */
     public static void openKeyOpensTheWornBackpackOrElseTheFirstOneCarried(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = serverPlayer(helper);
         player.getInventory().clearContent();
 
@@ -511,6 +516,7 @@ public final class BackpackTests {
      * on screen.
      */
     public static void shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = serverPlayer(helper);
         Inventory inventory = player.getInventory();
         inventory.clearContent();
@@ -597,6 +603,7 @@ public final class BackpackTests {
      * does not write through to the worn stack.
      */
     public static void shiftClickSendsStorageToTheHotbarAndArmorToItsSlot(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = serverPlayer(helper);
         Inventory inventory = player.getInventory();
         inventory.clearContent();
@@ -668,6 +675,7 @@ public final class BackpackTests {
      * the whole oversized stack on the cursor, and a codec capped at vanilla's 99.
      */
     public static void deepPocketsRaisesStackLimitsOnlyForStackables(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = serverPlayer(helper);
         Inventory inventory = player.getInventory();
         inventory.clearContent();
@@ -745,6 +753,7 @@ public final class BackpackTests {
      * Funnel I that takes anything, and a backpack without Funnel that vacuums anyway.
      */
     public static void funnelPullsPickedUpItemsIntoTheWornBackpack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         Player player = survivalPlayer(helper);
 
         // --- Funnel II ---
@@ -799,12 +808,14 @@ public final class BackpackTests {
      * or ignores the enchantment.
      */
     public static void masterBuilderOpensTheBackpackOnlyWhenTheBackpackCarriesIt(GameTestHelper helper) {
+        // Split stage 8c-2: SimpleBuilding's Master Builder / Constructor's Touch on the backpack of either line (26.3: Simple
+        // Storage's, by id; its entries through util/WornStorage).
         ServerPlayer player = serverPlayer(helper);
         BlockPos target = WAND_ANCHOR.above();
 
         // --- plain wand, Master Builder backpack ---
         resetWandSite(helper);
-        ItemStack builderBackpack = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.GLASS, 16)));
+        ItemStack builderBackpack = StorageBackpacks.with(helper, "", new ItemStack(Items.GLASS, 16));
         builderBackpack.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         ItemStack plainWand = singleBlockWand();
         armWand(player, plainWand, builderBackpack);
@@ -813,12 +824,12 @@ public final class BackpackTests {
                 "the wand refused a click although the worn Master Builder backpack held glass, it returned " + armed);
         driveUntilIdle(helper, player, plainWand);
         helper.assertBlockPresent(Blocks.GLASS, target);
-        helper.assertValueEqual(countIn(builderBackpack, Items.GLASS), 15,
+        helper.assertValueEqual(StorageBackpacks.count(helper, builderBackpack, Items.GLASS), 15,
                 "glass left in the Master Builder backpack after the wand built one block from it");
 
         // --- Master Builder wand, plain backpack ---
         resetWandSite(helper);
-        ItemStack plainBackpack = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.GLASS, 16)));
+        ItemStack plainBackpack = StorageBackpacks.with(helper, "", new ItemStack(Items.GLASS, 16));
         ItemStack builderWand = singleBlockWand();
         builderWand.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         armWand(player, builderWand, plainBackpack);
@@ -826,13 +837,13 @@ public final class BackpackTests {
         helper.assertTrue(refused == InteractionResult.FAIL && helper.getBlockState(target).isAir(),
                 "a backpack without Master Builder supplied the wand - Master Builder on the wand must not "
                         + "open the backpack, it returned " + refused);
-        helper.assertValueEqual(countIn(plainBackpack, Items.GLASS), 16, "glass left in the plain backpack");
+        helper.assertValueEqual(StorageBackpacks.count(helper, plainBackpack, Items.GLASS), 16, "glass left in the plain backpack");
 
         // --- a spare backpack in the hotbar is no building material ---
         resetWandSite(helper);
         ItemStack lonelyWand = singleBlockWand();
         armWand(player, lonelyWand, ItemStack.EMPTY);
-        player.getInventory().setItem(1, new ItemStack(ModItems.BACKPACK));
+        player.getInventory().setItem(1, new ItemStack(StorageBackpacks.item("")));
         InteractionResult noMaterial = useWand(helper, player, lonelyWand);
         helper.assertTrue(noMaterial == InteractionResult.FAIL && helper.getBlockState(target).isAir(),
                 "the wand treated a backpack in the hotbar as building material, it returned " + noMaterial
@@ -841,7 +852,7 @@ public final class BackpackTests {
         // --- the pick takes one normal stack from the worn Master Builder backpack ---
         player.getInventory().clearContent();
         player.getInventory().setSelectedSlot(2);
-        ItemStack pickBackpack = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.COBBLESTONE, 256)));
+        ItemStack pickBackpack = StorageBackpacks.with(helper, "", new ItemStack(Items.COBBLESTONE, 256));
         pickBackpack.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         pickBackpack.enchant(enchantment(helper, ModEnchantments.DEEP_POCKETS), 2);
         player.setItemSlot(EquipmentSlot.CHEST, pickBackpack);
@@ -849,13 +860,13 @@ public final class BackpackTests {
         helper.assertTrue(player.getMainHandItem().is(Items.COBBLESTONE),
                 "the Master Builder pick did not take cobblestone out of the worn Master Builder backpack");
         helper.assertValueEqual(player.getMainHandItem().getCount(), 64, "cobblestone the pick put into the hand");
-        helper.assertValueEqual(countIn(pickBackpack, Items.COBBLESTONE), 192, "cobblestone left in the backpack after the pick");
+        helper.assertValueEqual(StorageBackpacks.count(helper, pickBackpack, Items.COBBLESTONE), 192, "cobblestone left in the backpack after the pick");
 
         player.getInventory().clearContent();
-        ItemStack noBuilder = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.COBBLESTONE, 64)));
+        ItemStack noBuilder = StorageBackpacks.with(helper, "", new ItemStack(Items.COBBLESTONE, 64));
         player.setItemSlot(EquipmentSlot.CHEST, noBuilder);
         ModMessageHandlers.handleMasterBuilderPick(new MasterBuilderPickPayload(new ItemStack(Items.COBBLESTONE)), player);
-        helper.assertTrue(player.getMainHandItem().isEmpty() && countIn(noBuilder, Items.COBBLESTONE) == 64,
+        helper.assertTrue(player.getMainHandItem().isEmpty() && StorageBackpacks.count(helper, noBuilder, Items.COBBLESTONE) == 64,
                 "the Master Builder pick took from a backpack without Master Builder");
 
         helper.succeed();
@@ -876,6 +887,8 @@ public final class BackpackTests {
      * enchantment, and refilling a hand that still holds blocks.
      */
     public static void constructorsTouchRefillsTheEmptyHandFromTheWornBackpack(GameTestHelper helper) {
+        // Split stage 8c-2: SimpleBuilding's Master Builder / Constructor's Touch on the backpack of either line (26.3: Simple
+        // Storage's, by id; its entries through util/WornStorage).
         Player player = survivalPlayer(helper);
         BlockPos[] supports = {new BlockPos(1, 1, 1), new BlockPos(3, 1, 1), new BlockPos(5, 1, 1)};
         for (BlockPos support : supports) {
@@ -884,7 +897,7 @@ public final class BackpackTests {
         }
 
         // --- Constructor's Touch refills ---
-        ItemStack touch = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.STONE, 40)));
+        ItemStack touch = StorageBackpacks.with(helper, "", new ItemStack(Items.STONE, 40));
         touch.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
         player.setItemSlot(EquipmentSlot.CHEST, touch);
         ItemStack last = new ItemStack(Items.STONE, 1);
@@ -894,27 +907,27 @@ public final class BackpackTests {
         helper.assertTrue(player.getMainHandItem().is(Items.STONE) && player.getMainHandItem().getCount() == 40,
                 "Constructor's Touch did not refill the empty hand from the worn backpack, the hand holds "
                         + player.getMainHandItem());
-        helper.assertTrue(BackpackItem.contents(touch).isEmpty(),
+        helper.assertTrue(StorageBackpacks.read(helper, touch) == null,
                 "the stone that refilled the hand is still in the backpack as well");
 
         // --- no Constructor's Touch ---
-        ItemStack plain = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.STONE, 40)));
+        ItemStack plain = StorageBackpacks.with(helper, "", new ItemStack(Items.STONE, 40));
         player.setItemSlot(EquipmentSlot.CHEST, plain);
         ItemStack another = new ItemStack(Items.STONE, 1);
         player.setItemInHand(InteractionHand.MAIN_HAND, another);
         another.useOn(clickTop(helper, player, supports[1]));
         helper.assertBlockPresent(Blocks.STONE, supports[1].above());
-        helper.assertTrue(player.getMainHandItem().isEmpty() && countIn(plain, Items.STONE) == 40,
+        helper.assertTrue(player.getMainHandItem().isEmpty() && StorageBackpacks.count(helper, plain, Items.STONE) == 40,
                 "a backpack without Constructor's Touch refilled the hand");
 
         // --- the hand still holds some ---
-        ItemStack touchAgain = backpackWith(ModItems.BACKPACK, contentsOf(new ItemStack(Items.STONE, 40)));
+        ItemStack touchAgain = StorageBackpacks.with(helper, "", new ItemStack(Items.STONE, 40));
         touchAgain.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
         player.setItemSlot(EquipmentSlot.CHEST, touchAgain);
         ItemStack two = new ItemStack(Items.STONE, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, two);
         two.useOn(clickTop(helper, player, supports[2]));
-        helper.assertTrue(player.getMainHandItem().getCount() == 1 && countIn(touchAgain, Items.STONE) == 40,
+        helper.assertTrue(player.getMainHandItem().getCount() == 1 && StorageBackpacks.count(helper, touchAgain, Items.STONE) == 40,
                 "Constructor's Touch refilled a hand that still held a stone");
 
         helper.succeed();
@@ -938,6 +951,7 @@ public final class BackpackTests {
      * {@code bundle_enchantable} or {@code extra_inventory_items}, and one tier left out.
      */
     public static void backpacksTakeTheirFourEnchantmentsButNeitherDrawerNorColorPalette(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         List<ResourceKey<Enchantment>> accepted = List.of(ModEnchantments.DEEP_POCKETS, ModEnchantments.FUNNEL,
                 ModEnchantments.MASTER_BUILDER, ModEnchantments.CONSTRUCTORS_TOUCH);
         List<ResourceKey<Enchantment>> refused = List.of(ModEnchantments.DRAWER, ModEnchantments.COLOR_PALETTE);
@@ -981,6 +995,7 @@ public final class BackpackTests {
      * count or a component, dyeing replacing the image, and an image for an empty backpack.
      */
     public static void tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ItemStack sword = new ItemStack(Items.IRON_SWORD);
         sword.set(DataComponents.CUSTOM_NAME, Component.literal("Preview Blade"));
         // Entry order deliberately differs from slot order.
@@ -1048,6 +1063,7 @@ public final class BackpackTests {
      * spill its contents.
      */
     public static void upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerLevel level = helper.getLevel();
         for (int x = 0; x <= 7; x++) {
             for (int z = 0; z <= 7; z++) {
@@ -1110,6 +1126,7 @@ public final class BackpackTests {
      * writes back to the chest slot instead of the slot the backpack was opened from.
      */
     public static void backpackKeyLocksTheInventorySlotOfTheBackpackItOpened(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         ServerPlayer player = serverPlayer(helper);
         player.getInventory().clearContent();
         ItemStack backpack = new ItemStack(ModItems.BACKPACK);
@@ -1167,6 +1184,7 @@ public final class BackpackTests {
      * a container change that no longer calls {@code setChanged} on the block entity.
      */
     public static void placedBackpackOutputsItsFillLevelToAComparator(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) { helper.succeed(); return; } // split stage 8c-2: Simple Storage tests the backpacks on 26.3
         BlockPos backpackPos = new BlockPos(2, 1, 2);
         BlockPos comparatorPos = backpackPos.east();
         helper.setBlock(backpackPos.below(), Blocks.STONE);

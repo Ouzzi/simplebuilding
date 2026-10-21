@@ -8,3 +8,11 @@ dependencies { include project(':framework') }
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Chest cart and chest boat item textures are Vanilla-derived (built, never committed; split stage 8b-2).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Split stage 8c-2: Trinkets Updated API for TrinketsHook (optional accessory slots, compileOnly; loaded only with trinkets_updated).
+repositories {
+    exclusiveContent {
+        forRepository { maven { url = "https://maven.nucleoid.xyz/" } }
+        filter { includeGroup "eu.pb4" }
+    }
+}
+dependencies { compileOnly("eu.pb4:trinkets:${rootProject.mc263_trinkets_version}") { transitive = false } }

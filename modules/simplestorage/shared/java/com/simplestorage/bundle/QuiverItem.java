@@ -204,11 +204,21 @@ public class QuiverItem extends ReinforcedBundleItem {
         }
 
         // 5. Koecher in einem getragenen Behaelter, der seine Eintraege anbietet (SimpleBuildings Rucksack mit Meisterbauer)
-        for (CarriedStacks.Entry entry : CarriedStacks.drawable(player)) {
+        for (CarriedStacks.Entry entry : drawable(player)) {
             arrow = findArrowInQuiver(entry.stack());
             if (!arrow.isEmpty()) return arrow;
         }
         return ItemStack.EMPTY;
+    }
+
+    /**
+     * Eintraege getragener Behaelter, aus denen der Bogen schoepfen darf: nur aus einem Behaelter mit Meisterbauer
+     * (SimpleBuildings Verzauberung, per Schluessel; seit 8c-2 meldet Simple Storage den Rucksack selbst an und filtert hier).
+     * Ein Eintrag ohne bekannten Behaelter gilt (fremde Quellen entscheiden selbst).
+     */
+    private static java.util.List<CarriedStacks.Entry> drawable(Player player) {
+        return CarriedStacks.drawable(player).stream().filter(entry -> entry.container().isEmpty()
+                || BundleEnchantments.has(entry.container(), player.level(), BundleEnchantments.MASTER_BUILDER)).toList();
     }
 
     /**
@@ -254,7 +264,7 @@ public class QuiverItem extends ReinforcedBundleItem {
         }
 
         // 5. Koecher im getragenen Behaelter (Rucksack mit Meisterbauer): der Eintrag ist eine Kopie, also zurueckschreiben
-        for (CarriedStacks.Entry entry : CarriedStacks.drawable(player)) {
+        for (CarriedStacks.Entry entry : drawable(player)) {
             ItemStack quiver = entry.stack();
             if (!findArrowInQuiver(quiver).isEmpty() && tryConsumeArrow(quiver)) {
                 entry.write(quiver);

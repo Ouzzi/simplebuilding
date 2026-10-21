@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:structure_void",
+    "simplestorage:reinforced_shulker_box",
+    "simplestorage:netherite_shulker_box",
+    "simplestorage:enderite_shulker_box"
+  ]
+}

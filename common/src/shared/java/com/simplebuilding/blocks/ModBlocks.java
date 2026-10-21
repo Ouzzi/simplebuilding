@@ -203,10 +203,11 @@ public class ModBlocks {
     // Aus der Glas-Vorlage (keine Verdeckung, kein Ersticken, kein Redstone-Leiter - passend zur
     // kleinen Form), dann Wolle-Klang, weich wie Wolle und von Kolben zerstoert statt geschoben.
     // Netherit und Enderit halten Explosionen aus wie ihre Items.
-    public static final Block BACKPACK = registerBlock("backpack", s -> new BackpackBlock(BackpackTier.BASIC, backpackProperties(s, false)));
-    public static final Block REINFORCED_BACKPACK = registerBlock("reinforced_backpack", s -> new BackpackBlock(BackpackTier.REINFORCED, backpackProperties(s, false)));
-    public static final Block NETHERITE_BACKPACK = registerBlock("netherite_backpack", s -> new BackpackBlock(BackpackTier.NETHERITE, backpackProperties(s, true)));
-    public static final Block ENDERITE_BACKPACK = registerBlock("enderite_backpack", s -> new BackpackBlock(BackpackTier.ENDERITE, backpackProperties(s, true)));
+    // Split stage 8c-2: Simple Storage's on 26.3 (null here).
+    public static final Block BACKPACK = !McVersion.STORAGE_IN_SB ? null : registerBlock("backpack", s -> new BackpackBlock(BackpackTier.BASIC, backpackProperties(s, false)));
+    public static final Block REINFORCED_BACKPACK = !McVersion.STORAGE_IN_SB ? null : registerBlock("reinforced_backpack", s -> new BackpackBlock(BackpackTier.REINFORCED, backpackProperties(s, false)));
+    public static final Block NETHERITE_BACKPACK = !McVersion.STORAGE_IN_SB ? null : registerBlock("netherite_backpack", s -> new BackpackBlock(BackpackTier.NETHERITE, backpackProperties(s, true)));
+    public static final Block ENDERITE_BACKPACK = !McVersion.STORAGE_IN_SB ? null : registerBlock("enderite_backpack", s -> new BackpackBlock(BackpackTier.ENDERITE, backpackProperties(s, true)));
 
     // --- 6. ABGELEGTE SCHMIEDEVORLAGE ---
     // Schleichen + Rechtsklick mit einer Vorlage (PlacedTemplates). Kein Item: die Vorlage selbst

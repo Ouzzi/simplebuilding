@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "simplestorage:backpack",
+    "simplestorage:reinforced_backpack",
+    "simplestorage:netherite_backpack",
+    "simplestorage:enderite_backpack",
     "simplestorage:quiver",
     "simplestorage:reinforced_quiver",
     "simplestorage:netherite_quiver",

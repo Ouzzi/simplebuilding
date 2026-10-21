@@ -1,0 +1,174 @@
+package com.simplestorage.backpack;
+
+import com.simplestorage.bundle.DyedStorage;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+
+/**
+ * Der abgestellte Rucksack.
+ *
+ * <p>Bewusst <em>kein</em> {@link Container}: Trichter sehen ihn deshalb nicht. Sie kennen nur
+ * Vanilla-Stapelgrenzen, und ein Trichter, der einen 256er-Stapel aus Tiefe Taschen herauszieht,
+ * waere genau der Weg, auf dem ein uebergrosser Stapel ins Spiel entkommt. Einen Komparator bedient
+ * seit 2026-09-28 der Block selbst ({@code BackpackBlock#getAnalogOutputSignal}), mit den
+ * Stapelgrenzen des Rucksacks.
+ *
+ * <p>Der Inhalt reist als Komponente {@code simplestorage:backpack_contents}: beim Abstellen
+ * liest {@link #applyImplicitComponents} sie vom Item, beim Abbauen kopiert die Loot-Tabelle
+ * ({@code copy_components} ohne Filter) alle Komponenten zurueck auf das gedroppte Item - Inhalt,
+ * Name, Verzauberungen. Verzauberungen und Name bleiben dazwischen in Vanillas
+ * {@code components()} liegen; von dort liest der Block auch den Tiefe-Taschen-Faktor.
+ *
+ * <p>Die Farbe ({@code minecraft:dyed_color}) nimmt die Block-Entity dagegen selbst heraus und
+ * schickt sie per {@link #getUpdatePacket} zum Client: das Zwei-Ebenen-Modell des gefaerbten
+ * Rucksacks ({@code BackpackBlock#DYED}) holt sie beim Bauen des Chunk-Meshes ueber
+ * {@code BackpackBlockTint} von hier. Beim Abbauen kommt sie mit den anderen Komponenten zurueck.
+ */
+public class BackpackBlockEntity extends BlockEntity {
+    private static final String CONTENTS_TAG = "Contents";
+    private static final String COLOR_TAG = "Color";
+
+    private final PlacedContainer container;
+    /** Farbe aus {@code minecraft:dyed_color} (0xRRGGBB), sonst {@link DyedStorage#UNDYED}. */
+    private int dyeColor = DyedStorage.UNDYED;
+
+    public BackpackBlockEntity(BlockPos pos, BlockState state) {
+        super(com.simplestorage.registry.StorageBlockEntities.BACKPACK, pos, state);
+        BackpackTier tier = state.getBlock() instanceof BackpackBlock block ? block.getTier() : BackpackTier.BASIC;
+        this.container = new PlacedContainer(tier);
+        this.container.setChangeListener(this::setChanged);
+    }
+
+    public BackpackContainer container() {
+        return this.container;
+    }
+
+    public BackpackTier tier() {
+        return this.container.tier();
+    }
+
+    public int stackMultiplier() {
+        return BackpackItem.stackMultiplier(this.components().getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY));
+    }
+
+    /** Die Farbe des Rucksacks (0xRRGGBB) oder {@link DyedStorage#UNDYED}; auch clientseitig bekannt. */
+    public int dyeColor() {
+        return this.dyeColor;
+    }
+
+    public boolean isEmpty() {
+        return this.container.isEmpty();
+    }
+
+    /** Titel des Menues: der Amboss-Name des Rucksacks, sonst der Block-Name. */
+    public Component getDisplayName() {
+        Component custom = this.components().get(DataComponents.CUSTOM_NAME);
+        return custom != null ? custom : getBlockState().getBlock().getName();
+    }
+
+    public boolean stillValid(Player player) {
+        return !this.isRemoved() && Container.stillValidBlockEntity(this, player);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.container.load(input.read(CONTENTS_TAG, BackpackContents.CODEC).orElse(BackpackContents.EMPTY));
+        int previous = this.dyeColor;
+        this.dyeColor = input.getIntOr(COLOR_TAG, DyedStorage.UNDYED);
+        // Clientseitig (Datenpaket nach dem Abstellen): die Farbe steckt im Chunk-Mesh, also neu bauen.
+        if (previous != this.dyeColor && this.level != null && this.level.isClientSide()) {
+            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        }
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        BackpackContents contents = this.container.toContents();
+        if (!contents.isEmpty()) {
+            output.store(CONTENTS_TAG, BackpackContents.CODEC, contents);
+        }
+        if (this.dyeColor != DyedStorage.UNDYED) {
+            output.putInt(COLOR_TAG, this.dyeColor);
+        }
+    }
+
+    /**
+     * Der Client braucht nur die Farbe (fuer die Toenung im Chunk-Mesh), nicht den Inhalt: den
+     * sieht er erst im Menue, und das synchronisiert sich selbst.
+     */
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = new CompoundTag();
+        if (this.dyeColor != DyedStorage.UNDYED) {
+            tag.putInt(COLOR_TAG, this.dyeColor);
+        }
+        return tag;
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        this.container.load(components.getOrDefault(com.simplestorage.registry.StorageComponents.BACKPACK_CONTENTS, BackpackContents.EMPTY));
+        this.dyeColor = DyedStorage.colour(components);
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        BackpackContents contents = this.container.toContents();
+        if (!contents.isEmpty()) {
+            components.set(com.simplestorage.registry.StorageComponents.BACKPACK_CONTENTS, contents);
+        }
+        if (this.dyeColor != DyedStorage.UNDYED) {
+            components.set(DataComponents.DYED_COLOR, new DyedItemColor(this.dyeColor));
+        }
+    }
+
+    @Override
+    public void removeComponentsFromTag(ValueOutput output) {
+        super.removeComponentsFromTag(output);
+        output.discard(CONTENTS_TAG);
+        output.discard(COLOR_TAG);
+    }
+
+    /** Container des abgestellten Rucksacks: Faktor und Gueltigkeit kommen vom Block. */
+    private final class PlacedContainer extends BackpackContainer {
+        PlacedContainer(BackpackTier tier) {
+            super(tier, 1);
+        }
+
+        @Override
+        public int multiplier() {
+            return BackpackBlockEntity.this.stackMultiplier();
+        }
+
+        @Override
+        public boolean stillValid(Player player) {
+            return BackpackBlockEntity.this.stillValid(player);
+        }
+    }
+}

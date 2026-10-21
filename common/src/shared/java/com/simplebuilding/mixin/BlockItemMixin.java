@@ -65,6 +65,29 @@ public abstract class BlockItemMixin {
         if (player.getItemInHand(hand) != context.getItemInHand()) {
             return;
         }
-        BackpackItem.refillHandFromWornBackpack(player, hand, before);
+        refillFromWornBackpack(player, hand, before);
+    }
+
+    /**
+     * Konstrukteurs Hand am getragenen Rucksack: ist beim Platzieren der Blockstapel in der Hand leer geworden, fuellt ein
+     * gleicher Stapel aus dem Rucksack sie wieder auf (hoechstens ein normaler Stapel). Split stage 8c-2: through
+     * util/WornStorage (26.3: Simple Storage's backpack, SimpleLib CarriedStacks); was {@code BackpackItem#refillHandFromWornBackpack}.
+     */
+    @org.spongepowered.asm.mixin.Unique
+    private static void refillFromWornBackpack(Player player, InteractionHand hand, ItemStack placed) {
+        if (placed.isEmpty() || player.getAbilities().instabuild || !player.getItemInHand(hand).isEmpty()) {
+            return;
+        }
+        for (com.simplebuilding.util.WornStorage.Entry entry : com.simplebuilding.util.WornStorage.entries(player,
+                com.simplebuilding.enchantment.ModEnchantments.CONSTRUCTORS_TOUCH)) {
+            if (!ItemStack.isSameItemSameComponents(entry.stack(), placed)) continue;
+            ItemStack left = entry.stack().copy();
+            ItemStack refill = left.split(placed.getMaxStackSize());
+            if (refill.isEmpty()) return;
+            entry.write(left);
+            player.setItemInHand(hand, refill);
+            player.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
+            return;
+        }
     }
 }

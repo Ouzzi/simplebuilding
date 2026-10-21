@@ -2845,7 +2845,7 @@ public final class DataIntegrityTests {
                 ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
                 ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"),
-                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("quiver"), ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, com.simplebuilding.util.StorageRefs.chest("enderite")));
+                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("enderite"), com.simplebuilding.util.StorageRefs.chest("enderite")));
         pinned.put(ModItemGroupsContent.Tab.PADS, List.of(
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(),
                 TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.LAUNCHPAD.asItem(),
@@ -3123,7 +3123,7 @@ public final class DataIntegrityTests {
                         Items.BUNDLE, com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_bundle"), gap,
                         com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver")),
                 CreativeTabLayout.Row.of("backpacks",
-                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                        com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite")),
                 // Farbkaesten aller Stufen (N30) bei Buendeln und Rucksaecken.
                 CreativeTabLayout.Row.of("paint_boxes",
                         ModItems.PAINT_BOX, ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX),
@@ -4109,7 +4109,7 @@ public final class DataIntegrityTests {
         helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
 
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
-                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
+                com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
                 ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
                 Items.STICK);
@@ -4127,7 +4127,7 @@ public final class DataIntegrityTests {
                 com.simplebuilding.util.HammerRefs.item("gold"), com.simplebuilding.util.HammerRefs.item("diamond"), com.simplebuilding.util.HammerRefs.item("netherite"),
                 com.simplebuilding.util.StorageRefs.item("reinforced_bundle"), com.simplebuilding.util.StorageRefs.item("netherite_bundle"),
                 com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"),
-                ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
+                com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"),
                 Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
                 Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK,
                 Items.SHULKER_BOX, com.simplebuilding.util.StorageRefs.shulkerBox("enderite")));

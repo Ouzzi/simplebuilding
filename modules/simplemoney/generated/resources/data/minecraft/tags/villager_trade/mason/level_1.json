@@ -22,10 +22,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/backpack",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/blackstone_quartz_checker",
       "required": false
     },
@@ -127,6 +123,10 @@
     },
     {
       "id": "simplemoney:links/simplemobheads/bogged_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/backpack",
       "required": false
     },
     {

@@ -102,7 +102,8 @@ def problems() -> list[str]:
                 (r / name).with_name(f.stem + '_overlay.png').is_file() for r in ROOTS):
             out.append(f'{name}: no _overlay twin')
     # recipes: <color>_dyed_storage -> minecraft:<color>_dye -> dyed_color == StorageDyes
-    rdir = ROOT / 'mc26_3/overlay/resources/data/simplebuilding/recipe'
+    # split stage 8c-2: the dye recipes are Simple Storage's (simplestorage:<color>_dyed_storage)
+    rdir = ROOT / 'modules/simplestorage/shared/resources/data/simplestorage/recipe'
     for dye, rgb in DYES.items():
         f = rdir / f'{dye}_dyed_storage.json'
         if not f.is_file():
