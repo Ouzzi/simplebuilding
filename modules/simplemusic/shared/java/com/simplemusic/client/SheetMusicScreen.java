@@ -24,7 +24,8 @@ import net.minecraft.world.item.ItemStack;
  * is SimpleLib's {@link UiCodeArea} (moved there from the blueprint editor, N1). Problems are coloured and listed with
  * line and text; "Listen" plays the code locally; "Import" lists {@code config/simplemusic/sheets/} (.txt, .nbs),
  * "Copy" puts the code on the clipboard; closing saves, "Sign" saves it read-only with a title. The server checks every
- * save again.
+ * save again. "Upload" (owner 21.10.) opens the {@link BurnScreen}: the chosen Ogg file becomes this sheet's track
+ * instead of a composition; an upload sheet shows its track read-only.
  */
 public class SheetMusicScreen extends Screen {
     /** Style colours by {@code NoteCode.STYLE_*}; each at least 4.5:1 on the field's paper (#F3EBD2). */
@@ -45,6 +46,7 @@ public class SheetMusicScreen extends Screen {
 
     private final int hand;
     private final SheetContent content;
+    private final com.simplemusic.disc.TrackRef track;
     private final boolean readOnly;
     private String code;
     private String title;
@@ -55,11 +57,12 @@ public class SheetMusicScreen extends Screen {
     private boolean importing;
     private boolean saved;
 
-    public SheetMusicScreen(int hand, SheetContent content) {
+    public SheetMusicScreen(int hand, SheetContent content, com.simplemusic.disc.TrackRef track) {
         super(Component.translatable("item.simplemusic.sheet_music"));
         this.hand = hand;
         this.content = content;
-        this.readOnly = content.signed();
+        this.track = track;
+        this.readOnly = content.signed() || track != null;
         this.code = content.code();
         this.title = content.title();
         this.parsed = NoteCode.parse(code, SheetSounds.policy());
@@ -70,7 +73,7 @@ public class SheetMusicScreen extends Screen {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;
         ItemStack stack = mc.player.getItemInHand(hand == 1 ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
-        if (stack.getItem() instanceof SheetMusicItem) mc.gui.setScreen(new SheetMusicScreen(hand, SheetMusicItem.content(stack)));
+        if (stack.getItem() instanceof SheetMusicItem) mc.gui.setScreen(new SheetMusicScreen(hand, SheetMusicItem.content(stack), SheetMusicItem.track(stack)));
     }
 
     @Override
@@ -96,7 +99,7 @@ public class SheetMusicScreen extends Screen {
         int y = height - 26;
         List<Button> buttons = new ArrayList<>();
         listen = Button.builder(listenLabel(), b -> toggleListen()).width(80).build();
-        buttons.add(listen);
+        if (track == null) buttons.add(listen);
         if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.import"), b -> {
             importing = true;
             rebuildWidgets();
@@ -104,12 +107,15 @@ public class SheetMusicScreen extends Screen {
         buttons.add(Button.builder(Component.translatable("simplemusic.editor.copy"),
                 b -> minecraft.keyboardHandler.setClipboard(code)).width(80).build());
         if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.sign"), b -> sign()).width(80).build());
+        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.upload"), b -> upload()).width(80).build());
         buttons.add(Button.builder(Component.translatable("gui.done"), b -> onClose()).width(80).build());
-        int total = buttons.size() * 84 - 4;
+        int w = Math.min(80, (width - 24) / buttons.size() - 4);
+        int total = buttons.size() * (w + 4) - 4;
         int x = (width - total) / 2;
         for (Button b : buttons) {
+            b.setWidth(w);
             b.setPosition(x, y);
-            x += 84;
+            x += w + 4;
             addRenderableWidget(b);
         }
         onCode(code);
@@ -166,6 +172,11 @@ public class SheetMusicScreen extends Screen {
                 12, 12, INFO_INK, true);
         if (importing) return;
         int y = height - 48;
+        if (track != null) {
+            g.text(font, Component.translatable("simplemusic.editor.track", track.title(), track.seconds() / 60,
+                    String.format(java.util.Locale.ROOT, "%02d", track.seconds() % 60), track.uploader()), 12, y, INFO_INK, true);
+            return;
+        }
         if (!parsed.problems().isEmpty()) {
             NoteCode.Problem p = parsed.problems().get(0);
             Component message = Component.translatable("simplemusic.code.line", p.line() + 1,
@@ -186,6 +197,12 @@ public class SheetMusicScreen extends Screen {
         SimpleMusic.toServer.accept(new SheetEditPayload(hand, code, title.strip(), true));
         saved = true;
         minecraft.gui.setScreen(null);
+    }
+
+    /** Saves the draft, then opens the upload window for this sheet (the server puts the track on it). */
+    private void upload() {
+        save();
+        minecraft.gui.setScreen(new BurnScreen(hand));
     }
 
     @Override

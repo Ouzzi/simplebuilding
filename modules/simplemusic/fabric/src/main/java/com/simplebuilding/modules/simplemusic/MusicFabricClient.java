@@ -16,6 +16,7 @@ public final class MusicFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         MusicClient.init();
+        net.minecraft.client.gui.screens.MenuScreens.register(com.simplemusic.registry.MusicRegistry.DISC_PRESS_MENU, com.simplemusic.client.DiscPressScreen::new);
         SimpleMusic.toServer = payload -> {
             if (ClientPlayNetworking.canSend(payload.type())) ClientPlayNetworking.send(payload);
         };

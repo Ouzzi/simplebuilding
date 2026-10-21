@@ -14,6 +14,8 @@ import net.neoforged.neoforge.common.NeoForge;
 final class MusicNeoClient {
     static void init(net.neoforged.bus.api.IEventBus bus) {
         MusicClient.init();
+        bus.addListener((net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) ->
+                event.register(com.simplemusic.registry.MusicRegistry.DISC_PRESS_MENU, com.simplemusic.client.DiscPressScreen::new));
         bus.addListener((net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent event) ->
                 event.register(com.simplemusic.pocket.PocketContents.class, com.simplemusic.client.PocketTooltip::new));
         SimpleMusic.toServer = ClientPacketDistributor::sendToServer;

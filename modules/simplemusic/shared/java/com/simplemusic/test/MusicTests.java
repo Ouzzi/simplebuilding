@@ -3,6 +3,7 @@ package com.simplemusic.test;
 import com.google.gson.JsonObject;
 import com.simplemusic.SimpleMusic;
 import com.simplemusic.config.MusicConfig;
+import com.simplemusic.disc.CustomDiscItem;
 import com.simplemusic.disc.DiscPlayback;
 import com.simplemusic.disc.JukeboxDiscs;
 import com.simplemusic.disc.TrackRef;
@@ -16,10 +17,13 @@ import com.simplemusic.net.UploadResultPayload;
 import com.simplemusic.orchestrion.OrchestrionBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxItem;
 import com.simplemusic.pocket.PocketPlayback;
+import com.simplemusic.press.DiscPress;
+import com.simplemusic.press.DiscPressBlockEntity;
 import com.simplemusic.registry.MusicComponents;
 import com.simplemusic.registry.MusicRegistry;
 import com.simplemusic.sheet.NoteCode;
 import com.simplemusic.sheet.SheetContent;
+import com.simplemusic.sheet.SheetMusicItem;
 import com.simplemusic.sheet.SheetSounds;
 import com.simplemusic.upload.MusicServer;
 import com.simplemusic.upload.OggCheck;
@@ -139,10 +143,11 @@ public final class MusicTests {
             h.succeed();
         });
         ALL.put("registered", h -> {
-            for (String id : List.of("sheet_music", "orchestrion", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
+            for (String id : List.of("sheet_music", "orchestrion", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMusic.id(id)), "item " + id);
             }
-            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("orchestrion")), "block");
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("orchestrion")) && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press")), "blocks");
+            h.assertTrue(BuiltInRegistries.MENU.containsKey(SimpleMusic.id("disc_press")), "press menu");
             h.assertTrue(BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleMusic.id("sheet"))
                     && BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleMusic.id("track"))
                     && BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleMusic.id("pocket")), "components");
@@ -266,17 +271,22 @@ public final class MusicTests {
             ServerPlayer bob = h.makeMockServerPlayerInLevel();
             List<CustomPacketPayload> sent = capture(alice);
             try {
-                alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.BLANK_DISC));
+                alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.SHEET_MUSIC, 2));
                 byte[] stereo = uniqueOgg(2, 5);
                 upload(alice, stereo, "Stereo");
                 h.assertTrue(last(sent).equals("stereo"), "stereo refused: " + last(sent));
-                h.assertTrue(alice.getMainHandItem().is(MusicRegistry.BLANK_DISC), "blank disc kept");
+                h.assertTrue(alice.getMainHandItem().getCount() == 2 && SheetMusicItem.track(alice.getMainHandItem()) == null, "sheets kept blank");
                 byte[] mono = uniqueOgg(1, 5);
                 upload(alice, mono, "Mono");
                 h.assertTrue(last(sent).equals("pending"), "stored, waits for an OP: " + last(sent));
-                ItemStack disc = alice.getMainHandItem();
-                TrackRef ref = disc.get(MusicComponents.TRACK);
-                h.assertTrue(disc.is(MusicRegistry.CUSTOM_DISC) && ref != null && ref.seconds() == 5 && ref.title().equals("Mono"), "custom disc");
+                ItemStack uploaded = alice.getMainHandItem();
+                TrackRef ref = SheetMusicItem.track(uploaded);
+                h.assertTrue(uploaded.getCount() == 1 && ref != null && ref.seconds() == 5 && ref.title().equals("Mono")
+                        && SheetMusicItem.content(uploaded).signed(), "upload sheet (track, signed): " + uploaded);
+                h.assertTrue(alice.getInventory().countItem(MusicRegistry.SHEET_MUSIC) == 2, "the other sheet stays blank");
+                // owner 21.10.: the press makes the disc, the sheet stays
+                ItemStack disc = DiscPress.result(uploaded, new ItemStack(MusicRegistry.BLANK_DISC));
+                h.assertTrue(disc.is(MusicRegistry.CUSTOM_DISC) && ref.equals(disc.get(MusicComponents.TRACK)), "pressed track disc");
                 TrackStore store = MusicServer.store(h.getLevel().getServer());
                 TrackStore.Track track = store.get(ref.sha256());
                 h.assertTrue(track != null && track.status() == TrackStore.Status.PENDING, "pending in the index");
@@ -308,7 +318,7 @@ public final class MusicTests {
                     h.assertTrue(DiscPlayback.listeners(h.getLevel(), abs).isEmpty(), "deleted: the disc is silent");
                     // quota
                     MusicConfig.quotaPerPlayer = 0;
-                    alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.BLANK_DISC));
+                    alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.SHEET_MUSIC));
                     MusicServer.handleUploadBegin(new UploadBeginPayload(0, "More", 1000), alice);
                     h.assertTrue(last(sent).equals("quota"), "quota: " + last(sent));
                     MusicConfig.reset();
@@ -332,7 +342,7 @@ public final class MusicTests {
         ALL.put("upload_rejects_bad_chunks", h -> {
             ServerPlayer player = h.makeMockServerPlayerInLevel();
             List<CustomPacketPayload> sent = capture(player);
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.BLANK_DISC));
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.SHEET_MUSIC));
             MusicServer.clock = () -> 5_000_000L;
             MusicServer.handleUploadBegin(new UploadBeginPayload(0, "Gap", 100_000), player);
             MusicServer.handleUploadChunk(new UploadChunkPayload(1, new byte[100]), player);
@@ -341,9 +351,12 @@ public final class MusicTests {
             h.assertTrue(last(sent).equals("bad_title"), "title needed");
             MusicServer.handleUploadBegin(new UploadBeginPayload(0, "Big", 17 << 20), player);
             h.assertTrue(last(sent).equals("too_big"), "announced size checked");
-            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.BLANK_DISC));
             MusicServer.handleUploadBegin(new UploadBeginPayload(0, "X", 100), player);
-            h.assertTrue(last(sent).equals("no_blank"), "needs the blank disc");
+            h.assertTrue(last(sent).equals("no_sheet"), "a blank disc no longer takes uploads (owner 21.10.)");
+            player.setItemInHand(InteractionHand.MAIN_HAND, sheet(TUNE));
+            MusicServer.handleUploadBegin(new UploadBeginPayload(0, "X", 100), player);
+            h.assertTrue(last(sent).equals("no_sheet"), "a signed sheet is read-only");
             restore();
             h.succeed();
         });
@@ -360,9 +373,21 @@ public final class MusicTests {
             h.assertTrue(JukeboxDiscs.isDisc(jukebox.getTheItem()), "custom disc in the Vanilla jukebox");
             BlockPos abs = h.absolutePos(pos);
             h.runAfterDelay(3, () -> h.assertTrue(DiscPlayback.playing(h.getLevel(), abs), "plays"));
+            // a pressed composition plays as server tones, once
+            BlockPos pos2 = new BlockPos(5, 1, 1);
+            h.setBlock(pos2, Blocks.JUKEBOX.defaultBlockState());
+            player.setItemInHand(InteractionHand.MAIN_HAND, DiscPress.result(sheet(TUNE), new ItemStack(MusicRegistry.BLANK_DISC)));
+            h.useBlock(pos2, player);
+            JukeboxBlockEntity jukebox2 = h.getBlockEntity(pos2, JukeboxBlockEntity.class);
+            h.assertTrue(JukeboxDiscs.isDisc(jukebox2.getTheItem()), "composition disc in the Vanilla jukebox");
+            BlockPos abs2 = h.absolutePos(pos2);
+            h.runAfterDelay(2, () -> h.assertTrue(com.simplemusic.disc.SheetPlayback.playing(h.getLevel(), abs2), "composition plays"));
             h.runAfterDelay(30, () -> {
                 h.assertTrue(!DiscPlayback.playing(h.getLevel(), abs), "a jukebox plays it once (1 s)");
                 h.assertTrue(JukeboxDiscs.isDisc(jukebox.getTheItem()), "disc stays in");
+                h.assertTrue(!com.simplemusic.disc.SheetPlayback.playing(h.getLevel(), abs2) && JukeboxDiscs.isDisc(jukebox2.getTheItem()),
+                        "the composition ends after one run (6 ticks), the disc stays in");
+                jukebox2.popOutTheItem();
                 jukebox.popOutTheItem();
                 restore();
                 h.succeed();
@@ -515,6 +540,98 @@ public final class MusicTests {
             });
         });
         MAX_TICKS.put("pocket_stops", 40);
+        ALL.put("press_sheet_stays", h -> {
+            BlockPos pos = new BlockPos(2, 1, 2);
+            h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());
+            DiscPressBlockEntity press = h.getBlockEntity(pos, DiscPressBlockEntity.class);
+            press.setItem(DiscPressBlockEntity.SHEET, sheet(TUNE));
+            press.setItem(DiscPressBlockEntity.BLANK, new ItemStack(MusicRegistry.BLANK_DISC, 2));
+            h.runAfterDelay(DiscPress.PRESS_TICKS + 5, () -> {
+                ItemStack out = press.getItem(DiscPressBlockEntity.OUTPUT);
+                var music = CustomDiscItem.composition(out);
+                h.assertTrue(out.is(MusicRegistry.CUSTOM_DISC) && music != null && music.code().equals(TUNE) && out.get(MusicComponents.TRACK) == null,
+                        "composition pressed: " + out);
+                h.assertTrue(SheetMusicItem.content(press.getItem(DiscPressBlockEntity.SHEET)).code().equals(TUNE), "the sheet stays");
+                h.assertTrue(press.getItem(DiscPressBlockEntity.BLANK).getCount() == 1 && press.pressed() == 1, "one blank used");
+                h.assertTrue(OrchestrionBlockEntity.playable(out) && JukeboxDiscs.isDisc(out), "plays in the Orchestrion and the jukebox");
+                h.assertTrue(out.getHoverName().getString().contains("Test"), "named after the sheet: " + out.getHoverName().getString());
+            });
+            h.runAfterDelay(2 * DiscPress.PRESS_TICKS + 10, () -> {
+                h.assertTrue(press.pressed() == 1 && press.progress() == 0, "a full output waits");
+                press.removeItemNoUpdate(DiscPressBlockEntity.OUTPUT);
+            });
+            h.runAfterDelay(3 * DiscPress.PRESS_TICKS + 15, () -> {
+                h.assertTrue(press.pressed() == 2 && press.getItem(DiscPressBlockEntity.BLANK).isEmpty()
+                        && !press.getItem(DiscPressBlockEntity.SHEET).isEmpty(), "second disc, sheet still there");
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("press_sheet_stays", 200);
+        ALL.put("press_rules", h -> {
+            ItemStack blank = new ItemStack(MusicRegistry.BLANK_DISC);
+            ItemStack upload = new ItemStack(MusicRegistry.SHEET_MUSIC);
+            TrackRef ref = new TrackRef("b".repeat(64), "Up", 7, "Ann");
+            upload.set(MusicComponents.TRACK, ref);
+            upload.set(MusicComponents.SHEET, new SheetContent("", "Up", "Ann", true));
+            ItemStack disc = DiscPress.result(upload, blank);
+            h.assertTrue(ref.equals(disc.get(MusicComponents.TRACK)) && CustomDiscItem.composition(disc) == null, "upload sheet -> track disc");
+            h.assertTrue(DiscPress.result(sheet("harp: zz"), blank).isEmpty(), "a code with problems is not pressed");
+            h.assertTrue(DiscPress.result(new ItemStack(MusicRegistry.SHEET_MUSIC), blank).isEmpty(), "an empty sheet is not pressed");
+            h.assertTrue(DiscPress.result(sheet(TUNE), new ItemStack(Items.MUSIC_DISC_CAT)).isEmpty(), "only blank discs");
+            h.assertTrue(DiscPress.result(sheet(TUNE), blank).getCount() == 1 && blank.getCount() == 1, "pure: inputs untouched");
+            // an uploaded track sheet also plays straight in the Orchestrion, like a track disc
+            h.assertTrue(OrchestrionBlockEntity.playable(upload) && OrchestrionBlockEntity.trackOf(upload) == ref, "upload sheet in the Orchestrion");
+            // hopper faces like the furnace
+            BlockPos pos = new BlockPos(2, 1, 2);
+            h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());
+            DiscPressBlockEntity press = h.getBlockEntity(pos, DiscPressBlockEntity.class);
+            h.assertTrue(press.canPlaceItemThroughFace(DiscPressBlockEntity.SHEET, sheet(TUNE), Direction.UP)
+                    && !press.canPlaceItemThroughFace(DiscPressBlockEntity.SHEET, blank, Direction.UP), "sheet from above");
+            h.assertTrue(press.canPlaceItemThroughFace(DiscPressBlockEntity.BLANK, blank, Direction.NORTH)
+                    && !press.canPlaceItemThroughFace(DiscPressBlockEntity.BLANK, sheet(TUNE), Direction.NORTH), "blank from the side");
+            h.assertTrue(press.canTakeItemThroughFace(DiscPressBlockEntity.OUTPUT, disc, Direction.DOWN)
+                    && !press.canTakeItemThroughFace(DiscPressBlockEntity.SHEET, sheet(TUNE), Direction.DOWN), "only the disc out of the bottom");
+            press.setItem(DiscPressBlockEntity.SHEET, sheet(TUNE));
+            h.assertTrue(!press.canPlaceItemThroughFace(DiscPressBlockEntity.SHEET, sheet(TUNE), Direction.UP), "one sheet only");
+            ItemStack craftedPress = craft(h, net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(
+                    ItemStack.EMPTY, new ItemStack(Items.PISTON), ItemStack.EMPTY,
+                    new ItemStack(Items.IRON_INGOT), ItemStack.EMPTY, new ItemStack(Items.IRON_INGOT),
+                    new ItemStack(Items.SMOOTH_STONE), new ItemStack(Items.SMOOTH_STONE), new ItemStack(Items.SMOOTH_STONE))));
+            h.assertTrue(craftedPress.is(MusicRegistry.DISC_PRESS_ITEM), "recipe: piston over two iron ingots over smooth stone: " + craftedPress);
+            h.succeed();
+        });
+        ALL.put("cartography_copies_sheet", h -> {
+            BlockPos pos = new BlockPos(4, 1, 4);
+            h.setBlock(pos, Blocks.CARTOGRAPHY_TABLE.defaultBlockState());
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            var menu = new net.minecraft.world.inventory.CartographyTableMenu(1, player.getInventory(),
+                    net.minecraft.world.inventory.ContainerLevelAccess.create(h.getLevel(), h.absolutePos(pos)));
+            ItemStack draft = new ItemStack(MusicRegistry.SHEET_MUSIC);
+            draft.set(MusicComponents.SHEET, new SheetContent(TUNE, "Draft", "", false));
+            h.assertTrue(menu.getSlot(0).mayPlace(sheet(TUNE)) && !menu.getSlot(0).mayPlace(draft), "signed sheets on top");
+            h.assertTrue(menu.getSlot(1).mayPlace(new ItemStack(MusicRegistry.SHEET_MUSIC)), "sheets below");
+            menu.getSlot(0).set(sheet(TUNE));
+            menu.getSlot(1).set(new ItemStack(MusicRegistry.SHEET_MUSIC, 2));
+            ItemStack copy = menu.getSlot(2).getItem();
+            SheetContent c = SheetMusicItem.content(copy);
+            h.assertTrue(copy.is(MusicRegistry.SHEET_MUSIC) && copy.getCount() == 1 && c.code().equals(TUNE) && c.title().equals("Test")
+                    && !c.signed() && c.author().isEmpty(), "editable copy like the blueprint: " + c);
+            menu.getSlot(2).onTake(player, copy);
+            h.assertTrue(menu.getSlot(1).getItem().getCount() == 1 && SheetMusicItem.content(menu.getSlot(0).getItem()).signed(),
+                    "only the lower sheet is used, the original stays");
+            ItemStack upload = new ItemStack(MusicRegistry.SHEET_MUSIC);
+            TrackRef ref = new TrackRef("c".repeat(64), "Up", 7, "Ann");
+            upload.set(MusicComponents.TRACK, ref);
+            upload.set(MusicComponents.SHEET, new SheetContent("", "Up", "Ann", true));
+            menu.getSlot(0).set(upload);
+            ItemStack exact = menu.getSlot(2).getItem();
+            h.assertTrue(ref.equals(SheetMusicItem.track(exact)) && SheetMusicItem.content(exact).signed(), "upload sheet: exact copy");
+            menu.getSlot(1).set(draft);
+            h.assertTrue(menu.getSlot(2).getItem().isEmpty(), "a written sheet below takes no copy");
+            menu.getSlot(0).set(ItemStack.EMPTY);
+            menu.getSlot(1).set(ItemStack.EMPTY);
+            h.succeed();
+        });
         ALL.put("guide_book", com.simplemusic.guide.MusicGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simplemusic.discover.MusicDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemusic.discover.MusicDiscover::behaviourHints);

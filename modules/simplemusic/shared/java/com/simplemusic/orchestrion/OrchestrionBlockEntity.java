@@ -35,8 +35,8 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * The Orchestrion's sequencer (concept §4, variant P1: the server plays the tones of each step itself, like a note
- * block, so every listener is in sync and amplifiers work). A sheet plays step by step, {@code tempo} ticks per step;
- * a custom disc runs through {@link DiscPlayback}. After the last step the piece loops, or swaps with the next
+ * block, so every listener is in sync and amplifiers work). A composition (sheet or pressed disc) plays step by step,
+ * {@code tempo} ticks per step; an uploaded track (upload sheet or track disc) runs through {@link DiscPlayback}. After the last step the piece loops, or swaps with the next
  * sheet/disc of a playlist container on top (tag {@code simplemusic:playlist_containers}; slot order, the finished one
  * takes the slot of the next, like the jukebox playlist). At most {@code maxPlayingOrchestrions} play per dimension.
  */
@@ -63,13 +63,28 @@ public class OrchestrionBlockEntity extends BlockEntity {
         super(MusicRegistry.ORCHESTRION_BE, pos, state);
     }
 
-    /** A sheet whose code parses, or a custom disc. */
+    /** A sheet or pressed disc with a composition that parses, or with an uploaded track. */
     public static boolean playable(ItemStack stack) {
-        if (stack.getItem() instanceof SheetMusicItem) {
-            String code = SheetMusicItem.content(stack).code();
-            return !code.isBlank() && NoteCode.parse(code, SheetSounds.policy()).ok();
+        if (trackOf(stack) != null) return true;
+        String code = codeOf(stack);
+        return !code.isBlank() && NoteCode.parse(code, SheetSounds.policy()).ok();
+    }
+
+    /** The uploaded track of an upload sheet or a track disc, else null. */
+    public static TrackRef trackOf(ItemStack stack) {
+        if (stack.getItem() instanceof CustomDiscItem) return CustomDiscItem.track(stack);
+        if (stack.getItem() instanceof SheetMusicItem) return SheetMusicItem.track(stack);
+        return null;
+    }
+
+    /** The note code of a sheet or a composition disc ("" otherwise). */
+    public static String codeOf(ItemStack stack) {
+        if (stack.getItem() instanceof SheetMusicItem) return SheetMusicItem.content(stack).code();
+        if (stack.getItem() instanceof CustomDiscItem) {
+            var c = CustomDiscItem.composition(stack);
+            return c == null ? "" : c.code();
         }
-        return stack.getItem() instanceof CustomDiscItem && CustomDiscItem.track(stack) != null;
+        return "";
     }
 
     public ItemStack item() {
@@ -141,8 +156,9 @@ public class OrchestrionBlockEntity extends BlockEntity {
 
     private void prepare() {
         if (song != null) return;
-        if (item.getItem() instanceof SheetMusicItem) {
-            NoteCode.Result r = NoteCode.parse(SheetMusicItem.content(item).code(), SheetSounds.policy());
+        String code = trackOf(item) == null ? codeOf(item) : "";
+        if (!code.isBlank()) {
+            NoteCode.Result r = NoteCode.parse(code, SheetSounds.policy());
             song = r.ok() ? r.song() : NoteCode.Song.EMPTY;
         } else {
             song = NoteCode.Song.EMPTY;
@@ -188,7 +204,7 @@ public class OrchestrionBlockEntity extends BlockEntity {
             if (!activate(level)) return;
             playing = true;
         }
-        if (item.getItem() instanceof CustomDiscItem) {
+        if (trackOf(item) != null) {
             tickDisc(level);
         } else {
             tickSheet(level);
@@ -214,7 +230,15 @@ public class OrchestrionBlockEntity extends BlockEntity {
     }
 
     private void playStep(ServerLevel level, java.util.List<NoteCode.Tone> tones) {
-        double x = worldPosition.getX() + 0.5, y = worldPosition.getY() + 0.5, z = worldPosition.getZ() + 0.5;
+        tonesPlayed += playTones(level, worldPosition, tones, sounds);
+    }
+
+    /**
+     * Plays one step's tones at a block like a note block (at most {@code maxTonesPerTick}, range {@code orchestrionRange})
+     * with a note particle; returns how many sounded. Shared with the jukebox's composition discs ({@code SheetPlayback}).
+     */
+    public static int playTones(ServerLevel level, BlockPos pos, java.util.List<NoteCode.Tone> tones, Holder<SoundEvent>[] sounds) {
+        double x = pos.getX() + 0.5, y = pos.getY() + 0.5, z = pos.getZ() + 0.5;
         float range = MusicConfig.orchestrionRange / 16.0F;
         int played = 0;
         for (NoteCode.Tone tone : tones) {
@@ -224,14 +248,14 @@ public class OrchestrionBlockEntity extends BlockEntity {
             level.playSeededSound(null, x, y, z, sound, SoundSource.RECORDS, range * tone.volume(), tone.pitch(), level.getRandom().nextLong());
             played++;
         }
-        tonesPlayed += played;
         if (played > 0) {
             level.sendParticles(ParticleTypes.NOTE, x, y + 0.7, z, 0, tones.get(0).note() / 24.0, 0.0, 0.0, 1.0);
         }
+        return played;
     }
 
     private void tickDisc(ServerLevel level) {
-        TrackRef track = CustomDiscItem.track(item);
+        TrackRef track = trackOf(item);
         if (!DiscPlayback.playing(level, worldPosition)) DiscPlayback.start(level, worldPosition, track);
         if (level.getGameTime() % 20 == 0) DiscPlayback.update(level, worldPosition);
         long elapsed = DiscPlayback.elapsed(level, worldPosition);
@@ -313,8 +337,8 @@ public class OrchestrionBlockEntity extends BlockEntity {
     public int comparatorOutput() {
         if (item.isEmpty()) return 0;
         int total;
-        if (item.getItem() instanceof CustomDiscItem) {
-            TrackRef t = CustomDiscItem.track(item);
+        if (trackOf(item) != null) {
+            TrackRef t = trackOf(item);
             total = t == null ? 1 : Math.max(1, t.seconds()) * 20;
         } else {
             prepare();

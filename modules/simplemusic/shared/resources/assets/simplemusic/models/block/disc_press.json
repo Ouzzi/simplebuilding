@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "simplemusic:block/disc_press_top",
+    "side": "simplemusic:block/disc_press_side",
+    "bottom": "minecraft:block/smooth_stone",
+    "particle": "simplemusic:block/disc_press_side"
+  }
+}

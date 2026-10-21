@@ -28,8 +28,6 @@ public final class SimpleMusic {
     public static Predicate<String> modLoaded = id -> false;
     /** Client screen hook: open the sheet editor for the stack in {@code hand} (0 main, 1 off). */
     public static Consumer<Integer> openSheet = hand -> {};
-    /** Client screen hook: open the burn (upload) window for the blank disc in {@code hand}. */
-    public static Consumer<Integer> openBurn = hand -> {};
 
     /** The loader's config directory (sheet import and upload folders live below it). */
     public static Path configDir = Path.of("config");
@@ -47,7 +45,7 @@ public final class SimpleMusic {
         configDir = dir;
         MusicConfig.load(dir);
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "music", "simplemusic.testcentre.station",
-                java.util.stream.Stream.concat(java.util.stream.Stream.of("simplemusic:sheet_music", "simplemusic:orchestrion",
+                java.util.stream.Stream.concat(java.util.stream.Stream.of("simplemusic:sheet_music", "simplemusic:orchestrion", "simplemusic:disc_press",
                         "simplemusic:blank_disc", "simplemusic:custom_disc", "simplemusic:guide_book", "simplemusic:pocket_jukebox"),
                         java.util.Arrays.stream(net.minecraft.world.item.DyeColor.values()).map(c -> "simplemusic:" + c.getSerializedName() + "_pocket_jukebox"))
                         .toList());

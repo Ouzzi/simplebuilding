@@ -6,7 +6,8 @@
   "mixins": [
     "JukeboxBlockMixin",
     "JukeboxBlockEntityMixin",
-    "DiscoverTipMixin"
+    "DiscoverTipMixin",
+    "CartographyTableMenuMixin"
   ],
   "client": [
     "client.SoundBufferLibraryMixin",

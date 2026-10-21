@@ -105,4 +105,19 @@ public final class ModuleGameTest {
     public void pocketStops(GameTestHelper h) {
         MusicTests.ALL.get("pocket_stops").accept(h);
     }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 200)
+    public void pressSheetStays(GameTestHelper h) {
+        MusicTests.ALL.get("press_sheet_stays").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pressRules(GameTestHelper h) {
+        MusicTests.ALL.get("press_rules").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void cartographyCopiesSheet(GameTestHelper h) {
+        MusicTests.ALL.get("cartography_copies_sheet").accept(h);
+    }
 }

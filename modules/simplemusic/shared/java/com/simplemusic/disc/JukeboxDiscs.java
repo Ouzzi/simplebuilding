@@ -17,8 +17,9 @@ import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 
 /**
  * Custom discs in the Vanilla jukebox (owner decision U1 b, mixins {@code JukeboxBlockMixin} and
- * {@code JukeboxBlockEntityMixin} on every loader). The jukebox holds the disc like a Vanilla one; the track runs
- * through {@link DiscPlayback} once, like a Vanilla disc (no loop; the Orchestrion loops).
+ * {@code JukeboxBlockEntityMixin} on every loader). The jukebox holds the disc like a Vanilla one; a track runs
+ * through {@link DiscPlayback}, a pressed composition through {@link SheetPlayback} (server tones), each once like a
+ * Vanilla disc (no loop; the Orchestrion loops).
  *
  * <p>Guard: config {@code jukeboxCustomDiscs} and no Vanilla jukebox playlist. SimpleBuilding's chest-above playlist
  * back port ({@code JukeboxPlaylist}) only moves discs with a Vanilla {@code jukebox_song} and leaves custom discs
@@ -38,7 +39,7 @@ public final class JukeboxDiscs {
     }
 
     public static boolean isDisc(ItemStack stack) {
-        return stack.getItem() instanceof CustomDiscItem && CustomDiscItem.track(stack) != null;
+        return CustomDiscItem.hasMusic(stack);
     }
 
     /** After the Vanilla jukebox tick (server). */
@@ -48,11 +49,22 @@ public final class JukeboxDiscs {
         if (!isDisc(item) || !on(level)) {
             FINISHED.remove(key);
             if (DiscPlayback.playing(level, pos)) DiscPlayback.stop(level, pos);
+            SheetPlayback.stop(level, pos);
             return;
         }
         if (FINISHED.contains(key)) return;
+        TrackRef track = CustomDiscItem.track(item);
+        if (track == null) {
+            // a pressed composition: server tones like the Orchestrion, once
+            if (!SheetPlayback.playing(level, pos) && !SheetPlayback.start(level, pos, CustomDiscItem.composition(item).code())) {
+                FINISHED.add(key);
+                return;
+            }
+            if (SheetPlayback.tick(level, pos)) FINISHED.add(key);
+            return;
+        }
         if (!DiscPlayback.playing(level, pos)) {
-            DiscPlayback.start(level, pos, CustomDiscItem.track(item));
+            DiscPlayback.start(level, pos, track);
             return;
         }
         if (DiscPlayback.finished(level, pos)) {
@@ -67,5 +79,6 @@ public final class JukeboxDiscs {
     public static void removed(ServerLevel level, BlockPos pos) {
         FINISHED.remove(GlobalPos.of(level.dimension(), pos));
         DiscPlayback.stop(level, pos);
+        SheetPlayback.stop(level, pos);
     }
 }

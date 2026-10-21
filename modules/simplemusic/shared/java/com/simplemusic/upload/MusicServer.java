@@ -11,7 +11,6 @@ import com.simplemusic.net.UploadBeginPayload;
 import com.simplemusic.net.UploadChunkPayload;
 import com.simplemusic.net.UploadResultPayload;
 import com.simplemusic.registry.MusicComponents;
-import com.simplemusic.registry.MusicRegistry;
 import com.simplemusic.sheet.NoteCode;
 import com.simplemusic.sheet.SheetContent;
 import com.simplemusic.sheet.SheetMusicItem;
@@ -34,8 +33,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.LevelResource;
 
 /**
- * Server half of Simple Music's network: saving sheets (the server parses again, all or nothing), burning discs
- * (chunked upload, Ogg check, quota, moderation U-B) and handing out track files (only to players a block near them
+ * Server half of Simple Music's network: saving sheets (the server parses again, all or nothing), uploading tracks onto
+ * sheets (chunked upload, Ogg check, quota, moderation U-B; the disc press then presses them onto discs) and handing
+ * out track files (only to players a block near them
  * plays the track for, rate limited). One store per running server.
  */
 public final class MusicServer {
@@ -82,6 +82,7 @@ public final class MusicServer {
         UPLOADS.clear();
         DOWNLOADS.clear();
         DiscPlayback.clear();
+        com.simplemusic.disc.SheetPlayback.clear();
         com.simplemusic.pocket.PocketPlayback.clear();
     }
 
@@ -162,8 +163,8 @@ public final class MusicServer {
         if (!SimpleMusic.on()) return;
         UPLOADS.values().removeIf(u -> u.session().expired(clock.getAsLong()));
         InteractionHand hand = payload.hand() == 1 ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
-        if (!player.getItemInHand(hand).is(MusicRegistry.BLANK_DISC)) {
-            reply(player, "no_blank");
+        if (!uploadTarget(player.getItemInHand(hand))) {
+            reply(player, "no_sheet");
             return;
         }
         String title = payload.title().strip();
@@ -201,7 +202,12 @@ public final class MusicServer {
         finish(player, upload);
     }
 
-    /** Checks and stores a complete upload, turns the blank disc into the custom disc. */
+    /** An upload goes onto an unsigned sheet of music (owner 21.10.: uploads run through the sheet's editor). */
+    public static boolean uploadTarget(ItemStack stack) {
+        return stack.getItem() instanceof SheetMusicItem && !SheetMusicItem.content(stack).signed();
+    }
+
+    /** Checks and stores a complete upload, turns the sheet into an upload sheet (track + signed title). */
     private static void finish(ServerPlayer player, Upload upload) {
         byte[] data = upload.session().bytes();
         OggCheck.Result check = OggCheck.check(data, MusicConfig.uploadLimits());
@@ -210,9 +216,9 @@ public final class MusicServer {
             return;
         }
         InteractionHand hand = upload.hand() == 1 ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
-        ItemStack blank = player.getItemInHand(hand);
-        if (!blank.is(MusicRegistry.BLANK_DISC)) {
-            reply(player, "no_blank");
+        ItemStack sheet = player.getItemInHand(hand);
+        if (!uploadTarget(sheet)) {
+            reply(player, "no_sheet");
             return;
         }
         byte[] clean = OggCheck.strip(data);
@@ -231,11 +237,12 @@ public final class MusicServer {
             reply(player, "removed_before");
             return;
         }
-        ItemStack disc = new ItemStack(MusicRegistry.CUSTOM_DISC);
-        disc.set(MusicComponents.TRACK, new TrackRef(track.hash(), upload.session().title(), track.seconds(), player.getName().getString()));
-        blank.shrink(1);
-        if (blank.isEmpty()) player.setItemInHand(hand, disc);
-        else player.getInventory().placeItemBackInInventory(disc, net.minecraft.util.Prediction.SERVER_ONLY);
+        ItemStack done = sheet.copyWithCount(1);
+        done.set(MusicComponents.TRACK, new TrackRef(track.hash(), upload.session().title(), track.seconds(), player.getName().getString()));
+        done.set(MusicComponents.SHEET, new SheetContent("", upload.session().title(), player.getName().getString(), true));
+        sheet.shrink(1);
+        if (sheet.isEmpty()) player.setItemInHand(hand, done);
+        else player.getInventory().placeItemBackInInventory(done, net.minecraft.util.Prediction.SERVER_ONLY);
         reply(player, track.status() == TrackStore.Status.APPROVED ? "accepted" : "pending", track.hash().substring(0, 8));
     }
 
