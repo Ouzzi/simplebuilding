@@ -738,6 +738,11 @@ public class SledgehammerItem extends Item {
         return strike.done();
     }
 
+    /** Pebbles of one crushed diamond block as the recipe catalog shows them (26.3 twin: Simple Hammers' config). */
+    public static int catalogDiamondPebbles() {
+        return com.simplebuilding.config.ServerTuning.diamondBlockPebbles();
+    }
+
     private static ItemStack diamondPebbles() {
         return new ItemStack(ModItems.DIAMOND_PEBBLE, Math.max(0, com.simplebuilding.config.ServerTuning.diamondBlockPebbles()));
     }

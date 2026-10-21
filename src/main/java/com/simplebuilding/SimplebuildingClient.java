@@ -66,6 +66,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         ClientNetworking.setSender(ClientPlayNetworking::send);
         // Split stage 8c-2: what SimpleBuilding draws into Simple Storage's backpack screen (26.3; nothing on 26.2).
         com.simplebuilding.client.LibClientServices.init();
+        // Split stage 9: ModMenu's config screen leaves out the options a sub-mod took over (ConfigOptions.hidden).
+        com.simplebuilding.client.ConfigScreenHiding.apply(
+                me.shedaniel.autoconfig.AutoConfigClient.getGuiRegistry(com.simplebuilding.config.SimplebuildingConfig.class));
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         if (ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks (b-blocksmove)

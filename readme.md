@@ -1,6 +1,6 @@
 # SimpleBuilding
 
-Mod-ID `simplebuilding`, Version 1.3.1. Bau-, Abbau- und Lager-Werkzeuge fuer grosses Bauen im
+Mod-ID `simplebuilding`, Version 2.0.0 (26.3: Super-Mod mit Pflicht-Sub-Mods, siehe `CHANGELOG.md`). Bau-, Abbau- und Lager-Werkzeuge fuer grosses Bauen im
 Ueberlebensmodus, dazu Enderit als Endgame-Stufe und die Funktionen der Mod Simple Tweaks.
 
 Diese Readme ist eine Uebersicht. Die vollstaendige Referenz - jedes Item, jeder Block, jedes Rezept,

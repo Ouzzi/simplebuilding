@@ -1424,6 +1424,69 @@ public final class ConfigOptionTests {
     }
 
     /**
+     * Split stage 9: the options a sub-mod took over on 26.3 (furnace speeds -> Simple Ovens, hammer upgrade and pebble
+     * values -> Simple Hammers, bundle clicks, backpack switch and rare-find chances -> Simple Storage) are hidden there,
+     * and only there: 26.2 still reads them. Hidden means out of {@code visible()} (screens, {@code config list}), but
+     * {@code byPath} still finds them, and an old {@code simplebuilding.json} with changed values loads, validates and saves
+     * them unchanged - no error, no data loss. On 26.3 the recipe catalog's diamond pebbles follow Simple Hammers' value,
+     * not SimpleBuilding's old key.
+     */
+    public static void movedOptionsAreHiddenButStillLoad(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Map<Set<String>, Boolean> moved = new LinkedHashMap<>();
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_OVENS, !McVersion.OVENS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_HAMMERS, !McVersion.HAMMERS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_STORAGE, !McVersion.STORAGE_IN_SB);
+        var visible = com.simplebuilding.config.ConfigOptions.visible();
+        int hiddenCount = 0;
+        com.google.gson.Gson gson = new com.google.gson.GsonBuilder().setPrettyPrinting().create();
+        JsonObject file = gson.toJsonTree(new SimplebuildingConfig()).getAsJsonObject();
+        Map<String, Object> written = new LinkedHashMap<>();
+        for (var entry : moved.entrySet()) {
+            for (String path : entry.getKey()) {
+                var option = com.simplebuilding.config.ConfigOptions.byPath(path);
+                if (option == null) { problems.add(path + " is no config option any more (old files would lose it)"); continue; }
+                if (option.hidden() != entry.getValue()) problems.add(path + " hidden=" + option.hidden() + " on this line");
+                if (visible.contains(option) == entry.getValue()) problems.add(path + " visible=" + visible.contains(option));
+                if (option.hidden()) hiddenCount++;
+                // An old file with a changed value: flip switches, halve numbers (inside every clamp).
+                Object value = option.defaultValue();
+                Object changed = value instanceof Boolean b ? (Object) !b
+                        : value instanceof Integer n ? (Object) Math.max(1, n / 2) : (Object) (((Double) value) / 2);
+                written.put(path, changed);
+                JsonObject group = file;
+                String[] parts = path.split("\\.");
+                for (int k = 0; k < parts.length - 1; k++) group = group.getAsJsonObject(parts[k]);
+                group.add(parts[parts.length - 1], gson.toJsonTree(changed));
+            }
+        }
+        helper.assertTrue(visible.size() == com.simplebuilding.config.ConfigOptions.all().size() - hiddenCount,
+                "visible() is all() minus the hidden options");
+        SimplebuildingConfig loaded = gson.fromJson(file, SimplebuildingConfig.class);
+        loaded.validatePostLoad();
+        SimplebuildingConfig saved = gson.fromJson(gson.toJson(loaded), SimplebuildingConfig.class);
+        for (var entry : written.entrySet()) {
+            var option = com.simplebuilding.config.ConfigOptions.byPath(entry.getKey());
+            if (option != null && !entry.getValue().equals(option.get(saved))) {
+                problems.add(entry.getKey() + " came back as " + option.get(saved) + " instead of " + entry.getValue());
+            }
+        }
+        if (!McVersion.HAMMERS_IN_SB) {
+            var tools = com.simplebuilding.config.ServerTuning.local().tools;
+            int old = tools.diamondBlockPebbles;
+            try {
+                tools.diamondBlockPebbles = 27;
+                int shown = com.simplebuilding.util.InWorldTransformations.diamondCrush().get("count").getAsInt();
+                if (shown != com.simplebuilding.items.custom.SledgehammerItem.catalogDiamondPebbles() || shown == 27) {
+                    problems.add("diamond crush catalog shows " + shown + " pebbles, not Simple Hammers' value");
+                }
+            } finally { tools.diamondBlockPebbles = old; }
+        }
+        helper.assertTrue(problems.isEmpty(), "moved config options:\n" + String.join("\n", problems));
+        done(helper);
+    }
+
+    /**
      * {@code /simplebuilding config get|set|reset|list} reaches every option by its path: get
      * answers for all of them, set parses the value, clamps it like a loaded file, writes the live
      * config and saves once, reset brings back the default, and nonsense (an unknown option, a
@@ -1487,7 +1550,7 @@ public final class ConfigOptionTests {
             helper.assertTrue(config.tools.magnetRangeMultiplier == 1.0,
                     "reset left tools.magnetRangeMultiplier at " + config.tools.magnetRangeMultiplier + " instead of the default 1.0");
 
-            long toolOptions = com.simplebuilding.config.ConfigOptions.all().stream().filter(o -> o.path().startsWith("tools.")).count();
+            long toolOptions = com.simplebuilding.config.ConfigOptions.visible().stream().filter(o -> o.path().startsWith("tools.")).count();
             helper.assertTrue(dispatcher.execute("simplebuilding config list tools.", source) == toolOptions,
                     "list tools. did not list the " + toolOptions + " tool options");
         } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {

@@ -102,11 +102,11 @@ public final class SimplebuildingCommand {
     }
 
     private static final SuggestionProvider<CommandSourceStack> OPTIONS = (context, builder) ->
-            SharedSuggestionProvider.suggest(ConfigOptions.all().stream().map(ConfigOptions.Option::path), builder);
+            SharedSuggestionProvider.suggest(ConfigOptions.visible().stream().map(ConfigOptions.Option::path), builder);
 
     /** Group prefixes for {@code list}: {@code root}, {@code tools}, {@code tweaks.pads}, ... */
     private static final SuggestionProvider<CommandSourceStack> GROUPS = (context, builder) ->
-            SharedSuggestionProvider.suggest(ConfigOptions.all().stream()
+            SharedSuggestionProvider.suggest(ConfigOptions.visible().stream()
                     .map(o -> o.path().contains(".") ? o.path().substring(0, o.path().lastIndexOf('.')) : "root")
                     .distinct(), builder);
 
@@ -126,7 +126,8 @@ public final class SimplebuildingCommand {
     public static int list(CommandContext<CommandSourceStack> context, String filter) {
         SimplebuildingConfig config = Simplebuilding.getConfig();
         int count = 0;
-        for (ConfigOptions.Option option : ConfigOptions.all()) {
+        // Split stage 9: options a sub-mod took over stay readable by get/set/reset, but list leaves them out.
+        for (ConfigOptions.Option option : ConfigOptions.visible()) {
             boolean match = "root".equals(filter) ? !option.path().contains(".") : option.path().startsWith(filter);
             if (!match) {
                 continue;

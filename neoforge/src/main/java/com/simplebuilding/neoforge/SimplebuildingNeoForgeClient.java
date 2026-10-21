@@ -172,6 +172,7 @@ public final class SimplebuildingNeoForgeClient {
         ConfigManager<SimplebuildingConfig> manager =
                 (ConfigManager<SimplebuildingConfig>) AutoConfig.getConfigHolder(SimplebuildingConfig.class);
         GuiRegistry registry = DefaultGuiTransformers.apply(DefaultGuiProviders.apply(new GuiRegistry()));
+        com.simplebuilding.client.ConfigScreenHiding.apply(registry); // split stage 9: options a sub-mod took over
         return new ConfigScreenProvider<>(manager, registry, parent).get();
     }
 

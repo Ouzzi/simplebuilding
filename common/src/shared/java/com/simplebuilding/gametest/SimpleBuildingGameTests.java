@@ -958,6 +958,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("config_option_game_test_every_option_has_name_tooltip_and_tab", ConfigOptionTests::everyOptionHasNameTooltipAndTab)
                     .build(),
+            GameTestSpec.named("config_option_game_test_moved_options_are_hidden_but_still_load", ConfigOptionTests::movedOptionsAreHiddenButStillLoad)
+                    .build(),
             GameTestSpec.named("config_option_game_test_super_mod_switches_reach_the_bundled_sub_mods", ConfigOptionTests::superModSwitchesReachTheBundledSubMods)
                     .build(),
             GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)

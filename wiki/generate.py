@@ -1268,6 +1268,13 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     bounds = config_metadata.read_metadata(metadata_files, version_flags(roots))
     sets_path = path.parent / "ConfigOptions.java"
     option_sets = config_metadata.option_sets(sets_path)
+    # Split stage 9: hidden on a line whose flag says the feature lives in a sub-mod (ConfigOptions.hidden).
+    flags = version_flags(roots) or {}
+    hidden = set()
+    if option_sets is not None:
+        for flag, paths in option_sets.get('MOVED', {}).items():
+            if flags.get(flag) is False:
+                hidden |= paths
 
     def resolve(type_name: str, from_file: Path):
         if type_name in by_file.get(from_file, {}):
@@ -1296,7 +1303,7 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
                 walk(sub_fields, sub_file, name + ".", tab, name,
                      owners + [(sub_file, type_name, name + ".")])
                 continue
-            if type_name not in VALUE_TYPES:
+            if type_name not in VALUE_TYPES or name in hidden:
                 continue
             key = f"{prefix}option.{name}"
             value_range = None
