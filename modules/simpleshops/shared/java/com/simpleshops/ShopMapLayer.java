@@ -3,6 +3,8 @@ package com.simpleshops;
 import com.simplebuilding.framework.api.MapLayerSources.Marker;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.logic.EnderShops;
+import com.simpleshops.logic.PriceRow;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -13,8 +15,9 @@ import net.minecraft.world.level.chunk.LevelChunk;
 
 /**
  * The shops layer of the wayfinder map: every active shop (a sales block with a price and a stocked display case right
- * above it) in a loaded chunk, with what it offers and what it costs. Only what the shop shows to everyone: no earnings,
- * no stock counts beyond the offer.
+ * above it) in a loaded chunk, with what it offers and what it costs; in an unloaded chunk every public one, read from the
+ * ender shop data (KONZ20 stage 4, the same rules as the trade terminal's catalog) without loading the chunk. Only what the
+ * shop shows to everyone: no earnings, no stock counts beyond the offer.
  */
 final class ShopMapLayer {
     /** Shops per answer; the map asks for small areas, this only bounds a crowded one. */
@@ -44,7 +47,29 @@ final class ShopMapLayer {
                 }
             }
         }
+        unloaded(serverLevel, minX, minZ, maxX, maxZ, out);
         return out;
+    }
+
+    /** Public shops of {@code level} in the rectangle whose chunk is not loaded (loaded ones were read from their blocks). */
+    private static void unloaded(ServerLevel level, int minX, int minZ, int maxX, int maxZ, List<Marker> out) {
+        String dim = level.dimension().identifier().toString();
+        EnderShops data = EnderShops.get(level.getServer());
+        for (EnderShops.Vault v : data.all()) {
+            if (out.size() >= MAX) return;
+            if (v.kind != EnderShops.Kind.SALES || !v.listed() || !v.dimension().equals(dim) || PriceRow.filled(v.prices) == 0) continue;
+            if (v.owner() == null && !v.isServer()) continue;
+            BlockPos pos = v.blockPos();
+            if (pos.getX() < minX || pos.getX() > maxX || pos.getZ() < minZ || pos.getZ() > maxZ) continue;
+            if (level.getChunkSource().getChunkNow(pos.getX() >> 4, pos.getZ() >> 4) != null) continue;
+            EnderShops.Vault box = data.caseOf(v);
+            if (box == null || box.isServer() != v.isServer() || box.items.stream().allMatch(ItemStack::isEmpty)) continue;
+            List<String> lines = new ArrayList<>();
+            lines.add(v.isServer() ? "Server shop" : "Shop of " + v.ownerName());
+            lines.add("Offer: " + join(box.items, false));
+            lines.add("Price: " + join(v.prices, true));
+            out.add(new Marker(pos.getX(), pos.getZ(), "shop", lines));
+        }
     }
 
     /** Names with counts (the price); the offer shows names only, a sale hands out one piece, the stock stays private. */

@@ -3,9 +3,6 @@ package com.simplemobheads.ritual;
 import com.simplemobheads.MobHeads;
 import com.simplemobheads.SimpleMobHeads;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -40,8 +37,8 @@ import org.jspecify.annotations.Nullable;
  * a fire charge ({@code IgniteItemMixin}) - fire without a player (lightning, lava, dispensers) never counts, and the pattern is
  * only checked at that one spot, never searched for. At night: a visual-only lightning bolt, the torches go out, the moss
  * turns to cobblestone, the fire dies in soul flames and the Herobrine head lies on the shrine; gold and netherrack stay. By
- * day nothing is used up. Cooldowns per shrine position and per player keep the head from being farmed (in memory only: a
- * restart frees them, the shrine still costs its torches and moss).
+ * day nothing is used up. Cooldowns per shrine position and per player keep the head from being farmed; they live in the
+ * world save ({@link RitualCooldowns}) and survive a restart.
  */
 public final class HerobrineRitual {
     public enum Result { SUMMONED, DISABLED, NO_PLAYER, NO_SHRINE, DAY, NOT_ALLOWED, COOLDOWN }
@@ -52,8 +49,6 @@ public final class HerobrineRitual {
     public static final int LIGHTNING_OFFSET = 3;
 
     private static final List<Direction> EDGES = List.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
-    private static final Map<String, Long> SHRINE_READY = new ConcurrentHashMap<>();
-    private static final Map<UUID, Long> PLAYER_READY = new ConcurrentHashMap<>();
 
     private HerobrineRitual() {
     }
@@ -92,13 +87,13 @@ public final class HerobrineRitual {
         }
         long now = level.getGameTime();
         String shrine = level.dimension().identifier() + "@" + netherrack.asLong();
-        if (SHRINE_READY.getOrDefault(shrine, Long.MIN_VALUE) > now || PLAYER_READY.getOrDefault(player.getUUID(), Long.MIN_VALUE) > now) {
+        RitualCooldowns cooldowns = RitualCooldowns.get(level.getServer());
+        if (cooldowns.waiting(shrine, player.getUUID(), now)) {
             level.sendParticles(ParticleTypes.SOUL, flame.x, flame.y, flame.z, 2, 0.2, 0.2, 0.2, 0.01);
             return Result.COOLDOWN;
         }
         int cooldown = SimpleMobHeads.config().ritualCooldownTicks;
-        SHRINE_READY.put(shrine, now + cooldown);
-        PLAYER_READY.put(player.getUUID(), now + cooldown);
+        cooldowns.start(shrine, player.getUUID(), now, now + cooldown);
 
         BlockPos moss = netherrack.below();
         level.removeBlock(fire, false);
@@ -179,8 +174,7 @@ public final class HerobrineRitual {
     }
 
     /** Tests only: forget every ritual cooldown. */
-    public static void resetForTests() {
-        SHRINE_READY.clear();
-        PLAYER_READY.clear();
+    public static void resetForTests(net.minecraft.server.MinecraftServer server) {
+        RitualCooldowns.get(server).clear();
     }
 }
