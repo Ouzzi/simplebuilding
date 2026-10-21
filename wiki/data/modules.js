@@ -410,9 +410,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 2
+      "features": 3
     },
-    "dataHash": "315e187b9f71"
+    "dataHash": "19c97f8aa8b0"
   },
   {
     "id": "simpleinterfaces",
@@ -500,7 +500,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemobs",
     "displayName": "Simple Mobs",
-    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Nether Gem, and the Potion of Silence.",
+    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Red Nether Gem, and the Potion of Silence.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -521,7 +521,7 @@ window.WIKI_MODULES = [
       "recipes": 62,
       "features": 12
     },
-    "dataHash": "af33db89594f"
+    "dataHash": "7190530b3fc0"
   },
   {
     "id": "simpleweather",

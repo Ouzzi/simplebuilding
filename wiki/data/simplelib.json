@@ -66,6 +66,25 @@
           "Andere Mods nutzen sie über die gemeinsamen Tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond und c:storage_blocks/enderite bzw. /cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter den neuen IDs."
         ]
       }
+    },
+    {
+      "id": "rarity_tiers",
+      "en": {
+        "title": "Cursed and Mythic rarity",
+        "summary": "Two tiers above Epic for every Simple mod: Cursed (radiant red name, black shadow) and Mythic (turquoise to light green name with a shimmer, enchantment glint).",
+        "details": [
+          "Stored as the item component simplelib:rarity (cursed or mythic); the Vanilla rarity stays Epic. The tier colours the name in the tooltip, above the hotbar and in chat item links.",
+          "Cursed: Biome Brush (Simple Tools), Nether Heart and Red Nether Gem (Simple Mobs). Mythic: Strong Upgrade template, Strong Beacon and Strong Conduit (Simple Beacons)."
+        ]
+      },
+      "de": {
+        "title": "Verfluchte und mythische Seltenheit",
+        "summary": "Zwei Stufen über Episch für alle Simple-Mods: Verflucht (strahlend roter Name, schwarzer Schatten) und Mythisch (Name von Türkis nach Hellgrün mit Schimmer, Verzauberungsglanz).",
+        "details": [
+          "Gespeichert als Item-Komponente simplelib:rarity (cursed oder mythic); die Vanilla-Seltenheit bleibt Episch. Die Stufe färbt den Namen im Tooltip, über der Schnellleiste und in Chat-Item-Links.",
+          "Verflucht: Biom-Pinsel (Simple Tools), Netherherz und Rotes Nether-Juwel (Simple Mobs). Mythisch: Starke Aufwertungsvorlage, Starkes Leuchtfeuer und Starker Aquisator (Simple Beacons)."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1546,7 +1565,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 2,
+    "features": 3,
     "recipes": 29,
     "lootTables": 7,
     "tags": 3,

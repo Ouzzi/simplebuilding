@@ -324,8 +324,8 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLootBlock.java"
       ],
       "en": {
-        "title": "Blighted Wither, Nether Heart and Nether Gem",
-        "summary": "The Wither, only stronger: put a Netherite Helmet on the middle skull of the Wither figure before the third skull and the Blighted Wither rises - 600 health, armor 8, three phases, and every special attack is announced before it hits. An Enderite Helmet calls the even stronger Abyssal Wither. Both drop a Nether Heart, the Abyssal Wither also a Nether Gem.",
+        "title": "Blighted Wither, Nether Heart and Red Nether Gem",
+        "summary": "The Wither, only stronger: put a Netherite Helmet on the middle skull of the Wither figure before the third skull and the Blighted Wither rises - 600 health, armor 8, three phases, and every special attack is announced before it hits. An Enderite Helmet calls the even stronger Abyssal Wither. Both drop a Nether Heart, the Abyssal Wither also a Red Nether Gem.",
         "details": [
           "Summoning: build the Vanilla T of soul sand or soul soil and place the middle wither skeleton skull. Right-click that skull with a Netherite Helmet: the helmet sits on it. Then place the other skulls as usual; the third one summons the Blighted Wither and uses up the helmet. The helmet must sit before the third skull - on a finished figure the Vanilla Wither has already come. A side skull or a finished figure refuses the helmet (smoke, it stays in your hand); breaking the crowned skull drops the helmet again. Without a helmet the Vanilla Wither comes. Not on Peaceful; server config witherSummonEnabled.",
           "Changed: the old figure with a Block of Netherite under the foot of the T no longer works - use the helmet on the middle skull instead.",
@@ -334,14 +334,14 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Phase 1 (above half health): the Vanilla skulls, plus a twin volley every 5 s - both side heads burn with soul fire for 1 s, then fire at the target at once.",
           "Phase 2 (half health and below): the Vanilla shield (arrows and wind charges bounce off), and every 20 s three Wither Skeletons: soul flames mark their spots for 2 s before they rise. Never more than six near it; they drop nothing. From 30 % health they come in full armor with a sword - iron from the Blighted Wither, diamond from the Abyssal Wither.",
           "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is thrown far away (knockback resistance does not help). Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
-          "Drops (Looting does not change it): the Blighted Wither exactly one Nether Heart, 1-2 Nether Stars and 3-5 Netherite nuggets (without a mod that adds them one Netherite Scrap); the Abyssal Wither one Nether Heart, one Nether Gem and 3-5 Enderite nuggets (tag c:nuggets/enderite, only when a mod adds them) - no Nether Star. Only these two drop heart and gem.",
-          "Placed loot: once the death has ended, Nether Heart and Nether Gem are set as small blocks on the ground straight under the Wither (searched down to 24 blocks, the gem on a free spot next to the heart). Without ground they drop as items. Both survive explosions and fire as items and as blocks (blast resistance 1200, Withers cannot break them); breaking the block gives the item back.",
-          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Nether Gem: its use is still to come. Old Wither Hearts become Nether Hearts."
+          "Drops (Looting does not change it): the Blighted Wither exactly one Nether Heart, 1-2 Nether Stars and 3-5 Netherite nuggets (without a mod that adds them one Netherite Scrap); the Abyssal Wither one Nether Heart, one Red Nether Gem and 3-5 Enderite nuggets (tag c:nuggets/enderite, only when a mod adds them) - no Nether Star. Only these two drop heart and gem.",
+          "Placed loot: once the death has ended, Nether Heart and Red Nether Gem are set as small blocks on the ground straight under the Wither (searched down to 24 blocks, the gem on a free spot next to the heart). Without ground they drop as items. Both survive explosions and fire as items and as blocks (blast resistance 1200, Withers cannot break them); breaking the block gives the item back.",
+          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: its use is still to come. Old Wither Hearts become Nether Hearts."
         ]
       },
       "de": {
-        "title": "Verdorrter Wither, Netherherz und Nether-Juwel",
-        "summary": "Der Wither, nur stärker: Setz vor dem dritten Schädel einen Netherithelm auf den mittleren Schädel der Wither-Figur, dann erscheint der Verdorrte Wither - 600 Leben, Rüstung 8, drei Phasen, und jeder Spezialangriff wird angekündigt, bevor er trifft. Ein Enderithelm ruft den noch stärkeren Abgrund-Wither. Beide lassen ein Netherherz fallen, der Abgrund-Wither zusätzlich ein Nether-Juwel.",
+        "title": "Verdorrter Wither, Netherherz und Rotes Nether-Juwel",
+        "summary": "Der Wither, nur stärker: Setz vor dem dritten Schädel einen Netherithelm auf den mittleren Schädel der Wither-Figur, dann erscheint der Verdorrte Wither - 600 Leben, Rüstung 8, drei Phasen, und jeder Spezialangriff wird angekündigt, bevor er trifft. Ein Enderithelm ruft den noch stärkeren Abgrund-Wither. Beide lassen ein Netherherz fallen, der Abgrund-Wither zusätzlich ein Rotes Nether-Juwel.",
         "details": [
           "Beschwörung: Baue das Vanilla-T aus Seelensand oder Seelenerde und setz den mittleren Witherskelettschädel. Rechtsklick mit einem Netherithelm auf diesen Schädel: der Helm sitzt darauf. Dann die übrigen Schädel wie gewohnt; der dritte ruft den Verdorrten Wither und verbraucht den Helm. Der Helm muss vor dem dritten Schädel sitzen - auf einer fertigen Figur ist der Vanilla-Wither schon da. Ein Seitenschädel oder eine fertige Figur nimmt den Helm nicht (Rauch, er bleibt in der Hand); baust du den Schädel mit Helm ab, fällt der Helm wieder heraus. Ohne Helm kommt der Vanilla-Wither. Nicht auf Friedlich; Server-Config witherSummonEnabled.",
           "Geändert: Die alte Figur mit einem Netheritblock unter dem Fuß des T funktioniert nicht mehr - nimm stattdessen den Helm auf dem mittleren Schädel.",
@@ -350,9 +350,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Phase 1 (über halbem Leben): die Vanilla-Schädel, dazu alle 5 s eine Doppelsalve - beide Seitenköpfe brennen 1 s mit Seelenfeuer, dann schießen sie gleichzeitig auf das Ziel.",
           "Phase 2 (ab halbem Leben): der Vanilla-Schild (Pfeile und Windkugeln prallen ab), und alle 20 s drei Witherskelette: Seelenflammen markieren 2 s vorher ihre Plätze. Nie mehr als sechs in seiner Nähe; sie lassen nichts fallen. Ab 30 % Leben kommen sie in voller Rüstung mit Schwert - Eisen beim Verdorrten Wither, Diamant beim Abgrund-Wither.",
           "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weit weggeschleudert (Rückstoßresistenz hilft nicht). Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
-          "Beute (Plünderung ändert sie nicht): der Verdorrte Wither genau ein Netherherz, 1-2 Nethersterne und 3-5 Netheritnuggets (ohne Mod, die sie hinzufügt, eine Netheritplatte); der Abgrund-Wither ein Netherherz, ein Nether-Juwel und 3-5 Enderitnuggets (Tag c:nuggets/enderite, nur wenn eine Mod sie hinzufügt) - keinen Netherstern. Nur diese beiden lassen Herz und Juwel fallen.",
-          "Gesetzte Beute: Wenn der Tod vorbei ist, stehen Netherherz und Nether-Juwel als kleine Blöcke auf dem Boden direkt unter dem Wither (bis 24 Blöcke tief gesucht, das Juwel auf einem freien Platz neben dem Herz). Ohne Boden fallen sie als Gegenstände. Beide überstehen Explosionen und Feuer, als Gegenstand und als Block (Explosionsfestigkeit 1200, Wither zerstören sie nicht); abgebaut geben sie den Gegenstand zurück.",
-          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Nether-Juwel: sein Zweck folgt später. Alte Witherherzen werden zu Netherherzen."
+          "Beute (Plünderung ändert sie nicht): der Verdorrte Wither genau ein Netherherz, 1-2 Nethersterne und 3-5 Netheritnuggets (ohne Mod, die sie hinzufügt, eine Netheritplatte); der Abgrund-Wither ein Netherherz, ein Rotes Nether-Juwel und 3-5 Enderitnuggets (Tag c:nuggets/enderite, nur wenn eine Mod sie hinzufügt) - keinen Netherstern. Nur diese beiden lassen Herz und Juwel fallen.",
+          "Gesetzte Beute: Wenn der Tod vorbei ist, stehen Netherherz und Rotes Nether-Juwel als kleine Blöcke auf dem Boden direkt unter dem Wither (bis 24 Blöcke tief gesucht, das Juwel auf einem freien Platz neben dem Herz). Ohne Boden fallen sie als Gegenstände. Beide überstehen Explosionen und Feuer, als Gegenstand und als Block (Explosionsfestigkeit 1200, Wither zerstören sie nicht); abgebaut geben sie den Gegenstand zurück.",
+          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: sein Zweck folgt später. Alte Witherherzen werden zu Netherherzen."
         ]
       }
     },
@@ -2358,10 +2358,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 18 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 18 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "texture": "assets/textures/simplemobs/item/guide_book.png",
@@ -2879,8 +2879,8 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
     {
       "id": "simplemobs:nether_gem",
       "name": {
-        "en_us": "Nether Gem",
-        "de_de": "Nether-Juwel"
+        "en_us": "Red Nether Gem",
+        "de_de": "Rotes Nether-Juwel"
       },
       "note": {
         "en": {
