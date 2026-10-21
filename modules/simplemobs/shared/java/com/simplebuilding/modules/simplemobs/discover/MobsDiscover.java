@@ -51,7 +51,6 @@ public final class MobsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simplemobs:biome_brush",
             "simplemobs:blighted_wither",
             "simplemobs:calm_amulet",
             "simplemobs:creative_tab_switch",
@@ -71,6 +70,8 @@ public final class MobsDiscover {
             "simplemobs:hollow_watcher",
             "simplemobs:hollow_watcher_spawn_egg",
             "simplemobs:illusion_shard",
+            "simplemobs:nether_gem",
+            "simplemobs:nether_heart",
             "simplemobs:potion_of_silence",
             "simplemobs:shellker",
             "simplemobs:shellker_helmet",
@@ -83,8 +84,7 @@ public final class MobsDiscover {
             "simplemobs:soulfire_powder",
             "simplemobs:soulfire_rod",
             "simplemobs:trick_mirror",
-            "simplemobs:watcher_eye",
-            "simplemobs:wither_heart");
+            "simplemobs:watcher_eye");
     static final List<Tip> TIPS = List.of(
             new Tip("trick_mirror", List.of("trick_mirror")),
             new Tip("deceiver_cloak", List.of("deceiver_cloak")),
