@@ -140,7 +140,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 35
     },
-    "dataHash": "f5b68cb55fb7"
+    "dataHash": "625de296be1d"
   },
   {
     "id": "simplemodels",
@@ -193,7 +193,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "883701b8f26c"
+    "dataHash": "e64d70729d8a"
   },
   {
     "id": "simplevisuals",
@@ -551,7 +551,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "63a7f7372029"
+    "dataHash": "6fc08806676c"
   },
   {
     "id": "simpletools",
@@ -580,7 +580,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 28
     },
-    "dataHash": "f3e59d31b9bb"
+    "dataHash": "6ce3bc4d2fec"
   },
   {
     "id": "simplefarming",
@@ -1063,7 +1063,7 @@ window.WIKI_MODULES = [
       "recipes": 11,
       "features": 9
     },
-    "dataHash": "f0a1c9263c15"
+    "dataHash": "cf285b063b37"
   },
   {
     "id": "simpleoptimization",
@@ -1173,7 +1173,7 @@ window.WIKI_MODULES = [
       "recipes": 174,
       "features": 6
     },
-    "dataHash": "579492a35aea"
+    "dataHash": "7340ee613c9e"
   },
   {
     "id": "simplemusic",

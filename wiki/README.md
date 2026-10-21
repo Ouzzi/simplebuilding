@@ -26,6 +26,7 @@ funktioniert (`history.pushState`/`popstate`):
 | Item / Block | `?item=simplebuilding:enderite_chisel` (reine Blöcke wie Pads landen auf `?block=`), mit `&tab=recipes\|uses\|drops\|trades\|inworld\|related\|technical` springt die Seite zum Abschnitt |
 | Kategorie | `?cat=tools\|building\|storage\|machines\|gadgets\|end\|trims\|materials\|misc` |
 | Listen | `?tab=items\|blocks\|recipes\|allrecipes\|inworld\|loot\|trades\|enchantments\|tags\|config\|advancements\|features\|textures` |
+| Verzauberungs-Ansicht | `?tab=enchanting`: Zaubertisch und Tooltips wie im Spiel für alle Module (Daten `data/enchanting.js` aus `wiki/enchanting.py`, Oberfläche `assets/enchanting.js`; Vanilla-Texte aus Client-Jar und Loom-Asset-Index, keine Vanilla-Pixel). Tests `wiki/tests/test_enchanting.py`, Browser `wiki/tests/enchanting_ui.cjs` |
 | Einzelseiten | `?recipe=`, `?loot=`, `?trade=`, `?ench=`, `?tag=`, `?feature=`, `?config=`, `?inworld=`, `?make=`, `?use=`, `?tree=` |
 | Suche | `?q=hammer` |
 | Sprache | `&lang=de` (sonst gilt die gespeicherte Wahl) |

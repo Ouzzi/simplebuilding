@@ -279,6 +279,14 @@ window.WIKI_MODULE_DATA["simplemovement"] = {
       },
       "maxLevel": 3,
       "weight": 2,
+      "minCost": {
+        "base": 25,
+        "per_level_above_first": 25
+      },
+      "maxCost": {
+        "base": 75,
+        "per_level_above_first": 25
+      },
       "anvilCost": 4,
       "slots": [
         "legs"
@@ -314,6 +322,14 @@ window.WIKI_MODULE_DATA["simplemovement"] = {
       },
       "maxLevel": 2,
       "weight": 2,
+      "minCost": {
+        "base": 25,
+        "per_level_above_first": 25
+      },
+      "maxCost": {
+        "base": 75,
+        "per_level_above_first": 25
+      },
       "anvilCost": 4,
       "slots": [
         "feet"

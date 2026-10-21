@@ -981,6 +981,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "maxLevel": 1,
       "weight": 1,
+      "minCost": {
+        "base": 1,
+        "per_level_above_first": 10
+      },
+      "maxCost": {
+        "base": 10,
+        "per_level_above_first": 20
+      },
       "anvilCost": 1,
       "slots": [
         "mainhand"

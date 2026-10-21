@@ -794,7 +794,7 @@ en: {
   sidebarAria: 'Sections',
   langAria: 'Interface language',
   navOverview: 'Overview', navItems: 'Items', navBlocks: 'Blocks', navRecipes: 'Recipes',
-  navLoot: 'Loot tables', navTrades: 'Trades', navEnchantments: 'Enchantments',
+  navLoot: 'Loot tables', navTrades: 'Trades', navEnchantments: 'Enchantments', navEnchanting: 'Enchanting view', enchLoading: 'Loading the enchanting view…', enchViewLink: 'Check them in the game view (enchanting table and tooltips) →',
   navTags: 'Tags', navConfig: 'Config',
   navFeatureCount: '{0} features',
   navAllMods: 'All mods', amIntro: 'Every super-mod with its sub-mods, generated from the module manifests (modules/modules.json) and the wiki data.', amSuper: 'Super-mod', amSub: 'Sub-mods', amStandalone: 'Standalone mods', amOtherGroup: 'Other mods',
@@ -1329,7 +1329,7 @@ de: {
   sidebarAria: 'Bereiche',
   langAria: 'Sprache der Oberfläche',
   navOverview: 'Übersicht', navItems: 'Items', navBlocks: 'Blöcke', navRecipes: 'Rezepte',
-  navLoot: 'Loot-Tabellen', navTrades: 'Handel', navEnchantments: 'Verzauberungen',
+  navLoot: 'Loot-Tabellen', navTrades: 'Handel', navEnchantments: 'Verzauberungen', navEnchanting: 'Verzauberungs-Ansicht', enchLoading: 'Verzauberungs-Ansicht wird geladen …', enchViewLink: 'In der Spielansicht prüfen (Zaubertisch und Tooltips) →',
   navTags: 'Tags', navConfig: 'Konfiguration',
   navFeatureCount: '{0} Features',
   navAllMods: 'Alle Mods', amIntro: 'Jeder Super-Mod mit seinen Sub-Mods, erzeugt aus den Modul-Manifesten (modules/modules.json) und den Wiki-Daten.', amSuper: 'Super-Mod', amSub: 'Sub-Mods', amStandalone: 'Eigenständige Mods', amOtherGroup: 'Weitere Mods',
@@ -3570,7 +3570,38 @@ function pageTrade(id) {
 }
 
 function pageEnchantments() {
-  return listPage(T('navEnchantments'), sortedByName(D.enchantments).map(enchRow), { intro: '<p class="muted tiny">' + T('enchIntro') + '</p>' });
+  return listPage(T('navEnchantments'), sortedByName(D.enchantments).map(enchRow), { intro: '<p class="muted tiny">' + T('enchIntro') + '</p><p><a href="#/enchanting">' + esc(T('enchViewLink')) + '</a></p>' });
+}
+/* Verzauberungs-Ansicht (?tab=enchanting): Zaubertisch und Tooltips wie im Spiel, alle Module der Familie.
+   Daten data/enchanting.js (wiki/enchanting.py), Oberflaeche assets/enchanting.js; beides erst beim ersten Besuch. */
+var ENCH_VIEW = { loading: false, missing: false, ctx: {} };
+function enchViewLoad() {
+  if (ENCH_VIEW.loading) return;
+  ENCH_VIEW.loading = true;
+  var pending = 2;
+  function done() { if (--pending === 0 && currentRoute().section === 'enchanting') render({ keepScroll: true }); }
+  ['data/enchanting.js', 'assets/enchanting.js'].forEach(function (src) {
+    var s = document.createElement('script'); s.src = src;
+    s.onload = done; s.onerror = function () { if (src === 'data/enchanting.js') ENCH_VIEW.missing = true; done(); };
+    document.head.appendChild(s);
+  });
+}
+function enchIcon(id) {
+  var it = window.WIKI_ENCHANTING && arr(window.WIKI_ENCHANTING.items).filter(function (i) { return i.id === id; })[0];
+  return (it && it.icon) || textureOf(id) || null;
+}
+function pageEnchanting() {
+  enchViewLoad();
+  var ready = window.SBEnchanting && (window.WIKI_ENCHANTING || ENCH_VIEW.missing);
+  if (!ready) return '<h1>' + esc(T('navEnchanting')) + '</h1><p class="hint">' + esc(T('enchLoading')) + '</p>';
+  setTimeout(function () {
+    var el = document.getElementById('ench-view');
+    if (!el) return;
+    var ctx = ENCH_VIEW.ctx;
+    ctx.data = window.WIKI_ENCHANTING || null; ctx.lang = LANG; ctx.icon = enchIcon;
+    window.SBEnchanting.mount(el, ctx);
+  }, 0);
+  return '<div id="ench-view"></div>';
 }
 function pageEnchantment(id) {
   var e = IX.ench.get(id);
@@ -3583,6 +3614,7 @@ function pageEnchantment(id) {
   h += '<div class="idline"><code>' + esc(id) + '</code></div>';
   h += '<div class="badges">' + implBadge(e, true) + (noteHasContent(e.note) ? '' : badge(T('badgeNoProse'), 'warn')) + '</div>';
   h += enchObtainBox(e);
+  h += '<p><a href="#/enchanting">' + esc(T('enchViewLink')) + '</a></p>';
   if (impl === 'none') h += '<div class="box box-danger"><div class="box-title">' + esc(T('boxNotImplTitle')) + '</div>' + T('boxNotImplBody') + '</div>';
   else if (impl === 'code') h += '<div class="box box-info"><div class="box-title">' + esc(T('boxCodeTitle')) + '</div>' + T('boxCodeBody') + '</div>';
 
@@ -4705,7 +4737,7 @@ document.getElementById('all-mods').addEventListener('change', function () { if 
    es beim Hash-Router - dann gilt HASHMODE. */
 var ROUTE_PARAM = { items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
 var PARAM_ROUTE = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config', 'advancements', 'features', 'search', 'textures'];
+var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures'];
 var HASHMODE = false;
 function hashToRoute(h) {
   h = String(h || '');
@@ -4848,6 +4880,7 @@ var NAV_REF = [
   { key: 'recipes', labelKey: 'navRecipes', glyph: '≡', count: null },
   { key: 'inworld', labelKey: 'navInWorld', glyph: '⚒', count: function () { return IW.entries.length; } },
   { key: 'enchantments', labelKey: 'navEnchantments', glyph: '✦', count: function () { return arr(D.enchantments).length; } },
+  { key: 'enchanting', labelKey: 'navEnchanting', glyph: '✧', count: null },
   { key: 'trades', labelKey: 'navTrades', glyph: '⇄', count: function () { return arr(D.trades).length; } },
   { key: 'loot', labelKey: 'navLoot', glyph: '❖', count: function () { return arr(D.lootTables).length; } },
   { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return arr(D.tags).length; } }
@@ -4865,7 +4898,7 @@ function renderSidebar(active) {
     NAV_REF.concat(NAV_PROG).forEach(function (entry) {
       var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
       var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
-      if (entry.key === 'textures') links.push([entry.key, T(entry.labelKey)]);
+      if (entry.key === 'textures' || entry.key === 'enchanting') links.push([entry.key, T(entry.labelKey)]);
       else if (entry.key !== 'features' && count) links.push([entry.key, T(entry.labelKey) + ' · ' + count]);
     });
     $side.innerHTML = links.map(function (entry) { return '<a href="#/' + entry[0] + '"' + ((active === entry[0] || (!entry[0] && active === 'overview')) ? ' aria-current="page" class="active"' : '') + '>' + esc(entry[1]) + '</a>'; }).join('');
@@ -5219,6 +5252,7 @@ function render(opts) {
       case 'loot': html = r.id ? pageLootOne(r.id) : pageLoot(); title = r.id ? T('titleLootPrefix', r.id) : T('navLoot'); break;
       case 'trades': html = r.id ? pageTrade(r.id) : pageTrades(); title = r.id ? T('titleTradePrefix', r.id) : T('navTrades'); break;
       case 'enchantments': html = r.id ? pageEnchantment(r.id) : pageEnchantments(); title = r.id ? displayName(r.id) : T('navEnchantments'); break;
+      case 'enchanting': html = pageEnchanting(); title = T('navEnchanting'); break;
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
       case 'allmods': html = pageAllMods(); title = T('navAllMods'); active = 'allmods'; break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
