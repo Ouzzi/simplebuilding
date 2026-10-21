@@ -1173,7 +1173,7 @@ window.WIKI_MODULES = [
       "recipes": 174,
       "features": 6
     },
-    "dataHash": "cde5caca9329"
+    "dataHash": "579492a35aea"
   },
   {
     "id": "simplemusic",
