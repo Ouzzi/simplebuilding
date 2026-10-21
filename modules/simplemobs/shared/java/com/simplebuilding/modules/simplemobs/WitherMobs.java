@@ -66,7 +66,7 @@ public final class WitherMobs {
 
     private static BlockBehaviour.Properties lootBlock(SoundType sound, MapColor color, int light) {
         return BlockBehaviour.Properties.of().mapColor(color).strength(1.5F, 1200.0F).sound(sound).lightLevel(s -> light)
-                .noOcclusion().pushReaction(PushReaction.DESTROY);
+                .noOcclusion().pushReaction(PushReaction.POPPED);
     }
 
     private static Item.Properties lootItem() {
