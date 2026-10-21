@@ -905,7 +905,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 12
     },
-    "dataHash": "0806bcdef644"
+    "dataHash": "2d1db3bf6b2f"
   },
   {
     "id": "simpleshops",
@@ -935,7 +935,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 10
     },
-    "dataHash": "7c13ab3a1cc5"
+    "dataHash": "30dbd747d283"
   },
   {
     "id": "simplewanderers",

@@ -159,6 +159,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Shops from before keep everything: their contents move into the world data the first time the block is used or ticks.",
           "Breaking a shop block drops its contents once, as before. Copied block data never shares contents (the copy starts empty).",
           "A shop block removed without its usual side effects leaves its contents in the world data; operators list them with /servershop orphans and take them with /servershop orphans clear.",
+          "With Simple Maps, the shops layer of the map also shows public shops in unloaded chunks (offer and price, read from the world data); private ones only while their chunk is loaded.",
           "No chunk is ever loaded for a shop."
         ]
       },
@@ -169,6 +170,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Alte Shops behalten alles: ihr Inhalt wandert beim ersten Benutzen oder Tick in die Weltdaten.",
           "Abbauen droppt den Inhalt einmal, wie bisher. Kopierte Blockdaten teilen nie einen Inhalt (die Kopie ist leer).",
           "Wird ein Shop-Block ohne seine üblichen Nebenwirkungen entfernt, bleibt sein Inhalt in den Weltdaten; Operatoren listen ihn mit /servershop orphans und holen ihn mit /servershop orphans clear.",
+          "Mit Simple Maps zeigt die Shop-Ebene der Karte auch öffentliche Shops in nicht geladenen Chunks (Angebot und Preis, aus den Weltdaten); private nur, solange ihr Chunk geladen ist.",
           "Für einen Shop wird nie ein Chunk geladen."
         ]
       }
