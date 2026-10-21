@@ -1481,6 +1481,36 @@
           "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
           "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
         ]
+      },
+      "items": {
+        "simplestorage:backpack": {
+          "en": "Backpack: 9 storage slots; grants 1 armor when worn.",
+          "de": "Rucksack: 9 Lagerplätze; gibt getragen 1 Rüstungspunkte.",
+          "sources": [
+            "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java"
+          ]
+        },
+        "simplestorage:reinforced_backpack": {
+          "en": "Reinforced Backpack: 18 storage slots; grants 2 armor when worn.",
+          "de": "Verstärkter Rucksack: 18 Lagerplätze; gibt getragen 2 Rüstungspunkte.",
+          "sources": [
+            "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java"
+          ]
+        },
+        "simplestorage:netherite_backpack": {
+          "en": "Netherite Backpack: 33 storage slots; grants 3 armor when worn.",
+          "de": "Netherit-Rucksack: 33 Lagerplätze; gibt getragen 3 Rüstungspunkte.",
+          "sources": [
+            "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java"
+          ]
+        },
+        "simplestorage:enderite_backpack": {
+          "en": "Enderite Backpack: 50 storage slots; grants 4 armor when worn.",
+          "de": "Enderit-Rucksack: 50 Lagerplätze; gibt getragen 4 Rüstungspunkte.",
+          "sources": [
+            "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java"
+          ]
+        }
       }
     }
   }

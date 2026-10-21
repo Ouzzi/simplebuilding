@@ -11,7 +11,8 @@ sys.path.insert(0, str(ROOT / 'wiki'))
 import generate as g
 
 # '*_sledgehammer' lives in Simple Hammers' manual since stage 7 (modules/simplehammers/wiki/manual.json).
-FAMILIES = ['*_chisel', '*_building_wand', '*_core', '*backpack',
+# '*backpack' moved to Simple Storage's manual (split stage 8c-2).
+FAMILIES = ['*_chisel', '*_building_wand', '*_core',
             '*elytra_pad', '*flypad', '*spawn_teleporter*', '*chunk_loader', '*launchpad',
             '*potion_pad', '*copper_pressure_plate', '*_quartz_checker', 'chiseled_*_bricks',
             'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',
