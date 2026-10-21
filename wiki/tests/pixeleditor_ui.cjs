@@ -31,15 +31,15 @@ const server = http.createServer((req, res) => {
 });
 
 // in the page: contrast of an element's text against its first opaque ancestor background
-const CONTRAST = `(el => {
-  const rgb = s => (s.match(/[\\d.]+/g) || []).map(Number);
+const CONTRAST = el => {
+  const rgb = s => (s.match(/[\d.]+/g) || []).map(Number);
   const lum = c => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
   let fg = rgb(getComputedStyle(el).color), n = el, bg = null;
   while (n && n.nodeType === 1) { const c = rgb(getComputedStyle(n).backgroundColor); if (c.length === 3 || (c.length === 4 && c[3] > 0.95)) { bg = c; break; } n = n.parentElement; }
   bg = bg || [255, 255, 255];
   const a = lum(fg), b = lum(bg);
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
-})`;
+};
 
 async function checkButtons(page, minSize) {
   const info = await page.$$eval('.pe-root button', (bs, min) => bs.filter(b => b.offsetParent !== null && getComputedStyle(b).visibility !== 'hidden').map(b => {
