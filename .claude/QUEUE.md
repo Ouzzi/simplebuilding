@@ -97,6 +97,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 ---
 
 ## Offen (inklusive Besitzerpunkte)
+- [~] (B, b-easterheads, 21.10.) (Besitzer 21.10., Simple Mobheads, nur Konzept) „bitte als easter eggs auch konzepte für die mobheads für technoblade, killer kaninchen, riesen zombie, riesen kuh, bitte diese als konzepte ausarbeiten und dann bitte für diese dann ideen zum obtinen geben.“
 - [ ] (Besitzer 21.10., Redstone-Linien) „die redstone light pane und die copper redstone lightpane sollen als itemtextur als item die jeweilige pane textur aber mit rainbow muster haben, also alles als rainbow. dann alle light panes statt light pane einfach pane in den namen, die item texturen sollen auch 3d modelle sein.“
 - [ ] (Besitzer 21.10., Simple Music) „die tragbare jukebox soll nun in der hand etwas mehr 3d wirken, also dunklere konturen und so, dann bitte auch platzierbar machen und auch abspielbar machen im plazierten zustand.“
 - [~] (B, b-rarity21, 21.10.) (Besitzer 21.10., simplelib) „bitte eine rareare stufe also eine stufe die mehr rare ist als die rareste vanilastufe machen, also diese item text farbe, eine die dann einfach strahlenden rot mit schwarzem hintergrund ist also schwarzer outline. und eins was noch besonderser aussieht mit glint evtl türkis hellgrün oder so. also eins für absolut rare und das rote für cursed items wie biome brush oder nether gem usw.“
