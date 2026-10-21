@@ -81,7 +81,8 @@ const report = [];
           ok(await tip.locator('.mc-yellow').count() === 1, 'book name yellow');
           ok(await page.locator('[data-sec="books"] .ench-slot').count() >= 20, 'all family books');
           ok(await page.locator('[data-sec="items"] .ench-slot').count() >= 8, 'enchanted items');
-          // keyboard: focus shows the tooltip
+          // take the item back: offers again; keyboard focus shows the tooltip
+          await page.locator('[data-act="reset"]').click();
           await page.locator('.ench-row[data-slot="1"]').focus();
           ok(await tip.isVisible(), 'focus shows the tooltip');
           // page text contrast against the page background
