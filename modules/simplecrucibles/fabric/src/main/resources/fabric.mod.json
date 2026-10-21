@@ -3,6 +3,7 @@
   "id": "simplecrucibles",
   "version": "${version}",
   "name": "Simple Crucibles",
+  "icon": "assets/simplecrucibles/icon.png",
   "authors": [
     "Ouzzi"
   ],

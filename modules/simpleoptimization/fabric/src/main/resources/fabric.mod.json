@@ -3,6 +3,7 @@
   "id": "simpleoptimization",
   "version": "${version}",
   "name": "Simple Optimization",
+  "icon": "assets/simpleoptimization/icon.png",
   "description": "Super-mod: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server, with one on/off switch each.",
   "authors": [
     "Ouzzi"

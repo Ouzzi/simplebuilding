@@ -3,6 +3,7 @@
   "id": "simpleoptserver",
   "version": "${version}",
   "name": "Simple Opt Server",
+  "icon": "assets/simpleoptserver/icon.png",
   "description": "Server optimizations of Simple Optimization: view distance follows server load (MSPT) within the server.properties bounds; optional activation range for far mobs (off by default); steps back when ServerCore is installed.",
   "authors": [
     "Ouzzi"

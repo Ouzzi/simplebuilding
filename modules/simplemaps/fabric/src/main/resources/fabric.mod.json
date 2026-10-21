@@ -3,6 +3,7 @@
   "id": "simplemaps",
   "version": "${version}",
   "name": "Simple Maps",
+  "icon": "assets/simplemaps/icon.png",
   "authors": [
     "Ouzzi"
   ],

@@ -5,6 +5,7 @@ license="CC0-1.0"
 modId="wiringexample"
 version="${version}"
 displayName="Wiring Example"
+iconFile="assets/wiringexample/icon.png"
 [[dependencies.wiringexample]]
 modId="minecraft"
 type="required"

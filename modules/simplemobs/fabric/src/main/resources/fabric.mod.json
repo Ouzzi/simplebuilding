@@ -3,6 +3,7 @@
   "id": "simplemobs",
   "version": "${version}",
   "name": "Simple Mobs",
+  "icon": "assets/simplemobs/icon.png",
   "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush.",
   "authors": [
     "Ouzzi"

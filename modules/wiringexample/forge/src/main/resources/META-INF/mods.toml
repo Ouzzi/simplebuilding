@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="wiringexample"
 version="${version}"
 displayName="Wiring Example"
+logoFile="assets/wiringexample/icon_128.png"
+logoBlur=false
 [[dependencies.wiringexample]]
 modId="forge"
 mandatory=true

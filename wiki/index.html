@@ -2721,7 +2721,7 @@ function amCounts(m) {
   var c = m.counts || {}, names = [['items', 'navItems'], ['blocks', 'navBlocks'], ['recipes', 'navRecipes'], ['config', 'navConfig']];
   return names.filter(function (n) { return c[n[0]]; }).map(function (n) { return c[n[0]] + ' ' + T(n[1]); }).join(' · ');
 }
-function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + esc(m.displayName) + '</a>'; }
+function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + (m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle;margin-right:6px">' : '') + esc(m.displayName) + '</a>'; }
 function pageAllMods() {
   var h = '<section class="home-hero"><h1>' + esc(T('navAllMods')) + '</h1></section><p>' + esc(T('amIntro')) + '</p>';
   var supers = MODULES.filter(function (m) { return modChildren(m.id).length; });

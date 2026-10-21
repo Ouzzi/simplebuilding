@@ -12,7 +12,8 @@ config="simplebuilding.client.mixins.json"
 modId="${modId}"
 version="${modVersion}"
 displayName="SimpleBuilding"
-logoFile="assets/simplebuilding/icon.png"
+logoFile="assets/simplebuilding/icon_128.png"
+logoBlur=false
 description='''
 SimpleBuilding for MinecraftForge ${minecraftVersionRange}
 '''

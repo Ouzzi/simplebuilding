@@ -3,6 +3,7 @@
   "id": "simpleaesthetics",
   "version": "${version}",
   "name": "Simple Aesthetics",
+  "icon": "assets/simpleaesthetics/icon.png",
   "authors": [
     "Ouzzi"
   ],

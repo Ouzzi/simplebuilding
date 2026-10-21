@@ -3,6 +3,7 @@
   "id": "simpleenddragonfight",
   "version": "${version}",
   "name": "Simple End Dragon Fight",
+  "icon": "assets/simpleenddragonfight/icon.png",
   "authors": [
     "Ouzzi"
   ],

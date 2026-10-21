@@ -3,6 +3,7 @@
   "id": "simplelib",
   "version": "${version}",
   "name": "SimpleLib",
+  "icon": "assets/simplelib/icon.png",
   "authors": [
     "Ouzzi"
   ],

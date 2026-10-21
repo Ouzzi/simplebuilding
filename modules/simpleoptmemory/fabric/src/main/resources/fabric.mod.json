@@ -3,6 +3,7 @@
   "id": "simpleoptmemory",
   "version": "${version}",
   "name": "Simple Opt Memory",
+  "icon": "assets/simpleoptmemory/icon.png",
   "description": "Memory optimizations of Simple Optimization: block states share their read-only property and face tables (steps back for FerriteCore); model baking later.",
   "authors": [
     "Ouzzi"

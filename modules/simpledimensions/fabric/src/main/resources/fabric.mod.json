@@ -3,6 +3,7 @@
   "id": "simpledimension",
   "version": "${version}",
   "name": "Simple Dimensions",
+  "icon": "assets/simpledimension/icon.png",
   "description": "Configurable dimensions, light arches, and safe linked portals.",
   "authors": [
     "Ouzzi"

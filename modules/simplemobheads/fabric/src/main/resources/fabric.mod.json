@@ -3,6 +3,7 @@
   "id": "simplemobheads",
   "version": "${version}",
   "name": "Simple Mobheads",
+  "icon": "assets/simplemobheads/icon.png",
   "authors": [
     "Ouzzi"
   ],

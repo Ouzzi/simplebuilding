@@ -3,6 +3,7 @@
   "id": "simpleblocks",
   "version": "${version}",
   "name": "Simple Blocks",
+  "icon": "assets/simpleblocks/icon.png",
   "authors": [
     "Ouzzi"
   ],

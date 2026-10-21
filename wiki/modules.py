@@ -4,6 +4,7 @@ Complex/dynamic registries export generated/wiki/items.json (same format as
 SimpleBuilding). Literal Java Identifier registrations, item definitions and
 language keys also provide inventory evidence for small modules.
 """
+import base64
 import fnmatch
 import hashlib
 import json
@@ -338,6 +339,12 @@ def sync(g, entries, selected, check=False, strict=False):
                 e[key] = meta[e['id']][key]
         if e['id'] in overview:
             e['overview'] = overview[e['id']]
+        # 16x16 mod icon (tools/textures/mod_icons.py) for the "All mods" page, inline so no copy is needed.
+        root = meta[e['id']]['paths']['root']
+        mod_id = meta[e['id']].get('modId', e['id'])
+        icon = g.REPO / ('src/main/resources' if root == '.' else root + '/shared/resources') / 'assets' / mod_id / 'icon.png'
+        if icon.is_file():
+            e['icon'] = 'data:image/png;base64,' + base64.b64encode(icon.read_bytes()).decode('ascii')
         payload = outputs.get(e['id'] + '.json')
         stored = g.WIKI / 'data' / (e['id'] + '.json')
         if payload is None and stored.exists():

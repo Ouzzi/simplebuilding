@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleoctets"
 version="${version}"
 displayName="Simple Octets"
+logoFile="assets/simpleoctets/icon_128.png"
+logoBlur=false
 [[dependencies.simpleoctets]]
 modId="forge"
 mandatory=true

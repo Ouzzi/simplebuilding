@@ -3,6 +3,7 @@
   "id": "simplestorage",
   "version": "${version}",
   "name": "Simple Storage",
+  "icon": "assets/simplestorage/icon.png",
   "authors": [
     "Ouzzi"
   ],
