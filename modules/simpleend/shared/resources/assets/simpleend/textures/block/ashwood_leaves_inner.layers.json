@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#d2d2d2ff", "#d6d6d6ff", "#d9d9d9ff", "#8b8b8bff", "#bebebeff", "#757575ff", "#d0d0d0ff", "#818181ff", "#a1a1a1ff", "#d1d1d1ff", "#9b9b9bff", "#838383ff", "#a3a3a3ff", "#8d8d8dff", "#b0b0b0ff", "#c9c9c9ff", "#e1e1e1ff", "#717171ff", "#979797ff", "#828282ff", "#c7c7c7ff", "#afafafff", "#8f8f8fff", "#8e8e8eff", "#c6c6c6ff", "#cececeff", "#dcdcdcff", "#c5c5c5ff", "#b9b9b9ff", "#d3d3d3ff", "#949494ff", "#7a7a7aff", "#9c9c9cff", "#adadadff", "#898989ff", "#b2b2b2ff", "#868686ff", "#999999ff", "#cfcfcfff", "#bfbfbfff", "#727272ff", "#ddddddff", "#8a8a8aff", "#959595ff", "#ccccccff", "#b8b8b8ff", "#929292ff", "#dadadaff", "#c2c2c2ff", "#787878ff", "#d4d4d4ff", "#939393ff", "#8c8c8cff", "#9f9f9fff", "#d8d8d8ff", "#888888ff", "#808080ff", "#cacacaff", "#9e9e9eff", "#e0e0e0ff", "#cbcbcbff", "#b7b7b7ff", "#a7a7a7ff", "#7c7c7cff", "#c4c4c4ff", "#aeaeaeff", "#7f7f7fff", "#c8c8c8ff", "#7d7d7dff", "#858585ff", "#bdbdbdff", "#c0c0c0ff", "#a2a2a2ff", "#bababaff", "#bbbbbbff", "#6d6d6dff", "#c1c1c1ff", "#878787ff", "#919191ff", "#c3c3c3ff", "#b1b1b1ff", "#848484ff", "#d5d5d5ff", "#cdcdcdff", "#dfdfdfff", "#acacacff", "#7e7e7eff", "#b3b3b3ff", "#777777ff", "#767676ff", "#969696ff", "#989898ff", "#e4e4e4ff", "#a6a6a6ff"],
+  "layers": [
+    {"name": "Blätter", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "..000102..03040506....0708090a0b",
+      "000c0d0e0f100f..........11121314",
+      "1516..1617181519..1a1b1b1c161d1e",
+      "1f....0b202122230f2420252627280d",
+      "....29062a0a..2a2b2c0b072d2e0f..",
+      "1a2f3031323319..343536..24373839",
+      "34153a193b0907..3c162e04....3d3e",
+      "363f203d0d354026..0f2c41....4205",
+      "12434445460d082347..481e001a4900",
+      "2f30....034a2a0812194b00084c4d20",
+      "4e231d47....3d44174f3c5038004f13",
+      "13512b4639......521e3d454f534826",
+      "..4a4b2e5443..195556512620572258",
+      "043500325957181734..011e5a37....",
+      "121f225b3c24254c....2f0342....53",
+      "44391831165c5133......0f3c3c145d"
+    ]}
+  ]
+}
