@@ -71,7 +71,7 @@ Abweichung: der AutoConfig-Transformer steht direkt in `SimplebuildingClient` (F
 Belege: Compile `:mc26_3:{fabric,neoforge,forge}:compileJava :compileJava :neoforge:compileJava` Exit 0; fabric-263 und
 neoforge-263 `simplebuilding:config_option*` je 19/19 (inkl. neuem `config_option_game_test_moved_options_are_hidden_but_still_load`);
 Standalone Simple Ovens/Hammers/Storage (fabric) 18+14+113 = 145/145; Guides/Wiki --all/Discover erzeugt (Wiki-Config-Liste
-26.3 −15 Optionen, `modules.js` 2.0.0); `./gradlew check` siehe Queue-Beleg.
+26.3 −15 Optionen, `modules.js` 2.0.0); `./gradlew check` Exit 0 (cc5f8a68d; Wiki-Unit-Test angepasst: Rucksack-Schalter auf 26.2 geprüft, auf 26.3 ausgeblendet).
 Nicht geprüft: Client-Sicht der Config-Bildschirme (Client-Läufe verboten), 26.2-Gametests (nur Compile), Forge-263-Gametests.
 
 **Offen (Teil 2):** R7 Wiki-Umzug, R10 Brücken-Version 1.3.x-bridge, Backup-Marker (§3.4), SimpleLib-Version
