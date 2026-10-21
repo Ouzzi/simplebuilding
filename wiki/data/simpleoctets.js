@@ -71,8 +71,8 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
         "tools/textures/octets_2026_10_09.py"
       ],
       "en": {
-        "title": "Shaping Saw and back",
-        "summary": "The Shaping Saw of Simple Blocks cuts 8 octets from the full block of their material (wood octets from the planks); with Simple Blocks the Vanilla stonecutter has no octet recipes. Without Simple Blocks the stonecutter cuts them instead. 8 octets of one material craft back into the block (shapeless); the crafting recipe and the stonecutter cut unlock in the recipe book once you hold the block or the octet (the saw has no recipe book).",
+        "title": "Shapecutter and back",
+        "summary": "The Shapecutter of Simple Blocks cuts 8 octets from the full block of their material (wood octets from the planks); with Simple Blocks the Vanilla stonecutter has no octet recipes. Without Simple Blocks the stonecutter cuts them instead. 8 octets of one material craft back into the block (shapeless); the crafting recipe and the stonecutter cut unlock in the recipe book once you hold the block or the octet (the saw has no recipe book).",
         "details": []
       },
       "de": {
@@ -17132,7 +17132,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17161,7 +17161,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17190,7 +17190,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17219,7 +17219,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17248,7 +17248,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17277,7 +17277,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17306,7 +17306,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17335,7 +17335,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17364,7 +17364,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17393,7 +17393,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17422,7 +17422,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17451,7 +17451,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17480,7 +17480,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17509,7 +17509,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17538,7 +17538,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17567,7 +17567,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17595,7 +17595,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17624,7 +17624,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17653,7 +17653,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17682,7 +17682,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17711,7 +17711,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17740,7 +17740,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17769,7 +17769,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17798,7 +17798,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17827,7 +17827,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17856,7 +17856,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17885,7 +17885,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17914,7 +17914,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17943,7 +17943,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -17972,7 +17972,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18001,7 +18001,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18030,7 +18030,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18059,7 +18059,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18088,7 +18088,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18117,7 +18117,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18146,7 +18146,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18175,7 +18175,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18204,7 +18204,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18233,7 +18233,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18262,7 +18262,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18291,7 +18291,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18320,7 +18320,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18349,7 +18349,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18378,7 +18378,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18407,7 +18407,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18436,7 +18436,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18465,7 +18465,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18494,7 +18494,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18523,7 +18523,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18552,7 +18552,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18581,7 +18581,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18610,7 +18610,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18639,7 +18639,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18668,7 +18668,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18697,7 +18697,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18726,7 +18726,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18755,7 +18755,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18784,7 +18784,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18813,7 +18813,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18842,7 +18842,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18871,7 +18871,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18900,7 +18900,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18929,7 +18929,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18958,7 +18958,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -18987,7 +18987,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19015,7 +19015,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19044,7 +19044,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19073,7 +19073,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19102,7 +19102,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19131,7 +19131,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19160,7 +19160,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19189,7 +19189,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19218,7 +19218,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19247,7 +19247,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19276,7 +19276,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19305,7 +19305,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19334,7 +19334,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19363,7 +19363,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19392,7 +19392,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19421,7 +19421,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19450,7 +19450,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19479,7 +19479,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19508,7 +19508,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19579,7 +19579,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19608,7 +19608,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19637,7 +19637,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19666,7 +19666,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19695,7 +19695,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19724,7 +19724,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19753,7 +19753,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19782,7 +19782,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19811,7 +19811,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19840,7 +19840,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19869,7 +19869,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19898,7 +19898,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19927,7 +19927,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19956,7 +19956,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -19985,7 +19985,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20014,7 +20014,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20043,7 +20043,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20072,7 +20072,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20101,7 +20101,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20130,7 +20130,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20159,7 +20159,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20188,7 +20188,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20217,7 +20217,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20246,7 +20246,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20275,7 +20275,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20304,7 +20304,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20333,7 +20333,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20362,7 +20362,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20391,7 +20391,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20420,7 +20420,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20449,7 +20449,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20478,7 +20478,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20507,7 +20507,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20536,7 +20536,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20565,7 +20565,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20594,7 +20594,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20623,7 +20623,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20652,7 +20652,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20681,7 +20681,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20710,7 +20710,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20739,7 +20739,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20768,7 +20768,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20797,7 +20797,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20826,7 +20826,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20855,7 +20855,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20884,7 +20884,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20913,7 +20913,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20942,7 +20942,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -20971,7 +20971,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21000,7 +21000,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21029,7 +21029,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21058,7 +21058,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21087,7 +21087,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21116,7 +21116,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21145,7 +21145,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21174,7 +21174,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21203,7 +21203,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21232,7 +21232,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21261,7 +21261,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21290,7 +21290,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21319,7 +21319,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21348,7 +21348,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21377,7 +21377,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21406,7 +21406,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21435,7 +21435,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21464,7 +21464,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21493,7 +21493,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21522,7 +21522,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21551,7 +21551,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21580,7 +21580,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21609,7 +21609,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21638,7 +21638,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21667,7 +21667,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21696,7 +21696,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21725,7 +21725,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21754,7 +21754,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21783,7 +21783,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21812,7 +21812,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21841,7 +21841,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21870,7 +21870,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21899,7 +21899,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21928,7 +21928,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21957,7 +21957,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -21986,7 +21986,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22015,7 +22015,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22044,7 +22044,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22073,7 +22073,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22102,7 +22102,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22131,7 +22131,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22160,7 +22160,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
@@ -22189,7 +22189,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
           "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
         ],
         "en": {
-          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shaping Saw (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
         },
         "de": {
           "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
