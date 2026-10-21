@@ -592,7 +592,7 @@ public class BuildingWandItem extends Item {
         Plan plan = Plan.forClick(world, player, wandStack, clickedPos, clickedFace, hitRel,
                 getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2), nbt.getIntOr("SettingsAxis", 0));
         if (plan.steps() == 0) return InteractionResult.FAIL;
-        arm(nbt, plan, buildBlock);
+        arm(nbt, plan, buildBlock, world);
         setNbt(wandStack, nbt);
         WandUndo.begin(player, world);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.WAND_BUILD);
@@ -604,7 +604,7 @@ public class BuildingWandItem extends Item {
      * Startet einen Bau nach {@code plan}: Ursprung, Seite und Trefferpunkt kommen aus dem Plan (bei
      * Flaeche, Abdeckung und Linie der Klick selbst, bei der Bruecke die Kante des Bodens).
      */
-    private static void arm(CompoundTag nbt, Plan plan, Block buildBlock) {
+    private static void arm(CompoundTag nbt, Plan plan, Block buildBlock, net.minecraft.world.level.Level world) {
         nbt.putBoolean("Active", true);
         nbt.putInt("HungerCount", 0); // neuer Bauvorgang: Freibetrag von vorn (WandHunger)
         nbt.putInt("CurrentRadius", 0);
@@ -613,6 +613,7 @@ public class BuildingWandItem extends Item {
         nbt.putInt("OriginY", plan.origin.getY());
         nbt.putInt("OriginZ", plan.origin.getZ());
         nbt.putInt("Face", plan.face.ordinal());
+        nbt.putString("Dim", world.dimension().identifier().toString()); // Portal/Teleport: Bau in anderer Dimension abbrechen
         putBlock(nbt, BUILD_BLOCK_KEY, buildBlock);
         nbt.putFloat("HitX", (float) plan.hitRel.x); nbt.putFloat("HitY", (float) plan.hitRel.y); nbt.putFloat("HitZ", (float) plan.hitRel.z);
         plan.writeTo(nbt);
@@ -677,7 +678,7 @@ public class BuildingWandItem extends Item {
         }
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
-        arm(nbt, plan, buildBlock); // die Bruecke ist ein eigener Bauvorgang: Freibetrag von vorn (WandHunger)
+        arm(nbt, plan, buildBlock, world); // die Bruecke ist ein eigener Bauvorgang: Freibetrag von vorn (WandHunger)
         setNbt(wandStack, nbt);
         WandUndo.begin(player, world);
         return InteractionResult.SUCCESS;
@@ -714,7 +715,13 @@ public class BuildingWandItem extends Item {
 
         int ox = getBlockInt(nbt, "OriginX"); int oy = getBlockInt(nbt, "OriginY"); int oz = getBlockInt(nbt, "OriginZ");
         BlockPos originPos = new BlockPos(ox, oy, oz);
-        Direction face = Direction.values()[getBlockInt(nbt, "Face")];
+        int faceIndex = getBlockInt(nbt, "Face");
+        // Manipulierte Seite (Index ausser Reichweite) oder anderer Welt-Schluessel als beim Start: Bau abbrechen.
+        if (faceIndex < 0 || faceIndex >= Direction.values().length
+                || (nbt.contains("Dim") && !nbt.getStringOr("Dim", "").equals(world.dimension().identifier().toString()))) {
+            nbt.putBoolean("Active", false); setNbt(stack, nbt); return;
+        }
+        Direction face = Direction.values()[faceIndex];
 
         Block targetBlock = readBlock(nbt, BUILD_BLOCK_KEY);
 

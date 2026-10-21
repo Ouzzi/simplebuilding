@@ -729,6 +729,33 @@ public final class BuildingWandTests {
     // =====================================================================================
 
     /**
+     * A running build stops instead of throwing or following the player: a tampered {@code Face}
+     * index (outside {@code Direction.values()}) and a {@code Dim} that is not the level the wand
+     * ticks in (portal, teleport, respawn) both switch it off on the next tick, placing nothing.
+     */
+    public static void wandStopsOnBrokenFaceOrOtherDimension(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        String[] tampered = {"Face", "Dim"};
+        for (String key : tampered) {
+            resetSite(helper, SMALL_SITE);
+            ItemStack wand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
+            stock(player, wand);
+            player.getInventory().setItem(1, new ItemStack(Items.GLASS, 64));
+            useOn(helper, player, wand, Direction.UP, InteractionHand.MAIN_HAND);
+            helper.assertTrue(wandIsActive(wand), "the click did not arm the wand");
+            helper.assertTrue(customData(wand).contains("Dim"), "arming did not remember the dimension");
+            CompoundTag data = customData(wand);
+            if (key.equals("Face")) data.putInt("Face", 99); else data.putString("Dim", "minecraft:the_nether");
+            wand.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            tickWand(helper, player, wand, EquipmentSlot.MAINHAND);
+            helper.assertFalse(wandIsActive(wand), "a tampered " + key + " did not stop the build");
+            helper.assertTrue(blocksIn(helper, SMALL_SITE, Blocks.GLASS).isEmpty(),
+                    "a tampered " + key + " still placed blocks");
+        }
+        helper.succeed();
+    }
+
+    /**
      * What a creative wand does when it was armed without any material at all.
      *
      * <p>{@code useOn} lets a creative click through even when the search found nothing, and writes

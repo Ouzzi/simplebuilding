@@ -65,6 +65,7 @@ public final class OctetTests {
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
         ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
+        ALL.put("log_octets_mine_with_the_axe", OctetTests::logOctetsMineWithTheAxe);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleoctets.discover.OctetsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleoctets.discover.OctetsDiscover::firstPickupTips);
@@ -415,6 +416,23 @@ public final class OctetTests {
         if (fire.simpleoctets$getIgniteOdds(cell(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("white_wool"))).defaultBlockState()) <= 0) problems.add("wool octet does not burn");
         if (fire.simpleoctets$getIgniteOdds(cell(Blocks.STONE).defaultBlockState()) > 0) problems.add("stone octet burns");
         h.assertTrue(problems.isEmpty(), "fire: " + problems);
+        h.succeed();
+    }
+
+    /** Log and stem octets (also stripped) are wood: axe tag, not pickaxe. */
+    static void logOctetsMineWithTheAxe(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (Block cell : OctetRegistry.MATERIAL_OCTETS) {
+            String path = BuiltInRegistries.BLOCK.getKey(cell).getPath();
+            if (!path.endsWith("_log_octet") && !path.endsWith("_stem_octet")) continue;
+            checked++;
+            BlockState state = cell.defaultBlockState();
+            if (!state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)) problems.add("not axe: " + path);
+            if (state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("pickaxe: " + path);
+        }
+        h.assertTrue(checked >= 24, "only " + checked + " log/stem octets found");
+        h.assertTrue(problems.isEmpty(), "mining tool: " + problems);
         h.succeed();
     }
 

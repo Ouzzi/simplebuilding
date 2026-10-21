@@ -562,6 +562,9 @@ public final class StatsTests {
         h.assertTrue(key(StatNames.entry(StatKeys.L_KILLS, "somemod:odd_thing")).equals("entity.somemod.odd_thing"), "foreign mob key");
         h.assertTrue(key(StatNames.mob("minecraft:sheep#red+baby")).equals("stat.simplestats.variant"), "variant name");
         h.assertTrue(key(StatNames.mob("minecraft:sheep")).equals("entity.minecraft.sheep"), "plain mob name");
+        var cat = (net.minecraft.network.chat.contents.TranslatableContents) StatNames.mob("minecraft:cat#tabby").getContents();
+        h.assertTrue(cat.getArgs()[1] instanceof net.minecraft.network.chat.Component joined
+                && key(joined.getSiblings().get(0)).equals("stat.simplestats.variant.part.tabby"), "variant part is a translation key");
         h.succeed();
     }
 

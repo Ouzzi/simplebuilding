@@ -419,7 +419,7 @@ def cells(mats):
         out.append((f'{wood}_octet', ns, f'{wood}_planks', 'axe'))
     for m in mats:
         b = m['base']
-        if m['ns'] == 'simpleend' or b == 'bamboo_mosaic':
+        if m['ns'] == 'simpleend' or b == 'bamboo_mosaic' or b.endswith(('_log', '_stem')):
             tool = 'axe'
         elif b.endswith('_wool'):
             tool = None
