@@ -1446,6 +1446,14 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
       },
       "maxLevel": 3,
       "weight": 3,
+      "minCost": {
+        "base": 20,
+        "per_level_above_first": 10
+      },
+      "maxCost": {
+        "base": 70,
+        "per_level_above_first": 10
+      },
       "anvilCost": 4,
       "slots": [
         "armor"
@@ -1494,6 +1502,14 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
       },
       "maxLevel": 3,
       "weight": 2,
+      "minCost": {
+        "base": 15,
+        "per_level_above_first": 10
+      },
+      "maxCost": {
+        "base": 65,
+        "per_level_above_first": 10
+      },
       "anvilCost": 4,
       "slots": [
         "armor"

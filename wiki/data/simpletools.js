@@ -599,6 +599,14 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       },
       "maxLevel": 1,
       "weight": 1,
+      "minCost": {
+        "base": 25,
+        "per_level_above_first": 0
+      },
+      "maxCost": {
+        "base": 50,
+        "per_level_above_first": 0
+      },
       "anvilCost": 8,
       "slots": [
         "any"

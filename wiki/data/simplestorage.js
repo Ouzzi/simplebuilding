@@ -7074,6 +7074,14 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
       },
       "maxLevel": 2,
       "weight": 2,
+      "minCost": {
+        "base": 15,
+        "per_level_above_first": 10
+      },
+      "maxCost": {
+        "base": 65,
+        "per_level_above_first": 10
+      },
       "anvilCost": 4,
       "slots": [
         "mainhand"
@@ -7187,6 +7195,14 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
       },
       "maxLevel": 8,
       "weight": 1,
+      "minCost": {
+        "base": 25,
+        "per_level_above_first": 25
+      },
+      "maxCost": {
+        "base": 75,
+        "per_level_above_first": 25
+      },
       "anvilCost": 8,
       "slots": [
         "mainhand"
@@ -7292,6 +7308,14 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
       },
       "maxLevel": 2,
       "weight": 2,
+      "minCost": {
+        "base": 15,
+        "per_level_above_first": 15
+      },
+      "maxCost": {
+        "base": 55,
+        "per_level_above_first": 15
+      },
       "anvilCost": 4,
       "slots": [
         "mainhand"
