@@ -1148,7 +1148,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplestorage",
     "displayName": "Simple Storage",
-    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved; backpacks follow.",
+    "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
     "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1161,17 +1161,19 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "simpleend"
+      "simpleend",
+      "trinkets_updated",
+      "curios"
     ],
     "parent": "simplebuilding",
     "bundle": "required",
     "counts": {
       "items": 14,
-      "blocks": 33,
-      "recipes": 168,
+      "blocks": 37,
+      "recipes": 174,
       "features": 6
     },
-    "dataHash": "f5da374d7b55"
+    "dataHash": "cde5caca9329"
   },
   {
     "id": "simplemusic",
