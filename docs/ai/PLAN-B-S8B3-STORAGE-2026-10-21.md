@@ -81,4 +81,22 @@ fabric/neoforge/forge/standalone-fabric/standalone-neoforge; fabric-263 + neofor
 
 ## 6. Stand und Abweichungen
 
-(nach Umsetzung)
+Umgesetzt (be88eb235) wie geplant: Modul `com.simplestorage.rare.{BetterChests, RareShulkers, ShulkerShells}`, Mixins
+`StructurePieceBetterChestMixin`, `StructureTemplateBetterChestMixin`, `EndCityPieceMixin`, `RareShulkerMobMixin`,
+`ShulkerEscortMixin`, Client `ShulkerRendererMixin`/`ShulkerRenderStateMixin` + `client/TieredShulkerRenderState`; 3 Schalen in
+`StorageItems` (Tab hinter den Stufen-Shulkerkisten, allein Vanilla-Zutatentab hinter der Shulkerschale, Teststation);
+`StorageConfig` + 5 Werte (Obergrenzen, NaN → Standard, Übernahme aus `server.loot.*`); IdMoves (3 Items, 3 Rezepte +
+Freischaltungen); Ressourcen per `git mv` (Item-Modelle/-Definitionen, Rezepte mit `#simplestorage:copper_chests`,
+Freischaltungen), Lang EN/DE, Fragentisch (Text „mit SimpleBuilding“ beim Aufwerten), Wiki-Feature `rare_structure_finds` +
+Notiz `simplestorage:*_shulker_shell`, `check_data.py`; Texturen über `MODULE_OUTPUTS['simplestorage']` + Generator
+`shulker_shell_textures` (Hülle aus der Modul-Shulkerkisten-Textur), `.gitignore` (alte SB-Zeilen bleiben zur Sicherheit).
+Modul-Tests `RareFindsTests` (9: 7 portiert + `rare_finds_registered` + `rare_finds_migration_from_simplebuilding`), Fabric-Adapter.
+SB: Klassen/Mixins/Items/Lang/Datagen (Modelle, Rezepte) raus, `ShulkerShells` per `StorageRefs.shulkerShell`, Tabs/Suchtab/
+DataIntegrity/Tags per Id, `RareStructureFindsTests` nur noch Häufchen-Test, `docs/MODS-UND-FEATURES.md`.
+
+Belege: (ausstehend, siehe unten)
+
+Abweichungen (bewusst):
+- Shulker-Deckel bleiben SB (E2a), Aufwerten der abgelegten Schale bleibt SB (E2b), SB-Felder `server.loot.*` bleiben (E2c, Stufe 9).
+- Neuer Name `RareShulkerMobMixin` statt `MobShulkerShellDropMixin` (Inhalt gleich: Beute + Aufwerten lebender Shulker).
+- Modul schaltet Weltfunde und Aufwerten lebender Shulker mit dem Super-Mod-Schalter ab (`SimpleStorage.on()`), Beute bleibt.
