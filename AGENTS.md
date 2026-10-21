@@ -33,6 +33,10 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
 7. **Neue Pixelkunst im Stil des Besitzers**, immer mit Vorschau (16-fach, alt neben neu). Nie an den Rand malen, keine dunklen
    Eckfüllungen in Konturen, alte Besitzer-Texturen respektieren, keine weichgezeichneten Skalierungen.
    Generatoren: `python tools/textures/generate_textures.py` und `--check`.
+   **Jede eigene Textur hat ihre Ebenen-Quelle `<name>.layers.json` daneben** (PRINZIPIEN A8 b, Format
+   `docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md`): Generatoren schreiben sie mit (`layers.snap(img, "Schritt")` je
+   Zeichenschritt, `layers.save`/`write_layers_for`), sonst nach jeder PNG-Änderung `python tools/textures/layers.py sync`;
+   `checkTextureLayers` (`layers.py check`) prüft Abdeckung und Pixelgleichheit.
    **Aus Vanilla abgeleitete Texturen nur beim Build erzeugen** (Besitzer 12.10.2026): Pixel, die aus dem Client-Jar
    kommen (Umfärbung/Maske/Kopie eines Mojang-Sprites), nie einchecken – auch keine Wiki-Kopien oder Vorschau-PNGs.
    Eintragen in `tools/textures/vanilla_derived.py` (`OUTPUTS`, `images()`), Pfade in `.gitignore`; Gradle

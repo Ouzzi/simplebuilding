@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#a7c8d8ff", "#96aebaff", "#6ea2bcff", "#67a3c1ff", "#75b0ceff", "#80acc3ff", "#9fc1d2ff", "#8badbeff", "#a5cbdeff", "#80b6d2ff", "#b6d1dfff", "#e6e6e6ff", "#dcdcdcff", "#d6d6d6ff", "#9ac3d8ff", "#8dbed7ff", "#f2f2f2ff", "#95daecff", "#ecececff"],
+  "layers": [
+    {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "00010203030405060000030207010105",
+      "0108090a0a0b0c0c0c0c0d0d0d0d0d03",
+      "05040d0e0b0b000f0f040e0e0d0d0d03",
+      "070e0e0c0c0609090409000d000a0a02",
+      "010a10100f0e0f100c100b0b0d0a0a01",
+      "010d0b0e100e1010100d0b0b0b090e01",
+      "030a0c0a0911111110000a0d0d0d0902",
+      "050b10080a0c110c090f0e000b0b0d03",
+      "010d0b0d0a1111110e0a0b0b0b0b0d02",
+      "020a0c0609111111110d0d0a0d0d0a01",
+      "070b10100e0a1110100812000b0b0d01",
+      "01040b0b0b10100d09100e0b0b090f02",
+      "010f040c0c0c060a00090c0d0d040a02",
+      "050b0b0f10121212120b0b0b0f040e02",
+      "0100000d0e0d0d0d0d0d0d0e0f0e0d07",
+      "01010307070302010101020101050101"
+    ]}
+  ]
+}

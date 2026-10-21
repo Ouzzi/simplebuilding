@@ -125,5 +125,102 @@ class Files(unittest.TestCase):
         self.assertEqual(ly.digits_for(257), 3)
 
 
+class Steps(unittest.TestCase):
+    def test_layers_are_drawing_steps_and_compose_exactly(self):
+        red, blue, glow, clear = [255, 0, 0, 255], [0, 0, 255, 255], [255, 255, 0, 100], [0, 0, 0, 0]
+        base = bytes(red * 3 + clear)                 # Grundform: three red pixels
+        shade = bytes(red + blue + red + clear)       # Schatten: pixel 1 opaque blue
+        final = bytes(red + blue + glow + blue)       # Glanz: pixel 2 half-transparent, pixel 3 new
+        d = ly.from_steps(4, 1, [("Grundform", base), ("Schatten", shade), ("Nichts", shade), ("Glanz", final)])
+        self.assertEqual(ly.validate(d), [])
+        self.assertEqual([l["name"] for l in d["layers"]], ["Grundform", "Schatten", "Glanz"])
+        self.assertEqual(bytes(ly.compose(d)), final)
+        rows = [l["rows"][0] for l in d["layers"]]
+        self.assertEqual(rows[0][:4], "0000")         # covered opaque pixel stays in the base shape
+        self.assertEqual(rows[0][4:6], "..")          # under a half-transparent pixel it must go
+        self.assertEqual(rows[2][:4], "....")
+
+    def test_erased_pixel_leaves_every_layer(self):
+        d = ly.from_steps(1, 1, [("A", bytes([9, 9, 9, 255])), ("Radiert", bytes([5, 5, 5, 0]))])
+        self.assertEqual(bytes(ly.compose(d)), bytes(4))
+        self.assertEqual(len(d["layers"]), 1)
+
+
+class FakeImage:
+    """Just what layers.snap/write_layers_for use of a PIL image (Pillow is not needed for the tests)."""
+
+    def __init__(self, w, h, rgba):
+        self.width, self.height, self.size, self.data = w, h, (w, h), bytearray(rgba)
+
+    def convert(self, mode):
+        return self
+
+    def tobytes(self):
+        return bytes(self.data)
+
+
+class Generators(unittest.TestCase):
+    def test_snap_grid_layers_by_material_and_write_beside(self):
+        rows = ["ab", "k."]
+        colors = {"a": (1, 1, 1), "b": (2, 2, 2), "k": (0, 0, 9)}
+        img = FakeImage(2, 2, ly.grid_rgba(rows, colors))
+        ly.snap_grid(img, rows, colors, [("Kontur", "k"), ("Leer", "z")], "Holz")
+        self.assertEqual([n for n, _ in ly.steps_of(img)], ["Holz", "Kontur", "Leer"])
+        with tempfile.TemporaryDirectory() as tmp:
+            saved = ly.ROOT
+            ly.ROOT = Path(tmp).resolve()
+            try:
+                png = ly.ROOT / "modules" / "m" / "assets" / "m" / "textures" / "item" / "x.png"
+                png.parent.mkdir(parents=True)
+                png.write_bytes(ly.png_write(2, 2, img.tobytes()))
+                source = ly.write_layers_for(img, png)
+                self.assertIsNotNone(source)
+                d = json.loads(source.read_text())
+                self.assertEqual([l["name"] for l in d["layers"]], ["Holz", "Kontur"])  # empty step dropped
+                self.assertEqual(ly.check_file(source, set()), [])
+                img.data[0:4] = bytes([7, 7, 7, 255])                 # drawn after the last snapshot
+                d = json.loads(ly.write_layers_for(img, png).read_text())
+                self.assertEqual(d["layers"][-1]["name"], "Nachbearbeitung")
+                self.assertIsNone(ly.write_layers_for(img, ly.ROOT / "tools" / "preview.png"))  # not a texture tree
+            finally:
+                ly.ROOT = saved
+
+
+class Coverage(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        self.saved = ly.ROOT, ly.own_textures, ly.ignored
+        self.png = self.root / "a" / "textures" / "item" / "x.png"
+        self.png.parent.mkdir(parents=True)
+        self.png.write_bytes(ly.png_write(1, 1, bytes([1, 2, 3, 255])))
+        ly.ROOT, ly.own_textures, ly.ignored = self.root, lambda: [self.png], lambda path: False
+
+    def tearDown(self):
+        ly.ROOT, ly.own_textures, ly.ignored = self.saved
+        self.tmp.cleanup()
+
+    def test_sync_creates_refreshes_and_keeps_multi_layer_sources(self):
+        self.assertEqual(ly.cmd_sync(False), 0)
+        source = ly.layers_path(self.png)
+        self.assertEqual(ly.check_file(source, set()), [])
+        self.assertEqual(json.loads(source.read_text())["layers"][0]["name"], "Grundform")
+        self.png.write_bytes(ly.png_write(1, 1, bytes([4, 5, 6, 255])))  # a generator without layer output ran
+        self.assertEqual(ly.cmd_sync(False), 0)
+        self.assertEqual(ly.check_file(source, set()), [])
+        two = ly.from_steps(1, 1, [("A", bytes([4, 5, 6, 255])), ("B", bytes([7, 8, 9, 255]))])
+        source.write_text(ly.dumps(two))
+        self.assertEqual(ly.cmd_sync(False), 1)                          # stale multi-layer: reported, kept
+        self.assertEqual(len(json.loads(source.read_text())["layers"]), 2)
+
+    def test_scope_matches_own_texture_trees_only(self):
+        self.assertTrue(ly.SCOPE.match("modules/simpleend/shared/resources/assets/simpleend/textures/block/a.png"))
+        self.assertTrue(ly.SCOPE.match("src/main/resources/assets/simplebuilding/textures/item/a.png"))
+        self.assertTrue(ly.SCOPE.match("mc26_3/overlay/resources/assets/simplebuilding/textures/item/a.png"))
+        self.assertFalse(ly.SCOPE.match("mc1_21_11/fabric/src/main/resources/assets/simplebuilding/textures/item/a.png"))
+        self.assertFalse(ly.SCOPE.match("tools/textures/hand/a.png"))
+        self.assertFalse(ly.SCOPE.match("modules/simpleend/shared/resources/assets/simpleend/icon.png"))
+
+
 if __name__ == "__main__":
     unittest.main()

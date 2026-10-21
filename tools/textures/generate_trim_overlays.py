@@ -40,6 +40,8 @@ import sys
 
 from PIL import Image
 
+from layers import snap_grid, write_layers_for  # noqa: E402  (tools/textures liegt als Skriptordner im Pfad)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 TREES = [
@@ -433,7 +435,8 @@ def render(rows_):
             if c != ".":
                 v = KEY[c]
                 img.putpixel((x, y), (v, v, v, 255))
-    return img
+    # Ebenen-Quelle (PRINZIPIEN A8 b): Muster aus den hellen Stufen, darueber die dunkle Kontur 6/7
+    return snap_grid(img, rows_, {c: (v, v, v) for c, v in KEY.items()}, [("Kontur", "67")], "Muster")
 
 
 def build():
@@ -510,6 +513,7 @@ def main():
             else:
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 img.save(path, optimize=True)
+                write_layers_for(img, path)  # nur im eigenen Texturbaum, nicht in der Port-Kopie
     if args.check:
         if stale:
             print("Veraltet oder fehlend:\n  " + "\n  ".join(stale))

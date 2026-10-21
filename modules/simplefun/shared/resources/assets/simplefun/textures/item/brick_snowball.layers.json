@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#aaaaaa01", "#aec9c9d6", "#afcacafe", "#aec9c9fd", "#a0c0c00f", "#82abaa03", "#b3d0cfca", "#bbd5d5e2", "#cddbd8fa", "#dcf0efff", "#dff1f0ff", "#cfdedcff", "#adccccdf", "#8bb1b1ce", "#c7dad8fc", "#e4f4f3ff", "#f0faf9ff", "#d3f2f2ff", "#f2fbfaff", "#e7f8f7ff", "#c7d9d7ff", "#aac9c9fd", "#7aa5a4d6", "#bcd6d5e2", "#dff2f1ff", "#fafdfcff", "#eff9f9ff", "#fdfefeff", "#f9fcfcff", "#ecf9f8ff", "#cfdddbff", "#81aaa9f2", "#afcacad6", "#d3dbd9fa", "#d6e3e1ff", "#fcfefeff", "#feffffff", "#f1faf9ff", "#f9fdfdff", "#dbf4f3ff", "#d9e2e0ff", "#a5c4c4fc", "#82ababbb", "#aecac9fe", "#cfdfdcff", "#ffffffff", "#fefeffff", "#e2e7e5ff", "#d0e0deff", "#bdbebbff", "#86aeaed8", "#aec9c9fe", "#ccdbd9ff", "#dee4e1ff", "#f4eceaff", "#f0fafaff", "#fafdfdff", "#d9e5e2ff", "#dae1deff", "#c7c8c5ff", "#c2c9c4ff", "#87b0b1d8", "#afc9c9fd", "#bfbfbdff", "#c2c1beff", "#e7e9e6ff", "#f3eceaff", "#e8e9e6ff", "#f2ece9ff", "#e4e8e6ff", "#c5c5c1ff", "#c8cccaff", "#b1a8a4ff", "#83acabd7", "#adc0c00f", "#adcbcadf", "#c4ccc6ff", "#c2c0beff", "#c4c2bfff", "#dcd6d2ff", "#cecfcbff", "#c2c1bfff", "#b9b1abff", "#7ba6a5f0", "#82aaaa03", "#ada69ffd", "#bbb1acff", "#bfbfbcff", "#c6c5c2ff", "#c2c2bfff", "#c2bbb5ff", "#ada7a1fd", "#7aa5a3db", "#80aaa9f2", "#a9a29cfc", "#c8c2beff", "#bcb2adff", "#b0a7a3ff", "#7ba6a4f0", "#7aa5a5db", "#00000001", "#83acabbb", "#88b2b2d8", "#86afaed8", "#83ababd7"],
+  "layers": [
+    {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "................................",
+      "....................00..........",
+      "............010202030405........",
+      "........060708090a0b0c0d........",
+      "......060e0f10111213141516......",
+      "......1718191a1b1c1d101e1f......",
+      "....2021221b232425262728292a....",
+      "....2b2c2624242d2e1b2f303132....",
+      "....3334353637381d393a3b3c3d....",
+      "....3e3f40414243444546474849....",
+      "....4a4b4c4d4e4f5051405253......",
+      "....540d5556575859575a5b5c......",
+      "........165d5e5f6061626364......",
+      "............65666768............",
+      "................................",
+      "................................"
+    ]}
+  ]
+}

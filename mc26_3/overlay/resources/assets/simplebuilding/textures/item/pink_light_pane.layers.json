@@ -1,0 +1,28 @@
+{
+  "format": "sb-layers",
+  "version": 1,
+  "width": 16,
+  "height": 16,
+  "digits": 2,
+  "palette": ["#734a56ff", "#de8fa7ff", "#be7b8fff", "#bb798cff", "#cd859aff", "#d78ca2ff", "#c27f93ff", "#c68296ff", "#d28aa0ff", "#d98ea4ff", "#be7c90ff", "#bc7a8dff", "#d1879dff", "#cc849aff", "#c07c91ff", "#8b5a68ff", "#d68ba1ff", "#cf879dff", "#c78398ff", "#ce889dff", "#db90a7ff", "#ca8499ff", "#c58095ff", "#cb8399ff", "#d489a0ff", "#d1889eff", "#c38094ff", "#c58196ff", "#d58da2ff", "#d48da2ff", "#c78498ff", "#c98599ff", "#d18a9fff", "#d88da4ff", "#c37f93ff", "#c68095ff", "#d48aa0ff", "#d68ca2ff", "#cb869bff", "#c88498ff", "#d890a5ff", "#da91a7ff", "#d18ca1ff", "#dc91a8ff", "#da8fa6ff", "#c27e92ff", "#c48094ff", "#cb869aff", "#dd92a9ff", "#d78fa5ff", "#cb889cff", "#e096acff", "#db92a8ff", "#ce899eff", "#c68397ff", "#c28094ff", "#cc879cff", "#e297adff", "#ec9fb6ff", "#e298afff", "#e499afff", "#d28ca1ff", "#ca869bff", "#d58ca2ff", "#d1899fff", "#cc889cff", "#c9879aff", "#dc94a9ff", "#e69bb1ff", "#d790a5ff", "#dc92a8ff", "#d1899eff", "#d78da3ff", "#cd889dff", "#c58397ff", "#e095acff", "#dd95aaff", "#d38ea3ff", "#d28ba0ff", "#c58296ff", "#c78297ff", "#bf7c90ff", "#d98ea5ff", "#d48ca2ff", "#ce899dff", "#c8869aff", "#d991a7ff", "#c38195ff", "#ca859aff", "#bf7b8fff", "#c17d91ff", "#d0889eff", "#cb879bff", "#d78ea4ff", "#c48195ff", "#c47f94ff", "#d68da3ff", "#c48295ff", "#c98499ff", "#d58ba2ff", "#ce869cff", "#bc7a8eff", "#d0879dff", "#cf869cff", "#bd7a8eff", "#bd7b8fff", "#d38aa0ff", "#d2889eff"],
+  "layers": [
+    {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
+      "..0000000000000000000000000000..",
+      "00010101010101010101010101010100",
+      "000102030405060708090a0b0c0d0100",
+      "00010e0f10111213141415160f170100",
+      "000118191a1b1c1d1e1f202122230100",
+      "00012425262728292a1e2b2c1b2d0100",
+      "00012e2f3031322a3334353625210100",
+      "000137381d393a3a3b3c3d3e1c3f0100",
+      "0001402b414243443a3a454613260100",
+      "00014748494a4b4c4d41304e4f500100",
+      "00015107525354555629575825050100",
+      "0001595a5b3f385c1d5d5e5024170100",
+      "0001040f5f155360616263640f650100",
+      "0001666768696a602715246b68230100",
+      "00010101010101010101010101010100",
+      "..0000000000000000000000000000.."
+    ]}
+  ]
+}

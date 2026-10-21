@@ -9,6 +9,8 @@ import argparse
 import sys
 from pathlib import Path
 from PIL import Image
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'tools/textures'))
+from layers import save, snap, snap_grid  # noqa: E402  layer sources beside the PNGs (A8 b)
 
 MODULE = Path(__file__).resolve().parents[1]
 TEX = MODULE / 'shared/resources/assets/simpleenddragonfight/textures'
@@ -72,21 +74,24 @@ def entity():
             fill(img, f[name], shell)
         fill(img, f['top'], top)
         fill(img, f['bottom'], lambda lx, ly, w_, h_, x, y: BELLY if h(x, y, 5) % 4 else SHELL[2])
+    snap(img, 'Körper')
     # head (segment 0) front: mandibles at the bottom row
     hx, hy, hw, hh = faces(0, 0, 4, 3, 2)['north']
     for x in range(hx, hx + hw):
         img.putpixel((x, hy + hh - 1), MANDIBLE + (255,))
     img.putpixel((hx, hy + 1), EYE + (255,))
     img.putpixel((hx + hw - 1, hy + 1), EYE + (255,))
+    snap(img, 'Gesicht')
     # spines: pale end-stone horns, darker at the root
     for u, hgt in ((24, 2), (28, 3), (32, 2)):
         fill(img, (u, 0, 4, 1 + hgt), lambda lx, ly, w_, h_, x, y: SPINE[2] if ly == 0 else SPINE[1] if ly < h_ - 1 else SPINE[0])
+    snap(img, 'Stacheln')
     # wing stubs: membrane with a darker frame and one rib
     wf = faces(24, 5, 4, 1, 3)
     for name, rect in wf.items():
         fill(img, rect, lambda lx, ly, w_, h_, x, y: WING[0] if lx in (0, w_ - 1) or (name in ('top', 'bottom') and ly == h_ - 1)
              else (WING[2] if lx == w_ // 2 else WING[1]))
-    return img
+    return snap(img, 'Flügel')
 
 
 def eyes(base):
@@ -150,13 +155,17 @@ EGG = [
 ]
 
 
+# layer sources of the item grids (A8 b): base = shell, then these on top
+GRID_LAYERS = [('Adern', 'vV'), ('Stacheln', 'rRwsS'), ('Auge', 'e'), ('Kontur', 'k')]
+
+
 def outputs():
     ent = entity()
     return {
         TEX / 'entity/dragonmite/dragonmite.png': ent,
         TEX / 'entity/dragonmite/dragonmite_eyes.png': eyes(ent),
-        TEX / 'item/dragon_chitin.png': grid(CHITIN, CHITIN_PAL),
-        TEX / 'item/dragonmite_spawn_egg.png': grid(EGG, EGG_PAL),
+        TEX / 'item/dragon_chitin.png': snap_grid(grid(CHITIN, CHITIN_PAL), CHITIN, CHITIN_PAL, GRID_LAYERS, 'Panzer'),
+        TEX / 'item/dragonmite_spawn_egg.png': snap_grid(grid(EGG, EGG_PAL), EGG, EGG_PAL, GRID_LAYERS, 'Schale'),
     }
 
 
@@ -172,7 +181,7 @@ def main():
                 bad.append(path)
             continue
         path.parent.mkdir(parents=True, exist_ok=True)
-        img.save(path)
+        save(img, path)
     if args.preview:
         out = Path(args.preview)
         out.mkdir(parents=True, exist_ok=True)
