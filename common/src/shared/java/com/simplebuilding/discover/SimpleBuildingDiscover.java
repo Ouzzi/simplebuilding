@@ -393,6 +393,7 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:sulfur_campfire",
             "simplebuilding:sulfur_lantern",
             "simplebuilding:sulfur_torch",
+            "simplebuilding:test_centre",
             "simplebuilding:themed_fires",
             "simplebuilding:training_dummy",
             "simplebuilding:vein_miner",
