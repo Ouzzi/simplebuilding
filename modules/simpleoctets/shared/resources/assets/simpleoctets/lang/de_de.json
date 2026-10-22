@@ -1,5 +1,5 @@
 {
-  "itemGroup.simpleoctets": "Simple Octets",
+  "itemgroup.simpleoctets.octets": "Simple Octets",
   "simpleoctets.testcentre.station": "Simple Octets",
   "tooltip.simpleoctets.material_octet": "Rechtsklick: 0,125er-Block setzen",
   "tooltip.simpleoctets.melon_slice.place": "Schleichen + Rechtsklick: als Achtel setzen",

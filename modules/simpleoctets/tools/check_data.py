@@ -31,7 +31,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((ASSETS / f'lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     need = sorted(used) + [f'{p}.{NS}.{c}' for c in cells for p in ('block', 'item')]
-    need += [f'block.{NS}.melon_octet', f'block.{NS}.mixed_octet', f'itemGroup.{NS}', f'{NS}.testcentre.station',
+    need += [f'block.{NS}.melon_octet', f'block.{NS}.mixed_octet', f'itemgroup.{NS}.octets', f'{NS}.testcentre.station',
              f'item.{NS}.guide_book', f'jei.{NS}.info.octets', f'jei.{NS}.info.melon_octet']
     for k in need:
         assert data.get(k), (locale, k)

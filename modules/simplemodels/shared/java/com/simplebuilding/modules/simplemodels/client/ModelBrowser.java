@@ -220,12 +220,12 @@ public final class ModelBrowser extends Screen {
             for (int row = 0; row < fields.size(); row++) {
                 var field = fields.get(row); int ry = y + 48 + row * step;
                 try {
-                    g.text(font, Component.translatable("simplemodels.config." + field.getName()), x + 8, ry, PALETTE.label(), false);
+                    g.text(font, Component.translatable("text.autoconfig.simplemodels.option." + field.getName()), x + 8, ry, PALETTE.label(), false);
                     if (field.get(catalogue.policy()) instanceof Boolean on) toggle(g, right - 20, ry - 1, on);
                     else { String value = String.valueOf(field.get(catalogue.policy())); g.text(font, value, right - font.width(value), ry, PALETTE.label(), false); }
                 } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
                 if (mx >= x && mx < right && my >= ry - 2 && my < ry - 2 + step)
-                    g.setTooltipForNextFrame(font, font.split(Component.translatable("simplemodels.config." + field.getName() + ".tooltip"), Math.min(240, width - 16)), mx, my);
+                    g.setTooltipForNextFrame(font, font.split(Component.translatable("text.autoconfig.simplemodels.option." + field.getName() + ".@Tooltip"), Math.min(240, width - 16)), mx, my);
             }
             g.textWithWordWrap(font, Component.translatable("simplemodels.browser.readonly"), x + 8, y + panelHeight - BOTTOM + 1, panelWidth - 92, PALETTE.label(), false);
         } else g.textWithWordWrap(font, Component.translatable("simplemodels.browser.import"), x + 8, y + 48, panelWidth - 16, PALETTE.label(), false);

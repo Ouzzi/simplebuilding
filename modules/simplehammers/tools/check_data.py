@@ -30,7 +30,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((ASSETS / f'lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     need = sorted(used) + [f'item.{NS}.{h}' for h in HAMMERS] + [f'enchantment.{NS}.{e}' for e in ENCHANTMENTS]
-    need += [f'itemGroup.{NS}', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
+    need += [f'itemgroup.{NS}.hammers', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
     need += [f'jei.{NS}.info.{p}' for p in ('area', 'reshape', 'crush', 'upgrade')]
     for k in need:
         assert data.get(k), (locale, k)

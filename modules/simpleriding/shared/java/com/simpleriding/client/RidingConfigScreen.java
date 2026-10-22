@@ -8,7 +8,7 @@ import java.nio.file.*;
 
 public final class RidingConfigScreen {
  public static Screen create(Screen parent) {
-  var builder=ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("simpleriding.config.server"));
+  var builder=ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("text.autoconfig.simpleriding.serverTitle"));
   var entries=builder.entryBuilder();
   var gson=new com.google.gson.Gson();
   var c=gson.fromJson(gson.toJson(Riding.CONFIG),RidingConfig.class);

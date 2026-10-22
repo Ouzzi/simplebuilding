@@ -189,7 +189,7 @@ public final class OctetRegistry {
     public static void registerTab() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleOctets.id("main"),
                 CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-                        .title(Component.translatable("itemGroup.simpleoctets"))
+                        .title(Component.translatable("itemgroup.simpleoctets.octets"))
                         .icon(() -> new ItemStack(WOOD_OCTET_ITEMS.isEmpty() ? Items.OAK_PLANKS : WOOD_OCTET_ITEMS.get(0)))
                         .displayItems((params, out) -> {
                             tabStacks().forEach(out::accept);

@@ -1,7 +1,7 @@
 {
   "itemgroup.simpletrims.trims": "Simple Trims",
-  "simpletrims.config.enabled": "Simple Trims aktivieren",
-  "simpletrims.config.enabled.tooltip": "Schaltet Simple Trims ein oder aus (Neustart nötig). Aus: keine Besatz-Aufwertungen, kein Ablegen, kein Strahlkraft-Licht; Registrierungen bleiben, Welten laden weiter.",
+  "text.autoconfig.simpletrims.option.enabled": "Simple Trims aktivieren",
+  "text.autoconfig.simpletrims.option.enabled.@Tooltip": "Schaltet Simple Trims ein oder aus (Neustart nötig). Aus: keine Besatz-Aufwertungen, kein Ablegen, kein Strahlkraft-Licht; Registrierungen bleiben, Welten laden weiter.",
   "item.simpletrims.glowing_trim_template": "Leuchtender Rüstungsbesatz",
   "item.simpletrims.glowing_trim_template.applies_to": "Strahlkraft hinzufügen",
   "item.simpletrims.glowing_trim_template.ingredients": "Leuchtendes Material",

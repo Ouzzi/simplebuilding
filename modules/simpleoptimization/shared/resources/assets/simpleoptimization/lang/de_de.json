@@ -1,6 +1,6 @@
 {
   "modmenu.nameTranslation.simpleoptimization": "Simple Optimization",
-  "simpleoptimization.config.enableSimpleOptRender": "Simple Opt Render aktivieren",
-  "simpleoptimization.config.enableSimpleOptMemory": "Simple Opt Memory aktivieren",
-  "simpleoptimization.config.enableSimpleOptServer": "Simple Opt Server aktivieren"
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptRender": "Simple Opt Render aktivieren",
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory": "Simple Opt Memory aktivieren",
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer": "Simple Opt Server aktivieren"
 }
