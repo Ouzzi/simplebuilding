@@ -714,7 +714,8 @@ public final class MobHeadTests {
         ServerPlayer listener = MusicDiscTests.capturingPlayer(helper, sink);
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
         listener.snapTo(player.getX() + 1.0, player.getY(), player.getZ(), 0.0F, 0.0F);
-        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        helper.assertFalse(player.isCreative(), "the test player is still in creative mode");
         player.doTick();
         ServerLevel level = helper.getLevel();
         net.minecraft.world.InteractionHand hand = net.minecraft.world.InteractionHand.MAIN_HAND;

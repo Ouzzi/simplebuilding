@@ -94,8 +94,13 @@ public final class ExtraHead {
             player.awardStat(net.minecraft.stats.Stats.ITEM_USED.get(inHand.getItem()));
         }
         if (inHand.getCount() <= 1) {
-            ItemStack toHand = worn.isEmpty() ? inHand : worn.copy();
-            set(player, player.isCreative() ? inHand.copy() : inHand.copyAndClear());
+            if (player.isCreative()) {
+                set(player, inHand.copy());
+                return net.minecraft.world.InteractionResult.SUCCESS;
+            }
+            ItemStack toHand = worn.copy();
+            set(player, inHand.copyAndClear());
+            player.setItemInHand(hand, toHand);
             return net.minecraft.world.InteractionResult.SUCCESS.heldItemTransformedTo(toHand);
         }
         ItemStack old = worn.copy();
