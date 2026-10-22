@@ -57,6 +57,8 @@
   "text.autoconfig.simplevisuals.option.visuals.deathCoordsMode.@Tooltip": "Nur eigene Todeskoordinaten, ausschließlich\nlokal. Standard: SEPARATE.",
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips": "Karten-Tooltips",
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips.@Tooltip": "Zeigt Koordinaten beim Hovern über Karten.\nStandard: true.",
+  "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems": "Flache Blöcke im Rahmen schräg",
+  "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems.@Tooltip": "Druckplatten, Teppiche, Falltüren und andere\nflache Blöcke zeigen sich im Rahmen wie im\nInventar (schräg von oben) statt als dünner\nStrich. Nur clientseitig. Standard: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable": "Enable",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable.@Tooltip": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.scale": "Scale",
