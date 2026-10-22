@@ -1,5 +1,7 @@
 package com.simplebeacons.client;
 
+import com.simplebeacons.beacon.RangeFactor;
+import com.simplebeacons.beacon.RangeFactorView;
 import com.simplebeacons.beacon.StrongBeaconLogic;
 import com.simplebeacons.beacon.StrongBeaconMenu;
 import com.simplebeacons.mixin.client.BeaconScreenAccessor;
@@ -19,6 +21,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.BeaconScreen;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -34,7 +37,9 @@ import net.minecraft.world.item.Items;
  * slot, buttons and inventory moved down by that much. The background is Vanilla's beacon.png stretched by those rows
  * (tools/textures/strong_beacon_gui.py, built from the client jar, never committed); the pyramid counter, range and
  * duration sit in the right field under level 4. Locked rows are greyed out with a tooltip; the "II" upgrade button is
- * greyed out for the new effects.
+ * greyed out for the new effects. SP22-10: every primary row has three effects - Vanilla's buttons of rows 1-3 move onto
+ * the three-column grid and the new ones join them - and the right field shows the material factor ("Material x1.25")
+ * with the range it gives.
  */
 public class StrongBeaconScreen extends BeaconScreen {
     /** Vanilla's image height and the two extra rows (50 px). */
@@ -43,7 +48,8 @@ public class StrongBeaconScreen extends BeaconScreen {
     public static final int ROW_Y = 22, ROW_STEP = 25, BUTTON_CENTER_X = 76, BUTTON_STEP = 24, BUTTON_SIZE = 22;
     private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("simplebeacons", "textures/gui/container/strong_beacon.png");
     private static final int SHEET_WIDTH = 256, SHEET_HEIGHT = 288;
-    private static final int LABEL = 0xFFE0E0E0;
+    /** Vanilla's label colour on Vanilla's field colour (#212121, measured in beacon.png): contrast 12.2:1. */
+    public static final int LABEL = 0xFFE0E0E0, FIELD = 0xFF212121;
     private static final int DIM = 0xFF8A8A8A;
     private static final Identifier BUTTON_DISABLED = Identifier.withDefaultNamespace("container/beacon/button_disabled");
     private static final Identifier BUTTON_SELECTED = Identifier.withDefaultNamespace("container/beacon/button_selected");
@@ -73,12 +79,22 @@ public class StrongBeaconScreen extends BeaconScreen {
     protected void init() {
         super.init();
         this.strongButtons.clear();
-        for (int tier = 5; tier <= 6; tier++) {
+        // Vanilla's primary buttons of rows 1-3 (left half, in creation order) onto the three-column grid
+        int[] vanillaInRow = new int[3];
+        for (GuiEventListener child : List.copyOf(this.children())) {
+            if (!(child instanceof AbstractWidget widget) || !widget.getClass().getName().endsWith("$BeaconPowerButton")
+                    || widget.getX() >= this.leftPos + 120) continue;
+            int tier = (widget.getY() - this.topPos - ROW_Y) / ROW_STEP;
+            if (tier < 0 || tier > 2) continue;
+            widget.setX(columnX(vanillaInRow[tier]++, StrongBeaconLogic.EFFECTS.get(tier).size()));
+        }
+        for (int tier = 1; tier <= 6; tier++) {
+            if (tier == 4) continue;
             List<Holder<MobEffect>> effects = StrongBeaconLogic.EFFECTS.get(tier - 1);
-            int count = effects.size(), totalWidth = count * BUTTON_SIZE + (count - 1) * (BUTTON_STEP - BUTTON_SIZE);
-            for (int c = 0; c < count; c++) {
-                StrongButton button = new StrongButton(this.leftPos + BUTTON_CENTER_X + c * BUTTON_STEP - totalWidth / 2,
-                        this.topPos + ROW_Y + (tier - 2) * ROW_STEP, effects.get(c), tier);
+            int count = effects.size(), first = tier <= 3 ? vanillaInRow[tier - 1] : 0;
+            for (int c = first; c < count; c++) {
+                int row = tier <= 3 ? tier - 1 : tier - 2;
+                StrongButton button = new StrongButton(columnX(c, count), this.topPos + ROW_Y + row * ROW_STEP, effects.get(c), tier);
                 this.addRenderableWidget(button);
                 this.strongButtons.add(button);
             }
@@ -89,6 +105,18 @@ public class StrongBeaconScreen extends BeaconScreen {
                 widget.setY(widget.getY() + EXTRA);
             }
         }
+    }
+
+    /** Left edge of column {@code c} of a centred row with {@code count} buttons (Vanilla's formula). */
+    private int columnX(int c, int count) {
+        int totalWidth = count * BUTTON_SIZE + (count - 1) * (BUTTON_STEP - BUTTON_SIZE);
+        return this.leftPos + BUTTON_CENTER_X + c * BUTTON_STEP - totalWidth / 2;
+    }
+
+    /** "Material x1.25" with the language's decimal separator. */
+    public static Component factorLine(int percent) {
+        String value = RangeFactor.format(percent).replace(".", I18n.get("simplebeacons.screen.decimal_separator"));
+        return Component.translatable("simplebeacons.screen.factor", value);
     }
 
     @Override
@@ -138,7 +166,10 @@ public class StrongBeaconScreen extends BeaconScreen {
         int centre = 169; // the right field, like Vanilla's "Secondary Power" label
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.pyramid", levels, max), centre, 80, LABEL);
         int shown = Math.max(1, levels);
-        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", this.strongMenu.range(shown)),
+        int percent = ((RangeFactorView) this.menu).simplebeacons$rangePercent();
+        if (percent > 0) graphics.centeredText(this.font, factorLine(percent), centre, 92, levels > 0 ? LABEL : DIM);
+        long range = Math.round(RangeFactor.apply(this.strongMenu.range(shown), percent > 0 && levels > 0 ? percent : RangeFactor.NONE));
+        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", range),
                 centre, 104, levels > 0 ? LABEL : DIM);
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.duration", StrongBeaconLogic.durationTicks(shown) / 20),
                 centre, 116, levels > 0 ? LABEL : DIM);

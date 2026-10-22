@@ -9,14 +9,14 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebeacons'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/BeaconsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 7, config_keys
+assert len(config_keys) == 9, config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))
 used = {k for k in used if NS in k and not k.endswith('.')}
 effects = re.search(r'EFFECT_IDS = List\.of\(([^;]*)\);', (JAVA / 'config/BeaconsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 effects = re.findall(r'"([a-z_]+)"', effects)
-assert len(effects) == 6, effects
+assert len(effects) == 10, effects
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))

@@ -60,7 +60,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             if (!(c.gui.screen() instanceof StrongBeaconScreen screen)) throw new AssertionError(name + ": not the Strong Beacon screen");
             if (choose) ((BeaconScreenAccessor) screen).simplebeacons$setPrimary(MobEffects.FIRE_RESISTANCE);
             var buttons = screen.strongButtons();
-            if (buttons.size() != 6) throw new AssertionError(name + ": 6 extra buttons expected, got " + buttons.size());
+            // SP22-10: the new powers of levels 1 (1), 2 (1), 3 (2), then levels 5 and 6 (3 each)
+            int[] tiers = {1, 2, 3, 3, 5, 5, 5, 6, 6, 6};
+            if (buttons.size() != tiers.length) throw new AssertionError(name + ": 10 extra buttons expected, got " + buttons.size());
             for (AbstractWidget a : buttons) {
                 if (a.getRight() > c.getWindow().getGuiScaledWidth()) throw new AssertionError(name + ": button outside the window");
                 for (var child : screen.children()) {
@@ -68,7 +70,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                         throw new AssertionError(name + ": button overlaps " + b.getClass().getName());
                     }
                 }
-                boolean expected = levels >= (buttons.indexOf(a) < 3 ? 5 : 6);
+                boolean expected = levels >= tiers[buttons.indexOf(a)];
                 if (a.active != expected) throw new AssertionError(name + ": button " + buttons.indexOf(a) + " active=" + a.active);
             }
         });

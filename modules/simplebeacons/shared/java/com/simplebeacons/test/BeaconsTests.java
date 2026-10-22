@@ -3,6 +3,8 @@ package com.simplebeacons.test;
 import com.google.gson.JsonObject;
 import com.simplebeacons.BeaconsRegistry;
 import com.simplebeacons.SimpleBeacons;
+import com.simplebeacons.beacon.RangeFactor;
+import com.simplebeacons.beacon.RangeFactorView;
 import com.simplebeacons.beacon.StrongBeaconBlockEntity;
 import com.simplebeacons.beacon.StrongBeaconLogic;
 import com.simplebeacons.beacon.StrongBeaconMenu;
@@ -61,9 +63,10 @@ public final class BeaconsTests {
         ALL.put("config_defaults", h -> {
             BeaconsConfig.reset();
             h.assertTrue(BeaconsConfig.enabled && BeaconsConfig.strongBeaconMaxLevels == 6 && BeaconsConfig.strongBeaconRangeBase == 10
-                    && BeaconsConfig.strongBeaconRangePerLevel == 10 && BeaconsConfig.strongConduitMaxRange == 144
+                    && BeaconsConfig.strongBeaconRangePerLevel == 10 && BeaconsConfig.strongConduitMaxRange == 216
+                    && BeaconsConfig.strongBeaconMaterialRange && BeaconsConfig.vanillaBeaconMaterialRange
                     && BeaconsConfig.upgradeStrikes == 8, "defaults");
-            h.assertTrue(BeaconsConfig.EFFECT_IDS.stream().allMatch(BeaconsConfig::effectOn), "all six effects on by default");
+            h.assertTrue(BeaconsConfig.EFFECT_IDS.stream().allMatch(BeaconsConfig::effectOn), "all ten effects on by default");
             JsonObject json = new JsonObject();
             json.addProperty("strongBeaconMaxLevels", 9);
             json.addProperty("strongConduitMaxRange", 20);
@@ -132,15 +135,30 @@ public final class BeaconsTests {
             h.assertTrue(StrongBeaconLogic.validate(MobEffects.SPEED, MobEffects.SPEED, 6), "Speed II stays");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.ABSORPTION, MobEffects.ABSORPTION, 6), "no Absorption II");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.REGENERATION, null, 6), "regeneration is no primary");
-            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.LUCK, null, 6) && !StrongBeaconLogic.validate(MobEffects.SATURATION, null, 6),
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.LUCK, null, 6) && !StrongBeaconLogic.validate(MobEffects.INSTANT_HEALTH, null, 6),
                     "foreign effects refused");
+            // SP22-10: three powers on every primary level, the new ones of levels 1-3 without "II"
+            for (int lvl : new int[] {1, 2, 3, 5, 6}) {
+                h.assertTrue(StrongBeaconLogic.EFFECTS.get(lvl - 1).size() == 3, "three powers on level " + lvl);
+            }
+            h.assertTrue(StrongBeaconLogic.validate(MobEffects.SATURATION, null, 1), "saturation from level 1 (owner 22.10.: no Luck)");
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, null, 1) && StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, null, 2),
+                    "health boost from level 2");
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.INVISIBILITY, null, 2) && StrongBeaconLogic.validate(MobEffects.INVISIBILITY, null, 3)
+                    && StrongBeaconLogic.validate(MobEffects.HERO_OF_THE_VILLAGE, MobEffects.REGENERATION, 4), "invisibility and hero from level 3");
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.SATURATION, MobEffects.SATURATION, 6) && !StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, MobEffects.HEALTH_BOOST, 6),
+                    "no II for the new level 1-3 powers");
+            h.assertTrue(StrongBeaconLogic.validate(MobEffects.STRENGTH, MobEffects.STRENGTH, 4), "Strength II stays");
             JsonObject json = new JsonObject();
             json.addProperty("strongBeaconMaxLevels", 5);
             JsonObject effects = new JsonObject();
             effects.addProperty("night_vision", false);
+            effects.addProperty("hero_of_the_village", false);
             json.add("strongBeaconEffects", effects);
             BeaconsConfig.apply(json);
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.NIGHT_VISION, null, 6), "switched off effect refused");
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.HERO_OF_THE_VILLAGE, null, 6) && StrongBeaconLogic.validate(MobEffects.SPEED, null, 6),
+                    "a new level 3 power can be switched off, Vanilla's stay");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.DOLPHINS_GRACE, null, 6), "max levels 5: no level 6 effect");
             BeaconsConfig.reset();
             h.succeed();
@@ -173,6 +191,19 @@ public final class BeaconsTests {
             near.setAbsorptionAmount(1.0F);
             StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.ABSORPTION, null);
             h.assertTrue(near.getAbsorptionAmount() == 1.0F, "refreshing the duration does not refill absorption");
+            StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.HEALTH_BOOST, null);
+            h.assertTrue(near.getMaxHealth() == 24.0F, "health boost I = 2 more hearts: " + near.getMaxHealth());
+            near.setHealth(24.0F);
+            StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.HEALTH_BOOST, null);
+            h.assertTrue(near.getMaxHealth() == 24.0F && near.getHealth() == 24.0F, "renewing keeps the extra hearts");
+            // Saturation: a one-tick pulse every third cycle (12 s), never a lasting effect that feeds every tick
+            h.assertTrue(StrongBeaconLogic.saturationDue(0) && !StrongBeaconLogic.saturationDue(80) && !StrongBeaconLogic.saturationDue(160)
+                    && StrongBeaconLogic.saturationDue(240), "saturation every third cycle");
+            near.removeAllEffects();
+            StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.SATURATION, null);
+            MobEffectInstance food = near.getEffect(MobEffects.SATURATION);
+            h.assertTrue(StrongBeaconLogic.saturationDue(h.getLevel().getGameTime()) ? food != null && food.getDuration() == 1 : food == null,
+                    "saturation only as a one-tick pulse: " + food);
             BeaconsConfig.reset();
             h.succeed();
         });
@@ -344,10 +375,11 @@ public final class BeaconsTests {
             h.assertTrue(StrongConduitLogic.scan(h.getLevel(), center, found) == 0, "no frame: inactive");
             for (BlockPos p : StrongConduitLogic.shell(center, 2)) h.getLevel().setBlockAndUpdate(p, Blocks.PRISMARINE.defaultBlockState());
             h.assertTrue(StrongConduitLogic.scan(h.getLevel(), center, found) == 2 && found.size() == 42, "full 5x5x5 frame");
-            h.assertTrue(StrongConduitLogic.range(42) == 96 && StrongConduitLogic.killRange(42, 2) == 8, "Vanilla range and attack");
+            h.assertTrue(StrongConduitLogic.range(42) == 144 && StrongConduitLogic.killRange(42, 2) == 8, "SP22-9: 1.5 x Vanilla range (144), Vanilla attack");
             for (BlockPos p : StrongConduitLogic.shell(center, 3)) h.getLevel().setBlockAndUpdate(p, Blocks.DARK_PRISMARINE.defaultBlockState());
             h.assertTrue(StrongConduitLogic.scan(h.getLevel(), center, found) == 3 && found.size() == 66, "full 7x7x7 frame wins");
-            h.assertTrue(StrongConduitLogic.range(66) == 144 && StrongConduitLogic.killRange(66, 3) == 12, "range 144, attack 12");
+            h.assertTrue(StrongConduitLogic.range(66) == 216 && StrongConduitLogic.killRange(66, 3) == 12, "SP22-9: range 216, attack 12");
+            h.assertTrue(StrongConduitLogic.range(16) == 48, "16 frame blocks: 2 x 24");
             JsonObject json = new JsonObject();
             json.addProperty("strongConduitMaxRange", 96);
             BeaconsConfig.apply(json);
@@ -378,6 +410,98 @@ public final class BeaconsTests {
             h.assertTrue(!dry.hasEffect(MobEffects.CONDUIT_POWER), "dry player gets nothing");
             h.succeed();
         });
+        ALL.put("range_factor_by_material", h -> {
+            // SP22-10 (plan docs/ai/PLAN-A-BEACONS22-2026-10-22.md): average block factor of the counted levels, whole percent
+            BeaconsConfig.reset();
+            h.assertTrue(RangeFactor.percent(Blocks.NETHERITE_BLOCK) == 200 && RangeFactor.percent(Blocks.DIAMOND_BLOCK) == 150
+                    && RangeFactor.percent(Blocks.GOLD_BLOCK) == 110 && RangeFactor.percent(Blocks.EMERALD_BLOCK) == 110
+                    && RangeFactor.percent(Blocks.IRON_BLOCK) == 100, "block factors 2 / 1.5 / 1.1 / 1.1 / 1");
+            BlockPos beacon = h.absolutePos(CENTER);
+            pyramid(h, 6, Blocks.IRON_BLOCK);
+            h.assertTrue(RangeFactor.percent(h.getLevel(), beacon, 4) == 100, "Iron: x1.00 (Vanilla range)");
+            layer(h, 4, Blocks.DIAMOND_BLOCK);
+            h.assertTrue(RangeFactor.percent(h.getLevel(), beacon, 4) == 125, "owner's example: bottom of 4 levels Diamond = x1.25");
+            h.assertTrue(RangeFactor.percent(h.getLevel(), beacon, 3) == 100, "a level below the counted ones does not count");
+            layer(h, 4, Blocks.IRON_BLOCK);
+            layer(h, 6, Blocks.DIAMOND_BLOCK);
+            h.assertTrue(RangeFactor.percent(h.getLevel(), beacon, 6) == 119, "Strong 6 levels, bottom Diamond: 118.6 -> 119");
+            pyramid(h, 6, Blocks.NETHERITE_BLOCK);
+            h.assertTrue(RangeFactor.percent(h.getLevel(), beacon, 6) == 200 && StrongBeaconLogic.range(6, 200) == 140.0, "all Netherite: x2, 140 blocks");
+            h.assertTrue("1.25".equals(RangeFactor.format(125)) && "2.00".equals(RangeFactor.format(200)) && "1.10".equals(RangeFactor.format(110)), "format");
+            JsonObject off = new JsonObject();
+            off.addProperty("strongBeaconMaterialRange", false);
+            off.addProperty("vanillaBeaconMaterialRange", false);
+            BeaconsConfig.apply(off);
+            h.assertTrue(RangeFactor.strongPercent(h.getLevel(), beacon, 6) == 100 && RangeFactor.vanillaPercent(h.getLevel(), beacon, 4) == 100,
+                    "switches off: x1");
+            BeaconsConfig.reset();
+            h.assertTrue(RangeFactor.vanillaPercent(h.getLevel(), beacon, 4) == 200 && RangeFactor.percent(h.getLevel(), beacon, 0) == 100, "on again; no pyramid x1");
+            h.succeed();
+        });
+        ALL.put("vanilla_beacon_material_range", h -> {
+            // the Vanilla beacon's own applyEffects (BeaconRangeMixin): level 1 range 20, with a Netherite pyramid 40
+            BeaconsConfig.reset();
+            pyramid(h, 1, Blocks.NETHERITE_BLOCK);
+            BlockPos beacon = h.absolutePos(CENTER);
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            player.snapTo(beacon.getX() + 24.5, beacon.getY(), beacon.getZ() + 0.5);
+            com.simplebeacons.mixin.BeaconInvoker.simplebeacons$applyEffects(h.getLevel(), beacon, 1, MobEffects.SPEED, null);
+            h.assertTrue(player.hasEffect(MobEffects.SPEED), "24 blocks away: reached with x2 (40 blocks)");
+            player.removeAllEffects();
+            JsonObject off = new JsonObject();
+            off.addProperty("vanillaBeaconMaterialRange", false);
+            BeaconsConfig.apply(off);
+            com.simplebeacons.mixin.BeaconInvoker.simplebeacons$applyEffects(h.getLevel(), beacon, 1, MobEffects.SPEED, null);
+            h.assertTrue(!player.hasEffect(MobEffects.SPEED), "switch off: Vanilla's 20 blocks again");
+            BeaconsConfig.reset();
+            h.succeed();
+        });
+        ALL.put("range_factor_in_menu", h -> {
+            // the factor rides an extra data slot of every beacon menu, read from the open beacon
+            BeaconsConfig.reset();
+            pyramid(h, 1, Blocks.DIAMOND_BLOCK);
+            h.setBlock(CENTER, BeaconsRegistry.STRONG_BEACON);
+            StrongBeaconBlockEntity be = h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class);
+            be.setLevelsForTest(1);
+            h.assertTrue(be.rangePercent() == 150, "Strong beacon on Diamond: 150 %");
+            Player player = h.makeMockPlayer(GameType.SURVIVAL);
+            ContainerLevelAccess access = ContainerLevelAccess.create(h.getLevel(), h.absolutePos(CENTER));
+            StrongBeaconMenu strong = new StrongBeaconMenu(0, player.getInventory(), be.dataAccess(), access);
+            h.assertTrue(((RangeFactorView) strong).simplebeacons$rangePercent() == 150, "Strong menu carries 150");
+            h.assertTrue(((RangeFactorView) new StrongBeaconMenu(0, player.getInventory())).simplebeacons$rangePercent() == 0,
+                    "client menu before the sync: 0 = nothing shown");
+            h.setBlock(CENTER, Blocks.BEACON);
+            SimpleContainerData vanillaData = new SimpleContainerData(3);
+            vanillaData.set(0, 1);
+            net.minecraft.world.inventory.BeaconMenu vanilla = new net.minecraft.world.inventory.BeaconMenu(0, player.getInventory(), vanillaData, access);
+            h.assertTrue(((RangeFactorView) vanilla).simplebeacons$rangePercent() == 150, "Vanilla menu carries 150");
+            BeaconsConfig.vanillaBeaconMaterialRange = false;
+            net.minecraft.world.inventory.BeaconMenu off = new net.minecraft.world.inventory.BeaconMenu(0, player.getInventory(), vanillaData, access);
+            h.assertTrue(((RangeFactorView) off).simplebeacons$rangePercent() == 0, "switch off: 0 = the Vanilla screen shows nothing");
+            BeaconsConfig.reset();
+            h.succeed();
+        });
+        ALL.put("vanilla_conduit_only_conduit_power", h -> {
+            // SP22-9: the normal conduit stays Vanilla - Conduit Power (water breathing) only, no Dolphin's Grace
+            BeaconsConfig.reset();
+            water(h);
+            h.setBlock(CENTER, Blocks.CONDUIT.defaultBlockState().setValue(net.minecraft.world.level.block.ConduitBlock.WATERLOGGED, true));
+            BlockPos center = h.absolutePos(CENTER);
+            for (BlockPos p : StrongConduitLogic.shell(center, 2)) h.getLevel().setBlockAndUpdate(p, Blocks.PRISMARINE.defaultBlockState());
+            ServerPlayer swimmer = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(swimmer));
+            swimmer.snapTo(center.getX() + 0.5, center.getY() - 1.0, center.getZ() + 0.5);
+            swimmer.baseTick();
+            List<BlockPos> frame = new ArrayList<>();
+            h.assertTrue(com.simplebeacons.mixin.ConduitInvoker.simplebeacons$updateShape(h.getLevel(), center, frame) && frame.size() == 42,
+                    "Vanilla conduit active with the 5x5x5 frame");
+            swimmer.removeAllEffects();
+            com.simplebeacons.mixin.ConduitInvoker.simplebeacons$applyEffects(h.getLevel(), center, frame);
+            h.assertTrue(swimmer.isInWater() && swimmer.hasEffect(MobEffects.CONDUIT_POWER), "Vanilla conduit: Conduit Power");
+            h.assertTrue(!swimmer.hasEffect(MobEffects.DOLPHINS_GRACE), "Vanilla conduit: no Dolphin's Grace");
+            h.succeed();
+        });
         ALL.put("sub_mod_switch", h -> {
             boolean before = com.simplebuilding.framework.api.SubMods.enabled(SimpleBeacons.MOD_ID);
             try {
@@ -403,6 +527,7 @@ public final class BeaconsTests {
         ALL.put("discover_behaviour_hints", com.simplebeacons.discover.BeaconsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplebeacons.discover.BeaconsDiscover::firstPickupTips);
         MAX_TICKS.put("pyramid_levels", 200);
+        MAX_TICKS.put("range_factor_by_material", 200);
     }
 
     /** The result of crafting a 3 x 3 grid, or empty. */
@@ -419,6 +544,15 @@ public final class BeaconsTests {
                 for (int dz = -step; dz <= step; dz++) {
                     h.setBlock(CENTER.offset(dx, -step, dz), block);
                 }
+            }
+        }
+    }
+
+    /** Pyramid level {@code step} (one layer) below {@link #CENTER} in {@code block}. */
+    static void layer(GameTestHelper h, int step, Block block) {
+        for (int dx = -step; dx <= step; dx++) {
+            for (int dz = -step; dz <= step; dz++) {
+                h.setBlock(CENTER.offset(dx, -step, dz), block);
             }
         }
     }

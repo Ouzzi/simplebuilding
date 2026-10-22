@@ -120,4 +120,24 @@ public final class ModuleGameTest {
     public void discoverFirstPickupTips(GameTestHelper h) {
         BeaconsTests.ALL.get("discover_first_pickup_tips").accept(h);
     }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 200)
+    public void rangeFactorByMaterial(GameTestHelper h) {
+        BeaconsTests.ALL.get("range_factor_by_material").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void vanillaBeaconMaterialRange(GameTestHelper h) {
+        BeaconsTests.ALL.get("vanilla_beacon_material_range").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void rangeFactorInMenu(GameTestHelper h) {
+        BeaconsTests.ALL.get("range_factor_in_menu").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void vanillaConduitOnlyConduitPower(GameTestHelper h) {
+        BeaconsTests.ALL.get("vanilla_conduit_only_conduit_power").accept(h);
+    }
 }

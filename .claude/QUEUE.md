@@ -111,8 +111,8 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
     - Aktualisiert wird nur, wenn der Chunk geladen ist; es wird nichts extra geladen.
   - **Dimensionen und Kosten:** Claims gelten in allen Dimensionen. Jeder weitere Chunk kostet mehr, wie bisher.
   - **Aufgeben:** Wer einen Chunk aufgibt, bekommt nichts zurückgezahlt, aber einen Chunk-Credit für einen neuen Claim.
-- [~] (A, a-beacons22, 22.10.) SP22-9 (Simple Beacons) Der Strong Conduit hebt sich stärker ab: größerer Bereich statt neuer Fähigkeit („Dolphin's Grace ist schon ziemlich gut“; normaler Conduit nur Wasseratmung prüfen).
-- [~] (A, a-beacons22, 22.10.) SP22-10 (Simple Beacons) Leuchtfeuer:
+- [x] (A, a-beacons22, 22.10.: Strong-Conduit-Reichweite (Rahmen/7)×24 = 144/216, Vanilla-Aquisator per Test nur Meereskraft; Plan docs/ai/PLAN-A-BEACONS22-2026-10-22.md, Modul-Gametests 4 Ziele 108/108 grün) SP22-9 (Simple Beacons) Der Strong Conduit hebt sich stärker ab: größerer Bereich statt neuer Fähigkeit („Dolphin's Grace ist schon ziemlich gut“; normaler Conduit nur Wasseratmung prüfen).
+- [x] (A, a-beacons22, 22.10.: Stufe 1 +Sättigung (Besitzer 22.10.: kein Glück; Stoß alle 12 s), 2 +Extraherzen, 3 +Unsichtbarkeit/Held des Dorfes; Materialfaktor Mittel je Block für Stark + Vanilla (Schalter `vanillaBeaconMaterialRange`, Standard an), Anzeige in beiden UIs; Modul-Gametests 108/108 grün; offen Client-Sicht) SP22-10 (Simple Beacons) Leuchtfeuer:
   - **Kräfte:** Jede Stufe bietet 3 Kräfte. Stufe 1 hat Tempo und Eile, eine dritte kommt dazu. Stufe 2 hat Resistenz und Sprungkraft, eine dritte kommt dazu. Stufe 3 hat nur Stärke, zwei kommen dazu. Stufe 4 und 5 haben schon 3. Neue Kräfte Vanilla-nah wählen und begründen.
   - **Reichweite nach Material:** Der Faktor richtet sich nach dem Material der Basis: Netherit ×2, Diamant ×1,5, Gold ×1,1, Smaragd ×1,1, Eisen ×1. Gezählt wird nur pro abgeschlossener Ebene, anteilig nach Blockzahl. Beispiel: unterste Ebene ganz Diamant ≈ ×1,25 (überschlagen, genaue Formel im Konzept).
   - **Anzeige:** Der Faktor steht in der Leuchtfeuer-UI.
