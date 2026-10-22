@@ -35,6 +35,7 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
 1. **Fehler aus dem Spiel (SP22):** SP22-7 Verkaufslager-Geisterblock + Vitrine, SP22-1 Achtel ↔ Vollblock, SP22-11 Mob-Kopf wie Helm, SP22-5 Redstone-Klänge
 2. **Testzentrale TZ22** (läuft: b-tz22a = TZ22-1/2/5), danach TZ22-3/4, TZ22-6/8, TZ22-7
+2a. **Texturen TX22:** TX22-4 Blätter-Dichte (Spielmechanik), TX22-3 Aschholz/Dämmerholz, TX22-2 Spawn-Eier, TX22-1 die 12 aus VN22; TX22-5 Editor-Workflow mit der Wiki-Überarbeitung
 3. **Leuchtfeuer und Conduit (SP22-10, SP22-9)**, Tiegel-UI (SP22-6), Crafting-Storage-Höhe (SP22-4), Death-Vault-UI (SP22-3)
 4. **Claims-Umbau (SP22-8):** erst Konzept, das Besitzer-Vorgaben übernimmt, dann Umsetzung in 3–4 Branches (Urkunde, Kartentisch, Karte/Maps, Credits/Dimensionen)
 5. **Legendärer Klang (SP22-2)** in simplelib
@@ -61,6 +62,22 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 - Punkte 64–69, Rucksack-Sortierung, Mega-Handbücher und Testzentrale in der Besitzerwelt neu bauen
 
 ---
+
+## Besitzer 22.10. – Texturen (TX22)
+Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfehlungen passen, gezielt überarbeitet werden nur wenige Texturen.
+- [ ] TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7).
+- [ ] TX22-2 Alle Spawn-Eier: „bei den Spawn-Eiern ist schlechte Arbeit gemacht worden. Das sieht nicht aus wie Vanilla. Das muss auf jeden Fall sehr viel verbessert werden.“
+  - Vanilla 26.3 arbeitet mit eigenen Spawn-Ei-Formen je Mob, Grundfarbe und Flecken. Das Vorgehen der Vanilla-Eier analysieren und alle eigenen Eier danach neu zeichnen.
+  - Vorschau mit Vanilla-Vergleich, eingebaut wird die empfohlene Variante.
+- [ ] TX22-3 Aschholz/Dämmerholz (Simple End): „die meisten Texturen“ von Holz und Blättern überarbeiten.
+  - Vanilla nutzt pro Textur etwa 8–10 gut platzierte Töne statt 3–4 flacher Farben, mehr Kreativität und mehr Struktur. Besonders bei Stamm und entrindetem Stamm sieht man in Vanilla „viel Energie und Design“.
+  - Gilt für alle Holz-Varianten (Stamm, Holz, entrindet, Bretter, Treppe/Stufe usw.) und die Blätter.
+  - Die groben Ideen bleiben. Vorschau mit Vanilla-Vergleich.
+- [ ] TX22-4 Aschholz-/Dämmerholz-Blätter mit Dichte-Stufen und Spinnennetz-Wirkung:
+  - **Dichte nach angrenzenden Blöcken** (egal welche): 1–3 Nachbarn = locker (neu, durchsichtiger), 4–5 = mittel (die heutige Randtextur), 6 = dicht (die heutige innere Textur). Die Stufe aktualisiert sich, wenn Nachbarn gesetzt oder entfernt werden, wie heute schon.
+  - **Bremse:** Je dichter das Blatt, desto stärker die Spinnennetz-Bremse. „Umso tiefer man im Baum ist, desto mehr Spinnennetz.“
+  - **Abbau:** Standardwerkzeug ist die Hacke. Ohne Hacke dauert der Abbau ziemlich genau so lange wie bei einem Spinnennetz.
+- [ ] TX22-5 (Vision, Wiki-Dev-Tab) Texturen-Workflow ohne Umwege: Im Wiki-Dev-Tab Texturen zum Überarbeiten auswählen, im Pixeleditor bearbeiten, speichern. Danach landet die Änderung im Repo (Ebenen-Quelle + PNG) und wird übernommen. „dass das ohne viel Reden, ohne viel Rumgemache einfach funktioniert.“ Ist-Stand Pixeleditor prüfen, fehlende Kette planen (Speichern → Branch/Commit → Gate).
 
 ## Besitzer 22.10. – Spielbefunde (SP22)
 Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). Kernsätze wörtlich, Rest sinngemäß. Priorität steht im Überblick (B).
