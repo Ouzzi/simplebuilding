@@ -323,7 +323,7 @@
           "Name an adult pig \"Technoblade\" (exactly, with a name tag): within a second it wears a golden crown.",
           "While it wears the crown it never dies: a deadly hit leaves it at half a heart with a totem's flash. If a player struck that hit, the crown falls off as the Crowned Pig Head (lore \"Technoblade never dies\"); without a player the crown stays.",
           "The crown grows back after an in-game day, and the same player gets the next crowned head only after an in-game day (server switch and cooldown). The void and /kill still work; lightning never turns Technoblade into a zombified piglin.",
-          "Worn, pigs nearby turn their heads to the wearer and the crown glints now and then. No face or skin of the person, only his symbol."
+          "Worn, pigs nearby turn their heads to the wearer and the crown glints now and then. The head looks like his skin: a player-sized pig head with a thin golden crown set with blue, purple, red and green jewels, drawn anew (own pixels, no player profile is loaded). A pig named Technoblade wears the same crown."
         ]
       },
       "de": {
@@ -333,7 +333,7 @@
           "Ein erwachsenes Schwein \"Technoblade\" nennen (genau so, mit Namensschild): binnen einer Sekunde trägt es eine goldene Krone.",
           "Solange es die Krone trägt, stirbt es nie: ein tödlicher Schlag lässt ihm ein halbes Herz und den Blitz eines Totems. War es der Schlag eines Spielers, fällt die Krone als Gekrönter Schweinekopf herunter (Lore \"Technoblade never dies\"); ohne Spieler bleibt die Krone.",
           "Die Krone wächst nach einem Ingame-Tag nach, und derselbe Spieler bekommt den nächsten gekrönten Kopf erst nach einem Ingame-Tag (Server-Schalter und Abklingzeit). Leere und /kill wirken weiter; ein Blitz macht aus Technoblade nie einen zombifizierten Piglin.",
-          "Getragen drehen Schweine in der Nähe den Kopf zum Träger, und die Krone glänzt ab und zu. Kein Gesicht und kein Skin der Person, nur sein Symbol."
+          "Getragen drehen Schweine in der Nähe den Kopf zum Träger, und die Krone glänzt ab und zu. Der Kopf sieht aus wie sein Skin: ein Schweinekopf in Spielergröße mit einer schmalen goldenen Krone mit blauen, lila, roten und grünen Steinen, neu gezeichnet (eigene Pixel, es wird kein Spielerprofil geladen). Ein Schwein namens Technoblade trägt dieselbe Krone."
         ]
       },
       "sources": [
@@ -341,7 +341,8 @@
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/EasterDeathMixin.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/AnimalAiMixin.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/PigThunderMixin.java",
-        "modules/simplemobheads/shared/java/com/simplemobheads/client/TechnobladeCrownLayer.java"
+        "modules/simplemobheads/shared/java/com/simplemobheads/client/TechnobladeCrownLayer.java",
+        "tools/textures/easter_heads_2026_10_22.py"
       ]
     },
     {

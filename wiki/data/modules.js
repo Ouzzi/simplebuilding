@@ -905,7 +905,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 15
     },
-    "dataHash": "92c6301692fe"
+    "dataHash": "d1d66d8198e8"
   },
   {
     "id": "simpleshops",
