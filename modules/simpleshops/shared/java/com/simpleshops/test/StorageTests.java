@@ -585,7 +585,8 @@ final class StorageTests {
     static ItemStack attach(ServerPlayer player, BlockPos clicked, Direction face, boolean sneak) {
         ItemStack stack = new ItemStack(ShopsRegistry.SALES_STORAGE_ITEM, 2);
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
-        player.setPos(Vec3.atCenterOf(clicked.relative(face, 3)));
+        // Far enough that the player's box never blocks the new block (feet 4 below for the lower face).
+        player.setPos(Vec3.atCenterOf(clicked.relative(face, 4)));
         player.setShiftKeyDown(sneak);
         Vec3 at = Vec3.atCenterOf(clicked).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
         player.gameMode.useItemOn(player, player.level(), stack, net.minecraft.world.InteractionHand.MAIN_HAND, new BlockHitResult(at, face, clicked, false));
