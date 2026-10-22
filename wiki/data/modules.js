@@ -901,11 +901,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mNgGDRAzkriPykYqwFRG7z+23WZgGl0NjIfrwH4NMLYBF0gJCUAxjBNMD7RLkDXgG4gTgPQnY6ukSgvoGtGNoQoL6A7G5sriHYBcqAS5QL0MMCFSUoH2NIETgMoSsoDBgBbGgsoCNwxDwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "blocks": 188,
+      "blocks": 194,
       "recipes": 1,
-      "features": 12
+      "features": 15
     },
-    "dataHash": "2d1db3bf6b2f"
+    "dataHash": "92c6301692fe"
   },
   {
     "id": "simpleshops",
