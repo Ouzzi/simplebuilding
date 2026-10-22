@@ -3,11 +3,16 @@ package com.simplebuilding.modules.simpleinterfaces.tooltip;
 import com.simplebuilding.modules.simpleinterfaces.ContainersConfig;
 import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
 import com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload;
+import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
@@ -59,15 +64,40 @@ public final class ContainerTooltips {
         if (!contents.nonEmptyItemCopyStream().findAny().isPresent()) return Optional.empty();
         if (!grid) return Optional.of(new ContainerPreview(List.of(), 0, 0, false, Component.translatable("simpleinterfaces.tooltip.shulker.shift"), false));
         List<ItemStack> slots = slots(contents, Math.max(ENDER_SIZE, contents.size()));
+        applyOversized(stack, slots);
         int more = 0;
         if (slots.size() > MAX_CELLS) {
             more = (int) slots.subList(MAX_CELLS - 1, slots.size()).stream().filter(s -> !s.isEmpty()).count();
             slots = new ArrayList<>(slots.subList(0, MAX_CELLS));
             slots.set(MAX_CELLS - 1, ItemStack.EMPTY);
         }
-        DyeColor dye = box.getColor();
+        DyeColor dye = box.getColor() != null ? box.getColor() : stack.get(DataComponents.BASE_COLOR);
         int face = local.tooltipColorByDye && dye != null ? mix(VANILLA_FACE, dye.getTextureDiffuseColor() & 0xFFFFFF, 0.5) : VANILLA_FACE;
         return Optional.of(new ContainerPreview(slots, more, face, true, null, true));
+    }
+
+    /** Simple Storage's tier shulker boxes keep counts above 99 in this item component (read by id and codec, no module dependency). */
+    private static final Identifier OVERSIZED_COUNTS = Identifier.parse("simplestorage:container_counts");
+
+    /**
+     * Puts the real counts of oversized slots back ({@code [{slot,count}]} of the optional component, see
+     * {@code ContainerCounts}); nothing happens when the component does not exist or the stack lacks it.
+     */
+    static void applyOversized(ItemStack stack, List<ItemStack> slots) {
+        DataComponentType<?> type = BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(OVERSIZED_COUNTS);
+        if (type == null || type.codec() == null || !stack.has(type)) return;
+        JsonElement json = encode(type, stack);
+        if (json == null || !json.isJsonArray()) return;
+        for (JsonElement e : json.getAsJsonArray()) {
+            if (!e.isJsonObject() || !e.getAsJsonObject().has("slot") || !e.getAsJsonObject().has("count")) continue;
+            int slot = e.getAsJsonObject().get("slot").getAsInt();
+            if (slot >= 0 && slot < slots.size() && !slots.get(slot).isEmpty()) slots.get(slot).setCount(e.getAsJsonObject().get("count").getAsInt());
+        }
+    }
+
+    private static <T> @Nullable JsonElement encode(DataComponentType<T> type, ItemStack stack) {
+        T value = stack.get(type);
+        return value == null ? null : type.codec().encodeStart(JsonOps.INSTANCE, value).result().orElse(null);
     }
 
     /** {@code size} stacks in slot order (missing slots empty), rounded up to full rows. */
