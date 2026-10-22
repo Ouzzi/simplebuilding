@@ -1,15 +1,23 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "simpleshops:block/sales_storage"
+    "facing=down": {
+      "model": "simpleshops:block/sales_storage",
+      "x": 90
     },
     "facing=east": {
       "model": "simpleshops:block/sales_storage",
       "y": 90
     },
+    "facing=north": {
+      "model": "simpleshops:block/sales_storage"
+    },
     "facing=south": {
       "model": "simpleshops:block/sales_storage",
       "y": 180
+    },
+    "facing=up": {
+      "model": "simpleshops:block/sales_storage",
+      "x": 270
     },
     "facing=west": {
       "model": "simpleshops:block/sales_storage",

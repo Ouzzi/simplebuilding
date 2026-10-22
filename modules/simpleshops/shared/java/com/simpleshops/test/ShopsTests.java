@@ -119,25 +119,58 @@ public final class ShopsTests {
         });
 
         // --- stage 1: placement, owner, break protection -------------------------------------------------------------------------
-        ALL.put("place_needs_sales_block", h -> {
+        ALL.put("case_place_anywhere_protect_on_sales", h -> {
+            // SP22-7: a case stands anywhere; it is protected (and sells) only on a sales block of the same owner.
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             ServerPlayer other = player(h, GameType.SURVIVAL);
+            ServerLevel level = h.getLevel();
             BlockPos ground = h.absolutePos(new BlockPos(7, 0, 7));
-            h.getLevel().setBlock(ground, Blocks.STONE.defaultBlockState(), 3);
-            // A case on plain stone does not place.
+            level.setBlock(ground, Blocks.STONE.defaultBlockState(), 3);
             place(owner, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM), ground);
-            h.assertTrue(h.getLevel().getBlockState(ground.above()).isAir(), "no case without a sales block below");
-            // The sales block places; a stranger cannot put a case on it, the owner can.
-            place(owner, new ItemStack(ShopsRegistry.SALES_BLOCK_ITEM), ground);
-            h.assertTrue(h.getLevel().getBlockState(ground.above()).getBlock() instanceof SalesBlock, "sales block placed");
-            place(other, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM), ground.above());
-            h.assertTrue(h.getLevel().getBlockState(ground.above(2)).isAir(), "a stranger cannot put a case on my sales block");
-            place(owner, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM), ground.above());
-            h.assertTrue(h.getLevel().getBlockState(ground.above(2)).is(ShopsRegistry.DISPLAY_CASE), "owner placed the case");
+            BlockPos free = ground.above();
+            BlockState freeState = level.getBlockState(free);
+            h.assertTrue(freeState.is(ShopsRegistry.DISPLAY_CASE), "a case stands on plain stone");
+            h.assertTrue(!ShopGuard.isProtected(level, free, freeState) && freeState.getDestroyProgress(other, level, free) > 0.0F, "a free case is not protected");
+            ShopGuard.register(level.getServer());
+            try {
+                String dim = level.dimension().identifier().toString();
+                h.assertTrue(Protection.allows(level.getServer(), new Protection.Target(other.getUUID(), dim, free.getX(), free.getY(), free.getZ(), false), Protection.Action.DESTROY),
+                        "the permission API leaves a free case alone");
+            } finally {
+                ShopGuard.unregister(level.getServer());
+            }
+            ((DisplayCaseBlockEntity) level.getBlockEntity(free)).goods().set(0, new ItemStack(Items.DIAMOND, 2));
+            h.assertTrue(other.gameMode.destroyBlock(free) && level.getBlockState(free).isAir(), "anyone may break a free case");
+            int dropped = 0;
+            for (ItemEntity e : level.getEntitiesOfClass(ItemEntity.class, new AABB(free).inflate(3))) if (e.getItem().is(Items.DIAMOND)) dropped += e.getItem().getCount();
+            h.assertTrue(dropped == 2, "its goods drop, got " + dropped);
+            // On a sales block: only the owner's own case, then protected.
+            BlockPos ground2 = h.absolutePos(new BlockPos(3, 0, 7));
+            level.setBlock(ground2, Blocks.STONE.defaultBlockState(), 3);
+            place(owner, new ItemStack(ShopsRegistry.SALES_BLOCK_ITEM), ground2);
+            BlockPos sales = ground2.above(), top = sales.above();
+            h.assertTrue(level.getBlockState(sales).getBlock() instanceof SalesBlock, "sales block placed");
+            place(other, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM), sales);
+            h.assertTrue(level.getBlockState(top).isAir(), "a stranger cannot put a case on my sales block");
+            place(owner, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM), sales);
+            BlockState shopState = level.getBlockState(top);
+            h.assertTrue(shopState.is(ShopsRegistry.DISPLAY_CASE) && ShopGuard.isProtected(level, top, shopState), "the owner's case on his sales block is protected");
+            h.assertTrue(!other.gameMode.destroyBlock(top) && shopState.getDestroyProgress(other, level, top) == 0.0F && level.getBlockState(top).is(ShopsRegistry.DISPLAY_CASE), "a stranger cannot break it");
+            // A stranger's case over my sales block (e.g. the sales block was placed below it later) is not part of the shop.
+            level.setBlock(top, Blocks.AIR.defaultBlockState(), 3);
+            level.setBlock(top, ShopsRegistry.DISPLAY_CASE.defaultBlockState(), 3);
+            DisplayCaseBlockEntity foreign = (DisplayCaseBlockEntity) level.getBlockEntity(top);
+            foreign.initFor(other);
+            foreign.goods().set(0, new ItemStack(Items.EMERALD, 1));
+            SalesBlockEntity salesBe = (SalesBlockEntity) level.getBlockEntity(sales);
+            h.assertTrue(!ShopGuard.belongs(foreign, salesBe) && !ShopGuard.isProtected(level, top, level.getBlockState(top)), "a foreign case is no part of the shop");
+            ServerPlayer buyer = player(h, GameType.SURVIVAL);
+            ShopActions.useCase(buyer, level, top);
+            h.assertTrue(!(buyer.containerMenu instanceof ShopBuyerMenu), "nobody buys a stranger's goods through my sales block");
             // Dispensers and other player-less placements are refused.
-            h.getLevel().setBlock(ground.above(2), Blocks.AIR.defaultBlockState(), 3);
-            var ctx = new BlockPlaceContext(h.getLevel(), null, InteractionHand.MAIN_HAND, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM),
-                    new BlockHitResult(Vec3.atCenterOf(ground.above()), Direction.UP, ground.above(), false));
+            level.setBlock(free, Blocks.AIR.defaultBlockState(), 3);
+            var ctx = new BlockPlaceContext(level, null, InteractionHand.MAIN_HAND, new ItemStack(ShopsRegistry.DISPLAY_CASE_ITEM),
+                    new BlockHitResult(Vec3.atCenterOf(ground), Direction.UP, ground, false));
             h.assertTrue(ShopsRegistry.DISPLAY_CASE.getStateForPlacement(ctx) == null, "no placement without a player");
             h.succeed();
         });

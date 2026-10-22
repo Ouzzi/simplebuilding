@@ -371,12 +371,12 @@ public final class EnderShops extends SavedData {
 
     // --- links ----------------------------------------------------------------------------------------------------------
 
-    /** Records what stands on site around a sales block (case above, storage chain below), for the trade terminal. */
+    /** Records what stands on site around a sales block (its case above, its storages), for the trade terminal. */
     public static void link(SalesBlockEntity sales) {
         Vault v = sales.vault();
         if (v == null) return;
         String caseId = sales.getLevel() != null && sales.getLevel().getBlockEntity(sales.getBlockPos().above()) instanceof DisplayCaseBlockEntity c
-                && c.vault() != null && c.isServerShop() == sales.isServerShop() ? c.vault().id : "";
+                && c.vault() != null && ShopGuard.belongs(c, sales) ? c.vault().id : "";
         List<String> chain = new ArrayList<>();
         for (EarningsStore s : ShopStorage.chain(sales)) {
             if (s instanceof SalesStorageBlockEntity st && st.vault() != null) chain.add(st.vault().id);

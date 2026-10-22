@@ -36,6 +36,22 @@ public final class ShopGuard {
         return state.getBlock() instanceof SalesBlock || state.getBlock() instanceof DisplayCaseBlock || state.getBlock() instanceof SalesStorageBlock;
     }
 
+    /**
+     * A shop block under the shop protection: sales block and storage always, a display case only while it stands on a sales
+     * block of the same shop (SP22-7: a free case is an ordinary block).
+     */
+    public static boolean isProtected(Level level, BlockPos pos, BlockState state) {
+        if (!isShop(state)) return false;
+        if (!(state.getBlock() instanceof DisplayCaseBlock)) return true;
+        return level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity c && level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s && belongs(c, s);
+    }
+
+    /** The case belongs to the sales block below it: same owner, or both are server shops. */
+    public static boolean belongs(DisplayCaseBlockEntity shopCase, SalesBlockEntity sales) {
+        if (sales.isServerShop() || shopCase.isServerShop()) return sales.isServerShop() && shopCase.isServerShop();
+        return shopCase.owner() != null && shopCase.owner().equals(sales.owner());
+    }
+
     /** Operator in the sense of the other modules: permission level 2 (gamemaster). */
     public static boolean isAdmin(Player player) {
         if (!(player instanceof ServerPlayer sp)) return player != null && Commands.LEVEL_GAMEMASTERS.check(player.permissions());
@@ -54,8 +70,9 @@ public final class ShopGuard {
         return null;
     }
 
-    /** Owner or operator; the data-less block belongs to nobody. */
+    /** Unprotected (a free case), owner or operator; the data-less block belongs to nobody. */
     public static boolean mayBreak(Player player, Level level, BlockPos pos) {
+        if (!isProtected(level, pos, level.getBlockState(pos))) return true;
         UUID owner = ownerAt(level, pos);
         if (owner != null && owner.equals(player.getUUID())) return true;
         return isAdmin(player);
@@ -122,7 +139,7 @@ public final class ShopGuard {
         BlockPos pos = new BlockPos(t.x(), t.y(), t.z());
         if (!level.hasChunkAt(pos)) return null;
         BlockState state = level.getBlockState(pos);
-        if (!isShop(state)) return null;
+        if (!isProtected(level, pos, state)) return null;
         return new Found(ownerAt(level, pos));
     }
 

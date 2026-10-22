@@ -81,12 +81,13 @@ public class SalesBlock extends BaseEntityBlock {
 
     /**
      * A display case in hand goes on top (that needs the click on this block to place, not to open the menu): PASS skips the
-     * empty-hand use and lets the item place. Everything else with an item opens the menu like an empty hand.
+     * empty-hand use and lets the item place. Everything else with an item opens the menu like an empty hand (a sales storage
+     * attaches with sneak + right click, which never reaches this method).
      */
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand,
                                           BlockHitResult hit) {
-        if (stack.getItem() instanceof net.minecraft.world.item.BlockItem item && (item.getBlock() instanceof DisplayCaseBlock || item.getBlock() instanceof SalesStorageBlock)) return InteractionResult.PASS;
+        if (stack.getItem() instanceof net.minecraft.world.item.BlockItem item && item.getBlock() instanceof DisplayCaseBlock) return InteractionResult.PASS;
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 

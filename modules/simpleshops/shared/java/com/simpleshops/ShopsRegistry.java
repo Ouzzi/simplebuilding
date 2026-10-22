@@ -72,7 +72,7 @@ public final class ShopsRegistry {
 
     public static void registerItems() {
         SALES_BLOCK_ITEM = item("sales_block", p -> new BlockItem(SALES_BLOCK, p), new Item.Properties().useBlockDescriptionPrefix());
-        SALES_STORAGE_ITEM = item("sales_storage", p -> new BlockItem(SALES_STORAGE, p), new Item.Properties().useBlockDescriptionPrefix());
+        SALES_STORAGE_ITEM = item("sales_storage", p -> new com.simpleshops.block.SalesStorageItem(SALES_STORAGE, p), new Item.Properties().useBlockDescriptionPrefix());
         DISPLAY_CASE_ITEM = item("display_case", p -> new BlockItem(DISPLAY_CASE, p), new Item.Properties().useBlockDescriptionPrefix());
         GLOW_DISPLAY_CASE_ITEM = item("glow_display_case", p -> new BlockItem(GLOW_DISPLAY_CASE, p), new Item.Properties().useBlockDescriptionPrefix());
         TRADE_TERMINAL_ITEM = item("trade_terminal", p -> new BlockItem(TRADE_TERMINAL, p), new Item.Properties().useBlockDescriptionPrefix());

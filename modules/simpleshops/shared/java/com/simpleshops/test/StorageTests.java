@@ -9,6 +9,7 @@ import com.simpleshops.ShopsRegistry;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.EarningsStore;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.block.SalesStorageBlock;
 import com.simpleshops.block.SalesStorageBlockEntity;
 import com.simpleshops.logic.ShopActions;
 import com.simpleshops.logic.ShopGuard;
@@ -50,7 +51,8 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Tests of the shop rework (queue N66): the one-screen owner menu, the developer buyer view, the full-earnings rule and the
  * Sales Storage chain with its abuse cases (duplication, foreign storages, owner change, explosion, pistons, hoppers, chunks).
- * Column on the arena: sales block (7,6,7), display case above it, storages below it at y 5, 4, 3 ...
+ * Column on the arena: sales block (7,6,7), display case above it, storages below it at y 5, 4, 3 ... (facing up, like the
+ * chains of older worlds; SP22-7 storages attach to any side of the sales block, see storage_placement_rules).
  */
 final class StorageTests {
     static void register(Map<String, Consumer<GameTestHelper>> all) {
@@ -69,40 +71,84 @@ final class StorageTests {
             h.succeed();
         });
         all.put("storage_placement_rules", h -> {
+            // SP22-7: only sneak + right click on one's own sales block (any side) places it; everything else places nothing and keeps the item.
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             ServerPlayer other = player(h, GameType.SURVIVAL);
             Column c = column(h, owner, 0);
+            ServerLevel level = h.getLevel();
             BlockPos below = c.sales.below();
-            for (int i = 1; i <= 4; i++) h.getLevel().setBlock(c.sales.below(i), Blocks.AIR.defaultBlockState(), 3);
-            // Not under a plain block (a floating stone two below the sales block).
-            h.getLevel().setBlock(c.sales.below(3), Blocks.STONE.defaultBlockState(), 3);
-            placeBelow(owner, c.sales.below(3));
-            h.assertTrue(h.getLevel().getBlockState(c.sales.below(4)).isAir(), "no storage under a plain block");
-            h.getLevel().setBlock(c.sales.below(3), Blocks.AIR.defaultBlockState(), 3);
-            // A stranger cannot extend my shop; I can.
-            placeBelow(other, c.sales);
-            h.assertTrue(h.getLevel().getBlockState(below).isAir(), "a stranger cannot put a storage under my sales block");
-            placeBelow(owner, c.sales);
-            h.assertTrue(h.getLevel().getBlockState(below).is(ShopsRegistry.SALES_STORAGE), "owner placed the storage");
-            SalesStorageBlockEntity st = (SalesStorageBlockEntity) h.getLevel().getBlockEntity(below);
+            level.setBlock(below, Blocks.AIR.defaultBlockState(), 3);
+            h.assertTrue(attach(owner, c.sales, Direction.DOWN, false).getCount() == 2 && level.getBlockState(below).isAir(), "without sneaking: no storage, item kept");
+            BlockPos stone = c.sales.east(3);
+            level.setBlock(stone, Blocks.STONE.defaultBlockState(), 3);
+            h.assertTrue(attach(owner, stone, Direction.UP, true).getCount() == 2 && level.getBlockState(stone.above()).isAir(), "not on a plain block, item kept");
+            h.assertTrue(attach(other, c.sales, Direction.DOWN, true).getCount() == 2 && level.getBlockState(below).isAir(), "a stranger cannot attach to my sales block");
+            h.assertTrue(attach(owner, c.sales, Direction.DOWN, true).getCount() == 1 && level.getBlockState(below).is(ShopsRegistry.SALES_STORAGE), "owner attached it below");
+            h.assertTrue(level.getBlockState(below).getValue(SalesStorageBlock.FACING) == Direction.UP, "it faces the sales block");
+            SalesStorageBlockEntity st = (SalesStorageBlockEntity) level.getBlockEntity(below);
             h.assertTrue(st != null && st.isOwner(owner.getUUID()) && st.earnings().stream().allMatch(ItemStack::isEmpty), "owner from the placer, empty");
-            // On top of the sales block (where the case goes) it never places.
-            h.getLevel().setBlock(c.box, Blocks.AIR.defaultBlockState(), 3);
-            place(owner, new ItemStack(ShopsRegistry.SALES_STORAGE_ITEM), c.sales);
-            h.assertTrue(h.getLevel().getBlockState(c.box).isAir(), "a storage never goes on top");
-            // The chain goes on under my own storage, but not under a storage of someone else.
-            placeBelow(owner, below);
-            h.assertTrue(h.getLevel().getBlockState(below.below()).is(ShopsRegistry.SALES_STORAGE), "chain of two");
-            SalesStorageBlockEntity second = (SalesStorageBlockEntity) h.getLevel().getBlockEntity(below.below());
-            second.initFor(other);
-            placeBelow(owner, below.below());
-            h.assertTrue(h.getLevel().getBlockState(below.below(2)).isAir(), "no extension through a foreign storage");
+            h.assertTrue(attach(owner, c.sales, Direction.EAST, true).getCount() == 1 && level.getBlockState(c.sales.east()).getValue(SalesStorageBlock.FACING) == Direction.WEST,
+                    "any side: east, facing west");
+            // Not on a storage (no chains any more), not where the case stands.
+            h.assertTrue(attach(owner, below, Direction.DOWN, true).getCount() == 2 && level.getBlockState(below.below()).isAir(), "no storage on a storage");
+            h.assertTrue(attach(owner, c.sales, Direction.UP, true).getCount() == 2 && level.getBlockState(c.box).is(ShopsRegistry.DISPLAY_CASE), "the case keeps its place");
+            h.assertTrue(ShopStorage.chain(c.sales()).size() == 3, "both storages are in the chain");
             // Without a player (dispenser) nothing places.
-            var ctx = new net.minecraft.world.item.context.BlockPlaceContext(h.getLevel(), null, net.minecraft.world.InteractionHand.MAIN_HAND,
-                    new ItemStack(ShopsRegistry.SALES_STORAGE_ITEM), new BlockHitResult(Vec3.atBottomCenterOf(c.sales), Direction.DOWN, c.sales, false));
+            var ctx = new net.minecraft.world.item.context.BlockPlaceContext(level, null, net.minecraft.world.InteractionHand.MAIN_HAND,
+                    new ItemStack(ShopsRegistry.SALES_STORAGE_ITEM), new BlockHitResult(Vec3.atCenterOf(c.sales), Direction.WEST, c.sales, false));
             h.assertTrue(ShopsRegistry.SALES_STORAGE.getStateForPlacement(ctx) == null, "no placement without a player");
             h.succeed();
         });
+        all.put("storage_side_pull", h -> {
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ServerPlayer other = player(h, GameType.SURVIVAL);
+            Column c = column(h, owner, 0);
+            ServerLevel level = h.getLevel();
+            attach(owner, c.sales, Direction.NORTH, true);
+            h.assertTrue(level.getBlockEntity(c.sales.north()) instanceof SalesStorageBlockEntity, "attached on the north side");
+            SalesStorageBlockEntity side = (SalesStorageBlockEntity) level.getBlockEntity(c.sales.north());
+            // A stranger's storage facing the sales block and my storage facing away take nothing.
+            level.setBlock(c.sales.west(), ShopsRegistry.SALES_STORAGE.defaultBlockState().setValue(SalesStorageBlock.FACING, Direction.EAST), 3);
+            SalesStorageBlockEntity foreign = (SalesStorageBlockEntity) level.getBlockEntity(c.sales.west());
+            foreign.initFor(other);
+            level.setBlock(c.sales.south(), ShopsRegistry.SALES_STORAGE.defaultBlockState().setValue(SalesStorageBlock.FACING, Direction.SOUTH), 3);
+            SalesStorageBlockEntity away = (SalesStorageBlockEntity) level.getBlockEntity(c.sales.south());
+            away.initFor(owner);
+            List<EarningsStore> chain = ShopStorage.chain(c.sales());
+            h.assertTrue(chain.size() == 2 && chain.contains(side), "only the storage facing the sales block with the same owner is in the chain");
+            c.sales().earnings().set(0, new ItemStack(Items.EMERALD, 20));
+            c.sales().earnings().set(4, new ItemStack(Items.GOLD_INGOT, 3));
+            h.assertTrue(!ShopStorage.pull(foreign) && !ShopStorage.pull(away), "foreign or turned away: no pull");
+            for (int i = 0; i < 10; i++) ShopStorage.pull(side);
+            h.assertTrue(c.sales().earnings().stream().allMatch(ItemStack::isEmpty), "the sales block was emptied sideways");
+            h.assertTrue(count(side.earningsView(), Items.EMERALD) == 20 && count(side.earningsView(), Items.GOLD_INGOT) == 3, "all in the side storage");
+            h.assertTrue(foreign.earnings().stream().allMatch(ItemStack::isEmpty) && away.earnings().stream().allMatch(ItemStack::isEmpty), "the others got nothing");
+            h.succeed();
+        });
+        all.put("storage_legacy_facing_migrates", h -> {
+            // A storage of an older world: horizontal look-only facing, hung below the sales block, no "aimed" flag yet.
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            Column c = column(h, owner, 0);
+            ServerLevel level = h.getLevel();
+            BlockPos below = c.sales.below();
+            level.setBlock(below.below(), Blocks.STONE.defaultBlockState(), 3);
+            level.setBlock(below, ShopsRegistry.SALES_STORAGE.defaultBlockState().setValue(SalesStorageBlock.FACING, Direction.NORTH), 3);
+            SalesStorageBlockEntity old = (SalesStorageBlockEntity) level.getBlockEntity(below);
+            old.initFor(owner);
+            old.forgetAim();
+            // A new storage keeps its facing even when it points at nothing (no guessing for placed blocks).
+            BlockPos east = c.sales.east();
+            level.setBlock(east, ShopsRegistry.SALES_STORAGE.defaultBlockState().setValue(SalesStorageBlock.FACING, Direction.EAST), 3);
+            ((SalesStorageBlockEntity) level.getBlockEntity(east)).initFor(owner);
+            c.sales().earnings().set(0, new ItemStack(Items.DIAMOND, 4));
+            h.runAfterDelay(40, () -> {
+                h.assertTrue(level.getBlockState(below).getValue(SalesStorageBlock.FACING) == Direction.UP, "the old storage turned to face up");
+                h.assertTrue(level.getBlockEntity(below) instanceof SalesStorageBlockEntity st && count(st.earningsView(), Items.DIAMOND) == 4, "and pulls from the sales block again");
+                h.assertTrue(level.getBlockState(east).getValue(SalesStorageBlock.FACING) == Direction.EAST, "a new storage is never turned");
+                h.succeed();
+            });
+        });
+        MAX_TICKS_PUT("storage_legacy_facing_migrates", 100);
         all.put("storage_chain_flow", h -> {
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             Column c = column(h, owner, 3);
@@ -535,14 +581,20 @@ final class StorageTests {
         return menu;
     }
 
-    /** Right click with a block item on the lower face of {@code clicked} (the block goes below it). */
-    static void placeBelow(ServerPlayer player, BlockPos clicked) {
-        ItemStack stack = new ItemStack(ShopsRegistry.SALES_STORAGE_ITEM);
+    /** Right click with two sales storages on the {@code face} side of {@code clicked}, sneaking or not; returns what is left in hand. */
+    static ItemStack attach(ServerPlayer player, BlockPos clicked, Direction face, boolean sneak) {
+        ItemStack stack = new ItemStack(ShopsRegistry.SALES_STORAGE_ITEM, 2);
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
-        player.setPos(Vec3.atCenterOf(clicked).add(0.0, 0.0, -3.0));
-        BlockHitResult hit = new BlockHitResult(Vec3.atBottomCenterOf(clicked), Direction.DOWN, clicked, false);
-        player.gameMode.useItemOn(player, player.level(), stack, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        // Far enough that the player's box never blocks the new block (feet 4 below for the lower face).
+        player.setPos(Vec3.atCenterOf(clicked.relative(face, 4)));
+        player.setShiftKeyDown(sneak);
+        Vec3 at = Vec3.atCenterOf(clicked).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
+        player.gameMode.useItemOn(player, player.level(), stack, net.minecraft.world.InteractionHand.MAIN_HAND, new BlockHitResult(at, face, clicked, false));
+        player.setShiftKeyDown(false);
+        player.closeContainer();
+        ItemStack left = player.getMainHandItem();
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        return left;
     }
 
     static void place(ServerPlayer player, ItemStack stack, BlockPos clicked) {

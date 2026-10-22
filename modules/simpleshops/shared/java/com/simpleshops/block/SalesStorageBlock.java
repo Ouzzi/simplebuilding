@@ -15,7 +15,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,13 +28,16 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
-/** The sales storage: a chest-sized extra earnings store under a sales block (or another storage) of the same owner. */
+/**
+ * The sales storage: a chest-sized extra earnings store on a sales block of the same owner. A directed full block (SP22-7): it
+ * faces its sales block (any side) and pulls the earnings from there; it is placed only through {@link SalesStorageItem}.
+ */
 public class SalesStorageBlock extends BaseEntityBlock {
-    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
 
     public SalesStorageBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
     @Override
@@ -45,7 +48,8 @@ public class SalesStorageBlock extends BaseEntityBlock {
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         if (!ShopActions.mayPlaceStorage(context)) return null;
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        // Faces the clicked sales block.
+        return defaultBlockState().setValue(FACING, context.getClickedFace().getOpposite());
     }
 
     @Override
@@ -78,8 +82,6 @@ public class SalesStorageBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand,
                                           BlockHitResult hit) {
-        // Another storage in hand goes below (needs the click to place, not to open the menu).
-        if (stack.getItem() instanceof net.minecraft.world.item.BlockItem item && item.getBlock() instanceof SalesStorageBlock) return InteractionResult.PASS;
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
