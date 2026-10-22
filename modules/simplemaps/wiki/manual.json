@@ -71,6 +71,31 @@
       }
     },
     {
+      "id": "claims_layer",
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimMapLayer.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/MapLayerSources.java",
+        "modules/simplemaps/shared/java/com/simplemaps/net/LayerService.java",
+        "modules/simplemaps/shared/java/com/simplemaps/client/MapLayers.java"
+      ],
+      "en": {
+        "title": "Claims layer",
+        "summary": "With Simple Tweaks installed, the layers button of the map screen offers a Claims layer: claimed land as colored strips on explored terrain, your own land framed.",
+        "details": [
+          "Simple Tweaks registers the layer with the framework; Simple Maps does not know Simple Tweaks. Without Simple Tweaks there is no Claims layer and nothing changes.",
+          "The server decides what you see, with the same visibility rules as the Claim Table (config claimVisibility in simpletweaks-claims.json); member lists, rights and codes never leave the server. One answer carries at most 256 strips. See the Claim Table in the Simple Tweaks manual."
+        ]
+      },
+      "de": {
+        "title": "Claims-Ebene",
+        "summary": "Mit Simple Tweaks bietet der Ebenen-Knopf des Kartenbildschirms eine Claims-Ebene: beanspruchtes Land als farbige Streifen auf erkundetem Gelände, dein eigenes Land umrahmt.",
+        "details": [
+          "Simple Tweaks meldet die Ebene beim Framework an; Simple Maps kennt Simple Tweaks nicht. Ohne Simple Tweaks gibt es keine Claims-Ebene und nichts ändert sich.",
+          "Der Server entscheidet, was du siehst, mit denselben Sichtbarkeitsregeln wie der Claim-Tisch (Config claimVisibility in simpletweaks-claims.json); Mitgliederlisten, Rechte und Codes verlassen den Server nie. Eine Antwort enthält höchstens 256 Streifen. Siehe Claim-Tisch im Simple-Tweaks-Handbuch."
+        ]
+      }
+    },
+    {
       "id": "waypoints",
       "sources": [
         "modules/simplemaps/shared/java/com/simplemaps/Waypoint.java",
@@ -206,10 +231,10 @@
         "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+        "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+        "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
       }
     },
     "simplemaps:wayfinder_map": {

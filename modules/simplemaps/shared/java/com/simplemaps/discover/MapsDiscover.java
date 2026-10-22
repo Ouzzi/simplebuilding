@@ -52,6 +52,7 @@ public final class MapsDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simplemaps:cartography",
+            "simplemaps:claims_layer",
             "simplemaps:creative_tab_switch",
             "simplemaps:end_wayfinder_map",
             "simplemaps:guide_book",
