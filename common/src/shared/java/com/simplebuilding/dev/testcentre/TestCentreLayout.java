@@ -119,6 +119,13 @@ public final class TestCentreLayout {
     }
 
     /**
+     * Begruendete Ausnahmen der Module (TZ22-1), getrennt von {@link #EXCLUDED}: die Module sind nicht auf jeder Linie
+     * geladen, und der Abdeckungstest von SimpleBuilding verlangt, dass jede Ausnahme dort registriert ist.
+     */
+    public static final Map<String, String> MODULE_EXCLUDED = Map.of(
+            "simpleoctets:mixed_octet", "Mischzelle aus Achteln verschiedener Materialien; entsteht beim Setzen, ihr Inhalt steht in der Block-Entity");
+
+    /**
      * Technische Bloecke ohne Item, die die Regel erkennt (TZ22-1): Wandvarianten ({@code x_wall_torch} zu {@code x_torch},
      * Schilder, Koepfe, Banner) und Blumentoepfe ({@code potted_x}); jeweils steht das Item der Grundform in der Zentrale.
      * Sonst null - dann braucht der Block einen Eintrag in {@link #EXCLUDED}.
@@ -138,7 +145,11 @@ public final class TestCentreLayout {
         if (path.startsWith("potted_")) {
             return "Blumentopf mit Pflanze (Topf + Pflanze, kein eigenes Item)";
         }
-        return null;
+        if (block instanceof net.minecraft.world.level.block.LiquidBlock) {
+            return "Fluessigkeit ohne Item (gezeigt ueber ihren Eimer)";
+        }
+        String reason = MODULE_EXCLUDED.get(id.toString());
+        return reason;
     }
 
     /**
@@ -326,10 +337,16 @@ public final class TestCentreLayout {
         // eine Station schon sichtbar zeigt (TZ22-2: nichts doppelt).
         if (sectionIds.contains(MODULES_SECTION)) {
             Set<Item> visible = new java.util.HashSet<>();
+            Set<Block> placedBlocks = new java.util.HashSet<>();
             for (TcCanvas canvas : canvases.values()) {
                 visible(canvas.ops(), visible);
+                canvas.ops().forEach(op -> {
+                    if (op instanceof TcOp.Place place) {
+                        placedBlocks.add(place.state().getBlock());
+                    }
+                });
             }
-            canvases.put(MODULES_SECTION, TestCentreSections.modules(ModuleStations.all(), visible));
+            canvases.put(MODULES_SECTION, TestCentreSections.modules(ModuleStations.all(), visible, placedBlocks));
         }
 
         // Abdeckung ohne "unsorted" und ohne die Steuerwand (die zeigt keine Mod-Inhalte).

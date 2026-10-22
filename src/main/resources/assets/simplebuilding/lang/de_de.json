@@ -3579,5 +3579,6 @@
   "simplebuilding.testcentre.blocks.row.light_panes_colored": "Farbige Lichtscheiben",
   "simplebuilding.testcentre.blocks.row.copper_light_panes": "Kupfer-Lichtscheiben",
   "simplebuilding.testcentre.blocks.row.copper_light_panes_colored": "Farbige Kupferscheiben",
-  "simplebuilding.testcentre.blocks.row.sulfur_lights": "Schwefellichter"
+  "simplebuilding.testcentre.blocks.row.sulfur_lights": "Schwefellichter",
+  "simplebuilding.testcentre.modules.itemless": "Ohne Item"
 }

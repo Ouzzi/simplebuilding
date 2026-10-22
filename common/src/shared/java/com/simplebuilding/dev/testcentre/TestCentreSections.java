@@ -1545,7 +1545,7 @@ public final class TestCentreSections {
      * Register des Moduls, was keine Station nennt. Was eine andere Station schon sichtbar zeigt ({@code shown}), kommt
      * nicht doppelt. Buchten-Reihen hoechstens {@link #MODULE_ROW_WIDTH} breit.
      */
-    public static TcCanvas modules(List<ModuleStations.Station> stations, Set<Item> shown) {
+    public static TcCanvas modules(List<ModuleStations.Station> stations, Set<Item> shown, Set<Block> placed) {
         Map<String, List<TcCanvas.Group>> bays = new LinkedHashMap<>();
         Set<Item> taken = new HashSet<>(shown);
         taken.add(net.minecraft.world.item.Items.AIR);
@@ -1574,12 +1574,29 @@ public final class TestCentreSections {
             groups.add(new TcCanvas.Group(groups.isEmpty() ? TcText.t("modules.all", "All items") : TcText.t("modules.more", "More"),
                     rest.get(ns)));
         });
+        // Bloecke ohne Item, die keine Station setzt (Achtel-Zellen, Bauzwischenstufen wie der halbfertige Tiegel): gesetzt in
+        // der Bucht ihres Moduls; Wand-/Topf-Varianten, Fluessigkeiten und begruendete Ausnahmen nicht.
+        Map<String, List<BlockState>> itemless = new java.util.TreeMap<>();
+        for (Block block : BuiltInRegistries.BLOCK) {
+            net.minecraft.resources.Identifier id = TcContext.id(block);
+            if (!TcContext.isFamily(id) || TcContext.isMod(id) || TcContext.itemOf(block) != net.minecraft.world.item.Items.AIR
+                    || placed.contains(block) || TestCentreLayout.technical(block) != null
+                    || TestCentreLayout.EXCLUDED.containsKey(id.toString())) {
+                continue;
+            }
+            List<BlockState> states = Exhibits.blockStates(block);
+            if (!states.isEmpty()) {
+                itemless.computeIfAbsent(id.getNamespace(), ns -> new ArrayList<>()).addAll(states);
+            }
+        }
+        itemless.forEach((ns, states) -> bays.computeIfAbsent(ns, owner -> new ArrayList<>())
+                .add(new TcCanvas.Group(TcText.t("modules.itemless", "Without item"), List.of(), states)));
 
         TcCanvas c = new TcCanvas();
         int x = 0;
         int z = 0;
         for (Map.Entry<String, List<TcCanvas.Group>> bay : bays.entrySet()) {
-            if (bay.getValue().stream().allMatch(group -> group.stacks().isEmpty())) {
+            if (bay.getValue().stream().allMatch(group -> group.stacks().isEmpty() && group.blocks().isEmpty())) {
                 continue;
             }
             TcCanvas b = new TcCanvas();

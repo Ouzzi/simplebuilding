@@ -122,12 +122,51 @@ public final class Exhibits {
         return List.of();
     }
 
+    /**
+     * Wie ein Block ohne Item gezeigt wird (TZ22-1, Modul-Ausstellung): Achtel-Zellen als kleine Stufe, Bloecke mit Stufen
+     * (Eigenschaft {@code stage}, etwa der halbfertige Tiegel) in einigen Stufen nebeneinander, sonst der Grundzustand.
+     * Leer fuer Fluessigkeiten und alles, was {@link #base} nicht ruhig stehen laesst.
+     */
+    public static List<BlockState> blockStates(Block block) {
+        if (block instanceof net.minecraft.world.level.block.LiquidBlock) {
+            return List.of();
+        }
+        BlockState state = block.defaultBlockState();
+        if (octet(state)) {
+            return List.of(octets(state));
+        }
+        state = safe(block);
+        if (state == null) {
+            return List.of();
+        }
+        if (block.getStateDefinition().getProperty("cauldron") instanceof BooleanProperty cauldron) {
+            state = state.setValue(cauldron, true);
+        }
+        if (block.getStateDefinition().getProperty("stage") instanceof net.minecraft.world.level.block.state.properties.IntegerProperty stage) {
+            List<Integer> values = stage.getPossibleValues().stream().sorted().toList();
+            java.util.LinkedHashSet<Integer> picked = new java.util.LinkedHashSet<>();
+            for (int i = 0; i < 4; i++) {
+                picked.add(values.get(i * (values.size() - 1) / 3));
+            }
+            List<BlockState> out = new java.util.ArrayList<>();
+            for (int value : picked) {
+                out.add(state.setValue(stage, value));
+            }
+            return out;
+        }
+        return List.of(state);
+    }
+
     /** Der Grundzustand eines ruhig ausstellbaren Block-Items (Front zum Gang), sonst null. */
     private static BlockState base(ItemStack stack) {
         if (stack.isEmpty() || !(stack.getItem() instanceof BlockItem item) || !stack.getComponentsPatch().isEmpty()) {
             return null;
         }
-        Block block = item.getBlock();
+        return safe(item.getBlock());
+    }
+
+    /** Der Grundzustand eines Blocks, der ruhig stehen bleibt (Front zum Gang), sonst null. */
+    private static BlockState safe(Block block) {
         String id = TcContext.id(block).toString();
         if (TestCentreLayout.frameOnly(block) || TestCentreLayout.EXCLUDED.containsKey(id) || block instanceof TntBlock
                 || block instanceof LightningRodBlock || block instanceof IceBlock || block instanceof FrostedIceBlock

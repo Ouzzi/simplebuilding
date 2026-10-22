@@ -298,8 +298,14 @@ public final class TcCanvas {
         }
     }
 
-    /** Eine Gruppe einer {@link #exhibition}: Schild und Stapel in Anzeigereihenfolge. */
-    public record Group(Component label, List<ItemStack> stacks) {
+    /**
+     * Eine Gruppe einer {@link #exhibition}: Schild, Stapel in Anzeigereihenfolge und davor Bloecke ohne Item
+     * ({@link Exhibits#blockStates}, je Eintrag ein Feld).
+     */
+    public record Group(Component label, List<ItemStack> stacks, List<BlockState> blocks) {
+        public Group(Component label, List<ItemStack> stacks) {
+            this(label, stacks, List.of());
+        }
     }
 
     /** Tiefe des Bodenrasters einer {@link #exhibition}. */
@@ -322,16 +328,21 @@ public final class TcCanvas {
         int x = x0;
         for (Group group : groups) {
             List<ItemStack> stacks = group.stacks().stream().filter(stack -> !stack.isEmpty()).toList();
-            if (stacks.isEmpty()) {
+            int cells = group.blocks().size() + stacks.size();
+            if (cells == 0) {
                 continue;
             }
-            for (int i = 0; i < stacks.size(); i++) {
+            for (int b = 0; b < group.blocks().size(); b++) {
+                place(x + b / EXHIBIT_DEPTH, 0, 1 + b % EXHIBIT_DEPTH, group.blocks().get(b));
+            }
+            for (int s = 0; s < stacks.size(); s++) {
+                int i = group.blocks().size() + s;
                 int cx = x + i / EXHIBIT_DEPTH;
                 int cz = 1 + i % EXHIBIT_DEPTH;
-                List<BlockState> states = Exhibits.floorStates(stacks.get(i));
+                List<BlockState> states = Exhibits.floorStates(stacks.get(s));
                 if (states.isEmpty()) {
                     place(cx, 0, cz, PLINTH);
-                    frame(cx, 1, cz, Direction.UP, stacks.get(i));
+                    frame(cx, 1, cz, Direction.UP, stacks.get(s));
                 } else {
                     for (int y = 0; y < states.size(); y++) {
                         place(cx, y, cz, states.get(y));
@@ -339,7 +350,7 @@ public final class TcCanvas {
                 }
             }
             wallSign(x, 1, EXHIBIT_WALL_Z, TcText.bold(group.label()));
-            x += (stacks.size() + EXHIBIT_DEPTH - 1) / EXHIBIT_DEPTH + 1;
+            x += (cells + EXHIBIT_DEPTH - 1) / EXHIBIT_DEPTH + 1;
         }
         return x;
     }

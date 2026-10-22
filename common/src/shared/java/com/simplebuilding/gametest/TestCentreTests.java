@@ -219,7 +219,7 @@ public final class TestCentreTests {
             } else if (TestCentreLayout.EXCLUDED.containsKey(id.toString())) {
                 excused.merge("block excluded", 1, Integer::sum);
             } else if (TestCentreLayout.technical(block) != null) {
-                excused.merge("technical block (wall/potted variant)", 1, Integer::sum);
+                excused.merge("technical block (wall/potted variant, liquid, module exclusion)", 1, Integer::sum);
             } else {
                 problems.add("block " + id + (item == Items.AIR ? " has no item and is neither placed nor excused" : " is not in the test centre"));
             }
