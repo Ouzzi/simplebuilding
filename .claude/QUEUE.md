@@ -69,6 +69,8 @@ Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfe
   - Vanilla 26.3 arbeitet mit eigenen Spawn-Ei-Formen je Mob, Grundfarbe und Flecken. Das Vorgehen der Vanilla-Eier analysieren und alle eigenen Eier danach neu zeichnen.
   - Vorschau mit Vanilla-Vergleich, eingebaut wird die empfohlene Variante.
 - [~] (A, a-endwood22, 23.10.) TX22-3 Aschholz/Dämmerholz (Simple End): „die meisten Texturen“ von Holz und Blättern überarbeiten.
+  - [Teilstand a-eggs22 23.10.: Ist-Analyse + Umstellungsplan `docs/ai/PLAN-A-EGGS22-2026-10-23.md`, Generator `tools/textures/spawn_eggs_2026_10_23.py`, exemplarisch Shellker + Dorf-Wanderer je A/B/C (Empfehlung B), Vorschau `/root/sb-tools-a/previews/eggs22-preview.html`; offen: Besitzer-Wahl, dann alle 9 Eier umstellen (Plan §4)]
+- [ ] TX22-3 Aschholz/Dämmerholz (Simple End): „die meisten Texturen“ von Holz und Blättern überarbeiten.
   - Vanilla nutzt pro Textur etwa 8–10 gut platzierte Töne statt 3–4 flacher Farben, mehr Kreativität und mehr Struktur. Besonders bei Stamm und entrindetem Stamm sieht man in Vanilla „viel Energie und Design“.
   - Gilt für alle Holz-Varianten (Stamm, Holz, entrindet, Bretter, Treppe/Stufe usw.) und die Blätter.
   - Die groben Ideen bleiben. Vorschau mit Vanilla-Vergleich.
