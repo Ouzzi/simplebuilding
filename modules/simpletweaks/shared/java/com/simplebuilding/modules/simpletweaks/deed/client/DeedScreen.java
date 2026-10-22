@@ -61,9 +61,15 @@ public final class DeedScreen extends Screen {
         int rowStart(int row) { return getLineView(row).beginIndex(); }
     }
 
-    public DeedScreen(DeedOpenPayload data) {
+    /** The map view this sheet was opened from (SP22-8: rights are the deed's second page); null = none. */
+    private Screen parent;
+
+    public DeedScreen(DeedOpenPayload data) { this(data, null); }
+
+    public DeedScreen(DeedOpenPayload data, Screen parent) {
         super(Component.translatable(data.mode() == DeedOpenPayload.CLAIM ? "simpletweaks.deed.title.claim" : "simpletweaks.deed.title.owner", data.owner()));
         this.data = data;
+        this.parent = parent;
         this.original = data.code();
         this.text = data.code();
         this.revision = data.revision();
@@ -187,7 +193,8 @@ public final class DeedScreen extends Screen {
     /** The server's answer to a save. */
     public void onResult(DeedResultPayload result) {
         pending = false;
-        if (result.ok()) { onClose(); return; }
+        // saved: the map view's snapshot is stale now, close the deed altogether
+        if (result.ok()) { parent = null; onClose(); return; }
         serverErrors = result.errors();
         updateDone();
         int line = firstLine(serverErrors);
@@ -209,6 +216,13 @@ public final class DeedScreen extends Screen {
 
     @Override
     public boolean isPauseScreen() { return false; }
+
+    /** Cancel / Done without changes go back to the map view it came from. */
+    @Override
+    public void onClose() {
+        if (parent != null) minecraft.gui.setScreen(parent);
+        else super.onClose();
+    }
 
     // ---------------------------------------------------------------- drawing
 
@@ -234,7 +248,7 @@ public final class DeedScreen extends Screen {
         Rect c = layout.code;
         int w = c.w() - 2 * PAD;
         switch (data.mode()) {
-            case DeedOpenPayload.CLAIM -> g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.claim.text", data.chunkX(), data.chunkZ()), c.x() + PAD, c.y() + PAD, w, TEXT, false);
+            case DeedOpenPayload.CLAIM -> g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.claim.text", data.chunkX(), data.chunkZ(), Math.max(0, data.maxChunks() - data.landChunks())), c.x() + PAD, c.y() + PAD, w, TEXT, false);
             case DeedOpenPayload.READ -> drawRead(g, c, w);
             default -> {
                 if (helpOpen) g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.help.text"), c.x() + PAD, c.y() + PAD, w, TEXT, false);

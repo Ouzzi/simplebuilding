@@ -30,6 +30,14 @@ public final class TweaksFabric implements ModInitializer {
                 (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleEdit(payload,context.player())));
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedClaimPayload.TYPE,
                 (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleClaim(payload,context.player())));
+        // map view of the deed (SP22-8 branch 2): chunk tiles with pictures, and its buttons
+        registry.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedChunksRequest.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedChunksRequest.CODEC);
+        registry.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedActionPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedActionPayload.CODEC);
+        back.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedChunksPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedChunksPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedChunksRequest.TYPE,
+                (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleChunks(payload,context.player())));
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedActionPayload.TYPE,
+                (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleAction(payload,context.player())));
         registry.register(com.simplebuilding.modules.simpletweaks.table.net.TableRequestPayload.TYPE,com.simplebuilding.modules.simpletweaks.table.net.TableRequestPayload.CODEC);
         back.register(com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload.TYPE,com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload.CODEC);
         back.register(com.simplebuilding.modules.simpletweaks.table.net.TableAreaPayload.TYPE,com.simplebuilding.modules.simpletweaks.table.net.TableAreaPayload.CODEC);
