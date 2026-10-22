@@ -651,8 +651,9 @@ public final class TestCentreTests {
                 "the modules section is not planned right before mobs: " + ids);
         TestCentreLayout.Section modules = plan.section(TestCentreLayout.MODULES_SECTION);
         Item standing = block;
+        Item lying = framed;
         boolean placed = modules.ops().stream().anyMatch(op -> op instanceof TcOp.Place place && place.state().getBlock().asItem() == standing);
-        boolean inFrame = frames(modules).values().stream().anyMatch(stack -> stack.getItem() == framed);
+        boolean inFrame = frames(modules).values().stream().anyMatch(stack -> stack.getItem() == lying);
         helper.assertTrue(placed, "the modules section does not set " + blockId + " as a block");
         helper.assertTrue(inFrame, "the modules section does not frame " + framedId);
         helper.assertTrue(frames(modules).values().stream().noneMatch(stack -> stack.getItem() == standing),
