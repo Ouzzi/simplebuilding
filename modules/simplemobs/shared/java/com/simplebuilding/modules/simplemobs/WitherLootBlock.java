@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplemobs;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
@@ -27,6 +28,11 @@ public class WitherLootBlock extends Block {
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return shape;
+    }
+
+    /** The state {@link WitherLoot#place} sets after the fight; the Nether Heart turns to the nearest player. */
+    public BlockState lootState(ServerLevel level, BlockPos pos) {
+        return defaultBlockState();
     }
 
     @Override

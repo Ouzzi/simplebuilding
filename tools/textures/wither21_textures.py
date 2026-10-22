@@ -4,14 +4,18 @@ each as a layer source (docs/ai/PLAN-B-PIXELEDITOR-2026-10-21.md): layer 1 "Grun
 Two variants per texture; variant A is built in. Pure Python (tools/textures/layers.py), no Pillow.
 Owner 21.10. (queue b-rarity21): Nether Heart and Red Nether Gem (item + block) are animated: now and then their golden
 veins/glints run over into blue from the top down and back (5-frame strip 16x80 + .png.mcmeta, long golden rest).
+Owner 21.10. (queue b-rarity21b): the placed Nether Heart is a heart-shaped model; this script also writes its block model
+(models/block/nether_heart.json) from the same element list as its front picture and skin (block/nether_heart_side).
 
     python tools/textures/wither21_textures.py            # write variant A (PNG + .layers.json) into the modules
     python tools/textures/wither21_textures.py --check    # fail when a committed PNG/layer source differs
     python tools/textures/wither21_textures.py --preview DIR   # 16x PNGs of both variants (for the choice page)
     python tools/textures/wither21_textures.py --strips DIR    # 1x animation strips + mcmeta (preview page)
+    python tools/textures/wither21_textures.py --models DIR    # heart model variants A/B/C as JSON (preview page)
 """
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -21,6 +25,7 @@ import layers  # noqa: E402
 ROOT = Path(__file__).resolve().parents[2]
 MOBS = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/textures'
 BEACONS = ROOT / 'modules/simplebeacons/shared/resources/assets/simplebeacons/textures'
+HEART_MODEL = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/models/block/nether_heart.json'
 
 # ---------------------------------------------------------------- Nether Heart (item)
 HEART_SHAPE = [
@@ -208,63 +213,171 @@ SHARD_LIGHT_B = [
     '................',
 ]
 
-# ---------------------------------------------------------------- placed Nether Heart (block, 8x8 cube: uv 4..12)
-def heart_block(pal_light):
-    """Flesh face: dark rim at the bottom/right, lighter at the top/left (bevel like Vanilla blocks); outside the face
-    (only seen as break particles) the same flesh with scattered darker blotches."""
-    base = []
-    for y in range(16):
+# ---------------------------------------------------------------- placed Nether Heart (block): a heart-shaped model
+# Owner 21.10. (queue b-rarity21b): "das herz in 3d bitte etwas herzförmiger machen im 3d modell". Model, front picture
+# and skin come from one definition: elements (from, to, part) in block pixels, the front looks north (the blockstate turns
+# it to the player). The heart is 12 wide and 11 high, its tip on the ground, two lobes with a notch; rims, tip and lobe
+# caps are thinner so it reads round. Variant A (built in) is the plump heart, 8 deep; B the same heart 6 deep; C the
+# 6-deep heart with the two vessel stubs of the item sprite (in the preview they read as chimneys, so not built in).
+HEART_VARIANTS = ('A', 'B', 'C')
+
+
+def heart_elements(variant: str = 'A') -> list[tuple[tuple[int, int, int], tuple[int, int, int], str]]:
+    core, rim, tip = ((4, 12), (5, 11), (6, 10)) if variant == 'A' else ((5, 11), (6, 10), (7, 9))
+    rows = [  # x0, x1, y0, y1, depth (z0, z1)
+        (7, 9, 0, 1, tip), (6, 10, 1, 2, rim), (5, 11, 2, 3, core), (4, 12, 3, 4, core), (3, 13, 4, 5, core),
+        (3, 13, 5, 9, core), (2, 3, 5, 10, rim), (13, 14, 5, 10, rim),
+        (3, 7, 9, 10, core), (9, 13, 9, 10, core), (3, 6, 10, 11, rim), (10, 13, 10, 11, rim),
+    ]
+    out = [((x0, y0, z[0]), (x1, y1, z[1]), 'body') for x0, x1, y0, y1, z in rows]
+    if variant == 'C':
+        out += [((8, 10, 7), (10, 13, 9), 'vessel'), ((4, 11, 7), (6, 13, 9), 'vessel')]
+    return out
+
+
+def front_parts(elements) -> list[list[str | None]]:
+    """The part the front shows per texture pixel, None outside the heart. The north face is seen from the north: texture
+    column u is block pixel x = 15 - u, row v is y = 15 - v; the frontmost element (smallest z) wins."""
+    parts: list[list[str | None]] = [[None] * 16 for _ in range(16)]
+    depth = [[99] * 16 for _ in range(16)]
+    for f, t, part in elements:
+        for x in range(f[0], t[0]):
+            for y in range(f[1], t[1]):
+                u, v = 15 - x, 15 - y
+                if f[2] < depth[v][u]:
+                    depth[v][u], parts[v][u] = f[2], part
+    return parts
+
+
+def filler(u: int, v: int) -> str:
+    """Flesh with scattered darker blotches: outside the front picture (break particles only) and as the skin."""
+    return 'D' if (u * 5 + v * 11 + u * v) % 7 == 0 else 'M'
+
+
+def heart_front(elements, light):
+    """Front picture: flesh with a light rim at the top/left and a dark rim at the bottom/right (bevel like Vanilla
+    blocks), vessels light left/dark right like the item; outside the heart the filler flesh."""
+    parts = front_parts(elements)
+
+    def inside(u, v):
+        return 0 <= u < 16 and 0 <= v < 16 and parts[v][u] is not None
+    shape = []
+    for v in range(16):
         row = ''
-        for x in range(16):
-            inner = 4 <= x <= 11 and 4 <= y <= 11
-            if inner and (x == 11 or y == 11):
-                row += 'D'
-            elif inner and (x == 4 or y == 4):
-                row += 'L'
-            elif inner:
-                row += 'M'
+        for u in range(16):
+            part = parts[v][u]
+            if part == 'vessel':
+                row += 'V' if u < 15 and parts[v][u + 1] == 'vessel' else 'v'
+            elif part == 'body':
+                row += 'D' if not inside(u, v + 1) or not inside(u + 1, v) else \
+                    'L' if not inside(u, v - 1) or not inside(u - 1, v) else 'M'
             else:
-                row += 'D' if (x * 5 + y * 11 + x * y) % 7 == 0 else 'M'
-        base.append(row)
-    return base, pal_light
+                row += filler(u, v)
+        shape.append(row)
+    for v, row in enumerate(light):
+        for u, c in enumerate(row):
+            assert c == '.' or parts[v][u] == 'body', f'front light pixel off the heart at {u},{v}'
+    return shape, light
 
 
-HEART_BLOCK_LIGHT_A = [
+def heart_side():
+    """Skin of the sides, top and bottom: the filler flesh with a few light speckles, no veins (no animation)."""
+    shape = [''.join(filler(u, v) for u in range(16)) for v in range(16)]
+    light = [''.join('L' if (u * 3 + v * 7 + u * v) % 13 == 5 and shape[v][u] == 'M' else '.' for u in range(16))
+             for v in range(16)]
+    return shape, light
+
+
+def covered(face: str, f, t, cells: set) -> bool:
+    """True when every block pixel right outside the face belongs to another element (the face can never be seen)."""
+    axis, side = {'west': (0, 0), 'east': (0, 1), 'down': (1, 0), 'up': (1, 1), 'north': (2, 0), 'south': (2, 1)}[face]
+    plane = f[axis] - 1 if side == 0 else t[axis]
+    a, b = [k for k in range(3) if k != axis]
+    for i in range(f[a], t[a]):
+        for j in range(f[b], t[b]):
+            cell = [0, 0, 0]
+            cell[axis], cell[a], cell[b] = plane, i, j
+            if tuple(cell) not in cells:
+                return False
+    return True
+
+
+def heart_model(variant: str = 'A') -> dict:
+    """Block model: north/south show the front picture (the back mirrored, so the picture follows the shape), the other
+    faces the skin; vessels use their part of the front picture all round. Hidden faces are left out."""
+    elements = heart_elements(variant)
+    out = []
+    for n, (f, t, part) in enumerate(elements):
+        cells = {(x, y, z) for m, (g, s, _) in enumerate(elements) if m != n
+                 for x in range(g[0], s[0]) for y in range(g[1], s[1]) for z in range(g[2], s[2])}
+        front = [16 - t[0], 16 - t[1], 16 - f[0], 16 - f[1]]
+        faces = {}
+        for face in ('north', 'east', 'south', 'west', 'up', 'down'):
+            if covered(face, f, t, cells):
+                continue
+            if face == 'north':
+                spec = {'uv': front, 'texture': '#front'}
+            elif face == 'south':
+                spec = {'uv': [16 - f[0], 16 - t[1], 16 - t[0], 16 - f[1]], 'texture': '#front'}
+            elif part == 'vessel':
+                spec = {'uv': front if face in ('east', 'west') else
+                        [front[0], front[1], front[2], front[1] + t[2] - f[2]], 'texture': '#front'}
+            else:
+                spec = {'uv': {'east': [16 - t[2], 16 - t[1], 16 - f[2], 16 - f[1]],
+                               'west': [f[2], 16 - t[1], t[2], 16 - f[1]],
+                               'up': [f[0], f[2], t[0], t[2]],
+                               'down': [f[0], 16 - t[2], t[0], 16 - f[2]]}[face], 'texture': '#side'}
+            if face == 'down' and f[1] == 0:
+                spec['cullface'] = 'down'
+            faces[face] = spec
+        out.append({'from': list(f), 'to': list(t), 'faces': faces})
+    return {'parent': 'minecraft:block/block',
+            'textures': {'front': 'simplemobs:block/nether_heart', 'side': 'simplemobs:block/nether_heart_side',
+                         'particle': 'simplemobs:block/nether_heart'},
+            'elements': out}
+
+
+def model_text(variant: str = 'A') -> str:
+    return json.dumps(heart_model(variant), indent=2) + '\n'
+
+
+HEART_FRONT_LIGHT_A = [
     '................',
     '................',
     '................',
     '................',
-    '....H...........',
-    '.....H.....E....',
-    '..........C.....',
-    '.........E......',
-    '......E.E.......',
-    '.......C........',
-    '........E.......',
     '................',
     '................',
-    '................',
+    '...H.......L....',
+    '..HL......E.....',
+    '..L......E......',
+    '..L......C......',
+    '........E.E.....',
+    '.......E...C....',
+    '......C.........',
+    '......E.........',
     '................',
     '................',
 ]
-HEART_BLOCK_LIGHT_B = [
+HEART_FRONT_LIGHT_B = [
     '................',
     '................',
     '................',
     '................',
-    '....H...........',
-    '.....H..L..T....',
-    '..........T.....',
-    '......L..T..L...',
-    '........T.......',
-    '......TT..L.....',
-    '.....T...L......',
     '................',
     '................',
-    '................',
+    '...H.......L....',
+    '..HL......T.....',
+    '..L......T......',
+    '..L......T......',
+    '........T.T.....',
+    '.......T...T....',
+    '......T.........',
+    '......L.........',
     '................',
     '................',
 ]
+
 
 # ---------------------------------------------------------------- placed Nether Gem (block, cross model like a cluster)
 GEM_BLOCK_SHAPE = [
@@ -356,7 +469,7 @@ def mcmeta(rest: int, blue: int = 40, step: int = 2) -> str:
 
 def animated() -> dict[str, tuple[dict, str]]:
     """name -> (strip layer source, mcmeta text); heart and gem rest differently long so they never blink together."""
-    hb = heart_block(HEART_BLOCK_LIGHT_A)
+    hb = heart_front(heart_elements(), HEART_FRONT_LIGHT_A)
     hp, gp = {**HEART_A, **BLUE}, {**GEM_A, **BLUE}
     return {
         'nether_heart': (doc(*strip(HEART_SHAPE, HEART_LIGHT_A, HEART_TO_BLUE), hp), mcmeta(200)),
@@ -368,14 +481,16 @@ def animated() -> dict[str, tuple[dict, str]]:
 
 def variants() -> dict[str, tuple[Path, dict, dict]]:
     """name -> (target PNG, variant A, variant B)."""
-    hb_a = heart_block(HEART_BLOCK_LIGHT_A)
-    hb_b = heart_block(HEART_BLOCK_LIGHT_B)
+    hb_a = heart_front(heart_elements(), HEART_FRONT_LIGHT_A)
+    hb_b = heart_front(heart_elements(), HEART_FRONT_LIGHT_B)
+    side = heart_side()
     return {
         'nether_heart': (MOBS / 'item/nether_heart.png', doc(HEART_SHAPE, HEART_LIGHT_A, HEART_A), doc(HEART_SHAPE, HEART_LIGHT_B, HEART_B)),
         'nether_gem': (MOBS / 'item/nether_gem.png', doc(GEM_SHAPE, GEM_LIGHT, GEM_A), doc(GEM_SHAPE, GEM_LIGHT, GEM_B)),
         'strong_upgrade_shard': (BEACONS / 'item/strong_upgrade_shard.png', doc(SHARD_SHAPE_A, SHARD_LIGHT_A, SHARD_PAL),
                                  doc(SHARD_SHAPE_B, SHARD_LIGHT_B, SHARD_PAL)),
         'nether_heart_block': (MOBS / 'block/nether_heart.png', doc(hb_a[0], hb_a[1], HEART_A), doc(hb_b[0], hb_b[1], HEART_B)),
+        'nether_heart_side': (MOBS / 'block/nether_heart_side.png', doc(*side, HEART_A), doc(*side, HEART_B)),
         'nether_gem_block': (MOBS / 'block/nether_gem.png', doc(GEM_BLOCK_SHAPE, GEM_BLOCK_LIGHT, GEM_A),
                              doc(GEM_BLOCK_SHAPE, GEM_BLOCK_LIGHT, GEM_B)),
     }
@@ -412,6 +527,13 @@ def main(argv: list[str]) -> int:
             (out / f'{name}.mcmeta').write_text(meta, encoding='utf-8')
         print(f'strips in {out}')
         return 0
+    if '--models' in argv:
+        out = Path(argv[argv.index('--models') + 1])
+        out.mkdir(parents=True, exist_ok=True)
+        for variant in HEART_VARIANTS:
+            (out / f'nether_heart_{variant}.json').write_text(model_text(variant), encoding='utf-8')
+        print(f'heart models in {out}')
+        return 0
     bad = []
     anim = animated()
     for name, (png, a, _) in variants().items():
@@ -434,6 +556,13 @@ def main(argv: list[str]) -> int:
         if meta is not None:
             mpath.write_text(meta, encoding='utf-8', newline='\n')
         print(f'wrote {png.relative_to(ROOT)} (+ layers{", mcmeta" if meta else ""})')
+    model = model_text()
+    if '--check' in argv:
+        if not HEART_MODEL.is_file() or HEART_MODEL.read_text(encoding='utf-8') != model:
+            bad.append(str(HEART_MODEL))
+    else:
+        HEART_MODEL.write_text(model, encoding='utf-8', newline='\n')
+        print(f'wrote {HEART_MODEL.relative_to(ROOT)}')
     if bad:
         print('stale:', *bad, sep='\n  ')
         return 1

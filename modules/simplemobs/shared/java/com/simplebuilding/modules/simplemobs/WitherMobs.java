@@ -53,7 +53,7 @@ public final class WitherMobs {
 
     public static final ResourceKey<Block> HEART_BLOCK_KEY = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(ID, "nether_heart"));
     public static final ResourceKey<Block> GEM_BLOCK_KEY = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(ID, "nether_gem"));
-    public static final Block HEART_BLOCK = new WitherLootBlock(Block.box(4, 0, 4, 12, 8, 12), lootBlock(SoundType.WART_BLOCK, MapColor.CRIMSON_NYLIUM, 7).setId(HEART_BLOCK_KEY));
+    public static final Block HEART_BLOCK = new NetherHeartBlock(lootBlock(SoundType.WART_BLOCK, MapColor.CRIMSON_NYLIUM, 7).setId(HEART_BLOCK_KEY));
     public static final Block GEM_BLOCK = new WitherLootBlock(Block.box(3, 0, 3, 13, 11, 13), lootBlock(SoundType.AMETHYST_CLUSTER, MapColor.COLOR_RED, 5).setId(GEM_BLOCK_KEY));
 
     public static final ResourceKey<Item> HEART_KEY = itemKey("nether_heart");
