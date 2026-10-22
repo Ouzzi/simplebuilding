@@ -118,7 +118,7 @@ def git_dates(repo: Path) -> dict[str, str]:
 
 
 def pretty(stem: str) -> str:
-    return re.sub(r"[_\-]+", " ", stem).strip().title() or stem
+    return re.sub(r"[_\-]+", " ", stem.replace("light_pane", "pane")).strip().title() or stem
 
 
 def wiki_entries(wiki: Path, entries: list[dict]) -> tuple[dict, dict]:
