@@ -17,6 +17,7 @@ import com.simplebuilding.modules.simpletweaks.play.pregen.Pregen;
 import com.simplebuilding.modules.simpletweaks.play.pvp.Pvp;
 import com.simplebuilding.modules.simpletweaks.play.reward.LoginReward;
 import com.simplebuilding.modules.simpletweaks.play.roof.NetherRoof;
+import com.simplebuilding.modules.simpletweaks.play.shield.NewPlayerShield;
 import com.simplebuilding.modules.simpletweaks.play.top.Leaderboard;
 import com.simplebuilding.modules.simpletweaks.play.vote.Votes;
 import com.simplebuilding.modules.simpletweaks.play.welcome.Welcome;
@@ -32,7 +33,10 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.SleepStatus;
 import net.minecraft.stats.*;
+import net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.GameType;
@@ -57,6 +61,9 @@ public final class PlayTests {
         TESTS.put("playtime_and_seen", PlayTests::playtime);
         TESTS.put("mob_griefing_per_mob", PlayTests::griefing);
         TESTS.put("pvp_both_must_agree", PlayTests::pvp);
+        TESTS.put("new_player_shield_blocks_pvp", PlayTests::shieldBlocks);
+        TESTS.put("new_player_shield_expires", PlayTests::shieldExpires);
+        TESTS.put("new_player_shield_config_off", PlayTests::shieldOff);
         TESTS.put("welcome_lines_and_tips", PlayTests::welcome);
         TESTS.put("login_reward_streak", PlayTests::reward);
         TESTS.put("events_xp_loot_schedule", PlayTests::events);
@@ -99,7 +106,7 @@ public final class PlayTests {
     static final String ALL_OFF;
     static {
         var b = new StringBuilder("{");
-        for (var k : List.of("coords", "deathHint", "mentions", "playtime", "mobGriefing", "pvp", "welcome", "loginReward", "events", "leaderboard",
+        for (var k : List.of("coords", "deathHint", "mentions", "playtime", "mobGriefing", "pvp", "newPlayerShield", "welcome", "loginReward", "events", "leaderboard",
                 "vote", "afk", "border", "netherRoof", "keepInventory", "dragonEgg", "phantoms", "entityLimit", "cleanup", "pregen"))
             b.append(b.length() > 1 ? "," : "").append('"').append(k).append("\":{\"enabled\":false}");
         ALL_OFF = b.append('}').toString();
@@ -273,6 +280,102 @@ public final class PlayTests {
         var s = Play.state();
         s.pvpOn.remove(a.getUUID().toString()); s.pvpOff.remove(a.getUUID().toString());
         Pvp.resetCooldowns();
+        h.succeed();
+    }
+
+    // ------------------------------------------------------------------ T12
+    /** A mock player that takes damage (see ProtectionAndRangeTests: abilities, entity flag, client-loaded timer). */
+    static ServerPlayer damageable(ServerPlayer p) {
+        p.getAbilities().invulnerable = false;
+        p.setPermanentlyInvulnerable(false);
+        p.setInvulnerableTime(0);
+        p.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+        p.setAbsorptionAmount(0f);
+        return p;
+    }
+    /** Mock players are fake players and never get the protection; {@code TEST_PLAYERS} treats one as a real newcomer. */
+    static ServerPlayer newcomer(ServerPlayer p) { NewPlayerShield.TEST_PLAYERS.add(p.getUUID()); return p; }
+    static void unshield(ServerPlayer p) {
+        NewPlayerShield.TEST_PLAYERS.remove(p.getUUID());
+        NewPlayerShield.reset();
+        p.removeAllEffects();
+        if (Play.state().shieldEnded.remove(p.getUUID().toString())) Play.state().save();
+    }
+    static void shieldBlocks(GameTestHelper h) {
+        var level = h.getLevel();
+        boolean vanilla = level.isPvpAllowed();
+        var a = damageable(player(h, new BlockPos(1, 2, 1)));
+        var b = damageable(player(h, new BlockPos(2, 2, 1)));
+        yes(h, !NewPlayerShield.shielded(a) && !NewPlayerShield.shielded(b), "Fake and mock players never get the protection");
+        newcomer(a);
+        try {
+            yes(h, NewPlayerShield.shielded(a) && NewPlayerShield.leftMillis(a) == 5 * 60_000, "A new player is protected for 5 minutes: " + NewPlayerShield.leftMillis(a));
+            yes(h, !a.canHarmPlayer(b) && !b.canHarmPlayer(a), "Neither side may hurt the other");
+            float hp = a.getHealth();
+            yes(h, !a.hurtServer(level, level.damageSources().playerAttack(b), 2f) && a.getHealth() == hp, "A hit of another player does nothing");
+            var arrow = new Arrow(level, b, new ItemStack(Items.ARROW), null);
+            yes(h, !a.hurtServer(level, level.damageSources().arrow(arrow, b), 2f) && a.getHealth() == hp, "An arrow of another player does nothing");
+            arrow.discard();
+            yes(h, !a.addEffect(new MobEffectInstance(MobEffects.POISON, 100), b) && !a.hasEffect(MobEffects.POISON), "Harmful potion effects of players are blocked");
+            yes(h, a.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100), b), "Helpful effects of players still work");
+            yes(h, a.addEffect(new MobEffectInstance(MobEffects.POISON, 100), null), "Effects without a player follow Vanilla");
+            a.removeAllEffects();
+            yes(h, NewPlayerShield.shielded(a), "Being attacked keeps the protection");
+            float hpB = b.getHealth();
+            boolean hit = b.hurtServer(level, level.damageSources().playerAttack(a), 1f);
+            yes(h, !NewPlayerShield.shielded(a) && Play.state().shieldEnded.contains(a.getUUID().toString()), "Attacking a player ends the protection (attackEnds)");
+            yes(h, hit == vanilla && (b.getHealth() < hpB) == vanilla, "That hit follows Vanilla: " + hit + ", PvP " + vanilla);
+        } finally { unshield(a); }
+        h.succeed();
+    }
+    static void shieldExpires(GameTestHelper h) {
+        var level = h.getLevel();
+        boolean vanilla = level.isPvpAllowed();
+        var a = newcomer(damageable(player(h, new BlockPos(1, 2, 1))));
+        var b = damageable(player(h, new BlockPos(2, 2, 1)));
+        var playTime = Stats.CUSTOM.get(Stats.PLAY_TIME);
+        try {
+            with(PlayConfig.of("{\"newPlayerShield\":{\"minutes\":1}}"), () -> {
+                NewPlayerShield.joined(a);
+                yes(h, NewPlayerShield.leftMillis(a) == 60_000 && !a.canHarmPlayer(b), "Protected for the configured minute");
+                a.getStats().setValue(a, playTime, 1199);
+                NewPlayerShield.check(level.getServer());
+                yes(h, NewPlayerShield.leftMillis(a) == 50 && !b.canHarmPlayer(a), "Online play time counts: one tick left");
+                a.getStats().setValue(a, playTime, 1200);
+                yes(h, !NewPlayerShield.shielded(a) && a.canHarmPlayer(b) == vanilla && b.canHarmPlayer(a) == vanilla, "After the time PvP follows Vanilla again");
+                float hp = a.getHealth();
+                boolean hit = a.hurtServer(level, level.damageSources().playerAttack(b), 1f);
+                yes(h, hit == vanilla && (a.getHealth() < hp) == vanilla, "Damage is possible again: " + hit);
+                NewPlayerShield.check(level.getServer());
+                yes(h, Play.state().shieldEnded.contains(a.getUUID().toString()), "The end is stored");
+                a.getStats().setValue(a, playTime, 0);
+                yes(h, !NewPlayerShield.shielded(a), "An ended protection never comes back");
+            });
+        } finally { a.getStats().setValue(a, playTime, 0); unshield(a); }
+        h.succeed();
+    }
+    static void shieldOff(GameTestHelper h) {
+        var d = PlayConfig.DEFAULT.newPlayerShield();
+        yes(h, d.enabled() && d.minutes() == 5 && d.attackEnds(), "Owner 21.10.: on, 5 minutes; attacking ends it");
+        yes(h, new PlayConfig.NewPlayerShield(true, 0, true).minutes() == 1 && new PlayConfig.NewPlayerShield(true, 99_999, true).minutes() == 1440, "Minutes are clamped to 1-1440");
+        yes(h, PlayConfig.of("{\"newPlayerShield\":{\"attackEnds\":false}}").newPlayerShield().equals(new PlayConfig.NewPlayerShield(true, 5, false)), "Partial section merges onto the defaults");
+        var level = h.getLevel();
+        boolean vanilla = level.isPvpAllowed();
+        var a = newcomer(damageable(player(h, new BlockPos(1, 2, 1))));
+        var b = damageable(player(h, new BlockPos(2, 2, 1)));
+        try {
+            with(PlayConfig.of("{\"newPlayerShield\":{\"attackEnds\":false}}"), () -> {
+                b.hurtServer(level, level.damageSources().playerAttack(a), 1f);
+                yes(h, NewPlayerShield.shielded(a), "attackEnds off: attacking keeps the protection");
+            });
+            with(PlayConfig.of("{\"newPlayerShield\":{\"enabled\":false}}"), () -> {
+                yes(h, !NewPlayerShield.shielded(a) && a.canHarmPlayer(b) == vanilla && b.canHarmPlayer(a) == vanilla, "Switched off: no protection");
+                float hp = a.getHealth();
+                boolean hit = a.hurtServer(level, level.damageSources().playerAttack(b), 1f);
+                yes(h, hit == vanilla && (a.getHealth() < hp) == vanilla, "Switched off: hits follow Vanilla");
+                yes(h, a.addEffect(new MobEffectInstance(MobEffects.POISON, 100), b), "Switched off: potion effects follow Vanilla");
+            });
+        } finally { unshield(a); }
         h.succeed();
     }
 

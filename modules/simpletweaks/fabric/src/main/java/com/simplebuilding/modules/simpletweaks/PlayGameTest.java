@@ -12,6 +12,9 @@ public final class PlayGameTest {
  @GameTest(maxTicks=100) public void playtimeAndSeen(GameTestHelper h) { PlayTests.TESTS.get("playtime_and_seen").accept(h); }
  @GameTest(maxTicks=100) public void mobGriefingPerMob(GameTestHelper h) { PlayTests.TESTS.get("mob_griefing_per_mob").accept(h); }
  @GameTest(maxTicks=100) public void pvpBothMustAgree(GameTestHelper h) { PlayTests.TESTS.get("pvp_both_must_agree").accept(h); }
+ @GameTest(maxTicks=100) public void newPlayerShieldBlocksPvp(GameTestHelper h) { PlayTests.TESTS.get("new_player_shield_blocks_pvp").accept(h); }
+ @GameTest(maxTicks=100) public void newPlayerShieldExpires(GameTestHelper h) { PlayTests.TESTS.get("new_player_shield_expires").accept(h); }
+ @GameTest(maxTicks=100) public void newPlayerShieldConfigOff(GameTestHelper h) { PlayTests.TESTS.get("new_player_shield_config_off").accept(h); }
  @GameTest(maxTicks=100) public void welcomeLinesAndTips(GameTestHelper h) { PlayTests.TESTS.get("welcome_lines_and_tips").accept(h); }
  @GameTest(maxTicks=100) public void loginRewardStreak(GameTestHelper h) { PlayTests.TESTS.get("login_reward_streak").accept(h); }
  @GameTest(maxTicks=100) public void eventsXpLootSchedule(GameTestHelper h) { PlayTests.TESTS.get("events_xp_loot_schedule").accept(h); }
