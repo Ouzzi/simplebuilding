@@ -143,6 +143,8 @@ public final class McVersion {
      * docs/ai/PLAN-B-S8B-STORAGE-2026-10-19.md. 26.2 keeps them in SimpleBuilding (no sub-mods on this line). SimpleBuilding reaches them by id ({@code util/StorageRefs}).
      */
     public static final boolean STORAGE_IN_SB = true;
+    /** Split stage 9 backup marker ({@code datafix/SplitBackupMarker}, plan §3.4): 26.2 keeps the single jar and its ids - nothing to back up for. */
+    public static final boolean SPLIT_BACKUP_MARKER = false;
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
     public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

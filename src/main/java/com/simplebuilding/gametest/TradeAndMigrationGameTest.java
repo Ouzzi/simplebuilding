@@ -75,4 +75,9 @@ public final class TradeAndMigrationGameTest {
     public void renamedItemIdsStillLoadAsTheRenamedItems(GameTestHelper helper) {
         TradeAndMigrationTests.renamedItemIdsStillLoadAsTheRenamedItems(helper);
     }
+
+    @GameTest
+    public void splitBackupMarkerIsWrittenOnce(GameTestHelper helper) {
+        TradeAndMigrationTests.splitBackupMarkerIsWrittenOnce(helper);
+    }
 }

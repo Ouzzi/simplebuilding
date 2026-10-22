@@ -1358,6 +1358,40 @@ public final class TradeAndMigrationTests {
     }
 
     /**
+     * Split stage 9 backup marker ({@link com.simplebuilding.datafix.SplitBackupMarker}, docs/ai/PLAN-B-S9B-2026-10-22.md):
+     * on 26.3 an existing world gets the marker once (split version, "existing"), a second start writes nothing and leaves
+     * it as it is, a new world is marked "new", and the running test server wrote its own on start (the wiring on every
+     * loader). 26.2 writes none.
+     */
+    public static void splitBackupMarkerIsWrittenOnce(GameTestHelper helper) {
+        String file = com.simplebuilding.datafix.SplitBackupMarker.FILE;
+        try {
+            java.nio.file.Path existing = java.nio.file.Files.createTempDirectory("sb-split-existing");
+            java.nio.file.Path fresh = java.nio.file.Files.createTempDirectory("sb-split-new");
+            boolean on = McVersion.SPLIT_BACKUP_MARKER;
+            helper.assertTrue(com.simplebuilding.datafix.SplitBackupMarker.write(existing, true) == on,
+                    "first start of an existing world: written " + !on + ", expected " + on);
+            if (!on) {
+                helper.assertTrue(!java.nio.file.Files.exists(existing.resolve(file)), "26.2 wrote a split backup marker");
+                helper.succeed();
+                return;
+            }
+            String text = java.nio.file.Files.readString(existing.resolve(file));
+            helper.assertTrue(text.contains("split=" + com.simplebuilding.datafix.SplitBackupMarker.SPLIT_VERSION)
+                    && text.contains("world=existing") && text.contains("firstStart="), "marker content: " + text);
+            helper.assertTrue(!com.simplebuilding.datafix.SplitBackupMarker.write(existing, false), "a second start wrote the marker again");
+            helper.assertTrue(java.nio.file.Files.readString(existing.resolve(file)).equals(text), "a second start changed the marker");
+            helper.assertTrue(com.simplebuilding.datafix.SplitBackupMarker.write(fresh, false)
+                    && java.nio.file.Files.readString(fresh.resolve(file)).contains("world=new"), "a new world is not marked new");
+            java.nio.file.Path server = helper.getLevel().getServer().getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT);
+            helper.assertTrue(java.nio.file.Files.exists(server.resolve(file)), "the test server wrote no marker on start: " + server);
+        } catch (java.io.IOException e) {
+            throw helper.assertionException("split backup marker: " + e);
+        }
+        helper.succeed();
+    }
+
+    /**
      * Three item ids were renamed on 2026-09-28 to match the item names (owner decision):
      * {@code velocity-gauge} -> {@code velocity_gauge}, {@code echo_compass} -> {@code echo_sounder},
      * {@code laser_pointer} -> {@code amethyst_lens}. Worlds saved before still hold the old ids -

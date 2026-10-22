@@ -77,6 +77,7 @@ public final class NeoForgeGameplayEvents {
     @SubscribeEvent
     public static void onServerStarted(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
         LegacySpatulaMigration.migrateWorlds(event.getServer());
+        com.simplebuilding.datafix.SplitBackupMarker.onServerStarted(event.getServer());
     }
 
     @SubscribeEvent
