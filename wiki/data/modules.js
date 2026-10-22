@@ -59,7 +59,7 @@ window.WIKI_MODULES = [
       "blocks": 318,
       "recipes": 855,
       "config": 227,
-      "features": 47
+      "features": 48
     }
   },
   {
@@ -118,7 +118,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 73
     },
-    "dataHash": "781c10aed481"
+    "dataHash": "487293bab483"
   },
   {
     "id": "simpleriding",
@@ -226,9 +226,9 @@ window.WIKI_MODULES = [
     "bundle": "required",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABgWlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kb9LQlEUxz9qUZRhUENDkIQ1ZZiB1NJglAXVoAb9WvTp08Afj/eMiNagNSiIWvo11F9Qa9AcBEURRHOtRS0lr/M0UCLP5Z77ud97zuHec8EezShZo84H2VxBD4eC7rn5BXfDK05aseGhK6YY2nRkPEpN+7yXSLFbr1Wrdty/1pxIGgrYGoVHFE0vCE8IT60WNIt3hNuVdCwhfCbcp8sFhe8sPV7mF4tTZf62WI+GR8HeKuxOVXG8ipW0nhWWl+PJZlaU3/tYL3Emc7MRWbtldmIQJkQQN5OMMUqAAYbFB/Dip1921Mj3lfJnyEuuIl5jDZ1lUqQp0CfqilRPyqqKnpSRYc3q/9++Guqgv1zdGYT6Z9N874GGbShumebXkWkWj8HxBJe5Sn7+EIY+RN+qaJ4DcG3A+VVFi+/CxSZ0PGoxPVaSHDLtqgpvp9AyD2030LRY7tnvOScPEF2Xr7qGvX3olXjX0g9t+GfpNyGCNQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAdBJREFUKJFlUjFo20AUfTp9nQylWWwQGGtJsySQkkkYCh06FDp7KF1STMC0NDHNoMWTS7t5CcZD6SI6ZCiN505dDO3gbim4BIqH4LiYKhlaGmrrpOvwhawmx3F3uv/+e1/3vrF3dOZ7cWdoAujWyk/fT5EbloDvxa7rNvvpvbF3dAagvjoLxg4A34vbA82xGwXKuLIheGN0lCAMQ6Uinn/+qjAMowQsniporQE0+9MowWKhlIp0oji2v3XZGxWlpFZ1qWNebDY+fPvte/F64efnH5ZO1Hy+GLy4X77z6EtY0BrP1i8Ojm8mGqaBbq1MrNgeaKVWGJ2VO58vbBsHxytEanfjvFQqNftTApaV5NH5HKXQGxWlNAFQPvzp1YPr53svP+ZfOU14+/gWANQn/FmpVCaTSZ5r5/CUDwRASto5PM2qevdkk2MPX3+1bWkIIrKkTKlFqxo31mZSEpFlCLJtuR2cANgOTq6gG2uzpdPs2hUfGL27cZ4563ux4K2+OuPant/+ZQgyBO1vXTJ3MHaCseN7MYDO0BTdWrkzNIOxYwm0qvGb7w6RRWT1RsX2XcNKWweu66b/kLUhZ7IOzwwEoNmfcjv95wO/9HUQk/L6Dx4w4ZYODKssAAAAAElFTkSuQmCC",
     "counts": {
-      "features": 77
+      "features": 78
     },
-    "dataHash": "c45e2e2abc1f"
+    "dataHash": "0fd5f79d6204"
   },
   {
     "id": "simplesounds",
@@ -325,7 +325,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 40
     },
-    "dataHash": "0adeba7a8340"
+    "dataHash": "728f6918f092"
   },
   {
     "id": "simpledimensions",
@@ -412,9 +412,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 3
+      "features": 4
     },
-    "dataHash": "58d4bcdc8eb1"
+    "dataHash": "f6612a149aa2"
   },
   {
     "id": "simpleinterfaces",
@@ -468,7 +468,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 8
     },
-    "dataHash": "3947b5bceca5"
+    "dataHash": "57fed3785ddf"
   },
   {
     "id": "simpletrims",
@@ -822,7 +822,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -843,9 +843,9 @@ window.WIKI_MODULES = [
       "items": 3,
       "blocks": 2,
       "recipes": 6,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "405f79eb15ce"
+    "dataHash": "37d367143d37"
   },
   {
     "id": "simpleovens",
@@ -935,9 +935,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 6,
-      "features": 10
+      "features": 11
     },
-    "dataHash": "30dbd747d283"
+    "dataHash": "f4275fd6e203"
   },
   {
     "id": "simplewanderers",
@@ -964,7 +964,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 6
     },
-    "dataHash": "34ebe8a6188b"
+    "dataHash": "1fef4fce7082"
   },
   {
     "id": "simplestats",
@@ -1076,7 +1076,7 @@ window.WIKI_MODULES = [
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "fa3e13af5aa2"
+    "dataHash": "677b17642cfc"
   },
   {
     "id": "simplehammers",
