@@ -42,9 +42,14 @@ public final class MobHeadsJeiPlugin implements IModPlugin {
             }
             Component mob = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse(head.mob()))
                     .<Component>map(type -> type.getDescription()).orElse(Component.translatable("block.simplemobheads." + head.item()));
-            registration.addItemStackInfo(stacks, Component.translatable(
-                    head.drop().equals("ritual") ? "jei.simplemobheads.ritual_head_source"
-                    : head.drop().equals("wither") ? "jei.simplemobheads.boss_head_source" : "jei.simplemobheads.head_source", mob));
+            String key = switch (head.drop()) {
+                case "ritual" -> "jei.simplemobheads.ritual_head_source";
+                case "wither" -> "jei.simplemobheads.boss_head_source";
+                // EH21 easter eggs: a riddle, never the recipe (rule A6)
+                case "tribute", "giant", "giant_cow" -> "jei.simplemobheads." + head.drop() + "_head_source";
+                default -> "jei.simplemobheads.head_source";
+            };
+            registration.addItemStackInfo(stacks, Component.translatable(key, mob));
         }
     }
 }

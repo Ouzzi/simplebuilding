@@ -31,6 +31,8 @@ public final class CustomHeadModels {
     public static final Identifier BREEZE_EYES = Identifier.withDefaultNamespace("textures/entity/breeze/breeze_eyes.png");
     /** The Herobrine head's own pixels (no Mojang texture): only its white eyes, drawn emissive like the spider's. */
     public static final Identifier HEROBRINE_EYES = Identifier.fromNamespaceAndPath("simplemobheads", "textures/entity/herobrine/herobrine_eyes.png");
+    /** The crown of the EH21 tribute head (own pixels, tools/textures/easter_heads_2026_10_22.py): a 6x4x6 ring, 32x16 sheet. */
+    public static final Identifier CROWN = Identifier.fromNamespaceAndPath("simplemobheads", "textures/entity/technoblade/crown.png");
     private static final float EYES_INFLATE = 0.25F;
 
     private CustomHeadModels() {
@@ -57,8 +59,21 @@ public final class CustomHeadModels {
             // Secret head (KONZ20 H3 t1): a player-sized head with its hat layer, the white eyes glow in the dark.
             case "herobrine" -> layered(SkullModel.createHumanoidHeadLayer(),
                     pass(humanoidHeadLayer(new CubeDeformation(0.0F, 0.0F, EYES_INFLATE), 64, 64), RenderTypes::eyes, HEROBRINE_EYES));
+            // EH21 tribute (N-A): the pig head with a golden crown on top (cutout, both sides, so the ring shows inside too).
+            case "crowned_pig" -> layered(animalHeadLayer("pig"), pass(crownLayer(), RenderTypes::entityCutout, CROWN));
             default -> null;
         };
+    }
+
+    /**
+     * The crown: a 6x4x6 box (sides = band and points, top and bottom transparent) centred on top of an 8 px head, in skull space
+     * (head from y -8 to 0). {@code TechnobladeCrownLayer} sets the same part on a living pig's head.
+     */
+    public static LayerDefinition crownLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        mesh.getRoot().addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -12.0F, -3.0F, 6.0F, 4.0F, 6.0F),
+                PartPose.ZERO);
+        return LayerDefinition.create(mesh, 32, 16);
     }
 
     private static MobHeadModel plain(LayerDefinition definition) {

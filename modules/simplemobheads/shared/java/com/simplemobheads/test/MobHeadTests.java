@@ -12,6 +12,9 @@ import com.simplemobheads.data.HeadTable;
 import com.simplemobheads.drop.HeadDropCondition;
 import com.simplemobheads.drop.HeadDrops;
 import com.simplemobheads.drop.Variants;
+import com.simplemobheads.easter.Giants;
+import com.simplemobheads.easter.KillerBunny;
+import com.simplemobheads.easter.Technoblade;
 import com.simplemobheads.ritual.HerobrineHaunt;
 import com.simplemobheads.ritual.HerobrineRitual;
 import java.nio.file.Files;
@@ -108,6 +111,17 @@ public final class MobHeadTests {
         put("herobrine_gaze", MobHeadTests::herobrineGaze);
         put("herobrine_torch_flicker", MobHeadTests::herobrineTorchFlicker);
         put("herobrine_hint_book", MobHeadTests::herobrineHintBook);
+        put("easter_heads_data", MobHeadTests::easterHeadsData);
+        put("technoblade_crown", MobHeadTests::technobladeCrown);
+        put("technoblade_lightning", MobHeadTests::technobladeLightning);
+        put("crowned_pig_ability", MobHeadTests::crownedPigAbility);
+        put("killer_bunny_spawn", MobHeadTests::killerBunnySpawn);
+        put("killer_bunny_head", MobHeadTests::killerBunnyHead);
+        put("giant_zombie_lightning", MobHeadTests::giantZombieLightning);
+        put("giant_head_drop", MobHeadTests::giantHeadDrop);
+        put("giant_head_wearing", MobHeadTests::giantHeadWearing);
+        put("giant_cow_hay", MobHeadTests::giantCowHay);
+        put("giant_cow_head", MobHeadTests::giantCowHead);
     }
 
     private MobHeadTests() {
@@ -672,7 +686,7 @@ public final class MobHeadTests {
         SimpleMobHeads.config().abilities.put("blaze", true);
         SimpleMobHeads.config().enabled = false;
         helper.assertTrue(!HeadAbilities.active(player, "blaze"), "the master switch does nothing");
-        helper.assertTrue(SimpleMobHeads.abilityIds().size() == 29, "abilities: " + SimpleMobHeads.abilityIds());
+        helper.assertTrue(SimpleMobHeads.abilityIds().size() == 32, "abilities: " + SimpleMobHeads.abilityIds());
         helper.succeed();
     }
 
@@ -957,6 +971,387 @@ public final class MobHeadTests {
         HeadDrops.apply(BuiltInLootTables.ABANDONED_MINESHAFT, none::add, helper.getLevel().registryAccess());
         helper.assertTrue(none.isEmpty(), "the hint book switch does nothing");
         helper.assertTrue(MobHeads.head("herobrine") != null && MobHeads.head("herobrine").drop().equals("ritual"), "the head is no ritual head");
+        helper.succeed();
+    }
+
+    // --- easter eggs EH21 (docs/ai/PLAN-B-EH21-2026-10-22.md) ------------------------------------------------------
+
+    private static final List<String> ZOMBIE_KINDS = List.of("zombie", "husk", "drowned", "zombie_villager", "zombified_piglin");
+
+    /** The three secret heads: group, switches on, variants, giant blocks a full block, camouflage, counts-as, lore, hints. */
+    public static void easterHeadsData(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<String> problems = new ArrayList<>();
+        for (String id : List.of("crowned_pig", "giant", "giant_cow")) {
+            HeadDef head = MobHeads.head(id);
+            if (head == null || MobHeads.item(id) == null) {
+                problems.add(id + ": missing");
+                continue;
+            }
+            if (!head.group().equals("secret") || !HeadDropCondition.allowed(head)) {
+                problems.add(id + ": not a secret head that drops by default");
+            }
+        }
+        HeadDef giant = MobHeads.head("giant");
+        HeadDef giantCow = MobHeads.head("giant_cow");
+        helper.assertTrue(problems.isEmpty(), "secret heads: " + problems);
+        helper.assertTrue(giant.variantIds().equals(ZOMBIE_KINDS), "giant variants: " + giant.variantIds());
+        helper.assertTrue(giantCow.variantIds().equals(List.of("temperate", "warm", "cold")), "giant cow variants: " + giantCow.variantIds());
+        helper.assertTrue(giant.big() && giantCow.big() && !MobHeads.head("crowned_pig").big() && !MobHeads.head("cat").big(), "which heads are big");
+        for (Block block : List.of(MobHeads.standing("giant"), MobHeads.wall("giant"), MobHeads.standing("giant_cow"), MobHeads.wall("giant_cow"))) {
+            var box = block.defaultBlockState().getShape(level, BlockPos.ZERO).bounds();
+            helper.assertTrue(box.getXsize() == 1.0 && box.getYsize() == 1.0 && box.getZsize() == 1.0, block + " is no full block: " + box);
+        }
+        helper.assertTrue(MobHeads.standing("cat").defaultBlockState().getShape(level, BlockPos.ZERO).bounds().getYsize() == 0.5,
+                "an ordinary head lost its Vanilla shape");
+        var visibility = new ItemStack(MobHeads.item("giant")).get(DataComponents.MOB_VISIBILITY);
+        for (String kind : ZOMBIE_KINDS) {
+            EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.withDefaultNamespace(kind));
+            helper.assertTrue(visibility != null && visibility.targetingEntityTypes().stream().anyMatch(h -> h.value() == type)
+                    && visibility.visibility() == 0.5F, "a " + kind + " sees the giant head's wearer fully");
+        }
+        helper.assertTrue(HeadAbilities.is(MobHeads.stack(giant, "husk"), "husk") && !HeadAbilities.is(MobHeads.stack(giant, "husk"), "drowned")
+                && HeadAbilities.is(MobHeads.stack(giant, "drowned"), "drowned") && HeadAbilities.is(new ItemStack(MobHeads.item("giant_cow")), "cow")
+                && !HeadAbilities.is(new ItemStack(MobHeads.item("cow")), "giant_cow"), "counts-as");
+        var lore = new ItemStack(MobHeads.item("crowned_pig")).get(DataComponents.LORE);
+        helper.assertTrue(lore != null && lore.lines().size() == 1 && lore.lines().get(0).getContents()
+                instanceof net.minecraft.network.chat.contents.TranslatableContents t && t.getKey().equals("lore.simplemobheads.crowned_pig_head"),
+                "the crowned pig head has no 'Technoblade never dies' lore");
+        var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+        helper.assertTrue(biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.FLOWER_FOREST).is(com.simplemobheads.easter.KillerBunny.BIOMES)
+                && biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.MEADOW).is(com.simplemobheads.easter.KillerBunny.BIOMES)
+                && !biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS).is(com.simplemobheads.easter.KillerBunny.BIOMES), "killer bunny biomes");
+        for (String advancement : List.of("heads/crowned_pig", "heads/giant", "heads/giant_cow", "heads/killer_bunny")) {
+            helper.assertTrue(level.getServer().getAdvancements().get(SimpleMobHeads.id(advancement)) != null, "no advancement " + advancement);
+        }
+        helper.succeed();
+    }
+
+    /** TO-1: the crown comes with the name, the pig never dies, a player's deadly hit makes the crown fall once; cooldowns. */
+    public static void technobladeCrown(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        clearAll(helper);
+        Item crown = MobHeads.item("crowned_pig");
+        var pig = helper.spawn(EntityTypes.PIG, new BlockPos(3, 2, 3));
+        helper.assertTrue(!Technoblade.update(level, pig), "a nameless pig got a crown");
+        pig.setCustomName(net.minecraft.network.chat.Component.literal("technoblade"));
+        helper.assertTrue(!Technoblade.update(level, pig), "the name is not exact");
+        pig.setCustomName(net.minecraft.network.chat.Component.literal(Technoblade.NAME));
+        helper.assertTrue(Technoblade.update(level, pig) && Technoblade.crowned(pig), "Technoblade has no crown");
+        // Without a player the crown stays: it never dies.
+        pig.hurtServer(level, level.damageSources().generic(), 1000.0F);
+        helper.assertTrue(pig.isAlive() && pig.getHealth() == 1.0F && Technoblade.crowned(pig), "a plain deadly hit killed it or took the crown");
+        helper.assertValueEqual(count(helper, crown), 0, "crowns without a player");
+        // A player's deadly hit: it lives on, the crown falls as the head, once.
+        ServerPlayer player = player(helper);
+        pig.setInvulnerableTime(0);
+        pig.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
+        helper.assertTrue(pig.isAlive() && !Technoblade.crowned(pig), "the crown did not fall (alive " + pig.isAlive() + ")");
+        helper.assertValueEqual(count(helper, crown), 1, "crowned heads from a player's hit");
+        helper.assertTrue(!Technoblade.update(level, pig), "the crown grew back at once");
+        // Without the crown it is mortal.
+        pig.setInvulnerableTime(0);
+        pig.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
+        helper.assertTrue(!pig.isAlive(), "a pig without a crown never dies");
+        // The same player waits a day: a second Technoblade keeps its crown and lives.
+        var other = helper.spawn(EntityTypes.PIG, new BlockPos(4, 2, 4));
+        other.setCustomName(net.minecraft.network.chat.Component.literal(Technoblade.NAME));
+        Technoblade.update(level, other);
+        other.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
+        helper.assertTrue(other.isAlive() && Technoblade.crowned(other), "a waiting player still took a crown");
+        helper.assertValueEqual(count(helper, crown), 1, "crowned heads while the player waits");
+        // The void and /kill still work.
+        other.hurtServer(level, level.damageSources().fellOutOfWorld(), 1000.0F);
+        helper.assertTrue(!other.isAlive(), "the void cannot kill a crowned pig");
+        // The cooldown runs out: the crown grows back.
+        var third = helper.spawn(EntityTypes.PIG, new BlockPos(2, 2, 4));
+        third.setCustomName(net.minecraft.network.chat.Component.literal(Technoblade.NAME));
+        com.simplemobheads.easter.EntityTimes.set(third, Technoblade.CROWN_READY, level.getGameTime() + 100);
+        helper.assertTrue(!Technoblade.update(level, third), "a crown before its time");
+        com.simplemobheads.easter.EntityTimes.set(third, Technoblade.CROWN_READY, level.getGameTime() - 1);
+        helper.assertTrue(Technoblade.update(level, third), "the crown does not grow back");
+        // Renamed or switched off: the crown goes, nothing drops; piglets get none.
+        SimpleMobHeads.config().technoblade = false;
+        helper.assertTrue(!Technoblade.update(level, third) && third.getItemBySlot(EquipmentSlot.HEAD).isEmpty(), "the switch does nothing");
+        SimpleMobHeads.config().technoblade = true;
+        var piglet = helper.spawn(EntityTypes.PIG, new BlockPos(1, 2, 4));
+        piglet.setAge(-24000);
+        piglet.setCustomName(net.minecraft.network.chat.Component.literal(Technoblade.NAME));
+        helper.assertTrue(!Technoblade.update(level, piglet), "a piglet got a crown");
+        helper.assertValueEqual(count(helper, crown), 1, "crowns dropped by renaming or the switch");
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** TO-1: lightning leaves a crowned pig a pig (no conversion, no fire). */
+    public static void technobladeLightning(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        var pig = helper.spawn(EntityTypes.PIG, new BlockPos(3, 2, 3));
+        pig.setCustomName(net.minecraft.network.chat.Component.literal(Technoblade.NAME));
+        Technoblade.update(level, pig);
+        LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
+        pig.thunderHit(level, bolt);
+        helper.assertTrue(!pig.isRemoved() && pig.isAlive() && Technoblade.crowned(pig) && pig.getRemainingFireTicks() <= 0,
+                "lightning changed the crowned pig");
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** F-A: pigs nearby look at the wearer of the crowned head; the ability switch stops it. */
+    public static void crownedPigAbility(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = player(helper);
+        var pig = helper.spawn(EntityTypes.PIG, new BlockPos(5, 2, 5));
+        helper.assertTrue(Technoblade.charm(level, player, 1).isEmpty(), "pigs look without the head");
+        wear(player, "crowned_pig");
+        helper.assertTrue(Technoblade.charm(level, player, 1).contains(pig) && pig.getLookControl().isLookingAtTarget()
+                && Math.abs(pig.getLookControl().getWantedX() - player.getX()) < 0.01, "the pig does not look at the wearer");
+        SimpleMobHeads.config().abilities.put("crowned_pig", false);
+        helper.assertTrue(Technoblade.charm(level, player, 1).isEmpty(), "the ability switch does nothing");
+        wear(player, null);
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** KO-2: one rabbit in killerBunnyChance, natural spawns in flower forests and meadows only; light bite, fast. */
+    public static void killerBunnySpawn(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+        Holder<net.minecraft.world.level.biome.Biome> flowers = biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.FLOWER_FOREST);
+        Holder<net.minecraft.world.level.biome.Biome> meadow = biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.MEADOW);
+        Holder<net.minecraft.world.level.biome.Biome> plains = biomes.getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS);
+        helper.assertTrue(KillerBunny.eligible(EntitySpawnReason.NATURAL, flowers) && KillerBunny.eligible(EntitySpawnReason.CHUNK_GENERATION, meadow),
+                "natural spawns in the biomes are not eligible");
+        helper.assertTrue(!KillerBunny.eligible(EntitySpawnReason.NATURAL, plains) && !KillerBunny.eligible(EntitySpawnReason.BREEDING, flowers)
+                && !KillerBunny.eligible(EntitySpawnReason.SPAWN_ITEM_USE, flowers) && !KillerBunny.eligible(EntitySpawnReason.COMMAND, flowers),
+                "other biomes or spawn reasons are eligible");
+        var rabbit = helper.spawn(EntityTypes.RABBIT, new BlockPos(3, 2, 3));
+        double baseSpeed = rabbit.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+        helper.assertTrue(!KillerBunny.onSpawn(rabbit, EntitySpawnReason.NATURAL, flowers, 0.5F), "a roll above the chance");
+        helper.assertTrue(KillerBunny.onSpawn(rabbit, EntitySpawnReason.NATURAL, flowers, 0.0F), "a roll below the chance");
+        helper.assertTrue(rabbit.getVariant() == net.minecraft.world.entity.animal.rabbit.Rabbit.Variant.EVIL
+                && rabbit.getSoundSource() == net.minecraft.sounds.SoundSource.HOSTILE, "not a hostile killer bunny");
+        helper.assertTrue(rabbit.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == 2.0,
+                "the bite is not one heart: " + rabbit.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE));
+        helper.assertTrue(Math.abs(rabbit.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED) - baseSpeed * 1.5) < 1.0E-6,
+                "the killer bunny is not fast");
+        var vanilla = helper.spawn(EntityTypes.RABBIT, new BlockPos(4, 2, 3));
+        SimpleMobHeads.config().killerBunnies = false;
+        helper.assertTrue(!KillerBunny.onSpawn(vanilla, EntitySpawnReason.NATURAL, flowers, 0.0F), "the switch does nothing");
+        SimpleMobHeads.config().killerBunnies = true;
+        // The spawn hook runs inside the real finalizeSpawn (chance 0: it must run and change nothing).
+        SimpleMobHeads.config().killerBunnyChance = 0.0F;
+        vanilla.finalizeSpawn(level, level.getCurrentDifficultyAt(vanilla.blockPosition()), EntitySpawnReason.NATURAL, null);
+        helper.assertTrue(vanilla.getVariant() != net.minecraft.world.entity.animal.rabbit.Rabbit.Variant.EVIL, "chance 0 made a killer bunny");
+        MobHeadsConfig greedy = new MobHeadsConfig();
+        greedy.killerBunnyChance = 1.0F;
+        greedy.giantCowChance = 1.0F;
+        greedy.giantCowHayLimit = 100000;
+        greedy.technobladeCooldownTicks = 1;
+        greedy.normalize(SimpleMobHeads.abilityIds());
+        helper.assertTrue(greedy.killerBunnyChance == MobHeadsConfig.MAX_KILLER_BUNNY_CHANCE && greedy.giantCowChance == MobHeadsConfig.MAX_GIANT_COW_CHANCE
+                && greedy.giantCowHayLimit == MobHeadsConfig.MAX_HAY_LIMIT && greedy.technobladeCooldownTicks == MobHeadsConfig.MIN_RITUAL_COOLDOWN,
+                "the easter-egg settings are not bounded");
+        MobHeadsConfig defaults = new MobHeadsConfig();
+        helper.assertTrue(defaults.killerBunnyChance == 0.001F && defaults.giantCowChance == 0.0002F && defaults.giantCowHayLimit == 64
+                && defaults.technobladeCooldownTicks == 24000, "owner values (1:1000, 1:5000, 64, one day)");
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** KO-2: a charged creeper's explosion drops the killer bunny's head - the rabbit head's killer bunny variant. */
+    public static void killerBunnyHead(GameTestHelper helper) {
+        var rabbit = helper.spawn(EntityTypes.RABBIT, new BlockPos(4, 2, 4));
+        KillerBunny.turn(rabbit);
+        expectVariant(helper, rabbit, "rabbit", "evil");
+        helper.succeed();
+    }
+
+    /** ZO-1: a natural bolt on a full-moon night makes every zombie kind a giant - not by day, not from a player, not a baby. */
+    public static void giantZombieLightning(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
+        for (String kind : ZOMBIE_KINDS) {
+            EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.withDefaultNamespace(kind));
+            var zombie = (net.minecraft.world.entity.monster.zombie.Zombie) helper.spawn(type, new BlockPos(3, 2, 3));
+            zombie.setBaby(false);
+            float before = zombie.getMaxHealth();
+            helper.assertTrue(Giants.onLightning(level, zombie, bolt, true) == Giants.Lightning.GIANT, kind + " did not become a giant");
+            helper.assertTrue(Giants.isGiant(zombie) && Math.abs(zombie.getScale() - 3.0F) < 1.0E-4
+                    && zombie.getMaxHealth() == before + (float) Giants.ZOMBIE_HEALTH && zombie.getHealth() == zombie.getMaxHealth(),
+                    kind + " giant: scale " + zombie.getScale() + ", health " + zombie.getMaxHealth());
+            helper.assertTrue(zombie.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) >= 1.5, kind + " giant cannot step up");
+            helper.assertTrue(Giants.onLightning(level, zombie, bolt, true) == Giants.Lightning.ALREADY, kind + " grew twice");
+            zombie.discard();
+        }
+        var zombie = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(3, 2, 3));
+        zombie.setBaby(false);
+        helper.assertTrue(Giants.onLightning(level, zombie, bolt, false) == Giants.Lightning.NOT_FULL_MOON_NIGHT && !Giants.isGiant(zombie), "by day or without full moon");
+        LightningBolt channeled = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
+        channeled.setCause(player(helper));
+        helper.assertTrue(Giants.onLightning(level, zombie, channeled, true) == Giants.Lightning.NOT_NATURAL, "a player's bolt (Channeling)");
+        var baby = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 4));
+        baby.setBaby(true);
+        helper.assertTrue(Giants.onLightning(level, baby, bolt, true) == Giants.Lightning.BABY, "a baby giant");
+        SimpleMobHeads.config().giantZombies = false;
+        helper.assertTrue(Giants.onLightning(level, zombie, bolt, true) == Giants.Lightning.DISABLED, "the switch does nothing");
+        SimpleMobHeads.config().giantZombies = true;
+        // The real hook (Entity#thunderHit) with the world's real time and moon.
+        boolean fullMoon = Giants.fullMoonNight(level, zombie.blockPosition());
+        zombie.thunderHit(level, bolt);
+        helper.assertTrue(Giants.isGiant(zombie) == fullMoon, "thunderHit: giant " + Giants.isGiant(zombie) + ", full-moon night " + fullMoon);
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** ZO-1 + owner: only a charged creeper drops the giant's head - its kind, instead of the normal head; nothing else does. */
+    public static void giantHeadDrop(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
+        Item giantHead = MobHeads.item("giant");
+        for (String kind : List.of("husk", "zombie")) {
+            clearAll(helper);
+            EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.withDefaultNamespace(kind));
+            var zombie = (net.minecraft.world.entity.monster.zombie.Zombie) helper.spawn(type, new BlockPos(4, 2, 4));
+            zombie.setBaby(false);
+            Giants.onLightning(level, zombie, bolt, true);
+            Creeper creeper = chargedCreeper(helper, new BlockPos(1, 2, 1));
+            zombie.hurtServer(level, level.damageSources().explosion(creeper, creeper), 100000.0F);
+            Item normal = kind.equals("zombie") ? Items.ZOMBIE_HEAD : MobHeads.item(kind);
+            helper.assertValueEqual(count(helper, giantHead), 1, "giant heads from a giant " + kind);
+            helper.assertValueEqual(count(helper, normal), 0, "normal heads from a giant " + kind);
+            ItemStack head = level.getEntitiesOfClass(ItemEntity.class, helper.getBounds().inflate(8.0), e -> e.getItem().is(giantHead)).get(0).getItem();
+            String expected = kind.equals("zombie") ? null : kind;
+            helper.assertTrue(java.util.Objects.equals(head.get(MobHeads.VARIANT), expected), "the giant head shows " + head.get(MobHeads.VARIANT));
+        }
+        // A player's kill (even with the option on) gives a giant no head.
+        clearAll(helper);
+        SimpleMobHeads.config().playerKillDrops = true;
+        SimpleMobHeads.config().playerKillChance = MobHeadsConfig.MAX_PLAYER_KILL_CHANCE;
+        SimpleMobHeads.config().playerKillLootingBonus = 1.0F;
+        SimpleMobHeads.config().normalize(SimpleMobHeads.abilityIds());
+        ServerPlayer player = player(helper);
+        for (int i = 0; i < 30; i++) {
+            var husk = helper.spawn(EntityTypes.HUSK, new BlockPos(4, 2, 4));
+            Giants.onLightning(level, husk, bolt, true);
+            HeadDrops.onDeath(husk, level.damageSources().playerAttack(player));
+            husk.discard();
+        }
+        helper.assertValueEqual(count(helper, MobHeads.item("husk")) + count(helper, giantHead), 0, "heads from a player's kill of a giant");
+        // Giant heads switched off: the charged creeper drops the normal head as before.
+        SimpleMobHeads.config().giantZombies = false;
+        var husk = helper.spawn(EntityTypes.HUSK, new BlockPos(4, 2, 4));
+        husk.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.SCALE).addOrReplacePermanentModifier(
+                new net.minecraft.world.entity.ai.attributes.AttributeModifier(Giants.MARK, Giants.SCALE,
+                        net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        drop(helper, husk, "husk");
+        helper.succeed();
+    }
+
+    /** Owner: worn, 1.5x size, more step height, a little faster, and the zombie kind's own head; off with the head or the switch. */
+    public static void giantHeadWearing(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = player(helper);
+        var speed = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+        double step = player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT);
+        player.setItemSlot(EquipmentSlot.HEAD, MobHeads.stack(MobHeads.head("giant"), "husk"));
+        Giants.wearerTick(player);
+        helper.assertTrue(Math.abs(player.getScale() - 1.5F) < 1.0E-4, "the wearer is not 1.5x: " + player.getScale());
+        helper.assertTrue(Math.abs(player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) - (step + Giants.WEAR_STEP)) < 1.0E-6,
+                "no extra step height");
+        helper.assertTrue(speed.hasModifier(Giants.WEAR_SPEED_ID), "not faster");
+        helper.assertTrue(HeadAbilities.active(player, "husk") && !HeadAbilities.active(player, "drowned")
+                && HeadAbilities.blocksFoodEffect(player, new ItemStack(Items.ROTTEN_FLESH), new MobEffectInstance(MobEffects.HUNGER, 600)),
+                "the husk giant head does not work like the husk head");
+        player.setItemSlot(EquipmentSlot.HEAD, MobHeads.stack(MobHeads.head("giant"), "drowned"));
+        helper.assertTrue(HeadAbilities.resistsDownwardBubbles(player, true) && !HeadAbilities.active(player, "husk"), "the drowned giant head");
+        SimpleMobHeads.config().abilities.put("giant", false);
+        Giants.wearerTick(player);
+        helper.assertTrue(Math.abs(player.getScale() - 1.0F) < 1.0E-4 && !speed.hasModifier(Giants.WEAR_SPEED_ID), "the ability switch does nothing");
+        SimpleMobHeads.config().abilities.put("giant", true);
+        // The giant cow head: size and step height like the giant's, no speed; another player milks the wearer.
+        wear(player, "giant_cow");
+        Giants.wearerTick(player);
+        helper.assertTrue(Math.abs(player.getScale() - 1.5F) < 1.0E-4 && !speed.hasModifier(Giants.WEAR_SPEED_ID), "the giant cow head's size");
+        ServerPlayer milker = player(helper);
+        milker.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BUCKET));
+        helper.assertTrue(HeadAbilities.interact(player, milker, InteractionHand.MAIN_HAND) == net.minecraft.world.InteractionResult.SUCCESS
+                && has(milker, Items.MILK_BUCKET), "the giant cow head's wearer cannot be milked");
+        wear(player, null);
+        Giants.wearerTick(player);
+        helper.assertTrue(Math.abs(player.getScale() - 1.0F) < 1.0E-4
+                && Math.abs(player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) - step) < 1.0E-6, "taken off, still big");
+        milker.discard();
+        helper.succeed();
+    }
+
+    /** CO-2 + owner: each hay bale is one try at 1:5000, at most 64 per cow; calves, mooshrooms and other food never. */
+    public static void giantCowHay(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.snapTo(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
+        var cow = helper.spawn(EntityTypes.COW, new BlockPos(3, 2, 3));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HAY_BLOCK, 64));
+        for (int i = 0; i < 64; i++) {
+            helper.assertTrue(Giants.feedHay(cow, player, InteractionHand.MAIN_HAND, 0.5F) == net.minecraft.world.InteractionResult.SUCCESS, "bale " + i + " refused");
+        }
+        helper.assertTrue(player.getMainHandItem().isEmpty() && !Giants.isGiant(cow), "64 bales not eaten or a giant without luck");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HAY_BLOCK, 5));
+        helper.assertTrue(Giants.feedHay(cow, player, InteractionHand.MAIN_HAND, 0.0F) == net.minecraft.world.InteractionResult.PASS
+                && player.getMainHandItem().getCount() == 5 && !Giants.isGiant(cow), "a full cow ate the 65th bale");
+        // The lucky bale.
+        var lucky = helper.spawn(EntityTypes.COW, new BlockPos(4, 2, 4));
+        helper.assertTrue(Giants.feedHay(lucky, player, InteractionHand.MAIN_HAND, 0.0F) == net.minecraft.world.InteractionResult.SUCCESS
+                && Giants.isGiant(lucky) && Math.abs(lucky.getScale() - 3.0F) < 1.0E-4 && lucky.getMaxHealth() == 10.0F + (float) Giants.COW_HEALTH
+                && lucky.hasCustomName(), "the lucky bale made no giant cow");
+        helper.assertTrue(Giants.feedHay(lucky, player, InteractionHand.MAIN_HAND, 0.0F) == null, "a giant cow eats on");
+        // The owner's chance: a roll just above 1:5000 does nothing, the chance 0 never.
+        var unlucky = helper.spawn(EntityTypes.COW, new BlockPos(2, 2, 4));
+        Giants.feedHay(unlucky, player, InteractionHand.MAIN_HAND, 0.0002F);
+        helper.assertTrue(!Giants.isGiant(unlucky), "a roll of 1:5000 exactly made a giant");
+        SimpleMobHeads.config().giantCowChance = 0.0F;
+        Giants.feedHay(unlucky, player, InteractionHand.MAIN_HAND, 0.0F);
+        helper.assertTrue(!Giants.isGiant(unlucky), "chance 0 made a giant");
+        SimpleMobHeads.config().giantCowChance = 0.0002F;
+        var calf = helper.spawn(EntityTypes.COW, new BlockPos(1, 2, 4));
+        calf.setAge(-24000);
+        helper.assertTrue(Giants.feedHay(calf, player, InteractionHand.MAIN_HAND, 0.0F) == null && !Giants.isGiant(calf), "a calf ate hay");
+        // The real hook (AbstractCow#mobInteract): one bale is eaten and counted; a mooshroom does not eat it.
+        var counted = helper.spawn(EntityTypes.COW, new BlockPos(1, 2, 1));
+        int before = player.getMainHandItem().getCount();
+        counted.mobInteract(player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.getMainHandItem().getCount() == before - 1
+                && com.simplemobheads.easter.EntityTimes.get(counted, Giants.HAY, 0L) + (Giants.isGiant(counted) ? 1 : 0) == 1, "mobInteract did not feed");
+        var mooshroom = helper.spawn(EntityTypes.MOOSHROOM, new BlockPos(5, 2, 1));
+        int left = player.getMainHandItem().getCount();
+        mooshroom.mobInteract(player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.getMainHandItem().getCount() == left && !Giants.isGiant(mooshroom), "a mooshroom ate hay");
+        SimpleMobHeads.config().giantCows = false;
+        helper.assertTrue(Giants.feedHay(unlucky, player, InteractionHand.MAIN_HAND, 0.0F) == null, "the switch does nothing");
+        player.discard();
+        clearAll(helper);
+        helper.succeed();
+    }
+
+    /** CO-2: only a charged creeper drops the giant cow's head, with its variant, instead of the cow head. */
+    public static void giantCowHead(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        clearAll(helper);
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HAY_BLOCK, 1));
+        var cow = helper.spawn(EntityTypes.COW, new BlockPos(4, 2, 4));
+        cow.setComponent(DataComponents.COW_VARIANT, level.registryAccess().lookupOrThrow(Registries.COW_VARIANT)
+                .getOrThrow(net.minecraft.world.entity.animal.cow.CowVariants.WARM));
+        Giants.feedHay(cow, player, InteractionHand.MAIN_HAND, 0.0F);
+        helper.assertTrue(Giants.isGiant(cow), "no giant cow");
+        Creeper creeper = chargedCreeper(helper, new BlockPos(1, 2, 1));
+        cow.hurtServer(level, level.damageSources().explosion(creeper, creeper), 100000.0F);
+        helper.assertValueEqual(count(helper, MobHeads.item("giant_cow")), 1, "giant cow heads");
+        helper.assertValueEqual(count(helper, MobHeads.item("cow")), 0, "cow heads from a giant cow");
+        ItemStack head = level.getEntitiesOfClass(ItemEntity.class, helper.getBounds().inflate(8.0), e -> e.getItem().is(MobHeads.item("giant_cow"))).get(0).getItem();
+        helper.assertTrue("warm".equals(head.get(MobHeads.VARIANT)), "the giant cow head shows " + head.get(MobHeads.VARIANT));
+        player.discard();
+        clearAll(helper);
         helper.succeed();
     }
 

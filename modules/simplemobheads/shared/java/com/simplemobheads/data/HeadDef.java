@@ -15,14 +15,19 @@ import org.jspecify.annotations.Nullable;
  * @param ability          ability id ({@code blaze}, {@code bee}, ...) or empty: only camouflage, note block and greeting
  * @param trial            in {@code #simplemobheads:trial_chamber_heads} (SimpleBuilding's Chunk Loader I / Launchpad I)
  * @param freezeImmune     in {@code #minecraft:freeze_immune_wearables}
- * @param drop             {@code default}, {@code wither} (boss: server switch, default off) or {@code warden} (switch, default on)
+ * @param drop             {@code default}, {@code wither} (boss: server switch, default off), {@code warden} (switch, default on),
+ *                         {@code ritual} (Herobrine), {@code tribute} (Technoblade), {@code giant}, {@code giant_cow} (EH21 easter eggs)
  * @param variantComponent entity data component that names the variant ({@code minecraft:cat/variant}) or empty
- * @param variantSource    special variant reader ({@code panda}, {@code copper_golem}, {@code strider}) or empty
+ * @param variantSource    special variant reader ({@code panda}, {@code copper_golem}, {@code strider}, {@code entity_type}) or empty
  * @param firstVariant     variant id the base look shows (first of mobs.json); empty without variants
  * @param looks            the base look first (variant id empty), then one look per further variant
+ * @param countsAs         worn, the head also counts as this head ({@code cow}: its ability works) or, with {@code variant}, as
+ *                         the head named like its variant ({@code giant/husk} counts as the husk head); empty = only itself
+ * @param camouflage       further mobs (besides {@link #mob}) that see the wearer only half as far
  */
 public record HeadDef(String id, String item, String wall, String mob, String group, List<String> sounds, String from, String ability,
-                      boolean trial, boolean freezeImmune, String drop, String variantComponent, String variantSource, String firstVariant, List<Look> looks) {
+                      boolean trial, boolean freezeImmune, String drop, String variantComponent, String variantSource, String firstVariant, List<Look> looks,
+                      String countsAs, List<String> camouflage) {
 
     /** The variant ids in order: the first variant (the base look) and every further one; empty when the head has none. */
     public List<String> variantIds() {
@@ -35,6 +40,11 @@ public record HeadDef(String id, String item, String wall, String mob, String gr
             out.add(look.variant());
         }
         return List.copyOf(out);
+    }
+
+    /** Whether the placed head is a giant head (EH21: the look is drawn bigger than a block, so the block is a full one). */
+    public boolean big() {
+        return looks.get(0).scale() > 1.0F;
     }
 
     /** The look of {@code variant} (base look for an unknown or empty variant). */

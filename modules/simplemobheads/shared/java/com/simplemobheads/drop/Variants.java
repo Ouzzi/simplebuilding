@@ -16,7 +16,7 @@ import net.minecraft.world.entity.monster.Strider;
  * The variant of a mob as a head variant id (concept §3.2 B). Most mobs name it in an entity data component
  * ({@code minecraft:cat/variant} = {@code minecraft:siamese} -> {@code siamese}), read through the component's own codec,
  * so registry variants, enums and dye colors all work the same way; three mobs keep it elsewhere (panda genes, copper
- * golem oxidation, strider out of lava). Unknown values give the base look.
+ * golem oxidation, strider out of lava), the giant head reads the mob's kind. Unknown values give the base look.
  */
 public final class Variants {
     private Variants() {
@@ -27,6 +27,8 @@ public final class Variants {
             case "panda" -> entity instanceof Panda panda ? panda.getVariant().getSerializedName() : "";
             case "copper_golem" -> entity instanceof CopperGolem golem ? golem.getWeatherState().getSerializedName() : "";
             case "strider" -> entity instanceof Strider strider ? (strider.isSuffocating() ? "cold" : "warm") : "";
+            // The giant head (EH21): the zombie kind is the variant (minecraft:husk -> husk).
+            case "entity_type" -> BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString();
             default -> head.variantComponent().isEmpty() ? "" : component(entity, head.variantComponent());
         };
         if (raw.startsWith("minecraft:")) {

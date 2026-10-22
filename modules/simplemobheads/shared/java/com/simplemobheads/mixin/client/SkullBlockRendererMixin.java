@@ -1,6 +1,8 @@
 package com.simplemobheads.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.mojang.math.Transformation;
 import com.simplemobheads.MobHeadType;
 import com.simplemobheads.MobHeads;
 import com.simplemobheads.client.MobHeadModel;
@@ -15,7 +17,11 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.WallSkullBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import org.joml.Vector3f;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
@@ -72,6 +78,15 @@ public abstract class SkullBlockRendererMixin {
                 MobHeadType shown = MobHeads.type(head.head(), variant);
                 state.skullType = shown;
                 state.renderType = SkullBlockRenderer.getSkullRenderType(shown, null);
+            }
+            // EH21 giant heads: on a wall, the back of the big head touches the wall (Vanilla's offset fits 8 px heads only).
+            float[] wall = state.skullType instanceof MobHeadType shown ? MobHeadModels.wall(shown) : null;
+            BlockState block = entity.getBlockState();
+            if (wall != null && block.getBlock() instanceof WallSkullBlock) {
+                Direction facing = block.getValue(WallSkullBlock.FACING);
+                state.transformation = new Transformation(
+                        new Vector3f(0.5F - facing.getStepX() * wall[0], wall[1], 0.5F - facing.getStepZ() * wall[0]),
+                        Axis.YP.rotationDegrees(-facing.getOpposite().toYRot()), new Vector3f(-1.0F, -1.0F, 1.0F), null);
             }
         }
     }

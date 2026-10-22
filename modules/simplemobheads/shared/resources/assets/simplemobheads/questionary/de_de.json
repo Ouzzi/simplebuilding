@@ -2067,6 +2067,72 @@
    "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."
   ]
  },
+ "crowned_pig_head": {
+  "lore": [
+   "{name}: Technoblade never dies."
+  ],
+  "use": [
+   "Kein Mob lässt ihn fallen. Ein Schwein mit einem bestimmten Namen stirbt nie - schlägst du es nieder, fällt stattdessen seine Krone; der Startbildschirm erinnert an ihn. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Schweine in der Nähe drehen den Kopf zum Träger, und die Krone glänzt."
+  ]
+ },
+ "crowned_pig_wall_head": {
+  "lore": [
+   "{name}: Technoblade never dies."
+  ],
+  "use": [
+   "Kein Mob lässt ihn fallen. Ein Schwein mit einem bestimmten Namen stirbt nie - schlägst du es nieder, fällt stattdessen seine Krone; der Startbildschirm erinnert an ihn. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Schweine in der Nähe drehen den Kopf zum Träger, und die Krone glänzt."
+  ]
+ },
+ "giant_head": {
+  "lore": [
+   "{name}: der größte Ärger, den ein Vollmond je brachte."
+  ],
+  "use": [
+   "Kein gewöhnlicher Zombie lässt ihn fallen. Trifft bei Vollmond ein Blitz einen Zombie, steht etwas Großes auf - nur ein geladener Creeper holt seinen Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger wächst auf 1,5-fache Größe, steigt ganze Blöcke hoch und läuft etwas schneller; Zombies sehen ihn nur halb so weit, und er wirkt wie der Kopf seiner Zombie-Art (Wüstenzombie, Ertrunkener)."
+  ]
+ },
+ "giant_wall_head": {
+  "lore": [
+   "{name}: der größte Ärger, den ein Vollmond je brachte."
+  ],
+  "use": [
+   "Kein gewöhnlicher Zombie lässt ihn fallen. Trifft bei Vollmond ein Blitz einen Zombie, steht etwas Großes auf - nur ein geladener Creeper holt seinen Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger wächst auf 1,5-fache Größe, steigt ganze Blöcke hoch und läuft etwas schneller; Zombies sehen ihn nur halb so weit, und er wirkt wie der Kopf seiner Zombie-Art (Wüstenzombie, Ertrunkener)."
+  ]
+ },
+ "giant_cow_head": {
+  "lore": [
+   "{name}: sie hat das ganze Heu wirklich gefressen."
+  ],
+  "use": [
+   "Keine gewöhnliche Kuh lässt ihn fallen. Eine Kuh, die Heuballen frisst, einen nach dem anderen, wird - sehr selten - zur Riesin; nur ein geladener Creeper holt ihren Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger wächst auf 1,5-fache Größe und steigt ganze Blöcke hoch; ein anderer Spieler kann ihn wie eine Kuh melken."
+  ]
+ },
+ "giant_cow_wall_head": {
+  "lore": [
+   "{name}: sie hat das ganze Heu wirklich gefressen."
+  ],
+  "use": [
+   "Keine gewöhnliche Kuh lässt ihn fallen. Eine Kuh, die Heuballen frisst, einen nach dem anderen, wird - sehr selten - zur Riesin; nur ein geladener Creeper holt ihren Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger wächst auf 1,5-fache Größe und steigt ganze Blöcke hoch; ein anderer Spieler kann ihn wie eine Kuh melken."
+  ]
+ },
  "guide_book": {
   "lore": [
    "Ein Buch über den Kopf jedes Mobs."
