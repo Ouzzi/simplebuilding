@@ -97,7 +97,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
 - [ ] SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel:
   - Unten etwa 1 Block Höhe mehr Platz. Im Hintergrund dieser Zone ein dunkleres Trapez für räumliche Tiefe, im selben Stil wie der Hintergrund.
   - Das Feuer liegt darüber und ist mit mehr Abstand zu den untersten Items gut sichtbar („dann ist man … stolzer, das gebaut zu haben“).
-- [ ] SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine:
+- [~] (B, b-shops22, 22.10.) SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine:
   - **Fehler:** Das Lager lässt sich überall setzen und verschwindet dann, wenn es nicht erlaubt ist. Neu: Setzen geht nur mit Schleichen + Rechtsklick auf einen Verkaufsblock, von jeder Seite. Sonst gar nicht setzbar, wie ein Item.
   - **Form:** Das Lager wird ein gerichteter Vollblock, der aussieht, als käme er aus dem Verkaufsblock heraus (wie ein Trichter, aber voll; Vorbild für die Wirkung ist der Strong Beacon). Er schaut zum Verkaufsblock und nimmt von dort die Ware bzw. das Geld auf.
   - **Vitrine und Glow-Vitrine:** überall ablegbar, auch ohne Verkaufsblock. Geschützt sind sie nur zusammen mit einem Verkaufsblock. Die Decke ist durchsichtig wie beim Leuchtfeuer, damit man von oben hineinsieht, und das Glas wird klarer.
