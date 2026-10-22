@@ -39,7 +39,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 public final class EndGuide {
     public static final String NAMESPACE = "simpleend";
     public static final String AUTHOR = "Simple End";
-    public static final int PAGES = 18;
+    public static final int PAGES = 19;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
     public static final Item RECIPE_ITEM = Items.CHORUS_FRUIT;
