@@ -359,13 +359,16 @@ def prices():
     for h in HEADS:
         if h["id"] in TRADE_EXCLUDED:
             continue
+        # Village wanderer concept (W8, 2026-10-15) and a-small22: the 14 heads that moved in (chance 0.1) are the
+        # Village Wanderer's (Simple Wanderers' pool wanderer/rare), no longer the wandering trader's.
         merchant, tier, hours, level, stock, chance = LEGACY_TRADE.get(h["id"], (
-            "wandering_trader", 3, 15.0, 4, 1, 0.1 if h.get("from") else 0.05))
+            "village_wanderer" if h.get("from") else "wandering_trader", 3, 15.0, 4, 1, 0.1 if h.get("from") else 0.05))
         rows.append({"item": f"{NS}:{item_id(h)}", "tier": tier, "hours": hours, "craft": 0, "safetyFloor": 8,
                      "merchant": merchant, "level": level, "stock": stock, "chance": chance})
     return {"module": NS,
             "derivation": "Scarce heads tier 3 like SimpleBuilding's and Simple Fun's (KERNE-SELTENHEIT 5.3); heads that moved in keep their rows, "
-                          "new heads are rarer (chance 0.05) so the wandering trader's rare pool is not flooded. Boss heads are not sold.",
+                          "new heads are rarer (chance 0.05) so the wandering trader's rare pool is not flooded. Boss heads are not sold. "
+                          "The 14 heads that moved in are sold by the Village Wanderer (Simple Wanderers), not by the wandering trader.",
             "excluded": {f"{NS}:{item_id(h)}": TRADE_EXCLUDED[h["id"]] for h in HEADS if h["id"] in TRADE_EXCLUDED},
             "prices": rows}
 

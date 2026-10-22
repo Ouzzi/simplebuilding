@@ -19,9 +19,16 @@ public final class LinkTests {
         var registry = h.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
         for (var p : MoneyLinks.PRICES.values()) {
             String mod = Identifier.parse(p.item()).getNamespace();
-            boolean expected = SimpleMoney.enabled("links:" + mod) && SimpleMoney.enabled(p.merchant().equals("wandering_trader") ? "enableWanderingTrades" : "enableVillagerTrades");
+            boolean expected = SimpleMoney.enabled("links:" + mod) && SimpleMoney.enabled(SimpleMoney.merchantFlag(p.merchant()));
             h.assertValueEqual(registry.containsKey(Identifier.parse("simplemoney:links/" + p.item().replace(':', '/'))), expected, "conditional registry " + p.item());
             if (MoneyLinks.loaded.test(mod)) h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse(p.item())), "public item exists " + p.item());
+        }
+        // a-small22: the Village Wanderer's links (Simple Wanderers' own tag) are not offered by the wandering trader.
+        var traderRare = net.minecraft.tags.TagKey.create(Registries.VILLAGER_TRADE, Identifier.parse("minecraft:wandering_trader/rare"));
+        for (var holder : registry.getTagOrEmpty(traderRare)) {
+            var key = holder.unwrapKey().map(k -> k.identifier().getPath()).orElse("");
+            h.assertTrue(MoneyLinks.PRICES.values().stream().noneMatch(p -> p.merchant().equals("village_wanderer")
+                    && key.equals("links/" + p.item().replace(':', '/'))), "village wanderer link at the wandering trader: " + key);
         }
         h.assertTrue(!SimpleMoney.enabled("links:missing_test_module"), "absent mod fails closed");
         var old = MoneyLinks.loaded;

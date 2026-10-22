@@ -34,7 +34,7 @@ def validate_relative_path(value, root, label):
         raise ValueError(f'Invalid {label}: {value}')
 
 
-def validate_tests(entry, tests, root):
+def validate_tests(entry, tests, root, modules=()):
     mid = entry['id']
     if not isinstance(tests, dict) or not ID.fullmatch(tests.get('namespace', mid)):
         raise ValueError(f'Invalid test namespace: {mid}')
@@ -62,6 +62,7 @@ def validate_tests(entry, tests, root):
     standalone = tests.get('standalone')
     if standalone is not None:
         validate_standalone(entry, standalone, root)
+    validate_combos(entry, tests.get('combos', []), root, modules)
     client = tests.get('client')
     if client is not None:
         if not isinstance(client, dict) or not client.get('entrypoints') or any(not re.fullmatch(r'[A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)+', value) for value in client['entrypoints']):
@@ -138,6 +139,27 @@ def validate_standalone(entry, standalone, root):
             if spec.get('report') == forge_test.get('report'):
                 raise ValueError(f'Forge standalone needs its own report: {mid}')
         validate_relative_path(spec.get('report'), root, f'{mid}: standalone report')
+
+
+def validate_combos(entry, combos, root, modules=()):
+    """A combo suite: the standalone setup plus named optional partners (e.g. Simple Crucibles with Simple Hammers, without
+    SimpleBuilding). Fabric only; target module-<id>-with-<partners>-fabric-263."""
+    mid = entry['id']
+    if not isinstance(combos, list):
+        raise ValueError(f'Invalid combos: {mid}')
+    for combo in combos:
+        partners = combo.get('with') if isinstance(combo, dict) else None
+        optional = {m['id'] for m in modules if mid in m.get('optional', [])} | set(entry.get('optional', []))
+        if (not isinstance(partners, list) or not partners or any(not isinstance(v, str) or not ID.fullmatch(v) for v in partners)
+                or not set(partners) <= optional):
+            raise ValueError(f'Combo partners must be optional partners (either direction): {mid}')
+        suites = combo.get('loaders')
+        if not isinstance(suites, dict) or set(suites) != {'fabric'}:
+            raise ValueError(f'Combo suites are Fabric only: {mid}')
+        expected = f':integration:run{mid.capitalize()}With{"".join(p.capitalize() for p in partners)}GameTest'
+        if suites['fabric'].get('task') != expected:
+            raise ValueError(f'Invalid combo task: {mid} (expected {expected})')
+        validate_relative_path(suites['fabric'].get('report'), root, f'{mid}: combo report')
 
 
 def validate_bundle(entry, modules, root):
@@ -226,7 +248,7 @@ def registries(root=ROOT):
                     validate_relative_path(script, root, f'{mid}: check script')
                 tests = entry.get('tests')
                 if tests is not None:
-                    validate_tests(entry, tests, root)
+                    validate_tests(entry, tests, root, modules)
 
             if entry in dev:
                 if not entry['purpose'] or not entry['sources']:

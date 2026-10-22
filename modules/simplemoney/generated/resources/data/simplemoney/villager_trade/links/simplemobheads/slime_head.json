@@ -17,7 +17,7 @@
     },
     {
       "condition": "simplemoney:config",
-      "flag": "enableWanderingTrades"
+      "flag": "enableWandererTrades"
     }
   ],
   "neoforge:conditions": [
@@ -27,7 +27,7 @@
     },
     {
       "type": "simplemoney:config",
-      "flag": "enableWanderingTrades"
+      "flag": "enableWandererTrades"
     }
   ],
   "merchant_predicate": {
