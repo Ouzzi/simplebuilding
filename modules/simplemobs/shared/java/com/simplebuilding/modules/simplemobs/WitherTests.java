@@ -426,13 +426,15 @@ final class WitherTests {
             h.succeed();
         });
         add.accept("nether_heart_shape", h -> {
-            // owner 21.10. (b-rarity21b): the placed heart is heart-shaped and turns its front to the placer / nearest player
+            // owner 21.10./22.10. (b-rarity21b): the placed heart is an anatomical heart and turns its front to the placer / nearest player
             BlockState north = WitherMobs.HEART_BLOCK.defaultBlockState();
             h.assertTrue(WitherMobs.HEART_BLOCK instanceof NetherHeartBlock && north.getValue(NetherHeartBlock.FACING) == net.minecraft.core.Direction.NORTH,
                     "facing, north by default (old worlds)");
             var box = north.getShape(h.getLevel(), BlockPos.ZERO).bounds();
-            h.assertTrue(box.getXsize() > 0.74 && box.getYsize() > 0.68 && box.getZsize() < 0.51 && box.minY == 0.0,
-                    "heart outline 12 wide, 11 high, 8 deep, on the ground: " + box);
+            h.assertTrue(box.getXsize() > 0.74 && box.getYsize() > 0.99 && box.getZsize() < 0.63 && box.minY == 0.0,
+                    "heart outline 12 wide, 10 deep, vessels up to the top, on the ground: " + box);
+            var body = north.getShape(h.getLevel(), BlockPos.ZERO).toAabbs().stream().mapToDouble(aabb -> aabb.getXsize()).max().orElse(0);
+            h.assertTrue(body > 0.74, "the body is the widest part, the vessels sit narrower on top: " + body);
             var east = north.setValue(NetherHeartBlock.FACING, net.minecraft.core.Direction.EAST).getShape(h.getLevel(), BlockPos.ZERO).bounds();
             h.assertTrue(Math.abs(east.getXsize() - box.getZsize()) < 1.0E-6 && Math.abs(east.getZsize() - box.getXsize()) < 1.0E-6,
                     "the outline turns with the heart: " + east);

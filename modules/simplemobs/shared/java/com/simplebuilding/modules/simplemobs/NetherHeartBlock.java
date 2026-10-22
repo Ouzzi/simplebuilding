@@ -21,15 +21,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The placed Nether Heart (owner 21.10., queue b-rarity21b): a heart-shaped model (tools/textures/wither21_textures.py,
- * front = north) that turns its front to whoever places it; after the Wither fight it faces the nearest player.
+ * The placed Nether Heart (owner 21.10./22.10., queue b-rarity21b): an anatomical heart like the item icon, with aorta,
+ * vena cava and pulmonary trunk on top (tools/textures/wither21_textures.py, front = north); it turns its front to whoever
+ * places it, after the Wither fight to the nearest player.
  */
 public class NetherHeartBlock extends WitherLootBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     /** How far the placed loot looks for a player to face (blocks). */
     public static final double FACE_RANGE = 48.0;
-    /** Outline per facing: the heart is 12 wide, 11 high and 8 deep (model variant A). */
-    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.box(2, 0, 4, 14, 11, 12));
+    /**
+     * Outline per facing (owner 22.10.: anatomical heart, tools/textures/wither21_textures.py heart_bounds): the body
+     * 12 wide, 11 high, 10 deep with the bulging belly, the vessels on top up to the block's top.
+     */
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(
+            Shapes.or(Block.box(2, 0, 2, 14, 11, 12), Block.box(4, 11, 2, 13, 16, 9)));
 
     public NetherHeartBlock(Properties properties) {
         super(SHAPES.get(Direction.NORTH), properties);
