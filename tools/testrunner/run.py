@@ -1609,7 +1609,9 @@ def select_targets(spec: str) -> list[Target]:
     if spec.strip() == "snapshot":
         return list(SNAPSHOT_TARGETS)
     if spec.strip() == "standalone":
-        return list(STANDALONE_TARGETS)
+        # Owner 22.10.: SB_GATE_LOADERS (e.g. "fabric") narrows the standalone runs to those loaders.
+        loaders = [l for l in os.environ.get("SB_GATE_LOADERS", "").split(",") if l]
+        return [t for t in STANDALONE_TARGETS if not loaders or t.loader in loaders]
     if spec.strip() == "everything-plus-snapshot":
         return list(ALL_TARGETS)
     chosen: list[Target] = []
