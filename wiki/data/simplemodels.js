@@ -39,10 +39,10 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
         "de": "Modellbrowser"
       },
       "en": {
-        "summary": "The inventory and anvil Models buttons open the browser. Search name, item id, model id, author, or tags. Paged rows render actual item models and show the base/result pair. Inventory browsing never modifies items."
+        "summary": "The Models bookmark on the inventory, the creative inventory and the anvil opens the browser; while the recipe book is open it sits on the top edge. Search name, item id, model id, author, or tags; filter by base item and sort by name (A–Z, Z–A) or base item. The mouse wheel turns the pages. Rows render actual item models; hovering one shows the base item and an enlarged model preview. Server Settings shows on/off values as read-only switches. Inventory browsing never modifies items."
       },
       "de": {
-        "summary": "Die Modelle-Knöpfe im Inventar und Amboss öffnen den Browser. Suche nach Name, Item-ID, Modell-ID, Autor oder Tags. Seitenweise Zeilen rendern echte Itemmodelle und zeigen Basis/Ergebnis. Inventarsuche ändert keine Items."
+        "summary": "Das Modelle-Lesezeichen am Inventar, Kreativinventar und Amboss öffnet den Browser; bei offenem Rezeptbuch sitzt es am oberen Rand. Suche nach Name, Item-ID, Modell-ID, Autor oder Tags; nach Basisitem filtern und nach Name (A–Z, Z–A) oder Basisitem sortieren. Das Mausrad blättert die Seiten. Zeilen rendern echte Itemmodelle; beim Überfahren zeigt der Tooltip Basisitem und vergrößerte Modellvorschau. Servereinstellungen zeigen An/Aus als schreibgeschützte Schalter. Inventarsuche ändert keine Items."
       }
     },
     {
@@ -269,10 +269,10 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
           "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + item frame. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Models\" gives one for free."
+          "summary": "Guide to this mod: 20 pages taken from this wiki, shown in your language. Shapeless recipe: book + item frame. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Models\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rahmen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Models\" eins."
+          "summary": "Handbuch zu dieser Mod: 20 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rahmen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Models\" eins."
         }
       },
       "texture": "assets/textures/simplemodels/item/guide_book.png",

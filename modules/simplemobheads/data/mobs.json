@@ -8,7 +8,6 @@
   "minecraft:piglin": "vanilla head",
   "minecraft:ender_dragon": "vanilla head",
   "minecraft:player": "vanilla player head",
-  "minecraft:giant": "unused in survival (no spawn), owner concept §3.1",
   "minecraft:armor_stand": "not a mob",
   "minecraft:mannequin": "not a mob",
   "simplewanderers:village_wanderer": "head comes later (owner answer W11, village wanderer concept 2026-10-15)",
@@ -2618,6 +2617,183 @@
    "mob": "simplemobheads:herobrine",
    "drop": "ritual",
    "advancement": true
+  },
+  {
+   "id": "crowned_pig",
+   "en": "Crowned Pig Head",
+   "de": "Gekrönter Schweinekopf",
+   "group": "secret",
+   "sound": [
+    "minecraft:entity.pig.ambient"
+   ],
+   "model": {
+    "custom": "technoblade",
+    "tex": "simplemobheads:technoblade/technoblade"
+   },
+   "ability": "crowned_pig",
+   "mob": "simplemobheads:technoblade",
+   "drop": "tribute",
+   "advancement": true
+  },
+  {
+   "id": "giant",
+   "en": "Giant Head",
+   "de": "Riesenkopf",
+   "group": "secret",
+   "sound": [
+    "minecraft:entity.zombie.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:zombie#main",
+    "part": "head",
+    "tex": "zombie/zombie",
+    "hide": [
+     "hat"
+    ],
+    "scale": 3
+   },
+   "ability": "giant",
+   "mob": "minecraft:giant",
+   "drop": "giant",
+   "advancement": true,
+   "counts_as": "variant",
+   "camouflage": [
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:drowned",
+    "minecraft:zombie_villager",
+    "minecraft:zombified_piglin"
+   ],
+   "variant_source": "entity_type",
+   "variants": {
+    "list": [
+     {
+      "id": "zombie",
+      "en": "Zombie",
+      "de": "Zombie",
+      "tex": "zombie/zombie"
+     },
+     {
+      "id": "husk",
+      "en": "Husk",
+      "de": "Wüstenzombie",
+      "tex": "zombie/husk",
+      "model": {
+       "layer": "minecraft:husk#main",
+       "part": "head",
+       "tex": "zombie/husk",
+       "hide": [
+        "hat"
+       ],
+       "scale": 3
+      }
+     },
+     {
+      "id": "drowned",
+      "en": "Drowned",
+      "de": "Ertrunkener",
+      "tex": "zombie/drowned",
+      "model": {
+       "layer": "minecraft:drowned#main",
+       "part": "head",
+       "tex": "zombie/drowned",
+       "hide": [
+        "hat"
+       ],
+       "scale": 3,
+       "layers": [
+        {
+         "layer": "minecraft:drowned#outer",
+         "tex": "zombie/drowned_outer_layer",
+         "render": "cutout"
+        }
+       ]
+      }
+     },
+     {
+      "id": "zombie_villager",
+      "en": "Zombie Villager",
+      "de": "Zombiedorfbewohner",
+      "tex": "zombie_villager/zombie_villager",
+      "model": {
+       "layer": "minecraft:zombie_villager#main",
+       "part": "head",
+       "tex": "zombie_villager/zombie_villager",
+       "hide": [
+        "hat"
+       ],
+       "scale": 3
+      }
+     },
+     {
+      "id": "zombified_piglin",
+      "en": "Zombified Piglin",
+      "de": "Zombifizierter Piglin",
+      "tex": "piglin/zombified_piglin",
+      "model": {
+       "layer": "minecraft:zombified_piglin#main",
+       "part": "head",
+       "tex": "piglin/zombified_piglin",
+       "scale": 3
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "giant_cow",
+   "en": "Giant Cow Head",
+   "de": "Riesenkuhkopf",
+   "group": "secret",
+   "sound": [
+    "minecraft:entity.cow.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:cow#main",
+    "part": "head",
+    "tex": "cow/cow_temperate",
+    "scale": 3
+   },
+   "ability": "giant_cow",
+   "mob": "simplemobheads:giant_cow",
+   "drop": "giant_cow",
+   "advancement": true,
+   "counts_as": "cow",
+   "variants": {
+    "component": "minecraft:cow/variant",
+    "list": [
+     {
+      "id": "temperate",
+      "en": "Temperate",
+      "de": "Gemäßigt",
+      "tex": "cow/cow_temperate"
+     },
+     {
+      "id": "warm",
+      "en": "Warm",
+      "de": "Warm",
+      "tex": "cow/cow_warm",
+      "model": {
+       "layer": "minecraft:warm_cow#main",
+       "part": "head",
+       "tex": "cow/cow_warm",
+       "scale": 3
+      }
+     },
+     {
+      "id": "cold",
+      "en": "Cold",
+      "de": "Kalt",
+      "tex": "cow/cow_cold",
+      "model": {
+       "layer": "minecraft:cold_cow#main",
+       "part": "head",
+       "tex": "cow/cow_cold",
+       "scale": 3
+      }
+     }
+    ]
+   }
   }
  ]
 }

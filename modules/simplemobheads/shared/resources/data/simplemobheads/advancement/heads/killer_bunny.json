@@ -1,0 +1,40 @@
+{
+  "parent": "simplemobheads:heads/root",
+  "criteria": {
+    "has_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobheads:rabbit_head",
+            "components": {
+              "simplemobheads:variant": "evil"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplemobheads:rabbit_head",
+      "components": {
+        "simplemobheads:variant": "evil"
+      }
+    },
+    "title": {
+      "translate": "advancements.simplemobheads.heads.killer_bunny.title"
+    },
+    "description": {
+      "translate": "advancements.simplemobheads.heads.killer_bunny.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}

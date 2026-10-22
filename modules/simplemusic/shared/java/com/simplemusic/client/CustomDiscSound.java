@@ -14,11 +14,16 @@ import net.minecraft.util.valueproviders.ConstantFloat;
 /**
  * A custom disc playing at a block: a streamed sound whose location {@code simplemusic:upload/<sha256>/<seconds>} the
  * {@code SoundBufferLibraryMixin} opens from the {@link TrackCache} (skipping {@code seconds} for a late start), on the
- * "Jukebox/Note Blocks" volume, positional like a jukebox (64 blocks).
+ * "Jukebox/Note Blocks" volume, positional like a jukebox (64 blocks). A placed Pocket Jukebox plays Vanilla discs the
+ * same way from {@code simplemusic:seek/<s>/<ns>/<path>} ({@link PocketSound#songFile}).
  */
 public final class CustomDiscSound extends AbstractSoundInstance {
     public CustomDiscSound(BlockPos pos, String hash, int offsetSeconds) {
-        super(SimpleMusic.id("upload/" + hash + "/" + Math.max(0, offsetSeconds)), SoundSource.RECORDS, SoundInstance.createUnseededRandom());
+        this(pos, SimpleMusic.id("upload/" + hash + "/" + Math.max(0, offsetSeconds)));
+    }
+
+    public CustomDiscSound(BlockPos pos, Identifier file) {
+        super(file, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.volume = 4.0F;
         this.x = pos.getX() + 0.5;
         this.y = pos.getY() + 0.5;

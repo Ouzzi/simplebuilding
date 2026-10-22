@@ -20,3 +20,7 @@ Umfang: `modules/simplemodels` (ca. 1150 Zeilen Java, 16 gemeinsame Tests, Clien
 - Mausrad-Blaettern in der Modellliste; Sortierung/Filter nach Basisitem; Vorschau im Tooltip statt nur Text.
 - Creative-Inventar hat keinen Tab (anderes Screen, kein Amboss-Bezug).
 - Tab-Position kollidiert bei geoeffnetem Rezeptbuch optisch mit dessen Rand (liegt darueber).
+
+**Nachtrag 22.10. (SM21 a–f, Branch b-models21, `docs/ai/PLAN-B-MODELS21-2026-10-22.md`):** alle vier Vorschläge umgesetzt –
+Schalter im Server-Reiter, Mausrad-Blättern, Filter nach Basisitem + Sortierung, Tooltip mit Modellvorschau,
+Lesezeichen im Kreativ-Inventar, bei offenem Rezeptbuch am oberen Rand.

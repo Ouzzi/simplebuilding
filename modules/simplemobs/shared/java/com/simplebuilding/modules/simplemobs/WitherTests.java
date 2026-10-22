@@ -425,6 +425,39 @@ final class WitherTests {
             h.assertTrue(BuiltInRegistries.ITEM.getKey(WitherMobs.HEART).equals(WitherLoot.HEART), "saved under the new id");
             h.succeed();
         });
+        add.accept("nether_heart_shape", h -> {
+            // owner 21.10. (b-rarity21b): the placed heart is heart-shaped and turns its front to the placer / nearest player
+            BlockState north = WitherMobs.HEART_BLOCK.defaultBlockState();
+            h.assertTrue(WitherMobs.HEART_BLOCK instanceof NetherHeartBlock && north.getValue(NetherHeartBlock.FACING) == net.minecraft.core.Direction.NORTH,
+                    "facing, north by default (old worlds)");
+            var box = north.getShape(h.getLevel(), BlockPos.ZERO).bounds();
+            h.assertTrue(box.getXsize() > 0.74 && box.getYsize() > 0.68 && box.getZsize() < 0.51 && box.minY == 0.0,
+                    "heart outline 12 wide, 11 high, 8 deep, on the ground: " + box);
+            var east = north.setValue(NetherHeartBlock.FACING, net.minecraft.core.Direction.EAST).getShape(h.getLevel(), BlockPos.ZERO).bounds();
+            h.assertTrue(Math.abs(east.getXsize() - box.getZsize()) < 1.0E-6 && Math.abs(east.getZsize() - box.getXsize()) < 1.0E-6,
+                    "the outline turns with the heart: " + east);
+            h.assertTrue(north.rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_90).getValue(NetherHeartBlock.FACING)
+                    == net.minecraft.core.Direction.EAST, "structure rotation turns it");
+            // placing: the front looks back at the player (yaw 0 looks south -> front north, yaw 90 looks west -> front east)
+            var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            BlockPos at = h.absolutePos(new BlockPos(2, 2, 2));
+            var hit = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(at), net.minecraft.core.Direction.UP, at.below(), false);
+            for (float yaw : new float[] {0f, 90f, 180f, 270f}) {
+                player.setYRot(yaw);
+                BlockState placed = WitherMobs.HEART_BLOCK.getStateForPlacement(
+                        new net.minecraft.world.item.context.BlockPlaceContext(player, InteractionHand.MAIN_HAND, new ItemStack(WitherMobs.HEART), hit));
+                h.assertTrue(placed != null && placed.getValue(NetherHeartBlock.FACING) == player.getDirection().getOpposite(),
+                        "yaw " + yaw + ": front to the player, got " + placed);
+            }
+            // after the fight: towards the nearest player, north without one
+            BlockPos c = new BlockPos(0, 64, 0);
+            h.assertTrue(NetherHeartBlock.facing(c, new Vec3(9.5, 64, 1.0)) == net.minecraft.core.Direction.EAST
+                    && NetherHeartBlock.facing(c, new Vec3(0.2, 70, -6)) == net.minecraft.core.Direction.NORTH
+                    && NetherHeartBlock.facing(c, new Vec3(-4, 64, 0.5)) == net.minecraft.core.Direction.WEST
+                    && NetherHeartBlock.facing(c, new Vec3(1, 64, 12)) == net.minecraft.core.Direction.SOUTH
+                    && NetherHeartBlock.facing(c, null) == net.minecraft.core.Direction.NORTH, "loot faces the nearest player");
+            h.succeed();
+        });
         add.accept("nether_loot_rarity", h -> {
             // owner 21.10.: Nether Heart and Red Nether Gem are cursed (SimpleLib tier above Epic, Vanilla Epic as fallback)
             for (Item item : java.util.List.of(WitherMobs.HEART, WitherMobs.GEM)) {

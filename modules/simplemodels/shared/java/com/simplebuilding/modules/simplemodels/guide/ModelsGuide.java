@@ -39,7 +39,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 public final class ModelsGuide {
     public static final String NAMESPACE = "simplemodels";
     public static final String AUTHOR = "Simple Models";
-    public static final int PAGES = 19;
+    public static final int PAGES = 20;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
     public static final Item RECIPE_ITEM = Items.ITEM_FRAME;

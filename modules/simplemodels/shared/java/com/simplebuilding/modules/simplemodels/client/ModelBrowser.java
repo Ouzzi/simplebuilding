@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundRenameItemPacket;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
+import java.util.ArrayList;
 import java.util.List;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
@@ -29,8 +30,12 @@ public final class ModelBrowser extends Screen {
     private final Screen parent;
     private final AnvilMenu anvil;
     private EditBox search;
-    private String query = "", tab = "models";
+    private String query = "", tab = "models", baseFilter = ModelQuery.ALL;
+    private ModelQuery.Sort sort = ModelQuery.Sort.NAME_ASC;
     private int page;
+    /** Row buttons of the current page and the model each shows (tooltip preview, SM21 d). */
+    private final List<Button> rowButtons = new ArrayList<>();
+    private final List<ModelDefinition> rowModels = new ArrayList<>();
     private ModelDefinition selected;
     private int x, y, panelWidth, panelHeight;
     public ModelBrowser(Screen parent) {
@@ -58,7 +63,31 @@ public final class ModelBrowser extends Screen {
         if (original == null) output.remove(DataComponents.ITEM_MODEL); else output.set(DataComponents.ITEM_MODEL, original);
         return output;
     }
-    public List<ModelDefinition> filtered() { return catalogue.models().stream().filter(d -> d.matches(query)).toList(); }
+    /** The listed models: search, base-item filter and sort order applied (SM21 c). */
+    public List<ModelDefinition> filtered() { return ModelQuery.view(catalogue.models(), query, baseFilter, sort); }
+    public int page() { return page; }
+    public int pages() { return ModelQuery.pages(filtered().size(), rows()); }
+    public String baseFilter() { return baseFilter; }
+    public void setBaseFilter(String baseItem) { baseFilter = baseItem; page = 0; refreshRows(); }
+    public ModelQuery.Sort sort() { return sort; }
+    public void setSort(ModelQuery.Sort order) { sort = order; page = 0; refreshRows(); }
+    private static Component itemName(String id) {
+        return id.equals(ModelQuery.ALL) ? Component.translatable("simplemodels.browser.filter.all")
+                : new ItemStack(BuiltInRegistries.ITEM.getValue(ModelDefinition.safeId(id))).getHoverName();
+    }
+    /** Tooltip of a row: the name, the preview image (base item and the model, enlarged), then the details. */
+    public List<net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent> tooltip(ModelDefinition def) {
+        var lines = new ArrayList<net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent>();
+        java.util.function.Consumer<Component> line = c -> lines.add(net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent.create(c.getVisualOrderText()));
+        line.accept(Component.literal(def.match_name()));
+        lines.add(new ModelPreviewTooltip(new ItemStack(BuiltInRegistries.ITEM.getValue(ModelDefinition.safeId(def.base_item()))), preview(def)));
+        // Grey (0xAAAAAA) on the tooltip's near-black: contrast about 8:1.
+        line.accept(itemName(def.base_item()).copy().withStyle(net.minecraft.ChatFormatting.GRAY));
+        line.accept(Component.literal(def.id()).withStyle(net.minecraft.ChatFormatting.GRAY));
+        if (!def.tags().isEmpty()) line.accept(Component.literal(String.join(", ", def.tags())).withStyle(net.minecraft.ChatFormatting.GRAY));
+        line.accept(Component.translatable("simplemodels.browser.author", def.author()).withStyle(net.minecraft.ChatFormatting.GRAY));
+        return lines;
+    }
     public ItemStack preview(ModelDefinition def) {
         var stack = new ItemStack(BuiltInRegistries.ITEM.getValue(ModelDefinition.safeId(def.base_item())));
         stack.set(DataComponents.ITEM_MODEL, ModelDefinition.safeId(def.model())); return stack;
@@ -82,7 +111,18 @@ public final class ModelBrowser extends Screen {
             });
         }
         if (!tab.equals("models")) return;
-        search = new EditBox(font, x + 6, y + 44, panelWidth - 12, 18, Component.translatable("simplemodels.browser.search")) {
+        // Filter by base item and sort order right of the search (SM21 c); the wheel over them cycles like Vanilla.
+        var items = ModelQuery.baseItems(catalogue.models());
+        if (!items.contains(baseFilter)) baseFilter = ModelQuery.ALL;
+        int choice = Math.min(102, (panelWidth - 16) / 4);
+        addRenderableWidget(net.minecraft.client.gui.components.CycleButton.builder(ModelBrowser::itemName, baseFilter).withValues(items)
+                .create(x + panelWidth - 6 - 2 * choice - 2, y + 43, choice, 20, Component.translatable("simplemodels.browser.filter"),
+                        (b, value) -> setBaseFilter(value)));
+        addRenderableWidget(net.minecraft.client.gui.components.CycleButton.<ModelQuery.Sort>builder(
+                        s -> Component.translatable("simplemodels.browser.sort." + s.key()), sort).withValues(ModelQuery.Sort.values())
+                .create(x + panelWidth - 6 - choice, y + 43, choice, 20, Component.translatable("simplemodels.browser.sort"),
+                        (b, value) -> setSort(value)));
+        search = new EditBox(font, x + 6, y + 44, panelWidth - 16 - 2 * choice - 2, 18, Component.translatable("simplemodels.browser.search")) {
             @Override public void setFocused(boolean focused) {
                 super.setFocused(focused); Minecraft.getInstance().onTextInputFocusChange(this, focused);
             }
@@ -100,14 +140,23 @@ public final class ModelBrowser extends Screen {
             rebuildWidgets(); query = value; if (focus && search != null) setFocused(search); dirty = false; }
     }
     @Override protected void rebuildWidgets() { super.rebuildWidgets(); if (tab.equals("models")) addRows(); }
+    /** The wheel turns the pages of the model list (SM21 b); over a widget (filter, sort) that widget gets it first. */
+    @Override public boolean mouseScrolled(double mx, double my, double scrollX, double scrollY) {
+        if (super.mouseScrolled(mx, my, scrollX, scrollY)) return true;
+        if (!tab.equals("models")) return false;
+        int next = ModelQuery.scroll(page, scrollY, pages());
+        if (next != page) { page = next; rebuildWidgets(); }
+        return true;
+    }
     private int rows() { return Math.max(1, (panelHeight - 154) / 24); }
     private void addRows() {
-        var list = filtered(); page = Math.clamp(page, 0, Math.max(0, (list.size() - 1) / rows()));
+        var list = filtered(); page = Math.clamp(page, 0, ModelQuery.pages(list.size(), rows()) - 1);
+        rowButtons.clear(); rowModels.clear();
         for (int i = page * rows(); i < Math.min(list.size(), (page + 1) * rows()); i++) {
             var def = list.get(i); int row = i - page * rows();
-            var b = addRenderableWidget(Button.builder(Component.literal(def.match_name()), widget -> { selected = def; rebuildWidgets(); })
-                    .bounds(x + 28, y + 68 + row * 24, panelWidth - 34, 20).build());
-            b.setTooltip(Tooltip.create(Component.literal(def.base_item() + " | " + def.id() + " | " + String.join(", ", def.tags()))));
+            rowButtons.add(addRenderableWidget(Button.builder(Component.literal(def.match_name()), widget -> { selected = def; rebuildWidgets(); })
+                    .bounds(x + 28, y + 68 + row * 24, panelWidth - 34, 20).build()));
+            rowModels.add(def);
         }
         button("previous", x + 6, y + panelHeight - 78, 70, () -> { page--; rebuildWidgets(); }).active = page > 0;
         button("next", x + 78, y + panelHeight - 78, 70, () -> { page++; rebuildWidgets(); }).active = (page + 1) * rows() < list.size();
@@ -136,6 +185,15 @@ public final class ModelBrowser extends Screen {
             g.fill(x + 2, y + 2, x + panelWidth - 2, y + 18, 0xFF414854);
         }
     }
+    /** A read-only switch, 20x10: knob right on a green track = on, knob left on a dark track = off. */
+    static void toggle(GuiGraphicsExtractor g, int sx, int sy, boolean on) {
+        g.fill(sx, sy, sx + 20, sy + 10, UiBoxes.RIM);
+        g.fill(sx + 1, sy + 1, sx + 19, sy + 9, on ? 0xFF3F8F2F : 0xFF3A3A3A);
+        int kx = on ? sx + 10 : sx + 1;
+        g.fill(kx, sy + 1, kx + 9, sy + 9, 0xFFC6C6C6);
+        g.fill(kx, sy + 1, kx + 9, sy + 2, 0xFFFFFFFF);
+        g.fill(kx, sy + 8, kx + 9, sy + 9, 0xFF8B8B8B);
+    }
     @Override public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractRenderState(g, mx, my, delta);
         g.text(font, title, x + 8, y + 6, PALETTE.label(), false);
@@ -149,21 +207,27 @@ public final class ModelBrowser extends Screen {
                 g.item(preview(selected), x + 44, y + panelHeight - 52);
                 g.text(font, selected.id(), x + 70, y + panelHeight - 48, PALETTE.label(), false);
             }
-            int pages = Math.max(1, (list.size() - 1) / rows() + 1);
+            int pages = ModelQuery.pages(list.size(), rows());
             if (pages > 1) g.text(font, (page + 1) + "/" + pages, x + panelWidth - 8 - font.width((page + 1) + "/" + pages), y + 6, PALETTE.label(), false);
             if (list.isEmpty()) g.textWithWordWrap(font, Component.translatable("simplemodels.browser.empty"), x + 8, y + 72, panelWidth - 16, PALETTE.label(), false);
+            for (int i = 0; i < rowButtons.size(); i++) if (rowButtons.get(i).isHovered())
+                ((com.simplebuilding.modules.simplemodels.mixin.ModelTooltipInvoker)g).simplemodels$tooltip(font, tooltip(rowModels.get(i)), mx, my,
+                        net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner.INSTANCE, null, true);
         } else if (tab.equals("policy")) {
-            int row = 0;
-            for (var field : ModelPolicy.class.getFields()) {
-                if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
+            // Read only (SM21 a): switches for on/off values, numbers right-aligned; admins edit the file.
+            var fields = java.util.Arrays.stream(ModelPolicy.class.getFields()).filter(f -> !java.lang.reflect.Modifier.isStatic(f.getModifiers())).toList();
+            int step = Math.clamp((panelHeight - 48 - BOTTOM - 4) / Math.max(1, fields.size()), 12, 23), right = x + panelWidth - 8;
+            for (int row = 0; row < fields.size(); row++) {
+                var field = fields.get(row); int ry = y + 48 + row * step;
                 try {
-                    var label = Component.translatable("simplemodels.config." + field.getName()).append(": " + field.get(catalogue.policy()));
-                    g.text(font, label, x + 8, y + 48 + row * 23, PALETTE.label(), false);
-                    if (my >= y + 48 + row * 23 && my < y + 69 + row * 23)
-                        g.setTooltipForNextFrame(font, font.split(Component.translatable("simplemodels.config." + field.getName() + ".tooltip"), Math.min(240, width - 16)), mx, my);
-                    row++;
+                    g.text(font, Component.translatable("simplemodels.config." + field.getName()), x + 8, ry, PALETTE.label(), false);
+                    if (field.get(catalogue.policy()) instanceof Boolean on) toggle(g, right - 20, ry - 1, on);
+                    else { String value = String.valueOf(field.get(catalogue.policy())); g.text(font, value, right - font.width(value), ry, PALETTE.label(), false); }
                 } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
+                if (mx >= x && mx < right && my >= ry - 2 && my < ry - 2 + step)
+                    g.setTooltipForNextFrame(font, font.split(Component.translatable("simplemodels.config." + field.getName() + ".tooltip"), Math.min(240, width - 16)), mx, my);
             }
+            g.textWithWordWrap(font, Component.translatable("simplemodels.browser.readonly"), x + 8, y + panelHeight - BOTTOM + 1, panelWidth - 92, PALETTE.label(), false);
         } else g.textWithWordWrap(font, Component.translatable("simplemodels.browser.import"), x + 8, y + 48, panelWidth - 16, PALETTE.label(), false);
     }
 }

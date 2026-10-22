@@ -33,11 +33,17 @@ public final class PocketSound extends AbstractSoundInstance {
 
     /** A Vanilla disc by its sound event, or null when the client does not know the event. */
     public static PocketSound song(SoundManager sounds, Identifier event, int offsetSeconds) {
+        Identifier file = songFile(sounds, event, offsetSeconds);
+        return file == null ? null : new PocketSound(file);
+    }
+
+    /** {@code simplemusic:seek/<s>/<ns>/<path>} of a Vanilla disc's sound event, or null when the client does not know it. */
+    public static Identifier songFile(SoundManager sounds, Identifier event, int offsetSeconds) {
         WeighedSoundEvents events = sounds.getSoundEvent(event);
         if (events == null) return null;
         Identifier file = events.getSound(SoundInstance.createUnseededRandom()).getLocation();
         if (file == null || file.equals(SoundManager.EMPTY_SOUND.getLocation())) return null;
-        return new PocketSound(SimpleMusic.id("seek/" + Math.max(0, offsetSeconds) + "/" + file.getNamespace() + "/" + file.getPath()));
+        return SimpleMusic.id("seek/" + Math.max(0, offsetSeconds) + "/" + file.getNamespace() + "/" + file.getPath());
     }
 
     @Override

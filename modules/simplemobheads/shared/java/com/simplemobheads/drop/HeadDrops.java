@@ -47,7 +47,8 @@ import org.jspecify.annotations.Nullable;
  *   like Vanilla's creeper/zombie/skeleton/piglin heads - {@code Creeper#killedEntity} rolls the table once per explosion,
  *   so one head per explosion together with the Vanilla heads. Babies drop the normal head (the creeper's rule only asks
  *   the creeper). The head shows the victim's variant ({@link CopyVariantFunction}). Pools only for registered mobs.</li>
- *   <li>Optional player kills ({@code playerKillDrops}, default off): base chance + bonus per looting level.</li>
+ *   <li>Optional player kills ({@code playerKillDrops}, default off): base chance + bonus per looting level (never for giants,
+ *   EH21: their head only comes from a charged creeper, see {@code CreeperMixin}).</li>
  *   <li>PvP: a player killed by another player drops their own head with their skin ({@code playerHeadDrops}).</li>
  * </ul>
  */
@@ -113,7 +114,7 @@ public final class HeadDrops {
             return;
         }
         if (config.playerKillDrops && !(entity instanceof Player) && source.getEntity() instanceof Player killer
-                && level.getGameRules().get(GameRules.MOB_DROPS)) {
+                && level.getGameRules().get(GameRules.MOB_DROPS) && !com.simplemobheads.easter.Giants.isGiant(entity)) {
             HeadDef head = headOf(entity.getType());
             if (head == null || !HeadDropCondition.allowed(head)) {
                 return;

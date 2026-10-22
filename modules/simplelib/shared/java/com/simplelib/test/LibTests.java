@@ -366,11 +366,45 @@ public final class LibTests {
         var mythic = new ItemStack(Items.STICK);
         mythic.set(LibComponents.RARITY, com.simplelib.api.SimpleRarity.MYTHIC);
         var mName = mythic.getHoverName();
-        check(h, mName.getStyle().getColor().getValue() == 0x3CF0D2 && mName.getSiblings().get(0).getContents()
-                instanceof net.minecraft.network.chat.contents.TranslatableContents, "mythic on the server: translatable, turquoise");
-        var letters = com.simplelib.api.SimpleRarity.gradient("Mythic", 0L, false);
-        check(h, letters.getSiblings().size() == 6 && letters.getString().equals("Mythic"), "gradient letter by letter");
+        check(h, mName.getStyle().getColor().getValue() == 0x5CF2DE && mName.getSiblings().get(0).getContents()
+                instanceof net.minecraft.network.chat.contents.TranslatableContents, "mythic on the server: translatable, aquamarine");
         check(h, !com.simplelib.api.SimpleRarity.onClient(), "game tests run off the render thread");
+
+        // owner 21.10. (b-rarity21b): tooltip letters, marked for the row-by-row overlay of the client
+        for (var r : com.simplelib.api.SimpleRarity.values()) {
+            var letters = r.letters("Mythic", 1234L, true);
+            check(h, letters.getSiblings().size() == 6 && letters.getString().equals("Mythic"), r + ": letter by letter");
+            check(h, Integer.valueOf(r.shadow()).equals(letters.getStyle().getShadowColor()), r + ": tier shadow");
+            for (var letter : letters.getSiblings()) {
+                check(h, com.simplelib.api.SimpleRarity.byMarker(letter.getStyle().getInsertion()) == r, r + ": marker " + letter.getStyle());
+            }
+            check(h, r.letters("Mythic", 0L, false).getSiblings().get(0).getStyle().getInsertion() == null, r + ": hotbar letters unmarked");
+            check(h, r.pixel(2, 6, 3, 5000L) == r.pixel(2, 6, 3, 5000L), r + ": colours are a function of the time");
+        }
+        check(h, com.simplelib.api.SimpleRarity.byMarker("simplelib:rarity/cursedx") == null
+                && com.simplelib.api.SimpleRarity.byMarker(null) == null, "only exact markers");
+
+        // cursed: the letters burn from below (bottom row hotter than the top for every letter and time), the fire moves
+        var fire = com.simplelib.api.SimpleRarity.CURSED;
+        boolean moves = false;
+        int hotter = 0, samples = 0;
+        for (long t = 0; t < 20000L; t += 137L) {
+            for (int i = 0; i < 12; i++, samples++) {
+                double top = com.simplelib.api.client.ui.UiContrast.luminance(fire.pixel(i, 12, 0, t));
+                double bottom = com.simplelib.api.client.ui.UiContrast.luminance(fire.pixel(i, 12, 7, t));
+                check(h, bottom >= top, "fire: never cooler at the bottom, letter " + i + " t " + t);
+                if (bottom > top) hotter++;
+                if (fire.pixel(i, 12, 4, t) != fire.pixel(i, 12, 4, t + 400L)) moves = true;
+            }
+        }
+        check(h, hotter * 10 >= samples * 9, "fire: bottom hotter than top in 90 % of the samples: " + hotter + "/" + samples);
+        check(h, moves, "fire is animated");
+        check(h, fire.pixel(0, 1, -3, 0L) == fire.pixel(0, 1, 0, 0L) && fire.pixel(0, 1, 9, 0L) == fire.pixel(0, 1, 7, 0L),
+                "rows outside a letter count as its top/bottom row");
+        var opal = com.simplelib.api.SimpleRarity.MYTHIC;
+        check(h, opal.pixel(3, 8, 4, 0L) != opal.pixel(3, 8, 4, 1300L), "opal moves");
+        check(h, com.simplelib.api.client.ui.UiContrast.luminance(opal.pixel(3, 8, 4, 3400L * 7 + 400L)) > 0.8
+                && com.simplelib.api.client.ui.UiContrast.luminance(opal.pixel(3, 8, 4, 3400L * 7 + 2000L)) < 0.75, "a white sheen sweeps across");
 
         for (var r : com.simplelib.api.SimpleRarity.values()) {
             var json = com.simplelib.api.SimpleRarity.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, r).getOrThrow();
@@ -378,12 +412,18 @@ public final class LibTests {
         }
         check(h, net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(LibComponents.RARITY)
                 .equals(com.simplelib.SimpleLib.id("rarity")), "registered as simplelib:rarity");
+        // readability (rule A7): every colour a letter pixel can take reads 4.5:1 on the dark tooltip background
         int tooltipBg = 0xFF100010;
-        for (int c : new int[] {com.simplelib.api.SimpleRarity.CURSED.color(), com.simplelib.api.SimpleRarity.MYTHIC.color(),
-                com.simplelib.api.SimpleRarity.MYTHIC_GREEN}) {
-            double ratio = com.simplelib.api.client.ui.UiContrast.ratio(0xFF000000 | c, tooltipBg);
-            check(h, ratio >= com.simplelib.api.client.ui.UiContrast.MIN, "contrast " + Integer.toHexString(c) + " " + ratio);
+        double worst = 99;
+        for (var r : com.simplelib.api.SimpleRarity.values()) {
+            worst = Math.min(worst, com.simplelib.api.client.ui.UiContrast.ratio(0xFF000000 | r.color(), tooltipBg));
+            for (long t = 0; t < 7000L; t += 53L) {
+                for (int row = 0; row < com.simplelib.api.SimpleRarity.ROWS; row++) {
+                    for (int i = 0; i < 14; i++) worst = Math.min(worst, com.simplelib.api.client.ui.UiContrast.ratio(0xFF000000 | r.pixel(i, 14, row, t), tooltipBg));
+                }
+            }
         }
+        check(h, worst >= com.simplelib.api.client.ui.UiContrast.MIN, "contrast of every letter pixel: worst " + worst);
         h.succeed();
     }
 }

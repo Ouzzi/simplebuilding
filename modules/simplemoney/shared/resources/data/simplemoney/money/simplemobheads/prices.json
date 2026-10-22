@@ -6,7 +6,10 @@
     "simplemobheads:wither_head": "Boss head: only the charged creeper (server switch, default off).",
     "simplemobheads:blighted_wither_head": "Boss head of Simple Mobs.",
     "simplemobheads:abyssal_wither_head": "Boss head of Simple Mobs.",
-    "simplemobheads:herobrine_head": "Secret head: only the Herobrine ritual (KONZEPT-HEROBRINE-KOPF-2026-10-19), never sold."
+    "simplemobheads:herobrine_head": "Secret head: only the Herobrine ritual (KONZEPT-HEROBRINE-KOPF-2026-10-19), never sold.",
+    "simplemobheads:crowned_pig_head": "Secret head: only the pig named Technoblade (EH21 TO-1), never sold.",
+    "simplemobheads:giant_head": "Secret head: only a giant killed by a charged creeper (EH21 ZO-1), never sold.",
+    "simplemobheads:giant_cow_head": "Secret head: only a giant cow killed by a charged creeper (EH21 CO-2), never sold."
   },
   "prices": [
     {

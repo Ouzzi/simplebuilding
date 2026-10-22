@@ -26,6 +26,7 @@ public final class ModelTests {
         ALL.put("anvil_cost_and_take", ModelTests::anvilCostAndTake); ALL.put("stale_result", ModelTests::staleResult);
         ALL.put("normal_rename", ModelTests::normalRename); ALL.put("cross_mod", ModelTests::crossMod);
         ALL.put("legacy_names", ModelTests::legacyNames); ALL.put("config_and_lang", ModelTests::configAndLang);
+        ALL.put("browser_query", ModelTests::browserQuery);
     }
     public static ModelDefinition sample(String base) { return new ModelDefinition("renamed:tomato", base, "Tomato", "renamed:tomato", List.of("food", "red"), "Example"); }
     private static void fixture(String base, Runnable body) {
@@ -166,6 +167,25 @@ public final class ModelTests {
         var d = sample("minecraft:apple");
         for (String q : List.of("TOMATO", "apple", "renamed:", "FOOD", "red", "example", "")) h.assertTrue(d.matches(q), "Search matches " + q);
         h.assertTrue(!d.matches("nonexistent"), "Search excludes nonmatches"); h.succeed();
+    }
+    /** SM21 b/c: base-item filter, sort orders, filter choices and wheel paging of the model browser. */
+    public static void browserQuery(GameTestHelper h) {
+        var tomato = sample("minecraft:apple");
+        var wand = new ModelDefinition("renamed:wand", "minecraft:stick", "wand", "minecraft:blaze_rod", List.of("rod"), "B");
+        var axe = new ModelDefinition("renamed:axe", "minecraft:stick", "Axe", "minecraft:iron_axe", List.of(), "C");
+        var all = List.of(tomato, wand, axe);
+        var names = (java.util.function.Function<List<ModelDefinition>, List<String>>)l -> l.stream().map(ModelDefinition::match_name).toList();
+        h.assertTrue(names.apply(ModelQuery.view(all, "", ModelQuery.ALL, ModelQuery.Sort.NAME_ASC)).equals(List.of("Axe", "Tomato", "wand")), "Name A-Z ignores case");
+        h.assertTrue(names.apply(ModelQuery.view(all, "", ModelQuery.ALL, ModelQuery.Sort.NAME_DESC)).equals(List.of("wand", "Tomato", "Axe")), "Name Z-A");
+        h.assertTrue(names.apply(ModelQuery.view(all, "", ModelQuery.ALL, ModelQuery.Sort.BASE_ITEM)).equals(List.of("Tomato", "Axe", "wand")), "Base item, then name");
+        h.assertTrue(names.apply(ModelQuery.view(all, "", "minecraft:stick", ModelQuery.Sort.NAME_ASC)).equals(List.of("Axe", "wand")), "Base-item filter");
+        h.assertTrue(names.apply(ModelQuery.view(all, "rod", "minecraft:stick", ModelQuery.Sort.NAME_ASC)).equals(List.of("wand")), "Filter and search combine");
+        h.assertTrue(ModelQuery.view(all, "", "minecraft:bread", ModelQuery.Sort.NAME_ASC).isEmpty(), "Unknown filter lists nothing");
+        h.assertTrue(ModelQuery.baseItems(all).equals(List.of(ModelQuery.ALL, "minecraft:apple", "minecraft:stick")), "Filter choices: all, then each base item once");
+        h.assertTrue(ModelQuery.pages(0, 3) == 1 && ModelQuery.pages(3, 3) == 1 && ModelQuery.pages(7, 3) == 3, "Page count");
+        h.assertTrue(ModelQuery.scroll(0, -1, 3) == 1 && ModelQuery.scroll(1, 1, 3) == 0, "Wheel down = next, up = previous");
+        h.assertTrue(ModelQuery.scroll(0, 1, 3) == 0 && ModelQuery.scroll(2, -2.5, 3) == 2 && ModelQuery.scroll(1, 0, 3) == 1, "Wheel clamps at the ends");
+        h.succeed();
     }
     public static void anvilCostAndTake(GameTestHelper h) {
         fixture("minecraft:apple", () -> {

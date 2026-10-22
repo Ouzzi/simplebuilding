@@ -5,6 +5,8 @@ import com.simplemusic.disc.BlankDiscItem;
 import com.simplemusic.disc.CustomDiscItem;
 import com.simplemusic.orchestrion.OrchestrionBlock;
 import com.simplemusic.orchestrion.OrchestrionBlockEntity;
+import com.simplemusic.pocket.PocketJukeboxBlock;
+import com.simplemusic.pocket.PocketJukeboxBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxItem;
 import com.simplemusic.press.DiscPressBlock;
 import com.simplemusic.press.DiscPressBlockEntity;
@@ -31,6 +33,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.material.MapColor;
 
 /**
@@ -42,9 +45,12 @@ public final class MusicRegistry {
     public static Item SHEET_MUSIC, ORCHESTRION_ITEM, BLANK_DISC, CUSTOM_DISC, DISC_PRESS_ITEM;
     public static BlockEntityType<OrchestrionBlockEntity> ORCHESTRION_BE;
     public static BlockEntityType<DiscPressBlockEntity> DISC_PRESS_BE;
+    public static BlockEntityType<PocketJukeboxBlockEntity> POCKET_JUKEBOX_BE;
     public static MenuType<DiscPressMenu> DISC_PRESS_MENU;
     /** Undyed first, then the 16 colours in {@link DyeColor} order (like Vanilla's bundles). */
     public static final List<Item> POCKET_JUKEBOXES = new ArrayList<>();
+    /** The placed Pocket Jukeboxes, same ids and order as {@link #POCKET_JUKEBOXES}. */
+    public static final List<Block> POCKET_JUKEBOX_BLOCKS = new ArrayList<>();
 
     /** {@code pocket_jukebox} or {@code <colour>_pocket_jukebox}. */
     public static String pocketJukeboxId(DyeColor color) {
@@ -57,6 +63,15 @@ public final class MusicRegistry {
         // like Vanilla's stonecutter/blast furnace: stone and iron, needs a pickaxe
         DISC_PRESS = block("disc_press", DiscPressBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                 .requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL));
+        // a small case like a placed backpack: no tool, breaks fast, pistons knock it off (it drops with its discs)
+        POCKET_JUKEBOX_BLOCKS.add(pocketBlock(null));
+        for (DyeColor color : DyeColor.values()) POCKET_JUKEBOX_BLOCKS.add(pocketBlock(color));
+    }
+
+    private static Block pocketBlock(DyeColor color) {
+        return block(pocketJukeboxId(color), p -> new PocketJukeboxBlock(p, color), BlockBehaviour.Properties.of()
+                .mapColor(color == null ? MapColor.TERRACOTTA_ORANGE : color.getMapColor()).strength(0.8F).sound(SoundType.WOOL)
+                .noOcclusion().pushReaction(PushReaction.POPPED));
     }
 
     public static void registerItems() {
@@ -65,16 +80,21 @@ public final class MusicRegistry {
         DISC_PRESS_ITEM = item("disc_press", p -> new BlockItem(DISC_PRESS, p), new Item.Properties().useBlockDescriptionPrefix());
         BLANK_DISC = item("blank_disc", BlankDiscItem::new, new Item.Properties().stacksTo(16));
         CUSTOM_DISC = item("custom_disc", CustomDiscItem::new, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
-        POCKET_JUKEBOXES.add(item(pocketJukeboxId(null), p -> new PocketJukeboxItem(p, null), new Item.Properties()));
-        for (DyeColor color : DyeColor.values()) {
-            POCKET_JUKEBOXES.add(item(pocketJukeboxId(color), p -> new PocketJukeboxItem(p, color), new Item.Properties()));
+        POCKET_JUKEBOXES.add(item(pocketJukeboxId(null), p -> new PocketJukeboxItem(POCKET_JUKEBOX_BLOCKS.get(0), p, null), new Item.Properties()));
+        DyeColor[] colors = DyeColor.values();
+        for (int i = 0; i < colors.length; i++) {
+            Block block = POCKET_JUKEBOX_BLOCKS.get(i + 1);
+            DyeColor color = colors[i];
+            POCKET_JUKEBOXES.add(item(pocketJukeboxId(color), p -> new PocketJukeboxItem(block, p, color), new Item.Properties()));
         }
         com.simplemusic.guide.MusicGuide.register();
     }
 
-    public static void registerBlockEntities(BlockEntityType<OrchestrionBlockEntity> orchestrion, BlockEntityType<DiscPressBlockEntity> press) {
+    public static void registerBlockEntities(BlockEntityType<OrchestrionBlockEntity> orchestrion, BlockEntityType<DiscPressBlockEntity> press,
+                                             BlockEntityType<PocketJukeboxBlockEntity> pocket) {
         ORCHESTRION_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("orchestrion"), orchestrion);
         DISC_PRESS_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("disc_press"), press);
+        POCKET_JUKEBOX_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("pocket_jukebox"), pocket);
     }
 
     public static void registerMenus() {
