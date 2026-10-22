@@ -213,7 +213,7 @@ public final class TestCentreTests {
             if (!TcContext.isFamily(id)) {
                 continue;
             }
-            Item item = block.asItem();
+            Item item = TcContext.itemOf(block);
             if (plan.coveredBlocks().contains(block) || item != Items.AIR && plan.coveredItems().contains(item)) {
                 blocks++;
             } else if (TestCentreLayout.EXCLUDED.containsKey(id.toString())) {
@@ -246,6 +246,9 @@ public final class TestCentreTests {
         }
         com.simplebuilding.Simplebuilding.LOGGER.info("test centre inventory: {} namespaces {}, {} items, {} blocks, {} mobs shown; excused {}",
                 namespaces.size(), namespaces, items, blocks, mobs, excused);
+        if (!problems.isEmpty()) {
+            com.simplebuilding.Simplebuilding.LOGGER.warn("test centre inventory problems: {}", String.join("; ", problems));
+        }
         helper.assertTrue(problems.isEmpty(), problems.size() + " registry entr(y/ies) missing from the test centre: "
                 + String.join("; ", problems.subList(0, Math.min(40, problems.size()))));
         helper.succeed();
@@ -257,7 +260,7 @@ public final class TestCentreTests {
      * schon gesetzt zeigt ({@code TestCentreLayout.shownPlaced}; die Tab-Waende sind ein Verzeichnis und duerfen das).
      * Rahmen und Staender je Abschnitt stehen im Log.
      */
-    public static void noFrameHoldsWhatCouldStandAsABlock(GameTestHelper helper) {
+    public static void noFrameHoldsWhatCouldStandAsBlock(GameTestHelper helper) {
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         for (TestCentreLayout.Section section : plan.sections()) {
@@ -308,15 +311,26 @@ public final class TestCentreTests {
                 problems.add(section.id() + " has a wall " + (top + 1) + " high");
             }
         }
-        // Bezirke: der erste Abschnitt jedes Bezirks steht am Anfang einer Reihe (x = 0).
+        // Bezirke: der erste Abschnitt jedes Bezirks steht an der linken Kante seiner Raster-Spalte, kein Abschnitt ragt
+        // in die naechste Spalte.
         for (List<String> district : TestCentreLayout.DISTRICTS) {
+            boolean first = true;
+            int column = -1;
             for (String id : district) {
-                if (TestCentreLayout.sectionIds().contains(id)) {
-                    int x = plan.section(id).offset().getX();
-                    if (x != 0) {
-                        problems.add("district of " + id + " does not start its own row (x " + x + ")");
-                    }
-                    break;
+                if (!TestCentreLayout.sectionIds().contains(id) || plan.section(id).ops().isEmpty()) {
+                    continue;
+                }
+                int x = plan.section(id).offset().getX();
+                if (first && x % TestCentreLayout.DISTRICT_PITCH != 0) {
+                    problems.add("district of " + id + " does not start at its grid column (x " + x + ")");
+                }
+                if (first) {
+                    column = x / TestCentreLayout.DISTRICT_PITCH;
+                    first = false;
+                }
+                int right = x + plan.section(id).width();
+                if (x / TestCentreLayout.DISTRICT_PITCH != column || right > column * TestCentreLayout.DISTRICT_PITCH + TestCentreLayout.MAX_ROW_WIDTH) {
+                    problems.add(id + " leaves the grid column of its district (x " + x + " to " + right + ")");
                 }
             }
         }

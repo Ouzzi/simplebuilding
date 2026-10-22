@@ -91,6 +91,12 @@ public final class Exhibits {
         if (wall != null) {
             return List.of(octets(wall));
         }
+        if (!stack.isEmpty() && !(stack.getItem() instanceof BlockItem) && stack.getComponentsPatch().isEmpty()) {
+            // Achtel-Items (Simple Octets) sind keine Block-Items; sie setzen die Zelle mit derselben Id.
+            BlockState cell = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(TcContext.id(stack.getItem()))
+                    .map(Block::defaultBlockState).orElse(null);
+            return cell != null && octet(cell) ? List.of(octets(cell)) : List.of();
+        }
         BlockState state = base(stack);
         if (state == null) {
             return List.of();

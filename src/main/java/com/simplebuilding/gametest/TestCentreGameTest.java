@@ -69,8 +69,8 @@ public final class TestCentreGameTest {
     }
 
     @GameTest
-    public void noFrameHoldsWhatCouldStandAsABlock(GameTestHelper helper) {
-        TestCentreTests.noFrameHoldsWhatCouldStandAsABlock(helper);
+    public void noFrameHoldsWhatCouldStandAsBlock(GameTestHelper helper) {
+        TestCentreTests.noFrameHoldsWhatCouldStandAsBlock(helper);
     }
 
     @GameTest

@@ -145,7 +145,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_family_registry_entry_is_in_the_test_centre", TestCentreTests::everyFamilyRegistryEntryIsInTheTestCentre)
                     .build(),
-            GameTestSpec.named("test_centre_game_test_no_frame_holds_what_could_stand_as_a_block", TestCentreTests::noFrameHoldsWhatCouldStandAsABlock)
+            GameTestSpec.named("test_centre_game_test_no_frame_holds_what_could_stand_as_block", TestCentreTests::noFrameHoldsWhatCouldStandAsBlock)
                     .build(),
             GameTestSpec.named("test_centre_game_test_the_layout_is_compact_with_low_walls", TestCentreTests::theLayoutIsCompactWithLowWalls)
                     .build(),

@@ -435,8 +435,8 @@ public final class TestCentreLayout {
             if (op instanceof TcOp.Place place) {
                 at.put(place.pos(), place.state());
                 Block block = place.state().getBlock();
-                if (block.asItem() != Items.AIR && !TestCentreKits.INFRASTRUCTURE.contains(block)) {
-                    placed.add(block.asItem());
+                if (!TestCentreKits.INFRASTRUCTURE.contains(block)) {
+                    placed.add(TcContext.itemOf(block));
                 }
             }
         }
@@ -471,7 +471,7 @@ public final class TestCentreLayout {
             switch (op) {
                 case TcOp.Place place -> {
                     blocks.add(place.state().getBlock());
-                    Item item = place.state().getBlock().asItem();
+                    Item item = TcContext.itemOf(place.state().getBlock());
                     if (item != Items.AIR) {
                         items.add(item);
                     }
@@ -498,21 +498,28 @@ public final class TestCentreLayout {
         items.remove(Items.AIR);
     }
 
+    /** Bezirke nebeneinander (TZ22-5: ein Raster aus Bezirken statt eines langen Streifens). */
+    public static final int DISTRICT_COLUMNS = 2;
+    /** Abstand der Bezirks-Spalten in x: hoechste Reihenbreite und ein Gang. */
+    public static final int DISTRICT_PITCH = MAX_ROW_WIDTH + CORRIDOR;
+
     /**
-     * Offsets je Abschnitt: Reihen in +x, eine neue Reihe (mit Gang davor) fuer jeden Bezirk ({@link #DISTRICTS}) und bei
-     * Ueberlauf. Leere Abschnitte (ohne Schritte) nehmen keinen Platz ein.
+     * Offsets je Abschnitt. Jeder Bezirk ({@link #DISTRICTS}) wird fuer sich in Reihen gepackt (in +x, hoechstens
+     * {@link #MAX_ROW_WIDTH} breit, vor jeder Reihe ein Gang in -z); die Bezirke liegen dann in einem Raster aus
+     * {@link #DISTRICT_COLUMNS} Spalten ({@link #DISTRICT_PITCH} breit), Bezirks-Reihen mit einem Gang dazwischen. Leere
+     * Abschnitte (ohne Schritte) nehmen keinen Platz ein, ein ganz leerer Bezirk auch keinen Rasterplatz.
      */
     private static Map<String, BlockPos> pack(Map<String, TcCanvas> canvases, List<String> sectionIds) {
         Map<String, BlockPos> offsets = new LinkedHashMap<>();
-        int x = 0;
-        int z = 0;
-        int rowDepth = 0;
+        int column = 0;
+        int bandZ = 0;
+        int bandDepth = 0;
         for (List<String> district : DISTRICTS) {
-            if (x > 0) {
-                z += rowDepth + CORRIDOR;
-                x = 0;
-                rowDepth = 0;
-            }
+            Map<String, BlockPos> local = new LinkedHashMap<>();
+            int x = 0;
+            int z = 0;
+            int rowDepth = 0;
+            boolean any = false;
             for (String id : district) {
                 if (!sectionIds.contains(id)) {
                     continue;
@@ -523,12 +530,24 @@ public final class TestCentreLayout {
                     x = 0;
                     rowDepth = 0;
                 }
-                offsets.put(id, new BlockPos(x, 0, z));
+                local.put(id, new BlockPos(x, 0, z));
                 if (canvas.ops().isEmpty()) {
                     continue;
                 }
+                any = true;
                 x += canvas.width() + GAP;
                 rowDepth = Math.max(rowDepth, canvas.depth());
+            }
+            if (any && column == DISTRICT_COLUMNS) {
+                bandZ += bandDepth + CORRIDOR;
+                bandDepth = 0;
+                column = 0;
+            }
+            BlockPos corner = new BlockPos(column * DISTRICT_PITCH, 0, bandZ);
+            local.forEach((id, pos) -> offsets.put(id, corner.offset(pos)));
+            if (any) {
+                bandDepth = Math.max(bandDepth, z + rowDepth);
+                column++;
             }
         }
         return offsets;

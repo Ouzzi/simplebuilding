@@ -163,6 +163,18 @@ public record TcContext(HolderLookup.Provider lookup) {
         return BuiltInRegistries.BLOCK.getKey(block);
     }
 
+    /**
+     * Das Item, das ein gesetzter Block zeigt: sein Block-Item, sonst ein Item mit derselben Id (Achtel-Zellen von Simple
+     * Octets: das Achtel-Item ist kein Block-Item, setzt aber genau diese Zelle), sonst Luft.
+     */
+    public static Item itemOf(Block block) {
+        Item item = block.asItem();
+        if (item != Items.AIR) {
+            return item;
+        }
+        return BuiltInRegistries.ITEM.getOptional(id(block)).orElse(Items.AIR);
+    }
+
     /** Sortierung: erst Mod, dann Vanilla, jeweils nach Id. */
     public static final Comparator<Identifier> MOD_FIRST = Comparator
             .comparing((Identifier id) -> !isMod(id))
