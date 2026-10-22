@@ -377,8 +377,17 @@ public final class TestCentreLayout {
 
         // Item-orientierter Rundgang: je Tab eine Wand. Erst nach der Abdeckung, damit jedes Item
         // weiterhin eine Station braucht, in der man es ausprobieren kann.
+        // TZ22-2: was eine Station schon gesetzt zeigt (Oefen, Trichter, Holzwerk, Schachfiguren ...), bekommt auch an der
+        // Tab-Wand keinen Rahmen mehr; Setzbares steht dort ohnehin als Block.
+        Set<Item> placedAnywhere = new java.util.HashSet<>();
+        for (TcCanvas canvas : canvases.values()) {
+            placedAnywhere.addAll(shownPlaced(canvas.ops()));
+        }
         for (com.simplebuilding.items.ModItemGroupsContent.Tab tab : com.simplebuilding.items.ModItemGroupsContent.Tab.values()) {
-            canvases.put(TabBrowser.sectionId(tab), TabBrowser.build(ctx, tab));
+            TcCanvas wall = TabBrowser.build(ctx, tab);
+            wall.ops().removeIf(op -> op instanceof TcOp.Frame frame && frame.stack().getComponentsPatch().isEmpty()
+                    && placedAnywhere.contains(frame.stack().getItem()));
+            canvases.put(TabBrowser.sectionId(tab), wall);
         }
 
         // Ausgabe-Knopf je Station: Kit aus dem, was die Station zeigt; die Station rueckt dafuer nach rechts.

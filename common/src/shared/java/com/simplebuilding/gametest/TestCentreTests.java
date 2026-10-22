@@ -783,13 +783,21 @@ public final class TestCentreTests {
 
     /**
      * Item-orientierter Rundgang: je Kreativ-Tab der Mod ein Abschnitt {@code tab_<id>}, dessen Rahmen
-     * genau den Tab zeigen (gleiche Stapel, gleiche Reihenfolge), mit Ausgabe-Knopf. Die Waende zaehlen
+     * genau den Tab zeigen (gleiche Stapel, gleiche Reihenfolge), mit Ausgabe-Knopf - ausser was dort als Block steht oder
+     * haengt und was eine Station schon gesetzt zeigt (TZ22-2). Die Waende zaehlen
      * nicht fuer die Abdeckung: jedes Item braucht trotzdem eine Station.
      */
     public static void everyCreativeTabHasItsItemBrowserWall(GameTestHelper helper) {
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
+        // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
+        Set<Item> placedAnywhere = new HashSet<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            if (!section.id().startsWith(TabBrowser.PREFIX)) {
+                placedAnywhere.addAll(TestCentreLayout.shownPlaced(section.ops()));
+            }
+        }
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             String id = TabBrowser.sectionId(tab);
             if (!TestCentreLayout.SECTION_IDS.contains(id)) {
@@ -811,7 +819,9 @@ public final class TestCentreTests {
                     block = com.simplebuilding.dev.testcentre.Exhibits.wallFrontState(stack);
                 }
                 if (block == null) {
-                    framedExpected.add(stack);
+                    if (!(stack.getComponentsPatch().isEmpty() && placedAnywhere.contains(stack.getItem()))) {
+                        framedExpected.add(stack);
+                    }
                 } else if (!placed.contains(block.getBlock())) {
                     problems.add(id + " should set " + BuiltInRegistries.ITEM.getKey(stack.getItem()) + " as a block in the wall");
                 }
