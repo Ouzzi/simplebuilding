@@ -63,7 +63,7 @@
   "simplemaps.guide.page.6.title": "Kartentisch",
   "simplemaps.guide.page.6": "Wegfinder-Karten am Kartentisch kopieren, erweitern und kombinieren; jede Funktion ist auf dem Server abschaltbar.",
   "simplemaps.guide.page.7.title": "Karten im Gegenstandsrahmen",
-  "simplemaps.guide.page.7": "Eine gerahmte Wegfinder-Karte zeigt einen gespeicherten Ausschnitt; Rechtsklick öffnet die Kartenansicht, danach zeigt der Rahmen den Ausschnitt, zu dem man gescrollt hat.",
+  "simplemaps.guide.page.7": "Eine gerahmte Wegfinder-Karte behält ihren Ausschnitt, bis du speicherst: Rechtsklick öffnet die Karte, der Rahmenbereich ist markiert, Speichern fragt nach.",
   "simplemaps.guide.page.8.title": "Webkarten-Export",
   "simplemaps.guide.page.8": "Server-Admins können die erkundete Welt als statische Webkarte exportieren: Bildkacheln, markers.json und eine kleine Ansichtsseite.",
   "simplemaps.guide.page.9.title": "Kreativ-Tabs",
