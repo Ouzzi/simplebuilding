@@ -81,6 +81,7 @@ public final class TweaksDiscover {
             "simpletweaks:play_mentions",
             "simpletweaks:play_mob_griefing",
             "simpletweaks:play_nether_roof",
+            "simpletweaks:play_new_player_shield",
             "simpletweaks:play_phantoms",
             "simpletweaks:play_playtime",
             "simpletweaks:play_pregen",
