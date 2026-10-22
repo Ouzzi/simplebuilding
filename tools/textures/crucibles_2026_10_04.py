@@ -84,6 +84,45 @@ def handle(colors, accent):
     return img
 
 
+
+# VN12 (TX22-1, 2026-10-23): candidates for the iron handle, own pixels in named steps (layer sources); not used by
+# tier() until the owner picks a letter (docs/ai/PLAN-A-VN12-2026-10-23.md). The model shows only rows 5-6 of
+# columns 6-9 (outer face), column 0/15 rows 5-6 (ends) and rows 6-9 (top/bottom), so those carry the shape;
+# the rest is a plain plate for the editor. Tones dark -> light.
+HANDLE_RAMPS = {'A': ('1f1e23', '2d2c32', '3f3e45', '57565e', '76757c'),     # cast iron, cauldron family
+                'B': ('3a3a3e', '5c5c62', '86868c', 'b2b2b6', 'dcdcdc'),     # bright iron like bars / chain
+                'C': ('34343a', '55555c', '7c7c84', 'a6a6ac', 'd2d2d4')}     # forged: notches and rivet heads
+
+
+def handle_vn12(variant='A'):
+    from layers import snap  # tools/textures is the script folder
+    k, d, m, l, h = ((int(c[i:i + 2], 16) for i in (0, 2, 4)) for c in HANDLE_RAMPS[variant])
+    k, d, m, l, h = (tuple(c) + (255,) for c in (k, d, m, l, h))
+    img = Image.new('RGBA', (16, 16), m)
+    px = img.load()
+    for x in range(16):
+        px[x, 0], px[x, 15] = l, d
+    snap(img, 'Grundform')
+    for x in range(16):           # the grip bar: lit top row, shaded bottom row
+        px[x, 5], px[x, 6] = l, d
+    for y in range(6, 10):        # top/bottom faces of both lugs (columns 0 and 15)
+        px[0, y] = px[15, y] = l
+    px[0, 6] = px[15, 6] = m
+    px[0, 5], px[15, 5] = m, m    # ends sit a little darker
+    snap(img, 'Griff')
+    if variant == 'A':
+        px[6, 5], px[7, 5], px[9, 6] = h, h, k
+    elif variant == 'B':
+        px[6, 5], px[7, 5], px[8, 5], px[9, 6], px[6, 6] = h, h, h, k, m
+        px[0, 7] = px[15, 7] = h
+    else:
+        px[8, 5], px[8, 6] = m, k     # a forged notch between two lit bulges
+        px[6, 5], px[7, 5], px[9, 5], px[9, 6] = h, l, h, k
+        for y in (7, 9):
+            px[0, y] = px[15, y] = m
+    snap(img, 'Licht')
+    return img
+
 def solid(img):
     """The cauldron's bottom has a hole (legs); a crucible sits flat, so fill it with the inner floor."""
     floor = load('cauldron_inner')
