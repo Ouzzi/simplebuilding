@@ -1,0 +1,82 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch für alle, die beim Bauen summen."
+    ],
+    "use": [
+      "Das Simple-Music-Handbuch erklärt Notenblätter, Notencode, das Orchestrion, die Plattenpresse und die Taschen-Jukebox. Herstellung formlos aus einem Buch und einem Notenblock."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
+  },
+  "sheet_music": {
+    "lore": [
+      "Papier, Tinte und eine Feder: alles, was ein Lied zum Aufschreiben braucht."
+    ],
+    "use": [
+      "Formlos aus Papier, einem Tintenbeutel und einer Feder. Benutzen öffnet den Notencode-Editor; mit einem Titel signiert ist es schreibgeschützt. Ein Blatt trägt eine Komposition oder einen hochgeladenen Titel."
+    ],
+    "secret": [
+      "Ein signiertes Blatt über einem leeren im Kartentisch ergibt eine Kopie; nur das leere Blatt wird verbraucht."
+    ]
+  },
+  "orchestrion": {
+    "lore": [
+      "Eine Jukebox, die lesen gelernt hat."
+    ],
+    "use": [
+      "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Blatt oder einer gepressten Platte legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus."
+    ],
+    "secret": [
+      "Eine Truhe oder ein Fass obendrauf wird zur Wiedergabeliste: nach jedem Durchlauf tauscht das nächste Blatt mit dem fertigen."
+    ]
+  },
+  "disc_press": {
+    "lore": [
+      "Ein Kolben, der nur Musik presst."
+    ],
+    "use": [
+      "Ein Kolben über zwei Eisenbarren über drei glatten Steinen. Ein Blatt oben, Rohlinge unten: In 2 Sekunden presst sie die Musik des Blatts auf einen Rohling."
+    ],
+    "secret": [
+      "Das Blatt bleibt immer; nur der Rohling wird zur Platte."
+    ]
+  },
+  "blank_disc": {
+    "lore": [
+      "Eine Platte, die noch nichts gehört hat."
+    ],
+    "use": [
+      "Vier Kohle oder Holzkohle und vier Schwarzstein um einen Amethystsplitter. Die Plattenpresse presst die Musik eines Blatts darauf."
+    ],
+    "secret": [
+      "Eine gepresste Komposition bekommt ein Papieretikett, ein hochgeladener Titel ein Amethystetikett."
+    ]
+  },
+  "custom_disc": {
+    "lore": [
+      "Deine eigene Musik, zum Aufheben gepresst."
+    ],
+    "use": [
+      "Trägt einen hochgeladenen Titel oder eine Komposition. Sie spielt im Orchestrion in Schleife und einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Platten mit Titel."
+    ],
+    "secret": [
+      "Eine Titel-Platte trägt nur Name, Länge und Hochlader, nie die Tonspur selbst."
+    ]
+  },
+  "family:pocket_jukebox": {
+    "items": [
+      "regex:.*pocket_jukebox"
+    ],
+    "lore": [
+      "{name}: ein Bündel, das summt."
+    ],
+    "use": [
+      "Fasst bis zu 20 Platten. In der Haupthand benutzen spielt oder pausiert; nur du hörst sie, wohin du auch gehst. Schleichen und Rechtsklick auf einen Block stellt sie ab."
+    ],
+    "secret": [
+      "Auf einem Block abgestellt spielt sie ihre Platten für alle in der Nähe, wie eine Jukebox."
+    ]
+  }
+}
