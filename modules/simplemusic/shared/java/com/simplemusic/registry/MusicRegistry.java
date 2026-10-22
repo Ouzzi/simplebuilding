@@ -71,7 +71,7 @@ public final class MusicRegistry {
     private static Block pocketBlock(DyeColor color) {
         return block(pocketJukeboxId(color), p -> new PocketJukeboxBlock(p, color), BlockBehaviour.Properties.of()
                 .mapColor(color == null ? MapColor.TERRACOTTA_ORANGE : color.getMapColor()).strength(0.8F).sound(SoundType.WOOL)
-                .noOcclusion().pushReaction(PushReaction.POPPED).overrideDescription("item.simplemusic." + pocketJukeboxId(color)));
+                .noOcclusion().pushReaction(PushReaction.POPPED));
     }
 
     public static void registerItems() {
