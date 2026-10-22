@@ -412,7 +412,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "19c97f8aa8b0"
+    "dataHash": "8b2e00a8dfe3"
   },
   {
     "id": "simpleinterfaces",
@@ -521,7 +521,7 @@ window.WIKI_MODULES = [
       "recipes": 62,
       "features": 12
     },
-    "dataHash": "7190530b3fc0"
+    "dataHash": "7965a13a30f9"
   },
   {
     "id": "simpleweather",

@@ -72,17 +72,17 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       "id": "rarity_tiers",
       "en": {
         "title": "Cursed and Mythic rarity",
-        "summary": "Two tiers above Epic for every Simple mod: Cursed (radiant red name, black shadow) and Mythic (turquoise to light green name with a shimmer, enchantment glint).",
+        "summary": "Two tiers above Epic for every Simple mod: Cursed (radiant red name with a black shadow; in the tooltip the letters burn, orange and gold flames rise into them and run through the name) and Mythic (an opal of aquamarine, azure and lavender moving through the letters with a pearl gloss, a white sheen sweeping across in the tooltip, enchantment glint).",
         "details": [
-          "Stored as the item component simplelib:rarity (cursed or mythic); the Vanilla rarity stays Epic. The tier colours the name in the tooltip, above the hotbar and in chat item links.",
+          "Stored as the item component simplelib:rarity (cursed or mythic); the Vanilla rarity stays Epic. The tier colours the name in the tooltip, above the hotbar and in chat item links. Only the tooltip is animated and painted pixel row by pixel row; above the hotbar the mythic opal stands still, the cursed name is radiant red, and the server and chat see the plain tier colour.",
           "Cursed: Biome Brush (Simple Tools), Nether Heart and Red Nether Gem (Simple Mobs). Mythic: Strong Upgrade template, Strong Beacon and Strong Conduit (Simple Beacons)."
         ]
       },
       "de": {
         "title": "Verfluchte und mythische Seltenheit",
-        "summary": "Zwei Stufen über Episch für alle Simple-Mods: Verflucht (strahlend roter Name, schwarzer Schatten) und Mythisch (Name von Türkis nach Hellgrün mit Schimmer, Verzauberungsglanz).",
+        "summary": "Zwei Stufen über Episch für alle Simple-Mods: Verflucht (strahlend roter Name mit schwarzem Schatten; im Tooltip brennen die Buchstaben, orange und goldene Flammen steigen hinein und laufen durch den Namen) und Mythisch (ein Opal aus Aquamarin, Azur und Lavendel wandert mit perlweißem Glanz durch die Buchstaben, im Tooltip zieht ein weißer Schimmer darüber, Verzauberungsglanz).",
         "details": [
-          "Gespeichert als Item-Komponente simplelib:rarity (cursed oder mythic); die Vanilla-Seltenheit bleibt Episch. Die Stufe färbt den Namen im Tooltip, über der Schnellleiste und in Chat-Item-Links.",
+          "Gespeichert als Item-Komponente simplelib:rarity (cursed oder mythic); die Vanilla-Seltenheit bleibt Episch. Die Stufe färbt den Namen im Tooltip, über der Schnellleiste und in Chat-Item-Links. Nur der Tooltip ist animiert und Pixelzeile für Pixelzeile gemalt; über der Schnellleiste steht der mythische Opal still, der verfluchte Name ist strahlend rot, Server und Chat sehen die einfache Stufenfarbe.",
           "Verflucht: Biom-Pinsel (Simple Tools), Netherherz und Rotes Nether-Juwel (Simple Mobs). Mythisch: Starke Aufwertungsvorlage, Starkes Leuchtfeuer und Starker Aquisator (Simple Beacons)."
         ]
       }
