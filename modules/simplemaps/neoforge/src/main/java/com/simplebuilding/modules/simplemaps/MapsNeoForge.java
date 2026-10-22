@@ -6,6 +6,7 @@ import com.simplemaps.MapsItems;
 import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.DisplayPayload;
+import com.simplemaps.net.FrameSavedPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.LayerRequestPayload;
@@ -71,6 +72,8 @@ public final class MapsNeoForge {
             registrar.playToClient(LayerDataPayload.TYPE, LayerDataPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
             registrar.playToClient(MapStatePayload.TYPE, MapStatePayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
+            registrar.playToClient(FrameSavedPayload.TYPE, FrameSavedPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
         });
         NeoForge.EVENT_BUS.addListener((LootTableLoadEvent event) -> MapsLoot.apply(

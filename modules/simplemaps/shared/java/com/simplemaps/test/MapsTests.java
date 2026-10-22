@@ -67,6 +67,9 @@ public final class MapsTests {
         ALL.put("cartography_switches", MapsTests::cartographySwitches);
         ALL.put("waypoint_edit", MapsTests::waypointEdit);
         ALL.put("frame_view", MapsTests::frameView);
+        ALL.put("frame_save_rules", MapsTests::frameSaveRules);
+        ALL.put("frame_code", MapsTests::frameCode);
+        ALL.put("stack_size", MapsTests::stackSize);
         ALL.put("loot", MapsTests::loot);
         ALL.put("structure_marks", MapsTests::structureMarks);
         ALL.put("host_switch", MapsTests::hostSwitch);
@@ -116,6 +119,16 @@ public final class MapsTests {
                     "map as tall as possible at " + at);
             h.assertTrue(l.tab() >= 12 && l.rightTabY(com.simplemaps.WayfinderLayout.RIGHT_TABS - 1) + l.tab() <= l.top() + l.panelH() - com.simplemaps.WayfinderLayout.FRAME,
                     "bookmarks along the panel at " + at);
+        }
+        for (int[] size : sizes) {
+            // Opened from an item frame (owner 21.10.): the code/save bar fits below the footer, the map still fills the window.
+            com.simplemaps.WayfinderLayout f = com.simplemaps.WayfinderLayout.of(size[0], size[1], true);
+            String at = size[0] + "x" + size[1];
+            h.assertTrue(f.top() >= 0 && f.top() + f.panelH() <= size[1], "frame bar inside vertically at " + at);
+            h.assertTrue(f.barY() + com.simplemaps.WayfinderLayout.BUTTON_H <= f.top() + f.panelH() - com.simplemaps.WayfinderLayout.FRAME,
+                    "buttons inside the panel at " + at);
+            h.assertTrue(size[1] - f.panelH() < com.simplemaps.WayfinderLayout.CELL + 2 * com.simplemaps.WayfinderLayout.MARGIN, "frame map as tall as possible at " + at);
+            h.assertTrue(f.mapW() >= 200, "room for code field and buttons at " + at);
         }
         h.assertTrue(com.simplemaps.WayfinderLayout.of(960, 540).cols() > com.simplemaps.WayfinderLayout.of(427, 240).cols()
                 && com.simplemaps.WayfinderLayout.of(960, 540).rows() > com.simplemaps.WayfinderLayout.of(427, 240).rows(), "grows with the window");
@@ -256,11 +269,11 @@ public final class MapsTests {
         menu.container.setItem(0, map);
         menu.container.setItem(1, new ItemStack(Items.MAP));
         ItemStack result = menu.getSlot(2).getItem();
-        h.assertTrue(MapsItems.isWayfinder(result) && result.getCount() == 2, "two copies");
+        h.assertTrue(MapsItems.isWayfinder(result) && result.getCount() == 1, "one copy (maps do not stack, owner 21.10.)");
         h.assertTrue(result.get(MapsComponents.MAP_ID).equals(map.get(MapsComponents.MAP_ID)), "same map");
         h.assertTrue(result.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY).get(2).isPresent(), "waypoints copied (Feature 1)");
         menu.getSlot(2).onTake(player, result);
-        h.assertTrue(menu.container.getItem(0).isEmpty() && menu.container.getItem(1).isEmpty(), "inputs used");
+        h.assertTrue(MapsItems.isWayfinder(menu.container.getItem(0)) && menu.container.getItem(1).isEmpty(), "original stays, empty map used");
         h.succeed();
     }
 
@@ -493,21 +506,184 @@ public final class MapsTests {
         h.succeed();
     }
 
-    private static void frameView(GameTestHelper h) {
-        ServerPlayer player = h.makeMockServerPlayerInLevel();
+    /** A frame with a bound wayfinder map two blocks in front of a fresh player. */
+    private static ItemFrame framedMap(GameTestHelper h, ServerPlayer player) {
         BlockPos pos = h.absolutePos(new BlockPos(1, 2, 1));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         player.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 2.5);
         ItemFrame frame = new ItemFrame(h.getLevel(), pos, Direction.SOUTH);
         h.getLevel().addFreshEntity(frame);
         frame.setItem(bound(h, Waypoints.EMPTY));
+        return frame;
+    }
+
+    /**
+     * Feature 4 + owner 21.10.: right-click opens the screen, nothing changes the frame until the save packet comes; the
+     * packet stores the view (with magnification) in the frame's synced data and answers the player.
+     */
+    private static void frameView(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        ItemFrame frame = framedMap(h, player);
         InteractionResult click = frame.interact(player, InteractionHand.MAIN_HAND, Vec3.ZERO);
         h.assertTrue(click.consumesAction() && frame.getRotation() == 0, "right-click opens instead of rotating (Feature 4)");
-        MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), new MapsComponents.View(500, -40, 8)), player);
-        MapsComponents.View view = frame.getItem().get(MapsComponents.VIEW);
-        h.assertTrue(view != null && view.x() == 500 && view.zoom() == 8, "view stored in the frame");
-        MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), new MapsComponents.View(1, 1, 3)), player);
-        h.assertTrue(frame.getItem().get(MapsComponents.VIEW).zoom() == 1, "invalid zoom falls back to 1:1");
-        frame.discard();
+        h.assertTrue(!frame.getItem().has(MapsComponents.VIEW), "opening alone does not change the frame");
+        var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
+        var saved = SimpleMaps.toClient;
+        try {
+            SimpleMaps.toClient = (p, payload) -> sent.add(payload);
+            frame.getEntityData().packDirty();
+            MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), new MapsComponents.View(500, -40, 8)), player);
+            MapsComponents.View view = frame.getItem().get(MapsComponents.VIEW);
+            h.assertTrue(view != null && view.x() == 500 && view.zoom() == 8 && view.mag() == 1, "view stored in the frame");
+            h.assertTrue(frame.getEntityData().isDirty(), "the change is queued for every client watching the frame");
+            h.assertTrue(sent.size() == 1 && sent.get(0) instanceof com.simplemaps.net.FrameSavedPayload answer
+                    && answer.entityId() == frame.getId() && answer.save() == MapsNetwork.FrameSave.SAVED, "answer: saved");
+            MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), com.simplemaps.FrameCode.view(1, 1, 0)), player);
+            view = frame.getItem().get(MapsComponents.VIEW);
+            h.assertTrue(view.x() == 24 && view.z() == 24 && view.zoom() == 1 && view.mag() == 8, "8:1 view of chunk 1,1 stored");
+            MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), new MapsComponents.View(1, 1, 3, 8)), player);
+            h.assertTrue(frame.getItem().get(MapsComponents.VIEW).zoom() == 1 && frame.getItem().get(MapsComponents.VIEW).mag() == 8,
+                    "invalid zoom falls back to 1:1, magnification kept");
+            MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), new MapsComponents.View(1, 1, 4, 8)), player);
+            h.assertTrue(frame.getItem().get(MapsComponents.VIEW).mag() == 1, "magnification only at 1:1 data");
+            MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId(), new MapsComponents.View(1, 1, 1, 3)), player);
+            h.assertTrue(frame.getItem().get(MapsComponents.VIEW).mag() == 1, "unknown magnification falls back to 1");
+            sent.clear();
+            MapsNetwork.handleFrameView(new FrameViewPayload(frame.getId() + 100000, new MapsComponents.View(0, 0, 1)), player);
+            h.assertTrue(sent.size() == 1 && ((com.simplemaps.net.FrameSavedPayload) sent.get(0)).save() == MapsNetwork.FrameSave.INVALID, "answer: invalid");
+        } finally {
+            SimpleMaps.toClient = saved;
+            frame.discard();
+        }
+        h.succeed();
+    }
+
+    /**
+     * Owner 21.10.: only who may change the frame saves; the server checks the request itself (distance, frame, map,
+     * coordinates) and the rights (spectator, fixed frame, adventure mode, framework Protection = claims).
+     */
+    private static void frameSaveRules(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        ItemFrame frame = framedMap(h, player);
+        MapsComponents.View view = new MapsComponents.View(64, 64, 2);
+        Object server = h.getLevel().getServer();
+        String provider = "simplemaps_test_frames";
+        try {
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId() + 100000, view) == MapsNetwork.FrameSave.INVALID, "unknown entity");
+            h.assertTrue(MapsNetwork.saveFrameView(player, player.getId(), view) == MapsNetwork.FrameSave.INVALID, "not a frame");
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), new MapsComponents.View(MapsNetwork.MAX_COORD + 1, 0, 1))
+                    == MapsNetwork.FrameSave.INVALID, "outside the world");
+            player.snapTo(frame.getX() + 9, frame.getY(), frame.getZ());
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.INVALID, "too far away");
+            player.snapTo(frame.getX(), frame.getY(), frame.getZ() + 2);
+            ItemStack map = frame.getItem().copy();
+            frame.setItem(new ItemStack(Items.MAP));
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.INVALID, "not a wayfinder map");
+            frame.setItem(map);
+            ((com.simplemaps.mixin.ItemFrameAccessor) frame).simplemaps$setFixed(true);
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.DENIED, "fixed frame");
+            ((com.simplemaps.mixin.ItemFrameAccessor) frame).simplemaps$setFixed(false);
+            player.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.DENIED, "adventure mode");
+            player.setGameMode(net.minecraft.world.level.GameType.SPECTATOR);
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.DENIED, "spectator");
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            BlockPos at = frame.blockPosition();
+            com.simplebuilding.framework.api.Protection.register(server, provider, new com.simplebuilding.framework.api.Protection.Check() {
+                @Override
+                public boolean allows(com.simplebuilding.framework.api.Protection.Target target) {
+                    return false;
+                }
+
+                @Override
+                public boolean allows(com.simplebuilding.framework.api.Protection.Target target, com.simplebuilding.framework.api.Protection.Action action) {
+                    // A claim on the frame's block that refuses the container right (claims guard frames with it).
+                    return !(action == com.simplebuilding.framework.api.Protection.Action.CONTAINER && target.x() == at.getX() && target.z() == at.getZ());
+                }
+            });
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.DENIED, "claim refuses");
+            h.assertTrue(!frame.getItem().has(MapsComponents.VIEW), "nothing stored while refused");
+            com.simplebuilding.framework.api.Protection.register(server, provider, t -> true);
+            h.assertTrue(MapsNetwork.saveFrameView(player, frame.getId(), view) == MapsNetwork.FrameSave.SAVED
+                    && view.equals(frame.getItem().get(MapsComponents.VIEW)), "claim allows: saved");
+        } finally {
+            com.simplebuilding.framework.api.Protection.unregister(server, provider);
+            frame.discard();
+        }
+        h.succeed();
+    }
+
+    /** Owner 21.10.: the view code X,Z,stage (chunk of the top-left corner; FrameCode), valid and invalid input, limits. */
+    private static void frameCode(GameTestHelper h) {
+        int oneToOne = com.simplemaps.FrameCode.NEAR;
+        var a = com.simplemaps.FrameCode.parse("1,1,8:1", oneToOne);
+        h.assertTrue(a.ok() && a.chunkX() == 1 && a.chunkZ() == 1 && com.simplemaps.FrameCode.label(a.stage()).equals("8:1")
+                && com.simplemaps.FrameCode.spanChunks(a.stage()) == 1, "1,1,8:1 = chunk 1,1, one chunk wide");
+        MapsComponents.View va = com.simplemaps.FrameCode.view(1, 1, a.stage());
+        long[] area = com.simplemaps.FrameCode.area(va);
+        h.assertTrue(area[0] == 16 && area[1] == 16 && area[2] == 16, "8:1 frame shows exactly chunk 1,1");
+        var b = com.simplemaps.FrameCode.parse("-1,-100,1:64", oneToOne);
+        h.assertTrue(b.ok() && b.chunkX() == -1 && b.chunkZ() == -100 && com.simplemaps.FrameCode.spanChunks(b.stage()) == 512, "negative chunks at 1:64");
+        MapsComponents.View vb = com.simplemaps.FrameCode.view(-1, -100, b.stage());
+        h.assertTrue(vb.zoom() == 64 && vb.mag() == 1 && vb.x() == -16 + 4096 && vb.z() == -1600 + 4096, "1:64 centre");
+        var back = com.simplemaps.FrameCode.of(vb);
+        h.assertTrue(back.chunkX() == -1 && back.chunkZ() == -100 && back.stage() == b.stage()
+                && com.simplemaps.FrameCode.format(back.chunkX(), back.chunkZ(), back.stage()).equals("-1,-100,1:64"), "round trip");
+        var c = com.simplemaps.FrameCode.parse(" 3 , -4 , 1:4 ", oneToOne);
+        h.assertTrue(c.ok() && c.chunkX() == 3 && c.chunkZ() == -4 && com.simplemaps.FrameCode.label(c.stage()).equals("1:4"), "spaces allowed");
+        var d = com.simplemaps.FrameCode.parse("5,6", 5);
+        h.assertTrue(d.ok() && d.stage() == 5, "without a stage the current one stays");
+        String[][] bad = {{"", "format"}, {"abc", "format"}, {"1,2,3", "format"}, {"1,,1:1", "format"}, {"1.5,2,1:1", "format"},
+                {"1,2,1:1,9", "format"}, {"1;2;1:1", "format"}, {"1,2,1:3", "scale"}, {"1,2,3:1", "scale"}, {"1,2,16:1", "scale"},
+                {"1,2,1:128", "scale"}, {"99999999999999999999,0,1:1", "range"}, {"1874997,0,1:1", "range"}, {"-1875005,0,1:1", "range"},
+                {"0,-1875100,1:1", "range"}};
+        for (String[] t : bad) {
+            var r = com.simplemaps.FrameCode.parse(t[0], oneToOne);
+            h.assertTrue(!r.ok() && t[1].equals(r.error()), "'" + t[0] + "' -> " + t[1] + ", got " + r.error());
+        }
+        // Limits: the picture's centre must stay inside the world border (30 000 000).
+        h.assertTrue(com.simplemaps.FrameCode.parse("1874996,0,1:1", oneToOne).ok() && com.simplemaps.FrameCode.parse("-1875004,0,1:1", oneToOne).ok(), "last chunks inside");
+        h.assertTrue(com.simplemaps.FrameCode.clampChunk(1e9, oneToOne) == 1874996 && com.simplemaps.FrameCode.clampChunk(-1e9, oneToOne) == -1875004, "clamped to the border");
+        for (int stage = 0; stage < com.simplemaps.FrameCode.STAGE_BPP.length; stage++) {
+            String label = com.simplemaps.FrameCode.label(stage);
+            var r = com.simplemaps.FrameCode.parse("7,-9," + label, oneToOne);
+            MapsComponents.View v = com.simplemaps.FrameCode.view(7, -9, stage);
+            int span = com.simplemaps.FrameCode.spanChunks(stage);
+            var east = com.simplemaps.FrameCode.of(com.simplemaps.FrameCode.view(7 + span, -9, stage));
+            long[] here = com.simplemaps.FrameCode.area(v), next = com.simplemaps.FrameCode.area(com.simplemaps.FrameCode.view(7 + span, -9, stage));
+            h.assertTrue(r.ok() && r.stage() == stage && com.simplemaps.FrameCode.of(v).equals(r), "stage " + label + " parses and round-trips");
+            h.assertTrue(east.chunkX() == 7 + span && here[0] + here[2] == next[0] && here[2] == 128L * v.zoom() / v.mag(), "stage " + label + ": neighbours touch");
+        }
+        // Stored views: old ones without magnification read as 1, new ones keep it (persistent and network codecs).
+        net.minecraft.nbt.CompoundTag old = new net.minecraft.nbt.CompoundTag();
+        old.putInt("x", 10);
+        old.putInt("z", 20);
+        old.putInt("zoom", 4);
+        MapsComponents.View legacy = MapsComponents.View.CODEC.parse(NbtOps.INSTANCE, old).getOrThrow();
+        h.assertTrue(legacy.equals(new MapsComponents.View(10, 20, 4, 1)), "old view: magnification 1");
+        MapsComponents.View magnified = com.simplemaps.FrameCode.view(2, 3, 0);
+        Tag tag = MapsComponents.View.CODEC.encodeStart(NbtOps.INSTANCE, magnified).getOrThrow();
+        h.assertTrue(MapsComponents.View.CODEC.parse(NbtOps.INSTANCE, tag).getOrThrow().equals(magnified), "codec keeps 8:1");
+        var buf = new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+        MapsComponents.View.STREAM_CODEC.encode(buf, magnified);
+        h.assertTrue(MapsComponents.View.STREAM_CODEC.decode(buf).equals(magnified), "network keeps 8:1");
+        h.succeed();
+    }
+
+    /** Owner 21.10.: wayfinder maps stack only to 1; copying at the cartography table keeps the original. */
+    private static void stackSize(GameTestHelper h) {
+        for (Item item : List.of(MapsItems.WAYFINDER_MAP, MapsItems.NETHER_WAYFINDER_MAP, MapsItems.END_WAYFINDER_MAP)) {
+            h.assertTrue(new ItemStack(item).getMaxStackSize() == 1 && item.getDefaultMaxStackSize() == 1, BuiltInRegistries.ITEM.getKey(item) + " stacks to 1");
+        }
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        CartographyTableMenu menu = table(h, player);
+        menu.container.setItem(0, bound(h, Waypoints.EMPTY));
+        menu.container.setItem(1, new ItemStack(Items.MAP, 3));
+        ItemStack first = menu.getSlot(2).getItem();
+        h.assertTrue(first.getCount() == 1, "a single copy");
+        menu.getSlot(2).onTake(player, first);
+        h.assertTrue(MapsItems.isWayfinder(menu.container.getItem(0)) && menu.container.getItem(1).getCount() == 2, "one empty map used, original stays");
+        h.assertTrue(menu.getSlot(2).getItem().getCount() == 1, "the next copy is ready");
         h.succeed();
     }
 

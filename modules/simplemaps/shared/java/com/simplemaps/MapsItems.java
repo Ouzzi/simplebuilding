@@ -23,10 +23,13 @@ public final class MapsItems {
 
     public static Item WAYFINDER_MAP, NETHER_WAYFINDER_MAP, END_WAYFINDER_MAP;
 
+    /** Owner 21.10.: a wayfinder map does not stack (each one is a single map with its own waypoints and view). */
+    public static final int STACK_SIZE = 1;
+
     public static void register() {
-        WAYFINDER_MAP = register("wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.OVERWORLD, p.rarity(Rarity.UNCOMMON)));
-        NETHER_WAYFINDER_MAP = register("nether_wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.NETHER, p.rarity(Rarity.RARE)));
-        END_WAYFINDER_MAP = register("end_wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.END, p.rarity(Rarity.EPIC)));
+        WAYFINDER_MAP = register("wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.OVERWORLD, p.rarity(Rarity.UNCOMMON).stacksTo(STACK_SIZE)));
+        NETHER_WAYFINDER_MAP = register("nether_wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.NETHER, p.rarity(Rarity.RARE).stacksTo(STACK_SIZE)));
+        END_WAYFINDER_MAP = register("end_wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.END, p.rarity(Rarity.EPIC).stacksTo(STACK_SIZE)));
     }
 
     public static List<ItemStack> tabStacks() {

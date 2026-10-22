@@ -62,6 +62,11 @@ public final class MapsClient {
         CACHE.receive(payload);
     }
 
+    /** The server's answer to saving a framed view: shown by the open map screen of that frame. */
+    public static void receive(com.simplemaps.net.FrameSavedPayload payload) {
+        if (Minecraft.getInstance().screen instanceof WayfinderScreen screen) screen.frameSaved(payload);
+    }
+
     /** Once per client tick (end of tick). */
     public static void tick(Minecraft mc) {
         if (mc.level != lastLevel) {
@@ -158,10 +163,10 @@ public final class MapsClient {
         if (ref == null) return false;
         MapsComponents.View view = stack.get(MapsComponents.VIEW);
         int x = view != null ? view.x() : frame.blockPosition().getX(), z = view != null ? view.z() : frame.blockPosition().getZ();
-        int zoom = view != null ? view.zoom() : 1;
+        int zoom = view != null ? view.zoom() : 1, mag = view != null ? view.mag() : 1;
         ViewTexture texture = FRAMES.computeIfAbsent(frame.getId(), id -> new ViewTexture("frame_" + id));
         texture.lastUsed = ticks;
-        texture.compose(CACHE, ref.id(), zoom, x, z, stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY),
+        texture.compose(CACHE, ref.id(), zoom, mag, x, z, stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY),
                 stack.getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT).contour());
         state.texture = texture.id;
         state.decorations.clear();

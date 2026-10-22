@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplemaps;
 
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.client.MapsClient;
+import com.simplemaps.net.FrameSavedPayload;
 import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.TileDataPayload;
@@ -19,6 +20,7 @@ public final class MapsFabricClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(TileDataPayload.TYPE, (payload, context) -> context.client().execute(() -> MapsClient.receive(payload)));
         ClientPlayNetworking.registerGlobalReceiver(MapStatePayload.TYPE, (payload, context) -> context.client().execute(() -> MapsClient.receive(payload)));
         ClientPlayNetworking.registerGlobalReceiver(LayerDataPayload.TYPE, (payload, context) -> context.client().execute(() -> MapsClient.receive(payload)));
+        ClientPlayNetworking.registerGlobalReceiver(FrameSavedPayload.TYPE, (payload, context) -> context.client().execute(() -> MapsClient.receive(payload)));
         ClientTickEvents.END_CLIENT_TICK.register(MapsClient::tick);
     }
 }
