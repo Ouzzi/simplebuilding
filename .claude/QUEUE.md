@@ -132,9 +132,9 @@ Reihenfolge für die Branches: TZ22-1/2/5 (Inventar + Layout + Rahmen), dann TZ2
   - Baublöcke (Astralit/Nihilit, Paints, Holz-Bauvarianten) gruppiert statt einer langen Reihe; die doppelten Holzblöcke fallen weg, weil sie schon im Holzbereich stehen.
   - Die „riesige Wand“ mit Truhen, Öfen, Trichtern und anderen Speichern kompakter.
   - Wände niedriger („weil das schon ein harter Cut ist“), schlecht gefüllte Bereiche auffüllen.
-- [ ] TZ22-6 Astral- und Nihil-Schienen richtig testen: „keine richtigen Tests …, sondern nur vorgebaut“. Funktionierende Teststrecken mit Lore und Auslöser (Schalter/Knopf), die die Besonderheiten zeigen (Tempo, Brücke, 2./3. Linie).
+- [~] (A, a-tz22c, 22.10.) TZ22-6 Astral- und Nihil-Schienen richtig testen: „keine richtigen Tests …, sondern nur vorgebaut“. Funktionierende Teststrecken mit Lore und Auslöser (Schalter/Knopf), die die Besonderheiten zeigen (Tempo, Brücke, 2./3. Linie).
 - [~] (A, a-frames22, 22.10.) TZ22-7 Druckplatten im Item-Rahmen wie in der Hand (schräg von oben, wie das Item-Modell im Inventar/in der Hand) statt flach. Gilt sinngemäß für ähnliche flache Block-Items. Client-Option zum Ausschalten („clientseitig ausstellen“). Simple Tools hat die Item-Rahmen-Features (b-itemframes) → dort oder in Simple Visuals, mit Config-Tooltip.
-- [ ] TZ22-8 Veraltete Anzeigen der In-World-Umwandlungen und Rezepte: z. B. am Eisenblock noch „Hammer + 4 → 2 Iron Poles“, obwohl die Herstellung auf den Tiegel umgestellt ist. Alle Schilder/Anzeigen der Testzentrale aus den aktuellen Rezepten bzw. InWorldTransformations erzeugen statt fest kodiert; ein Test erkennt Abweichungen.
+- [~] (A, a-tz22c, 22.10.) TZ22-8 Veraltete Anzeigen der In-World-Umwandlungen und Rezepte: z. B. am Eisenblock noch „Hammer + 4 → 2 Iron Poles“, obwohl die Herstellung auf den Tiegel umgestellt ist. Alle Schilder/Anzeigen der Testzentrale aus den aktuellen Rezepten bzw. InWorldTransformations erzeugen statt fest kodiert; ein Test erkennt Abweichungen.
 - [ ] TZ22-9 Danach: Testzentrale neu bauen und Rundgang dokumentieren (Screenshots per Server-Render nur, falls ohne Client möglich; sonst Besitzer-Abnahme).
 
 
