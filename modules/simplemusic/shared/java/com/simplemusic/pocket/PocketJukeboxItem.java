@@ -23,15 +23,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 /**
  * Pocket Jukebox (Bedrock preview 26.70.21, plan docs/ai/PLAN-B-POCKETJUKE-2026-10-21.md): a bundle for up to
@@ -43,8 +46,11 @@ import net.minecraft.world.level.Level;
  * <p>The contents live in Vanilla's {@code bundle_contents}, so the bundle item model (open while a disc is selected)
  * and the bundle tooltip grid work as they are. It is not in {@code #minecraft:bundles} on purpose: Vanilla's bundle
  * dye recipes take that tag and would turn the jukebox into a plain bundle (the price: no mouse wheel selection).
+ *
+ * <p>Shift + right click on a block puts it down as its {@link PocketJukeboxBlock} with discs and position (plan
+ * docs/ai/PLAN-B-PJUKE21-2026-10-22.md); a jukebox playing in the hand goes on playing there.
  */
-public class PocketJukeboxItem extends Item {
+public class PocketJukeboxItem extends BlockItem {
     public static final int CAPACITY = 20;
     /** Vanilla bundle bar colours. */
     private static final int BAR_COLOR = 0xFF7087FF;
@@ -53,9 +59,23 @@ public class PocketJukeboxItem extends Item {
     /** null = undyed. */
     public final DyeColor color;
 
-    public PocketJukeboxItem(Properties properties, DyeColor color) {
-        super(properties.stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public PocketJukeboxItem(Block block, Properties properties, DyeColor color) {
+        super(block, properties.stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
         this.color = color;
+    }
+
+    /** Only Shift + right click places it; otherwise PASS, so {@link #use} plays or pauses. */
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player == null || !player.isSecondaryUseActive() || !SimpleMusic.on()) return InteractionResult.PASS;
+        boolean wasPlaying = player instanceof ServerPlayer server && PocketPlayback.pauseIfActive(server, context.getItemInHand());
+        BlockPlaceContext place = new BlockPlaceContext(context);
+        InteractionResult result = super.useOn(context);
+        if (wasPlaying && result.consumesAction() && context.getLevel().getBlockEntity(place.getClickedPos()) instanceof PocketJukeboxBlockEntity be) {
+            be.start();
+        }
+        return result;
     }
 
     /** A disc the jukebox takes: anything with a Vanilla jukebox song, or a burned custom disc. */
@@ -200,6 +220,7 @@ public class PocketJukeboxItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.translatable("item.simplemusic.pocket_jukebox.use").withStyle(ChatFormatting.GRAY));
+        lines.accept(Component.translatable("item.simplemusic.pocket_jukebox.place").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(stack, context, display, lines, flag);
     }
 

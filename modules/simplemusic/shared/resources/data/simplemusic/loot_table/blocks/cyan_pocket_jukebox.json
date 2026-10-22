@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplemusic:cyan_pocket_jukebox",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "source": "block_entity"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "simplemusic:blocks/cyan_pocket_jukebox"
+}

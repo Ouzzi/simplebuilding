@@ -17,6 +17,8 @@ import com.simplemusic.net.UploadResultPayload;
 import com.simplemusic.orchestrion.OrchestrionBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxItem;
 import com.simplemusic.pocket.PocketPlayback;
+import com.simplemusic.pocket.PocketJukeboxBlockEntity;
+import com.simplemusic.pocket.PocketState;
 import com.simplemusic.press.DiscPress;
 import com.simplemusic.press.DiscPressBlockEntity;
 import com.simplemusic.registry.MusicComponents;
@@ -48,6 +50,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 
@@ -146,7 +153,9 @@ public final class MusicTests {
             for (String id : List.of("sheet_music", "orchestrion", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMusic.id(id)), "item " + id);
             }
-            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("orchestrion")) && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press")), "blocks");
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("orchestrion")) && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press"))
+                    && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("black_pocket_jukebox"))
+                    && BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimpleMusic.id("pocket_jukebox")), "blocks");
             h.assertTrue(BuiltInRegistries.MENU.containsKey(SimpleMusic.id("disc_press")), "press menu");
             h.assertTrue(BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleMusic.id("sheet"))
                     && BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleMusic.id("track"))
@@ -540,6 +549,149 @@ public final class MusicTests {
             });
         });
         MAX_TICKS.put("pocket_stops", 40);
+        ALL.put("pocket_place_break", h -> {
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            player.getAbilities().instabuild = false;
+            int red = net.minecraft.world.item.DyeColor.RED.getId() + 1;
+            net.minecraft.world.item.Item item = MusicRegistry.POCKET_JUKEBOXES.get(red);
+            net.minecraft.world.level.block.Block block = MusicRegistry.POCKET_JUKEBOX_BLOCKS.get(red);
+            h.assertTrue(MusicRegistry.POCKET_JUKEBOX_BLOCKS.size() == 17 && block.asItem() == item
+                    && item instanceof net.minecraft.world.item.BlockItem b && b.getBlock() == block, "every colour places its own block");
+            ItemStack stack = new ItemStack(item);
+            PocketJukeboxItem.insert(stack, new ItemStack(Items.MUSIC_DISC_13));
+            PocketJukeboxItem.insert(stack, new ItemStack(Items.MUSIC_DISC_CAT));
+            stack.set(MusicComponents.POCKET, new PocketState(7L, 1, 40));
+            BlockPos floor = new BlockPos(2, 1, 2);
+            h.setBlock(floor, Blocks.STONE);
+            BlockPos abs = h.absolutePos(floor);
+            player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false);
+            h.assertTrue(!stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit)).consumesAction()
+                    && h.getBlockState(floor.above()).isAir(), "without sneaking it does not place (use plays)");
+            player.setShiftKeyDown(true);
+            h.assertTrue(stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit)).consumesAction(), "sneak + use places");
+            player.setShiftKeyDown(false);
+            h.assertTrue(h.getBlockState(floor.above()).is(block) && player.getMainHandItem().isEmpty(), "placed: " + h.getBlockState(floor.above()));
+            PocketJukeboxBlockEntity be = h.getBlockEntity(floor.above(), PocketJukeboxBlockEntity.class);
+            h.assertTrue(be.contents().size() == 2 && be.state().fromEnd() == 1 && be.state().ticks() == 40 && !be.playing(),
+                    "discs and position went into the block: " + be.state());
+            BlockPos placed = h.absolutePos(floor.above());
+            h.getLevel().destroyBlock(placed, true, player);
+            List<ItemEntity> drops = h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(placed).inflate(1.5));
+            ItemStack back = drops.stream().map(ItemEntity::getItem).filter(s -> s.is(item)).findFirst().orElse(ItemStack.EMPTY);
+            h.assertTrue(PocketJukeboxItem.contents(back).size() == 2 && PocketPlayback.state(back).fromEnd() == 1
+                    && PocketPlayback.state(back).ticks() == 40, "broken: the item comes back with discs and position: " + back);
+            h.assertTrue(drops.size() == 1, "the discs stay inside: " + drops);
+            drops.forEach(ItemEntity::discard);
+            // creative breaking drops a jukebox with discs like a shulker box
+            BlockPos second = new BlockPos(5, 1, 5);
+            h.setBlock(second, block.defaultBlockState());
+            h.getBlockEntity(second, PocketJukeboxBlockEntity.class).applyComponentsFromItemStack(back);
+            player.getAbilities().instabuild = true;
+            block.playerWillDestroy(h.getLevel(), h.absolutePos(second), h.getBlockState(second), player);
+            player.getAbilities().instabuild = false;
+            h.setBlock(second, Blocks.AIR);
+            List<ItemEntity> creative = h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(second)).inflate(1.5));
+            h.assertTrue(creative.size() == 1 && PocketJukeboxItem.contents(creative.get(0).getItem()).size() == 2, "creative: drops with its discs");
+            creative.forEach(ItemEntity::discard);
+            h.succeed();
+        });
+        ALL.put("pocket_place_while_playing", h -> {
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            player.getAbilities().instabuild = false;
+            List<CustomPacketPayload> sent = capture(player);
+            BlockPos floor = new BlockPos(3, 1, 3);
+            h.setBlock(floor, Blocks.STONE);
+            BlockPos abs = h.absolutePos(floor);
+            player.setPos(abs.getX() + 0.5, abs.getY() + 1, abs.getZ() + 2.5);
+            ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(0));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_13));
+            player.setItemInHand(InteractionHand.MAIN_HAND, jukebox);
+            h.assertTrue(jukebox.use(h.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction() && PocketPlayback.playing(player) == 0, "plays in the hand");
+            h.runAfterDelay(6, () -> {
+                ItemStack held = player.getMainHandItem();
+                player.setShiftKeyDown(true);
+                BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false);
+                h.assertTrue(held.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit)).consumesAction(), "placed");
+                player.setShiftKeyDown(false);
+                PocketJukeboxBlockEntity be = h.getBlockEntity(floor.above(), PocketJukeboxBlockEntity.class);
+                BlockPos at = h.absolutePos(floor.above());
+                h.assertTrue(PocketPlayback.playing(player) == -1 && be.playing() && DiscPlayback.playing(h.getLevel(), at), "goes on playing on the block");
+                h.assertTrue(DiscPlayback.elapsed(h.getLevel(), at) >= 5, "at the same position: " + DiscPlayback.elapsed(h.getLevel(), at));
+                h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.carried() && t.isStop()), "the hand sound stops");
+                h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.isSong() && t.pos().equals(at)
+                        && t.offsetTicks() >= 5), "positional play mid-song to the player nearby: " + sent);
+                h.setBlock(floor.above(), Blocks.AIR);
+                h.assertTrue(!DiscPlayback.playing(h.getLevel(), at), "gone: stops");
+                h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(at).inflate(1.5)).forEach(ItemEntity::discard);
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("pocket_place_while_playing", 40);
+        ALL.put("pocket_block_play", h -> {
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            player.getAbilities().instabuild = false;
+            List<CustomPacketPayload> sent = capture(player);
+            BlockPos pos = new BlockPos(3, 1, 3);
+            h.setBlock(pos, MusicRegistry.POCKET_JUKEBOX_BLOCKS.get(0).defaultBlockState());
+            BlockPos abs = h.absolutePos(pos);
+            player.setPos(abs.getX() + 0.5, abs.getY(), abs.getZ() + 2.5);
+            PocketJukeboxBlockEntity be = h.getBlockEntity(pos, PocketJukeboxBlockEntity.class);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+            var level = h.getLevel();
+            h.assertTrue(!h.getBlockState(pos).useWithoutItem(level, player, hit).consumesAction() && !be.playing(), "empty: nothing to play");
+            ItemStack thirteen = new ItemStack(Items.MUSIC_DISC_13);
+            player.setItemInHand(InteractionHand.MAIN_HAND, thirteen);
+            h.assertTrue(h.getBlockState(pos).useItemOn(thirteen, level, player, InteractionHand.MAIN_HAND, hit).consumesAction() && thirteen.isEmpty(), "disc goes in");
+            h.assertTrue(be.playing() && DiscPlayback.playing(level, abs), "putting a disc in starts it");
+            h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.isSong() && t.pos().equals(abs)
+                    && t.sha256().equals("minecraft:music_disc.13")), "positional play: " + sent);
+            int value13 = net.minecraft.world.item.JukeboxSong.fromStack(new ItemStack(Items.MUSIC_DISC_13)).orElseThrow().value().comparatorOutput();
+            h.assertTrue(h.getBlockState(pos).getSignal(level, abs, Direction.NORTH) == 15
+                    && h.getBlockState(pos).getAnalogOutputSignal(level, abs, Direction.NORTH) == value13, "redstone 15, comparator = the disc's value");
+            ItemStack cat = new ItemStack(Items.MUSIC_DISC_CAT);
+            h.getBlockState(pos).useItemOn(cat, level, player, InteractionHand.MAIN_HAND, hit);
+            h.assertTrue(be.contents().size() == 2 && be.state().fromEnd() == 0 && be.playing(), "a second disc waits its turn");
+            h.assertTrue(!h.getBlockState(pos).useItemOn(new ItemStack(Items.DIRT), level, player, InteractionHand.MAIN_HAND, hit).consumesAction()
+                    && be.contents().size() == 2, "no dirt");
+            int[] paused = {0};
+            h.runAfterDelay(10, () -> {
+                player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                h.getBlockState(pos).useWithoutItem(level, player, hit);
+                paused[0] = be.state().ticks();
+                h.assertTrue(!be.playing() && !DiscPlayback.playing(level, abs) && paused[0] >= 8, "paused at " + paused[0]);
+                h.assertTrue(h.getBlockState(pos).getSignal(level, abs, Direction.NORTH) == 0, "no signal while paused");
+                h.assertTrue(sent.get(sent.size() - 1) instanceof TrackPlayPayload t && !t.carried() && t.isStop() && t.pos().equals(abs), "stop sent");
+                h.getBlockState(pos).useWithoutItem(level, player, hit);
+                h.assertTrue(be.playing() && sent.get(sent.size() - 1) instanceof TrackPlayPayload t && t.offsetTicks() == paused[0], "goes on where it paused");
+                int length = net.minecraft.world.item.JukeboxSong.fromStack(new ItemStack(Items.MUSIC_DISC_13)).orElseThrow().value().lengthInTicks();
+                be.restartAt(0, length - 2);
+            });
+            h.runAfterDelay(16, () -> {
+                h.assertTrue(be.playing() && be.state().fromEnd() == 1, "next disc: " + be.state());
+                int length = net.minecraft.world.item.JukeboxSong.fromStack(new ItemStack(Items.MUSIC_DISC_CAT)).orElseThrow().value().lengthInTicks();
+                be.restartAt(1, length - 2);
+            });
+            h.runAfterDelay(22, () -> {
+                h.assertTrue(be.playing() && be.state().fromEnd() == 0, "after the last the first again: " + be.state());
+                player.setShiftKeyDown(true);
+                h.assertTrue(h.getBlockState(pos).useWithoutItem(level, player, hit).consumesAction()
+                        && be.contents().size() == 1 && be.playing(), "sneak: the newest disc (not playing) comes out, music goes on");
+                h.getBlockState(pos).useWithoutItem(level, player, hit);
+                player.setShiftKeyDown(false);
+                h.assertTrue(be.isEmpty() && !be.playing() && !DiscPlayback.playing(level, abs), "the playing disc out: stops");
+                List<ItemEntity> out = level.getEntitiesOfClass(ItemEntity.class, new AABB(abs).inflate(1.5));
+                h.assertTrue(out.size() == 2 && out.stream().anyMatch(e -> e.getItem().is(Items.MUSIC_DISC_CAT))
+                        && out.stream().anyMatch(e -> e.getItem().is(Items.MUSIC_DISC_13)), "both thrown out: " + out);
+                out.forEach(ItemEntity::discard);
+                h.setBlock(pos, Blocks.AIR);
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("pocket_block_play", 60);
         ALL.put("press_sheet_stays", h -> {
             BlockPos pos = new BlockPos(2, 1, 2);
             h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "simplemusic:block/white_pocket_jukebox"
+    },
+    "facing=east": {
+      "model": "simplemusic:block/white_pocket_jukebox",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "simplemusic:block/white_pocket_jukebox",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplemusic:block/white_pocket_jukebox",
+      "y": 270
+    }
+  }
+}

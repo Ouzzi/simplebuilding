@@ -33,7 +33,7 @@
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "simplemusic:item/yellow_pocket_jukebox"
+      "model": "simplemusic:block/yellow_pocket_jukebox"
     }
   }
 }
