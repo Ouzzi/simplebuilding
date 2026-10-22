@@ -396,7 +396,7 @@ public final class WayfinderScreen extends Screen {
                 int seconds = Math.max(1, (CONFIRM_TICKS - saveTicks + 19) / 20);
                 saveButton.setMessage(Component.translatable("screen.simplemaps.frame.confirm", seconds));
                 saveButton.active = saveTicks >= ARM_TICKS;
-                saveTip("screen.simplemaps.frame.confirm.tooltip");
+                saveTip("screen.simplemaps.frame.confirm.help");
             }
             case WAITING -> {
                 saveButton.setMessage(Component.translatable("screen.simplemaps.frame.saving"));
@@ -405,7 +405,7 @@ public final class WayfinderScreen extends Screen {
             default -> {
                 saveButton.setMessage(Component.translatable("screen.simplemaps.frame.save"));
                 saveButton.active = !same || !codeBox.getValue().equals(shownCode);
-                saveTip(same ? "screen.simplemaps.frame.save.same" : "screen.simplemaps.frame.save.tooltip");
+                saveTip(same ? "screen.simplemaps.frame.save.same" : "screen.simplemaps.frame.save.help");
             }
         }
         cancelButton.visible = saveStep == SaveStep.CONFIRM;
@@ -493,7 +493,7 @@ public final class WayfinderScreen extends Screen {
         if (codeBox.isMouseOver(mouseX, mouseY) && !menu.isOpen()) {
             int span = FrameCode.spanChunks(zoomIndex);
             FrameCode.Result code = FrameCode.of(newView());
-            Component help = Component.translatable("screen.simplemaps.frame.code.tooltip", span, span,
+            Component help = Component.translatable("screen.simplemaps.frame.code.help", span, span,
                     FrameCode.format(code.chunkX() + span, code.chunkZ(), code.stage()), FrameCode.format(code.chunkX(), code.chunkZ() + span, code.stage()));
             g.setTooltipForNextFrame(font, font.split(help, 220), mouseX, mouseY);
         }
