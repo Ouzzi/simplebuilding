@@ -45,13 +45,20 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
 
     private static List<Cost> diamonds(int count) { return List.of(new Cost("minecraft:diamond", count)); }
     /**
-     * Land a player may hold, from the stored budget (null = never bought: the start size). Never below what they already
-     * hold (nobody loses land); without expansion it is the hard limit {@code maxClaimsPerPlayer}; never above that limit.
+     * Paid land of a player (chunk credits = this minus the chunks held), from the stored budget (null = never bought: the
+     * start size). Independent of what is held, so unclaiming gives the chunk back as a credit (SP22-8); old land above the
+     * start size is written into the budget once ({@code Claims} credit migration). Without expansion it is the hard limit
+     * {@code maxClaimsPerPlayer}; never above that limit.
      */
-    public int budgetOf(Integer stored, int held) {
+    public int budgetOf(Integer stored) {
         if (!expansionEnabled) return maxClaimsPerPlayer;
-        return Math.min(maxClaimsPerPlayer, Math.max(Math.max(stored == null ? startChunks : stored, startChunks), held));
+        return Math.min(maxClaimsPerPlayer, Math.max(stored == null ? startChunks : stored, startChunks));
     }
+    /** {@code "*"} in {@link #dimensions} allows claims in every dimension (SP22-8); otherwise only the listed ones. */
+    public static final String ALL_DIMENSIONS = "*";
+    /** The default list before 2026-10-23; a config that still holds exactly this list becomes {@code ["*"]} once. */
+    public static final List<String> LEGACY_DIMENSIONS = List.of("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end");
+    public boolean allowsDimension(String id) { return dimensions.contains(ALL_DIMENSIONS) || dimensions.contains(id); }
     /** The next step above {@code budget} that the hard limit still allows, or null. */
     public Tier nextTier(int budget) {
         for (var t : expansionTiers) if (t.chunks() > budget) return t.chunks() <= maxClaimsPerPlayer ? t : null;
@@ -59,12 +66,12 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
     }
     public com.simplebuilding.modules.simpletweaks.table.TableVisibility visibility() { return com.simplebuilding.modules.simpletweaks.table.TableVisibility.parse(claimVisibility); }
     /** Written into the file; files without it (or lower) were written by the old "default off" build. */
-    public static final int CONFIG_VERSION = 2;
+    public static final int CONFIG_VERSION = 3;
     public static final int MAX_CLAIMS = 256, MAX_TRUSTED = 64, MAX_GLOBAL = 10000;
     public static final int MAX_COOLDOWN = 72000, MAX_SPAWN_BUFFER = 256, MAX_DIMENSIONS = 32;
     /** On by default since 2026-10-13 (owner release). An existing file with "enabled": false stays off. */
     public static final ClaimConfig DEFAULT = new ClaimConfig(true, 64, 8, 4096, 100, false, 16,
-            List.of("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"), "all", 4, true, DEFAULT_TIERS);
+            List.of(ALL_DIMENSIONS), "all", 4, true, DEFAULT_TIERS);
     /** The defaults with the main switch off (server administrators' opt-out, disabled-path tests). */
     public static final ClaimConfig OFF = new ClaimConfig(false, DEFAULT.maxClaimsPerPlayer, DEFAULT.maxTrustedPlayers,
             DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions, DEFAULT.claimVisibility, DEFAULT.startChunks, DEFAULT.expansionEnabled, DEFAULT.expansionTiers);
@@ -75,7 +82,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         cooldownTicks = Math.clamp(cooldownTicks, 20, MAX_COOLDOWN);
         spawnBuffer = Math.clamp(spawnBuffer, 0, MAX_SPAWN_BUFFER);
         if (dimensions == null || dimensions.size() > MAX_DIMENSIONS
-                || dimensions.stream().anyMatch(x -> !validDimension(x)))
+                || dimensions.stream().anyMatch(x -> !ALL_DIMENSIONS.equals(x) && !validDimension(x)))
             throw new IllegalArgumentException("Invalid claim dimension allowlist");
         dimensions = List.copyOf(new LinkedHashSet<>(dimensions));
         if (com.simplebuilding.modules.simpletweaks.table.TableVisibility.parse(claimVisibility) == null) throw new IllegalArgumentException("claimVisibility");
@@ -102,7 +109,8 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             if (Files.isSymbolicLink(path) || Files.size(path) > 16384) throw new IOException("Unsafe claim config");
             var json = JsonParser.parseString(Files.readString(path)).getAsJsonObject();
             var d = DEFAULT;
-            if (versionOf(json) < CONFIG_VERSION) migrate(path, json);
+            int version = versionOf(json);
+            if (version < CONFIG_VERSION) migrate(path, json, version);
             return new ClaimConfig(bool(json,"enabled",d.enabled), integer(json,"maxClaimsPerPlayer",d.maxClaimsPerPlayer),
                     integer(json,"maxTrustedPlayers",d.maxTrustedPlayers), integer(json,"globalCap",d.globalCap),
                     integer(json,"cooldownTicks",d.cooldownTicks), bool(json,"opBypass",d.opBypass),
@@ -129,11 +137,21 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
     private static int versionOf(JsonObject j) {
         return j.has("configVersion") && j.get("configVersion").isJsonPrimitive() ? j.get("configVersion").getAsInt() : 1;
     }
-    /** One-time: the old build wrote "enabled": false on first start; that value was never a choice, so it turns on once. */
-    private static void migrate(Path path, JsonObject json) {
-        boolean wasOff = json.has("enabled") && json.get("enabled").isJsonPrimitive()
+    /**
+     * One-time steps: version 1 wrote "enabled": false on first start; that value was never a choice, so it turns on once.
+     * Below version 3 the default dimension list (Overworld, Nether, End) was written; exactly that list becomes
+     * {@code ["*"]} (all dimensions, SP22-8), any other list is an administrator's choice and stays.
+     */
+    private static void migrate(Path path, JsonObject json, int version) {
+        boolean wasOff = version < 2 && json.has("enabled") && json.get("enabled").isJsonPrimitive()
                 && json.getAsJsonPrimitive("enabled").isBoolean() && !json.get("enabled").getAsBoolean();
         if (wasOff) json.addProperty("enabled", true);
+        if (json.has("dimensions") && json.get("dimensions").isJsonArray()) {
+            var old = json.getAsJsonArray("dimensions").asList().stream().map(e -> e.isJsonPrimitive() ? e.getAsString() : "").toList();
+            if (old.size() == LEGACY_DIMENSIONS.size() && Set.copyOf(old).equals(Set.copyOf(LEGACY_DIMENSIONS))) {
+                var all = new JsonArray(); all.add(ALL_DIMENSIONS); json.add("dimensions", all);
+            }
+        }
         json.addProperty("configVersion", CONFIG_VERSION);
         try {
             ClaimStore.atomicWrite(path, new GsonBuilder().setPrettyPrinting().create().toJson(json));
