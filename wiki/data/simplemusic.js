@@ -2441,7 +2441,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:black_pocket_jukebox",
       "name": {
-        "en_us": "Black Pocket Jukebox"
+        "en_us": "Black Pocket Jukebox",
+        "de_de": "Schwarze Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2464,7 +2465,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:blue_pocket_jukebox",
       "name": {
-        "en_us": "Blue Pocket Jukebox"
+        "en_us": "Blue Pocket Jukebox",
+        "de_de": "Blaue Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2487,7 +2489,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:brown_pocket_jukebox",
       "name": {
-        "en_us": "Brown Pocket Jukebox"
+        "en_us": "Brown Pocket Jukebox",
+        "de_de": "Braune Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2510,7 +2513,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:cyan_pocket_jukebox",
       "name": {
-        "en_us": "Cyan Pocket Jukebox"
+        "en_us": "Cyan Pocket Jukebox",
+        "de_de": "Türkise Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2562,7 +2566,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:gray_pocket_jukebox",
       "name": {
-        "en_us": "Gray Pocket Jukebox"
+        "en_us": "Gray Pocket Jukebox",
+        "de_de": "Graue Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2585,7 +2590,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:green_pocket_jukebox",
       "name": {
-        "en_us": "Green Pocket Jukebox"
+        "en_us": "Green Pocket Jukebox",
+        "de_de": "Grüne Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2608,7 +2614,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:light_blue_pocket_jukebox",
       "name": {
-        "en_us": "Light Blue Pocket Jukebox"
+        "en_us": "Light Blue Pocket Jukebox",
+        "de_de": "Hellblaue Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2631,7 +2638,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:light_gray_pocket_jukebox",
       "name": {
-        "en_us": "Light Gray Pocket Jukebox"
+        "en_us": "Light Gray Pocket Jukebox",
+        "de_de": "Hellgraue Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2654,7 +2662,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:lime_pocket_jukebox",
       "name": {
-        "en_us": "Lime Pocket Jukebox"
+        "en_us": "Lime Pocket Jukebox",
+        "de_de": "Hellgrüne Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2677,7 +2686,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:magenta_pocket_jukebox",
       "name": {
-        "en_us": "Magenta Pocket Jukebox"
+        "en_us": "Magenta Pocket Jukebox",
+        "de_de": "Magenta Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2700,7 +2710,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:orange_pocket_jukebox",
       "name": {
-        "en_us": "Orange Pocket Jukebox"
+        "en_us": "Orange Pocket Jukebox",
+        "de_de": "Orange Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2752,7 +2763,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:pink_pocket_jukebox",
       "name": {
-        "en_us": "Pink Pocket Jukebox"
+        "en_us": "Pink Pocket Jukebox",
+        "de_de": "Rosa Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2775,7 +2787,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:pocket_jukebox",
       "name": {
-        "en_us": "Pocket Jukebox"
+        "en_us": "Pocket Jukebox",
+        "de_de": "Taschen-Jukebox"
       },
       "note": {
         "en": {
@@ -2809,7 +2822,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:purple_pocket_jukebox",
       "name": {
-        "en_us": "Purple Pocket Jukebox"
+        "en_us": "Purple Pocket Jukebox",
+        "de_de": "Violette Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2832,7 +2846,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:red_pocket_jukebox",
       "name": {
-        "en_us": "Red Pocket Jukebox"
+        "en_us": "Red Pocket Jukebox",
+        "de_de": "Rote Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2855,7 +2870,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:white_pocket_jukebox",
       "name": {
-        "en_us": "White Pocket Jukebox"
+        "en_us": "White Pocket Jukebox",
+        "de_de": "Weiße Taschen-Jukebox"
       },
       "note": {
         "sources": [
@@ -2878,7 +2894,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     {
       "id": "simplemusic:yellow_pocket_jukebox",
       "name": {
-        "en_us": "Yellow Pocket Jukebox"
+        "en_us": "Yellow Pocket Jukebox",
+        "de_de": "Gelbe Taschen-Jukebox"
       },
       "note": {
         "sources": [
