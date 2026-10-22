@@ -328,4 +328,10 @@ public final class McVersion {
     public static net.minecraft.world.item.Item.Properties cookingFuel(net.minecraft.world.item.Item.Properties properties, int ticks) {
         return properties;
     }
+
+    /** Strukturvorlagen des Servers (Testzentrale TZ22-3); 26.2 heisst der Zugriff noch getStructureManager. */
+    public static net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager structureTemplates(
+            net.minecraft.server.level.ServerLevel level) {
+        return level.getStructureManager();
+    }
 }

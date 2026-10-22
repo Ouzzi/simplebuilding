@@ -54,6 +54,8 @@ public final class CrucibleCompat {
 
     public static boolean upgradesInPlace(Block block) { return false; }
 
+    public static boolean canBuildStrike(BlockState state, net.minecraft.world.item.ItemStack offhand) { return false; }
+
     public static void upgradeInPlace(ServerLevel level, BlockPos pos, Block to) {}
 
     public static boolean stagedUpgrade(Block block) { return false; }

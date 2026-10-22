@@ -99,8 +99,8 @@ public final class FeatureStations {
         x += 2;
         c.place(x, 0, floorZ, TestCentreSections.facing(Blocks.BLAST_FURNACE.defaultBlockState(), Direction.NORTH));
         c.contents(x, 0, floorZ, List.of(new ItemStack(ModItems.CRACKED_DIAMOND, 64), new ItemStack(Items.COAL, 64)));
-        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("states.blasting", "Blast furnace")), TcText.t("states.blasting.sub", "cracked diamond"),
-                TcText.t("states.blasting.sub2", "-> diamond"));
+        // TZ22-8: der Weg steht als Rezept fest, der Test prueft ihn gegen die Hochofen-Rezepte des Servers.
+        c.waySign(x, 1, wallZ, TcWays.blasting(ModItems.CRACKED_DIAMOND, Items.DIAMOND), TcText.t("states.blasting", "Blast furnace"));
         x += 2;
 
         // Ruestung: abgenutzter neben neuem Enderit-Satz.
@@ -628,15 +628,17 @@ public final class FeatureStations {
                 TcText.t("music.jukebox.sub", "amp plays along"), TcText.t("music.jukebox.sub2", "up to 63 blocks"));
         c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("music.note", "Note Amplifier")),
                 TcText.t("music.note.sub", "left: louder note block"), TcText.t("music.note.sub2", "right: vanilla"));
-        c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("music.flip", "B-Side")),
-                TcText.t("music.flip.sub", "placed disc + hammer"), TcText.t("music.flip.sub2", "right-click: flip"));
+        TcWays.Way flip = TcWays.flip(ModItems.MUSIC_DISC_VOIDLINE, List.of(com.simplebuilding.util.HammerRefs.item("iron")));
+        if (flip != null) {
+            c.waySign(4, 1, wallZ, flip, TcText.t("music.flip", "B-Side"));
+        }
         c.backWall(0, 10, wallZ, 5);
         return c;
     }
 
     /**
      * Crucible station (P6, McVersion.CRUCIBLE): an Enderite crucible on a reinforced cauldron with soul lava (extreme
-     * heat), an unattached Enderite barrel beside it (hammer it 6 times), an iron block to build a crucible on, a quartz
+     * heat), an unattached Enderite barrel beside it (hammer it 6 times), an empty cauldron to build the iron crucible on (TZ22-8), a quartz
      * block to crush and a cauldron to reinforce; the chest holds the parts and every bucket.
      */
     public static TcCanvas crucible(TcContext ctx) {
@@ -646,17 +648,25 @@ public final class FeatureStations {
         }
         int z = 2;
         int wallZ = 5;
+        // TZ22-8 (Besitzer 22.10.): die Wege dieser Station kommen aus den Daten - Tiegelbau ueber die Tiegel-API und die
+        // Material-Tags (frueher fest "hammer + 4 plates, then 2 iron poles" an einem Eisenblock), Quarz zerschlagen und
+        // Kessel aufwerten aus InWorldTransformations bzw. der Aufwertungs-Engine.
+        List<Item> hammers = List.of(com.simplebuilding.util.HammerRefs.item("netherite"));
+        TcWays.Way build = TcWays.crucibleBuild(hammers);
+        TcWays.Way quartz = TcWays.crush(Items.QUARTZ_BLOCK, hammers);
+        TcWays.Way cauldron = TcWays.upgrade(Blocks.CAULDRON, hammers);
         c.place(2, 0, z, com.simplebuilding.crucible.CrucibleCompat.reinforcedCauldron("extreme"));
         c.place(2, 1, z, com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
         c.place(3, 1, z, com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
-        c.place(5, 0, z, Blocks.IRON_BLOCK);
+        c.place(5, 0, z, Blocks.CAULDRON);
         c.place(7, 0, z, Blocks.QUARTZ_BLOCK);
         c.place(9, 0, z, Blocks.CAULDRON);
         c.place(1, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
         List<ItemStack> chest = new ArrayList<>();
         chest.add(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")));
-        chest.add(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
-        if (ModItems.IRON_POLE != null) chest.add(new ItemStack(ModItems.IRON_POLE, 2));
+        if (build != null) {
+            build.inputs().forEach(input -> chest.add(input.copy()));
+        }
         chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 16));
         chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
@@ -676,10 +686,15 @@ public final class FeatureStations {
         c.title(0, 3, wallZ, TcText.t("section.crucible", "Crucibles"), TcText.t("section.crucible.sub", "soul lava, buckets, hammer"));
         c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("crucible.extreme", "Extreme heat")),
                 TcText.t("crucible.extreme.sub", "soul lava in a"), TcText.t("crucible.extreme.sub2", "reinforced cauldron"));
-        c.wallSign(5, 2, wallZ, TcText.bold(TcText.t("crucible.build", "Build")),
-                TcText.t("crucible.build.sub", "hammer + 4 plates,"), TcText.t("crucible.build.sub2", "then 2 iron poles"));
-        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("crucible.hammer", "Hammer")),
-                TcText.t("crucible.hammer.sub", "quartz: 4 quartz"), TcText.t("crucible.hammer.sub2", "cauldron: 8 cracked"));
+        if (build != null) {
+            c.waySign(5, 2, wallZ, build, TcText.t("crucible.build", "Build"));
+        }
+        if (quartz != null) {
+            c.waySign(7, 2, wallZ, quartz, TcText.t("crucible.hammer", "Hammer"));
+        }
+        if (cauldron != null) {
+            c.waySign(9, 2, wallZ, cauldron, TcText.t("crucible.hammer", "Hammer"));
+        }
         c.backWall(0, 10, wallZ, 5);
         return c;
     }
@@ -756,8 +771,10 @@ public final class FeatureStations {
                 new ItemStack(Items.EXPERIENCE_BOTTLE, 64)));
         c.title(0, 3, wallZ, TcText.t("section.astral", "Enchanter"),
                 TcText.t("machines.astral_enchanting", "sliders; 15 blazewood shelves = 50"));
-        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("astral.hammer", "Hammer it")),
-                TcText.t("astral.hammer.sub", "netherite hammer,"), TcText.t("astral.hammer.sub2", "enderite nugget, 20x"));
+        TcWays.Way table = TcWays.upgrade(Blocks.ENCHANTING_TABLE, ctx.rowItems("sledgehammers"));
+        if (table != null) {
+            c.waySign(8, 2, wallZ, table, TcText.t("astral.hammer", "Hammer it"));
+        }
         c.backWall(0, 10, wallZ, 5);
         return c;
     }

@@ -676,8 +676,11 @@ public final class CrucibleTests {
             long copies = ((com.simplecrucibles.mixin.TemplatePoolAccessor) pool).simplecrucibles$templates().stream()
                     .filter(e -> e.toString().contains("simplecrucibles:village/" + type + "/field_kitchen")).count();
             check(h, copies == CrucibleConfig.villageKitchenWeight, type + ": kitchen added once with weight " + CrucibleConfig.villageKitchenWeight + ", found " + copies);
-            check(h, h.getLevel().getStructureTemplateManager().get(com.simplecrucibles.SimpleCrucibles.id("village/" + type + "/field_kitchen")).isPresent(),
-                    type + ": structure file loads");
+            var template = h.getLevel().getStructureTemplateManager().get(com.simplecrucibles.SimpleCrucibles.id("village/" + type + "/field_kitchen"));
+            check(h, template.isPresent(), type + ": structure file loads");
+            // The kitchen really holds its crucible (old "Name" palette keys loaded as air in 26.3, found by TZ22-3).
+            check(h, !template.get().filterBlocks(BlockPos.ZERO, new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(),
+                    CrucibleBlocks.IRON_CRUCIBLE).isEmpty(), type + ": kitchen template holds no iron crucible");
         }
         h.succeed();
     }

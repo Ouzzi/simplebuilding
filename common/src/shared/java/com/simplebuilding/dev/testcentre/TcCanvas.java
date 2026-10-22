@@ -144,6 +144,13 @@ public final class TcCanvas {
         add(new TcOp.Sign(new BlockPos(x, y, z), facing, List.of(Arrays.copyOf(lines, Math.min(4, lines.length)))));
     }
 
+    /** Strukturvorlage {@code template} (TZ22-3) mit der unteren Nordwest-Ecke bei x/y/z; der Abschnitt waechst um ihre Groesse. */
+    public void structure(int x, int y, int z, net.minecraft.resources.Identifier template, net.minecraft.core.Vec3i size, int frames) {
+        TcOp.Structure op = new TcOp.Structure(new BlockPos(x, y, z), template, size, frames);
+        add(op);
+        grow(op.far());
+    }
+
     /** Ruestungsstaender; {@code gear}: Kopf, Brust, Beine, Fuesse, Haupthand, Nebenhand. */
     public void stand(int x, int y, int z, float yaw, List<ItemStack> gear, Component name) {
         List<ItemStack> copy = new ArrayList<>();
@@ -226,6 +233,20 @@ public final class TcCanvas {
     public void wallSign(int x, int y, int wallZ, Component... lines) {
         place(x, y, wallZ, WALL);
         sign(x, y, wallZ - 1, Direction.NORTH, lines);
+    }
+
+    /**
+     * Wandschild zu einem Weg (TZ22-8): die Zeilen kommen aus dem Weg ({@link TcWays.Way#lines}), {@code title} steht
+     * fett darueber, solange Platz ist (null: ohne Titel).
+     */
+    public void waySign(int x, int y, int wallZ, TcWays.Way way, @org.jetbrains.annotations.Nullable Component title) {
+        waySign(x, y, wallZ, way, way.lines(title));
+    }
+
+    /** Wandschild zu einem Weg mit eigenen (aus dem Weg erzeugten) Zeilen, etwa nur dem Ergebnis. */
+    public void waySign(int x, int y, int wallZ, TcWays.Way way, List<Component> lines) {
+        place(x, y, wallZ, WALL);
+        add(new TcOp.Sign(new BlockPos(x, y, wallZ - 1), Direction.NORTH, List.copyOf(lines.subList(0, Math.min(4, lines.size()))), way));
     }
 
     /**

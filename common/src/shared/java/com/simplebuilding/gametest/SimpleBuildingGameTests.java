@@ -148,7 +148,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_no_frame_holds_what_could_stand_as_block", TestCentreTests::noFrameHoldsWhatCouldStandAsBlock)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_partial_builds_only_contain_the_chosen_areas", TestCentreTests::partialBuildsOnlyContainTheChosenAreas)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_the_layout_is_compact_with_low_walls", TestCentreTests::theLayoutIsCompactWithLowWalls)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_end_rail_tracks_run_their_carts", TestCentreTests::endRailTracksRunTheirCarts)
+                    .maxTicks(TestCentreTests.RAIL_RUN_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_every_transformation_sign_shows_an_existing_way", TestCentreTests::everyTransformationSignShowsAnExistingWay)
                     .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),

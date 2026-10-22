@@ -44,8 +44,8 @@ public final class TestCentreLayout {
 
     /**
      * Bezirke (TZ22-5, Besitzer 22.10.: "kompakt und uebersichtlich wie beim Holzbereich"): jede Themengruppe beginnt eine
-     * eigene Reihe, eine Reihe ist hoechstens {@link #MAX_ROW_WIDTH} breit. Die Reihenfolge ist die in der Welt. Ein spaeterer
-     * Bezirk "Strukturen" (TZ22-3) kommt als eigener Eintrag vor den Katalog.
+     * eigene Reihe, eine Reihe ist hoechstens {@link #MAX_ROW_WIDTH} breit. Die Reihenfolge ist die in der Welt. Namen der
+     * Bezirke (fuer den Teilbau, TZ22-4) in {@link #DISTRICT_NAMES}, gleiche Reihenfolge.
      */
     public static final List<List<String>> DISTRICTS = List.of(
             // Eingang: Steuerwand, Werkzeuge und Bauen.
@@ -62,10 +62,111 @@ public final class TestCentreLayout {
             List.of(MODULES_SECTION),
             // Mobs of every loaded mod (Queue N43); empty without such mods.
             List.of("mobs"),
+            // Jede eigene Struktur und jedes Strukturteil (TZ22-3); leer ohne Strukturen (26.2).
+            List.of(StructureStation.SECTION),
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             List.of("tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows"),
             // Was noch keinen Abschnitt hat.
             List.of("gallery", "unsorted"));
+
+    /** Namen der Bezirke fuer {@code /sbtestcentre build only|without} (TZ22-4), in der Reihenfolge von {@link #DISTRICTS}. */
+    public static final List<String> DISTRICT_NAMES = List.of("workshop", "states", "blocks", "technics", "combat", "modules",
+            "mobs", "structures", "catalog", "rest");
+
+    /**
+     * Teilbau (TZ22-4, Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die
+     * Strukturen oder nur einzelne Bereiche"). Bereiche sind Bezirke ({@link #DISTRICT_NAMES}) oder Abschnitts-Ids;
+     * {@code only} leer = alle. Die Steuerwand gehoert immer dazu. Geplant wird trotzdem alles (Abdeckung, Kits, Galerie
+     * bleiben gleich), gepackt und gebaut nur das Gewaehlte - die Zentrale wird also wirklich kleiner.
+     */
+    public record Options(Set<String> only, Set<String> without) {
+        public static final Options ALL = new Options(Set.of(), Set.of());
+
+        public Options {
+            only = Set.copyOf(new java.util.TreeSet<>(only));
+            without = Set.copyOf(new java.util.TreeSet<>(without));
+        }
+
+        public boolean isAll() {
+            return only.isEmpty() && without.isEmpty();
+        }
+
+        /** Ob ein Abschnitt gebaut wird. */
+        public boolean includes(String section) {
+            if (section.equals("controls")) {
+                return true;
+            }
+            String district = districtOf(section);
+            if (!only.isEmpty() && !only.contains(section) && !only.contains(district)) {
+                return false;
+            }
+            return !without.contains(section) && !without.contains(district);
+        }
+
+        /** Kanonischer Text ({@code ""} fuer alles), wie ihn {@link #parse} liest: {@code only a,b without c}. */
+        public String text() {
+            StringBuilder out = new StringBuilder();
+            if (!only.isEmpty()) {
+                out.append("only ").append(String.join(",", new java.util.TreeSet<>(only)));
+            }
+            if (!without.isEmpty()) {
+                out.append(out.isEmpty() ? "" : " ").append("without ").append(String.join(",", new java.util.TreeSet<>(without)));
+            }
+            return out.toString();
+        }
+
+        /**
+         * Liest {@code [only <bereiche>] [without <bereiche>]}; Bereiche durch Komma oder Leerzeichen getrennt, {@code all}
+         * oder leer = alles. Unbekannte Bereiche: {@link IllegalArgumentException} mit dem Namen.
+         */
+        public static Options parse(String text) {
+            Set<String> only = new java.util.TreeSet<>();
+            Set<String> without = new java.util.TreeSet<>();
+            Set<String> target = null;
+            for (String token : text.trim().toLowerCase(java.util.Locale.ROOT).split("[\\s,]+")) {
+                switch (token) {
+                    case "", "all" -> {
+                    }
+                    case "only" -> target = only;
+                    case "without" -> target = without;
+                    default -> {
+                        if (!areas().contains(token)) {
+                            throw new IllegalArgumentException(token);
+                        }
+                        if (target == null) {
+                            throw new IllegalArgumentException("only/without");
+                        }
+                        target.add(token);
+                    }
+                }
+            }
+            return new Options(only, without);
+        }
+    }
+
+    /** Alle Bereichsnamen fuer den Teilbau: Bezirke, dann Abschnitte. */
+    public static List<String> areas() {
+        List<String> out = new ArrayList<>(DISTRICT_NAMES);
+        for (String id : sectionIds()) {
+            if (!out.contains(id)) {
+                out.add(id);
+            }
+        }
+        if (!out.contains(MODULES_SECTION)) {
+            out.add(MODULES_SECTION);
+        }
+        return out;
+    }
+
+    /** Der Bezirk eines Abschnitts (Name aus {@link #DISTRICT_NAMES}), sonst leer. */
+    public static String districtOf(String section) {
+        for (int i = 0; i < DISTRICTS.size(); i++) {
+            if (DISTRICTS.get(i).contains(section)) {
+                return DISTRICT_NAMES.get(i);
+            }
+        }
+        return "";
+    }
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt (ohne {@link #MODULES_SECTION}, siehe {@link #sectionIds()}). */
     public static final List<String> SECTION_IDS = DISTRICTS.stream().flatMap(List::stream)
@@ -185,7 +286,7 @@ public final class TestCentreLayout {
     /** Die fertige Planung. */
     public record Plan(BlockPos origin, List<Section> sections, Map<String, BlockPos> anchors, BoundingBox bounds,
                        Set<Item> coveredItems, Set<Block> coveredBlocks, List<Item> leftovers,
-                       Map<String, TestCentreKits.Kit> kits) {
+                       Map<String, TestCentreKits.Kit> kits, Options options) {
 
         /**
          * Fingerabdruck der Planung (Bau-Version, jeder Schritt mit Lage, Block, Items, Befehl). Er steht
@@ -226,12 +327,12 @@ public final class TestCentreLayout {
 
         /** Eine Zeile je Abschnitt: Lage, Groesse, Rahmen/Staender - fuer Log und Doku. */
         public String summary() {
-            long allFrames = sections.stream().flatMap(section -> section.ops().stream()).filter(TcOp::spawnsFrame).count();
+            long allFrames = sections.stream().flatMap(section -> section.ops().stream()).mapToInt(TcOp::frames).sum();
             long allStands = sections.stream().flatMap(section -> section.ops().stream()).filter(op -> op instanceof TcOp.Stand).count();
             StringBuilder out = new StringBuilder("test centre " + (bounds.getXSpan()) + "x" + bounds.getZSpan()
                     + " blocks, " + sections.size() + " sections, " + allFrames + " frames, " + allStands + " stands:");
             for (Section section : sections) {
-                long frames = section.ops().stream().filter(TcOp::spawnsFrame).count();
+                long frames = section.ops().stream().mapToInt(TcOp::frames).sum();
                 long stands = section.ops().stream().filter(op -> op instanceof TcOp.Stand).count();
                 out.append(String.format("%n  %-10s at +%d/+%d, %dx%dx%d, %d frames, %d stands", section.id(),
                         section.offset().getX(), section.offset().getZ(), section.width(), section.depth(), section.height(),
@@ -266,6 +367,7 @@ public final class TestCentreLayout {
             case TcOp.Command command -> command.facing() + " " + command.command() + " "
                     + command.label().stream().map(TestCentreLayout::componentText).toList();
             case TcOp.Hammock hammock -> hammock.dx() + "," + hammock.dz();
+            case TcOp.Structure structure -> structure.template() + " " + structure.size().toShortString() + " " + structure.frames();
         };
     }
 
@@ -278,8 +380,22 @@ public final class TestCentreLayout {
                 ? translatable.getKey() + "/" + translatable.getArgs().length : component.getString();
     }
 
+    /** Die ganze Zentrale nur aus den Registern (ohne Strukturvorlagen: der Abschnitt {@code structures} bleibt leer). */
     public static Plan plan(HolderLookup.Provider lookup, BlockPos origin) {
-        TcContext ctx = new TcContext(lookup);
+        return plan(new TcContext(lookup), origin, Options.ALL);
+    }
+
+    /** Die ganze Zentrale, mit den Strukturvorlagen des Servers. */
+    public static Plan plan(net.minecraft.server.level.ServerLevel level, BlockPos origin) {
+        return plan(level, origin, Options.ALL);
+    }
+
+    /** Die Zentrale mit Teilbau-Optionen (TZ22-4). */
+    public static Plan plan(net.minecraft.server.level.ServerLevel level, BlockPos origin, Options options) {
+        return plan(new TcContext(level.registryAccess(), com.simplebuilding.version.McVersion.structureTemplates(level)), origin, options);
+    }
+
+    static Plan plan(TcContext ctx, BlockPos origin, Options options) {
         Map<String, Function<TcContext, TcCanvas>> builders = new LinkedHashMap<>();
         builders.put("armour", TestCentreSections::armour);
         builders.put("books", TestCentreSections::books);
@@ -324,7 +440,10 @@ public final class TestCentreLayout {
         builders.put("respawn", FeatureStations::respawn);
         builders.put("devices", TestCentreSections::devices);
         builders.put("mobs", MobStations::build);
-        List<String> sectionIds = sectionIds();
+        builders.put(StructureStation.SECTION, StructureStation::build);
+        List<String> allIds = sectionIds();
+        // TZ22-4: geplant wird alles, gepackt und gebaut nur das Gewaehlte.
+        List<String> sectionIds = allIds.stream().filter(options::includes).toList();
 
         Map<String, TcCanvas> canvases = new LinkedHashMap<>();
         for (Map.Entry<String, Function<TcContext, TcCanvas>> entry : builders.entrySet()) {
@@ -335,7 +454,7 @@ public final class TestCentreLayout {
 
         // Modul-Ausstellung (TZ22-1): je Modul der Familie seine Stationen und alles Weitere aus seinem Register, ohne was
         // eine Station schon sichtbar zeigt (TZ22-2: nichts doppelt).
-        if (sectionIds.contains(MODULES_SECTION)) {
+        if (allIds.contains(MODULES_SECTION)) {
             Set<Item> visible = new java.util.HashSet<>();
             Set<Block> placedBlocks = new java.util.HashSet<>();
             for (TcCanvas canvas : canvases.values()) {
@@ -402,17 +521,17 @@ public final class TestCentreLayout {
         }
 
         // Erste Runde: Steuerwand mit Platzhaltern, nur fuer ihre Breite.
-        canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null, sectionIds)));
+        canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null, sectionIds, options)));
         Map<String, BlockPos> offsets = pack(canvases, sectionIds);
 
         Map<String, BlockPos> anchors = new LinkedHashMap<>();
-        for (Map.Entry<String, TcCanvas> entry : canvases.entrySet()) {
-            BlockPos offset = offsets.get(entry.getKey());
-            entry.getValue().anchors().forEach((name, pos) -> anchors.put(name, origin.offset(offset).offset(pos)));
+        for (String id : sectionIds) {
+            BlockPos offset = offsets.get(id);
+            canvases.get(id).anchors().forEach((name, pos) -> anchors.put(name, origin.offset(offset).offset(pos)));
         }
-        BoundingBox bounds = bounds(origin, canvases, offsets);
+        BoundingBox bounds = bounds(origin, canvases, offsets, sectionIds);
         // Zweite Runde: jetzt mit den echten Koordinaten.
-        canvases.put("controls", TestCentreSections.controls(controls(origin, anchors, bounds, sectionIds)));
+        canvases.put("controls", TestCentreSections.controls(controls(origin, anchors, bounds, sectionIds, options)));
 
         List<Section> sections = new ArrayList<>();
         for (String id : sectionIds) {
@@ -425,7 +544,7 @@ public final class TestCentreLayout {
             }
             sections.add(new Section(id, offset, canvas.width(), canvas.depth(), canvas.height(), ops));
         }
-        return new Plan(origin, sections, anchors, bounds, coveredItems, coveredBlocks, leftovers, kits);
+        return new Plan(origin, sections, anchors, bounds, coveredItems, coveredBlocks, leftovers, kits, options);
     }
 
     /** Befehl des Ausgabe-Knopfs einer Station. */
@@ -519,6 +638,8 @@ public final class TestCentreLayout {
                 }
                 case TcOp.Hammock hammock -> {
                 }
+                case TcOp.Structure structure -> {
+                }
             }
         }
         items.remove(Items.AIR);
@@ -579,15 +700,20 @@ public final class TestCentreLayout {
         return offsets;
     }
 
-    private static BoundingBox bounds(BlockPos origin, Map<String, TcCanvas> canvases, Map<String, BlockPos> offsets) {
+    private static BoundingBox bounds(BlockPos origin, Map<String, TcCanvas> canvases, Map<String, BlockPos> offsets,
+                                      List<String> sectionIds) {
         int maxX = 0;
         int maxZ = 0;
         int maxY = 0;
-        for (Map.Entry<String, TcCanvas> entry : canvases.entrySet()) {
-            BlockPos offset = offsets.get(entry.getKey());
-            maxX = Math.max(maxX, offset.getX() + entry.getValue().width());
-            maxZ = Math.max(maxZ, offset.getZ() + entry.getValue().depth());
-            maxY = Math.max(maxY, entry.getValue().height());
+        for (String id : sectionIds) {
+            TcCanvas canvas = canvases.get(id);
+            BlockPos offset = offsets.get(id);
+            if (canvas.ops().isEmpty()) {
+                continue;
+            }
+            maxX = Math.max(maxX, offset.getX() + canvas.width());
+            maxZ = Math.max(maxZ, offset.getZ() + canvas.depth());
+            maxY = Math.max(maxY, canvas.height());
         }
         return new BoundingBox(origin.getX() - 3, origin.getY() - 1, origin.getZ() - CORRIDOR - 1,
                 origin.getX() + maxX + 3, origin.getY() + maxY + 4, origin.getZ() + maxZ + 3);
@@ -595,16 +721,19 @@ public final class TestCentreLayout {
 
     /** Die Knoepfe der Steuerwand; Koordinaten sind absolut, damit die Befehlsbloecke ohne Zustand auskommen. */
     static List<TestCentreSections.Control> controls(BlockPos origin, Map<String, BlockPos> anchors, BoundingBox bounds,
-                                                     List<String> sectionIds) {
+                                                     List<String> sectionIds, Options options) {
         String at = origin.getX() + " " + origin.getY() + " " + origin.getZ();
+        // TZ22-4: Neubauten tragen die Optionen des Teilbaus mit, sonst saehen sie eine andere Planung.
+        String with = options.isAll() ? "" : " " + options.text();
         List<TestCentreSections.Control> out = new ArrayList<>();
-        out.add(new TestCentreSections.Control("sbtestcentre build " + at,
-                TcText.t("controls.rebuild", "Rebuild all"), TcText.t("controls.rebuild.sub", "whole centre")));
+        out.add(new TestCentreSections.Control("sbtestcentre build " + at + with,
+                TcText.t("controls.rebuild", "Rebuild all"), options.isAll() ? TcText.t("controls.rebuild.sub", "whole centre")
+                        : TcText.t("controls.rebuild.partial", "same areas")));
         for (String id : sectionIds) {
             if (id.equals("controls")) {
                 continue;
             }
-            out.add(new TestCentreSections.Control("sbtestcentre section " + id + " " + at,
+            out.add(new TestCentreSections.Control("sbtestcentre section " + id + " " + at + with,
                     TcText.t("controls.section", "Rebuild"), TcText.t("section." + id, TestCentreSections.pretty(id))));
         }
         out.add(new TestCentreSections.Control("sbtestcentre kit @p", TcText.t("controls.kit", "Give kit"), Component.empty()));
