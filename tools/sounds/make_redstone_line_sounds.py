@@ -8,7 +8,7 @@ Synthesised only - no samples, no Vanilla audio - so the files are committed:
 mc26_3/overlay/resources/assets/simplebuilding/sounds/block/<block>/ (the lines exist only on 26.3, McVersion.END_SYSTEMS).
 The script also writes the events into the 26.3 overlay sounds.json (other entries stay as they are). Event names and
 the SoundTypes are com.simplebuilding.util.LineSounds. Mono 44.1 kHz Ogg Vorbis, fixed seeds: a re-run gives the same
-files. --flat DIR writes every take (also the variants not built in) to DIR instead, for the preview page.
+audio (only the random Ogg stream serial differs, so do not commit a re-run without a sound change). --flat DIR writes every take (also the variants not built in) to DIR instead, for the preview page.
 
 Block kinds (owner: dust "eher ein Pulver-Sound", lamps may stay amethyst-like but own, pistons like pistons):
   dust   (astral/nihil/bridge_redstone)  powdery trickle of fine grains and a soft puff, like quiet sand/gravel
