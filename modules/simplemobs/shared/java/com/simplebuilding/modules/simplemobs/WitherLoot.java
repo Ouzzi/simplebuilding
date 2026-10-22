@@ -51,7 +51,7 @@ public final class WitherLoot {
         for (ItemStack stack : stacks) {
             BlockPos spot = stack.getItem() instanceof BlockItem item && item.getBlock() instanceof WitherLootBlock ? spot(level, top, placed) : null;
             if (spot != null) {
-                BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
+                BlockState state = ((WitherLootBlock) ((BlockItem) stack.getItem()).getBlock()).lootState(level, spot);
                 level.setBlock(spot, state, 3);
                 level.playSound(null, spot, state.getSoundType().getPlaceSound(), SoundSource.HOSTILE, 1.0F, 0.8F);
                 placed.add(spot);

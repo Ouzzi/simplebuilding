@@ -56,7 +56,7 @@ window.WIKI_MODULES = [
       "items": 539,
       "blocks": 318,
       "recipes": 855,
-      "config": 226,
+      "config": 225,
       "features": 47
     }
   },
@@ -73,7 +73,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAq0lEQVR42mMwt7L9TwlmABHbdu0nGXdNmIFqwKwFy/6fOnsRTIOwFRcHCoaJgzBIc3JGLqYByBik6YaGxP9ZUgIoBoA0gywiygCQZpAhMANAmmGYZBcga8YwAN2/MPw/ywuMccmjGACzDUaDNV/YAMFANrIczFsoBqArQDcA3QIMAyjyAnogggKJpEBENgCmAD0aiTIAWQHJLgClLnQDkDFeA2ACpGK4AZRgAFr1JhbFyc+5AAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVUlEQVR42mNgGLTAiovjPzImy4AbGhL/Z0kJkG8ASDPIENq7AN2/MPw/ywuMccljtQ1GgzVf2ADBQDayHIa3kP0Lo9ENQLcAwwCKvDAMopEmSZluAACaP5eFFrcfyQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "features": 1
@@ -84,7 +84,7 @@ window.WIKI_MODULES = [
     "id": "simplemoney",
     "displayName": "Simple Money",
     "description": "Currency production, weighted villager trades and treasure loot.",
-    "version": "0.9.0",
+    "version": "1.2.16",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -116,13 +116,13 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 73
     },
-    "dataHash": "781c10aed481"
+    "dataHash": "0eb60ca09c8f"
   },
   {
     "id": "simpleriding",
     "displayName": "Simple Riding",
     "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
-    "version": "0.9.0",
+    "version": "1.0.5",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -144,7 +144,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 35
     },
-    "dataHash": "9ecd3270fe72"
+    "dataHash": "625de296be1d"
   },
   {
     "id": "simplemodels",
@@ -164,19 +164,19 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mMQldL6TwlmABGNnYuxYq1ZB8AYm5yJQxaqAQHR9f+XrNwDpmEaQWxsfJBmVT0fTAPQFaJjmDzIIhQDCGlEthmEYepRDAApmPfhPxjj0gyThxmCYQAMoxuErBHZFTgNwKeRfgag+5kkA2CKSDIAZgiyIlwGYEQjekLCZQCyPEZKBKUudIUwA9ANxjAAJoCOYRqxyaEYQAkGACSFGALwloT6AAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR42mNgoCXQmnXgPwhTrJFogwgpxClPqlMx1MM48z78/w/CuDQiy2M1AJtCXAbjNQCfxuFsADZDcBlAdHpAN4DkFAkzgGp5giYAAE3ZsoFvU8gYAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "recipes": 1,
       "features": 14
     },
-    "dataHash": "738b5f760b63"
+    "dataHash": "5173fcf52c53"
   },
   {
     "id": "simplefun",
     "displayName": "Simple Fun",
     "description": "Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).",
-    "version": "0.9.0",
+    "version": "1.4.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -193,19 +193,19 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAh0lEQVR42mOw8Iv9TwlmABE7bn0kGfcceYFqwJwzr/+ffvIVTBPCIM2pvcsxDSBWM8ginAZ4yYsQxDhdAJI8WRWFF68IsgKrwzCAWM15Bgq4DQApwIdBmgka0OVggKERJkaUAdg0Eu0CmAJ8mGAsEBOFOA2ASRKDMQwApS6yDYAJkIrhBlCCAZ7ocpZYjVK8AAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASUlEQVR42mNgGAUYwEte5D8hjFfzyaoovHhFkBV2Q4jVnGeggNsAkAJ8GKSZoAFdDgYYGmFiRBmATSPRLoApwIcJxgLZUTiCAQDgnaqZkmw6uwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 2,
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "239fe29a2e87"
+    "dataHash": "e64d70729d8a"
   },
   {
     "id": "simplevisuals",
     "displayName": "Simple Visuals",
     "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
-    "version": "0.9.0",
+    "version": "1.0.7",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -226,7 +226,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 77
     },
-    "dataHash": "c45e2e2abc1f"
+    "dataHash": "01baf1f68bef"
   },
   {
     "id": "simplesounds",
@@ -249,7 +249,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVR42mNICHP4TwlmABHfnh8hGX+4sQDVgE931/7/8fYKmCaEQZrXzinGNAAZa2lpgTE2zSCL8BoA0jhr1iwMA6wWnAAbgNUFMBtBODs7G8UAZI0wNlYDQBqRMcwAZI0wNtEGoNtMWwOwhQE2zQSjETkWYBrRDcJpAEwBzDXIBiBjrAbgUkyUAaDURbYBMAFSMdwASjAABHrCsb/q5xYAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQklEQVR42mNgGL5AS0vrPwiTrXnWrFkYBlgtOPGfoI0gnJ2djWIAskachsA0ImNkFxA0ZHAYQFEYUBwLVE0HIwwAAP9zav+fL3wUAAAAAElFTkSuQmCC",
     "counts": {
       "features": 20
     },
@@ -259,7 +259,7 @@ window.WIKI_MODULES = [
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
     "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
-    "version": "0.9.0",
+    "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -286,19 +286,19 @@ window.WIKI_MODULES = [
       "missing": "Grundstock fertig; neu Item-Rahmen (in wave1) und Container-Tooltips (auf Branch), Bündel-Ansicht geplant; Abnahmen im Spiel offen.",
       "asOf": "19.10.2026"
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAq0lEQVR42mOwD3P6TwlmABGHn50gGc+7tgzVgDV3Nv2//PY6mIZhKxUBMEYWA2GQ5qJZFZgGoGs+uSQLjJENAWkGWUTQAGwuAGmGYbwGwDSiY6IMAClcUWKDgbujtFEMwWoAsmaQBnSc5aQANwTDAGyarxlYodDIhuA0AFkzOiZoALqT0TWTbAA25+M0ABaI2AxB14w1EEGpCySBKw2gpwUUA2ACpGK4AZRgANECVTHhFbnoAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mNgGNTASkXgPwiTrfnkkiwwpsgQsjTDNKJjojWvKLHBwN1R2oQNQdYM0oCOs5wUcBuCTfM1AysUGq8hMAOQNaNjggagOxldM8kGYHM+wXDAZghRmgmlAYqSNU0BAAMAuIkP/7YKAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "8deca1391c5f"
+    "dataHash": "9064acea586d"
   },
   {
     "id": "simpletweaks",
     "displayName": "Simple Tweaks",
     "description": "Legacy compatibility and server-authoritative claims, on by default.",
-    "version": "0.9.0",
+    "version": "1.2.12",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -316,14 +316,14 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA+klEQVR42o2TIQ7CQBBFewZSTUjqKkhRCBBVOEwF6REgGBQGwwHQVcgegRoOATfgBBUI/JI/yd902O4W8buzk/7XmdlttFnPzaTIgsI7PkUElPXWVI+rrN04vxRe8Cgba8DxfhYDAYgh5qeH3MaQAsDwui1N+2kdIQ/jr5wK8PKqKh0hz9ZgRCVOBUiEAH3tWACCoQrQIqVawIP0f1tQQ2T/Q4A6ScxzMZNVtcATCJ0CTO/TTgTIPo7FLBeJFfguEgQTzDD2AngsvpvI8tmCAiDAYDigrpgDDCYKewXgVPlFxtwD0qSp7LkqgE9ojfe/C+AR2r/RpxCcgC81FzUy44IBpwAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAS0lEQVR42mNgGFRATsXgPwyTbcCcEof/yAahY6IM0K+/gBPjNQTZgKwNH0g3hBgXUGyAfNQM8g3Aq5nYWCDaAIrTAf0NIDnVDRoAAIaOsHDvv2PuAAAAAElFTkSuQmCC",
     "counts": {
       "items": 2,
       "blocks": 1,
       "recipes": 4,
       "features": 39
     },
-    "dataHash": "83589f4b01a1"
+    "dataHash": "8f7275ae7f45"
   },
   {
     "id": "simpledimensions",
@@ -350,7 +350,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlUlEQVR42mPwc475TwlmABG3Tn4AYy42IaIwSO2RFc9QDTiz5RVY0lor5r+UgAZWDJIDqQFp7q1cht0AkMIq/Qtg7Cc1A0xvKPgBpkFyIDVPbnwhbABME8wQZAMIugBZE7JBRBuA7gWYQUQbALMV3SCSXADShG4Q2V5AjwWiDBi4WCA7JYJSF7F5AcMAmACpGG4AJRgArKknSmNVLV8AAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mNgoCbgYhP6TwzGa4C1Vsx/KQENrBgkR9AAkMIq/Qtg7Cc1A0xvKPgBpkFyRBsA0wQzhCQDkDUhG0SSC9BtBxlEtAEwW9ENIskFIE3oBpHthSEWCxSnRIrywoAAAPBu4526BoA/AAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
       "blocks": 2,
@@ -377,7 +377,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mNgGH7AS0vgPz5MUPOcKCW8GKchMM2PdhTixTgNAQkS0gzDGAaABGL2GP3Xr5UB08hsXGJYDfl0wogojNMLF1KywPhFVz+cjU2M+mFAbBQSFZXE4GGWdwD48wNSn1Od5gAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
       "blocks": 18,
@@ -405,14 +405,14 @@ window.WIKI_MODULES = [
       "missing": "Basis für alle Mods; offen Kreativtab-Zeilenlayout-Abnahme und Stil-Bausteine, wächst mit jeder Familienstufe.",
       "asOf": "19.10.2026"
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3klEQVR42mMIC3D4TwlmABHP7x4hGd84sQDVgLsX1v5/++wKmMaG3VUawBjEBmmeM6EY0wBcmkD444v//5fWvvwvw2UMtginAciaQBpAuC/5DgoGGYJiAC5NXy79x9BcHXgSjEGGgA0AaTq/6TdWm0D4eO1/FI0gtSBsp1gMNgRsQK7rDrAgNptgGmA41GAWGGMYADMEXSNMA8g7MI0wDDYARMAMgBmCrBHkBWRNMI3wMAARyIYgOxGbJhDGmg5ghuDThIyxpgNkDdg04TUAlLrwacBrAEyAVAw3gBIMAI2ehfZwc0OFAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mNgoCbQluL7TyzGqjnOUPr/rDADghivAVUOKnCFN27cQKFBGCRPlAEgTTA8a9YsuCFEGQDXiOx0qCEkuQDdAIpdAMKkuQCqCY5JCURkZ8NpYg0ghLEmJpgBLx6eIIiP7JyF2wCQJDEYpzcoyg8DAgAuSlC0PXgRPgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 10,
       "blocks": 7,
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "b0e346d89e7d"
+    "dataHash": "8b2e00a8dfe3"
   },
   {
     "id": "simpleinterfaces",
@@ -435,7 +435,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVklEQVR42mNgGEzgP4kYVTMp4NixYxiGwCWIwaGhobgNMDc3h2OYBnQxggZ43XiA4iKQWHd3N1yMoAHIfsUmhteAwREGyP4dQmEAkyAWY03OlOQFsgEAK4m6owJ67PsAAAAASUVORK5CYII=",
     "counts": {
       "features": 43
     },
@@ -460,7 +460,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mMIM9f6TwlmABHPty0mGd/oykI14O6s+v9vT+0B0yAc56GDgWFyIM1zkn0QBmBTvGN+0f9HF1egYHQ1KAZ8fnYEjH3zL4BpkAGxXSb/7bOV4AaAxGDqMAwAKQZhmCEwF4DEkA0AGQgSw2oATBLmAnQvwFyF1QUgQZgkzACQS0AaD1hqo3gBxMcZBtgMICoMkJ2P7AVkQ/AaAJNADwOrEIQhVjpScIzTAJD/sAUiSNOLncr/V1RCaBAfxQCYRmQnImOQhq9fP/y/ICEBpjEMQMeg5IqMQRpAtoM0Y7gAlrYJYeQwQMkLlGAAvJFvToS+xP8AAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZElEQVR42mNgGDQgO8rqPykYqwGPLy8lCuM1IH+BGwoGidmXHYFjogzo2RsFpkEajmhpodBEuwDZVphmog3AphlEw7yE1wBkzejhAfIa0Qaga0QOVIIGoNuMHiu0SwcUpcShCwB/1UvDTpoglgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
       "recipes": 4,
@@ -488,7 +488,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABj0lEQVR42oWTzUsCQRyGOyp9f1C3ig4hQZFkhGVYaNShIrUvDYswRDEsMzLD1RIR+iBCgijo4KW6Bt3r2slrx6COXfoLfvUOzrTTah2eZXd23mfenWUqPFPd9BudrlJQ6r2aClw+Xm4ECFmsLjLN+mjQExIi9Rzw+rQpC96fM/T59igEHOvqOrnjB0KEeQjnjxxaAQ87U1kKnV9KIg4XlRXw8G2hQIn7B43A6t+i+oZWsT9CoK4OiToMIcZwjzAkJQXGPhujxzjK4OG7Yhv77h4TjEUVWcBXnw5GaClzSBNxRUgAwmjQ2NQm6kt7gIH+GTcLK9d5Go/GGMP+ELV39DIQ5EgCPAzN+cgW3ibvSY7s4R2aTGYo8H0PiVPZlwSYL/1GDIz4w7R8miNDl0XgPT6jxXSWSXj1soIBh4c6DWZJgCb+iyuqqW2hqupmJuFhjQABCEyulZ8GxU9AGDiS6dIC9eExza+R2RNksoVYilXW6+vItpGQwhoBH+AiCABWhsAaiIidVyMEfx3n/471F3h08EUyFpsCAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42s2S0QnAIAxEnSiDulX/Mky+uoAlhYNoT5v2y8CB5M6nhJSyTYlIgz5nvGFmTVVvMcgyM5oIRDG/A3jzPKQLMSHzAGQg8TKdg5u1VgpBz306aAAYJJ5TgAgZf5MGIOz6DWBaAvDim6bbOi7PTGWrugCa5XK+5A41vgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
       "blocks": 1,
@@ -514,14 +514,14 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWklEQVR42mNgGDSAh0vgPykYqwF6Wlb/vVwiwDQ2DJPDawAxmLYGPGj4D8cwDehieA3osjoBVgiiYQagi9EvDIT4JMCYZANgGtExSQagu4AkA8gOA4qS8oABAIMU3cFQUaIiAAAAAElFTkSuQmCC",
     "counts": {
       "items": 20,
       "blocks": 2,
       "recipes": 62,
       "features": 12
     },
-    "dataHash": "7190530b3fc0"
+    "dataHash": "7965a13a30f9"
   },
   {
     "id": "simpleweather",
@@ -543,7 +543,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnUlEQVR42mOQVtD5TwlmABHdk5aSjF0C8lANiMto+r96wz4wDcJZxQ0oGCYOwiDNhlb+mAYga/706RMKhhkC0gyyCKsBMNvQNSMbAsMYBuDTiMswuAGkaqbYgB0HzmAaABIkBaMYAAsDUjDWWLCvfwCPKhAG8WFsdD6GAaRoxpmQkBUQwhgGgFIXMTbD+CgGwARAkiAahgnx4QZQggHab2K50IVYOwAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAT0lEQVR42mNgGLQgq7jhPzImWfOnT59QMFGGwGxD14xsCE4X4dOIyzCyNVNswI4DZzANAAmSgjHCAT3aCGGssWBf/+A/KXzqaaYqGHreAADTuTuTrcEQpQAAAABJRU5ErkJggg==",
     "counts": {
       "features": 3
     },
@@ -569,7 +569,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVR42mNI8FX7TwlmABHfbswhGX84kIBqwKeTZf9/PN4OpglhkOa1Xa6YBiBjLXFuFIysGWQRUQasyLD63+2vBTcApBmGMQzwWvEAjrEZgKyZaC8QbQCy7TRzAQyTFQbIGGYIXheAFOAyAGYITgNgTgQp8tISxYlB8hgGoAcUemJCxhguAKUudAPwYRQDYAKkYrgBlGAAoGJxbA1gD88AAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASklEQVR42mNgGL5AS5z7PzImy4AVGVb/u/21iDPAa8WD/zBMlgEUuQDZdpq5gGBg4nMBMibaNbgMINoQkCIvLVGcmGhDcOFhlGcAsVt4i/+x0cwAAAAASUVORK5CYII=",
     "counts": {
       "features": 17
     },
@@ -596,7 +596,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mMIc/D6TwlmABHPj1wmiEX4heAYxL+xYAeqAXfXHvr/9sp9MI2OQZpOvPgCxj07boD5c4pbMA0gRvODS5P+5+y3AYuTZACy5jk3o4gzAJdm+35t4g0Aad6/Ig1FM1EGgBTkn7z2PyYgDKtmgoEIUgTSfOP3//92xpZwjSAMikK8BoAUeTm5gjFIM7JGGMZpAEhhTlLKf0NtPawa8RqArhmbRpwGkKIZwwBSNWMYABKA+RckQSyGG0AJBgAtb4QCDYMvfgAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAV0lEQVR42mNgGFRAV1f3Py5MlOZbt25hxQsWLCDOIFy2wwyBGUSW18gyBKSwK8kIwyVEhwlMM7oriAoLZM0kGYBNM7IBZGkmygB8mpHVkK2ZqATEMCQBAJ72mgHP7heTAAAAAElFTkSuQmCC",
     "counts": {
       "items": 2,
       "blocks": 1,
@@ -626,7 +626,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVR42mMw8Ir6TwlmABGrL78hGVfseIBqQPehJ/8P3f/4/8WBADAbhHGxQZrDWhZiGgBStKNNB0zjYoM0gyzCagBMEYjGxQYZQLELcBpAsQtAuGuWAQobpgGZjdcAZENgmtA14zXASkPgf5aXAgYGidPHAGQnk+wFdMUkBSIodaErwsdHMQAmQCqGG0AJBgArfJi0eSLOewAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR42mNgGHTgxYGA/4TYeDXvaNP5D6JxsfEaAFMEonGxB7kLQKBrlsF/QmyiDUGniQJWGgL/s7wUMDBInD4GUOwFigIRXREh/uAAAOxjpIXG8ulhAAAAAElFTkSuQmCC",
     "counts": {
       "features": 8
     },
@@ -652,7 +652,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3ElEQVR42mOIcQr4TwlmABEfTtyFYzUDHTBGFsMm/mzZCVQDXm26AFHw5QUYg9ggMWziIM3LKibgNkBJRQnDAJAYzIAv159hGgCSCFvi9r/lTAIYg9gwZyOLwcSxGmBSYAE3BKYYhmFiIDUYBoAEqtZ8AWOQAhiGaUYWg6kD6UExwKnoGkkYwwCdoA1gCZgN2DTBxEFqMQw4d+nW/zkLVhGFM3IqUA2ABSIxhsA0Y40FkAJ8hoA0EzSAkO04DQClLnyGIGvGSMowAZAkTCEuDLMdxQBkDEu+uDC6egCW7WeIdqcojAAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASklEQVR42mNgGDSgq6vr/8AaQFVDopwUCGKcBoAkQYbcOTEPL8ZqCEgQJGmlJUKZATDclWWFFeM0AJsh2PCOBQWEw4HsQBwFpAMAYbepucO4K78AAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "features": 11
@@ -679,7 +679,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR42mOIDVD4TwlmABEf704iGb84EYBqwOsLGf+/PtsApglhkOblE6xQDdCS4iEJYzVgRYnN/yNdXmAaH8ZrADGYdgag408XHMCYpDBAxjsmKIDxEAoDig3IclIgChMdC0SnRFjaJhXDDaAEAwDEoiaJlv+QRgAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASElEQVR42mNgGD5AS4rnPykYqwErSmz+H+nyAtP4MF4DiMG0MwAdf7rgAMYkhQEy3jFBAYyHUBhQbECWkwJRmOhYICklDhgAAJ1Y/Ym0HbQxAAAAAElFTkSuQmCC",
     "counts": {
       "features": 5
     },
@@ -702,7 +702,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVR42mMw13L7TwlmABHbFp8jGXdlbUA1YFb97v+n9twG04QwSHOyTz2mAcRqBlmEYYCViggGhmnCJodiAEjgw4sLGPjEjglgjE0OpAfDgKysKjhGNwBdDqsBdHEBXgOo5gJsBtA+DKqstDAwLM5xyRFMSPgwSkKCpW1SMdwASjAAhoVuHqiCJG4AAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAUElEQVR42mNgGAVwYKUi8h8dEyMHV/DhxQUMfGLHBDDGJodiCMyArKwqOEY3AF0OqwF0cQFeA6jmAmwG0D4Mqqy0MDAsznHJEUxI+PDgyQIAjO1hNnAX8v0AAAAASUVORK5CYII=",
     "counts": {
       "blocks": 1,
       "recipes": 1,
@@ -714,7 +714,7 @@ window.WIKI_MODULES = [
     "id": "simpleaesthetics",
     "displayName": "Simple Aesthetics",
     "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -733,11 +733,11 @@ window.WIKI_MODULES = [
       "missing": "Funktionen fertig; offen nur Abnahme im Spiel (Modelle-UI, Stufen/Stärke der Effekte und Sounds) und Stil-Audit-Reste.",
       "asOf": "19.10.2026"
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAp0lEQVR42mNIcHD4TwlmABHfjhwhGX9YsADVgE9r1/7/ceUKmCaEQZrXFhdjGgDCXnoiODFMM8girAaAFJ2YHoUTwwzC6gKY5hsGBmAM02SQcAOM0Q1CMQDZZmIMgBmC1QB8+MMFAzDGaYDBAgcwRvczWQbAAguE0V2IEQbIgYgt1NHFcKYDbBqwGYrTAGQn48IwNRgGgFIXTJIYjGIATIBUDDeAEgwA2P53d0BxE80AAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYElEQVR42mNgGH7AS0/kPy5MlOYT06NwYrwGwTTfMDAAY5gmg4QbYIxuEE6biTEAwxBCTofhDxcMwBinAQYLHMAY3c9kGYCsAN2FWAMSmzfQXYBTM3oaIBSVtE1MQw8AAAjx+VMmT7OpAAAAAElFTkSuQmCC",
     "counts": {
       "features": 1
     },
-    "dataHash": "8f0a91afc1e7"
+    "dataHash": "b443b496e486"
   },
   {
     "id": "simpleenddragonfight",
@@ -754,7 +754,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleend",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAy0lEQVR42mOIinD4TwlmABFvXh4hGT+4swDVgCcP1/7/+P4KmBbhlsGKQXIgDNK8cF4xpgEwhfdvL/v/4d0xFAwSg8mDLMIwAKbx5JGu/9Yq/v8XxJwAYxAbhkFyMIOwGqAmZvzfQNYBjJE1wsRAGKQGwwBkf4JswOUFZG+AMIoBMOfDbMfmBZAcsjdQDAA5jVgvwLxBOy+AMLoXYOJYvYAcC9i8gc35OKMR3RB0zTgNAKUumN+QFaNrBGGMpAwTgGFceQFZDYoBlGAA+3Ert1q9x4UAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXUlEQVR42mNgGLRAS8LhPzImWbOVVsB/ORENOCbaEGyaSTIEpAimYYPDA9IMwGU7skF4DYHZjm4z0a5Adj7J3sAXeES5Al/gERUO2JxPcjigG4LNJURFJT48+DIdAGchpOHp8eH/AAAAAElFTkSuQmCC",
     "counts": {
       "items": 3,
       "recipes": 1,
@@ -785,7 +785,7 @@ window.WIKI_MODULES = [
       "missing": "Funktionen fertig; offen Client-Sicht im Spiel, Stil-Audit-Reste und die Nebelwand-Frage (Lohen-Seite).",
       "asOf": "19.10.2026"
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mOQk9D+TwlmABET2paQjH1sclANSA1v/L9u+d7/Jy8eBrOxYZgcSLO5th+mAcgKZy2dCueD2MiaQRbhNQCGc6uywRjGB2mGYaIN8HIKwNBM0IC4kKT/r59+AOPTh66AMUiMKAOQNYPwxq7TYAOWzt6AYghOA5A1w2wHaQbhupIO/AYg2w6zGWYASDMIw1yB0wCYJlya8RoAwshOhmkGuQZZM04DQBIgRciakW3GawAodcEkQQrRNeKNRpgAMkbXjC6PYgAlGADBDC0kWCrJGAAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mNgoBXQUjD4j4xJ1txVNQuO4wIKiDcEWTNII0mGwDQja0TmEzQEm9NJ9gpIATaNJIcDCHtZaYExWTEBAiDNWSEO/8lOCyQZgJ5wsHkBb8ICCb54tAKMTxzogLOxieE0AF0jLoNwGkAKZhg0AACWON/fmynZCAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
       "blocks": 47,
@@ -809,7 +809,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwjor9TwlmABEn33wkGa948ALVgC1PXv+34uBAwSAxbOIgzZULl6MaAJL4UFDw/4qWFhzDNCCLwcRRDIBpRjcAHwbpwTAAXREMEGUANo3ogGoGdImIoBoAC0RivADTjBELsOjCZwBMM9ZoRI5zbIGGrBmvASBJdEPQNeM0AFkBzBBsmrEacOPjVwxFyEkXrwEwAVIx3ABKMADfR3xpZ2gp6gAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mNgGFTAioPjPzImJI6h+UNBwf8rWlpwDNOALAYTx6oZ3QB8GMUQbLaDMAwQZQA2jeiAagZ0iYhgDwdivIBVMyGXEKUZn0uI1ozLEJI0oxtClmb0JMwwqAEADqoDIJnrl/wAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "recipes": 1,
@@ -836,7 +836,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAi0lEQVR42mNgoCWQs3L5D8Jka/zy/z8YE20QssYVT96gYLwGYdNY/+c/CsZrEIhz4t0nuJPRDUHWDMIgtRgG1Jy4ApbAZhCyRhCOWrEFuwEwjG4QskYYxmsAukHIGvEaAPMzLgNg8gQNgBmCbACyHFYDtJQsMDDMAGxyeNMDLgNITpEwAyjOEzTNsQBPlprgNs/M0QAAAABJRU5ErkJggg==",
     "counts": {
       "items": 3,
       "blocks": 2,
@@ -849,7 +849,7 @@ window.WIKI_MODULES = [
     "id": "simpleovens",
     "displayName": "Simple Ovens",
     "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -864,20 +864,20 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbklEQVR42mNgGDRAS0vrPykYqwFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcjRUl5wAAAJdYeR2tTbIkAAAAASUVORK5CYII=",
     "counts": {
       "items": 4,
       "blocks": 9,
       "recipes": 9,
       "features": 7
     },
-    "dataHash": "de4cccaba053"
+    "dataHash": "e7d902bed624"
   },
   {
     "id": "simplemobheads",
     "displayName": "Simple Mobheads",
     "description": "A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -898,14 +898,14 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAgklEQVR42mMIcLP6TwlmABF3z+0iGZ/YMAHVADkrCZLwhPoMTAOiNnj9t+syAdPobGQ+XgPwaYSxCbpASEoAjGGaYHyiXYCuAd1AnAagOx1dI1FeQNeMbAhRXkB3NjZXEO0C5EAlygXoYYALk5QOsKUJnAaQnZRBGQMkQCqGG0AJBgA3BxAT2z0G5AAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mNgGDRAzkriPykYqwFRG7z+23WZgGl0NjIfrwH4NMLYBF0gJCUAxjBNMD7RLkDXgG4gTgPQnY6ukSgvoGtGNoQoL6A7G5sriHYBcqAS5QL0MMCFSUoH2NIETgMoSsoDBgBbGgsoCNwxDwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 188,
       "recipes": 1,
       "features": 12
     },
-    "dataHash": "1cf69f154a86"
+    "dataHash": "2d1db3bf6b2f"
   },
   {
     "id": "simpleshops",
@@ -928,7 +928,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhUlEQVR42mMwdov6TwlmABEbzr0hGTdseIBqgJWKAEk4pn4hwgCQwAkDAzD+8OEDGBPig/RQzwCKvQAyYNLuJ/+7kozANDoGBRgMg9SAaLwGGBxIAGOY5g8HDMCYZANgthJlAMVhABJcUWJDFMZrQFWQBk6NMDnauYDsMICFKqkYbgAlGABcnECwCVT7ggAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mNgGDTASkXgPykYQ/MJAwMw/vDhAxgT4qMYQrEBFHsBBrqSjP4TCiu8amCSBgcS/oMwTPzDAaDTgZi2BlAcBiDBFSU2RGG8BlQFaeDUCJOjnQsoTgcDAgCgcAEa0k9XxAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 5,
@@ -956,7 +956,7 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAd0lEQVR42mOICrD6TwlmABFv7u4iGT84MQHVABEVN5LwwgkZmAboxawgCuM1QN6pAadGmBxBA07MysKKiTIApPDDhw//tbqs4BpBbJAYiE2UATC8osILjJHFhoABFAcizBBsmKh0QFFCIjspgzIGSIBUDDeAEgwAwIBBl9sRlXEAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXElEQVR42mNgGDRARMXtPykYqwF6MSuIwngNkHdqwKkRJkfQgBOzsrBiogwAKfzw4cN/rS4ruEYQGyQGYhNlAAyvqPACY2SxIWAAxYEIMwQbJiodUJSQKErKAwYAOJMxXGc87qkAAAAASUVORK5CYII=",
     "counts": {
       "items": 2,
       "recipes": 1,
@@ -979,7 +979,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR42mMICI76TwlmABF3H70hGZ+48ABhgJWV1f8L15/8f/bqI5gmhEGaJ0xbiGkAIeywIQCMtaos6GTAiwMGYLyiSwHs7CFgwA0HBzCepaFBuQEgDUPMAHIwSl4AJWOQLcRiFBfABEjFcAMowQBeNqVBEv8rtgAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPklEQVR42mNgGBTAysrqP10McNgQ8B+Etaos/tPHgBcHDP6D8Iouhf9DxIAbDg7/QXiWhsb/kWgAOZhheAAA37Wzr1wvbGAAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
       "recipes": 1,
@@ -991,7 +991,7 @@ window.WIKI_MODULES = [
     "id": "simpleblocks",
     "displayName": "Simple Blocks",
     "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1007,20 +1007,20 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42rWTOwqAMBBEPUQKT2BlaaellaWQ1gOktrL23sosDGzWGH8oPDBu5pksSVH8+ThXbuB1cFlW4baIE6uqFijg+FTEQghzBIP2+0GEgffTIWhXwHrTtGkB0EELaghfCoZhFBjsul7IClC0AsCwFrChkQCTudecAOA9KdASinSQ4aRAr0L3Q+9b/z17HigADLNxj04kBZ/vxK83dge1/vmbzn96sgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 53,
       "recipes": 282,
       "features": 8
     },
-    "dataHash": "6490eb6fe341"
+    "dataHash": "64533a094190"
   },
   {
     "id": "simplecrucibles",
     "displayName": "Simple Crucibles",
     "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1037,20 +1037,20 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVR42mNgGB5AS0vrPzkYxYAdO3b8/9CgAMb/LzjA2djEQGpRDEA2hBiMoRnZgK6uLoJ4YA2IiooaQANAmnEaADOEbM3EJiqG4QcATrQP6mvw4N4AAAAASUVORK5CYII=",
     "counts": {
       "items": 27,
       "blocks": 11,
       "recipes": 6,
       "features": 7
     },
-    "dataHash": "80c06e88b8ed"
+    "dataHash": "2fa7157b41ba"
   },
   {
     "id": "simpleoctets",
     "displayName": "Simple Octets",
     "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1067,20 +1067,20 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR42mNgoCWw0hD4D8Jka9zSFfD/xIKU/yQZBFII0gTDIEOQDSLKgFlFDmAMM6QqzACMSTYAhGGaiTIA5ld8BmA1BFegwQwgGKj4Ag1foMINwBdo+AIVwwBcfsYlTz0DcAUasfJEp32y8wZNAQCTMATmlTDdBwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
       "blocks": 176,
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "fa3e13af5aa2"
+    "dataHash": "9ccd49f4e97c"
   },
   {
     "id": "simplehammers",
     "displayName": "Simple Hammers",
     "description": "Seven sledgehammers (Stone to Enderite) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, with the enchantments Break Through, Override and Radius, moved from SimpleBuilding (ids migrate). While it is loaded the in-world ways of the other Simple mods take the hammer instead of the axe.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1098,13 +1098,13 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA40lEQVR42mMItlL7jw9HRUXhlWcAEY92zcGKQZpBQFNTE0PuwoQEVAOuLyj7/+rsdjANwjDNb968gRsCkwNpnpbhimkANs0wDDLAw1T0f6SHBtginAaga7537x4Yg9jVSab/NeS4iXMBsmYQXr9+/f/6+nqwSwgaADMkOjoarBGbIQQNAGGQn5ENIckAkGaQn9WBfgZpxGYITgOQNYP8C1KMbAheA0Ca29PU4ZphGNkQEMZqAC7NyIaAbMdqAEhzuq8cTs3ohsANAGkkZDM2Q+CxgKwZJEgKhnsBpBmECWVtbBgAwfhqwWiFR/AAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAR0lEQVR42mNgoDXQ1dX9jw0TrfnKlSsYeMWKFcQZAjMApAEZ5+XlDSUDQIqxYYIGgBR0JRn9JysWkDWTFe8jTTNyemcYkgAAE2aY9RWWl1oAAAAASUVORK5CYII=",
     "counts": {
       "items": 8,
       "recipes": 11,
       "features": 9
     },
-    "dataHash": "30b7beb2f3cc"
+    "dataHash": "cf285b063b37"
   },
   {
     "id": "simpleoptimization",
@@ -1127,7 +1127,7 @@ window.WIKI_MODULES = [
       "missing": "Stufe 1 + Teile von Stufe 2 nur auf claude-wave1 und nur Fabric; offen Kompat-Ziel, 2. Messreihe, Benchmark beim Besitzer (Stufe 3), Stufen 4/5.",
       "asOf": "19.10.2026"
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAj0lEQVR42mOQU3H+TwlmABH9M0/ixVleHCgYJOYVtQLVgOTCLf/Xbb0BppExSMP/Bw5g/GCBApgP0mzqWIlpALGaQRYRNACXZhjGawA2zegYpwHImrFhmIF4DUDHZAciSCHMAPRwIGgAPs0EDSCkGa8BxGjGaQCyZlwacRoASl0wAwhpxjAAJkAqhhtACQYAbsktVjUvMIsAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPElEQVR42mNgoAfI8uL4j4xJ1vz/gQMYP1igQJoBg0sz0eGArBkbJugabLaR7RVkF41EzSRrRI8FhiEDAPo7nRcln1LoAAAAAElFTkSuQmCC",
     "counts": {
       "features": 1
     },
@@ -1146,7 +1146,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleoptimization",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42mMw1PL9TwlmABFrF98gGVdlHUA1oLf+5P/Dex6DaUIYpDnCpwvTAGI1gyzCa4CWlhVWDNIMw1gNgCn88OEDVoxsEIYB6Bqtum6gYHSDUAzApRkEBCQUcBpC0ACQZqIMoNgLVAlE5HgmOxqRFRDCGAaAUhfZBsAESMVwAyjBAB7LeXTJODZuAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQUlEQVR42mNgGAVYgZaW1X9smGiNHz58wIrxGoSu0arrBgpGN4gozSAgIKFA2BBcBoA0E2UAxV6gSiBSJRpHKAAAfvbmCghP7nEAAAAASUVORK5CYII=",
     "counts": {
       "features": 7
     },
@@ -1165,7 +1165,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleoptimization",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAe0lEQVR42mPwDYj9TwlmABE37n4kGR848QLVgJMXXv9//OwrmCaEQZq7JizHNIBYzSCLUAzgsxIhC6MYoNVlRRLGaoCUlBQYwxTh49PGAIq88OKAw3+5LC2iaQwDKIoF5HQAimdiMNaERKxmrAaAUhfZBsAESMVwAyjBAPycZS9pdCIrAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPElEQVR42mNgGAVgwGcl8p8cjGKAVpcVSRirAVJSUmAMU4SPTxsDKPLCiwMO/+WytIimMQygKBZGAWUAAHYMpAPD1ZcjAAAAAElFTkSuQmCC",
     "counts": {
       "features": 2
     },
@@ -1184,7 +1184,7 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleoptimization",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mMQEtf6TwlmABG1rYtJxnpWWagGeIfV/5eSUSAKgzQravlgN2DWghV4MUjNwmV78BugpWeCgkFiDg8S4AZQ7AKCBgxOF3w4YDBiwiAqIQMvxmkAKHWRnZRhAqRiuAGUYABjgOz4Wx7bWwAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPklEQVR42mNgGFRASkbhPzEYrwGzFqzAi4kyQEvPBAWDxBweJBBvwDB1wYcDBiMmDKISMvBiggZQlJQHBAAAY4P/EVMhQ0IAAAAASUVORK5CYII=",
     "counts": {
       "features": 2
     },
@@ -1194,7 +1194,7 @@ window.WIKI_MODULES = [
     "id": "simplestorage",
     "displayName": "Simple Storage",
     "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1212,14 +1212,14 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR42mNgGDTASkXgPykYqwE7ugKIwngNOLEgAYy7koywYoIGgBThM4QoA/AZQrQBuAwhyQBshpBsALohZBmAbAjZBsAMIWgARQmJoqQ8YAAAaFgsZn/BQuAAAAAASUVORK5CYII=",
     "counts": {
       "items": 17,
       "blocks": 37,
       "recipes": 177,
       "features": 7
     },
-    "dataHash": "ecaaba130eda"
+    "dataHash": "8b0090fe2be1"
   },
   {
     "id": "simplemusic",
@@ -1239,7 +1239,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATElEQVR42mNgoBbIirL6TwrGasCHFxeIwiQZICUlhYLxGrBjwwIMDNKEzibZBejsIeQCWMChs4l2AXLIkx0L2DDtEtLAu4CizEQuAAAPpsyAzRZtVQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 21,
       "blocks": 2,

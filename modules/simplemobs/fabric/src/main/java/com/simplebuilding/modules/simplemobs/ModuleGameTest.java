@@ -92,6 +92,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void witherLootPlace(GameTestHelper helper) { MobsTests.ALL.get("wither_loot_place").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherHeartMoved(GameTestHelper helper) { MobsTests.ALL.get("wither_heart_moved").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void netherLootRarity(GameTestHelper helper) { MobsTests.ALL.get("nether_loot_rarity").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void netherHeartShape(GameTestHelper helper) { MobsTests.ALL.get("nether_heart_shape").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherAttacks(GameTestHelper helper) { MobsTests.ALL.get("wither_attacks").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }

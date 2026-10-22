@@ -105,7 +105,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   (alle Module geladen): jedes Item in mind. einem Tab, keine Dubletten, Modul-Tab enthält alle Items seines Moduls.
 
 ### SimpleLib (gemeinsame Bibliothek)
-Seltenheitsstufen über Episch (21.10., `api.SimpleRarity`, Komponente `simplelib:rarity`): Cursed = roter Name mit schwarzem Schatten (Biom-Pinsel, Netherherz, Rotes Nether-Juwel), Mythic = Türkis-Hellgrün-Verlauf mit Schimmer + Glanz (Starke Aufwertungsvorlage, Starkes Leuchtfeuer, Starker Aquisator). Warmes Essen (Komponente `simplelib:warm`, Tag `warmable_food`; die Tiegel selbst liegen seit Stufe 5 in `simplecrucibles`), Stapelgrößen-Regel
+Seltenheitsstufen über Episch (21.10., `api.SimpleRarity`, Komponente `simplelib:rarity`): Cursed = roter Name mit schwarzem Schatten, im Tooltip brennende Buchstaben (seit 22.10.; Biom-Pinsel, Netherherz, Rotes Nether-Juwel), Mythic = wandernder Opal Aquamarin/Azur/Lavendel mit Perl-Schimmer + Glanz (Starke Aufwertungsvorlage, Starkes Leuchtfeuer, Starker Aquisator). Warmes Essen (Komponente `simplelib:warm`, Tag `warmable_food`; die Tiegel selbst liegen seit Stufe 5 in `simplecrucibles`), Stapelgrößen-Regel
 (`StackLimits`), UI-Bausteine des Simple-Stils (Kästen, Slots, Symbole, Flammen, Filter-Knopf). Dienste der
 Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Übergabe-Handlern und Tags
 `#simplelib:hammers`/`#simplelib:upgrade_tools`, `OctetCells` (Achtelzellen je Material), Bildumwandlung `api.image` (Lab-Palette, Floyd-Steinberg/Bayer, Lauflängen-Zeilen; Bild-Bauplan), `ToolPlacements` (Werkzeug-Bauten an Zuhörer wie das Block-Protokoll). Gemeinsame Materialien

@@ -26,7 +26,8 @@
     "client.WarmGlowSlotMixin",
     "client.SlotIconTintMixin",
     "client.CodeAreaSelectAccessor",
-    "client.RarityClientThreadMixin"
+    "client.RarityClientThreadMixin",
+    "client.RarityTooltipTextMixin"
   ],
   "server": [],
   "injectors": {
