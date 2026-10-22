@@ -22,65 +22,59 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 - [ ] (B, b-opt45, 19.10.; O3/O4/O9/S5b + Zielprüfung fertig, offen S1a (begründet), O3-Regen, O4-Modelle, Messung, Merge) (e4) Simple Optimization Stufe 4/5: O3, O4, S1a, O9, S5b (Standard aus), Zielprüfung; danach L-Bereiche nur bei Messbedarf (Konzept §7). Stand: Konzept §10, Plan `docs/ai/PLAN-B-OPT45-2026-10-19.md`. — **22.10. (B): Teil in claude-wave1/master gemergt; Rest siehe „offen“ oben**
 - [ ] (e5) Kompatibilitätstest Modpack des Besitzers: `docs/ai/MODPACK-BESITZER-2026-10-17.md` §6 K1–K23 (26.3-Fassungen auf sb-test, Rest im Port-Run 1.21.11/beim Besitzer).
 
-## Offen – Überblick (Stand 2026-10-13)
+## Offen – Überblick (Stand 2026-10-22, neu sortiert von B)
 
-Besitzer 13.10.: Elytra-Reparatur erledigt (Werkbank-Rezept bleibt); Sprach-Bridge gestrichen; Modulaufteilung F1–F3 = Empfehlungen angenommen; Claims-Hauptschalter freigegeben (Default an nach Prüfung, claude-claims-on).
+Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabschnitt. Maßgeblich bleibt der Haken im Ursprungsabschnitt.
+Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
-Jeder offene Punkt steht hier genau einmal (Ursprungs-Nachtrag in Klammern). Quelle der Wahrheit bleibt der Haken im
-Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile hier streichen.
+### (A) In Arbeit
+- B: b-framemaps22 (Wayfinder-Karte im Rahmen speichern, Codefeld, Stapel 1), b-rarity21b (Netherherz als Icon-Form in 3D), b-vnear22 (Vanilla-Nähe-Auswahlseite), b-musicsub22 (Simple Music als Sub-Mod von SB), b-s9b (Stufe 9 Teil 2 + Hämmer allein spielbar)
+- B fertig, wartet auf das nächste Bündel: b-t12pvp (Neue-Spieler-Schutz). Bündel 42 (models21, rarity21b Teil 1, pjuke21, eh21) läuft im Gate.
+- A: a-docs22 (Pane-Namen-Rest, Maps-Wiki Claims-Ebene, Config-Tooltips M-08, LegacyMigration M-11; Auftrag /root/a-auftrag-20261022.md)
 
-### (A) In Arbeit (Branch ungemerged)
-- Deceiver-Umhang: Kopf-Umhang mit Kapuze als 3D-Modell auf dem Rücken, Elytra-Zusammenspiel, Deceiver-Mob trägt ihn (N49; claude-deceiver3)
-- Deceiver-Umhang am Kopf-Slot, Verkleidung überall sichtbar (Inventar, Ego-Hände), Schlag in die Luft hebt Tarnung auf (N48; claude-deceiver3, Teil auf dem Branch)
-- Trick-Spiegel ausbalancieren oder vorerst entfernen (N48; claude-deceiver3)
-- Shellker-Schale: Item-Textur wie Vanilla-shulker_shell, angepasst (N48; claude-deceiver3)
-- Furcht-Mobs F-A „Dread“ (Golem-Mechanik) und F-C „Hollow Watcher“ (End) mit Zittern-Aura (N47, Dubletten N20/N21/N32; claude-fear-mobs)
-- Aschholz/Dämmerholz: alle Holz-Features optional bei geladenem SB (N47; claude-endwood-full, auf dem Branch abgehakt, Merge offen)
-- Info ohne Queue-Punkt: claude-vd-windows (generateVanillaDerived Windows-fest, Memory 12.10.) wartet nur auf Merge nach claude-wave1
+### (B) Als Nächstes bauen (Reihenfolge = Priorität)
+1. **Testzentrale-Überarbeitung TZ22** (Besitzer 22.10., Abschnitt direkt unten): TZ22-1 bis TZ22-9, in 3–4 Branches nacheinander
+2. Kleinpunkte aus „Verwaiste TODOs 20.10.“: Wanderer-Schalter `enableWandererTrades`, SB-Handbuch lange DE-Seiten, Simple Stats Tragezeit, `dist-publish.sh` streng
+3. Rest-Stufen gemergter Branches: b-tooltips Stufe 3 (Rucksack/Truhen-Items), b-webmap Stufen 2–4, Stil-Audit Rest ST-10/12–15/21
+4. Danach: Wiki-Seite überarbeiten (Nachtrag Besitzer 21.10. nachts: „wenn das fertig ist, auch die Seite noch einmal überarbeiten“)
 
-### (B) Feststehend – als Nächstes bauen (Reihenfolge = Priorität)
-0. Claim-Urkunde (N54; Plan docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md Fassung 2 freigegeben): Rechte-Code B/D/U/C/R/A/M, Claim-Tisch (Karte+Liste, Erweitern mit steigenden Kosten), Maps-Ebene Claims, Kopie in Werkbank; 4–5 Branches nacheinander
-0a. [x] (B, b-claimharden, 17.10.) Claims-Härtung Rest (Knochenmehl/Sculk/Frostläufer, Prüfung Feuer/Fluss/Drache/Wither/Enderman/Kolben): ClaimBonemealMixin (Spreader-Böden nur ohne fremde Chunks im Radius 4/8), ClaimSculkMixin (Ladung stirbt an Claimgrenze), ClaimFrostMixin (Eis nur wo Träger bauen darf), Claims.sameLand; Feuer/Fluss/Drache/Wither/Enderman/Kolben waren schon gehookt + getestet (Stage4/EnvironmentClaimTests). Gametests claims_review_bonemeal/sculk/frost_walker. -- Beleg: simpletweaks:*claims* Fabric 72/72, NeoForge 72/72, Standalone Fabric+NeoForge je 72/72 (inkl. 3 neue Tests); Compile 3 Loader + :compileJava gruen.
-1. Prinzip Entdeckbarkeit umsetzen, Stufe 1: Tooltip/Rezept-Freischaltung je Item + Test (N47; Konzept PRINZIPIEN-ENTDECKBARKEIT.md)
-2. Seelen-Lohe schießt Seelenfeuer-Kugeln (Soulfire Charge, Seelenbrand-Effekt) (N49)
-3. Geschnitztes Holz: Item-Modell an Block-Modell angleichen (N49)
-4. Shellker-Helm und Schildkrötenpanzer trimmbar (N49)
-5. Inventar-Helligkeit als Config: Light, Dark, Dawn (N49)
-6. Extra-Kopf-Slot im B-Menü (nur Mob-Köpfe/Kürbis, Effekte, Helm-Position je Kopf) (N49)
-7. Resonanz-Button zwischen Kopf- und Nebenhand-Slot, Herz-Stufen, Tooltip-Format (N49; hängt an 6)
-8. ✔ Wayfinder-Karte: Zoom feiner, Navigation verbessern (N48)
-9. ✔ Octet-Blöcke untereinander kombinierbar (N48; `claude-octets-mix`, Plan docs/ai/PLAN-OCTETS-MIX-2026-10-13.md)
-10. ✔ Simple Creatures umbenennen in „Simple Mob Manners“, Id simplemobmanners, Namespace-/Config-Migration (N42; `claude-mobmanners`)
-11. Stärkerer Wither + Biom-Pinsel (N47; Konzept KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
-13. ✔ Simple Trims Stufen 2–4 (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) (N18; `claude-trims2`, Besatz-Boni bleiben vorerst in SB)
-14. Stil-Audit: andere Mods an SimpleBuilding-Stil angleichen (N11, Dubletten N11/N14; Teil: Mod-UIs im Container-Stil)
-
-### (C) Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md; Stufen 1a–3b erledigt: claude-split1/2/3)
-Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 Crucibles, 6 Octets, 7 Hammers, 8 Storage, 9 Release; strikt nacheinander).
+### (C) Modulaufteilung
+- Stufe 9 Teil 2 läuft (b-s9b). Danach fehlt nur die Brücken-Version 1.3.x-bridge, die erst mit Release-Freigabe kommt.
 
 ### (D) Wartet auf Besitzer (Abnahme im Spiel / Entscheidung)
-- Abnahme im Spiel (Client, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewölbe, Enderit-Pulver, Mega-Handbücher, Attractor/Echolot, Boost/Pads, Architectury-Mixin-Fix (Welle 25; Dubletten N-alt)
-- Abnahme neue Module im Spiel: Models, Fun, Visuals/Sounds, QoL, Riding, Dimensions, Money, Forge-Clients, Mehrspieler (Welle 25)
-- Weitere Sichtabnahme Buch-Screen, Truhen, Kern-Animation, Gadgets; Octant-Manager-Kontrast (Offen-Liste)
-- Abnahme Zeilen-Layout in allen Kreativreitern (Offen-Liste)
-- Abnahme visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen (Offen-Liste)
-- Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale (Offen-Liste)
-- Forge: Clientdarstellung, Config-Persistenz, Default-Einschaltung abnehmen (Offen-Liste)
-- Abnahme Simple Money; NeoForge-Client/alte Spielwelt prüfen (Offen-Liste)
-- Weiter offen als Abnahme (Branches gemergt, Details in Memory uebergabe-2026-10-08.md): UI-Konzepte (claude-ui-concepts), Respawn, Soulbound/Death Vault, Claims, Howler, Shellker, Nibblemite, Texturen N44–N46
-- Verwaiste TODOs 20.10.: 26 Punkte (weder in Queue noch umgesetzt) – aufnehmen oder verwerfen (Block „Verwaiste TODOs 20.10.“ unten, Seite todos.html; b-orphtodos)
+- Vanilla-Nähe: Auswahl „überarbeiten/so lassen“ (Seite kommt von b-vnear22)
+- TEX21-Abnahme (Notenblatt, Platten, Herobrine-Kopf; Zeile b-tex21)
+- Netherherz Icon-3D (nach b-rarity21b Teil 3)
+- Client-Abnahmen im Spiel: Abschnitt „Offen“ (Zeilen „Abnahme im Spiel“, „Abnahme neue Module“, Sichtabnahmen, Kreativreiter, Hub-Rendering, Wiki-Handy, Simple Money)
+- Besitzer klärt: Enderit-Reparatur (Abschnitt „Verwaiste TODOs“), Simple Tweaks alte Ideenliste und Offline-Testlauf (vermutlich verwerfen), Simple Hearts
+- Betrieb: IP A (sb-test → .201), sb-test-Platte vergrößern, Installer-Windows-Lauf
 
-### (E) Bewusst später
-- Hammer-Tempo später evtl. testen: 1. Block 2x, Block 2–9 je +0,6x, ab 10. je +0,5x oder +0,4x (große Flächen sparen viel, kleine wenig) (N54)
-- Port-Run 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme (Offen-Liste, Dubletten Welle 25/N32)
-- Port-Run 26.2: Erzdetektor-Texturen auf zentrierte 26.3-Nadel bringen (Nachtrag 2)
-- 26.4: Forge einschalten, Cloth-Config, NeoForge-26.4-Linie, sobald Builds da sind (Offen-Liste)
-- Mega-Handbücher ansehen und Testzentrale neu bauen, erst wenn alle Mods fertig sind (Offen-Liste, Dubletten N47)
-- Wiki-Extras: Beschaffungszeit je Item mit Zeitaltern; Diagramm „Zeit bis k Stück“ (log. Achse); weitere Wiki-UX-Ideen (Offen-Liste)
-- Punkte 64–69: Sprachen, Attractor mit Ladung, neue Blöcke, Baustab über Planer, Kern-Module, Multi-Mod-Repo (Offen-Liste)
-- Rucksack-Sortierung, sobald eine Sortierfunktion kommt (Offen-Liste)
+### (E) Bewusst später / am Ende
+- Mod-Icons: 8 neu zeichnen + Hintergründe abstimmen (Besitzer 22.10. „nach hinten stellen“)
+- Hollow Howler gruseliger, Mob-Animationen (Konzepte warten auf Freigabe); Astralit-/Nihilit-Fliesen; Hammer-Tempo-Variante
+- Audit Vanilla-Konformität (zum Ende), Performance-Recherche (zuletzt), Simple Optimization e3/e5 (Besitzer-PC/Modpack)
+- Port-Run 26.2/1.21.11/26.4 und Forge-Client erst auf ausdrückliche Anforderung des Besitzers
+- Punkte 64–69, Rucksack-Sortierung, Mega-Handbücher und Testzentrale in der Besitzerwelt neu bauen
 
 ---
+
+## Besitzer 22.10. – Testzentrale-Überarbeitung (TZ22)
+Besitzer-Feedback beim Bauen der Testzentrale (Sprachnachricht, sinngemäß zusammengefasst; wörtliche Kernsätze in Anführungszeichen).
+Ziel: „das ganze Testcenter von Anfang bis Ende überarbeiten“, kompakt und übersichtlich „wie beim Holzbereich“. Die Mob-Bereiche gefallen und sind das Vorbild für die Struktur.
+Reihenfolge für die Branches: TZ22-1/2/5 (Inventar + Layout + Rahmen), dann TZ22-3/4 (Strukturen + Teilbau), dann TZ22-6/8 (Rails + Anzeigen), TZ22-7 als eigener Client-Branch parallel.
+- [ ] TZ22-1 Vollständigkeit: „ich sehe nicht alles, was in der Mod existiert“. Abgleich gegen alle Registries aller Module (Blöcke, Items, Mobs, Strukturen). Ein Test oder Generator-Check meldet alles, was in der Testzentrale fehlt.
+- [ ] TZ22-2 Weniger Item-Rahmen (Leistung): „es leckt noch etwas, dadurch, dass es so viele Item-Frames sind“. Was platzierbar ist (an der Wand oder am Boden), wird als Block gesetzt statt in einen Rahmen gelegt; schon gesetzte Dinge (z. B. Öfen) bekommen keinen zusätzlichen Rahmen. Rahmen nur noch für Nicht-Platzierbares (z. B. Eimer). Entity-Zahl vorher/nachher messen.
+- [ ] TZ22-3 Strukturen: Jede eigene Struktur und jedes Strukturteil wird einmal erzeugt, mit allen Variationen. Dazu die einzelnen Dorfhäuser („die einzelnen Dörfer, Häuser … für die Crucibles“) und die zusätzlichen End-Strukturen („die darfst du natürlich auch nicht vergessen“). Gut gruppieren, keine ellenlangen Reihen.
+- [ ] TZ22-4 Teilbau per Befehl: Der Standardbefehl baut alles. Optionen schränken die Größe ein, z. B. „ohne die Strukturen“ oder nur einzelne Bereiche. Hilfe-Text, Wiki und Tests dazu.
+- [ ] TZ22-5 Kompaktes Layout wie der Holzbereich:
+  - Baublöcke (Astralit/Nihilit, Paints, Holz-Bauvarianten) gruppiert statt einer langen Reihe; die doppelten Holzblöcke fallen weg, weil sie schon im Holzbereich stehen.
+  - Die „riesige Wand“ mit Truhen, Öfen, Trichtern und anderen Speichern kompakter.
+  - Wände niedriger („weil das schon ein harter Cut ist“), schlecht gefüllte Bereiche auffüllen.
+- [ ] TZ22-6 Astral- und Nihil-Schienen richtig testen: „keine richtigen Tests …, sondern nur vorgebaut“. Funktionierende Teststrecken mit Lore und Auslöser (Schalter/Knopf), die die Besonderheiten zeigen (Tempo, Brücke, 2./3. Linie).
+- [ ] TZ22-7 Druckplatten im Item-Rahmen wie in der Hand (schräg von oben, wie das Item-Modell im Inventar/in der Hand) statt flach. Gilt sinngemäß für ähnliche flache Block-Items. Client-Option zum Ausschalten („clientseitig ausstellen“). Simple Tools hat die Item-Rahmen-Features (b-itemframes) → dort oder in Simple Visuals, mit Config-Tooltip.
+- [ ] TZ22-8 Veraltete Anzeigen der In-World-Umwandlungen und Rezepte: z. B. am Eisenblock noch „Hammer + 4 → 2 Iron Poles“, obwohl die Herstellung auf den Tiegel umgestellt ist. Alle Schilder/Anzeigen der Testzentrale aus den aktuellen Rezepten bzw. InWorldTransformations erzeugen statt fest kodiert; ein Test erkennt Abweichungen.
+- [ ] TZ22-9 Danach: Testzentrale neu bauen und Rundgang dokumentieren (Screenshots per Server-Render nur, falls ohne Client möglich; sonst Besitzer-Abnahme).
+
 
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
@@ -725,7 +719,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 ### Verwaiste TODOs 20.10. (b-orphtodos; Besitzer entscheidet über Verwerfen; Belege in /tmp/claude-0/ash/todos.html)
 - [ ] (übergreifend) Simple Hearts: bestehende GitHub-Mod erweitern/vervollständigen (Besitzer 01.10. „später“) – `docs/ai/BACKLOG-2026-10-01.md:83`.
 - [ ] (übergreifend, Audit M-08) Server-Configs ohne UI/Tooltips: Lib, Maps, Sandwiches, Trims (nur `simpletrims.config.enabled` ohne Tooltip), Tweaks-Claims, Simple Stats (kein Config-Bildschirm/ModMenu) – `docs/ai/AUDIT-MODULE-2026-10-11.md:24`, `docs/ai/memory/simple-stats-2026-10-15.md:13`.
-- [ ] (Testzentrale, Nachtrag 13 Besitzer 06.10., nie in der Queue) Testzentralen-Module (Kleinteile/Truhen/Rahmen/Ständer/Hotbar-Befehlsblöcke, UI-Blöcke + Tooltip-UIs mit Befüll-Knopf, In-World-Umwandlungen nach Stufen, Interaktionen, Crafting-Rezepte; Standardbau baut alle) + Wiki-Dev-Tab; Wiki für Gelegenheits-/Profispieler aufräumen – Memory `testzentralen-n13-offen.md`, `docs/ai/ROADMAP-2026-10-09.md:65,110`.
+- [ ] (Testzentrale, Nachtrag 13 Besitzer 06.10., nie in der Queue) Testzentralen-Module (Kleinteile/Truhen/Rahmen/Ständer/Hotbar-Befehlsblöcke, UI-Blöcke + Tooltip-UIs mit Befüll-Knopf, In-World-Umwandlungen nach Stufen, Interaktionen, Crafting-Rezepte; Standardbau baut alle) + Wiki-Dev-Tab; Wiki für Gelegenheits-/Profispieler aufräumen – Memory `testzentralen-n13-offen.md`, `docs/ai/ROADMAP-2026-10-09.md:65,110`. — **22.10.: zusammen mit TZ22 (Abschnitt oben) umsetzen.**
 - [x] (B, b-small21, 21.10.) (Build) Groovy-Fallback ohne Python zeichnet die 38 `placed_disc_*` nicht (Regex `mc26_3/resources.gradle:183` erkennt die Dict-Comprehension `tools/textures/vanilla_derived.py:106` nicht) → magenta statt grau. Beleg: placed_disc_* als 38 Literalzeilen in tools/textures/vanilla_derived.py; Lauf auf sb-test mit -PsbSkipVanillaDerived (Groovy-Fallback) zeichnet 38 placed_disc_*; Test GroovyFallbackParse (b-small21)
 - [ ] (Betrieb) `dist-publish.sh` mit `-PsbVanillaDerivedStrict` + `placeholder_audit.py --fail-on-placeholder`; `/setup/starter.ps1` auf sb-web neu ausliefern – Memory `uebergabe-B.md:231,259`.
 - [x] (B, b-small21, 21.10.) (Zentrale) Test `tools/zentrale-web/tests/test_mods.py:130` `test_selection_per_user` rot (`simpleoctets` landet in `off`; nicht im gradlew check). Beleg: Ursache simpleoctets seit Stufe 6 registriertes Modul (nicht mehr PLANNED), Code richtig, Test korrigiert; tools/zentrale-web tests.test_mods 12/12 (b-small21)
