@@ -95,6 +95,9 @@ public final class ClaimTests {
         TESTS.put("claims_credit_migration",CreditTests::migration);
         TESTS.put("claims_credit_dimensions",CreditTests::dimensions);
         TESTS.put("claims_credit_buy",CreditTests::buy);
+        TESTS.put("claims_maps_dimensions",MapLayerTests::dimensions);
+        TESTS.put("claims_maps_visibility",MapLayerTests::visibility);
+        TESTS.put("claims_maps_present",MapLayerTests::present);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

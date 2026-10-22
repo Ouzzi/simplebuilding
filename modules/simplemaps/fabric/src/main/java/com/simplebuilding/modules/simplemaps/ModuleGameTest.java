@@ -107,6 +107,7 @@ public final class ModuleGameTest {
     @GameTest public void layersOwnChunks(GameTestHelper h) { MapsTests.ALL.get("layers_own_chunks").accept(h); }
     @GameTest public void otherDimensionTiles(GameTestHelper h) { MapsTests.ALL.get("other_dimension_tiles").accept(h); }
     @GameTest public void shopIcon(GameTestHelper h) { MapsTests.ALL.get("shop_icon").accept(h); }
+    @GameTest public void claimsLayerAbsent(GameTestHelper h) { MapsTests.ALL.get("claims_layer_absent").accept(h); }
     @GameTest public void webShops(GameTestHelper h) { MapsTests.ALL.get("web_shops").accept(h); }
     @GameTest public void webTileColors(GameTestHelper h) { MapsTests.ALL.get("web_tile_colors").accept(h); }
     @GameTest public void webThrottle(GameTestHelper h) { MapsTests.ALL.get("web_throttle").accept(h); }

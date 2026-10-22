@@ -13,7 +13,7 @@ import net.minecraft.world.level.ChunkPos;
  * Claims on the wayfinder map of Simple Maps. Simple Tweaks does not know Simple Maps (and the other way round): it only
  * registers this source with the framework's {@link MapLayerSources}; with Simple Maps absent nothing asks for it.
  * The server decides what a viewer sees, with the same {@link TableVisibility} rules as the claim table; ids, member lists
- * and codes never leave. Each marker is a strip of neighbouring chunks of one owner in one row ({@code area:RRGGBB:M:W}).
+ * and codes never leave. Every dimension works the same: the map asks for its own dimension. Each marker is a strip of neighbouring chunks of one owner in one row ({@code area:RRGGBB:M:W}).
  */
 public final class ClaimMapLayer implements MapLayerSources.ViewerCollector {
     /** Markers per answer (the wire limit of one layer answer). */
@@ -56,10 +56,15 @@ public final class ClaimMapLayer implements MapLayerSources.ViewerCollector {
                     && j - i < com.simplebuilding.modules.simpletweaks.table.ClaimGrid.MAX_SIDE) j++;
             UUID owner = owners.get((int) first[2]);
             boolean involved = TableService.involved(claims, viewer, dimension, ChunkPos.pack((int) first[1], (int) first[0]), owner);
-            String line = vis.showsName(op, involved) ? "Claim of " + TableService.nameOf(server, owner) : "Foreign claim";
+            // Own land carries the viewer's free chunk credits (SP22-8); other land the owner's name as claimVisibility allows.
+            String line = owner.equals(viewer) ? ownLine(claims.credits(viewer))
+                    : vis.showsName(op, involved) ? "Claim of " + TableService.nameOf(server, owner) : "Foreign claim";
             out.add(new Marker((int) first[1] * 16, (int) first[0] * 16, String.format("area:%06x:%d:%d", ClaimGrid.color(owner) & 0xFFFFFF, owner.equals(viewer) ? 1 : 0, j - i), List.of(line)));
             i = j;
         }
         return out;
     }
+
+    /** Tooltip line of the viewer's own land (plain text, like every map marker line). */
+    public static String ownLine(int credits) { return "Your land · " + credits + (credits == 1 ? " credit" : " credits"); }
 }
