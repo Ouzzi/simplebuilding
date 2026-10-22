@@ -175,19 +175,22 @@ def leaves():
     crystal = {'from': [6, 6, 6], 'to': [10, 10, 10], 'faces': {f: core for f in ('north', 'south', 'east', 'west', 'up', 'down')}}
     for w in WOODS:
         n = w['name']
-        textures = {'particle': f'{NS}:block/{n}_leaves', 'outer': f'{NS}:block/{n}_leaves', 'inner': f'{NS}:block/{n}_leaves_inner',
-                    'crystal': f'{NS}:block/{n}_leaves_crystal'}
+        textures = {'particle': f'{NS}:block/{n}_leaves', 'loose': f'{NS}:block/{n}_leaves_loose', 'outer': f'{NS}:block/{n}_leaves',
+                    'inner': f'{NS}:block/{n}_leaves_inner', 'crystal': f'{NS}:block/{n}_leaves_crystal'}
         # N68: Vanilla-like cube leaves with a leaf-patch texture (docs/ai/RECHERCHE-BLAETTER-2026-10-16.md): airy outer texture
         # for leaves facing the air, dense dark inner texture for leaves no air touches. A small crystal shows only on
         # leaves that carry a bud or fruit (drop 1/2), so there is no grid of crystals any more.
-        for suffix, tex in (('', '#outer'), ('_inner', '#inner')):
+        # TX22-4: three densities by the neighbours that are not air - loose (0-3, airiest texture), medium (4-5, the
+        # former outer texture), dense (6, the former inner texture).
+        for suffix, tex in (('_loose', '#loose'), ('', '#outer'), ('_inner', '#inner')):
             dump(OUT / f'assets/{NS}/models/block/{n}_leaves{suffix}.json', {
                 'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures, 'elements': [cube(tex)]})
         dump(OUT / f'assets/{NS}/models/block/{n}_leaves_crystal.json', {
             'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures, 'elements': [crystal]})
         dump(OUT / f'assets/{NS}/blockstates/{n}_leaves.json', {'multipart': [
-            {'when': {'inner': 'false'}, 'apply': {'model': f'{NS}:block/{n}_leaves'}},
-            {'when': {'inner': 'true'}, 'apply': {'model': f'{NS}:block/{n}_leaves_inner'}},
+            {'when': {'density': '0'}, 'apply': {'model': f'{NS}:block/{n}_leaves_loose'}},
+            {'when': {'density': '1'}, 'apply': {'model': f'{NS}:block/{n}_leaves'}},
+            {'when': {'density': '2'}, 'apply': {'model': f'{NS}:block/{n}_leaves_inner'}},
             {'when': {'OR': [{'drop': '1'}, {'drop': '2'}]}, 'apply': {'model': f'{NS}:block/{n}_leaves_crystal'}}]})
         path = OUT / f'data/{NS}/loot_table/blocks/{n}_leaves.json'
         template = json.loads(path.read_text(encoding='utf-8'))

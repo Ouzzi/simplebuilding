@@ -79,7 +79,8 @@ public record EndFlora(String kind, String wood) implements Feature {
             }
         }
         for (BlockPos p : placed) {
-            if (EndLeavesBlock.isInner(level, p)) level.setBlock(p, level.getBlockState(p).setValue(EndLeavesBlock.INNER, true), 2);
+            BlockState s = level.getBlockState(p);
+            if (s.is(w.leaves)) level.setBlock(p, s.setValue(EndLeavesBlock.DENSITY, EndLeavesBlock.density(level, p)), 2);
         }
         return !placed.isEmpty();
     }

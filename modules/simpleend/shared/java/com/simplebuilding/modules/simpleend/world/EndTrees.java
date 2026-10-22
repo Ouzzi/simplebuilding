@@ -315,10 +315,10 @@ public final class EndTrees {
                 leaves.add(p);
             }
         }
-        // Set without neighbour updates: mark the leaves that no air touches (denser model, N65) once the crown stands.
+        // Set without neighbour updates: give every leaf its density (TX22-4: loose/medium/dense by its neighbours) once the crown stands.
         for (BlockPos p : leaves) {
             BlockState s = level.getBlockState(p);
-            if (s.is(plan.wood.leaves) && EndLeavesBlock.isInner(level, p)) level.setBlock(p, s.setValue(EndLeavesBlock.INNER, true), 18);
+            if (s.is(plan.wood.leaves)) level.setBlock(p, s.setValue(EndLeavesBlock.DENSITY, EndLeavesBlock.density(level, p)), 18);
         }
         int buds = mark(level, leaves, marks(r, plan.sticks ? BUDS_STICKS : BUDS_WOOD), EndLeavesBlock.BUD, r);
         int fruits = mark(level, leaves, marks(r, plan.sticks ? FRUITS_STICKS : FRUITS_WOOD), EndLeavesBlock.FRUIT, r);

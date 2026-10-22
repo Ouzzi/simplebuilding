@@ -25,7 +25,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endLeavesNotFullBlock(GameTestHelper helper) { EndTests.ALL.get("end_leaves_not_full_block").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endLeavesActLikeCobweb(GameTestHelper helper) { EndTests.ALL.get("end_leaves_act_like_cobweb").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 300) public void endLeavesCatchFall(GameTestHelper helper) { EndTests.ALL.get("end_leaves_catch_fall").accept(helper); }
-    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesInnerState(GameTestHelper helper) { EndTests.ALL.get("end_leaves_inner_state").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesDensityState(GameTestHelper helper) { EndTests.ALL.get("end_leaves_density_state").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesDensityBrake(GameTestHelper helper) { EndTests.ALL.get("end_leaves_density_brake").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesHoeTool(GameTestHelper helper) { EndTests.ALL.get("end_leaves_hoe_tool").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void driftFruitGlide(GameTestHelper helper) { EndTests.ALL.get("drift_fruit_glide").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void voidSafeItems(GameTestHelper helper) { EndTests.ALL.get("void_safe_items").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void fringeHedgeFeature(GameTestHelper helper) { EndTests.ALL.get("fringe_hedge_feature").accept(helper); }
