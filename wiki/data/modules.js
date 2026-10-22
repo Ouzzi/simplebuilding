@@ -170,7 +170,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 14
     },
-    "dataHash": "5173fcf52c53"
+    "dataHash": "738b5f760b63"
   },
   {
     "id": "simplefun",
