@@ -70,7 +70,8 @@ public class BlockHighlightRenderer {
                 drawOctantHighlights(collector, poseStack, octantStack, octantFromTable);
             }
 
-            ItemStack sledgeStack = findSledgehammerStack();
+            // 26.3: Simple Hammers draws its area itself (com.simplehammers.client.HammerAreaClient, Queue 738).
+            ItemStack sledgeStack = com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? findSledgehammerStack() : ItemStack.EMPTY;
             if (!sledgeStack.isEmpty()) {
                 drawSledgehammerHighlights(collector, poseStack, sledgeStack);
             }

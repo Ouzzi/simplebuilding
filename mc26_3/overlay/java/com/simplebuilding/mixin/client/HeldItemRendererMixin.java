@@ -1,9 +1,6 @@
 package com.simplebuilding.mixin.client;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.simplebuilding.util.SledgehammerUpgrades;
-import net.minecraft.world.item.ItemUseAnimation;
 import me.shedaniel.autoconfig.AutoConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -30,7 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * ItemInHandRenderer to FirstPersonHandsAndItemsRenderer and made submitArmWithItem work on render
  * states: no player parameter (first person is always the local player, taken from Minecraft), and
  * the item is submitted through ItemStackRenderState#submit instead of renderItem. Same behaviour
- * and the same field names (the client tests read mainHandChiselProgress by reflection).
+ * and the same field names (the client tests read mainHandChiselProgress by reflection). The hammer's
+ * draw back and strike pose moved to Simple Hammers (HammerHandMixin, Queue 738); its 26.2 twin keeps them.
  */
 @Mixin(FirstPersonHandsAndItemsRenderer.class)
 public class HeldItemRendererMixin {
@@ -53,11 +51,6 @@ public class HeldItemRendererMixin {
      * All items now share the per-hand progress and a single mirrored tilt/bob path.
      */
     @Unique private float offHandNuggetProgress = 0.0F;
-    /**
-     * Wie weit der Hammer im letzten Frame ausgeholt war (0..1), siehe
-     * {@link SledgehammerUpgrades#drawBack}. Nur gespeichert, damit der Client-Test es lesen kann.
-     */
-    @Unique private float mainHandHammerDrawBack = 0.0F;
     /** Neigung des Resonanzstabs beim Strahlen (0..1), je Hand. */
     @Unique private float mainHandRodTilt = 0.0F;
     @Unique private float offHandRodTilt = 0.0F;
@@ -152,17 +145,8 @@ public class HeldItemRendererMixin {
                 this.applyTransformHint(matrices, this.mainHandChiselProgress * this.mainScale * config.tools.transformHintStrength / 100.0F,
                         player.tickCount + tickProgress, hand);
             }
-            // Aufwertung: zwischen zwei Schlaegen wie ein Bogen ausholen, kurz vor dem Schlag nach
-            // vorn sausen; den Schlag selbst zeigt der Armschwung, den der Server schickt.
-            float phase = config.tools.enableToolAnimations ? SledgehammerUpgrades.blowPhase(player, tickProgress) : -1.0F;
-            float drawBack = SledgehammerUpgrades.drawBack(phase);
-            float followThrough = phase >= SledgehammerUpgrades.STRIKE_PHASE
-                    ? (float) Math.sin(Math.PI * (phase - SledgehammerUpgrades.STRIKE_PHASE) / (1.0F - SledgehammerUpgrades.STRIKE_PHASE))
-                    : 0.0F;
-            this.mainHandHammerDrawBack = drawBack;
-            if (drawBack > 0.001F || followThrough > 0.001F) {
-                this.applyHammerDrawBack(matrices, drawBack, followThrough);
-            }
+            // Ausholen und Schlag-Pose der Aufwertung zeichnet seit Queue 738 Simple Hammers selbst
+            // (com.simplehammers.mixin.client.HammerHandMixin); hier bleibt nur der Handhinweis.
         } else {
             this.offHandChiselProgress += (targetProgress - this.offHandChiselProgress) * smoothingSpeed;
             if (this.offHandChiselProgress > 0.001F) {
@@ -184,33 +168,6 @@ public class HeldItemRendererMixin {
         matrices.rotate(Axis.YP.rotationDegrees(sign * 18.0F * progress));
         matrices.rotate(Axis.XP.rotationDegrees(-22.0F * progress));
         matrices.rotate(Axis.ZP.rotationDegrees(sign * (12.0F * progress + wobble)));
-    }
-
-    /**
-     * Erste Person: waehrend einer Aufwertung mit dem Vorschlaghammer zeigt die Hand statt der
-     * gespannten Bogen-Pose (BOW) die Bundle-Pose - und nur deren Zweig wendet im Benutzen den
-     * Armschwung an. Jeder Hammerschlag, dessen Schwung der Server auch an den Spieler selbst
-     * schickt, wird so in der eigenen Hand sichtbar. Unabhaengig von der Animations-Einstellung,
-     * damit die Bogen-Pose nie erscheint. {@code @ModifyExpressionValue}, nie {@code @Redirect}.
-     */
-    @ModifyExpressionValue(
-            method = "submitArmWithItem",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/ItemUseAnimation;"))
-    private ItemUseAnimation simplebuilding$hammerBlows(ItemUseAnimation original,
-                                                        @Local(argsOnly = true) InteractionHand hand) {
-        AbstractClientPlayer player = this.minecraft.player;
-        return hand == InteractionHand.MAIN_HAND && player != null && SledgehammerUpgrades.isHammering(player)
-                ? ItemUseAnimation.BUNDLE : original;
-    }
-
-    /**
-     * Hammer ausholen: angehoben und mit dem Kopf zur Schulter zurueckgekippt (so weit, dass er im
-     * Bild bleibt); im Schlag kippt er ueber die Ruhelage hinaus nach vorn auf die Maschine.
-     */
-    @Unique
-    private void applyHammerDrawBack(PoseStack matrices, float drawBack, float followThrough) {
-        matrices.translate(0.0, 0.2 * drawBack - 0.06 * followThrough, 0.06 * drawBack - 0.08 * followThrough);
-        matrices.rotate(Axis.XP.rotationDegrees(28.0F * drawBack - 22.0F * followThrough));
     }
 
     /**

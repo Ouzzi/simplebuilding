@@ -19,6 +19,9 @@
     "main": [
       "com.simplebuilding.modules.simplehammers.HammersFabric"
     ],
+    "client": [
+      "com.simplebuilding.modules.simplehammers.HammersFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplehammers.ModuleGameTest"
     ],
@@ -34,7 +37,7 @@
     "minecraft": "~26.3",
     "java": ">=25",
     "fabric-api": "*",
-    "simplelib": ">=0.2.0"
+    "simplelib": ">=0.3.0"
   },
   "suggests": {
     "simplebuilding": "*",

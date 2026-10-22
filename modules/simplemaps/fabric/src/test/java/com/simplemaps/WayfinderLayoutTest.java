@@ -25,6 +25,18 @@ class WayfinderLayoutTest {
     }
 
     @Test
+    void frameBarFitsBelowTheFooter() {
+        for (int[] s : SCREENS) {
+            WayfinderLayout l = WayfinderLayout.of(s[0], s[1], true);
+            String at = s[0] + "x" + s[1];
+            assertTrue(l.top() >= 0 && l.top() + l.panelH() <= s[1], "vertically at " + at);
+            assertEquals(l.mapY() + l.mapH() + WayfinderLayout.FOOTER_H, l.barY(), "bar under the footer at " + at);
+            assertTrue(l.barY() + WayfinderLayout.BUTTON_H <= l.top() + l.panelH() - WayfinderLayout.FRAME, "buttons inside the frame at " + at);
+            assertTrue(s[1] - l.panelH() < WayfinderLayout.CELL + 2 * WayfinderLayout.MARGIN || l.rows() == WayfinderLayout.MIN_ROWS, "map as tall as possible at " + at);
+        }
+    }
+
+    @Test
     void bookmarksLieAlongThePanelWithoutTouching() {
         for (int[] s : SCREENS) {
             if (s[1] < 240) continue; // the 180 px window is only checked for staying inside

@@ -550,6 +550,35 @@
       ]
     },
     {
+      "id": "play_new_player_shield",
+      "en": {
+        "title": "Newcomer protection (T12)",
+        "summary": "New players take and deal no PvP damage during their first minutes (default 5) of online play time in this world; then PvP works as usual again.",
+        "details": [
+          "Covers hits, arrows and tridents of players and harmful potion effects of players, their projectiles and clouds. Mobs, the world and helpful effects stay Vanilla.",
+          "Only online time counts (Vanilla statistic play_time), so logging out does not use it up. Players who already played longer get none.",
+          "Attacking a player ends the protection early (attackEnds, default on), so a protected player cannot attack without risk. An ended protection never comes back.",
+          "The player is told in chat when it starts and ends; an attacker sees the time left in the action bar. Fake players and bots never get it.",
+          "Server settings newPlayerShield.enabled (default on), newPlayerShield.minutes (1-1440, default 5) and newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims and personal PvP (T9) still apply; this only forbids more."
+        ]
+      },
+      "de": {
+        "title": "Neulingsschutz (T12)",
+        "summary": "Neue Spieler nehmen und verursachen in ihren ersten Minuten (Standard 5) Online-Spielzeit in dieser Welt keinen PvP-Schaden; danach gilt PvP wieder wie gewohnt.",
+        "details": [
+          "Gilt für Schläge, Pfeile und Dreizacke von Spielern sowie schädliche Trankwirkungen von Spielern, ihren Geschossen und Wolken. Mobs, die Welt und nützliche Wirkungen bleiben Vanilla.",
+          "Es zählt nur die Online-Zeit (Vanilla-Statistik play_time), Ausloggen verbraucht den Schutz also nicht. Wer schon länger gespielt hat, bekommt keinen.",
+          "Greift der Spieler selbst einen Spieler an, endet der Schutz sofort (attackEnds, Standard an), damit niemand gefahrlos angreift. Ein beendeter Schutz kommt nie zurück.",
+          "Beginn und Ende stehen im Chat; ein Angreifer sieht die Restzeit in der Aktionsleiste. Fake-Spieler und Bots bekommen keinen Schutz.",
+          "Servereinstellungen newPlayerShield.enabled (Standard an), newPlayerShield.minutes (1-1440, Standard 5) und newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims und persönliches PvP (T9) gelten weiter; der Schutz verbietet nur zusätzlich."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/shield/NewPlayerShield.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
       "id": "play_welcome",
       "en": {
         "title": "Welcome and announcements (T19)",
@@ -1348,10 +1377,10 @@
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 67 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 68 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 67 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 68 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
@@ -1426,7 +1455,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 39,
+    "features": 40,
     "recipes": 4,
     "lootTables": 1,
     "tags": 2,

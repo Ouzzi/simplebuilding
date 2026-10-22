@@ -52,6 +52,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplehammers:empty")
+    public void upgradeTooltipHints(GameTestHelper h) {
+        HammerTests.ALL.get("upgrade_tooltip_hints").accept(h);
+    }
+
+    @GameTest(structure = "simplehammers:empty")
     public void hammerStaysInTheGrid(GameTestHelper h) {
         HammerTests.ALL.get("hammer_stays_in_the_grid").accept(h);
     }

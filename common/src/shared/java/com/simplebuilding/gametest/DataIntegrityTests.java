@@ -271,7 +271,8 @@ public final class DataIntegrityTests {
     private static final Set<String> MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
             "simplemobs:trick_mirror", // trickMirrorEnabled defaults to false
             "simpleenddragonfight:dragonmite_spawn_egg", // exposeSpawnEgg defaults to false
-            "simpledimension:light_blue_portal"); // legacy id kept for old worlds
+            "simpledimension:light_blue_portal", // legacy id kept for old worlds
+            "simplemusic:custom_disc"); // only made by the disc press, an empty one plays nothing
 
     private static final Set<String> ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
             "creative_spacer", // layout filler; spacers are switched off by default (owner N22)

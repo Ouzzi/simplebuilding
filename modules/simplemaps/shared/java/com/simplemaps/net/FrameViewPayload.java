@@ -7,7 +7,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-/** Client to server: the framed wayfinder map in this item frame now shows {@code view} (Feature 4). */
+/** Client to server: save {@code view} on the framed wayfinder map in this item frame (Feature 4; owner 21.10.: only after the two-step confirmation). */
 public record FrameViewPayload(int entityId, MapsComponents.View view) implements CustomPacketPayload {
     public static final Type<FrameViewPayload> TYPE = new Type<>(SimpleMaps.id("frame_view"));
     public static final StreamCodec<ByteBuf, FrameViewPayload> CODEC = StreamCodec.composite(

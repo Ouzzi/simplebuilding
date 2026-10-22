@@ -56,6 +56,7 @@ public final class HammersNeoForge {
             if (event.getEntity() instanceof ServerPlayer player) SledgehammerUpgrades.onDisconnect(player);
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplehammers.guide.HammersGuide.installQuests(FMLPaths.CONFIGDIR.get());
+        if (dist == Dist.CLIENT) HammersNeoClient.init();
     }
 
     /** Behind {@code anchor} in this order; never twice; at the end when the anchor is missing. */

@@ -77,3 +77,6 @@ Nicht geprüft: Client-Sicht der Config-Bildschirme (Client-Läufe verboten), 26
 **Offen (Teil 2):** R7 Wiki-Umzug, R10 Brücken-Version 1.3.x-bridge, Backup-Marker (§3.4), SimpleLib-Version
 (0.2.0 seit Stufe 3a trotz neuer APIs → vor Release 0.3.0 und `simplelib >=0.3.0` in allen Modul-Metadaten),
 volles Gate + alle Standalone + alle Migrations-Targets (Hauptsitzung).
+
+**Teil 2 (b-s9b, 22.10.):** `docs/ai/PLAN-B-S9B-2026-10-22.md` – Wiki-Umzug, Backup-Marker, SimpleLib 0.3.0 erledigt;
+Anleitung der Brücken-Version 1.3.x-bridge dort in §6 (nicht gebaut, erst mit Release-Freigabe).
