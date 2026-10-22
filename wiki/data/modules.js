@@ -118,7 +118,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 73
     },
-    "dataHash": "781c10aed481"
+    "dataHash": "487293bab483"
   },
   {
     "id": "simpleriding",
@@ -964,7 +964,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 6
     },
-    "dataHash": "34ebe8a6188b"
+    "dataHash": "1fef4fce7082"
   },
   {
     "id": "simplestats",
