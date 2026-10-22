@@ -57,6 +57,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void eightOctetsOfOneMaterialBecomeTheFullBlock(GameTestHelper h) {
+        OctetTests.ALL.get("eight_octets_of_one_material_become_the_full_block").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
+    public void sneakingBreaksOneOctetOffAFullBlock(GameTestHelper h) {
+        OctetTests.ALL.get("sneaking_breaks_one_octet_off_a_full_block").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
+    public void cornerBreakNeedsTheToolAndCreativeDropsNothing(GameTestHelper h) {
+        OctetTests.ALL.get("corner_break_needs_the_tool_and_creative_drops_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
+    public void cornerBreakRespectsProtectionAndAreaBreaks(GameTestHelper h) {
+        OctetTests.ALL.get("corner_break_respects_protection_and_area_breaks").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void mixedCellPersistsAndDropsEveryMaterial(GameTestHelper h) {
         OctetTests.ALL.get("mixed_cell_persists_and_drops_every_material").accept(h);
     }

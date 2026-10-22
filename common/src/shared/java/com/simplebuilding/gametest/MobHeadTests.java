@@ -705,6 +705,61 @@ public final class MobHeadTests {
         helper.succeed();
     }
 
+    /**
+     * Owner SP22-11: a right-click into the air with a mob head puts it into the extra head slot like a helmet (equip
+     * sound), swaps a worn one, takes one from a stack; the same head, a carved pumpkin and a click on a block stay Vanilla.
+     */
+    public static void extraHeadRightClickInTheAirPutsOnAndSwaps(GameTestHelper helper) {
+        List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+        ServerPlayer listener = MusicDiscTests.capturingPlayer(helper, sink);
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
+        listener.snapTo(player.getX() + 1.0, player.getY(), player.getZ(), 0.0F, 0.0F);
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.doTick();
+        ServerLevel level = helper.getLevel();
+        net.minecraft.world.InteractionHand hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+        Holder<net.minecraft.sounds.SoundEvent> expected = new ItemStack(Items.ZOMBIE_HEAD).get(DataComponents.EQUIPPABLE).equipSound();
+        java.util.function.Supplier<Long> heard = () -> {
+            synchronized (sink) {
+                return sink.stream().filter(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::isInstance)
+                        .map(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::cast)
+                        .filter(p -> p.getSound().value().equals(expected.value()) && Math.abs(p.getX() - player.getX()) < 1.0 && Math.abs(p.getZ() - player.getZ()) < 1.0)
+                        .count();
+            }
+        };
+        player.setItemInHand(hand, new ItemStack(Items.ZOMBIE_HEAD));
+        helper.assertTrue(player.gameMode.useItem(player, level, player.getItemInHand(hand), hand).consumesAction(), "right-click in the air did nothing");
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(Items.ZOMBIE_HEAD) && player.getItemInHand(hand).isEmpty(),
+                "the zombie head did not go into the empty slot: " + com.simplebuilding.util.ExtraHead.get(player) + " / " + player.getItemInHand(hand));
+        player.doTick();
+        helper.assertValueEqual(heard.get(), 1L, "putting the head on plays the equip sound");
+        player.setItemInHand(hand, new ItemStack(Items.CREEPER_HEAD));
+        player.gameMode.useItem(player, level, player.getItemInHand(hand), hand);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(Items.CREEPER_HEAD) && player.getItemInHand(hand).is(Items.ZOMBIE_HEAD),
+                "the heads did not swap: " + com.simplebuilding.util.ExtraHead.get(player) + " / " + player.getItemInHand(hand));
+        player.setItemInHand(hand, new ItemStack(Items.CREEPER_HEAD));
+        helper.assertFalse(player.gameMode.useItem(player, level, player.getItemInHand(hand), hand).consumesAction(), "the same head swapped");
+        helper.assertTrue(player.getItemInHand(hand).is(Items.CREEPER_HEAD), "the same head left the hand");
+        Item blaze = TweaksItems.head(BlazeHeadType.BLAZE);
+        player.setItemInHand(hand, new ItemStack(blaze, 3));
+        player.gameMode.useItem(player, level, player.getItemInHand(hand), hand);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(blaze) && player.getItemInHand(hand).getCount() == 2,
+                "one mod head from the stack: " + com.simplebuilding.util.ExtraHead.get(player) + " / " + player.getItemInHand(hand));
+        helper.assertValueEqual(player.getInventory().countItem(Items.CREEPER_HEAD), 1, "the old head went into the inventory");
+        player.setItemInHand(hand, new ItemStack(Items.CARVED_PUMPKIN));
+        player.gameMode.useItem(player, level, player.getItemInHand(hand), hand);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(blaze) && player.getItemInHand(hand).is(Items.CARVED_PUMPKIN), "a carved pumpkin was swapped in");
+        BlockPos floor = new BlockPos(0, 1, 0);
+        helper.setBlock(floor, net.minecraft.world.level.block.Blocks.STONE);
+        BlockPos abs = helper.absolutePos(floor);
+        player.setItemInHand(hand, new ItemStack(Items.SKELETON_SKULL));
+        net.minecraft.world.phys.BlockHitResult top = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(abs).add(0.0, 0.5, 0.0), Direction.UP, abs, false);
+        helper.assertTrue(Items.SKELETON_SKULL.useOn(new net.minecraft.world.item.context.UseOnContext(player, hand, top)).consumesAction(), "the skull was not placed on the block");
+        helper.assertBlockPresent(net.minecraft.world.level.block.Blocks.SKELETON_SKULL, floor.above());
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(blaze), "placing a skull changed the slot");
+        helper.succeed();
+    }
+
     /** N55: putting a head into the extra slot sounds like putting on a helmet (once, not on login, not on taking it out). */
     public static void extraHeadPutOnPlaysTheEquipSound(GameTestHelper helper) {
         List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();

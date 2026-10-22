@@ -72,6 +72,40 @@ public final class ExtraHead {
         }
     }
 
+    /**
+     * Owner SP22-11: a right-click into the air with a mob head (not a carved pumpkin) puts it into the extra head slot
+     * like Vanilla puts on a helmet ({@code Equippable#swapWithEquipmentSlot}): an empty slot takes it, a filled one swaps
+     * (from a stack one goes in, the old head into the inventory or dropped), the same head or a bound one refuses. The
+     * equip sound comes from {@code PlayerExtraHeadMixin}. A click on a block places the head as in Vanilla before
+     * ({@code useOn}). Null for any other item: Vanilla goes on ({@code ItemUseExtraHeadMixin}).
+     */
+    public static net.minecraft.world.InteractionResult useInAir(Player player, net.minecraft.world.InteractionHand hand) {
+        ItemStack inHand = player.getItemInHand(hand);
+        if (!(player instanceof Holder) || !fits(inHand) || inHand.is(Items.CARVED_PUMPKIN) || player.isSpectator()) {
+            return null;
+        }
+        ItemStack worn = get(player);
+        if ((net.minecraft.world.item.enchantment.EnchantmentHelper.has(worn,
+                net.minecraft.world.item.enchantment.EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE) && !player.isCreative())
+                || ItemStack.isSameItemSameComponents(inHand, worn)) {
+            return net.minecraft.world.InteractionResult.FAIL;
+        }
+        if (!player.level().isClientSide()) {
+            player.awardStat(net.minecraft.stats.Stats.ITEM_USED.get(inHand.getItem()));
+        }
+        if (inHand.getCount() <= 1) {
+            ItemStack toHand = worn.isEmpty() ? inHand : worn.copy();
+            set(player, player.isCreative() ? inHand.copy() : inHand.copyAndClear());
+            return net.minecraft.world.InteractionResult.SUCCESS.heldItemTransformedTo(toHand);
+        }
+        ItemStack old = worn.copy();
+        set(player, inHand.consumeAndReturn(1, player));
+        if (!old.isEmpty() && !player.getInventory().add(old)) {
+            player.drop(old, false);
+        }
+        return net.minecraft.world.InteractionResult.SUCCESS.heldItemTransformedTo(inHand);
+    }
+
     /** Whether {@code entity} wears {@code item} on its head: in the helmet slot or in the extra head slot. */
     public static boolean wears(LivingEntity entity, Item item) {
         return entity.getItemBySlot(EquipmentSlot.HEAD).is(item) || get(entity).is(item);

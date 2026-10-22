@@ -1,5 +1,6 @@
 package com.simpleoctets.block;
 
+import com.simpleoctets.item.MaterialOctetItem;
 import com.simpleoctets.registry.OctetRegistry;
 import java.util.Arrays;
 import net.minecraft.world.level.material.Fluids;
@@ -28,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
  * ohne Bits und ohne Wasser, z. B. {@code oak_octet} oder {@code checker_octet[color=lapis]}) oder null.
  *
  * <p>{@link #set} normalisiert: ein Material ergibt die reine, gebackene Zelle (kein Block-Entity), mehrere die
- * gemischte Zelle {@link MixedOctetBlock} mit {@link MixedOctetBlockEntity}.
+ * gemischte Zelle {@link MixedOctetBlock} mit {@link MixedOctetBlockEntity}; acht Achtel eines Materials mit Vollblock
+ * ergeben den Vollblock ({@link #fullBlock}, Besitzer SP22-1).
  */
 public class OctetCells {
     /** Nur fuer Unterklassen gleichen Namens in Partner-Mods (SimpleBuilding 26.3 erbt die Statics). */
@@ -151,6 +153,10 @@ public class OctetCells {
     public static boolean set(LevelAccessor level, BlockPos pos, BlockState[] parts, boolean wet, int flags) {
         BlockState single = single(parts);
         int mask = mask(parts);
+        BlockState full = mask == OctetCellBlock.FULL ? fullBlock(single) : null;
+        if (full != null) {
+            return level.setBlock(pos, full, flags);
+        }
         if (mask == 0 || single != null || OctetRegistry.MIXED_OCTET == null) {
             return level.setBlock(pos, plainState(parts, wet), flags);
         }
@@ -170,6 +176,27 @@ public class OctetCells {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Der Vollblock, zu dem acht Achtel des Materials {@code part} werden (Besitzer SP22-1): der Quellblock einer
+     * Material-Achtelzelle, deren Achtel ein {@link MaterialOctetItem} ist (8 Achtel = 1 Block, das Rezept
+     * {@code <block>_from_octets}); null fuer Melone (Scheiben sind keine Achtel), Schach-Achtel (kein einfarbiger
+     * Vollblock), gemischte Zellen und bei ausgeschaltetem Sub-Mod.
+     */
+    public static @Nullable BlockState fullBlock(@Nullable BlockState part) {
+        if (part == null || !(part.getBlock() instanceof MaterialOctetBlock cell) || !(cell.piece() instanceof MaterialOctetItem)
+                || !com.simpleoctets.SimpleOctets.on()) {
+            return null;
+        }
+        return cell.sourceState();
+    }
+
+    /** Die Achtelzelle, in die ein Vollblock beim Ecken-Abbau zerfaellt (Umkehrung von {@link #fullBlock}), oder null. */
+    public static @Nullable Block cornerCell(Block full) {
+        Block cell = com.simplelib.api.OctetCells.cellFor(full);
+        BlockState back = cell == null ? null : fullBlock(material(cell.defaultBlockState()));
+        return back != null && back.getBlock() == full ? cell : null;
     }
 
     /** Das Achtel-Item eines Materialzustands. */

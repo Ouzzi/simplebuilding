@@ -2118,6 +2118,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("mob_head_game_test_extra_head_put_on_plays_the_equip_sound", MobHeadTests::extraHeadPutOnPlaysTheEquipSound)
                     .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_right_click_in_the_air_puts_on_and_swaps", MobHeadTests::extraHeadRightClickInTheAirPutsOnAndSwaps)
+                    .build(),
             GameTestSpec.named("mob_head_game_test_every_mod_head_is_wearable_like_vanilla_skulls_and_keeps_its_secret", MobHeadTests::everyModHeadIsWearableLikeVanillaSkullsAndKeepsItsSecret)
                     .build(),
             GameTestSpec.named("mob_head_game_test_flypad_one_needs_the_shulker_head_and_an_elytra_with_mending", MobHeadTests::flypadOneNeedsTheShulkerHeadAndAnElytraWithMending)

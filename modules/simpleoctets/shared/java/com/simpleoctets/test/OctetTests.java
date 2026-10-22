@@ -62,6 +62,10 @@ public final class OctetTests {
         ALL.put("octets_place_into_the_sub_grid", OctetTests::octetsPlaceIntoTheSubGrid);
         ALL.put("octets_mix_materials_in_one_cell", OctetTests::octetsMixMaterialsInOneCell);
         ALL.put("sneaking_breaks_only_the_looked_at_octet", OctetTests::sneakingBreaksOnlyTheLookedAtOctet);
+        ALL.put("eight_octets_of_one_material_become_the_full_block", OctetTests::eightOctetsOfOneMaterialBecomeTheFullBlock);
+        ALL.put("sneaking_breaks_one_octet_off_a_full_block", OctetTests::sneakingBreaksOneOctetOffAFullBlock);
+        ALL.put("corner_break_needs_the_tool_and_creative_drops_nothing", OctetTests::cornerBreakNeedsTheToolAndCreativeDropsNothing);
+        ALL.put("corner_break_respects_protection_and_area_breaks", OctetTests::cornerBreakRespectsProtectionAndAreaBreaks);
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
         ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
@@ -353,6 +357,178 @@ public final class OctetTests {
         player.gameMode.destroyBlock(pos);
         h.assertBlockPresent(Blocks.AIR, CELL);
         h.assertValueEqual(dropped(h, piece(Blocks.STONE)), 4, "the whole rest of the cell");
+        h.succeed();
+    }
+
+    /**
+     * Owner SP22-1: eight octets of one material become its full block when the eighth is placed (no loss: 1 block = 8
+     * octets), water goes; the melon (slices are no octets) and mixed cells stay cells. Every material octet maps to its
+     * full block and back.
+     */
+    static void eightOctetsOfOneMaterialBecomeTheFullBlock(GameTestHelper h) {
+        h.setBlock(CELL.below(), Blocks.STONE);
+        ServerLevel level = h.getLevel();
+        BlockPos pos = h.absolutePos(CELL);
+        BlockState[] parts = new BlockState[8];
+        for (int i = 1; i < 8; i++) {
+            parts[i] = material(Blocks.DIAMOND_BLOCK);
+        }
+        OctetCells.set(level, pos, parts, true, Block.UPDATE_ALL);
+        BlockState seven = h.getBlockState(CELL);
+        h.assertTrue(seven.is(cell(Blocks.DIAMOND_BLOCK)) && OctetCellBlock.count(seven) == 7 && OctetCells.wet(seven), "seven wet diamond octets: " + seven);
+        ServerPlayer player = mockPlayer(h);
+        ItemStack stack = new ItemStack(piece(Blocks.DIAMOND_BLOCK), 2);
+        h.assertValueEqual(stack.getItem().useOn(topClick(h, player, stack, 0, 0)), InteractionResult.SUCCESS, "placing the eighth diamond octet");
+        h.assertBlockPresent(Blocks.DIAMOND_BLOCK, CELL);
+        h.assertTrue(level.getFluidState(pos).isEmpty(), "the full block holds no water");
+        h.assertValueEqual(stack.getCount(), 1, "one octet used");
+        // melon and mixed cells stay cells
+        java.util.Arrays.fill(parts, OctetCells.material(OctetRegistry.MELON_OCTET.defaultBlockState()));
+        OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
+        h.assertTrue(h.getBlockState(CELL).is(OctetRegistry.MELON_OCTET) && OctetCellBlock.count(h.getBlockState(CELL)) == 8, "eight melon octets stay a cell");
+        java.util.Arrays.fill(parts, material(Blocks.DIAMOND_BLOCK));
+        parts[3] = material(Blocks.GOLD_BLOCK);
+        OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
+        h.assertTrue(h.getBlockState(CELL).is(OctetRegistry.MIXED_OCTET), "a full mixed cell stays mixed");
+        java.util.Arrays.fill(parts, material(Blocks.OAK_PLANKS));
+        OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
+        h.assertBlockPresent(Blocks.OAK_PLANKS, CELL);
+        // every material with an octet item: octets -> its full block -> back to the same cell
+        List<String> problems = new ArrayList<>();
+        for (Block cell : OctetRegistry.cells()) {
+            MaterialOctetBlock octet = (MaterialOctetBlock) cell;
+            BlockState full = OctetCells.fullBlock(OctetCells.material(cell.defaultBlockState()));
+            boolean item = octet.piece() instanceof MaterialOctetItem;
+            if (!item) {
+                if (full != null) problems.add(cell + " (no octet item) merges into " + full);
+                continue;
+            }
+            if (full == null || full.getBlock() != octet.source()) problems.add(cell + " -> " + full);
+            else if (OctetCells.cornerCell(full.getBlock()) != cell) problems.add(full + " breaks into " + OctetCells.cornerCell(full.getBlock()));
+        }
+        h.assertTrue(problems.isEmpty(), "octets <-> full block: " + problems);
+        h.succeed();
+    }
+
+    /** Looks straight down from above at the upper octet (x, 1, z) of {@link #CELL}. */
+    static void aimFromAbove(GameTestHelper h, ServerPlayer player, int x, int z) {
+        BlockPos pos = h.absolutePos(CELL);
+        Vec3 top = new Vec3(pos.getX() + x * 0.5 + 0.25, pos.getY() + 1.0, pos.getZ() + z * 0.5 + 0.25);
+        player.snapTo(top.x, top.y + 1.0 - player.getEyeHeight(), top.z, 0.0F, 90.0F);
+    }
+
+    static void clearDrops(GameTestHelper h) {
+        h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(CELL)).inflate(3.0)).forEach(ItemEntity::discard);
+    }
+
+    /**
+     * Owner SP22-1: sneaking, a player breaks the looked-at corner off a full block: a cell of 7 octets stays, exactly one
+     * octet drops - what the block would drop, as an octet (stone -> a cobblestone octet). Without sneaking: Vanilla.
+     */
+    static void sneakingBreaksOneOctetOffAFullBlock(GameTestHelper h) {
+        BlockPos pos = h.absolutePos(CELL);
+        ServerPlayer player = survivalPlayer(h);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+        player.setShiftKeyDown(true);
+        h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+        aimFromAbove(h, player, 1, 1);
+        h.assertTrue(player.gameMode.destroyBlock(pos), "the corner break was refused");
+        BlockState rest = h.getBlockState(CELL);
+        h.assertTrue(rest.is(cell(Blocks.DIAMOND_BLOCK)) && OctetCellBlock.mask(rest) == (OctetCellBlock.FULL & ~bit(1, 1, 1)),
+                "seven diamond octets without the looked-at one: " + rest);
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 1, "exactly one diamond octet drops");
+        h.assertValueEqual(dropped(h, Items.DIAMOND_BLOCK), 0, "no diamond block drops");
+        // the next sneaking break takes the next octet of the cell
+        aimFromAbove(h, player, 0, 1);
+        player.gameMode.destroyBlock(pos);
+        h.assertValueEqual(OctetCellBlock.count(h.getBlockState(CELL)), 6, "the cell breaks on octet by octet");
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 2, "two diamond octets");
+        clearDrops(h);
+        // stone drops cobblestone: its corner drops a cobblestone octet, the rest stays stone
+        h.setBlock(CELL, Blocks.STONE);
+        aimFromAbove(h, player, 0, 0);
+        player.gameMode.destroyBlock(pos);
+        h.assertTrue(h.getBlockState(CELL).is(cell(Blocks.STONE)) && OctetCellBlock.count(h.getBlockState(CELL)) == 7, "seven stone octets");
+        h.assertValueEqual(dropped(h, piece(Blocks.COBBLESTONE)), 1, "a stone corner drops a cobblestone octet");
+        h.assertValueEqual(dropped(h, piece(Blocks.STONE)), 0, "no stone octet without silk touch");
+        clearDrops(h);
+        // without sneaking: the whole block, Vanilla
+        player.setShiftKeyDown(false);
+        h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+        player.gameMode.destroyBlock(pos);
+        h.assertBlockPresent(Blocks.AIR, CELL);
+        h.assertValueEqual(dropped(h, Items.DIAMOND_BLOCK), 1, "without sneaking the block drops whole");
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "and no octet");
+        h.succeed();
+    }
+
+    /**
+     * Owner SP22-1: tool tier and creative mode. A wooden pickaxe breaks the corner of a diamond block but drops nothing
+     * (Vanilla: the block needs iron), the cell takes as long as the block and drops nothing to it either; creative: 7
+     * octets, no drop.
+     */
+    static void cornerBreakNeedsTheToolAndCreativeDropsNothing(GameTestHelper h) {
+        BlockPos pos = h.absolutePos(CELL);
+        ServerLevel level = h.getLevel();
+        ServerPlayer player = survivalPlayer(h);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WOODEN_PICKAXE));
+        player.setShiftKeyDown(true);
+        h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+        aimFromAbove(h, player, 1, 0);
+        player.gameMode.destroyBlock(pos);
+        BlockState rest = h.getBlockState(CELL);
+        h.assertTrue(rest.is(cell(Blocks.DIAMOND_BLOCK)) && OctetCellBlock.count(rest) == 7, "seven octets after the wooden pickaxe: " + rest);
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "a wooden pickaxe got a diamond octet");
+        float cell = rest.getDestroyProgress(player, level, pos);
+        float block = Blocks.DIAMOND_BLOCK.defaultBlockState().getDestroyProgress(player, level, pos);
+        h.assertTrue(Math.abs(cell - block) < 1.0E-6F, "the cell mines like the diamond block: " + cell + " vs " + block);
+        player.setShiftKeyDown(false);
+        player.gameMode.destroyBlock(pos);
+        h.assertBlockPresent(Blocks.AIR, CELL);
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "the diamond cell dropped octets to a wooden pickaxe");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+        h.setBlock(CELL, rest);
+        player.gameMode.destroyBlock(pos);
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 7, "an iron pickaxe gets the seven octets");
+        clearDrops(h);
+        // creative: the corner goes, nothing drops
+        player.setGameMode(GameType.CREATIVE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setShiftKeyDown(true);
+        h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+        aimFromAbove(h, player, 0, 0);
+        player.gameMode.destroyBlock(pos);
+        h.assertTrue(OctetCellBlock.count(h.getBlockState(CELL)) == 7, "creative: seven octets left: " + h.getBlockState(CELL));
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "creative: no drop");
+        player.setShiftKeyDown(false);
+        h.succeed();
+    }
+
+    /**
+     * A refused break changes nothing (adventure mode: the same check as Vanilla's protection, which every loader runs
+     * before the octet code; claims hook in there too). Area breaks while sneaking (vein/strip miner, hammer) mine the
+     * neighbours they break whole, and the start block of that break too.
+     */
+    static void cornerBreakRespectsProtectionAndAreaBreaks(GameTestHelper h) {
+        BlockPos pos = h.absolutePos(CELL);
+        ServerPlayer player = survivalPlayer(h);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+        player.setShiftKeyDown(true);
+        h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+        aimFromAbove(h, player, 1, 1);
+        player.setGameMode(GameType.ADVENTURE);
+        h.assertFalse(player.gameMode.destroyBlock(pos), "adventure mode broke a corner");
+        h.assertBlockPresent(Blocks.DIAMOND_BLOCK, CELL);
+        h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "adventure mode: no drop");
+        player.setGameMode(GameType.SURVIVAL);
+        // an area break: first a neighbour the player does not look at, then the looked-at block, in one tick
+        h.setBlock(CELL.east(), Blocks.DIAMOND_BLOCK);
+        player.gameMode.destroyBlock(pos.east());
+        h.assertBlockPresent(Blocks.AIR, CELL.east());
+        player.gameMode.destroyBlock(pos);
+        h.assertBlockPresent(Blocks.AIR, CELL);
+        h.assertValueEqual(dropped(h, Items.DIAMOND_BLOCK), 2, "an area break mines whole blocks");
+        player.setShiftKeyDown(false);
         h.succeed();
     }
 
