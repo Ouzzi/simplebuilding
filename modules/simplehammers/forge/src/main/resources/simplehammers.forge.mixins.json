@@ -6,6 +6,10 @@
   "mixins": [
     "RegistryLoadTaskMixin"
   ],
+  "client": [
+    "HammerLevelRendererMixin",
+    "HammerLevelExtractorMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

@@ -235,6 +235,40 @@ public final class HammerTests {
             h.assertTrue(unread == 0, unread + " shipped upgrade entries unreadable");
             h.succeed();
         });
+        ALL.put("upgrade_tooltip_hints", h -> {
+            // Queue 738: the hint under upgradable block items is the module's own (SimpleBuilding 26.3 adds none).
+            var en = com.simplehammers.discover.HammersDiscover.lang("en_us");
+            var de = com.simplehammers.discover.HammersDiscover.lang("de_de");
+            List<String> problems = new ArrayList<>();
+            Map<String, SledgehammerUpgrades.Upgrade> ways = new LinkedHashMap<>();
+            ways.put("reinforced", new SledgehammerUpgrades.Upgrade(Blocks.CAULDRON, Blocks.ANVIL, Items.DIAMOND, 0, 2, false, true, 1, 8));
+            ways.put("netherite", new SledgehammerUpgrades.Upgrade(Blocks.CAULDRON, Blocks.ANVIL, Items.NETHERITE_SCRAP, 1, 4, false, false));
+            ways.put("enderite", new SledgehammerUpgrades.Upgrade(Blocks.CAULDRON, Blocks.ANVIL, Items.ENDER_PEARL, 2, 10, true, false));
+            ways.put("shulker_box", new SledgehammerUpgrades.Upgrade(Blocks.SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Items.DIAMOND, 0, 2, false, true, 2, 2));
+            ways.forEach((way, upgrade) -> {
+                List<net.minecraft.network.chat.Component> lines = com.simplehammers.engine.UpgradeHints.lines(upgrade);
+                String first = lines.isEmpty() ? "" : lines.get(0).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc ? tc.getKey() : "";
+                Object[] args = lines.size() < 2 ? new Object[0] : lines.get(1).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc ? tc.getArgs() : new Object[0];
+                if (lines.size() != 2 || !first.equals(com.simplehammers.engine.UpgradeHints.PREFIX + way)) problems.add(way + ": " + lines);
+                else if (args.length != 2 || !Integer.valueOf(upgrade.materialCost()).equals(args[0])) problems.add(way + " material args " + java.util.Arrays.toString(args));
+            });
+            for (String key : List.of("reinforced", "netherite", "enderite", "shulker_box", "material")) {
+                String full = com.simplehammers.engine.UpgradeHints.PREFIX + key;
+                if (!en.containsKey(full) || !de.containsKey(full)) problems.add("no EN/DE text " + full);
+            }
+            // Every upgradable block item of the loaded mods gets the two lines; anything else none.
+            int hinted = 0;
+            for (SledgehammerUpgrades.Upgrade upgrade : SledgehammerUpgrades.table().values()) {
+                ItemStack stack = new ItemStack(upgrade.from().asItem());
+                if (!(stack.getItem() instanceof net.minecraft.world.item.BlockItem item) || item.getBlock() != upgrade.from()) continue;
+                if (com.simplehammers.engine.UpgradeHints.lines(stack).size() != 2) problems.add("no hint on " + stack);
+                hinted++;
+            }
+            if (!com.simplehammers.engine.UpgradeHints.lines(new ItemStack(Items.STONE)).isEmpty()) problems.add("hint on stone");
+            h.assertTrue(problems.isEmpty(), "upgrade hints: " + problems);
+            com.simplehammers.SimpleHammers.LOG.info("upgrade_tooltip_hints: {} upgradable block items hinted", hinted);
+            h.succeed();
+        });
         ALL.put("hammer_stays_in_the_grid", h -> {
             ItemStack hammer = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
             ItemStack after = SledgehammerCrafting.damaged(hammer);

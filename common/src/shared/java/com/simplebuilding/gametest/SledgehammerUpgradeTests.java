@@ -795,6 +795,18 @@ public final class SledgehammerUpgradeTests {
     }
 
     /**
+     * Queue 738: the upgrade hint under an upgradable machine shows once. On 26.3 it is Simple Hammers' own (its
+     * {@code UpgradeHints}, also without SimpleBuilding), so SimpleBuilding adds no lines there; 26.2 keeps SimpleBuilding's
+     * two lines (how it goes up, the off-hand material).
+     */
+    public static void upgradeTooltipHintsShowOnce(GameTestHelper helper) {
+        java.util.List<net.minecraft.network.chat.Component> lines = SledgehammerUpgrades.tooltipHints(new ItemStack(ModBlocks.REINFORCED_HOPPER));
+        helper.assertTrue(com.simplebuilding.version.McVersion.HAMMERS_IN_SB ? lines.size() == 2 : lines.isEmpty(),
+                "SimpleBuilding's own upgrade hints on the reinforced hopper: " + lines);
+        helper.succeed();
+    }
+
+    /**
      * The five crafting recipes the netherite machines used to have - the hopper column and the four
      * {@code *_bulk} 2x2 grids - are gone from the live recipe manager by id, and so are the five
      * recipe book advancements that unlocked them. A recipe file that came back, or an advancement

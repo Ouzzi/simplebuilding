@@ -1784,6 +1784,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
                     .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_upgrade_tooltip_hints_show_once", SledgehammerUpgradeTests::upgradeTooltipHintsShowOnce)
+                    .build(),
             GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_trapped_copper_chests_pair_only_with_each_other", TieredChestTests::trappedCopperChestsPairOnlyWithEachOther)

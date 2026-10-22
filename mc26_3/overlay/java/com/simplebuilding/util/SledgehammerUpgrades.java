@@ -5,7 +5,6 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.version.McVersion;
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * 26.3 (split stage 7): the in-world upgrade engine is Simple Hammers' ({@link com.simplehammers.engine.SledgehammerUpgrades});
  * SimpleBuilding's code calls it through the inherited statics of this class. SimpleBuilding keeps what only it knows:
  * the built-in table its datapack files are generated from (also the engine's table before the first datapack load,
- * {@code LibServices.init}) and the upgrade hints in the tooltips of its machines. The 26.2 twin (common/src/mc26_2/java)
+ * {@code LibServices.init}); the upgrade hints in the tooltips are the module's since Queue 738. The 26.2 twin (common/src/mc26_2/java)
  * keeps SimpleBuilding's own engine.
  */
 public final class SledgehammerUpgrades extends com.simplehammers.engine.SledgehammerUpgrades {
@@ -144,30 +143,11 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
     }
 
     /**
-     * Die Hinweiszeilen fuer die Tooltips der aufwertbaren Maschinen. Verstaerkte
-     * Maschinen nennen das Netherit-Nugget, Netherit-Maschinen das Enderit-Nugget.
+     * 26.3: no lines from SimpleBuilding - Simple Hammers puts the upgrade hint under every upgradable block item itself
+     * ({@code com.simplehammers.engine.UpgradeHints}, Queue 738), so it shows once and also without SimpleBuilding. The
+     * 26.2 twin keeps SimpleBuilding's hints.
      */
     public static java.util.List<Component> tooltipHints(ItemStack stack) {
-        if (!(stack.getItem() instanceof net.minecraft.world.item.BlockItem blockItem)) {
-            return java.util.List.of();
-        }
-        Upgrade upgrade = upgradeOf(blockItem.getBlock());
-        if (upgrade == null) {
-            return java.util.List.of();
-        }
-        if (isShulkerBox(upgrade)) {
-            String tier = upgrade.toEnderite() ? "enderite" : upgrade.toReinforced() ? "reinforced" : "netherite";
-            String key = "tooltip.simplebuilding.hammer_upgrade.shulker_box." + tier;
-            return java.util.List.of(
-                    Component.translatable(key).withStyle(ChatFormatting.GRAY),
-                    Component.translatable(key + ".3", upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY));
-        }
-        String key = upgrade.toEnderite()
-                ? "tooltip.simplebuilding.hammer_upgrade.enderite"
-                : upgrade.toReinforced() ? "tooltip.simplebuilding.hammer_upgrade.reinforced"
-                : "tooltip.simplebuilding.hammer_upgrade.netherite";
-        return java.util.List.of(
-                Component.translatable(key).withStyle(ChatFormatting.GRAY),
-                Component.translatable(key + ".3", upgrade.materialCost()).withStyle(ChatFormatting.GRAY));
+        return java.util.List.of();
     }
 }

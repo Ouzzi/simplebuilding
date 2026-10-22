@@ -19,6 +19,9 @@
     "main": [
       "com.simplebuilding.modules.simplehammers.HammersFabric"
     ],
+    "client": [
+      "com.simplebuilding.modules.simplehammers.HammersFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplehammers.ModuleGameTest"
     ],

@@ -10,7 +10,10 @@
     "DiscoverTipMixin"
   ],
   "client": [
-    "client.MultiPlayerGameModeHammerProgressMixin"
+    "client.MultiPlayerGameModeHammerProgressMixin",
+    "client.HammerHandMixin",
+    "client.HammerArmPoseMixin",
+    "client.HammerTooltipMixin"
   ],
   "server": [],
   "injectors": {
