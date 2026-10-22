@@ -28,7 +28,7 @@ Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabsc
 Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 45 GRÜN → master b1fc76886 (22.10. 22:35 UTC): TZ22-3/4/6/7/8, SP22-2/3/4/9/10, Kleinpunkte, Claims-Konzept. Fertig für Bündel 46: a-tooltips3. Laufen: a-fix22b (Tiegel ¼, Vault-Legende-Varianten, Klang-Varianten), a-style22, a-claims-credits (SP22-8 Teil 1 nach Empfehlungen), a-eggs22 (TX22-2 exemplarisch). Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 45 in master b1fc76886. Bündel 46 (a-bundle46) = a-tooltips3, a-fix22b (Tiegel ¼, Beacons ok, Varianten-Vorschauen), a-claims-credits (SP22-8 Teil 1), a-eggs22 (Generator, Wahl offen). Laufen: a-style22, a-endwood22 (TX22-3/4), a-vn12 (TX22-1), a-claims-deedui (SP22-8 Teil 2). Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
