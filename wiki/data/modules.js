@@ -933,9 +933,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 6,
-      "features": 10
+      "features": 11
     },
-    "dataHash": "30dbd747d283"
+    "dataHash": "f4275fd6e203"
   },
   {
     "id": "simplewanderers",
