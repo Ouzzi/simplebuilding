@@ -26,18 +26,18 @@ const server = http.createServer((req, res) => {
     const visit = async query => { await page.goto(base + query); await page.locator('#main h1').waitFor(); };
     await visit('?mod=simplebuilding&tab=items');
     const filter = page.locator('[data-filter]');
-    await filter.fill('hammer');
+    await filter.fill('chisel');
     const visible = page.locator('[data-filter-target] > .row:not(.hidden)');
     assert.ok(await visible.count() > 0);
     await visible.first().click();
     await page.goBack();
-    assert.equal(await filter.inputValue(), 'hammer');
+    assert.equal(await filter.inputValue(), 'chisel');
     await page.reload(); await filter.waitFor();
-    assert.equal(await filter.inputValue(), 'hammer');
+    assert.equal(await filter.inputValue(), 'chisel');
     await visit('?mod=simplebuilding&tab=blocks');
     assert.equal(await filter.inputValue(), '');
     await visit('?mod=simplebuilding&tab=items&lang=de');
-    assert.equal(await filter.inputValue(), 'hammer');
+    assert.equal(await filter.inputValue(), 'chisel');
     await filter.fill('no-such-item-xyz');
     assert.equal(await visible.count(), 0);
     await page.getByRole('button', { name: 'Filter zurücksetzen' }).click();
@@ -45,20 +45,20 @@ const server = http.createServer((req, res) => {
     assert.ok(await filter.evaluate(el => el === document.activeElement));
     assert.ok(await visible.count() > 0);
     await visit('?mod=simplebuilding&tab=recipes');
-    await filter.fill('hammer');
+    await filter.fill('chisel');
     await visit('?mod=simplemoney&tab=recipes');
     assert.equal(await filter.inputValue(), '');
     await visit('?mod=simplebuilding&tab=allrecipes');
-    await page.locator('#ar-q').fill('hammer');
+    await page.locator('#ar-q').fill('chisel');
     // Reload immediately: persistence must not wait for the render debounce.
     await page.reload(); await page.locator('#ar-q').waitFor();
-    assert.equal(await page.locator('#ar-q').inputValue(), 'hammer');
+    assert.equal(await page.locator('#ar-q').inputValue(), 'chisel');
     await page.locator('#ar-merge').uncheck();
     await visit('?mod=simplemoney&tab=allrecipes');
     assert.equal(await page.locator('#ar-q').inputValue(), '');
     assert.ok(await page.locator('#ar-merge').isChecked());
     await visit('?mod=simplebuilding&tab=allrecipes');
-    assert.equal(await page.locator('#ar-q').inputValue(), 'hammer');
+    assert.equal(await page.locator('#ar-q').inputValue(), 'chisel');
     assert.equal(await page.locator('#ar-merge').isChecked(), false);
     // Items page: items and blocks on one page, kind filter, grid view and recipes remembered.
     await visit('?mod=simplebuilding&tab=items');
@@ -165,8 +165,8 @@ const server = http.createServer((req, res) => {
       Storage.prototype.getItem = Storage.prototype.setItem = () => { throw new Error('storage disabled'); };
     });
     await visit('?mod=simplebuilding&tab=items');
-    await filter.fill('hammer'); await visible.first().click(); await page.goBack();
-    assert.equal(await filter.inputValue(), 'hammer');
+    await filter.fill('chisel'); await visible.first().click(); await page.goBack();
+    assert.equal(await filter.inputValue(), 'chisel');
     assert.deepEqual(errors, []);
     console.log('PASS: list navigation/reload, module isolation, reset, recipe query, items+blocks views, grouped recipes, sticky headers, mobile, deep links, trade/loot/config metrics, missing paths, escaping and unavailable storage');
   } finally {
