@@ -63,7 +63,7 @@ public final class OctetTests {
         ALL.put("octets_mix_materials_in_one_cell", OctetTests::octetsMixMaterialsInOneCell);
         ALL.put("sneaking_breaks_only_the_looked_at_octet", OctetTests::sneakingBreaksOnlyTheLookedAtOctet);
         ALL.put("eight_octets_of_one_material_become_the_full_block", OctetTests::eightOctetsOfOneMaterialBecomeTheFullBlock);
-        ALL.put("sneaking_breaks_one_octet_off_a_full_block", OctetTests::sneakingBreaksOneOctetOffAFullBlock);
+        ALL.put("sneaking_breaks_one_octet_off_full_blocks", OctetTests::sneakingBreaksOneOctetOffFullBlocks);
         ALL.put("corner_break_needs_the_tool_and_creative_drops_nothing", OctetTests::cornerBreakNeedsTheToolAndCreativeDropsNothing);
         ALL.put("corner_break_respects_protection_and_area_breaks", OctetTests::cornerBreakRespectsProtectionAndAreaBreaks);
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
@@ -425,7 +425,7 @@ public final class OctetTests {
      * Owner SP22-1: sneaking, a player breaks the looked-at corner off a full block: a cell of 7 octets stays, exactly one
      * octet drops - what the block would drop, as an octet (stone -> a cobblestone octet). Without sneaking: Vanilla.
      */
-    static void sneakingBreaksOneOctetOffAFullBlock(GameTestHelper h) {
+    static void sneakingBreaksOneOctetOffFullBlocks(GameTestHelper h) {
         BlockPos pos = h.absolutePos(CELL);
         ServerPlayer player = survivalPlayer(h);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));

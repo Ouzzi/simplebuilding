@@ -48,7 +48,7 @@ d) Doku: `modules/simpleoctets/wiki/manual.json`, JEI-Info EN/DE, Klassen-Javado
 
 ## Tests
 - `simpleoctets` (OctetTests + Fabric-Adapter): `eight_octets_of_one_material_become_the_full_block`
-  (Diamant → Diamantblock, Melone bleibt Zelle, Wasser), `sneaking_breaks_one_octet_off_a_full_block` (Diamantblock:
+  (Diamant → Diamantblock, Melone bleibt Zelle, Wasser), `sneaking_breaks_one_octet_off_full_blocks` (Diamantblock:
   Zelle 7, Drop genau 1 Achtel; Stein → Bruchstein-Achtel; ohne Schleichen Vanilla), `corner_break_needs_the_tool_and_creative_drops_nothing`
   (Holzspitzhacke: 7, kein Drop; Kreativ: 7, kein Drop), `corner_break_respects_protection` (Abenteuermodus: nichts).
 - Kern MobHeadTests: `extra_head_right_click_in_the_air_puts_on_and_swaps`.

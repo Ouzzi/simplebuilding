@@ -62,8 +62,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
-    public void sneakingBreaksOneOctetOffAFullBlock(GameTestHelper h) {
-        OctetTests.ALL.get("sneaking_breaks_one_octet_off_a_full_block").accept(h);
+    public void sneakingBreaksOneOctetOffFullBlocks(GameTestHelper h) {
+        OctetTests.ALL.get("sneaking_breaks_one_octet_off_full_blocks").accept(h);
     }
 
     @GameTest(structure = "simpleoctets:empty")
