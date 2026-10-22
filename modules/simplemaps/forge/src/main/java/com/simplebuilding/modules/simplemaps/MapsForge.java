@@ -5,6 +5,7 @@ import com.simplemaps.MapsConfig;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.DisplayPayload;
+import com.simplemaps.net.FrameSavedPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.LayerRequestPayload;
@@ -80,6 +81,10 @@ public final class MapsForge {
                         ctx.enqueueWork(() -> MapsForgeClient.receive(payload));
                     })
                     .add(MapStatePayload.TYPE, MapStatePayload.CODEC.cast(), (payload, ctx) -> {
+                        ctx.setPacketHandled(true);
+                        ctx.enqueueWork(() -> MapsForgeClient.receive(payload));
+                    })
+                    .add(FrameSavedPayload.TYPE, FrameSavedPayload.CODEC.cast(), (payload, ctx) -> {
                         ctx.setPacketHandled(true);
                         ctx.enqueueWork(() -> MapsForgeClient.receive(payload));
                     })

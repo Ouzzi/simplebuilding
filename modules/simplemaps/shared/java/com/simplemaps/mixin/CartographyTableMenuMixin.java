@@ -33,6 +33,7 @@ public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
     private void simplemaps$wideSlots(int id, Inventory inventory, ContainerLevelAccess levelAccess, CallbackInfo ci) {
         replace(0, Cartography.mapSlot(container));
         replace(1, Cartography.additionalSlot(container));
+        this.slots.set(2, Cartography.resultSlot(this.slots.get(2), this, access));
     }
 
     private void replace(int index, Slot slot) {

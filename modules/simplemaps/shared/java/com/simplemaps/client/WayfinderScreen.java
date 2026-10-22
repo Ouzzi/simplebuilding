@@ -4,8 +4,10 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplelib.api.client.ui.UiBookmarks;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiContextMenu;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplemaps.CubeNet;
+import com.simplemaps.FrameCode;
 import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
@@ -16,7 +18,9 @@ import com.simplemaps.Waypoints;
 import com.simplemaps.WayfinderData;
 import com.simplemaps.WayfinderLayout;
 import com.simplemaps.net.DisplayPayload;
+import com.simplemaps.net.FrameSavedPayload;
 import com.simplemaps.net.FrameViewPayload;
+import com.simplemaps.net.MapsNetwork;
 import com.simplemaps.net.WaypointEditPayload;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -49,7 +54,11 @@ import net.minecraft.world.item.ItemStack;
  * Right bookmarks: player and waypoints 1-8 (click centres). Right-click on the map: "create waypoint" → every
  * bookmark except the eight waypoints is greyed out; a free one is taken at once, an occupied one turns red first
  * and is replaced by a second click. Right-click on a waypoint bookmark: configure (name, colour or mob head),
- * delete. Opened from an item frame (Feature 4) the waypoints are read-only and the view is stored in the frame.
+ * delete. Opened from an item frame (Feature 4) the waypoints are read-only; the frame keeps its view until the player saves
+ * (owner 21.10.): the map marks what the frame shows (dashed) and what saving would store (solid, chunk-aligned in the
+ * middle), a code field takes {@code X,Z,stage} ({@link FrameCode}), and "Save view" asks a second time ("Confirm", armed
+ * after half a second, cancel with the cross or Esc, gone after five seconds or when the view moves) before the server
+ * checks the rights and stores it for everyone.
  */
 public final class WayfinderScreen extends Screen {
     public static final int CELL = WayfinderLayout.CELL, FRAME = WayfinderLayout.FRAME;
@@ -64,18 +73,15 @@ public final class WayfinderScreen extends Screen {
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
     private static final Identifier DEATH = Identifier.withDefaultNamespace("red_x");
 
-    /** Zoom stages: the first {@link #ZOOM_NEAR} magnify 1:1 data (8, 4, 2 screen pixels per block), then {@link WayfinderData#ZOOMS}. */
-    private static final int[] MAGS = {8, 4, 2}, STAGE_BPP, STAGE_MAG;
-    private static final int ZOOM_NEAR = MAGS.length;
-    static {
-        int n = ZOOM_NEAR + WayfinderData.ZOOMS.length;
-        STAGE_BPP = new int[n];
-        STAGE_MAG = new int[n];
-        for (int i = 0; i < n; i++) {
-            STAGE_BPP[i] = i < ZOOM_NEAR ? 1 : WayfinderData.ZOOMS[i - ZOOM_NEAR];
-            STAGE_MAG[i] = i < ZOOM_NEAR ? MAGS[i] : 1;
-        }
-    }
+    /** Zoom stages ({@link FrameCode}): the first {@link #ZOOM_NEAR} magnify 1:1 data (8, 4, 2 screen pixels per block), then {@link WayfinderData#ZOOMS}. */
+    private static final int[] STAGE_BPP = FrameCode.STAGE_BPP, STAGE_MAG = FrameCode.STAGE_MAG;
+    private static final int ZOOM_NEAR = FrameCode.NEAR;
+    /** Framed map (owner 21.10.): ticks a "Confirm" waits, ticks before it takes a click, ticks a message stays, ticks to wait for the server. */
+    private static final int CONFIRM_TICKS = 100, ARM_TICKS = 10, STATUS_TICKS = 80, ANSWER_TICKS = 60;
+    /** Outline colours on the map: the area saving would store, what the frame shows now, and the rim under both. */
+    private static final int NEW_LINE = 0xFFFFD84A, SAVED_LINE = 0xFFFFFFFF, OUTLINE_RIM = 0xFF1E1F23, CONFIRM_RING = 0xFFE04040;
+    /** Status texts in the footer, made readable on the panel by {@link UiContrast#ensure}. */
+    private static final int STATUS_OK = 0xFFA8F0A0, STATUS_ERROR = 0xFFFFB4AA, STATUS_ASK = 0xFFFFE28A, CODE_ERROR = 0xFFFF6B6B;
 
     // Remembered for the session, like the recipe book's state.
     private static boolean snap = true, grid = true, frameContour, structures = true;
@@ -98,6 +104,15 @@ public final class WayfinderScreen extends Screen {
     /** Configure dialog. */
     private int editSlot = -1;
     private WaypointDialog picker;
+    /** Framed map: the save steps, the view the confirmation is for, the bar's widgets and the footer message. */
+    private enum SaveStep { IDLE, CONFIRM, WAITING }
+    private SaveStep saveStep = SaveStep.IDLE;
+    private int saveTicks, statusTicks, statusColor;
+    private MapsComponents.View pendingView;
+    private EditBox codeBox;
+    private Button saveButton, cancelButton, copyButton;
+    private Component status;
+    private String shownCode = "", saveTip;
 
     private WayfinderScreen(InteractionHand hand, int frameId) {
         super(Component.translatable("screen.simplemaps.wayfinder"));
@@ -206,13 +221,13 @@ public final class WayfinderScreen extends Screen {
 
     /** "8:1" for a magnified stage, else "1:4". */
     private static String ratio() {
-        return mag() > 1 ? mag() + ":1" : "1:" + zoom();
+        return FrameCode.label(zoomIndex);
     }
 
     @Override
     protected void init() {
         int oldW = mapW, oldH = mapH;
-        layout = WayfinderLayout.of(width, height);
+        layout = WayfinderLayout.of(width, height, frameMode());
         cols = layout.cols();
         rows = layout.rows();
         mapW = layout.mapW();
@@ -233,7 +248,7 @@ public final class WayfinderScreen extends Screen {
             placed = true;
             MapsComponents.View view = frameMode() ? stack().get(MapsComponents.VIEW) : null;
             if (view != null) {
-                zoomIndex = indexOf(view.zoom());
+                zoomIndex = FrameCode.stageOf(view);
                 centerOn(view.x(), view.z(), false);
             } else if (frameMode() && frame() != null) {
                 centerOn(frame().getBlockX(), frame().getBlockZ(), false);
@@ -242,6 +257,246 @@ public final class WayfinderScreen extends Screen {
             }
         }
         if (editSlot >= 0) openDialog(editSlot);
+        if (frameMode()) initFrameBar();
+    }
+
+    // ---------------------------------------------------------------- framed map: code field and two-step save
+
+    /** The bar under the footer: code field, copy button, then cancel and save on the right (Vanilla widgets). */
+    private void initFrameBar() {
+        String typed = codeBox == null ? null : codeBox.getValue();
+        int y = layout.barY(), h = WayfinderLayout.BUTTON_H, right = mapX + mapW;
+        int saveW = Math.max(70, Math.max(font.width(Component.translatable("screen.simplemaps.frame.save")),
+                font.width(Component.translatable("screen.simplemaps.frame.confirm", 5))) + 16);
+        int codeW = Math.max(56, mapW - saveW - 2 * h - 3 * 2);
+        codeBox = new EditBox(font, mapX, y, codeW, h, Component.translatable("screen.simplemaps.frame.code"));
+        codeBox.setMaxLength(32);
+        codeBox.setHint(Component.translatable("screen.simplemaps.frame.code_hint").withStyle(net.minecraft.ChatFormatting.GRAY));
+        codeBox.setValue(typed != null ? typed : liveCode());
+        if (typed == null) shownCode = codeBox.getValue();
+        codeBox.setResponder(text -> codeBox.setTextColor(EditBox.DEFAULT_TEXT_COLOR));
+        addRenderableWidget(codeBox);
+        copyButton = addRenderableWidget(Button.builder(Component.empty(), b -> copyCode()).bounds(mapX + codeW + 2, y, h, h)
+                .tooltip(Tooltip.create(Component.translatable("screen.simplemaps.frame.copy"))).build());
+        saveButton = addRenderableWidget(Button.builder(Component.translatable("screen.simplemaps.frame.save"), b -> pressSave())
+                .bounds(right - saveW, y, saveW, h).build());
+        saveTip = null;
+        cancelButton = addRenderableWidget(Button.builder(Component.literal("\u2715"), b -> cancelSave())
+                .bounds(right - saveW - 2 - h, y, h, h).tooltip(Tooltip.create(Component.translatable("screen.simplemaps.frame.cancel"))).build());
+        updateFrameBar();
+    }
+
+    /** What the frame shows now: its stored view, or the 1:1 picture around the frame (never saved yet). */
+    private MapsComponents.View savedView() {
+        MapsComponents.View view = stack().get(MapsComponents.VIEW);
+        ItemFrame f = frame();
+        return view != null ? view : new MapsComponents.View(f == null ? 0 : f.getBlockX(), f == null ? 0 : f.getBlockZ(), 1);
+    }
+
+    /** What saving would store: the picture of this zoom stage at the chunk nearest to the middle of the map area. */
+    private MapsComponents.View newView() {
+        double half = FrameCode.spanBlocks(zoomIndex) / 2.0;
+        double cx = originX + mapW / 2.0 / mag() * zoom(), cz = originZ + mapH / 2.0 / mag() * zoom();
+        return FrameCode.view(FrameCode.clampChunk((cx - half) / FrameCode.CHUNK, zoomIndex),
+                FrameCode.clampChunk((cz - half) / FrameCode.CHUNK, zoomIndex), zoomIndex);
+    }
+
+    private String liveCode() {
+        FrameCode.Result code = FrameCode.of(newView());
+        return FrameCode.format(code.chunkX(), code.chunkZ(), code.stage());
+    }
+
+    private void say(String key, int color, Object... args) {
+        status = Component.translatable("screen.simplemaps.frame.status." + key, args);
+        statusColor = color;
+        statusTicks = STATUS_TICKS;
+    }
+
+    /** Enter in the code field (or saving with a typed code): jump there, or show what is wrong. False on an error. */
+    private boolean applyCode() {
+        FrameCode.Result code = FrameCode.parse(codeBox.getValue(), zoomIndex);
+        if (!code.ok()) {
+            codeBox.setTextColor(CODE_ERROR);
+            say("error." + code.error(), STATUS_ERROR);
+            return false;
+        }
+        zoomIndex = code.stage();
+        MapsComponents.View view = FrameCode.view(code.chunkX(), code.chunkZ(), code.stage());
+        centerOn(view.x(), view.z(), false);
+        shownCode = liveCode();
+        codeBox.setValue(shownCode);
+        codeBox.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
+        return true;
+    }
+
+    private void copyCode() {
+        String code = liveCode();
+        if (minecraft != null) minecraft.keyboardHandler.setClipboard(code);
+        say("copied", STATUS_OK, code);
+    }
+
+    /** First click: ask; second click (armed): send. A typed, not yet applied code is applied first. */
+    private void pressSave() {
+        if (saveStep == SaveStep.CONFIRM) {
+            if (saveTicks < ARM_TICKS || !newView().equals(pendingView)) return;
+            SimpleMaps.toServer.accept(new FrameViewPayload(frameId, pendingView));
+            saveStep = SaveStep.WAITING;
+            saveTicks = 0;
+            status = null;
+        } else if (saveStep == SaveStep.IDLE) {
+            if (!codeBox.getValue().equals(shownCode) && !applyCode()) return;
+            if (newView().equals(savedView())) return;
+            pendingView = newView();
+            saveStep = SaveStep.CONFIRM;
+            saveTicks = 0;
+            say("ask", STATUS_ASK);
+            statusTicks = CONFIRM_TICKS;
+        }
+        updateFrameBar();
+    }
+
+    private void cancelSave() {
+        if (saveStep != SaveStep.CONFIRM) return;
+        saveStep = SaveStep.IDLE;
+        say("cancelled", STATUS_ASK);
+        updateFrameBar();
+    }
+
+    /** The server's answer (client thread). */
+    public void frameSaved(FrameSavedPayload payload) {
+        if (payload.entityId() != frameId || saveStep != SaveStep.WAITING) return;
+        saveStep = SaveStep.IDLE;
+        switch (payload.save()) {
+            case SAVED -> say("saved", STATUS_OK);
+            case DENIED -> say("denied", STATUS_ERROR);
+            default -> say("invalid", STATUS_ERROR);
+        }
+        updateFrameBar();
+    }
+
+    private void tickFrameBar() {
+        saveTicks++;
+        if (statusTicks > 0 && --statusTicks == 0) status = null;
+        if (saveStep == SaveStep.CONFIRM && (saveTicks > CONFIRM_TICKS || !newView().equals(pendingView))) {
+            saveStep = SaveStep.IDLE;
+            status = null;
+        } else if (saveStep == SaveStep.WAITING && saveTicks > ANSWER_TICKS) {
+            saveStep = SaveStep.IDLE;
+            say("no_answer", STATUS_ERROR);
+        }
+        updateFrameBar();
+    }
+
+    /** Button texts and states for the current step; the code field follows the view while it is not being edited. */
+    private void updateFrameBar() {
+        if (saveButton == null) return;
+        boolean same = newView().equals(savedView());
+        switch (saveStep) {
+            case CONFIRM -> {
+                int seconds = Math.max(1, (CONFIRM_TICKS - saveTicks + 19) / 20);
+                saveButton.setMessage(Component.translatable("screen.simplemaps.frame.confirm", seconds));
+                saveButton.active = saveTicks >= ARM_TICKS;
+                saveTip("screen.simplemaps.frame.confirm.help");
+            }
+            case WAITING -> {
+                saveButton.setMessage(Component.translatable("screen.simplemaps.frame.saving"));
+                saveButton.active = false;
+            }
+            default -> {
+                saveButton.setMessage(Component.translatable("screen.simplemaps.frame.save"));
+                saveButton.active = !same || !codeBox.getValue().equals(shownCode);
+                saveTip(same ? "screen.simplemaps.frame.save.same" : "screen.simplemaps.frame.save.help");
+            }
+        }
+        cancelButton.visible = saveStep == SaveStep.CONFIRM;
+        String live = liveCode();
+        if (!codeBox.isFocused() && !live.equals(shownCode)) {
+            shownCode = live;
+            codeBox.setValue(live);
+            codeBox.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
+        }
+    }
+
+    private void saveTip(String key) {
+        if (key.equals(saveTip)) return;
+        saveTip = key;
+        saveButton.setTooltip(Tooltip.create(Component.translatable(key)));
+    }
+
+    /** The frame outlines on the map (inside the scissor): dashed = what the frame shows, solid = what saving stores. */
+    private void drawFrameAreas(GuiGraphicsExtractor g) {
+        MapsComponents.View saved = savedView(), next = newView();
+        boolean same = saved.equals(next);
+        // Labels: the frame's at the top-left corner, the new one at the bottom-left, so two close outlines stay readable.
+        if (!same) drawArea(g, FrameCode.area(saved), SAVED_LINE, true, Component.translatable("screen.simplemaps.frame.label.saved"), false);
+        drawArea(g, FrameCode.area(next), NEW_LINE, false,
+                Component.translatable(same ? "screen.simplemaps.frame.label.saved" : "screen.simplemaps.frame.label.new"), !same);
+    }
+
+    /** Screen x of a block edge at the current stage (the same pixel maths as the tiles). */
+    private long edgeX(long blockX) {
+        return mapX + ((long) Math.floor((double) blockX / zoom()) - originPx()) * mag();
+    }
+
+    private long edgeY(long blockZ) {
+        return mapY + ((long) Math.floor((double) blockZ / zoom()) - originPz()) * mag();
+    }
+
+    private void drawArea(GuiGraphicsExtractor g, long[] area, int color, boolean dashed, Component label, boolean labelBelow) {
+        long lx0 = edgeX(area[0]), ly0 = edgeY(area[1]), lx1 = edgeX(area[0] + area[2]) - 1, ly1 = edgeY(area[1] + area[2]) - 1;
+        if (lx1 < mapX - 2 || ly1 < mapY - 2 || lx0 > mapX + mapW + 2 || ly0 > mapY + mapH + 2) return;
+        int x0 = clampX(lx0), y0 = clampY(ly0), x1 = clampX(lx1), y1 = clampY(ly1);
+        // Dark rim outside and inside, then the line, so it reads on every terrain colour.
+        g.outline(x0 - 1, y0 - 1, x1 - x0 + 3, y1 - y0 + 3, OUTLINE_RIM);
+        g.outline(x0 + 1, y0 + 1, Math.max(1, x1 - x0 - 1), Math.max(1, y1 - y0 - 1), OUTLINE_RIM);
+        if (dashed) {
+            for (int x = x0; x <= x1; x += 6) {
+                g.fill(x, y0, Math.min(x + 3, x1 + 1), y0 + 1, color);
+                g.fill(x, y1, Math.min(x + 3, x1 + 1), y1 + 1, color);
+            }
+            for (int y = y0; y <= y1; y += 6) {
+                g.fill(x0, y, x0 + 1, Math.min(y + 3, y1 + 1), color);
+                g.fill(x1, y, x1 + 1, Math.min(y + 3, y1 + 1), color);
+            }
+        } else {
+            g.outline(x0, y0, x1 - x0 + 1, y1 - y0 + 1, color);
+        }
+        int tx = Math.max(mapX + 1, x0 + 2);
+        int ty = labelBelow ? Math.min(mapY + mapH - font.lineHeight - 2, y1 - font.lineHeight - 2) : Math.max(mapY + 1, y0 + 2);
+        g.fill(tx, ty, tx + font.width(label) + 2, ty + font.lineHeight + 1, 0xC0000000);
+        g.text(font, label, tx + 1, ty + 1, 0xFFFFFFFF, false);
+    }
+
+    private int clampX(long x) {
+        return (int) Math.max(mapX - 2, Math.min(mapX + mapW + 2, x));
+    }
+
+    private int clampY(long y) {
+        return (int) Math.max(mapY - 2, Math.min(mapY + mapH + 2, y));
+    }
+
+    /** On top of the widgets: the copy icon, the red ring of an armed confirmation, the code field's help. */
+    private void drawFrameBarOverlay(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        if (copyButton == null) return;
+        // Copy icon: a sheet in front of another (the back one only where the front leaves it visible).
+        int cx = copyButton.getX() + 6, cy = copyButton.getY() + 5, ink = copyButton.active ? 0xFFFFFFFF : 0xFFA0A0A0;
+        g.fill(cx + 3, cy, cx + 9, cy + 1, ink);
+        g.fill(cx + 8, cy, cx + 9, cy + 7, ink);
+        g.fill(cx + 3, cy, cx + 4, cy + 3, ink);
+        g.fill(cx + 6, cy + 6, cx + 9, cy + 7, ink);
+        g.outline(cx, cy + 3, 6, 7, ink);
+        if (saveStep == SaveStep.CONFIRM) {
+            int x = saveButton.getX(), y = saveButton.getY(), w = saveButton.getWidth(), h = saveButton.getHeight();
+            g.outline(x - 1, y - 1, w + 2, h + 2, CONFIRM_RING);
+            g.outline(x - 2, y - 2, w + 4, h + 4, CONFIRM_RING);
+        }
+        if (codeBox.isMouseOver(mouseX, mouseY) && !menu.isOpen()) {
+            int span = FrameCode.spanChunks(zoomIndex);
+            FrameCode.Result code = FrameCode.of(newView());
+            Component help = Component.translatable("screen.simplemaps.frame.code.help", span, span,
+                    FrameCode.format(code.chunkX() + span, code.chunkZ(), code.stage()), FrameCode.format(code.chunkX(), code.chunkZ() + span, code.stage()));
+            g.setTooltipForNextFrame(font, font.split(help, 220), mouseX, mouseY);
+        }
     }
 
     /** Height lines: the saved mode of the map in hand; a framed map has no hand to save to, so it keeps a local switch. */
@@ -383,6 +638,7 @@ public final class WayfinderScreen extends Screen {
             if (structures) drawStructures(g, mapId);
             drawMarks(g, waypoints);
         }
+        if (frameMode()) drawFrameAreas(g);
         g.disableScissor();
         Component status = status(mapId);
         // A new map says so in the middle; "another dimension" sits at the top so the explored map stays readable.
@@ -396,6 +652,7 @@ public final class WayfinderScreen extends Screen {
         }
         if (dialog) picker.render(g, mouseX, mouseY, width, height);
         super.extractRenderState(g, mouseX, mouseY, a);
+        if (frameMode()) drawFrameBarOverlay(g, mouseX, mouseY);
         if (dialog) picker.tooltips(g, mouseX, mouseY);
         menu.render(g, font, mouseX, mouseY);
         if (!dialog && !menu.isOpen()) {
@@ -519,10 +776,26 @@ public final class WayfinderScreen extends Screen {
 
     private void drawFooter(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         int y = mapY + mapH + 3;
-        g.text(font, Component.translatable("screen.simplemaps.zoom", ratio(), zoomIndex + 1, STAGE_BPP.length), mapX, y, PALETTE.label(), false);
+        if (frameMode() && status != null) {
+            // Framed map: the save step's message replaces the zoom line for a few seconds (shrunk if the map is narrow).
+            float scale = Math.min(1.0F, mapW / (float) Math.max(1, font.width(status)));
+            g.pose().pushMatrix();
+            g.pose().translate(mapX, y);
+            g.pose().scale(scale, scale);
+            g.text(font, status, 0, 0, UiContrast.ensure(statusColor, PALETTE.fill()), false);
+            g.pose().popMatrix();
+            return;
+        }
+        Component zoomLine = Component.translatable("screen.simplemaps.zoom", ratio(), zoomIndex + 1, STAGE_BPP.length);
+        if (frameMode()) {
+            int span = FrameCode.spanChunks(zoomIndex);
+            zoomLine = Component.empty().append(zoomLine).append(" \u00b7 ").append(Component.translatable("screen.simplemaps.frame.span", span, span));
+        }
+        g.text(font, zoomLine, mapX, y, PALETTE.label(), false);
         if (overMap(mouseX, mouseY)) {
             String pos = blockX(mouseX) + ", " + blockZ(mouseY);
-            g.text(font, pos, mapX + mapW - font.width(pos), y, PALETTE.label(), false);
+            // The mouse position only where it does not run into the zoom line.
+            if (mapX + font.width(zoomLine) + 6 <= mapX + mapW - font.width(pos)) g.text(font, pos, mapX + mapW - font.width(pos), y, PALETTE.label(), false);
         }
     }
 
@@ -721,6 +994,7 @@ public final class WayfinderScreen extends Screen {
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         double mx = event.x(), my = event.y();
         int button = event.button();
+        if (codeBox != null && codeBox.isFocused() && !codeBox.isMouseOver(mx, my)) setFocused(null);
         if (menu.mouseClicked(mx, my)) return true;
         if (picker != null) {
             if (picker.click(mx, my)) return true;
@@ -844,6 +1118,22 @@ public final class WayfinderScreen extends Screen {
     @Override
     public boolean keyPressed(KeyEvent event) {
         int key = event.key();
+        if (codeBox != null && codeBox.isFocused()) {
+            // Typing a code: Enter jumps there, Esc leaves the field; no key pans or zooms the map meanwhile.
+            if (key == InputConstants.KEY_RETURN || key == InputConstants.KEY_NUMPADENTER) {
+                if (applyCode()) setFocused(null);
+                return true;
+            }
+            if (key == InputConstants.KEY_ESCAPE) {
+                setFocused(null);
+                return true;
+            }
+            return super.keyPressed(event);
+        }
+        if (key == InputConstants.KEY_ESCAPE && saveStep == SaveStep.CONFIRM) {
+            cancelSave();
+            return true;
+        }
         if (key == InputConstants.KEY_ESCAPE && (menu.isOpen() || picking || editSlot >= 0)) {
             menu.close();
             picking = false;
@@ -891,16 +1181,12 @@ public final class WayfinderScreen extends Screen {
             onClose();
             return;
         }
-        if (frameMode() && (frame() == null || mc.player.distanceToSqr(frame()) > 64)) onClose();
-    }
-
-    @Override
-    public void removed() {
-        if (frameMode() && frame() != null && MapsItems.isWayfinder(stack())) {
-            double cx = originX + mapW / 2.0 * zoom(), cz = originZ + mapH / 2.0 * zoom();
-            SimpleMaps.toServer.accept(new FrameViewPayload(frameId, new MapsComponents.View(Mth.floor(cx), Mth.floor(cz), zoom())));
+        if (frameMode() && (frame() == null || mc.player.distanceToSqr(frame()) > MapsNetwork.FRAME_REACH_SQR)) {
+            onClose();
+            return;
         }
-        super.removed();
+        // Owner 21.10.: closing never changes the frame; only a confirmed save does (tickFrameBar, pressSave).
+        if (frameMode()) tickFrameBar();
     }
 
     @Override

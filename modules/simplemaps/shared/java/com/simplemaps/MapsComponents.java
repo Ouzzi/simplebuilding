@@ -17,18 +17,28 @@ public final class MapsComponents {
         public static final StreamCodec<ByteBuf, MapRef> STREAM_CODEC = ByteBufCodecs.VAR_INT.map(MapRef::new, MapRef::id);
     }
 
-    /** What an item frame shows (Feature 4): centre block and zoom (blocks per pixel). */
-    public record View(int x, int z, int zoom) {
+    /**
+     * What an item frame shows (Feature 4): centre block, zoom (blocks per pixel) and, at 1:1 data, the magnification
+     * (8, 4, 2 pixels per block; owner 21.10., {@link FrameCode}). Views saved before have no magnification: 1.
+     */
+    public record View(int x, int z, int zoom, int mag) {
         public static final Codec<View> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.fieldOf("x").forGetter(View::x),
                 Codec.INT.fieldOf("z").forGetter(View::z),
-                Codec.INT.fieldOf("zoom").forGetter(View::zoom)
+                Codec.INT.fieldOf("zoom").forGetter(View::zoom),
+                Codec.INT.optionalFieldOf("mag", 1).forGetter(View::mag)
         ).apply(i, View::new));
         public static final StreamCodec<ByteBuf, View> STREAM_CODEC = StreamCodec.composite(
-                ByteBufCodecs.INT, View::x, ByteBufCodecs.INT, View::z, ByteBufCodecs.VAR_INT, View::zoom, View::new);
+                ByteBufCodecs.INT, View::x, ByteBufCodecs.INT, View::z, ByteBufCodecs.VAR_INT, View::zoom,
+                ByteBufCodecs.VAR_INT, View::mag, View::new);
 
         public View {
             zoom = WayfinderData.validZoom(zoom);
+            if (zoom != 1 || FrameCode.stageOf(1, mag) < 0) mag = 1;
+        }
+
+        public View(int x, int z, int zoom) {
+            this(x, z, zoom, 1);
         }
     }
 
