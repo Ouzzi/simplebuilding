@@ -116,6 +116,11 @@ public final class MobHeadGameTest {
     }
 
     @GameTest
+    public void extraHeadRightClickInTheAirPutsOnAndSwaps(GameTestHelper helper) {
+        MobHeadTests.extraHeadRightClickInTheAirPutsOnAndSwaps(helper);
+    }
+
+    @GameTest
     public void extraHeadPutOnPlaysTheEquipSound(GameTestHelper helper) {
         MobHeadTests.extraHeadPutOnPlaysTheEquipSound(helper);
     }

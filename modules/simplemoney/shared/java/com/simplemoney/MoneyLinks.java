@@ -68,7 +68,7 @@ public final class MoneyLinks {
         Price price = price(offer);
         if (price == null) return true;
         String mod = Identifier.parse(price.item()).getNamespace();
-        return SimpleMoney.enabled(price.merchant().equals("wandering_trader") ? "enableWanderingTrades" : "enableVillagerTrades") && enabled(mod)
+        return SimpleMoney.enabled(SimpleMoney.merchantFlag(price.merchant())) && enabled(mod)
                 && offer.getResult().getCount() == 1 && offer.getCostB().isEmpty()
                 && LinkBudget.get(player).allowed(player.getUUID(), player.level().getServer().overworld().getGameTime());
     }

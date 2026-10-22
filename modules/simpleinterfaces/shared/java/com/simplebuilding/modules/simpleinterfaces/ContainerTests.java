@@ -288,6 +288,11 @@ public final class ContainerTests {
             com.simplebuilding.modules.simpleinterfaces.client.LegacyMigration.run(dir);
             h.assertTrue(java.nio.file.Files.readString(dir.resolve("config/simpleinterfaces.json")).contains("false"), "config copied");
             h.assertTrue(java.nio.file.Files.readString(dir.resolve("options.txt")).contains("simpleinterfaces.toggle_style"), "options migrated");
+            java.nio.file.Files.writeString(dir.resolve("options.txt"), both);
+            java.nio.file.Files.writeString(dir.resolve("config/simpleinterfaces.json"), "{\"enabled\":true}");
+            com.simplebuilding.modules.simpleinterfaces.client.LegacyMigration.run(dir);
+            h.assertTrue(java.nio.file.Files.readString(dir.resolve("options.txt")).equals(both), "second run leaves options alone");
+            h.assertTrue(java.nio.file.Files.readString(dir.resolve("config/simpleinterfaces.json")).contains("true"), "second run keeps new config");
         } catch (java.io.IOException e) {
             h.fail("migration io: " + e);
         }

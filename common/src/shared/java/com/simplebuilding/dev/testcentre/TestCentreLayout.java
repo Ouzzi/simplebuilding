@@ -39,30 +39,163 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
  */
 public final class TestCentreLayout {
 
-    /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
-    public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
-            "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "simpleend", "vehicles", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
-            "mining", "enchants", "sinkdamper", "tweaks", "deathvault", "respawn", "devices",
-            // Mobs of every loaded mod (Queue N43); empty without such mods.
-            "mobs",
-            // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
-            "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
-            "gallery", "unsorted");
-
-    /** Abschnitt mit den Stationen anderer Module ({@code framework.api.TestCentreStations}), nur wenn welche da sind. */
+    /** Abschnitt mit der Modul-Ausstellung (Stationen und Register aller Module der Familie), nur wenn es Module gibt. */
     public static final String MODULES_SECTION = "modules";
 
     /**
+     * Bezirke (TZ22-5, Besitzer 22.10.: "kompakt und uebersichtlich wie beim Holzbereich"): jede Themengruppe beginnt eine
+     * eigene Reihe, eine Reihe ist hoechstens {@link #MAX_ROW_WIDTH} breit. Die Reihenfolge ist die in der Welt. Namen der
+     * Bezirke (fuer den Teilbau, TZ22-4) in {@link #DISTRICT_NAMES}, gleiche Reihenfolge.
+     */
+    public static final List<List<String>> DISTRICTS = List.of(
+            // Eingang: Steuerwand, Werkzeuge und Bauen.
+            List.of("controls", "tools", "chisel", "planning", "mining", "enchants"),
+            // Zustaende, Umwandlungen, Ablegen, Buecher.
+            List.of("states", "inworld", "templates", "placeables", "books"),
+            // Baubloecke und Material.
+            List.of("blocks", "woodwork", "simpleend", "chess", "astral", "lightroom", "ores"),
+            // Technik und Lager.
+            List.of("storage", "devices", "machines", "crucible", "music", "vehicles"),
+            // Kampf, Bewegung, Vorraete.
+            List.of("armour", "archery", "arrows", "sinkdamper", "tweaks", "deathvault", "respawn", "food", "materials"),
+            // Die Module der Familie (Modulaufteilung 3c, TZ22-1); nur mit Modulen.
+            List.of(MODULES_SECTION),
+            // Mobs of every loaded mod (Queue N43); empty without such mods.
+            List.of("mobs"),
+            // Jede eigene Struktur und jedes Strukturteil (TZ22-3); leer ohne Strukturen (26.2).
+            List.of(StructureStation.SECTION),
+            // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
+            List.of("tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows"),
+            // Was noch keinen Abschnitt hat.
+            List.of("gallery", "unsorted"));
+
+    /** Namen der Bezirke fuer {@code /sbtestcentre build only|without} (TZ22-4), in der Reihenfolge von {@link #DISTRICTS}. */
+    public static final List<String> DISTRICT_NAMES = List.of("workshop", "states", "blocks", "technics", "combat", "modules",
+            "mobs", "structures", "catalog", "rest");
+
+    /**
+     * Teilbau (TZ22-4, Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die
+     * Strukturen oder nur einzelne Bereiche"). Bereiche sind Bezirke ({@link #DISTRICT_NAMES}) oder Abschnitts-Ids;
+     * {@code only} leer = alle. Die Steuerwand gehoert immer dazu. Geplant wird trotzdem alles (Abdeckung, Kits, Galerie
+     * bleiben gleich), gepackt und gebaut nur das Gewaehlte - die Zentrale wird also wirklich kleiner.
+     */
+    public record Options(Set<String> only, Set<String> without) {
+        public static final Options ALL = new Options(Set.of(), Set.of());
+
+        public Options {
+            only = Set.copyOf(new java.util.TreeSet<>(only));
+            without = Set.copyOf(new java.util.TreeSet<>(without));
+        }
+
+        public boolean isAll() {
+            return only.isEmpty() && without.isEmpty();
+        }
+
+        /** Ob ein Abschnitt gebaut wird. */
+        public boolean includes(String section) {
+            if (section.equals("controls")) {
+                return true;
+            }
+            String district = districtOf(section);
+            if (!only.isEmpty() && !only.contains(section) && !only.contains(district)) {
+                return false;
+            }
+            return !without.contains(section) && !without.contains(district);
+        }
+
+        /** Kanonischer Text ({@code ""} fuer alles), wie ihn {@link #parse} liest: {@code only a,b without c}. */
+        public String text() {
+            StringBuilder out = new StringBuilder();
+            if (!only.isEmpty()) {
+                out.append("only ").append(String.join(",", new java.util.TreeSet<>(only)));
+            }
+            if (!without.isEmpty()) {
+                out.append(out.isEmpty() ? "" : " ").append("without ").append(String.join(",", new java.util.TreeSet<>(without)));
+            }
+            return out.toString();
+        }
+
+        /**
+         * Liest {@code [only <bereiche>] [without <bereiche>]}; Bereiche durch Komma oder Leerzeichen getrennt, {@code all}
+         * oder leer = alles. Unbekannte Bereiche: {@link IllegalArgumentException} mit dem Namen.
+         */
+        public static Options parse(String text) {
+            Set<String> only = new java.util.TreeSet<>();
+            Set<String> without = new java.util.TreeSet<>();
+            Set<String> target = null;
+            for (String token : text.trim().toLowerCase(java.util.Locale.ROOT).split("[\\s,]+")) {
+                switch (token) {
+                    case "", "all" -> {
+                    }
+                    case "only" -> target = only;
+                    case "without" -> target = without;
+                    default -> {
+                        if (!areas().contains(token)) {
+                            throw new IllegalArgumentException(token);
+                        }
+                        if (target == null) {
+                            throw new IllegalArgumentException("only/without");
+                        }
+                        target.add(token);
+                    }
+                }
+            }
+            return new Options(only, without);
+        }
+    }
+
+    /** Alle Bereichsnamen fuer den Teilbau: Bezirke, dann Abschnitte. */
+    public static List<String> areas() {
+        List<String> out = new ArrayList<>(DISTRICT_NAMES);
+        for (String id : sectionIds()) {
+            if (!out.contains(id)) {
+                out.add(id);
+            }
+        }
+        if (!out.contains(MODULES_SECTION)) {
+            out.add(MODULES_SECTION);
+        }
+        return out;
+    }
+
+    /** Der Bezirk eines Abschnitts (Name aus {@link #DISTRICT_NAMES}), sonst leer. */
+    public static String districtOf(String section) {
+        for (int i = 0; i < DISTRICTS.size(); i++) {
+            if (DISTRICTS.get(i).contains(section)) {
+                return DISTRICT_NAMES.get(i);
+            }
+        }
+        return "";
+    }
+
+    /** Reihenfolge der Abschnitte = Reihenfolge in der Welt (ohne {@link #MODULES_SECTION}, siehe {@link #sectionIds()}). */
+    public static final List<String> SECTION_IDS = DISTRICTS.stream().flatMap(List::stream)
+            .filter(id -> !id.equals(MODULES_SECTION)).toList();
+
+    /**
      * Die geplanten Abschnitte: {@link #SECTION_IDS}, und vor "mobs" der Abschnitt {@link #MODULES_SECTION}, sobald ein
-     * Modul Stationen angemeldet hat (Modulaufteilung 3c; ohne Anmeldung unveraendert).
+     * Modul der Familie Inhalte hat oder Stationen angemeldet sind (26.2: keine Module, unveraendert).
      */
     public static List<String> sectionIds() {
-        if (ModuleStations.all().isEmpty()) {
+        if (!hasModules()) {
             return SECTION_IDS;
         }
         List<String> ids = new ArrayList<>(SECTION_IDS);
         ids.add(ids.indexOf("mobs"), MODULES_SECTION);
         return List.copyOf(ids);
+    }
+
+    /** Ob es Modul-Inhalte gibt: angemeldete Stationen oder Items eines Familien-Namensraums ausser SimpleBuilding. */
+    static boolean hasModules() {
+        if (!ModuleStations.all().isEmpty()) {
+            return true;
+        }
+        for (net.minecraft.resources.Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (TcContext.isFamily(id) && !TcContext.isMod(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -87,6 +220,40 @@ public final class TestCentreLayout {
     }
 
     /**
+     * Begruendete Ausnahmen der Module (TZ22-1), getrennt von {@link #EXCLUDED}: die Module sind nicht auf jeder Linie
+     * geladen, und der Abdeckungstest von SimpleBuilding verlangt, dass jede Ausnahme dort registriert ist.
+     */
+    public static final Map<String, String> MODULE_EXCLUDED = Map.of(
+            "simpleoctets:mixed_octet", "Mischzelle aus Achteln verschiedener Materialien; entsteht beim Setzen, ihr Inhalt steht in der Block-Entity");
+
+    /**
+     * Technische Bloecke ohne Item, die die Regel erkennt (TZ22-1): Wandvarianten ({@code x_wall_torch} zu {@code x_torch},
+     * Schilder, Koepfe, Banner) und Blumentoepfe ({@code potted_x}); jeweils steht das Item der Grundform in der Zentrale.
+     * Sonst null - dann braucht der Block einen Eintrag in {@link #EXCLUDED}.
+     */
+    public static String technical(Block block) {
+        if (block.asItem() != Items.AIR) {
+            return null;
+        }
+        net.minecraft.resources.Identifier id = TcContext.id(block);
+        String path = id.getPath();
+        if (path.contains("wall_")) {
+            net.minecraft.resources.Identifier base = net.minecraft.resources.Identifier.fromNamespaceAndPath(id.getNamespace(), path.replace("wall_", ""));
+            if (BuiltInRegistries.BLOCK.containsKey(base) && BuiltInRegistries.BLOCK.getValue(base).asItem() != Items.AIR) {
+                return "Wandvariante von " + base + " (gleiches Item)";
+            }
+        }
+        if (path.startsWith("potted_")) {
+            return "Blumentopf mit Pflanze (Topf + Pflanze, kein eigenes Item)";
+        }
+        if (block instanceof net.minecraft.world.level.block.LiquidBlock) {
+            return "Fluessigkeit ohne Item (gezeigt ueber ihren Eimer)";
+        }
+        String reason = MODULE_EXCLUDED.get(id.toString());
+        return reason;
+    }
+
+    /**
      * Mod-Bloecke, die nur im Rahmen stehen und nirgends gesetzt werden: Pads mit Wirkung auf die
      * Umgebung (Elytra-Pad III gibt auf 128 x 128 Bloecken Elytren, Teleporter versetzen, Chunk-Loader
      * erzwingen Chunks, Kupferplatten altern) und die alten Stufen (werden beim ersten Tick umgewandelt).
@@ -103,7 +270,7 @@ public final class TestCentreLayout {
     /** Erhoehen, wenn sich der Bau-Code (nicht die Planung) aendert: dann bauen alte Welten neu. */
     static final int BUILDER_VERSION = 2;
 
-    public static final int MAX_ROW_WIDTH = 140;
+    public static final int MAX_ROW_WIDTH = 120;
     public static final int GAP = 4;
     public static final int CORRIDOR = 7;
 
@@ -119,7 +286,7 @@ public final class TestCentreLayout {
     /** Die fertige Planung. */
     public record Plan(BlockPos origin, List<Section> sections, Map<String, BlockPos> anchors, BoundingBox bounds,
                        Set<Item> coveredItems, Set<Block> coveredBlocks, List<Item> leftovers,
-                       Map<String, TestCentreKits.Kit> kits) {
+                       Map<String, TestCentreKits.Kit> kits, Options options) {
 
         /**
          * Fingerabdruck der Planung (Bau-Version, jeder Schritt mit Lage, Block, Items, Befehl). Er steht
@@ -160,10 +327,12 @@ public final class TestCentreLayout {
 
         /** Eine Zeile je Abschnitt: Lage, Groesse, Rahmen/Staender - fuer Log und Doku. */
         public String summary() {
+            long allFrames = sections.stream().flatMap(section -> section.ops().stream()).mapToInt(TcOp::frames).sum();
+            long allStands = sections.stream().flatMap(section -> section.ops().stream()).filter(op -> op instanceof TcOp.Stand).count();
             StringBuilder out = new StringBuilder("test centre " + (bounds.getXSpan()) + "x" + bounds.getZSpan()
-                    + " blocks, " + sections.size() + " sections:");
+                    + " blocks, " + sections.size() + " sections, " + allFrames + " frames, " + allStands + " stands:");
             for (Section section : sections) {
-                long frames = section.ops().stream().filter(TcOp::spawnsFrame).count();
+                long frames = section.ops().stream().mapToInt(TcOp::frames).sum();
                 long stands = section.ops().stream().filter(op -> op instanceof TcOp.Stand).count();
                 out.append(String.format("%n  %-10s at +%d/+%d, %dx%dx%d, %d frames, %d stands", section.id(),
                         section.offset().getX(), section.offset().getZ(), section.width(), section.depth(), section.height(),
@@ -198,6 +367,7 @@ public final class TestCentreLayout {
             case TcOp.Command command -> command.facing() + " " + command.command() + " "
                     + command.label().stream().map(TestCentreLayout::componentText).toList();
             case TcOp.Hammock hammock -> hammock.dx() + "," + hammock.dz();
+            case TcOp.Structure structure -> structure.template() + " " + structure.size().toShortString() + " " + structure.frames();
         };
     }
 
@@ -210,8 +380,22 @@ public final class TestCentreLayout {
                 ? translatable.getKey() + "/" + translatable.getArgs().length : component.getString();
     }
 
+    /** Die ganze Zentrale nur aus den Registern (ohne Strukturvorlagen: der Abschnitt {@code structures} bleibt leer). */
     public static Plan plan(HolderLookup.Provider lookup, BlockPos origin) {
-        TcContext ctx = new TcContext(lookup);
+        return plan(new TcContext(lookup), origin, Options.ALL);
+    }
+
+    /** Die ganze Zentrale, mit den Strukturvorlagen des Servers. */
+    public static Plan plan(net.minecraft.server.level.ServerLevel level, BlockPos origin) {
+        return plan(level, origin, Options.ALL);
+    }
+
+    /** Die Zentrale mit Teilbau-Optionen (TZ22-4). */
+    public static Plan plan(net.minecraft.server.level.ServerLevel level, BlockPos origin, Options options) {
+        return plan(new TcContext(level.registryAccess(), com.simplebuilding.version.McVersion.structureTemplates(level)), origin, options);
+    }
+
+    static Plan plan(TcContext ctx, BlockPos origin, Options options) {
         Map<String, Function<TcContext, TcCanvas>> builders = new LinkedHashMap<>();
         builders.put("armour", TestCentreSections::armour);
         builders.put("books", TestCentreSections::books);
@@ -256,15 +440,32 @@ public final class TestCentreLayout {
         builders.put("respawn", FeatureStations::respawn);
         builders.put("devices", TestCentreSections::devices);
         builders.put("mobs", MobStations::build);
-        List<String> sectionIds = sectionIds();
-        if (sectionIds.contains(MODULES_SECTION)) {
-            var stations = ModuleStations.all();
-            builders.put(MODULES_SECTION, context -> TestCentreSections.modules(stations));
-        }
+        builders.put(StructureStation.SECTION, StructureStation::build);
+        List<String> allIds = sectionIds();
+        // TZ22-4: geplant wird alles, gepackt und gebaut nur das Gewaehlte.
+        List<String> sectionIds = allIds.stream().filter(options::includes).toList();
 
         Map<String, TcCanvas> canvases = new LinkedHashMap<>();
         for (Map.Entry<String, Function<TcContext, TcCanvas>> entry : builders.entrySet()) {
-            canvases.put(entry.getKey(), entry.getValue().apply(ctx));
+            TcCanvas canvas = entry.getValue().apply(ctx);
+            dropPlacedFrames(canvas);
+            canvases.put(entry.getKey(), canvas);
+        }
+
+        // Modul-Ausstellung (TZ22-1): je Modul der Familie seine Stationen und alles Weitere aus seinem Register, ohne was
+        // eine Station schon sichtbar zeigt (TZ22-2: nichts doppelt).
+        if (allIds.contains(MODULES_SECTION)) {
+            Set<Item> visible = new java.util.HashSet<>();
+            Set<Block> placedBlocks = new java.util.HashSet<>();
+            for (TcCanvas canvas : canvases.values()) {
+                visible(canvas.ops(), visible);
+                canvas.ops().forEach(op -> {
+                    if (op instanceof TcOp.Place place) {
+                        placedBlocks.add(place.state().getBlock());
+                    }
+                });
+            }
+            canvases.put(MODULES_SECTION, TestCentreSections.modules(ModuleStations.all(), visible, placedBlocks));
         }
 
         // Abdeckung ohne "unsorted" und ohne die Steuerwand (die zeigt keine Mod-Inhalte).
@@ -295,8 +496,17 @@ public final class TestCentreLayout {
 
         // Item-orientierter Rundgang: je Tab eine Wand. Erst nach der Abdeckung, damit jedes Item
         // weiterhin eine Station braucht, in der man es ausprobieren kann.
+        // TZ22-2: was eine Station schon gesetzt zeigt (Oefen, Trichter, Holzwerk, Schachfiguren ...), bekommt auch an der
+        // Tab-Wand keinen Rahmen mehr; Setzbares steht dort ohnehin als Block.
+        Set<Item> placedAnywhere = new java.util.HashSet<>();
+        for (TcCanvas canvas : canvases.values()) {
+            placedAnywhere.addAll(shownPlaced(canvas.ops()));
+        }
         for (com.simplebuilding.items.ModItemGroupsContent.Tab tab : com.simplebuilding.items.ModItemGroupsContent.Tab.values()) {
-            canvases.put(TabBrowser.sectionId(tab), TabBrowser.build(ctx, tab));
+            TcCanvas wall = TabBrowser.build(ctx, tab);
+            wall.ops().removeIf(op -> op instanceof TcOp.Frame frame && frame.stack().getComponentsPatch().isEmpty()
+                    && placedAnywhere.contains(frame.stack().getItem()));
+            canvases.put(TabBrowser.sectionId(tab), wall);
         }
 
         // Ausgabe-Knopf je Station: Kit aus dem, was die Station zeigt; die Station rueckt dafuer nach rechts.
@@ -311,17 +521,17 @@ public final class TestCentreLayout {
         }
 
         // Erste Runde: Steuerwand mit Platzhaltern, nur fuer ihre Breite.
-        canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null, sectionIds)));
+        canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null, sectionIds, options)));
         Map<String, BlockPos> offsets = pack(canvases, sectionIds);
 
         Map<String, BlockPos> anchors = new LinkedHashMap<>();
-        for (Map.Entry<String, TcCanvas> entry : canvases.entrySet()) {
-            BlockPos offset = offsets.get(entry.getKey());
-            entry.getValue().anchors().forEach((name, pos) -> anchors.put(name, origin.offset(offset).offset(pos)));
+        for (String id : sectionIds) {
+            BlockPos offset = offsets.get(id);
+            canvases.get(id).anchors().forEach((name, pos) -> anchors.put(name, origin.offset(offset).offset(pos)));
         }
-        BoundingBox bounds = bounds(origin, canvases, offsets);
+        BoundingBox bounds = bounds(origin, canvases, offsets, sectionIds);
         // Zweite Runde: jetzt mit den echten Koordinaten.
-        canvases.put("controls", TestCentreSections.controls(controls(origin, anchors, bounds, sectionIds)));
+        canvases.put("controls", TestCentreSections.controls(controls(origin, anchors, bounds, sectionIds, options)));
 
         List<Section> sections = new ArrayList<>();
         for (String id : sectionIds) {
@@ -334,7 +544,7 @@ public final class TestCentreLayout {
             }
             sections.add(new Section(id, offset, canvas.width(), canvas.depth(), canvas.height(), ops));
         }
-        return new Plan(origin, sections, anchors, bounds, coveredItems, coveredBlocks, leftovers, kits);
+        return new Plan(origin, sections, anchors, bounds, coveredItems, coveredBlocks, leftovers, kits, options);
     }
 
     /** Befehl des Ausgabe-Knopfs einer Station. */
@@ -351,13 +561,62 @@ public final class TestCentreLayout {
         return c;
     }
 
+    /**
+     * TZ22-2 (Besitzer 22.10.: "schon gesetzte Dinge bekommen keinen zusaetzlichen Rahmen"): Rahmen eines Stapels ohne
+     * Komponenten, dessen Item dieselbe Station schon gesetzt zeigt - als Block oder abgelegt (Fuellen eines Blocks, der kein
+     * Behaelter ist: Vorlage, Kleinteile, Hornhalter, Buendel) -, fallen weg.
+     */
+    static void dropPlacedFrames(TcCanvas canvas) {
+        Set<Item> placed = shownPlaced(canvas.ops());
+        canvas.ops().removeIf(op -> op instanceof TcOp.Frame frame && frame.stack().getComponentsPatch().isEmpty()
+                && placed.contains(frame.stack().getItem()));
+    }
+
+    /** Was eine Schrittliste gesetzt zeigt: Bloecke (ohne das Geruest) und der Inhalt abgelegter Stuecke. */
+    public static Set<Item> shownPlaced(List<TcOp> ops) {
+        Map<BlockPos, net.minecraft.world.level.block.state.BlockState> at = new java.util.HashMap<>();
+        Set<Item> placed = new java.util.HashSet<>();
+        for (TcOp op : ops) {
+            if (op instanceof TcOp.Place place) {
+                at.put(place.pos(), place.state());
+                Block block = place.state().getBlock();
+                if (!TestCentreKits.INFRASTRUCTURE.contains(block)) {
+                    placed.add(TcContext.itemOf(block));
+                }
+            }
+        }
+        for (TcOp op : ops) {
+            if (op instanceof TcOp.Fill fill && at.containsKey(fill.pos()) && !Exhibits.container(at.get(fill.pos()))) {
+                fill.contents().forEach(stack -> placed.add(stack.getItem()));
+            }
+        }
+        placed.remove(Items.AIR);
+        return placed;
+    }
+
+    /** Was eine Schrittliste sichtbar zeigt: gesetzt, abgelegt, im Rahmen, am Staender (Behaelterinhalte nicht). */
+    static void visible(List<TcOp> ops, Set<Item> into) {
+        into.addAll(shownPlaced(ops));
+        for (TcOp op : ops) {
+            switch (op) {
+                case TcOp.Frame frame -> into.add(frame.stack().getItem());
+                case TcOp.OctantFrame frame -> into.add(ModItems.OCTANT);
+                case TcOp.BlueprintFrame frame -> into.add(ModItems.BLUEPRINT);
+                case TcOp.Stand stand -> stand.gear().forEach(stack -> into.add(stack.getItem()));
+                default -> {
+                }
+            }
+        }
+        into.remove(Items.AIR);
+    }
+
     /** Welche Items und Bloecke eine Schrittliste zeigt. */
     static void collect(List<TcOp> ops, Set<Item> items, Set<Block> blocks) {
         for (TcOp op : ops) {
             switch (op) {
                 case TcOp.Place place -> {
                     blocks.add(place.state().getBlock());
-                    Item item = place.state().getBlock().asItem();
+                    Item item = TcContext.itemOf(place.state().getBlock());
                     if (item != Items.AIR) {
                         items.add(item);
                     }
@@ -379,40 +638,82 @@ public final class TestCentreLayout {
                 }
                 case TcOp.Hammock hammock -> {
                 }
+                case TcOp.Structure structure -> {
+                }
             }
         }
         items.remove(Items.AIR);
     }
 
-    /** Offsets je Abschnitt: Reihen in +x, neue Reihe (mit Gang davor) bei Ueberlauf. */
+    /** Bezirke nebeneinander (TZ22-5: ein Raster aus Bezirken statt eines langen Streifens). */
+    public static final int DISTRICT_COLUMNS = 2;
+    /** Abstand der Bezirks-Spalten in x: hoechste Reihenbreite und ein Gang. */
+    public static final int DISTRICT_PITCH = MAX_ROW_WIDTH + CORRIDOR;
+
+    /**
+     * Offsets je Abschnitt. Jeder Bezirk ({@link #DISTRICTS}) wird fuer sich in Reihen gepackt (in +x, hoechstens
+     * {@link #MAX_ROW_WIDTH} breit, vor jeder Reihe ein Gang in -z); die Bezirke liegen dann in einem Raster aus
+     * {@link #DISTRICT_COLUMNS} Spalten ({@link #DISTRICT_PITCH} breit), Bezirks-Reihen mit einem Gang dazwischen. Leere
+     * Abschnitte (ohne Schritte) nehmen keinen Platz ein, ein ganz leerer Bezirk auch keinen Rasterplatz.
+     */
     private static Map<String, BlockPos> pack(Map<String, TcCanvas> canvases, List<String> sectionIds) {
         Map<String, BlockPos> offsets = new LinkedHashMap<>();
-        int x = 0;
-        int z = 0;
-        int rowDepth = 0;
-        for (String id : sectionIds) {
-            TcCanvas canvas = canvases.get(id);
-            if (x > 0 && x + canvas.width() > MAX_ROW_WIDTH) {
-                z += rowDepth + CORRIDOR;
-                x = 0;
-                rowDepth = 0;
+        int column = 0;
+        int bandZ = 0;
+        int bandDepth = 0;
+        for (List<String> district : DISTRICTS) {
+            Map<String, BlockPos> local = new LinkedHashMap<>();
+            int x = 0;
+            int z = 0;
+            int rowDepth = 0;
+            boolean any = false;
+            for (String id : district) {
+                if (!sectionIds.contains(id)) {
+                    continue;
+                }
+                TcCanvas canvas = canvases.get(id);
+                if (x > 0 && x + canvas.width() > MAX_ROW_WIDTH) {
+                    z += rowDepth + CORRIDOR;
+                    x = 0;
+                    rowDepth = 0;
+                }
+                local.put(id, new BlockPos(x, 0, z));
+                if (canvas.ops().isEmpty()) {
+                    continue;
+                }
+                any = true;
+                x += canvas.width() + GAP;
+                rowDepth = Math.max(rowDepth, canvas.depth());
             }
-            offsets.put(id, new BlockPos(x, 0, z));
-            x += canvas.width() + GAP;
-            rowDepth = Math.max(rowDepth, canvas.depth());
+            if (any && column == DISTRICT_COLUMNS) {
+                bandZ += bandDepth + CORRIDOR;
+                bandDepth = 0;
+                column = 0;
+            }
+            BlockPos corner = new BlockPos(column * DISTRICT_PITCH, 0, bandZ);
+            local.forEach((id, pos) -> offsets.put(id, corner.offset(pos)));
+            if (any) {
+                bandDepth = Math.max(bandDepth, z + rowDepth);
+                column++;
+            }
         }
         return offsets;
     }
 
-    private static BoundingBox bounds(BlockPos origin, Map<String, TcCanvas> canvases, Map<String, BlockPos> offsets) {
+    private static BoundingBox bounds(BlockPos origin, Map<String, TcCanvas> canvases, Map<String, BlockPos> offsets,
+                                      List<String> sectionIds) {
         int maxX = 0;
         int maxZ = 0;
         int maxY = 0;
-        for (Map.Entry<String, TcCanvas> entry : canvases.entrySet()) {
-            BlockPos offset = offsets.get(entry.getKey());
-            maxX = Math.max(maxX, offset.getX() + entry.getValue().width());
-            maxZ = Math.max(maxZ, offset.getZ() + entry.getValue().depth());
-            maxY = Math.max(maxY, entry.getValue().height());
+        for (String id : sectionIds) {
+            TcCanvas canvas = canvases.get(id);
+            BlockPos offset = offsets.get(id);
+            if (canvas.ops().isEmpty()) {
+                continue;
+            }
+            maxX = Math.max(maxX, offset.getX() + canvas.width());
+            maxZ = Math.max(maxZ, offset.getZ() + canvas.depth());
+            maxY = Math.max(maxY, canvas.height());
         }
         return new BoundingBox(origin.getX() - 3, origin.getY() - 1, origin.getZ() - CORRIDOR - 1,
                 origin.getX() + maxX + 3, origin.getY() + maxY + 4, origin.getZ() + maxZ + 3);
@@ -420,16 +721,19 @@ public final class TestCentreLayout {
 
     /** Die Knoepfe der Steuerwand; Koordinaten sind absolut, damit die Befehlsbloecke ohne Zustand auskommen. */
     static List<TestCentreSections.Control> controls(BlockPos origin, Map<String, BlockPos> anchors, BoundingBox bounds,
-                                                     List<String> sectionIds) {
+                                                     List<String> sectionIds, Options options) {
         String at = origin.getX() + " " + origin.getY() + " " + origin.getZ();
+        // TZ22-4: Neubauten tragen die Optionen des Teilbaus mit, sonst saehen sie eine andere Planung.
+        String with = options.isAll() ? "" : " " + options.text();
         List<TestCentreSections.Control> out = new ArrayList<>();
-        out.add(new TestCentreSections.Control("sbtestcentre build " + at,
-                TcText.t("controls.rebuild", "Rebuild all"), TcText.t("controls.rebuild.sub", "whole centre")));
+        out.add(new TestCentreSections.Control("sbtestcentre build " + at + with,
+                TcText.t("controls.rebuild", "Rebuild all"), options.isAll() ? TcText.t("controls.rebuild.sub", "whole centre")
+                        : TcText.t("controls.rebuild.partial", "same areas")));
         for (String id : sectionIds) {
             if (id.equals("controls")) {
                 continue;
             }
-            out.add(new TestCentreSections.Control("sbtestcentre section " + id + " " + at,
+            out.add(new TestCentreSections.Control("sbtestcentre section " + id + " " + at + with,
                     TcText.t("controls.section", "Rebuild"), TcText.t("section." + id, TestCentreSections.pretty(id))));
         }
         out.add(new TestCentreSections.Control("sbtestcentre kit @p", TcText.t("controls.kit", "Give kit"), Component.empty()));

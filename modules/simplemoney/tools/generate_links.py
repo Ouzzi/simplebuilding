@@ -7,6 +7,9 @@ from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
 ROOT = MODULE.parents[1]
 DATA = MODULE / "generated/resources/data"
+# Config switch per merchant (SimpleMoney.merchantFlag); every villager profession uses enableVillagerTrades.
+# village_wanderer = Simple Wanderers' Village Wanderer (a-small22): its own switch, no wandering trader tag.
+FLAGS = {"wandering_trader": "enableWanderingTrades", "village_wanderer": "enableWandererTrades"}
 
 
 def outputs():
@@ -25,7 +28,7 @@ def outputs():
             assert 0 < row["chance"] <= 1
             price = min(64, max(row["safetyFloor"], math.ceil(row["hours"] + row["tier"] * 3 + row["craft"])))
             identity = "links/" + row["item"].replace(":", "/")
-            flag = "enableWanderingTrades" if row["merchant"] == "wandering_trader" else "enableVillagerTrades"
+            flag = FLAGS.get(row["merchant"], "enableVillagerTrades")
             trade = {"wants": {"id": "simplemoney:money_bill", "count": price},
                      "gives": {"id": row["item"], "count": 1}, "max_uses": row["stock"], "xp": 0,
                      "reputation_discount": 0,
@@ -34,10 +37,12 @@ def outputs():
             if row["chance"] < 1:
                 trade["merchant_predicate"] = {"type": "minecraft:random_chance", "chance": row["chance"]}
             result[DATA / f"simplemoney/villager_trade/{identity}.json"] = trade
+            prices.append(row)
+            if row["merchant"] == "village_wanderer":
+                continue  # Simple Wanderers' own tag (wanderer/rare) names these trades, required false.
             tag = "wandering_trader/rare" if row["merchant"] == "wandering_trader" else f"{row['merchant']}/level_{row['level']}"
             # Separate namespace tag fragments cannot replace the canonical existing tags.
             tags.setdefault(tag, []).append({"id": "simplemoney:" + identity, "required": False})
-            prices.append(row)
     result[DATA / "simplemoney/money/prices.json"] = {"prices": prices}
     for tag, entries in tags.items():
         old = originals.get(tag + ".json", {}).get("values", [])

@@ -27,7 +27,8 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "details": [
           "Warmable food (tag simplelib:warmable_food: cooked meat and fish, baked potato, bread, pumpkin pie, stews and soups) put into a heated crucible is warmed as a whole stack and stays in its slot.",
           "Food stays warm for half a day-night cycle (12,000 ticks) and cools everywhere except inside a crucible. Server bounds: warmDurationTicks 1,200–48,000, eatSpeedBonus 0–0.30.",
-          "In any bundle (also mod bundles) food stays warm for two day-night cycles (48,000 ticks, bound warmBundleDurationTicks 1,200–96,000). Stacks of the same food combine regardless of warmth; the new warmth is the mean over all items, cold items count as zero. Warm items glow in four steps, stronger the warmer they are: in inventories, as an orange outline when dropped (within 12 blocks) and with a little steam when held, and the tooltip shows the minutes left."
+          "In any bundle (also mod bundles) food stays warm for two day-night cycles (48,000 ticks, bound warmBundleDurationTicks 1,200–96,000). Stacks of the same food combine regardless of warmth; the new warmth is the mean over all items, cold items count as zero. Warm items glow in four steps, stronger the warmer they are: in inventories, as an orange outline when dropped (within 12 blocks) and with a little steam when held, and the tooltip shows the minutes left.",
+          "Server config simplelib-server.json (no screen, edit the file; values are clamped on load): warmBaseTicks (default 100, 20–1,200) is the time in ticks a crucible needs to warm one stack; warmDurationTicks (12,000), warmBundleDurationTicks (48,000) and eatSpeedBonus (0.15) as above."
         ]
       },
       "de": {
@@ -36,7 +37,8 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "details": [
           "Aufwärmbares Essen (Tag simplelib:warmable_food: gegartes Fleisch und Fisch, Ofenkartoffel, Brot, Kürbiskuchen, Eintöpfe und Suppen) wird in einem beheizten Tiegel als ganzer Stapel aufgewärmt und bleibt in seinem Platz.",
           "Essen bleibt einen halben Tag-Nacht-Zyklus warm (12.000 Ticks) und kühlt überall ab außer im Tiegel. Server-Grenzen: warmDurationTicks 1.200–48.000, eatSpeedBonus 0–0,30.",
-          "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten in vier Stufen, je wärmer desto stärker: im Inventar, gedroppt als orangefarbene Kontur (bis 12 Blöcke) und in der Hand mit etwas Dampf, und der Tooltip zeigt die restlichen Minuten."
+          "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten in vier Stufen, je wärmer desto stärker: im Inventar, gedroppt als orangefarbene Kontur (bis 12 Blöcke) und in der Hand mit etwas Dampf, und der Tooltip zeigt die restlichen Minuten.",
+          "Server-Config simplelib-server.json (ohne Oberfläche, Datei bearbeiten; Werte werden beim Laden begrenzt): warmBaseTicks (Standard 100, 20–1.200) ist die Zeit in Ticks, die ein Tiegel für das Aufwärmen eines Stapels braucht; warmDurationTicks (12.000), warmBundleDurationTicks (48.000) und eatSpeedBonus (0,15) wie oben."
         ]
       }
     },
@@ -84,6 +86,27 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "details": [
           "Gespeichert als Item-Komponente simplelib:rarity (cursed oder mythic); die Vanilla-Seltenheit bleibt Episch. Die Stufe färbt den Namen im Tooltip, über der Schnellleiste und in Chat-Item-Links. Nur der Tooltip ist animiert und Pixelzeile für Pixelzeile gemalt; über der Schnellleiste steht der mythische Opal still, der verfluchte Name ist strahlend rot, Server und Chat sehen die einfache Stufenfarbe.",
           "Verflucht: Biom-Pinsel (Simple Tools), Netherherz und Rotes Nether-Juwel (Simple Mobs). Mythisch: Starke Aufwertungsvorlage, Starkes Leuchtfeuer und Starker Aquisator (Simple Beacons)."
+        ]
+      }
+    },
+    {
+      "id": "legendary_moments",
+      "en": {
+        "title": "Legendary moments",
+        "summary": "The hardest advancements and the hardest enchantments play a fanfare and a particle show at the player.",
+        "details": [
+          "Advancements: How Did We Get Here?, A Furious Cocktail, Adventuring Time, Monsters Hunted, A Balanced Diet, Two by Two, A Complete Catalogue, The Whole Pack, Smithing with Style, Serious Dedication and Hot Tourist Destinations. The server config list legendaryAdvancements adds more ids; legendaryAllChallenges (default false) makes every challenge advancement count.",
+          "Enchantments: tag simplelib:legendary (Swift Sneak, Soul Speed, Wind Burst; mods add theirs) plus the config list legendaryEnchantments. It counts when the enchanting table or the anvil makes an item with such an enchantment at its maximum level that the input did not have; loot does not count.",
+          "Everyone nearby hears the fanfare and sees totem particles, two rising golden spirals and a ring of sparks for two seconds. Switch: legendaryEffects (default true) in simplelib-server.json or the config screen (Mod Menu with Cloth Config)."
+        ]
+      },
+      "de": {
+        "title": "Legendäre Momente",
+        "summary": "Die schwersten Fortschritte und die schwersten Verzauberungen spielen eine Fanfare und eine Partikelschau am Spieler.",
+        "details": [
+          "Fortschritte: Wie zum Teufel sind wir hierher gekommen?, Ein wütender Cocktail, Abenteuerzeit, Monsterjäger, Ausgewogene Ernährung, Paarweise, Ein vollständiger Katalog, Das ganze Rudel, Schmieden mit Stil, Ernsthafte Hingabe und Heiße Touristenziele. Die Server-Liste legendaryAdvancements ergänzt weitere IDs; legendaryAllChallenges (Standard aus) lässt jede Herausforderung zählen.",
+          "Verzauberungen: Tag simplelib:legendary (Huschen, Seelenläufer, Windstoß; Mods ergänzen ihre) plus die Liste legendaryEnchantments. Es zählt, wenn Zaubertisch oder Amboss ein Item mit so einer Verzauberung auf Höchststufe herstellen, die die Vorlage noch nicht hatte; Beute zählt nicht.",
+          "Alle in der Nähe hören die Fanfare und sehen zwei Sekunden lang Totem-Partikel, zwei aufsteigende goldene Spiralen und einen Funkenkranz. Schalter: legendaryEffects (Standard an) in simplelib-server.json oder im Konfig-Bildschirm (Mod Menu mit Cloth Config)."
         ]
       }
     }
@@ -1091,6 +1114,25 @@ window.WIKI_MODULE_DATA["simplelib"] = {
   ],
   "tags": [
     {
+      "id": "simplelib:enchantment/legendary",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:swift_sneak",
+          "required": true
+        },
+        {
+          "id": "minecraft:soul_speed",
+          "required": true
+        },
+        {
+          "id": "minecraft:wind_burst",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/shared/resources/data/simplelib/tags/enchantment/legendary.json"
+    },
+    {
       "id": "simplelib:item/hammers",
       "replace": false,
       "values": [],
@@ -1577,10 +1619,10 @@ window.WIKI_MODULE_DATA["simplelib"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 3,
+    "features": 4,
     "recipes": 29,
     "lootTables": 7,
-    "tags": 4,
+    "tags": 5,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,

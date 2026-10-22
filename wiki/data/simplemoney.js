@@ -1309,7 +1309,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       "id": "configuration",
       "en": {
         "title": "Server configuration",
-        "summary": "config/simplemoney.json preserves trades.enableVillagerTrades and trades.enableWanderingTrades, both true by default.",
+        "summary": "config/simplemoney.json preserves trades.enableVillagerTrades and trades.enableWanderingTrades and adds trades.enableWandererTrades (the 14 price-list heads of the Village Wanderer, Simple Wanderers), all true by default.",
         "details": [
           "The server config controls datapack loading. Restart or reload after changing it. Client settings cannot change a remote server. Cloth Config screen is available from Mod Menu on Fabric and the Mods screen on NeoForge. No blocks, mobs, commands, keybinds or custom enchantments are registered.",
           "Unused rocketStackSize and vaultCooldownDays language remnants had no source implementation and are omitted."
@@ -1317,7 +1317,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       },
       "de": {
         "title": "Serverkonfiguration",
-        "summary": "config/simplemoney.json behält trades.enableVillagerTrades und trades.enableWanderingTrades; beide standardmäßig true.",
+        "summary": "config/simplemoney.json behält trades.enableVillagerTrades und trades.enableWanderingTrades und ergänzt trades.enableWandererTrades (die 14 Kopf-Angebote des Dorf-Wanderers, Simple Wanderers); alle standardmäßig true.",
         "details": [
           "Die Serverkonfiguration steuert die Datenladung. Nach Änderungen neu starten oder neu laden. Clienteinstellungen verändern keinen entfernten Server. Cloth-Config-Seite über Mod Menu auf Fabric und die Mods-Seite auf NeoForge. Keine Blöcke, Mobs, Befehle, Tastenkürzel oder eigenen Verzauberungen.",
           "Die unbenutzten Sprachreste rocketStackSize und vaultCooldownDays hatten keine Implementierung und werden ausgelassen."
@@ -3571,10 +3571,10 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
         }
       },
       "texture": "assets/textures/simplemoney/item/guide_book.png",

@@ -97,6 +97,8 @@ class Target:
     namespace: str = MOD_ID
     #: Client targets only: a log audit (tools/check_client_log.py) instead of screenshots. Faults fail the target.
     audit: bool = False
+    #: Client targets only: Simple Optimization next to the mods it covers (compat_opt_prepare/compat_opt_check).
+    compat: bool = False
 
 
 #: ForgeGradle 7 builds its run tasks only with -Pforge_runs=true, and creating them needs a
@@ -292,7 +294,57 @@ INTEGRATION_TARGETS = (Target(
     id="audit-models-263", label="Missing-model audit (all modules) - MC 26.3", loader="fabric", kind="client",
     mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
     gradle_args=("-PmoduleClientTest=modelaudit",), audit=True,
+), Target(
+    # Simple Optimization concept 4.7: our three sub-mods next to Cull Leaves, More Culling, BadOptimizations and ServerCore.
+    # Starts, prints its decision tables, theirs wins every area they cover, no crash. Mods: tools/bench (Modrinth, pinned).
+    id="compat-opt-263", label="Simple Optimization compat (Cull Leaves, More Culling, BadOptimizations, ServerCore) - MC 26.3",
+    loader="fabric", kind="client", mc_line="integration-26.3", gradle_task=":integration:runClientGameTest",
+    report="", catalogue="", audit=True, compat=True,
+    gradle_args=("-PmoduleClientTest=compat", "-PbenchRunDir=run-compat-263"),
 ))
+
+COMPAT_OPT_RIVALS = ("cullleaves", "moreculling", "badoptimizations", "servercore", "cloth-config")
+COMPAT_OPT_OWNERS = ("simpleoptrender", "simpleoptmemory", "simpleoptserver")
+#: area id -> the covering mod that must win it in the compat run (decision table line: "-> off (rival_wins: <mod>)").
+COMPAT_OPT_EXPECT = {"leaf_culling": "cullleaves", "lightmap_cache": "badoptimizations", "more_culling": "moreculling",
+                     "dynamic_distance": "servercore"}
+#: areas nobody in the run covers: ours stays on.
+COMPAT_OPT_FREE = ("fast_ip_ping", "no_telemetry")
+
+
+def compat_opt_prepare() -> None:
+    """Builds our sub-mod jars and fills integration/run-compat-263/mods with them and the pinned comparison mods."""
+    import shutil
+    bench = REPO / "tools" / "bench"
+    sys.path.insert(0, str(bench))
+    import fetch_mods
+    import run_bench
+    jars = run_bench.our_jars(set(COMPAT_OPT_OWNERS))
+    foreign = fetch_mods.fetch(list(COMPAT_OPT_RIVALS))
+    run = REPO / "integration" / "run-compat-263"
+    for sub in ("mods", "config", "saves", "world"):
+        if (run / sub).exists():
+            shutil.rmtree(run / sub)
+    (run / "mods").mkdir(parents=True)
+    for jar in list(jars.values()) + list(foreign.values()):
+        shutil.copy2(jar, run / "mods")
+
+
+def compat_opt_check(output: str) -> str | None:
+    """None when the decision tables show theirs for every covered area and the world ticked; else the first fault."""
+    text = strip_ansi(output)
+    if "[compat-opt] world ticked without crash" not in text:
+        return "die Welt lief nicht bis zum Marker '[compat-opt] world ticked without crash'"
+    for area, rival in COMPAT_OPT_EXPECT.items():
+        hit = [l for l in text.splitlines() if re.search(rf"\b{area}\b.*->\s*off\s*\(rival_wins: {rival}\)", l)]
+        if not hit:
+            return f"Entscheidungstabelle: {area} ist nicht 'off (rival_wins: {rival})'"
+    for area in COMPAT_OPT_FREE:
+        if not any(re.search(rf"\b{area}\b.*->\s*on\s*\(no_rival", l) for l in text.splitlines()):
+            return f"Entscheidungstabelle: {area} ist nicht 'on (no_rival)'"
+    if "abgeschaltet: Mixin" in text:
+        return "ein Mixin wurde nicht angewendet (Zeile 'abgeschaltet: Mixin' im Log)"
+    return None
 
 
 def _forge_java8_args(loader, spec):
@@ -330,6 +382,13 @@ def module_targets(root=REPO):
                 label=f"{module['displayName']} {loader} standalone", loader=loader,
                 gradle_task=spec["task"], report=spec["report"],
                 catalogue=tests["catalogues"][0], gradle_args=tuple(_forge_java8_args(loader, spec)), **common))
+        # Combo suites (a-small22): the standalone setup plus named optional partners, e.g. crucibles + hammers without SB.
+        for combo in tests.get("combos", []):
+            spec = combo["loaders"]["fabric"]
+            result.append(Target(id=f"module-{module['id']}-with-{'-'.join(combo['with'])}-fabric-263",
+                label=f"{module['displayName']} fabric with {', '.join(combo['with'])}", loader="fabric",
+                gradle_task=spec["task"], report=spec["report"],
+                catalogue=tests["catalogues"][0], **common))
         client = tests.get("client")
         if client:
             result.append(Target(id=f"module-{module['id']}-client-263",
@@ -750,6 +809,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     started_at = now_utc()
     started_clock = time.time() - 1
     command = gradlew() + list(target.gradle_args) + [target.gradle_task]
+    if target.compat:
+        compat_opt_prepare()
     exit_code, output, timed_out = run_capture(command, timeout)
     duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
 
@@ -777,6 +838,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
         if exit_code != 0:
             tail = [l for l in strip_ansi(output).splitlines() if l.strip()][-3:]
             error = "Gradle brach ab: " + " | ".join(tail)
+        elif target.compat:
+            error = compat_opt_check(output)
         elif log_faults:
             error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
         elif "[model-audit] items checked:" not in output:
@@ -1553,7 +1616,9 @@ def select_targets(spec: str) -> list[Target]:
     if spec.strip() == "snapshot":
         return list(SNAPSHOT_TARGETS)
     if spec.strip() == "standalone":
-        return list(STANDALONE_TARGETS)
+        # Owner 22.10.: SB_GATE_LOADERS (e.g. "fabric") narrows the standalone runs to those loaders.
+        loaders = [l for l in os.environ.get("SB_GATE_LOADERS", "").split(",") if l]
+        return [t for t in STANDALONE_TARGETS if not loaders or t.loader in loaders]
     if spec.strip() == "everything-plus-snapshot":
         return list(ALL_TARGETS)
     chosen: list[Target] = []

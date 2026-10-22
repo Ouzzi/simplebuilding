@@ -2,21 +2,86 @@
   "parent": "minecraft:block/block",
   "textures": {
     "particle": "simpleshops:block/sales_storage_side",
-    "front": "simpleshops:block/sales_storage_front",
+    "intake": "simpleshops:block/sales_storage_intake",
     "side": "simpleshops:block/sales_storage_side",
-    "top": "simpleshops:block/sales_storage_top"
+    "back": "simpleshops:block/sales_storage_back"
   },
   "elements": [
     {
-      "from": [0, 0, 0],
-      "to": [16, 16, 16],
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
       "faces": {
-        "north": {"texture": "#front", "cullface": "north"},
-        "south": {"texture": "#side", "cullface": "south"},
-        "east": {"texture": "#side", "cullface": "east"},
-        "west": {"texture": "#side", "cullface": "west"},
-        "up": {"texture": "#top", "cullface": "up"},
-        "down": {"texture": "#top", "cullface": "down"}
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "cullface": "down",
+          "rotation": 180
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "cullface": "up"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#intake",
+          "cullface": "north"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#back",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "cullface": "west",
+          "rotation": 270
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "cullface": "east",
+          "rotation": 90
+        }
       }
     }
   ]

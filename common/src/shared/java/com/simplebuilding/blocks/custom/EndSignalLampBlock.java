@@ -1,7 +1,6 @@
 package com.simplebuilding.blocks.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -47,7 +46,7 @@ public class EndSignalLampBlock extends EndSignalBlock {
         BlockState next = state.setValue(POWER, power);
         if (rising) {
             next = next.cycle(LIT);
-            level.playSound(null, pos, next.getValue(LIT) ? SoundEvents.COPPER_BULB_TURN_ON : SoundEvents.COPPER_BULB_TURN_OFF,
+            level.playSound(null, pos, com.simplebuilding.util.LineSounds.lampToggle(astral(), next.getValue(LIT)),
                     SoundSource.BLOCKS, 1.0F, 1.0F);
         }
         if (next != state) level.setBlock(pos, next, rising ? Block.UPDATE_ALL : Block.UPDATE_CLIENTS);

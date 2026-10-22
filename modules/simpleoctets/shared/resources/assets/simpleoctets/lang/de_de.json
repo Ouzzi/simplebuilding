@@ -4,7 +4,7 @@
   "tooltip.simpleoctets.material_octet": "Rechtsklick: 0,125er-Block setzen",
   "tooltip.simpleoctets.melon_slice.place": "Schleichen + Rechtsklick: als Achtel setzen",
   "block.simpleoctets.mixed_octet": "Gemischte Achtelzelle",
-  "jei.simpleoctets.info.octets": "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt, in die angeklickte Ecke oder neben das angeklickte Achtel. Achtel verschiedener Materialien teilen sich eine Zelle. Abbauen nimmt die ganze Zelle, schleichend nur das angeschaute Achtel. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel heraus. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder.",
+  "jei.simpleoctets.info.octets": "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt, in die angeklickte Ecke oder neben das angeklickte Achtel. Achtel verschiedener Materialien teilen sich eine Zelle. Abbauen nimmt die ganze Zelle, schleichend nur das angeschaute Achtel, auch die angeschaute Ecke eines Vollblocks. Acht Achtel eines Materials werden zu seinem Vollblock. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel heraus. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder.",
   "jei.simpleoctets.info.melon_octet": "Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Jedes Melonen-Achtel droppt eine Melonenscheibe.",
   "item.simpleoctets.oak_octet": "Eichen-Achtelblock",
   "block.simpleoctets.oak_octet": "Eichen-Achtelzelle",

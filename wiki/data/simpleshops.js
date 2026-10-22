@@ -27,26 +27,29 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "modules/simpleshops/shared/java/com/simpleshops/block/DisplayCaseBlockEntity.java",
         "modules/simpleshops/shared/java/com/simpleshops/menu/StockMenu.java",
         "modules/simpleshops/shared/resources/data/simpleshops/recipe/display_case.json",
-        "modules/simpleshops/shared/resources/data/simpleshops/recipe/glow_display_case.json"
+        "modules/simpleshops/shared/resources/data/simpleshops/recipe/glow_display_case.json",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/ShopGuard.java"
       ],
       "en": {
         "title": "Display Case",
-        "summary": "A glass case with five goods slots that shows what is for sale. It only stands on a Sales Block of the same owner. Craft: 3 iron nuggets, 3 glass, 3 planks. The Glow Display Case (Display Case + glow ink sac, shapeless) draws the goods fully bright and gives off weak light (6).",
+        "summary": "A glass case with five goods slots that shows what is for sale; the lid is glass too, so the goods are visible from above. It stands anywhere, but it is a shop (protected, sells) only on a Sales Block of the same owner. Craft: 3 iron nuggets, 3 glass, 3 planks. The Glow Display Case (Display Case + glow ink sac, shapeless) draws the goods fully bright and gives off weak light (6).",
         "details": [
           "Owner, empty hand: the goods menu with five real slots. An item in = for sale, taken out = not for sale any more. Owner with an item in hand: the whole stack goes into the next free slot.",
           "One goods stack per slot; one piece of the chosen stack changes hands per trade. Up to five different goods share the price of the Sales Block below.",
           "One to five goods are shown as small spinning items (one in the middle, then two side by side, a triangle, a square, a square plus the middle). Without a Sales Block below or without a price the goods show dimmed and do not spin.",
-          "Hoppers, droppers, golems and item pipes cannot reach it: it is not a container."
+          "Hoppers, droppers, golems and item pipes cannot reach it: it is not a container.",
+          "Without a Sales Block below (or on another player's block) it is an ordinary block: anyone may break it and its goods drop. A case cannot be placed on another player's Sales Block."
         ]
       },
       "de": {
         "title": "Vitrine",
-        "summary": "Ein Glaskasten mit fünf Warenplätzen, der zeigt, was verkauft wird. Er steht nur auf einem Verkaufsblock desselben Besitzers. Rezept: 3 Eisennuggets, 3 Glas, 3 Bretter. Die Glow-Vitrine (Vitrine + Leuchttintenbeutel, formlos) zeichnet die Ware voll hell und gibt schwaches Licht (6) ab.",
+        "summary": "Ein Glaskasten mit fünf Warenplätzen, der zeigt, was verkauft wird; auch der Deckel ist aus Glas, so sieht man die Ware von oben. Er steht überall, ist aber nur auf einem Verkaufsblock desselben Besitzers ein Shop (geschützt, verkauft). Rezept: 3 Eisennuggets, 3 Glas, 3 Bretter. Die Glow-Vitrine (Vitrine + Leuchttintenbeutel, formlos) zeichnet die Ware voll hell und gibt schwaches Licht (6) ab.",
         "details": [
           "Besitzer, leere Hand: das Waren-Menü mit fünf echten Plätzen. Item hinein = steht zum Verkauf, herausgenommen = nicht mehr. Besitzer mit Item in der Hand: der ganze Stapel kommt in den nächsten freien Platz.",
           "Ein Warenstapel je Platz; je Tausch wechselt ein Stück des gewählten Stapels den Besitzer. Bis zu fünf verschiedene Waren teilen sich den Preis des Verkaufsblocks darunter.",
           "Ein bis fünf Waren erscheinen als kleine, sich drehende Items (eine in der Mitte, dann zwei nebeneinander, ein Dreieck, ein Quadrat, ein Quadrat plus Mitte). Ohne Verkaufsblock darunter oder ohne Preis wirkt die Ware gedimmt und dreht nicht.",
-          "Trichter, Werfer, Golems und Item-Rohre erreichen sie nicht: sie ist kein Behälter."
+          "Trichter, Werfer, Golems und Item-Rohre erreichen sie nicht: sie ist kein Behälter.",
+          "Ohne Verkaufsblock darunter (oder auf dem Block eines anderen Spielers) ist sie ein gewöhnlicher Block: jeder darf sie abbauen, die Ware fällt heraus. Auf den Verkaufsblock eines anderen Spielers lässt sie sich nicht setzen."
         ]
       }
     },
@@ -80,6 +83,35 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Preise passen exakt, auch Name, Verzauberungen und jede andere Komponente. Kein Preis = nichts steht zum Verkauf.",
           "Einnahmen liegen in den 27 Einnahme-Plätzen des Besitzer-Menüs (auch wenn der Besitzer offline ist). Dort entnehmen; sie fallen beim Abbau des Blocks heraus.",
           "Der Block zeigt auf der Vorderseite das erste Preis-Item."
+        ]
+      }
+    },
+    {
+      "id": "sales_storage",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/block/SalesStorageBlock.java",
+        "modules/simpleshops/shared/java/com/simpleshops/block/SalesStorageBlockEntity.java",
+        "modules/simpleshops/shared/java/com/simpleshops/block/SalesStorageItem.java",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/ShopStorage.java",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/ShopActions.java",
+        "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json"
+      ],
+      "en": {
+        "title": "Sales Storage",
+        "summary": "Chest-sized extra store for the earnings. Sneak and right click your own Sales Block with it, on any side: it attaches there, facing the Sales Block, and pulls the earnings out of it like a hopper. Anywhere else it does not place at all.",
+        "details": [
+          "Up to 16 storages per Sales Block. A storage works only while it and the Sales Block have the same owner; it never pulls from a stranger's block.",
+          "Right click opens its 27 slots for the owner. Same protection as the Sales Block; hoppers and pipes do not see it.",
+          "Storages that hung below a Sales Block in older worlds turn to face up by themselves and keep working as a chain."
+        ]
+      },
+      "de": {
+        "title": "Verkaufslager",
+        "summary": "Truhengroßes Zusatzlager für die Einnahmen. Schleichen und mit ihm den eigenen Verkaufsblock rechtsklicken, von jeder Seite: es setzt sich dort an, schaut zum Verkaufsblock und zieht die Einnahmen wie ein Trichter heraus. Anderswo lässt es sich gar nicht setzen.",
+        "details": [
+          "Bis zu 16 Lager je Verkaufsblock. Ein Lager arbeitet nur, solange es und der Verkaufsblock denselben Besitzer haben; aus einem fremden Block zieht es nie.",
+          "Rechtsklick öffnet dem Besitzer seine 27 Plätze. Gleicher Schutz wie der Verkaufsblock; Trichter und Rohre sehen es nicht.",
+          "Lager, die in älteren Welten unter einem Verkaufsblock hingen, richten sich von selbst nach oben aus und arbeiten weiter als Kette."
         ]
       }
     },
@@ -220,7 +252,8 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Breaking it as the owner drops the goods and the earnings once and gives the block back without data. Price templates are never dropped.",
           "Hoppers, hopper minecarts, droppers, dispensers, golems and mod item transfer cannot reach it, and no comparator reads it.",
           "Limit: 16 Sales Blocks and 16 Display Cases per player (server setting, at most 64). There is no limit per chunk.",
-          "If the data of a shop block is lost (damaged world), nobody owns it and only operators can break it; nothing is invented."
+          "If the data of a shop block is lost (damaged world), nobody owns it and only operators can break it; nothing is invented.",
+          "A Display Case is protected only while it stands on a Sales Block of the same owner."
         ]
       },
       "de": {
@@ -232,7 +265,8 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Baut der Besitzer ihn ab, fallen Ware und Einnahmen einmal heraus und er bekommt den Block ohne Daten zurück. Preisvorlagen fallen nie heraus.",
           "Trichter, Trichterloren, Werfer, Spender, Golems und Mod-Item-Transfer erreichen ihn nicht, und kein Komparator liest ihn.",
           "Grenze: 16 Verkaufsblöcke und 16 Vitrinen je Spieler (Servereinstellung, höchstens 64). Je Chunk gibt es keine Grenze.",
-          "Gehen die Daten eines Shop-Blocks verloren (beschädigte Welt), gehört er niemandem und nur Operatoren können ihn abbauen; es wird nichts erfunden."
+          "Gehen die Daten eines Shop-Blocks verloren (beschädigte Welt), gehört er niemandem und nur Operatoren können ihn abbauen; es wird nichts erfunden.",
+          "Eine Vitrine ist nur geschützt, solange sie auf einem Verkaufsblock desselben Besitzers steht."
         ]
       }
     },
@@ -738,10 +772,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
+          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
+          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
         }
       },
       "texture": "assets/textures/simpleshops/item/guide_book.png",
@@ -776,7 +810,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
             "A glass lid on a wooden plinth, built to show off the one thing a buyer came for."
           ],
           "use": [
-            "Stand it on your Sales Block. An item in hand goes into the next free slot; empty hand opens the goods menu with five slots. Buyers take one piece per trade."
+            "Stand it on your Sales Block to sell, or anywhere just to show something off (then anyone may break it). An item in hand goes into the next free slot; empty hand opens the goods menu with five slots. Buyers take one piece per trade."
           ],
           "secret": [
             "Hoppers and golems cannot reach inside, and no explosion will crack the glass."
@@ -787,7 +821,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
             "Ein Glasdeckel auf einem Holzsockel, gebaut, um das eine Ding zu zeigen, wegen dem ein Käufer kam."
           ],
           "use": [
-            "Auf deinen Verkaufsblock stellen. Ein Item in der Hand kommt in den nächsten freien Platz; leere Hand öffnet das Waren-Menü mit fünf Plätzen. Käufer nehmen ein Stück je Tausch."
+            "Auf deinen Verkaufsblock stellen, um zu verkaufen, oder irgendwo hin, nur zum Zeigen (dann darf jeder sie abbauen). Ein Item in der Hand kommt in den nächsten freien Platz; leere Hand öffnet das Waren-Menü mit fünf Plätzen. Käufer nehmen ein Stück je Tausch."
           ],
           "secret": [
             "Trichter und Golems kommen nicht hinein, und keine Explosion lässt das Glas springen."
@@ -904,22 +938,24 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       "note": {
         "sources": [
           "modules/simpleshops/shared/java/com/simpleshops/ShopsRegistry.java",
-          "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json"
+          "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json",
+          "modules/simpleshops/shared/java/com/simpleshops/block/SalesStorageItem.java",
+          "modules/simpleshops/shared/java/com/simpleshops/logic/ShopStorage.java"
         ],
         "en": {
-          "summary": "Chest-sized extra store for the earnings: it pulls them from the Sales Block (or the storage) directly above, passes them down like a hopper chain, and works only when every block in the chain has the same owner. Same protection as the Sales Block. Planks, iron ingots, an ender pearl and a hopper."
+          "summary": "Chest-sized extra store for the earnings: sneak + right click your own Sales Block with it (any side); it faces that block and pulls the earnings out like a hopper. It works only while both have the same owner. Same protection as the Sales Block. Planks, iron ingots, an ender pearl and a hopper."
         },
         "de": {
-          "summary": "Truhengroßes Zusatzlager für die Einnahmen: zieht sie aus dem Verkaufsblock (oder Lager) direkt darüber, gibt sie wie eine Trichterkette nach unten weiter und arbeitet nur, wenn alle Blöcke der Kette denselben Besitzer haben. Gleicher Schutz wie der Verkaufsblock. Bretter, Eisenbarren, eine Enderperle und ein Trichter."
+          "summary": "Truhengroßes Zusatzlager für die Einnahmen: schleichend mit ihm den eigenen Verkaufsblock rechtsklicken (jede Seite); es schaut zu diesem Block und zieht die Einnahmen wie ein Trichter heraus. Es arbeitet nur, solange beide denselben Besitzer haben. Gleicher Schutz wie der Verkaufsblock. Bretter, Eisenbarren, eine Enderperle und ein Trichter."
         }
       },
       "questionary": {
         "en": {
           "lore": [
-            "A crate with two iron bands and a funnel on top: the overflow bin of a busy shop."
+            "A crate with an iron collar and a funnel inside: it grows out of the Sales Block and swallows the overflow of a busy shop."
           ],
           "use": [
-            "Hang it under your Sales Block (or under another storage). It pulls the earnings down by itself, hopper style, as long as every block of the chain is yours. Right click to take things out."
+            "Sneak and right click your own Sales Block with it, on any side. It faces the block and pulls the earnings out by itself, hopper style, as long as both are yours. Right click to take things out."
           ],
           "secret": [
             "Strangers cannot open, break, push or empty it; hoppers do not see it. A full chain turns the Trade button off."
@@ -927,10 +963,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         },
         "de": {
           "lore": [
-            "Eine Kiste mit zwei Eisenbändern und einem Trichter oben: der Überlauf eines gut besuchten Ladens."
+            "Eine Kiste mit Eisenkragen und einem Trichter darin: sie wächst aus dem Verkaufsblock und schluckt den Überlauf eines gut besuchten Ladens."
           ],
           "use": [
-            "Häng sie unter deinen Verkaufsblock (oder unter ein weiteres Lager). Sie zieht die Einnahmen von selbst nach unten, wie ein Trichter, solange jeder Block der Kette dir gehört. Rechtsklick zum Entnehmen."
+            "Schleichend mit ihr deinen eigenen Verkaufsblock rechtsklicken, von jeder Seite. Sie schaut zum Block und zieht die Einnahmen von selbst heraus, wie ein Trichter, solange beide dir gehören. Rechtsklick zum Entnehmen."
           ],
           "secret": [
             "Fremde können sie nicht öffnen, abbauen, schieben oder leeren; Trichter sehen sie nicht. Eine volle Kette schaltet den Tausch-Knopf aus."
@@ -1014,7 +1050,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 10,
+    "features": 11,
     "recipes": 6,
     "lootTables": 5,
     "tags": 0,

@@ -2663,7 +2663,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Beacons",
-      "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+      "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -3369,6 +3369,20 @@
             }
           }
         },
+        "combos": [
+          {
+            "with": [
+              "simplehammers"
+            ],
+            "reason": "Hammer ways without SimpleBuilding (a-small22): the upgrade steps are the module's own file.",
+            "loaders": {
+              "fabric": {
+                "task": ":integration:runSimplecruciblesWithSimplehammersGameTest",
+                "report": "integration/build/combo/simplecrucibles-simplehammers-junit.xml"
+              }
+            }
+          }
+        ],
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simplecrucibles.ModuleClientSmoke"

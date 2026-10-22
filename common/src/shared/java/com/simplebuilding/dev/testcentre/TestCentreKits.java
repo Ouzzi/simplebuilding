@@ -80,7 +80,7 @@ public final class TestCentreKits {
                 case TcOp.Fill fill -> shown.addAll(fill.contents());
                 case TcOp.Place place -> {
                     Block block = place.state().getBlock();
-                    Item item = block.asItem();
+                    Item item = TcContext.itemOf(block);
                     if (item != Items.AIR && !INFRASTRUCTURE.contains(block)) {
                         (TcContext.isMod(TcContext.id(block)) ? modBlocks : vanillaBlocks).add(new ItemStack(item));
                     }
@@ -90,6 +90,8 @@ public final class TestCentreKits {
                 case TcOp.Command command -> {
                 }
                 case TcOp.Hammock hammock -> {
+                }
+                case TcOp.Structure structure -> {
                 }
             }
         }

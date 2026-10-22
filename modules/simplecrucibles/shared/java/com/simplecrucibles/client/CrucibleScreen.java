@@ -5,7 +5,6 @@ import com.simplelib.api.client.ui.UiPalette;
 import com.simplecrucibles.crucible.CrucibleBlockEntity;
 import com.simplecrucibles.crucible.CrucibleMenu;
 import com.simplecrucibles.crucible.CrucibleTier;
-import com.simplecrucibles.crucible.HeatLevel;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
@@ -25,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
  * outline, darker bevel line, 2 px dark band, a light inner line, corners rounded by 2 px; at the bottom two more
  * pixels of shadow (5 px frame at the top and sides, 7 px at the bottom). Slots 16x16 like image 3 (rounded corners,
  * 2 px apart), sunk in like image 4 (dark top and left line, light edge below/right); an attached barrel's fields (as
- * many as the crucible's, N12c) sit in their own copper box beside the crucible box, framed exactly like the others. The heat shows as a flame strip behind the slots ({@link CrucibleFlames}).
+ * many as the crucible's, N12c) sit in their own copper box beside the crucible box, framed exactly like the others. The heat shows as flames in their own zone under the slots, over a dark hearth trapezoid ({@link CrucibleFlames}, SP22-6).
  * Each crucible slot shows its progress like the furnace (image 4, {@link #PROGRESS_STYLE} FILL): the slot fills up
  * from below with flames while cooking - blue and standing still when the heat is too low, red and full when the result
  * has no room; finished results get a green frame, items without a recipe a grey veil. GAP_BAR puts the same progress
@@ -95,7 +94,10 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         if (attached) UiBoxes.box(g, x0 + l.barrelBox(), y0 + l.barrelBoxTop(), l.barrelBoxWidth(), l.barrelBoxHeight(), BARREL);
         UiBoxes.box(g, x0 + l.inventoryBoxLeft(), y0 + l.inventoryBoxTop(), l.inventoryBoxWidth(), l.inventoryBoxHeight(), INVENTORY);
         long now = Util.getMillis();
-        CrucibleFlames.draw(g, px + FRAME, py + l.sectionHeight() - FRAME_BOTTOM, l.crucibleWidth() - 2 * FRAME, l.sectionHeight(),
+        // SP22-6: hearth trapezoid in the fire zone under the grid, the flames over it, the slots over both.
+        int fireTop = y0 + l.fireTop(tier), fireBottom = py + l.sectionHeight() - FRAME_BOTTOM;
+        CrucibleFlames.hearth(g, px + FRAME, fireTop + CrucibleMenu.FIRE_GAP, l.crucibleWidth() - 2 * FRAME, fireBottom, top);
+        CrucibleFlames.draw(g, px + FRAME, fireBottom, l.crucibleWidth() - 2 * FRAME, py + l.sectionHeight() - fireTop,
                 menu.heat(), menu.afterglow() > 0, now);
         for (Slot slot : menu.slots) {
             if (!slot.isActive()) continue;
@@ -217,12 +219,11 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         g.setTooltipForNextFrame(font, lines, java.util.Optional.empty(), mouseX, mouseY);
     }
 
-    /** Whether {@code mx, my} (relative to the image) is over the heat display (or where the flames would be). */
+    /** Whether {@code mx, my} (relative to the image) is over the fire zone under the grid. */
     private boolean overHeat(int mx, int my) {
         CrucibleMenu.Layout l = layout();
-        int flames = Math.max(CrucibleFlames.targetPixels(HeatLevel.HIGH, false, l.sectionHeight()), 8);
         int bottom = l.y() + l.sectionHeight() - FRAME_BOTTOM;
-        return mx >= l.crucibleLeft() + FRAME && mx < l.crucibleLeft() + l.crucibleWidth() - FRAME && my >= bottom - flames && my < bottom;
+        return mx >= l.crucibleLeft() + FRAME && mx < l.crucibleLeft() + l.crucibleWidth() - FRAME && my >= l.fireTop(tier) && my < bottom;
     }
 
     private Component stateLine(int slot) {

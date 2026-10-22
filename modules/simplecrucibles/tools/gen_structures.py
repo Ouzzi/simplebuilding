@@ -38,9 +38,11 @@ def compound(d):
 
 
 def state(name, props=None):
-    out = {"Name": s(name)}
+    # 26.3 block state keys (DataVersion 5023): "id"/"properties". The old "Name"/"Properties" load as air without a
+    # data fix, so the village kitchens were empty (found by the test centre, TZ22-3).
+    out = {"id": s(name)}
     if props:
-        out["Properties"] = compound({k: s(v) for k, v in props.items()})
+        out["properties"] = compound({k: s(v) for k, v in props.items()})
     return out
 
 

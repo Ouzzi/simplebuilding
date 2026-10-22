@@ -143,6 +143,45 @@ standaloneSuites.each { entry ->
         doFirst { rootProject.file(spec.report).parentFile.mkdirs(); project.delete(file("${runDirName}/world")) }
     }
 }
+// Combo suites (tests.combos, a-small22): the standalone setup plus named optional partners and their hard module
+// requirements - e.g. Simple Crucibles with Simple Hammers but without SimpleBuilding. Same catalogue and filter.
+registry.modules.findAll { it.tests?.combos }.each { entry ->
+    entry.tests.combos.each { combo ->
+        def spec = combo.loaders.fabric
+        def taskName = spec.task.tokenize(':').last()
+        def runName = taskName.substring(3).uncapitalize()
+        def runDirName = "run-combo-fabric-263/${entry.id}-${combo.with.join('-')}"
+        def partnerRequires = combo.with.collectMany { id -> registry.modules.find { it.id == id }.tests?.standalone?.requires ?: [] }
+        def moduleIds = ([entry.id] + (entry.tests.standalone?.requires ?: []) + combo.with + partnerRequires).unique()
+        def devMods = entry.tests.standalone?.devMods ?: []
+        def prepareCombo = tasks.register("prepare${taskName.substring(3)}") {
+            dependsOn moduleIds.collect { id -> "${registry.modules.find { it.id == id }.projects.fabric}:jar" }
+            doLast {
+                def jars = moduleIds.collect { id ->
+                    project(registry.modules.find { it.id == id }.projects.fabric).tasks.named('jar').get().archiveFile.get().asFile
+                }
+                devRegistry.mods.findAll { devMods.contains(it.id) && it.sources.fabric }.each { mod ->
+                    if (mod.sources.fabric.maven) jars.addAll(configurations.getByName("integrationDev_${mod.id}").files)
+                    else jars.add(localDevModJar(mod.sources.fabric.local, mod.id))
+                }
+                project.sync { from jars; into file("${runDirName}/mods") }
+                file("${runDirName}/eula.txt").text = 'eula=true\n'
+            }
+        }
+        loom.runs.create(runName) {
+            server()
+            sourceSet = 'standalone'
+            runDir runDirName
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${rootProject.file(spec.report).absolutePath}"
+            vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: (entry.tests.namespace ?: entry.id) + ':*'}"
+        }
+        tasks.named(taskName) {
+            dependsOn prepareCombo
+            doFirst { rootProject.file(spec.report).parentFile.mkdirs(); project.delete(file("${runDirName}/world")) }
+        }
+    }
+}
 // Compile smoke sources directly; module implementation classes remain in runtime jars.
 registry.modules.findAll { it.tests?.client }.each { entry ->
     sourceSets.gametest.java.srcDir rootProject.file(entry.tests.client.sources)
@@ -159,14 +198,17 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def audit = requested == 'modelaudit'
         // 'bench' is no module either: the Simple Optimization benchmark client (tools/bench/run_bench.py).
         def bench = requested == 'bench'
-        def entries = (audit || bench) ? [] : registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
-        if (requested && !audit && !bench && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'compat' is no module either: Simple Optimization next to the mods it covers (tools/testrunner target compat-opt-263).
+        def compat = requested == 'compat'
+        def entries = (audit || bench || compat) ? [] : registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
+        if (requested && !audit && !bench && !compat && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
                 : bench ? ['com.simplebuilding.integration.clienttest.BenchClientTest']
+                : compat ? ['com.simplebuilding.integration.clienttest.CompatClientTest']
                 : entries.collectMany { it.tests.client.entrypoints }],
-            depends:(audit ? ['simplebuilding'] : bench ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]

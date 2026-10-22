@@ -32,6 +32,9 @@ public final class MobStations {
     /** Command blocks of a cell (front row). */
     static final int[] BUTTON_X = {1, 3, 5, 7};
     static final int BUTTON_Z = 1;
+    /** Zellen je Reihe (TZ22-5: keine ellenlangen Reihen); weitere Reihen je {@link #ROW_PITCH} dahinter. */
+    static final int CELLS_PER_ROW = 10;
+    static final int ROW_PITCH = WALL_Z + 4;
 
     /** The End gateway of the Shellker cell (cell coordinates); the bedrock frame reaches 2 below and above. */
     public static final int GATEWAY_X = 4, GATEWAY_Y = 3, GATEWAY_Z = 5;
@@ -66,12 +69,21 @@ public final class MobStations {
         if (mobs.isEmpty()) {
             return c;
         }
-        for (int i = 0; i < mobs.size(); i++) {
-            cell(c, i * CELL, mobs.get(i));
+        // TZ22-5: hoechstens CELLS_PER_ROW Zellen je Reihe, weitere Reihen dahinter (Gang von drei Feldern dazwischen).
+        int rows = (mobs.size() + CELLS_PER_ROW - 1) / CELLS_PER_ROW;
+        for (int row = 0; row < rows; row++) {
+            TcCanvas line = new TcCanvas();
+            int from = row * CELLS_PER_ROW;
+            int count = Math.min(CELLS_PER_ROW, mobs.size() - from);
+            for (int i = 0; i < count; i++) {
+                cell(line, i * CELL, mobs.get(from + i));
+            }
+            if (row == 0) {
+                line.title(0, 4, WALL_Z, TcText.t("section.mobs", "Mobs"), TcText.t("section.mobs.sub", "every mod's mobs"));
+            }
+            line.backWall(0, count * CELL - 1, WALL_Z, 6);
+            c.append(line, 0, row * ROW_PITCH);
         }
-        int width = mobs.size() * CELL;
-        c.title(0, 4, WALL_Z, TcText.t("section.mobs", "Mobs"), TcText.t("section.mobs.sub", "every mod's mobs"));
-        c.backWall(0, width - 1, WALL_Z, 6);
         return c;
     }
 
@@ -124,7 +136,7 @@ public final class MobStations {
         if (BuiltInRegistries.ITEM.containsKey(egg)) {
             c.wallFrame(x0 + 5, 4, WALL_Z, new ItemStack(BuiltInRegistries.ITEM.getValue(egg)));
         }
-        c.anchor(anchorName(id), x0 + 4, 0, -4);
+        c.anchor(anchorName(id), x0 + 4, 0, -2);
     }
 
     /** {@code summon} at a cell spot, relative to the command block at {@code (bx, 1, BUTTON_Z)}; block-aligned. */

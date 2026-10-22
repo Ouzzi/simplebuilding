@@ -37,7 +37,8 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384).",
           "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map needs 2 echo shards and a netherite scrap instead, the End map 2 echo shards and a shulker shell.",
           "Found in chests: cartographer and shipwreck map chests 5 % (plain map), bastions and Nether fortresses 2 % (Nether map), end city treasure 2 % (End map).",
-          "Wayfinder maps do not stack: each one holds its own waypoints and view."
+          "Wayfinder maps do not stack: each one holds its own waypoints and view.",
+          "Server config simplemaps-server.json (no screen, edit the file; values are clamped on load): revealRadius is how many blocks around the holder a map reveals per update (default 128, 16–128; halved under a ceiling such as the Nether); maxTilesPerMap caps the explored 128x128 tiles per map (default 4,096). All options of the file are listed in the sections on copying, extending, layers and the web map."
         ]
       },
       "de": {
@@ -49,7 +50,8 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "Gespeichert werden nur erkundete Kacheln zu 128 × 128 Blöcken (Farbe und Höhe je Block); höchstens maxTilesPerMap Kacheln je Karte (Standard 4096, Servergrenzen 16–16384).",
           "Rezepte (formlos): Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter; die Nether-Karte braucht stattdessen 2 Echo-Splitter und einen Netheritplatten, die End-Karte 2 Echo-Splitter und eine Shulker-Schale.",
           "Fundorte: Kartografen- und Schiffswrack-Kartentruhen 5 % (einfache Karte), Bastionen und Netherfestungen 2 % (Nether-Karte), Endstadt-Schatz 2 % (End-Karte).",
-          "Wegfinder-Karten stapeln nicht: jede hat ihre eigenen Wegpunkte und ihren eigenen Ausschnitt."
+          "Wegfinder-Karten stapeln nicht: jede hat ihre eigenen Wegpunkte und ihren eigenen Ausschnitt.",
+          "Server-Config simplemaps-server.json (ohne Oberfläche, Datei bearbeiten; Werte werden beim Laden begrenzt): revealRadius ist der Radius in Blöcken um den Halter, den eine Karte pro Update aufdeckt (Standard 128, 16–128; unter einer Decke wie im Nether halbiert); maxTilesPerMap begrenzt die erkundeten 128x128-Felder pro Karte (Standard 4.096). Alle weiteren Optionen der Datei stehen in den Abschnitten zu Kopieren, Erweitern, Ebenen und Webkarte."
         ]
       }
     },

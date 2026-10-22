@@ -4,6 +4,14 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.EndSignalLampBlock;
 import com.simplebuilding.blocks.custom.SignalDustBlock;
 import com.simplebuilding.datafix.LegacyItemIds;
+import com.simplebuilding.util.LineSounds;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -11,6 +19,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.Items;
@@ -18,6 +27,7 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.RedstoneLampBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.RedstoneSide;
@@ -518,5 +528,79 @@ public final class RedstoneLinesTests {
             helper.assertTrue(unpacked.is(pair[0].asItem()) && unpacked.getCount() == 9, name(pair[1]) + " gave " + unpacked);
         }
         helper.succeed();
+    }
+
+    /**
+     * SP22-5 (owner 22.10.): every line block has its own sound type (never amethyst any more); every event is registered
+     * and in the 26.3 sounds.json with a subtitle, every own file is there (Ogg), Vanilla only as a referenced event, and
+     * the own subtitles exist in English and German.
+     */
+    public static void lineBlocksHaveOwnSounds(GameTestHelper helper) {
+        if (!active(helper)) return;
+        Object[][] expected = {
+                {ModBlocks.ASTRAL_REDSTONE, LineSounds.ASTRAL_DUST}, {ModBlocks.NIHIL_REDSTONE, LineSounds.NIHIL_DUST},
+                {ModBlocks.BRIDGE_REDSTONE, LineSounds.BRIDGE_DUST}, {ModBlocks.ASTRALIT_LAMP, LineSounds.ASTRAL_LAMP},
+                {ModBlocks.NIHILITH_LAMP, LineSounds.NIHIL_LAMP}, {ModBlocks.ASTRAL_PISTON, LineSounds.ASTRAL_PISTON},
+                {ModBlocks.NIHIL_PISTON, LineSounds.NIHIL_PISTON}};
+        List<String> problems = new ArrayList<>();
+        for (Object[] row : expected) {
+            Block block = (Block) row[0];
+            SoundType sound = block.defaultBlockState().getSoundType();
+            if (sound == SoundType.AMETHYST) problems.add(name(block) + " still sounds like amethyst");
+            if (sound != row[1]) problems.add(name(block) + " has the wrong sound type");
+            if (!sound.getBreakSound().location().getPath().equals("block." + name(block) + ".break")) {
+                problems.add(name(block) + " breaks with " + sound.getBreakSound().location());
+            }
+        }
+        JsonObject sounds = json("/assets/simplebuilding/sounds.json", problems);
+        JsonObject en = json("/assets/simplebuilding/lang/en_us.json", problems);
+        JsonObject de = json("/assets/simplebuilding/lang/de_de.json", problems);
+        for (SoundEvent event : LineSounds.EVENTS) {
+            Identifier id = event.location();
+            if (BuiltInRegistries.SOUND_EVENT.getValue(id) != event) problems.add(id + " is not registered");
+            JsonObject spec = sounds.getAsJsonObject(id.getPath());
+            if (spec == null) {
+                problems.add(id + " is missing in sounds.json");
+                continue;
+            }
+            String subtitle = spec.has("subtitle") ? spec.get("subtitle").getAsString() : "";
+            if (subtitle.startsWith("subtitles.simplebuilding.")) {
+                if (!en.has(subtitle) || !de.has(subtitle)) problems.add(subtitle + " lacks English or German text");
+            } else if (!subtitle.startsWith("subtitles.block.generic.")) {
+                problems.add(id + " has no subtitle");
+            }
+            for (JsonElement entry : spec.getAsJsonArray("sounds")) {
+                JsonObject o = entry.isJsonObject() ? entry.getAsJsonObject() : null;
+                Identifier file = Identifier.parse(o == null ? entry.getAsString() : o.get("name").getAsString());
+                if (o != null && o.has("type") && o.get("type").getAsString().equals("event")) {
+                    if (!BuiltInRegistries.SOUND_EVENT.containsKey(file)) problems.add(id + " refers to unknown " + file);
+                    continue;
+                }
+                if (!file.getNamespace().equals(com.simplebuilding.Simplebuilding.MOD_ID)) {
+                    problems.add(id + " plays a foreign file " + file);
+                    continue;
+                }
+                String path = "/assets/simplebuilding/sounds/" + file.getPath() + ".ogg";
+                try (InputStream in = RedstoneLinesTests.class.getResourceAsStream(path)) {
+                    if (in == null || !new String(in.readNBytes(4), StandardCharsets.US_ASCII).equals("OggS")) {
+                        problems.add(path + " is missing or no Ogg file");
+                    }
+                } catch (IOException e) {
+                    problems.add(path + " unreadable: " + e);
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " line sound problems: " + problems);
+        helper.succeed();
+    }
+
+    private static JsonObject json(String resource, List<String> problems) {
+        try (InputStream in = RedstoneLinesTests.class.getResourceAsStream(resource)) {
+            if (in != null) return JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+            problems.add(resource + " missing");
+        } catch (IOException e) {
+            problems.add(resource + " unreadable: " + e);
+        }
+        return new JsonObject();
     }
 }

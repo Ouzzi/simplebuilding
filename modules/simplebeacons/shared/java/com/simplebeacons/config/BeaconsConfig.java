@@ -19,15 +19,16 @@ public final class BeaconsConfig {
     public static final String FILE = "simplebeacons-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "strongBeaconMaxLevels", "strongBeaconRangeBase",
-            "strongBeaconRangePerLevel", "strongBeaconEffects", "strongConduitMaxRange", "upgradeStrikes");
-    /** The six extra effects, by their Vanilla id path (switch {@code strongBeaconEffects.<id>}). */
+            "strongBeaconRangePerLevel", "strongBeaconEffects", "strongBeaconMaterialRange", "vanillaBeaconMaterialRange",
+            "strongConduitMaxRange", "upgradeStrikes");
+    /** The ten extra effects, by their Vanilla id path (switch {@code strongBeaconEffects.<id>}); SP22-10 added the last four. */
     public static final List<String> EFFECT_IDS = List.of("night_vision", "water_breathing", "slow_falling",
-            "fire_resistance", "dolphins_grace", "absorption");
+            "fire_resistance", "dolphins_grace", "absorption", "saturation", "health_boost", "invisibility", "hero_of_the_village");
 
     public static final int MAX_LEVELS_DEFAULT = 6, MAX_LEVELS_MIN = 4, MAX_LEVELS_MAX = 6;
     public static final int RANGE_BASE_DEFAULT = 10, RANGE_BASE_MAX = 50;
     public static final int RANGE_PER_LEVEL_DEFAULT = 10, RANGE_PER_LEVEL_MIN = 1, RANGE_PER_LEVEL_MAX = 20;
-    public static final int CONDUIT_RANGE_DEFAULT = 144, CONDUIT_RANGE_MIN = 96, CONDUIT_RANGE_MAX = 144;
+    public static final int CONDUIT_RANGE_DEFAULT = 216, CONDUIT_RANGE_MIN = 96, CONDUIT_RANGE_MAX = 256;
     public static final int STRIKES_DEFAULT = 8, STRIKES_MIN = 1, STRIKES_MAX = 32;
 
     public static boolean enabled = true;
@@ -35,6 +36,9 @@ public final class BeaconsConfig {
     public static int strongBeaconRangeBase = RANGE_BASE_DEFAULT;
     public static int strongBeaconRangePerLevel = RANGE_PER_LEVEL_DEFAULT;
     public static final Map<String, Boolean> strongBeaconEffects = new LinkedHashMap<>();
+    /** SP22-10: range factor from the pyramid's material (Netherite x2 ... Iron x1) for the Strong and the Vanilla beacon. */
+    public static boolean strongBeaconMaterialRange = true;
+    public static boolean vanillaBeaconMaterialRange = true;
     public static int strongConduitMaxRange = CONDUIT_RANGE_DEFAULT;
     public static int upgradeStrikes = STRIKES_DEFAULT;
 
@@ -69,6 +73,8 @@ public final class BeaconsConfig {
                 ? json.getAsJsonObject("strongBeaconEffects") : new JsonObject();
         strongBeaconEffects.clear();
         for (String id : EFFECT_IDS) strongBeaconEffects.put(id, bool(effects, id, true));
+        strongBeaconMaterialRange = bool(json, "strongBeaconMaterialRange", true);
+        vanillaBeaconMaterialRange = bool(json, "vanillaBeaconMaterialRange", true);
         strongConduitMaxRange = clamp(integer(json, "strongConduitMaxRange", CONDUIT_RANGE_DEFAULT), CONDUIT_RANGE_MIN, CONDUIT_RANGE_MAX);
         upgradeStrikes = clamp(integer(json, "upgradeStrikes", STRIKES_DEFAULT), STRIKES_MIN, STRIKES_MAX);
     }
@@ -82,6 +88,8 @@ public final class BeaconsConfig {
         JsonObject effects = new JsonObject();
         strongBeaconEffects.forEach(effects::addProperty);
         o.add("strongBeaconEffects", effects);
+        o.addProperty("strongBeaconMaterialRange", strongBeaconMaterialRange);
+        o.addProperty("vanillaBeaconMaterialRange", vanillaBeaconMaterialRange);
         o.addProperty("strongConduitMaxRange", strongConduitMaxRange);
         o.addProperty("upgradeStrikes", upgradeStrikes);
         return o;

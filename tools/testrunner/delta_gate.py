@@ -57,7 +57,7 @@ def plan(changed: list[str], manifest: dict, targets: list[str]) -> dict:
     if "simplebuilding" in modules:
         run += CORE
     for mod in sorted(modules - {"simplebuilding"}):
-        run += [t for t in targets if re.fullmatch(rf"module-{mod}-(?:standalone-)?(?:fabric|neoforge|forge)-263", t)]
+        run += [t for t in targets if re.fullmatch(rf"module-{mod}-(?:standalone-|with-[a-z0-9_-]+-)?(?:fabric|neoforge|forge)-263", t)]
     if run:
         run.append("integration-263")
     return {"mode": "delta", "modules": sorted(modules), "targets": run}

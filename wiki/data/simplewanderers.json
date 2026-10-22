@@ -111,7 +111,7 @@
         "details": [
           "Vanilla common pool: 31 goods stay with the traveling trader, 47 go to the wanderer (nothing is lost, nothing appears at both). Buying pool: buckets, baked potato and hay bale go to the wanderer, bottle and fermented spider eye stay.",
           "Uncommon goods (logs, podzol, gunpowder) are offered by both; the building cores, the wand book and all other rarities stay only with the traveling trader. The wanderer never sells cores.",
-          "With SimpleBuilding: the Octant and the Reinforced Bundle (buy and sell) and the Diamond Pebbles. With Simple Money: the 14 mob heads of the 0.1 group (blaze, enderman, husk, spider, cave spider, slime, silverfish, breeze, shulker, drowned, pig, cow, chicken, sheep) as the rare offer, and the two money trades for chorus fruit and apples.",
+          "With SimpleBuilding: the Octant and the Reinforced Bundle (buy and sell) and the Diamond Pebbles. With Simple Money: the 14 mob heads of the 0.1 group (blaze, enderman, husk, spider, cave spider, slime, silverfish, breeze, shulker, drowned, pig, cow, chicken, sheep) as the rare offer - only he sells them, not the wandering trader; Simple Money switch trades.enableWandererTrades - and the two money trades for chorus fruit and apples.",
           "While this module is loaded, the traveling trader draws his common and buying goods from this module's lists; goods other mods add only to the Vanilla lists are not offered by him."
         ]
       },
@@ -121,7 +121,7 @@
         "details": [
           "Vanilla-Pool „häufig“: 31 Waren bleiben beim Fahrenden Händler, 47 gehen an den Wanderer (nichts geht verloren, nichts steht bei beiden). Pool „Kauf“: Eimer, Ofenkartoffel und Heuballen gehen an den Wanderer, Flasche und Gärendes Spinnenauge bleiben.",
           "Seltenere Waren (Stämme, Podsol, Schwarzpulver) bieten beide an; die Baukerne, das Stabbuch und alle anderen Seltenheiten bleiben nur beim Fahrenden Händler. Der Wanderer verkauft nie Kerne.",
-          "Mit SimpleBuilding: der Oktant und das Verstärkte Bündel (Kauf und Verkauf) und die Diamantkiesel. Mit Simple Money: die 14 Mob-Köpfe der 0,1-Gruppe (Lohe, Enderman, Wüstenzombie, Spinne, Höhlenspinne, Schleim, Silberfischchen, Windböe, Shulker, Ertrunkener, Schwein, Kuh, Huhn, Schaf) als rares Angebot und die zwei Geld-Handel für Chorusfrucht und Äpfel.",
+          "Mit SimpleBuilding: der Oktant und das Verstärkte Bündel (Kauf und Verkauf) und die Diamantkiesel. Mit Simple Money: die 14 Mob-Köpfe der 0,1-Gruppe (Lohe, Enderman, Wüstenzombie, Spinne, Höhlenspinne, Schleim, Silberfischchen, Windböe, Shulker, Ertrunkener, Schwein, Kuh, Huhn, Schaf) als rares Angebot – nur er, nicht der fahrende Händler; Simple-Money-Schalter trades.enableWandererTrades – und die zwei Geld-Handel für Chorusfrucht und Äpfel.",
           "Solange dieses Modul geladen ist, zieht der Fahrende Händler seine häufigen und Kauf-Waren aus den Listen dieses Moduls; Waren, die andere Mods nur in die Vanilla-Listen eintragen, bietet er dann nicht an."
         ]
       }

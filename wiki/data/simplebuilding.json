@@ -2908,6 +2908,36 @@
       }
     },
     {
+      "id": "test_centre",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/dev/testcentre/TestCentreCommand.java",
+        "common/src/shared/java/com/simplebuilding/dev/testcentre/TestCentreLayout.java",
+        "common/src/shared/java/com/simplebuilding/dev/testcentre/StructureStation.java",
+        "common/src/shared/java/com/simplebuilding/dev/testcentre/TestCentreBuilder.java",
+        "docs/TESTZENTRALE.md"
+      ],
+      "en": {
+        "title": "Test centre: /sbtestcentre (development)",
+        "summary": "A development world that shows everything of SimpleBuilding and its modules side by side: stations to try things out, every item and block, every mob, and every own structure piece. It is built from code with /sbtestcentre (operators, permission level 2).",
+        "details": [
+          "/sbtestcentre build builds the whole centre (default); build here or build x y z picks the place. /sbtestcentre or /sbtestcentre help lists the commands and areas.",
+          "Partial builds keep the centre small: build only <areas> builds just these areas plus the control wall, build without <areas> everything but these (for example build without structures, build only mobs,structures, build only workshop without chisel). Areas are the districts workshop, states, blocks, technics, combat, modules, mobs, structures, catalog, rest, or any section id; the choice is remembered, so the rebuild buttons and a rebuild on joining build the same centre again.",
+          "The structures district places every piece of every own structure once, unrotated, with all variants: the End wrecks (with no frame, an empty frame or an Elytra), End wells, fake gateways and End paths, and the Simple Crucibles field kitchen of all five village types. Each piece has a sign with structure, variant, mod and size.",
+          "section <id> rebuilds one section, stats [only|without ...] shows size, item frames and armour stands without building, coverage names items without a place, kit and give <station> hand out tools, tp [place] teleports."
+        ]
+      },
+      "de": {
+        "title": "Testzentrale: /sbtestcentre (Entwicklung)",
+        "summary": "Eine Entwicklungswelt, die alles aus SimpleBuilding und seinen Modulen nebeneinander zeigt: Stationen zum Ausprobieren, jedes Item und jeden Block, jeden Mob und jedes eigene Strukturteil. Sie wird aus Code mit /sbtestcentre gebaut (Operatoren, Rechtestufe 2).",
+        "details": [
+          "/sbtestcentre build baut die ganze Zentrale (Standard); build here oder build x y z wählt den Ort. /sbtestcentre oder /sbtestcentre help zeigt Befehle und Bereiche.",
+          "Teilbau hält die Zentrale klein: build only <Bereiche> baut nur diese Bereiche plus Steuerwand, build without <Bereiche> alles außer diesen (z. B. build without structures, build only mobs,structures, build only workshop without chisel). Bereiche sind die Bezirke workshop, states, blocks, technics, combat, modules, mobs, structures, catalog, rest oder eine Abschnitts-Id; die Wahl wird gemerkt, Neu-bauen-Knöpfe und der Neubau beim Betreten bauen dieselbe Zentrale wieder.",
+          "Der Bezirk Strukturen setzt jedes Teil jeder eigenen Struktur einmal, unrotiert, mit allen Varianten: die End-Wracks (ohne Rahmen, mit leerem Rahmen, mit Elytra), End-Brunnen, falsche Gateways und End-Wege sowie die Feldküche von Simple Crucibles in allen fünf Dorftypen. Vor jedem Teil steht ein Schild mit Struktur, Variante, Mod und Maßen.",
+          "section <id> baut einen Abschnitt neu, stats [only|without …] nennt Größe, Rahmen und Rüstungsständer ohne Bau, coverage nennt Items ohne Platz, kit und give <Station> geben Werkzeuge, tp [Platz] teleportiert."
+        ]
+      }
+    },
+    {
       "id": "shulker_lids",
       "related": [
         "minecraft:shulker_box",
@@ -136584,7 +136614,7 @@
     "config": 227,
     "inWorld": 481,
     "advancements": 116,
-    "features": 47,
+    "features": 48,
     "undocumented": 0,
     "incompleteProse": 0
   },

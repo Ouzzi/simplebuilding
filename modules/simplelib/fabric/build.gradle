@@ -3,3 +3,6 @@ ext.moduleVersion = '0.3.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // Bundles the shared framework API (creative-tab switch) for standalone runs.
 dependencies { include project(':framework') }
+// Config screen (legendary moments): Cloth Config and Mod Menu stay optional for SimpleLib, compiled against only.
+repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }
+dependencies { compileOnly "me.shedaniel.cloth:cloth-config-fabric:${rootProject.mc263_cloth_version}"; compileOnly "com.terraformersmc:modmenu:${rootProject.mc263_modmenu_version}" }

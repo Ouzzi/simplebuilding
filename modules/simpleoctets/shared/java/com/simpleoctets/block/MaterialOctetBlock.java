@@ -1,10 +1,15 @@
 package com.simpleoctets.block;
 
 import java.util.function.Supplier;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Achtelzelle eines Materials (Queue Nachtrag 24): ein Block je Material ({@code oak_octet} ... , {@code melon_octet}),
@@ -30,6 +35,22 @@ public class MaterialOctetBlock extends OctetCellBlock {
     /** Der volle Block des Materials. */
     public Block source() {
         return this.source.get();
+    }
+
+    /** Der Grundzustand des vollen Blocks, null solange er fehlt (Block eines anderen Mods). */
+    public @Nullable BlockState sourceState() {
+        Block block = source();
+        return block == null || block == Blocks.AIR ? null : block.defaultBlockState();
+    }
+
+    /**
+     * Abbautempo wie der volle Block (Besitzer SP22-1: Vanilla-artig): Haerte, Werkzeug und Werkzeugstufe des Materials -
+     * die Zellen tragen nur die mineable-Tags, nicht {@code needs_iron_tool} &amp; Co.
+     */
+    @Override
+    protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        BlockState full = sourceState();
+        return full == null ? super.getDestroyProgress(state, player, level, pos) : full.getDestroyProgress(player, level, pos);
     }
 
     /** Das Item eines Achtels (Holz: {@code <holz>_octet}, Melone: Melonenscheibe). */

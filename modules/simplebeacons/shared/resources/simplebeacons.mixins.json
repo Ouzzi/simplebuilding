@@ -6,12 +6,17 @@
   "mixins": [
     "ServerPlayerGameModeMixin",
     "DiscoverTipMixin",
-    "WitherShardMixin"
+    "WitherShardMixin",
+    "BeaconRangeMixin",
+    "BeaconMenuFactorMixin",
+    "BeaconInvoker",
+    "ConduitInvoker"
   ],
   "client": [
     "client.BeaconScreenAccessor",
     "client.ContainerScreenHeightAccessor",
-    "client.SlotYAccessor"
+    "client.SlotYAccessor",
+    "client.BeaconScreenFactorMixin"
   ],
   "server": [],
   "injectors": {

@@ -79,6 +79,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("redstone_lines_game_test_line_blocks_power_every_device", RedstoneLinesTests::lineBlocksPowerEveryDevice).maxTicks(140).build(),
             GameTestSpec.named("redstone_lines_game_test_line_blocks_feed_only_their_line", RedstoneLinesTests::lineBlocksFeedOnlyTheirLine).maxTicks(60).build(),
             GameTestSpec.named("redstone_lines_game_test_line_block_recipes_round_trip", RedstoneLinesTests::lineBlockRecipesRoundTrip).build(),
+            GameTestSpec.named("redstone_lines_game_test_line_blocks_have_own_sounds", RedstoneLinesTests::lineBlocksHaveOwnSounds).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_piston_pushes_all_six_at_once", EndSystemsTests::pistonPushesAllSixAtOnce).maxTicks(100).build(),
@@ -142,6 +143,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_mob_has_its_own_station_that_spawns_it_in_its_habitat", TestCentreTests::everyModMobHasItsOwnStationThatSpawnsItInItsHabitat)
                     .maxTicks(400)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_every_family_registry_entry_is_in_the_test_centre", TestCentreTests::everyFamilyRegistryEntryIsInTheTestCentre)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_no_frame_holds_what_could_stand_as_block", TestCentreTests::noFrameHoldsWhatCouldStandAsBlock)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_partial_builds_only_contain_the_chosen_areas", TestCentreTests::partialBuildsOnlyContainTheChosenAreas)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_the_layout_is_compact_with_low_walls", TestCentreTests::theLayoutIsCompactWithLowWalls)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_end_rail_tracks_run_their_carts", TestCentreTests::endRailTracksRunTheirCarts)
+                    .maxTicks(TestCentreTests.RAIL_RUN_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_every_transformation_sign_shows_an_existing_way", TestCentreTests::everyTransformationSignShowsAnExistingWay)
                     .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
@@ -2121,6 +2135,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("mob_head_game_test_helmet_head_and_extra_head_both_apply_and_the_extra_head_comes_first", MobHeadTests::helmetHeadAndExtraHeadBothApplyAndTheExtraHeadComesFirst)
                     .build(),
             GameTestSpec.named("mob_head_game_test_extra_head_put_on_plays_the_equip_sound", MobHeadTests::extraHeadPutOnPlaysTheEquipSound)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_right_click_in_the_air_puts_on_and_swaps", MobHeadTests::extraHeadRightClickInTheAirPutsOnAndSwaps)
                     .build(),
             GameTestSpec.named("mob_head_game_test_every_mod_head_is_wearable_like_vanilla_skulls_and_keeps_its_secret", MobHeadTests::everyModHeadIsWearableLikeVanillaSkullsAndKeepsItsSecret)
                     .build(),

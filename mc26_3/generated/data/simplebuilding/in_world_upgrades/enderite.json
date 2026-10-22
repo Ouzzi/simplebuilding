@@ -24,25 +24,6 @@
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_piston"
-    },
-    {
-      "damage_per_hit": 10,
-      "duration_factor": 2,
-      "from": "simplecrucibles:netherite_barrel",
-      "material": "simplelib:enderite_nugget",
-      "material_count": 2,
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplecrucibles:enderite_barrel"
-    },
-    {
-      "damage_per_hit": 10,
-      "from": "simplecrucibles:netherite_crucible",
-      "material": "simplelib:enderite_nugget",
-      "material_count": 4,
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplecrucibles:enderite_crucible"
     }
   ]
 }

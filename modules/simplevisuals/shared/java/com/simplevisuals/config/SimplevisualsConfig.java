@@ -61,6 +61,9 @@ public class SimplevisualsConfig {
 
         public boolean enableMapTooltips = true;
 
+        /** TZ22-7: flat block items (pressure plates, carpets, trapdoors) in item frames tilted like in the inventory. */
+        public boolean enableTiltedFrameItems = true;
+
         public SpeedLines speedLines = new SpeedLines();
 
         // Unterkategorie: Pickup Notifier

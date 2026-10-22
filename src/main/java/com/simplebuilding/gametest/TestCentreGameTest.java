@@ -62,4 +62,34 @@ public final class TestCentreGameTest {
     public void everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
         TestCentreTests.everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(helper);
     }
+
+    @GameTest
+    public void everyFamilyRegistryEntryIsInTheTestCentre(GameTestHelper helper) {
+        TestCentreTests.everyFamilyRegistryEntryIsInTheTestCentre(helper);
+    }
+
+    @GameTest
+    public void noFrameHoldsWhatCouldStandAsBlock(GameTestHelper helper) {
+        TestCentreTests.noFrameHoldsWhatCouldStandAsBlock(helper);
+    }
+
+    @GameTest
+    public void theLayoutIsCompactWithLowWalls(GameTestHelper helper) {
+        TestCentreTests.theLayoutIsCompactWithLowWalls(helper);
+    }
+
+    @GameTest
+    public void partialBuildsOnlyContainTheChosenAreas(GameTestHelper helper) {
+        TestCentreTests.partialBuildsOnlyContainTheChosenAreas(helper);
+    }
+
+    @GameTest(maxTicks = TestCentreTests.RAIL_RUN_MAX_TICKS)
+    public void endRailTracksRunTheirCarts(GameTestHelper helper) {
+        TestCentreTests.endRailTracksRunTheirCarts(helper);
+    }
+
+    @GameTest
+    public void everyTransformationSignShowsAnExistingWay(GameTestHelper helper) {
+        TestCentreTests.everyTransformationSignShowsAnExistingWay(helper);
+    }
 }

@@ -369,4 +369,10 @@ public final class McVersion {
                 new net.minecraft.world.item.component.CookingFuel(new net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt.Constant(ticks),
                         new net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat.Constant(1.0F)));
     }
+
+    /** Strukturvorlagen des Servers (Testzentrale TZ22-3); 26.2 heisst der Zugriff noch getStructureManager. */
+    public static net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager structureTemplates(
+            net.minecraft.server.level.ServerLevel level) {
+        return level.getStructureTemplateManager();
+    }
 }

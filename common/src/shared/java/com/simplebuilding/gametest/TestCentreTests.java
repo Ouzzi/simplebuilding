@@ -101,7 +101,7 @@ public final class TestCentreTests {
             BlockPos origin = helper.absolutePos(new BlockPos(2, 3, 2));
             java.nio.file.Files.writeString(marker, origin.getX() + " " + origin.getY() + " " + origin.getZ() + "\n");
             helper.assertTrue(TestCentreCommand.savedOrDefaultOrigin(level).equals(origin), "rebuild must retain its origin");
-            var plan = TestCentreLayout.plan(level.registryAccess(), origin);
+            var plan = TestCentreLayout.plan(level, origin);
             BlockPos entrance = plan.entrance();
             for (int attempt = 0; attempt < 2; attempt++) {
                 level.setBlockAndUpdate(entrance.below(), Blocks.AIR.defaultBlockState());
@@ -136,7 +136,7 @@ public final class TestCentreTests {
     /** Jedes Mod-Item und jeder Mod-Block steht in einem Abschnitt (ausser den begruendeten Ausnahmen). */
     public static void everyModItemAndBlockHasItsPlaceInTheTestCentre(GameTestHelper helper) {
         // Split stage 5b: soul lava and the buckets are Simple Crucibles' (no simplebuilding: block to exclude any more).
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         for (Item item : plan.leftovers()) {
             problems.add("item " + BuiltInRegistries.ITEM.getKey(item) + " has no section (it only shows up under 'unsorted')");
@@ -172,6 +172,264 @@ public final class TestCentreTests {
     }
 
     /**
+     * TZ22-1 (Besitzer 22.10.: "ich sehe nicht alles, was in der Mod existiert"): jeder Eintrag der Register aller geladenen
+     * Module der Familie ({@link TcContext#FAMILY}) hat seinen Platz - Items und Bloecke stehen in einem Abschnitt (gesetzt,
+     * im Rahmen, am Staender oder in einem Behaelter), jeder Mob hat seine Zelle. Ausnahmen nur begruendet: technische Bloecke
+     * ohne Item ({@link TestCentreLayout#technical}, {@link TestCentreLayout#EXCLUDED}), Entity-Typen, die kein Mob sind
+     * (MISC: Geschosse, Fahrzeuge, Marker; nicht beschwoerbar), und die Strukturen (eigener Bereich in TZ22-3, nur gezaehlt).
+     * Ein geladener Namensraum "simple..." ausserhalb der Familie heisst: neues Modul, in {@code TcContext.FAMILY} eintragen.
+     */
+    public static void everyFamilyRegistryEntryIsInTheTestCentre(GameTestHelper helper) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        List<String> problems = new ArrayList<>();
+        Map<String, Integer> excused = new LinkedHashMap<>();
+        Set<String> namespaces = new java.util.TreeSet<>();
+        java.util.function.Consumer<Identifier> family = id -> {
+            if (id.getNamespace().startsWith("simple") && !TcContext.FAMILY.contains(id.getNamespace())) {
+                problems.add("namespace " + id.getNamespace() + " is not in TcContext.FAMILY (new module?)");
+            }
+            if (TcContext.isFamily(id)) {
+                namespaces.add(id.getNamespace());
+            }
+        };
+        int items = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            family.accept(id);
+            if (!TcContext.isFamily(id) || plan.coveredItems().contains(item)) {
+                items += TcContext.isFamily(id) ? 1 : 0;
+                continue;
+            }
+            if (TestCentreLayout.EXCLUDED.containsKey(id.toString()) || TcContext.isSpacerId(id)) {
+                excused.merge("item excluded", 1, Integer::sum);
+            } else {
+                problems.add("item " + id + " is not in the test centre");
+            }
+        }
+        int blocks = 0;
+        for (Block block : BuiltInRegistries.BLOCK) {
+            Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+            family.accept(id);
+            if (!TcContext.isFamily(id)) {
+                continue;
+            }
+            Item item = TcContext.itemOf(block);
+            if (plan.coveredBlocks().contains(block) || item != Items.AIR && plan.coveredItems().contains(item)) {
+                blocks++;
+            } else if (TestCentreLayout.EXCLUDED.containsKey(id.toString())) {
+                excused.merge("block excluded", 1, Integer::sum);
+            } else if (TestCentreLayout.technical(block) != null) {
+                excused.merge("technical block (wall/potted variant, liquid, module exclusion)", 1, Integer::sum);
+            } else {
+                problems.add("block " + id + (item == Items.AIR ? " has no item and is neither placed nor excused" : " is not in the test centre"));
+            }
+        }
+        int mobs = 0;
+        for (net.minecraft.world.entity.EntityType<?> type : BuiltInRegistries.ENTITY_TYPE) {
+            Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+            family.accept(id);
+            if (!TcContext.isFamily(id)) {
+                continue;
+            }
+            if (type.getCategory() == net.minecraft.world.entity.MobCategory.MISC || !type.canSummon()) {
+                excused.merge("entity type that is no mob (MISC / not summonable)", 1, Integer::sum);
+            } else if (plan.anchors().containsKey(com.simplebuilding.dev.testcentre.MobStations.anchorName(id))) {
+                mobs++;
+            } else {
+                problems.add("mob " + id + " has no cell in the mob station");
+            }
+        }
+        // TZ22-3: Strukturen sind keine Ausnahme mehr. Jede Familien-Struktur ist ein Jigsaw, dessen Startpool-Teile alle im
+        // Abschnitt "structures" stehen; dazu jedes Familien-Teil eines beliebigen Pools (auch eingehaengte Dorfhaeuser).
+        Set<Identifier> shownTemplates = new java.util.HashSet<>();
+        plan.sections().forEach(section -> section.ops().forEach(op -> {
+            if (op instanceof TcOp.Structure structure) {
+                shownTemplates.add(structure.template());
+            }
+        }));
+        var registries = helper.getLevel().registryAccess();
+        Map<Identifier, Set<Identifier>> pieces = com.simplebuilding.dev.testcentre.StructureStation.familyPieces(registries);
+        int structures = 0;
+        for (var entry : com.simplebuilding.dev.testcentre.StructureStation.familyStructures(registries).entrySet()) {
+            family.accept(entry.getKey());
+            if (entry.getValue().isEmpty()) {
+                problems.add("structure " + entry.getKey() + " is no jigsaw structure - the test centre cannot show its pieces");
+            } else if (!pieces.containsKey(entry.getValue().get())) {
+                problems.add("structure " + entry.getKey() + " starts with pool " + entry.getValue().get() + " without family pieces");
+            } else {
+                structures++;
+            }
+        }
+        int structurePieces = 0;
+        for (Set<Identifier> templates : pieces.values()) {
+            for (Identifier template : templates) {
+                if (shownTemplates.contains(template)) {
+                    structurePieces++;
+                } else {
+                    problems.add("structure piece " + template + " is not in the test centre");
+                }
+            }
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre inventory: {} namespaces {}, {} items, {} blocks, {} mobs, {} structures"
+                        + " ({} pieces) shown; excused {}", namespaces.size(), namespaces, items, blocks, mobs, structures, structurePieces, excused);
+        if (!problems.isEmpty()) {
+            com.simplebuilding.Simplebuilding.LOGGER.warn("test centre inventory problems: {}", String.join("; ", problems));
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " registry entr(y/ies) missing from the test centre: "
+                + String.join("; ", problems.subList(0, Math.min(40, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * TZ22-2 (Besitzer 22.10.: "es leckt noch etwas, dadurch, dass es so viele Item-Frames sind"): kein Rahmen an einer Wand
+     * haelt, was dort selbst als Block stehen koennte ({@code Exhibits.wallState}), und keine Station rahmt ein Item, das sie
+     * schon gesetzt zeigt ({@code TestCentreLayout.shownPlaced}; die Tab-Waende sind ein Verzeichnis und duerfen das).
+     * Rahmen und Staender je Abschnitt stehen im Log.
+     */
+    public static void noFrameHoldsWhatCouldStandAsBlock(GameTestHelper helper) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        List<String> problems = new ArrayList<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            Set<Item> placed = section.id().startsWith(TabBrowser.PREFIX) ? Set.of() : TestCentreLayout.shownPlaced(section.ops());
+            for (TcOp op : section.ops()) {
+                if (!(op instanceof TcOp.Frame frame)) {
+                    continue;
+                }
+                String item = section.id() + ": " + BuiltInRegistries.ITEM.getKey(frame.stack().getItem());
+                if (frame.facing() == Direction.NORTH && com.simplebuilding.dev.testcentre.Exhibits.onWall(frame.stack())) {
+                    problems.add(item + " hangs in a frame although it could stand in the wall");
+                } else if (frame.stack().getComponentsPatch().isEmpty() && placed.contains(frame.stack().getItem())) {
+                    problems.add(item + " is framed although the station already shows it placed");
+                }
+            }
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info(plan.summary());
+        helper.assertTrue(problems.isEmpty(), problems.size() + " needless frame(s): " + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * TZ22-4 (Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die Strukturen
+     * oder nur einzelne Bereiche"): {@code without structures} plant keine Vorlage und ist kleiner, {@code only mobs} nur
+     * Steuerwand und Mobs; Abdeckung bleibt gleich (geplant wird alles); die Knoepfe der Steuerwand tragen die Optionen mit;
+     * Optionen-Text liest sich zurueck, unbekannte Bereiche werfen; {@code help}, {@code build … only|without} sind registriert.
+     * Dazu TZ22-3: mit Strukturen im Register steht der Abschnitt {@code structures} in der vollen Planung.
+     */
+    public static void partialBuildsOnlyContainTheChosenAreas(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        TestCentreLayout.Plan full = TestCentreLayout.plan(level, BlockPos.ZERO);
+        TestCentreLayout.Options withoutStructures = TestCentreLayout.Options.parse("without structures");
+        TestCentreLayout.Plan without = TestCentreLayout.plan(level, BlockPos.ZERO, withoutStructures);
+        java.util.function.Function<TestCentreLayout.Plan, Long> templates = plan -> plan.sections().stream()
+                .flatMap(section -> section.ops().stream()).filter(op -> op instanceof TcOp.Structure).count();
+        boolean hasStructures = !com.simplebuilding.dev.testcentre.StructureStation.familyPieces(level.registryAccess()).isEmpty();
+        helper.assertTrue(!hasStructures || templates.apply(full) > 0, "the full plan places no structure piece although there are some");
+        helper.assertTrue(templates.apply(without) == 0, "'without structures' still places " + templates.apply(without) + " structure pieces");
+        long fullArea = (long) full.bounds().getXSpan() * full.bounds().getZSpan();
+        long withoutArea = (long) without.bounds().getXSpan() * without.bounds().getZSpan();
+        helper.assertTrue(!hasStructures || withoutArea < fullArea, "'without structures' is not smaller: " + withoutArea + " vs " + fullArea);
+        helper.assertTrue(without.leftovers().equals(full.leftovers()), "a partial build must not change the coverage");
+        helper.assertTrue(!without.fingerprint().equals(full.fingerprint()) || !hasStructures, "partial and full build share a fingerprint");
+        // Die Steuerwand baut mit denselben Optionen neu.
+        List<String> commands = new ArrayList<>();
+        without.section("controls").ops().forEach(op -> {
+            if (op instanceof TcOp.Command command) {
+                commands.add(command.command());
+            }
+        });
+        helper.assertTrue(commands.stream().anyMatch(c -> c.startsWith("sbtestcentre build ") && c.endsWith(" without structures")),
+                "the rebuild-all button forgets the options: " + commands);
+        helper.assertTrue(commands.stream().filter(c -> c.startsWith("sbtestcentre section ")).allMatch(c -> c.endsWith(" without structures")),
+                "a section button forgets the options");
+        helper.assertTrue(commands.stream().noneMatch(c -> c.startsWith("sbtestcentre section structures ")),
+                "a button rebuilds a section that is not built");
+
+        TestCentreLayout.Plan mobs = TestCentreLayout.plan(level, BlockPos.ZERO, TestCentreLayout.Options.parse("only mobs"));
+        List<String> ids = mobs.sections().stream().map(TestCentreLayout.Section::id).toList();
+        helper.assertTrue(ids.equals(List.of("controls", "mobs")), "'only mobs' plans " + ids);
+        TestCentreLayout.Plan workshop = TestCentreLayout.plan(level, BlockPos.ZERO, TestCentreLayout.Options.parse("only workshop without chisel"));
+        List<String> workshopIds = workshop.sections().stream().map(TestCentreLayout.Section::id).toList();
+        helper.assertTrue(workshopIds.contains("tools") && !workshopIds.contains("chisel") && !workshopIds.contains("mobs"),
+                "'only workshop without chisel' plans " + workshopIds);
+
+        TestCentreLayout.Options mixed = TestCentreLayout.Options.parse("without catalog ONLY workshop, structures");
+        helper.assertTrue(TestCentreLayout.Options.parse(mixed.text()).equals(mixed) && mixed.text().equals("only structures,workshop without catalog"),
+                "options do not read back: " + mixed.text());
+        helper.assertTrue(TestCentreLayout.Options.parse("").isAll() && TestCentreLayout.Options.parse("all").isAll(), "empty options are not 'all'");
+        for (String bad : List.of("only nowhere", "mobs", "without tools,nothing")) {
+            boolean threw = false;
+            try {
+                TestCentreLayout.Options.parse(bad);
+            } catch (IllegalArgumentException expected) {
+                threw = true;
+            }
+            helper.assertTrue(threw, "options '" + bad + "' were accepted");
+        }
+        var root = level.getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre");
+        helper.assertTrue(root != null && root.getCommand() != null && root.getChild("help") != null,
+                "/sbtestcentre has no help");
+        helper.assertTrue(root.getChild("build").getChild("only") != null && root.getChild("build").getChild("without") != null
+                && root.getChild("build").getChild("here").getChild("without") != null, "/sbtestcentre build has no only/without");
+        helper.succeed();
+    }
+
+    /** Hoechste Wand (Lage ueber dem Boden) je Abschnitt, ausser Tuermen mit Zweck (Fallturm des Sinkdaempfers). */
+    static final Set<String> TALL_ON_PURPOSE = Set.of("sinkdamper");
+
+    /**
+     * TZ22-5 (Besitzer 22.10.: "Waende niedriger", "keine ellenlangen Reihen"): kein Abschnitt breiter als
+     * {@link TestCentreLayout#MAX_ROW_WIDTH}, keine Ausstellungswand ({@code TcCanvas.WALL}/{@code TRIM}) hoeher als
+     * sechs Bloecke, und jeder Bezirk beginnt eine eigene Reihe (ein spaeterer Bezirk Strukturen, TZ22-3, haengt sich an).
+     */
+    public static void theLayoutIsCompactWithLowWalls(GameTestHelper helper) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        List<String> problems = new ArrayList<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            if (section.width() > TestCentreLayout.MAX_ROW_WIDTH) {
+                problems.add(section.id() + " is " + section.width() + " wide");
+            }
+            if (TALL_ON_PURPOSE.contains(section.id())) {
+                continue;
+            }
+            int top = -1;
+            for (TcOp op : section.ops()) {
+                if (op instanceof TcOp.Place place && (place.state().equals(com.simplebuilding.dev.testcentre.TcCanvas.WALL)
+                        || place.state().equals(com.simplebuilding.dev.testcentre.TcCanvas.TRIM))) {
+                    top = Math.max(top, place.pos().getY() - plan.origin().getY());
+                }
+            }
+            if (top > com.simplebuilding.dev.testcentre.TcCanvas.SHELF_HEIGHT - 1) {
+                problems.add(section.id() + " has a wall " + (top + 1) + " high");
+            }
+        }
+        // Bezirke: der erste Abschnitt jedes Bezirks steht an der linken Kante seiner Raster-Spalte, kein Abschnitt ragt
+        // in die naechste Spalte.
+        for (List<String> district : TestCentreLayout.DISTRICTS) {
+            boolean first = true;
+            int column = -1;
+            for (String id : district) {
+                if (!TestCentreLayout.sectionIds().contains(id) || plan.section(id).ops().isEmpty()) {
+                    continue;
+                }
+                int x = plan.section(id).offset().getX();
+                if (first && x % TestCentreLayout.DISTRICT_PITCH != 0) {
+                    problems.add("district of " + id + " does not start at its grid column (x " + x + ")");
+                }
+                if (first) {
+                    column = x / TestCentreLayout.DISTRICT_PITCH;
+                    first = false;
+                }
+                int right = x + plan.section(id).width();
+                if (x / TestCentreLayout.DISTRICT_PITCH != column || right > column * TestCentreLayout.DISTRICT_PITCH + TestCentreLayout.MAX_ROW_WIDTH) {
+                    problems.add(id + " leaves the grid column of its district (x " + x + " to " + right + ")");
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " layout problem(s): " + String.join("; ", problems));
+        helper.succeed();
+    }
+
+    /**
      * Die ganze Zentrale wird fern aller anderen Tests gebaut und mit ihrer Planung verglichen: jeder
      * geplante Block steht (der jeweils letzte je Stelle), jedes Schild hat seinen Text, Rahmen und
      * Staender sind genau so viele wie geplant, nichts liegt als Drop herum. Danach wird ein Abschnitt
@@ -180,7 +438,7 @@ public final class TestCentreTests {
     public static void theWholeCentreBuildsAndMatchesItsPlan(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(20000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 20000);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin);
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
         com.simplebuilding.Simplebuilding.LOGGER.info("{} | built in {} ms ({} steps, {} entities)", plan.summary(),
                 result.millis(), result.ops(), result.entities());
@@ -192,9 +450,7 @@ public final class TestCentreTests {
             List<BlockPos> signs = new ArrayList<>();
             for (TestCentreLayout.Section section : plan.sections()) {
                 for (TcOp op : section.ops()) {
-                    if (op.spawnsFrame()) {
-                        frames++;
-                    }
+                    frames += op.frames();
                     switch (op) {
                         case TcOp.Place place -> expected.put(place.pos(), place.state());
                         case TcOp.Stand stand -> stands++;
@@ -213,6 +469,24 @@ public final class TestCentreTests {
                 }
             }
             helper.assertTrue(wrong.isEmpty(), "blocks differ from the plan: " + String.join("; ", wrong));
+            // TZ22-3: jede Strukturvorlage steht - in ihrem Kasten mindestens so viele feste Bloecke wie die Vorlage hat.
+            for (TestCentreLayout.Section section : plan.sections()) {
+                for (TcOp op : section.ops()) {
+                    if (op instanceof TcOp.Structure structure) {
+                        var template = com.simplebuilding.version.McVersion.structureTemplates(level).get(structure.template());
+                        helper.assertTrue(template.isPresent(), "structure template " + structure.template() + " is missing");
+                        int want = com.simplebuilding.dev.testcentre.StructureStation.solidBlocks(template.get());
+                        int have = 0;
+                        for (BlockPos pos : BlockPos.betweenClosed(structure.pos(), structure.far())) {
+                            if (!level.getBlockState(pos).isAir()) {
+                                have++;
+                            }
+                        }
+                        helper.assertTrue(want > 0 && have >= want, "structure " + structure.template() + " at " + structure.pos()
+                                + ": " + have + " solid blocks placed, template has " + want);
+                    }
+                }
+            }
             for (BlockPos pos : signs) {
                 helper.assertTrue(level.getBlockEntity(pos) instanceof SignBlockEntity sign
                         && !com.simplebuilding.version.McVersion.signFrontLine(sign, 0).getString().isEmpty(), "no labelled sign at " + pos);
@@ -222,7 +496,8 @@ public final class TestCentreTests {
             int placedStands = level.getEntitiesOfClass(ArmorStand.class, area).size();
             helper.assertTrue(placedFrames == frames, "item frames: planned " + frames + ", placed " + placedFrames);
             helper.assertTrue(placedStands == stands, "armour stands: planned " + stands + ", placed " + placedStands);
-            helper.assertTrue(frames > 300, "suspiciously few frames planned: " + frames);
+            // TZ22-2: Setzbares steht als Block; Rahmen bleiben fuer Werkzeuge, Ruestung, Buecher, Eimer ... (vorher 2630).
+            helper.assertTrue(frames > 100, "suspiciously few frames planned: " + frames);
             // Die Blaupause im Rahmen wurde beim Bau wirklich gescannt, der Oktant daneben traegt seine Auswahl.
             for (TestCentreLayout.Section section : plan.sections()) {
                 for (TcOp op : section.ops()) {
@@ -288,7 +563,7 @@ public final class TestCentreTests {
     @SuppressWarnings("removal")
     public static void commandBlocksAreIsolatedAndEveryStationHasItsGiveButton(GameTestHelper helper) {
         BlockPos origin = new BlockPos(0, 64, 0);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), origin);
         Map<BlockPos, BlockState> blocks = new HashMap<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             for (TcOp op : section.ops()) {
@@ -430,9 +705,9 @@ public final class TestCentreTests {
 
         // Fingerabdruck: gleiche Planung gleicher Wert, anderer Ursprung (andere Befehle) anderer Wert.
         String fingerprint = plan.fingerprint();
-        helper.assertTrue(fingerprint.equals(TestCentreLayout.plan(helper.getLevel().registryAccess(), origin).fingerprint()),
+        helper.assertTrue(fingerprint.equals(TestCentreLayout.plan(helper.getLevel(), origin).fingerprint()),
                 "the plan fingerprint is not stable - every join would rebuild the centre");
-        helper.assertTrue(!fingerprint.equals(TestCentreLayout.plan(helper.getLevel().registryAccess(), origin.east(7)).fingerprint()),
+        helper.assertTrue(!fingerprint.equals(TestCentreLayout.plan(helper.getLevel(), origin.east(7)).fingerprint()),
                 "the plan fingerprint ignores the origin");
 
         // Flypad: im Flugfeld steht kein anderes Pad und keine Druckplatte.
@@ -455,40 +730,59 @@ public final class TestCentreTests {
     }
 
     /**
-     * Module split 3c: a station another module registers through {@code framework.api.TestCentreStations} gets the
-     * section "modules" (before "mobs") with a frame per known item id (unknown ids skipped); without registrations the
-     * plan has exactly {@link TestCentreLayout#SECTION_IDS}. Registered and taken out within this one call.
+     * Module split 3c / TZ22-1: a station another module registers through {@code framework.api.TestCentreStations} shows
+     * its items in the section "modules" (before "mobs"), in the owner's bay, unknown ids skipped - as a block when it can
+     * stand, else in a frame - unless another station already shows them. Registered and taken out within this one call.
      */
     public static void foreignModuleStationsGetTheirOwnSection(GameTestHelper helper) {
         if (!com.simplebuilding.dev.testcentre.ModuleStations.SUPPORTED) {
             helper.succeed(); // 26.2: no framework, no foreign stations
             return;
         }
-        // Stations the loaded sub-mods already registered (split stage 4: Simple Ovens is always there with SimpleBuilding).
-        TestCentreLayout.Plan baseline = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan baseline = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> baselineIds = baseline.sections().stream().map(TestCentreLayout.Section::id).toList();
-        List<ItemStack> before = baselineIds.contains(TestCentreLayout.MODULES_SECTION)
-                ? new ArrayList<>(frames(baseline.section(TestCentreLayout.MODULES_SECTION)).values()) : List.of();
+        // Two Vanilla items no station shows yet: one that stands as a block, one that needs a frame.
+        Item block = null;
+        Item framed = null;
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (!BuiltInRegistries.ITEM.getKey(item).getNamespace().equals("minecraft") || item == Items.AIR
+                    || baseline.coveredItems().contains(item)) {
+                continue;
+            }
+            boolean stands = !com.simplebuilding.dev.testcentre.Exhibits.floorStates(new ItemStack(item)).isEmpty();
+            if (stands && block == null) {
+                block = item;
+            } else if (!stands && !(item instanceof net.minecraft.world.item.BlockItem) && framed == null) {
+                framed = item;
+            }
+        }
+        helper.assertTrue(block != null && framed != null, "no unshown Vanilla items to test with");
+        String blockId = BuiltInRegistries.ITEM.getKey(block).toString();
+        String framedId = BuiltInRegistries.ITEM.getKey(framed).toString();
         com.simplebuilding.dev.testcentre.ModuleStations.register("simpletest", "station", "section.simpletest.station",
-                List.of("minecraft:diamond", "nomod:missing", "minecraft:emerald"));
+                List.of(blockId, "nomod:missing", framedId));
         TestCentreLayout.Plan plan;
         try {
-            plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+            plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         } finally {
             com.simplebuilding.dev.testcentre.ModuleStations.unregister("simpletest", "station");
         }
         List<String> ids = plan.sections().stream().map(TestCentreLayout.Section::id).toList();
         helper.assertTrue(ids.indexOf(TestCentreLayout.MODULES_SECTION) == ids.indexOf("mobs") - 1,
                 "the modules section is not planned right before mobs: " + ids);
-        List<ItemStack> shown = new ArrayList<>(frames(plan.section(TestCentreLayout.MODULES_SECTION)).values());
-        int n = before.size();
-        helper.assertTrue(shown.size() == n + 2 && shown.get(n).is(net.minecraft.world.item.Items.DIAMOND)
-                        && shown.get(n + 1).is(net.minecraft.world.item.Items.EMERALD),
-                "the modules section frames " + shown + " instead of the " + n + " already registered ones, diamond and emerald");
-        // Simple Ovens (required with SimpleBuilding on 26.3) brings its own station.
-        helper.assertTrue(before.stream().anyMatch(stack -> stack.getItem() == com.simplebuilding.util.OvenRefs.item("enderite_furnace")),
-                "the Simple Ovens station is missing from the modules section: " + before);
-        TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Section modules = plan.section(TestCentreLayout.MODULES_SECTION);
+        Item standing = block;
+        Item lying = framed;
+        boolean placed = modules.ops().stream().anyMatch(op -> op instanceof TcOp.Place place && place.state().getBlock().asItem() == standing);
+        boolean inFrame = frames(modules).values().stream().anyMatch(stack -> stack.getItem() == lying);
+        helper.assertTrue(placed, "the modules section does not set " + blockId + " as a block");
+        helper.assertTrue(inFrame, "the modules section does not frame " + framedId);
+        helper.assertTrue(frames(modules).values().stream().noneMatch(stack -> stack.getItem() == standing),
+                "the modules section frames " + blockId + " although it can stand as a block");
+        // Simple Ovens (required with SimpleBuilding on 26.3) is shown: its furnaces stand in "machines", not again here.
+        Item furnace = com.simplebuilding.util.OvenRefs.item("enderite_furnace");
+        helper.assertTrue(baseline.coveredItems().contains(furnace), "the Simple Ovens furnace is not in the test centre");
+        TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(baselineIds),
                 "after unregistering the test station the plan differs from before");
         helper.assertTrue(TestCentreLayout.SECTION_IDS.stream().allMatch(baselineIds::contains),
@@ -516,7 +810,7 @@ public final class TestCentreTests {
      * Diamantblock gesetzt, Amboss, Hochofen mit rissigen Diamanten, abgenutzter und neuer Ruestungsstaender.
      */
     public static void brokenAndRepairedStatesStandSideBySide(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         TestCentreLayout.Section states = plan.section("states");
         Map<BlockPos, ItemStack> frames = frames(states);
@@ -596,28 +890,57 @@ public final class TestCentreTests {
 
     /**
      * Item-orientierter Rundgang: je Kreativ-Tab der Mod ein Abschnitt {@code tab_<id>}, dessen Rahmen
-     * genau den Tab zeigen (gleiche Stapel, gleiche Reihenfolge), mit Ausgabe-Knopf. Die Waende zaehlen
+     * genau den Tab zeigen (gleiche Stapel, gleiche Reihenfolge), mit Ausgabe-Knopf - ausser was dort als Block steht oder
+     * haengt und was eine Station schon gesetzt zeigt (TZ22-2). Die Waende zaehlen
      * nicht fuer die Abdeckung: jedes Item braucht trotzdem eine Station.
      */
     public static void everyCreativeTabHasItsItemBrowserWall(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
+        // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
+        Set<Item> placedAnywhere = new HashSet<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            if (!section.id().startsWith(TabBrowser.PREFIX)) {
+                placedAnywhere.addAll(TestCentreLayout.shownPlaced(section.ops()));
+            }
+        }
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             String id = TabBrowser.sectionId(tab);
             if (!TestCentreLayout.SECTION_IDS.contains(id)) {
                 problems.add(id + " is missing from SECTION_IDS");
                 continue;
             }
+            // TZ22-2: was sich in eine Wand setzen laesst, steht dort als Block; der Rest haengt in Tab-Reihenfolge im Rahmen.
             List<ItemStack> expected = ctx.tab(tab);
+            List<ItemStack> framedExpected = new ArrayList<>();
+            Set<Block> placed = new HashSet<>();
+            for (TcOp op : plan.section(id).ops()) {
+                if (op instanceof TcOp.Place place) {
+                    placed.add(place.state().getBlock());
+                }
+            }
+            for (ItemStack stack : expected) {
+                BlockState block = com.simplebuilding.dev.testcentre.Exhibits.wallState(stack);
+                if (block == null) {
+                    block = com.simplebuilding.dev.testcentre.Exhibits.wallFrontState(stack);
+                }
+                if (block == null) {
+                    if (!(stack.getComponentsPatch().isEmpty() && placedAnywhere.contains(stack.getItem()))) {
+                        framedExpected.add(stack);
+                    }
+                } else if (!placed.contains(block.getBlock())) {
+                    problems.add(id + " should set " + BuiltInRegistries.ITEM.getKey(stack.getItem()) + " as a block in the wall");
+                }
+            }
             List<ItemStack> shown = new ArrayList<>(frames(plan.section(id)).values());
-            if (shown.size() != expected.size()) {
-                problems.add(id + " frames " + shown.size() + " stacks, the tab holds " + expected.size());
+            if (shown.size() != framedExpected.size()) {
+                problems.add(id + " frames " + shown.size() + " stacks, the tab holds " + framedExpected.size() + " that need a frame");
                 continue;
             }
-            for (int i = 0; i < expected.size(); i++) {
-                if (!ItemStack.isSameItemSameComponents(shown.get(i), expected.get(i))) {
-                    problems.add(id + " frame " + i + " shows " + shown.get(i) + " instead of " + expected.get(i));
+            for (int i = 0; i < framedExpected.size(); i++) {
+                if (!ItemStack.isSameItemSameComponents(shown.get(i), framedExpected.get(i))) {
+                    problems.add(id + " frame " + i + " shows " + shown.get(i) + " instead of " + framedExpected.get(i));
                     break;
                 }
             }
@@ -639,7 +962,7 @@ public final class TestCentreTests {
      */
     public static void everyFeatureStationSetsUpItsScenario(GameTestHelper helper) {
         BlockPos origin = new BlockPos(0, 64, 0);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), origin);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
         if (!ModBlocks.HAMMOCKS.isEmpty()) {
@@ -840,7 +1163,7 @@ public final class TestCentreTests {
     public static void eachButtonRunsExactlyItsOwnCommandBlock(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(26000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 26000);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin);
         BoundingBox bounds = plan.bounds();
         Scoreboard scoreboard = level.getScoreboard();
         String objectiveName = "sb_tc_" + java.util.UUID.randomUUID().toString().substring(0, 8);
@@ -962,7 +1285,7 @@ public final class TestCentreTests {
         List<net.minecraft.world.entity.EntityType<?>> mobs = found.isEmpty()
                 ? List.of(net.minecraft.world.entity.EntityTypes.PIG) : found;
         if (!found.isEmpty()) {
-            TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), new BlockPos(0, 64, 0));
+            TestCentreLayout.Plan plan = TestCentreLayout.plan(level, new BlockPos(0, 64, 0));
             for (var type : found) {
                 helper.assertTrue(plan.anchors().containsKey(com.simplebuilding.dev.testcentre.MobStations.anchorName(
                         BuiltInRegistries.ENTITY_TYPE.getKey(type))), "the plan has no mob cell for " + BuiltInRegistries.ENTITY_TYPE.getKey(type));
@@ -1083,6 +1406,252 @@ public final class TestCentreTests {
                 helper.assertTrue(count.apply(id) == 0, "the remove button left " + count.apply(id) + " " + id);
             }
         }).thenExecute(cleanup).thenSucceed();
+    }
+
+    // ------------------------------------------------------------------ TZ22-6: Schienen-Teststrecke
+
+    /** Laufzeit der Schienen-Strecke: Aufbau, zwei Fahrten mit Halt, Aufraeumen (gemessen ~250 Ticks). */
+    public static final int RAIL_RUN_MAX_TICKS = 700;
+
+    /** Gemessene Fahrt einer Lore auf der Teststrecke (x-Schritt je Tick, Stillstand, Ankunft am Anschub-Ende). */
+    private static final class CartRun {
+        net.minecraft.world.entity.vehicle.minecart.AbstractMinecart cart;
+        double last, fastest, maxX;
+        int still, launchedAt = -1;
+
+        void track(net.minecraft.world.entity.vehicle.minecart.AbstractMinecart found) {
+            cart = found;
+            last = maxX = found.getX();
+            fastest = 0;
+            still = 0;
+            launchedAt = -1;
+        }
+
+        void tick(int now, double launchEndX) {
+            if (cart == null || cart.isRemoved()) return;
+            double x = cart.getX();
+            double step = Math.abs(x - last);
+            fastest = Math.max(fastest, step);
+            still = step < 1e-4 ? still + 1 : 0;
+            maxX = Math.max(maxX, x);
+            if (launchedAt < 0 && x >= launchEndX) launchedAt = now;
+            last = x;
+        }
+    }
+
+    /**
+     * TZ22-6 (Besitzer 22.10.: "keine richtigen Tests ..., sondern nur vorgebaut"): die Schienen-Teststrecke der Zentrale
+     * ({@code TestCentreSections.endRailTracks}, im Abschnitt "devices") wird fern aller Tests mit dem Bau-Code der
+     * Zentrale gesetzt (leise, wie im Spiel) und wie von Hand befahren:
+     * <ol>
+     *   <li>Bremse-Hebel an: das Signal laeuft Redstone - Bruecke - Nihil-Redstone (3. Linie) bis an jede Nihil-Schiene.</li>
+     *   <li>Knopf "Loren aufstellen": je eine Lore am Start, ohne Start-Hebel bleiben beide stehen.</li>
+     *   <li>Start-Hebel: beide fahren los. Astral (Astral-Redstone, 2. Linie) ist schneller als Vanilla (schnellster Schritt
+     *       ueber 0,4 Bl./Tick, nie ueber der eingestellten Hoechstgeschwindigkeit), erreicht das Ende des Anschubs frueher und
+     *       haelt auf den gespeisten Nihil-Schienen; die Vanilla-Lore bleibt bei 0,4.</li>
+     *   <li>Bremse aus, "Loren entfernen", neu aufstellen (Start-Hebel noch an: sie fahren sofort): die Astral-Lore rollt
+     *       ueber die Nihil-Schienen bis ans Ende. "Loren entfernen" raeumt die Strecke.</li>
+     * </ol>
+     */
+    public static void endRailTracksRunTheirCarts(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.END_RAILS) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TcContext ctx = new TcContext(level.registryAccess());
+        helper.assertTrue(com.simplebuilding.dev.testcentre.TestCentreSections.devices(ctx).anchors().containsKey("end_rails_start_lever"),
+                "the devices section does not carry the End rail track");
+        com.simplebuilding.dev.testcentre.TcCanvas track = com.simplebuilding.dev.testcentre.TestCentreSections.endRailTracks();
+        BlockPos origin = new BlockPos(29000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 29000);
+        BoundingBox box = new BoundingBox(origin.getX(), origin.getY() - 1, origin.getZ(),
+                origin.getX() + track.width(), origin.getY() + track.height() + 1, origin.getZ() + track.depth());
+        Map<String, BlockPos> at = new HashMap<>();
+        track.anchors().forEach((name, pos) -> at.put(name, origin.offset(pos)));
+        int laneA = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_LANE_ASTRAL;
+        double launchEnd = origin.getX() + com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_LAUNCH_END + 0.5;
+        int brakeStart = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_BRAKE_START;
+        int end = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_END;
+        double cap = com.simplebuilding.blocks.custom.EndRailPhysics.maxSpeedPerTick();
+        List<int[]> forced = new ArrayList<>();
+        for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+            for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                if (level.setChunkForced(cx, cz, true)) forced.add(new int[]{cx, cz});
+                level.getChunk(cx, cz);
+            }
+        }
+        Runnable cleanup = () -> {
+            TestCentreBuilder.clear(level, box);
+            level.getBlockTicks().clearArea(box);
+            for (int[] chunk : forced) level.setChunkForced(chunk[0], chunk[1], false);
+        };
+        helper.runBeforeTestEnd(cleanup);
+        AABB area = AABB.of(box).inflate(1);
+        java.util.function.Supplier<List<net.minecraft.world.entity.vehicle.minecart.AbstractMinecart>> carts =
+                () -> level.getEntitiesOfClass(net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.class, area);
+        java.util.function.Consumer<String> pull = name -> {
+            BlockState state = level.getBlockState(at.get(name));
+            helper.assertTrue(state.getBlock() instanceof net.minecraft.world.level.block.LeverBlock, "no lever at " + name + " but " + state);
+            ((net.minecraft.world.level.block.LeverBlock) state.getBlock()).pull(state, level, at.get(name), null);
+        };
+        java.util.function.Consumer<String> press = name -> {
+            BlockState state = level.getBlockState(at.get(name));
+            helper.assertTrue(state.getBlock() instanceof ButtonBlock && !state.getValue(ButtonBlock.POWERED), "no released button at " + name + " but " + state);
+            ((ButtonBlock) state.getBlock()).press(state, level, at.get(name), null);
+        };
+        java.util.function.Predicate<Integer> railPowered = x -> {
+            BlockState state = level.getBlockState(origin.offset(x, 0, laneA));
+            return state.hasProperty(com.simplebuilding.blocks.custom.EndRailBlock.POWERED) && state.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED);
+        };
+        CartRun astral = new CartRun(), vanilla = new CartRun();
+        int[] now = {0};
+        helper.onEachTick(() -> {
+            now[0]++;
+            astral.tick(now[0], launchEnd);
+            vanilla.tick(now[0], launchEnd);
+        });
+        Runnable assign = () -> {
+            List<net.minecraft.world.entity.vehicle.minecart.AbstractMinecart> found = carts.get();
+            helper.assertTrue(found.size() == 2, "the place button should set two carts, found " + found.size());
+            for (var cart : found) {
+                (cart.blockPosition().getZ() == origin.getZ() + laneA ? astral : vanilla).track(cart);
+            }
+            helper.assertTrue(astral.cart != null && vanilla.cart != null && astral.cart != vanilla.cart, "one cart per lane expected");
+        };
+        helper.startSequence().thenWaitUntil(() -> {
+            for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+                for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                    helper.assertTrue(level.shouldTickBlocksAt(new net.minecraft.world.level.ChunkPos(cx, cz).pack())
+                            && level.isPositionEntityTicking(new BlockPos(cx << 4, origin.getY(), cz << 4)), "track chunks not ticking yet");
+                }
+            }
+        }).thenExecute(cleanupOnFailure(cleanup, () -> {
+            TestCentreBuilder.clear(level, box);
+            level.getBlockTicks().clearArea(box);
+            TestCentreBuilder.apply(level, track.ops().stream().map(op -> op.moved(origin)).toList());
+        })).thenIdle(4).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(!railPowered.test(1) && !railPowered.test(brakeStart), "a rail is powered before any lever was pulled");
+            pull.accept("end_rails_brake_lever");
+        })).thenIdle(8).thenExecute(cleanupOnFailure(cleanup, () -> {
+            for (int x = brakeStart; x < end; x++) {
+                helper.assertTrue(railPowered.test(x), "the brake lever (redstone, bridge, Nihil Redstone) does not power the Nihil rail " + x);
+            }
+            helper.assertTrue(!railPowered.test(1), "the brake lever powered the Astral launch");
+            press.accept("end_rails_place_button");
+        })).thenWaitUntil(() -> helper.assertTrue(carts.get().size() == 2, "waiting for the two carts"))
+                .thenExecute(cleanupOnFailure(cleanup, assign)).thenIdle(6).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(astral.still >= 4 && vanilla.still >= 4 && Math.abs(astral.cart.getX() - (origin.getX() + 1.5)) < 0.3,
+                    "the Astral cart should wait at the start until the lever, it is at " + astral.cart.getX());
+            pull.accept("end_rails_start_lever");
+        })).thenWaitUntil(() -> helper.assertTrue(astral.cart.getX() > launchEnd && astral.still >= 20 && vanilla.still >= 20,
+                "waiting for both carts to come to rest: Astral at " + astral.cart.getX() + " (still " + astral.still + "), vanilla at "
+                        + vanilla.cart.getX() + " (still " + vanilla.still + ")"))
+                .thenExecute(cleanupOnFailure(cleanup, () -> {
+            String run = "Astral fastest " + astral.fastest + " (cap " + cap + "), vanilla fastest " + vanilla.fastest
+                    + "; at the launch end after " + astral.launchedAt + " / " + vanilla.launchedAt + " ticks";
+            com.simplebuilding.Simplebuilding.LOGGER.info("End rail track: {}; Astral stopped at {}, vanilla at {}", run,
+                    astral.cart.getX() - origin.getX(), vanilla.cart.getX() - origin.getX());
+            helper.assertTrue(astral.fastest > com.simplebuilding.blocks.custom.EndRailPhysics.VANILLA_MAX_SPEED + 0.05,
+                    "the Astral cart never got past vanilla speed: " + run);
+            helper.assertTrue(astral.fastest <= cap + 1e-6, "the Astral cart passed the configured top speed: " + run);
+            helper.assertTrue(vanilla.fastest > 0.2 && vanilla.fastest <= com.simplebuilding.blocks.custom.EndRailPhysics.VANILLA_MAX_SPEED + 0.02,
+                    "the vanilla cart should run at up to 0.4 blocks per tick: " + run);
+            helper.assertTrue(astral.launchedAt > 0 && (vanilla.launchedAt < 0 || astral.launchedAt < vanilla.launchedAt),
+                    "the Astral cart should reach the end of the launch first: " + run);
+            double stop = astral.cart.getX() - origin.getX();
+            helper.assertTrue(stop >= brakeStart && stop < end, "the powered Nihil rails should hold the Astral cart, it stopped at " + stop);
+            pull.accept("end_rails_brake_lever");
+            press.accept("end_rails_remove_button");
+        })).thenWaitUntil(() -> helper.assertTrue(carts.get().isEmpty(), "the remove button left " + carts.get().size() + " carts"))
+                .thenWaitUntil(() -> helper.assertTrue(!level.getBlockState(at.get("end_rails_place_button")).getValue(ButtonBlock.POWERED),
+                        "waiting for the place button to pop out"))
+                .thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(!railPowered.test(brakeStart), "the Nihil rails stay powered with the brake lever off");
+            press.accept("end_rails_place_button");
+        })).thenWaitUntil(() -> helper.assertTrue(carts.get().size() == 2, "waiting for the two carts again"))
+                .thenExecute(cleanupOnFailure(cleanup, assign))
+                .thenWaitUntil(() -> helper.assertTrue(astral.cart.getX() > launchEnd && astral.still >= 20,
+                        "waiting for the Astral cart to roll out: at " + astral.cart.getX()))
+                .thenExecute(cleanupOnFailure(cleanup, () -> {
+            double far = astral.maxX - origin.getX();
+            helper.assertTrue(far >= end - 1.5, "without the brake the Astral cart should roll over the Nihil rails to the end, it reached " + far);
+        })).thenWaitUntil(() -> helper.assertTrue(!level.getBlockState(at.get("end_rails_remove_button")).getValue(ButtonBlock.POWERED),
+                "waiting for the remove button to pop out"))
+                .thenExecute(cleanupOnFailure(cleanup, () -> press.accept("end_rails_remove_button")))
+                .thenWaitUntil(() -> helper.assertTrue(carts.get().isEmpty(), "the remove button left carts"))
+                .thenExecute(cleanup).thenSucceed();
+    }
+
+    // ------------------------------------------------------------------ TZ22-8: Wege auf den Schildern
+
+    /**
+     * TZ22-8 (Besitzer 22.10.: "am Eisenblock noch Hammer + 4 -> 2 Iron Poles, obwohl die Herstellung auf den Tiegel
+     * umgestellt ist"): jedes Schild der Zentrale, das einen Weg zeigt, traegt ihn als Daten ({@code TcWays.Way}), und
+     * jeden dieser Wege gibt es im laufenden Spiel (Aufwertungs-Engine, InWorldTransformations, Tiegel-API + Tags,
+     * Hochofen-Rezepte). Kein anderes Schild zeigt einen Pfeil ("->"), ausser den beiden Ablauf-Texten. Gegenprobe:
+     * ausgedachte Wege (der alte Tiegelbau am Eisenblock, ein falsches Rezept) werden abgelehnt.
+     */
+    public static void everyTransformationSignShowsAnExistingWay(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, BlockPos.ZERO);
+        Set<String> flowTexts = Set.of(com.simplebuilding.dev.testcentre.TcText.PREFIX + "section.machines.sub",
+                com.simplebuilding.dev.testcentre.TcText.PREFIX + "states.gadgets.sub");
+        List<String> problems = new ArrayList<>();
+        Set<com.simplebuilding.dev.testcentre.TcWays.Kind> kinds = new HashSet<>();
+        int ways = 0;
+        for (TestCentreLayout.Section section : plan.sections()) {
+            for (TcOp op : section.ops()) {
+                if (!(op instanceof TcOp.Sign sign)) {
+                    continue;
+                }
+                if (sign.way() != null) {
+                    ways++;
+                    kinds.add(sign.way().kind());
+                    String problem = com.simplebuilding.dev.testcentre.TcWays.problem(sign.way(), level);
+                    if (problem != null) {
+                        problems.add(section.id() + " " + sign.pos().toShortString() + ": " + problem);
+                    }
+                    continue;
+                }
+                for (Component line : sign.lines()) {
+                    String text = line.getString();
+                    String key = line.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : "";
+                    if ((text.contains("->") || text.contains("→")) && !flowTexts.contains(key)) {
+                        problems.add(section.id() + " " + sign.pos().toShortString() + ": the sign line '" + text + "' (" + key
+                                + ") shows a way that no data backs");
+                    }
+                }
+            }
+        }
+        List<com.simplebuilding.dev.testcentre.TcWays.Kind> expected = new ArrayList<>(List.of(com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE,
+                com.simplebuilding.dev.testcentre.TcWays.Kind.CRUSH, com.simplebuilding.dev.testcentre.TcWays.Kind.SHEAR,
+                com.simplebuilding.dev.testcentre.TcWays.Kind.BLASTING));
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            expected.add(com.simplebuilding.dev.testcentre.TcWays.Kind.CRUCIBLE_BUILD);
+        }
+        for (var kind : expected) {
+            if (!kinds.contains(kind)) problems.add("no sign shows a way of kind " + kind);
+        }
+        // Gegenprobe: was es nicht (mehr) gibt, faellt durch.
+        List<Item> hammers = new TcContext(level.registryAccess()).rowItems("sledgehammers");
+        ItemStack hammer = hammers.isEmpty() ? ItemStack.EMPTY : new ItemStack(hammers.getLast());
+        var invented = new com.simplebuilding.dev.testcentre.TcWays.Way(com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE,
+                new ItemStack(Items.IRON_BLOCK), List.of(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4)), hammer,
+                new ItemStack(ModItems.IRON_POLE == null ? Items.IRON_BARS : ModItems.IRON_POLE, 2));
+        helper.assertTrue(com.simplebuilding.dev.testcentre.TcWays.problem(invented, level) != null, "the invented iron block way was accepted");
+        var wrongRecipe = com.simplebuilding.dev.testcentre.TcWays.blasting(ModItems.CRACKED_DIAMOND, Items.EMERALD);
+        helper.assertTrue(com.simplebuilding.dev.testcentre.TcWays.problem(wrongRecipe, level) != null, "a blasting recipe that does not exist was accepted");
+        var build = com.simplebuilding.dev.testcentre.TcWays.crucibleBuild(hammers);
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            helper.assertTrue(build != null && build.subject().is(Items.CAULDRON), "the crucible is built on a cauldron: " + build);
+            var onIronBlock = new com.simplebuilding.dev.testcentre.TcWays.Way(build.kind(), new ItemStack(Items.IRON_BLOCK), build.inputs(),
+                    build.tool(), build.result());
+            helper.assertTrue(com.simplebuilding.dev.testcentre.TcWays.problem(onIronBlock, level) != null,
+                    "the old crucible build on an iron block was accepted");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " sign way problem(s) of " + ways + ": "
+                + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
+        helper.succeed();
     }
 
     private static Runnable cleanupOnFailure(Runnable cleanup, Runnable action) {

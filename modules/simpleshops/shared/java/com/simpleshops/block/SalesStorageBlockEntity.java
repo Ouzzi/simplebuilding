@@ -20,7 +20,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Extra earnings store of a shop (chest size). Not a container for the world (see {@link ListContainer}): no hopper, minecart or
- * mod pipe sees it. It only pulls from the block directly above, and only when that block has the same owner. The 27 slots live
+ * mod pipe sees it. It only pulls from the block it faces (its sales block, SP22-7), and only when that block has the same owner. The 27 slots live
  * in the world data ({@link EnderShops}) since the shops rework; old storages move their items over on first use.
  */
 public class SalesStorageBlockEntity extends BlockEntity implements EarningsStore {
@@ -30,6 +30,8 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
     private String ownerName = "";
     private final NonNullList<ItemStack> earnings = NonNullList.withSize(EARNINGS_SIZE, ItemStack.EMPTY);
     private final VaultLink link = new VaultLink();
+    /** Placed (or checked once) since SP22-7; storages of older worlds turn to face up on their first tick ({@link ShopStorage#aimLegacy}). */
+    private boolean aimed;
 
     public SalesStorageBlockEntity(BlockPos pos, BlockState state) {
         super(ShopsRegistry.STORAGE_BE, pos, state);
@@ -67,6 +69,7 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
         this.link.reset(this, EnderShops.Kind.STORAGE);
         this.owner = placer.getUUID();
         this.ownerName = placer.getGameProfile().name();
+        this.aimed = true;
         for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
         vault();
         changed();
@@ -76,6 +79,11 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
     public NonNullList<ItemStack> earnings() {
         EnderShops.Vault v = vault();
         return v != null ? v.items : this.earnings;
+    }
+
+    /** Tests: this storage as saved before SP22-7 (no facing check yet). */
+    public void forgetAim() {
+        this.aimed = false;
     }
 
     public ListContainer earningsView() {
@@ -91,6 +99,11 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
     public static void tick(Level level, BlockPos pos, BlockState state, SalesStorageBlockEntity be) {
         if (level.isClientSide()) return;
         if (!be.link.linked()) be.vault();
+        if (!be.aimed) {
+            be.aimed = true;
+            ShopStorage.aimLegacy(be);
+            be.setChanged();
+        }
         if (level.getGameTime() % PERIOD != 0) return;
         ShopStorage.pull(be);
     }
@@ -101,6 +114,7 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
         this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
         this.ownerName = input.getStringOr("owner_name", "");
         this.link.read(input);
+        this.aimed = input.getBooleanOr("aimed", false);
         for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input.childOrEmpty("earnings"), this.earnings);
     }
@@ -111,6 +125,7 @@ public class SalesStorageBlockEntity extends BlockEntity implements EarningsStor
         if (this.owner != null) output.store("owner", UUIDUtil.CODEC, this.owner);
         output.putString("owner_name", this.ownerName);
         this.link.write(output);
+        if (this.aimed) output.putBoolean("aimed", true);
         if (!this.link.linked()) ContainerHelper.saveAllItems(output.child("earnings"), this.earnings, false);
     }
 

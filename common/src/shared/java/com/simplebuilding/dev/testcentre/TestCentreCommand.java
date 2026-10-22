@@ -47,7 +47,8 @@ import net.minecraft.world.phys.Vec3;
  *   <li>{@code give <station> [Spieler]} - das Kit einer Station ({@link TestCentreKits}): ersetzt das
  *       Inventar, Haupt-/Nebenhand fuer die Interaktionstests, dazu alles, was die Station zeigt. So ruft
  *       der Ausgabe-Knopf vorn an jeder Station.</li>
- *   <li>{@code tp} - zum Eingang, {@code tp <anker>} zu einem benannten Platz (z. B. {@code mob/simplemobs/shellker}); {@code coverage} - was noch keinen Abschnitt hat.</li>
+ *   <li>{@code tp} - zum Eingang, {@code tp <anker>} zu einem benannten Platz (z. B. {@code mob/simplemobs/shellker}); {@code coverage} - was noch keinen Abschnitt hat;
+ *       {@code stats} - Abschnitte, Flaeche, Rahmen und Staender der Planung (ohne Bau).</li>
  * </ul>
  * Ursprung und Fingerabdruck der Planung ({@link TestCentreLayout.Plan#fingerprint}) stehen in
  * {@code simplebuilding_testcentre.txt} im Weltordner ({@code x y z fingerabdruck}).
@@ -64,18 +65,34 @@ public final class TestCentreCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("sbtestcentre")
                 .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .executes(ctx -> help(ctx.getSource()))
+                .then(Commands.literal("help").executes(ctx -> help(ctx.getSource())))
                 .then(Commands.literal("build")
-                        .executes(ctx -> build(ctx.getSource(), savedOrDefaultOrigin(ctx.getSource().getLevel())))
+                        .executes(ctx -> build(ctx.getSource(), savedOrDefaultOrigin(ctx.getSource().getLevel()), TestCentreLayout.Options.ALL))
+                        .then(option("only", ctx -> savedOrDefaultOrigin(ctx.getSource().getLevel())))
+                        .then(option("without", ctx -> savedOrDefaultOrigin(ctx.getSource().getLevel())))
                         .then(Commands.literal("here")
-                                .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()))))
+                                .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()), TestCentreLayout.Options.ALL))
+                                .then(option("only", ctx -> BlockPos.containing(ctx.getSource().getPosition())))
+                                .then(option("without", ctx -> BlockPos.containing(ctx.getSource().getPosition()))))
                         .then(Commands.argument("origin", BlockPosArgument.blockPos())
-                                .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin")))))
+                                .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), TestCentreLayout.Options.ALL))
+                                .then(option("only", ctx -> BlockPosArgument.getBlockPos(ctx, "origin")))
+                                .then(option("without", ctx -> BlockPosArgument.getBlockPos(ctx, "origin")))))
                 .then(Commands.literal("section")
                         .then(Commands.argument("id", StringArgumentType.word())
                                 .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.sectionIds(), builder))
-                                .executes(ctx -> section(ctx, savedOrDefaultOrigin(ctx.getSource().getLevel())))
+                                .executes(ctx -> section(ctx, savedOrDefaultOrigin(ctx.getSource().getLevel()),
+                                        savedOptions(ctx.getSource().getServer())))
                                 .then(Commands.argument("origin", BlockPosArgument.blockPos())
-                                        .executes(ctx -> section(ctx, BlockPosArgument.getBlockPos(ctx, "origin"))))))
+                                        .executes(ctx -> section(ctx, BlockPosArgument.getBlockPos(ctx, "origin"), TestCentreLayout.Options.ALL))
+                                        // So rufen die Knoepfe der Steuerwand nach einem Teilbau (TZ22-4).
+                                        .then(Commands.argument("options", StringArgumentType.greedyString())
+                                                .suggests(TestCentreCommand::suggestAreas)
+                                                .executes(ctx -> {
+                                                    TestCentreLayout.Options options = parse(ctx.getSource(), StringArgumentType.getString(ctx, "options"));
+                                                    return options == null ? 0 : section(ctx, BlockPosArgument.getBlockPos(ctx, "origin"), options);
+                                                })))))
                 .then(Commands.literal("kit")
                         .executes(ctx -> kit(ctx.getSource(), List.of(ctx.getSource().getPlayerOrException())))
                         .then(Commands.argument("targets", EntityArgument.players())
@@ -100,6 +117,14 @@ public final class TestCentreCommand {
                                 .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(
                                         plan(ctx.getSource().getLevel(), BlockPos.ZERO).anchors().keySet(), builder))
                                 .executes(TestCentreCommand::tpAnchor)))
+                .then(Commands.literal("stats")
+                        .executes(ctx -> stats(ctx.getSource(), savedOptions(ctx.getSource().getServer())))
+                        .then(Commands.argument("options", StringArgumentType.greedyString())
+                                .suggests(TestCentreCommand::suggestAreas)
+                                .executes(ctx -> {
+                                    TestCentreLayout.Options options = parse(ctx.getSource(), StringArgumentType.getString(ctx, "options"));
+                                    return options == null ? 0 : stats(ctx.getSource(), options);
+                                })))
                 .then(Commands.literal("coverage")
                         .executes(ctx -> {
                             TestCentreLayout.Plan plan = plan(ctx.getSource().getLevel(), BlockPos.ZERO);
@@ -125,8 +150,77 @@ public final class TestCentreCommand {
         return 1;
     }
 
+    /** Die Planung mit den Optionen des letzten Baus dieser Welt (TZ22-4; ohne Markierungsdatei: alles). */
     public static TestCentreLayout.Plan plan(ServerLevel level, BlockPos origin) {
-        return TestCentreLayout.plan(level.registryAccess(), origin);
+        return TestCentreLayout.plan(level, origin, savedOptions(level.getServer()));
+    }
+
+    /** Wo ein Befehl seinen Ursprung herholt (gespeichert, Fuesse, Argument). */
+    @FunctionalInterface
+    private interface OriginSource {
+        BlockPos get(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException;
+    }
+
+    /** {@code only <bereiche>} bzw. {@code without <bereiche>} hinter einem Bau-Befehl (TZ22-4). */
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> option(String word, OriginSource origin) {
+        return Commands.literal(word).then(Commands.argument("areas", StringArgumentType.greedyString())
+                .suggests(TestCentreCommand::suggestAreas)
+                .executes(ctx -> {
+                    TestCentreLayout.Options options = parse(ctx.getSource(), word + " " + StringArgumentType.getString(ctx, "areas"));
+                    return options == null ? 0 : build(ctx.getSource(), origin.get(ctx), options);
+                }));
+    }
+
+    /** Liest Optionen; bei unbekanntem Bereich eine Fehlermeldung mit der Liste und null. */
+    static TestCentreLayout.Options parse(CommandSourceStack source, String text) {
+        try {
+            return TestCentreLayout.Options.parse(text);
+        } catch (IllegalArgumentException e) {
+            source.sendFailure(TcText.t("command.unknown_area", "Unknown area %s - known: %s", e.getMessage(),
+                    String.join(", ", TestCentreLayout.areas())));
+            return null;
+        }
+    }
+
+    /** Vorschlaege fuer den letzten Bereich einer Liste ({@code a,b,c}), dazu {@code only}/{@code without}. */
+    private static java.util.concurrent.CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> suggestAreas(
+            CommandContext<CommandSourceStack> ctx, com.mojang.brigadier.suggestion.SuggestionsBuilder builder) {
+        String remaining = builder.getRemaining();
+        int cut = Math.max(remaining.lastIndexOf(','), remaining.lastIndexOf(' ')) + 1;
+        List<String> words = new ArrayList<>(TestCentreLayout.areas());
+        words.add("only");
+        words.add("without");
+        return SharedSuggestionProvider.suggest(words, builder.createOffset(builder.getStart() + cut));
+    }
+
+    /** {@code /sbtestcentre} und {@code help}: die Befehle und die Bereichsnamen (TZ22-4). */
+    static int help(CommandSourceStack source) {
+        List<net.minecraft.network.chat.Component> lines = List.of(
+                TcText.t("help.title", "Test centre (/sbtestcentre):").withStyle(ChatFormatting.GOLD),
+                TcText.t("help.build", "build [here|x y z] - build everything (default)"),
+                TcText.t("help.only", "build [here|x y z] only <areas> - only these areas, e.g. only mobs,structures"),
+                TcText.t("help.without", "build [here|x y z] without <areas> - all but these, e.g. without structures"),
+                TcText.t("help.section", "section <id> - rebuild one section; stats [only|without ...] - size without building"),
+                TcText.t("help.more", "kit, give <station>, tp [place], coverage, help"),
+                TcText.t("help.areas", "Areas: %s, or any section id", String.join(", ", TestCentreLayout.DISTRICT_NAMES))
+                        .withStyle(ChatFormatting.GRAY));
+        for (net.minecraft.network.chat.Component line : lines) {
+            source.sendSuccess(() -> line, false);
+        }
+        return lines.size();
+    }
+
+    /** {@code stats}: Abschnitte, Flaeche, Rahmen und Staender einer Planung (TZ22-2), ohne zu bauen; Zeile je Abschnitt im Log. */
+    private static int stats(CommandSourceStack source, TestCentreLayout.Options options) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(source.getLevel(), BlockPos.ZERO, options);
+        long frames = plan.sections().stream().flatMap(section -> section.ops().stream()).mapToInt(TcOp::frames).sum();
+        long stands = plan.sections().stream().flatMap(section -> section.ops().stream())
+                .filter(op -> op instanceof TcOp.Stand).count();
+        Simplebuilding.LOGGER.info(plan.summary());
+        source.sendSuccess(() -> TcText.t("command.stats",
+                "Test centre: %s sections, %s x %s blocks, %s item frames, %s armour stands",
+                plan.sections().size(), plan.bounds().getXSpan(), plan.bounds().getZSpan(), frames, stands), false);
+        return (int) frames;
     }
 
     /**
@@ -143,16 +237,20 @@ public final class TestCentreCommand {
         return true;
     }
 
-    private static int build(CommandSourceStack source, BlockPos origin) {
+    private static int build(CommandSourceStack source, BlockPos origin, TestCentreLayout.Options options) {
         if (outsideOverworld(source)) {
             return 0;
         }
         ServerLevel level = source.getLevel();
-        TestCentreLayout.Plan plan = plan(level, origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin, options);
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
-        saveOrigin(level.getServer(), origin, plan.fingerprint());
+        saveOrigin(level.getServer(), origin, plan.fingerprint(), options);
         source.sendSuccess(() -> TcText.t("command.built", "Test centre built at %s %s %s (%s steps, %s ms)",
                 origin.getX(), origin.getY(), origin.getZ(), result.ops(), result.millis()).withStyle(ChatFormatting.GREEN), true);
+        if (!options.isAll()) {
+            source.sendSuccess(() -> TcText.t("command.built_partial", "Partial build: %s (%s of %s sections) - /sbtestcentre build builds everything",
+                    options.text(), plan.sections().size(), TestCentreLayout.sectionIds().size()).withStyle(ChatFormatting.GOLD), false);
+        }
         if (!plan.leftovers().isEmpty()) {
             source.sendSuccess(() -> TcText.t("command.unsorted", "%s mod items are not in a section yet (see 'Unsorted')",
                     plan.leftovers().size()).withStyle(ChatFormatting.GOLD), false);
@@ -160,17 +258,21 @@ public final class TestCentreCommand {
         return 1;
     }
 
-    private static int section(CommandContext<CommandSourceStack> ctx, BlockPos origin) throws CommandSyntaxException {
+    private static int section(CommandContext<CommandSourceStack> ctx, BlockPos origin, TestCentreLayout.Options options) {
         String id = StringArgumentType.getString(ctx, "id");
         if (!TestCentreLayout.sectionIds().contains(id)) {
             ctx.getSource().sendFailure(TcText.t("command.unknown_section", "Unknown section %s", id));
+            return 0;
+        }
+        if (!options.includes(id)) {
+            ctx.getSource().sendFailure(TcText.t("command.section_not_built", "Section %s is not part of this build (%s)", id, options.text()));
             return 0;
         }
         if (outsideOverworld(ctx.getSource())) {
             return 0;
         }
         ServerLevel level = ctx.getSource().getLevel();
-        TestCentreBuilder.Result result = TestCentreBuilder.buildSection(level, plan(level, origin), id);
+        TestCentreBuilder.Result result = TestCentreBuilder.buildSection(level, TestCentreLayout.plan(level, origin, options), id);
         ctx.getSource().sendSuccess(() -> TcText.t("command.section_built", "Section %s rebuilt (%s ms)", id, result.millis())
                 .withStyle(ChatFormatting.GREEN), true);
         return 1;
@@ -248,6 +350,17 @@ public final class TestCentreCommand {
         }
     }
 
+    /** Die Teilbau-Optionen des letzten Baus (TZ22-4: hinter dem Fingerabdruck), sonst alles. */
+    static TestCentreLayout.Options savedOptions(MinecraftServer server) {
+        Path file = originFile(server);
+        try {
+            String[] parts = Files.readString(file, StandardCharsets.UTF_8).trim().split("\\s+", 5);
+            return parts.length > 4 ? TestCentreLayout.Options.parse(parts[4]) : TestCentreLayout.Options.ALL;
+        } catch (IOException | RuntimeException e) {
+            return TestCentreLayout.Options.ALL;
+        }
+    }
+
     public static BlockPos savedOrDefaultOrigin(ServerLevel level) {
         Path file = originFile(level.getServer());
         if (Files.isRegularFile(file)) {
@@ -295,10 +408,10 @@ public final class TestCentreCommand {
         }
     }
 
-    static void saveOrigin(MinecraftServer server, BlockPos origin, String fingerprint) {
+    static void saveOrigin(MinecraftServer server, BlockPos origin, String fingerprint, TestCentreLayout.Options options) {
         try {
-            Files.writeString(originFile(server), origin.getX() + " " + origin.getY() + " " + origin.getZ() + " " + fingerprint + "\n",
-                    StandardCharsets.UTF_8);
+            Files.writeString(originFile(server), origin.getX() + " " + origin.getY() + " " + origin.getZ() + " " + fingerprint
+                    + (options.isAll() ? "" : " " + options.text()) + "\n", StandardCharsets.UTF_8);
         } catch (IOException e) {
             Simplebuilding.LOGGER.warn("Could not store the test centre origin", e);
         }
@@ -350,7 +463,7 @@ public final class TestCentreCommand {
             return;
         }
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
-        saveOrigin(server, origin, plan.fingerprint());
+        saveOrigin(server, origin, plan.fingerprint(), plan.options());
         Simplebuilding.LOGGER.info("Built the test centre at {} ({} steps, {} ms)", origin, result.ops(), result.millis());
         arriveAtEntrance(level, plan, player);
         player.sendSystemMessage(TcText.t("command.autobuilt", "Test centre built - /sbtestcentre for more")
@@ -375,7 +488,7 @@ public final class TestCentreCommand {
         BlockPos origin = savedOrDefaultOrigin(level);
         TestCentreLayout.Plan plan = plan(level, origin);
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
-        saveOrigin(server, origin, plan.fingerprint());
+        saveOrigin(server, origin, plan.fingerprint(), plan.options());
         Simplebuilding.LOGGER.info("Rebuilt the outdated test centre at {} ({} steps, {} ms)", origin, result.ops(), result.millis());
         ServerPlayer player = server.getPlayerList().getPlayer(job.player());
         if (McVersion.HUB_TEST_WORLD) {

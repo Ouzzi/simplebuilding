@@ -74,6 +74,7 @@ public final class CrucibleTests {
         ALL.put("loose_barrel_menu_keeps_the_raised_limit", CrucibleTests::looseBarrelMenu);
         ALL.put("reinforced_crucible_loads_old_nine_slots", CrucibleTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", CrucibleTests::barrelBesideInventoryCentred);
+        ALL.put("hammer_upgrade_steps_ship_with_the_module", CrucibleTests::hammerUpgradeStepsShipWithTheModule);
         // Split stage 5b: soul lava, the buckets and the JEI/Jade data (were SimpleBuilding's tests).
         BucketTests.register(ALL, MAX_TICKS);
     }
@@ -388,6 +389,10 @@ public final class CrucibleTests {
                 check(h, by == wide.slotY(tier, i), tier + ": barrel field " + i + " not level with its crucible field");
             }
             check(h, wide.inventoryTop() + 58 + 16 < wide.inventoryBoxTop() + wide.inventoryBoxHeight(), tier + ": hotbar outside the inventory box");
+            // SP22-6 (owner 22.10.): about one block of free fire zone under the lowest slot row (inside the 7 px bottom frame).
+            int lowest = wide.slotY(tier, tier.slots() - 1) + 17;
+            check(h, wide.fireTop(tier) == lowest && crucibleBottom - 7 - lowest >= 18,
+                    tier + ": fire zone under the grid " + (crucibleBottom - 7 - lowest) + " px (want >= 18)");
         }
         h.succeed();
     }
@@ -672,8 +677,11 @@ public final class CrucibleTests {
             long copies = ((com.simplecrucibles.mixin.TemplatePoolAccessor) pool).simplecrucibles$templates().stream()
                     .filter(e -> e.toString().contains("simplecrucibles:village/" + type + "/field_kitchen")).count();
             check(h, copies == CrucibleConfig.villageKitchenWeight, type + ": kitchen added once with weight " + CrucibleConfig.villageKitchenWeight + ", found " + copies);
-            check(h, h.getLevel().getStructureTemplateManager().get(com.simplecrucibles.SimpleCrucibles.id("village/" + type + "/field_kitchen")).isPresent(),
-                    type + ": structure file loads");
+            var template = h.getLevel().getStructureTemplateManager().get(com.simplecrucibles.SimpleCrucibles.id("village/" + type + "/field_kitchen"));
+            check(h, template.isPresent(), type + ": structure file loads");
+            // The kitchen really holds its crucible (old "Name" palette keys loaded as air in 26.3, found by TZ22-3).
+            check(h, !template.get().filterBlocks(BlockPos.ZERO, new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(),
+                    CrucibleBlocks.IRON_CRUCIBLE).isEmpty(), type + ": kitchen template holds no iron crucible");
         }
         h.succeed();
     }
@@ -802,6 +810,49 @@ public final class CrucibleTests {
         }
         check(h, gold == 2 && iron == 1, "all results went into the barrel, gold " + gold + ", iron " + iron);
         for (int s = 0; s < 6; s++) check(h, be.getItem(s).isEmpty(), "crucible slot " + s + " is empty afterwards");
+        h.succeed();
+    }
+
+    /**
+     * a-small22: the 7 upgrade steps (crucibles, barrels, cauldron) are the module's own file
+     * ({@code data/simplecrucibles/in_world_upgrades/crucibles.json}), not SimpleBuilding's - so with Simple Hammers alone a
+     * hammer in the smithing stance takes the click on every step (combo target with Simple Hammers, without SimpleBuilding).
+     */
+    private static void hammerUpgradeStepsShipWithTheModule(GameTestHelper h) {
+        check(h, com.simplelib.api.InWorldUpgrades.isLoaded(), "SimpleLib's in-world upgrade table is loaded");
+        net.minecraft.world.item.Item cracked = com.simplelib.api.SimpleLibApi.materialItem("cracked_diamond");
+        net.minecraft.world.item.Item netherite = com.simplelib.api.SimpleLibApi.materialItem("netherite_nugget");
+        net.minecraft.world.item.Item enderite = com.simplelib.api.SimpleLibApi.materialItem("enderite_nugget");
+        Object[][] steps = {
+                {Blocks.CAULDRON, CrucibleBlocks.REINFORCED_CAULDRON, cracked},
+                {CrucibleBlocks.IRON_CRUCIBLE, CrucibleBlocks.REINFORCED_CRUCIBLE, cracked},
+                {CrucibleBlocks.REINFORCED_CRUCIBLE, CrucibleBlocks.NETHERITE_CRUCIBLE, netherite},
+                {CrucibleBlocks.NETHERITE_CRUCIBLE, CrucibleBlocks.ENDERITE_CRUCIBLE, enderite},
+                {CrucibleBlocks.COPPER_BARREL, CrucibleBlocks.REINFORCED_BARREL, cracked},
+                {CrucibleBlocks.REINFORCED_BARREL, CrucibleBlocks.NETHERITE_BARREL, netherite},
+                {CrucibleBlocks.NETHERITE_BARREL, CrucibleBlocks.ENDERITE_BARREL, enderite}};
+        for (Object[] step : steps) {
+            var entry = com.simplelib.api.InWorldUpgrades.entryFor((net.minecraft.world.level.block.Block) step[0]);
+            check(h, entry != null && entry.to() == step[1] && entry.material() == step[2],
+                    "upgrade step from " + step[0] + " (to " + step[1] + " with " + step[2] + "): " + entry);
+        }
+        // With a hammer mod (Simple Hammers fills #simplelib:hammers) the hammer really takes each click - SimpleBuilding or not.
+        net.minecraft.world.item.Item hammer = null;
+        for (var holder : net.minecraft.core.registries.BuiltInRegistries.ITEM.getTagOrEmpty(com.simplelib.api.InWorldUpgrades.HAMMERS)) {
+            if (hammer == null || net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(holder.value()).getPath().startsWith("enderite")) hammer = holder.value();
+        }
+        if (hammer != null) {
+            net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(hammer));
+            BlockPos rel = new BlockPos(1, 2, 1);
+            BlockPos abs = h.absolutePos(rel);
+            for (Object[] step : steps) {
+                h.setBlock(rel, ((net.minecraft.world.level.block.Block) step[0]).defaultBlockState());
+                player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack((net.minecraft.world.item.Item) step[2], 16));
+                check(h, com.simplelib.api.HammerActions.upgradeTakesClick(h.getLevel().getBlockState(abs), h.getLevel(), abs, player,
+                        net.minecraft.world.InteractionHand.MAIN_HAND), "the hammer " + hammer + " takes the upgrade click on " + step[0]);
+            }
+        }
         h.succeed();
     }
 

@@ -28,6 +28,11 @@ public sealed interface TcOp {
         return false;
     }
 
+    /** Wie viele Rahmen der Schritt erzeugt: einer je {@link #spawnsFrame}, eine Vorlage so viele, wie sie mitbringt. */
+    default int frames() {
+        return spawnsFrame() ? 1 : 0;
+    }
+
     /** Setzt einen Block. */
     record Place(BlockPos pos, BlockState state) implements TcOp {
         @Override
@@ -91,11 +96,18 @@ public sealed interface TcOp {
         }
     }
 
-    /** Ein Wandschild, das nach {@code facing} zeigt; bis zu vier Zeilen. */
-    record Sign(BlockPos pos, Direction facing, List<Component> lines) implements TcOp {
+    /**
+     * Ein Wandschild, das nach {@code facing} zeigt; bis zu vier Zeilen. {@code way} (TZ22-8): der Weg (Rezept,
+     * Umwandlung), den das Schild beschreibt - seine Zeilen sind daraus erzeugt, der Test prueft ihn gegen die Daten.
+     */
+    record Sign(BlockPos pos, Direction facing, List<Component> lines, @org.jetbrains.annotations.Nullable TcWays.Way way) implements TcOp {
+        public Sign(BlockPos pos, Direction facing, List<Component> lines) {
+            this(pos, facing, lines, null);
+        }
+
         @Override
         public TcOp moved(BlockPos offset) {
-            return new Sign(pos.offset(offset), facing, lines);
+            return new Sign(pos.offset(offset), facing, lines, way);
         }
     }
 
@@ -127,6 +139,24 @@ public sealed interface TcOp {
         @Override
         public TcOp moved(BlockPos offset) {
             return new Command(pos.offset(offset), facing, command, label);
+        }
+    }
+
+    /**
+     * Eine Strukturvorlage (TZ22-3), die untere Nordwest-Ecke bei {@code pos}, unrotiert. Der Bau setzt sie wie ein
+     * Pool-Teil (Jigsaw-Bloecke werden ersetzt, Entities und Beutetabellen kommen mit). {@code size} ist ihre Groesse,
+     * {@code frames} die Zahl der Rahmen-Entities in der Vorlage (fuer die Zaehlungen).
+     */
+    record Structure(BlockPos pos, net.minecraft.resources.Identifier template, net.minecraft.core.Vec3i size, int frames)
+            implements TcOp {
+        @Override
+        public TcOp moved(BlockPos offset) {
+            return new Structure(pos.offset(offset), template, size, frames);
+        }
+
+        /** Die gegenueberliegende obere Ecke. */
+        public BlockPos far() {
+            return pos.offset(size.getX() - 1, size.getY() - 1, size.getZ() - 1);
         }
     }
 }

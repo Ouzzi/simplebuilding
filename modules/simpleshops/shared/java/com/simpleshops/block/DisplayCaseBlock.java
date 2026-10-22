@@ -24,7 +24,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
-/** The display case (and its glow variant): holds the goods of a shop, only placeable on a sales block of the same owner. */
+/** The display case (and its glow variant): holds the goods of a shop. Placeable anywhere; part of a shop (protected, selling) only on a sales block of the same owner (SP22-7). */
 public class DisplayCaseBlock extends BaseEntityBlock {
     /** Wooden base (2 px) and the glass box above it. */
     private static final VoxelShape SHAPE = Shapes.or(net.minecraft.world.level.block.Block.box(0, 0, 0, 16, 2, 16),

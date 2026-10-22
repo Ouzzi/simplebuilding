@@ -1,6 +1,7 @@
 {
   "itemgroup.simpletrims.trims": "Simple Trims",
   "simpletrims.config.enabled": "Enable Simple Trims",
+  "simpletrims.config.enabled.tooltip": "Switches Simple Trims on or off (restart required). Off: no trim upgrades, no placing, no radiance light; registrations stay so worlds keep loading.",
   "item.simpletrims.glowing_trim_template": "Glowing Armor Trim",
   "item.simpletrims.glowing_trim_template.applies_to": "Add Radiance",
   "item.simpletrims.glowing_trim_template.ingredients": "Glowing Material",
