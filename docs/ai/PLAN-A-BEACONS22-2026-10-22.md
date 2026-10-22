@@ -19,7 +19,7 @@ Abschnitt „Besitzer 22.10.“, SP22-9 und SP22-10.
   Damit hebt er sich schon mit dem Vanilla-Rahmen ab. `strongConduitMaxRange` Standard 216, Bereich 96–256.
   Jenseits von 96 Blöcken zählen weiter nur Spieler wirklich unter Wasser (unverändert).
 - „Normaler Conduit nur Wasseratmung prüfen“: neuer Gametest `vanilla_conduit_only_conduit_power` baut einen
-  Vanilla-Aquisator mit 5×5×5-Rahmen und prüft nach dem Vanilla-Takt (40 Ticks): Schwimmer hat Meereskraft
+  Vanilla-Aquisator mit 5×5×5-Rahmen und ruft Vanillas `updateShape`/`applyEffects` direkt auf (Invoker; im Takt würde ein Starker Aquisator eines Nachbartests mitwirken): Schwimmer hat Meereskraft
   (= Wasseratmung), aber keine Delfingunst. Code-Befund: das Modul berührt den Vanilla-Aquisator nicht.
 
 ## SP22-10 Leuchtfeuer
@@ -82,7 +82,7 @@ Kräfte als eigene Knöpfe dazu (wie Zeilen 5/6). Tooltips je Kraft eine Zeile (
 
 ## Dateien
 `StrongBeaconLogic`, `StrongBeaconBlockEntity`, `StrongBeaconMenu` (Maske 10 Bits), `StrongBeaconScreen`,
-neu `RangeFactor`, `RangeFactorView`, Mixins `BeaconRangeMixin`, `BeaconMenuFactorMixin`, `BeaconInvoker` (Test),
+neu `RangeFactor`, `RangeFactorView`, `RangeFactorSlot`, Mixins `BeaconRangeMixin`, `BeaconMenuFactorMixin`, `BeaconInvoker` + `ConduitInvoker` (Tests),
 `client/BeaconScreenFactorMixin`; `BeaconsConfig` (+2 Schlüssel, +4 Kräfte, Aquisator-Werte), `StrongConduitLogic`,
 Lang EN/DE, `wiki/manual.json`, `tools/check_data.py`, Mod-Beschreibungen, `docs/MODS-UND-FEATURES.md`,
 generierte Guides/Wiki/Discover.

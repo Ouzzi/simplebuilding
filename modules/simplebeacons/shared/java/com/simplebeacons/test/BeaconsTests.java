@@ -484,11 +484,15 @@ public final class BeaconsTests {
             ServerPlayer swimmer = h.makeMockServerPlayerInLevel();
             h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(swimmer));
             swimmer.snapTo(center.getX() + 0.5, center.getY() - 1.0, center.getZ() + 0.5);
-            h.succeedWhen(() -> {
-                swimmer.baseTick();
-                h.assertTrue(swimmer.hasEffect(MobEffects.CONDUIT_POWER), "Vanilla conduit: Conduit Power");
-                h.assertTrue(!swimmer.hasEffect(MobEffects.DOLPHINS_GRACE), "Vanilla conduit: no Dolphin's Grace");
-            });
+            swimmer.baseTick();
+            List<BlockPos> frame = new ArrayList<>();
+            h.assertTrue(com.simplebeacons.mixin.ConduitInvoker.simplebeacons$updateShape(h.getLevel(), center, frame) && frame.size() == 42,
+                    "Vanilla conduit active with the 5x5x5 frame");
+            swimmer.removeAllEffects();
+            com.simplebeacons.mixin.ConduitInvoker.simplebeacons$applyEffects(h.getLevel(), center, frame);
+            h.assertTrue(swimmer.isInWater() && swimmer.hasEffect(MobEffects.CONDUIT_POWER), "Vanilla conduit: Conduit Power");
+            h.assertTrue(!swimmer.hasEffect(MobEffects.DOLPHINS_GRACE), "Vanilla conduit: no Dolphin's Grace");
+            h.succeed();
         });
         ALL.put("sub_mod_switch", h -> {
             boolean before = com.simplebuilding.framework.api.SubMods.enabled(SimpleBeacons.MOD_ID);
@@ -516,7 +520,6 @@ public final class BeaconsTests {
         ALL.put("discover_first_pickup_tips", com.simplebeacons.discover.BeaconsDiscover::firstPickupTips);
         MAX_TICKS.put("pyramid_levels", 200);
         MAX_TICKS.put("range_factor_by_material", 200);
-        MAX_TICKS.put("vanilla_conduit_only_conduit_power", 200);
     }
 
     /** The result of crafting a 3 x 3 grid, or empty. */

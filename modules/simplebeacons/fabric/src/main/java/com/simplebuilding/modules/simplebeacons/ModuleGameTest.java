@@ -136,7 +136,7 @@ public final class ModuleGameTest {
         BeaconsTests.ALL.get("range_factor_in_menu").accept(h);
     }
 
-    @GameTest(structure = "simplebeacons:arena", maxTicks = 200)
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void vanillaConduitOnlyConduitPower(GameTestHelper h) {
         BeaconsTests.ALL.get("vanilla_conduit_only_conduit_power").accept(h);
     }

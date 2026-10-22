@@ -9,7 +9,8 @@
     "WitherShardMixin",
     "BeaconRangeMixin",
     "BeaconMenuFactorMixin",
-    "BeaconInvoker"
+    "BeaconInvoker",
+    "ConduitInvoker"
   ],
   "client": [
     "client.BeaconScreenAccessor",
