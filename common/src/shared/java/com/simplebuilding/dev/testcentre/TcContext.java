@@ -86,7 +86,12 @@ public record TcContext(HolderLookup.Provider lookup) {
     }
 
     static boolean isSpacer(Item item) {
-        return BuiltInRegistries.ITEM.getKey(item).getPath().equals("creative_spacer");
+        return isSpacerId(BuiltInRegistries.ITEM.getKey(item));
+    }
+
+    /** Platzhalter der Kreativ-Tabs (je Mod ein {@code creative_spacer}), kein Spielinhalt. */
+    public static boolean isSpacerId(Identifier id) {
+        return id.getPath().equals("creative_spacer");
     }
 
     /** Stapel mit den gegebenen Verzauberungen auf Hoechststufe. */
@@ -129,6 +134,25 @@ public record TcContext(HolderLookup.Provider lookup) {
 
     public static boolean isMod(Identifier id) {
         return Simplebuilding.MOD_ID.equals(id.getNamespace());
+    }
+
+    /**
+     * Namensraeume der SimpleBuilding-Familie (TZ22-1): die Modul-Ids aus {@code modules/modules.json} ohne das
+     * Beispielmodul {@code wiringexample} (dazu {@code simpledimension}, die Id des Sub-Mod-Schalters). Ein geladener
+     * Namensraum mit Praefix "simple", der hier fehlt, meldet der Vollstaendigkeitstest.
+     */
+    public static final java.util.Set<String> FAMILY = java.util.Set.of("simplebuilding", "simplemoney", "simpleriding",
+            "simplemodels", "simplefun", "simplevisuals", "simplesounds", "simplequalityoflife", "simpletweaks", "simpledimension",
+            "simpledimensions", "simplesandwiches", "simplelib", "simpleinterfaces", "simplemaps", "simpletrims", "simplemobs",
+            "simpleweather", "simplemovement", "simpletools", "simplefarming", "simplemobmanners", "simpleloot", "simplequestionary",
+            "simpleaesthetics", "simpleenddragonfight", "simpleend", "simplerespawn", "simplebeacons", "simpleovens",
+            "simplemobheads", "simpleshops", "simplewanderers", "simplestats", "simpleblocks", "simplecrucibles", "simpleoctets",
+            "simplehammers", "simpleoptimization", "simpleoptrender", "simpleoptmemory", "simpleoptserver", "simplestorage",
+            "simplemusic");
+
+    /** Ob die Id zur Familie gehoert (SimpleBuilding oder eines seiner Module). */
+    public static boolean isFamily(Identifier id) {
+        return FAMILY.contains(id.getNamespace());
     }
 
     public static Identifier id(Item item) {

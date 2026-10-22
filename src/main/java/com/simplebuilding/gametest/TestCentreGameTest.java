@@ -62,4 +62,19 @@ public final class TestCentreGameTest {
     public void everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
         TestCentreTests.everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(helper);
     }
+
+    @GameTest
+    public void everyFamilyRegistryEntryIsInTheTestCentre(GameTestHelper helper) {
+        TestCentreTests.everyFamilyRegistryEntryIsInTheTestCentre(helper);
+    }
+
+    @GameTest
+    public void noFrameHoldsWhatCouldStandAsABlock(GameTestHelper helper) {
+        TestCentreTests.noFrameHoldsWhatCouldStandAsABlock(helper);
+    }
+
+    @GameTest
+    public void theLayoutIsCompactWithLowWalls(GameTestHelper helper) {
+        TestCentreTests.theLayoutIsCompactWithLowWalls(helper);
+    }
 }

@@ -27,6 +27,8 @@ public final class TcCanvas {
 
     private final List<TcOp> ops = new ArrayList<>();
     private final Map<String, BlockPos> anchors = new LinkedHashMap<>();
+    /** Wandplaetze, an denen ein Ausstellungsstueck als Block steht ({@link #wallFrame}); Rueckwaende lassen sie aus. */
+    private final java.util.Set<BlockPos> exhibits = new java.util.HashSet<>();
     private int maxX;
     private int maxY;
     private int maxZ;
@@ -75,12 +77,18 @@ public final class TcCanvas {
 
     /** Uebernimmt alle Schritte und Anker von {@code other}, um {@code dx} Spalten nach +x verschoben. */
     public void append(TcCanvas other, int dx) {
-        BlockPos offset = new BlockPos(dx, 0, 0);
+        append(other, dx, 0);
+    }
+
+    /** Wie {@link #append(TcCanvas, int)}, zusaetzlich um {@code dz} Reihen nach +z verschoben. */
+    public void append(TcCanvas other, int dx, int dz) {
+        BlockPos offset = new BlockPos(dx, 0, dz);
         for (TcOp op : other.ops) {
             add(op.moved(offset));
         }
         other.anchors.forEach((name, pos) -> anchors.put(name, pos.offset(offset)));
-        grow(new BlockPos(other.maxX + dx, other.maxY, other.maxZ));
+        other.exhibits.forEach(pos -> exhibits.add(pos.offset(offset)));
+        grow(new BlockPos(other.maxX + dx, other.maxY, other.maxZ + dz));
     }
 
     // ------------------------------------------------------------------ Grundformen
@@ -178,14 +186,31 @@ public final class TcCanvas {
 
     // ------------------------------------------------------------------ Wandhelfer
 
-    /** Rueckwand von {@code x0} bis {@code x1} bei {@code z}, Lagen 0 bis {@code h - 1}, mit Kante oben. */
+    /**
+     * Rueckwand von {@code x0} bis {@code x1} bei {@code z}, Lagen 0 bis {@code h - 1}, mit Kante oben. Plaetze, an denen
+     * schon ein Ausstellungsstueck als Block steht ({@link #wallFrame}), bleiben, wie sie sind.
+     */
     public void backWall(int x0, int x1, int z, int h) {
-        fill(x0, 0, z, x1, h - 2, z, WALL);
-        fill(x0, h - 1, z, x1, h - 1, z, TRIM);
+        for (int x = Math.min(x0, x1); x <= Math.max(x0, x1); x++) {
+            for (int y = 0; y < h; y++) {
+                if (!exhibits.contains(new BlockPos(x, y, z))) {
+                    place(x, y, z, y == h - 1 ? TRIM : WALL);
+                }
+            }
+        }
     }
 
-    /** Rahmen an der Wand bei {@code wallZ} (der Rahmen haengt im Block davor und zeigt nach Norden). */
+    /**
+     * Ein Stapel an der Wand bei {@code wallZ}: was sich in eine Wand setzen laesst ({@link Exhibits#wallState}), steht dort
+     * selbst als Block (TZ22-2: kein Rahmen); alles andere haengt im Rahmen davor (Rahmen zeigt nach Norden).
+     */
     public void wallFrame(int x, int y, int wallZ, ItemStack stack) {
+        BlockState block = Exhibits.wallState(stack);
+        if (block != null) {
+            place(x, y, wallZ, block);
+            exhibits.add(new BlockPos(x, y, wallZ));
+            return;
+        }
         place(x, y, wallZ, WALL);
         frame(x, y, wallZ - 1, Direction.NORTH, stack);
     }
@@ -238,6 +263,85 @@ public final class TcCanvas {
             end = Math.max(end, x0 + 1 + line.stacks().size());
         }
         return end;
+    }
+
+    /** Hoechstens so viele Zeilen traegt eine Wand von {@link #shelves} (TZ22-5: Waende hoechstens 6 hoch). */
+    public static final int SHELF_LINES = 4;
+    /** Abstand paralleler Regalwaende in z: Wand, drei Felder Gang, Wand. */
+    public static final int SHELF_PITCH = 4;
+    /** Hoehe einer Regalwand: {@link #SHELF_LINES} Zeilen, Titel, Kante. */
+    public static final int SHELF_HEIGHT = SHELF_LINES + 2;
+
+    /**
+     * Wie {@link #rowsPanel}, aber hoechstens {@link #SHELF_LINES} Zeilen je Wand (oberste Zeile y 3, unterste y 0); weitere
+     * Zeilen laufen auf parallele Wände je {@link #SHELF_PITCH} dahinter weiter - Regalgaenge statt hoher oder ellenlanger
+     * Waende (TZ22-5). Die Waende selbst setzt {@link #shelfWalls}. Liefert die erste freie Spalte.
+     */
+    public int shelves(int x0, int firstWallZ, List<Line> lines) {
+        int end = x0 + 1;
+        for (int k = 0; k * SHELF_LINES < lines.size(); k++) {
+            List<Line> chunk = lines.subList(k * SHELF_LINES, Math.min(lines.size(), (k + 1) * SHELF_LINES));
+            end = Math.max(end, rowsPanel(x0, SHELF_LINES - 1, firstWallZ + k * SHELF_PITCH, chunk));
+        }
+        return end;
+    }
+
+    /** Wie viele Regalwaende {@link #shelves} fuer {@code lines} Zeilen braucht (mindestens eine). */
+    public static int shelfCount(int lines) {
+        return Math.max(1, (lines + SHELF_LINES - 1) / SHELF_LINES);
+    }
+
+    /** Die Rueckwaende fuer {@code count} Regale ab {@code firstWallZ}, je {@link #SHELF_HEIGHT} hoch. */
+    public void shelfWalls(int x0, int x1, int firstWallZ, int count) {
+        for (int k = 0; k < count; k++) {
+            backWall(x0, x1, firstWallZ + k * SHELF_PITCH, SHELF_HEIGHT);
+        }
+    }
+
+    /** Eine Gruppe einer {@link #exhibition}: Schild und Stapel in Anzeigereihenfolge. */
+    public record Group(Component label, List<ItemStack> stacks) {
+    }
+
+    /** Tiefe des Bodenrasters einer {@link #exhibition}. */
+    public static final int EXHIBIT_DEPTH = 6;
+    /** Rueckwand einer {@link #exhibition}: hinter dem Raster ein Feld Gang, dann die Wand. */
+    public static final int EXHIBIT_WALL_Z = EXHIBIT_DEPTH + 2;
+    /** Hoehe der Rueckwand einer {@link #exhibition}: Schilder auf y 1, Kante auf y 2. */
+    public static final int EXHIBIT_WALL_HEIGHT = 3;
+    /** Sockel unter einem liegenden Rahmen im Raster einer {@link #exhibition}. */
+    public static final BlockState PLINTH = TRIM;
+
+    /**
+     * Ausstellung wie der Holzbereich (TZ22-5, Besitzer 22.10.): je Gruppe Spalten dicht an dicht auf dem Boden (z 1 bis
+     * {@link #EXHIBIT_DEPTH}). Was nur einen festen Boden braucht ({@link Exhibits#floorStates}), steht dort selbst als
+     * Block (TZ22-2); alles andere liegt im Rahmen auf einem Sockel ({@link #PLINTH}, Rahmen nach oben). Ein Schild je
+     * Gruppe an der niedrigen Rueckwand ueber ihrer ersten Spalte, eine Spalte Luft zwischen den Gruppen. Ab {@code x0};
+     * liefert die erste freie Spalte. Die Rueckwand ({@link #EXHIBIT_WALL_Z}, {@link #EXHIBIT_WALL_HEIGHT}) setzt der Aufrufer.
+     */
+    public int exhibition(int x0, List<Group> groups) {
+        int x = x0;
+        for (Group group : groups) {
+            List<ItemStack> stacks = group.stacks().stream().filter(stack -> !stack.isEmpty()).toList();
+            if (stacks.isEmpty()) {
+                continue;
+            }
+            for (int i = 0; i < stacks.size(); i++) {
+                int cx = x + i / EXHIBIT_DEPTH;
+                int cz = 1 + i % EXHIBIT_DEPTH;
+                List<BlockState> states = Exhibits.floorStates(stacks.get(i));
+                if (states.isEmpty()) {
+                    place(cx, 0, cz, PLINTH);
+                    frame(cx, 1, cz, Direction.UP, stacks.get(i));
+                } else {
+                    for (int y = 0; y < states.size(); y++) {
+                        place(cx, y, cz, states.get(y));
+                    }
+                }
+            }
+            wallSign(x, 1, EXHIBIT_WALL_Z, TcText.bold(group.label()));
+            x += (stacks.size() + EXHIBIT_DEPTH - 1) / EXHIBIT_DEPTH + 1;
+        }
+        return x;
     }
 
     /** Kopfschild eines Abschnitts: Titel und Untertitel an der Rueckwand. */
