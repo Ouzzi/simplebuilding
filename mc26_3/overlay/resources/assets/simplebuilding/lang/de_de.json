@@ -1655,7 +1655,7 @@
   "book.simplebuilding.gadgets.2.text": "Ablegen: ohne Berührung per Schleichklick, mit ihr per Rechtsklick. Standard: 6 Blöcke; ein Trichter sammelt die Items.\nRuhezone in Hand und Welt: 1,25 Blöcke.",
   "book.simplebuilding.gadgets.3.title": "Transponierer",
   "book.simplebuilding.gadgets.3.text": "Dreht Stämme, Öfen, Kolben, Trichter, Treppen und Schilder an Ort und Stelle. Klick nahe einer Kante wählt die Richtung.\nBlock in der Nebenhand: Rechtsklick halten tauscht den Zielblock.",
-  "book.simplebuilding.gadgets.4.title": "Transponierer-Ladung",
+  "book.simplebuilding.gadgets.4.title": "Transponierladung",
   "book.simplebuilding.gadgets.4.text": "Eine Drehung kostet 1 von 1024 Ladungen, ein Tausch 2. Leer geht er nie kaputt.\nAm Amboss füllen ihn 16 Enderperlen auf. Effizienz verkürzt das Ausholen (V: sofort).",
   "book.simplebuilding.gadgets.5.title": "Erze finden",
   "book.simplebuilding.gadgets.5.text": "Der %3$s zeigt zum nächsten Erz seiner Art: Eisen, Gold, Diamant, Netherit, alle oder ein eigener Block.\nSchleichen und Benutzen wechselt die Art; Schleichklick auf einen Block macht ihn zum eigenen Ziel.",

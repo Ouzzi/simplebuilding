@@ -168,8 +168,8 @@ public final class MoneyTests {
   }h.succeed();
  }
  public static void config(GameTestHelper h) {
-  h.assertTrue(new SimpleMoney.Config().trades.enableVillagerTrades && new SimpleMoney.Config().trades.enableWanderingTrades,"source defaults");
-  var original=SimpleMoney.config;try {SimpleMoney.config=new SimpleMoney.Config();SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades"),"wandering switch");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");}finally{SimpleMoney.config=original;}h.succeed();
+  h.assertTrue(new SimpleMoney.Config().trades.enableVillagerTrades && new SimpleMoney.Config().trades.enableWanderingTrades && new SimpleMoney.Config().trades.enableWandererTrades,"source defaults");
+  var original=SimpleMoney.config;try {SimpleMoney.config=new SimpleMoney.Config();SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades") && SimpleMoney.enabled("enableWandererTrades"),"wandering switch");SimpleMoney.config.trades.enableWandererTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWandererTrades"),"village wanderer switch");h.assertValueEqual(SimpleMoney.merchantFlag("village_wanderer"),"enableWandererTrades","village wanderer flag");h.assertValueEqual(SimpleMoney.merchantFlag("mason"),"enableVillagerTrades","profession flag");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");}finally{SimpleMoney.config=original;}h.succeed();
  }
  public static void languagesAndAssets(GameTestHelper h) {
   try {
@@ -191,7 +191,7 @@ public final class MoneyTests {
     for(String key:keys)for(var lang:List.of(en,de))h.assertTrue(lang.has(key)&&lang.get(key).getAsString().length()<=48,"short translated tooltip line: "+key);
     for(String path:List.of("items/"+name+".json","models/item/"+name+".json","textures/item/"+name+".png"))h.assertTrue(MoneyTests.class.getResource("/assets/simplemoney/"+path)!=null,"asset "+path);
    }
-   for(String flag:List.of("enableVillagerTrades","enableWanderingTrades"))for(var lang:List.of(en,de)) {h.assertTrue(lang.has("text.autoconfig.simplemoney.category.default"),"config tab");var prefix="text.autoconfig.simplemoney.option.trades."+flag;h.assertTrue(lang.has(prefix)&&lang.get(prefix+".tooltip").getAsString().contains("true"),"config name and default tooltip "+flag);}
+   for(String flag:List.of("enableVillagerTrades","enableWanderingTrades","enableWandererTrades"))for(var lang:List.of(en,de)) {h.assertTrue(lang.has("text.autoconfig.simplemoney.category.default"),"config tab");var prefix="text.autoconfig.simplemoney.option.trades."+flag;h.assertTrue(lang.has(prefix)&&lang.get(prefix+".tooltip").getAsString().contains("true"),"config name and default tooltip "+flag);}
   }catch(IOException e){throw new IllegalStateException(e);}h.succeed();
  }
  public static void storage(GameTestHelper h) {

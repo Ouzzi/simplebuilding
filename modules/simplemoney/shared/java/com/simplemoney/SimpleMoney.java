@@ -22,7 +22,9 @@ public final class SimpleMoney {
    stock=Math.clamp(stock,1,4); dailyLimit=Math.clamp(dailyLimit,1,16); cooldownTicks=Math.clamp(cooldownTicks,20,1200);
   }
  }
- public static final class Trades { public boolean enableVillagerTrades=true; public boolean enableWanderingTrades=true; }
+ public static final class Trades { public boolean enableVillagerTrades=true; public boolean enableWanderingTrades=true;
+  /** Price-list links of the Village Wanderer (Simple Wanderers, a-small22): the 14 heads with chance 0.1. */
+  public boolean enableWandererTrades=true; }
  private static Path configFile;
  private static java.nio.file.attribute.FileTime lastRead;
  public static void loadConfig(Path dir) {
@@ -43,6 +45,10 @@ public final class SimpleMoney {
   } catch(java.io.IOException e) { throw new IllegalStateException("Cannot inspect "+configFile,e); }
   if(!on()) return false;
   if(flag.startsWith("links:")) return MoneyLinks.enabled(flag.substring(6));
-  return switch(flag) {case "enableVillagerTrades" -> config.trades.enableVillagerTrades; case "enableWanderingTrades" -> config.trades.enableWanderingTrades; default -> false;};
+  return switch(flag) {case "enableVillagerTrades" -> config.trades.enableVillagerTrades; case "enableWanderingTrades" -> config.trades.enableWanderingTrades; case "enableWandererTrades" -> config.trades.enableWandererTrades; default -> false;};
+ }
+ /** The config switch of a price-list merchant (tools/generate_links.py FLAGS): every profession is a villager. */
+ public static String merchantFlag(String merchant) {
+  return switch(merchant) {case "wandering_trader" -> "enableWanderingTrades"; case "village_wanderer" -> "enableWandererTrades"; default -> "enableVillagerTrades";};
  }
 }

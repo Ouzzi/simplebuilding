@@ -23,25 +23,6 @@
       "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_piston"
-    },
-    {
-      "damage_per_hit": 4,
-      "duration_factor": 2,
-      "from": "simplecrucibles:reinforced_barrel",
-      "material": "simplelib:netherite_nugget",
-      "material_count": 2,
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplecrucibles:netherite_barrel"
-    },
-    {
-      "damage_per_hit": 4,
-      "from": "simplecrucibles:reinforced_crucible",
-      "material": "simplelib:netherite_nugget",
-      "material_count": 4,
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplecrucibles:netherite_crucible"
     }
   ]
 }

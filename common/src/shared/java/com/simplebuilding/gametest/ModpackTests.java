@@ -466,6 +466,18 @@ public final class ModpackTests {
             }
             if (storageSteps != 31) problems.add("Simple Storage's file should load 31 chest and shulker box upgrade steps, loaded " + storageSteps);
         }
+        // a-small22: on 26.3 the 7 crucible, barrel and cauldron steps come from Simple Crucibles' own file
+        // (data/simplecrucibles/in_world_upgrades), so the hammer ways also work without SimpleBuilding.
+        if (com.simplebuilding.version.McVersion.CRUCIBLE && !"simplebuilding".equals(com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE)) {
+            int crucibleSteps = 0;
+            for (var it = loaded.values().iterator(); it.hasNext(); ) {
+                if (com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(BuiltInRegistries.BLOCK.getKey(it.next().to()).getNamespace())) {
+                    it.remove();
+                    crucibleSteps++;
+                }
+            }
+            if (crucibleSteps != 7) problems.add("Simple Crucibles' file should load 7 crucible, barrel and cauldron upgrade steps, loaded " + crucibleSteps);
+        }
         if (!loaded.equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
                     + loaded.size() + " against " + SledgehammerUpgrades.builtInTable().size());
