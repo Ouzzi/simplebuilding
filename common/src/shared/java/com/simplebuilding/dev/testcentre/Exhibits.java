@@ -57,7 +57,7 @@ import net.minecraft.world.level.block.state.properties.Property;
  * <p>Gesetzt wird nur, was ohne Umgebung ruhig stehen bleibt: keine Pads mit Wirkung ({@link TestCentreLayout#frameOnly}),
  * keine Signalquellen (sie schalteten Befehlsbloecke und Kolben in der Naehe), kein TNT, keine Blitzableiter (die
  * Eisenstab-Station braucht die Blitze), nichts, was schmilzt, waechst oder zerfaellt (zufaellig tickende Bloecke; Laub
- * wird dauerhaft gesetzt, Kupfer darf altern), keine Bloecke, die ohne Decke aufsteigen.
+ * wird dauerhaft gesetzt, Kupfer darf altern, Kessel duerfen reifen), keine Bloecke, die ohne Decke aufsteigen.
  */
 public final class Exhibits {
 
@@ -179,7 +179,9 @@ public final class Exhibits {
             if (block instanceof EndRodBlock) {
                 state = with(state, BlockStateProperties.FACING, Direction.UP);
             }
-            if (state.isSignalSource() || state.isRandomlyTicking() && !(block instanceof WeatheringCopper)) {
+            // Zufaellig tickend: Kupfer darf altern, ein Kessel reift oder fuellt sich in sich selbst (Milch zu Kaese).
+            if (state.isSignalSource() || state.isRandomlyTicking() && !(block instanceof WeatheringCopper)
+                    && !(block instanceof AbstractCauldronBlock)) {
                 return null;
             }
             return state;
