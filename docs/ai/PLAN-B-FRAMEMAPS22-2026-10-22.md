@@ -65,3 +65,19 @@ Branch `b-framemaps22`, Queue-Zeile 102 (Besitzer 21.10., Simple Maps). Nur `mod
 - Ziele: `module-simplemaps-fabric-263`, `-neoforge-263`, `-standalone-fabric-263`; Compile aller Loader;
   Generatoren + `./gradlew check -q`.
 - Kontrast: Texte über `UiContrast.ensure` gegen die Panel-Farbe (≥ 4,5:1), Werte im Bericht.
+
+## Ergebnis (22.10.)
+- Umgesetzt wie geplant: `FrameCode`, `View.mag`, `ViewTexture`/`fillFrameState` mit Vergrößerung, `MapsNetwork.saveFrameView`
+  + `mayChange` + `FrameSavedPayload` (Fabric/NeoForge/Forge registriert), Rahmen-Leiste im `WayfinderScreen`
+  (`WayfinderLayout.of(w, h, true)`, `BAR_H` 22), Stapelgröße 1, Kopie über eigenen Ergebnis-Slot (`Cartography.resultSlot`).
+- Abweichungen: Hilfetexte der Knöpfe/des Codefelds heißen `*.help` statt `*.tooltip` (die Breitenregel von
+  `tools/check_tooltip_text.py` gilt für Item-Tooltips; wie die vorhandenen `screen.simplemaps.tab.*`). Die Mausposition im
+  Fuß wird nur noch gezeichnet, wenn sie nicht in die Zoomzeile läuft (auch im Hand-Modus). Deutsche Rahmen-Zusammenfassung
+  gekürzt, damit sie auf eine Handbuchseite passt.
+- Kontrast (Panel #6F5F4B hell/dämmrig/dunkel): Beschriftung 5,32/7,81/12,74; Status ok 4,58/6,72/10,96, Fehler 4,59/5,31/8,67,
+  Frage 4,83/7,09/11,57 (über `UiContrast.ensure`); Codefeld 15,91, Fehlertext 7,57, Hinweis 9,04 auf Schwarz; Etiketten ≥ 10,5.
+- Tests: module-simplemaps fabric/neoforge/standalone-fabric je 34/34 (neu `frame_save_rules`, `frame_code`, `stack_size`;
+  `frame_view`, `cartography_copy`, `screen_layout` erweitert), JUnit `WayfinderLayoutTest` (Rahmen-Leiste), Compile aller
+  drei Loader, Generatoren, `check`.
+- Nicht getestet: Bildschirm im Client (kein Client-Lauf erlaubt; nur Compile + HTML-Vorschau), Forge-Gametests, echte Claims
+  von Simple Tweaks (nur über einen Test-Provider der framework-`Protection`).
