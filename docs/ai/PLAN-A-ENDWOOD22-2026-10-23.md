@@ -16,7 +16,7 @@ Basis claude-wave1 e93433ccf, Branch `a-endwood22`. Nur MC 26.3 Fabric (Regel 22
    Standardzustand MEDIUM (= heutige Optik/Bremse für alles, was ohne Update gesetzt wird).
    Alte Welten: Eigenschaft `inner` verschwindet → Standard MEDIUM, beim nächsten Nachbarwechsel korrekt (kein Datafixer nötig).
 2. Bremse je Dichte (`stuckSpeed`): LOOSE 0,5/0,15/0,5 · MEDIUM 0,25/0,05/0,25 (Spinnennetz) · DENSE 0,15/0,03/0,15;
-   Weben verdoppelt seitlich, ×5 senkrecht (MEDIUM mit Weben = Vanilla 0,5/0,25), höchstens 1.
+   mit Weben: LOOSE 1/0,75/1 · MEDIUM 0,5/0,25/0,5 (= Vanilla) · DENSE 0,3/0,15/0,3.
 3. Abbau: Hacke in der Haupthand → Laub-Abbau (Härte 0,2, Hacke-Tempo). Sonst `getDestroyProgress` = der eines
    Spinnennetzes mit demselben Werkzeug (Hand 20 s wie Spinnennetz; Schwert/Schere so schnell wie am Spinnennetz).
    Entscheidung: „ohne Hacke ≈ Spinnennetz“ wörtlich je Werkzeug, damit Schwert/Schere wie bisher am Netz bleiben.

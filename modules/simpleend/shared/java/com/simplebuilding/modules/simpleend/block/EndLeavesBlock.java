@@ -59,14 +59,14 @@ public class EndLeavesBlock extends TintedParticleLeavesBlock {
         return n == 6 ? DENSE : n >= 4 ? MEDIUM : LOOSE;
     }
 
-    /** Speed factor inside the leaves (x, y, z): medium is exactly the Vanilla cobweb; Weaving doubles sideways, x5 upright. */
+    /** Speed factor inside the leaves (x, y, z): medium is exactly the Vanilla cobweb (also with Weaving, which roughly
+     * doubles sideways and multiplies falling by five, like Vanilla). */
     public static Vec3 stuckSpeed(int density, boolean weaving) {
-        Vec3 v = switch (density) {
-            case LOOSE -> new Vec3(0.5, 0.15, 0.5);
-            case DENSE -> new Vec3(0.15, 0.03, 0.15);
-            default -> new Vec3(0.25, 0.05F, 0.25);
+        return switch (density) {
+            case LOOSE -> weaving ? new Vec3(1.0, 0.75, 1.0) : new Vec3(0.5, 0.15, 0.5);
+            case DENSE -> weaving ? new Vec3(0.3, 0.15, 0.3) : new Vec3(0.15, 0.03, 0.15);
+            default -> weaving ? new Vec3(0.5, 0.25, 0.5) : new Vec3(0.25, 0.05F, 0.25);
         };
-        return weaving ? new Vec3(Math.min(1.0, v.x * 2), Math.min(1.0, v.y * 5), Math.min(1.0, v.z * 2)) : v;
     }
 
     @Override
