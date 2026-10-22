@@ -215,7 +215,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         g.text(font, Component.translatable("screen.simpletools.death_vault.legend"), PANEL_X + 8, 6, PALETTE.label(), false);
         // Ink on the light field, every colour at least 4.5:1 (follows the inventory brightness like the field itself).
         int field = UiPalette.INVENTORY.fill(), text = UiPalette.INVENTORY.label();
-        int dim = UiContrast.ensure(UiPalette.mix(text, field, 0.3), field), warn = UiContrast.ensure(WARN, field);
+        int dim = UiContrast.ensure(UiPalette.mix(text, field, 0.12), field), warn = UiContrast.ensure(WARN, field);
         int[] count = new int[16];
         int lyingRunning = 0, lyingStalled = 0, next = Integer.MAX_VALUE;
         for (int i = 0; i < menu.data(DeathVaultMenu.D_COUNT); i++) {
