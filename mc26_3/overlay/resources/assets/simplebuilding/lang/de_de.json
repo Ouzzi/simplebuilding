@@ -3676,5 +3676,17 @@
   "simplebuilding.testcentre.blocks.row.copper_light_panes": "Kupfer-Lichtscheiben",
   "simplebuilding.testcentre.blocks.row.copper_light_panes_colored": "Farbige Kupferscheiben",
   "simplebuilding.testcentre.blocks.row.sulfur_lights": "Schwefellichter",
-  "simplebuilding.testcentre.modules.itemless": "Ohne Item"
+  "simplebuilding.testcentre.modules.itemless": "Ohne Item",
+  "simplebuilding.testcentre.controls.rebuild.partial": "gleiche Bereiche",
+  "simplebuilding.testcentre.command.unknown_area": "Unbekannter Bereich %s – bekannt: %s",
+  "simplebuilding.testcentre.help.title": "Testzentrale (/sbtestcentre):",
+  "simplebuilding.testcentre.help.build": "build [here|x y z] – alles bauen (Standard)",
+  "simplebuilding.testcentre.help.only": "build [here|x y z] only <Bereiche> – nur diese Bereiche, z. B. only mobs,structures",
+  "simplebuilding.testcentre.help.without": "build [here|x y z] without <Bereiche> – alles außer diesen, z. B. without structures",
+  "simplebuilding.testcentre.help.section": "section <id> – einen Abschnitt neu bauen; stats [only|without …] – Größe ohne Bau",
+  "simplebuilding.testcentre.help.more": "kit, give <Station>, tp [Platz], coverage, help",
+  "simplebuilding.testcentre.help.areas": "Bereiche: %s oder eine Abschnitts-Id",
+  "simplebuilding.testcentre.command.built_partial": "Teilbau: %s (%s von %s Abschnitten) – /sbtestcentre build baut alles",
+  "simplebuilding.testcentre.command.section_not_built": "Abschnitt %s gehört nicht zu diesem Bau (%s)",
+  "simplebuilding.testcentre.section.structures": "Strukturen"
 }

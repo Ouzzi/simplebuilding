@@ -3676,5 +3676,17 @@
   "simplebuilding.testcentre.blocks.row.copper_light_panes": "Copper light panes",
   "simplebuilding.testcentre.blocks.row.copper_light_panes_colored": "Colored copper panes",
   "simplebuilding.testcentre.blocks.row.sulfur_lights": "Sulfur lights",
-  "simplebuilding.testcentre.modules.itemless": "Without item"
+  "simplebuilding.testcentre.modules.itemless": "Without item",
+  "simplebuilding.testcentre.controls.rebuild.partial": "same areas",
+  "simplebuilding.testcentre.command.unknown_area": "Unknown area %s - known: %s",
+  "simplebuilding.testcentre.help.title": "Test centre (/sbtestcentre):",
+  "simplebuilding.testcentre.help.build": "build [here|x y z] - build everything (default)",
+  "simplebuilding.testcentre.help.only": "build [here|x y z] only <areas> - only these areas, e.g. only mobs,structures",
+  "simplebuilding.testcentre.help.without": "build [here|x y z] without <areas> - all but these, e.g. without structures",
+  "simplebuilding.testcentre.help.section": "section <id> - rebuild one section; stats [only|without ...] - size without building",
+  "simplebuilding.testcentre.help.more": "kit, give <station>, tp [place], coverage, help",
+  "simplebuilding.testcentre.help.areas": "Areas: %s, or any section id",
+  "simplebuilding.testcentre.command.built_partial": "Partial build: %s (%s of %s sections) - /sbtestcentre build builds everything",
+  "simplebuilding.testcentre.command.section_not_built": "Section %s is not part of this build (%s)",
+  "simplebuilding.testcentre.section.structures": "Structures"
 }

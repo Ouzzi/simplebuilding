@@ -144,6 +144,13 @@ public final class TcCanvas {
         add(new TcOp.Sign(new BlockPos(x, y, z), facing, List.of(Arrays.copyOf(lines, Math.min(4, lines.length)))));
     }
 
+    /** Strukturvorlage {@code template} (TZ22-3) mit der unteren Nordwest-Ecke bei x/y/z; der Abschnitt waechst um ihre Groesse. */
+    public void structure(int x, int y, int z, net.minecraft.resources.Identifier template, net.minecraft.core.Vec3i size, int frames) {
+        TcOp.Structure op = new TcOp.Structure(new BlockPos(x, y, z), template, size, frames);
+        add(op);
+        grow(op.far());
+    }
+
     /** Ruestungsstaender; {@code gear}: Kopf, Brust, Beine, Fuesse, Haupthand, Nebenhand. */
     public void stand(int x, int y, int z, float yaw, List<ItemStack> gear, Component name) {
         List<ItemStack> copy = new ArrayList<>();

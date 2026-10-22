@@ -101,7 +101,7 @@ public final class TestCentreTests {
             BlockPos origin = helper.absolutePos(new BlockPos(2, 3, 2));
             java.nio.file.Files.writeString(marker, origin.getX() + " " + origin.getY() + " " + origin.getZ() + "\n");
             helper.assertTrue(TestCentreCommand.savedOrDefaultOrigin(level).equals(origin), "rebuild must retain its origin");
-            var plan = TestCentreLayout.plan(level.registryAccess(), origin);
+            var plan = TestCentreLayout.plan(level, origin);
             BlockPos entrance = plan.entrance();
             for (int attempt = 0; attempt < 2; attempt++) {
                 level.setBlockAndUpdate(entrance.below(), Blocks.AIR.defaultBlockState());
@@ -136,7 +136,7 @@ public final class TestCentreTests {
     /** Jedes Mod-Item und jeder Mod-Block steht in einem Abschnitt (ausser den begruendeten Ausnahmen). */
     public static void everyModItemAndBlockHasItsPlaceInTheTestCentre(GameTestHelper helper) {
         // Split stage 5b: soul lava and the buckets are Simple Crucibles' (no simplebuilding: block to exclude any more).
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         for (Item item : plan.leftovers()) {
             problems.add("item " + BuiltInRegistries.ITEM.getKey(item) + " has no section (it only shows up under 'unsorted')");
@@ -180,7 +180,7 @@ public final class TestCentreTests {
      * Ein geladener Namensraum "simple..." ausserhalb der Familie heisst: neues Modul, in {@code TcContext.FAMILY} eintragen.
      */
     public static void everyFamilyRegistryEntryIsInTheTestCentre(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         Map<String, Integer> excused = new LinkedHashMap<>();
         Set<String> namespaces = new java.util.TreeSet<>();
@@ -239,13 +239,39 @@ public final class TestCentreTests {
                 problems.add("mob " + id + " has no cell in the mob station");
             }
         }
-        int structures = (int) helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.STRUCTURE)
-                .listElementIds().filter(key -> TcContext.isFamily(key.identifier())).count();
-        if (structures > 0) {
-            excused.put("structures (TZ22-3: own area later)", structures);
+        // TZ22-3: Strukturen sind keine Ausnahme mehr. Jede Familien-Struktur ist ein Jigsaw, dessen Startpool-Teile alle im
+        // Abschnitt "structures" stehen; dazu jedes Familien-Teil eines beliebigen Pools (auch eingehaengte Dorfhaeuser).
+        Set<Identifier> shownTemplates = new java.util.HashSet<>();
+        plan.sections().forEach(section -> section.ops().forEach(op -> {
+            if (op instanceof TcOp.Structure structure) {
+                shownTemplates.add(structure.template());
+            }
+        }));
+        var registries = helper.getLevel().registryAccess();
+        Map<Identifier, Set<Identifier>> pieces = com.simplebuilding.dev.testcentre.StructureStation.familyPieces(registries);
+        int structures = 0;
+        for (var entry : com.simplebuilding.dev.testcentre.StructureStation.familyStructures(registries).entrySet()) {
+            family.accept(entry.getKey());
+            if (entry.getValue().isEmpty()) {
+                problems.add("structure " + entry.getKey() + " is no jigsaw structure - the test centre cannot show its pieces");
+            } else if (!pieces.containsKey(entry.getValue().get())) {
+                problems.add("structure " + entry.getKey() + " starts with pool " + entry.getValue().get() + " without family pieces");
+            } else {
+                structures++;
+            }
         }
-        com.simplebuilding.Simplebuilding.LOGGER.info("test centre inventory: {} namespaces {}, {} items, {} blocks, {} mobs shown; excused {}",
-                namespaces.size(), namespaces, items, blocks, mobs, excused);
+        int structurePieces = 0;
+        for (Set<Identifier> templates : pieces.values()) {
+            for (Identifier template : templates) {
+                if (shownTemplates.contains(template)) {
+                    structurePieces++;
+                } else {
+                    problems.add("structure piece " + template + " is not in the test centre");
+                }
+            }
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre inventory: {} namespaces {}, {} items, {} blocks, {} mobs, {} structures"
+                        + " ({} pieces) shown; excused {}", namespaces.size(), namespaces, items, blocks, mobs, structures, structurePieces, excused);
         if (!problems.isEmpty()) {
             com.simplebuilding.Simplebuilding.LOGGER.warn("test centre inventory problems: {}", String.join("; ", problems));
         }
@@ -261,7 +287,7 @@ public final class TestCentreTests {
      * Rahmen und Staender je Abschnitt stehen im Log.
      */
     public static void noFrameHoldsWhatCouldStandAsBlock(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             Set<Item> placed = section.id().startsWith(TabBrowser.PREFIX) ? Set.of() : TestCentreLayout.shownPlaced(section.ops());
@@ -282,6 +308,71 @@ public final class TestCentreTests {
         helper.succeed();
     }
 
+    /**
+     * TZ22-4 (Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die Strukturen
+     * oder nur einzelne Bereiche"): {@code without structures} plant keine Vorlage und ist kleiner, {@code only mobs} nur
+     * Steuerwand und Mobs; Abdeckung bleibt gleich (geplant wird alles); die Knoepfe der Steuerwand tragen die Optionen mit;
+     * Optionen-Text liest sich zurueck, unbekannte Bereiche werfen; {@code help}, {@code build … only|without} sind registriert.
+     * Dazu TZ22-3: mit Strukturen im Register steht der Abschnitt {@code structures} in der vollen Planung.
+     */
+    public static void partialBuildsOnlyContainTheChosenAreas(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        TestCentreLayout.Plan full = TestCentreLayout.plan(level, BlockPos.ZERO);
+        TestCentreLayout.Options withoutStructures = TestCentreLayout.Options.parse("without structures");
+        TestCentreLayout.Plan without = TestCentreLayout.plan(level, BlockPos.ZERO, withoutStructures);
+        java.util.function.Function<TestCentreLayout.Plan, Long> templates = plan -> plan.sections().stream()
+                .flatMap(section -> section.ops().stream()).filter(op -> op instanceof TcOp.Structure).count();
+        boolean hasStructures = !com.simplebuilding.dev.testcentre.StructureStation.familyPieces(level.registryAccess()).isEmpty();
+        helper.assertTrue(!hasStructures || templates.apply(full) > 0, "the full plan places no structure piece although there are some");
+        helper.assertTrue(templates.apply(without) == 0, "'without structures' still places " + templates.apply(without) + " structure pieces");
+        long fullArea = (long) full.bounds().getXSpan() * full.bounds().getZSpan();
+        long withoutArea = (long) without.bounds().getXSpan() * without.bounds().getZSpan();
+        helper.assertTrue(!hasStructures || withoutArea < fullArea, "'without structures' is not smaller: " + withoutArea + " vs " + fullArea);
+        helper.assertTrue(without.leftovers().equals(full.leftovers()), "a partial build must not change the coverage");
+        helper.assertTrue(!without.fingerprint().equals(full.fingerprint()) || !hasStructures, "partial and full build share a fingerprint");
+        // Die Steuerwand baut mit denselben Optionen neu.
+        List<String> commands = new ArrayList<>();
+        without.section("controls").ops().forEach(op -> {
+            if (op instanceof TcOp.Command command) {
+                commands.add(command.command());
+            }
+        });
+        helper.assertTrue(commands.stream().anyMatch(c -> c.startsWith("sbtestcentre build ") && c.endsWith(" without structures")),
+                "the rebuild-all button forgets the options: " + commands);
+        helper.assertTrue(commands.stream().filter(c -> c.startsWith("sbtestcentre section ")).allMatch(c -> c.endsWith(" without structures")),
+                "a section button forgets the options");
+        helper.assertTrue(commands.stream().noneMatch(c -> c.startsWith("sbtestcentre section structures ")),
+                "a button rebuilds a section that is not built");
+
+        TestCentreLayout.Plan mobs = TestCentreLayout.plan(level, BlockPos.ZERO, TestCentreLayout.Options.parse("only mobs"));
+        List<String> ids = mobs.sections().stream().map(TestCentreLayout.Section::id).toList();
+        helper.assertTrue(ids.equals(List.of("controls", "mobs")), "'only mobs' plans " + ids);
+        TestCentreLayout.Plan workshop = TestCentreLayout.plan(level, BlockPos.ZERO, TestCentreLayout.Options.parse("only workshop without chisel"));
+        List<String> workshopIds = workshop.sections().stream().map(TestCentreLayout.Section::id).toList();
+        helper.assertTrue(workshopIds.contains("tools") && !workshopIds.contains("chisel") && !workshopIds.contains("mobs"),
+                "'only workshop without chisel' plans " + workshopIds);
+
+        TestCentreLayout.Options mixed = TestCentreLayout.Options.parse("without catalog ONLY workshop, structures");
+        helper.assertTrue(TestCentreLayout.Options.parse(mixed.text()).equals(mixed) && mixed.text().equals("only structures,workshop without catalog"),
+                "options do not read back: " + mixed.text());
+        helper.assertTrue(TestCentreLayout.Options.parse("").isAll() && TestCentreLayout.Options.parse("all").isAll(), "empty options are not 'all'");
+        for (String bad : List.of("only nowhere", "mobs", "without tools,nothing")) {
+            boolean threw = false;
+            try {
+                TestCentreLayout.Options.parse(bad);
+            } catch (IllegalArgumentException expected) {
+                threw = true;
+            }
+            helper.assertTrue(threw, "options '" + bad + "' were accepted");
+        }
+        var root = level.getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre");
+        helper.assertTrue(root != null && root.getCommand() != null && root.getChild("help") != null,
+                "/sbtestcentre has no help");
+        helper.assertTrue(root.getChild("build").getChild("only") != null && root.getChild("build").getChild("without") != null
+                && root.getChild("build").getChild("here").getChild("without") != null, "/sbtestcentre build has no only/without");
+        helper.succeed();
+    }
+
     /** Hoechste Wand (Lage ueber dem Boden) je Abschnitt, ausser Tuermen mit Zweck (Fallturm des Sinkdaempfers). */
     static final Set<String> TALL_ON_PURPOSE = Set.of("sinkdamper");
 
@@ -291,7 +382,7 @@ public final class TestCentreTests {
      * sechs Bloecke, und jeder Bezirk beginnt eine eigene Reihe (ein spaeterer Bezirk Strukturen, TZ22-3, haengt sich an).
      */
     public static void theLayoutIsCompactWithLowWalls(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             if (section.width() > TestCentreLayout.MAX_ROW_WIDTH) {
@@ -347,7 +438,7 @@ public final class TestCentreTests {
     public static void theWholeCentreBuildsAndMatchesItsPlan(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(20000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 20000);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin);
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
         com.simplebuilding.Simplebuilding.LOGGER.info("{} | built in {} ms ({} steps, {} entities)", plan.summary(),
                 result.millis(), result.ops(), result.entities());
@@ -359,9 +450,7 @@ public final class TestCentreTests {
             List<BlockPos> signs = new ArrayList<>();
             for (TestCentreLayout.Section section : plan.sections()) {
                 for (TcOp op : section.ops()) {
-                    if (op.spawnsFrame()) {
-                        frames++;
-                    }
+                    frames += op.frames();
                     switch (op) {
                         case TcOp.Place place -> expected.put(place.pos(), place.state());
                         case TcOp.Stand stand -> stands++;
@@ -380,6 +469,24 @@ public final class TestCentreTests {
                 }
             }
             helper.assertTrue(wrong.isEmpty(), "blocks differ from the plan: " + String.join("; ", wrong));
+            // TZ22-3: jede Strukturvorlage steht - in ihrem Kasten mindestens so viele feste Bloecke wie die Vorlage hat.
+            for (TestCentreLayout.Section section : plan.sections()) {
+                for (TcOp op : section.ops()) {
+                    if (op instanceof TcOp.Structure structure) {
+                        var template = com.simplebuilding.version.McVersion.structureTemplates(level).get(structure.template());
+                        helper.assertTrue(template.isPresent(), "structure template " + structure.template() + " is missing");
+                        int want = com.simplebuilding.dev.testcentre.StructureStation.solidBlocks(template.get());
+                        int have = 0;
+                        for (BlockPos pos : BlockPos.betweenClosed(structure.pos(), structure.far())) {
+                            if (!level.getBlockState(pos).isAir()) {
+                                have++;
+                            }
+                        }
+                        helper.assertTrue(want > 0 && have >= want, "structure " + structure.template() + " at " + structure.pos()
+                                + ": " + have + " solid blocks placed, template has " + want);
+                    }
+                }
+            }
             for (BlockPos pos : signs) {
                 helper.assertTrue(level.getBlockEntity(pos) instanceof SignBlockEntity sign
                         && !com.simplebuilding.version.McVersion.signFrontLine(sign, 0).getString().isEmpty(), "no labelled sign at " + pos);
@@ -456,7 +563,7 @@ public final class TestCentreTests {
     @SuppressWarnings("removal")
     public static void commandBlocksAreIsolatedAndEveryStationHasItsGiveButton(GameTestHelper helper) {
         BlockPos origin = new BlockPos(0, 64, 0);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), origin);
         Map<BlockPos, BlockState> blocks = new HashMap<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             for (TcOp op : section.ops()) {
@@ -598,9 +705,9 @@ public final class TestCentreTests {
 
         // Fingerabdruck: gleiche Planung gleicher Wert, anderer Ursprung (andere Befehle) anderer Wert.
         String fingerprint = plan.fingerprint();
-        helper.assertTrue(fingerprint.equals(TestCentreLayout.plan(helper.getLevel().registryAccess(), origin).fingerprint()),
+        helper.assertTrue(fingerprint.equals(TestCentreLayout.plan(helper.getLevel(), origin).fingerprint()),
                 "the plan fingerprint is not stable - every join would rebuild the centre");
-        helper.assertTrue(!fingerprint.equals(TestCentreLayout.plan(helper.getLevel().registryAccess(), origin.east(7)).fingerprint()),
+        helper.assertTrue(!fingerprint.equals(TestCentreLayout.plan(helper.getLevel(), origin.east(7)).fingerprint()),
                 "the plan fingerprint ignores the origin");
 
         // Flypad: im Flugfeld steht kein anderes Pad und keine Druckplatte.
@@ -632,7 +739,7 @@ public final class TestCentreTests {
             helper.succeed(); // 26.2: no framework, no foreign stations
             return;
         }
-        TestCentreLayout.Plan baseline = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan baseline = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         List<String> baselineIds = baseline.sections().stream().map(TestCentreLayout.Section::id).toList();
         // Two Vanilla items no station shows yet: one that stands as a block, one that needs a frame.
         Item block = null;
@@ -656,7 +763,7 @@ public final class TestCentreTests {
                 List.of(blockId, "nomod:missing", framedId));
         TestCentreLayout.Plan plan;
         try {
-            plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+            plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         } finally {
             com.simplebuilding.dev.testcentre.ModuleStations.unregister("simpletest", "station");
         }
@@ -675,7 +782,7 @@ public final class TestCentreTests {
         // Simple Ovens (required with SimpleBuilding on 26.3) is shown: its furnaces stand in "machines", not again here.
         Item furnace = com.simplebuilding.util.OvenRefs.item("enderite_furnace");
         helper.assertTrue(baseline.coveredItems().contains(furnace), "the Simple Ovens furnace is not in the test centre");
-        TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(baselineIds),
                 "after unregistering the test station the plan differs from before");
         helper.assertTrue(TestCentreLayout.SECTION_IDS.stream().allMatch(baselineIds::contains),
@@ -703,7 +810,7 @@ public final class TestCentreTests {
      * Diamantblock gesetzt, Amboss, Hochofen mit rissigen Diamanten, abgenutzter und neuer Ruestungsstaender.
      */
     public static void brokenAndRepairedStatesStandSideBySide(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         TestCentreLayout.Section states = plan.section("states");
         Map<BlockPos, ItemStack> frames = frames(states);
@@ -788,7 +895,7 @@ public final class TestCentreTests {
      * nicht fuer die Abdeckung: jedes Item braucht trotzdem eine Station.
      */
     public static void everyCreativeTabHasItsItemBrowserWall(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
         // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
@@ -855,7 +962,7 @@ public final class TestCentreTests {
      */
     public static void everyFeatureStationSetsUpItsScenario(GameTestHelper helper) {
         BlockPos origin = new BlockPos(0, 64, 0);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), origin);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
         if (!ModBlocks.HAMMOCKS.isEmpty()) {
@@ -1056,7 +1163,7 @@ public final class TestCentreTests {
     public static void eachButtonRunsExactlyItsOwnCommandBlock(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(26000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 26000);
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin);
         BoundingBox bounds = plan.bounds();
         Scoreboard scoreboard = level.getScoreboard();
         String objectiveName = "sb_tc_" + java.util.UUID.randomUUID().toString().substring(0, 8);
@@ -1178,7 +1285,7 @@ public final class TestCentreTests {
         List<net.minecraft.world.entity.EntityType<?>> mobs = found.isEmpty()
                 ? List.of(net.minecraft.world.entity.EntityTypes.PIG) : found;
         if (!found.isEmpty()) {
-            TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), new BlockPos(0, 64, 0));
+            TestCentreLayout.Plan plan = TestCentreLayout.plan(level, new BlockPos(0, 64, 0));
             for (var type : found) {
                 helper.assertTrue(plan.anchors().containsKey(com.simplebuilding.dev.testcentre.MobStations.anchorName(
                         BuiltInRegistries.ENTITY_TYPE.getKey(type))), "the plan has no mob cell for " + BuiltInRegistries.ENTITY_TYPE.getKey(type));

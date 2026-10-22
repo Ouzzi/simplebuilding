@@ -77,4 +77,9 @@ public final class TestCentreGameTest {
     public void theLayoutIsCompactWithLowWalls(GameTestHelper helper) {
         TestCentreTests.theLayoutIsCompactWithLowWalls(helper);
     }
+
+    @GameTest
+    public void partialBuildsOnlyContainTheChosenAreas(GameTestHelper helper) {
+        TestCentreTests.partialBuildsOnlyContainTheChosenAreas(helper);
+    }
 }
