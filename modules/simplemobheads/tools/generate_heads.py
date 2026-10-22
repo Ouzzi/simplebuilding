@@ -65,12 +65,24 @@ ABILITIES = {
     "warden": ("Half of its wearer's footsteps never reach sculk.", "Die Hälfte der Schritte des Trägers erreicht kein Sculk."),
     "herobrine": ("Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack.",
                   "Fackeln beim Träger flackern; im Dunkeln zögern feindliche Mobs vor dem Angriff."),
+    # Easter eggs EH21 (docs/ai/PLAN-B-EH21-2026-10-22.md).
+    "crowned_pig": ("Pigs nearby turn their heads to its wearer, and the crown glints.",
+                    "Schweine in der Nähe drehen den Kopf zum Träger, und die Krone glänzt."),
+    "giant": ("Its wearer grows to 1.5x size, steps up whole blocks and walks a little faster; zombies see it only half as far, "
+              "and it works like the head of its zombie kind (husk, drowned).",
+              "Der Träger wächst auf 1,5-fache Größe, steigt ganze Blöcke hoch und läuft etwas schneller; Zombies sehen ihn nur halb "
+              "so weit, und er wirkt wie der Kopf seiner Zombie-Art (Wüstenzombie, Ertrunkener)."),
+    "giant_cow": ("Its wearer grows to 1.5x size and steps up whole blocks; another player can milk it like a cow.",
+                  "Der Träger wächst auf 1,5-fache Größe und steigt ganze Blöcke hoch; ein anderer Spieler kann ihn wie eine Kuh melken."),
 }
 
 TRADE_EXCLUDED = {"wither": "Boss head: only the charged creeper (server switch, default off).",
                   "warden": "Boss head: only the charged creeper.",
                   "blighted_wither": "Boss head of Simple Mobs.", "abyssal_wither": "Boss head of Simple Mobs.",
-                  "herobrine": "Secret head: only the Herobrine ritual (KONZEPT-HEROBRINE-KOPF-2026-10-19), never sold."}
+                  "herobrine": "Secret head: only the Herobrine ritual (KONZEPT-HEROBRINE-KOPF-2026-10-19), never sold.",
+                  "crowned_pig": "Secret head: only the pig named Technoblade (EH21 TO-1), never sold.",
+                  "giant": "Secret head: only a giant killed by a charged creeper (EH21 ZO-1), never sold.",
+                  "giant_cow": "Secret head: only a giant cow killed by a charged creeper (EH21 CO-2), never sold."}
 # Price rows that moved in from SimpleBuilding / Simple Fun keep their values.
 LEGACY_TRADE = {"bogged": ("mason", 0, 0.5, 1, 2, 1.0), "stray": ("mason", 0, 0.5, 1, 2, 1.0)}
 
@@ -176,7 +188,8 @@ def java():
             f"        new HeadDef({jstr(h['id'])}, {jstr(item_id(h))}, {jstr(wall_id(h))}, {jstr(mob_id(h))}, {jstr(h['group'])}, "
             f"List.of({', '.join(jstr(s) for s in h['sound'])}), {jstr(h.get('from', ''))}, {jstr(h.get('ability', ''))}, "
             f"{str(h.get('trial', False)).lower()}, {str(h.get('freeze_immune', False)).lower()}, {jstr(h.get('drop', 'default'))}, "
-            f"{jstr(vs.get('component') or '')}, {jstr(h.get('variant_source', ''))}, {jstr(vs['list'][0]['id'] if vs else '')}, List.of(\n" + ",\n".join(look_lines) + "))")
+            f"{jstr(vs.get('component') or '')}, {jstr(h.get('variant_source', ''))}, {jstr(vs['list'][0]['id'] if vs else '')}, List.of(\n" + ",\n".join(look_lines) + "), "
+            f"{jstr(h.get('counts_as', ''))}, List.of({', '.join(jstr(m) for m in h.get('camouflage', []))}))")
     lines.append(",\n".join(entries) + ");")
     lines.append("")
     excl = ", ".join(f"java.util.Map.entry({jstr(k)}, {jstr(v)})" for k, v in DATA["exclude"].items())
@@ -186,14 +199,16 @@ def java():
     return "\n".join(lines) + "\n"
 
 
-def skull_transform_model(kind_name, texture=None, tall=False):
+def skull_transform_model(kind_name, texture=None, tall=False, scale=1.0):
+    """scale: the look's own model scale; a giant head (scale 3) is drawn at 1/3 so it fits a slot like any head."""
     head = {"type": "minecraft:head", "kind": kind_name}
     if texture:
         head["texture"] = texture
+    s = round(1.0 / scale, 4) if scale > 1 else 1.0
     return {"type": "minecraft:special", "base": f"{NS}:item/template_tall_head" if tall else "minecraft:item/template_skull",
             "model": head,
             "transformation": {"left_rotation": [1.0, 0.0, 0.0, -0.0], "right_rotation": [0.0, 0.0, 0.0, 1.0],
-                               "scale": [1.0, 1.0, 1.0], "translation": [0.5, 0.0, 0.5]}}
+                               "scale": [s, s, s], "translation": [0.5, 0.0, 0.5]}}
 
 
 def resources():
@@ -205,13 +220,14 @@ def resources():
         out[GEN / f"assets/{NS}/blockstates/{wall}.json"] = skull
         tall = h.get("tall", False)
         lk = looks(h)
+        size = {vid: resolve(h, v)["scale"] for vid, v in lk}
         if len(lk) == 1:
-            model = skull_transform_model(kind(h, ""), tall=tall)
+            model = skull_transform_model(kind(h, ""), tall=tall, scale=size[""])
         else:
             model = {"type": "minecraft:select", "property": "minecraft:component", "component": f"{NS}:variant",
-                     "cases": [{"when": vid, "model": skull_transform_model(kind(h, vid), tall=tall)} for vid, _ in lk[1:]]
-                              + [{"when": lk[0][1]["id"], "model": skull_transform_model(kind(h, ""), tall=tall)}],
-                     "fallback": skull_transform_model(kind(h, ""), tall=tall)}
+                     "cases": [{"when": vid, "model": skull_transform_model(kind(h, vid), tall=tall, scale=size[vid])} for vid, _ in lk[1:]]
+                              + [{"when": lk[0][1]["id"], "model": skull_transform_model(kind(h, ""), tall=tall, scale=size[""])}],
+                     "fallback": skull_transform_model(kind(h, ""), tall=tall, scale=size[""])}
         out[GEN / f"assets/{NS}/items/{item}.json"] = {"model": model}
         out[GEN / f"data/{NS}/loot_table/blocks/{item}.json"] = {
             "type": "minecraft:block",
@@ -272,6 +288,29 @@ def lang(locale):
     return keys
 
 
+# Riddles of the EH21 easter-egg heads (rule A6: hinted in the game, never spelled out): (use EN, lore EN, use DE, lore DE).
+EASTER = {
+    "tribute": ("No mob drops it. A pig with a certain name never dies - strike it down, and its crown falls instead; "
+                "the title screen remembers him. Place it, wear it or put it on a note block.",
+                "{name}: Technoblade never dies.",
+                "Kein Mob lässt ihn fallen. Ein Schwein mit einem bestimmten Namen stirbt nie - schlägst du es nieder, fällt "
+                "stattdessen seine Krone; der Startbildschirm erinnert an ihn. Aufstellen, tragen oder auf einen Notenblock setzen.",
+                "{name}: Technoblade never dies."),
+    "giant": ("No ordinary zombie drops it. When lightning strikes a zombie under a full moon, something big gets up - "
+              "only a charged creeper brings its head down. Place it, wear it or put it on a note block.",
+              "{name}: the biggest trouble a full moon ever brought.",
+              "Kein gewöhnlicher Zombie lässt ihn fallen. Trifft bei Vollmond ein Blitz einen Zombie, steht etwas Großes auf - "
+              "nur ein geladener Creeper holt seinen Kopf. Aufstellen, tragen oder auf einen Notenblock setzen.",
+              "{name}: der größte Ärger, den ein Vollmond je brachte."),
+    "giant_cow": ("No ordinary cow drops it. A cow fed hay bales, one by one, may - very rarely - grow into a giant; "
+                  "only a charged creeper brings its head down. Place it, wear it or put it on a note block.",
+                  "{name}: it really did eat all that hay.",
+                  "Keine gewöhnliche Kuh lässt ihn fallen. Eine Kuh, die Heuballen frisst, einen nach dem anderen, wird - sehr selten - "
+                  "zur Riesin; nur ein geladener Creeper holt ihren Kopf. Aufstellen, tragen oder auf einen Notenblock setzen.",
+                  "{name}: sie hat das ganze Heu wirklich gefressen."),
+}
+
+
 def questionary(locale):
     en = locale == "en_us"
     out = {}
@@ -300,6 +339,9 @@ def questionary(locale):
                 use = ("Kein Mob lässt ihn fallen. Gold trägt Moos, Moos trägt Netherrack, vier rote Lichter wachen - "
                        "zünde es nachts an. Aufstellen, tragen oder auf einen Notenblock setzen.")
                 lore = "{name}: er wurde nie entfernt."
+        if h.get("drop") in EASTER:
+            riddle = EASTER[h["drop"]]
+            use, lore = (riddle[0], riddle[1]) if en else (riddle[2], riddle[3])
         entry = {"lore": [lore], "use": [use], "secret": [secret]}
         out[item_id(h)] = entry
         out[wall_id(h)] = entry
@@ -349,6 +391,11 @@ def validate():
                 errors.append(f"{h['id']}: duplicate variant ids")
             if not h["variants"].get("component") and not h.get("variant_source"):
                 errors.append(f"{h['id']}: variants need a component or a variant_source")
+        counts = h.get("counts_as", "")
+        if counts and counts != "variant" and counts not in {x["id"] for x in HEADS}:
+            errors.append(f"{h['id']}: counts_as {counts} is no head")
+        if counts == "variant" and not h.get("variants"):
+            errors.append(f"{h['id']}: counts_as variant needs variants")
     errors += [f"ability {a} has no head" for a in sorted(set(ABILITIES) - abilities_used)]
     return errors
 

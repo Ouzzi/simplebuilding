@@ -170,4 +170,59 @@ public final class ModuleGameTest {
     public void herobrineHintBook(GameTestHelper helper) {
         MobHeadTests.ALL.get("herobrine_hint_book").accept(helper);
     }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void easterHeadsData(GameTestHelper helper) {
+        MobHeadTests.ALL.get("easter_heads_data").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void technobladeCrown(GameTestHelper helper) {
+        MobHeadTests.ALL.get("technoblade_crown").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void technobladeLightning(GameTestHelper helper) {
+        MobHeadTests.ALL.get("technoblade_lightning").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void crownedPigAbility(GameTestHelper helper) {
+        MobHeadTests.ALL.get("crowned_pig_ability").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void killerBunnySpawn(GameTestHelper helper) {
+        MobHeadTests.ALL.get("killer_bunny_spawn").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void killerBunnyHead(GameTestHelper helper) {
+        MobHeadTests.ALL.get("killer_bunny_head").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantZombieLightning(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_zombie_lightning").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantHeadDrop(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_head_drop").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantHeadWearing(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_head_wearing").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantCowHay(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_cow_hay").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantCowHead(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_cow_head").accept(helper);
+    }
 }

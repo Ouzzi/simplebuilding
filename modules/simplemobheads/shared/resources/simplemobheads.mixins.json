@@ -4,8 +4,12 @@
   "package": "com.simplemobheads.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "AnimalAiMixin",
     "BeehiveBlockMixin",
+    "CowFeedMixin",
     "CreeperMixin",
+    "EasterDeathMixin",
+    "EasterThunderMixin",
     "HeadAbilityConsumeEffectMixin",
     "HeadAbilityEntityMixin",
     "HeadAbilityFarmlandMixin",
@@ -14,6 +18,8 @@
     "HeadAbilityShulkerBoxMixin",
     "IgniteItemMixin",
     "MobTargetMixin",
+    "PigThunderMixin",
+    "RabbitSpawnMixin",
     "RamTargetMixin",
     "ServerPlayerTickMixin",
     "SkullBlockEntityMixin",
@@ -23,6 +29,7 @@
   "client": [
     "client.CustomHeadLayerMixin",
     "client.LivingEntityRendererMixin",
+    "client.PigRendererMixin",
     "client.SkullBlockRendererMixin",
     "client.WornModHeadMixin"
   ],

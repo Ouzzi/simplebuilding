@@ -33,9 +33,14 @@ public final class MobHeadsConfigScreen {
                             .setDefaultValue(field.getBoolean(defaults)).setTooltip(Component.translatable(key + ".tooltip"))
                             .setSaveConsumer(value -> set(field, config, value)).build());
                 } else if (field.getType() == float.class) {
-                    float max = field.getName().equals("playerKillChance") ? MobHeadsConfig.MAX_PLAYER_KILL_CHANCE : MobHeadsConfig.MAX_LOOTING_BONUS;
+                    float[] range = MobHeadsConfig.range(field.getName());
                     drops.addEntry(entries.startFloatField(Component.translatable(key), field.getFloat(config))
-                            .setDefaultValue(field.getFloat(defaults)).setMin(0.0F).setMax(max).setTooltip(Component.translatable(key + ".tooltip"))
+                            .setDefaultValue(field.getFloat(defaults)).setMin(range[0]).setMax(range[1]).setTooltip(Component.translatable(key + ".tooltip"))
+                            .setSaveConsumer(value -> set(field, config, value)).build());
+                } else if (field.getType() == int.class) {
+                    float[] range = MobHeadsConfig.range(field.getName());
+                    drops.addEntry(entries.startIntField(Component.translatable(key), field.getInt(config))
+                            .setDefaultValue(field.getInt(defaults)).setMin((int) range[0]).setMax((int) range[1]).setTooltip(Component.translatable(key + ".tooltip"))
                             .setSaveConsumer(value -> set(field, config, value)).build());
                 }
             } catch (IllegalAccessException e) {

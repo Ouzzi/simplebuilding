@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "simplemobs:block/nether_heart"
+    },
+    "facing=east": {
+      "model": "simplemobs:block/nether_heart",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "simplemobs:block/nether_heart",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplemobs:block/nether_heart",
+      "y": 270
     }
   }
 }

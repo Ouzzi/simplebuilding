@@ -106,6 +106,21 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("pocket_stops").accept(h);
     }
 
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pocketPlaceBreak(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_place_break").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 40)
+    public void pocketPlaceWhilePlaying(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_place_while_playing").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
+    public void pocketBlockPlay(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_block_play").accept(h);
+    }
+
     @GameTest(structure = "simplemusic:empty", maxTicks = 200)
     public void pressSheetStays(GameTestHelper h) {
         MusicTests.ALL.get("press_sheet_stays").accept(h);

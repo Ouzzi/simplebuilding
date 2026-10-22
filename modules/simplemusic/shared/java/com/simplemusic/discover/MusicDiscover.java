@@ -64,6 +64,7 @@ public final class MusicDiscover {
             "simplemusic:orchestrion_playlist",
             "simplemusic:orchestrion_redstone",
             "simplemusic:pocket_jukebox",
+            "simplemusic:pocket_jukebox_placed",
             "simplemusic:sheet_copy",
             "simplemusic:sheet_editor",
             "simplemusic:sheet_import",

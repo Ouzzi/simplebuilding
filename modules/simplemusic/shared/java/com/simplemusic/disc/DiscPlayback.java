@@ -20,20 +20,26 @@ import net.minecraft.server.level.ServerPlayer;
  * {@link TrackPlayPayload} with the current position; players that leave or for whom the track is not audible
  * (pending and not theirs, owner decision U2 b) get nothing / a stop. Kept in memory only: after a restart the block
  * starts the track again.
+ *
+ * <p>A placed Pocket Jukebox also plays Vanilla discs here ({@link #startSong}): the key is then the song's sound event,
+ * every player in range may hear it, and the start can lie in the past (resume after a pause).
  */
 public final class DiscPlayback {
     public static final int RANGE = 64;
     private static final Map<GlobalPos, Session> SESSIONS = new HashMap<>();
 
     private static final class Session {
+        /** Upload hash, or a Vanilla song's sound event ({@link #song}). */
         final String hash;
-        final int seconds;
+        final boolean song;
+        final int ticks;
         final long started;
         final Set<UUID> told = new HashSet<>();
 
-        Session(String hash, int seconds, long started) {
+        Session(String hash, boolean song, int ticks, long started) {
             this.hash = hash;
-            this.seconds = seconds;
+            this.song = song;
+            this.ticks = ticks;
             this.started = started;
         }
     }
@@ -42,8 +48,18 @@ public final class DiscPlayback {
 
     /** Starts (or restarts) the track at a block. */
     public static void start(ServerLevel level, BlockPos pos, TrackRef track) {
+        start(level, pos, track.sha256(), false, Math.max(1, track.seconds()) * 20, 0);
+    }
+
+    /** Starts a Vanilla song (its sound event id) at a block, {@code offsetTicks} into it. */
+    public static void startSong(ServerLevel level, BlockPos pos, String soundEvent, int lengthTicks, int offsetTicks) {
+        start(level, pos, soundEvent, true, lengthTicks, offsetTicks);
+    }
+
+    /** Starts (or restarts) an upload hash or a song at a block, {@code offsetTicks} into it. */
+    public static void start(ServerLevel level, BlockPos pos, String key, boolean song, int lengthTicks, int offsetTicks) {
         stop(level, pos);
-        SESSIONS.put(GlobalPos.of(level.dimension(), pos.immutable()), new Session(track.sha256(), Math.max(1, track.seconds()), level.getGameTime()));
+        SESSIONS.put(GlobalPos.of(level.dimension(), pos.immutable()), new Session(key, song, Math.max(1, lengthTicks), level.getGameTime() - Math.max(0, offsetTicks)));
         update(level, pos);
     }
 
@@ -60,7 +76,7 @@ public final class DiscPlayback {
     /** True when the track at the block has played to its end. */
     public static boolean finished(ServerLevel level, BlockPos pos) {
         Session s = SESSIONS.get(GlobalPos.of(level.dimension(), pos));
-        return s != null && level.getGameTime() - s.started >= s.seconds * 20L;
+        return s != null && level.getGameTime() - s.started >= s.ticks;
     }
 
     public static void stop(ServerLevel level, BlockPos pos) {
@@ -77,15 +93,15 @@ public final class DiscPlayback {
         Session s = SESSIONS.get(GlobalPos.of(level.dimension(), pos));
         if (s == null) return;
         TrackStore store = MusicServer.store(level.getServer());
-        TrackStore.Track track = store == null ? null : store.get(s.hash);
+        TrackStore.Track track = s.song || store == null ? null : store.get(s.hash);
         int offset = (int) Math.min(Integer.MAX_VALUE, level.getGameTime() - s.started);
         Set<UUID> near = new HashSet<>();
         for (ServerPlayer player : level.players()) {
             if (player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) > RANGE * RANGE) continue;
-            if (track == null || !track.audibleFor(player.getUUID())) continue;
+            if (!s.song && (track == null || !track.audibleFor(player.getUUID()))) continue;
             near.add(player.getUUID());
             if (s.told.add(player.getUUID())) {
-                SimpleMusic.toClient.accept(player, new TrackPlayPayload(pos, s.hash, offset, s.seconds));
+                SimpleMusic.toClient.accept(player, new TrackPlayPayload(pos, s.hash, offset, Math.max(1, s.ticks / 20)));
             }
         }
         for (UUID id : Set.copyOf(s.told)) {
@@ -99,7 +115,7 @@ public final class DiscPlayback {
     /** Whether some block near the player plays {@code hash} for them (the download gate). */
     public static boolean playsFor(ServerPlayer player, String hash) {
         for (Map.Entry<GlobalPos, Session> e : SESSIONS.entrySet()) {
-            if (e.getValue().hash.equals(hash) && e.getValue().told.contains(player.getUUID())
+            if (!e.getValue().song && e.getValue().hash.equals(hash) && e.getValue().told.contains(player.getUUID())
                     && e.getKey().dimension().equals(player.level().dimension())) return true;
         }
         return false;

@@ -31,11 +31,13 @@ Existing name-only items do not silently change appearance on login: use the anv
   once and charges vanilla XP, with vanilla anvil damage/sounds. Creative follows vanilla
   free XP. An entire input stack keeps its exact count. Repeated same-model changes yield
   no result. Removal restores the item's default model, not a prior third-party override.
-- Inventory and anvil **Models** buttons, searchable paged browser (name/base ID/model ID,
-  author/tags), base→result preview and actual vanilla 3D item rendering. No new keybind.
+- **Models** bookmark on the inventory, the creative inventory and the anvil (on the top edge
+  while the recipe book is open), searchable paged browser (name/base ID/model ID, author/tags),
+  base-item filter, sort by name A–Z/Z–A or base item, mouse-wheel paging, tooltip with an
+  enlarged model preview, base→result preview and actual vanilla 3D item rendering. No new keybind.
   Inventory browsing is read-only; assignment binds to the open anvil menu.
 - Tabs: Models, Server Settings, Import Help. Settings show the authoritative server
-  values and translated defaults/tooltips. Settings are deliberately read-only: admins
+  values (on/off as read-only switches) and translated defaults/tooltips. Settings are deliberately read-only: admins
   edit the server JSON and reload; clients have no gameplay config mutation packet.
 - Add/remove server definition files and `/simplemodels reload` without restarting;
   deterministic bounded folder scan and join/reload catalog synchronization.
@@ -139,7 +141,9 @@ definition validation, malformed/oversized/deep folder files, reload fail-closed
 wire round-trip, search, real anvil cost/take/no-duplication/insufficient XP/second slot,
 stale pickup, normal rename/brackets, foreign SimpleBuilding item opt-in, exact legacy names,
 and all config/lang metadata. Module data hook checks bilingual wiki/config/data and adapters.
-Client smoke covers title→world, browser/search/item preview, settings, help and anvil assignment.
+Client smoke covers title→world, browser/search/item preview, filter/sort/wheel/tooltip preview,
+recipe-book tab position, creative tab, settings, help and anvil assignment. `browser_query`
+tests filter, sort and paging server-side.
 Actual run results are appended below after execution; source had no tests to port or skip.
 
 Forge 26.3: add entrypoint/network/login/commands/client config registration and test adapter;

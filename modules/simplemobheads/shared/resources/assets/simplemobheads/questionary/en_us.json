@@ -2067,6 +2067,72 @@
    "Torches near its wearer flicker; in the dark, hostile mobs hesitate before they attack."
   ]
  },
+ "crowned_pig_head": {
+  "lore": [
+   "{name}: Technoblade never dies."
+  ],
+  "use": [
+   "No mob drops it. A pig with a certain name never dies - strike it down, and its crown falls instead; the title screen remembers him. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Pigs nearby turn their heads to its wearer, and the crown glints."
+  ]
+ },
+ "crowned_pig_wall_head": {
+  "lore": [
+   "{name}: Technoblade never dies."
+  ],
+  "use": [
+   "No mob drops it. A pig with a certain name never dies - strike it down, and its crown falls instead; the title screen remembers him. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Pigs nearby turn their heads to its wearer, and the crown glints."
+  ]
+ },
+ "giant_head": {
+  "lore": [
+   "{name}: the biggest trouble a full moon ever brought."
+  ],
+  "use": [
+   "No ordinary zombie drops it. When lightning strikes a zombie under a full moon, something big gets up - only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer grows to 1.5x size, steps up whole blocks and walks a little faster; zombies see it only half as far, and it works like the head of its zombie kind (husk, drowned)."
+  ]
+ },
+ "giant_wall_head": {
+  "lore": [
+   "{name}: the biggest trouble a full moon ever brought."
+  ],
+  "use": [
+   "No ordinary zombie drops it. When lightning strikes a zombie under a full moon, something big gets up - only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer grows to 1.5x size, steps up whole blocks and walks a little faster; zombies see it only half as far, and it works like the head of its zombie kind (husk, drowned)."
+  ]
+ },
+ "giant_cow_head": {
+  "lore": [
+   "{name}: it really did eat all that hay."
+  ],
+  "use": [
+   "No ordinary cow drops it. A cow fed hay bales, one by one, may - very rarely - grow into a giant; only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer grows to 1.5x size and steps up whole blocks; another player can milk it like a cow."
+  ]
+ },
+ "giant_cow_wall_head": {
+  "lore": [
+   "{name}: it really did eat all that hay."
+  ],
+  "use": [
+   "No ordinary cow drops it. A cow fed hay bales, one by one, may - very rarely - grow into a giant; only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer grows to 1.5x size and steps up whole blocks; another player can milk it like a cow."
+  ]
+ },
  "guide_book": {
   "lore": [
    "A book about every mob's head."
