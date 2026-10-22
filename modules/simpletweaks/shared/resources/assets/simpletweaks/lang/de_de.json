@@ -33,7 +33,7 @@
   "config.simpletweaks.claims.spawnBuffer.tab": "Server-Claims",
   "config.simpletweaks.claims.dimensions": "Claim-Dimensionen",
   "config.simpletweaks.claims.dimensions.tooltip": "Erlaubte Dimensionen für neue Claims; \"*\" =\nalle Dimensionen (Standard) oder bis zu 32\nIDs. Bestehende Claims anderer Dimensionen\nbleiben geschützt. Ganze Chunks müssen\ninnerhalb der Weltgrenze liegen.\nStandard: alle Dimensionen.",
-  "config.simpletweaks.claims.dimensions.default": "Alle Dimensionen",
+  "config.simpletweaks.claims.dimensions.default": "alle Dimensionen",
   "config.simpletweaks.claims.dimensions.tab": "Server-Claims",
   "command.simpletweaks.help.header": "Simple-Tweaks-Befehle (jeder Befehl geht auch als /simpletweaks <Befehl>):",
   "command.simpletweaks.claim.locked": "Claims sind wegen eines Lade- oder Speicherfehlers gesperrt. Originaldateien wurden erhalten.",

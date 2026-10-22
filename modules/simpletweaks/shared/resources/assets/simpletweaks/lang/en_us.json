@@ -33,7 +33,7 @@
   "config.simpletweaks.claims.spawnBuffer.tab": "Server Claims",
   "config.simpletweaks.claims.dimensions": "Claim Dimensions",
   "config.simpletweaks.claims.dimensions.tooltip": "Allowlist for new claims; \"*\" = every\ndimension (default), or up to 32 dimension\nIDs. Existing claims in other dimensions\nremain protected. Entire chunks must be\ninside the world border.\nDefault: all dimensions.",
-  "config.simpletweaks.claims.dimensions.default": "All dimensions",
+  "config.simpletweaks.claims.dimensions.default": "all dimensions",
   "config.simpletweaks.claims.dimensions.tab": "Server Claims",
   "command.simpletweaks.help.header": "Simple Tweaks commands (every command also works as /simpletweaks <command>):",
   "command.simpletweaks.claim.locked": "Claims are locked because claim data could not be read or saved. Original files were preserved.",
