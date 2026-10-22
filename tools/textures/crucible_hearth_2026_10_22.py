@@ -5,12 +5,16 @@ After: one slot pitch more room under the grid (CrucibleMenu.FIRE_ROOM 12 -> 30)
 tongue stays CrucibleMenu.FIRE_GAP px below the lowest slot row. Before: the layout of crucible_fire_2026_10_12.py.
 Pure Python + PIL, own pixels only (placeholder items are plain blobs). Mirrors the Java code - keep in step.
 Usage: python3.12 tools/textures/crucible_hearth_2026_10_22.py [OUT_HTML]
+       python3.12 tools/textures/crucible_hearth_2026_10_22.py --heights [OUT_HTML]  (owner 22.10.: one Iron crucible,
+       extra height 0 / 5 / 9 / 18 px side by side)
 """
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
 
 argv = sys.argv[1:]
+HEIGHTS = '--heights' in argv
+argv = [a for a in argv if a != '--heights']
 sys.argv = sys.argv[:1]
 sys.path.insert(0, str(Path(__file__).parent))
 import crucible_fire_2026_10_12 as F
@@ -56,12 +60,12 @@ def item(d, x, y, n):
     d.point((x + 6, y + 6), fill=F.sc(tint, 1.25))
 
 
-def screen(tier, barrel, heat, glowing, millis, after):
+def screen(tier, barrel, heat, glowing, millis, after, room=None):
     g, rows = F.TIERS[tier]
     gw = g * 3 * 18
     cw = bw = gw + 14
     group = cw + (2 + bw if barrel else 0)
-    room = FIRE_ROOM if after else FIRE_ROOM_OLD
+    room = room if room is not None else FIRE_ROOM if after else FIRE_ROOM_OLD
     sec = 18 + rows * 18 + room
     W = max(176, group)
     img = Image.new("RGB", (W, sec + 2 + 100), (31, 34, 40))
@@ -140,5 +144,33 @@ Alle Stufen gleich; die Fass-Box wächst bündig mit (ohne Trapez, dort brennt n
     print(OUT, len(html))
 
 
+def heights():
+    """Owner 22.10. (SP22-6): one example (Iron, no barrel, heat high) with the extra height under the grid at 0 (before),
+    a quarter slot (5 px), half a slot (9 px) and a full slot (18 px, branch state), side by side, three times enlarged."""
+    variants = [(0, "vorher: 0 px (alter Stand)"), (5, "¼ Slot: +5 px"), (9, "½ Slot: +9 px"), (18, "1 Slot: +18 px (Ist-Stand Branch)")]
+    ims = [screen("iron", False, "high", False, 700, extra > 0, FIRE_ROOM_OLD + extra) for extra, _ in variants]
+    figs = "".join(f'<figure><img src="{F.uri(F.up(im, 3))}" alt="{cap}"><figcaption><b>{cap}</b><br>Tiegel-Kasten {18 + F.TIERS["iron"][1] * 18 + FIRE_ROOM_OLD + extra} px hoch, '
+                   f'Feuerzone {FIRE_ROOM_OLD + extra} px</figcaption></figure>' for im, (extra, cap) in zip(ims, variants))
+    html = f"""<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiegel-Feuerhöhe</title><style>
+:root{{--bg:#fff;--fg:#1d2026;--mut:#5b6270;--card:#f1f3f6}}
+@media(prefers-color-scheme:dark){{:root:not([data-theme=light]){{--bg:#16181d;--fg:#e8eaee;--mut:#9aa1ae;--card:#22252c}}}}
+:root[data-theme=dark]{{--bg:#16181d;--fg:#e8eaee;--mut:#9aa1ae;--card:#22252c}}
+body{{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0 auto;padding:16px;max-width:2300px}}
+img{{image-rendering:pixelated;display:block}}figure{{margin:0;background:var(--card);padding:8px;border-radius:8px;max-width:100%;overflow:auto}}
+figcaption{{color:var(--mut);font-size:13px;margin-top:6px}}.g{{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}}
+p{{color:var(--mut)}}</style></head><body>
+<h1>Tiegel-Fenster: wie viel Platz unter dem Raster? (SP22-6)</h1>
+<p>Ein Beispiel (Regel „UI erst exemplarisch“): Eisentiegel ohne Fass, Hitze hoch, dreifach vergrößert. Variiert wird nur die
+Extra-Höhe unter der untersten Slot-Reihe; bei den neuen Varianten steht das Feuer auf dem dunklen Herd-Trapez, ist auf die Zone
+bemessen und bleibt 3 px unter den Slots. Der Branch a-crucui22 hat 1 Slot (+18 px) für alle Stufen; nach der Wahl wird nur der Wert
+<code>CrucibleMenu.FIRE_ROOM</code> (12 + Extra) angepasst. Items sind Platzhalter.</p>
+<div class="g">{figs}</div></body></html>"""
+    out = OUT if argv else Path("/root/sb-tools-a/previews/crucui22-heights.html")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html)
+    print(out, len(html))
+
+
 if __name__ == "__main__":
-    main()
+    heights() if HEIGHTS else main()

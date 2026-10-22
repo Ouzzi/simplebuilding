@@ -94,7 +94,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
 - [~] (B, b-redsound22, 22.10.) SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
   - Eigene Klänge entwickeln: Redstone-Staub als „Pulver-Sound“, Lampen dürfen amethystartig bleiben, Kolben klingen kolbenartig.
   - Jeder Block-Typ bekommt eine eigene SoundGroup.
-- [x] (A, a-crucui22, 22.10.) SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel: **erledigt auf a-crucui22** (FIRE_ROOM 12→30, Herd-Trapez, Feuer auf Zone bemessen, 3 px unter den Items; Modul 276/276, SB crucible 34/34 grün; Plan docs/ai/PLAN-A-CRUCUI22-2026-10-22.md; offen Client-Sicht):
+- [x] (A, a-crucui22, 22.10.) SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel: **erledigt auf a-crucui22** (FIRE_ROOM 12→30, Herd-Trapez, Feuer auf Zone bemessen, 3 px unter den Items; Modul 276/276, SB crucible 34/34 grün; Plan docs/ai/PLAN-A-CRUCUI22-2026-10-22.md; offen Client-Sicht): **Nachtrag 22.10.:** Höhen-Vorschau 0/¼/½/1 Slot (`--heights`, `/root/sb-tools-a/previews/crucui22-heights.html`), Wahl des Besitzers offen.
   - Unten etwa 1 Block Höhe mehr Platz. Im Hintergrund dieser Zone ein dunkleres Trapez für räumliche Tiefe, im selben Stil wie der Hintergrund.
   - Das Feuer liegt darüber und ist mit mehr Abstand zu den untersten Items gut sichtbar („dann ist man … stolzer, das gebaut zu haben“).
 - [~] (B, b-shops22, 22.10.) SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine:
