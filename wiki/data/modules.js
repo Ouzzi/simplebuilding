@@ -12,6 +12,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [
       "cloth-config",
+      "simplelib",
       "simpleovens",
       "simplemobheads",
       "simplecrucibles",
@@ -390,7 +391,7 @@ window.WIKI_MODULES = [
     "id": "simplelib",
     "displayName": "SimpleLib",
     "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -412,7 +413,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "b0e346d89e7d"
+    "dataHash": "71da7ef7055f"
   },
   {
     "id": "simpleinterfaces",
@@ -1044,7 +1045,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 7
     },
-    "dataHash": "80c06e88b8ed"
+    "dataHash": "26993284e03e"
   },
   {
     "id": "simpleoctets",
@@ -1104,7 +1105,7 @@ window.WIKI_MODULES = [
       "recipes": 11,
       "features": 9
     },
-    "dataHash": "30b7beb2f3cc"
+    "dataHash": "64073d9d1f41"
   },
   {
     "id": "simpleoptimization",
@@ -1217,9 +1218,9 @@ window.WIKI_MODULES = [
       "items": 17,
       "blocks": 37,
       "recipes": 177,
-      "features": 7
+      "features": 12
     },
-    "dataHash": "ecaaba130eda"
+    "dataHash": "fe33f9c57ef6"
   },
   {
     "id": "simplemusic",

@@ -245,7 +245,7 @@ public final class HammersDiscover {
         return Pattern.matches(regex.toString(), text);
     }
 
-    public static Map<String, String> lang(String locale) {
+    static Map<String, String> lang(String locale) {
         Map<String, String> out = new HashMap<>();
         String path = "/assets/" + NAMESPACES.get(0) + "/lang/" + locale + ".json";
         try (InputStream in = HammersDiscover.class.getResourceAsStream(path)) {
