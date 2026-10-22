@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -117,8 +116,10 @@ public final class EndPistonMoves {
             moved++;
         }
         if (moved > 0) {
-            level.playSound(null, pos, astral ? SoundEvents.PISTON_EXTEND : SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS,
-                    0.5F, 1.2F + level.getRandom().nextFloat() * 0.1F);
+            // Own events (SP22-5): the Vanilla piston sound with the line's pitch, set in sounds.json.
+            level.playSound(null, pos, astral ? com.simplebuilding.util.LineSounds.ASTRAL_PISTON_MOVE
+                    : com.simplebuilding.util.LineSounds.NIHIL_PISTON_MOVE, SoundSource.BLOCKS,
+                    0.5F, 1.0F + level.getRandom().nextFloat() * 0.1F);
             level.sendParticles(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                     6, 0.4, 0.4, 0.4, 0.02);
         }

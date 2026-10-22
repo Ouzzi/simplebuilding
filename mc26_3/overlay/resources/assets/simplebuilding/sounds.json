@@ -78,5 +78,376 @@
         "stream": true
       }
     ]
+  },
+  "block.astral_redstone.break": {
+    "sounds": [
+      "simplebuilding:block/astral_redstone/dig1",
+      "simplebuilding:block/astral_redstone/dig2",
+      "simplebuilding:block/astral_redstone/dig3",
+      "simplebuilding:block/astral_redstone/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.astral_redstone.place": {
+    "sounds": [
+      "simplebuilding:block/astral_redstone/dig1",
+      "simplebuilding:block/astral_redstone/dig2",
+      "simplebuilding:block/astral_redstone/dig3",
+      "simplebuilding:block/astral_redstone/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.astral_redstone.step": {
+    "sounds": [
+      "simplebuilding:block/astral_redstone/step1",
+      "simplebuilding:block/astral_redstone/step2",
+      "simplebuilding:block/astral_redstone/step3",
+      "simplebuilding:block/astral_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.astral_redstone.hit": {
+    "sounds": [
+      "simplebuilding:block/astral_redstone/step1",
+      "simplebuilding:block/astral_redstone/step2",
+      "simplebuilding:block/astral_redstone/step3",
+      "simplebuilding:block/astral_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.astral_redstone.fall": {
+    "sounds": [
+      "simplebuilding:block/astral_redstone/step1",
+      "simplebuilding:block/astral_redstone/step2",
+      "simplebuilding:block/astral_redstone/step3",
+      "simplebuilding:block/astral_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.nihil_redstone.break": {
+    "sounds": [
+      "simplebuilding:block/nihil_redstone/dig1",
+      "simplebuilding:block/nihil_redstone/dig2",
+      "simplebuilding:block/nihil_redstone/dig3",
+      "simplebuilding:block/nihil_redstone/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.nihil_redstone.place": {
+    "sounds": [
+      "simplebuilding:block/nihil_redstone/dig1",
+      "simplebuilding:block/nihil_redstone/dig2",
+      "simplebuilding:block/nihil_redstone/dig3",
+      "simplebuilding:block/nihil_redstone/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.nihil_redstone.step": {
+    "sounds": [
+      "simplebuilding:block/nihil_redstone/step1",
+      "simplebuilding:block/nihil_redstone/step2",
+      "simplebuilding:block/nihil_redstone/step3",
+      "simplebuilding:block/nihil_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.nihil_redstone.hit": {
+    "sounds": [
+      "simplebuilding:block/nihil_redstone/step1",
+      "simplebuilding:block/nihil_redstone/step2",
+      "simplebuilding:block/nihil_redstone/step3",
+      "simplebuilding:block/nihil_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.nihil_redstone.fall": {
+    "sounds": [
+      "simplebuilding:block/nihil_redstone/step1",
+      "simplebuilding:block/nihil_redstone/step2",
+      "simplebuilding:block/nihil_redstone/step3",
+      "simplebuilding:block/nihil_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.bridge_redstone.break": {
+    "sounds": [
+      "simplebuilding:block/bridge_redstone/dig1",
+      "simplebuilding:block/bridge_redstone/dig2",
+      "simplebuilding:block/bridge_redstone/dig3",
+      "simplebuilding:block/bridge_redstone/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.bridge_redstone.place": {
+    "sounds": [
+      "simplebuilding:block/bridge_redstone/dig1",
+      "simplebuilding:block/bridge_redstone/dig2",
+      "simplebuilding:block/bridge_redstone/dig3",
+      "simplebuilding:block/bridge_redstone/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.bridge_redstone.step": {
+    "sounds": [
+      "simplebuilding:block/bridge_redstone/step1",
+      "simplebuilding:block/bridge_redstone/step2",
+      "simplebuilding:block/bridge_redstone/step3",
+      "simplebuilding:block/bridge_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.bridge_redstone.hit": {
+    "sounds": [
+      "simplebuilding:block/bridge_redstone/step1",
+      "simplebuilding:block/bridge_redstone/step2",
+      "simplebuilding:block/bridge_redstone/step3",
+      "simplebuilding:block/bridge_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.bridge_redstone.fall": {
+    "sounds": [
+      "simplebuilding:block/bridge_redstone/step1",
+      "simplebuilding:block/bridge_redstone/step2",
+      "simplebuilding:block/bridge_redstone/step3",
+      "simplebuilding:block/bridge_redstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.astralit_lamp.break": {
+    "sounds": [
+      "simplebuilding:block/astralit_lamp/dig1",
+      "simplebuilding:block/astralit_lamp/dig2",
+      "simplebuilding:block/astralit_lamp/dig3",
+      "simplebuilding:block/astralit_lamp/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.astralit_lamp.place": {
+    "sounds": [
+      "simplebuilding:block/astralit_lamp/dig1",
+      "simplebuilding:block/astralit_lamp/dig2",
+      "simplebuilding:block/astralit_lamp/dig3",
+      "simplebuilding:block/astralit_lamp/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.astralit_lamp.step": {
+    "sounds": [
+      "simplebuilding:block/astralit_lamp/step1",
+      "simplebuilding:block/astralit_lamp/step2",
+      "simplebuilding:block/astralit_lamp/step3",
+      "simplebuilding:block/astralit_lamp/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.astralit_lamp.hit": {
+    "sounds": [
+      "simplebuilding:block/astralit_lamp/step1",
+      "simplebuilding:block/astralit_lamp/step2",
+      "simplebuilding:block/astralit_lamp/step3",
+      "simplebuilding:block/astralit_lamp/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.astralit_lamp.fall": {
+    "sounds": [
+      "simplebuilding:block/astralit_lamp/step1",
+      "simplebuilding:block/astralit_lamp/step2",
+      "simplebuilding:block/astralit_lamp/step3",
+      "simplebuilding:block/astralit_lamp/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.astralit_lamp.turn_on": {
+    "sounds": [
+      {
+        "name": "simplebuilding:block/astralit_lamp/toggle_on",
+        "attenuation_distance": 6
+      }
+    ],
+    "subtitle": "subtitles.simplebuilding.block.astralit_lamp.turn_on"
+  },
+  "block.astralit_lamp.turn_off": {
+    "sounds": [
+      {
+        "name": "simplebuilding:block/astralit_lamp/toggle_off",
+        "attenuation_distance": 6
+      }
+    ],
+    "subtitle": "subtitles.simplebuilding.block.astralit_lamp.turn_off"
+  },
+  "block.nihilith_lamp.break": {
+    "sounds": [
+      "simplebuilding:block/nihilith_lamp/dig1",
+      "simplebuilding:block/nihilith_lamp/dig2",
+      "simplebuilding:block/nihilith_lamp/dig3",
+      "simplebuilding:block/nihilith_lamp/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.nihilith_lamp.place": {
+    "sounds": [
+      "simplebuilding:block/nihilith_lamp/dig1",
+      "simplebuilding:block/nihilith_lamp/dig2",
+      "simplebuilding:block/nihilith_lamp/dig3",
+      "simplebuilding:block/nihilith_lamp/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.nihilith_lamp.step": {
+    "sounds": [
+      "simplebuilding:block/nihilith_lamp/step1",
+      "simplebuilding:block/nihilith_lamp/step2",
+      "simplebuilding:block/nihilith_lamp/step3",
+      "simplebuilding:block/nihilith_lamp/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.nihilith_lamp.hit": {
+    "sounds": [
+      "simplebuilding:block/nihilith_lamp/step1",
+      "simplebuilding:block/nihilith_lamp/step2",
+      "simplebuilding:block/nihilith_lamp/step3",
+      "simplebuilding:block/nihilith_lamp/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.nihilith_lamp.fall": {
+    "sounds": [
+      "simplebuilding:block/nihilith_lamp/step1",
+      "simplebuilding:block/nihilith_lamp/step2",
+      "simplebuilding:block/nihilith_lamp/step3",
+      "simplebuilding:block/nihilith_lamp/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.nihilith_lamp.turn_on": {
+    "sounds": [
+      {
+        "name": "simplebuilding:block/nihilith_lamp/toggle_on",
+        "attenuation_distance": 6
+      }
+    ],
+    "subtitle": "subtitles.simplebuilding.block.nihilith_lamp.turn_on"
+  },
+  "block.nihilith_lamp.turn_off": {
+    "sounds": [
+      {
+        "name": "simplebuilding:block/nihilith_lamp/toggle_off",
+        "attenuation_distance": 6
+      }
+    ],
+    "subtitle": "subtitles.simplebuilding.block.nihilith_lamp.turn_off"
+  },
+  "block.astral_piston.break": {
+    "sounds": [
+      "simplebuilding:block/astral_piston/dig1",
+      "simplebuilding:block/astral_piston/dig2",
+      "simplebuilding:block/astral_piston/dig3",
+      "simplebuilding:block/astral_piston/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.astral_piston.place": {
+    "sounds": [
+      "simplebuilding:block/astral_piston/dig1",
+      "simplebuilding:block/astral_piston/dig2",
+      "simplebuilding:block/astral_piston/dig3",
+      "simplebuilding:block/astral_piston/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.astral_piston.step": {
+    "sounds": [
+      "simplebuilding:block/astral_piston/step1",
+      "simplebuilding:block/astral_piston/step2",
+      "simplebuilding:block/astral_piston/step3",
+      "simplebuilding:block/astral_piston/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.astral_piston.hit": {
+    "sounds": [
+      "simplebuilding:block/astral_piston/step1",
+      "simplebuilding:block/astral_piston/step2",
+      "simplebuilding:block/astral_piston/step3",
+      "simplebuilding:block/astral_piston/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.astral_piston.fall": {
+    "sounds": [
+      "simplebuilding:block/astral_piston/step1",
+      "simplebuilding:block/astral_piston/step2",
+      "simplebuilding:block/astral_piston/step3",
+      "simplebuilding:block/astral_piston/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.astral_piston.move": {
+    "sounds": [
+      {
+        "name": "minecraft:block.piston.extend",
+        "type": "event",
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitles.simplebuilding.block.astral_piston.move"
+  },
+  "block.nihil_piston.break": {
+    "sounds": [
+      "simplebuilding:block/nihil_piston/dig1",
+      "simplebuilding:block/nihil_piston/dig2",
+      "simplebuilding:block/nihil_piston/dig3",
+      "simplebuilding:block/nihil_piston/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.nihil_piston.place": {
+    "sounds": [
+      "simplebuilding:block/nihil_piston/dig1",
+      "simplebuilding:block/nihil_piston/dig2",
+      "simplebuilding:block/nihil_piston/dig3",
+      "simplebuilding:block/nihil_piston/dig4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.nihil_piston.step": {
+    "sounds": [
+      "simplebuilding:block/nihil_piston/step1",
+      "simplebuilding:block/nihil_piston/step2",
+      "simplebuilding:block/nihil_piston/step3",
+      "simplebuilding:block/nihil_piston/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.nihil_piston.hit": {
+    "sounds": [
+      "simplebuilding:block/nihil_piston/step1",
+      "simplebuilding:block/nihil_piston/step2",
+      "simplebuilding:block/nihil_piston/step3",
+      "simplebuilding:block/nihil_piston/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.nihil_piston.fall": {
+    "sounds": [
+      "simplebuilding:block/nihil_piston/step1",
+      "simplebuilding:block/nihil_piston/step2",
+      "simplebuilding:block/nihil_piston/step3",
+      "simplebuilding:block/nihil_piston/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.nihil_piston.move": {
+    "sounds": [
+      {
+        "name": "minecraft:block.piston.contract",
+        "type": "event",
+        "pitch": 0.85
+      }
+    ],
+    "subtitle": "subtitles.simplebuilding.block.nihil_piston.move"
   }
 }
