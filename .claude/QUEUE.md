@@ -81,7 +81,7 @@ Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfe
 
 ## Besitzer 22.10. – Spielbefunde (SP22)
 Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). Kernsätze wörtlich, Rest sinngemäß. Priorität steht im Überblick (B).
-- [~] (B, b-octfull22, 22.10.) SP22-1 (Simple Octets, Fehler) Achtel ↔ Vollblock:
+- [x] (B+A, b-octfull22 5145ef24a, 22.10.; octets Module 84/84, fabric/neoforge-263 *octet* 32/32, *miner* 24/24, sledgehammer* 110/110; Client-Sicht offen) SP22-1 (Simple Octets, Fehler) Achtel ↔ Vollblock:
   - Eine Achtel-Zelle, die mit 8 gleichen Achteln gefüllt ist, wird zum Vollblock. Das geht ohne Verlust, weil jeder Block 8 Achtel gibt. Beispiel: Ein volles Diamant-Achtel wird zum Diamantblock und lässt sich dann direkt zu „Cracked Diamond“ weiterverarbeiten.
   - Umgekehrt: Bricht man im Schleichen eine Ecke eines Vollblocks ab (z. B. Diamantblock), wird er zur Achtel-Zelle, und nur dieses eine Achtel fällt heraus. Heute wird der ganze Block abgebaut.
   - Gilt für alle Blöcke mit Achtel-Form.
@@ -118,7 +118,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - **Reichweite nach Material:** Der Faktor richtet sich nach dem Material der Basis: Netherit ×2, Diamant ×1,5, Gold ×1,1, Smaragd ×1,1, Eisen ×1. Gezählt wird nur pro abgeschlossener Ebene, anteilig nach Blockzahl. Beispiel: unterste Ebene ganz Diamant ≈ ×1,25 (überschlagen, genaue Formel im Konzept).
   - **Anzeige:** Der Faktor steht in der Leuchtfeuer-UI.
   - Gilt für Strong Beacon und, wo möglich, für das Vanilla-Leuchtfeuer (Modulgrenzen beachten).
-- [~] (B, b-octfull22, 22.10.) SP22-11 (Simple Mob Heads / Kopf-Slot) Rechtsklick mit einem Mob-Kopf in der Hand (in die Luft) tauscht ihn wie einen Helm gegen den Kopf im Mob-Kopf-Slot; ist der Slot frei, wird er dort eingesetzt. Auf einen Block geklickt wird er wie in Vanilla gesetzt.
+- [x] (B+A, b-octfull22 5145ef24a, 22.10.; mob_head_game_test_* 23/23 je fabric/neoforge-263; Client-Sicht offen) SP22-11 (Simple Mob Heads / Kopf-Slot) Rechtsklick mit einem Mob-Kopf in der Hand (in die Luft) tauscht ihn wie einen Helm gegen den Kopf im Mob-Kopf-Slot; ist der Slot frei, wird er dort eingesetzt. Auf einen Block geklickt wird er wie in Vanilla gesetzt.
 
 ## Besitzer 22.10. – Testzentrale-Überarbeitung (TZ22)
 Besitzer-Feedback beim Bauen der Testzentrale (Sprachnachricht, sinngemäß zusammengefasst; wörtliche Kernsätze in Anführungszeichen).

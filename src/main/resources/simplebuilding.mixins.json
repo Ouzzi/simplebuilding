@@ -54,6 +54,7 @@
     "ItemFrameEntityMixin",
     "ItemParserStateMixin",
     "ItemUseOnMixin",
+    "ItemUseExtraHeadMixin",
     "FireBlockFlammables",
     "GlisteringMelonFoodMixin",
     "SharedMaterialTrimMixin",

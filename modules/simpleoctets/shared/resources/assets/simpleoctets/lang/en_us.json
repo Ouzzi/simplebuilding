@@ -4,7 +4,7 @@
   "tooltip.simpleoctets.material_octet": "Right-click: place a 0.125 block",
   "tooltip.simpleoctets.melon_slice.place": "Sneak + right-click: place as eighth",
   "block.simpleoctets.mixed_octet": "Mixed Octet Cell",
-  "jei.simpleoctets.info.octets": "Right-click places the octet a quarter block in front of the hit point, in the clicked corner or next to the clicked octet. Octets of different materials share one cell. Breaking takes the whole cell; sneaking breaks only the octet you look at. Sneak + right-click with an empty hand takes the clicked octet out. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it.",
+  "jei.simpleoctets.info.octets": "Right-click places the octet a quarter block in front of the hit point, in the clicked corner or next to the clicked octet. Octets of different materials share one cell. Breaking takes the whole cell; sneaking breaks only the octet you look at, also the looked-at corner of a full block. Eight octets of one material become its full block. Sneak + right-click with an empty hand takes the clicked octet out. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it.",
   "jei.simpleoctets.info.melon_octet": "Sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). Each melon octet drops one melon slice.",
   "item.simpleoctets.oak_octet": "Oak Octet",
   "block.simpleoctets.oak_octet": "Oak Octet Cell",
