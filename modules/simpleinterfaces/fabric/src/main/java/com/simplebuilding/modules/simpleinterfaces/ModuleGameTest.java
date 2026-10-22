@@ -34,6 +34,7 @@ public final class ModuleGameTest {
     @GameTest public void tooltipEnderSnapshot(GameTestHelper h) { TooltipTests.enderSnapshot(h); }
     @GameTest public void tooltipSnapshotCodec(GameTestHelper h) { TooltipTests.snapshotCodec(h); }
     @GameTest public void tooltipShulkerGrid(GameTestHelper h) { TooltipTests.shulkerGrid(h); }
+    @GameTest public void tooltipTierShulker(GameTestHelper h) { TooltipTests.tierShulker(h); }
     @GameTest public void tooltipConfigOff(GameTestHelper h) { TooltipTests.configOff(h); }
     @GameTest public void tooltipEnderClose(GameTestHelper h) { TooltipTests.enderClose(h); }
     @GameTest public void bundleViewPages(GameTestHelper h) { TooltipTests.bundleViewPages(h); }
