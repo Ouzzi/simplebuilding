@@ -143,6 +143,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("test_centre_game_test_every_mod_mob_has_its_own_station_that_spawns_it_in_its_habitat", TestCentreTests::everyModMobHasItsOwnStationThatSpawnsItInItsHabitat)
                     .maxTicks(400)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_every_family_registry_entry_is_in_the_test_centre", TestCentreTests::everyFamilyRegistryEntryIsInTheTestCentre)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_no_frame_holds_what_could_stand_as_block", TestCentreTests::noFrameHoldsWhatCouldStandAsBlock)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_the_layout_is_compact_with_low_walls", TestCentreTests::theLayoutIsCompactWithLowWalls)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)

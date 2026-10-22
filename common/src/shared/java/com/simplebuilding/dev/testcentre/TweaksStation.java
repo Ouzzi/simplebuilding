@@ -48,9 +48,9 @@ public final class TweaksStation {
         // Alte, abgeloeste Stufenbloecke (nur fuer alte Welten registriert, werden zur neuen Stufe).
         lines.add(new TcCanvas.Line(TcText.t("tweaks.row.legacy", "old tiers"),
                 TweaksBlocks.legacy().stream().map(ItemStack::new).toList()));
-        int panelTop = lines.size() + 1;
-        c.title(0, panelTop + 1, wallZ, TcText.t("section.tweaks", "Simple Tweaks"), TcText.t("section.tweaks.sub", "pads and plates"));
-        int end = c.rowsPanel(0, panelTop, wallZ, lines);
+        // TZ22-5: die Tab-Zeilen auf Regalen hinter der Stationswand (je Wand vier Zeilen) statt einer 13 hohen Wand.
+        c.title(0, 3, wallZ, TcText.t("section.tweaks", "Simple Tweaks"), TcText.t("section.tweaks.sub", "pads and plates"));
+        int end = c.shelves(0, wallZ + TcCanvas.SHELF_PITCH, lines);
 
         int x = 1;
         x = station(c, x, floorZ, wallZ, TweaksBlocks.SPAWN_TELEPORTER,
@@ -115,7 +115,8 @@ public final class TweaksStation {
 
         x = heads(c, x, floorZ, wallZ);
 
-        c.backWall(0, Math.max(end, x), wallZ, panelTop + 3);
+        c.backWall(0, Math.max(end, x), wallZ, 5);
+        c.shelfWalls(0, end, wallZ + TcCanvas.SHELF_PITCH, TcCanvas.shelfCount(lines.size()));
         return c;
     }
 

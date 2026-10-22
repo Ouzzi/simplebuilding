@@ -47,7 +47,8 @@ import net.minecraft.world.phys.Vec3;
  *   <li>{@code give <station> [Spieler]} - das Kit einer Station ({@link TestCentreKits}): ersetzt das
  *       Inventar, Haupt-/Nebenhand fuer die Interaktionstests, dazu alles, was die Station zeigt. So ruft
  *       der Ausgabe-Knopf vorn an jeder Station.</li>
- *   <li>{@code tp} - zum Eingang, {@code tp <anker>} zu einem benannten Platz (z. B. {@code mob/simplemobs/shellker}); {@code coverage} - was noch keinen Abschnitt hat.</li>
+ *   <li>{@code tp} - zum Eingang, {@code tp <anker>} zu einem benannten Platz (z. B. {@code mob/simplemobs/shellker}); {@code coverage} - was noch keinen Abschnitt hat;
+ *       {@code stats} - Abschnitte, Flaeche, Rahmen und Staender der Planung (ohne Bau).</li>
  * </ul>
  * Ursprung und Fingerabdruck der Planung ({@link TestCentreLayout.Plan#fingerprint}) stehen in
  * {@code simplebuilding_testcentre.txt} im Weltordner ({@code x y z fingerabdruck}).
@@ -100,6 +101,19 @@ public final class TestCentreCommand {
                                 .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(
                                         plan(ctx.getSource().getLevel(), BlockPos.ZERO).anchors().keySet(), builder))
                                 .executes(TestCentreCommand::tpAnchor)))
+                .then(Commands.literal("stats")
+                        .executes(ctx -> {
+                            // TZ22-2: wie viele Rahmen und Staender die Zentrale braucht, ohne zu bauen (Zeile je Abschnitt im Log).
+                            TestCentreLayout.Plan plan = plan(ctx.getSource().getLevel(), BlockPos.ZERO);
+                            long frames = plan.sections().stream().flatMap(section -> section.ops().stream()).filter(TcOp::spawnsFrame).count();
+                            long stands = plan.sections().stream().flatMap(section -> section.ops().stream())
+                                    .filter(op -> op instanceof TcOp.Stand).count();
+                            Simplebuilding.LOGGER.info(plan.summary());
+                            ctx.getSource().sendSuccess(() -> TcText.t("command.stats",
+                                    "Test centre: %s sections, %s x %s blocks, %s item frames, %s armour stands",
+                                    plan.sections().size(), plan.bounds().getXSpan(), plan.bounds().getZSpan(), frames, stands), false);
+                            return (int) frames;
+                        }))
                 .then(Commands.literal("coverage")
                         .executes(ctx -> {
                             TestCentreLayout.Plan plan = plan(ctx.getSource().getLevel(), BlockPos.ZERO);

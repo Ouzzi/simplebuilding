@@ -1,7 +1,6 @@
 package com.simplebuilding.dev.testcentre;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.LevitatingBlock;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.DevEnchantedTab;
@@ -146,7 +145,7 @@ public final class TestCentreSections {
             }
         }
 
-        // Rueckwand: Vorlagen, Besatzmaterialien, dann je Muster eine Spalte mit vier Teilen.
+        // Rueckwand: Vorlagen und Besatzmaterialien.
         List<ItemStack> templates = new ArrayList<>();
         for (Item item : sortedItems()) {
             if (item instanceof SmithingTemplateItem) {
@@ -160,24 +159,14 @@ public final class TestCentreSections {
                 materialItems.add(stack);
             }
         }
-        c.title(0, 7, wallZ, TcText.t("section.armour", "Armour & Trims"),
+        c.title(0, TcCanvas.SHELF_LINES, wallZ, TcText.t("section.armour", "Armour & Trims"),
                 TcText.t("section.armour.sub", "sets, upgrades, patterns"));
-        int end = c.rowsPanel(0, 6, wallZ, List.of(
+        // TZ22-2: die Besatzmuster zeigen die Staender der zweiten Reihe (je Muster ein Enderit-Satz); die Rahmenwand mit
+        // denselben vier Teilen je Muster fiel weg. An der Wand: Vorlagen und Besatzmaterialien.
+        int end = c.rowsPanel(0, TcCanvas.SHELF_LINES - 1, wallZ, List.of(
                 new TcCanvas.Line(TcText.t("armour.templates", "Templates"), templates),
                 new TcCanvas.Line(TcText.t("armour.materials", "Trim materials"), materialItems)));
-        List<ItemStack> pieces = new ArrayList<>();
-        if (tiers > 0) {
-            int top = tiers - 1;
-            for (int i = 0; i < patterns.size() && !materials.isEmpty(); i++) {
-                Holder<TrimMaterial> material = materials.get(i % materials.size());
-                for (Item piece : List.of(helmets.get(top), chests.get(top), legs.get(top), boots.get(top))) {
-                    pieces.add(trimmed(piece, material, patterns.get(i)));
-                }
-            }
-        }
-        c.wallSign(0, 3, wallZ, TcText.t("armour.patterns", "Trim patterns"), TcText.t("armour.patterns.sub", "one column each"));
-        end = Math.max(end, c.frameGrid(1, 0, wallZ, pieces, null, 4));
-        c.backWall(0, Math.max(end, x), wallZ, 9);
+        c.backWall(0, Math.max(end, x), wallZ, TcCanvas.SHELF_HEIGHT);
         return c;
     }
 
@@ -236,10 +225,10 @@ public final class TestCentreSections {
             labels.add(List.of(Enchantment.getFullname(enchantment, enchantment.value().getMaxLevel()),
                     TcText.lit(namespace)));
         }
-        c.title(0, 5, wallZ, TcText.t("section.books", "Enchanted Books"),
+        c.title(0, 4, wallZ, TcText.t("section.books", "Enchanted Books"),
                 TcText.t("section.books.sub", "all guide books"));
-        int end = c.frameGrid(1, 0, wallZ, books, labels, 3);
-        c.backWall(0, end, wallZ, 7);
+        int end = c.frameGrid(1, 0, wallZ, books, labels, 2);
+        c.backWall(0, end, wallZ, TcCanvas.SHELF_HEIGHT);
         return c;
     }
 
@@ -275,17 +264,18 @@ public final class TestCentreSections {
         }
         plain.add(new TcCanvas.Line(TcText.t("tools.legacy", "Legacy spatulas"), legacy));
 
-        int top = plain.size();
-        c.title(0, top + 1, wallZ, TcText.t("section.tools", "Tools & Weapons"), TcText.t("tools.plain", "plain"));
-        int end = c.rowsPanel(0, top, wallZ, plain);
+        // TZ22-5: je Wand hoechstens vier Familien, weitere auf Regalen dahinter (vorher eine 15 hohe Wand).
+        int top = TcCanvas.SHELF_LINES;
+        c.title(0, top, wallZ, TcText.t("section.tools", "Tools & Weapons"), TcText.t("tools.plain", "plain"));
+        int end = c.shelves(0, wallZ, plain);
         int x = end + 1;
-        c.wallSign(x, top + 1, wallZ, TcText.bold(TcText.t("tools.enchanted", "max. enchanted")));
-        end = c.rowsPanel(x, top, wallZ, enchanted);
+        c.wallSign(x, top, wallZ, TcText.bold(TcText.t("tools.enchanted", "max. enchanted")));
+        end = c.shelves(x, wallZ, enchanted);
         x = end + 1;
-        c.wallSign(x, top + 1, wallZ, TcText.bold(TcText.t("tools.variants", "Dev tab variants")),
+        c.wallSign(x, top, wallZ, TcText.bold(TcText.t("tools.variants", "Dev tab variants")),
                 TcText.t("tools.variants.sub", "every exclusive set"));
-        end = c.frameGrid(x, 1, wallZ, DevEnchantedTab.variants(ctx.lookup()), null, top);
-        c.backWall(0, end, wallZ, top + 3);
+        end = c.frameGrid(x, 0, wallZ, DevEnchantedTab.variants(ctx.lookup()), null, top);
+        c.shelfWalls(0, end, wallZ, Math.max(TcCanvas.shelfCount(plain.size()), TcCanvas.shelfCount(enchanted.size())));
         return c;
     }
 
@@ -363,6 +353,7 @@ public final class TestCentreSections {
         postSign(c, 0, 0, TcText.bold(TcText.t("section.chisel", "Chisel Towers")),
                 TcText.t("section.chisel.sub", "chisel the front block"), TcText.t("section.chisel.sub2", "tower = whole chain"));
         List<ChiselChain> chains = chiselChains(ctx);
+        List<ItemStack> shown = new ArrayList<>();
         int perRow = 24;
         for (int i = 0; i < chains.size(); i++) {
             ChiselChain chain = chains.get(i);
@@ -375,7 +366,12 @@ public final class TestCentreSections {
                     TcText.t("chisel.steps", "%s blocks", chain.blocks().size()),
                     chain.cycle() ? TcText.t("chisel.cycle", "cycle") : Component.empty()};
             c.sign(x, 0, z0 + 1, Direction.NORTH, lines);
-            c.frame(x, 1, z0, Direction.UP, touchIfNeeded(ctx, new ItemStack(chain.chisel()), chain.touch()));
+            // TZ22-2: der Meissel steht auf dem Schild; ein Rahmen nur am ersten Turm je Meissel (vorher einer je Turm).
+            ItemStack tool = touchIfNeeded(ctx, new ItemStack(chain.chisel()), chain.touch());
+            if (shown.stream().noneMatch(stack -> ItemStack.isSameItemSameComponents(stack, tool))) {
+                shown.add(tool);
+                c.frame(x, 1, z0, Direction.UP, tool);
+            }
         }
         return c;
     }
@@ -720,10 +716,10 @@ public final class TestCentreSections {
                 bx += 3;
             }
         }
-        c.title(0, lines.size() + 1, wallZ, TcText.t("section.storage", "Storage"),
+        c.title(0, TcCanvas.SHELF_LINES, wallZ, TcText.t("section.storage", "Storage"),
                 TcText.t("section.storage.sub", "plain, enchanted, dyed"));
-        int end = c.rowsPanel(0, lines.size(), wallZ, lines);
-        c.backWall(0, Math.max(end, bx), wallZ, lines.size() + 3);
+        int end = c.shelves(0, wallZ, lines);
+        c.shelfWalls(0, Math.max(end, bx), wallZ, TcCanvas.shelfCount(lines.size()));
         return c;
     }
 
@@ -815,10 +811,10 @@ public final class TestCentreSections {
         for (var row : ModItemGroupsContent.arrowsRows()) {
             lines.add(new TcCanvas.Line(row.stacks().get(0).getHoverName(), row.stacks()));
         }
-        c.title(0, lines.size() + 1, wallZ, TcText.t("section.arrows", "Arrows"), TcText.t("section.arrows.sub", "Fletching Table"));
-        int end = c.rowsPanel(0, lines.size(), wallZ, lines);
+        c.title(0, TcCanvas.SHELF_LINES, wallZ, TcText.t("section.arrows", "Arrows"), TcText.t("section.arrows.sub", "Fletching Table"));
+        int end = c.shelves(0, wallZ, lines);
         c.place(1, 0, 0, net.minecraft.world.level.block.Blocks.FLETCHING_TABLE);
-        c.backWall(0, end, wallZ, lines.size() + 3);
+        c.shelfWalls(0, end, wallZ, TcCanvas.shelfCount(lines.size()));
         return c;
     }
 
@@ -832,7 +828,7 @@ public final class TestCentreSections {
         for (ItemStack stack : items) {
             labels.add(List.of(stack.getHoverName()));
         }
-        c.title(0, 5, wallZ, TcText.t("section.materials", "Materials"), TcText.t("section.materials.sub", "tab SimpleMaterials"));
+        c.title(0, 4, wallZ, TcText.t("section.materials", "Materials"), TcText.t("section.materials.sub", "tab SimpleMaterials"));
         if (ModBlocks.PLACED_SMALL_PARTS != null) {
             // Kleinteile auf einem Fleck (bis zu 4, gemischt): ein Ei allein, ein voller Mix, drei Eier, zwei Vanilla-Teile.
             // Schleichen + Rechtsklick legt dazu; Abbauen mit / ohne Behutsamkeit zeigt Eier zurueck / Zerbrechen.
@@ -874,8 +870,8 @@ public final class TestCentreSections {
             c.place(15, 0, 0, ModBlocks.PLACED_SMALL_PARTS);
             c.contents(15, 0, 0, List.of(new ItemStack(ModItems.YARN_BALL)));
         }
-        int end = c.frameGrid(1, 0, wallZ, items, labels, 3);
-        c.backWall(0, end, wallZ, 7);
+        int end = c.frameGrid(1, 0, wallZ, items, labels, 2);
+        c.backWall(0, end, wallZ, TcCanvas.SHELF_HEIGHT);
         return c;
     }
 
@@ -883,39 +879,40 @@ public final class TestCentreSections {
     // 8. Bloecke: Musterwand, Schachbrett-Boeden, Schwebe-Sand
     // =====================================================================================
 
+    /**
+     * Baubloecke (TZ22-5, Besitzer 22.10.: "gruppiert statt einer langen Reihe"): je Tab-Zeile (Astralit, Nihilith,
+     * Enderquarz, Schachbretter, Scheiben ...) eine Gruppe im Bodenraster wie im Holzbereich ({@link TcCanvas#exhibition});
+     * die Holzwerk- und Schach-Zeilen fallen weg, sie stehen schon im Holzbereich bzw. an der Schach-Station. Die Schachbretter liegen zusaetzlich als 3 x 3
+     * Bodenflaechen in einem Feld daneben.
+     */
     public static TcCanvas blocks(TcContext ctx) {
         TcCanvas c = new TcCanvas();
-        int wallZ = 7;
-        c.title(0, 4, wallZ, TcText.t("section.blocks", "Building Blocks"), TcText.t("section.blocks.sub", "tab SimpleBuilding"));
-        int x = 1;
-        int checkerX = 1;
-        for (ItemStack stack : ctx.tab(ModItemGroupsContent.Tab.BUILDING_BLOCKS)) {
-            if (!(stack.getItem() instanceof BlockItem blockItem)) {
+        int wallZ = TcCanvas.EXHIBIT_WALL_Z;
+        c.title(0, 1, wallZ, TcText.t("section.blocks", "Building Blocks"), TcText.t("section.blocks.sub", "tab SimpleBuilding"));
+        List<TcCanvas.Group> groups = new ArrayList<>();
+        List<Block> checkers = new ArrayList<>();
+        for (com.simplebuilding.items.CreativeTabLayout.Row row : ModItemGroupsContent.buildingBlocksRows()) {
+            if (row.name().startsWith("woodwork_") || row.name().startsWith("chess_")) {
                 continue;
             }
-            Block block = blockItem.getBlock();
-            String path = TcContext.id(block).getPath();
-            if (block instanceof LevitatingBlock) {
-                // Steigt ohne Decke auf; unter Glas bleibt er liegen.
-                c.place(x, 0, wallZ - 1, block);
-                c.place(x, 1, wallZ - 1, Blocks.GLASS);
-            } else if (path.startsWith("suspended_")) {
-                // Frei schwebend, ohne Stuetze.
-                c.place(x, 2, wallZ - 1, block);
-            } else {
-                for (int y = 0; y < 3; y++) {
-                    c.place(x, y, wallZ - 1, block);
+            List<ItemStack> stacks = row.stacks().stream().filter(stack -> !stack.isEmpty() && !TcContext.isSpacer(stack.getItem())).toList();
+            groups.add(new TcCanvas.Group(TcText.t("blocks.row." + row.name(), pretty(row.name())), stacks));
+            for (ItemStack stack : stacks) {
+                if (stack.getItem() instanceof BlockItem blockItem && TcContext.id(blockItem.getBlock()).getPath().endsWith("_checker")) {
+                    checkers.add(blockItem.getBlock());
                 }
             }
-            c.wallSign(x, 3, wallZ, block.getName());
-            if (path.endsWith("_checker")) {
-                // Schachbretter zusaetzlich als Bodenflaeche.
-                c.fill(checkerX, -1, 1, checkerX + 2, -1, 3, block.defaultBlockState());
-                checkerX += 4;
-            }
-            x++;
         }
-        c.backWall(0, Math.max(x, checkerX), wallZ, 5);
+        int x = c.exhibition(1, groups);
+        // Schachbretter als Bodenflaechen: sechs je Reihe, zwei Reihen (z 1-3 und 5-7), eine Spalte Luft dazwischen.
+        int fieldX = x + 1;
+        for (int i = 0; i < checkers.size(); i++) {
+            int fx = fieldX + (i % 6) * 4;
+            int fz = 1 + ((i / 6) % 2) * 4;
+            c.fill(fx, -1, fz, fx + 2, -1, fz + 2, checkers.get(i).defaultBlockState());
+        }
+        int end = checkers.isEmpty() ? x : fieldX + Math.min(6, checkers.size()) * 4 - 1;
+        c.backWall(0, end, wallZ, TcCanvas.EXHIBIT_WALL_HEIGHT);
         return c;
     }
 
@@ -986,7 +983,8 @@ public final class TestCentreSections {
                 x += 3;
             }
         }
-        c.backWall(0, x, wallZ, 7);
+        // TZ22-5: Wand 6 hoch (Schilder auf y 4, Titel auf y 5).
+        c.backWall(0, x, wallZ, TcCanvas.SHELF_HEIGHT);
 
         // Kolben: jede Stufe mit Hebel obenauf, Bahn nach Sueden. Die Reihe steht NEBEN den Maschinen
         // an der Gangkante - hinter der Rueckwand (frueher wallZ + 3) sah sie vom Gang aus niemand.
@@ -1341,6 +1339,10 @@ public final class TestCentreSections {
 
     /** Abstand zweier Befehlsbloecke der Steuerwand: Block, Glassaeule, Luft. */
     static final int CONTROL_PITCH = 3;
+    /** Knoepfe je Reihe der Steuerwand (TZ22-5: Reihen statt einer 172 Bloecke langen Wand). */
+    static final int CONTROLS_PER_ROW = 16;
+    /** Abstand der Reihen der Steuerwand in z: Befehlsbloecke, zwei Felder Gang, Knopf und Schild der naechsten Reihe. */
+    static final int CONTROL_ROW_PITCH = 4;
 
     public static TcCanvas controls(List<Control> controls) {
         TcCanvas c = new TcCanvas();
@@ -1348,17 +1350,18 @@ public final class TestCentreSections {
         c.wallSign(0, 2, z, TcText.bold(TcText.t("section.controls", "Controls")), TcText.t("section.controls.sub", "press the buttons"));
         c.place(0, 1, z, TcCanvas.TRIM);
         c.place(0, 0, z, TcCanvas.TRIM);
-        int x = 2;
-        for (Control control : controls) {
+        for (int i = 0; i < controls.size(); i++) {
+            Control control = controls.get(i);
+            int x = 2 + (i % CONTROLS_PER_ROW) * CONTROL_PITCH;
+            int rz = z + (i / CONTROLS_PER_ROW) * CONTROL_ROW_PITCH;
             // Ein Knopf versorgt den Block, an dem er haengt, STARK - und ein stark versorgter
             // Befehlsblock (ein Leiter) versorgt seine Nachbarn mit. Dicht an dicht loeste darum jeder
             // Knopf auch den Nachbarbefehl aus. Seit 2026-09-28: jeder Befehlsblock steht auf Glas, links
             // Luft, rechts eine Glassaeule, kein Stein verbindet zwei Bloecke (TestCentreTests prueft das
             // statisch und drueckt jeden Knopf).
-            c.command(x, 1, z, Direction.NORTH, control.command(), control.label(), control.sub());
-            c.place(x + 1, 0, z, Blocks.GLASS.defaultBlockState());
-            c.place(x + 1, 1, z, Blocks.GLASS.defaultBlockState());
-            x += CONTROL_PITCH;
+            c.command(x, 1, rz, Direction.NORTH, control.command(), control.label(), control.sub());
+            c.place(x + 1, 0, rz, Blocks.GLASS.defaultBlockState());
+            c.place(x + 1, 1, rz, Blocks.GLASS.defaultBlockState());
         }
         return c;
     }
@@ -1460,9 +1463,11 @@ public final class TestCentreSections {
             for (int x = 31; x <= 34; x++) c.place(x, 0, z, rail);
             c.place(35, 0, z, Blocks.STONE);
         }
-        int wallZ = 3;
-        List<TcCanvas.Line> lines = new ArrayList<>();
-        int bx = 1;
+        // TZ22-5 (Besitzer 22.10.: die "riesige Wand" mit Truhen, Oefen, Trichtern und anderen Speichern): je Tab-Zeile eine
+        // Gruppe im Bodenraster wie im Holzbereich, Nicht-Setzbares im Rahmen an der niedrigen Rueckwand - rechts neben den
+        // Redstone-, Kolben- und Schienenstrecken (die bleiben fuer TZ22-6, wie sie sind).
+        int x0 = com.simplebuilding.version.McVersion.END_RAILS ? 38 : com.simplebuilding.version.McVersion.END_SYSTEMS ? 27 : 0;
+        int wallZ = TcCanvas.EXHIBIT_WALL_Z;
         List<com.simplebuilding.items.CreativeTabLayout.Row> rows = new ArrayList<>();
         for (com.simplebuilding.items.CreativeTabLayout.Row row : ctx.toolRows()) {
             if (!KNOWN_TOOL_ROWS.contains(row.name())) {
@@ -1474,6 +1479,7 @@ public final class TestCentreSections {
                 rows.add(row);
             }
         }
+        List<TcCanvas.Group> groups = new ArrayList<>();
         for (com.simplebuilding.items.CreativeTabLayout.Row row : rows) {
             List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
             if (com.simplebuilding.version.McVersion.MEGA_GUIDES && (row.name().equals("guide_books") || row.name().equals("vanilla_guide_books"))) {
@@ -1486,18 +1492,14 @@ public final class TestCentreSections {
                 }
                 stacks = guides;
             }
-            lines.add(new TcCanvas.Line(TcText.t("devices." + row.name(), pretty(row.name())), stacks));
-            for (ItemStack stack : stacks) {
-                if (stack.getItem() instanceof BlockItem blockItem) {
-                    c.place(bx, 0, 1, facing(blockItem.getBlock().defaultBlockState(), Direction.NORTH));
-                    bx += 2;
-                }
-            }
+            groups.add(new TcCanvas.Group(TcText.t("devices." + row.name(), pretty(row.name())), stacks));
         }
-        c.title(0, lines.size() + 1, wallZ, TcText.t("section.devices", "More devices"),
-                TcText.t("section.devices.sub", "new tab rows"));
-        int end = c.rowsPanel(0, lines.size(), wallZ, lines);
-        c.backWall(0, Math.max(end, bx), wallZ, lines.size() + 3);
+        if (groups.isEmpty()) {
+            return c;
+        }
+        c.title(x0, 1, wallZ, TcText.t("section.devices", "More devices"), TcText.t("section.devices.sub", "new tab rows"));
+        int end = c.exhibition(x0 + 1, groups);
+        c.backWall(x0, end, wallZ, TcCanvas.EXHIBIT_WALL_HEIGHT);
         return c;
     }
 
@@ -1506,65 +1508,130 @@ public final class TestCentreSections {
     // =====================================================================================
 
     /**
-     * Galerie: jeder Mod-Block, den kein Abschnitt setzt (etwa nur als Rahmen zeigt), steht hier einmal
-     * auf dem Boden - neue Bloecke also von selbst. Ausgenommen sind Bloecke mit Wirkung auf die
-     * Umgebung ({@link TestCentreLayout#frameOnly}).
+     * Galerie: jeder Mod-Block, den kein Abschnitt setzt (etwa nur als Rahmen zeigt), steht hier einmal gesetzt - neue
+     * Bloecke also von selbst, auch die, die {@link Exhibits} sonst lieber im Rahmen zeigt (dafuer mit einem Feld Abstand,
+     * drei Reihen tief). Ausgenommen sind Bloecke mit Wirkung auf die Umgebung ({@link TestCentreLayout#frameOnly}).
      */
     public static TcCanvas gallery(List<Block> blocks) {
         TcCanvas c = new TcCanvas();
-        int wallZ = 3;
-        c.title(0, 2, wallZ, TcText.t("section.gallery", "More blocks"), TcText.t("section.gallery.sub", "placed nowhere else"));
-        int x = 1;
-        for (Block block : blocks) {
-            c.place(x, 0, 1, facing(block.defaultBlockState(), Direction.NORTH));
-            c.wallSign(x, 1, wallZ, block.getName());
-            x += 2;
+        if (blocks.isEmpty()) {
+            return c;
         }
-        c.backWall(0, Math.max(x, 2), wallZ, 4);
+        int wallZ = 7;
+        c.title(0, 1, wallZ, TcText.t("section.gallery", "More blocks"), TcText.t("section.gallery.sub", "placed nowhere else"));
+        for (int i = 0; i < blocks.size(); i++) {
+            Block block = blocks.get(i);
+            List<BlockState> states = Exhibits.floorStates(new ItemStack(block.asItem()));
+            if (states.isEmpty() || states.getFirst().getBlock() != block) {
+                states = List.of(facing(block.defaultBlockState(), Direction.NORTH));
+            }
+            for (int y = 0; y < states.size(); y++) {
+                c.place(1 + 2 * (i / 3), y, 1 + 2 * (i % 3), states.get(y));
+            }
+        }
+        c.backWall(0, 1 + 2 * ((blocks.size() + 2) / 3), wallZ, TcCanvas.EXHIBIT_WALL_HEIGHT);
         return c;
     }
 
+    /** Hoechstens so breit wird eine Reihe von Modul-Buchten; die naechste Reihe liegt dahinter. */
+    static final int MODULE_ROW_WIDTH = 90;
+    /** Abstand der Buchten-Reihen in z: Bucht (Raster, Gang, Wand) und zwei Felder Gang. */
+    static final int MODULE_ROW_PITCH = TcCanvas.EXHIBIT_WALL_Z + 3;
+
     /**
-     * Stationen anderer Module ({@code framework.api.TestCentreStations}, Modulaufteilung 3c): je Station Titel und
-     * Rahmen der genannten Items nebeneinander; unbekannte Ids fallen weg. Nur geplant, wenn welche angemeldet sind.
+     * Die Modul-Ausstellung (Modulaufteilung 3c, TZ22-1): je Modul-Namensraum der Familie ({@link TcContext#FAMILY}) eine
+     * Bucht im Stil des Holzbereichs ({@link TcCanvas#exhibition}) - die angemeldeten Stationen
+     * ({@code framework.api.TestCentreStations}, unbekannte Ids fallen weg) als Gruppen, dazu "Weitere": alles aus dem
+     * Register des Moduls, was keine Station nennt. Was eine andere Station schon sichtbar zeigt ({@code shown}), kommt
+     * nicht doppelt. Buchten-Reihen hoechstens {@link #MODULE_ROW_WIDTH} breit.
      */
-    public static TcCanvas modules(List<ModuleStations.Station> stations) {
-        TcCanvas c = new TcCanvas();
-        int wallZ = 2;
-        int x = 0;
+    public static TcCanvas modules(List<ModuleStations.Station> stations, Set<Item> shown, Set<Block> placed) {
+        Map<String, List<TcCanvas.Group>> bays = new LinkedHashMap<>();
+        Set<Item> taken = new HashSet<>(shown);
+        taken.add(net.minecraft.world.item.Items.AIR);
         for (ModuleStations.Station station : stations) {
             List<ItemStack> stacks = new ArrayList<>();
-            List<List<Component>> labels = new ArrayList<>();
             for (String id : station.items()) {
                 net.minecraft.resources.Identifier key = net.minecraft.resources.Identifier.tryParse(id);
                 Item item = key == null ? null : BuiltInRegistries.ITEM.getOptional(key).orElse(null);
-                if (item == null || item == net.minecraft.world.item.Items.AIR) {
-                    continue;
+                if (item != null && taken.add(item)) {
+                    stacks.add(new ItemStack(item));
                 }
-                stacks.add(new ItemStack(item));
-                labels.add(List.of(new ItemStack(item).getHoverName()));
             }
-            c.title(x, 5, wallZ, Component.translatable(station.titleKey()), Component.literal(station.owner()));
-            int end = Math.max(x + 2, c.frameGrid(x + 1, 0, wallZ, stacks, labels, 3));
-            c.backWall(x, end, wallZ, 7);
-            x = end + 2;
+            bays.computeIfAbsent(station.owner(), owner -> new ArrayList<>())
+                    .add(new TcCanvas.Group(Component.translatable(station.titleKey()), stacks));
+        }
+        Map<String, List<ItemStack>> rest = new LinkedHashMap<>();
+        for (Item item : sortedItems()) {
+            net.minecraft.resources.Identifier id = TcContext.id(item);
+            if (TcContext.isFamily(id) && !TcContext.isMod(id) && !TestCentreLayout.EXCLUDED.containsKey(id.toString())
+                    && !TcContext.isSpacer(item) && taken.add(item)) {
+                rest.computeIfAbsent(id.getNamespace(), ns -> new ArrayList<>()).add(new ItemStack(item));
+            }
+        }
+        rest.keySet().stream().sorted().forEach(ns -> {
+            List<TcCanvas.Group> groups = bays.computeIfAbsent(ns, owner -> new ArrayList<>());
+            groups.add(new TcCanvas.Group(groups.isEmpty() ? TcText.t("modules.all", "All items") : TcText.t("modules.more", "More"),
+                    rest.get(ns)));
+        });
+        // Bloecke ohne Item, die keine Station setzt (Achtel-Zellen, Bauzwischenstufen wie der halbfertige Tiegel): gesetzt in
+        // der Bucht ihres Moduls; Wand-/Topf-Varianten, Fluessigkeiten und begruendete Ausnahmen nicht.
+        Map<String, List<BlockState>> itemless = new java.util.TreeMap<>();
+        for (Block block : BuiltInRegistries.BLOCK) {
+            net.minecraft.resources.Identifier id = TcContext.id(block);
+            if (!TcContext.isFamily(id) || TcContext.isMod(id) || TcContext.itemOf(block) != net.minecraft.world.item.Items.AIR
+                    || placed.contains(block) || TestCentreLayout.technical(block) != null
+                    || TestCentreLayout.EXCLUDED.containsKey(id.toString())) {
+                continue;
+            }
+            List<BlockState> states = Exhibits.blockStates(block);
+            if (!states.isEmpty()) {
+                itemless.computeIfAbsent(id.getNamespace(), ns -> new ArrayList<>()).addAll(states);
+            }
+        }
+        itemless.forEach((ns, states) -> bays.computeIfAbsent(ns, owner -> new ArrayList<>())
+                .add(new TcCanvas.Group(TcText.t("modules.itemless", "Without item"), List.of(), states)));
+
+        TcCanvas c = new TcCanvas();
+        int x = 0;
+        int z = 0;
+        for (Map.Entry<String, List<TcCanvas.Group>> bay : bays.entrySet()) {
+            if (bay.getValue().stream().allMatch(group -> group.stacks().isEmpty() && group.blocks().isEmpty())) {
+                continue;
+            }
+            TcCanvas b = new TcCanvas();
+            b.title(0, 1, TcCanvas.EXHIBIT_WALL_Z, TcText.lit(modName(bay.getKey())), TcText.lit(bay.getKey()));
+            int end = b.exhibition(1, bay.getValue());
+            b.backWall(0, end, TcCanvas.EXHIBIT_WALL_Z, TcCanvas.EXHIBIT_WALL_HEIGHT);
+            if (x > 0 && x + b.width() > MODULE_ROW_WIDTH) {
+                x = 0;
+                z += MODULE_ROW_PITCH;
+            }
+            c.append(b, x, z);
+            x += b.width() + 2;
         }
         return c;
+    }
+
+    /** "simplestorage" -> "Simple Storage" (der Modulname ohne Klassen des Moduls). */
+    static String modName(String namespace) {
+        if (!namespace.startsWith("simple") || namespace.length() == "simple".length()) {
+            return pretty(namespace);
+        }
+        String rest = namespace.substring("simple".length());
+        return "Simple " + Character.toUpperCase(rest.charAt(0)) + rest.substring(1);
     }
 
     public static TcCanvas unsorted(List<Item> leftovers) {
         TcCanvas c = new TcCanvas();
-        int wallZ = 2;
-        List<ItemStack> stacks = new ArrayList<>();
-        List<List<Component>> labels = new ArrayList<>();
-        for (Item item : leftovers) {
-            stacks.add(new ItemStack(item));
-            labels.add(List.of(new ItemStack(item).getHoverName()));
+        if (leftovers.isEmpty()) {
+            return c;
         }
-        c.title(0, 5, wallZ, TcText.t("section.unsorted", "Unsorted"),
-                TcText.t("section.unsorted.sub", "add to a section!"));
-        int end = c.frameGrid(1, 0, wallZ, stacks, labels, 3);
-        c.backWall(0, end, wallZ, 7);
+        int wallZ = TcCanvas.EXHIBIT_WALL_Z;
+        c.title(0, 1, wallZ, TcText.t("section.unsorted", "Unsorted"), TcText.t("section.unsorted.sub", "add to a section!"));
+        List<ItemStack> stacks = leftovers.stream().map(ItemStack::new).toList();
+        int end = c.exhibition(1, List.of(new TcCanvas.Group(TcText.t("section.unsorted", "Unsorted"), stacks)));
+        c.backWall(0, end, wallZ, TcCanvas.EXHIBIT_WALL_HEIGHT);
         return c;
     }
 
