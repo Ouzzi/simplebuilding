@@ -138,5 +138,5 @@ Abweichungen (bewusst):
   (Ladebedingung); allein gibt es jede Stufe am Werktisch.
 - SB-Lang 26.2 (src/main) behält alle Hammer-Schlüssel; nur das 26.3-Overlay verliert die umgezogenen.
 
-Offen (notiert in der Übergabe): Umriss/Risse/Ausholen und Aufwertungs-Tooltips nur mit SB; SB-Config-Schlüssel
+Offen (notiert in der Übergabe): ~~Umriss/Risse/Ausholen und Aufwertungs-Tooltips nur mit SB~~ (erledigt 22.10., b-s9b: im Modul, `PLAN-B-S9B-2026-10-22.md` E5); SB-Config-Schlüssel
 `server.tools.*` der Hämmer ausblenden (Stufe 9); Client-Sicht; Enderit-Freischaltung mit Simple Enderite (F3-TODO).

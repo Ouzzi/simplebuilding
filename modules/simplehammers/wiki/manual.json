@@ -13,7 +13,9 @@
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/iron_sledgehammer.json",
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/netherite_sledgehammer_smithing.json",
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/enderite_sledgehammer_smithing.json",
-        "modules/simplehammers/shared/resources/data/simplehammers/tags/item/sledgehammers.json"
+        "modules/simplehammers/shared/resources/data/simplehammers/tags/item/sledgehammers.json",
+        "modules/simplehammers/shared/java/com/simplehammers/client/HammerAreaClient.java",
+        "modules/simplehammers/shared/java/com/simplehammers/client/HammerVisuals.java"
       ],
       "en": {
         "title": "Sledgehammers: mining a whole area",
@@ -23,7 +25,8 @@
           "The area lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you. Without an enchantment it takes only blocks of the same type that need a pickaxe and that the hammer may harvest.",
           "Durability is four times a pickaxe of the tier (Stone 760 ... Enderite 10000); every broken block costs 2, a block of the area it is not the right tool for one more. Netherite and Enderite hammers do not burn.",
           "Mining time: the area time is computed on client and server alike; switching between sneaking (one block) and the area while mining converts the progress, so it never jumps ahead.",
-          "Other mods may replace the area (SimpleBuilding: an octant with a selection in the off hand) through SimpleLib's HammerActions."
+          "Other mods may replace the area (SimpleBuilding: an octant with a selection in the off hand) through SimpleLib's HammerActions.",
+          "While a sledgehammer is in the main hand, an outline with a faint fill marks every further block the swing takes along, and while mining them they show breaking cracks too; both follow the same list as the server. SimpleBuilding's highlight key and its option buildingHighlightOpacity (default 40) steer the outline when it is installed."
         ]
       },
       "de": {
@@ -34,7 +37,8 @@
           "Die Fläche liegt flach, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie aufrecht vor dir. Ohne Verzauberung nimmt sie nur Blöcke derselben Art, die eine Spitzhacke brauchen und die der Hammer ernten darf.",
           "Haltbarkeit: das Vierfache einer Spitzhacke der Stufe (Stein 760 ... Enderit 10000); jeder abgebaute Block kostet 2, ein Block der Fläche, für den er nicht das richtige Werkzeug ist, einen mehr. Netherit- und Enderit-Hämmer verbrennen nicht.",
           "Abbauzeit: Client und Server rechnen die Flächenzeit gleich; wer beim Abbauen zwischen Schleichen (ein Block) und Fläche wechselt, behält die Abbauzeit, der Fortschritt springt nie vor.",
-          "Andere Mods können die Fläche ersetzen (SimpleBuilding: ein Oktant mit Auswahl in der Nebenhand), über SimpleLibs HammerActions."
+          "Andere Mods können die Fläche ersetzen (SimpleBuilding: ein Oktant mit Auswahl in der Nebenhand), über SimpleLibs HammerActions.",
+          "Solange ein Vorschlaghammer in der Haupthand liegt, markiert ein Umriss mit zarter Füllung jeden weiteren Block, den der Schlag mitnimmt, und beim Abbauen zeigen sie ebenfalls Risse; beides folgt derselben Liste wie der Server. Ist SimpleBuilding installiert, steuern seine Hervorhebungs-Taste und seine Option buildingHighlightOpacity (Standard 40) den Umriss."
         ]
       },
       "related": [
@@ -109,7 +113,10 @@
         "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerProgress.java",
         "modules/simplehammers/shared/java/com/simplehammers/SimpleHammers.java",
         "modules/simplelib/shared/java/com/simplelib/api/InWorldUpgrades.java",
-        "modules/simplelib/shared/java/com/simplelib/api/HammerActions.java"
+        "modules/simplelib/shared/java/com/simplelib/api/HammerActions.java",
+        "modules/simplehammers/shared/java/com/simplehammers/mixin/client/HammerHandMixin.java",
+        "modules/simplehammers/shared/java/com/simplehammers/mixin/client/HammerArmPoseMixin.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/UpgradeHints.java"
       ],
       "en": {
         "title": "In-world upgrades with the hammer",
@@ -119,7 +126,8 @@
           "Netherite tiers need at least a Diamond Sledgehammer, Enderite tiers a Netherite one (min_tool). Each strike costs 2 (to reinforced), 4 (Netherite) or 10 (Enderite) durability (config).",
           "Strikes are saved with the world and shown as cracks; anyone continues where it stopped. Letting go, looking away, a changed block or missing material stops it without using the material.",
           "Crucibles go up strike by strike with one material unit every few strikes (Simple Crucibles); a double chest needs the material twice (SimpleBuilding).",
-          "Wrong material, a too weak hammer or too little material: a quiet clunk instead of text."
+          "Wrong material, a too weak hammer or too little material: a quiet clunk instead of text.",
+          "Between two strikes the hammer draws back like a bow and rushes forward onto the block for the strike (first person); other players see the arm lifted over the head and the blow. Every upgradable block item says in its tooltip how it goes up and which off-hand material it takes how often."
         ]
       },
       "de": {
@@ -130,7 +138,8 @@
           "Netherit-Stufen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Stufen einen aus Netherit (min_tool). Jeder Schlag kostet 2 (zu verstärkt), 4 (Netherit) oder 10 (Enderit) Haltbarkeit (Config).",
           "Die Schläge werden mit der Welt gespeichert und als Risse gezeigt; jeder setzt dort fort. Loslassen, Wegschauen, ein anderer Block oder fehlendes Material bricht ab, ohne Material zu verbrauchen.",
           "Tiegel steigen Schlag für Schlag auf, alle paar Schläge eine Materialeinheit (Simple Crucibles); eine Doppeltruhe braucht das Material doppelt (SimpleBuilding).",
-          "Falsches Material, zu schwacher Hammer oder zu wenig Material: ein leises Klonk statt Text."
+          "Falsches Material, zu schwacher Hammer oder zu wenig Material: ein leises Klonk statt Text.",
+          "Zwischen zwei Schlägen holt der Hammer wie ein Bogen aus und saust zum Schlag auf den Block (erste Person); andere sehen den Arm über dem Kopf und den Schlag. Jedes aufwertbare Block-Item sagt im Tooltip, wie es aufsteigt und welches Material es wie oft in der Nebenhand braucht."
         ]
       }
     },

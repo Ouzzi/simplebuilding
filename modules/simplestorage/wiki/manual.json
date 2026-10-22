@@ -291,6 +291,342 @@
           "Die Chancen sind Server-Einstellungen in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), je auf die Obergrenzen oben begrenzt; beim ersten Start übernimmt Simple Storage sie aus der Config von SimpleBuilding."
         ]
       }
+    },
+    {
+      "id": "bundles",
+      "related": [
+        "simplestorage:reinforced_bundle",
+        "simplestorage:netherite_bundle",
+        "simplestorage:enderite_bundle",
+        "simplestorage:deep_pockets",
+        "simplestorage:funnel",
+        "simplestorage:drawer",
+        "simplelib:diamond_pebble",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:master_builder",
+        "simplebuilding:color_palette"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleRecipe.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/BundleEnchantments.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/BundleNet.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/StorageDyes.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BundleScrollHandler.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BundleTooltips.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/client/ClientBundleTooltipMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_bundle.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_bundle_without_simplebuilding.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_bundle_smithing.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_bundle_smithing.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/bundle_enchantable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/dyeable_storage.json",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_reinforced_bundle.json",
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json"
+      ],
+      "en": {
+        "title": "Bundles: Reinforced, Netherite, Enderite",
+        "summary": "Simple Storage extends the vanilla bundle into a three-tier family: the Reinforced Bundle holds 1.5x as much (96 items), the Netherite Bundle twice that (192) and the Enderite Bundle three times as much (288). All three handle the same way, let you pick an entry with the mouse wheel and take the storage enchantments Deep Pockets, Funnel and Drawer; with SimpleBuilding also its Master Builder and Color Palette.",
+        "details": [
+          "Upgrade path: Reinforced Bundle at a crafting table from a bundle, string, six Diamond Pebbles and leather - with SimpleBuilding a Leather Sheet takes the leather's place (the bundle's contents, enchantments and name carry over); Netherite Bundle at a smithing table with a Netherite Upgrade and a netherite ingot; Enderite Bundle at a smithing table with an Enderite Upgrade and an Enderite Ingot (both from SimpleLib).",
+          "Capacity: 96 / 192 / 288 items of stack size 64; items with a smaller stack size take up correspondingly more room.",
+          "Inserting: left-click the bundle onto an item, or an item onto the bundle. Removing: right-click the bundle onto an empty slot, or an empty cursor onto the bundle; the selected (otherwise topmost) entry always comes out as a whole stack.",
+          "The mouse wheel over the bundle picks an entry; the selection is sent to the server and cleared when the mouse leaves the slot.",
+          "Identical items are merged on insertion and sorted to the top as one block: full stacks first, the partial remainder directly below.",
+          "Right-click in hand drops the selected stack as long as it is not a block. With SimpleBuilding: Master Builder places blocks straight out of the bundle (1 item used up per placement, none in Creative mode), the Pick Block key fetches a targeted block out of a Master Builder bundle into your hand if it is not already in the inventory (not in Creative mode), building wands use those blocks as material, and Color Palette (only with Master Builder; the anvil rejects it alone) places a random entry.",
+          "Deep Pockets doubles (I) or quadruples (II) the capacity. Drawer raises it by the factor (16 + level) / 8 up to level VIII, but only for the one kind of item already inside (item plus components; an empty bundle takes any first kind), and rules out Master Builder and Color Palette.",
+          "Funnel vacuums items lying on the ground into the bundle: level I only types already inside, level II everything; nothing while sneaking.",
+          "On the item a fill bar from green to red shows how full it is; the tooltip shows the contents with a fill bar scaled to the capacity.",
+          "Netherite Bundle and Enderite Bundle are fire resistant and survive explosions as dropped items; with SimpleBuilding the Enderite Bundle is also kept out of the void (its tag void_protected).",
+          "Where they come from: alone only the recipes. With SimpleBuilding the Reinforced Bundle also turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 (SimpleBuilding's options enableLootTableChanges and enableWanderingTrades).",
+          "The option invertBundleInteractions in config/simplestorage.json swaps left and right click for inserting and removing; on the first start it takes over SimpleBuilding's tools.invertBundleInteractions.",
+          "The quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately.",
+          "Dyeing: Reinforced, Netherite and Enderite Bundle dye like the vanilla bundle - bundle plus one dye in the crafting grid gives that dye's fixed color (the leather colors of the vanilla bundles), a new dye replaces it, colors do not mix and a water cauldron does not wash them off; contents, name and enchantments stay. The color shows on the item, in its open look and as a faint tint of the item slots in the tooltip. Like the vanilla bundle, a bundle of this mod opens in the inventory while an entry is selected and shows that entry sticking out of it.",
+          "Old worlds: SimpleBuilding's simplebuilding:reinforced_bundle, netherite_bundle and enderite_bundle become these bundles with their contents (id moves). On Minecraft 26.2 the bundles are still SimpleBuilding's."
+        ]
+      },
+      "de": {
+        "title": "Bündel: Verstärkt, Netherit, Enderit",
+        "summary": "Simple Storage erweitert das Vanilla-Bündel zu einer dreistufigen Familie: Das Verstärkte Bündel fasst das 1,5-fache (96 Gegenstände), das Netheritbündel das Doppelte davon (192) und das Enderitbündel das Dreifache (288). Alle drei bedienen sich gleich, lassen per Mausrad einen Eintrag auswählen und nehmen die Lager-Verzauberungen Tiefe Taschen, Trichter und Schublade an; mit SimpleBuilding auch dessen Baumeister und Farbpalette.",
+        "details": [
+          "Aufstieg: Verstärktes Bündel in der Werkbank aus Bündel, Faden, sechs Diamantkieseln und Leder - mit SimpleBuilding tritt eine Lederplatte an die Stelle des Leders (Inhalt, Verzauberungen und Name des Bündels bleiben erhalten); Netheritbündel am Schmiedetisch mit Netherit-Aufwertung und Netheritbarren; Enderitbündel am Schmiedetisch mit Enderit-Aufwertung und Enderitbarren (beide aus SimpleLib).",
+          "Kapazität: 96 / 192 / 288 Gegenstände der Stapelgröße 64; Gegenstände mit kleinerer Stapelgröße belegen entsprechend mehr Platz.",
+          "Einlegen: Linksklick mit dem Bündel auf einen Gegenstand oder mit einem Gegenstand auf das Bündel. Entnehmen: Rechtsklick mit dem Bündel auf einen leeren Slot oder mit leerem Cursor auf das Bündel; es wird immer der ausgewählte (sonst oberste) Eintrag als ganzer Stapel entnommen.",
+          "Mausrad über dem Bündel wählt einen Eintrag aus; die Auswahl wird an den Server gesendet und beim Verlassen des Slots aufgehoben.",
+          "Gleiche Gegenstände werden beim Einlegen zusammengeführt und als Block nach oben sortiert: volle Stapel zuerst, der angebrochene Rest direkt darunter.",
+          "Rechtsklick in der Hand lässt den ausgewählten Stapel fallen, sofern es kein Block ist. Mit SimpleBuilding: Baumeister platziert Blöcke direkt aus dem Bündel (1 Stück pro Platzierung verbraucht, im Kreativmodus nichts), die Taste Block auswählen holt einen anvisierten Block aus einem Baumeister-Bündel in die Hand, wenn er nicht schon im Inventar liegt (nicht im Kreativmodus), Baustäbe verwenden diese Blöcke als Material, und Farbpalette (nur mit Baumeister; allein lehnt der Amboss sie ab) platziert einen zufälligen Eintrag.",
+          "Tiefe Taschen verdoppelt (I) oder vervierfacht (II) die Kapazität. Schublade erhöht sie um den Faktor (16 + Stufe) / 8 bis Stufe VIII, aber nur für die eine Sorte, die schon darin liegt (Gegenstand samt Komponenten; ein leeres Bündel nimmt jede erste Sorte), und schließt Baumeister und Farbpalette aus.",
+          "Trichter saugt am Boden liegende Gegenstände ins Bündel: Stufe I nur bereits enthaltene Arten, Stufe II alles; nicht beim Schleichen.",
+          "Am Item zeigt ein Füllbalken von Grün nach Rot den Füllstand; der Tooltip zeigt den Inhalt mit einer an die Kapazität angepassten Füllleiste.",
+          "Netheritbündel und Enderitbündel sind feuerfest und überstehen als Drop Explosionen; mit SimpleBuilding bleibt das Enderitbündel zusätzlich vor der Leere bewahrt (dessen Tag void_protected).",
+          "Herkunft: allein nur die Rezepte. Mit SimpleBuilding liegt das Verstärkte Bündel auch in Verliesen, Schiffswrack-Schätzen und verlassenen Minen, und der fahrende Händler verkauft eines für 16 Smaragde bzw. kauft eines für 12 (SimpleBuildings Optionen enableLootTableChanges und enableWanderingTrades).",
+          "Die Option invertBundleInteractions in config/simplestorage.json vertauscht Links- und Rechtsklick für Einlegen und Entnehmen; beim ersten Start übernimmt sie SimpleBuildings tools.invertBundleInteractions.",
+          "Die Köcher erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben.",
+          "Färben: Verstärktes, Netherit- und Enderitbündel färben sich wie das Vanilla-Bündel – Bündel plus ein Farbstoff in der Werkbank ergibt die feste Farbe dieses Farbstoffs (die Lederfarben der Vanilla-Bündel), ein neuer Farbstoff ersetzt sie, Farben mischen sich nicht, und ein Wasserkessel wäscht sie nicht ab; Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item, im offenen Zustand und als leichte Tönung der Felder im Tooltip. Wie das Vanilla-Bündel öffnet sich ein Bündel dieser Mod im Inventar, solange ein Eintrag ausgewählt ist, und zeigt diesen Eintrag.",
+          "Alte Welten: SimpleBuildings simplebuilding:reinforced_bundle, netherite_bundle und enderite_bundle werden samt Inhalt zu diesen Bündeln (ID-Umzug). Auf Minecraft 26.2 gehören die Bündel weiter SimpleBuilding."
+        ]
+      }
+    },
+    {
+      "id": "quivers",
+      "related": [
+        "simplestorage:quiver",
+        "simplestorage:reinforced_quiver",
+        "simplestorage:netherite_quiver",
+        "simplestorage:enderite_quiver",
+        "simplestorage:reinforced_bundle",
+        "simplestorage:drawer",
+        "simplestorage:deep_pockets",
+        "simplestorage:funnel",
+        "simplelib:diamond_pebble",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:constructors_touch",
+        "simplebuilding:master_builder",
+        "simplebuilding:color_palette"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/BowItemMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/CrossbowItemMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/AbstractArrowPickupMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/quiver.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_quiver.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_quiver_without_simplebuilding.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_quiver_smithing.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_quiver_smithing.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/bundle_enchantable.json",
+        "modules/simplelib/shared/java/com/simplelib/api/AccessorySlots.java",
+        "modules/simplelib/shared/java/com/simplelib/api/CarriedStacks.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      ],
+      "en": {
+        "title": "Quivers",
+        "summary": "Quivers are arrow bundles: they take only arrows and supply a bow automatically as soon as they sit in the off-hand, in the chest slot, in the hotbar or - with SimpleBuilding's Constructor's Touch - anywhere in the inventory. There are four tiers with the capacity factors 1, 3/2, 2 and 3: the Quiver and the Reinforced Quiver come from the crafting table, the Netherite and the Enderite Quiver build on them at the smithing table. Drawer, Deep Pockets and Funnel work on all four tiers.",
+        "details": [
+          "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the Reinforced Bundle's pattern with the Quiver where the bundle goes (string on top, leather - with SimpleBuilding a Leather Sheet - below, six Diamond Pebbles in the side columns); arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
+          "Capacity: Quiver factor 1, Reinforced Quiver factor 3/2, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 96 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus on top of their tier factor - the Reinforced Quiver's 3/2 is its tier factor.",
+          "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with invertBundleInteractions on as well.",
+          "Bow and crossbow: when a bow is drawn and released, or a crossbow is loaded, the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory, and last (with SimpleBuilding) a quiver inside a worn backpack that carries Master Builder. The weapon always gets the topmost arrow stack in the quiver. A crossbow still prefers ammunition held in a hand (a firework rocket in the off hand), as in vanilla.",
+          "Wearing one: all four quivers can be put into the chest slot, so the second stage of the bow search is reachable without commands. The quiver is a carrier there and nothing else - it gives no armor points, and the price is the chestplate slot it occupies. A worn quiver is shown on the player's back: its item picture, slanted from the right shoulder down to the left hip. Only players can equip one themselves, and a dispenser refuses to; an armor stand takes one anyway, because ArmorStand.interact picks the slot through canUseSlot and never asks the component's allowed entities, and a dispenser will equip a quiver onto a player standing in front of it.",
+          "Consumption: one arrow disappears from the quiver per successful shot - none in creative mode, and none when the shot costs no ammunition anyway, for instance with Infinity on a plain arrow, which vanilla shoots for free.",
+          "Enchantments (all four tiers): Drawer multiplies capacity by (16 + level)/8 but locks the quiver to the one kind of arrow already inside, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground - dropped arrows and shot arrows stuck in the ground alike (level 1 only kinds already inside, level 2 all of them; never while sneaking); without Funnel picked-up arrows go into the inventory as usual. With SimpleBuilding, Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
+          "Inventory handling as on the Reinforced Bundle: left-click inserts, right-click takes out, the mouse wheel over the quiver picks the stack; the option invertBundleInteractions (config/simplestorage.json) swaps the clicks.",
+          "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. SimpleBuilding's Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
+          "Where to find them: alone only the recipes. With SimpleBuilding the plain Quiver also lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion) while its loot changes are on (default).",
+          "The Netherite and Enderite tiers are fire resistant and, as dropped items, immune to explosions; the Quiver and the Reinforced Quiver are neither. With SimpleBuilding the Enderite Quiver is also kept out of the void.",
+          "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a quiver also fits the belt or back accessory slot. A quiver there feeds bow and crossbow right after the chest slot (before the hotbar), pays the arrow from that very quiver, and takes picked up arrows with Funnel (after the quivers in the inventory). On your back only one thing shows: a backpack or quiver in the chest slot, else a backpack in an accessory slot, else the quiver. Without an accessory mod nothing changes.",
+          "Old worlds: SimpleBuilding's four quivers (simplebuilding:quiver ...) become these with their arrows (id moves). On Minecraft 26.2 the quivers are still SimpleBuilding's."
+        ]
+      },
+      "de": {
+        "title": "Köcher",
+        "summary": "Köcher sind Pfeil-Bündel: Sie nehmen nur Pfeile auf und versorgen den Bogen automatisch, sobald sie in der Nebenhand, im Brustpanzer-Slot, in der Schnellzugriffsleiste oder - mit SimpleBuildings Berührung des Konstrukteurs - irgendwo im Inventar liegen. Es gibt vier Stufen mit den Kapazitätsfaktoren 1, 3/2, 2 und 3: Köcher und Verstärkter Köcher entstehen an der Werkbank, Netherit- und Enderitköcher bauen am Schmiedetisch darauf auf. Schublade, Tiefe Taschen und Trichter wirken auf allen vier Stufen.",
+        "details": [
+          "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupferklumpen bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - das Muster des Verstärkten Bündels mit dem Köcher an der Stelle des Bündels (Faden oben, Leder - mit SimpleBuilding eine Lederplatte - unten, sechs Diamantkiesel in den Seitenspalten); Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netheritköcher (Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren) und Enderitköcher (Enderit-Aufwertung + Netheritköcher + Enderitbarren) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
+          "Kapazität: Köcher Faktor 1, Verstärkter Köcher Faktor 3/2, Netheritköcher Faktor 2, Enderitköcher Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 96 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus zusätzlich zu ihrem Stufenfaktor - die 3/2 des Verstärkten Köchers sind sein Stufenfaktor.",
+          "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option invertBundleInteractions.",
+          "Bogen und Armbrust: Beim Spannen und Loslassen eines Bogens oder beim Laden einer Armbrust wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar und zuletzt (mit SimpleBuilding) ein Köcher in einem getragenen Rucksack mit Baumeister. Verschossen wird immer der oberste Stapel im Köcher. Eine Armbrust nimmt weiterhin zuerst Munition aus einer Hand (eine Feuerwerksrakete in der Nebenhand), wie bei Vanilla.",
+          "Anlegen: Alle vier Köcher passen in den Brustpanzer-Slot, damit ist die zweite Stufe der Bogen-Suche ohne Befehle erreichbar. Der Köcher ist dort reiner Träger - er gibt keine Rüstungspunkte, und der Preis ist der belegte Brustpanzer-Slot. Ein getragener Köcher ist auf dem Rücken des Spielers zu sehen: sein Item-Bild, schräg von der rechten Schulter zur linken Hüfte. Selbst anlegen können ihn nur Spieler, ein Spender verweigert es; ein Rüstungsständer nimmt ihn trotzdem, weil ArmorStand.interact den Platz über canUseSlot wählt und die erlaubten Wesen der Komponente nie fragt, und ein Spender legt einen Köcher einem davorstehenden Spieler an.",
+          "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher – keiner im Kreativmodus und keiner, wenn der Schuss ohnehin keine Munition kostet, etwa mit Unendlichkeit auf einem einfachen Pfeil, den Vanilla gratis verschießt.",
+          "Verzauberungen (alle vier Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8, sperrt den Köcher aber auf die eine Pfeilsorte, die schon darin liegt, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an - liegende wie im Boden steckende, verschossene Pfeile (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen); ohne Trichter landen aufgehobene Pfeile wie gewohnt im Inventar. Mit SimpleBuilding erlaubt Berührung des Konstrukteurs den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
+          "Bedienung im Inventar wie beim verstärkten Bündel: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad über dem Köcher wählt den Stapel; die Option invertBundleInteractions (config/simplestorage.json) vertauscht die Klicks.",
+          "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. SimpleBuildings Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
+          "Fundorte: allein nur die Rezepte. Mit SimpleBuilding liegt der einfache Köcher auch in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), solange dessen Loot-Änderungen aktiv sind (Standard).",
+          "Netherit- und Enderit-Stufe sind feuerfest und als Drop explosionsimmun; Köcher und Verstärkter Köcher sind beides nicht. Mit SimpleBuilding bleibt der Enderitköcher zusätzlich vor der Leere bewahrt.",
+          "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Köcher auch in den Gürtel- oder Rücken-Accessoire-Slot. Ein Köcher dort versorgt Bogen und Armbrust gleich nach dem Brust-Slot (vor der Schnellleiste), bezahlt den Pfeil aus genau diesem Köcher und nimmt mit Trichter aufgehobene Pfeile auf (nach den Köchern im Inventar). Auf dem Rücken ist nur eines zu sehen: Rucksack oder Köcher im Brust-Slot, sonst ein Rucksack im Accessoire-Slot, sonst der Köcher. Ohne Accessoire-Mod ändert sich nichts.",
+          "Alte Welten: SimpleBuildings vier Köcher (simplebuilding:quiver ...) werden samt Pfeilen zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören die Köcher weiter SimpleBuilding."
+        ]
+      }
+    },
+    {
+      "id": "placed_bundles",
+      "related": [
+        "bundles",
+        "simplestorage:placed_bundle",
+        "simplestorage:reinforced_bundle",
+        "simplestorage:netherite_bundle",
+        "simplestorage:enderite_bundle"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundles.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleTint.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/BundlePlaceMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/BundleDepositMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/client/BundleScrollMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/BundleNet.java"
+      ],
+      "en": {
+        "title": "Placed bundles",
+        "summary": "Sneak + right-click on the top of a block with a bundle to set it down as a 3D bundle. Sneak and look at it to see its top item floating above it; sneak + mouse wheel picks the item, right-click takes it out, and sneak + right-click with an item puts that item in.",
+        "details": [
+          "Works with the Reinforced, Netherite and Enderite Bundle (dyed ones too) and with the vanilla bundle in all 17 colors. Only on the top face of a block that can hold it up, like a lantern - never on a wall or under a ceiling. Without sneaking, and on walls or ceilings, a bundle behaves as before. Quivers cannot be placed.",
+          "Each tier has its own 3D model; dyed bundles and the colored vanilla bundles show their color on the leather. The bundle faces the player who placed it. The item itself stays a flat item.",
+          "While you sneak and look at a placed bundle, its top item floats above it, always turned towards your own camera (every player sees its front). Sneak + mouse wheel switches the shown item - wheel down to the next, wheel up to the previous, round and round; the hotbar selection does not move while you do it, and nothing changes by itself. Right-click takes exactly the shown item out - into your empty hand, otherwise into your inventory, and dropped at your feet if the inventory is full - and the next one moves up. Sneak + right-click with an item in your main hand puts as much of it in as fits, with the same rules as the bundle item: the tier's capacity (vanilla bundle 64, Reinforced 96, Netherite 192, Enderite 288), Deep Pockets and Drawer, and nothing that may not go into a bundle (like a shulker box). What you put in lies on top and is shown.",
+          "Breaking it - by hand, explosion, piston or by taking away the block below - drops the bundle with all its contents and data (color, name, enchantments). In creative mode a bundle with contents drops too. Middle-click picks the bundle; Jade and other displays show the bundle's name.",
+          "Old worlds: a bundle SimpleBuilding had set down (simplebuilding:placed_bundle) stays with its contents (id moves). On Minecraft 26.2 placed bundles are still SimpleBuilding's."
+        ]
+      },
+      "de": {
+        "title": "Abgestellte Bündel",
+        "summary": "Schleichen + Rechtsklick mit einem Bündel auf die Oberseite eines Blocks stellt es als 3D-Bündel ab. Schleichend hinsehen zeigt das oberste Item darüber schwebend; Schleichen + Mausrad wählt das Item, Rechtsklick nimmt es heraus, Schleichen + Rechtsklick mit einem Item legt dieses hinein.",
+        "details": [
+          "Geht mit dem verstärkten, dem Netherit- und dem Enderit-Bündel (auch gefärbt) und mit dem Vanilla-Bündel in allen 17 Farben. Nur auf die Oberseite eines Blocks, der es trägt wie eine Laterne – nie an eine Wand oder unter eine Decke. Ohne Schleichen und an Wänden oder Decken verhält sich ein Bündel wie bisher. Köcher lassen sich nicht abstellen.",
+          "Jede Stufe hat ein eigenes 3D-Modell; gefärbte Bündel und die farbigen Vanilla-Bündel zeigen ihre Farbe auf dem Leder. Das Bündel schaut zu dem Spieler, der es abstellt. Das Item selbst bleibt flach.",
+          "Solange du schleichst und auf ein abgestelltes Bündel schaust, schwebt sein oberstes Item darüber, immer zu deiner eigenen Kamera gedreht (jeder Spieler sieht die Vorderseite). Schleichen + Mausrad wechselt das gezeigte Item – Rad nach unten zum nächsten, nach oben zum vorigen, reihum; die Auswahl in der Schnellleiste bleibt dabei stehen, und von selbst wechselt nichts. Rechtsklick nimmt genau das gezeigte Item heraus – in die leere Hand, sonst ins Inventar, bei vollem Inventar fällt es vor die Füße – und das nächste rückt nach. Schleichen + Rechtsklick mit einem Item in der Haupthand legt so viel davon hinein, wie passt, nach denselben Regeln wie beim Bündel-Item: Fassungsvermögen der Stufe (Vanilla-Bündel 64, verstärkt 96, Netherit 192, Enderit 288), Tiefe Taschen und Schublade, und nichts, was nicht in ein Bündel darf (etwa eine Shulkerkiste). Was du hineinlegst, liegt oben und wird gezeigt.",
+          "Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt das Bündel mit seinem ganzen Inhalt und allen Daten (Farbe, Name, Verzauberungen) zurück. Im Kreativmodus fällt ein Bündel mit Inhalt trotzdem heraus. Die mittlere Maustaste nimmt das Bündel; Jade und andere Anzeigen zeigen den Namen des Bündels.",
+          "Alte Welten: ein von SimpleBuilding abgestelltes Bündel (simplebuilding:placed_bundle) bleibt samt Inhalt stehen (ID-Umzug). Auf Minecraft 26.2 gehören abgestellte Bündel weiter SimpleBuilding."
+        ]
+      }
+    },
+    {
+      "id": "backpacks",
+      "related": [
+        "simplestorage:backpack",
+        "simplestorage:reinforced_backpack",
+        "simplestorage:netherite_backpack",
+        "simplestorage:enderite_backpack",
+        "simplestorage:deep_pockets",
+        "simplestorage:funnel",
+        "simplelib:diamond_pebble",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:master_builder",
+        "simplebuilding:constructors_touch"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackContents.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackLayout.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackMenuProviders.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/WornBackpackContainer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackUpgradeRecipe.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackKeyMigration.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BackpackTooltip.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/BackpackBlockTint.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageItems.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/backpack.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/backpack_without_simplebuilding.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_backpack.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_backpack_without_simplebuilding.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_backpack_smithing.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_backpack_smithing.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/backpacks.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/deep_pockets_enchantable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/funnel_enchantable.json",
+        "modules/simplelib/shared/java/com/simplelib/api/CarriedStacks.java",
+        "modules/simplelib/shared/java/com/simplelib/api/AccessorySlots.java"
+      ],
+      "en": {
+        "title": "Backpacks",
+        "summary": "Backpacks are storage you wear in the chest slot: four tiers from 9 to 50 slots, opened with their own key (default B) as your normal inventory plus the backpack's slots. They can also be set down as a block and picked up again with everything inside. Deep Pockets gives them bigger stacks and Funnel automatic pickup; with SimpleBuilding, Master Builder makes them a material source for the Building Wand and pick block and Constructor's Touch refills your hand from them while building.",
+        "details": [
+          "Getting started: the Backpack from 2 Copper Nuggets, String, 3 leather and 3 Heavy Weighted Pressure Plates - with SimpleBuilding 3 Leather Sheets (9 Leather each) take the leather's place. The Reinforced Backpack is crafted around a Backpack (4 Diamond Pebbles, String and 3 leather or, with SimpleBuilding, Leather Sheets) and keeps everything the Backpack had; Netherite and Enderite Backpack follow at the smithing table like the other tool families, again with their contents.",
+          "Tiers: Backpack 9 slots (1 row), Reinforced 18 (2 rows), Netherite 33 (3 rows plus one extra column of 6 on the right), Enderite 50 (4 rows plus two extra columns of 7, right and left). Worn they give 1 / 2 / 3 / 4 armor points and take no damage.",
+          "Wearing it: right-click puts it into the chest slot, swapping with a worn chestplate or elytra - a backpack takes their place. A worn backpack shows on the player's back, in the look of its tier.",
+          "Opening: press the backpack key (Open Backpack, default B; a binding from SimpleBuilding's old key is taken over once). It opens the worn backpack, or else the first backpack in your inventory (hotbar, main inventory, then off hand); the server picks and checks the backpack itself. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The slot the opened backpack lies in - the chest slot or its inventory slot - is locked while it is open: it can't be picked up, shift-clicked, swapped away with a number key or covered. Without a backpack the key simply opens the normal inventory; E never changes.",
+          "Shift-click works as in the vanilla inventory, with the backpack counted as part of the main inventory: from the hotbar, items first top up matching stacks anywhere in the main inventory and backpack, then fill the first free slot from top left to bottom right as the screen shows them; from the main inventory or the backpack they go to the hotbar; armor and shields go onto their empty slot.",
+          "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers, gives a comparator its fill level like a chest (counted against the backpack's own stack limits, Deep Pockets included) and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
+          "Tooltip: hovering a backpack lists how many slots are used and names the first five stacks; a backpack with something inside adds \"Hold Shift for contents\". Holding Shift turns that line into a small grid like the vanilla bundle's: every stored stack as an icon with its count, in slot order, nine per row and at most three rows - whatever does not fit is summed up as \"+N\" in the last cell. Works for all four tiers, dyed or not, and needs nothing from the server: the contents travel on the item itself.",
+          "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and with SimpleBuilding the Enderite Backpack is also protected from the void.",
+          "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles. With SimpleBuilding: Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
+          "Dyeing: like the vanilla bundle - backpack plus one dye in the crafting grid gives that dye's fixed color (the leather colors of the vanilla bundles); a new dye replaces the color, colors do not mix and a water cauldron does not wash them off. Contents, name and enchantments stay; the color shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). The color survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
+          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), and the recipe book does not draw from the backpack.",
+          "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a backpack also fits the back accessory slot, so it no longer takes the chest slot from a chestplate or elytra. A backpack there counts as worn: the backpack key opens it (after one in the chest slot, before one in the inventory), Funnel uses it (with SimpleBuilding also Constructor's Touch and Master Builder), and it shows on your back unless the slot's render toggle hides it. Without an accessory mod nothing changes.",
+          "Old worlds: SimpleBuilding's four backpacks, worn, carried or set down, become these with their contents (id moves). On Minecraft 26.2 the backpacks are still SimpleBuilding's."
+        ]
+      },
+      "de": {
+        "title": "Rucksäcke",
+        "summary": "Rucksäcke sind Stauraum, den man im Brust-Slot trägt: vier Stufen von 9 bis 50 Plätzen, geöffnet mit einer eigenen Taste (Standard B) als normales Inventar plus Rucksack-Plätze. Man kann sie auch als Block abstellen und mit allem Inhalt wieder aufnehmen. Tiefe Taschen gibt ihnen größere Stapel und Trichter automatisches Aufsammeln; mit SimpleBuilding macht Baumeister sie zur Materialquelle für Baustab und Blockauswahl, und Berührung des Konstrukteurs füllt beim Bauen die Hand aus ihnen nach.",
+        "details": [
+          "Einstieg: den Rucksack aus 2 Kupferklumpen, Faden, 3 Leder und 3 schweren Wägeplatten - mit SimpleBuilding treten 3 Lederplatten (aus je 9 Leder) an die Stelle des Leders. Der Verstärkte Rucksack wird um einen Rucksack herum gebaut (4 Diamantkiesel, Faden und 3 Leder bzw. mit SimpleBuilding Lederplatten) und behält alles, was der Rucksack hatte; Netherit- und Enderit-Rucksack folgen am Schmiedetisch wie bei den anderen Werkzeugfamilien, ebenfalls mit Inhalt.",
+          "Stufen: Rucksack 9 Plätze (1 Reihe), Verstärkt 18 (2 Reihen), Netherit 33 (3 Reihen plus eine Zusatzspalte mit 6 Plätzen rechts), Enderit 50 (4 Reihen plus zwei Zusatzspalten mit je 7 Plätzen, rechts und links). Getragen geben sie 1 / 2 / 3 / 4 Rüstungspunkte und nehmen keinen Schaden.",
+          "Tragen: Rechtsklick legt ihn in den Brust-Slot und tauscht dabei mit einem getragenen Brustpanzer oder einer Elytra – der Rucksack nimmt deren Platz ein. Ein getragener Rucksack ist auf dem Rücken des Spielers zu sehen, im Aussehen seiner Stufe.",
+          "Öffnen: die Rucksack-Taste drücken (Rucksack öffnen, Standard B; eine Belegung von SimpleBuildings alter Taste wird einmal übernommen). Sie öffnet den getragenen Rucksack, sonst den ersten Rucksack im Inventar (Schnellleiste, Hauptinventar, dann Nebenhand); der Server wählt und prüft den Rucksack selbst. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Der Platz des geöffneten Rucksacks - Brust-Slot oder sein Inventarplatz - ist gesperrt, solange er offen ist: kein Herausnehmen, kein Shift-Klick, kein Wegtauschen per Zifferntaste, nichts darauflegen. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
+          "Shift-Klick verhält sich wie im Vanilla-Inventar, wobei der Rucksack zum Hauptinventar zählt: Aus der Hotbar füllt ein Item zuerst passende Stapel irgendwo in Hauptinventar und Rucksack auf und dann den ersten freien Platz von oben links nach unten rechts, so wie der Bildschirm sie zeigt; aus Hauptinventar oder Rucksack geht es in die Hotbar; Rüstung und Schilde gehen in ihren leeren Slot.",
+          "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter unsichtbar, gibt einem Komparator seinen Füllstand wie eine Truhe (gemessen an den Stapelgrenzen des Rucksacks, Tiefe Taschen eingerechnet) und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
+          "Tooltip: Beim Überfahren zeigt ein Rucksack, wie viele Plätze belegt sind, und nennt die ersten fünf Stapel; hat er Inhalt, kommt \"Umschalt halten für Inhalt\" dazu. Mit gedrückter Umschalttaste wird daraus ein kleines Raster wie beim Vanilla-Bündel: jeder gelagerte Stapel als Icon mit Anzahl, in Slot-Reihenfolge, neun je Reihe und höchstens drei Reihen - was nicht passt, fasst die letzte Zelle als \"+N\" zusammen. Gilt für alle vier Stufen, gefärbt oder nicht, und braucht nichts vom Server: der Inhalt reist im Item selbst.",
+          "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und mit SimpleBuilding ist der Enderit-Rucksack zusätzlich vor der Leere geschützt.",
+          "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf. Mit SimpleBuilding: Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
+          "Färben: wie beim Vanilla-Bündel – Rucksack plus ein Farbstoff in der Werkbank ergibt die feste Farbe dieses Farbstoffs (die Lederfarben der Vanilla-Bündel); ein neuer Farbstoff ersetzt die Farbe, Farben mischen sich nicht, und ein Wasserkessel wäscht sie nicht ab. Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
+          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu.",
+          "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Rucksack auch in den Rücken-Accessoire-Slot und nimmt dann Brustpanzer oder Elytra nicht mehr den Brust-Slot weg. Ein Rucksack dort gilt als getragen: die Rucksack-Taste öffnet ihn (nach einem im Brust-Slot, vor einem im Inventar), Trichter nutzt ihn (mit SimpleBuilding auch Berührung des Konstrukteurs und Baumeister), und er ist auf dem Rücken zu sehen, solange der Anzeige-Schalter des Slots ihn nicht ausblendet. Ohne Accessoire-Mod ändert sich nichts.",
+          "Alte Welten: SimpleBuildings vier Rucksäcke, getragen, im Inventar oder abgestellt, werden samt Inhalt zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören die Rucksäcke weiter SimpleBuilding."
+        ]
+      }
+    },
+    {
+      "id": "storage_enchantments",
+      "related": [
+        "simplestorage:deep_pockets",
+        "simplestorage:drawer",
+        "simplestorage:funnel",
+        "bundles",
+        "quivers",
+        "backpacks",
+        "simplebuilding:master_builder",
+        "simplebuilding:color_palette"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/resources/data/simplestorage/enchantment/deep_pockets.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/enchantment/drawer.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/enchantment/funnel.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/bundle_enchantable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/deep_pockets_enchantable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/item/funnel_enchantable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/tags/enchantment/exclusive_set/builder_group.json",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/BundleEnchantments.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian"
+      ],
+      "en": {
+        "title": "Storage enchantments: Deep Pockets, Drawer, Funnel",
+        "summary": "Three enchantments for the bundles, quivers and backpacks: Deep Pockets gives them more room, Drawer much more room for one kind of item, Funnel picks items up off the ground. None is in the enchanting table tag; they go on at the anvil.",
+        "details": [
+          "Deep Pockets (I-II) and Funnel (I-II) go on all three bundle tiers, all four quiver tiers and the four backpacks (tags simplestorage:deep_pockets_enchantable and funnel_enchantable); Drawer (I-VIII) only on bundles and quivers (simplestorage:bundle_enchantable), not on backpacks or chests.",
+          "Capacity: bundles count in stack fractions and start at 96 (Reinforced), 192 (Netherite) and 288 (Enderite) items; quivers only get their tier factor (64/96/128/192 arrows). Deep Pockets (x2 or x4) and Drawer (x(16 + level)/8) multiply together. In a backpack Deep Pockets doubles or quadruples the stack limit of stackable items.",
+          "Funnel turns the container into a vacuum cleaner: level I only picks up item types already inside, level II everything; sneaking pauses it; quivers only take arrows; your hands are checked before the rest of the inventory, a worn backpack comes after the bundles.",
+          "Drawer holds only the one kind of item already inside and cannot be combined with Master Builder or Color Palette (SimpleBuilding's; exclusive set simplestorage:exclusive_set/builder_group).",
+          "Where they come from: this mod alone has no source (creative inventory and commands). With SimpleBuilding: Deep Pockets II in Ancient Cities, Deep Pockets I as a fishing treasure, Funnel I in bastions, Nether fortresses, dungeons and from the master librarian, Drawer I in woodland mansions and from the level 4 librarian; SimpleBuilding's randomly enchanted Quivers and Reinforced Bundles can carry any of them. Their enchanted books show their own picture only with SimpleBuilding (else the vanilla book).",
+          "Old worlds: simplebuilding:deep_pockets, drawer and funnel on items become these (id moves). On Minecraft 26.2 they are still SimpleBuilding's."
+        ]
+      },
+      "de": {
+        "title": "Lager-Verzauberungen: Tiefe Taschen, Schublade, Trichter",
+        "summary": "Drei Verzauberungen für Bündel, Köcher und Rucksäcke: Tiefe Taschen gibt ihnen mehr Platz, Schublade viel mehr Platz für eine Sorte, Trichter sammelt Gegenstände vom Boden auf. Keine steht im Zaubertisch-Tag; sie kommen am Amboss drauf.",
+        "details": [
+          "Tiefe Taschen (I-II) und Trichter (I-II) gehen auf alle drei Bündel-, alle vier Köcher-Stufen und die vier Rucksäcke (Tags simplestorage:deep_pockets_enchantable und funnel_enchantable); Schublade (I-VIII) nur auf Bündel und Köcher (simplestorage:bundle_enchantable), nicht auf Rucksäcke oder Truhen.",
+          "Kapazität: Bündel zählen in Stapel-Anteilen und beginnen bei 96 (Verstärkt), 192 (Netherit) und 288 (Enderit) Items; Köcher haben nur ihren Stufenfaktor (64/96/128/192 Pfeile). Tiefe Taschen (mal 2 oder 4) und Schublade (mal (16 + Stufe)/8) multiplizieren sich. Im Rucksack verdoppelt bzw. vervierfacht Tiefe Taschen die Stapelgrenze stapelbarer Items.",
+          "Trichter macht den Behälter zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert; Köcher nehmen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft, ein getragener Rucksack kommt nach den Bündeln.",
+          "Schublade hält nur die eine Sorte, die schon darin liegt, und ist nicht mit Baumeister oder Farbpalette kombinierbar (SimpleBuildings; exklusive Gruppe simplestorage:exclusive_set/builder_group).",
+          "Herkunft: diese Mod allein hat keine Quelle (Kreativ-Inventar und Befehle). Mit SimpleBuilding: Tiefe Taschen II in Antiken Städten, Tiefe Taschen I als Angel-Schatz, Trichter I in Bastionen, Netherfestungen, Verliesen und beim Meister-Bibliothekar, Schublade I in Waldanwesen und beim Bibliothekar Stufe 4; SimpleBuildings zufällig verzauberte Köcher und Verstärkte Bündel können jede davon tragen. Ihre verzauberten Bücher zeigen nur mit SimpleBuilding ein eigenes Bild (sonst das Vanilla-Buch).",
+          "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding."
+        ]
+      }
     }
   ],
   "notes": {
