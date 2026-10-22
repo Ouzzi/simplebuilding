@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
   "mod": {
     "id": "simpleovens",
     "name": "Simple Ovens",
-    "version": "1.0.0",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],

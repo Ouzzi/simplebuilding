@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simplevisuals"] = {
   "mod": {
     "id": "simplevisuals",
     "name": "Simple Visuals",
-    "version": "1.0.7",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],

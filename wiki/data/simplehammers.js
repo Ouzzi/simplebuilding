@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simplehammers"] = {
   "mod": {
     "id": "simplehammers",
     "name": "Simple Hammers",
-    "version": "1.0.0",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],

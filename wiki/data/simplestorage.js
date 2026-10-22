@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
   "mod": {
     "id": "simplestorage",
     "name": "Simple Storage",
-    "version": "1.0.0",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],
