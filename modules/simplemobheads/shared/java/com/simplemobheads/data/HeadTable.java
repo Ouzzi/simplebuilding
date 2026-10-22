@@ -319,7 +319,7 @@ public final class HeadTable {
         new HeadDef("herobrine", "herobrine_head", "herobrine_wall_head", "simplemobheads:herobrine", "secret", List.of("minecraft:ambient.cave"), "", "herobrine", false, false, "ritual", "", "", "", List.of(
                 new HeadDef.Look("", "simplemobheads:herobrine", "herobrine", "", "", "simplemobheads:textures/entity/herobrine/herobrine.png", "cutout", "", List.of(), null, 0.0F, List.of())), "", List.of()),
         new HeadDef("crowned_pig", "crowned_pig_head", "crowned_pig_wall_head", "simplemobheads:technoblade", "secret", List.of("minecraft:entity.pig.ambient"), "", "crowned_pig", false, false, "tribute", "", "", "", List.of(
-                new HeadDef.Look("", "simplemobheads:crowned_pig", "crowned_pig", "", "", "minecraft:textures/entity/pig/pig_temperate.png", "cutout", "", List.of(), null, 0.0F, List.of())), "", List.of()),
+                new HeadDef.Look("", "simplemobheads:crowned_pig", "technoblade", "", "", "simplemobheads:textures/entity/technoblade/technoblade.png", "cutout", "", List.of(), null, 0.0F, List.of())), "", List.of()),
         new HeadDef("giant", "giant_head", "giant_wall_head", "minecraft:giant", "secret", List.of("minecraft:entity.zombie.ambient"), "", "giant", false, false, "giant", "", "entity_type", "zombie", List.of(
                 new HeadDef.Look("", "simplemobheads:giant", "", "minecraft:zombie#main", "head", "minecraft:textures/entity/zombie/zombie.png", "cutout", "", List.of("hat"), null, 3.0F, List.of()),
                 new HeadDef.Look("husk", "simplemobheads:giant/husk", "", "minecraft:husk#main", "head", "minecraft:textures/entity/zombie/husk.png", "cutout", "", List.of("hat"), null, 3.0F, List.of()),

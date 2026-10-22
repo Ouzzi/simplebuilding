@@ -2627,8 +2627,8 @@
     "minecraft:entity.pig.ambient"
    ],
    "model": {
-    "custom": "crowned_pig",
-    "tex": "pig/pig_temperate"
+    "custom": "technoblade",
+    "tex": "simplemobheads:technoblade/technoblade"
    },
    "ability": "crowned_pig",
    "mob": "simplemobheads:technoblade",
