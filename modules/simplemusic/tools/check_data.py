@@ -48,7 +48,7 @@ for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colo
     assert json.loads((RES / f'assets/{NS}/items/{k}.json').read_text(encoding='utf-8'))['model']['fallback']['model'] == f'{NS}:block/{k}', k
     loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{k}.json').read_text(encoding='utf-8'))
     entry = loot['pools'][0]['entries'][0]
-    assert entry['name'] == f'{NS}:{k}' and entry['functions'] == [{'function': 'minecraft:copy_components', 'source': 'block_entity'}], k
+    assert entry['name'] == f'{NS}:{k}' and entry['modifier'] == {'type': 'minecraft:copy_components', 'source': 'block_entity'}, k
     assert 'conditions' not in loot['pools'][0], ('always drops', k)
 assert (RES / f'assets/{NS}/textures/block/pocket_jukebox_parts.png').is_file()
 for r in recipes.values():
