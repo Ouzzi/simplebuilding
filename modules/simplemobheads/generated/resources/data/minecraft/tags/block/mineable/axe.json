@@ -187,6 +187,12 @@
     "simplemobheads:dragonmite_head",
     "simplemobheads:dragonmite_wall_head",
     "simplemobheads:herobrine_head",
-    "simplemobheads:herobrine_wall_head"
+    "simplemobheads:herobrine_wall_head",
+    "simplemobheads:crowned_pig_head",
+    "simplemobheads:crowned_pig_wall_head",
+    "simplemobheads:giant_head",
+    "simplemobheads:giant_wall_head",
+    "simplemobheads:giant_cow_head",
+    "simplemobheads:giant_cow_wall_head"
   ]
 }

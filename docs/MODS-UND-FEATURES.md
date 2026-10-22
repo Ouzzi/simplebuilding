@@ -168,15 +168,20 @@ Schleichwurf (Yeet), Wurfziegel und Ziegelschneeball, Schweinverwandlung, „Sch
 kleine kosmetische Freuden. Seit 1.4.0 ohne Köpfe (Tier- und Spielerköpfe → Simple Mobheads).
 
 ### Simple Mobheads (Pflicht-Sub-Mod von SimpleBuilding, allein spielbar)
-94 Köpfe (93 Mob-Köpfe + geheimer Herobrine-Kopf) aus `modules/simplemobheads/data/mobs.json` (Generator `tools/generate_heads.py`): jeder 26.3-Mob ohne
+97 Köpfe (93 Mob-Köpfe + 4 geheime: Herobrine, Gekrönter Schweinekopf, Riesenkopf, Riesenkuhkopf) aus `modules/simplemobheads/data/mobs.json` (Generator `tools/generate_heads.py`): jeder 26.3-Mob ohne
 Vanilla-Kopf, die Mobs der Simple-Mods, die 4 Tierköpfe aus Simple Fun und die 12 Köpfe aus SimpleBuilding
 (`simplefun:*`/`simplebuilding:*` → `simplemobheads:*` über IdMoves). Drop nur durch geladenen Creeper (Variante des
 Mobs als Komponente, Babys normaler Kopf, Wither aus/Warden an, Spieler-Kill-Chance optional aus), PvP-Spielerkopf,
-Tarnung gegen den eigenen Mob, Notenblock-Stimme, Gruß beim Schleichen, 29 Fähigkeiten mit Schaltern, eigener Tab +
+Tarnung gegen den eigenen Mob, Notenblock-Stimme, Gruß beim Schleichen, 32 Fähigkeiten mit Schaltern, eigener Tab +
 Suchtab hinter dem Drachenkopf, `/simplemobheads` (Alias `/simplefun pvp headDrops`). Plan
 `docs/ai/PLAN-SIMPLE-MOBHEADS-2026-10-13.md`. Easter Egg (KONZ20): Herobrine-Ritual (Goldschrein + Moos + 4 Redstone-Fackeln +
 Netherrack, nachts anzünden) → Herobrine-Kopf (eigene Pixelkunst, leuchtende Augen; Fackeln flackern, Mobs zögern im Dunkeln),
 5 min Spuk nur für den Auslöser, Hinweisbuch in Minenschacht-Truhen; Plan `docs/ai/PLAN-B-HEROBRINE-2026-10-20.md`.
+Easter Eggs EH21 (`b-eh21`): Schwein „Technoblade“ trägt Krone und stirbt nie, Spieler-Schlag → Gekrönter Schweinekopf (Tribut,
+Abklingzeit Schwein/Spieler); Killerkaninchen 1:1000 in Blumenwald/Wiese (leichter Biss, schnell, Kopf = Variante `evil`);
+Riesen-Zombie (Blitz bei Vollmond, jede Zombie-Art, `scale` ×3) und Riesen-Kuh (je Heuballen 1:5000, max. 64 je Kuh) → Riesenköpfe
+1,5 Blöcke, nur per geladenem Creeper; getragen ×1,5 Größe + Stufenhöhe (+ Tempo/Art-Vorteil bzw. Kuh-Fähigkeit); Plan
+`docs/ai/PLAN-B-EH21-2026-10-22.md`.
 
 ### Simple Visuals (clientseitig)
 Geschwindigkeitslinien, Aufnahmehinweise, Elytra-Neigungshilfe, Effekt-Zeitleisten, Spielerköpfe in Locator und Chat,

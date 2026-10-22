@@ -41,6 +41,8 @@ public final class MobHeadModels {
     private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
     /** Per look kind: {native edge of the mob's head, edge inside the skull model} in model pixels. */
     private static final Map<String, float[]> EDGES = new ConcurrentHashMap<>();
+    /** Per look kind of a giant head (look scale > 1): {half depth, height} in the skull model, in blocks. */
+    private static final Map<String, float[]> DEPTH = new ConcurrentHashMap<>();
 
     private MobHeadModels() {
     }
@@ -127,6 +129,26 @@ public final class MobHeadModels {
         return new float[] {edge / vanilla, edge};
     }
 
+    /**
+     * EH21 giant heads on a wall: Vanilla hangs every head with its middle a quarter block from the wall (right for 8 px); a head
+     * of half depth {@code d} blocks needs its middle {@code d} from the wall and no lift. Returns {offset from the block middle
+     * towards the wall, lift} for {@code SkullBlockRendererMixin}, or null for an ordinary head (Vanilla's 0.25 / 0.25).
+     */
+    public static float @Nullable [] wall(MobHeadType type) {
+        if (type.look().scale() <= 1.0F) {
+            return null;
+        }
+        float[] depth = DEPTH.get(type.look().kind());
+        if (depth == null) {
+            create(net.minecraft.client.Minecraft.getInstance().getEntityModels(), type);
+            depth = DEPTH.get(type.look().kind());
+        }
+        if (depth == null) {
+            return null;
+        }
+        return new float[] {0.5F - depth[0], Math.max(0.0F, 0.5F - depth[1] / 2.0F)};
+    }
+
     private static MobHeadModel generic(EntityModelSet models, HeadDef.Look look) {
         Set<String> hide = new HashSet<>(look.hide());
         ModelPart base = part(models, look.layer(), look.part(), hide);
@@ -135,6 +157,10 @@ public final class MobHeadModels {
         float nativeEdge = Math.max(size[3] - size[0], Math.max(size[4] - size[1], size[5] - size[2]));
         EDGES.put(look.kind(), new float[] {nativeEdge, nativeEdge * pose.xScale()});
         apply(base, pose);
+        if (look.scale() > 1.0F) {
+            float[] posed = bounds(base, hide);
+            DEPTH.put(look.kind(), new float[] {(posed[5] - posed[2]) / 32.0F, (posed[4] - posed[1]) / 16.0F});
+        }
         ModelPart root = wrap(base);
         List<MobHeadModel.Pass> passes = new ArrayList<>();
         int tint = tint(look.tint());

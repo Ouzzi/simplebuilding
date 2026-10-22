@@ -23,20 +23,20 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "id": "heads",
       "en": {
         "title": "A Head for Every Mob",
-        "summary": "94 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding, plus one secret head.",
+        "summary": "97 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding, plus four secret heads.",
         "details": [
           "Monsters, Nether mobs, animals, water mobs and bosses; the creeper, zombie, skeleton, wither skeleton, piglin and ender dragon keep their Vanilla heads, the player head stays Vanilla.",
           "Each head shows its mob's real texture (by reference, so resource packs repaint the heads too) and the head of the mob's own model, set on the floor or hung on a wall.",
-          "A test walks the whole entity registry: every mob has a head or a stated reason (Vanilla head, unused giant)."
+          "A test walks the whole entity registry: every mob has a head or a stated reason (Vanilla head)."
         ]
       },
       "de": {
         "title": "Ein Kopf für jeden Mob",
-        "summary": "94 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen, dazu ein geheimer Kopf.",
+        "summary": "97 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen, dazu vier geheime Köpfe.",
         "details": [
           "Monster, Nether-Mobs, Tiere, Wassermobs und Bosse; Creeper, Zombie, Skelett, Witherskelett, Piglin und Enderdrache behalten ihre Vanilla-Köpfe, der Spielerkopf bleibt Vanilla.",
           "Jeder Kopf zeigt die echte Textur seines Mobs (per Verweis, Ressourcenpakete färben die Köpfe mit um) und den Kopf aus dem Modell des Mobs, stehend auf dem Boden oder an der Wand.",
-          "Ein Test geht die ganze Entity-Registry durch: jeder Mob hat einen Kopf oder einen genannten Grund (Vanilla-Kopf, ungenutzter Riese)."
+          "Ein Test geht die ganze Entity-Registry durch: jeder Mob hat einen Kopf oder einen genannten Grund (Vanilla-Kopf)."
         ]
       },
       "sources": [
@@ -312,6 +312,97 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         "modules/simplemobheads/shared/java/com/simplemobheads/ritual/HerobrineHaunt.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/IgniteItemMixin.java"
+      ]
+    },
+    {
+      "id": "technoblade",
+      "spoiler": true,
+      "en": {
+        "title": "Technoblade Never Dies",
+        "summary": "A tribute head no mob drops: the Crowned Pig Head. The title screen and the Questionary hint at it.",
+        "details": [
+          "Name an adult pig \"Technoblade\" (exactly, with a name tag): within a second it wears a golden crown.",
+          "While it wears the crown it never dies: a deadly hit leaves it at half a heart with a totem's flash. If a player struck that hit, the crown falls off as the Crowned Pig Head (lore \"Technoblade never dies\"); without a player the crown stays.",
+          "The crown grows back after an in-game day, and the same player gets the next crowned head only after an in-game day (server switch and cooldown). The void and /kill still work; lightning never turns Technoblade into a zombified piglin.",
+          "Worn, pigs nearby turn their heads to the wearer and the crown glints now and then. The head looks like his skin: a player-sized pig head with a thin golden crown set with blue, purple, red and green jewels, drawn anew (own pixels, no player profile is loaded). A pig named Technoblade wears the same crown."
+        ]
+      },
+      "de": {
+        "title": "Technoblade never dies",
+        "summary": "Ein Tribut-Kopf, den kein Mob fallen lässt: der Gekrönte Schweinekopf. Startbildschirm und Fragentisch deuten ihn an.",
+        "details": [
+          "Ein erwachsenes Schwein \"Technoblade\" nennen (genau so, mit Namensschild): binnen einer Sekunde trägt es eine goldene Krone.",
+          "Solange es die Krone trägt, stirbt es nie: ein tödlicher Schlag lässt ihm ein halbes Herz und den Blitz eines Totems. War es der Schlag eines Spielers, fällt die Krone als Gekrönter Schweinekopf herunter (Lore \"Technoblade never dies\"); ohne Spieler bleibt die Krone.",
+          "Die Krone wächst nach einem Ingame-Tag nach, und derselbe Spieler bekommt den nächsten gekrönten Kopf erst nach einem Ingame-Tag (Server-Schalter und Abklingzeit). Leere und /kill wirken weiter; ein Blitz macht aus Technoblade nie einen zombifizierten Piglin.",
+          "Getragen drehen Schweine in der Nähe den Kopf zum Träger, und die Krone glänzt ab und zu. Der Kopf sieht aus wie sein Skin: ein Schweinekopf in Spielergröße mit einer schmalen goldenen Krone mit blauen, lila, roten und grünen Steinen, neu gezeichnet (eigene Pixel, es wird kein Spielerprofil geladen). Ein Schwein namens Technoblade trägt dieselbe Krone."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/easter/Technoblade.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/EasterDeathMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/AnimalAiMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/PigThunderMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/client/TechnobladeCrownLayer.java",
+        "tools/textures/easter_heads_2026_10_22.py"
+      ]
+    },
+    {
+      "id": "killer_bunny",
+      "spoiler": true,
+      "en": {
+        "title": "Killer Bunny",
+        "summary": "A very rare rabbit is a killer bunny; its head is the rabbit head's Killer Bunny variant.",
+        "details": [
+          "In flower forests and meadows one naturally spawned rabbit in a thousand is a killer bunny (biome tag simplemobheads:killer_bunny_spawns, server chance and switch).",
+          "It always attacks players and wolves and never flees, hops one and a half times as fast and bites lightly (one heart). Killer bunnies from commands stay Vanilla.",
+          "A charged creeper's explosion drops its head, like every head."
+        ]
+      },
+      "de": {
+        "title": "Killerkaninchen",
+        "summary": "Ein sehr seltenes Kaninchen ist ein Killerkaninchen; sein Kopf ist die Variante Killerkaninchen des Kaninchenkopfs.",
+        "details": [
+          "In Blumenwäldern und auf Wiesen ist eines von tausend natürlich gespawnten Kaninchen ein Killerkaninchen (Biom-Tag simplemobheads:killer_bunny_spawns, Server-Chance und Schalter).",
+          "Es greift Spieler und Wölfe immer an und flieht nie, hoppelt anderthalbmal so schnell und beißt leicht (ein Herz). Killerkaninchen aus Befehlen bleiben Vanilla.",
+          "Die Explosion eines geladenen Creepers lässt seinen Kopf fallen, wie bei jedem Kopf."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/easter/KillerBunny.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/RabbitSpawnMixin.java"
+      ]
+    },
+    {
+      "id": "giants",
+      "spoiler": true,
+      "en": {
+        "title": "Giants",
+        "summary": "Two giant heads, one and a half blocks big: the Giant Head and the Giant Cow Head. Only a charged creeper brings them down.",
+        "details": [
+          "Giant: natural lightning that strikes an adult zombie of any kind (zombie, husk, drowned, zombie villager, zombified piglin) on a full-moon night makes it three times as big, with 100 health, a harder hit and more step height. It keeps its kind and its look. It needs room to grow: under trees or a roof the bolt changes nothing.",
+          "Giant cow: every hay bale an adult cow eats from your hand is one try in 5000 to make it a giant cow (three times as big, 30 health, the same drops and milk as any cow); a cow eats at most 64 bales, then it is full. A lucky cow in a barn too low keeps its luck and grows as soon as it stands in the open.",
+          "Only a charged creeper's explosion drops a giant's head, with its kind or variant, instead of the normal head. A player's kill gives none. Vanilla's giant (only by command) drops the Giant Head too.",
+          "Worn, the wearer grows to one and a half times the size and steps up whole blocks; the Giant Head also walks a little faster, hides the wearer from every zombie kind (half the sight) and works like the head of its kind (husk: food gives no Hunger, drowned: magma bubbles do not drag down). The Giant Cow Head works like the cow head (others can milk the wearer).",
+          "Placed, a giant head is one and a half blocks big on a full block; in the inventory and worn it has the normal head size."
+        ]
+      },
+      "de": {
+        "title": "Riesen",
+        "summary": "Zwei Riesenköpfe, anderthalb Blöcke groß: der Riesenkopf und der Riesenkuhkopf. Nur ein geladener Creeper bringt sie zu Fall.",
+        "details": [
+          "Riese: Ein natürlicher Blitz, der in einer Vollmondnacht einen erwachsenen Zombie jeder Art trifft (Zombie, Wüstenzombie, Ertrunkener, Zombiedorfbewohner, zombifizierter Piglin), macht ihn dreimal so groß, mit 100 Lebenspunkten, härterem Schlag und mehr Stufenhöhe. Er behält Art und Aussehen. Er braucht Platz zum Wachsen: unter Bäumen oder einem Dach ändert der Blitz nichts.",
+          "Riesen-Kuh: Jeder Heuballen, den eine erwachsene Kuh aus der Hand frisst, ist ein Versuch von 5000, sie zur Riesen-Kuh zu machen (dreimal so groß, 30 Lebenspunkte, Beute und Milch wie jede Kuh); eine Kuh frisst höchstens 64 Ballen, dann ist sie satt. Eine Glückskuh in einem zu niedrigen Stall behält ihr Glück und wächst, sobald sie im Freien steht.",
+          "Nur die Explosion eines geladenen Creepers lässt den Kopf eines Riesen fallen, mit seiner Art oder Variante, statt des normalen Kopfs. Ein Spieler-Kill gibt keinen. Vanillas Riese (nur per Befehl) lässt auch den Riesenkopf fallen.",
+          "Getragen wächst der Träger auf anderthalbfache Größe und steigt ganze Blöcke hoch; der Riesenkopf läuft zusätzlich etwas schneller, tarnt vor jeder Zombie-Art (halbe Sicht) und wirkt wie der Kopf seiner Art (Wüstenzombie: Essen macht nicht hungrig, Ertrunkener: Magma-Blasen ziehen nicht hinab). Der Riesenkuhkopf wirkt wie der Kuhkopf (andere können den Träger melken).",
+          "Aufgestellt ist ein Riesenkopf anderthalb Blöcke groß auf einem vollen Block; im Inventar und getragen hat er normale Kopfgröße."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/easter/Giants.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/EasterThunderMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/CowFeedMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/CreeperMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java"
       ]
     }
   ],
@@ -663,6 +754,22 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/creaking_head.json"
     },
     {
+      "id": "simplemobheads:blocks/crowned_pig_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobheads:crowned_pig_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/crowned_pig_head.json"
+    },
+    {
       "id": "simplemobheads:blocks/deceiver_head",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -869,6 +976,38 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         }
       ],
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/ghast_head.json"
+    },
+    {
+      "id": "simplemobheads:blocks/giant_cow_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobheads:giant_cow_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/giant_cow_head.json"
+    },
+    {
+      "id": "simplemobheads:blocks/giant_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobheads:giant_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/loot_table/blocks/giant_head.json"
     },
     {
       "id": "simplemobheads:blocks/glow_squid_head",
@@ -2243,6 +2382,18 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         {
           "id": "simplemobheads:herobrine_head",
           "required": true
+        },
+        {
+          "id": "simplemobheads:crowned_pig_head",
+          "required": true
+        },
+        {
+          "id": "simplemobheads:giant_head",
+          "required": true
+        },
+        {
+          "id": "simplemobheads:giant_cow_head",
+          "required": true
         }
       ],
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/tags/item/heads.json"
@@ -2293,6 +2444,21 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
         }
       ],
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/tags/item/trial_chamber_heads.json"
+    },
+    {
+      "id": "simplemobheads:worldgen/biome/killer_bunny_spawns",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:flower_forest",
+          "required": true
+        },
+        {
+          "id": "minecraft:meadow",
+          "required": true
+        }
+      ],
+      "source": "modules/simplemobheads/shared/resources/data/simplemobheads/tags/worldgen/biome/killer_bunny_spawns.json"
     }
   ],
   "advancements": [
@@ -2753,6 +2919,32 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/creaking.json"
     },
     {
+      "id": "simplemobheads:heads/crowned_pig",
+      "parent": "simplemobheads:heads/root",
+      "icon": "simplemobheads:crowned_pig_head",
+      "frame": "task",
+      "hidden": true,
+      "title": {
+        "en_us": "Never Dies",
+        "de_de": "Stirbt nie"
+      },
+      "description": {
+        "en_us": "Get the crown of a pig that never dies",
+        "de_de": "Erhalte die Krone eines Schweins, das nie stirbt"
+      },
+      "criteria": [
+        {
+          "name": "has_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplemobheads:crowned_pig_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/crowned_pig.json"
+    },
+    {
       "id": "simplemobheads:heads/deceiver",
       "parent": "simplemobheads:heads/root",
       "icon": "simplemobheads:deceiver_head",
@@ -3065,6 +3257,58 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/ghast.json"
     },
     {
+      "id": "simplemobheads:heads/giant",
+      "parent": "simplemobheads:heads/root",
+      "icon": "simplemobheads:giant_head",
+      "frame": "task",
+      "hidden": true,
+      "title": {
+        "en_us": "Big Trouble",
+        "de_de": "Riesenärger"
+      },
+      "description": {
+        "en_us": "Bring down a giant with a charged creeper",
+        "de_de": "Bring einen Riesen mit einem geladenen Creeper zu Fall"
+      },
+      "criteria": [
+        {
+          "name": "has_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplemobheads:giant_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/giant.json"
+    },
+    {
+      "id": "simplemobheads:heads/giant_cow",
+      "parent": "simplemobheads:heads/root",
+      "icon": "simplemobheads:giant_cow_head",
+      "frame": "task",
+      "hidden": true,
+      "title": {
+        "en_us": "Moo-ve Over",
+        "de_de": "Mach Platz, Muh!"
+      },
+      "description": {
+        "en_us": "Get the head of a giant cow",
+        "de_de": "Erhalte den Kopf einer Riesen-Kuh"
+      },
+      "criteria": [
+        {
+          "name": "has_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplemobheads:giant_cow_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/giant_cow.json"
+    },
+    {
       "id": "simplemobheads:heads/glow_squid",
       "parent": "simplemobheads:heads/root",
       "icon": "simplemobheads:glow_squid_head",
@@ -3353,6 +3597,32 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       ],
       "needs": "any",
       "source": "modules/simplemobheads/generated/resources/data/simplemobheads/advancement/heads/iron_golem.json"
+    },
+    {
+      "id": "simplemobheads:heads/killer_bunny",
+      "parent": "simplemobheads:heads/root",
+      "icon": "simplemobheads:rabbit_head",
+      "frame": "task",
+      "hidden": true,
+      "title": {
+        "en_us": "Run Away!",
+        "de_de": "Lauft weg!"
+      },
+      "description": {
+        "en_us": "Get the head of a killer bunny",
+        "de_de": "Erhalte den Kopf eines Killerkaninchens"
+      },
+      "criteria": [
+        {
+          "name": "has_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplemobheads:rabbit_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemobheads/shared/resources/data/simplemobheads/advancement/heads/killer_bunny.json"
     },
     {
       "id": "simplemobheads:heads/llama",
@@ -4595,10 +4865,10 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
           "modules/simplemobheads/shared/resources/data/simplemobheads/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + skeleton skull. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
+          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + skeleton skull. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Skelettschädel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
+          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Skelettschädel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
         }
       },
       "texture": "assets/textures/simplemobheads/item/guide_book.png",
@@ -6192,6 +6462,100 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "usedIn": []
     },
     {
+      "id": "simplemobheads:crowned_pig_head",
+      "name": {
+        "en_us": "Crowned Pig Head",
+        "de_de": "Gekrönter Schweinekopf"
+      },
+      "note": {
+        "spoiler": true,
+        "en": {
+          "summary": "A tribute head that no mob drops (see the guide \"Technoblade Never Dies\").",
+          "details": [
+            "A pig named Technoblade wears it as a crown and never dies while it does; a player's deadly hit makes the crown fall, once per pig and player per in-game day.",
+            "Worn, pigs nearby turn their heads to the wearer. Place it, wear it or put it on a note block."
+          ]
+        },
+        "de": {
+          "summary": "Ein Tribut-Kopf, den kein Mob fallen lässt (siehe Anleitung \"Technoblade never dies\").",
+          "details": [
+            "Ein Schwein namens Technoblade trägt ihn als Krone und stirbt damit nie; der tödliche Schlag eines Spielers lässt die Krone fallen, einmal je Schwein und Spieler pro Ingame-Tag.",
+            "Getragen drehen Schweine in der Nähe den Kopf zum Träger. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ]
+        },
+        "sources": [
+          "modules/simplemobheads/shared/java/com/simplemobheads/easter/Technoblade.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: Technoblade never dies."
+          ],
+          "use": [
+            "No mob drops it. A pig with a certain name never dies - strike it down, and its crown falls instead; the title screen remembers him. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Pigs nearby turn their heads to its wearer, and the crown glints."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: Technoblade never dies."
+          ],
+          "use": [
+            "Kein Mob lässt ihn fallen. Ein Schwein mit einem bestimmten Namen stirbt nie - schlägst du es nieder, fällt stattdessen seine Krone; der Startbildschirm erinnert an ihn. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Schweine in der Nähe drehen den Kopf zum Träger, und die Krone glänzt."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:crowned_pig_wall_head",
+      "name": {
+        "en_us": "Crowned Pig Head",
+        "de_de": "Gekrönter Schweinekopf"
+      },
+      "note": {
+        "en": {
+          "summary": "The wall form of the head (placed against a wall); drops and names like the standing head."
+        },
+        "de": {
+          "summary": "Die Wandform des Kopfes (an eine Wand gesetzt); Beute und Name wie beim stehenden Kopf."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: Technoblade never dies."
+          ],
+          "use": [
+            "No mob drops it. A pig with a certain name never dies - strike it down, and its crown falls instead; the title screen remembers him. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Pigs nearby turn their heads to its wearer, and the crown glints."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: Technoblade never dies."
+          ],
+          "use": [
+            "Kein Mob lässt ihn fallen. Ein Schwein mit einem bestimmten Namen stirbt nie - schlägst du es nieder, fällt stattdessen seine Krone; der Startbildschirm erinnert an ihn. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Schweine in der Nähe drehen den Kopf zum Träger, und die Krone glänzt."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplemobheads:deceiver_head",
       "name": {
         "en_us": "Deceiver Head",
@@ -7251,6 +7615,194 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
           ],
           "secret": [
             "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:giant_cow_head",
+      "name": {
+        "en_us": "Giant Cow Head",
+        "de_de": "Riesenkuhkopf"
+      },
+      "note": {
+        "spoiler": true,
+        "en": {
+          "summary": "The head of a giant cow (see the guide \"Giants\"): only a charged creeper's explosion drops it, with the cow's variant.",
+          "details": [
+            "A cow fed hay bales may very rarely grow into a giant cow. Placed one and a half blocks big.",
+            "Worn: 1.5x size, whole-block steps, and others can milk the wearer."
+          ]
+        },
+        "de": {
+          "summary": "Der Kopf einer Riesen-Kuh (siehe Anleitung \"Riesen\"): nur die Explosion eines geladenen Creepers lässt ihn fallen, mit der Variante der Kuh.",
+          "details": [
+            "Eine mit Heuballen gefütterte Kuh wird sehr selten zur Riesen-Kuh. Aufgestellt anderthalb Blöcke groß.",
+            "Getragen: 1,5-fache Größe, ganze Blöcke hoch, und andere können den Träger melken."
+          ]
+        },
+        "sources": [
+          "modules/simplemobheads/shared/java/com/simplemobheads/easter/Giants.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: it really did eat all that hay."
+          ],
+          "use": [
+            "No ordinary cow drops it. A cow fed hay bales, one by one, may - very rarely - grow into a giant; only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Its wearer grows to 1.5x size and steps up whole blocks; another player can milk it like a cow."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: sie hat das ganze Heu wirklich gefressen."
+          ],
+          "use": [
+            "Keine gewöhnliche Kuh lässt ihn fallen. Eine Kuh, die Heuballen frisst, einen nach dem anderen, wird - sehr selten - zur Riesin; nur ein geladener Creeper holt ihren Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Der Träger wächst auf 1,5-fache Größe und steigt ganze Blöcke hoch; ein anderer Spieler kann ihn wie eine Kuh melken."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:giant_cow_wall_head",
+      "name": {
+        "en_us": "Giant Cow Head",
+        "de_de": "Riesenkuhkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "The wall form of the head (placed against a wall); drops and names like the standing head."
+        },
+        "de": {
+          "summary": "Die Wandform des Kopfes (an eine Wand gesetzt); Beute und Name wie beim stehenden Kopf."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: it really did eat all that hay."
+          ],
+          "use": [
+            "No ordinary cow drops it. A cow fed hay bales, one by one, may - very rarely - grow into a giant; only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Its wearer grows to 1.5x size and steps up whole blocks; another player can milk it like a cow."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: sie hat das ganze Heu wirklich gefressen."
+          ],
+          "use": [
+            "Keine gewöhnliche Kuh lässt ihn fallen. Eine Kuh, die Heuballen frisst, einen nach dem anderen, wird - sehr selten - zur Riesin; nur ein geladener Creeper holt ihren Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Der Träger wächst auf 1,5-fache Größe und steigt ganze Blöcke hoch; ein anderer Spieler kann ihn wie eine Kuh melken."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:giant_head",
+      "name": {
+        "en_us": "Giant Head",
+        "de_de": "Riesenkopf"
+      },
+      "note": {
+        "spoiler": true,
+        "en": {
+          "summary": "The head of a giant (see the guide \"Giants\"): only a charged creeper's explosion drops it, with the giant's zombie kind.",
+          "details": [
+            "Lightning on a full-moon night makes a zombie a giant. Placed one and a half blocks big.",
+            "Worn: 1.5x size, whole-block steps, a little faster, hidden from zombies, and the head of its kind."
+          ]
+        },
+        "de": {
+          "summary": "Der Kopf eines Riesen (siehe Anleitung \"Riesen\"): nur die Explosion eines geladenen Creepers lässt ihn fallen, mit der Zombie-Art des Riesen.",
+          "details": [
+            "Ein Blitz in einer Vollmondnacht macht aus einem Zombie einen Riesen. Aufgestellt anderthalb Blöcke groß.",
+            "Getragen: 1,5-fache Größe, ganze Blöcke hoch, etwas schneller, vor Zombies getarnt und der Kopf seiner Art."
+          ]
+        },
+        "sources": [
+          "modules/simplemobheads/shared/java/com/simplemobheads/easter/Giants.java"
+        ]
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the biggest trouble a full moon ever brought."
+          ],
+          "use": [
+            "No ordinary zombie drops it. When lightning strikes a zombie under a full moon, something big gets up - only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Its wearer grows to 1.5x size, steps up whole blocks and walks a little faster; zombies see it only half as far, and it works like the head of its zombie kind (husk, drowned)."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: der größte Ärger, den ein Vollmond je brachte."
+          ],
+          "use": [
+            "Kein gewöhnlicher Zombie lässt ihn fallen. Trifft bei Vollmond ein Blitz einen Zombie, steht etwas Großes auf - nur ein geladener Creeper holt seinen Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Der Träger wächst auf 1,5-fache Größe, steigt ganze Blöcke hoch und läuft etwas schneller; Zombies sehen ihn nur halb so weit, und er wirkt wie der Kopf seiner Zombie-Art (Wüstenzombie, Ertrunkener)."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobheads:giant_wall_head",
+      "name": {
+        "en_us": "Giant Head",
+        "de_de": "Riesenkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "The wall form of the head (placed against a wall); drops and names like the standing head."
+        },
+        "de": {
+          "summary": "Die Wandform des Kopfes (an eine Wand gesetzt); Beute und Name wie beim stehenden Kopf."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the biggest trouble a full moon ever brought."
+          ],
+          "use": [
+            "No ordinary zombie drops it. When lightning strikes a zombie under a full moon, something big gets up - only a charged creeper brings its head down. Place it, wear it or put it on a note block."
+          ],
+          "secret": [
+            "Its wearer grows to 1.5x size, steps up whole blocks and walks a little faster; zombies see it only half as far, and it works like the head of its zombie kind (husk, drowned)."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: der größte Ärger, den ein Vollmond je brachte."
+          ],
+          "use": [
+            "Kein gewöhnlicher Zombie lässt ihn fallen. Trifft bei Vollmond ein Blitz einen Zombie, steht etwas Großes auf - nur ein geladener Creeper holt seinen Kopf. Aufstellen, tragen oder auf einen Notenblock setzen."
+          ],
+          "secret": [
+            "Der Träger wächst auf 1,5-fache Größe, steigt ganze Blöcke hoch und läuft etwas schneller; Zombies sehen ihn nur halb so weit, und er wirkt wie der Kopf seiner Zombie-Art (Wüstenzombie, Ertrunkener)."
           ]
         }
       },
@@ -12369,14 +12921,14 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 12,
+    "features": 15,
     "recipes": 1,
-    "lootTables": 94,
-    "tags": 2,
-    "advancements": 95,
+    "lootTables": 97,
+    "tags": 3,
+    "advancements": 99,
     "enchantments": 0,
     "items": 1,
-    "blocks": 188,
+    "blocks": 194,
     "trades": 0,
     "config": 0,
     "quests": 0,

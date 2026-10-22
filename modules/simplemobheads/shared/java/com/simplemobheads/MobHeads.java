@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -31,12 +32,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.MobVisibility;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.waypoints.Waypoint;
 import org.jspecify.annotations.Nullable;
 
@@ -153,12 +158,19 @@ public final class MobHeads {
         for (HeadDef head : HEADS.values()) {
             MobHeadType type = TYPES.get(head.looks().get(0).kind());
             ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleMobHeads.id(head.item()));
-            Block standing = Registry.register(BuiltInRegistries.BLOCK, key, new SkullBlock(type, BlockBehaviour.Properties.of().setId(key)
-                    .instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0F).pushReaction(PushReaction.POPPED).noOcclusion()));
+            BlockBehaviour.Properties standingProperties = BlockBehaviour.Properties.of().setId(key)
+                    .instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0F).pushReaction(PushReaction.POPPED).noOcclusion();
+            Block standing = Registry.register(BuiltInRegistries.BLOCK, key,
+                    head.big() ? new BigSkullBlock(type, standingProperties) : new SkullBlock(type, standingProperties));
             ResourceKey<Block> wallKey = ResourceKey.create(Registries.BLOCK, SimpleMobHeads.id(head.wall()));
-            Block wall = Registry.register(BuiltInRegistries.BLOCK, wallKey, new WallSkullBlock(type, BlockBehaviour.Properties.of().setId(wallKey)
+            BlockBehaviour.Properties wallProperties = BlockBehaviour.Properties.of().setId(wallKey)
                     .overrideLootTable(standing.getLootTable()).overrideDescription(standing.getDescriptionId())
-                    .strength(1.0F).pushReaction(PushReaction.POPPED)));
+                    .strength(1.0F).pushReaction(PushReaction.POPPED);
+            if (head.big()) {
+                wallProperties.noOcclusion();
+            }
+            Block wall = Registry.register(BuiltInRegistries.BLOCK, wallKey,
+                    head.big() ? new BigWallSkullBlock(type, wallProperties) : new WallSkullBlock(type, wallProperties));
             STANDING.put(head.id(), standing);
             WALL.put(head.id(), wall);
         }
@@ -172,15 +184,24 @@ public final class MobHeads {
                     .equippableUnswappable(EquipmentSlot.HEAD)
                     .component(DataComponents.ATTRIBUTE_MODIFIERS, modifiers(head))
                     .component(DataComponents.NOTE_BLOCK_SOUND, Identifier.parse(head.sounds().get(0)));
-            ResourceKey<EntityType<?>> mob = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.parse(head.mob()));
-            // Camouflage (concept §3.5.1): the head's own mob sees the wearer only half as far - Vanilla's component, as on
-            // the zombie head. A mob of a missing mod: an empty set (no effect).
+            List<String> mobs = new ArrayList<>(List.of(head.mob()));
+            mobs.addAll(head.camouflage());
+            // Camouflage (concept §3.5.1): the head's own mob (the giant head: every zombie kind, EH21) sees the wearer only half
+            // as far - Vanilla's component, as on the zombie head. A mob of a missing mod is left out (none: no effect).
             properties.delayedComponent(DataComponents.MOB_VISIBILITY, context -> {
                 HolderGetter<EntityType<?>> types = context.lookupOrThrow(Registries.ENTITY_TYPE);
-                HolderSet<EntityType<?>> seen = types.get(mob).<HolderSet<EntityType<?>>>map(ref -> HolderSet.direct(List.of(ref)))
-                        .orElseGet(HolderSet::empty);
-                return new MobVisibility(seen, 0.5F);
+                List<net.minecraft.core.Holder<EntityType<?>>> seen = new ArrayList<>();
+                for (String mob : mobs) {
+                    types.get(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.parse(mob))).ifPresent(seen::add);
+                }
+                return new MobVisibility(seen.isEmpty() ? HolderSet.empty() : HolderSet.direct(seen), 0.5F);
             });
+            if (head.drop().equals("tribute")) {
+                // N-A: the tribute's motto as a grey lore line; the item itself only names the crowned pig head.
+                properties.component(DataComponents.LORE, new net.minecraft.world.item.component.ItemLore(List.of(
+                        net.minecraft.network.chat.Component.translatable("lore.simplemobheads.crowned_pig_head")
+                                .withStyle(net.minecraft.ChatFormatting.GRAY, net.minecraft.ChatFormatting.ITALIC))));
+            }
             ITEMS.put(head.id(), Registry.register(BuiltInRegistries.ITEM, key,
                     new MobHeadItem(head, STANDING.get(head.id()), WALL.get(head.id()), properties)));
         }
@@ -201,6 +222,39 @@ public final class MobHeads {
                     AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD, ItemAttributeModifiers.Display.hidden());
         }
         return builder.build();
+    }
+
+    /**
+     * A giant head (EH21 G-A, owner "bigger"): drawn 1.5 blocks big, so the block to click and to stand on is a full block (a
+     * Vanilla skull's 8 px box would sit lost inside it).
+     */
+    public static final VoxelShape BIG_SHAPE = Block.column(16.0, 0.0, 16.0);
+
+    static final class BigSkullBlock extends SkullBlock {
+        BigSkullBlock(SkullBlock.Type type, BlockBehaviour.Properties properties) {
+            super(type, properties);
+        }
+
+        @Override
+        protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return BIG_SHAPE;
+        }
+
+        @Override
+        protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return BIG_SHAPE;
+        }
+    }
+
+    static final class BigWallSkullBlock extends WallSkullBlock {
+        BigWallSkullBlock(SkullBlock.Type type, BlockBehaviour.Properties properties) {
+            super(type, properties);
+        }
+
+        @Override
+        protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return BIG_SHAPE;
+        }
     }
 
     /** Base heads in table order (Functional Blocks / search tab, behind the dragon head). */

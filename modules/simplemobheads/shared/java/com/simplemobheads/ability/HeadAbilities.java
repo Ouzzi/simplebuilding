@@ -37,7 +37,6 @@ import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -56,7 +55,8 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p>Moved in unchanged: blaze, enderman, husk, spider, cave spider, stray, bogged, slime, silverfish (item attributes),
  * breeze, shulker, drowned (SimpleBuilding); cow, sheep, chicken, pig (Simple Fun). New (owner 13.10.): bee, fox, frog,
  * goat, cat, mooshroom, sniffer, allay, turtle, polar bear, wolf, warden; the secret Herobrine head (owner KONZ20 + 20.10.:
- * torches flicker, hostile mobs hesitate in the dark). Every head: camouflage against its own mob
+ * torches flicker, hostile mobs hesitate in the dark); the EH21 easter eggs (crowned pig: pigs look, the crown glints; giant and
+ * giant cow: size, step height, speed in {@code easter.Giants}, and they count as their kind's head). Every head: camouflage against its own mob
  * (Vanilla {@code mob_visibility}), its mob's note block sound, and a quiet greeting when sneaking.
  */
 public final class HeadAbilities {
@@ -103,24 +103,39 @@ public final class HeadAbilities {
     private HeadAbilities() {
     }
 
-    /** Whether {@code entity} wears the head {@code headId} - helmet slot or an extra head slot (framework WornHeads). */
+    /**
+     * Whether {@code entity} wears the head {@code headId} - helmet slot or an extra head slot (framework WornHeads). A head that
+     * counts as another (EH21: the giant cow head as the cow head, the giant head as the head of its zombie kind) counts too.
+     */
     public static boolean wears(Entity entity, String headId) {
-        if (!(entity instanceof LivingEntity living)) {
+        if (!(entity instanceof LivingEntity living) || MobHeads.item(headId) == null) {
             return false;
         }
-        Item item = MobHeads.item(headId);
-        if (item == null) {
-            return false;
-        }
-        if (living.getItemBySlot(EquipmentSlot.HEAD).is(item)) {
+        if (is(living.getItemBySlot(EquipmentSlot.HEAD), headId)) {
             return true;
         }
         for (Object extra : com.simplebuilding.framework.api.WornHeads.extra(living)) {
-            if (extra instanceof ItemStack stack && stack.is(item)) {
+            if (extra instanceof ItemStack stack && is(stack, headId)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /** Whether {@code stack} is the head {@code headId} or a head that counts as it ({@link HeadDef#countsAs}). */
+    public static boolean is(ItemStack stack, String headId) {
+        HeadDef head = MobHeads.of(stack);
+        if (head == null) {
+            return false;
+        }
+        if (head.id().equals(headId)) {
+            return true;
+        }
+        if (head.countsAs().equals("variant")) {
+            String variant = stack.get(MobHeads.VARIANT);
+            return headId.equals(variant != null && !variant.isEmpty() ? variant : head.firstVariant());
+        }
+        return head.countsAs().equals(headId);
     }
 
     /** Whether the ability of head {@code id} works for {@code entity} now: switches on and the head worn. */
@@ -320,6 +335,9 @@ public final class HeadAbilities {
             if (now % 20 == 0) {
                 flickerTorches(level, player);
             }
+        }
+        if (now % 2 == 0) {
+            com.simplemobheads.easter.Technoblade.charm(level, player, now);
         }
         if (player.isShiftKeyDown() && SimpleMobHeads.config().greeting) {
             greet(level, player);

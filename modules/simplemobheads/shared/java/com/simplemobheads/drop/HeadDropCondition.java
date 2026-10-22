@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 /**
  * Loot condition {@code simplemobheads:head_drop}: the server switches, read when the loot is rolled (no reload needed) -
- * master switch, creeper drops, the boss heads (wither default off, warden default on, owner 13.10.).
+ * master switch, creeper drops, the boss heads (wither default off, warden default on, owner 13.10.) and the easter eggs (EH21).
  */
 public record HeadDropCondition(String head) implements LootItemCondition {
     public static final MapCodec<HeadDropCondition> CODEC = Codec.STRING.fieldOf("head").xmap(HeadDropCondition::new, HeadDropCondition::head);
@@ -36,6 +36,9 @@ public record HeadDropCondition(String head) implements LootItemCondition {
         return switch (def.drop()) {
             case "wither" -> config.witherHead;
             case "warden" -> config.wardenHead;
+            case "tribute" -> config.technoblade;
+            case "giant" -> config.giantZombies;
+            case "giant_cow" -> config.giantCows;
             default -> true;
         };
     }
