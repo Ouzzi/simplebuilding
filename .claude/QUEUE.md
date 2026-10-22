@@ -68,11 +68,11 @@ Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfe
 - [~] (A, a-eggs22, 23.10.) TX22-2 Alle Spawn-Eier: „bei den Spawn-Eiern ist schlechte Arbeit gemacht worden. Das sieht nicht aus wie Vanilla. Das muss auf jeden Fall sehr viel verbessert werden.“
   - Vanilla 26.3 arbeitet mit eigenen Spawn-Ei-Formen je Mob, Grundfarbe und Flecken. Das Vorgehen der Vanilla-Eier analysieren und alle eigenen Eier danach neu zeichnen.
   - Vorschau mit Vanilla-Vergleich, eingebaut wird die empfohlene Variante.
-- [ ] TX22-3 Aschholz/Dämmerholz (Simple End): „die meisten Texturen“ von Holz und Blättern überarbeiten.
+- [~] (A, a-endwood22, 23.10.) TX22-3 Aschholz/Dämmerholz (Simple End): „die meisten Texturen“ von Holz und Blättern überarbeiten.
   - Vanilla nutzt pro Textur etwa 8–10 gut platzierte Töne statt 3–4 flacher Farben, mehr Kreativität und mehr Struktur. Besonders bei Stamm und entrindetem Stamm sieht man in Vanilla „viel Energie und Design“.
   - Gilt für alle Holz-Varianten (Stamm, Holz, entrindet, Bretter, Treppe/Stufe usw.) und die Blätter.
   - Die groben Ideen bleiben. Vorschau mit Vanilla-Vergleich.
-- [ ] TX22-4 Aschholz-/Dämmerholz-Blätter mit Dichte-Stufen und Spinnennetz-Wirkung:
+- [~] (A, a-endwood22, 23.10.) TX22-4 Aschholz-/Dämmerholz-Blätter mit Dichte-Stufen und Spinnennetz-Wirkung:
   - **Dichte nach angrenzenden Blöcken** (egal welche): 1–3 Nachbarn = locker (neu, durchsichtiger), 4–5 = mittel (die heutige Randtextur), 6 = dicht (die heutige innere Textur). Die Stufe aktualisiert sich, wenn Nachbarn gesetzt oder entfernt werden, wie heute schon.
   - **Bremse:** Je dichter das Blatt, desto stärker die Spinnennetz-Bremse. „Umso tiefer man im Baum ist, desto mehr Spinnennetz.“
   - **Abbau:** Standardwerkzeug ist die Hacke. Ohne Hacke dauert der Abbau ziemlich genau so lange wie bei einem Spinnennetz.
