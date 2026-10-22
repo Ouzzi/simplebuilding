@@ -172,6 +172,173 @@ public final class TestCentreTests {
     }
 
     /**
+     * TZ22-1 (Besitzer 22.10.: "ich sehe nicht alles, was in der Mod existiert"): jeder Eintrag der Register aller geladenen
+     * Module der Familie ({@link TcContext#FAMILY}) hat seinen Platz - Items und Bloecke stehen in einem Abschnitt (gesetzt,
+     * im Rahmen, am Staender oder in einem Behaelter), jeder Mob hat seine Zelle. Ausnahmen nur begruendet: technische Bloecke
+     * ohne Item ({@link TestCentreLayout#technical}, {@link TestCentreLayout#EXCLUDED}), Entity-Typen, die kein Mob sind
+     * (MISC: Geschosse, Fahrzeuge, Marker; nicht beschwoerbar), und die Strukturen (eigener Bereich in TZ22-3, nur gezaehlt).
+     * Ein geladener Namensraum "simple..." ausserhalb der Familie heisst: neues Modul, in {@code TcContext.FAMILY} eintragen.
+     */
+    public static void everyFamilyRegistryEntryIsInTheTestCentre(GameTestHelper helper) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        List<String> problems = new ArrayList<>();
+        Map<String, Integer> excused = new LinkedHashMap<>();
+        Set<String> namespaces = new java.util.TreeSet<>();
+        java.util.function.Consumer<Identifier> family = id -> {
+            if (id.getNamespace().startsWith("simple") && !TcContext.FAMILY.contains(id.getNamespace())) {
+                problems.add("namespace " + id.getNamespace() + " is not in TcContext.FAMILY (new module?)");
+            }
+            if (TcContext.isFamily(id)) {
+                namespaces.add(id.getNamespace());
+            }
+        };
+        int items = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            family.accept(id);
+            if (!TcContext.isFamily(id) || plan.coveredItems().contains(item)) {
+                items += TcContext.isFamily(id) ? 1 : 0;
+                continue;
+            }
+            if (TestCentreLayout.EXCLUDED.containsKey(id.toString()) || TcContext.isSpacerId(id)) {
+                excused.merge("item excluded", 1, Integer::sum);
+            } else {
+                problems.add("item " + id + " is not in the test centre");
+            }
+        }
+        int blocks = 0;
+        for (Block block : BuiltInRegistries.BLOCK) {
+            Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+            family.accept(id);
+            if (!TcContext.isFamily(id)) {
+                continue;
+            }
+            Item item = TcContext.itemOf(block);
+            if (plan.coveredBlocks().contains(block) || item != Items.AIR && plan.coveredItems().contains(item)) {
+                blocks++;
+            } else if (TestCentreLayout.EXCLUDED.containsKey(id.toString())) {
+                excused.merge("block excluded", 1, Integer::sum);
+            } else if (TestCentreLayout.technical(block) != null) {
+                excused.merge("technical block (wall/potted variant, liquid, module exclusion)", 1, Integer::sum);
+            } else {
+                problems.add("block " + id + (item == Items.AIR ? " has no item and is neither placed nor excused" : " is not in the test centre"));
+            }
+        }
+        int mobs = 0;
+        for (net.minecraft.world.entity.EntityType<?> type : BuiltInRegistries.ENTITY_TYPE) {
+            Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+            family.accept(id);
+            if (!TcContext.isFamily(id)) {
+                continue;
+            }
+            if (type.getCategory() == net.minecraft.world.entity.MobCategory.MISC || !type.canSummon()) {
+                excused.merge("entity type that is no mob (MISC / not summonable)", 1, Integer::sum);
+            } else if (plan.anchors().containsKey(com.simplebuilding.dev.testcentre.MobStations.anchorName(id))) {
+                mobs++;
+            } else {
+                problems.add("mob " + id + " has no cell in the mob station");
+            }
+        }
+        int structures = (int) helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.STRUCTURE)
+                .listElementIds().filter(key -> TcContext.isFamily(key.identifier())).count();
+        if (structures > 0) {
+            excused.put("structures (TZ22-3: own area later)", structures);
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre inventory: {} namespaces {}, {} items, {} blocks, {} mobs shown; excused {}",
+                namespaces.size(), namespaces, items, blocks, mobs, excused);
+        if (!problems.isEmpty()) {
+            com.simplebuilding.Simplebuilding.LOGGER.warn("test centre inventory problems: {}", String.join("; ", problems));
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " registry entr(y/ies) missing from the test centre: "
+                + String.join("; ", problems.subList(0, Math.min(40, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * TZ22-2 (Besitzer 22.10.: "es leckt noch etwas, dadurch, dass es so viele Item-Frames sind"): kein Rahmen an einer Wand
+     * haelt, was dort selbst als Block stehen koennte ({@code Exhibits.wallState}), und keine Station rahmt ein Item, das sie
+     * schon gesetzt zeigt ({@code TestCentreLayout.shownPlaced}; die Tab-Waende sind ein Verzeichnis und duerfen das).
+     * Rahmen und Staender je Abschnitt stehen im Log.
+     */
+    public static void noFrameHoldsWhatCouldStandAsBlock(GameTestHelper helper) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        List<String> problems = new ArrayList<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            Set<Item> placed = section.id().startsWith(TabBrowser.PREFIX) ? Set.of() : TestCentreLayout.shownPlaced(section.ops());
+            for (TcOp op : section.ops()) {
+                if (!(op instanceof TcOp.Frame frame)) {
+                    continue;
+                }
+                String item = section.id() + ": " + BuiltInRegistries.ITEM.getKey(frame.stack().getItem());
+                if (frame.facing() == Direction.NORTH && com.simplebuilding.dev.testcentre.Exhibits.onWall(frame.stack())) {
+                    problems.add(item + " hangs in a frame although it could stand in the wall");
+                } else if (frame.stack().getComponentsPatch().isEmpty() && placed.contains(frame.stack().getItem())) {
+                    problems.add(item + " is framed although the station already shows it placed");
+                }
+            }
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info(plan.summary());
+        helper.assertTrue(problems.isEmpty(), problems.size() + " needless frame(s): " + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /** Hoechste Wand (Lage ueber dem Boden) je Abschnitt, ausser Tuermen mit Zweck (Fallturm des Sinkdaempfers). */
+    static final Set<String> TALL_ON_PURPOSE = Set.of("sinkdamper");
+
+    /**
+     * TZ22-5 (Besitzer 22.10.: "Waende niedriger", "keine ellenlangen Reihen"): kein Abschnitt breiter als
+     * {@link TestCentreLayout#MAX_ROW_WIDTH}, keine Ausstellungswand ({@code TcCanvas.WALL}/{@code TRIM}) hoeher als
+     * sechs Bloecke, und jeder Bezirk beginnt eine eigene Reihe (ein spaeterer Bezirk Strukturen, TZ22-3, haengt sich an).
+     */
+    public static void theLayoutIsCompactWithLowWalls(GameTestHelper helper) {
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        List<String> problems = new ArrayList<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            if (section.width() > TestCentreLayout.MAX_ROW_WIDTH) {
+                problems.add(section.id() + " is " + section.width() + " wide");
+            }
+            if (TALL_ON_PURPOSE.contains(section.id())) {
+                continue;
+            }
+            int top = -1;
+            for (TcOp op : section.ops()) {
+                if (op instanceof TcOp.Place place && (place.state().equals(com.simplebuilding.dev.testcentre.TcCanvas.WALL)
+                        || place.state().equals(com.simplebuilding.dev.testcentre.TcCanvas.TRIM))) {
+                    top = Math.max(top, place.pos().getY() - plan.origin().getY());
+                }
+            }
+            if (top > com.simplebuilding.dev.testcentre.TcCanvas.SHELF_HEIGHT - 1) {
+                problems.add(section.id() + " has a wall " + (top + 1) + " high");
+            }
+        }
+        // Bezirke: der erste Abschnitt jedes Bezirks steht an der linken Kante seiner Raster-Spalte, kein Abschnitt ragt
+        // in die naechste Spalte.
+        for (List<String> district : TestCentreLayout.DISTRICTS) {
+            boolean first = true;
+            int column = -1;
+            for (String id : district) {
+                if (!TestCentreLayout.sectionIds().contains(id) || plan.section(id).ops().isEmpty()) {
+                    continue;
+                }
+                int x = plan.section(id).offset().getX();
+                if (first && x % TestCentreLayout.DISTRICT_PITCH != 0) {
+                    problems.add("district of " + id + " does not start at its grid column (x " + x + ")");
+                }
+                if (first) {
+                    column = x / TestCentreLayout.DISTRICT_PITCH;
+                    first = false;
+                }
+                int right = x + plan.section(id).width();
+                if (x / TestCentreLayout.DISTRICT_PITCH != column || right > column * TestCentreLayout.DISTRICT_PITCH + TestCentreLayout.MAX_ROW_WIDTH) {
+                    problems.add(id + " leaves the grid column of its district (x " + x + " to " + right + ")");
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " layout problem(s): " + String.join("; ", problems));
+        helper.succeed();
+    }
+
+    /**
      * Die ganze Zentrale wird fern aller anderen Tests gebaut und mit ihrer Planung verglichen: jeder
      * geplante Block steht (der jeweils letzte je Stelle), jedes Schild hat seinen Text, Rahmen und
      * Staender sind genau so viele wie geplant, nichts liegt als Drop herum. Danach wird ein Abschnitt
@@ -222,7 +389,8 @@ public final class TestCentreTests {
             int placedStands = level.getEntitiesOfClass(ArmorStand.class, area).size();
             helper.assertTrue(placedFrames == frames, "item frames: planned " + frames + ", placed " + placedFrames);
             helper.assertTrue(placedStands == stands, "armour stands: planned " + stands + ", placed " + placedStands);
-            helper.assertTrue(frames > 300, "suspiciously few frames planned: " + frames);
+            // TZ22-2: Setzbares steht als Block; Rahmen bleiben fuer Werkzeuge, Ruestung, Buecher, Eimer ... (vorher 2630).
+            helper.assertTrue(frames > 100, "suspiciously few frames planned: " + frames);
             // Die Blaupause im Rahmen wurde beim Bau wirklich gescannt, der Oktant daneben traegt seine Auswahl.
             for (TestCentreLayout.Section section : plan.sections()) {
                 for (TcOp op : section.ops()) {
@@ -455,22 +623,37 @@ public final class TestCentreTests {
     }
 
     /**
-     * Module split 3c: a station another module registers through {@code framework.api.TestCentreStations} gets the
-     * section "modules" (before "mobs") with a frame per known item id (unknown ids skipped); without registrations the
-     * plan has exactly {@link TestCentreLayout#SECTION_IDS}. Registered and taken out within this one call.
+     * Module split 3c / TZ22-1: a station another module registers through {@code framework.api.TestCentreStations} shows
+     * its items in the section "modules" (before "mobs"), in the owner's bay, unknown ids skipped - as a block when it can
+     * stand, else in a frame - unless another station already shows them. Registered and taken out within this one call.
      */
     public static void foreignModuleStationsGetTheirOwnSection(GameTestHelper helper) {
         if (!com.simplebuilding.dev.testcentre.ModuleStations.SUPPORTED) {
             helper.succeed(); // 26.2: no framework, no foreign stations
             return;
         }
-        // Stations the loaded sub-mods already registered (split stage 4: Simple Ovens is always there with SimpleBuilding).
         TestCentreLayout.Plan baseline = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         List<String> baselineIds = baseline.sections().stream().map(TestCentreLayout.Section::id).toList();
-        List<ItemStack> before = baselineIds.contains(TestCentreLayout.MODULES_SECTION)
-                ? new ArrayList<>(frames(baseline.section(TestCentreLayout.MODULES_SECTION)).values()) : List.of();
+        // Two Vanilla items no station shows yet: one that stands as a block, one that needs a frame.
+        Item block = null;
+        Item framed = null;
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (!BuiltInRegistries.ITEM.getKey(item).getNamespace().equals("minecraft") || item == Items.AIR
+                    || baseline.coveredItems().contains(item)) {
+                continue;
+            }
+            boolean stands = !com.simplebuilding.dev.testcentre.Exhibits.floorStates(new ItemStack(item)).isEmpty();
+            if (stands && block == null) {
+                block = item;
+            } else if (!stands && !(item instanceof net.minecraft.world.item.BlockItem) && framed == null) {
+                framed = item;
+            }
+        }
+        helper.assertTrue(block != null && framed != null, "no unshown Vanilla items to test with");
+        String blockId = BuiltInRegistries.ITEM.getKey(block).toString();
+        String framedId = BuiltInRegistries.ITEM.getKey(framed).toString();
         com.simplebuilding.dev.testcentre.ModuleStations.register("simpletest", "station", "section.simpletest.station",
-                List.of("minecraft:diamond", "nomod:missing", "minecraft:emerald"));
+                List.of(blockId, "nomod:missing", framedId));
         TestCentreLayout.Plan plan;
         try {
             plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
@@ -480,14 +663,18 @@ public final class TestCentreTests {
         List<String> ids = plan.sections().stream().map(TestCentreLayout.Section::id).toList();
         helper.assertTrue(ids.indexOf(TestCentreLayout.MODULES_SECTION) == ids.indexOf("mobs") - 1,
                 "the modules section is not planned right before mobs: " + ids);
-        List<ItemStack> shown = new ArrayList<>(frames(plan.section(TestCentreLayout.MODULES_SECTION)).values());
-        int n = before.size();
-        helper.assertTrue(shown.size() == n + 2 && shown.get(n).is(net.minecraft.world.item.Items.DIAMOND)
-                        && shown.get(n + 1).is(net.minecraft.world.item.Items.EMERALD),
-                "the modules section frames " + shown + " instead of the " + n + " already registered ones, diamond and emerald");
-        // Simple Ovens (required with SimpleBuilding on 26.3) brings its own station.
-        helper.assertTrue(before.stream().anyMatch(stack -> stack.getItem() == com.simplebuilding.util.OvenRefs.item("enderite_furnace")),
-                "the Simple Ovens station is missing from the modules section: " + before);
+        TestCentreLayout.Section modules = plan.section(TestCentreLayout.MODULES_SECTION);
+        Item standing = block;
+        Item lying = framed;
+        boolean placed = modules.ops().stream().anyMatch(op -> op instanceof TcOp.Place place && place.state().getBlock().asItem() == standing);
+        boolean inFrame = frames(modules).values().stream().anyMatch(stack -> stack.getItem() == lying);
+        helper.assertTrue(placed, "the modules section does not set " + blockId + " as a block");
+        helper.assertTrue(inFrame, "the modules section does not frame " + framedId);
+        helper.assertTrue(frames(modules).values().stream().noneMatch(stack -> stack.getItem() == standing),
+                "the modules section frames " + blockId + " although it can stand as a block");
+        // Simple Ovens (required with SimpleBuilding on 26.3) is shown: its furnaces stand in "machines", not again here.
+        Item furnace = com.simplebuilding.util.OvenRefs.item("enderite_furnace");
+        helper.assertTrue(baseline.coveredItems().contains(furnace), "the Simple Ovens furnace is not in the test centre");
         TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(baselineIds),
                 "after unregistering the test station the plan differs from before");
@@ -596,28 +783,57 @@ public final class TestCentreTests {
 
     /**
      * Item-orientierter Rundgang: je Kreativ-Tab der Mod ein Abschnitt {@code tab_<id>}, dessen Rahmen
-     * genau den Tab zeigen (gleiche Stapel, gleiche Reihenfolge), mit Ausgabe-Knopf. Die Waende zaehlen
+     * genau den Tab zeigen (gleiche Stapel, gleiche Reihenfolge), mit Ausgabe-Knopf - ausser was dort als Block steht oder
+     * haengt und was eine Station schon gesetzt zeigt (TZ22-2). Die Waende zaehlen
      * nicht fuer die Abdeckung: jedes Item braucht trotzdem eine Station.
      */
     public static void everyCreativeTabHasItsItemBrowserWall(GameTestHelper helper) {
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
+        // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
+        Set<Item> placedAnywhere = new HashSet<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            if (!section.id().startsWith(TabBrowser.PREFIX)) {
+                placedAnywhere.addAll(TestCentreLayout.shownPlaced(section.ops()));
+            }
+        }
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             String id = TabBrowser.sectionId(tab);
             if (!TestCentreLayout.SECTION_IDS.contains(id)) {
                 problems.add(id + " is missing from SECTION_IDS");
                 continue;
             }
+            // TZ22-2: was sich in eine Wand setzen laesst, steht dort als Block; der Rest haengt in Tab-Reihenfolge im Rahmen.
             List<ItemStack> expected = ctx.tab(tab);
+            List<ItemStack> framedExpected = new ArrayList<>();
+            Set<Block> placed = new HashSet<>();
+            for (TcOp op : plan.section(id).ops()) {
+                if (op instanceof TcOp.Place place) {
+                    placed.add(place.state().getBlock());
+                }
+            }
+            for (ItemStack stack : expected) {
+                BlockState block = com.simplebuilding.dev.testcentre.Exhibits.wallState(stack);
+                if (block == null) {
+                    block = com.simplebuilding.dev.testcentre.Exhibits.wallFrontState(stack);
+                }
+                if (block == null) {
+                    if (!(stack.getComponentsPatch().isEmpty() && placedAnywhere.contains(stack.getItem()))) {
+                        framedExpected.add(stack);
+                    }
+                } else if (!placed.contains(block.getBlock())) {
+                    problems.add(id + " should set " + BuiltInRegistries.ITEM.getKey(stack.getItem()) + " as a block in the wall");
+                }
+            }
             List<ItemStack> shown = new ArrayList<>(frames(plan.section(id)).values());
-            if (shown.size() != expected.size()) {
-                problems.add(id + " frames " + shown.size() + " stacks, the tab holds " + expected.size());
+            if (shown.size() != framedExpected.size()) {
+                problems.add(id + " frames " + shown.size() + " stacks, the tab holds " + framedExpected.size() + " that need a frame");
                 continue;
             }
-            for (int i = 0; i < expected.size(); i++) {
-                if (!ItemStack.isSameItemSameComponents(shown.get(i), expected.get(i))) {
-                    problems.add(id + " frame " + i + " shows " + shown.get(i) + " instead of " + expected.get(i));
+            for (int i = 0; i < framedExpected.size(); i++) {
+                if (!ItemStack.isSameItemSameComponents(shown.get(i), framedExpected.get(i))) {
+                    problems.add(id + " frame " + i + " shows " + shown.get(i) + " instead of " + framedExpected.get(i));
                     break;
                 }
             }

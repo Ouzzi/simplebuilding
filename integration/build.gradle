@@ -159,14 +159,17 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def audit = requested == 'modelaudit'
         // 'bench' is no module either: the Simple Optimization benchmark client (tools/bench/run_bench.py).
         def bench = requested == 'bench'
-        def entries = (audit || bench) ? [] : registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
-        if (requested && !audit && !bench && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'compat' is no module either: Simple Optimization next to the mods it covers (tools/testrunner target compat-opt-263).
+        def compat = requested == 'compat'
+        def entries = (audit || bench || compat) ? [] : registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
+        if (requested && !audit && !bench && !compat && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
                 : bench ? ['com.simplebuilding.integration.clienttest.BenchClientTest']
+                : compat ? ['com.simplebuilding.integration.clienttest.CompatClientTest']
                 : entries.collectMany { it.tests.client.entrypoints }],
-            depends:(audit ? ['simplebuilding'] : bench ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]

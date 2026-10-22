@@ -42,8 +42,10 @@ import org.jetbrains.annotations.Nullable;
  * gebacken (Multipart je Bit). Gemeinsame Basis der Schach-Achtel (SimpleBuilding {@code CheckerOctetBlock}, Farbe im Zustand) und der
  * Material-Achtel ({@link MaterialOctetBlock}, ein Block je Material, z. B. Holz und Melone).
  *
- * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser und bleibt
- * Achtelzelle. Ein Spieler baut die ganze Zelle ab, schleichend nur das angeschaute Achtel ({@link #playerWillDestroy});
+ * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser. Acht Achtel
+ * eines Materials mit Vollblock werden beim Setzen dieser Vollblock (Besitzer SP22-1, {@link OctetCells#fullBlock});
+ * umgekehrt bricht ein schleichender Spieler aus einem Vollblock mit Achteln nur die angeschaute Ecke heraus
+ * ({@link #startCornerBreak}). Ein Spieler baut die ganze Zelle ab, schleichend nur das angeschaute Achtel ({@link #playerWillDestroy});
  * ohne Spieler droppt jedes Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
  * verschiedener Materialien in einer Zelle ergeben die gemischte Zelle {@link MixedOctetBlock} ({@link OctetCells}).
  */
@@ -232,7 +234,7 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         ItemStack tool = params.getOptionalParameter(LootContextParams.TOOL) instanceof ItemStack stack ? stack : null;
         List<ItemStack> drops = new ArrayList<>();
         for (BlockState part : parts) {
-            if (part == null || (byPlayer && part.requiresCorrectToolForDrops() && (tool == null || !tool.isCorrectToolForDrops(part)))) {
+            if (part == null || (byPlayer && !harvests(tool, part))) {
                 continue;
             }
             ItemStack item = OctetCells.item(part);
@@ -249,6 +251,20 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
             }
         }
         return drops;
+    }
+
+    /**
+     * Whether {@code tool} harvests an octet of {@code part}: the cell's own rule and the one of the material's full block
+     * (the cells carry only the mineable tags, not {@code needs_iron_tool} &amp; Co.: a diamond octet needs an iron pickaxe).
+     */
+    static boolean harvests(@Nullable ItemStack tool, BlockState part) {
+        BlockState full = part.getBlock() instanceof MaterialOctetBlock octet ? octet.sourceState() : null;
+        for (BlockState state : full == null ? new BlockState[]{part} : new BlockState[]{part, full}) {
+            if (state.requiresCorrectToolForDrops() && (tool == null || !tool.isCorrectToolForDrops(state))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static BlockState[] masked(BlockState[] parts, int mask) {
@@ -273,9 +289,10 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
 
     /**
      * Ein gezielter Abbau (Queue N48): Rest der Zelle und abgebautes Achtel, je Thread (Client-Vorhersage und
-     * eingebauter Server stoeren sich nicht). {@link #destroy} legt den Rest zurueck, {@link #getDrops} gibt das Achtel.
+     * eingebauter Server stoeren sich nicht). {@link #destroy} legt den Rest zurueck, {@link #getDrops} gibt das Achtel
+     * ({@code part}; null = nichts, die Ecke eines Vollblocks, der so nichts droppen wuerde).
      */
-    private record Breaking(LevelAccessor level, BlockPos pos, BlockState[] rest, boolean wet, BlockState part, int index, long time) {
+    private record Breaking(LevelAccessor level, BlockPos pos, BlockState[] rest, boolean wet, @Nullable BlockState part, int index, long time) {
     }
 
     private static final ThreadLocal<Breaking> BREAKING = new ThreadLocal<>();
@@ -302,7 +319,7 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
     /** State whose break particles are shown: the mined eighth while it is being broken (mixed cells), else the cell itself. */
     public static BlockState particleState(Level level, BlockPos pos, BlockState state) {
         Breaking breaking = BREAKING.get();
-        if (breaking != null && breaking.level() == level && breaking.pos().equals(pos)) {
+        if (breaking != null && breaking.level() == level && breaking.pos().equals(pos) && breaking.part() != null) {
             return OctetCells.single(breaking.part(), breaking.index());
         }
         return state;
@@ -312,11 +329,99 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
     @Override
     public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
         super.destroy(level, pos, state);
+        restoreRest(level, pos);
+    }
+
+    /** Legt nach einem gezielten Abbau an {@code pos} die uebrigen Achtel zurueck (auch fuer Vollbloecke, {@code BlockCornerBreakMixin}). */
+    public static void restoreRest(LevelAccessor level, BlockPos pos) {
         Breaking breaking = BREAKING.get();
         if (breaking == null || breaking.level() != level || !breaking.pos().equals(pos) || OctetCells.mask(breaking.rest()) == 0) {
             return;
         }
         OctetCells.set(level, pos, breaking.rest(), breaking.wet(), Block.UPDATE_ALL);
+    }
+
+    /** Spieler und Tick des letzten Abbaus eines nicht angeschauten Blocks (Flaechenabbau), je Thread. */
+    private record AreaBreak(Player player, long time) {
+    }
+
+    private static final ThreadLocal<AreaBreak> AREA = new ThreadLocal<>();
+
+    /**
+     * Besitzer SP22-1: ein schleichender Spieler bricht aus einem Vollblock mit Achteln ({@link OctetCells#cornerCell})
+     * nur die angeschaute Ecke heraus - der Block wird zur Zelle mit 7 Achteln, ein Achtel faellt. Aufgerufen am Anfang
+     * von {@code Block#playerWillDestroy} ({@code BlockCornerBreakMixin}); danach laeuft Vanilla weiter (Partikel und
+     * Klang des Materials, Piglins bei Gold, Game-Event), entfernt den Block und ruft {@code destroy}
+     * ({@link #restoreRest}) und {@code playerDestroy} ({@link #cornerDropState}). Alle Schutz-Hooks (Claims, Loader-
+     * Abbau-Events, Abenteuermodus) laufen vorher. Kein Ecken-Abbau: ohne Schleichen, ohne Material-Achtel, bei
+     * Block-Entities, wenn der Blick einen anderen Block trifft (Ader-/Tunnelabbau, Hammer: deren Nachbarn), und fuer den
+     * Startblock eines solchen Flaechenabbaus im selben Tick.
+     */
+    public static void startCornerBreak(Level level, BlockPos pos, BlockState state, Player player) {
+        if (state.getBlock() instanceof OctetCellBlock || !player.isShiftKeyDown() || player.isSpectator()
+                || state.hasBlockEntity() || !com.simpleoctets.SimpleOctets.on()) {
+            return;
+        }
+        BREAKING.remove();
+        Block cell = OctetCells.cornerCell(state.getBlock());
+        if (cell == null) {
+            return;
+        }
+        long time = level.getGameTime();
+        if (!(player.pick(player.blockInteractionRange(), 1.0F, false) instanceof BlockHitResult hit)
+                || hit.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK || !hit.getBlockPos().equals(pos)) {
+            AREA.set(new AreaBreak(player, time));
+            return;
+        }
+        AreaBreak area = AREA.get();
+        if (area != null && area.player() == player && area.time() == time) {
+            return;
+        }
+        BlockState own = OctetCells.material(cell.defaultBlockState());
+        int index = hitIndex(pos, hit);
+        BlockState[] rest = new BlockState[8];
+        for (int i = 0; i < 8; i++) {
+            rest[i] = i == index ? null : own;
+        }
+        BlockState part = level instanceof net.minecraft.server.level.ServerLevel server ? cornerDrop(server, pos, state, player, own) : own;
+        BREAKING.set(new Breaking(level, pos.immutable(), rest, false, part, index, time));
+    }
+
+    /**
+     * What the corner of a full block drops (server): what the block itself would drop with this tool, as an octet - the
+     * block itself gives its own octet, another block with octets (stone -> cobblestone) that one's, anything else none.
+     */
+    private static @Nullable BlockState cornerDrop(net.minecraft.server.level.ServerLevel level, BlockPos pos, BlockState state, Player player, BlockState own) {
+        if (player.preventsBlockDrops()) {
+            return null;
+        }
+        List<ItemStack> drops = Block.getDrops(state, level, pos, null, player, player.getMainHandItem());
+        if (drops.size() != 1 || !(drops.get(0).getItem() instanceof net.minecraft.world.item.BlockItem item)) {
+            return null;
+        }
+        if (item.getBlock() == state.getBlock()) {
+            return own;
+        }
+        Block other = OctetCells.cornerCell(item.getBlock());
+        return other == null ? null : OctetCells.material(other.defaultBlockState());
+    }
+
+    /**
+     * {@code Block#playerDestroy} of a full block whose corner was just broken off: the drops come from the cell (only the
+     * broken octet, {@link #getDrops}); Forge hands the full block's state on, Vanilla and NeoForge too.
+     */
+    public static BlockState cornerDropState(Level level, BlockPos pos, BlockState state) {
+        Breaking breaking = BREAKING.get();
+        if (state.getBlock() instanceof OctetCellBlock || breaking == null || breaking.level() != level || !breaking.pos().equals(pos)
+                || breaking.time() != level.getGameTime()) {
+            return state;
+        }
+        for (BlockState part : breaking.rest()) {
+            if (part != null) {
+                return withMask(part, FULL);
+            }
+        }
+        return state;
     }
 
     /** Schleichen + leere Hand: das angeklickte Achtel (sein Material) kommt in die Hand. */

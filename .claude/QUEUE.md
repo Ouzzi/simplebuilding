@@ -17,7 +17,7 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 - [~] (A, claude-howler4, 17.10.) (d) Howler-Sounds überarbeiten.
 - [x] (A, claude-optconcept, 17.10.) (e) Simple Optimization (`simpleoptimization`) – KONZEPT fertig: `docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md` (Bereiche, Kompat-Mechanismus, Prioritätstabelle, Benchmark), Modpack-Liste `docs/ai/MODPACK-BESITZER-2026-10-17.md`. Offen: Besitzer-Review + Antworten auf §8 (Fragen 1–8).
 - [x] (A, claude-opt1, 19.10.; Merge offen) (e1) Simple Optimization Stufe 1: Gerüst Super-Mod + Sub-Mods `simpleoptrender`/`simpleoptmemory`/`simpleoptserver` (Fabric 26.3), Bereichs-Tabelle, Mixin-Plugin mit Loader-Erkennung, Config, Status-Befehl; Benchmark-Harness `tools/bench/` (Mess-Mod, Bench-Welt, Kameraweg, results.json + report.html). Erst nach Besitzer-Review.
-- [~] (A, oc-opt2 per API, 19.10.; Teile + Bench fertig, offen compat-opt-263-Ziel, Mixin-Fehlschlag→Bereich aus, Quad-Zähler) (e2) Simple Optimization Stufe 2: O1 Blätter-Culling, O7 Lichtkarten-Cache, S5a Sichtweite nach Serverlast + M1 IP-Ping, M2 Telemetrie; Kompat-Ziel mit Cull Leaves/More Culling/BadOptimizations/ServerCore.
+- [x] (A, oc-opt2 → a-opt2 22.10.: Mixin-Fehlschlag→Bereich aus über OptAreas.mixinFailed/RenderOpt.RUNTIME (framework 0.1.14), compat-opt-263-Ziel, Bench-Quad-Zähler; JUnit + Modul-Gametests opt* 32/32 grün; compat-opt-263 selbst ist Client-Ziel, noch nicht gelaufen) (e2) Simple Optimization Stufe 2: O1 Blätter-Culling, O7 Lichtkarten-Cache, S5a Sichtweite nach Serverlast + M1 IP-Ping, M2 Telemetrie; Kompat-Ziel mit Cull Leaves/More Culling/BadOptimizations/ServerCore.
 - [ ] (e3) Simple Optimization Stufe 3 (Besitzer): Benchmark auf Besitzer-PC (`py -3 tools\bench\run_bench.py --profile pc ...`), `priorities.json` füllen.
 - [ ] (B, b-opt45, 19.10.; O3/O4/O9/S5b + Zielprüfung fertig, offen S1a (begründet), O3-Regen, O4-Modelle, Messung, Merge) (e4) Simple Optimization Stufe 4/5: O3, O4, S1a, O9, S5b (Standard aus), Zielprüfung; danach L-Bereiche nur bei Messbedarf (Konzept §7). Stand: Konzept §10, Plan `docs/ai/PLAN-B-OPT45-2026-10-19.md`. — **22.10. (B): Teil in claude-wave1/master gemergt; Rest siehe „offen“ oben**
 - [ ] (e5) Kompatibilitätstest Modpack des Besitzers: `docs/ai/MODPACK-BESITZER-2026-10-17.md` §6 K1–K23 (26.3-Fassungen auf sb-test, Rest im Port-Run 1.21.11/beim Besitzer).
@@ -28,12 +28,11 @@ Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabsc
 Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
 ### (A) In Arbeit
-- B (pausiert bis 24.10. 01:00, Übernahme durch A): WIP-Branches b-tz22a (TZ22-1/2/5), b-shops22 (SP22-7), b-octfull22 (SP22-1/11), b-redsound22 (SP22-5) – Stand je Abschnitt in uebergabe-B.md. Bündel 42/43 in master.
-- In master: Bündel 42 (1563d6b06) und 43 (b9037a0e5): models21, rarity21b, pjuke21, eh21, t12pvp, vnear22, framemaps22, s9b, musicsub22, a-docs22.
-- A (alt, beendet): a-m08 8b5f4ee54 und a-m11 3e4123630 fertig, aber ungeprüft; oc-opt2 hat Konflikte mit wave1 (siehe /root/a-fertig-20261022.md). a-guidepages offen.
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 44 (a-bundle44) = b-tz22a (TZ22-1/2/5), b-shops22 (SP22-7), b-redsound22 (SP22-5), b-octfull22 (SP22-1/11), a-m08 (M-08), a-m11 (M-11), a-opt2 (e2), a-crucui22 (SP22-6). Laufen: a-beacons22 (SP22-9/10), a-sp22ui (SP22-3/4), a-tz22b (TZ22-3/4), a-legend22 (SP22-2).
+- In master: Bündel 42 (1563d6b06) und 43 (b9037a0e5). a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
-1. **Fehler aus dem Spiel (SP22):** SP22-7 Verkaufslager-Geisterblock + Vitrine, SP22-1 Achtel ↔ Vollblock, SP22-11 Mob-Kopf wie Helm, SP22-5 Redstone-Klänge
+1. **Fehler aus dem Spiel (SP22):** erledigt in Bündel 44 (SP22-1/5/7/11)
 2. **Testzentrale TZ22** (läuft: b-tz22a = TZ22-1/2/5), danach TZ22-3/4, TZ22-6/8, TZ22-7
 2a. **Texturen TX22:** TX22-4 Blätter-Dichte (Spielmechanik), TX22-3 Aschholz/Dämmerholz, TX22-2 Spawn-Eier, TX22-1 die 12 aus VN22; TX22-5 Editor-Workflow mit der Wiki-Überarbeitung
 3. **Leuchtfeuer und Conduit (SP22-10, SP22-9)**, Tiegel-UI (SP22-6), Crafting-Storage-Höhe (SP22-4), Death-Vault-UI (SP22-3)
@@ -65,7 +64,7 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 
 ## Besitzer 22.10. – Texturen (TX22)
 Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfehlungen passen, gezielt überarbeitet werden nur wenige Texturen.
-- [ ] TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7).
+- [ ] TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7). [Vitrinenglas `display_case_glass` erledigt auf b-shops22, 22.10.: Alpha 24 statt 70, Lichtstreifen, Ebenen-Quelle; Rest offen]
 - [ ] TX22-2 Alle Spawn-Eier: „bei den Spawn-Eiern ist schlechte Arbeit gemacht worden. Das sieht nicht aus wie Vanilla. Das muss auf jeden Fall sehr viel verbessert werden.“
   - Vanilla 26.3 arbeitet mit eigenen Spawn-Ei-Formen je Mob, Grundfarbe und Flecken. Das Vorgehen der Vanilla-Eier analysieren und alle eigenen Eier danach neu zeichnen.
   - Vorschau mit Vanilla-Vergleich, eingebaut wird die empfohlene Variante.
@@ -81,7 +80,7 @@ Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfe
 
 ## Besitzer 22.10. – Spielbefunde (SP22)
 Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). Kernsätze wörtlich, Rest sinngemäß. Priorität steht im Überblick (B).
-- [~] (B, b-octfull22, 22.10.) SP22-1 (Simple Octets, Fehler) Achtel ↔ Vollblock:
+- [x] (B+A, b-octfull22 5145ef24a, 22.10.; octets Module 84/84, fabric/neoforge-263 *octet* 32/32, *miner* 24/24, sledgehammer* 110/110; Client-Sicht offen) SP22-1 (Simple Octets, Fehler) Achtel ↔ Vollblock:
   - Eine Achtel-Zelle, die mit 8 gleichen Achteln gefüllt ist, wird zum Vollblock. Das geht ohne Verlust, weil jeder Block 8 Achtel gibt. Beispiel: Ein volles Diamant-Achtel wird zum Diamantblock und lässt sich dann direkt zu „Cracked Diamond“ weiterverarbeiten.
   - Umgekehrt: Bricht man im Schleichen eine Ecke eines Vollblocks ab (z. B. Diamantblock), wird er zur Achtel-Zelle, und nur dieses eine Achtel fällt heraus. Heute wird der ganze Block abgebaut.
   - Gilt für alle Blöcke mit Achtel-Form.
@@ -91,13 +90,13 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - Eigener Klang (synthetisch, wie die Howler-Takes) plus sichtbarer Effekt am Spieler. Liste „impossible“ per Tag/Config erweiterbar.
 - [~] (A, a-sp22ui, 22.10.) SP22-3 (Death Vault, UI) Die Death-Vault-Oberfläche „sieht noch etwas schwach aus“. Sie bekommt den Stil der anderen UIs (Rahmen, Kontrast, simplelib-Bausteine).
 - [~] (A, a-sp22ui, 22.10.) SP22-4 (Crafting Storage) Items auf dem Crafting-Storage-Block mit 1–2 px Höhe zeichnen, damit man sie von Weitem und von der Seite sieht.
-- [~] (B, b-redsound22, 22.10.) SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
+- [x] (B, b-redsound22, 22.10.: eigene SoundType je Staub/Lampe/Kolben (LineSounds, Generator tools/sounds/make_redstone_line_sounds.py), redstone_lines* 30/30 + end_systems* 48/48 grün, check grün; offen Höreindruck Besitzer) SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
   - Eigene Klänge entwickeln: Redstone-Staub als „Pulver-Sound“, Lampen dürfen amethystartig bleiben, Kolben klingen kolbenartig.
   - Jeder Block-Typ bekommt eine eigene SoundGroup.
-- [~] (A, a-crucui22, 22.10.) SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel:
+- [x] (A, a-crucui22, 22.10.) SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel: **erledigt auf a-crucui22** (FIRE_ROOM 12→30, Herd-Trapez, Feuer auf Zone bemessen, 3 px unter den Items; Modul 276/276, SB crucible 34/34 grün; Plan docs/ai/PLAN-A-CRUCUI22-2026-10-22.md; offen Client-Sicht):
   - Unten etwa 1 Block Höhe mehr Platz. Im Hintergrund dieser Zone ein dunkleres Trapez für räumliche Tiefe, im selben Stil wie der Hintergrund.
   - Das Feuer liegt darüber und ist mit mehr Abstand zu den untersten Items gut sichtbar („dann ist man … stolzer, das gebaut zu haben“).
-- [~] (B, b-shops22, 22.10.) SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine:
+- [x] (B, b-shops22, 22.10.) SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine: **erledigt auf b-shops22** (Plan `docs/ai/PLAN-B-SHOPS22-2026-10-22.md`; Setzen nur Schleichen+Rechtsklick am eigenen Verkaufsblock über `SalesStorageItem.useOn`, 6-seitiges `facing` zum Verkaufsblock, Migration alter Ketten, neue Texturen/Modell; Vitrine frei setzbar, Schutz nur auf eigenem Verkaufsblock, Glasdeckel; Gametests module-simpleshops fabric/neoforge/standalone). Offen: Client-Sichtabnahme im Spiel.
   - **Fehler:** Das Lager lässt sich überall setzen und verschwindet dann, wenn es nicht erlaubt ist. Neu: Setzen geht nur mit Schleichen + Rechtsklick auf einen Verkaufsblock, von jeder Seite. Sonst gar nicht setzbar, wie ein Item.
   - **Form:** Das Lager wird ein gerichteter Vollblock, der aussieht, als käme er aus dem Verkaufsblock heraus (wie ein Trichter, aber voll; Vorbild für die Wirkung ist der Strong Beacon). Er schaut zum Verkaufsblock und nimmt von dort die Ware bzw. das Geld auf.
   - **Vitrine und Glow-Vitrine:** überall ablegbar, auch ohne Verkaufsblock. Geschützt sind sie nur zusammen mit einem Verkaufsblock. Die Decke ist durchsichtig wie beim Leuchtfeuer, damit man von oben hineinsieht, und das Glas wird klarer.
@@ -118,17 +117,17 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - **Reichweite nach Material:** Der Faktor richtet sich nach dem Material der Basis: Netherit ×2, Diamant ×1,5, Gold ×1,1, Smaragd ×1,1, Eisen ×1. Gezählt wird nur pro abgeschlossener Ebene, anteilig nach Blockzahl. Beispiel: unterste Ebene ganz Diamant ≈ ×1,25 (überschlagen, genaue Formel im Konzept).
   - **Anzeige:** Der Faktor steht in der Leuchtfeuer-UI.
   - Gilt für Strong Beacon und, wo möglich, für das Vanilla-Leuchtfeuer (Modulgrenzen beachten).
-- [~] (B, b-octfull22, 22.10.) SP22-11 (Simple Mob Heads / Kopf-Slot) Rechtsklick mit einem Mob-Kopf in der Hand (in die Luft) tauscht ihn wie einen Helm gegen den Kopf im Mob-Kopf-Slot; ist der Slot frei, wird er dort eingesetzt. Auf einen Block geklickt wird er wie in Vanilla gesetzt.
+- [x] (B+A, b-octfull22 5145ef24a, 22.10.; mob_head_game_test_* 23/23 je fabric/neoforge-263; Client-Sicht offen) SP22-11 (Simple Mob Heads / Kopf-Slot) Rechtsklick mit einem Mob-Kopf in der Hand (in die Luft) tauscht ihn wie einen Helm gegen den Kopf im Mob-Kopf-Slot; ist der Slot frei, wird er dort eingesetzt. Auf einen Block geklickt wird er wie in Vanilla gesetzt.
 
 ## Besitzer 22.10. – Testzentrale-Überarbeitung (TZ22)
 Besitzer-Feedback beim Bauen der Testzentrale (Sprachnachricht, sinngemäß zusammengefasst; wörtliche Kernsätze in Anführungszeichen).
 Ziel: „das ganze Testcenter von Anfang bis Ende überarbeiten“, kompakt und übersichtlich „wie beim Holzbereich“. Die Mob-Bereiche gefallen und sind das Vorbild für die Struktur.
 Reihenfolge für die Branches: TZ22-1/2/5 (Inventar + Layout + Rahmen), dann TZ22-3/4 (Strukturen + Teilbau), dann TZ22-6/8 (Rails + Anzeigen), TZ22-7 als eigener Client-Branch parallel.
-- [~] (B, b-tz22a, 22.10.) TZ22-1 Vollständigkeit: „ich sehe nicht alles, was in der Mod existiert“. Abgleich gegen alle Registries aller Module (Blöcke, Items, Mobs, Strukturen). Ein Test oder Generator-Check meldet alles, was in der Testzentrale fehlt.
-- [~] (B, b-tz22a, 22.10.) TZ22-2 Weniger Item-Rahmen (Leistung): „es leckt noch etwas, dadurch, dass es so viele Item-Frames sind“. Was platzierbar ist (an der Wand oder am Boden), wird als Block gesetzt statt in einen Rahmen gelegt; schon gesetzte Dinge (z. B. Öfen) bekommen keinen zusätzlichen Rahmen. Rahmen nur noch für Nicht-Platzierbares (z. B. Eimer). Entity-Zahl vorher/nachher messen.
+- [x] (B, b-tz22a, 22.10.) (b-tz22a f83f623ce+: every_family_registry_entry_is_in_the_test_centre grün) TZ22-1 Vollständigkeit: „ich sehe nicht alles, was in der Mod existiert“. Abgleich gegen alle Registries aller Module (Blöcke, Items, Mobs, Strukturen). Ein Test oder Generator-Check meldet alles, was in der Testzentrale fehlt.
+- [x] (B, b-tz22a, 22.10.) (Rahmen integration-263 2752 → 1502, fabric-263 2630 → 1707; test_centre* 26/26, data_integrity* 102/102) TZ22-2 Weniger Item-Rahmen (Leistung): „es leckt noch etwas, dadurch, dass es so viele Item-Frames sind“. Was platzierbar ist (an der Wand oder am Boden), wird als Block gesetzt statt in einen Rahmen gelegt; schon gesetzte Dinge (z. B. Öfen) bekommen keinen zusätzlichen Rahmen. Rahmen nur noch für Nicht-Platzierbares (z. B. Eimer). Entity-Zahl vorher/nachher messen.
 - [~] (A, a-tz22b, 22.10.) TZ22-3 Strukturen: Jede eigene Struktur und jedes Strukturteil wird einmal erzeugt, mit allen Variationen. Dazu die einzelnen Dorfhäuser („die einzelnen Dörfer, Häuser … für die Crucibles“) und die zusätzlichen End-Strukturen („die darfst du natürlich auch nicht vergessen“). Gut gruppieren, keine ellenlangen Reihen.
 - [~] (A, a-tz22b, 22.10.) TZ22-4 Teilbau per Befehl: Der Standardbefehl baut alles. Optionen schränken die Größe ein, z. B. „ohne die Strukturen“ oder nur einzelne Bereiche. Hilfe-Text, Wiki und Tests dazu.
-- [~] (B, b-tz22a, 22.10.) TZ22-5 Kompaktes Layout wie der Holzbereich:
+- [x] (B, b-tz22a, 22.10.) (Raster-Layout, fabric-263 233x283 → 262x264) TZ22-5 Kompaktes Layout wie der Holzbereich:
   - Baublöcke (Astralit/Nihilit, Paints, Holz-Bauvarianten) gruppiert statt einer langen Reihe; die doppelten Holzblöcke fallen weg, weil sie schon im Holzbereich stehen.
   - Die „riesige Wand“ mit Truhen, Öfen, Trichtern und anderen Speichern kompakter.
   - Wände niedriger („weil das schon ein harter Cut ist“), schlecht gefüllte Bereiche auffüllen.
@@ -781,7 +780,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 
 ### Verwaiste TODOs 20.10. (b-orphtodos; Besitzer entscheidet über Verwerfen; Belege in /tmp/claude-0/ash/todos.html)
 - [ ] (übergreifend) Simple Hearts: bestehende GitHub-Mod erweitern/vervollständigen (Besitzer 01.10. „später“) – `docs/ai/BACKLOG-2026-10-01.md:83`.
-- [~] (A, a-m08, 22.10.) (übergreifend, Audit M-08) Server-Configs ohne UI/Tooltips: Lib, Maps, Sandwiches, Trims (nur `simpletrims.config.enabled` ohne Tooltip), Tweaks-Claims, Simple Stats (kein Config-Bildschirm/ModMenu) – `docs/ai/AUDIT-MODULE-2026-10-11.md:24`, `docs/ai/memory/simple-stats-2026-10-15.md:13`.
+- [x] (A, a-m08 a89b03782, 22.10.; Bündel 44) (übergreifend, Audit M-08) Server-Configs ohne UI/Tooltips: Lib, Maps, Sandwiches, Trims (nur `simpletrims.config.enabled` ohne Tooltip), Tweaks-Claims, Simple Stats (kein Config-Bildschirm/ModMenu) – `docs/ai/AUDIT-MODULE-2026-10-11.md:24`, `docs/ai/memory/simple-stats-2026-10-15.md:13`.
 - [ ] (Testzentrale, Nachtrag 13 Besitzer 06.10., nie in der Queue) Testzentralen-Module (Kleinteile/Truhen/Rahmen/Ständer/Hotbar-Befehlsblöcke, UI-Blöcke + Tooltip-UIs mit Befüll-Knopf, In-World-Umwandlungen nach Stufen, Interaktionen, Crafting-Rezepte; Standardbau baut alle) + Wiki-Dev-Tab; Wiki für Gelegenheits-/Profispieler aufräumen – Memory `testzentralen-n13-offen.md`, `docs/ai/ROADMAP-2026-10-09.md:65,110`. — **22.10.: zusammen mit TZ22 (Abschnitt oben) umsetzen.**
 - [x] (B, b-small21, 21.10.) (Build) Groovy-Fallback ohne Python zeichnet die 38 `placed_disc_*` nicht (Regex `mc26_3/resources.gradle:183` erkennt die Dict-Comprehension `tools/textures/vanilla_derived.py:106` nicht) → magenta statt grau. Beleg: placed_disc_* als 38 Literalzeilen in tools/textures/vanilla_derived.py; Lauf auf sb-test mit -PsbSkipVanillaDerived (Groovy-Fallback) zeichnet 38 placed_disc_*; Test GroovyFallbackParse (b-small21)
 - [ ] (Betrieb) `dist-publish.sh` mit `-PsbVanillaDerivedStrict` + `placeholder_audit.py --fail-on-placeholder`; `/setup/starter.ps1` auf sb-web neu ausliefern – Memory `uebergabe-B.md:231,259`.
@@ -801,7 +800,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (B, b-bugs21, 21.10.) (Simple Stats) Mob-Varianten-Namen im DE-Client englisch (`StatNames.java:66` Literal-Fallback) – `docs/ai/memory/simple-stats-2026-10-15.md:12`. ERLEDIGT 21.10. (Branch b-bugs21, Plan docs/ai/PLAN-B-BUGS21-2026-10-21.md; Test siehe Memory-Abschnitt b-bugs21).
 - [ ] (Simple Stats, klein/verwerfen) Tragezeit nur alle 10 s übergeben (Rüstungswechsel schreibt Zeit dem neuen Teil zu) – `simple-stats-2026-10-15.md:11`.
 - [x] (B, b-small21, 21.10.) (Simple Tools) Death Vault: NeoForge-Itemlebensdauer (`getEntityLifespan`) nicht ausgewertet – `docs/ai/BERICHT-OC-DEATHVAULT2.md:11`. Beleg: DeathLedger.lifespanOf-Hook, NeoForge setzt ItemEntity.lifespan; Eintrag/Menü/Screen nutzen die Lebensdauer; Test in vault_lost (b-small21)
-- [~] (A, a-m11, 22.10.) (Simple Interfaces, Audit M-11) `LegacyMigration.run` schreibt `options.txt` – Reihenfolge zum Laden ungeprüft – `docs/ai/AUDIT-MODULE-2026-10-11.md:27`.
+- [x] (A, a-m11 3e4123630, 22.10.; simpleinterfaces 34/34, Bündel 44) (Simple Interfaces, Audit M-11) `LegacyMigration.run` schreibt `options.txt` – Reihenfolge zum Laden ungeprüft – `docs/ai/AUDIT-MODULE-2026-10-11.md:27`.
 - [x] (B, b-shopsherob21, 21.10.) (Simple Shops) Karte zeigt auch entladene öffentliche Shops (Shops-Umbau Stufe 4) – `docs/ai/KONZEPT-SHOPS-UMBAU-2026-10-19.md:93`. Erledigt auf b-shopsherob21: `ShopMapLayer` liest entladene öffentliche Shops aus `EnderShops` (Katalog-Regeln, lädt nie einen Chunk); Gametest `map_shows_unloaded_public_shops`; module-simpleshops fabric/neoforge/forge/standalone-fabric je 70/70. Offen: Client-Sicht der Karte.
 - [x] (B, b-shopsherob21, 21.10.) (Simple Mobheads) Herobrine: Wiki-Spoiler fehlt; Ritual-Abklingzeiten nur im Speicher (`HerobrineRitual.java:43-56`) – Memory `uebergabe-B.md:248`. Erledigt auf b-shopsherob21: SavedData `ritual/RitualCooldowns` (`simplemobheads:herobrine_ritual`), Rundreise im Test `herobrineRitual`; Wiki-Feld `"spoiler": true` (manual.json, `wiki/index.html` zugeklappt) für Feature + Kopf-Notiz; module-simplemobheads fabric/neoforge/forge/standalone-fabric je 33/33; check Exit 0.
 - [x] (B, b-musicsub22, 22.10.; erledigt, Standalone-NeoForge lief erstmals grün 26/26 (vor sub_mod_switch) bzw. 27/27, kein Fehler: SB bündelt simplemusic optional (Fabric include, NeoForge jarJar, Forge forgeBundleModules; suggests/optional, modules.json parent/bundle), Schalter enableSimpleMusic „Enable Simple Music“/„Simple Music aktivieren“ über framework SubMods, keine IdMoves nötig (nie SB-IDs); Modultest sub_mod_switch; module-simplemusic fabric/neoforge/forge/standalone-fabric/standalone-neoforge je 27/27, SB config_option* 38/38 + data_integrity* 102/102 (fabric+neoforge), integration-263 3/3, JUnit grün, gradlew check grün; Plan docs/ai/PLAN-B-MUSICSUB22-2026-10-22.md) (Simple Music, Besitzer: welcher Super-Mod?) Bündeln als Sub-Mod mit Enable-Schalter; Standalone-NeoForge-Ziel nie gelaufen – Memory `uebergabe-B.md:256`. — **Besitzer 21.10.: in Simple Building, Name „Simple Music“ (siehe Zeile oben).**

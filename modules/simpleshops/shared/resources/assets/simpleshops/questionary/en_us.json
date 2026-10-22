@@ -15,7 +15,7 @@
       "A glass lid on a wooden plinth, built to show off the one thing a buyer came for."
     ],
     "use": [
-      "Stand it on your Sales Block. An item in hand goes into the next free slot; empty hand opens the goods menu with five slots. Buyers take one piece per trade."
+      "Stand it on your Sales Block to sell, or anywhere just to show something off (then anyone may break it). An item in hand goes into the next free slot; empty hand opens the goods menu with five slots. Buyers take one piece per trade."
     ],
     "secret": [
       "Hoppers and golems cannot reach inside, and no explosion will crack the glass."
@@ -34,10 +34,10 @@
   },
   "sales_storage": {
     "lore": [
-      "A crate with two iron bands and a funnel on top: the overflow bin of a busy shop."
+      "A crate with an iron collar and a funnel inside: it grows out of the Sales Block and swallows the overflow of a busy shop."
     ],
     "use": [
-      "Hang it under your Sales Block (or under another storage). It pulls the earnings down by itself, hopper style, as long as every block of the chain is yours. Right click to take things out."
+      "Sneak and right click your own Sales Block with it, on any side. It faces the block and pulls the earnings out by itself, hopper style, as long as both are yours. Right click to take things out."
     ],
     "secret": [
       "Strangers cannot open, break, push or empty it; hoppers do not see it. A full chain turns the Trade button off."

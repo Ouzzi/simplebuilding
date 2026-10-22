@@ -143,4 +143,27 @@ class OptCompatTest {
         rt.scan(Map.of("othermod", Set.of("net.minecraft.client.renderer.block.ModelBlockRenderer")), m -> false, warnings::add);
         assertTrue(rt.live(LEAVES), "conflictScan false skips the check");
     }
+
+    @Test
+    void failedMixinSwitchesOnlyItsAreaOff() {
+        var light = new OptCompat.Area("lightmap_cache", "O7", OptCompat.Side.CLIENT, List.of("badoptimizations"), false);
+        var rt = new OptAreas("mixin-fail-owner", List.of(LEAVES, light));
+        Map<String, Map<String, Object>> defaults = new LinkedHashMap<>();
+        defaults.put("leaf_culling", Map.of());
+        defaults.put("lightmap_cache", Map.of());
+        rt.decide(OptSettings.of(null, defaults), true, Set.<String>of()::contains, Map.of(), s -> {});
+        String pkg = "com.x.mixin.";
+        assertEquals(null, rt.mixinFailed(pkg + "TopLevelMixin"), "no area: nothing to switch");
+        assertEquals(null, rt.mixinFailed(pkg + "unknown.XMixin"), "unknown area: nothing to switch");
+        String line = rt.mixinFailed(pkg + "leaf_culling.ModelBlockRendererMixin");
+        assertEquals("Bereich leaf_culling abgeschaltet: Mixin ModelBlockRendererMixin nicht angewendet", line);
+        assertFalse(rt.live(LEAVES), "live switch follows the failure");
+        assertFalse(OptCompat.active("mixin-fail-owner", "leaf_culling"));
+        assertTrue(rt.live(light), "other areas keep running");
+        var now = OptCompat.decisions("mixin-fail-owner").get(0);
+        assertEquals(OptCompat.Reason.MIXIN_FAILED, now.reason());
+        assertTrue(now.hint().contains("ModelBlockRendererMixin"));
+        assertEquals(null, rt.mixinFailed(pkg + "leaf_culling.OtherMixin"), "already off: no second line");
+        assertTrue(OptCompat.table("mixin-fail-owner", OptCompat.decisions("mixin-fail-owner")).contains("mixin_failed"));
+    }
 }

@@ -32,8 +32,13 @@ public class CrucibleMenu extends AbstractContainerMenu {
     // both, the inventory box (label 6 px under its top, inventory 17 px under it). Every box has image 4's thick frame:
     // 5 px at the top and the sides, 7 px at the bottom (2 px shadow), see CrucibleScreen.box.
     public static final int GRID_TOP = 18;
-    /** Room under the slots (inside the 7 px bottom frame) where the flame strip shows. */
-    public static final int FIRE_ROOM = 12;
+    /**
+     * Room under the slots (including the 7 px bottom frame) where the flames burn over the dark hearth trapezoid.
+     * SP22-6 (owner 22.10.): one slot pitch more than the old 12 px, so the fire stands free below the lowest items.
+     */
+    public static final int FIRE_ROOM = 30;
+    /** Gap between the highest flame tongue and the lowest slot row (SP22-6). */
+    public static final int FIRE_GAP = 3;
     /** Side margin of every box from its edge to the slot grid: Vanilla's 7 px (owner N37). */
     public static final int MARGIN = 7;
     /** Vanilla's container width: 9 slots plus the 7 px margins. */
@@ -66,6 +71,11 @@ public class CrucibleMenu extends AbstractContainerMenu {
 
         public int barrelY(CrucibleTier tier, int slot) {
             return barrelGridTop + 1 + tier.row(slot) * 18;
+        }
+
+        /** Top of the free fire zone under the crucible grid (relative to the image), SP22-6. */
+        public int fireTop(CrucibleTier tier) {
+            return y + GRID_TOP + tier.rows() * 18;
         }
 
         /** Top of the inventory box. */

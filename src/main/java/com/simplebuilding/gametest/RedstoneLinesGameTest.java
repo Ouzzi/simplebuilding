@@ -16,4 +16,5 @@ public final class RedstoneLinesGameTest {
     @GameTest(maxTicks = 140) public void lineBlocksPowerEveryDevice(GameTestHelper helper) { RedstoneLinesTests.lineBlocksPowerEveryDevice(helper); }
     @GameTest(maxTicks = 60) public void lineBlocksFeedOnlyTheirLine(GameTestHelper helper) { RedstoneLinesTests.lineBlocksFeedOnlyTheirLine(helper); }
     @GameTest public void lineBlockRecipesRoundTrip(GameTestHelper helper) { RedstoneLinesTests.lineBlockRecipesRoundTrip(helper); }
+    @GameTest public void lineBlocksHaveOwnSounds(GameTestHelper helper) { RedstoneLinesTests.lineBlocksHaveOwnSounds(helper); }
 }

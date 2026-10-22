@@ -325,7 +325,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 40
     },
-    "dataHash": "8115db6dbacf"
+    "dataHash": "19d637c3a9b3"
   },
   {
     "id": "simpledimensions",
@@ -414,7 +414,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "58d4bcdc8eb1"
+    "dataHash": "3fa078d971ac"
   },
   {
     "id": "simpleinterfaces",
@@ -468,7 +468,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 8
     },
-    "dataHash": "3947b5bceca5"
+    "dataHash": "57fed3785ddf"
   },
   {
     "id": "simpletrims",
@@ -935,9 +935,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 6,
-      "features": 10
+      "features": 11
     },
-    "dataHash": "30dbd747d283"
+    "dataHash": "f4275fd6e203"
   },
   {
     "id": "simplewanderers",
@@ -1076,7 +1076,7 @@ window.WIKI_MODULES = [
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "fa3e13af5aa2"
+    "dataHash": "677b17642cfc"
   },
   {
     "id": "simplehammers",

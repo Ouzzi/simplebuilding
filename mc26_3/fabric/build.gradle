@@ -70,6 +70,8 @@ loom {
 			server()
 			name = "Game Test 26.3"
 			vmArg "-Dfabric-api.gametest"
+			// The full suite builds the whole test centre (TZ22); the default heap (1/4 of RAM) ran out in the gate.
+			vmArg "-Xmx8G"
 			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
 			def gametestFilter = project.findProperty('gametestFilter')
 			if (gametestFilter) {

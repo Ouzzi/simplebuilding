@@ -188,4 +188,5 @@ h2{{margin-top:28px}}p{{color:var(--mut)}}</style></head><body>
     Path(OUT.parent / "crucible-fire.html").write_text(html)
     print("html bytes", len(html))
 
-main()
+if __name__ == "__main__":
+    main()
