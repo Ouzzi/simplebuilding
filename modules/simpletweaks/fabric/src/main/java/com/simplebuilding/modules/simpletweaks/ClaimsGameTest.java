@@ -77,4 +77,8 @@ public final class ClaimsGameTest {
  @GameTest public void claimsExpand(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand").accept(h); }
  @GameTest public void claimsExpandTable(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand_table").accept(h); }
  @GameTest public void claimsMapLayer(GameTestHelper h) { ClaimTests.TESTS.get("claims_map_layer").accept(h); }
+ @GameTest public void claimsCreditUnclaim(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_unclaim").accept(h); }
+ @GameTest public void claimsCreditMigration(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_migration").accept(h); }
+ @GameTest public void claimsCreditDimensions(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_dimensions").accept(h); }
+ @GameTest public void claimsCreditBuy(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_buy").accept(h); }
 }

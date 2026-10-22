@@ -49,6 +49,11 @@ public final class ClaimStore {
     private Map<UUID,Integer> budgets = Map.of();
     /** True while the file on disk is version 1: the first write keeps it as a backup. */
     private boolean fromV1;
+    /**
+     * Set once land held before chunk credits (SP22-8) was written into the budgets ({@code Claims}); additive field,
+     * builds without it read {@code budgets} unchanged.
+     */
+    private boolean creditsMigrated;
     public ClaimStore(Path path, Map<String,Path> legacy) throws IOException {
         this.path = path;
         Map<Key,Claim> loaded = new HashMap<>();
@@ -73,6 +78,7 @@ public final class ClaimStore {
                 add(loaded, key, new Claim(owner));
             }
             budgets = Map.copyOf(readBudgets(root));
+            creditsMigrated = root.has("creditsMigrated") && root.get("creditsMigrated").getAsBoolean();
             if (version == 1) { fromV1 = true; loadedLands.putAll(migrate(loaded, whitelists)); }
             else for (var entry : root.getAsJsonArray("lands")) {
                 var j = entry.getAsJsonObject();
@@ -187,6 +193,24 @@ public final class ClaimStore {
     public Map<Key,Claim> view() { return claims; }
     public Map<UUID,Land> lands() { return lands; }
     public Map<UUID,Integer> budgets() { return budgets; }
+    public boolean creditsMigrated() { return creditsMigrated; }
+    /** Nothing to migrate: the marker is written with the next save. */
+    void markCreditsMigrated() { creditsMigrated = true; }
+    /**
+     * One atomic write of the migrated budgets with the marker. A version 2 file is kept once as
+     * {@code simpletweaks-claims.v2.json} (never overwritten; a version 1 file already gets its own backup).
+     */
+    void migrateCredits(Map<UUID,Integer> nextBudgets) throws IOException {
+        if (!fromV1 && Files.exists(path)) {
+            Path backup = path.toAbsolutePath().resolveSibling(path.getFileName().toString().replaceFirst("(\\.json)?$",".v2.json"));
+            if (Files.isSymbolicLink(backup)) throw new IOException("Refusing symbolic link " + backup);
+            if (!Files.exists(backup)) Files.copy(path, backup);
+        }
+        boolean before = creditsMigrated;
+        creditsMigrated = true;
+        try { replace(claims, lands, nextBudgets); }
+        catch (IOException | RuntimeException e) { creditsMigrated = before; throw e; }
+    }
     /** Rights of an actor in a chunk: everything where nothing is claimed, everything for the owner, else the land rules. */
     public int rights(Key key, UUID actor) {
         var claim = claims.get(key);
@@ -232,6 +256,7 @@ public final class ClaimStore {
         var budgetRows = new JsonArray();
         nextBudgets.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> { var row = new JsonObject(); row.addProperty("Owner",e.getKey().toString()); row.addProperty("chunks",e.getValue()); budgetRows.add(row); });
         root.add("budgets",budgetRows);
+        if (creditsMigrated) root.addProperty("creditsMigrated",true);
         if (fromV1 && Files.exists(path)) {
             // First v2 write: keep the v1 file next to the ledger, never overwrite an existing backup.
             Path backup = path.toAbsolutePath().resolveSibling(path.getFileName().toString().replaceFirst("(\\.json)?$",".v1.json"));

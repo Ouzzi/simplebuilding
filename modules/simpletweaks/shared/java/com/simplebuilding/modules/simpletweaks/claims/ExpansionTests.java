@@ -43,9 +43,9 @@ public final class ExpansionTests {
     /** Pure rules of the budget and the config validation. */
     public static void budget(GameTestHelper h) {
         var c = config();
-        yes(h, c.budgetOf(null, 0) == 2 && c.budgetOf(3, 0) == 3 && c.budgetOf(null, 3) == 3 && c.budgetOf(9, 0) == 4,
-                "Budget: start size, bought size, never below what is held, never above the server limit");
-        yes(h, new ClaimConfig(true, 6, 8, 50, 20, false, 0, ClaimConfig.DEFAULT.dimensions()).budgetOf(1, 0) == 6, "Without expansion the budget is the server limit");
+        yes(h, c.budgetOf(null) == 2 && c.budgetOf(3) == 3 && c.budgetOf(1) == 2 && c.budgetOf(9) == 4,
+                "Budget: start size, bought size, never below the start, never above the server limit (held land does not count: credits)");
+        yes(h, new ClaimConfig(true, 6, 8, 50, 20, false, 0, ClaimConfig.DEFAULT.dimensions()).budgetOf(1) == 6, "Without expansion the budget is the server limit");
         yes(h, c.nextTier(2).chunks() == 3 && c.nextTier(3) == null && c.nextTier(4) == null && c.nextTier(5) == null,
                 "Next step above the budget, none above the server limit (4) or the end");
         boolean bad = false;

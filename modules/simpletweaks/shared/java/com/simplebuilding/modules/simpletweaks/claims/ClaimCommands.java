@@ -35,10 +35,12 @@ public final class ClaimCommands {
                                 .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),rights(StringArgumentType.getString(c,"rights")))))))
                 .then(Commands.literal("info").executes(c->info(c.getSource())))
                 .then(Commands.literal("budget").executes(c->budget(c.getSource())))
+                .then(Commands.literal("credits").executes(c->budget(c.getSource())))
+                .then(Commands.literal("buy").executes(c->buy(c.getSource())))
                 .then(Commands.literal("code").executes(c->code(c.getSource())))
                 .then(Commands.literal("untrust").then(Commands.argument("player",StringArgumentType.word())
                         .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),0))))
-                .then(Commands.literal("create").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).claim(c.getSource().getPlayerOrException()))))
+                .then(Commands.literal("create").executes(c->create(c.getSource())))
                 .then(Commands.literal("unclaim").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).unclaim(c.getSource().getPlayerOrException(),false))))
                 .then(Commands.literal("admin").requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
                         .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage","1–6"),false);return 1;})
@@ -74,13 +76,40 @@ public final class ClaimCommands {
         s.sendSuccess(()->Component.translatable("command.simpletweaks.claim.info",rights==0?"-":ClaimRights.letters(rights)),false);
         return 1;
     }
+    /** Chunk credits (SP22-8): paid land, held land (all dimensions), free credits and the next step. */
     private static int budget(CommandSourceStack source) throws CommandSyntaxException {
         var p=source.getPlayerOrException();var claims=Claims.get(source.getServer());
         if (claims.locked()) return result(source,false);
-        var tier=claims.nextTier(p.getUUID());
-        Component next=tier==null?Component.translatable("command.simpletweaks.claim.budget.none"):Component.literal(tier.chunks()+" ("+tier.items().stream().map(i->i.count()+"x "+i.id()).collect(java.util.stream.Collectors.joining(", "))+(tier.levels()>0?", "+tier.levels()+" lvl":"")+")");
-        source.sendSuccess(()->Component.translatable("command.simpletweaks.claim.budget",claims.chunksOf(p.getUUID()),claims.budget(p.getUUID()),next),false);
+        var id=p.getUUID();
+        source.sendSuccess(()->Component.translatable("command.simpletweaks.claim.credits",claims.budget(id),claims.chunksOf(id),claims.credits(id),next(claims,id)),false);
         return 1;
+    }
+    private static Component next(Claims claims,UUID id) {
+        var tier=claims.nextTier(id);
+        if (tier==null) return Component.translatable("command.simpletweaks.claim.budget.none");
+        int more=tier.chunks()-claims.budget(id);
+        return Component.literal("+"+more+" ("+tier.items().stream().map(i->i.count()+"x "+i.id()).collect(java.util.stream.Collectors.joining(", "))+(tier.levels()>0?", "+tier.levels()+" lvl":"")+")");
+    }
+    /** Claims the current chunk with a free credit; without one the player is told how to buy more. */
+    private static int create(CommandSourceStack source) throws CommandSyntaxException {
+        var p=source.getPlayerOrException();var claims=Claims.get(source.getServer());
+        if (claims.claim(p)) return result(source,true);
+        if (!claims.locked() && claims.credits(p.getUUID())==0) {
+            source.sendFailure(Component.translatable("command.simpletweaks.claim.no_credit",next(claims,p.getUUID())));
+            return 0;
+        }
+        return result(source,false);
+    }
+    /** Buys the next step ahead (chunk credits); same conditions as before at the table, including a deed of one's own. */
+    private static int buy(CommandSourceStack source) throws CommandSyntaxException {
+        var p=source.getPlayerOrException();var claims=Claims.get(source.getServer());
+        var outcome=claims.expand(p);
+        if (outcome==Claims.Expand.OK) {
+            source.sendSuccess(()->Component.translatable("command.simpletweaks.claim.bought",claims.credits(p.getUUID())),false);
+            return 1;
+        }
+        source.sendFailure(Component.translatable("command.simpletweaks.claim.buy."+outcome.name().toLowerCase(java.util.Locale.ROOT)));
+        return 0;
     }
     private static int setBudget(CommandSourceStack source,UUID owner,int chunks) {
         var claims=Claims.get(source.getServer());
