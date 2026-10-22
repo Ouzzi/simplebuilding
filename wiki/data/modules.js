@@ -12,7 +12,6 @@ window.WIKI_MODULES = [
     ],
     "requires": [
       "cloth-config",
-      "simplelib",
       "simpleovens",
       "simplemobheads",
       "simplecrucibles",
@@ -44,8 +43,7 @@ window.WIKI_MODULES = [
       "simplerespawn",
       "simplebeacons",
       "simpleshops",
-      "simplewanderers",
-      "simplemusic"
+      "simplewanderers"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -58,7 +56,7 @@ window.WIKI_MODULES = [
       "items": 539,
       "blocks": 318,
       "recipes": 855,
-      "config": 227,
+      "config": 226,
       "features": 47
     }
   },
@@ -323,9 +321,9 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 4,
-      "features": 40
+      "features": 39
     },
-    "dataHash": "8115db6dbacf"
+    "dataHash": "52ff67d5e0e6"
   },
   {
     "id": "simpledimensions",
@@ -392,7 +390,7 @@ window.WIKI_MODULES = [
     "id": "simplelib",
     "displayName": "SimpleLib",
     "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
-    "version": "0.3.0",
+    "version": "0.2.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -414,7 +412,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "58d4bcdc8eb1"
+    "dataHash": "668f7c05a7e1"
   },
   {
     "id": "simpleinterfaces",
@@ -466,9 +464,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 4,
       "recipes": 4,
-      "features": 8
+      "features": 7
     },
-    "dataHash": "3947b5bceca5"
+    "dataHash": "7044f41acd94"
   },
   {
     "id": "simpletrims",
@@ -523,7 +521,7 @@ window.WIKI_MODULES = [
       "recipes": 62,
       "features": 12
     },
-    "dataHash": "e75b5f312f8c"
+    "dataHash": "7965a13a30f9"
   },
   {
     "id": "simpleweather",
@@ -935,9 +933,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 6,
-      "features": 11
+      "features": 10
     },
-    "dataHash": "f4275fd6e203"
+    "dataHash": "30dbd747d283"
   },
   {
     "id": "simplewanderers",
@@ -1046,7 +1044,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 7
     },
-    "dataHash": "26993284e03e"
+    "dataHash": "80c06e88b8ed"
   },
   {
     "id": "simpleoctets",
@@ -1106,7 +1104,7 @@ window.WIKI_MODULES = [
       "recipes": 11,
       "features": 9
     },
-    "dataHash": "64073d9d1f41"
+    "dataHash": "30b7beb2f3cc"
   },
   {
     "id": "simpleoptimization",
@@ -1219,9 +1217,9 @@ window.WIKI_MODULES = [
       "items": 17,
       "blocks": 37,
       "recipes": 177,
-      "features": 12
+      "features": 7
     },
-    "dataHash": "e3c1431caaac"
+    "dataHash": "ecaaba130eda"
   },
   {
     "id": "simplemusic",
@@ -1241,8 +1239,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
-    "parent": "simplebuilding",
-    "bundle": "optional",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
     "counts": {
       "items": 4,
@@ -1250,6 +1246,6 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 17
     },
-    "dataHash": "f56a3c2f5ae9"
+    "dataHash": "41bcb971c1ae"
   }
 ];
