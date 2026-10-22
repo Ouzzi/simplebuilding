@@ -94,7 +94,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
 - [~] (B, b-redsound22, 22.10.) SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
   - Eigene Klänge entwickeln: Redstone-Staub als „Pulver-Sound“, Lampen dürfen amethystartig bleiben, Kolben klingen kolbenartig.
   - Jeder Block-Typ bekommt eine eigene SoundGroup.
-- [ ] SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel:
+- [~] (A, a-crucui22, 22.10.) SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel:
   - Unten etwa 1 Block Höhe mehr Platz. Im Hintergrund dieser Zone ein dunkleres Trapez für räumliche Tiefe, im selben Stil wie der Hintergrund.
   - Das Feuer liegt darüber und ist mit mehr Abstand zu den untersten Items gut sichtbar („dann ist man … stolzer, das gebaut zu haben“).
 - [~] (B, b-shops22, 22.10.) SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine:
@@ -112,8 +112,8 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
     - Aktualisiert wird nur, wenn der Chunk geladen ist; es wird nichts extra geladen.
   - **Dimensionen und Kosten:** Claims gelten in allen Dimensionen. Jeder weitere Chunk kostet mehr, wie bisher.
   - **Aufgeben:** Wer einen Chunk aufgibt, bekommt nichts zurückgezahlt, aber einen Chunk-Credit für einen neuen Claim.
-- [ ] SP22-9 (Simple Beacons) Der Strong Conduit hebt sich stärker ab: größerer Bereich statt neuer Fähigkeit („Dolphin's Grace ist schon ziemlich gut“; normaler Conduit nur Wasseratmung prüfen).
-- [ ] SP22-10 (Simple Beacons) Leuchtfeuer:
+- [~] (A, a-beacons22, 22.10.) SP22-9 (Simple Beacons) Der Strong Conduit hebt sich stärker ab: größerer Bereich statt neuer Fähigkeit („Dolphin's Grace ist schon ziemlich gut“; normaler Conduit nur Wasseratmung prüfen).
+- [~] (A, a-beacons22, 22.10.) SP22-10 (Simple Beacons) Leuchtfeuer:
   - **Kräfte:** Jede Stufe bietet 3 Kräfte. Stufe 1 hat Tempo und Eile, eine dritte kommt dazu. Stufe 2 hat Resistenz und Sprungkraft, eine dritte kommt dazu. Stufe 3 hat nur Stärke, zwei kommen dazu. Stufe 4 und 5 haben schon 3. Neue Kräfte Vanilla-nah wählen und begründen.
   - **Reichweite nach Material:** Der Faktor richtet sich nach dem Material der Basis: Netherit ×2, Diamant ×1,5, Gold ×1,1, Smaragd ×1,1, Eisen ×1. Gezählt wird nur pro abgeschlossener Ebene, anteilig nach Blockzahl. Beispiel: unterste Ebene ganz Diamant ≈ ×1,25 (überschlagen, genaue Formel im Konzept).
   - **Anzeige:** Der Faktor steht in der Leuchtfeuer-UI.
