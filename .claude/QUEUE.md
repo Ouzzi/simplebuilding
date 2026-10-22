@@ -62,11 +62,11 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 Besitzer-Feedback beim Bauen der Testzentrale (Sprachnachricht, sinngemäß zusammengefasst; wörtliche Kernsätze in Anführungszeichen).
 Ziel: „das ganze Testcenter von Anfang bis Ende überarbeiten“, kompakt und übersichtlich „wie beim Holzbereich“. Die Mob-Bereiche gefallen und sind das Vorbild für die Struktur.
 Reihenfolge für die Branches: TZ22-1/2/5 (Inventar + Layout + Rahmen), dann TZ22-3/4 (Strukturen + Teilbau), dann TZ22-6/8 (Rails + Anzeigen), TZ22-7 als eigener Client-Branch parallel.
-- [ ] TZ22-1 Vollständigkeit: „ich sehe nicht alles, was in der Mod existiert“. Abgleich gegen alle Registries aller Module (Blöcke, Items, Mobs, Strukturen). Ein Test oder Generator-Check meldet alles, was in der Testzentrale fehlt.
-- [ ] TZ22-2 Weniger Item-Rahmen (Leistung): „es leckt noch etwas, dadurch, dass es so viele Item-Frames sind“. Was platzierbar ist (an der Wand oder am Boden), wird als Block gesetzt statt in einen Rahmen gelegt; schon gesetzte Dinge (z. B. Öfen) bekommen keinen zusätzlichen Rahmen. Rahmen nur noch für Nicht-Platzierbares (z. B. Eimer). Entity-Zahl vorher/nachher messen.
+- [~] (B, b-tz22a, 22.10.) TZ22-1 Vollständigkeit: „ich sehe nicht alles, was in der Mod existiert“. Abgleich gegen alle Registries aller Module (Blöcke, Items, Mobs, Strukturen). Ein Test oder Generator-Check meldet alles, was in der Testzentrale fehlt.
+- [~] (B, b-tz22a, 22.10.) TZ22-2 Weniger Item-Rahmen (Leistung): „es leckt noch etwas, dadurch, dass es so viele Item-Frames sind“. Was platzierbar ist (an der Wand oder am Boden), wird als Block gesetzt statt in einen Rahmen gelegt; schon gesetzte Dinge (z. B. Öfen) bekommen keinen zusätzlichen Rahmen. Rahmen nur noch für Nicht-Platzierbares (z. B. Eimer). Entity-Zahl vorher/nachher messen.
 - [ ] TZ22-3 Strukturen: Jede eigene Struktur und jedes Strukturteil wird einmal erzeugt, mit allen Variationen. Dazu die einzelnen Dorfhäuser („die einzelnen Dörfer, Häuser … für die Crucibles“) und die zusätzlichen End-Strukturen („die darfst du natürlich auch nicht vergessen“). Gut gruppieren, keine ellenlangen Reihen.
 - [ ] TZ22-4 Teilbau per Befehl: Der Standardbefehl baut alles. Optionen schränken die Größe ein, z. B. „ohne die Strukturen“ oder nur einzelne Bereiche. Hilfe-Text, Wiki und Tests dazu.
-- [ ] TZ22-5 Kompaktes Layout wie der Holzbereich:
+- [~] (B, b-tz22a, 22.10.) TZ22-5 Kompaktes Layout wie der Holzbereich:
   - Baublöcke (Astralit/Nihilit, Paints, Holz-Bauvarianten) gruppiert statt einer langen Reihe; die doppelten Holzblöcke fallen weg, weil sie schon im Holzbereich stehen.
   - Die „riesige Wand“ mit Truhen, Öfen, Trichtern und anderen Speichern kompakter.
   - Wände niedriger („weil das schon ein harter Cut ist“), schlecht gefüllte Bereiche auffüllen.
