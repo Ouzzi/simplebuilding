@@ -15,6 +15,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import java.util.List;
+import com.simplebuilding.modules.simplemodels.client.ModelBrowser;
+import com.simplebuilding.modules.simplemodels.client.ModelPreviewTooltip;
+import com.simplebuilding.modules.simplemodels.client.ModelsTab;
 public final class ModuleClientSmoke implements FabricClientGameTest {
     private static Class<?> type(String name) {
         try { return Class.forName("com.simplebuilding.modules.simplemodels." + name); }
@@ -35,6 +38,15 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         try { (target instanceof Class<?> c ? c : target.getClass()).getField(name).set(target instanceof Class<?> ? null : target, value); }
         catch (ReflectiveOperationException e) { throw new AssertionError(e); }
     }
+    /** Seven more models on a second base item: two pages, filter and sort have something to do (SM21 b/c). */
+    private static final String WANDS = java.util.stream.IntStream.range(0, 7).mapToObj(i -> (char)('a' + i)).map(c ->
+            ",{\"id\":\"renamed:wand_" + c + "\",\"base_item\":\"minecraft:stick\",\"match_name\":\"Wand " + Character.toUpperCase(c)
+                    + "\",\"model\":\"minecraft:blaze_rod\",\"tags\":[\"rod\"],\"author\":\"Example\"}").collect(java.util.stream.Collectors.joining());
+    private static ModelsTab tab(Screen screen) {
+        var tabs = screen.children().stream().filter(ModelsTab.class::isInstance).map(ModelsTab.class::cast).toList();
+        if (tabs.size() != 1) throw new AssertionError("Exactly one Models tab on " + screen.getClass().getSimpleName() + ", got " + tabs.size());
+        return tabs.getFirst();
+    }
     private static Object catalogue() { return field(type("client.ModelBrowser"), "catalogue"); }
     private static List<?> definitions() { return (List<?>)call(catalogue(), "models"); }
     private static void click(Screen screen, String label) {
@@ -49,14 +61,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets(); world.getConnection().waitForChunksRender();
             world.getServer().runOnServer(server -> {
-                var snapshot = call(type("ModelCatalogue"), "decode", "{\"policy\":{\"operatorsOnly\":false},\"models\":[{\"id\":\"renamed:tomato\",\"base_item\":\"minecraft:apple\",\"match_name\":\"Tomato\",\"model\":\"minecraft:golden_apple\",\"tags\":[\"food\",\"red\"],\"author\":\"Example\"}]}");
+                var snapshot = call(type("ModelCatalogue"), "decode", "{\"policy\":{\"operatorsOnly\":false},\"models\":[{\"id\":\"renamed:tomato\",\"base_item\":\"minecraft:apple\",\"match_name\":\"Tomato\",\"model\":\"minecraft:golden_apple\",\"tags\":[\"food\",\"red\"],\"author\":\"Example\"}" + WANDS + "]}");
                 set(type("Models"), "server", snapshot);
                 @SuppressWarnings("unchecked") var sender = (java.util.function.Consumer<net.minecraft.server.level.ServerPlayer>)field(type("Models"), "send");
                 server.getPlayerList().getPlayers().forEach(sender);
             });
             world.getConnection().waitForClientboundPackets();
             context.runOnClient(client -> {
-                if (client.player == null || definitions().size() != 1) throw new AssertionError("World joined and authoritative catalogue received");
+                if (client.player == null || definitions().size() != 8) throw new AssertionError("World joined and authoritative catalogue received");
                 client.setScreenAndShow(new InventoryScreen(client.player));
             });
             context.waitTicks(3); context.takeScreenshot("simplemodels-inventory-tab");
@@ -66,7 +78,48 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 client.gui.screen().resize(client.gui.screen().width, client.gui.screen().height); // rebuild path: the tab must survive a window resize
                 if (client.gui.screen().children().stream().filter(e -> e instanceof com.simplebuilding.modules.simplemodels.client.ModelsTab).count() != 1)
                     throw new AssertionError("Models tab survives resize exactly once");
-                click(client.gui.screen(), "Models");
+            });
+            // SM21 f: with the recipe book open the bookmark moves to the top edge and leaves the book's edge free.
+            context.runOnClient(client -> {
+                var screen = client.gui.screen(); var tab = tab(screen);
+                screen.children().stream().filter(e -> e instanceof net.minecraft.client.gui.components.ImageButton).map(e -> (AbstractButton)e)
+                        .findFirst().orElseThrow(() -> new AssertionError("Recipe book button")).onPress(null);
+                tab.place();
+                var box = (com.simplebuilding.modules.simplemodels.mixin.ModelContainerAccessor)screen;
+                if (screen.width >= 379) {
+                    if (!tab.onTop()) throw new AssertionError("Open recipe book puts the tab on the top edge");
+                    int bookRight = (screen.width - 147) / 2 - 86 + 147;
+                    if (tab.getX() < bookRight || tab.getX() < box.simplemodels$left() || tab.getY() + tab.getHeight() > box.simplemodels$top() + 4)
+                        throw new AssertionError("Tab clear of the recipe book, above the inventory frame");
+                }
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-recipe-book");
+            context.runOnClient(client -> {
+                var screen = client.gui.screen(); var tab = tab(screen);
+                screen.children().stream().filter(e -> e instanceof net.minecraft.client.gui.components.ImageButton).map(e -> (AbstractButton)e).findFirst().orElseThrow().onPress(null);
+                tab.place();
+                if (tab.onTop() || tab.getX() >= ((com.simplebuilding.modules.simplemodels.mixin.ModelContainerAccessor)screen).simplemodels$left())
+                    throw new AssertionError("Closed recipe book: tab back on the left edge");
+                click(screen, "Models");
+            });
+            context.waitTicks(3);
+            // SM21 b/c/d: filter by base item, sort, wheel paging, tooltip preview.
+            context.runOnClient(client -> {
+                var browser = (ModelBrowser)client.gui.screen();
+                if (browser.filtered().size() != 8 || !browser.filtered().getFirst().match_name().equals("Tomato")) throw new AssertionError("Name A-Z first");
+                browser.setBaseFilter("minecraft:stick"); browser.setSort(ModelQuery.Sort.NAME_DESC);
+                if (browser.filtered().size() != 7 || !browser.filtered().getFirst().match_name().equals("Wand G")) throw new AssertionError("Stick filter, Z-A");
+                if (browser.tooltip(browser.filtered().getFirst()).stream().noneMatch(ModelPreviewTooltip.class::isInstance)) throw new AssertionError("Tooltip carries the model preview");
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-browser-filter");
+            context.runOnClient(client -> {
+                var browser = (ModelBrowser)client.gui.screen();
+                if (browser.pages() < 2) throw new AssertionError("Seven models need two pages");
+                browser.mouseScrolled(1, 1, 0, -1);
+                if (browser.page() != 1) throw new AssertionError("Wheel down turns the page");
+                browser.mouseScrolled(1, 1, 0, 1); browser.mouseScrolled(1, 1, 0, 1);
+                if (browser.page() != 0) throw new AssertionError("Wheel up turns back and stops on the first page");
+                browser.setBaseFilter(ModelQuery.ALL); browser.setSort(ModelQuery.Sort.NAME_ASC);
             });
             context.waitTicks(3);
             context.runOnClient(client -> {
@@ -95,6 +148,21 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(client -> click(client.gui.screen(), "Import Help"));
             context.waitTicks(3); context.takeScreenshot("simplemodels-help");
             context.runOnClient(client -> client.setScreenAndShow(null));
+            // SM21 e: the creative inventory has the bookmark too.
+            var mode = new net.minecraft.world.level.GameType[1];
+            world.getServer().runOnServer(server -> { var p = server.getPlayerList().getPlayers().getFirst();
+                mode[0] = p.gameMode(); p.setGameMode(net.minecraft.world.level.GameType.CREATIVE); });
+            world.getConnection().waitForClientboundPackets();
+            context.runOnClient(client -> client.setScreenAndShow(new net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen(
+                    client.player, client.player.connection.enabledFeatures(), false)));
+            context.waitTicks(3); context.takeScreenshot("simplemodels-creative-tab");
+            context.runOnClient(client -> {
+                if (!(client.gui.screen() instanceof net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen)) throw new AssertionError("Creative inventory opens");
+                if (tab(client.gui.screen()).onTop()) throw new AssertionError("Creative tab on the left edge");
+                client.setScreenAndShow(null);
+            });
+            world.getServer().runOnServer(server -> server.getPlayerList().getPlayers().getFirst().setGameMode(mode[0]));
+            world.getConnection().waitForClientboundPackets();
             world.getServer().runOnServer(server -> {
                 var player = server.getPlayerList().getPlayers().getFirst();
                 player.openMenu(new SimpleMenuProvider((id, inv, who) -> new AnvilMenu(id, inv, ContainerLevelAccess.NULL), Component.translatable("container.repair")));
