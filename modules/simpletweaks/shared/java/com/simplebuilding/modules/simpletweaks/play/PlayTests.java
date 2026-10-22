@@ -287,7 +287,8 @@ public final class PlayTests {
     /** A mock player that takes damage (see ProtectionAndRangeTests: abilities, entity flag, client-loaded timer). */
     static ServerPlayer damageable(ServerPlayer p) {
         p.getAbilities().invulnerable = false;
-        p.setInvulnerable(false);
+        p.setPermanentlyInvulnerable(false);
+        p.setInvulnerableTime(0);
         p.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
         p.setAbsorptionAmount(0f);
         return p;
