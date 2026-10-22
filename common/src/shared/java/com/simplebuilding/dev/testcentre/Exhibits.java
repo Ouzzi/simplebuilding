@@ -83,7 +83,7 @@ public final class Exhibits {
      * braucht (Laternen, Fackeln, Kerzen, Knoepfe und Druckplatten, Teppiche, Koepfe, Achtel, Kessel ...).
      */
     public static List<BlockState> floorStates(ItemStack stack) {
-        if (stack.getItem() instanceof BlockItem item && stack.isComponentsPatchEmpty() && levitating(item.getBlock())) {
+        if (stack.getItem() instanceof BlockItem item && stack.getComponentsPatch().isEmpty() && levitating(item.getBlock())) {
             // Steigt ohne Decke auf; unter Glas bleibt er liegen (wie bisher im Abschnitt "blocks").
             return List.of(item.getBlock().defaultBlockState(), net.minecraft.world.level.block.Blocks.GLASS.defaultBlockState());
         }
@@ -102,6 +102,10 @@ public final class Exhibits {
         if (block instanceof ButtonBlock) {
             return List.of(state.setValue(ButtonBlock.FACE, AttachFace.FLOOR));
         }
+        if (block instanceof com.simplebuilding.blocks.custom.AbstractLightPaneBlock) {
+            // Lichtscheiben haengen flach am Block hinter sich: auf dem Boden liegen sie nach oben.
+            return List.of(state.setValue(com.simplebuilding.blocks.custom.AbstractLightPaneBlock.FACING, Direction.UP));
+        }
         if (octet(state) || block instanceof LanternBlock || block instanceof BaseTorchBlock || block instanceof CandleBlock || block instanceof BasePressurePlateBlock || block instanceof CarpetBlock
                 || block instanceof AbstractSkullBlock || block instanceof FlowerPotBlock || block instanceof CampfireBlock
                 || block instanceof AnvilBlock || block instanceof HopperBlock || block instanceof AbstractCauldronBlock
@@ -114,7 +118,7 @@ public final class Exhibits {
 
     /** Der Grundzustand eines ruhig ausstellbaren Block-Items (Front zum Gang), sonst null. */
     private static BlockState base(ItemStack stack) {
-        if (stack.isEmpty() || !(stack.getItem() instanceof BlockItem item) || !stack.isComponentsPatchEmpty()) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof BlockItem item) || !stack.getComponentsPatch().isEmpty()) {
             return null;
         }
         Block block = item.getBlock();

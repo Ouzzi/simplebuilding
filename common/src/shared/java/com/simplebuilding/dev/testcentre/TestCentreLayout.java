@@ -423,7 +423,7 @@ public final class TestCentreLayout {
      */
     static void dropPlacedFrames(TcCanvas canvas) {
         Set<Item> placed = shownPlaced(canvas.ops());
-        canvas.ops().removeIf(op -> op instanceof TcOp.Frame frame && frame.stack().isComponentsPatchEmpty()
+        canvas.ops().removeIf(op -> op instanceof TcOp.Frame frame && frame.stack().getComponentsPatch().isEmpty()
                 && placed.contains(frame.stack().getItem()));
     }
 

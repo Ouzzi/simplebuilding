@@ -269,7 +269,7 @@ public final class TestCentreTests {
                 String item = section.id() + ": " + BuiltInRegistries.ITEM.getKey(frame.stack().getItem());
                 if (frame.facing() == Direction.NORTH && com.simplebuilding.dev.testcentre.Exhibits.wallState(frame.stack()) != null) {
                     problems.add(item + " hangs in a frame although it could stand in the wall");
-                } else if (frame.stack().isComponentsPatchEmpty() && placed.contains(frame.stack().getItem())) {
+                } else if (frame.stack().getComponentsPatch().isEmpty() && placed.contains(frame.stack().getItem())) {
                     problems.add(item + " is framed although the station already shows it placed");
                 }
             }
