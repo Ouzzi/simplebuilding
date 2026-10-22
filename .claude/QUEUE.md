@@ -28,8 +28,8 @@ Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabsc
 Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 44 (a-bundle44) = b-tz22a (TZ22-1/2/5), b-shops22 (SP22-7), b-redsound22 (SP22-5), b-octfull22 (SP22-1/11), a-m08 (M-08), a-m11 (M-11), a-opt2 (e2), a-crucui22 (SP22-6). Laufen: a-beacons22 (SP22-9/10), a-sp22ui (SP22-3/4), a-tz22b (TZ22-3/4), a-legend22 (SP22-2).
-- In master: Bündel 42 (1563d6b06) und 43 (b9037a0e5). a-guidepages offen.
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 44 GRÜN → master 6a8af3995 (22.10. 20:36 UTC, Gate nur 26.3 Fabric). Fertig für Bündel 45: a-beacons22 (SP22-9/10), a-sp22ui (SP22-3/4), a-tz22b (TZ22-3/4), a-claims22 (SP22-8 Konzept). Laufen: a-legend22 (SP22-2), a-frames22 (TZ22-7), a-small22, a-tz22c (TZ22-6/8), a-fix22 (Besitzer-Feedback).
+- In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
 1. **Fehler aus dem Spiel (SP22):** erledigt in Bündel 44 (SP22-1/5/7/11)
