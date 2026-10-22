@@ -464,9 +464,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 4,
       "recipes": 4,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "e14c480ec507"
+    "dataHash": "a5974ff454b8"
   },
   {
     "id": "simpletrims",
