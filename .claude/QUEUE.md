@@ -29,8 +29,8 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 
 ### (A) In Arbeit
 - B (pausiert bis 24.10. 01:00, Übernahme durch A): WIP-Branches b-tz22a (TZ22-1/2/5), b-shops22 (SP22-7), b-octfull22 (SP22-1/11), b-redsound22 (SP22-5) – Stand je Abschnitt in uebergabe-B.md. Bündel 42/43 in master.
-- B fertig, wartet auf das nächste Bündel: b-t12pvp (Neue-Spieler-Schutz). Bündel 42 (models21, rarity21b Teil 1, pjuke21, eh21) läuft im Gate.
-- A: a-docs22 (Pane-Namen-Rest, Maps-Wiki Claims-Ebene, Config-Tooltips M-08, LegacyMigration M-11; Auftrag /root/a-auftrag-20261022.md)
+- In master: Bündel 42 (1563d6b06) und 43 (b9037a0e5): models21, rarity21b, pjuke21, eh21, t12pvp, vnear22, framemaps22, s9b, musicsub22, a-docs22.
+- A (alt, beendet): a-m08 8b5f4ee54 und a-m11 3e4123630 fertig, aber ungeprüft; oc-opt2 hat Konflikte mit wave1 (siehe /root/a-fertig-20261022.md). a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
 1. **Fehler aus dem Spiel (SP22):** SP22-7 Verkaufslager-Geisterblock + Vitrine, SP22-1 Achtel ↔ Vollblock, SP22-11 Mob-Kopf wie Helm, SP22-5 Redstone-Klänge
