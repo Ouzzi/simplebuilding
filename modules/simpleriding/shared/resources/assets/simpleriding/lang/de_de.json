@@ -1,5 +1,5 @@
 {
-  "itemgroup.simpleriding.riding_items": "Reit-Gegenstände",
+  "itemgroup.simpleriding.riding_items": "Simple Riding",
   "enchantment.simpleriding.tailwind": "Rückenwind",
   "enchantment.simpleriding.tailwind.desc": "Erhöht Reitgeschwindigkeit. Serverstandard je Stufe: Pferde 30%, andere Reittiere und Nautilusse 20%, Happy Ghasts 85%; höchstens III.",
   "enchantment.simpleriding.leaping": "Sprungkraft",

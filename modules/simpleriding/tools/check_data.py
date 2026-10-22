@@ -31,7 +31,7 @@ def check():
         assert set(entry['loaders']) <= {'fabric', 'neoforge', 'forge'}
         assert entry['minecraft'] == '26.3'
     entry = next(e for e in manifest['modules'] if e['id'] == 'simpleriding')
-    assert entry['version'] == '1.0.5' and entry['loaders'] == ['fabric', 'neoforge', 'forge']
+    assert entry['version'] == '0.9.0' and entry['loaders'] == ['fabric', 'neoforge', 'forge']
     lang_dir = MODULE / 'shared/resources/assets/simpleriding/lang'
     en, de = [read(lang_dir / f'{language}.json') for language in ('en_us', 'de_de')]
     assert en.keys() == de.keys(), 'language completeness'

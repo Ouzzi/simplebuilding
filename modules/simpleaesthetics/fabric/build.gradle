@@ -1,5 +1,5 @@
 plugins { id 'net.fabricmc.fabric-loom' }
-ext.moduleVersion = '1.0.0'
+ext.moduleVersion = '0.9.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // framework (SubMods switches) nested per principle 3.
 dependencies { include project(':framework') }

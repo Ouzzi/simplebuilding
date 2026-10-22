@@ -1,7 +1,6 @@
 package com.simplehammers;
 
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ToolMaterial;
 
 /** The seven hammer tiers: numbers as in SimpleBuilding before the move (owner: durability unchanged until tested). */
@@ -51,6 +50,7 @@ public enum HammerTiers {
     /** Holds the Enderite material so the enum constant can use it (enum constants initialise before static fields). */
     private static final class Holder {
         static final ToolMaterial MATERIAL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2530, 10.0F, 5.0F, 18,
-                ItemTags.NETHERITE_TOOL_MATERIALS);
+                net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "repairs_enderite_equipment")));
     }
 }

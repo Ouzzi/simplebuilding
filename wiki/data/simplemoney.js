@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
   "mod": {
     "id": "simplemoney",
     "name": "Simple Money",
-    "version": "1.2.16",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],

@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
   "mod": {
     "id": "simpleoctets",
     "name": "Simple Octets",
-    "version": "1.0.0",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],

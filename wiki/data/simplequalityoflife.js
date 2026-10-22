@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "mod": {
     "id": "simplequalityoflife",
     "name": "Simple Quality of Life",
-    "version": "1.0.6",
+    "version": "0.9.0",
     "minecraftLines": [
       "26.3"
     ],

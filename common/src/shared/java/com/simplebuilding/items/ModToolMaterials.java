@@ -1,10 +1,17 @@
 package com.simplebuilding.items;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 
 public class ModToolMaterials {
+
+    /** Enderit-Ausruestung wird nur mit Enderit-Barren repariert (Besitzer 21.10.); der Tag liegt in SimpleLib. */
+    public static final TagKey<Item> REPAIRS_ENDERITE =
+            TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplelib", "repairs_enderite_equipment"));
 
     // Wir erstellen eine Instanz des Records ToolMaterial
     public static final ToolMaterial ENDERITE = new ToolMaterial(
@@ -13,10 +20,6 @@ public class ModToolMaterials {
             10.0F,                                   // Speed
             5.0F,                                    // Attack Damage Bonus
             18,                                      // Enchantability
-            ItemTags.NETHERITE_TOOL_MATERIALS        // Repair Items (Platzhalter, idealerweise dein eigener Tag)
+            REPAIRS_ENDERITE                         // Repair Items: nur Enderit
     );
-
-    // Hinweis: Wenn du dein eigenes Reparatur-Item (Enderite Ingot) nutzen willst,
-    // musst du erst einen Tag dafür erstellen oder die ToolMaterial Klasse ignorieren und die Werte manuell setzen.
-    // Aber für den Anfang nutzen wir Netherite Repair Items oder erstellen später einen Tag.
 }

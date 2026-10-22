@@ -1,5 +1,5 @@
 plugins { id 'net.fabricmc.fabric-loom' }
-ext.moduleVersion = '1.0.0'
+ext.moduleVersion = '0.9.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // SimpleLib (IdMoves: the heads that moved in from Simple Fun and SimpleBuilding) nested per principle 6a; framework
 // (WornHeads, SubMods, ConfigFiles, CreativeTabSettings) nested for standalone runs.

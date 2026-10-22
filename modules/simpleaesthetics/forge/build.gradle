@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
-ext.moduleVersion = '1.0.0'
+ext.moduleVersion = '0.9.0'
 // Super-mod (PLAN-MODULAUFTEILUNG stage 1c): nests its sub-mods next to framework.
 ext.forgeBundleModules = [':modules:simplevisuals:forge', ':modules:simplesounds:forge', ':modules:simplemodels:forge']
 apply from: rootProject.file('gradle/module-forge.gradle')

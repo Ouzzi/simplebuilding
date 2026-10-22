@@ -104,7 +104,7 @@
     {
       "id": "simplemoney",
       "name": "Simple Money",
-      "version": "1.2.16",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "projects": {
@@ -229,7 +229,7 @@
     {
       "id": "simpleriding",
       "name": "Simple Riding",
-      "version": "1.0.5",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "projects": {
@@ -426,7 +426,7 @@
     {
       "id": "simplefun",
       "name": "Simple Fun",
-      "version": "1.4.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Fun",
@@ -527,7 +527,7 @@
     {
       "id": "simplevisuals",
       "name": "Simple Visuals",
-      "version": "1.0.7",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Visuals",
@@ -729,7 +729,7 @@
     {
       "id": "simplequalityoflife",
       "name": "Simple Quality of Life",
-      "version": "1.0.6",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Quality of Life",
@@ -849,7 +849,7 @@
     {
       "id": "simpletweaks",
       "name": "Simple Tweaks",
-      "version": "1.2.12",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tweaks",
@@ -2300,7 +2300,7 @@
     {
       "id": "simpleaesthetics",
       "name": "Simple Aesthetics",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Aesthetics",
@@ -2748,7 +2748,7 @@
     {
       "id": "simpleovens",
       "name": "Simple Ovens",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Ovens",
@@ -2839,7 +2839,7 @@
     {
       "id": "simplemobheads",
       "name": "Simple Mobheads",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mobheads",
@@ -3213,7 +3213,7 @@
     {
       "id": "simpleblocks",
       "name": "Simple Blocks",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Blocks",
@@ -3305,7 +3305,7 @@
     {
       "id": "simplecrucibles",
       "name": "Simple Crucibles",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Crucibles",
@@ -3398,7 +3398,7 @@
     {
       "id": "simpleoctets",
       "name": "Simple Octets",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Octets",
@@ -3491,7 +3491,7 @@
     {
       "id": "simplehammers",
       "name": "Simple Hammers",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Hammers",
@@ -3838,7 +3838,7 @@
     {
       "id": "simplestorage",
       "name": "Simple Storage",
-      "version": "1.0.0",
+      "version": "0.9.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Storage",

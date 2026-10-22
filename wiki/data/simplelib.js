@@ -1097,6 +1097,17 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/hammers.json"
     },
     {
+      "id": "simplelib:item/repairs_enderite_equipment",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:enderite_ingot",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/shared/resources/data/simplelib/tags/item/repairs_enderite_equipment.json"
+    },
+    {
       "id": "simplelib:item/upgrade_tools",
       "replace": false,
       "values": [
@@ -1569,7 +1580,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
     "features": 3,
     "recipes": 29,
     "lootTables": 7,
-    "tags": 3,
+    "tags": 4,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,
