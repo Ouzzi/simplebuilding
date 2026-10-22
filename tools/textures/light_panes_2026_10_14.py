@@ -203,13 +203,41 @@ def redstone_state():
     return {"variants": v}
 
 
-def item_files(name):
+def item_base_model():
+    """3D item base (B-panes21): the 1 px plate of the block model, centered in the cube and tilted so the face shows in the GUI."""
+    m = base_model()
+    m["elements"][0]["from"], m["elements"][0]["to"] = [0, 7.5, 0], [16, 8.5, 16]
+    m["display"] = {"gui": {"rotation": [60, 225, 0], "scale": [0.8, 0.8, 0.8]},
+                    "fixed": {"rotation": [90, 0, 0], "scale": [0.5, 0.5, 0.5]},
+                    "ground": {"translation": [0, 3, 0], "scale": [0.4, 0.4, 0.4]},
+                    "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
+                    "firstperson_righthand": {"rotation": [0, 45, 0], "scale": [0.4, 0.4, 0.4]}}
+    return m
+
+
+def item_files(name, panel=None):
+    """Item definition + 3D model (plate of the pane); `panel` = texture of the plate (default: the lit block texture)."""
     return {f"items/{name}.json": {"model": {"type": "minecraft:model", "model": f"simplebuilding:item/{name}"}},
-            f"models/item/{name}.json": {"parent": "minecraft:item/generated", "textures": {"layer0": f"simplebuilding:item/{name}"}}}
+            f"models/item/{name}.json": {"parent": "simplebuilding:item/light_pane_item_base",
+                                         "textures": {"panel": panel or f"simplebuilding:block/{name}"}}}
+
+
+def rainbow(src, diag=True):
+    """Whole panel as a rainbow: keeps the light/dark structure (frame, bevel, noise) of `src`, hue runs across the panel."""
+    import colorsys
+    out = src.copy()
+    sp, op = src.load(), out.load()
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = sp[x, y]
+            h = ((x + y) / 30.0) if diag else (x // 2) / 8.0
+            c = colorsys.hsv_to_rgb(h * 0.92, 0.72, min(1.0, 0.25 + 0.95 * max(r, g, b) / 255.0))
+            op[x, y] = tuple(clamp(v * 255) for v in c) + (a,)
+    return out
 
 
 def files():
-    out = {"models/block/light_pane_base.json": base_model()}
+    out = {"models/block/light_pane_base.json": base_model(), "models/item/light_pane_item_base.json": item_base_model()}
     names = ["light_pane", "transparent_light_pane"] + [c + "_light_pane" for c, _ in DYES]
     tex = {"light_pane": (panel(LAMP, True, 101), panel(LAMP, False, 102)),
            "transparent_light_pane": (transparent(True), transparent(False))}
@@ -227,8 +255,8 @@ def files():
     out["textures/block/redstone_light_pane_off.png"] = redstone_off()
     out["models/block/redstone_light_pane_off.json"] = child_model("redstone_light_pane_off")
     out["blockstates/redstone_light_pane.json"] = redstone_state()
-    out["textures/item/redstone_light_pane.png"] = icon(redstone_icon())
-    out.update(item_files("redstone_light_pane"))
+    out["textures/item/redstone_light_pane.png"] = rainbow(redstone_icon())  # B-panes21: all rainbow, full panel (3D plate)
+    out.update(item_files("redstone_light_pane", "simplebuilding:item/redstone_light_pane"))
     return out
 
 

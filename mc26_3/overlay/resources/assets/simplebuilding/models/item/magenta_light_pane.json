@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "simplebuilding:item/light_pane_item_base",
   "textures": {
-    "layer0": "simplebuilding:item/magenta_light_pane"
+    "panel": "simplebuilding:block/magenta_light_pane"
   }
 }

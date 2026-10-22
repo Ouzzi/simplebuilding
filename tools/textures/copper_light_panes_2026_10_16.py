@@ -94,8 +94,8 @@ def files():
         out[f"textures/item/{name}.png"] = lp.icon(on)
         out.update(lp.item_files(name))
     out["blockstates/copper_redstone_light_pane.json"] = redstone_state()
-    out["textures/item/copper_redstone_light_pane.png"] = lp.icon(spectrum_icon())
-    out.update(lp.item_files("copper_redstone_light_pane"))
+    out["textures/item/copper_redstone_light_pane.png"] = lp.rainbow(pane((190, 168, 160), True, 650), diag=False)  # B-panes21: all rainbow
+    out.update(lp.item_files("copper_redstone_light_pane", "simplebuilding:item/copper_redstone_light_pane"))
     return out
 
 
