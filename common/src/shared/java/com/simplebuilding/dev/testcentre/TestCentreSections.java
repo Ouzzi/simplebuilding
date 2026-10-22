@@ -145,7 +145,7 @@ public final class TestCentreSections {
             }
         }
 
-        // Rueckwand: Vorlagen, Besatzmaterialien, dann je Muster eine Spalte mit vier Teilen.
+        // Rueckwand: Vorlagen und Besatzmaterialien.
         List<ItemStack> templates = new ArrayList<>();
         for (Item item : sortedItems()) {
             if (item instanceof SmithingTemplateItem) {
@@ -161,23 +161,12 @@ public final class TestCentreSections {
         }
         c.title(0, TcCanvas.SHELF_LINES, wallZ, TcText.t("section.armour", "Armour & Trims"),
                 TcText.t("section.armour.sub", "sets, upgrades, patterns"));
-        // TZ22-5: Vorlagen und Besatzmaterialien auf dem Regal hinter der Musterwand (Waende hoechstens 6 hoch).
-        int end = c.shelves(0, wallZ + TcCanvas.SHELF_PITCH, List.of(
+        // TZ22-2: die Besatzmuster zeigen die Staender der zweiten Reihe (je Muster ein Enderit-Satz); die Rahmenwand mit
+        // denselben vier Teilen je Muster fiel weg. An der Wand: Vorlagen und Besatzmaterialien.
+        int end = c.rowsPanel(0, TcCanvas.SHELF_LINES - 1, wallZ, List.of(
                 new TcCanvas.Line(TcText.t("armour.templates", "Templates"), templates),
                 new TcCanvas.Line(TcText.t("armour.materials", "Trim materials"), materialItems)));
-        List<ItemStack> pieces = new ArrayList<>();
-        if (tiers > 0) {
-            int top = tiers - 1;
-            for (int i = 0; i < patterns.size() && !materials.isEmpty(); i++) {
-                Holder<TrimMaterial> material = materials.get(i % materials.size());
-                for (Item piece : List.of(helmets.get(top), chests.get(top), legs.get(top), boots.get(top))) {
-                    pieces.add(trimmed(piece, material, patterns.get(i)));
-                }
-            }
-        }
-        c.wallSign(0, 3, wallZ, TcText.t("armour.patterns", "Trim patterns"), TcText.t("armour.patterns.sub", "one column each"));
-        end = Math.max(end, c.frameGrid(1, 0, wallZ, pieces, null, 4));
-        c.shelfWalls(0, Math.max(end, x), wallZ, 2);
+        c.backWall(0, Math.max(end, x), wallZ, TcCanvas.SHELF_HEIGHT);
         return c;
     }
 
@@ -364,6 +353,7 @@ public final class TestCentreSections {
         postSign(c, 0, 0, TcText.bold(TcText.t("section.chisel", "Chisel Towers")),
                 TcText.t("section.chisel.sub", "chisel the front block"), TcText.t("section.chisel.sub2", "tower = whole chain"));
         List<ChiselChain> chains = chiselChains(ctx);
+        List<ItemStack> shown = new ArrayList<>();
         int perRow = 24;
         for (int i = 0; i < chains.size(); i++) {
             ChiselChain chain = chains.get(i);
@@ -376,7 +366,12 @@ public final class TestCentreSections {
                     TcText.t("chisel.steps", "%s blocks", chain.blocks().size()),
                     chain.cycle() ? TcText.t("chisel.cycle", "cycle") : Component.empty()};
             c.sign(x, 0, z0 + 1, Direction.NORTH, lines);
-            c.frame(x, 1, z0, Direction.UP, touchIfNeeded(ctx, new ItemStack(chain.chisel()), chain.touch()));
+            // TZ22-2: der Meissel steht auf dem Schild; ein Rahmen nur am ersten Turm je Meissel (vorher einer je Turm).
+            ItemStack tool = touchIfNeeded(ctx, new ItemStack(chain.chisel()), chain.touch());
+            if (shown.stream().noneMatch(stack -> ItemStack.isSameItemSameComponents(stack, tool))) {
+                shown.add(tool);
+                c.frame(x, 1, z0, Direction.UP, tool);
+            }
         }
         return c;
     }
