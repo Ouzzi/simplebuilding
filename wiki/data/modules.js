@@ -171,7 +171,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 14
     },
-    "dataHash": "5173fcf52c53"
+    "dataHash": "738b5f760b63"
   },
   {
     "id": "simplefun",
@@ -322,9 +322,9 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 4,
-      "features": 39
+      "features": 40
     },
-    "dataHash": "83589f4b01a1"
+    "dataHash": "8115db6dbacf"
   },
   {
     "id": "simpledimensions",
@@ -413,7 +413,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "71da7ef7055f"
+    "dataHash": "58d4bcdc8eb1"
   },
   {
     "id": "simpleinterfaces",
@@ -465,9 +465,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 4,
       "recipes": 4,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "e14c480ec507"
+    "dataHash": "3947b5bceca5"
   },
   {
     "id": "simpletrims",
@@ -522,7 +522,7 @@ window.WIKI_MODULES = [
       "recipes": 62,
       "features": 12
     },
-    "dataHash": "7190530b3fc0"
+    "dataHash": "e75b5f312f8c"
   },
   {
     "id": "simpleweather",
@@ -902,11 +902,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAgklEQVR42mMIcLP6TwlmABF3z+0iGZ/YMAHVADkrCZLwhPoMTAOiNnj9t+syAdPobGQ+XgPwaYSxCbpASEoAjGGaYHyiXYCuAd1AnAagOx1dI1FeQNeMbAhRXkB3NjZXEO0C5EAlygXoYYALk5QOsKUJnAaQnZRBGQMkQCqGG0AJBgA3BxAT2z0G5AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "blocks": 188,
+      "blocks": 194,
       "recipes": 1,
-      "features": 12
+      "features": 15
     },
-    "dataHash": "1cf69f154a86"
+    "dataHash": "48808a4d3938"
   },
   {
     "id": "simpleshops",
@@ -1242,11 +1242,11 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
     "counts": {
-      "items": 21,
-      "blocks": 2,
+      "items": 4,
+      "blocks": 19,
       "recipes": 38,
-      "features": 16
+      "features": 17
     },
-    "dataHash": "787e9d90d89c"
+    "dataHash": "41bcb971c1ae"
   }
 ];
