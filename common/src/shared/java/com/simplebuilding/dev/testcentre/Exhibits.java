@@ -78,6 +78,47 @@ public final class Exhibits {
     }
 
     /**
+     * Was statt eines Rahmens vor einer Wand haengen kann (an der Stelle des Rahmens, am Wandblock dahinter, Front nach
+     * Norden): Lichtscheiben, Knoepfe, Leitern und die Wandform von Fackeln, Koepfen, Bannern und Schildern
+     * ({@code x_torch} zu {@code x_wall_torch}). Sonst null.
+     */
+    public static BlockState wallFrontState(ItemStack stack) {
+        BlockState state = base(stack);
+        if (state == null) {
+            return null;
+        }
+        Block block = state.getBlock();
+        if (block instanceof com.simplebuilding.blocks.custom.AbstractLightPaneBlock) {
+            return state.setValue(com.simplebuilding.blocks.custom.AbstractLightPaneBlock.FACING, Direction.NORTH);
+        }
+        if (block instanceof ButtonBlock) {
+            return state.setValue(ButtonBlock.FACE, AttachFace.WALL).setValue(ButtonBlock.FACING, Direction.NORTH);
+        }
+        if (block instanceof net.minecraft.world.level.block.LadderBlock) {
+            return with(state, BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
+        }
+        if (block instanceof BaseTorchBlock || block instanceof AbstractSkullBlock || block instanceof BannerBlock
+                || block instanceof StandingSignBlock) {
+            net.minecraft.resources.Identifier id = TcContext.id(block);
+            String path = id.getPath();
+            int cut = path.lastIndexOf('_');
+            String wallPath = cut < 0 ? "wall_" + path : path.substring(0, cut) + "_wall" + path.substring(cut);
+            Block wall = net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                    .getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(id.getNamespace(), wallPath)).orElse(null);
+            if (wall == null || wall.defaultBlockState().isSignalSource()) {
+                return null;
+            }
+            return with(wall.defaultBlockState(), BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
+        }
+        return null;
+    }
+
+    /** Ob der Stapel an einer Rahmenwand als Block gezeigt wird ({@link #wallState} oder {@link #wallFrontState}). */
+    public static boolean onWall(ItemStack stack) {
+        return wallState(stack) != null || wallFrontState(stack) != null;
+    }
+
+    /**
      * Die Bloecke, mit denen der Stapel auf dem Boden einer Ausstellung steht (unten zuerst; Tueren zwei hoch), oder eine
      * leere Liste, wenn er in einen Rahmen gehoert. Zusaetzlich zu {@link #wallState}: alles, was nur einen festen Boden
      * braucht (Laternen, Fackeln, Kerzen, Knoepfe und Druckplatten, Teppiche, Koepfe, Achtel, Kessel ...).

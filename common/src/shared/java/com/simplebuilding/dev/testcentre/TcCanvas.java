@@ -202,7 +202,8 @@ public final class TcCanvas {
 
     /**
      * Ein Stapel an der Wand bei {@code wallZ}: was sich in eine Wand setzen laesst ({@link Exhibits#wallState}), steht dort
-     * selbst als Block (TZ22-2: kein Rahmen); alles andere haengt im Rahmen davor (Rahmen zeigt nach Norden).
+     * selbst als Block (TZ22-2: kein Rahmen); was an einer Wand haengen kann ({@link Exhibits#wallFrontState}), haengt als
+     * Block davor; alles andere haengt im Rahmen davor (Rahmen zeigt nach Norden).
      */
     public void wallFrame(int x, int y, int wallZ, ItemStack stack) {
         BlockState block = Exhibits.wallState(stack);
@@ -212,6 +213,12 @@ public final class TcCanvas {
             return;
         }
         place(x, y, wallZ, WALL);
+        BlockState front = Exhibits.wallFrontState(stack);
+        if (front != null) {
+            // Haengt wie der Rahmen am Wandblock dahinter (Lichtscheibe, Knopf, Wandfackel, Wandkopf ...).
+            place(x, y, wallZ - 1, front);
+            return;
+        }
         frame(x, y, wallZ - 1, Direction.NORTH, stack);
     }
 
