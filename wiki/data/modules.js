@@ -57,7 +57,7 @@ window.WIKI_MODULES = [
       "items": 539,
       "blocks": 318,
       "recipes": 855,
-      "config": 226,
+      "config": 227,
       "features": 47
     }
   },
