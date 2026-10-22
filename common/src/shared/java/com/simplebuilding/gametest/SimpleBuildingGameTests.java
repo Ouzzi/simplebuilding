@@ -79,6 +79,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("redstone_lines_game_test_line_blocks_power_every_device", RedstoneLinesTests::lineBlocksPowerEveryDevice).maxTicks(140).build(),
             GameTestSpec.named("redstone_lines_game_test_line_blocks_feed_only_their_line", RedstoneLinesTests::lineBlocksFeedOnlyTheirLine).maxTicks(60).build(),
             GameTestSpec.named("redstone_lines_game_test_line_block_recipes_round_trip", RedstoneLinesTests::lineBlockRecipesRoundTrip).build(),
+            GameTestSpec.named("redstone_lines_game_test_line_blocks_have_own_sounds", RedstoneLinesTests::lineBlocksHaveOwnSounds).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_piston_pushes_all_six_at_once", EndSystemsTests::pistonPushesAllSixAtOnce).maxTicks(100).build(),

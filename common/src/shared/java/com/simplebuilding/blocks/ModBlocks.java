@@ -32,21 +32,21 @@ public class ModBlocks {
     public static final Block POTTED_SILENT_DANDELION = McVersion.SILENT_DANDELION
             ? registerBlock("potted_silent_dandelion", Blocks.POTTED_DANDELION,
                     s -> new net.minecraft.world.level.block.FlowerPotBlock(SILENT_DANDELION, s)) : null;
-    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, signalDust(s))) : null;
-    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, signalDust(s))) : null;
+    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, signalDust(s, com.simplebuilding.util.LineSounds.NIHIL_DUST))) : null;
+    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, signalDust(s, com.simplebuilding.util.LineSounds.ASTRAL_DUST))) : null;
     /** Astral/Nihilith Lamp (Nachtrag 44, 2026-10-12): toggles like a copper bulb on a pulse of its own line's dust. */
-    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalLampBlock(false, endLamp(s))) : null;
-    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalLampBlock(true, endLamp(s))) : null;
+    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalLampBlock(false, endLamp(s, com.simplebuilding.util.LineSounds.NIHIL_LAMP))) : null;
+    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalLampBlock(true, endLamp(s, com.simplebuilding.util.LineSounds.ASTRAL_LAMP))) : null;
     /** Bridge Redstone (2026-10-11): links redstone, Astral and Nihil like one shared wire. */
-    public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s))) : null;
+    public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s, com.simplebuilding.util.LineSounds.BRIDGE_DUST))) : null;
     /** Astral/Nihil/Bridge Redstone Block (N51, 2026-10-13): nine dust, a permanent source of its line(s) like the redstone block. */
     public static final Block ASTRAL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
     public static final Block NIHIL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
     public static final Block BRIDGE_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, s.mapColor(MapColor.COLOR_MAGENTA))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
-    public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
-    public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? registerBlock("astral_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(true, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
+    public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(com.simplebuilding.util.LineSounds.NIHIL_PISTON).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
+    public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? registerBlock("astral_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(true, s.strength(1.5F).sound(com.simplebuilding.util.LineSounds.ASTRAL_PISTON).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
     // Astral-/Nihil-Schienen (2026-10-04, docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md): gerade Schienen mit den
     // Eigenschaften der Antriebsschiene, gespeist ueber den eigenen End-Kanal; Physik in EndRailPhysics.
     public static final Block NIHIL_RAIL = McVersion.END_RAILS ? registerBlock("nihil_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(false, s)) : null;
@@ -615,14 +615,14 @@ public class ModBlocks {
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
-    /** Astral/Nihilith Lamp: redstone lamp strength, no conductor (like the copper bulb), light 15 while lit. */
-    private static BlockBehaviour.Properties endLamp(BlockBehaviour.Properties s) {
-        return s.strength(0.3F).sound(SoundType.AMETHYST).mapColor(MapColor.COLOR_PURPLE)
+    /** Astral/Nihilith Lamp: redstone lamp strength, no conductor (like the copper bulb), light 15 while lit; own crystal sound (SP22-5). */
+    private static BlockBehaviour.Properties endLamp(BlockBehaviour.Properties s, SoundType sound) {
+        return s.strength(0.3F).sound(sound).mapColor(MapColor.COLOR_PURPLE)
                 .isRedstoneConductor((state, world, pos) -> false)
                 .lightLevel(state -> state.getValue(EndSignalLampBlock.LIT) ? 15 : 0);
     }
 
-    /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it). */
+    /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it), own powder sound (SP22-5). */
     // Light Panes (N57, 2026-10-14, docs/ai/PLAN-LIGHT-PANE-2026-10-14.md): flat 1 px lamps on any block side. Normal, transparent
     // (veil over the block behind), 16 colors, and the redstone multicolor pane. Behavior in AbstractLightPaneBlock and subclasses.
     public static final Block LIGHT_PANE = McVersion.LIGHT_PANES ? lightPane("light_pane", MapColor.COLOR_YELLOW) : null;
@@ -683,8 +683,8 @@ public class ModBlocks {
         return List.copyOf(out);
     }
 
-    private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s) {
-        return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(SoundType.AMETHYST)
+    private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s, SoundType sound) {
+        return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(sound)
                 .isRedstoneConductor((state, world, pos) -> false)
                 .lightLevel(state -> state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.POWER) > 0 ? 3 : 0);
     }
