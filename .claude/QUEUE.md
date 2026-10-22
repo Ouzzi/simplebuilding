@@ -101,7 +101,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - **Fehler:** Das Lager lässt sich überall setzen und verschwindet dann, wenn es nicht erlaubt ist. Neu: Setzen geht nur mit Schleichen + Rechtsklick auf einen Verkaufsblock, von jeder Seite. Sonst gar nicht setzbar, wie ein Item.
   - **Form:** Das Lager wird ein gerichteter Vollblock, der aussieht, als käme er aus dem Verkaufsblock heraus (wie ein Trichter, aber voll; Vorbild für die Wirkung ist der Strong Beacon). Er schaut zum Verkaufsblock und nimmt von dort die Ware bzw. das Geld auf.
   - **Vitrine und Glow-Vitrine:** überall ablegbar, auch ohne Verkaufsblock. Geschützt sind sie nur zusammen mit einem Verkaufsblock. Die Decke ist durchsichtig wie beim Leuchtfeuer, damit man von oben hineinsieht, und das Glas wird klarer.
-- [ ] SP22-8 (Claims, Umbau; erst Konzept, dann Umsetzung; Abnahme im Spiel) Claim-Tisch „erscheint mir gerade nicht gut“. Er wird ersetzt:
+- [~] (A, a-claims22 Konzept, 22.10.) SP22-8 (Claims, Umbau; erst Konzept, dann Umsetzung; Abnahme im Spiel) Claim-Tisch „erscheint mir gerade nicht gut“. Er wird ersetzt:
   - **Anzeige:** Claims sieht man in erster Linie über die Wayfinder-Karte (Simple Maps), eigene und fremde, wenn die Ebene an ist. Fehlt Simple Maps, zeigt ein Hinweis, dass es für Claims empfohlen ist.
   - **Claim-Urkunde wie eine Karte:** Sie zeigt den geclaimten Bereich.
   - **Wiederherstellung am Kartentisch:** Leere Urkunde rein, persönliche Urkunde raus. Kopieren geht auch. Fremde oder schon personalisierte Urkunden sind für andere nicht änderbar, aber es gibt immer einen Weg zur eigenen Urkunde.
