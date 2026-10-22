@@ -308,7 +308,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       ],
       "en": {
         "title": "Pocket Jukebox",
-        "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
+        "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
           "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
           "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
@@ -319,13 +319,45 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       },
       "de": {
         "title": "Taschen-Jukebox",
-        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
+        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
         "details": [
           "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
           "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
           "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
           "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
           "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
+        ]
+      }
+    },
+    {
+      "id": "pocket_jukebox_placed",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxBlock.java",
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxBlockEntity.java",
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+        "modules/simplemusic/shared/java/com/simplemusic/disc/DiscPlayback.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json"
+      ],
+      "en": {
+        "title": "Placed Pocket Jukebox",
+        "summary": "Sneak + right click with the pocket jukebox on a block puts it down, front to you. Placed, it plays its discs for everyone nearby like a jukebox.",
+        "details": [
+          "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses, sneak + right click with an empty hand throws the newest disc out on top.",
+          "Same order, loop and pause as in the hand: the first disc in plays first, after the last the first again, a pause keeps the position. A jukebox that played in your hand goes on playing where you put it down.",
+          "The sound comes from the block like a jukebox (64 blocks, Jukebox/Note Blocks volume); players who come near later hear it from where the song is. Track discs are heard only by those allowed to hear them (moderation).",
+          "Redstone like a jukebox: signal 15 while it plays, a comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Parrots dance, allays and sculk sensors hear it.",
+          "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position; in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
+        ]
+      },
+      "de": {
+        "title": "Abgestellte Taschen-Jukebox",
+        "summary": "Schleichen + Rechtsklick mit der Taschen-Jukebox auf einen Block stellt sie ab, die Vorderseite zu dir. Abgestellt spielt sie ihre Platten wie eine Jukebox für alle in der Nähe.",
+        "details": [
+          "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert, Schleichen + Rechtsklick mit leerer Hand wirft die neueste Platte oben heraus.",
+          "Reihenfolge, Schleife und Pause wie in der Hand: die zuerst eingelegte zuerst, nach der letzten von vorn, die Pause merkt sich die Stelle. Spielte die Jukebox in der Hand, spielt sie abgestellt an derselben Stelle weiter.",
+          "Der Klang kommt wie bei der Jukebox vom Block (64 Blöcke, Lautstärke Jukebox/Notenblöcke); wer später dazukommt, hört ab der aktuellen Stelle. Titel-Platten hören nur die, die sie hören dürfen (Freigabe).",
+          "Redstone wie bei der Jukebox: Signal 15, solange sie spielt, ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
+          "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück; im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
         ]
       }
     },
@@ -1857,6 +1889,70 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   ],
   "lootTables": [
     {
+      "id": "simplemusic:blocks/black_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:black_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/black_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/blue_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:blue_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/blue_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/brown_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:brown_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/brown_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/cyan_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:cyan_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/cyan_pocket_jukebox.json"
+    },
+    {
       "id": "simplemusic:blocks/disc_press",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1873,6 +1969,118 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/disc_press.json"
     },
     {
+      "id": "simplemusic:blocks/gray_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:gray_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/gray_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/green_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:green_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/green_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/light_blue_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:light_blue_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/light_blue_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/light_gray_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:light_gray_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/light_gray_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/lime_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:lime_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/lime_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/magenta_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:magenta_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/magenta_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/orange_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:orange_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/orange_pocket_jukebox.json"
+    },
+    {
       "id": "simplemusic:blocks/orchestrion",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1887,6 +2095,102 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         }
       ],
       "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/orchestrion.json"
+    },
+    {
+      "id": "simplemusic:blocks/pink_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:pink_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pink_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/purple_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:purple_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/purple_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/red_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:red_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/red_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/white_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:white_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/white_pocket_jukebox.json"
+    },
+    {
+      "id": "simplemusic:blocks/yellow_pocket_jukebox",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemusic:yellow_pocket_jukebox"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/yellow_pocket_jukebox.json"
     }
   ],
   "tags": [
@@ -2021,31 +2325,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   "enchantments": [],
   "items": [
     {
-      "id": "simplemusic:black_pocket_jukebox",
-      "name": {
-        "en_us": "Black Pocket Jukebox",
-        "de_de": "Schwarze Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/black_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:black_pocket_jukebox",
-        "simplemusic:black_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplemusic:blank_disc",
       "name": {
         "en_us": "Blank Disc",
@@ -2070,56 +2349,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "texture": "assets/textures/simplemusic/item/blank_disc.png",
       "craftedBy": [
         "simplemusic:blank_disc"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:blue_pocket_jukebox",
-      "name": {
-        "en_us": "Blue Pocket Jukebox",
-        "de_de": "Blaue Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/blue_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:blue_pocket_jukebox",
-        "simplemusic:blue_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:brown_pocket_jukebox",
-      "name": {
-        "en_us": "Brown Pocket Jukebox",
-        "de_de": "Braune Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/brown_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:brown_pocket_jukebox",
-        "simplemusic:brown_pocket_jukebox_dyeing"
       ],
       "usedIn": []
     },
@@ -2152,81 +2381,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "usedIn": []
     },
     {
-      "id": "simplemusic:cyan_pocket_jukebox",
-      "name": {
-        "en_us": "Cyan Pocket Jukebox",
-        "de_de": "Türkise Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/cyan_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:cyan_pocket_jukebox",
-        "simplemusic:cyan_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:gray_pocket_jukebox",
-      "name": {
-        "en_us": "Gray Pocket Jukebox",
-        "de_de": "Graue Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/gray_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:gray_pocket_jukebox",
-        "simplemusic:gray_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:green_pocket_jukebox",
-      "name": {
-        "en_us": "Green Pocket Jukebox",
-        "de_de": "Grüne Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/green_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:green_pocket_jukebox",
-        "simplemusic:green_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplemusic:guide_book",
       "name": {
         "en_us": "Simple Music Guide",
@@ -2238,251 +2392,15 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 21 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+          "summary": "Guide to this mod: 23 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 21 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+          "summary": "Handbuch zu dieser Mod: 23 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
       "craftedBy": [
         "simplemusic:guide_book"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:light_blue_pocket_jukebox",
-      "name": {
-        "en_us": "Light Blue Pocket Jukebox",
-        "de_de": "Hellblaue Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/light_blue_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:light_blue_pocket_jukebox",
-        "simplemusic:light_blue_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:light_gray_pocket_jukebox",
-      "name": {
-        "en_us": "Light Gray Pocket Jukebox",
-        "de_de": "Hellgraue Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/light_gray_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:light_gray_pocket_jukebox",
-        "simplemusic:light_gray_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:lime_pocket_jukebox",
-      "name": {
-        "en_us": "Lime Pocket Jukebox",
-        "de_de": "Hellgrüne Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/lime_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:lime_pocket_jukebox",
-        "simplemusic:lime_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:magenta_pocket_jukebox",
-      "name": {
-        "en_us": "Magenta Pocket Jukebox",
-        "de_de": "Magenta Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/magenta_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:magenta_pocket_jukebox",
-        "simplemusic:magenta_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:orange_pocket_jukebox",
-      "name": {
-        "en_us": "Orange Pocket Jukebox",
-        "de_de": "Orange Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/orange_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:orange_pocket_jukebox",
-        "simplemusic:orange_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:pink_pocket_jukebox",
-      "name": {
-        "en_us": "Pink Pocket Jukebox",
-        "de_de": "Rosa Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/pink_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:pink_pocket_jukebox",
-        "simplemusic:pink_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:pocket_jukebox",
-      "name": {
-        "en_us": "Pocket Jukebox",
-        "de_de": "Taschen-Jukebox"
-      },
-      "note": {
-        "en": {
-          "title": "Pocket Jukebox",
-          "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
-          "details": [
-            "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
-            "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
-            "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
-            "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
-            "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
-          ]
-        },
-        "de": {
-          "title": "Taschen-Jukebox",
-          "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
-          "details": [
-            "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
-            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
-            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
-            "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
-            "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
-          ]
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:pocket_jukebox"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:purple_pocket_jukebox",
-      "name": {
-        "en_us": "Purple Pocket Jukebox",
-        "de_de": "Violette Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/purple_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:purple_pocket_jukebox",
-        "simplemusic:purple_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:red_pocket_jukebox",
-      "name": {
-        "en_us": "Red Pocket Jukebox",
-        "de_de": "Rote Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/red_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:red_pocket_jukebox",
-        "simplemusic:red_pocket_jukebox_dyeing"
       ],
       "usedIn": []
     },
@@ -2517,59 +2435,105 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "simplemusic:sheet_music"
       ],
       "usedIn": []
-    },
-    {
-      "id": "simplemusic:white_pocket_jukebox",
-      "name": {
-        "en_us": "White Pocket Jukebox",
-        "de_de": "Weiße Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/white_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:white_pocket_jukebox",
-        "simplemusic:white_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simplemusic:yellow_pocket_jukebox",
-      "name": {
-        "en_us": "Yellow Pocket Jukebox",
-        "de_de": "Gelbe Taschen-Jukebox"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
-          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
-        ],
-        "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
-        },
-        "de": {
-          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
-        }
-      },
-      "texture": "assets/textures/simplemusic/item/yellow_pocket_jukebox.png",
-      "craftedBy": [
-        "simplemusic:yellow_pocket_jukebox",
-        "simplemusic:yellow_pocket_jukebox_dyeing"
-      ],
-      "usedIn": []
     }
   ],
   "blocks": [
+    {
+      "id": "simplemusic:black_pocket_jukebox",
+      "name": {
+        "en_us": "Black Pocket Jukebox",
+        "de_de": "Schwarze Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:black_pocket_jukebox",
+        "simplemusic:black_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:blue_pocket_jukebox",
+      "name": {
+        "en_us": "Blue Pocket Jukebox",
+        "de_de": "Blaue Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:blue_pocket_jukebox",
+        "simplemusic:blue_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:brown_pocket_jukebox",
+      "name": {
+        "en_us": "Brown Pocket Jukebox",
+        "de_de": "Braune Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:brown_pocket_jukebox",
+        "simplemusic:brown_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:cyan_pocket_jukebox",
+      "name": {
+        "en_us": "Cyan Pocket Jukebox",
+        "de_de": "Türkise Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:cyan_pocket_jukebox",
+        "simplemusic:cyan_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
     {
       "id": "simplemusic:disc_press",
       "name": {
@@ -2596,6 +2560,174 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       },
       "craftedBy": [
         "simplemusic:disc_press"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:gray_pocket_jukebox",
+      "name": {
+        "en_us": "Gray Pocket Jukebox",
+        "de_de": "Graue Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:gray_pocket_jukebox",
+        "simplemusic:gray_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:green_pocket_jukebox",
+      "name": {
+        "en_us": "Green Pocket Jukebox",
+        "de_de": "Grüne Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:green_pocket_jukebox",
+        "simplemusic:green_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:light_blue_pocket_jukebox",
+      "name": {
+        "en_us": "Light Blue Pocket Jukebox",
+        "de_de": "Hellblaue Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:light_blue_pocket_jukebox",
+        "simplemusic:light_blue_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:light_gray_pocket_jukebox",
+      "name": {
+        "en_us": "Light Gray Pocket Jukebox",
+        "de_de": "Hellgraue Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:light_gray_pocket_jukebox",
+        "simplemusic:light_gray_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:lime_pocket_jukebox",
+      "name": {
+        "en_us": "Lime Pocket Jukebox",
+        "de_de": "Hellgrüne Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:lime_pocket_jukebox",
+        "simplemusic:lime_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:magenta_pocket_jukebox",
+      "name": {
+        "en_us": "Magenta Pocket Jukebox",
+        "de_de": "Magenta Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:magenta_pocket_jukebox",
+        "simplemusic:magenta_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:orange_pocket_jukebox",
+      "name": {
+        "en_us": "Orange Pocket Jukebox",
+        "de_de": "Orange Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:orange_pocket_jukebox",
+        "simplemusic:orange_pocket_jukebox_dyeing"
       ],
       "usedIn": []
     },
@@ -2627,6 +2759,161 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "simplemusic:orchestrion"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simplemusic:pink_pocket_jukebox",
+      "name": {
+        "en_us": "Pink Pocket Jukebox",
+        "de_de": "Rosa Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:pink_pocket_jukebox",
+        "simplemusic:pink_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:pocket_jukebox",
+      "name": {
+        "en_us": "Pocket Jukebox",
+        "de_de": "Taschen-Jukebox"
+      },
+      "note": {
+        "en": {
+          "title": "Pocket Jukebox",
+          "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
+          "details": [
+            "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
+            "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
+            "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
+            "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+            "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
+          ]
+        },
+        "de": {
+          "title": "Taschen-Jukebox",
+          "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
+          "details": [
+            "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
+            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
+            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+            "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+            "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemusic:pocket_jukebox"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:purple_pocket_jukebox",
+      "name": {
+        "en_us": "Purple Pocket Jukebox",
+        "de_de": "Violette Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:purple_pocket_jukebox",
+        "simplemusic:purple_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:red_pocket_jukebox",
+      "name": {
+        "en_us": "Red Pocket Jukebox",
+        "de_de": "Rote Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:red_pocket_jukebox",
+        "simplemusic:red_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:white_pocket_jukebox",
+      "name": {
+        "en_us": "White Pocket Jukebox",
+        "de_de": "Weiße Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:white_pocket_jukebox",
+        "simplemusic:white_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:yellow_pocket_jukebox",
+      "name": {
+        "en_us": "Yellow Pocket Jukebox",
+        "de_de": "Gelbe Taschen-Jukebox"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+          "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
+        ],
+        "en": {
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from the bundle of that colour or dyed in the crafting grid; the discs stay in."
+        },
+        "de": {
+          "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
+        }
+      },
+      "craftedBy": [
+        "simplemusic:yellow_pocket_jukebox",
+        "simplemusic:yellow_pocket_jukebox_dyeing"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -2643,14 +2930,14 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 16,
+    "features": 17,
     "recipes": 38,
-    "lootTables": 2,
+    "lootTables": 19,
     "tags": 2,
     "advancements": 0,
     "enchantments": 0,
-    "items": 21,
-    "blocks": 2,
+    "items": 4,
+    "blocks": 19,
     "trades": 0,
     "config": 0,
     "quests": 0,

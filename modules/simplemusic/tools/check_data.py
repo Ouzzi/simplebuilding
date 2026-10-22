@@ -42,6 +42,15 @@ for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colo
     assert r['key']['B'] == 'minecraft:' + k.replace('pocket_jukebox', 'bundle').lstrip('_'), k
     for suffix in ('', '_open_back', '_open_front'):
         assert (RES / f'assets/{NS}/textures/item/{k}{suffix}.png').is_file(), (k, suffix)
+    # b-pjuke21: placeable, 3D in the hand, breaking keeps the discs
+    assert (RES / f'assets/{NS}/textures/block/{k}_case.png').is_file(), k
+    assert json.loads((RES / f'assets/{NS}/blockstates/{k}.json').read_text(encoding='utf-8'))['variants'], k
+    assert json.loads((RES / f'assets/{NS}/items/{k}.json').read_text(encoding='utf-8'))['model']['fallback']['model'] == f'{NS}:block/{k}', k
+    loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{k}.json').read_text(encoding='utf-8'))
+    entry = loot['pools'][0]['entries'][0]
+    assert entry['name'] == f'{NS}:{k}' and entry['modifier'] == {'type': 'minecraft:copy_components', 'source': 'block_entity'}, k
+    assert 'conditions' not in loot['pools'][0], ('always drops', k)
+assert (RES / f'assets/{NS}/textures/block/pocket_jukebox_parts.png').is_file()
 for r in recipes.values():
     for value in re.findall(r'"(#?[a-z0-9_.-]+:[a-z0-9_./-]+)"', json.dumps(r)):
         if not value.startswith(('minecraft:', '#minecraft:', f'{NS}:', f'#{NS}:')):

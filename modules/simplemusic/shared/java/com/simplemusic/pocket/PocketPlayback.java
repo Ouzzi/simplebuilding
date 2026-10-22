@@ -28,7 +28,8 @@ import net.minecraft.world.item.component.BundleContents;
  * it was last paused at.
  */
 public final class PocketPlayback {
-    private record Track(String key, int ticks) {}
+    /** What a disc plays: an upload hash or (song) a Vanilla disc's sound event, and its length in ticks. */
+    public record Track(String key, boolean song, int ticks) {}
 
     private static final class Session {
         final long id;
@@ -76,6 +77,14 @@ public final class PocketPlayback {
     public static boolean playsFor(ServerPlayer player, String hash) {
         Session s = SESSIONS.get(player.getUUID());
         return s != null && s.track.key().equals(hash);
+    }
+
+    /** Pauses {@code jukebox} if it is the one playing for the player (writes the position); true when it was. */
+    public static boolean pauseIfActive(ServerPlayer player, ItemStack jukebox) {
+        Session s = SESSIONS.get(player.getUUID());
+        if (s == null || state(jukebox).id() != s.id) return false;
+        pause(player, jukebox, s);
+        return true;
     }
 
     /** Use: pause the playing jukebox, otherwise start this one (pausing another). True when it plays now. */
@@ -135,17 +144,25 @@ public final class PocketPlayback {
 
     /** What a disc plays for the player: a Vanilla song, or an upload the player may hear; null = skip it. */
     private static Track track(ServerPlayer player, ItemStack disc) {
+        return track(player.level().getServer(), disc, player.getUUID());
+    }
+
+    /**
+     * What a disc plays: a Vanilla song, or an upload the server has and {@code listener} may hear ({@code null} = any
+     * stored upload: a placed jukebox, where {@link com.simplemusic.disc.DiscPlayback} asks each listener); null = skip it.
+     */
+    public static Track track(MinecraftServer server, ItemStack disc, UUID listener) {
         TrackRef ref = CustomDiscItem.track(disc);
         if (disc.getItem() instanceof CustomDiscItem && ref != null) {
-            TrackStore store = MusicServer.store(player.level().getServer());
+            TrackStore store = MusicServer.store(server);
             TrackStore.Track stored = store == null ? null : store.get(ref.sha256());
-            if (stored == null || !stored.audibleFor(player.getUUID())) return null;
-            return new Track(ref.sha256(), Math.max(1, ref.seconds()) * 20);
+            if (stored == null || listener != null && !stored.audibleFor(listener)) return null;
+            return new Track(ref.sha256(), false, Math.max(1, ref.seconds()) * 20);
         }
         Optional<Holder<JukeboxSong>> song = JukeboxSong.fromStack(disc);
         if (song.isEmpty()) return null;
         JukeboxSong value = song.get().value();
-        return new Track(value.soundEvent().value().location().toString(), Math.max(20, value.lengthInTicks()));
+        return new Track(value.soundEvent().value().location().toString(), true, Math.max(20, value.lengthInTicks()));
     }
 
     /** The jukebox with this session id in the player's inventory or on the cursor, or null. */

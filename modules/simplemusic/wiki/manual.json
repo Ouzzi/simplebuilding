@@ -289,7 +289,7 @@
       ],
       "en": {
         "title": "Pocket Jukebox",
-        "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go.",
+        "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
           "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
           "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
@@ -300,13 +300,45 @@
       },
       "de": {
         "title": "Taschen-Jukebox",
-        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo.",
+        "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
         "details": [
           "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
           "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
           "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
           "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
           "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
+        ]
+      }
+    },
+    {
+      "id": "pocket_jukebox_placed",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxBlock.java",
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxBlockEntity.java",
+        "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
+        "modules/simplemusic/shared/java/com/simplemusic/disc/DiscPlayback.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json"
+      ],
+      "en": {
+        "title": "Placed Pocket Jukebox",
+        "summary": "Sneak + right click with the pocket jukebox on a block puts it down, front to you. Placed, it plays its discs for everyone nearby like a jukebox.",
+        "details": [
+          "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses, sneak + right click with an empty hand throws the newest disc out on top.",
+          "Same order, loop and pause as in the hand: the first disc in plays first, after the last the first again, a pause keeps the position. A jukebox that played in your hand goes on playing where you put it down.",
+          "The sound comes from the block like a jukebox (64 blocks, Jukebox/Note Blocks volume); players who come near later hear it from where the song is. Track discs are heard only by those allowed to hear them (moderation).",
+          "Redstone like a jukebox: signal 15 while it plays, a comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Parrots dance, allays and sculk sensors hear it.",
+          "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position; in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
+        ]
+      },
+      "de": {
+        "title": "Abgestellte Taschen-Jukebox",
+        "summary": "Schleichen + Rechtsklick mit der Taschen-Jukebox auf einen Block stellt sie ab, die Vorderseite zu dir. Abgestellt spielt sie ihre Platten wie eine Jukebox für alle in der Nähe.",
+        "details": [
+          "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert, Schleichen + Rechtsklick mit leerer Hand wirft die neueste Platte oben heraus.",
+          "Reihenfolge, Schleife und Pause wie in der Hand: die zuerst eingelegte zuerst, nach der letzten von vorn, die Pause merkt sich die Stelle. Spielte die Jukebox in der Hand, spielt sie abgestellt an derselben Stelle weiter.",
+          "Der Klang kommt wie bei der Jukebox vom Block (64 Blöcke, Lautstärke Jukebox/Notenblöcke); wer später dazukommt, hört ab der aktuellen Stelle. Titel-Platten hören nur die, die sie hören dürfen (Freigabe).",
+          "Redstone wie bei der Jukebox: Signal 15, solange sie spielt, ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
+          "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück; im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
         ]
       }
     },
@@ -387,10 +419,10 @@
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 21 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+        "summary": "Guide to this mod: 23 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 21 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+        "summary": "Handbuch zu dieser Mod: 23 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
       }
     },
     "simplemusic:*_pocket_jukebox": {

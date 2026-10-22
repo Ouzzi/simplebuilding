@@ -11,8 +11,8 @@ to top. tools/layers/<texture>.json keeps that source next to the PNG (plan docs
 Pillow and easy to turn into the wiki pixel editor's layer format. Pillow is only needed to write/compare PNGs.
 
 Textures: sheet music, blank disc, custom disc (track = amethyst label, composition = paper label), Orchestrion side/top,
-Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front), disc press side/top, the placed
-records' round top views (written into SimpleBuilding's assets).
+Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front; placed/held 3D model: case sheet per
+colour + one parts sheet), disc press side/top, the placed records' round top views (written into SimpleBuilding's assets).
 Variants (owner choice MU21 R=B P=A D=B, 21.10.): blank/custom disc A round like Vanilla's discs / B oval like the
 reference; Pocket Jukebox A flat record case / B chunky player box; disc press A iron / B iron with copper.
 """
@@ -256,6 +256,9 @@ TOP = [  # planks with a long record slot and copper corners (TEX20 B, already s
 # the case is the tint layer (f/h/s/o/x from the dye), copper trim, record and tone arm are fixed. Undyed = copper
 # red. Closed sprite plus Vanilla's bundle pair for the open (playing) state: open_back is drawn behind the playing
 # disc, open_front in front of it.
+# Owner 21.10. (b-pjuke21): "in der hand etwas mehr 3d wirken, also dunklere konturen" - the outline is the darkest
+# shade of the dye now (x 0.3 instead of x 0.55), the lid's right edge and the strip under the copper band are in shadow
+# (the lid overhangs), the lower right corner is the darkest; in the hand the 3D model (case sheet below) takes over.
 POCKET_DYES = {
     None: 0xC0603E, 'white': 0xE6E6E6, 'orange': 0xFB9320, 'magenta': 0xCC49B9, 'light_blue': 0x30AFE5,
     'yellow': 0xF2C705, 'lime': 0x9BDF39, 'pink': 0xF8A6BD, 'gray': 0x6C7B83, 'light_gray': 0xB1ACA3, 'cyan': 0x14B4B4,
@@ -265,7 +268,7 @@ POCKET_FIXED = {'k': (140, 74, 46), 'c': (198, 116, 76), 'C': (232, 160, 112), '
                 'l': (232, 224, 200), 'w': (224, 224, 228), 'a': (128, 128, 134)}
 TINT_KEYS = ['f', 'h', 's', 'o', 'x']
 _E = '.' * 16
-_A_FRONT = ['.okCCCCCCCCCCko.', '.offfffCCffffso.', '.offfffccffffso.', '.offfffffffffso.', '.osssssssssssso.',
+_A_FRONT = ['.okCCCCCCCCCCko.', '.osssssCCssssxo.', '.offfffccffffso.', '.offfffffffffso.', '.osssssssssssxo.',
             '..oooooooooooo..', _E]
 _B_FRONT = ['..okCCCCCCCCko..', '..offkfkfkffso..', '..offfkfkfffso..', '..offkfkfkffso..', '..offffCCfffso..',
             '..offffccfffso..', '..osssssssssso..', '...oooooooooo...', _E]
@@ -275,18 +278,18 @@ POCKET = {
     'A': dict(
         closed=[_E, _E, _E,
                 '..oooooooooooo..',
-                '.ohhhhhhhhhhhho.',
-                '.ohhrrrrrhhaaho.',
-                '.ohrgggggrhwhho.',
-                '.ohrgglggwwhhho.',
-                '.ohhrrrrrhhhhho.'] + _A_FRONT,
+                '.ohhhhhhhhhhhfo.',
+                '.ohhrrrrrhhaafo.',
+                '.ohrgggggrhwhfo.',
+                '.ohrgglggwwhhfo.',
+                '.ohhrrrrrhhhhfo.'] + _A_FRONT,
         back=[_E, _E, _E,
               '..oooooooooooo..',
-              '.ohhhhhhhhhhhho.',
-              '.ohxxxxxxxxxxho.',
-              '.ohxxxxxxxxxxho.',
-              '.ohxxxxxxxxxxho.',
-              '.ohxxxxxxxxxxho.',
+              '.ohhhhhhhhhhhfo.',
+              '.ohxxxxxxxxxxfo.',
+              '.ohxxxxxxxxxxfo.',
+              '.ohxxxxxxxxxxfo.',
+              '.ohxxxxxxxxxxfo.',
               '.okCCCCCCCCCCko.'] + ['.offfffffffffso.'] * 3 + _A_FRONT[4:],
         front=[_E] * 9 + _A_FRONT),
     # B: chunky player box: small record deck on top, tall front with a copper speaker grille and clasp
@@ -314,9 +317,11 @@ def _mix(rgb, other, t):
 
 def pocket_tint(color):
     base = ((color >> 16) & 255, (color >> 8) & 255, color & 255)
-    dark = 0.45 if sum(base) > 200 else 0.6  # very dark dyes keep a visible outline
-    return dict(f=base, h=_mix(base, (255, 255, 255), 0.25), s=_mix(base, (0, 0, 0), 0.25),
-                o=_mix(base, (0, 0, 0), dark), x=_mix(base, (0, 0, 0), 0.75))
+    # darker contour (b-pjuke21): the darkest shade of the dye, like Vanilla's item outlines; very dark dyes keep a
+    # visible one (a warm near-black, so it never turns grey)
+    dark = 0.7 if sum(base) > 200 else 0.5
+    return dict(f=base, h=_mix(base, (255, 255, 255), 0.25), s=_mix(base, (0, 0, 0), 0.28),
+                o=_mix(base, (14, 10, 8), dark), x=_mix(base, (0, 0, 0), 0.5))
 
 
 def pocket_id(dye):
@@ -334,6 +339,79 @@ def pocket_texs(variant):
         palette = dict(POCKET_FIXED, **pocket_tint(POCKET_DYES[None]))
         out[suffix] = Tex(palette, split(rows, [('farbe', 'fhsox'), ('kupfer', 'kcC'), ('platte', 'rgl'), ('tonarm', 'wa')]), tint)
     return out
+
+
+# The placed (and held) Pocket Jukebox, owner 21.10. (b-pjuke21) "platzierbar ... mehr 3d": a real model (template
+# models/block/pocket_jukebox_template.json, facing north) - the case 10 x 5 x 8 px, record 6 x 6 on the lid, tone arm,
+# copper clasp. Case sheet per colour (tint layer like the sprites): lid at (0,0) 10 x 8, front/back at (0,8) 10 x 5,
+# the side at (10,0) stored turned a quarter anticlockwise (5 x 8; the model turns it back with "rotation": 90).
+# Faces have the darker contour and Vanilla's light from the upper left; the copper band is the lid's rim.
+def _boxface(w, h, band=False):
+    rows = []
+    for y in range(h):
+        row = ''
+        for x in range(w):
+            if x in (0, w - 1) or y in (0, h - 1):
+                ch = 'o'
+            elif band and y == 1:
+                ch = 'k' if x in (1, w - 2) else 'C'
+            elif band and y == 2:
+                ch = 'x' if x == w - 2 else 's'
+            elif x == w - 2 and y == h - 2 and not band:
+                ch = 'x'
+            elif x == w - 2 or y == h - 2 and not band:
+                ch = 's'
+            elif not band and (x == 1 or y == 1):
+                ch = 'h'
+            else:
+                ch = 'f'
+            row += ch
+        rows.append(row)
+    return rows
+
+
+def _turn_left(rows):
+    """A quarter turn anticlockwise (the model's rotation 90 turns it back clockwise)."""
+    w = len(rows[0])
+    return [''.join(rows[c][w - 1 - r] for c in range(len(rows))) for r in range(w)]
+
+
+CASE_TOP = _boxface(10, 8)
+CASE_FRONT = _boxface(10, 6, band=True)[1:]  # the lid's outline is the front's top edge: 5 rows, band on top
+CASE_SIDE = _boxface(8, 6, band=True)[1:]
+
+
+def pocket_case_rows():
+    grid = [['.'] * 16 for _ in range(16)]
+    for (ox, oy), rows in (((0, 0), CASE_TOP), ((0, 8), CASE_FRONT), ((10, 0), _turn_left(CASE_SIDE))):
+        for y, row in enumerate(rows):
+            for x, ch in enumerate(row):
+                grid[oy + y][ox + x] = ch
+    return [''.join(r) for r in grid]
+
+
+# parts sheet (fixed colours, no tint): record top 6 x 6 at (0,0) with its edge in row 6, tone arm/base 4 x 4 at (8,0)
+# (top row silver, the rest grey), clasp 2 x 2 at (0,8) with its dark copper sides at (2,8)
+POCKET_PARTS = [
+    '.rrrr...wwww....',
+    'rgaggr..aaaa....',
+    'rgllgr..aaaa....',
+    'rgllgr..aaaa....',
+    'rggggr..........',
+    '.rrrr...........',
+    'rrrrrr..........',
+    '................',
+    'CCk.............',
+    'ckk.............',
+] + ['.' * 16] * 6
+
+
+def pocket_block_texs():
+    tint = {'keys': TINT_KEYS, 'variants': {pocket_id(d): pocket_tint(c) for d, c in POCKET_DYES.items()}}
+    palette = dict(POCKET_FIXED, **pocket_tint(POCKET_DYES[None]))
+    case = Tex(palette, split(pocket_case_rows(), [('farbe', 'fhsox'), ('kupfer', 'kcC')]), tint)
+    parts = Tex(POCKET_FIXED, split(POCKET_PARTS, [('platte', 'rgl'), ('glanz_tonarm', 'wa'), ('kupfer', 'kcC')]))
+    return {'block/pocket_jukebox_case': case, 'block/pocket_jukebox_parts': parts}
 
 
 # ------------------------------------------------------------------ disc press
@@ -443,6 +521,7 @@ def textures(choice=None):
         out['item/pocket_jukebox' + suffix] = tex
     for name, tex in press_texs(c['press']).items():
         out['block/' + name] = tex
+    out.update(pocket_block_texs())
     return out
 
 

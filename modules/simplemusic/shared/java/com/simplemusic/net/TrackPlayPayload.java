@@ -10,8 +10,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 /**
  * Server to client: the block at {@code pos} plays track {@code sha256} from tick {@code offsetTicks} on (empty hash =
  * stop). A client without the file asks for it with {@link TrackRequestPayload} and starts where the song is by then.
- * {@code carried}: the player's own Pocket Jukebox ({@code pos} unused); then {@code sha256} is an upload hash or, with a
- * {@code :}, the sound event of a Vanilla disc.
+ * {@code carried}: the player's own Pocket Jukebox ({@code pos} unused). In both kinds {@code sha256} is an upload hash or,
+ * with a {@code :}, the sound event of a Vanilla disc (carried, or at a placed Pocket Jukebox).
  */
 public record TrackPlayPayload(BlockPos pos, String sha256, int offsetTicks, int seconds, boolean carried) implements CustomPacketPayload {
     public static final Type<TrackPlayPayload> TYPE = new Type<>(SimpleMusic.id("track_play"));
@@ -40,7 +40,7 @@ public record TrackPlayPayload(BlockPos pos, String sha256, int offsetTicks, int
         return new TrackPlayPayload(BlockPos.ZERO, "", 0, 0, true);
     }
 
-    /** A Vanilla disc's sound event rather than an upload hash (carried only). */
+    /** A Vanilla disc's sound event rather than an upload hash. */
     public boolean isSong() {
         return sha256.indexOf(':') >= 0;
     }
