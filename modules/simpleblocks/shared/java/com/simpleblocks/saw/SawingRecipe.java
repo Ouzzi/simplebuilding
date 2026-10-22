@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 
 /**
- * A recipe only the Shaping Saw cuts ({@code simpleblocks:sawing}): the same JSON as {@code minecraft:stonecutting}
+ * A recipe only the Shapecutter cuts ({@code simpleblocks:sawing}): the same JSON as {@code minecraft:stonecutting}
  * ({@code ingredient}, {@code result}). The saw lists these together with every Vanilla stonecutting recipe
  * ({@link Sawing#entries}). No recipe-book entry (empty display), like a station-only recipe.
  */

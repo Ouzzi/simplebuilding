@@ -31,14 +31,14 @@ public final class BlocksForge {
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
             if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
         });
-        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
+        // Stonecutter -> Shapecutter in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
         com.simpleblocks.saw.SawUpgrade.hammerMode = net.minecraftforge.fml.ModList.isLoaded("simplehammers");
         net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(e -> {
             if (!com.simpleblocks.saw.SawUpgrade.onUse(e.getLevel(), e.getPos(), e.getEntity(), e.getHand())) return false;
             e.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
             return true;
         });
-        // Shaping Saw: its recipe list goes to every client on join and after /reload.
+        // Shapecutter: its recipe list goes to every client on join and after /reload.
         channel = net.minecraftforge.network.ChannelBuilder.named(SimpleBlocks.id("main")).payloadChannel()
                 .protocol(net.minecraftforge.network.NetworkProtocol.PLAY)
                 .clientbound()

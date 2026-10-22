@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.StonecutterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * In-world upgrade of a placed Vanilla stonecutter into the Shaping Saw (owner 17.10.): use the tool on it with
+ * In-world upgrade of a placed Vanilla stonecutter into the Shapecutter (owner 17.10.): use the tool on it with
  * {@link #NUGGETS} iron nuggets anywhere in the inventory (used up). The tool follows principle 5a: without a hammer mod
  * (Simple Hammers) an axe, with Simple Hammers a hammer ({@code #simplelib:hammers}, filled by the hammer mod; split stage 7). The
  * facing stays. One use, no strikes; SimpleLib's strike-based {@code in_world_upgrades} is not used because Simple

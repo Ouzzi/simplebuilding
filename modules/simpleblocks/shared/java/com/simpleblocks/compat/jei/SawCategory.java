@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
-/** JEI category of the cuts only the Shaping Saw has ({@code simpleblocks:sawing}); the stonecutter's cuts stay in JEI's own category. */
+/** JEI category of the cuts only the Shapecutter has ({@code simpleblocks:sawing}); the stonecutter's cuts stay in JEI's own category. */
 public final class SawCategory implements IRecipeCategory<Sawing.Entry> {
     public static final IRecipeType<Sawing.Entry> TYPE = IRecipeType.create("simpleblocks", "sawing", Sawing.Entry.class);
     private final IDrawable icon;

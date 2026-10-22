@@ -18,16 +18,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 /**
- * Menu of the Shaping Saw, built like Vanilla's StonecutterMenu: one input, a list of cuts for it ({@link Sawing#forInput}),
- * a result slot. A click on a cut is a menu button with the index in that list; the result is always made on the server.
- * The list is longer than the stonecutter's, so the screen shows 6 x 4 cuts with scrolling and a search field.
+ * Menu of the Shapecutter, built like Vanilla's StonecutterMenu with the same slot positions (owner 21.10.: "die gleiche ui
+ * wie stonecutter mit mehr rezepten"): one input, a list of cuts for it ({@link Sawing#forInput}), a result slot. A click
+ * on a cut is a menu button with the index in that list; the result is always made on the server. Only the list is longer.
  */
-public class ShapingSawMenu extends AbstractContainerMenu {
+public class ShapecutterMenu extends AbstractContainerMenu {
+    /** Vanilla StonecutterMenu / StonecutterScreen geometry (GameTest saw_menu_layout compares the slots). */
     public static final int WIDTH = 176;
-    public static final int HEIGHT = 200;
-    public static final int INPUT_X = 16, INPUT_Y = 34;
-    public static final int RESULT_X = 16, RESULT_Y = 80;
-    public static final int INVENTORY_Y = 118;
+    public static final int HEIGHT = 166;
+    public static final int INPUT_X = 20, INPUT_Y = 33;
+    public static final int RESULT_X = 143, RESULT_Y = 33;
+    public static final int INVENTORY_Y = 84;
     public static final int INPUT_SLOT = 0;
     public static final int RESULT_SLOT = 1;
     private static final int INV_START = 2, INV_END = 29, HOTBAR_END = 38;
@@ -45,17 +46,17 @@ public class ShapingSawMenu extends AbstractContainerMenu {
         @Override
         public void setChanged() {
             super.setChanged();
-            ShapingSawMenu.this.slotsChanged(this);
-            ShapingSawMenu.this.listener.run();
+            ShapecutterMenu.this.slotsChanged(this);
+            ShapecutterMenu.this.listener.run();
         }
     };
     private final ResultContainer result = new ResultContainer();
 
-    public ShapingSawMenu(int id, Inventory inventory) {
+    public ShapecutterMenu(int id, Inventory inventory) {
         this(id, inventory, ContainerLevelAccess.NULL);
     }
 
-    public ShapingSawMenu(int id, Inventory inventory, ContainerLevelAccess access) {
+    public ShapecutterMenu(int id, Inventory inventory, ContainerLevelAccess access) {
         super(Sawing.MENU, id);
         this.access = access;
         this.level = inventory.player.level();
@@ -69,13 +70,13 @@ public class ShapingSawMenu extends AbstractContainerMenu {
             @Override
             public void onTake(Player player, ItemStack carried) {
                 carried.onCraftedBy(player, carried.getCount());
-                ItemStack remaining = ShapingSawMenu.this.inputSlot.remove(1);
-                if (!remaining.isEmpty()) ShapingSawMenu.this.setupResult(ShapingSawMenu.this.selected.get());
+                ItemStack remaining = ShapecutterMenu.this.inputSlot.remove(1);
+                if (!remaining.isEmpty()) ShapecutterMenu.this.setupResult(ShapecutterMenu.this.selected.get());
                 access.execute((level, pos) -> {
                     long time = level.getGameTime();
-                    if (ShapingSawMenu.this.lastSoundTime != time) {
+                    if (ShapecutterMenu.this.lastSoundTime != time) {
                         level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        ShapingSawMenu.this.lastSoundTime = time;
+                        ShapecutterMenu.this.lastSoundTime = time;
                     }
                 });
                 super.onTake(player, carried);

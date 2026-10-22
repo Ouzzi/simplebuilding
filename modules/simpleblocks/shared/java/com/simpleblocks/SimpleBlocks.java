@@ -50,6 +50,12 @@ public final class SimpleBlocks {
             IdMoves.move(Registries.RECIPE, old(path), id(path));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/" + folder + "/" + path), id("recipes/" + folder + "/" + path));
         });
+        // Shaping Saw -> Shapecutter (owner 21.10., docs/ai/PLAN-B-SHAPECUTTER-2026-10-21.md): same namespace, new path.
+        // The Sawing names are compile-time constants, so this does not load Sawing (and its block) this early.
+        for (var registry : List.of(Registries.BLOCK, Registries.ITEM, Registries.RECIPE)) {
+            IdMoves.move(registry, id(com.simpleblocks.saw.Sawing.OLD_NAME), id(com.simpleblocks.saw.Sawing.NAME));
+        }
+        IdMoves.move(Registries.ADVANCEMENT, id(com.simpleblocks.saw.Sawing.OLD_ADVANCEMENT), id(com.simpleblocks.saw.Sawing.ADVANCEMENT));
     }
 
     /**

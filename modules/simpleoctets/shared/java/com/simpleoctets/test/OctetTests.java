@@ -230,7 +230,7 @@ public final class OctetTests {
     }
 
     /**
-     * Every cell: 8 are cut from the full block, 8 craft back. Octets are exclusive to the Shaping Saw (docs/ai/PRINZIPIEN.md
+     * Every cell: 8 are cut from the full block, 8 craft back. Octets are exclusive to the Shapecutter (docs/ai/PRINZIPIEN.md
      * A4b): with Simple Blocks only its {@code simpleblocks:sawing} recipe exists and no stonecutter recipe yields an octet
      * (the Vanilla stonecutter stays Vanilla); without it the {@code minecraft:stonecutting} fallback keeps the module playable.
      */
@@ -246,7 +246,7 @@ public final class OctetTests {
             var sawing = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(key + "_from_" + base + "_sawing")));
             var cut = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(key + "_from_" + base + "_stonecutting")));
             var back = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleOctets.id(base + "_from_octets")));
-            if (sawing.isPresent() != saw) problems.add("Shaping Saw recipe of " + key + " present=" + sawing.isPresent());
+            if (sawing.isPresent() != saw) problems.add("Shapecutter recipe of " + key + " present=" + sawing.isPresent());
             if (sawing.isPresent() && !"simpleblocks:sawing".equals(String.valueOf(BuiltInRegistries.RECIPE_TYPE.getKey(sawing.get().value().getType())))) {
                 problems.add("type of " + key + "_from_" + base + "_sawing");
             }

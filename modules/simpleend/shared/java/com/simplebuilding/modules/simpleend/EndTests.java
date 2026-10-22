@@ -183,7 +183,7 @@ public final class EndTests {
                     h.assertTrue(recipes.byKey(key).isPresent() == sb, "recipe " + key.identifier() + " only with SimpleBuilding");
                 }
                 // The octet cuts live in Simple Octets since stage 6 (simpleoctets:<wood>_octet_from_..., IdMoves): in the
-                // Shaping Saw (_sawing) with Simple Blocks, in the stonecutter (_stonecutting) only without it.
+                // Shapecutter (_sawing) with Simple Blocks, in the stonecutter (_stonecutting) only without it.
                 boolean octets = loaded("simpleoctets"), saw = loaded("simpleblocks");
                 for (String r : new String[] {n + "_octet_from_" + n + "_planks", n + "_log_octet_from_" + n + "_log"}) {
                     var sawing = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", r + "_sawing"));

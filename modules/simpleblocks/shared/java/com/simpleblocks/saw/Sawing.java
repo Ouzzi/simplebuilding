@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * The Shaping Saw (owner 17.10., principle A4b): block, item, menu type, the recipe type {@code simpleblocks:sawing}
+ * The Shapecutter (owner 17.10., principle A4b): block, item, menu type, the recipe type {@code simpleblocks:sawing}
  * and the saw's recipe list. The list is every {@code minecraft:stonecutting} recipe plus every {@code simpleblocks:sawing}
  * recipe (one entry per input/result/count), so the saw is a strict superset of the stonecutter and every module that
  * ships stonecutting or sawing recipes (Simple Octets, Simple End, ...) shows up without code here. The server builds the
@@ -44,7 +44,11 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
  * uses exactly that list, so the button indices match.
  */
 public final class Sawing {
-    public static final String NAME = "shaping_saw";
+    public static final String NAME = "shapecutter";
+    /** The id before the rename (owner 21.10.); {@link com.simpleblocks.SimpleBlocks#registerIdMoves} maps it to {@link #NAME}. */
+    public static final String OLD_NAME = "shaping_saw";
+    /** Recipe advancement of the crafting recipe, before and after the rename. */
+    public static final String ADVANCEMENT = "recipes/decorations/" + NAME, OLD_ADVANCEMENT = "recipes/decorations/" + OLD_NAME;
     public static final Identifier TYPE_ID = SimpleBlocks.id("sawing");
     public static final RecipeType<SawingRecipe> TYPE = new RecipeType<>() {
         @Override
@@ -52,10 +56,10 @@ public final class Sawing {
             return TYPE_ID.toString();
         }
     };
-    public static final Block SAW = new ShapingSawBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONECUTTER)
+    public static final Block SAW = new ShapecutterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONECUTTER)
             .setId(ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(NAME))));
     public static Item SAW_ITEM;
-    public static MenuType<ShapingSawMenu> MENU;
+    public static MenuType<ShapecutterMenu> MENU;
 
     /** One cut the saw offers: the input, the result, and whether only the saw has it (no stonecutting recipe). */
     public record Entry(Identifier id, Ingredient input, ItemStackTemplate result, boolean sawOnly) {
@@ -104,7 +108,7 @@ public final class Sawing {
     }
 
     public static void registerMenu() {
-        MENU = Registry.register(BuiltInRegistries.MENU, SimpleBlocks.id(NAME), new MenuType<>(ShapingSawMenu::new, FeatureFlags.VANILLA_SET));
+        MENU = Registry.register(BuiltInRegistries.MENU, SimpleBlocks.id(NAME), new MenuType<>(ShapecutterMenu::new, FeatureFlags.VANILLA_SET));
     }
 
     public static void registerRecipeType() {

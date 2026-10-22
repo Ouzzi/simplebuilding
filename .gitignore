@@ -577,19 +577,23 @@ wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/copper_lava_buck
 modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item/enderite_bucket.png
 wiki/assets/textures/simplecrucibles/item/enderite_bucket.png
 wiki/assets/textures/sheets/simplebuilding/simplecrucibles/item/enderite_bucket.png
-# Simple Blocks Shaping Saw (A4b): the Vanilla stonecutter with copper highlights is Vanilla-derived (tools/textures/shaping_saw_2026_10_17.py).
-modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping_saw_top.png
-wiki/assets/textures/simpleblocks/block/shaping_saw_top.png
-wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_top.png
-wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_top.png
-modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping_saw_side.png
-wiki/assets/textures/simpleblocks/block/shaping_saw_side.png
-wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_side.png
-wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_side.png
-modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shaping_saw_saw.png
-wiki/assets/textures/simpleblocks/block/shaping_saw_saw.png
-wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shaping_saw_saw.png
-wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shaping_saw_saw.png
+# Simple Blocks Shapecutter (A4b): the Vanilla stonecutter with a polished metal base is Vanilla-derived (tools/textures/shapecutter_2026_10_21.py).
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecutter_top.png
+wiki/assets/textures/simpleblocks/block/shapecutter_top.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_top.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_top.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecutter_side.png
+wiki/assets/textures/simpleblocks/block/shapecutter_side.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_side.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_side.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecutter_bottom.png
+wiki/assets/textures/simpleblocks/block/shapecutter_bottom.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_bottom.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_bottom.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_saw.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecutter_saw.png
+wiki/assets/textures/simpleblocks/block/shapecutter_saw.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_saw.png
 # Vanilla-derived bucket / soul lava wiki textures (built at wiki generation, never committed; 18.10.)
 wiki/assets/textures/block/soul_lava_still.png
 wiki/assets/textures/item/copper_*bucket*.png

@@ -25,7 +25,7 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 
 /**
- * GameTests of the Shaping Saw (principle A4b). They also run in the standalone targets (Simple Blocks + Vanilla only):
+ * GameTests of the Shapecutter (principle A4b). They also run in the standalone targets (Simple Blocks + Vanilla only):
  * the optional cuts of Simple End and SimpleBuilding must then be absent, all others present.
  */
 public final class SawTests {
@@ -49,6 +49,8 @@ public final class SawTests {
         all.put("saw_menu_cuts", SawTests::menuCuts);
         all.put("saw_optional_mods", SawTests::optionalMods);
         all.put("saw_ui_contrast", SawTests::uiContrast);
+        all.put("saw_menu_layout", SawTests::menuLayout);
+        all.put("saw_id_moved", SawTests::idMoved);
         all.put("saw_upgrade_axe", SawTests::upgradeAxe);
         all.put("saw_upgrade_hammer", SawTests::upgradeHammer);
         all.put("saw_upgrade_mode", SawTests::upgradeMode);
@@ -82,10 +84,10 @@ public final class SawTests {
         h.assertTrue(BlocksRegistry.tabStacks().stream().anyMatch(s -> s.is(Sawing.SAW_ITEM)), "saw in the Simple Blocks tab");
         BlockPos pos = new BlockPos(2, 1, 2);
         h.setBlock(pos, Sawing.SAW);
-        h.assertTrue(h.getBlockState(pos).getBlock() instanceof ShapingSawBlock, "saw placed");
+        h.assertTrue(h.getBlockState(pos).getBlock() instanceof ShapecutterBlock, "saw placed");
         h.assertTrue(h.getBlockState(pos).getMenuProvider(h.getLevel(), h.absolutePos(pos)) != null, "saw opens a menu");
         var level = h.getLevel();
-        for (String id : List.of("shaping_saw")) {
+        for (String id : List.of("shapecutter")) {
             var holder = level.getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, SimpleBlocks.id(id)));
             h.assertTrue(holder.isPresent(), "crafting recipe " + id);
             var ctx = SlotDisplayContext.fromLevel(level);
@@ -170,15 +172,15 @@ public final class SawTests {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
         Item woolStairs = item("minecraft:white_wool_stairs");
-        ShapingSawMenu menu = new ShapingSawMenu(1, player.getInventory(), ContainerLevelAccess.create(h.getLevel(), pos));
+        ShapecutterMenu menu = new ShapecutterMenu(1, player.getInventory(), ContainerLevelAccess.create(h.getLevel(), pos));
         menu.container.setItem(0, new ItemStack(item("minecraft:white_wool"), 2));
         int index = -1;
         for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == woolStairs) index = i;
         h.assertTrue(index >= 0, "wool stairs offered, cuts " + menu.cuts().size());
         menu.clickMenuButton(player, index);
-        ItemStack result = menu.getSlot(ShapingSawMenu.RESULT_SLOT).getItem();
+        ItemStack result = menu.getSlot(ShapecutterMenu.RESULT_SLOT).getItem();
         h.assertTrue(result.is(woolStairs) && result.getCount() == 1, "result slot: " + result);
-        menu.quickMoveStack(player, ShapingSawMenu.RESULT_SLOT);
+        menu.quickMoveStack(player, ShapecutterMenu.RESULT_SLOT);
         h.assertTrue(player.getInventory().countItem(woolStairs) >= 1, "stairs in the inventory");
         h.assertTrue(menu.container.getItem(0).getCount() <= 1, "wool used: " + menu.container.getItem(0));
         menu.container.setItem(0, new ItemStack(Items.DIAMOND));
@@ -206,14 +208,42 @@ public final class SawTests {
         h.succeed();
     }
 
-    /** AGENTS.md rule 15: label and hint text of the saw screen against their backgrounds. */
+    /** AGENTS.md rule 15: the title and inventory label of the saw screen against Vanilla's container grey. */
     private static void uiContrast(GameTestHelper h) {
         double label = SawPalette.contrast(SawPalette.LABEL, SawPalette.FILL);
-        double hint = SawPalette.contrast(SawPalette.FIELD_TEXT, SawPalette.DARK);
-        double field = SawPalette.contrast(SawPalette.FIELD_TEXT, SawPalette.FIELD);
         h.assertTrue(label >= SawPalette.MIN_CONTRAST, "label contrast " + label);
-        h.assertTrue(hint >= SawPalette.MIN_CONTRAST, "hint contrast " + hint);
-        h.assertTrue(field >= SawPalette.MIN_CONTRAST, "search contrast " + field);
+        h.succeed();
+    }
+
+    /** Owner 21.10.: the same UI as the stonecutter - every slot where Vanilla's StonecutterMenu has it, same slot count. */
+    private static void menuLayout(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var saw = new ShapecutterMenu(1, player.getInventory());
+        var vanilla = new net.minecraft.world.inventory.StonecutterMenu(2, player.getInventory());
+        h.assertTrue(saw.slots.size() == vanilla.slots.size(), "slot count " + saw.slots.size() + " vs " + vanilla.slots.size());
+        List<String> moved = new ArrayList<>();
+        for (int i = 0; i < saw.slots.size(); i++) {
+            var a = saw.slots.get(i);
+            var b = vanilla.slots.get(i);
+            if (a.x != b.x || a.y != b.y) moved.add(i + ": " + a.x + "," + a.y + " vs " + b.x + "," + b.y);
+        }
+        h.assertTrue(moved.isEmpty(), "slots off the Vanilla stonecutter layout: " + moved);
+        h.assertTrue(ShapecutterMenu.WIDTH == 176 && ShapecutterMenu.HEIGHT == 166, "screen size of the stonecutter (176 x 166)");
+        h.succeed();
+    }
+
+    /** The rename Shaping Saw -> Shapecutter (owner 21.10.): old ids of block, item, recipe and recipe advancement resolve to the new ones. */
+    private static void idMoved(GameTestHelper h) {
+        Identifier old = SimpleBlocks.id(Sawing.OLD_NAME), now = SimpleBlocks.id(Sawing.NAME);
+        h.assertTrue(!old.equals(now), "the id changed");
+        h.assertTrue(BuiltInRegistries.BLOCK.getValue(old) == Sawing.SAW, "old block id -> " + BuiltInRegistries.BLOCK.getValue(old));
+        h.assertTrue(BuiltInRegistries.ITEM.getValue(old) == Sawing.SAW_ITEM, "old item id -> " + BuiltInRegistries.ITEM.getValue(old));
+        h.assertTrue(now.equals(com.simplelib.api.IdMoves.target(net.minecraft.core.registries.Registries.RECIPE, old)), "old recipe id");
+        h.assertTrue(SimpleBlocks.id(Sawing.ADVANCEMENT).equals(com.simplelib.api.IdMoves.advancement(SimpleBlocks.id(Sawing.OLD_ADVANCEMENT))), "old recipe advancement");
+        var advancements = h.getLevel().getServer().getAdvancements();
+        h.assertTrue(advancements.get(SimpleBlocks.id(Sawing.ADVANCEMENT)) != null, "new recipe advancement exists");
+        var viaOld = advancements.get(SimpleBlocks.id(Sawing.OLD_ADVANCEMENT));
+        h.assertTrue(viaOld != null && viaOld.id().equals(SimpleBlocks.id(Sawing.ADVANCEMENT)), "old advancement progress finds the new one: " + viaOld);
         h.succeed();
     }
 

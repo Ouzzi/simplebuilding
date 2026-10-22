@@ -30,7 +30,7 @@ denen Simple Blocks Treppe/Stufe gibt. Das Octet liefert `simpleoctets` (bei Fre
 **Ausnahme (Besitzer 17.10.):** Naturstufen (Erde, Gras, Sand, Kies) bekommen keine Octets. Neue Treppen/Stufen in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
 
 ### A4b Formsäge (Besitzer 17.10.)
-Alles, was Treppen-, Stufen- oder Octet-Varianten hat (Stein, Holz und Blöcke, die die Vanilla-Steinsäge nicht kann), lässt sich in der fortgeschrittenen Säge schneiden (Arbeitsname „Formsäge“, Simple Blocks). Neue Formen müssen dort auftauchen.
+Alles, was Treppen-, Stufen- oder Octet-Varianten hat (Stein, Holz und Blöcke, die die Vanilla-Steinsäge nicht kann), lässt sich in der fortgeschrittenen Säge schneiden („Formsäge“, EN „Shapecutter“ seit 21.10., `simpleblocks:shapecutter`, Simple Blocks; Bildschirm = Vanilla-Steinsäge). Neue Formen müssen dort auftauchen.
 **Octets und Holzvarianten exklusiv in der Formsäge; Vanilla-Steinsäge bleibt Vanilla; Fallback Steinsäge nur ohne Simple Blocks** (Besitzer 17.10.): alle Octets (Stein und Holz) und alle Holzvarianten (Treppe, Stufe, Zaun, Stöcke, Bretter, Entrinden …) gibt es nur als `simpleblocks:sawing`-Rezept, solange Simple Blocks geladen ist; die Vanilla-Steinsäge bekommt keine zusätzlichen Rezepte dafür. Ein Modul, das ohne Simple Blocks spielbar bleiben muss (z. B. Simple Octets), liefert ein `minecraft:stonecutting`-Ersatzrezept nur mit der Ladebedingung „simpleblocks nicht geladen“. Die Formsäge zeigt weiterhin alle Vanilla-Steinsägen-Rezepte.
 
 ### A5 Vanilla-Rückports

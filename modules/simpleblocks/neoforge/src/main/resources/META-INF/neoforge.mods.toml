@@ -8,7 +8,7 @@ displayName="Simple Blocks"
 iconFile="assets/simpleblocks/icon.png"
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-description="Missing building blocks: Hushed Deepslate Tiles, Sculk Deepslate, missing Vanilla stairs, slabs and walls, cracked and mossy bricks, the Shaping Saw (cuts stone and wood into every stair, slab and shape). Works on its own with Vanilla."
+description="Missing building blocks: Hushed Deepslate Tiles, Sculk Deepslate, missing Vanilla stairs, slabs and walls, cracked and mossy bricks, the Shapecutter (cuts stone and wood into every stair, slab and shape). Works on its own with Vanilla."
 [[dependencies.simpleblocks]]
 modId="minecraft"
 type="required"

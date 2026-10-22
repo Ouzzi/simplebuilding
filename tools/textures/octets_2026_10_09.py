@@ -429,7 +429,7 @@ def cells(mats):
     return out
 
 
-# The Shaping Saw of Simple Blocks (docs/ai/PRINZIPIEN.md A4b): octets are cut there only while Simple Blocks is loaded;
+# The Shapecutter of Simple Blocks (docs/ai/PRINZIPIEN.md A4b): octets are cut there only while Simple Blocks is loaded;
 # without it a minecraft:stonecutting fallback keeps Simple Octets playable alone, and the Vanilla stonecutter stays Vanilla.
 SAW_MOD = 'simpleblocks'
 SAW_TYPE = 'simpleblocks:sawing'
@@ -499,7 +499,7 @@ def data_files(mats):
 
 
 # SimpleBuilding's chess octets (checker_octet cells, docs/ai/PLAN-SCHACH-2026-10-06.md): 8 from a checker (quartz: the
-# quartz block) - in the Shaping Saw with Simple Blocks, the stonecutter only without it. SimpleBuilding's datagen has no
+# quartz block) - in the Shapecutter with Simple Blocks, the stonecutter only without it. SimpleBuilding's datagen has no
 # load conditions, so these recipes live in its 26.3 overlay; the pieces cut from an octet stay stonecutter recipes.
 SB_OVERLAY_DATA = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'data', 'simplebuilding')
 CHESS_COLORS = os.path.join(REPO, 'common', 'src', 'shared', 'java', 'com', 'simplebuilding', 'chess', 'ChessColor.java')

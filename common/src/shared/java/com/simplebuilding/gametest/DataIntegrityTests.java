@@ -5180,7 +5180,7 @@ public final class DataIntegrityTests {
             if (holder.value() instanceof CountBasedSmithingRecipe countBased) {
                 obtainable.add(countBased.getResultStack().getItem());
             }
-            // The Shaping Saw's simpleblocks:sawing recipes (octets, docs/ai/PRINZIPIEN.md A4b) expose no display either;
+            // The Shapecutter's simpleblocks:sawing recipes (octets, docs/ai/PRINZIPIEN.md A4b) expose no display either;
             // JEI shows them in the saw's own category. Read by type id, no Simple Blocks class.
             if (holder.value() instanceof net.minecraft.world.item.crafting.SingleItemRecipe single
                     && "simpleblocks:sawing".equals(String.valueOf(BuiltInRegistries.RECIPE_TYPE.getKey(single.getType())))) {

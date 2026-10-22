@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
  * Everything Simple Blocks registers: 37 blocks with their block items (plus the 15 moved from SimpleBuilding in
- * {@link com.simpleblocks.nature.NatureBlocks}), the Shaping Saw ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
+ * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
  * {@link #blocks}/{@link #items} in their matching registry event (Fabric: {@link #registerAll}).
@@ -112,7 +112,7 @@ public final class BlocksRegistry {
         com.simpleblocks.saw.Sawing.registerBlock();
     }
 
-    /** The Shaping Saw's menu, recipe type and serializer (principle A4b). */
+    /** The Shapecutter's menu, recipe type and serializer (principle A4b). */
     public static void registerMenus() {
         com.simpleblocks.saw.Sawing.registerMenu();
     }

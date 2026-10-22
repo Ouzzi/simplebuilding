@@ -78,7 +78,7 @@ def mods_in(conds, key, field):
     return need, never
 
 
-# Octets exclusive to the Shaping Saw (docs/ai/PRINZIPIEN.md A4b): simpleblocks:sawing only with Simple Blocks, a
+# Octets exclusive to the Shapecutter (docs/ai/PRINZIPIEN.md A4b): simpleblocks:sawing only with Simple Blocks, a
 # minecraft:stonecutting fallback only without it (none for Simple Blocks' own blocks), crafting back always.
 sawing = 0
 for c, base_ns, base in pairs:
@@ -147,5 +147,5 @@ for key in ('simpleoctets:*_octet', 'simpleoctets:melon_octet', 'simpleoctets:mi
 gen = subprocess.run([sys.executable, str(ROOT / 'tools/textures/octets_2026_10_09.py'), '--check'], capture_output=True, text=True)
 assert gen.returncode == 0, 'octet resources out of date: ' + gen.stdout + gen.stderr
 print(f'Simple Octets data: {len(cells)} cells ({len(woods)} woods, {len(materials)} materials), {len(recipes)} recipes '
-      f'({sawing} Shaping Saw, stonecutter only without Simple Blocks), '
+      f'({sawing} Shapecutter, stonecutter only without Simple Blocks), '
       f'{len(foreign)} conditional on other mods, bilingual texts, wiki complete')

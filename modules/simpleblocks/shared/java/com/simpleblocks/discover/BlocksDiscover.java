@@ -109,7 +109,7 @@ public final class BlocksDiscover {
             "simpleblocks:sand_slab",
             "simpleblocks:scarlet_froglight",
             "simpleblocks:sculk_deepslate",
-            "simpleblocks:shaping_saw",
+            "simpleblocks:shapecutter",
             "simpleblocks:smooth_basalt_slab",
             "simpleblocks:smooth_basalt_stairs",
             "simpleblocks:smooth_basalt_wall",
@@ -118,7 +118,7 @@ public final class BlocksDiscover {
             "simpleblocks:suspended_gravel",
             "simpleblocks:suspended_sand");
     static final List<Tip> TIPS = List.of(
-            new Tip("shaping_saw", List.of("shaping_saw")));
+            new Tip("shapecutter", List.of("shapecutter")));
 
     record Tip(String group, List<String> patterns) {
         String key() {
