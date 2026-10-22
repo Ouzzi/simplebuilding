@@ -323,7 +323,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 39
     },
-    "dataHash": "83589f4b01a1"
+    "dataHash": "52ff67d5e0e6"
   },
   {
     "id": "simpledimensions",
@@ -412,7 +412,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 3
     },
-    "dataHash": "cce6a0e9a482"
+    "dataHash": "668f7c05a7e1"
   },
   {
     "id": "simpleinterfaces",
@@ -466,7 +466,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 7
     },
-    "dataHash": "e14c480ec507"
+    "dataHash": "7044f41acd94"
   },
   {
     "id": "simpletrims",

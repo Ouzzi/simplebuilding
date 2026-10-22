@@ -27,7 +27,8 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "details": [
           "Warmable food (tag simplelib:warmable_food: cooked meat and fish, baked potato, bread, pumpkin pie, stews and soups) put into a heated crucible is warmed as a whole stack and stays in its slot.",
           "Food stays warm for half a day-night cycle (12,000 ticks) and cools everywhere except inside a crucible. Server bounds: warmDurationTicks 1,200–48,000, eatSpeedBonus 0–0.30.",
-          "In any bundle (also mod bundles) food stays warm for two day-night cycles (48,000 ticks, bound warmBundleDurationTicks 1,200–96,000). Stacks of the same food combine regardless of warmth; the new warmth is the mean over all items, cold items count as zero. Warm items glow in four steps, stronger the warmer they are: in inventories, as an orange outline when dropped (within 12 blocks) and with a little steam when held, and the tooltip shows the minutes left."
+          "In any bundle (also mod bundles) food stays warm for two day-night cycles (48,000 ticks, bound warmBundleDurationTicks 1,200–96,000). Stacks of the same food combine regardless of warmth; the new warmth is the mean over all items, cold items count as zero. Warm items glow in four steps, stronger the warmer they are: in inventories, as an orange outline when dropped (within 12 blocks) and with a little steam when held, and the tooltip shows the minutes left.",
+          "Server config simplelib-server.json (no screen, edit the file; values are clamped on load): warmBaseTicks (default 100, 20–1,200) is the time in ticks a crucible needs to warm one stack; warmDurationTicks (12,000), warmBundleDurationTicks (48,000) and eatSpeedBonus (0.15) as above."
         ]
       },
       "de": {
@@ -36,7 +37,8 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "details": [
           "Aufwärmbares Essen (Tag simplelib:warmable_food: gegartes Fleisch und Fisch, Ofenkartoffel, Brot, Kürbiskuchen, Eintöpfe und Suppen) wird in einem beheizten Tiegel als ganzer Stapel aufgewärmt und bleibt in seinem Platz.",
           "Essen bleibt einen halben Tag-Nacht-Zyklus warm (12.000 Ticks) und kühlt überall ab außer im Tiegel. Server-Grenzen: warmDurationTicks 1.200–48.000, eatSpeedBonus 0–0,30.",
-          "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten in vier Stufen, je wärmer desto stärker: im Inventar, gedroppt als orangefarbene Kontur (bis 12 Blöcke) und in der Hand mit etwas Dampf, und der Tooltip zeigt die restlichen Minuten."
+          "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten in vier Stufen, je wärmer desto stärker: im Inventar, gedroppt als orangefarbene Kontur (bis 12 Blöcke) und in der Hand mit etwas Dampf, und der Tooltip zeigt die restlichen Minuten.",
+          "Server-Config simplelib-server.json (ohne Oberfläche, Datei bearbeiten; Werte werden beim Laden begrenzt): warmBaseTicks (Standard 100, 20–1.200) ist die Zeit in Ticks, die ein Tiegel für das Aufwärmen eines Stapels braucht; warmDurationTicks (12.000), warmBundleDurationTicks (48.000) und eatSpeedBonus (0,15) wie oben."
         ]
       }
     },
