@@ -1241,11 +1241,11 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATElEQVR42mNgoBbIirL6TwrGasCHFxeIwiQZICUlhYLxGrBjwwIMDNKEzibZBejsIeQCWMChs4l2AXLIkx0L2DDtEtLAu4CizEQuAAAPpsyAzRZtVQAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 21,
-      "blocks": 2,
+      "items": 4,
+      "blocks": 19,
       "recipes": 38,
-      "features": 16
+      "features": 17
     },
-    "dataHash": "787e9d90d89c"
+    "dataHash": "ca27865b4d92"
   }
 ];

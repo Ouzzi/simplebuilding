@@ -39,7 +39,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 public final class MusicGuide {
     public static final String NAMESPACE = "simplemusic";
     public static final String AUTHOR = "Simple Music";
-    public static final int PAGES = 21;
+    public static final int PAGES = 23;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
     public static final Item RECIPE_ITEM = Items.NOTE_BLOCK;
