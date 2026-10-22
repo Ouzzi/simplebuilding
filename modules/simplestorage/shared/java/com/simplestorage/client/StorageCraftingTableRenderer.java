@@ -22,16 +22,19 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Draws the grid of a Storage Crafting Table flat on its top (queue N26): the nine stacks in the 3x3 raster of the
  * top texture, first row in the north, each the item model without display transform ({@link ItemDisplayContext#NONE})
- * laid down and pressed flat, so blocks look like tiles and items like the item sprite. Lit by the light above the
- * table (the table itself is solid). Loader neutral; each loader registers it.
+ * laid down and pressed to {@link #THICKNESS} (SP22-4: 1.5 px, so they read from afar and from the side), blocks as
+ * tiles and items as the item sprite. Lit by the light above the table (the table itself is solid). Loader neutral;
+ * each loader registers it.
  */
 public class StorageCraftingTableRenderer implements BlockEntityRenderer<StorageCraftingTableBlockEntity, StorageCraftingTableRenderer.State> {
     /** Cell pitch and item size in blocks: 5 px cells around the centre, 4.5 px items. */
     private static final float PITCH = 5.0F / 16.0F;
     private static final float SIZE = 0.28F;
-    /** Flattening of the item models (blocks become 1/16 thin tiles), and how far they float above the top. */
-    private static final float FLAT = 0.22F;
-    private static final float LIFT = 0.012F;
+    /** Height of every laid item in blocks (owner SP22-4: 1-2 px), and how far it floats above the top. */
+    private static final float THICKNESS = 1.5F / 16.0F;
+    private static final float LIFT = 0.003F;
+    /** Depth of a flat item sprite model (Vanilla's generated items are 1 px deep); block models are 1 deep. */
+    private static final float SPRITE_DEPTH = 1.0F / 16.0F;
 
     private final ItemModelResolver itemModelResolver;
 
@@ -41,6 +44,8 @@ public class StorageCraftingTableRenderer implements BlockEntityRenderer<Storage
 
     public static class State extends BlockEntityRenderState {
         public final ItemStackRenderState[] items = new ItemStackRenderState[StorageCraftingTableBlockEntity.SIZE];
+        /** Per field: a block model (1 deep) rather than a flat sprite (1/16 deep). */
+        public final boolean[] block = new boolean[StorageCraftingTableBlockEntity.SIZE];
 
         public State() {
             for (int i = 0; i < this.items.length; i++) {
@@ -69,6 +74,7 @@ public class StorageCraftingTableRenderer implements BlockEntityRenderer<Storage
                 state.items[i].clear();
             } else {
                 this.itemModelResolver.updateForTopItem(state.items[i], stack, ItemDisplayContext.NONE, table.getLevel(), null, seed + i);
+                state.block[i] = state.items[i].usesBlockLight();
             }
         }
     }
@@ -81,10 +87,11 @@ public class StorageCraftingTableRenderer implements BlockEntityRenderer<Storage
             }
             int column = i % 3, row = i / 3;
             poseStack.pushPose();
-            poseStack.translate(0.5F + (column - 1) * PITCH, 1.0F + LIFT, 0.5F + (row - 1) * PITCH);
+            // The model is centred on its depth: lift it by half the thickness so it stands on the top.
+            poseStack.translate(0.5F + (column - 1) * PITCH, 1.0F + LIFT + THICKNESS / 2.0F, 0.5F + (row - 1) * PITCH);
             // Lay the model on its back: its front faces up, its top points north (away from row 1).
             poseStack.rotate(Axis.XP.rotationDegrees(-90.0F));
-            poseStack.scale(SIZE, SIZE, SIZE * FLAT);
+            poseStack.scale(SIZE, SIZE, THICKNESS / (state.block[i] ? 1.0F : SPRITE_DEPTH));
             state.items[i].submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }
