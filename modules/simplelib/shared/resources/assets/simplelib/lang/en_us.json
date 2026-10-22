@@ -32,5 +32,16 @@
   "item.minecraft.potion.effect.warped": "Warped Potion",
   "item.minecraft.splash_potion.effect.warped": "Splash Warped Potion",
   "item.minecraft.lingering_potion.effect.warped": "Lingering Warped Potion",
-  "item.minecraft.tipped_arrow.effect.warped": "Arrow of the Warped Potion"
+  "item.minecraft.tipped_arrow.effect.warped": "Arrow of the Warped Potion",
+  "subtitles.simplelib.legendary": "Legendary fanfare",
+  "simplelib.title": "SimpleLib",
+  "simplelib.tab.legendary": "Legendary Moments",
+  "simplelib.option.legendaryEffects": "Legendary Moments",
+  "simplelib.option.legendaryEffects.tooltip": "Fanfare and particles when a player finishes\none of the hardest advancements or makes a\nlegendary enchantment at its maximum level.\nDefault: true.",
+  "simplelib.option.legendaryAllChallenges": "Every Challenge Is Legendary",
+  "simplelib.option.legendaryAllChallenges.tooltip": "Every advancement with the challenge frame\n(also from other mods) counts as legendary.\nDefault: false.",
+  "simplelib.option.legendaryAdvancements": "More Legendary Advancements",
+  "simplelib.option.legendaryAdvancements.tooltip": "Advancement ids added to the built-in list,\ne.g. minecraft:story/enter_the_end.",
+  "simplelib.option.legendaryEnchantments": "More Legendary Enchantments",
+  "simplelib.option.legendaryEnchantments.tooltip": "Enchantment ids added to the tag\n#simplelib:legendary, e.g. minecraft:mending."
 }

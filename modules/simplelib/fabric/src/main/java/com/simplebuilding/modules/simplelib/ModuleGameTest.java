@@ -154,4 +154,14 @@ public final class ModuleGameTest {
     public void simpleRarityNames(GameTestHelper h) {
         LibTests.ALL.get("simple_rarity_names").accept(h);
     }
+
+    @GameTest
+    public void legendaryAdvancements(GameTestHelper h) {
+        LibTests.ALL.get("legendary_advancements").accept(h);
+    }
+
+    @GameTest
+    public void legendaryEnchantments(GameTestHelper h) {
+        LibTests.ALL.get("legendary_enchantments").accept(h);
+    }
 }

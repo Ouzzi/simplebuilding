@@ -16,6 +16,7 @@ public final class SimpleLibFabric implements ModInitializer {
         com.simplelib.registry.LibMaterials.ensureItems();
         com.simplelib.registry.LibItems.register();
         com.simplelib.registry.LibPotions.register();
+        com.simplelib.registry.LibSounds.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries ->
                 entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART)));
         MaterialConditionFabric.register();
@@ -34,5 +35,6 @@ public final class SimpleLibFabric implements ModInitializer {
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) ->
                 com.simplelib.material.MaterialLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.InWorldStrikes::tick);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.LegendaryMoments::tick);
     }
 }
