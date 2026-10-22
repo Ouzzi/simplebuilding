@@ -36,6 +36,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.MoonPhase;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -72,7 +73,10 @@ public final class Giants {
     public static final String ZOMBIE_HEAD = "giant";
     public static final String COW_HEAD = "giant_cow";
 
-    public enum Lightning { GIANT, DISABLED, NOT_NATURAL, NOT_FULL_MOON_NIGHT, BABY, ALREADY }
+    /** Entity tag (cow): the lucky bale came while there was no room to grow; it grows as soon as there is ({@link #tick}). */
+    public static final String PENDING = "simplemobheads.giant_pending";
+
+    public enum Lightning { GIANT, DISABLED, NOT_NATURAL, NOT_FULL_MOON_NIGHT, BABY, ALREADY, NO_ROOM }
 
     private Giants() {
     }
@@ -113,6 +117,10 @@ public final class Giants {
         if (!(forcedFullMoonNight != null ? forcedFullMoonNight : fullMoonNight(level, zombie.blockPosition()))) {
             return Lightning.NOT_FULL_MOON_NIGHT;
         }
+        if (!hasRoom(zombie)) {
+            // Under trees or a roof the giant would stand in the blocks and suffocate: the bolt changes nothing.
+            return Lightning.NO_ROOM;
+        }
         grow(zombie, ZOMBIE_HEALTH);
         add(zombie, Attributes.ATTACK_DAMAGE, SimpleMobHeads.id("giant_damage"), ZOMBIE_DAMAGE);
         add(zombie, Attributes.KNOCKBACK_RESISTANCE, SimpleMobHeads.id("giant_knockback_resistance"), ZOMBIE_KNOCKBACK_RESISTANCE);
@@ -137,7 +145,7 @@ public final class Giants {
         if (!held.is(Items.HAY_BLOCK) || cow.getType() != EntityTypes.COW || !SimpleMobHeads.on() || !config().giantCows) {
             return null;
         }
-        if (cow.isBaby() || isGiant(cow)) {
+        if (cow.isBaby() || isGiant(cow) || cow.entityTags().contains(PENDING)) {
             return null;
         }
         if (!(cow.level() instanceof ServerLevel level)) {
@@ -156,17 +164,40 @@ public final class Giants {
         float roll = forcedRoll != null ? forcedRoll : level.getRandom().nextFloat();
         if (roll < config().giantCowChance) {
             EntityTimes.clear(cow, HAY);
-            grow(cow, COW_HEALTH);
-            if (!cow.hasCustomName()) {
-                cow.setCustomName(Component.translatable("entity.simplemobheads.giant_cow"));
+            if (hasRoom(cow)) {
+                growCow(level, cow);
+            } else {
+                // A barn too low: the luck is kept and the cow grows once it stands in the open (no suffocating giant).
+                cow.addTag(PENDING);
             }
-            level.playSound(null, cow, SoundEvents.COW_SOUNDS.get(net.minecraft.world.entity.animal.cow.CowSoundVariants.SoundSet.CLASSIC).ambientSound().value(),
-                    SoundSource.NEUTRAL, 2.0F, 0.5F);
-            level.sendParticles(ParticleTypes.HAPPY_VILLAGER, cow.getX(), cow.getEyeY(), cow.getZ(), 20, 0.8, 0.8, 0.8, 0.0);
         } else {
             EntityTimes.set(cow, HAY, eaten + 1);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /** Every second of a cow ({@code AnimalAiMixin}): a pending giant cow grows as soon as it has room. */
+    public static void tick(ServerLevel level, Cow cow) {
+        if (cow.tickCount % 20 == 0 && cow.entityTags().contains(PENDING) && SimpleMobHeads.on() && config().giantCows && hasRoom(cow)) {
+            growCow(level, cow);
+        }
+    }
+
+    private static void growCow(ServerLevel level, Cow cow) {
+        cow.removeTag(PENDING);
+        grow(cow, COW_HEALTH);
+        if (!cow.hasCustomName()) {
+            cow.setCustomName(Component.translatable("entity.simplemobheads.giant_cow"));
+        }
+        level.playSound(null, cow, SoundEvents.COW_SOUNDS.get(net.minecraft.world.entity.animal.cow.CowSoundVariants.SoundSet.CLASSIC).ambientSound().value(),
+                SoundSource.NEUTRAL, 2.0F, 0.5F);
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, cow.getX(), cow.getEyeY(), cow.getZ(), 20, 0.8, 0.8, 0.8, 0.0);
+    }
+
+    /** Whether the mob, three times as big, would stand free of blocks where it is now. */
+    public static boolean hasRoom(Mob mob) {
+        AABB grown = mob.getType().getDimensions().scale((float) (1.0 + SCALE)).makeBoundingBox(mob.position());
+        return mob.level().noCollision(mob, grown);
     }
 
     /** Three times as big (the marker), more health (healed to full), a whole block more step height, never despawns. */

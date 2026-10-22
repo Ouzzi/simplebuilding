@@ -1193,6 +1193,10 @@ public final class MobHeadTests {
         var baby = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 4));
         baby.setBaby(true);
         helper.assertTrue(Giants.onLightning(level, baby, bolt, true) == Giants.Lightning.BABY, "a baby giant");
+        // Under a roof a giant would suffocate: the bolt does nothing there.
+        helper.setBlock(new BlockPos(3, 5, 3), Blocks.STONE);
+        helper.assertTrue(Giants.onLightning(level, zombie, bolt, true) == Giants.Lightning.NO_ROOM && !Giants.isGiant(zombie), "a giant under a roof");
+        helper.setBlock(new BlockPos(3, 5, 3), Blocks.AIR);
         SimpleMobHeads.config().giantZombies = false;
         helper.assertTrue(Giants.onLightning(level, zombie, bolt, true) == Giants.Lightning.DISABLED, "the switch does nothing");
         SimpleMobHeads.config().giantZombies = true;
@@ -1296,9 +1300,9 @@ public final class MobHeadTests {
             helper.assertTrue(Giants.feedHay(cow, player, InteractionHand.MAIN_HAND, 0.5F) == net.minecraft.world.InteractionResult.SUCCESS, "bale " + i + " refused");
         }
         helper.assertTrue(player.getMainHandItem().isEmpty() && !Giants.isGiant(cow), "64 bales not eaten or a giant without luck");
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HAY_BLOCK, 5));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HAY_BLOCK, 16));
         helper.assertTrue(Giants.feedHay(cow, player, InteractionHand.MAIN_HAND, 0.0F) == net.minecraft.world.InteractionResult.PASS
-                && player.getMainHandItem().getCount() == 5 && !Giants.isGiant(cow), "a full cow ate the 65th bale");
+                && player.getMainHandItem().getCount() == 16 && !Giants.isGiant(cow), "a full cow ate the 65th bale");
         // The lucky bale.
         var lucky = helper.spawn(EntityTypes.COW, new BlockPos(4, 2, 4));
         helper.assertTrue(Giants.feedHay(lucky, player, InteractionHand.MAIN_HAND, 0.0F) == net.minecraft.world.InteractionResult.SUCCESS
@@ -1313,6 +1317,18 @@ public final class MobHeadTests {
         Giants.feedHay(unlucky, player, InteractionHand.MAIN_HAND, 0.0F);
         helper.assertTrue(!Giants.isGiant(unlucky), "chance 0 made a giant");
         SimpleMobHeads.config().giantCowChance = 0.0002F;
+        // A barn too low: the luck is kept, the cow grows once it has room.
+        var barn = helper.spawn(EntityTypes.COW, new BlockPos(5, 2, 5));
+        helper.setBlock(new BlockPos(5, 4, 5), Blocks.STONE);
+        Giants.feedHay(barn, player, InteractionHand.MAIN_HAND, 0.0F);
+        helper.assertTrue(!Giants.isGiant(barn) && barn.entityTags().contains(Giants.PENDING), "the giant cow grew into the roof or lost its luck");
+        helper.assertTrue(Giants.feedHay(barn, player, InteractionHand.MAIN_HAND, 0.0F) == null, "a pending giant cow eats on");
+        barn.tickCount = 20;
+        Giants.tick(level, barn);
+        helper.assertTrue(!Giants.isGiant(barn), "it grew under the roof");
+        helper.setBlock(new BlockPos(5, 4, 5), Blocks.AIR);
+        Giants.tick(level, barn);
+        helper.assertTrue(Giants.isGiant(barn) && !barn.entityTags().contains(Giants.PENDING), "the pending giant cow does not grow in the open");
         var calf = helper.spawn(EntityTypes.COW, new BlockPos(1, 2, 4));
         calf.setAge(-24000);
         helper.assertTrue(Giants.feedHay(calf, player, InteractionHand.MAIN_HAND, 0.0F) == null && !Giants.isGiant(calf), "a calf ate hay");

@@ -2647,6 +2647,9 @@
     "layer": "minecraft:zombie#main",
     "part": "head",
     "tex": "zombie/zombie",
+    "hide": [
+     "hat"
+    ],
     "scale": 3
    },
    "ability": "giant",
@@ -2679,6 +2682,9 @@
        "layer": "minecraft:husk#main",
        "part": "head",
        "tex": "zombie/husk",
+       "hide": [
+        "hat"
+       ],
        "scale": 3
       }
      },
@@ -2691,6 +2697,9 @@
        "layer": "minecraft:drowned#main",
        "part": "head",
        "tex": "zombie/drowned",
+       "hide": [
+        "hat"
+       ],
        "scale": 3,
        "layers": [
         {
@@ -2710,6 +2719,9 @@
        "layer": "minecraft:zombie_villager#main",
        "part": "head",
        "tex": "zombie_villager/zombie_villager",
+       "hide": [
+        "hat"
+       ],
        "scale": 3
       }
      },
