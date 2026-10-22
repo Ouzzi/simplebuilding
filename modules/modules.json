@@ -52,7 +52,8 @@
         "simplerespawn",
         "simplebeacons",
         "simpleshops",
-        "simplewanderers"
+        "simplewanderers",
+        "simplemusic"
       ],
       "paths": {
         "root": ".",
@@ -4017,7 +4018,9 @@
         "fabric": ":modules:simplemusic:fabric",
         "neoforge": ":modules:simplemusic:neoforge",
         "forge": ":modules:simplemusic:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     }
   ]
 }

@@ -135,4 +135,9 @@ public final class ModuleGameTest {
     public void cartographyCopiesSheet(GameTestHelper h) {
         MusicTests.ALL.get("cartography_copies_sheet").accept(h);
     }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 40)
+    public void subModSwitch(GameTestHelper h) {
+        MusicTests.ALL.get("sub_mod_switch").accept(h);
+    }
 }
