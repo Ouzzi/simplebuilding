@@ -49,7 +49,7 @@ braucht). NeoForge/Forge-Verdrahtung folgt im Port-Run (Klang `RegisterEvent` SO
 5. **Config:** `simplelib-server.json` neu `legendaryEffects` (true), `legendaryAllChallenges` (false),
    `legendaryAdvancements` ([]), `legendaryEnchantments` ([]); Listen auf 256 Einträge begrenzt, ungültige IDs verworfen.
    Konfig-Bildschirm `LibConfigScreen` (Cloth, Schalter + Listen mit Tooltip EN/DE); Cloth bleibt **optional** für
-   SimpleLib (Fabric `suggests`, Mod Menu nur `compileOnly`, NeoForge registriert den Bildschirm nur bei geladenem
+   SimpleLib (Mod Menu und Cloth nur `compileOnly`, kein `suggests` – checkMultimod verlangt gleiche optionale Abhängigkeiten wie modules.json, NeoForge registriert den Bildschirm nur bei geladenem
    `cloth_config`), damit keiner der 16 SimpleLib-Nutzer eine neue Pflicht-Abhängigkeit bekommt. Forge: native Widgets.
 
 ## Dateien
