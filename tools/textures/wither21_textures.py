@@ -331,9 +331,10 @@ def heart_front(elements, light):
 
 
 def heart_side():
-    """Skin of the sides, top and bottom: the filler flesh with a few light speckles, no veins (no animation)."""
+    """Skin of the sides, top and bottom: the filler flesh with a few scattered light speckles (an xor hash, so no
+    speckle line runs through a row or column), no veins (no animation)."""
     shape = [''.join(filler(u, v) for u in range(16)) for v in range(16)]
-    light = [''.join('L' if (u * 3 + v * 7 + u * v) % 13 == 5 and shape[v][u] == 'M' else '.' for u in range(16))
+    light = [''.join('L' if ((u * 73856093) ^ (v * 19349663)) % 13 == 5 and shape[v][u] == 'M' else '.' for u in range(16))
              for v in range(16)]
     return shape, light
 
