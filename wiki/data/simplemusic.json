@@ -386,7 +386,8 @@
     {
       "id": "config_server",
       "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/config/MusicConfig.java"
+        "modules/simplemusic/shared/java/com/simplemusic/config/MusicConfig.java",
+        "modules/simplemusic/shared/java/com/simplemusic/SimpleMusic.java"
       ],
       "en": {
         "title": "Server settings",
@@ -395,7 +396,8 @@
           "enabled (true); sheetSounds (all | heads | instruments) with blockedSounds (music., music_disc., ui., ambient.cave, world-wide sounds: prefix list).",
           "maxTonesPerTick (8, 1 to 8), maxPlayingOrchestrions (32 per dimension, 1 to 64), orchestrionRange (48, 16 to 64).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 to 16), maxUploadSeconds (300, 10 to 900), quotaPerPlayer (5, 0 to 50), storeLimitMiB (256, 16 to 2048), uploadKiBPerSecond (256, 16 to 1024), downloadKiBPerSecond (512, 32 to 4096).",
-          "jukeboxCustomDiscs (true): custom discs in the Vanilla jukebox; it switches itself off where Vanilla has its own jukebox playlist (block tag #minecraft:jukebox_containers)."
+          "jukeboxCustomDiscs (true): custom discs in the Vanilla jukebox; it switches itself off where Vanilla has its own jukebox playlist (block tag #minecraft:jukebox_containers).",
+          "With SimpleBuilding the switch Enable Simple Music in its config turns the bundled module on or off."
         ]
       },
       "de": {
@@ -405,7 +407,8 @@
           "enabled (true); sheetSounds (all | heads | instruments) mit blockedSounds (music., music_disc., ui., ambient.cave, weltweite Klänge: Präfixliste).",
           "maxTonesPerTick (8, 1 bis 8), maxPlayingOrchestrions (32 je Dimension, 1 bis 64), orchestrionRange (48, 16 bis 64).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 bis 16), maxUploadSeconds (300, 10 bis 900), quotaPerPlayer (5, 0 bis 50), storeLimitMiB (256, 16 bis 2048), uploadKiBPerSecond (256, 16 bis 1024), downloadKiBPerSecond (512, 32 bis 4096).",
-          "jukeboxCustomDiscs (true): eigene Platten in der Vanilla-Jukebox; schaltet sich selbst ab, wo Vanilla eine eigene Jukebox-Playlist hat (Block-Tag #minecraft:jukebox_containers)."
+          "jukeboxCustomDiscs (true): eigene Platten in der Vanilla-Jukebox; schaltet sich selbst ab, wo Vanilla eine eigene Jukebox-Playlist hat (Block-Tag #minecraft:jukebox_containers).",
+          "Mit SimpleBuilding schaltet der Schalter Simple Music aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
     },

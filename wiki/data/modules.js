@@ -43,7 +43,8 @@ window.WIKI_MODULES = [
       "simplerespawn",
       "simplebeacons",
       "simpleshops",
-      "simplewanderers"
+      "simplewanderers",
+      "simplemusic"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -1239,6 +1240,8 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
     "counts": {
       "items": 4,
@@ -1246,6 +1249,6 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 17
     },
-    "dataHash": "41bcb971c1ae"
+    "dataHash": "f56a3c2f5ae9"
   }
 ];
