@@ -2,7 +2,12 @@ package com.simplemaps;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,7 +27,8 @@ public final class Cartography {
 
     /**
      * The result for these inputs, or {@link ItemStack#EMPTY} when the combination is not allowed:
-     * wayfinder + empty map → two copies with the waypoints; wayfinder + filled map → the wayfinder, taking over the
+     * wayfinder + empty map → one copy with the waypoints, the original stays (maps do not stack, owner 21.10.;
+     * {@link #resultSlot}); wayfinder + filled map → the wayfinder, taking over the
      * filled map's area on take; wayfinder + wayfinder → the first one, taking over the second one's area and filling
      * its free waypoint slots with the second one's waypoints.
      */
@@ -32,7 +38,7 @@ public final class Cartography {
         if (wa && wb) return combine(a, b, level);
         ItemStack way = wa ? a : b, other = wa ? b : a;
         if (other.is(Items.MAP)) {
-            return MapsConfig.allowCopy && wa ? way.copyWithCount(2) : ItemStack.EMPTY;
+            return MapsConfig.allowCopy && wa ? way.copyWithCount(1) : ItemStack.EMPTY;
         }
         if (other.has(DataComponents.MAP_ID)) {
             if (!MapsConfig.allowExtend) return ItemStack.EMPTY;
@@ -71,6 +77,43 @@ public final class Cartography {
         }
         ServerLevel target = level.getServer().getLevel(vanilla.dimension);
         return target != null && ((WayfinderMapItem) way.getItem()).accepts(target);
+    }
+
+    /** Copying: a wayfinder map on top, an empty map below. */
+    public static boolean isCopy(ItemStack map, ItemStack additional) {
+        return MapsItems.isWayfinder(map) && additional.is(Items.MAP);
+    }
+
+    /**
+     * The table's result slot: taking a copy uses up only the empty map, the original stays on top (like a blueprint
+     * copy); everything else is Vanilla's. Wraps the slot, so later wrappers (blueprint, sheet music) keep working.
+     */
+    public static Slot resultSlot(Slot original, AbstractContainerMenu menu, ContainerLevelAccess access) {
+        Slot slot = new Slot(original.container, original.getContainerSlot(), original.x, original.y) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public void onTake(Player player, ItemStack carried) {
+                if (!isCopy(menu.getSlot(0).getItem(), menu.getSlot(1).getItem())) {
+                    original.onTake(player, carried);
+                    return;
+                }
+                menu.getSlot(1).remove(1);
+                carried.getItem().onCraftedBy(carried, player);
+                access.execute((level, pos) -> level.playSound(null, pos, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F));
+                super.onTake(player, carried);
+            }
+
+            @Override
+            public ItemStack safeClone(Player player) {
+                return original.safeClone(player);
+            }
+        };
+        slot.index = original.index;
+        return slot;
     }
 
     /** The table's map slot: Vanilla maps plus wayfinder maps. */

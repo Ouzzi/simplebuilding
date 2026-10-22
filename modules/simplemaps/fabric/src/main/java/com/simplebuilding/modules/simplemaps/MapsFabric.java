@@ -6,6 +6,7 @@ import com.simplemaps.MapsItems;
 import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.DisplayPayload;
+import com.simplemaps.net.FrameSavedPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.LayerRequestPayload;
@@ -53,6 +54,7 @@ public final class MapsFabric implements ModInitializer {
         PayloadTypeRegistry.serverboundPlay().register(DisplayPayload.TYPE, DisplayPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TileDataPayload.TYPE, TileDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(MapStatePayload.TYPE, MapStatePayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(FrameSavedPayload.TYPE, FrameSavedPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(LayerRequestPayload.TYPE, LayerRequestPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(LayerDataPayload.TYPE, LayerDataPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(LayerRequestPayload.TYPE,

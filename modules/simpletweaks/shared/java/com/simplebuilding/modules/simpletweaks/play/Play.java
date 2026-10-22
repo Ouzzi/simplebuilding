@@ -10,6 +10,7 @@ import com.simplebuilding.modules.simpletweaks.play.pregen.Pregen;
 import com.simplebuilding.modules.simpletweaks.play.reward.LoginReward;
 import com.simplebuilding.modules.simpletweaks.play.roof.NetherRoof;
 import com.simplebuilding.modules.simpletweaks.play.seen.Playtime;
+import com.simplebuilding.modules.simpletweaks.play.shield.NewPlayerShield;
 import com.simplebuilding.modules.simpletweaks.play.top.Leaderboard;
 import com.simplebuilding.modules.simpletweaks.play.vote.Votes;
 import com.simplebuilding.modules.simpletweaks.play.welcome.Welcome;
@@ -17,7 +18,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * Hub of the player/world/event features (T4–T9, T19–T28, T30–T33; plan docs/ai/PLAN-TWEAKS-PLAY-2026-10-17.md):
+ * Hub of the player/world/event features (T4–T9, T12, T19–T28, T30–T33; plan docs/ai/PLAN-TWEAKS-PLAY-2026-10-17.md):
  * settings, world state and the server lifecycle. Loader entry points call {@link #start}, {@link #stop} and the command
  * registration; ticks, joins, leaves and chat come from shared mixins.
  */
@@ -51,6 +52,7 @@ public final class Play {
         Pregen.stop(s);
         ServerEvents.shutdown();
         Leaderboard.stop(s);
+        NewPlayerShield.reset();
         state.save();
         server = null;
         state = new PlayState();
@@ -69,6 +71,7 @@ public final class Play {
         EntityLimit.tick(s);
         GroundCleanup.tick(s);
         Pregen.tick(s);
+        NewPlayerShield.tick(s);
     }
     /** After a player joined (mixin on {@code PlayerList.placeNewPlayer}). */
     public static void joined(ServerPlayer player) {
@@ -76,6 +79,7 @@ public final class Play {
         Playtime.joined(player);
         Welcome.joined(player);
         LoginReward.joined(player);
+        NewPlayerShield.joined(player);
     }
     /** Before a player leaves (mixin on {@code ServerGamePacketListenerImpl.removePlayerFromWorld}). */
     public static void left(ServerPlayer player) {

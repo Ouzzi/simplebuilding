@@ -188,3 +188,11 @@ absichtlich grau oder flach.
 | `src/main/resources/assets/simplebuilding/textures/item/spawn_elytra.png` | 16x16 | halbtransparent (122 px) |
 | `src/main/resources/assets/simplebuilding/textures/palettes/shulker/lime.png` | 7x1 | grell |
 | `src/main/resources/assets/simplebuilding/textures/palettes/shulker/yellow.png` | 7x1 | grell |
+
+## Auswahlseite (22.10., b-vnear22)
+
+`python3.12 tools/textures/vanilla_nearness_page.py --out /var/tmp/sb/vnear22.html` (auf sb-test, Ausgabe nie ins Repo:
+die Seite enthält Vanilla-Pixel als data:-URI) zeigt alle Treffer mit Vanilla-Gegenstück, denselben Merkmalen am
+Vanilla-Bild gemessen, einer vorbelegten Empfehlung (Abnahmen/Besitzer-Originale nie „überarbeiten“) und dem
+Antwort-Code `VN22 ü=<id,…>`. Stand 22.10.: 137 Treffer (unverändert), 12 × überarbeiten empfohlen (Milch/Butter/Käse,
+Vitrinenglas, Tiegelgriff, 2 Spawn-Eier mit je 1 halbtransparenten Pixel, Schwein-Effekt mit #000000-Augen).

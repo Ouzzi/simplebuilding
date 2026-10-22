@@ -73,7 +73,9 @@ public final class MultiBlockBreakingSupport {
         }
 
         ItemStack stack = player.getMainHandItem();
-        boolean isSledgehammer = com.simplebuilding.items.custom.SledgehammerItem.isHammer(stack.getItem());
+        // 26.3: the hammer's cracks are Simple Hammers' own (com.simplehammers.client.HammerAreaClient, Queue 738).
+        boolean isSledgehammer = com.simplebuilding.version.McVersion.HAMMERS_IN_SB
+                && com.simplebuilding.items.custom.SledgehammerItem.isHammer(stack.getItem());
         int stripLevel = EnchantmentHelper.getEnchantmentLevel(stack, level, ModEnchantments.STRIP_MINER);
         int veinLevel = EnchantmentHelper.getEnchantmentLevel(stack, level, ModEnchantments.VEIN_MINER);
 

@@ -65,4 +65,9 @@ public final class SledgehammerUpgradeGameTest {
     public void netheriteMachineRecipesAndTheirUnlocksAreGone(GameTestHelper helper) {
         SledgehammerUpgradeTests.netheriteMachineRecipesAndTheirUnlocksAreGone(helper);
     }
+
+    @GameTest
+    public void upgradeTooltipHintsShowOnce(GameTestHelper helper) {
+        SledgehammerUpgradeTests.upgradeTooltipHintsShowOnce(helper);
+    }
 }

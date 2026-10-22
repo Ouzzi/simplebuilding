@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplemaps;
 
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.client.MapsClient;
+import com.simplemaps.net.FrameSavedPayload;
 import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.TileDataPayload;
@@ -24,6 +25,10 @@ public final class MapsForgeClient {
     }
 
     static void receive(MapStatePayload payload) {
+        MapsClient.receive(payload);
+    }
+
+    static void receive(FrameSavedPayload payload) {
         MapsClient.receive(payload);
     }
 

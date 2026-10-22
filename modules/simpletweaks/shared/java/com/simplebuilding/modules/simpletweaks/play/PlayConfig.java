@@ -11,7 +11,7 @@ import java.util.*;
  * by default, automatic behaviour changes keep the owner's choice.
  */
 public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, Playtime playtime, MobGriefing mobGriefing,
-        Pvp pvp, Welcome welcome, LoginReward loginReward, Events events, Leaderboard leaderboard, Vote vote, Afk afk,
+        Pvp pvp, NewPlayerShield newPlayerShield, Welcome welcome, LoginReward loginReward, Events events, Leaderboard leaderboard, Vote vote, Afk afk,
         Border border, NetherRoof netherRoof, KeepInventory keepInventory, DragonEgg dragonEgg, Phantoms phantoms,
         EntityLimit entityLimit, Cleanup cleanup, Pregen pregen, Map<String, List<String>> autoOffWith) {
 
@@ -34,6 +34,10 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
     /** T9 personal PvP. */
     public record Pvp(boolean enabled, boolean defaultOn, int cooldownSeconds) {
         public Pvp { cooldownSeconds = Math.clamp(cooldownSeconds, 0, 3600); }
+    }
+    /** T12 newcomer protection: no PvP damage either way during the first {@code minutes} of online play time. */
+    public record NewPlayerShield(boolean enabled, int minutes, boolean attackEnds) {
+        public NewPlayerShield { minutes = Math.clamp(minutes, 1, 1440); }
     }
     /** T19 welcome, rotating tips, own join/leave lines (empty = Vanilla). */
     public record Welcome(boolean enabled, String message, List<String> tips, int tipMinutes, String joinMessage, String leaveMessage) {
@@ -127,6 +131,8 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
             new Playtime(true),
             new MobGriefing(false, List.of("minecraft:creeper", "minecraft:enderman", "minecraft:ghast", "minecraft:wither", "minecraft:ravager")),
             new Pvp(true, true, 30),
+            // owner 21.10.: on, 5 minutes ("Das ist der Default, aber das kann angepasst werden.")
+            new NewPlayerShield(true, 5, true),
             new Welcome(false, "Welcome, {player}!", List.of("Share where you are with /coords.", "Vote for clear weather with /vote weather clear.", "Check your play time with /playtime."), 15, "", ""),
             new LoginReward(false, List.of("minecraft:bread 4"), 1, 7, 7, List.of("minecraft:diamond 1")),
             new Events(true, 2, false, List.of(), 60, 2f, 1, 30, 2),
@@ -148,7 +154,7 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
     public PlayConfig withAutoOff(java.util.function.Predicate<String> loaded, org.slf4j.Logger log) {
         var hits = AutoOff.match(autoOffWith, loaded);
         var r = this;
-        if (hits.containsKey("pregen")) r = new PlayConfig(coords, deathHint, mentions, playtime, mobGriefing, pvp, welcome, loginReward, events, leaderboard, vote, afk, border,
+        if (hits.containsKey("pregen")) r = new PlayConfig(coords, deathHint, mentions, playtime, mobGriefing, pvp, newPlayerShield, welcome, loginReward, events, leaderboard, vote, afk, border,
                 netherRoof, keepInventory, dragonEgg, phantoms, entityLimit, cleanup, new Pregen(false, pregen.permission, pregen.parallel, pregen.perTick, pregen.maxRadius), autoOffWith);
         AutoOff.log(log, "config/simpletweaks-play.json", hits, Set.of());
         return r;
@@ -159,6 +165,7 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
         if (d != null) {
             if (coords == null) coords = d.coords; if (deathHint == null) deathHint = d.deathHint; if (mentions == null) mentions = d.mentions;
             if (playtime == null) playtime = d.playtime; if (mobGriefing == null) mobGriefing = d.mobGriefing; if (pvp == null) pvp = d.pvp;
+            if (newPlayerShield == null) newPlayerShield = d.newPlayerShield;
             if (welcome == null) welcome = d.welcome; if (loginReward == null) loginReward = d.loginReward; if (events == null) events = d.events;
             if (leaderboard == null) leaderboard = d.leaderboard; if (vote == null) vote = d.vote; if (afk == null) afk = d.afk;
             if (border == null) border = d.border; if (netherRoof == null) netherRoof = d.netherRoof; if (keepInventory == null) keepInventory = d.keepInventory;

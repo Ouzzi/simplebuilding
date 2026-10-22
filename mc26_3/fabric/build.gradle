@@ -152,7 +152,7 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.3.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -303,6 +303,7 @@ dependencies {
     include project(':modules:simplebeacons:fabric')
     include project(':modules:simpleshops:fabric')
     include project(':modules:simplewanderers:fabric')
+    include project(':modules:simplemusic:fabric')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

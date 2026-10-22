@@ -3,18 +3,25 @@ package com.simplemaps;
 /**
  * Owner N38/N65: the wayfinder screen's map is as large as the (scaled) window allows, in whole 16 px grid cells. Both sides carry
  * square bookmarks (tools left, waypoints right) whose size grows with the free height (20..32 px), so a large GUI scale uses
- * the room above and below. Plain maths, no client classes, so tests can check it for every window size.
+ * the room above and below. Opened from an item frame (owner 21.10.) a bar of {@link #BAR_H} under the footer holds the view
+ * code field and the save buttons. Plain maths, no client classes, so tests can check it for every window size.
  */
-public record WayfinderLayout(int cols, int rows, int left, int top, int tab) {
-    public static final int CELL = 16, FRAME = 8, TITLE_H = 12, FOOTER_H = 12, MARGIN = 4;
+public record WayfinderLayout(int cols, int rows, int left, int top, int tab, int bar) {
+    public static final int CELL = 16, FRAME = 8, TITLE_H = 12, FOOTER_H = 12, MARGIN = 4, BAR_H = 22, BUTTON_H = 20;
     /** Bookmark size limits, the gap between two, the part that hides under the frame, and how far a hovered one moves out. */
     public static final int TAB_MIN = 12, TAB_MAX = 32, TAB_GAP = 2, TAB_IN = 8, TAB_HOVER = 2;
     public static final int MIN_COLS = 8, MIN_ROWS = 6, LEFT_TABS = 8, RIGHT_TABS = 1 + Waypoint.SLOTS;
 
-    /** The layout for a screen of {@code width x height} GUI pixels. */
+    /** The layout for a screen of {@code width x height} GUI pixels (map in hand). */
     public static WayfinderLayout of(int width, int height) {
-        int rows = Math.max(MIN_ROWS, (height - 2 * MARGIN - TITLE_H - FOOTER_H - 2 * FRAME) / CELL);
-        int panelH = TITLE_H + rows * CELL + FOOTER_H + 2 * FRAME;
+        return of(width, height, false);
+    }
+
+    /** The layout for a screen of {@code width x height} GUI pixels; {@code frame}: with the bar of the framed map. */
+    public static WayfinderLayout of(int width, int height, boolean frame) {
+        int bar = frame ? BAR_H : 0;
+        int rows = Math.max(MIN_ROWS, (height - 2 * MARGIN - TITLE_H - FOOTER_H - bar - 2 * FRAME) / CELL);
+        int panelH = TITLE_H + rows * CELL + FOOTER_H + bar + 2 * FRAME;
         int inner = panelH - 2 * FRAME;
         int tab = Math.max(TAB_MIN, Math.min(TAB_MAX, (inner + TAB_GAP) / RIGHT_TABS - TAB_GAP));
         int sides = 2 * (tab + TAB_HOVER);
@@ -22,7 +29,7 @@ public record WayfinderLayout(int cols, int rows, int left, int top, int tab) {
         int panelW = cols * CELL + 2 * FRAME;
         int left = (width - (panelW + sides)) / 2 + tab + TAB_HOVER;
         int top = (height - panelH) / 2;
-        return new WayfinderLayout(cols, rows, left, top, tab);
+        return new WayfinderLayout(cols, rows, left, top, tab, bar);
     }
 
     public int mapW() {
@@ -38,7 +45,12 @@ public record WayfinderLayout(int cols, int rows, int left, int top, int tab) {
     }
 
     public int panelH() {
-        return TITLE_H + mapH() + FOOTER_H + 2 * FRAME;
+        return TITLE_H + mapH() + FOOTER_H + bar + 2 * FRAME;
+    }
+
+    /** y of the frame bar's buttons (under the footer line). */
+    public int barY() {
+        return mapY() + mapH() + FOOTER_H;
     }
 
     public int mapX() {

@@ -9,13 +9,17 @@ import com.simplemaps.WayfinderData;
 import com.simplemaps.WayfinderIds;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.mixin.ItemFrameAccessor;
+import com.simplebuilding.framework.api.Protection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import net.minecraft.commands.Commands;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -107,13 +111,42 @@ public final class MapsNetwork {
         else stack.set(MapsComponents.DISPLAY, payload.display());
     }
 
+    /** Outcome of saving a framed view: stored, refused by a right (claim, fixed frame, adventure, spawn), or a bad request. */
+    public enum FrameSave { SAVED, DENIED, INVALID }
+
     public static void handleFrameView(FrameViewPayload payload, ServerPlayer player) {
-        if (!(player.level().getEntity(payload.entityId()) instanceof ItemFrame frame)) return;
-        if (player.distanceToSqr(frame) > FRAME_REACH_SQR || !MapsItems.isWayfinder(frame.getItem())) return;
-        MapsComponents.View view = payload.view();
-        if (Math.abs(view.x()) > MAX_COORD || Math.abs(view.z()) > MAX_COORD) return;
+        FrameSave result = saveFrameView(player, payload.entityId(), payload.view());
+        SimpleMaps.toClient.accept(player, new FrameSavedPayload(payload.entityId(), result.ordinal()));
+    }
+
+    /**
+     * Owner 21.10.: the framed map takes the view only when the player saves (two-step confirmation on the client). The
+     * request is checked here: the frame exists in the player's level within reach, holds a wayfinder map, the centre lies
+     * inside the world; and the player may change the frame: no spectator, not a fixed frame, may build (not adventure),
+     * outside spawn protection, and every framework {@link Protection} provider allows the container right there (claims
+     * of Simple Tweaks protect item frames with that right). The new stack goes into the frame's synced data, so every
+     * player watching the frame sees the new view.
+     */
+    public static FrameSave saveFrameView(ServerPlayer player, int entityId, MapsComponents.View view) {
+        if (!com.simplemaps.MapsConfig.enabled || !(player.level().getEntity(entityId) instanceof ItemFrame frame) || frame.isRemoved()) return FrameSave.INVALID;
+        if (player.distanceToSqr(frame) > FRAME_REACH_SQR || !MapsItems.isWayfinder(frame.getItem())) return FrameSave.INVALID;
+        if (Math.abs(view.x()) > MAX_COORD || Math.abs(view.z()) > MAX_COORD) return FrameSave.INVALID;
+        if (!mayChange(player, frame)) return FrameSave.DENIED;
         ItemStack copy = frame.getItem().copy();
         copy.set(MapsComponents.VIEW, view);
         frame.getEntityData().set(ItemFrameAccessor.simplemaps$dataItem(), copy);
+        return FrameSave.SAVED;
+    }
+
+    /** Whether this player may change what the frame shows (the rights listed at {@link #saveFrameView}). */
+    public static boolean mayChange(ServerPlayer player, ItemFrame frame) {
+        BlockPos pos = frame.blockPosition();
+        if (player.isSpectator() || ((ItemFrameAccessor) frame).simplemaps$fixed() || !player.mayBuild()) return false;
+        if (!(frame.level() instanceof ServerLevel level) || !level.mayInteract(player, pos)) return false;
+        MinecraftServer server = level.getServer();
+        if (!Protection.active(server)) return true;
+        boolean admin = Commands.hasPermission(Commands.LEVEL_OWNERS).test(player.createCommandSourceStack());
+        return Protection.allows(server, new Protection.Target(player.getUUID(), level.dimension().identifier().toString(),
+                pos.getX(), pos.getY(), pos.getZ(), admin), Protection.Action.CONTAINER);
     }
 }

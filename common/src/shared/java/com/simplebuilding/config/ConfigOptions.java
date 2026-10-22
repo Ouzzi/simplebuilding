@@ -118,6 +118,7 @@ public final class ConfigOptions {
             "enableSimpleOctets",
             "enableSimpleHammers",
             "enableSimpleStorage",
+            "enableSimpleMusic",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

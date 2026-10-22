@@ -4,6 +4,8 @@ import com.simplebuilding.modules.simpletweaks.play.afk.Afk;
 import com.simplebuilding.modules.simpletweaks.play.death.DeathHint;
 import com.simplebuilding.modules.simpletweaks.play.keep.KeepInventory;
 import com.simplebuilding.modules.simpletweaks.play.pvp.Pvp;
+import com.simplebuilding.modules.simpletweaks.play.shield.NewPlayerShield;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
 
-/** Death hint (T5), partial keep inventory on respawn (T27), personal PvP (T9), grey AFK name (T24). */
+/** Death hint (T5), partial keep inventory on respawn (T27), personal PvP (T9), newcomer protection (T12), grey AFK name (T24). */
 @Mixin(ServerPlayer.class)
 public abstract class PlayServerPlayerMixin {
     @Inject(method = "die", at = @At("RETURN"))
@@ -25,7 +27,14 @@ public abstract class PlayServerPlayerMixin {
 
     @Inject(method = "canHarmPlayer", at = @At("RETURN"), cancellable = true)
     private void simpletweaks$playPvp(Player target, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValueZ() && !Pvp.allows((ServerPlayer) (Object) this, target)) cir.setReturnValue(false);
+        var self = (ServerPlayer) (Object) this;
+        if (cir.getReturnValueZ() && (!Pvp.allows(self, target) || !NewPlayerShield.allows(self, target))) cir.setReturnValue(false);
+    }
+
+    /** T12: an attack by a protected player may end its protection (before Vanilla asks {@code canHarmPlayer}). */
+    @Inject(method = "hurtServer", at = @At("HEAD"))
+    private void simpletweaks$playShieldHurt(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        NewPlayerShield.hurt((ServerPlayer) (Object) this, source);
     }
 
     @Inject(method = "getTabListDisplayName", at = @At("RETURN"), cancellable = true)

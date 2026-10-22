@@ -15,7 +15,8 @@
     "PlayGameRulesMixin",
     "PlayServerLevelMixin",
     "PlayOrbMixin",
-    "PlayLootMixin"
+    "PlayLootMixin",
+    "PlayEffectMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -17,7 +17,8 @@
           "A map binds to the dimension it is first used in. Which dimensions a map accepts is set by the dimension type tags simplemaps:nether_wayfinder and simplemaps:end_wayfinder; the plain map takes every dimension in neither tag.",
           "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384).",
           "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map needs 2 echo shards and a netherite scrap instead, the End map 2 echo shards and a shulker shell.",
-          "Found in chests: cartographer and shipwreck map chests 5 % (plain map), bastions and Nether fortresses 2 % (Nether map), end city treasure 2 % (End map)."
+          "Found in chests: cartographer and shipwreck map chests 5 % (plain map), bastions and Nether fortresses 2 % (Nether map), end city treasure 2 % (End map).",
+          "Wayfinder maps do not stack: each one holds its own waypoints and view."
         ]
       },
       "de": {
@@ -28,7 +29,8 @@
           "Eine Karte bindet sich an die Dimension, in der sie zuerst benutzt wird. Welche Dimensionen eine Karte annimmt, legen die Dimensionstyp-Tags simplemaps:nether_wayfinder und simplemaps:end_wayfinder fest; die einfache Karte nimmt jede Dimension, die in keinem der beiden steht.",
           "Gespeichert werden nur erkundete Kacheln zu 128 × 128 Blöcken (Farbe und Höhe je Block); höchstens maxTilesPerMap Kacheln je Karte (Standard 4096, Servergrenzen 16–16384).",
           "Rezepte (formlos): Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter; die Nether-Karte braucht stattdessen 2 Echo-Splitter und einen Netheritplatten, die End-Karte 2 Echo-Splitter und eine Shulker-Schale.",
-          "Fundorte: Kartografen- und Schiffswrack-Kartentruhen 5 % (einfache Karte), Bastionen und Netherfestungen 2 % (Nether-Karte), Endstadt-Schatz 2 % (End-Karte)."
+          "Fundorte: Kartografen- und Schiffswrack-Kartentruhen 5 % (einfache Karte), Bastionen und Netherfestungen 2 % (Nether-Karte), Endstadt-Schatz 2 % (End-Karte).",
+          "Wegfinder-Karten stapeln nicht: jede hat ihre eigenen Wegpunkte und ihren eigenen Ausschnitt."
         ]
       }
     },
@@ -71,6 +73,31 @@
       }
     },
     {
+      "id": "claims_layer",
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimMapLayer.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/MapLayerSources.java",
+        "modules/simplemaps/shared/java/com/simplemaps/net/LayerService.java",
+        "modules/simplemaps/shared/java/com/simplemaps/client/MapLayers.java"
+      ],
+      "en": {
+        "title": "Claims layer",
+        "summary": "With Simple Tweaks installed, the layers button of the map screen offers a Claims layer: claimed land as colored strips on explored terrain, your own land framed.",
+        "details": [
+          "Simple Tweaks registers the layer with the framework; Simple Maps does not know Simple Tweaks. Without Simple Tweaks there is no Claims layer and nothing changes.",
+          "The server decides what you see, with the same visibility rules as the Claim Table (config claimVisibility in simpletweaks-claims.json); member lists, rights and codes never leave the server. One answer carries at most 256 strips. See the Claim Table in the Simple Tweaks manual."
+        ]
+      },
+      "de": {
+        "title": "Claims-Ebene",
+        "summary": "Mit Simple Tweaks bietet der Ebenen-Knopf des Kartenbildschirms eine Claims-Ebene: beanspruchtes Land als farbige Streifen auf erkundetem Gelände, dein eigenes Land umrahmt.",
+        "details": [
+          "Simple Tweaks meldet die Ebene beim Framework an; Simple Maps kennt Simple Tweaks nicht. Ohne Simple Tweaks gibt es keine Claims-Ebene und nichts ändert sich.",
+          "Der Server entscheidet, was du siehst, mit denselben Sichtbarkeitsregeln wie der Claim-Tisch (Config claimVisibility in simpletweaks-claims.json); Mitgliederlisten, Rechte und Codes verlassen den Server nie. Eine Antwort enthält höchstens 256 Streifen. Siehe Claim-Tisch im Simple-Tweaks-Handbuch."
+        ]
+      }
+    },
+    {
       "id": "waypoints",
       "sources": [
         "modules/simplemaps/shared/java/com/simplemaps/Waypoint.java",
@@ -105,7 +132,7 @@
         "title": "Cartography table",
         "summary": "Copy, extend and combine wayfinder maps at the cartography table; each can be switched off on the server.",
         "details": [
-          "Wayfinder map + empty map: two copies of the same map, waypoints included (allowCopy).",
+          "Wayfinder map on top + empty map below: one copy of the same map, waypoints included; only the empty map is used up, the original stays (allowCopy).",
           "Wayfinder map + filled map of the same dimension: only the filled map is used up; its area is added where the wayfinder map is still unexplored (allowExtend).",
           "Two wayfinder maps of the same kind and dimension: the second one is used up, the areas are united; the first map keeps its waypoints, free slots take the second one's (allowCombine)."
         ]
@@ -114,7 +141,7 @@
         "title": "Kartentisch",
         "summary": "Wegfinder-Karten am Kartentisch kopieren, erweitern und kombinieren; jede Funktion ist auf dem Server abschaltbar.",
         "details": [
-          "Wegfinder-Karte + leere Karte: zwei Kopien derselben Karte, mit Wegpunkten (allowCopy).",
+          "Wegfinder-Karte oben + leere Karte unten: eine Kopie derselben Karte, mit Wegpunkten; nur die leere Karte wird verbraucht, das Original bleibt liegen (allowCopy).",
           "Wegfinder-Karte + gefüllte Karte derselben Dimension: nur die gefüllte Karte wird verbraucht; ihr Bereich ergänzt die noch unerkundeten Stellen (allowExtend).",
           "Zwei Wegfinder-Karten gleicher Art und Dimension: die zweite wird verbraucht, die Bereiche werden vereinigt; die erste behält ihre Wegpunkte, freie Plätze bekommen die der zweiten (allowCombine)."
         ]
@@ -125,20 +152,30 @@
       "sources": [
         "modules/simplemaps/shared/java/com/simplemaps/mixin/ItemFrameMixin.java",
         "modules/simplemaps/shared/java/com/simplemaps/net/MapsNetwork.java",
-        "modules/simplemaps/shared/java/com/simplemaps/client/MapsClient.java"
+        "modules/simplemaps/shared/java/com/simplemaps/client/MapsClient.java",
+        "modules/simplemaps/shared/java/com/simplemaps/client/WayfinderScreen.java",
+        "modules/simplemaps/shared/java/com/simplemaps/FrameCode.java"
       ],
       "en": {
         "title": "Maps in item frames",
-        "summary": "A framed wayfinder map shows a stored view; right-click opens the map screen, and the frame shows where you scrolled to.",
+        "summary": "A framed wayfinder map keeps its view until you save a new one: right-click opens the map, the frame's area is outlined, and saving asks once more.",
         "details": [
-          "Sneak + right-click rotates the frame as usual. Waypoints are read-only in a frame."
+          "Sneak + right-click rotates the frame as usual. Waypoints are read-only in a frame.",
+          "Dashed outline: what the frame shows now. Solid outline: what saving stores, the picture of the current zoom at the chunk nearest to the middle. Closing the screen never changes the frame.",
+          "Save view, then Confirm (clickable after half a second, gone after five seconds or when the view moves; Esc or the cross cancels). The server stores the view for every player and refuses fixed frames, adventure and spectator mode, spawn protection and claims without the container right.",
+          "View code X,Z,scale: X and Z are the chunk (as F3 shows it) at the top-left corner of the frame's picture, the scale is the zoom label 8:1, 4:1, 2:1, 1:1, 1:2 … 1:64. Example 1,1,8:1 shows exactly chunk 1,1; -1,-100,1:64 shows 512 x 512 chunks from chunk -1,-100. Enter jumps there; the copy button copies the code.",
+          "A frame is 1 chunk wide at 8:1, 2 at 4:1, 4 at 2:1, 8 at 1:1 and twice as many per step up to 512 at 1:64; the next frame east is X + width, south Z + width (the code field's tooltip shows both codes). From 1:32 on a pixel is wider than a chunk, so the picture starts at the pixel holding the chunk."
         ]
       },
       "de": {
         "title": "Karten im Gegenstandsrahmen",
-        "summary": "Eine gerahmte Wegfinder-Karte zeigt einen gespeicherten Ausschnitt; Rechtsklick öffnet die Kartenansicht, danach zeigt der Rahmen den Ausschnitt, zu dem man gescrollt hat.",
+        "summary": "Eine gerahmte Wegfinder-Karte behält ihren Ausschnitt, bis du speicherst: Rechtsklick öffnet die Karte, der Rahmenbereich ist markiert, Speichern fragt nach.",
         "details": [
-          "Schleichen + Rechtsklick dreht den Rahmen wie gewohnt. Wegpunkte sind im Rahmen nur lesbar."
+          "Schleichen + Rechtsklick dreht den Rahmen wie gewohnt. Wegpunkte sind im Rahmen nur lesbar.",
+          "Gestrichelter Rand: was der Rahmen jetzt zeigt. Durchgezogener Rand: was Speichern übernimmt, das Bild der aktuellen Zoomstufe am Chunk nächst der Mitte. Schließen ändert den Rahmen nie.",
+          "Speichern, dann Bestätigen (erst nach einer halben Sekunde klickbar, verfällt nach fünf Sekunden oder wenn sich die Ansicht bewegt; Esc oder das Kreuz bricht ab). Der Server übernimmt die Ansicht für alle Spieler und lehnt feste Rahmen, Abenteuer- und Zuschauermodus, Spawnschutz und Claims ohne Behälter-Recht ab.",
+          "Ansichtscode X,Z,Maßstab: X und Z sind der Chunk (wie F3 ihn zeigt) an der linken oberen Ecke des Rahmenbilds, der Maßstab ist die Zoom-Beschriftung 8:1, 4:1, 2:1, 1:1, 1:2 … 1:64. Beispiel 1,1,8:1 zeigt genau Chunk 1,1; -1,-100,1:64 zeigt 512 × 512 Chunks ab Chunk -1,-100. Enter springt hin, der Kopieren-Knopf kopiert den Code.",
+          "Ein Rahmen ist bei 8:1 1 Chunk breit, bei 4:1 2, bei 2:1 4, bei 1:1 8 und je Stufe doppelt so viele bis 512 bei 1:64; der nächste Rahmen östlich ist X + Breite, südlich Z + Breite (der Tooltip des Codefelds zeigt beide Codes). Ab 1:32 ist ein Pixel breiter als ein Chunk, das Bild beginnt dann am Pixel, in dem der Chunk liegt."
         ]
       }
     },
@@ -206,10 +243,10 @@
         "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+        "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+        "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
       }
     },
     "simplemaps:wayfinder_map": {

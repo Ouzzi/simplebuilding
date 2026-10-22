@@ -67,6 +67,21 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void frameSaveRules(GameTestHelper h) {
+        MapsTests.ALL.get("frame_save_rules").accept(h);
+    }
+
+    @GameTest
+    public void frameCode(GameTestHelper h) {
+        MapsTests.ALL.get("frame_code").accept(h);
+    }
+
+    @GameTest
+    public void stackSize(GameTestHelper h) {
+        MapsTests.ALL.get("stack_size").accept(h);
+    }
+
+    @GameTest
     public void loot(GameTestHelper h) {
         MapsTests.ALL.get("loot").accept(h);
     }

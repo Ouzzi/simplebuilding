@@ -423,6 +423,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_renamed_item_ids_still_load_as_the_renamed_items", TradeAndMigrationTests::renamedItemIdsStillLoadAsTheRenamedItems)
                     .build(),
+            GameTestSpec.named("trade_and_migration_game_test_split_backup_marker_is_written_once", TradeAndMigrationTests::splitBackupMarkerIsWrittenOnce)
+                    .build(),
             GameTestSpec.named("migration_world_game_test_fixtures_are_buildable", MigrationWorldTests::fixturesAreBuildable)
                     .build(),
             GameTestSpec.named("migration_world_game_test_world_loads_under_moved_ids", MigrationWorldTests::worldLoadsUnderMovedIds)
@@ -1781,6 +1783,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_upgrade_game_test_hammer_draws_back_between_blows_and_hints_beforehand", SledgehammerUpgradeTests::hammerDrawsBackBetweenBlowsAndHintsBeforehand)
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_upgrade_tooltip_hints_show_once", SledgehammerUpgradeTests::upgradeTooltipHintsShowOnce)
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),

@@ -786,6 +786,24 @@ public final class MusicTests {
             menu.getSlot(1).set(ItemStack.EMPTY);
             h.succeed();
         });
+        ALL.put("sub_mod_switch", h -> {
+            // SimpleBuilding's "Enable Simple Music" reaches the module through framework SubMods (super-/sub-mod concept).
+            boolean before = com.simplebuilding.framework.api.SubMods.enabled(SimpleMusic.MOD_ID);
+            try {
+                com.simplebuilding.framework.api.SubMods.set(SimpleMusic.MOD_ID, false);
+                h.assertTrue(!SimpleMusic.on() && MusicRegistry.tabStacks().isEmpty() && MusicRegistry.toolStacks().isEmpty(),
+                        "switched off: inert, no tab entries");
+                h.assertTrue(!JukeboxDiscs.on(h.getLevel()), "no custom discs in the Vanilla jukebox");
+                ServerPlayer player = h.makeMockServerPlayerInLevel();
+                ItemStack sheet = new ItemStack(MusicRegistry.SHEET_MUSIC);
+                player.setItemInHand(InteractionHand.MAIN_HAND, sheet);
+                h.assertTrue(!sheet.use(h.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the sheet does not open");
+            } finally {
+                com.simplebuilding.framework.api.SubMods.set(SimpleMusic.MOD_ID, before);
+            }
+            h.assertTrue(SimpleMusic.on() && !MusicRegistry.tabStacks().isEmpty(), "back on");
+            h.succeed();
+        });
         ALL.put("guide_book", com.simplemusic.guide.MusicGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simplemusic.discover.MusicDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemusic.discover.MusicDiscover::behaviourHints);

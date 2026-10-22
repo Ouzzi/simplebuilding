@@ -35,7 +35,7 @@
     "java": ">=25",
     "cloth-config": "*",
     "fabric-api": "*",
-    "simplelib": ">=0.2.0"
+    "simplelib": ">=0.3.0"
   },
   "mixins": [
     "simpleinterfaces.mixins.json"
