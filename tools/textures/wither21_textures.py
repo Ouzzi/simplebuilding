@@ -208,6 +208,82 @@ SHARD_LIGHT_B = [
     '................',
 ]
 
+# WI21 (owner 21.10.): "strong upgrade b aber kleiner oder a und kleiner also neu" -> two new, clearly smaller
+# shards (8x10 px like a Vanilla amethyst/echo shard instead of 12x13): SA from variant A (wedge, gold cross),
+# SB from variant B (slim splinter, gold along the edge). Built in: SB (named first); choice code SP21 A|B.
+SHARD_SMALL_SHAPE_A = [
+    '................',
+    '................',
+    '................',
+    '................',
+    '..........O.....',
+    '.........OlO....',
+    '........OlmbO...',
+    '.......OlbgbO...',
+    '......OnngynO...',
+    '......OmbgbdO...',
+    '.....OlbbbdO....',
+    '.....OddbddO....',
+    '......OOddO.....',
+    '........OO......',
+    '................',
+    '................',
+]
+SHARD_SMALL_LIGHT_A = [
+    '................',
+    '................',
+    '................',
+    '................',
+    '................',
+    '................',
+    '..........k.....',
+    '................',
+    '................',
+    '................',
+    '......c.........',
+    '................',
+    '................',
+    '................',
+    '................',
+    '................',
+]
+SHARD_SMALL_SHAPE_B = [
+    '................',
+    '................',
+    '................',
+    '................',
+    '.......O........',
+    '......OlO.......',
+    '......OlmO......',
+    '.....OgybO......',
+    '.....OgybdO.....',
+    '....OnngbdO.....',
+    '....OmbgybO.....',
+    '.....ObnndO.....',
+    '......OddO......',
+    '.......OO.......',
+    '................',
+    '................',
+]
+SHARD_SMALL_LIGHT_B = [
+    '................',
+    '................',
+    '................',
+    '................',
+    '................',
+    '................',
+    '.......k........',
+    '................',
+    '................',
+    '................',
+    '................',
+    '........c.......',
+    '................',
+    '................',
+    '................',
+    '................',
+]
+
 # ---------------------------------------------------------------- placed Nether Heart (block, 8x8 cube: uv 4..12)
 def heart_block(pal_light):
     """Flesh face: dark rim at the bottom/right, lighter at the top/left (bevel like Vanilla blocks); outside the face
@@ -373,8 +449,10 @@ def variants() -> dict[str, tuple[Path, dict, dict]]:
     return {
         'nether_heart': (MOBS / 'item/nether_heart.png', doc(HEART_SHAPE, HEART_LIGHT_A, HEART_A), doc(HEART_SHAPE, HEART_LIGHT_B, HEART_B)),
         'nether_gem': (MOBS / 'item/nether_gem.png', doc(GEM_SHAPE, GEM_LIGHT, GEM_A), doc(GEM_SHAPE, GEM_LIGHT, GEM_B)),
-        'strong_upgrade_shard': (BEACONS / 'item/strong_upgrade_shard.png', doc(SHARD_SHAPE_A, SHARD_LIGHT_A, SHARD_PAL),
-                                 doc(SHARD_SHAPE_B, SHARD_LIGHT_B, SHARD_PAL)),
+        # WI21: built in the small shard from B (SB), alternative the small one from A (SA)
+        'strong_upgrade_shard': (BEACONS / 'item/strong_upgrade_shard.png',
+                                 doc(SHARD_SMALL_SHAPE_B, SHARD_SMALL_LIGHT_B, SHARD_PAL),
+                                 doc(SHARD_SMALL_SHAPE_A, SHARD_SMALL_LIGHT_A, SHARD_PAL)),
         'nether_heart_block': (MOBS / 'block/nether_heart.png', doc(hb_a[0], hb_a[1], HEART_A), doc(hb_b[0], hb_b[1], HEART_B)),
         'nether_gem_block': (MOBS / 'block/nether_gem.png', doc(GEM_BLOCK_SHAPE, GEM_BLOCK_LIGHT, GEM_A),
                              doc(GEM_BLOCK_SHAPE, GEM_BLOCK_LIGHT, GEM_B)),

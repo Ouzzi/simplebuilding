@@ -2,8 +2,10 @@
 Mod icons: one 16x16 pixel-art icon per mod of modules/modules.json (docs/ai/PLAN-B-MODICONS-2026-10-21.md,
 docs/ai/PRINZIPIEN.md A8 c).
 
-Every icon is drawn here as ASCII art with a palette; the characters are grouped into named layers, so the
-layer source <assets>/<modid>/icon.layers.json opens in the wiki pixel editor (A8 b). Written per mod:
+IC21 (docs/ai/PLAN-B-ICONS21B-2026-10-21.md): every icon shows a characteristic motif of its mod on a background
+tile (layers "Hintergrund", "Rahmen", then the motif). The motif is either the mod's typical item texture
+(ITEM_MOTIFS, layer "Motiv") or drawn here as ASCII art with a palette, its characters grouped into named layers, so
+the layer source <assets>/<modid>/icon.layers.json opens in the wiki pixel editor (A8 b). Written per mod:
 
     icon.layers.json   layer source (tools/textures/layers.py format)
     icon.png           16x16 composition: Fabric `icon`, NeoForge `iconFile` (both draw it unfiltered)
@@ -135,29 +137,6 @@ def models_icon():
                 [("Umriss", "e"), ("Vorderkanten", "v")], *rows_of(out))
 
 
-def beacon_icon():
-    """Simple Beacons: a beacon block (glass shell, cyan core, obsidian base); drawn on the cube silhouette."""
-    return icon("Leuchtfeuer-Block", {"o": "#1e3a44", "W": "#f4ffff", "w": "#c8eef2", "g": "#a8e4ec", "h": "#7cc8d4",
-                                      "d": "#5aa8b4", "C": "#7ffcff", "c": "#2a2238"},
-                [("Kontur", "o"), ("Glas", "Wwghd"), ("Kern", "C"), ("Obsidian", "c")],
-                "................",
-                ".......oo.......",
-                ".....ooWWoo.....",
-                "...ooWggggWoo...",
-                ".ooWggCCCCggWoo.",
-                ".owWWggCCggWWwo.",
-                ".ohwwWWggWWwwdo.",
-                ".ohhhwwWWwwdddo.",
-                ".ohhhhhwwdddddo.",
-                ".ohCChhwwddCCdo.",
-                ".ohCCChwwdCCCdo.",
-                ".occcccwwccccco.",
-                "...ooccwwccoo...",
-                ".....oowwoo.....",
-                ".......oo.......",
-                "................")
-
-
 # ---------------------------------------------------------------- ASCII icons
 
 ICONS: dict[str, dict] = {
@@ -237,25 +216,6 @@ ICONS: dict[str, dict] = {
                                 "....oooooooo....",
                                 "................",
                                 "................"),
-    "simpletweaks": icon("Claim-Fahne", {"o": "#1e2430", "W": "#9c7440", "R": "#2f7fd0", "h": "#6ab0f0",
-                                        "d": "#1f5a98"},
-                         [("Kontur", "o"), ("Stange", "W"), ("Fahne", "Rhd")],
-                         "................",
-                         "................",
-                         "...ooo..........",
-                         "...oWooooooo....",
-                         "...oWRRRRRRRo...",
-                         "...oWRhRRRRRRo..",
-                         "...oWRRRRRRRRo..",
-                         "...oWRRRRRRRdo..",
-                         "...oWRRRRRRdo...",
-                         "...oWoooooooo...",
-                         "...oWo..........",
-                         "...oWo..........",
-                         "...oWo..........",
-                         "..ooooo.........",
-                         "................",
-                         "................"),
     "simpledimensions": icon("Portal im Obsidianrahmen", {"o": "#0a0612", "K": "#1a1028", "k": "#3b2a5c",
                                                           "p": "#7a2fd0", "P": "#b070f8", "q": "#4e1a98"},
                              [("Kontur", "o"), ("Rahmen", "Kk"), ("Portal", "pPq")],
@@ -294,26 +254,6 @@ ICONS: dict[str, dict] = {
                              "................",
                              "................",
                              "................"),
-    "simplelib": icon("Buch mit Zahnrad (Bibliothek)", {"o": "#2b1a0e", "d": "#5e311b", "c": "#7a4024",
-                                                        "C": "#9a5630", "g": "#d8d8d8", "G": "#9a9a9a", "p": "#e8e1c8",
-                                                        "P": "#c4b99a"},
-                      [("Kontur", "o"), ("Einband", "dcC"), ("Seiten", "pP"), ("Zahnrad", "gG")],
-                      "................",
-                      "...ooooooooooo..",
-                      "..odCCCCCCCCCo..",
-                      "..odcCCgCgCCco..",
-                      "..odcCgggGgCco..",
-                      "..odcggCCCGgco..",
-                      "..odcCgCCCGCco..",
-                      "..odcggCCCGGco..",
-                      "..odcCgGGGGCco..",
-                      "..odcCCGCGCCco..",
-                      "..odcccccccccoo.",
-                      "..odpppppppppPo.",
-                      "..odPPPPPPPPPPo.",
-                      "...oooooooooooo.",
-                      "................",
-                      "................"),
     "simpleinterfaces": icon("Fenster mit Inventarplätzen", {"o": "#000000", "W": "#ffffff", "c": "#c6c6c6",
                                                              "S": "#555555", "D": "#373737", "s": "#8b8b8b",
                                                              "x": "#4ad8e0"},
@@ -334,63 +274,6 @@ ICONS: dict[str, dict] = {
                              ".ocSSSSSSSSSSSo.",
                              "..oooooooooooo..",
                              "................"),
-    "simplemaps": icon("Karte mit Markierung", {"o": "#6b5a3a", "p": "#e3d3a5", "l": "#6fa046", "L": "#8cbd5a",
-                                               "w": "#3f76c4", "X": "#c42a2a"},
-                       [("Kontur", "o"), ("Papier", "p"), ("Land", "lL"), ("Wasser", "w"), ("Markierung", "X")],
-                       "................",
-                       "................",
-                       "..oooooooooooo..",
-                       "..oppppppppppo..",
-                       "..opllllpwwwpo..",
-                       "..oplLlwXwXwpo..",
-                       "..opllwwwXwwpo..",
-                       "..oplwwwXwXlpo..",
-                       "..opwwwllllLpo..",
-                       "..opwwlllLllpo..",
-                       "..opwlllllllpo..",
-                       "..oppppppppppo..",
-                       "..oooooooooooo..",
-                       "................",
-                       "................",
-                       "................"),
-    "simpletrims": icon("Brustpanzer mit Goldbesatz", {"o": "#2e2e2e", "m": "#c8c8c8", "M": "#ececec",
-                                                       "d": "#8a8a8a", "T": "#f2c12e"},
-                        [("Kontur", "o"), ("Panzer", "mMd"), ("Besatz", "T")],
-                        "................",
-                        "................",
-                        "..ooo......ooo..",
-                        ".oMmmo....oMmmo.",
-                        ".oMmmmooooMmmmo.",
-                        ".omTmmmmmmmmTmo.",
-                        ".oomTmmmmmmTmoo.",
-                        "..omdTmmmmTmdo..",
-                        "..ommdTmmTmmdo..",
-                        "..ommmdTTmmmdo..",
-                        "..ommmmddmmmdo..",
-                        "..ommmmmmmmmdo..",
-                        "..oddddddddddo..",
-                        "...oooooooooo...",
-                        "................",
-                        "................"),
-    "simplemobs": icon("Kopf eines Hohlwächters", {"o": "#0c0a10", "k": "#2e2a3a", "K": "#4a4458", "E": "#e080ff",
-                                                   "e": "#8a3ac8", "d": "#120e18"},
-                       [("Kontur", "o"), ("Kopf", "kK"), ("Augen", "Ee"), ("Maul", "d")],
-                       "................",
-                       "................",
-                       "..oooooooooooo..",
-                       "..okKkkkkkkKko..",
-                       "..okkkkkkkkkko..",
-                       "..okkkkkkkkkko..",
-                       "..okEEEkkEEEko..",
-                       "..okeEekkeEeko..",
-                       "..okkkkkkkkkko..",
-                       "..okkkkddkkkko..",
-                       "..okkddddddkko..",
-                       "..okkdkddkdkko..",
-                       "..okkkkkkkkkko..",
-                       "..oooooooooooo..",
-                       "................",
-                       "................"),
     "simpleweather": icon("Regenwolke", {"o": "#6a7380", "W": "#f2f2f2", "g": "#b8c0cc", "b": "#3f7fe0"},
                           [("Kontur", "o"), ("Wolke", "Wg"), ("Regen", "b")],
                           "................",
@@ -428,43 +311,6 @@ ICONS: dict[str, dict] = {
                            "................",
                            "................",
                            "................"),
-    "simpletools": icon("Eisenspitzhacke", {"o": "#2d2d2d", "H": "#dadada", "h": "#a0a0a0", "W": "#8a6232"},
-                        [("Kontur", "o"), ("Kopf", "Hh"), ("Stiel", "W")],
-                        "................",
-                        "................",
-                        "...ooooooo......",
-                        "..oHHHHHHhoo....",
-                        "...ooooooHhho...",
-                        ".........oHhho..",
-                        ".......oWooHho..",
-                        "......oWo.oHho..",
-                        ".....oWo..oHho..",
-                        "....oWo...oHo...",
-                        "...oWo....oHo...",
-                        "..oWo......o....",
-                        ".oWo............",
-                        ".oo.............",
-                        "................",
-                        "................"),
-    "simplehammers": icon("Vorschlaghammer", {"o": "#2d2d2d", "H": "#d4d4d4", "h": "#a8a8a8", "d": "#6e6e6e",
-                                              "W": "#8a6232"},
-                          [("Kontur", "o"), ("Kopf", "Hhd"), ("Stiel", "W")],
-                          "................",
-                          "........oooooo..",
-                          ".......oHHHHHho.",
-                          ".......oHhhhhdo.",
-                          ".......oHhhhhdo.",
-                          ".......oHhhhhdo.",
-                          ".......oddddddo.",
-                          "......oWoooooo..",
-                          ".....oWo........",
-                          "....oWo.........",
-                          "...oWo..........",
-                          "..oWo...........",
-                          ".oWo............",
-                          ".oo.............",
-                          "................",
-                          "................"),
     "simplefarming": icon("Weizengarbe", {"o": "#3a2810", "Y": "#e8c050", "y": "#b8862c", "s": "#8a9a30",
                                           "T": "#6a4a20"},
                           [("Ähren", "Yy"), ("Halme", "s"), ("Band", "oT")],
@@ -484,25 +330,6 @@ ICONS: dict[str, dict] = {
                           "...s...s...s....",
                           "................",
                           "................"),
-    "simplemobmanners": icon("Namensschild", {"o": "#5a4220", "T": "#dcc89e", "t": "#b8a070", "k": "#3a2a14",
-                                              "S": "#8a8a8a", "L": "#8a6a3a"},
-                             [("Kontur", "o"), ("Schild", "Ttk"), ("Schnur", "S"), ("Schrift", "L")],
-                             "................",
-                             "................",
-                             "..S.............",
-                             "..S.............",
-                             "...S............",
-                             "....Sooooooooo..",
-                             "....oSTTTTTTTTo.",
-                             "...oTkTTTTTTTTo.",
-                             "...oTTTLLLLLLTo.",
-                             "....oTTTTTTTTto.",
-                             ".....ooooooooo..",
-                             "................",
-                             "................",
-                             "................",
-                             "................",
-                             "................"),
     "simpleloot": icon("Schatztruhe", {"o": "#2a1a0c", "w": "#a8743c", "W": "#c48a4a", "d": "#6a4220",
                                        "G": "#f2d040", "g": "#b89020"},
                        [("Kontur", "o"), ("Holz", "wWd"), ("Schloss", "Gg")],
@@ -560,44 +387,6 @@ ICONS: dict[str, dict] = {
                              "................",
                              "................",
                              "................"),
-    "simpleenddragonfight": icon("Drachenei", {"o": "#2a1840", "k": "#1e1428", "K": "#3a2a50", "p": "#b040e0"},
-                                 [("Kontur", "o"), ("Schale", "kK"), ("Funken", "p")],
-                                 "................",
-                                 "................",
-                                 "......oooo......",
-                                 ".....oKkkko.....",
-                                 "....oKkkkkko....",
-                                 "....okkpkkko....",
-                                 "...oKkkkkpkko...",
-                                 "...okpkkkkkko...",
-                                 "...okkkkpkkko...",
-                                 "..oKkkkkkkkkko..",
-                                 "..okkpkkkkpkko..",
-                                 "..okkkkkkkkkko..",
-                                 "...okkkpkkkko...",
-                                 "....oooooooo....",
-                                 "................",
-                                 "................"),
-    "simpleend": icon("Aschholz-Baum auf Endstein", {"o": "#2a2030", "L": "#8a7a9a", "l": "#5e5070",
-                                                     "t": "#4a3a2a", "T": "#6a5440", "E": "#e8e2a8",
-                                                     "e": "#c8c088"},
-                      [("Kontur", "o"), ("Krone", "Ll"), ("Stamm", "tT"), ("Endstein", "Ee")],
-                      "................",
-                      "......oooo......",
-                      ".....oLLLlo.....",
-                      "....oLLlLLlo....",
-                      "...oLlLLLlLlo...",
-                      "...oLLLlLLLlo...",
-                      "....olLLLllo....",
-                      ".....oottoo.....",
-                      ".......tT.......",
-                      ".......tT.......",
-                      "..ooooottooooo..",
-                      "..oEEeEEEEeEEo..",
-                      "..oeEEEeEEEEeo..",
-                      "..oooooooooooo..",
-                      "................",
-                      "................"),
     "simplerespawn": icon("Herz mit Plus (Wiederbelebung)", {"o": "#3a0808", "R": "#d42a2a", "H": "#f07070",
                                                              "d": "#8a1414", "W": "#ffffff"},
                           [("Kontur", "o"), ("Herz", "RHd"), ("Plus", "W")],
@@ -711,25 +500,6 @@ ICONS: dict[str, dict] = {
                         "................",
                         "................",
                         "................"),
-    "simplecrucibles": icon("Tiegel mit Glut", {"o": "#2a2a2a", "I": "#b8b8b8", "i": "#8a8a8a", "d": "#5a5a5a",
-                                                "L": "#f08020", "l": "#ffd040"},
-                            [("Kontur", "o"), ("Tiegel", "Iid"), ("Glut", "Ll")],
-                            "................",
-                            "................",
-                            "................",
-                            ".oooooooooooooo.",
-                            ".oILLlLLLLlLLIo.",
-                            "..oIIIIIIIIIIo..",
-                            "..oIiiiiiiiiio..",
-                            "..oIiiiiiiiiio..",
-                            "..oIiiiiiiiido..",
-                            "..oIiiiiiiiido..",
-                            "..oIiiiiiiiddo..",
-                            "...oiiiiiiddo...",
-                            "....oooooooo....",
-                            "................",
-                            "................",
-                            "................"),
     "simpleoptimization": icon("Blitz (Sammel-Mod)", {"o": "#6a4a08", "Y": "#ffe040", "y": "#e0a020"},
                                [("Kontur", "o"), ("Blitz", "Yy")],
                                "................",
@@ -805,45 +575,8 @@ ICONS: dict[str, dict] = {
                             "...oooooooooo...",
                             "................",
                             "................"),
-    "simplestorage": icon("Holzkiste", {"o": "#3a2410", "W": "#b88a50", "w": "#8a6232", "B": "#c8a060"},
-                          [("Kontur", "o"), ("Rahmen", "W"), ("Bretter", "w"), ("Strebe", "B")],
-                          "................",
-                          "................",
-                          "..oooooooooooo..",
-                          "..oWWWWWWWWWWo..",
-                          "..oWBBwwwwwwWo..",
-                          "..oWwBBwwwwwWo..",
-                          "..oWwwBBwwwwWo..",
-                          "..oWwwwBBwwwWo..",
-                          "..oWwwwwBBwwWo..",
-                          "..oWwwwwwBBwWo..",
-                          "..oWwwwwwwBBWo..",
-                          "..oWwwwwwwwBWo..",
-                          "..oWWWWWWWWWWo..",
-                          "..oooooooooooo..",
-                          "................",
-                          "................"),
-    "simplemusic": icon("Notenblatt", {"o": "#6a5a3a", "P": "#f0e8d0", "L": "#b8b0a0", "K": "#1a1a1a"},
-                        [("Kontur", "o"), ("Papier", "P"), ("Linien", "L"), ("Noten", "K")],
-                        "................",
-                        "..oooooooooooo..",
-                        "..oPPPPPPPPPPo..",
-                        "..oPPPPPKKKKPo..",
-                        "..oLLLLLKLLKLo..",
-                        "..oPPPPPKPPKPo..",
-                        "..oLLLLLKLLKLo..",
-                        "..oPPPPPKPPKPo..",
-                        "..oLLLLKKLKKLo..",
-                        "..oPPPPKKPKKPo..",
-                        "..oLLLLLLLLLLo..",
-                        "..oPPPPPPPPPPo..",
-                        "..oLLLLLLLLLLo..",
-                        "..oPPPPPPPPPPo..",
-                        "..oooooooooooo..",
-                        "................"),
 }
-PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon,
-              "simplebeacons": beacon_icon}
+PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon}
 
 
 def spec(mod_id: str) -> dict | None:
@@ -852,7 +585,59 @@ def spec(mod_id: str) -> dict | None:
     return ICONS.get(mod_id)
 
 
-def to_doc(sp: dict, mod_id: str) -> dict:
+# ---------------------------------------------------------------- IC21: characteristic motif on a background tile
+# Owner 21.10. (IC21): "bitte alle eine characteristik aus den mods geben wie hammer aus simple hammers und
+# hintergruende geben". Mods with a typical own item show that item's real texture (first animation frame); the
+# others keep their drawn motif above. Every icon sits on a full 16x16 tile like the owner's four images (which keep
+# their own background): 1 px frame, Vanilla-button bevel, two-tone fill and three sparkles, one colour per mod.
+ITEM_MOTIFS = {
+    "simplehammers": "iron_sledgehammer", "simplemusic": "custom_disc", "simplestorage": "backpack",
+    "simplemobs": "nether_heart", "simplebeacons": "strong_upgrade_template", "simpletools": "biome_brush",
+    "simplemaps": "wayfinder_map", "simpletweaks": "claim_deed", "simplelib": "enderite_ingot",
+    "simplecrucibles": "ceramic_lava_bucket", "simpleend": "drift_fruit", "simpleenddragonfight": "dragon_chitin",
+    "simplemobmanners": "frog_bucket", "simpletrims": "glowing_trim_template",
+}
+BG = {
+    "wiringexample": "#8a9098", "simplemodels": "#34406a", "simplefun": "#8cc4e8", "simplesounds": "#f0d8a0",
+    "simplequalityoflife": "#9ed6a6", "simpletweaks": "#d8c08a", "simpledimensions": "#c4a8e6",
+    "simplesandwiches": "#a6d6e6", "simplelib": "#d8c8a0", "simpleinterfaces": "#6a8cc8", "simplemaps": "#d88a6a",
+    "simpletrims": "#e0c070", "simplemobs": "#b8a0c8", "simpleweather": "#44506e", "simplemovement": "#f0c060",
+    "simpletools": "#d8a0b8", "simplefarming": "#78b8e0", "simplemobmanners": "#e6a6c8", "simpleloot": "#e8c850",
+    "simplequestionary": "#8a6ab0", "simpleaesthetics": "#f0a0a0", "simpleenddragonfight": "#e0dca0",
+    "simpleend": "#4c3c6c", "simplerespawn": "#a8e0e8", "simplebeacons": "#70d0d8", "simpleovens": "#e89050",
+    "simplemobheads": "#c8b090", "simpleshops": "#80b0e0", "simplewanderers": "#e0c890", "simplestats": "#c8d0e0",
+    "simpleblocks": "#a0c8e8", "simplecrucibles": "#7088a0", "simpleoctets": "#90c890", "simplehammers": "#d09060",
+    "simpleoptimization": "#4a5aa8", "simpleoptrender": "#7a6ac0", "simpleoptmemory": "#c0c8e8",
+    "simpleoptserver": "#2e3a6a", "simplestorage": "#90b8a0", "simplemusic": "#e0a858",
+}
+SPARKLES = ((3, 2), (13, 3), (2, 13))
+
+
+def tone(color: str, t: float) -> bytes:
+    """`color` mixed towards white (t > 0) or black (t < 0), opaque RGBA."""
+    rgb = [int(color[i:i + 2], 16) for i in (1, 3, 5)]
+    tgt = 255 if t > 0 else 0
+    return bytes(round(c + (tgt - c) * abs(t)) for c in rgb) + b"\xff"
+
+
+def tile(color: str) -> list[tuple[str, bytes]]:
+    """Background layers of one mod: fill (two tones, sparkles) and frame (outline plus bevel)."""
+    fill, frame = bytearray(16 * 16 * 4), bytearray(16 * 16 * 4)
+    for y in range(16):
+        for x in range(16):
+            o = (y * 16 + x) * 4
+            fill[o:o + 4] = tone(color, 0.55) if (x, y) in SPARKLES else tone(color, 0.14) if x + y < 15 else tone(color, 0.0)
+            if x in (0, 15) or y in (0, 15):
+                frame[o:o + 4] = tone(color, -0.6)
+            elif (y == 1 and x < 14) or (x == 1 and y < 14):
+                frame[o:o + 4] = tone(color, 0.38)
+            elif (y == 14 and x > 1) or (x == 14 and y > 1):
+                frame[o:o + 4] = tone(color, -0.28)
+    return [("Hintergrund", bytes(fill)), ("Rahmen", bytes(frame))]
+
+
+def drawn_layers(sp: dict, mod_id: str) -> list[tuple[str, bytes]]:
+    """Layers of a drawn motif (one per character group)."""
     art, pal, groups = sp["art"], sp["pal"], sp["groups"]
     if len(art) != 16 or any(len(r) != 16 for r in art):
         raise ValueError(f"{mod_id}: art must be 16 rows of 16 characters")
@@ -861,16 +646,45 @@ def to_doc(sp: dict, mod_id: str) -> dict:
     if used - set(grouped) or len(grouped) != len(set(grouped)) or set(grouped) - set(pal):
         raise ValueError(f"{mod_id}: characters {sorted(used - set(grouped))} without layer, or layer/palette mismatch")
     if any(art[0][c] != "." or art[15][c] != "." or art[c][0] != "." or art[c][15] != "." for c in range(16)):
-        raise ValueError(f"{mod_id}: keep the 1 px border free (AGENTS.md rule 7)")
-    order = [ch for ch in grouped if ch in used]
-    index = {ch: i for i, ch in enumerate(order)}
+        raise ValueError(f"{mod_id}: keep the 1 px border free (AGENTS.md rule 7; the tile behind may touch it)")
     out = []
     for name, chars in groups:
-        rows = ["".join(format(index[ch], "02x") if ch in chars else ".." for ch in r) for r in art]
         if any(ch in used for ch in chars):
-            out.append({"name": name, "visible": True, "opacity": 100, "blend": "normal", "rows": rows})
-    return {"format": L.FORMAT, "version": 1, "width": 16, "height": 16, "digits": 2,
-            "palette": [pal[ch].lower() + "ff" for ch in order], "layers": out}
+            out.append((name, b"".join(tone(pal[ch].lower(), 0.0) if ch in chars else bytes(4) for r in art for ch in r)))
+    return out
+
+
+def item_motif(entry: dict, refresh: bool) -> bytes:
+    """RGBA of the item motif: read from the item texture when writing, from the layer source when checking (so a
+    later change of the item texture elsewhere does not break `check`; rerun this script to take it over)."""
+    base = asset_dir(entry)
+    if refresh:
+        w, h, px = L.png_read((base / "textures/item" / (ITEM_MOTIFS[entry["id"]] + ".png")).read_bytes())
+        if w != 16:
+            raise ValueError(f"{entry['id']}: item motif must be 16 px wide")
+        return bytes(px[:16 * 16 * 4])
+    path = base / "icon.layers.json"
+    if not path.is_file():
+        raise ValueError(f"{entry['id']}: icon.layers.json missing, run tools/textures/mod_icons.py")
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    layer = next((lay for lay in doc["layers"] if lay["name"] == "Motiv"), None)
+    if layer is None:
+        raise ValueError(f"{entry['id']}: layer 'Motiv' missing in icon.layers.json, run tools/textures/mod_icons.py")
+    return b"".join(bytes(4) if px is None else bytes(px) for px in L.layer_pixels(doc, layer))
+
+
+def icon_doc(entry: dict, refresh: bool = True) -> dict:
+    mod_id = entry["id"]
+    if mod_id in ITEM_MOTIFS:
+        motif = [("Motiv", item_motif(entry, refresh))]
+    else:
+        sp = spec(mod_id)
+        if sp is None:
+            raise ValueError(f"no icon drawn for {mod_id}")
+        motif = drawn_layers(sp, mod_id)
+    if mod_id not in BG:
+        raise ValueError(f"{mod_id}: background colour missing in BG")
+    return L.from_layers(16, 16, tile(BG[mod_id]) + motif)
 
 
 def upscale(rgba: bytes, w: int, h: int, k: int) -> bytes:
@@ -881,18 +695,14 @@ def upscale(rgba: bytes, w: int, h: int, k: int) -> bytes:
     return bytes(out)
 
 
-def outputs(entry: dict) -> dict[Path, bytes]:
+def outputs(entry: dict, refresh: bool = True) -> dict[Path, bytes]:
     """Files of one mod (path -> content)."""
-    mod_id = entry.get("modId", entry["id"])
     base = asset_dir(entry)
     files: dict[Path, bytes] = {}
     if entry["id"] in OWNER:
         doc = json.loads((base / "icon.layers.json").read_text(encoding="utf-8"))
     else:
-        sp = spec(entry["id"])
-        if sp is None:
-            raise ValueError(f"no icon drawn for {entry['id']}")
-        doc = to_doc(sp, mod_id)
+        doc = icon_doc(entry, refresh)
         files[base / "icon.layers.json"] = L.dumps(doc).encode()
     rgba = bytes(L.compose(doc))
     files[base / "icon.png"] = L.png_write(16, 16, rgba)
@@ -964,7 +774,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     bad = []
     for entry in modules():
-        for path, data in outputs(entry).items():
+        for path, data in outputs(entry, refresh=not args.check).items():
             if args.check:
                 if not same_pixels(path, data):
                     bad.append(path.relative_to(ROOT).as_posix())
