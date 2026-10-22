@@ -16,7 +16,7 @@ versionRange="[26.3,26.4)"
 [[dependencies.simpleshops]]
 modId="simplelib"
 type="required"
-versionRange="[0.2.0,)"
+versionRange="[0.3.0,)"
 ordering="AFTER"
 side="BOTH"
 

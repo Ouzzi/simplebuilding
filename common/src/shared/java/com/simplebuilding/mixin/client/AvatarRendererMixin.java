@@ -32,7 +32,8 @@ public abstract class AvatarRendererMixin {
     private static ItemUseAnimation simplebuilding$hammerPose(ItemUseAnimation original,
                                                               @Local(argsOnly = true) Avatar avatar,
                                                               @Local(argsOnly = true) InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !SledgehammerUpgrades.isHammering(avatar)) {
+        // 26.3: Simple Hammers sets this pose itself (com.simplehammers.mixin.client.HammerArmPoseMixin, Queue 738).
+        if (!com.simplebuilding.version.McVersion.HAMMERS_IN_SB || hand != InteractionHand.MAIN_HAND || !SledgehammerUpgrades.isHammering(avatar)) {
             return original;
         }
         return SledgehammerUpgrades.isDrawingBack(avatar, 0.0F) ? ItemUseAnimation.TRIDENT : ItemUseAnimation.BUNDLE;

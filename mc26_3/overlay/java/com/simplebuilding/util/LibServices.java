@@ -120,6 +120,12 @@ public final class LibServices {
                 com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE));
         HammerActions.listen(HammerActions.AREA_BLOCK, player -> com.simplebuilding.advancement.ModCounters.add(player,
                 com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1));
+        // Queue 738: Simple Hammers draws the area outline, its cracks and the upgrade swing itself; SimpleBuilding's
+        // switches keep steering them (highlight key H, buildingHighlightOpacity, enableToolAnimations). Asked on the client only.
+        com.simplehammers.client.HammerVisuals.configure(
+                () -> com.simplebuilding.client.ClientState.showHighlights,
+                () -> Simplebuilding.getConfig().tools.buildingHighlightOpacity,
+                () -> Simplebuilding.getConfig().tools.enableToolAnimations);
     }
 
     /** Applies the upgrade files through SimpleLib and returns SimpleBuilding's view of the effective table. */

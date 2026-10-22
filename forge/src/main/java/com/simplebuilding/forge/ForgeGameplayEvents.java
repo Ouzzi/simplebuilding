@@ -81,6 +81,7 @@ public final class ForgeGameplayEvents {
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
         LegacySpatulaMigration.migrateWorlds(event.getServer());
+        com.simplebuilding.datafix.SplitBackupMarker.onServerStarted(event.getServer());
     }
 
     @SubscribeEvent

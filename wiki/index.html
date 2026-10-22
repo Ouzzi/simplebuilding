@@ -2049,7 +2049,10 @@ function hrefFor(id, hint) {
     var data = MODULE_DATA[foreign.id];
     var sections = ['items', 'blocks', 'enchantments', 'recipes', 'features', 'tags'];
     for (var i = 0; i < sections.length; i++) {
-      if (arr(data[sections[i]]).some(function (e) { return e.id === id; })) return crossModHref(foreign.id, sections[i], id);
+      /* A module chapter has a bare id ("bundles"); another wiki names it "simplestorage:bundles". */
+      var want = sections[i] === 'features' ? [id, pathOf(id)] : [id];
+      var hit = arr(data[sections[i]]).find(function (e) { return want.indexOf(e.id) >= 0; });
+      if (hit) return crossModHref(foreign.id, sections[i], hit.id);
     }
   }
   return null;
