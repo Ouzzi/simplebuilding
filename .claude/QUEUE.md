@@ -91,7 +91,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - Eigener Klang (synthetisch, wie die Howler-Takes) plus sichtbarer Effekt am Spieler. Liste „impossible“ per Tag/Config erweiterbar.
 - [ ] SP22-3 (Death Vault, UI) Die Death-Vault-Oberfläche „sieht noch etwas schwach aus“. Sie bekommt den Stil der anderen UIs (Rahmen, Kontrast, simplelib-Bausteine).
 - [ ] SP22-4 (Crafting Storage) Items auf dem Crafting-Storage-Block mit 1–2 px Höhe zeichnen, damit man sie von Weitem und von der Seite sieht.
-- [ ] SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
+- [~] (B, b-redsound22, 22.10.) SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
   - Eigene Klänge entwickeln: Redstone-Staub als „Pulver-Sound“, Lampen dürfen amethystartig bleiben, Kolben klingen kolbenartig.
   - Jeder Block-Typ bekommt eine eigene SoundGroup.
 - [ ] SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel:
