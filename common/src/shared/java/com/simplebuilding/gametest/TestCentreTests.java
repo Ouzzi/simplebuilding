@@ -1408,6 +1408,252 @@ public final class TestCentreTests {
         }).thenExecute(cleanup).thenSucceed();
     }
 
+    // ------------------------------------------------------------------ TZ22-6: Schienen-Teststrecke
+
+    /** Laufzeit der Schienen-Strecke: Aufbau, zwei Fahrten mit Halt, Aufraeumen (gemessen ~250 Ticks). */
+    public static final int RAIL_RUN_MAX_TICKS = 700;
+
+    /** Gemessene Fahrt einer Lore auf der Teststrecke (x-Schritt je Tick, Stillstand, Ankunft am Anschub-Ende). */
+    private static final class CartRun {
+        net.minecraft.world.entity.vehicle.minecart.AbstractMinecart cart;
+        double last, fastest, maxX;
+        int still, launchedAt = -1;
+
+        void track(net.minecraft.world.entity.vehicle.minecart.AbstractMinecart found) {
+            cart = found;
+            last = maxX = found.getX();
+            fastest = 0;
+            still = 0;
+            launchedAt = -1;
+        }
+
+        void tick(int now, double launchEndX) {
+            if (cart == null || cart.isRemoved()) return;
+            double x = cart.getX();
+            double step = Math.abs(x - last);
+            fastest = Math.max(fastest, step);
+            still = step < 1e-4 ? still + 1 : 0;
+            maxX = Math.max(maxX, x);
+            if (launchedAt < 0 && x >= launchEndX) launchedAt = now;
+            last = x;
+        }
+    }
+
+    /**
+     * TZ22-6 (Besitzer 22.10.: "keine richtigen Tests ..., sondern nur vorgebaut"): die Schienen-Teststrecke der Zentrale
+     * ({@code TestCentreSections.endRailTracks}, im Abschnitt "devices") wird fern aller Tests mit dem Bau-Code der
+     * Zentrale gesetzt (leise, wie im Spiel) und wie von Hand befahren:
+     * <ol>
+     *   <li>Bremse-Hebel an: das Signal laeuft Redstone - Bruecke - Nihil-Redstone (3. Linie) bis an jede Nihil-Schiene.</li>
+     *   <li>Knopf "Loren aufstellen": je eine Lore am Start, ohne Start-Hebel bleiben beide stehen.</li>
+     *   <li>Start-Hebel: beide fahren los. Astral (Astral-Redstone, 2. Linie) ist schneller als Vanilla (schnellster Schritt
+     *       ueber 0,4 Bl./Tick, nie ueber der eingestellten Hoechstgeschwindigkeit), erreicht das Ende des Anschubs frueher und
+     *       haelt auf den gespeisten Nihil-Schienen; die Vanilla-Lore bleibt bei 0,4.</li>
+     *   <li>Bremse aus, "Loren entfernen", neu aufstellen (Start-Hebel noch an: sie fahren sofort): die Astral-Lore rollt
+     *       ueber die Nihil-Schienen bis ans Ende. "Loren entfernen" raeumt die Strecke.</li>
+     * </ol>
+     */
+    public static void endRailTracksRunTheirCarts(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.END_RAILS) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TcContext ctx = new TcContext(level.registryAccess());
+        helper.assertTrue(com.simplebuilding.dev.testcentre.TestCentreSections.devices(ctx).anchors().containsKey("end_rails_start_lever"),
+                "the devices section does not carry the End rail track");
+        com.simplebuilding.dev.testcentre.TcCanvas track = com.simplebuilding.dev.testcentre.TestCentreSections.endRailTracks();
+        BlockPos origin = new BlockPos(29000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 29000);
+        BoundingBox box = new BoundingBox(origin.getX(), origin.getY() - 1, origin.getZ(),
+                origin.getX() + track.width(), origin.getY() + track.height() + 1, origin.getZ() + track.depth());
+        Map<String, BlockPos> at = new HashMap<>();
+        track.anchors().forEach((name, pos) -> at.put(name, origin.offset(pos)));
+        int laneA = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_LANE_ASTRAL;
+        double launchEnd = origin.getX() + com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_LAUNCH_END + 0.5;
+        int brakeStart = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_BRAKE_START;
+        int end = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_END;
+        double cap = com.simplebuilding.blocks.custom.EndRailPhysics.maxSpeedPerTick();
+        List<int[]> forced = new ArrayList<>();
+        for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+            for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                if (level.setChunkForced(cx, cz, true)) forced.add(new int[]{cx, cz});
+                level.getChunk(cx, cz);
+            }
+        }
+        Runnable cleanup = () -> {
+            TestCentreBuilder.clear(level, box);
+            level.getBlockTicks().clearArea(box);
+            for (int[] chunk : forced) level.setChunkForced(chunk[0], chunk[1], false);
+        };
+        helper.runBeforeTestEnd(cleanup);
+        AABB area = AABB.of(box).inflate(1);
+        java.util.function.Supplier<List<net.minecraft.world.entity.vehicle.minecart.AbstractMinecart>> carts =
+                () -> level.getEntitiesOfClass(net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.class, area);
+        java.util.function.Consumer<String> pull = name -> {
+            BlockState state = level.getBlockState(at.get(name));
+            helper.assertTrue(state.getBlock() instanceof net.minecraft.world.level.block.LeverBlock, "no lever at " + name + " but " + state);
+            ((net.minecraft.world.level.block.LeverBlock) state.getBlock()).pull(state, level, at.get(name), null);
+        };
+        java.util.function.Consumer<String> press = name -> {
+            BlockState state = level.getBlockState(at.get(name));
+            helper.assertTrue(state.getBlock() instanceof ButtonBlock && !state.getValue(ButtonBlock.POWERED), "no released button at " + name + " but " + state);
+            ((ButtonBlock) state.getBlock()).press(state, level, at.get(name), null);
+        };
+        java.util.function.Predicate<Integer> railPowered = x -> {
+            BlockState state = level.getBlockState(origin.offset(x, 0, laneA));
+            return state.hasProperty(com.simplebuilding.blocks.custom.EndRailBlock.POWERED) && state.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED);
+        };
+        CartRun astral = new CartRun(), vanilla = new CartRun();
+        int[] now = {0};
+        helper.onEachTick(() -> {
+            now[0]++;
+            astral.tick(now[0], launchEnd);
+            vanilla.tick(now[0], launchEnd);
+        });
+        Runnable assign = () -> {
+            List<net.minecraft.world.entity.vehicle.minecart.AbstractMinecart> found = carts.get();
+            helper.assertTrue(found.size() == 2, "the place button should set two carts, found " + found.size());
+            for (var cart : found) {
+                (cart.blockPosition().getZ() == origin.getZ() + laneA ? astral : vanilla).track(cart);
+            }
+            helper.assertTrue(astral.cart != null && vanilla.cart != null && astral.cart != vanilla.cart, "one cart per lane expected");
+        };
+        helper.startSequence().thenWaitUntil(() -> {
+            for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+                for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                    helper.assertTrue(level.shouldTickBlocksAt(new net.minecraft.world.level.ChunkPos(cx, cz).pack())
+                            && level.isPositionEntityTicking(new BlockPos(cx << 4, origin.getY(), cz << 4)), "track chunks not ticking yet");
+                }
+            }
+        }).thenExecute(cleanupOnFailure(cleanup, () -> {
+            TestCentreBuilder.clear(level, box);
+            level.getBlockTicks().clearArea(box);
+            TestCentreBuilder.apply(level, track.ops().stream().map(op -> op.moved(origin)).toList());
+        })).thenIdle(4).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(!railPowered.test(1) && !railPowered.test(brakeStart), "a rail is powered before any lever was pulled");
+            pull.accept("end_rails_brake_lever");
+        })).thenIdle(8).thenExecute(cleanupOnFailure(cleanup, () -> {
+            for (int x = brakeStart; x < end; x++) {
+                helper.assertTrue(railPowered.test(x), "the brake lever (redstone, bridge, Nihil Redstone) does not power the Nihil rail " + x);
+            }
+            helper.assertTrue(!railPowered.test(1), "the brake lever powered the Astral launch");
+            press.accept("end_rails_place_button");
+        })).thenWaitUntil(() -> helper.assertTrue(carts.get().size() == 2, "waiting for the two carts"))
+                .thenExecute(cleanupOnFailure(cleanup, assign)).thenIdle(6).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(astral.still >= 4 && vanilla.still >= 4 && Math.abs(astral.cart.getX() - (origin.getX() + 1.5)) < 0.3,
+                    "the Astral cart should wait at the start until the lever, it is at " + astral.cart.getX());
+            pull.accept("end_rails_start_lever");
+        })).thenWaitUntil(() -> helper.assertTrue(astral.cart.getX() > launchEnd && astral.still >= 20 && vanilla.still >= 20,
+                "waiting for both carts to come to rest: Astral at " + astral.cart.getX() + " (still " + astral.still + "), vanilla at "
+                        + vanilla.cart.getX() + " (still " + vanilla.still + ")"))
+                .thenExecute(cleanupOnFailure(cleanup, () -> {
+            String run = "Astral fastest " + astral.fastest + " (cap " + cap + "), vanilla fastest " + vanilla.fastest
+                    + "; at the launch end after " + astral.launchedAt + " / " + vanilla.launchedAt + " ticks";
+            com.simplebuilding.Simplebuilding.LOGGER.info("End rail track: {}; Astral stopped at {}, vanilla at {}", run,
+                    astral.cart.getX() - origin.getX(), vanilla.cart.getX() - origin.getX());
+            helper.assertTrue(astral.fastest > com.simplebuilding.blocks.custom.EndRailPhysics.VANILLA_MAX_SPEED + 0.05,
+                    "the Astral cart never got past vanilla speed: " + run);
+            helper.assertTrue(astral.fastest <= cap + 1e-6, "the Astral cart passed the configured top speed: " + run);
+            helper.assertTrue(vanilla.fastest > 0.2 && vanilla.fastest <= com.simplebuilding.blocks.custom.EndRailPhysics.VANILLA_MAX_SPEED + 0.02,
+                    "the vanilla cart should run at up to 0.4 blocks per tick: " + run);
+            helper.assertTrue(astral.launchedAt > 0 && (vanilla.launchedAt < 0 || astral.launchedAt < vanilla.launchedAt),
+                    "the Astral cart should reach the end of the launch first: " + run);
+            double stop = astral.cart.getX() - origin.getX();
+            helper.assertTrue(stop >= brakeStart && stop < end, "the powered Nihil rails should hold the Astral cart, it stopped at " + stop);
+            pull.accept("end_rails_brake_lever");
+            press.accept("end_rails_remove_button");
+        })).thenWaitUntil(() -> helper.assertTrue(carts.get().isEmpty(), "the remove button left " + carts.get().size() + " carts"))
+                .thenWaitUntil(() -> helper.assertTrue(!level.getBlockState(at.get("end_rails_place_button")).getValue(ButtonBlock.POWERED),
+                        "waiting for the place button to pop out"))
+                .thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(!railPowered.test(brakeStart), "the Nihil rails stay powered with the brake lever off");
+            press.accept("end_rails_place_button");
+        })).thenWaitUntil(() -> helper.assertTrue(carts.get().size() == 2, "waiting for the two carts again"))
+                .thenExecute(cleanupOnFailure(cleanup, assign))
+                .thenWaitUntil(() -> helper.assertTrue(astral.cart.getX() > launchEnd && astral.still >= 20,
+                        "waiting for the Astral cart to roll out: at " + astral.cart.getX()))
+                .thenExecute(cleanupOnFailure(cleanup, () -> {
+            double far = astral.maxX - origin.getX();
+            helper.assertTrue(far >= end - 1.5, "without the brake the Astral cart should roll over the Nihil rails to the end, it reached " + far);
+        })).thenWaitUntil(() -> helper.assertTrue(!level.getBlockState(at.get("end_rails_remove_button")).getValue(ButtonBlock.POWERED),
+                "waiting for the remove button to pop out"))
+                .thenExecute(cleanupOnFailure(cleanup, () -> press.accept("end_rails_remove_button")))
+                .thenWaitUntil(() -> helper.assertTrue(carts.get().isEmpty(), "the remove button left carts"))
+                .thenExecute(cleanup).thenSucceed();
+    }
+
+    // ------------------------------------------------------------------ TZ22-8: Wege auf den Schildern
+
+    /**
+     * TZ22-8 (Besitzer 22.10.: "am Eisenblock noch Hammer + 4 -> 2 Iron Poles, obwohl die Herstellung auf den Tiegel
+     * umgestellt ist"): jedes Schild der Zentrale, das einen Weg zeigt, traegt ihn als Daten ({@code TcWays.Way}), und
+     * jeden dieser Wege gibt es im laufenden Spiel (Aufwertungs-Engine, InWorldTransformations, Tiegel-API + Tags,
+     * Hochofen-Rezepte). Kein anderes Schild zeigt einen Pfeil ("->"), ausser den beiden Ablauf-Texten. Gegenprobe:
+     * ausgedachte Wege (der alte Tiegelbau am Eisenblock, ein falsches Rezept) werden abgelehnt.
+     */
+    public static void everyTransformationSignShowsAnExistingWay(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, BlockPos.ZERO);
+        Set<String> flowTexts = Set.of(com.simplebuilding.dev.testcentre.TcText.PREFIX + "section.machines.sub",
+                com.simplebuilding.dev.testcentre.TcText.PREFIX + "states.gadgets.sub");
+        List<String> problems = new ArrayList<>();
+        Set<com.simplebuilding.dev.testcentre.TcWays.Kind> kinds = new HashSet<>();
+        int ways = 0;
+        for (TestCentreLayout.Section section : plan.sections()) {
+            for (TcOp op : section.ops()) {
+                if (!(op instanceof TcOp.Sign sign)) {
+                    continue;
+                }
+                if (sign.way() != null) {
+                    ways++;
+                    kinds.add(sign.way().kind());
+                    String problem = com.simplebuilding.dev.testcentre.TcWays.problem(sign.way(), level);
+                    if (problem != null) {
+                        problems.add(section.id() + " " + sign.pos().toShortString() + ": " + problem);
+                    }
+                    continue;
+                }
+                for (Component line : sign.lines()) {
+                    String text = line.getString();
+                    String key = line.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : "";
+                    if ((text.contains("->") || text.contains("→")) && !flowTexts.contains(key)) {
+                        problems.add(section.id() + " " + sign.pos().toShortString() + ": the sign line '" + text + "' (" + key
+                                + ") shows a way that no data backs");
+                    }
+                }
+            }
+        }
+        List<com.simplebuilding.dev.testcentre.TcWays.Kind> expected = new ArrayList<>(List.of(com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE,
+                com.simplebuilding.dev.testcentre.TcWays.Kind.CRUSH, com.simplebuilding.dev.testcentre.TcWays.Kind.SHEAR,
+                com.simplebuilding.dev.testcentre.TcWays.Kind.BLASTING));
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            expected.add(com.simplebuilding.dev.testcentre.TcWays.Kind.CRUCIBLE_BUILD);
+        }
+        for (var kind : expected) {
+            if (!kinds.contains(kind)) problems.add("no sign shows a way of kind " + kind);
+        }
+        // Gegenprobe: was es nicht (mehr) gibt, faellt durch.
+        List<Item> hammers = new TcContext(level.registryAccess()).rowItems("sledgehammers");
+        ItemStack hammer = hammers.isEmpty() ? ItemStack.EMPTY : new ItemStack(hammers.getLast());
+        var invented = new com.simplebuilding.dev.testcentre.TcWays.Way(com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE,
+                new ItemStack(Items.IRON_BLOCK), List.of(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4)), hammer,
+                new ItemStack(ModItems.IRON_POLE == null ? Items.IRON_BARS : ModItems.IRON_POLE, 2));
+        helper.assertTrue(com.simplebuilding.dev.testcentre.TcWays.problem(invented, level) != null, "the invented iron block way was accepted");
+        var wrongRecipe = com.simplebuilding.dev.testcentre.TcWays.blasting(ModItems.CRACKED_DIAMOND, Items.EMERALD);
+        helper.assertTrue(com.simplebuilding.dev.testcentre.TcWays.problem(wrongRecipe, level) != null, "a blasting recipe that does not exist was accepted");
+        var build = com.simplebuilding.dev.testcentre.TcWays.crucibleBuild(hammers);
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            helper.assertTrue(build != null && build.subject().is(Items.CAULDRON), "the crucible is built on a cauldron: " + build);
+            var onIronBlock = new com.simplebuilding.dev.testcentre.TcWays.Way(build.kind(), new ItemStack(Items.IRON_BLOCK), build.inputs(),
+                    build.tool(), build.result());
+            helper.assertTrue(com.simplebuilding.dev.testcentre.TcWays.problem(onIronBlock, level) != null,
+                    "the old crucible build on an iron block was accepted");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " sign way problem(s) of " + ways + ": "
+                + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
+        helper.succeed();
+    }
+
     private static Runnable cleanupOnFailure(Runnable cleanup, Runnable action) {
         return () -> {
             try {

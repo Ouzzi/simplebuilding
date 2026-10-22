@@ -236,6 +236,20 @@ public final class TcCanvas {
     }
 
     /**
+     * Wandschild zu einem Weg (TZ22-8): die Zeilen kommen aus dem Weg ({@link TcWays.Way#lines}), {@code title} steht
+     * fett darueber, solange Platz ist (null: ohne Titel).
+     */
+    public void waySign(int x, int y, int wallZ, TcWays.Way way, @org.jetbrains.annotations.Nullable Component title) {
+        waySign(x, y, wallZ, way, way.lines(title));
+    }
+
+    /** Wandschild zu einem Weg mit eigenen (aus dem Weg erzeugten) Zeilen, etwa nur dem Ergebnis. */
+    public void waySign(int x, int y, int wallZ, TcWays.Way way, List<Component> lines) {
+        place(x, y, wallZ, WALL);
+        add(new TcOp.Sign(new BlockPos(x, y, wallZ - 1), Direction.NORTH, List.copyOf(lines.subList(0, Math.min(4, lines.size()))), way));
+    }
+
+    /**
      * Rahmenraster an der Wand bei {@code wallZ}: spaltenweise von oben nach unten, beginnend bei
      * {@code x0}, {@code rows} Reihen, unterste Reihe bei {@code y0}. Mit {@code labels} steht unter
      * jedem Rahmen ein Schild (Reihenabstand 2). Liefert die erste freie Spalte danach.

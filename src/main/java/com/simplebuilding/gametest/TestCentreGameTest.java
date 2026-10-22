@@ -82,4 +82,14 @@ public final class TestCentreGameTest {
     public void partialBuildsOnlyContainTheChosenAreas(GameTestHelper helper) {
         TestCentreTests.partialBuildsOnlyContainTheChosenAreas(helper);
     }
+
+    @GameTest(maxTicks = TestCentreTests.RAIL_RUN_MAX_TICKS)
+    public void endRailTracksRunTheirCarts(GameTestHelper helper) {
+        TestCentreTests.endRailTracksRunTheirCarts(helper);
+    }
+
+    @GameTest
+    public void everyTransformationSignShowsAnExistingWay(GameTestHelper helper) {
+        TestCentreTests.everyTransformationSignShowsAnExistingWay(helper);
+    }
 }
