@@ -23,7 +23,7 @@ public final class BeaconsConfig {
             "strongConduitMaxRange", "upgradeStrikes");
     /** The ten extra effects, by their Vanilla id path (switch {@code strongBeaconEffects.<id>}); SP22-10 added the last four. */
     public static final List<String> EFFECT_IDS = List.of("night_vision", "water_breathing", "slow_falling",
-            "fire_resistance", "dolphins_grace", "absorption", "luck", "health_boost", "invisibility", "hero_of_the_village");
+            "fire_resistance", "dolphins_grace", "absorption", "saturation", "health_boost", "invisibility", "hero_of_the_village");
 
     public static final int MAX_LEVELS_DEFAULT = 6, MAX_LEVELS_MIN = 4, MAX_LEVELS_MAX = 6;
     public static final int RANGE_BASE_DEFAULT = 10, RANGE_BASE_MAX = 50;

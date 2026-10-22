@@ -43,9 +43,9 @@
         "summary": "A beacon with up to six pyramid levels: 11x11 and 13x13 below the Vanilla four (454 blocks in all), three powers on every primary level. Range is (10 + 10 per level) x the material factor (with Iron 60 blocks at level 5, 70 at level 6), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
         "details": [
           "Smithing table: beacon + Strong Upgrade + nether star. Levels 1 to 4 keep Vanilla's powers and rules.",
-          "Every primary level offers three powers: level 1 Speed, Haste and Luck; level 2 Resistance, Jump Boost and Health Boost I (two more hearts); level 3 Strength, Invisibility and Hero of the Village I (cheaper trades).",
+          "Every primary level offers three powers: level 1 Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range); level 2 Resistance, Jump Boost and Health Boost I (two more hearts); level 3 Strength, Invisibility and Hero of the Village I (cheaper trades).",
           "Level 5 adds Night Vision, Water Breathing and Slow Falling as primary powers; level 6 adds Fire Resistance, Dolphin's Grace and Absorption I.",
-          "The secondary power stays Vanilla's: Regeneration or level II of a Vanilla primary power. The new powers have no level II (no Absorption II, no Luck II).",
+          "The secondary power stays Vanilla's: Regeneration or level II of a Vanilla primary power. The new powers have no level II (no Absorption II, no Saturation II).",
           "Absorption fills two extra hearts once and Health Boost adds two hearts; while you stay in range both are only renewed, not refilled or reset.",
           "Pyramid blocks: #minecraft:beacon_base_blocks, plus the tag #simplebeacons:strong_base_blocks (empty) for modpacks.",
           "Payment as in Vanilla: one item of #minecraft:beacon_payment_items. The server checks every choice; a power the pyramid or the server does not allow is refused and the payment stays."
@@ -56,9 +56,9 @@
         "summary": "Ein Leuchtfeuer mit bis zu sechs Pyramidenebenen: 11x11 und 13x13 unter den vier Vanilla-Ebenen (zusammen 454 Blöcke), drei Kräfte auf jeder Primärstufe. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, 70 auf Ebene 6), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
         "details": [
           "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Die Ebenen 1 bis 4 behalten die Vanilla-Kräfte und -Regeln.",
-          "Jede Primärstufe bietet drei Kräfte: Stufe 1 Tempo, Eile und Glück; Stufe 2 Resistenz, Sprungkraft und Extraherzen I (zwei Herzen mehr); Stufe 3 Stärke, Unsichtbarkeit und Held des Dorfes I (billigerer Handel).",
+          "Jede Primärstufe bietet drei Kräfte: Stufe 1 Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig); Stufe 2 Resistenz, Sprungkraft und Extraherzen I (zwei Herzen mehr); Stufe 3 Stärke, Unsichtbarkeit und Held des Dorfes I (billigerer Handel).",
           "Ebene 5 bringt Nachtsicht, Wasseratmung und Langsamen Fall als Primärkraft; Ebene 6 Feuerresistenz, Delfingunst und Absorption I.",
-          "Die Sekundärkraft bleibt Vanilla: Regeneration oder Stufe II einer Vanilla-Primärkraft. Die neuen Kräfte haben keine Stufe II (kein Absorption II, kein Glück II).",
+          "Die Sekundärkraft bleibt Vanilla: Regeneration oder Stufe II einer Vanilla-Primärkraft. Die neuen Kräfte haben keine Stufe II (kein Absorption II, kein Sättigung II).",
           "Absorption füllt zwei Extraherzen einmal, Extraherzen gibt zwei Herzen mehr; solange man in Reichweite bleibt, werden beide nur verlängert, nicht nachgefüllt oder zurückgesetzt.",
           "Pyramidenblöcke: #minecraft:beacon_base_blocks, dazu das Tag #simplebeacons:strong_base_blocks (leer) für Modpacks.",
           "Bezahlung wie Vanilla: ein Item aus #minecraft:beacon_payment_items. Der Server prüft jede Wahl; eine Kraft, die Pyramide oder Server nicht erlauben, wird abgelehnt und die Bezahlung bleibt liegen."
@@ -184,7 +184,7 @@
           "enabled (true): off makes the module inert (no upgrades, placed Strong blocks do nothing).",
           "strongBeaconMaxLevels (6, 4 to 6): highest pyramid level that counts.",
           "strongBeaconRangeBase (10, 0 to 50) and strongBeaconRangePerLevel (10, 1 to 20): range = base + per level x levels.",
-          "strongBeaconEffects: one switch per new power (night_vision, water_breathing, slow_falling, fire_resistance, dolphins_grace, absorption, luck, health_boost, invisibility, hero_of_the_village), all true.",
+          "strongBeaconEffects: one switch per new power (night_vision, water_breathing, slow_falling, fire_resistance, dolphins_grace, absorption, saturation, health_boost, invisibility, hero_of_the_village), all true.",
           "strongBeaconMaterialRange (true) and vanillaBeaconMaterialRange (true): range factor from the pyramid's material for the Strong and the Vanilla beacon.",
           "strongConduitMaxRange (216, 96 to 256): cap of the Strong Conduit range.",
           "upgradeStrikes (8, 1 to 32): strikes of the in-world upgrade.",
@@ -198,7 +198,7 @@
           "enabled (true): aus macht das Modul wirkungslos (keine Aufwertung, gesetzte starke Blöcke tun nichts).",
           "strongBeaconMaxLevels (6, 4 bis 6): höchste zählende Pyramidenebene.",
           "strongBeaconRangeBase (10, 0 bis 50) und strongBeaconRangePerLevel (10, 1 bis 20): Reichweite = Grundwert + je Ebene x Ebenen.",
-          "strongBeaconEffects: ein Schalter je neuer Kraft (night_vision, water_breathing, slow_falling, fire_resistance, dolphins_grace, absorption, luck, health_boost, invisibility, hero_of_the_village), alle true.",
+          "strongBeaconEffects: ein Schalter je neuer Kraft (night_vision, water_breathing, slow_falling, fire_resistance, dolphins_grace, absorption, saturation, health_boost, invisibility, hero_of_the_village), alle true.",
           "strongBeaconMaterialRange (true) und vanillaBeaconMaterialRange (true): Reichweitenfaktor nach Pyramidenmaterial für das Starke und das Vanilla-Leuchtfeuer.",
           "strongConduitMaxRange (216, 96 bis 256): Deckel der Reichweite des Starken Aquisators.",
           "upgradeStrikes (8, 1 bis 32): Schläge der Aufwertung in der Welt.",

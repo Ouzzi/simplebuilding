@@ -135,18 +135,18 @@ public final class BeaconsTests {
             h.assertTrue(StrongBeaconLogic.validate(MobEffects.SPEED, MobEffects.SPEED, 6), "Speed II stays");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.ABSORPTION, MobEffects.ABSORPTION, 6), "no Absorption II");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.REGENERATION, null, 6), "regeneration is no primary");
-            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.SATURATION, null, 6) && !StrongBeaconLogic.validate(MobEffects.INSTANT_HEALTH, null, 6),
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.LUCK, null, 6) && !StrongBeaconLogic.validate(MobEffects.INSTANT_HEALTH, null, 6),
                     "foreign effects refused");
             // SP22-10: three powers on every primary level, the new ones of levels 1-3 without "II"
             for (int lvl : new int[] {1, 2, 3, 5, 6}) {
                 h.assertTrue(StrongBeaconLogic.EFFECTS.get(lvl - 1).size() == 3, "three powers on level " + lvl);
             }
-            h.assertTrue(StrongBeaconLogic.validate(MobEffects.LUCK, null, 1), "luck from level 1");
+            h.assertTrue(StrongBeaconLogic.validate(MobEffects.SATURATION, null, 1), "saturation from level 1 (owner 22.10.: no Luck)");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, null, 1) && StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, null, 2),
                     "health boost from level 2");
             h.assertTrue(!StrongBeaconLogic.validate(MobEffects.INVISIBILITY, null, 2) && StrongBeaconLogic.validate(MobEffects.INVISIBILITY, null, 3)
                     && StrongBeaconLogic.validate(MobEffects.HERO_OF_THE_VILLAGE, MobEffects.REGENERATION, 4), "invisibility and hero from level 3");
-            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.LUCK, MobEffects.LUCK, 6) && !StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, MobEffects.HEALTH_BOOST, 6),
+            h.assertTrue(!StrongBeaconLogic.validate(MobEffects.SATURATION, MobEffects.SATURATION, 6) && !StrongBeaconLogic.validate(MobEffects.HEALTH_BOOST, MobEffects.HEALTH_BOOST, 6),
                     "no II for the new level 1-3 powers");
             h.assertTrue(StrongBeaconLogic.validate(MobEffects.STRENGTH, MobEffects.STRENGTH, 4), "Strength II stays");
             JsonObject json = new JsonObject();
@@ -196,6 +196,14 @@ public final class BeaconsTests {
             near.setHealth(24.0F);
             StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.HEALTH_BOOST, null);
             h.assertTrue(near.getMaxHealth() == 24.0F && near.getHealth() == 24.0F, "renewing keeps the extra hearts");
+            // Saturation: a one-tick pulse every third cycle (12 s), never a lasting effect that feeds every tick
+            h.assertTrue(StrongBeaconLogic.saturationDue(0) && !StrongBeaconLogic.saturationDue(80) && !StrongBeaconLogic.saturationDue(160)
+                    && StrongBeaconLogic.saturationDue(240), "saturation every third cycle");
+            near.removeAllEffects();
+            StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.SATURATION, null);
+            MobEffectInstance food = near.getEffect(MobEffects.SATURATION);
+            h.assertTrue(StrongBeaconLogic.saturationDue(h.getLevel().getGameTime()) ? food != null && food.getDuration() == 1 : food == null,
+                    "saturation only as a one-tick pulse: " + food);
             BeaconsConfig.reset();
             h.succeed();
         });

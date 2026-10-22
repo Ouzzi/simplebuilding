@@ -33,10 +33,10 @@ public final class StrongBeaconLogic {
     public static final int LEVELS_NEEDED_FOR_SECONDARY = 4;
     /**
      * Effects per level (index = level - 1). Level 4 is Vanilla's secondary (Regeneration). The third column of levels
-     * 1-3 is new (SP22-10, plan docs/ai/PLAN-A-BEACONS22-2026-10-22.md): Luck, Health Boost, Invisibility and Hero of the Village.
+     * 1-3 is new (SP22-10, plan docs/ai/PLAN-A-BEACONS22-2026-10-22.md): Saturation, Health Boost, Invisibility and Hero of the Village.
      */
     public static final List<List<Holder<MobEffect>>> EFFECTS = List.of(
-            List.of(MobEffects.SPEED, MobEffects.HASTE, MobEffects.LUCK),
+            List.of(MobEffects.SPEED, MobEffects.HASTE, MobEffects.SATURATION),
             List.of(MobEffects.RESISTANCE, MobEffects.JUMP_BOOST, MobEffects.HEALTH_BOOST),
             List.of(MobEffects.STRENGTH, MobEffects.INVISIBILITY, MobEffects.HERO_OF_THE_VILLAGE),
             List.of(MobEffects.REGENERATION),
@@ -47,6 +47,12 @@ public final class StrongBeaconLogic {
             MobEffects.JUMP_BOOST, MobEffects.STRENGTH, MobEffects.REGENERATION);
     /** Effects renewed in place instead of re-added, so their one-time buffer (hearts) is not reset every 4 seconds. */
     static final List<Holder<MobEffect>> RENEW_ONLY = List.of(MobEffects.ABSORPTION, MobEffects.HEALTH_BOOST);
+    /**
+     * Saturation feeds every tick while it lasts, so the beacon gives it as a one-tick pulse every third cycle (12 s):
+     * one hunger point and two saturation, about what walking and mining use - no hunger in range, no extra healing
+     * beyond eating (owner 22.10.: no Luck; plan docs/ai/PLAN-A-BEACONS22-2026-10-22.md).
+     */
+    public static final int SATURATION_EVERY_CYCLES = 3;
     /** Extra base blocks for modpacks (empty here); Vanilla's {@code #minecraft:beacon_base_blocks} always count. */
     public static final TagKey<Block> STRONG_BASE_BLOCKS = TagKey.create(Registries.BLOCK, SimpleBeacons.id("strong_base_blocks"));
 
@@ -96,6 +102,11 @@ public final class StrongBeaconLogic {
         return RangeFactor.apply(range(levels), percent);
     }
 
+    /** Whether the beacon cycle at {@code gameTime} (every 80 ticks) gives the Saturation pulse. */
+    public static boolean saturationDue(long gameTime) {
+        return gameTime / 80 % SATURATION_EVERY_CYCLES == 0;
+    }
+
     /** Effect duration in ticks (Vanilla formula). */
     public static int durationTicks(int levels) {
         return (9 + levels * 2) * 20;
@@ -125,7 +136,7 @@ public final class StrongBeaconLogic {
     /**
      * Server check of a choice (never trust the client): the primary is from levels 1-3 or 5-6 and within reach, the
      * secondary needs level 4 and is Regeneration or the same primary ("II" - only for Vanilla's own level 1-3 effects,
-     * so no Absorption II or Luck II).
+     * so no Absorption II or Saturation II).
      */
     public static boolean validate(@Nullable Holder<MobEffect> primary, @Nullable Holder<MobEffect> secondary, int levels) {
         if (primary == null) return secondary == null;
@@ -152,8 +163,11 @@ public final class StrongBeaconLogic {
         int duration = durationTicks(levels);
         AABB box = new AABB(pos).inflate(range).expandTowards(0.0, level.getHeight(), 0.0);
         List<Player> players = level.getEntitiesOfClass(Player.class, box);
-        for (Player player : players) {
-            give(player, primary, duration, amplifier);
+        boolean pulse = MobEffects.SATURATION.equals(primary);
+        if (!pulse || saturationDue(level.getGameTime())) {
+            for (Player player : players) {
+                give(player, primary, pulse ? 1 : duration, amplifier);
+            }
         }
         if (levels >= LEVELS_NEEDED_FOR_SECONDARY && secondary != null && !Objects.equals(primary, secondary)
                 && requiredLevel(secondary) <= levels) {

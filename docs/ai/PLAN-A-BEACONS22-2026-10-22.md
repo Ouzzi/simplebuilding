@@ -26,17 +26,29 @@ Abschnitt „Besitzer 22.10.“, SP22-9 und SP22-10.
 ### Kräfte je Stufe (nur Starkes Leuchtfeuer)
 | Stufe | bisher | neu | Begründung |
 |---|---|---|---|
-| 1 | Tempo, Eile | **Glück** | Nutzkraft wie Eile, kaum Kampfwert (nur Angeln/Beute) – passt zur billigsten Stufe (9 Blöcke). |
+| 1 | Tempo, Eile | **Sättigung** (statt Glück, Besitzer 22.10.) | Nutzkraft wie Eile, kein Kampfwert – passt zur billigsten Stufe (9 Blöcke). Als Stoß, siehe unten. |
 | 2 | Resistenz, Sprungkraft | **Extraherzen I** (Health Boost) | Schutz-Thema wie Resistenz; +2 Herzen. Wird wie Absorption nur verlängert, nicht neu angewandt (sonst würde die Maximal-Gesundheit alle 4 s zurückgesetzt). |
 | 3 | Stärke | **Unsichtbarkeit**, **Held des Dorfes I** | Unsichtbarkeit ist der einzige braubare Vanilla-Trank, der noch keine Leuchtfeuer-Kraft ist. Held des Dorfes (Raid-Belohnung) senkt Handelspreise – wirtschaftlich stark, deshalb erst ab Stufe 3 (83 Blöcke). |
 | 4 | Regeneration (Sekundär) | – | unverändert |
 | 5 | Nachtsicht, Wasseratmung, Langsamer Fall | – | hat schon 3 |
 | 6 | Feuerresistenz, Delfingunst, Absorption | – | hat schon 3 |
 
-Verworfen: Sättigung und Sofortheilung (wirken jeden Tick bzw. alle 4 s – stärker als Regeneration II),
+**Nachtrag 22.10. (Besitzer: „kein Luck geben für die Beacons“):** Glück fällt weg. Ersatz für Stufe 1 ist **Sättigung**.
+Übrig waren nur Vanilla-Kräfte, die noch in keiner Stufe stehen: Sättigung, Sofortheilung, Meereskraft, Atem des
+Nautilus, Leuchten. Meereskraft/Atem des Nautilus doppeln Wasseratmung (Stufe 5) und Meereskraft nähme dem eigenen
+Starken Aquisator den Grund; Leuchten führt das Modul selbst als schädlich (Potion-Pad-Tag `blocked`) und hat kaum
+Nutzen; Sofortheilung wäre Heilung auf Stufe 1. Sättigung ist Vanilla-nah (Seltsame Suppe) und eine reine Komfortkraft
+wie Eile – aber als Dauerwirkung füttert sie jeden Tick (+1 Hunger, +2 Sättigung pro Tick = nie hungrig und über die
+natürliche Regeneration mehr Heilung als Regeneration II). Deshalb gibt das Leuchtfeuer sie nur als **Stoß von 1 Tick
+in jedem dritten Zyklus (alle 12 s)**: +1 Hungerpunkt und +2 Sättigung – etwa der Verbrauch beim Laufen/Abbauen, d. h. in
+Reichweite nie hungrig; die Heilung daraus (≈ 0,7 Herzhälften je 4 s) ist die normale Vanilla-Regeneration aus Essen,
+weniger als Regeneration I (1,6 je 4 s). Schalter `strongBeaconEffects.saturation` (Standard an), kein „II“.
+Ein vorhandener Schalter `luck` in alten Konfig-Dateien wird ignoriert (fehlende Schlüssel = Standard).
+
+Verworfen (erste Fassung): Sättigung als Dauerwirkung und Sofortheilung (wirken jeden Tick bzw. alle 4 s – stärker als Regeneration II),
 Meereskraft und Atem des Nautilus (doppeln Wasseratmung), Leuchten (kaum Nutzen).
-Alle neuen Kräfte haben wie die Stufe-5/6-Kräfte **keine Stufe II** (kein „II“ für Glück/Extraherzen/Held) und je einen
-Server-Schalter in `strongBeaconEffects` (`luck`, `health_boost`, `invisibility`, `hero_of_the_village`, Standard an).
+Alle neuen Kräfte haben wie die Stufe-5/6-Kräfte **keine Stufe II** (kein „II“ für Sättigung/Extraherzen/Held) und je einen
+Server-Schalter in `strongBeaconEffects` (`saturation`, `health_boost`, `invisibility`, `hero_of_the_village`, Standard an).
 Das Vanilla-Leuchtfeuer bekommt **keine** neuen Kräfte: es bleibt Vanilla, und die Kräfte sind der Grund für die
 Aufwertung (Modulgrenze: Vanilla-Listen `BeaconBlockEntity.BEACON_EFFECTS` sind `static final`, ein Eingriff würde
 auch fremde Mods treffen, die sie lesen).
