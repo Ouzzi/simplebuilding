@@ -38,6 +38,12 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     private static final int PANEL_X = DeathVaultMenu.WIDTH + GAP, PANEL_W = 130;
     /** The light list field inside the legend box. */
     private static final int LIST_X = PANEL_X + 7, LIST_Y = 17, LIST_W = PANEL_W - 14, LIST_H = DeathVaultMenu.HEIGHT - LIST_Y - UiBoxes.FRAME_BOTTOM - 3;
+    /** Legend groups (heading key suffix + fates), their line pitch and the short legend names. */
+    private static final Fate[][] GROUPS = {{Fate.LYING}, {Fate.PICKED_OWNER, Fate.PICKED_OTHER, Fate.REDEEMED},
+            {Fate.BURNED, Fate.DESPAWNED, Fate.VOID, Fate.OTHER}};
+    private static final String[] GROUP_NAMES = {"here", "picked", "lost"};
+    private static final String GROUP_KEY = "screen.simpletools.death_vault.group.", LABEL_KEY = "screen.simpletools.death_vault.legend.";
+    private static final int ROW = 10;
     private Button offer;
 
     public DeathVaultScreen(DeathVaultMenu menu, Inventory inventory, Component title) {
@@ -209,12 +215,16 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         for (int i = 0; i < Math.min(2, lines.size()); i++) g.text(font, lines.get(i), 8, y + i * 9, PALETTE.label(), false);
     }
 
-    /** Legend: colour key, fate and how many of the shown drops have it; below it the state of the despawn timers. */
+    /**
+     * Legend (SP22-3, owner 22.10. "improve the legend"): three groups with a heading and a rule - what still lies at
+     * the death spot, what was picked up (or bought back), what is lost - one line per fate with its colour key, a short
+     * name and the count right aligned in its own column; fates without a drop dimmed. Below a rule the timer state.
+     */
     private void legend(GuiGraphicsExtractor g) {
-        int x = LIST_X + 3, width = LIST_W - 6;
+        int x = LIST_X + 3, right = LIST_X + LIST_W - 4;
         g.text(font, Component.translatable("screen.simpletools.death_vault.legend"), PANEL_X + 8, 6, PALETTE.label(), false);
         // Ink on the light field, every colour at least 4.5:1 (follows the inventory brightness like the field itself).
-        int field = UiPalette.INVENTORY.fill(), text = UiPalette.INVENTORY.label();
+        int field = UiPalette.INVENTORY.fill(), text = UiPalette.INVENTORY.label(), rule = UiPalette.INVENTORY.shade();
         int dim = UiContrast.ensure(UiPalette.mix(text, field, 0.12), field), warn = UiContrast.ensure(WARN, field);
         int[] count = new int[16];
         int lyingRunning = 0, lyingStalled = 0, next = Integer.MAX_VALUE;
@@ -228,30 +238,36 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
             }
         }
         int y = LIST_Y + 4;
-        for (Fate fate : Fate.DISPLAY_ORDER) {
-            if (fate == Fate.REDEEMED && !menu.offerEnabled() && count[fate.id] == 0) continue;
-            int n = count[fate.id];
-            g.fill(x, y + 1, x + 8, y + 9, 0xFF000000);
-            g.fill(x + 1, y + 2, x + 7, y + 8, fate.color);
-            List<FormattedCharSequence> lines = font.split(fate.label().copy().append(" (" + n + ")"), width - 12);
-            for (FormattedCharSequence line : lines) {
-                g.text(font, line, x + 12, y, n == 0 ? dim : text, false);
-                y += 9;
+        for (int group = 0; group < GROUPS.length; group++) {
+            g.text(font, Component.translatable(GROUP_KEY + GROUP_NAMES[group]), x, y, text, false);
+            g.fill(x, y + 9, right, y + 10, rule);
+            y += 13;
+            for (Fate fate : GROUPS[group]) {
+                if (fate == Fate.REDEEMED && !menu.offerEnabled() && count[fate.id] == 0) continue;
+                int n = count[fate.id], ink = n == 0 ? dim : text;
+                String number = Integer.toString(n);
+                int numberX = right - font.width(number);
+                g.fill(x + 2, y - 1, x + 10, y + 7, 0xFF000000);
+                g.fill(x + 3, y, x + 9, y + 6, fate.color);
+                List<FormattedCharSequence> name = font.split(Component.translatable(LABEL_KEY + fate.key), numberX - 4 - (x + 14));
+                if (!name.isEmpty()) g.text(font, name.get(0), x + 14, y, ink, false);
+                g.text(font, number, numberX, y, ink, false);
+                y += ROW;
             }
-            y += 2;
+            y += 5;
         }
         int sy = LIST_Y + LIST_H - 3;
         List<FormattedCharSequence> status = new ArrayList<>();
         int color = text;
         if (lyingStalled > 0) {
-            status = font.split(Component.translatable("screen.simpletools.death_vault.paused"), width - 12);
+            status = font.split(Component.translatable("screen.simpletools.death_vault.paused"), right - x - 12);
             color = warn;
         } else if (lyingRunning > 0) {
-            status = font.split(Component.translatable("screen.simpletools.death_vault.next", clock(next)), width);
+            status = font.split(Component.translatable("screen.simpletools.death_vault.next", clock(next)), right - x);
         }
         if (!status.isEmpty()) {
-            int h = status.size() * 9;
-            int top = sy - h;
+            int top = sy - status.size() * 9;
+            g.fill(x, top - 4, right, top - 3, rule);
             if (lyingStalled > 0) pauseMark(g, x, top);
             for (int i = 0; i < status.size(); i++) g.text(font, status.get(i), x + (lyingStalled > 0 ? 12 : 0), top + i * 9, color, false);
         }

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Draws the grid of a Storage Crafting Table flat on its top (queue N26): the nine stacks in the 3x3 raster of the
  * top texture, first row in the north, each the item model without display transform ({@link ItemDisplayContext#NONE})
- * laid down and pressed to {@link #THICKNESS} (SP22-4: 1.5 px, so they read from afar and from the side), blocks as
+ * laid down and pressed to {@link #THICKNESS} (SP22-4: 1 px, owner 22.10. after 1.5 px, so they read from the side), blocks as
  * tiles and items as the item sprite. Lit by the light above the table (the table itself is solid). Loader neutral;
  * each loader registers it.
  */
@@ -30,8 +30,8 @@ public class StorageCraftingTableRenderer implements BlockEntityRenderer<Storage
     /** Cell pitch and item size in blocks: 5 px cells around the centre, 4.5 px items. */
     private static final float PITCH = 5.0F / 16.0F;
     private static final float SIZE = 0.28F;
-    /** Height of every laid item in blocks (owner SP22-4: 1-2 px), and how far it floats above the top. */
-    private static final float THICKNESS = 1.5F / 16.0F;
+    /** Height of every laid item in blocks (owner SP22-4: 1 px; flat sprites keep their own 1 px depth), and how far it floats above the top. */
+    private static final float THICKNESS = 1.0F / 16.0F;
     private static final float LIFT = 0.003F;
     /** Depth of a flat item sprite model (Vanilla's generated items are 1 px deep); block models are 1 deep. */
     private static final float SPRITE_DEPTH = 1.0F / 16.0F;
