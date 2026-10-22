@@ -12,6 +12,7 @@ kein FEHLER, höchstens 6 rote Tests), läuft jeder rote Test einmal allein nach
 
 | Datum | Ref | Ziel | Test |
 |---|---|---|---|
+| 2026-10-22 | 04ec2d56a | module-simpletweaks-standalone-fabric-263 | simpletweaks:admin_game_test_vanish_hides_and_ignores |
 | 2026-10-21 | 5b877f7ac | module-simpledimensions-standalone-fabric-263 | simpledimension:module_game_test_player_inventory_roundtrip |
 
 ## Erledigt
