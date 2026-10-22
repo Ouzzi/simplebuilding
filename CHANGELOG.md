@@ -6,6 +6,10 @@
 converted automatically when they load (items, blocks, block entities, entities, recipe book and advancements), and
 every old id keeps an alias, but a backup is the only way back if anything goes wrong.
 
+On the first start of a world with 2.0.0, SimpleBuilding writes `simplebuilding-split-backup.marker` into the world folder
+(once; it says whether the world existed before) and, for an existing world, logs a warning that recommends a backup.
+Nothing is copied automatically - a real backup is the whole world folder from before the update.
+
 ### What changed
 
 SimpleBuilding is now a *super mod*: it bundles and requires a family of sub-mods, and each sub-mod also runs on its
@@ -13,14 +17,16 @@ own. The SimpleBuilding jar for 26.3 contains everything you need; when you inst
 
 | Required sub-mod | What lives there now | New id namespace |
 |---|---|---|
-| SimpleLib 0.2.0 | Shared materials (cracked diamond, netherite nugget, enderite base, upgrade templates, polished end stone), id moves, in-world upgrades | `simplelib:` |
-| Simple Ovens 1.0.0 | Reinforced / Netherite / Enderite furnaces, smokers, blast furnaces and their minecarts | `simpleovens:` |
-| Simple Crucibles 1.0.0 | Crucibles, barrels, reinforced cauldron, soul lava and the bucket family | `simplecrucibles:` |
-| Simple Octets 1.0.0 | Octet (eighth) blocks and the shape saw recipes | `simpleoctets:` |
-| Simple Blocks 1.0.0 | Building blocks without a themed home | `simpleblocks:` |
-| Simple Hammers 1.0.0 | The seven sledgehammers, hammer enchantments, in-world crafting | `simplehammers:` |
-| Simple Storage 1.0.0 | Chests, tiered chests and shulker boxes, bundles, quivers, backpacks, storage enchantments, rare chest and shulker finds | `simplestorage:` |
-| Simple Mobheads 1.0.0 | Mob heads | `simplemobheads:` |
+| SimpleLib 0.3.0 | Shared materials (cracked diamond, netherite nugget, enderite base, upgrade templates, polished end stone), id moves, in-world upgrades | `simplelib:` |
+| Simple Ovens 0.9.0 | Reinforced / Netherite / Enderite furnaces, smokers, blast furnaces and their minecarts | `simpleovens:` |
+| Simple Crucibles 0.9.0 | Crucibles, barrels, reinforced cauldron, soul lava and the bucket family | `simplecrucibles:` |
+| Simple Octets 0.9.0 | Octet (eighth) blocks and the shape saw recipes | `simpleoctets:` |
+| Simple Blocks 0.9.0 | Building blocks without a themed home | `simpleblocks:` |
+| Simple Hammers 0.9.0 | The seven sledgehammers, hammer enchantments, in-world crafting | `simplehammers:` |
+| Simple Storage 0.9.0 | Chests, tiered chests and shulker boxes, bundles, quivers, backpacks, storage enchantments, rare chest and shulker finds | `simplestorage:` |
+| Simple Mobheads 0.9.0 | Mob heads | `simplemobheads:` |
+
+Every mod of the family that uses SimpleLib now needs SimpleLib 0.3.0 or newer (its API grew during the split).
 
 Optional sub-mods (Simple Tweaks, Riding, Maps, Sandwiches, Money, Fun, Dimensions, Trims, Mobs, End, Respawn, Beacons,
 Shops, Wanderers, Questionary) stay bundled and can each be switched off in the config tab "Simple Mods".
