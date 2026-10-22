@@ -17,7 +17,9 @@
     "ClientTooltipMixin",
     "EffectBarsMixin",
     "InventoryEffectBarsMixin",
-    "PackRepositoryAccessor"
+    "PackRepositoryAccessor",
+    "ItemFrameRendererMixin",
+    "ItemFrameRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

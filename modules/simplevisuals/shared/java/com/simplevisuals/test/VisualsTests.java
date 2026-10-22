@@ -53,7 +53,8 @@ public final class VisualsTests {
    Visuals.CONFIG=new SimplevisualsConfig();
    h.assertTrue(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals")==com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE,"Provider follows replaced config without saving");
   } finally { Visuals.CONFIG=saved; }
-  var c=new SimplevisualsConfig();h.assertTrue(ConfigOptions.all(c).size()==50,"All original config fields plus global level");
+  var c=new SimplevisualsConfig();h.assertTrue(ConfigOptions.all(c).size()==51,"All original config fields plus global level and tilted frame items");
+  frameTilt(h,c);
   for(var o:ConfigOptions.all(c))if(o.get() instanceof Number){
    boolean integer=o.field().getType()==int.class;
    if(integer)o.set(Integer.MAX_VALUE);else o.set(Float.POSITIVE_INFINITY);ConfigOptions.normalize(c);
@@ -66,6 +67,15 @@ public final class VisualsTests {
   h.assertTrue(!c.visuals.enableChatHeads&&c.visuals.speedLines.speedLinesAmount==1.5f&&c.visuals.deathCoordsMode==SimplevisualsConfig.Visuals.DeathCoordsMode.APPEND,"Original paths and enum data retained");
   c.particles.globalLevel=null;c.particles.overrides.put("unknown",Intensity.MAXIMUM);c.particles.overrides.put("cold_breath",null);ConfigOptions.normalize(c);
   h.assertTrue(c.particles.globalLevel==Intensity.SUBTLE&&c.particles.overrides.isEmpty(),"Corrupt levels and unknown effect ids rejected");h.succeed();
+ }
+ /** TZ22-7: which framed items are drawn tilted (shape rule; the renderer also needs a block model), option on by default. */
+ static void frameTilt(GameTestHelper h,SimplevisualsConfig c){
+  h.assertTrue(c.visuals.enableTiltedFrameItems,"Tilted frame items on by default");
+  for(var item:List.of(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE,net.minecraft.world.item.Items.STONE_PRESSURE_PLATE,net.minecraft.world.item.Items.LIGHT_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.WHITE_CARPET,net.minecraft.world.item.Items.MOSS_CARPET,net.minecraft.world.item.Items.OAK_TRAPDOOR,net.minecraft.world.item.Items.DAYLIGHT_DETECTOR))
+   h.assertTrue(FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Flat block tilted: "+item);
+  for(var item:List.of(net.minecraft.world.item.Items.STONE_BUTTON,net.minecraft.world.item.Items.OAK_SLAB,net.minecraft.world.item.Items.STONE,net.minecraft.world.item.Items.STICK,net.minecraft.world.item.Items.SKELETON_SKULL,net.minecraft.world.item.Items.TORCH,net.minecraft.world.item.Items.AIR))
+   h.assertTrue(!FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Keeps Vanilla frame view: "+item);
+  for(var id:List.of("simplebuilding:diamond_pressure_plate"))if(BuiltInRegistries.ITEM.containsKey(Identifier.parse(id)))h.assertTrue(FrameTilt.flat(new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(id)))),"Mod pressure plate tilted: "+id);
  }
  public static void speedLinesMath(GameTestHelper h){
   h.assertTrue(SpeedLinesMath.tempo(SpeedLinesMath.REFERENCE)==1f&&SpeedLinesMath.density(SpeedLinesMath.REFERENCE)==1f,"Reference speed gives base values");
