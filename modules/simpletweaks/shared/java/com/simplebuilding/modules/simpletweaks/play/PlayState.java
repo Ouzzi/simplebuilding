@@ -8,12 +8,14 @@ import net.minecraft.world.level.storage.LevelResource;
 
 /**
  * World state of the player features that survives relogs and restarts (one JSON file, written atomically):
- * personal PvP, phantom opt-outs, last seen times and names, login streaks, the pregeneration job.
+ * personal PvP, ended newcomer protections, phantom opt-outs, last seen times and names, login streaks, the pregeneration job.
  * Keys are UUID strings.
  */
 public final class PlayState {
     public Set<String> pvpOn = new LinkedHashSet<>();
     public Set<String> pvpOff = new LinkedHashSet<>();
+    /** T12: players whose newcomer protection is over for good. */
+    public Set<String> shieldEnded = new LinkedHashSet<>();
     public Set<String> phantomsOff = new LinkedHashSet<>();
     public Map<String, Long> lastSeen = new LinkedHashMap<>();
     public Map<String, String> names = new LinkedHashMap<>();
@@ -49,6 +51,7 @@ public final class PlayState {
     private void fill() {
         if (pvpOn == null) pvpOn = new LinkedHashSet<>(); if (pvpOff == null) pvpOff = new LinkedHashSet<>();
         if (phantomsOff == null) phantomsOff = new LinkedHashSet<>(); if (lastSeen == null) lastSeen = new LinkedHashMap<>();
+        if (shieldEnded == null) shieldEnded = new LinkedHashSet<>();
         if (names == null) names = new LinkedHashMap<>(); if (streaks == null) streaks = new LinkedHashMap<>();
     }
 

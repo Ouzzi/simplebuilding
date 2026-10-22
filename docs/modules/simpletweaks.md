@@ -631,3 +631,18 @@ drin und müssen den Schalter von Hand umstellen. `ClaimConfig.OFF` = Defaults m
   entfallen; der Schutz bleibt aktiv (vorher Absturz beim Serverstart).
 - Neue Tests `claims_tools_held_attractor`, `claims_access_create`; Konfigtest prüft
   explizites false und fehlenden Schlüssel. Plan: `docs/ai/PLAN-CLAIMS-AN-2026-10-13.md`.
+
+## T12 Neulingsschutz (2026-10-22, Branch b-t12pvp)
+
+Besitzer 17.10./21.10.: Standard AN, 5 Minuten, einstellbar. `play/shield/NewPlayerShield.java`,
+Konfig `newPlayerShield{enabled=true, minutes=5 (1–1440), attackEnds=true}` in
+`config/simpletweaks-play.json` (fehlender Abschnitt = Standard, also auch in bestehenden Dateien an).
+- Geschützt, solange die Vanilla-Online-Spielzeit `play_time` dieser Welt unter `minutes` liegt und
+  der Schutz nicht beendet wurde (`PlayState.shieldEnded`, dauerhaft). Ausloggen verbraucht nichts.
+- Gesperrt in beide Richtungen: `ServerPlayer.canHarmPlayer` (Schlag, Pfeil, Dreizack, Sofortschaden
+  aus Tränken) und schädliche Wirkungen über `LivingEntity.addEffect` (Spieler, ihre Geschosse/Wolken).
+- `attackEnds`: Will der Geschützte einem Spieler schaden (`hurtServer`-Kopf, schädliche Wirkung), endet
+  sein Schutz sofort. Pfeile eines Geschützten fliegen durch Spieler (Vanilla `canHitEntity`) und beenden nichts.
+- Nur echte Spieler (Klasse genau `ServerPlayer`): Fake-/Mock-Spieler bekommen keinen Schutz, fremde Tests
+  bleiben unverändert. Hinweise im Chat (Beginn/Ende), Angreifer sieht die Restzeit in der Aktionsleiste.
+- Tests `play_game_test_new_player_shield_*` (3). Plan: `docs/ai/PLAN-B-T12PVP-2026-10-22.md`.
