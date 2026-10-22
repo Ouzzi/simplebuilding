@@ -85,7 +85,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - Eine Achtel-Zelle, die mit 8 gleichen Achteln gefüllt ist, wird zum Vollblock. Das geht ohne Verlust, weil jeder Block 8 Achtel gibt. Beispiel: Ein volles Diamant-Achtel wird zum Diamantblock und lässt sich dann direkt zu „Cracked Diamond“ weiterverarbeiten.
   - Umgekehrt: Bricht man im Schleichen eine Ecke eines Vollblocks ab (z. B. Diamantblock), wird er zur Achtel-Zelle, und nur dieses eine Achtel fällt heraus. Heute wird der ganze Block abgebaut.
   - Gilt für alle Blöcke mit Achtel-Form.
-- [ ] SP22-2 (simplelib) „Legendärer“ Klang und Spieler-Effekt für „Impossible“-Errungenschaften: „Der Sound für legendäre Achievements ist schon ziemlich cool … so etwas oder besser“.
+- [~] (A, a-legend22, 22.10.) SP22-2 (simplelib) „Legendärer“ Klang und Spieler-Effekt für „Impossible“-Errungenschaften: „Der Sound für legendäre Achievements ist schon ziemlich cool … so etwas oder besser“.
   - Gilt für die schwierigsten Verzauberungen der Mods und die schwierigsten Vanilla-Verzauberungen sowie für die schwersten Advancements wie „How Did We Get Here?“.
   - Sitz in simplelib, damit es automatisch für alle Mods greift, sobald SimpleLib installiert ist.
   - Eigener Klang (synthetisch, wie die Howler-Takes) plus sichtbarer Effekt am Spieler. Liste „impossible“ per Tag/Config erweiterbar.
