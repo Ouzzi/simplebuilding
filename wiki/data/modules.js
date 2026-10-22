@@ -822,7 +822,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -843,9 +843,9 @@ window.WIKI_MODULES = [
       "items": 3,
       "blocks": 2,
       "recipes": 6,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "405f79eb15ce"
+    "dataHash": "be10c23f086b"
   },
   {
     "id": "simpleovens",
