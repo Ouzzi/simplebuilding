@@ -107,7 +107,7 @@ public final class LegendaryTests {
 
             // Enchanting table path: the minecraft:enchanted_item trigger with a freshly enchanted item.
             ItemStack table = book(sharpness, 5);
-            net.minecraft.advancements.CriteriaTriggers.ENCHANTED_ITEM.trigger(player, table, 30);
+            net.minecraft.advancements.triggers.CriteriaTriggers.ENCHANTED_ITEM.trigger(player, table, 30);
             h.assertTrue(LegendaryMoments.celebrations(player) == 3, "enchanting trigger did not celebrate");
         } finally {
             LibConfig.reset();
