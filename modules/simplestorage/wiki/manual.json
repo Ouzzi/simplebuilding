@@ -601,7 +601,8 @@
         "modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java",
         "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian"
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json"
       ],
       "en": {
         "title": "Storage enchantments: Deep Pockets, Drawer, Funnel",
