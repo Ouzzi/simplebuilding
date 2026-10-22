@@ -96,8 +96,7 @@ HANDLE_RAMPS = {'A': ('1f1e23', '2d2c32', '3f3e45', '57565e', '76757c'),     # c
 
 def handle_vn12(variant='A'):
     from layers import snap  # tools/textures is the script folder
-    k, d, m, l, h = ((int(c[i:i + 2], 16) for i in (0, 2, 4)) for c in HANDLE_RAMPS[variant])
-    k, d, m, l, h = (tuple(c) + (255,) for c in (k, d, m, l, h))
+    k, d, m, l, h = [tuple(int(c[i:i + 2], 16) for i in (0, 2, 4)) + (255,) for c in HANDLE_RAMPS[variant]]
     img = Image.new('RGBA', (16, 16), m)
     px = img.load()
     for x in range(16):

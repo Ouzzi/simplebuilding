@@ -336,7 +336,9 @@ def _hole(im, ramp, x, y, w, h):
             if dx == w - 1 and dy == h - 1 and w * h > 1:
                 col = 'D'
             if w > 2 and h > 2 and (dx, dy) in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)):
-                continue  # round corners on big holes
+                if w > 3:
+                    continue  # round corners on big holes
+                col = 'R' if (dx, dy) == (0, 0) else 'D'  # 3x3: soft corners instead of a plus shape
             _paint(im, [(x + dx, y + dy)], ramp[col])
     _paint(im, [(x + w, y + h - 1), (x + w - 1, y + h)], ramp['H'])
 
