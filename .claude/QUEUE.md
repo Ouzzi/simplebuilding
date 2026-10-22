@@ -65,7 +65,7 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 ## Besitzer 22.10. – Texturen (TX22)
 Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfehlungen passen, gezielt überarbeitet werden nur wenige Texturen.
 - [ ] TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7). [Vitrinenglas `display_case_glass` erledigt auf b-shops22, 22.10.: Alpha 24 statt 70, Lichtstreifen, Ebenen-Quelle; Rest offen]
-- [ ] TX22-2 Alle Spawn-Eier: „bei den Spawn-Eiern ist schlechte Arbeit gemacht worden. Das sieht nicht aus wie Vanilla. Das muss auf jeden Fall sehr viel verbessert werden.“
+- [~] (A, a-eggs22, 23.10.) TX22-2 Alle Spawn-Eier: „bei den Spawn-Eiern ist schlechte Arbeit gemacht worden. Das sieht nicht aus wie Vanilla. Das muss auf jeden Fall sehr viel verbessert werden.“
   - Vanilla 26.3 arbeitet mit eigenen Spawn-Ei-Formen je Mob, Grundfarbe und Flecken. Das Vorgehen der Vanilla-Eier analysieren und alle eigenen Eier danach neu zeichnen.
   - Vorschau mit Vanilla-Vergleich, eingebaut wird die empfohlene Variante.
 - [ ] TX22-3 Aschholz/Dämmerholz (Simple End): „die meisten Texturen“ von Holz und Blättern überarbeiten.
@@ -100,7 +100,7 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - **Fehler:** Das Lager lässt sich überall setzen und verschwindet dann, wenn es nicht erlaubt ist. Neu: Setzen geht nur mit Schleichen + Rechtsklick auf einen Verkaufsblock, von jeder Seite. Sonst gar nicht setzbar, wie ein Item.
   - **Form:** Das Lager wird ein gerichteter Vollblock, der aussieht, als käme er aus dem Verkaufsblock heraus (wie ein Trichter, aber voll; Vorbild für die Wirkung ist der Strong Beacon). Er schaut zum Verkaufsblock und nimmt von dort die Ware bzw. das Geld auf.
   - **Vitrine und Glow-Vitrine:** überall ablegbar, auch ohne Verkaufsblock. Geschützt sind sie nur zusammen mit einem Verkaufsblock. Die Decke ist durchsichtig wie beim Leuchtfeuer, damit man von oben hineinsieht, und das Glas wird klarer.
-- [~] (A, a-claims22 Konzept, 22.10.) SP22-8 (Claims, Umbau; erst Konzept, dann Umsetzung; Abnahme im Spiel) Claim-Tisch „erscheint mir gerade nicht gut“. Er wird ersetzt:
+- [~] (A, a-claims22 Konzept 22.10.; Umsetzung a-claims-credits 23.10. mit den Empfehlungen C1–C13) SP22-8 (Claims, Umbau; erst Konzept, dann Umsetzung; Abnahme im Spiel) Claim-Tisch „erscheint mir gerade nicht gut“. Er wird ersetzt:
   - **Anzeige:** Claims sieht man in erster Linie über die Wayfinder-Karte (Simple Maps), eigene und fremde, wenn die Ebene an ist. Fehlt Simple Maps, zeigt ein Hinweis, dass es für Claims empfohlen ist.
   - **Claim-Urkunde wie eine Karte:** Sie zeigt den geclaimten Bereich.
   - **Wiederherstellung am Kartentisch:** Leere Urkunde rein, persönliche Urkunde raus. Kopieren geht auch. Fremde oder schon personalisierte Urkunden sind für andere nicht änderbar, aber es gibt immer einen Weg zur eigenen Urkunde.
