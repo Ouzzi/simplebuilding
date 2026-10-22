@@ -1042,16 +1042,15 @@ public final class MobHeadTests {
         pig.hurtServer(level, level.damageSources().generic(), 1000.0F);
         helper.assertTrue(pig.isAlive() && pig.getHealth() == 1.0F && Technoblade.crowned(pig), "a plain deadly hit killed it or took the crown");
         helper.assertValueEqual(count(helper, crown), 0, "crowns without a player");
-        // A player's deadly hit: it lives on, the crown falls as the head, once.
+        // A player's deadly hit: it lives on, the crown falls as the head, once. (Within the damage cooldown only a hit above
+        // the last one counts, so every further hit here is bigger.)
         ServerPlayer player = player(helper);
-        pig.setInvulnerableTime(0);
-        pig.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
+        pig.hurtServer(level, level.damageSources().playerAttack(player), 2000.0F);
         helper.assertTrue(pig.isAlive() && !Technoblade.crowned(pig), "the crown did not fall (alive " + pig.isAlive() + ")");
         helper.assertValueEqual(count(helper, crown), 1, "crowned heads from a player's hit");
         helper.assertTrue(!Technoblade.update(level, pig), "the crown grew back at once");
         // Without the crown it is mortal.
-        pig.setInvulnerableTime(0);
-        pig.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
+        pig.hurtServer(level, level.damageSources().playerAttack(player), 4000.0F);
         helper.assertTrue(!pig.isAlive(), "a pig without a crown never dies");
         // The same player waits a day: a second Technoblade keeps its crown and lives.
         var other = helper.spawn(EntityTypes.PIG, new BlockPos(4, 2, 4));
@@ -1061,7 +1060,7 @@ public final class MobHeadTests {
         helper.assertTrue(other.isAlive() && Technoblade.crowned(other), "a waiting player still took a crown");
         helper.assertValueEqual(count(helper, crown), 1, "crowned heads while the player waits");
         // The void and /kill still work.
-        other.hurtServer(level, level.damageSources().fellOutOfWorld(), 1000.0F);
+        other.hurtServer(level, level.damageSources().fellOutOfWorld(), 2000.0F);
         helper.assertTrue(!other.isAlive(), "the void cannot kill a crowned pig");
         // The cooldown runs out: the crown grows back.
         var third = helper.spawn(EntityTypes.PIG, new BlockPos(2, 2, 4));
@@ -1298,8 +1297,10 @@ public final class MobHeadTests {
     /** CO-2 + owner: each hay bale is one try at 1:5000, at most 64 per cow; calves, mooshrooms and other food never. */
     public static void giantCowHay(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
+        // A survival mock player (bales are used up); it has no connection, so it is moved with setPos, never snapTo.
         ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
-        player.snapTo(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+        player.setPos(at.x, at.y, at.z);
         var cow = helper.spawn(EntityTypes.COW, new BlockPos(3, 2, 3));
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HAY_BLOCK, 64));
         for (int i = 0; i < 64; i++) {
