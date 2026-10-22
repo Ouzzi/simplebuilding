@@ -958,7 +958,11 @@ window.WIKI_DATA = {
         "simplestorage:enderite_backpack",
         "simplebuilding:leather_sheet",
         "simplebuilding:master_builder",
-        "simplebuilding:constructors_touch"
+        "simplebuilding:constructors_touch",
+        "simplebuilding:backpack",
+        "simplebuilding:reinforced_backpack",
+        "simplebuilding:netherite_backpack",
+        "simplebuilding:enderite_backpack"
       ],
       "sources": [
         "modules/simplestorage/wiki/manual.json",
@@ -994,7 +998,10 @@ window.WIKI_DATA = {
         "simplestorage:enderite_bundle",
         "simplebuilding:leather_sheet",
         "simplebuilding:master_builder",
-        "simplebuilding:color_palette"
+        "simplebuilding:color_palette",
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:netherite_bundle",
+        "simplebuilding:enderite_bundle"
       ],
       "sources": [
         "modules/simplestorage/wiki/manual.json",
@@ -1034,7 +1041,11 @@ window.WIKI_DATA = {
         "simplestorage:enderite_quiver",
         "simplebuilding:constructors_touch",
         "simplebuilding:master_builder",
-        "simplebuilding:leather_sheet"
+        "simplebuilding:leather_sheet",
+        "simplebuilding:quiver",
+        "simplebuilding:reinforced_quiver",
+        "simplebuilding:netherite_quiver",
+        "simplebuilding:enderite_quiver"
       ],
       "sources": [
         "modules/simplestorage/wiki/manual.json",
