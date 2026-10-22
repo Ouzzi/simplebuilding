@@ -24,7 +24,7 @@ import org.jspecify.annotations.Nullable;
  * the crown it never dies: a deadly hit leaves half a heart and the totem's flash. When a player struck that hit and is not
  * waiting, the crown falls off as the head; it grows back after {@code technobladeCooldownTicks}, and that player waits as long.
  * Without a player the crown stays - the pig never dies. {@code /kill} and the void ({@code bypasses_invulnerability}) still
- * work. Lightning does not turn a crowned pig into a zombified piglin.
+ * work. Lightning never turns Technoblade into a zombified piglin.
  */
 public final class Technoblade {
     public static final String NAME = "Technoblade";
@@ -124,9 +124,9 @@ public final class Technoblade {
         return pig.getLastHurtByPlayer() instanceof ServerPlayer player ? player : null;
     }
 
-    /** {@code Pig#thunderHit} ({@code PigThunderMixin}): lightning leaves a crowned pig as it is. */
+    /** {@code Pig#thunderHit} ({@code PigThunderMixin}): lightning leaves Technoblade a pig (crowned or waiting for the crown). */
     public static boolean resistsLightning(Pig pig) {
-        return crowned(pig) && enabled();
+        return (crowned(pig) || named(pig)) && enabled();
     }
 
     /**

@@ -304,7 +304,7 @@
         "details": [
           "Name an adult pig \"Technoblade\" (exactly, with a name tag): within a second it wears a golden crown.",
           "While it wears the crown it never dies: a deadly hit leaves it at half a heart with a totem's flash. If a player struck that hit, the crown falls off as the Crowned Pig Head (lore \"Technoblade never dies\"); without a player the crown stays.",
-          "The crown grows back after an in-game day, and the same player gets the next crowned head only after an in-game day (server switch and cooldown). The void and /kill still work; lightning does not turn a crowned pig into a zombified piglin.",
+          "The crown grows back after an in-game day, and the same player gets the next crowned head only after an in-game day (server switch and cooldown). The void and /kill still work; lightning never turns Technoblade into a zombified piglin.",
           "Worn, pigs nearby turn their heads to the wearer and the crown glints now and then. No face or skin of the person, only his symbol."
         ]
       },
@@ -314,7 +314,7 @@
         "details": [
           "Ein erwachsenes Schwein \"Technoblade\" nennen (genau so, mit Namensschild): binnen einer Sekunde trägt es eine goldene Krone.",
           "Solange es die Krone trägt, stirbt es nie: ein tödlicher Schlag lässt ihm ein halbes Herz und den Blitz eines Totems. War es der Schlag eines Spielers, fällt die Krone als Gekrönter Schweinekopf herunter (Lore \"Technoblade never dies\"); ohne Spieler bleibt die Krone.",
-          "Die Krone wächst nach einem Ingame-Tag nach, und derselbe Spieler bekommt den nächsten gekrönten Kopf erst nach einem Ingame-Tag (Server-Schalter und Abklingzeit). Leere und /kill wirken weiter; ein Blitz macht aus einem gekrönten Schwein keinen zombifizierten Piglin.",
+          "Die Krone wächst nach einem Ingame-Tag nach, und derselbe Spieler bekommt den nächsten gekrönten Kopf erst nach einem Ingame-Tag (Server-Schalter und Abklingzeit). Leere und /kill wirken weiter; ein Blitz macht aus Technoblade nie einen zombifizierten Piglin.",
           "Getragen drehen Schweine in der Nähe den Kopf zum Träger, und die Krone glänzt ab und zu. Kein Gesicht und kein Skin der Person, nur sein Symbol."
         ]
       },

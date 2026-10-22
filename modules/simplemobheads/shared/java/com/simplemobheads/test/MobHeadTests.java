@@ -1083,7 +1083,7 @@ public final class MobHeadTests {
         helper.succeed();
     }
 
-    /** TO-1: lightning leaves a crowned pig a pig (no conversion, no fire). */
+    /** TO-1: lightning leaves Technoblade a pig (no conversion, no fire), with or without its crown. */
     public static void technobladeLightning(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         var pig = helper.spawn(EntityTypes.PIG, new BlockPos(3, 2, 3));
@@ -1093,6 +1093,12 @@ public final class MobHeadTests {
         pig.thunderHit(level, bolt);
         helper.assertTrue(!pig.isRemoved() && pig.isAlive() && Technoblade.crowned(pig) && pig.getRemainingFireTicks() <= 0,
                 "lightning changed the crowned pig");
+        // Waiting for its crown it is still Technoblade.
+        var waiting = helper.spawn(EntityTypes.PIG, new BlockPos(4, 2, 4));
+        waiting.setCustomName(net.minecraft.network.chat.Component.literal(Technoblade.NAME));
+        com.simplemobheads.easter.EntityTimes.set(waiting, Technoblade.CROWN_READY, level.getGameTime() + 1000);
+        waiting.thunderHit(level, bolt);
+        helper.assertTrue(!waiting.isRemoved() && !Technoblade.crowned(waiting), "lightning turned Technoblade into a zombified piglin");
         clearAll(helper);
         helper.succeed();
     }

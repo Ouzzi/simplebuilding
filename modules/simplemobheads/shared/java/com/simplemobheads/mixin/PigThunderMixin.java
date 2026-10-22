@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** Technoblade (EH21 TO-1): lightning leaves a crowned pig a pig (no zombified piglin, no fire). */
+/** Technoblade (EH21 TO-1): lightning leaves Technoblade a pig (no zombified piglin, no fire). */
 @Mixin(Pig.class)
 public abstract class PigThunderMixin {
     @Inject(method = "thunderHit", at = @At("HEAD"), cancellable = true)
