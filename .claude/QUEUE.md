@@ -89,8 +89,8 @@ Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). 
   - Gilt für die schwierigsten Verzauberungen der Mods und die schwierigsten Vanilla-Verzauberungen sowie für die schwersten Advancements wie „How Did We Get Here?“.
   - Sitz in simplelib, damit es automatisch für alle Mods greift, sobald SimpleLib installiert ist.
   - Eigener Klang (synthetisch, wie die Howler-Takes) plus sichtbarer Effekt am Spieler. Liste „impossible“ per Tag/Config erweiterbar.
-- [~] (A, a-sp22ui, 22.10.) SP22-3 (Death Vault, UI) Die Death-Vault-Oberfläche „sieht noch etwas schwach aus“. Sie bekommt den Stil der anderen UIs (Rahmen, Kontrast, simplelib-Bausteine).
-- [~] (A, a-sp22ui, 22.10.) SP22-4 (Crafting Storage) Items auf dem Crafting-Storage-Block mit 1–2 px Höhe zeichnen, damit man sie von Weitem und von der Seite sieht.
+- [x] (A, a-sp22ui, 22.10.) SP22-3 (Death Vault, UI) Die Death-Vault-Oberfläche „sieht noch etwas schwach aus“. Sie bekommt den Stil der anderen UIs (Rahmen, Kontrast, simplelib-Bausteine). **Erledigt (a-sp22ui):** `UiBoxes`-Kästen in Vault-Violett (derived 3C2D57, Runen-Motiv), heller Inventarkasten, Legende im hellen Feld; Kontrast 10,7/6,1/4,7/4,6:1; Plan `docs/ai/PLAN-A-SP22UI-2026-10-22.md`. Offen: Client-Sicht.
+- [x] (A, a-sp22ui, 22.10.) SP22-4 (Crafting Storage) Items auf dem Crafting-Storage-Block mit 1–2 px Höhe zeichnen, damit man sie von Weitem und von der Seite sieht. **Erledigt (a-sp22ui):** `StorageCraftingTableRenderer` legt alle Items 1,5 px hoch (Blöcke und flache Sprites). Offen: Client-Sicht.
 - [~] (B, b-redsound22, 22.10.) SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
   - Eigene Klänge entwickeln: Redstone-Staub als „Pulver-Sound“, Lampen dürfen amethystartig bleiben, Kolben klingen kolbenartig.
   - Jeder Block-Typ bekommt eine eigene SoundGroup.
