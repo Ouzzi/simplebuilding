@@ -251,7 +251,7 @@ public final class BeaconsTests {
             h.setBlock(CENTER, BeaconsRegistry.STRONG_BEACON);
             StrongBeaconBlockEntity be = h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class);
             be.dataAccess().set(1, net.minecraft.world.inventory.BeaconMenu.encodeEffect(MobEffects.WATER_BREATHING));
-            be.dataAccess().set(2, net.minecraft.world.inventory.BeaconMenu.encodeEffect(MobEffects.SATURATION));
+            be.dataAccess().set(2, net.minecraft.world.inventory.BeaconMenu.encodeEffect(MobEffects.LUCK));
             h.assertTrue(MobEffects.WATER_BREATHING.equals(be.primary()) && be.secondary() == null, "unknown effects are filtered");
             var tag = be.saveCustomOnly(h.getLevel().registryAccess());
             h.assertTrue("minecraft:water_breathing".equals(tag.getStringOr("primary_effect", "")), "Vanilla key primary_effect");
