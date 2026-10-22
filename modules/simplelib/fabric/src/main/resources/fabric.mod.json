@@ -22,6 +22,9 @@
     "client": [
       "com.simplebuilding.modules.simplelib.SimpleLibFabricClient"
     ],
+    "modmenu": [
+      "com.simplebuilding.modules.simplelib.SimpleLibModMenu"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplelib.ModuleGameTest"
     ]

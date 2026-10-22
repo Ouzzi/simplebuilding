@@ -61,6 +61,7 @@ public final class LibDiscover {
             "simplelib:enderite_scrap",
             "simplelib:enderite_upgrade_template",
             "simplelib:layered_raw_enderite",
+            "simplelib:legendary_moments",
             "simplelib:netherite_nugget",
             "simplelib:polished_end_stone",
             "simplelib:polished_end_stone_slab",

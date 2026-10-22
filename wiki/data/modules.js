@@ -59,7 +59,7 @@ window.WIKI_MODULES = [
       "blocks": 318,
       "recipes": 855,
       "config": 227,
-      "features": 48
+      "features": 47
     }
   },
   {
@@ -325,7 +325,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 40
     },
-    "dataHash": "19d637c3a9b3"
+    "dataHash": "8115db6dbacf"
   },
   {
     "id": "simpledimensions",
@@ -412,9 +412,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 3
+      "features": 4
     },
-    "dataHash": "3fa078d971ac"
+    "dataHash": "db59b61ba38f"
   },
   {
     "id": "simpleinterfaces",
@@ -468,7 +468,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 8
     },
-    "dataHash": "57fed3785ddf"
+    "dataHash": "3947b5bceca5"
   },
   {
     "id": "simpletrims",
@@ -822,7 +822,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
-    "description": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+    "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -843,9 +843,9 @@ window.WIKI_MODULES = [
       "items": 3,
       "blocks": 2,
       "recipes": 6,
-      "features": 8
+      "features": 7
     },
-    "dataHash": "37d367143d37"
+    "dataHash": "405f79eb15ce"
   },
   {
     "id": "simpleovens",
@@ -935,9 +935,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 6,
-      "features": 11
+      "features": 10
     },
-    "dataHash": "f4275fd6e203"
+    "dataHash": "30dbd747d283"
   },
   {
     "id": "simplewanderers",
@@ -1076,7 +1076,7 @@ window.WIKI_MODULES = [
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "677b17642cfc"
+    "dataHash": "fa3e13af5aa2"
   },
   {
     "id": "simplehammers",

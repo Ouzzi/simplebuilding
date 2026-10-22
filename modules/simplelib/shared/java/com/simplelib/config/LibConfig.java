@@ -22,21 +22,33 @@ public final class LibConfig {
     public static int warmDurationTicks = WARM_DURATION_DEFAULT;
     public static int warmBundleDurationTicks = WARM_BUNDLE_DEFAULT;
     public static double eatSpeedBonus = EAT_BONUS_DEFAULT;
+    /** Legendary moments (SP22-2, {@link com.simplelib.api.LegendaryMoments}): fanfare + particles; every listed id counts. */
+    public static final int LEGENDARY_LIST_MAX = 256;
+    public static boolean legendaryEffects = true;
+    public static boolean legendaryAllChallenges = false;
+    public static java.util.List<net.minecraft.resources.Identifier> legendaryAdvancements = java.util.List.of();
+    public static java.util.List<net.minecraft.resources.Identifier> legendaryEnchantments = java.util.List.of();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplelib-server.json";
     /** Keys this class does not own (the crucible options before split stage 5): written back unchanged so Simple Crucibles can still take them over. */
     private static JsonObject kept = new JsonObject();
+    private static Path file;
 
     public static void load(Path dir) {
         JsonObject json = new JsonObject();
-        Path file = dir == null ? null : dir.resolve(FILE);
+        file = dir == null ? null : dir.resolve(FILE);
         JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleLib.LOG::warn);
         if (read != null) json = read;
         kept = json.deepCopy();
         apply(json);
+        save();
+    }
+
+    /** Writes the current values (also from the config screen); keys of other owners stay. */
+    public static void save() {
         if (file != null) {
             try {
-                Files.createDirectories(dir);
+                Files.createDirectories(file.getParent());
                 Files.writeString(file, GSON.toJson(toJson()));
             } catch (Exception e) {
                 SimpleLib.LOG.warn("Could not write {}: {}", FILE, e.toString());
@@ -50,6 +62,36 @@ public final class LibConfig {
         warmDurationTicks = clamp(getInt(json, "warmDurationTicks", WARM_DURATION_DEFAULT), WARM_DURATION_MIN, WARM_DURATION_MAX);
         warmBundleDurationTicks = clamp(getInt(json, "warmBundleDurationTicks", WARM_BUNDLE_DEFAULT), WARM_BUNDLE_MIN, WARM_BUNDLE_MAX);
         eatSpeedBonus = clamp(getDouble(json, "eatSpeedBonus", EAT_BONUS_DEFAULT), 0.0, EAT_BONUS_MAX);
+        legendaryEffects = getBool(json, "legendaryEffects", true);
+        legendaryAllChallenges = getBool(json, "legendaryAllChallenges", false);
+        legendaryAdvancements = getIds(json, "legendaryAdvancements");
+        legendaryEnchantments = getIds(json, "legendaryEnchantments");
+    }
+
+    /** Valid ids only, no duplicates, at most {@value #LEGENDARY_LIST_MAX}. Public for the config screen. */
+    public static java.util.List<net.minecraft.resources.Identifier> ids(Iterable<String> raw) {
+        var out = new java.util.LinkedHashSet<net.minecraft.resources.Identifier>();
+        for (String s : raw) {
+            var id = s == null ? null : net.minecraft.resources.Identifier.tryParse(s.trim());
+            if (id != null && !s.isBlank() && out.size() < LEGENDARY_LIST_MAX) out.add(id);
+        }
+        return java.util.List.copyOf(out);
+    }
+
+    private static java.util.List<net.minecraft.resources.Identifier> getIds(JsonObject o, String k) {
+        var raw = new java.util.ArrayList<String>();
+        try {
+            if (o.has(k)) o.getAsJsonArray(k).forEach(e -> raw.add(e.getAsString()));
+        } catch (Exception e) {
+            return java.util.List.of();
+        }
+        return ids(raw);
+    }
+
+    private static com.google.gson.JsonArray toArray(java.util.List<net.minecraft.resources.Identifier> ids) {
+        var a = new com.google.gson.JsonArray();
+        ids.forEach(id -> a.add(id.toString()));
+        return a;
     }
 
     public static JsonObject toJson() {
@@ -58,11 +100,19 @@ public final class LibConfig {
         o.addProperty("warmDurationTicks", warmDurationTicks);
         o.addProperty("warmBundleDurationTicks", warmBundleDurationTicks);
         o.addProperty("eatSpeedBonus", eatSpeedBonus);
+        o.addProperty("legendaryEffects", legendaryEffects);
+        o.addProperty("legendaryAllChallenges", legendaryAllChallenges);
+        o.add("legendaryAdvancements", toArray(legendaryAdvancements));
+        o.add("legendaryEnchantments", toArray(legendaryEnchantments));
         return o;
     }
 
     public static void reset() {
         apply(new JsonObject());
+    }
+
+    private static boolean getBool(JsonObject o, String k, boolean d) {
+        try { return o.has(k) ? o.get(k).getAsBoolean() : d; } catch (Exception e) { return d; }
     }
 
     private static int getInt(JsonObject o, String k, int d) {

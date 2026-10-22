@@ -19,7 +19,10 @@
     "WarmStackingMixin",
     "WarmUseDurationMixin",
     "DiscoverTipMixin",
-    "SimpleRarityNameMixin"
+    "SimpleRarityNameMixin",
+    "LegendaryAdvancementMixin",
+    "LegendaryEnchantTableMixin",
+    "LegendaryAnvilMixin"
   ],
   "client": [
     "client.WarmGlowEntityMixin",

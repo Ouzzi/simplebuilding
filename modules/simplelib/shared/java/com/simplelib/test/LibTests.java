@@ -51,6 +51,8 @@ public final class LibTests {
         ALL.put("pixel_rle_round_trip", PixelArtTests::rleRoundTrip);
         ALL.put("pixel_size_limit", PixelArtTests::sizeLimit);
         ALL.put("simple_rarity_names", LibTests::simpleRarityNames);
+        ALL.put("legendary_advancements", LegendaryTests::advancements);
+        ALL.put("legendary_enchantments", LegendaryTests::enchantments);
     }
 
     // ------------------------------------------------------------ helpers
