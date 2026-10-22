@@ -43,4 +43,9 @@ public final class AstralEnchantingGameTest {
     public void recipesAreLoaded(GameTestHelper helper) {
         AstralEnchantingTests.recipesAreLoaded(helper);
     }
+
+    @GameTest
+    public void blazingObsidianKeepsFireBurning(GameTestHelper helper) {
+        AstralEnchantingTests.blazingObsidianKeepsFireBurning(helper);
+    }
 }

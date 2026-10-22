@@ -6422,20 +6422,26 @@
           "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
+            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under an Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
+            "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
+            "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
           ]
         },
         "de": {
           "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
+            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Astral-Verzauberer (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
+            "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
+            "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
           ]
         },
         "sources": [
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
+          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -33713,20 +33719,26 @@
           "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
+            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under an Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
+            "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
+            "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
           ]
         },
         "de": {
           "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
+            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Astral-Verzauberer (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
+            "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
+            "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
           ]
         },
         "sources": [
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
+          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -109588,6 +109600,26 @@
     {
       "range": null,
       "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.blazingHeat",
+      "shortName": "blazingHeat",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Blazing Obsidian Heat",
+      "labelDe": "Hitze des Lohen-Obsidians",
+      "tooltip": "Blazing Obsidian under a crucible\ngives high heat, like lava.\nDefault: true.",
+      "tooltipDe": "Lohen-Obsidian unter einem Tiegel\ngibt hohe Hitze wie Lava.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
       "reload": "recipes",
       "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
@@ -136712,7 +136744,7 @@
     "trades": 20,
     "enchantments": 13,
     "tags": 57,
-    "config": 225,
+    "config": 226,
     "inWorld": 481,
     "advancements": 116,
     "features": 47,

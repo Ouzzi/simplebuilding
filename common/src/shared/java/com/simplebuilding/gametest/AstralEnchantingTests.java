@@ -479,6 +479,46 @@ public final class AstralEnchantingTests {
         helper.succeed();
     }
 
+    /**
+     * LOHEN17 V2 (owner 2026-10-21): blazing obsidian is in {@code minecraft:infiniburn_overworld}, so fire on it burns
+     * forever. Twenty fire ticks at age 15 (the spread gamerule opened for the synchronous ticks only, no player is
+     * near a test): the fire on blazing obsidian stays, the one on plain obsidian (control) goes out.
+     */
+    public static void blazingObsidianKeepsFireBurning(GameTestHelper helper) {
+        if (ModBlocks.BLAZING_OBSIDIAN == null) { helper.succeed(); return; }
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        helper.assertTrue(ModBlocks.BLAZING_OBSIDIAN.defaultBlockState().is(net.minecraft.tags.BlockTags.INFINIBURN_OVERWORLD),
+                "blazing obsidian is not in minecraft:infiniburn_overworld");
+        BlockPos blazing = new BlockPos(1, 1, 1);
+        BlockPos plain = new BlockPos(4, 1, 1);
+        helper.setBlock(blazing, ModBlocks.BLAZING_OBSIDIAN);
+        helper.setBlock(plain, net.minecraft.world.level.block.Blocks.OBSIDIAN);
+        var fire = net.minecraft.world.level.block.Blocks.FIRE.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_15, 15);
+        helper.setBlock(blazing.above(), fire);
+        helper.setBlock(plain.above(), fire);
+        List<BlockPos> fires = List.of(helper.absolutePos(blazing.above()), helper.absolutePos(plain.above()));
+        var rules = level.getGameRules();
+        var rule = net.minecraft.world.level.gamerules.GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER;
+        int radius = rules.get(rule);
+        try {
+            rules.set(rule, -1, level.getServer());
+            for (int i = 0; i < 20; i++) {
+                for (BlockPos pos : fires) {
+                    var state = level.getBlockState(pos);
+                    if (state.is(net.minecraft.world.level.block.Blocks.FIRE)) state.tick(level, pos, level.getRandom());
+                }
+            }
+        } finally {
+            rules.set(rule, radius, level.getServer());
+        }
+        helper.assertTrue(level.getBlockState(fires.get(0)).is(net.minecraft.world.level.block.Blocks.FIRE),
+                "fire on blazing obsidian went out");
+        helper.assertFalse(level.getBlockState(fires.get(1)).is(net.minecraft.world.level.block.Blocks.FIRE),
+                "control: fire on plain obsidian should go out");
+        helper.succeed();
+    }
+
     private static void eq(GameTestHelper helper, int actual, int expected, String what) {
         helper.assertValueEqual(actual, expected, what);
     }

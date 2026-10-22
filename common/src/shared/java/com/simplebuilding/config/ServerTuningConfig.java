@@ -194,6 +194,9 @@ public class ServerTuningConfig {
         public boolean endRails = true;
         @ConfigEntry.Gui.Tooltip
         public boolean astralVault = true;
+        /** Lohen-Obsidian unter einem Tiegel gibt hohe Hitze wie Lava (LOHEN17, 2026-10-21); aus: keine Hitze. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean blazingHeat = true;
         /** Nihil-Gewoelbe (weltweit geteilter Inhalt); aus: Oeffnen gesperrt, Inhalt bleibt, Rezept faellt weg. */
         @ConfigEntry.Gui.Tooltip
         public boolean nihilVault = true;
