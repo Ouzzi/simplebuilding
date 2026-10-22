@@ -31,6 +31,9 @@ class EditorWiring(unittest.TestCase):
         self.assertIn('assets/pixeleditor-core.js', overlay)
         self.assertIn('assets/pixeleditor.js', overlay)
         self.assertIn('SBPixelEditor.open', overlay)
+        # a-wiki22: vanilla-derived textures (A8, not in the repo/mirror) get no pencil and no editor
+        self.assertIn('build\\/vanilla-derived', overlay)
+        self.assertIn('isDerived(textureById(info.target.id))', overlay)
 
     def test_editor_files_and_api(self):
         ui = (ROOT / 'wiki' / 'assets' / 'pixeleditor.js').read_text(encoding='utf-8')

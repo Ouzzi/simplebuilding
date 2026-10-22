@@ -31,8 +31,8 @@
   --muted: #5f656c;
   --border: #d9d3c3;
   --border-strong: #bdb5a1;
-  --accent: #3b7a25;
-  --accent-strong: #2d6119;
+  --accent: #336b20;        /* >= 4.5:1 on bg, bg-2, code-bg and accent-soft (a-wiki22) */
+  --accent-strong: #285716; /* >= 4.5:1 on slot-bg */
   --accent-soft: #e2efd9;
   --accent-text: #ffffff;
   --end: #7a4fb8;
@@ -620,7 +620,7 @@ a.chip:hover { text-decoration: none; }
 .allmods { display: flex; align-items: center; gap: .25rem; font-size: .8rem; white-space: nowrap; }
 @media (max-width: 700px) {
   :root { --topbar-h: 144px; }
-  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 32px minmax(0, 1fr) 32px 48px; gap: .4rem; align-content: center; }
+  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 36px minmax(0, 1fr) 36px 60px; gap: .4rem; align-content: center; }
   .topbar .brand { grid-column: 2; grid-row: 1; }
   .topbar #theme-btn { grid-column: 3; grid-row: 1; }
   .topbar #lang { grid-column: 4; grid-row: 1; }
