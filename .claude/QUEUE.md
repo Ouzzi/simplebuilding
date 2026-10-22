@@ -64,7 +64,7 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 
 ## Besitzer 22.10. – Texturen (TX22)
 Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfehlungen passen, gezielt überarbeitet werden nur wenige Texturen.
-- [ ] TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7). [Vitrinenglas `display_case_glass` erledigt auf b-shops22, 22.10.: Alpha 24 statt 70, Lichtstreifen, Ebenen-Quelle; Rest offen]
+- [~] (A, a-vn12, 23.10.) TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7). [Vitrinenglas `display_case_glass` erledigt auf b-shops22, 22.10.: Alpha 24 statt 70, Lichtstreifen, Ebenen-Quelle; Rest offen]
 - [~] (A, a-eggs22, 23.10.) TX22-2 Alle Spawn-Eier: „bei den Spawn-Eiern ist schlechte Arbeit gemacht worden. Das sieht nicht aus wie Vanilla. Das muss auf jeden Fall sehr viel verbessert werden.“
   - Vanilla 26.3 arbeitet mit eigenen Spawn-Ei-Formen je Mob, Grundfarbe und Flecken. Das Vorgehen der Vanilla-Eier analysieren und alle eigenen Eier danach neu zeichnen.
   - Vorschau mit Vanilla-Vergleich, eingebaut wird die empfohlene Variante.
