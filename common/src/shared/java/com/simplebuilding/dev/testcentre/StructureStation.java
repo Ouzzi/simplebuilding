@@ -142,15 +142,6 @@ public final class StructureStation {
                 .count();
     }
 
-    /** Diagnose fuer Testmeldungen: Groesse von Palette und Blockliste der gespeicherten Vorlage. */
-    public static String describe(StructureTemplate template) {
-        CompoundTag tag = template.save(new CompoundTag());
-        return "keys " + tag.keySet() + ", palette " + tag.getListOrEmpty("palette").size() + ", blocks "
-                + tag.getListOrEmpty("blocks").size() + ", first " + (tag.getListOrEmpty("palette").size() > 0
-                ? tag.getListOrEmpty("palette").get(0) : "-") + ", block0 " + (tag.getListOrEmpty("blocks").size() > 0
-                ? tag.getListOrEmpty("blocks").get(0) : "-");
-    }
-
     /** Bloecke einer Vorlage, die nach dem Setzen sicher nicht Luft sind (ohne Luft, Strukturleere, Jigsaw- und Strukturbloecke). */
     public static int solidBlocks(StructureTemplate template) {
         CompoundTag tag = template.save(new CompoundTag());
@@ -163,7 +154,9 @@ public final class StructureStation {
                 "minecraft:jigsaw", "minecraft:structure_block");
         List<Boolean> solid = new ArrayList<>();
         for (int i = 0; i < palette.size(); i++) {
-            solid.add(!skip.contains(palette.getCompoundOrEmpty(i).getStringOr("Name", "minecraft:air")));
+            // Vorlagen-Dateien schreiben "Name", 26.3 speichert den Blockzustand unter "id".
+            CompoundTag state = palette.getCompoundOrEmpty(i);
+            solid.add(!skip.contains(state.getStringOr("Name", state.getStringOr("id", "minecraft:air"))));
         }
         return (int) tag.getListOrEmpty("blocks").compoundStream()
                 .filter(block -> {
