@@ -22,8 +22,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
-    public void placeNeedsSalesBlock(GameTestHelper h) {
-        ShopsTests.ALL.get("place_needs_sales_block").accept(h);
+    public void casePlaceAnywhereProtectOnSales(GameTestHelper h) {
+        ShopsTests.ALL.get("case_place_anywhere_protect_on_sales").accept(h);
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
@@ -204,6 +204,16 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void storagePlacementRules(GameTestHelper h) {
         ShopsTests.ALL.get("storage_placement_rules").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageSidePull(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_side_pull").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageLegacyFacingMigrates(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_legacy_facing_migrates").accept(h);
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 120)

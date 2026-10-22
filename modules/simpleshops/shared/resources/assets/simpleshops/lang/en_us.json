@@ -54,7 +54,7 @@
   "simpleshops.screen.dev_buyer.tip": "Shows and uses the buyer's screen of your own shop (a test purchase is a real trade)",
   "simpleshops.screen.dev_owner": "Dev: Owner view",
   "simpleshops.screen.dev_owner.tip": "Back to the owner's screen",
-  "simpleshops.screen.earnings_full": "The earnings are full: the price no longer fits (empty the earnings or add a Sales Storage below)",
+  "simpleshops.screen.earnings_full": "The earnings are full: the price no longer fits (empty the earnings or attach a Sales Storage)",
   "simpleshops.screen.earnings_full_short": "Earnings full",
   "commands.simpleshops.servershop.orphans": "Ender shop entries without their block: %s (items inside: %s)",
   "commands.simpleshops.servershop.orphans_cleared": "Cleared %s entries; their items went to you",
@@ -130,5 +130,6 @@
   "quests.simpleshops.start.title": "Welcome to Simple Shops",
   "quests.simpleshops.start.subtitle": "Your free guide",
   "quests.simpleshops.start.welcome.title": "A free guide",
-  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald."
+  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald.",
+  "message.simpleshops.storage_needs_sales": "Sneak and right click your own Sales Block to attach the storage"
 }

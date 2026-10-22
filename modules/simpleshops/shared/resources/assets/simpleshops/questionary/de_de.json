@@ -15,7 +15,7 @@
       "Ein Glasdeckel auf einem Holzsockel, gebaut, um das eine Ding zu zeigen, wegen dem ein Käufer kam."
     ],
     "use": [
-      "Auf deinen Verkaufsblock stellen. Ein Item in der Hand kommt in den nächsten freien Platz; leere Hand öffnet das Waren-Menü mit fünf Plätzen. Käufer nehmen ein Stück je Tausch."
+      "Auf deinen Verkaufsblock stellen, um zu verkaufen, oder irgendwo hin, nur zum Zeigen (dann darf jeder sie abbauen). Ein Item in der Hand kommt in den nächsten freien Platz; leere Hand öffnet das Waren-Menü mit fünf Plätzen. Käufer nehmen ein Stück je Tausch."
     ],
     "secret": [
       "Trichter und Golems kommen nicht hinein, und keine Explosion lässt das Glas springen."
@@ -34,10 +34,10 @@
   },
   "sales_storage": {
     "lore": [
-      "Eine Kiste mit zwei Eisenbändern und einem Trichter oben: der Überlauf eines gut besuchten Ladens."
+      "Eine Kiste mit Eisenkragen und einem Trichter darin: sie wächst aus dem Verkaufsblock und schluckt den Überlauf eines gut besuchten Ladens."
     ],
     "use": [
-      "Häng sie unter deinen Verkaufsblock (oder unter ein weiteres Lager). Sie zieht die Einnahmen von selbst nach unten, wie ein Trichter, solange jeder Block der Kette dir gehört. Rechtsklick zum Entnehmen."
+      "Schleichend mit ihr deinen eigenen Verkaufsblock rechtsklicken, von jeder Seite. Sie schaut zum Block und zieht die Einnahmen von selbst heraus, wie ein Trichter, solange beide dir gehören. Rechtsklick zum Entnehmen."
     ],
     "secret": [
       "Fremde können sie nicht öffnen, abbauen, schieben oder leeren; Trichter sehen sie nicht. Eine volle Kette schaltet den Tausch-Knopf aus."

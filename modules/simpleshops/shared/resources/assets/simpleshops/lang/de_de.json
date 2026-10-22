@@ -54,7 +54,7 @@
   "simpleshops.screen.dev_buyer.tip": "Zeigt und bedient den Käufer-Screen deines eigenen Ladens (ein Testkauf ist ein echter Kauf)",
   "simpleshops.screen.dev_owner": "Dev: Besitzeransicht",
   "simpleshops.screen.dev_owner.tip": "Zurück zur Besitzeransicht",
-  "simpleshops.screen.earnings_full": "Die Einnahmen sind voll: der Preis passt nicht mehr hinein (Einnahmen leeren oder ein Verkaufslager darunter bauen)",
+  "simpleshops.screen.earnings_full": "Die Einnahmen sind voll: der Preis passt nicht mehr hinein (Einnahmen leeren oder ein Verkaufslager ansetzen)",
   "simpleshops.screen.earnings_full_short": "Einnahmen voll",
   "commands.simpleshops.servershop.orphans": "Ender-Shop-Einträge ohne Block: %s (Items darin: %s)",
   "commands.simpleshops.servershop.orphans_cleared": "%s Einträge geräumt; ihre Items gingen an dich",
@@ -130,5 +130,6 @@
   "quests.simpleshops.start.title": "Willkommen bei Simple Shops",
   "quests.simpleshops.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleshops.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleshops.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Shops-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Smaragd herstellen."
+  "quests.simpleshops.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Shops-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Smaragd herstellen.",
+  "message.simpleshops.storage_needs_sales": "Schleichen und den eigenen Verkaufsblock rechtsklicken, um das Lager anzusetzen"
 }

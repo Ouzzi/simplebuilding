@@ -3,7 +3,8 @@
 Own pixel art, no Vanilla pixels. Light from the top left, no dark corner fills.
 
 * sales_block_front / _side / _top: dark oak cash register block, iron rim, a coin slot and a small price plate on the front.
-* display_case_base / _frame / _glass: wooden plinth with an iron rim, iron frame pillars/lid, translucent glass.
+* display_case_base / _frame: wooden plinth with an iron rim, iron frame pillars/lid (the glass moved to
+  simple_shops_storage_2026_10_22.py with SP22-7/TX22-1; case_glass() below is the old version, no longer written).
 * glow_display_case_base / _frame: the same pieces with a warm amber trim (the glow variant; its model lights the faces).
 
 Writes modules/simpleshops/.../textures/block/*.png and an 8x preview sheet to docs/ai/previews/oc-shops/.
@@ -195,7 +196,6 @@ def outputs():
         'sales_block_top.png': sales_top(),
         'display_case_base.png': case_base(False),
         'display_case_frame.png': case_frame(False),
-        'display_case_glass.png': case_glass(),
         'glow_display_case_base.png': case_base(True),
         'glow_display_case_frame.png': case_frame(True),
     }

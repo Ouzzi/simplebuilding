@@ -44,7 +44,7 @@ for kind in ('wither_immune', 'dragon_immune'):
     assert f'{NS}:trade_terminal' not in json.loads((RES / f'data/minecraft/tags/block/{kind}.json').read_text(encoding='utf-8'))['values']
 for sub in ('blockstates', 'items', 'models/block'):
     assert (RES / f'assets/{NS}/{sub}/trade_terminal.json').is_file(), sub
-for tex in ('trade_terminal_front', 'trade_terminal_side', 'trade_terminal_top', 'sales_block_front', 'sales_block_side', 'sales_block_top', 'sales_storage_front', 'sales_storage_side', 'sales_storage_top', 'display_case_base', 'display_case_frame',
+for tex in ('trade_terminal_front', 'trade_terminal_side', 'trade_terminal_top', 'sales_block_front', 'sales_block_side', 'sales_block_top', 'sales_storage_intake', 'sales_storage_side', 'sales_storage_back', 'display_case_base', 'display_case_frame',
             'display_case_glass', 'glow_display_case_base', 'glow_display_case_frame'):
     assert (RES / f'assets/{NS}/textures/block/{tex}.png').is_file(), tex
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()

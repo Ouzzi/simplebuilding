@@ -37,7 +37,7 @@ public abstract class ServerPlayerGameModeMixin {
     private void simpleshops$guardBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (!(this.player.level() instanceof ServerLevel level)) return;
         BlockState state = level.getBlockState(pos);
-        if (!ShopGuard.isShop(state)) return;
+        if (!ShopGuard.isProtected(level, pos, state)) return;
         if (!ShopGuard.mayBreak(this.player, level, pos)) {
             level.sendBlockUpdated(pos, state, state, 3);
             cir.setReturnValue(false);

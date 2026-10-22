@@ -1,7 +1,6 @@
 package com.simpleshops.logic;
 
 import com.simpleshops.SimpleShops;
-import com.simpleshops.block.DisplayCaseBlock;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlock;
 import com.simpleshops.block.SalesBlockEntity;
@@ -39,7 +38,8 @@ public final class ShopActions {
     public static InteractionResult useCase(ServerPlayer player, ServerLevel level, BlockPos pos) {
         if (!SimpleShops.on()) return InteractionResult.PASS;
         if (!(level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity shopCase)) return fail(level, pos);
-        SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s ? s : null;
+        // A free case (SP22-7: no sales block below, or not the same shop) is only its owner's goods box.
+        SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s && ShopGuard.belongs(shopCase, s) ? s : null;
         if (shopCase.isOwner(player.getUUID())) {
             if (sales != null && sales.isOwner(player.getUUID())) return openOwner(player, level, pos.below(), sales);
             if (sales != null && !sales.lockFree()) return busy(level, pos);
@@ -59,7 +59,7 @@ public final class ShopActions {
         }
         ItemStack held = player.getItemInHand(hand);
         if (held.isEmpty()) return InteractionResult.TRY_WITH_EMPTY_HAND;
-        SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s ? s : null;
+        SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s && ShopGuard.belongs(shopCase, s) ? s : null;
         if (sales != null && !sales.lockFree()) return busy(level, pos);
         int slot = shopCase.freeSlot();
         if (slot < 0) return fail(level, pos);
@@ -114,7 +114,8 @@ public final class ShopActions {
     }
 
     private static InteractionResult buy(ServerPlayer player, ServerLevel level, BlockPos salesPos, SalesBlockEntity sales) {
-        if (!(level.getBlockEntity(salesPos.above()) instanceof DisplayCaseBlockEntity shopCase)) return fail(level, salesPos);
+        // Only the shop's own case (a stranger's case on top would sell his goods for the sales block's owner).
+        if (!(level.getBlockEntity(salesPos.above()) instanceof DisplayCaseBlockEntity shopCase) || !ShopGuard.belongs(shopCase, sales)) return fail(level, salesPos);
         return open(player, level, salesPos, sales, false, shopCase);
     }
 
@@ -144,16 +145,17 @@ public final class ShopActions {
         return InteractionResult.CONSUME;
     }
 
-    /** Placement rules, shared by both blocks (server: ledger limit and ownership, client: the shape of the rule only). */
+    /**
+     * Placement rules of the sales block ({@code sales}) and the display case. A case stands anywhere (SP22-7); only on a sales
+     * block it must be the owner's own (server shops get theirs from the command). Server: ledger limit and ownership; client:
+     * the shape of the rule only.
+     */
     public static boolean mayPlace(net.minecraft.world.item.context.BlockPlaceContext ctx, boolean sales) {
         if (!SimpleShops.on() || ctx.getPlayer() == null) return false;
         var level = ctx.getLevel();
         BlockPos pos = ctx.getClickedPos();
-        if (!sales) {
-            if (!(level.getBlockState(pos.below()).getBlock() instanceof SalesBlock)) return false;
-        }
         if (!(ctx.getPlayer() instanceof ServerPlayer player)) return true;
-        if (!sales) {
+        if (!sales && level.getBlockState(pos.below()).getBlock() instanceof SalesBlock) {
             BlockEntity below = level.getBlockEntity(pos.below());
             if (!(below instanceof SalesBlockEntity s) || s.isServerShop() || (!s.isOwner(player.getUUID()) && !ShopGuard.isAdmin(player))) return false;
         }
@@ -162,14 +164,24 @@ public final class ShopActions {
     }
 
     /**
-     * Placement of a sales storage: directly under a sales block or another storage, and every block of that run has the placing
-     * player as owner (a stranger's shop is never extended); at most {@link ShopStorage#MAX_CHAIN} storages in a row.
+     * The one way to place a sales storage (SP22-7): sneaking, the click on a sales block of the player's own (not a server
+     * shop). The same check runs on the client (the owner is synced) and on the server, so the client never predicts a block
+     * the server refuses.
+     */
+    public static boolean storageTarget(net.minecraft.world.level.Level level, BlockPos sales, net.minecraft.world.entity.player.@Nullable Player player) {
+        if (!SimpleShops.on() || player == null || !player.isSecondaryUseActive()) return false;
+        return level.getBlockEntity(sales) instanceof SalesBlockEntity s && !s.isServerShop() && s.isOwner(player.getUUID());
+    }
+
+    /**
+     * Placement of a sales storage: it faces the clicked block ({@link #storageTarget} must hold for it) and the shop has room
+     * for one more ({@link ShopStorage#MAX_CHAIN}).
      */
     public static boolean mayPlaceStorage(net.minecraft.world.item.context.BlockPlaceContext ctx) {
-        if (!SimpleShops.on() || ctx.getPlayer() == null) return false;
-        if (!(ctx.getPlayer() instanceof ServerPlayer player)) return true;
-        int above = ShopStorage.storagesAbove(ctx.getLevel(), ctx.getClickedPos(), player.getUUID());
-        return above >= 0 && above < ShopStorage.MAX_CHAIN;
+        BlockPos target = ctx.getClickedPos().relative(ctx.getClickedFace().getOpposite());
+        if (!storageTarget(ctx.getLevel(), target, ctx.getPlayer())) return false;
+        if (!(ctx.getPlayer() instanceof ServerPlayer)) return true;
+        return ctx.getLevel().getBlockEntity(target) instanceof SalesBlockEntity s && ShopStorage.chain(s).size() - 1 < ShopStorage.MAX_CHAIN;
     }
 
     private ShopActions() {}

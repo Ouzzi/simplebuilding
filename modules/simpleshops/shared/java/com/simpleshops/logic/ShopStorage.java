@@ -2,23 +2,28 @@ package com.simpleshops.logic;
 
 import com.simpleshops.block.EarningsStore;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.block.SalesStorageBlock;
 import com.simpleshops.block.SalesStorageBlockEntity;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The earnings chain of a shop: the sales block, then every sales storage directly below it, as long as ALL of them have the
- * same (non-null) owner and sit in loaded chunks. Everything runs on the server thread and changes both sides of a move in one go.
+ * The earnings chain of a shop: the sales block, then every sales storage that faces it (SP22-7: any side), and storages
+ * facing those (chains of older worlds, which hung below each other), as long as ALL of them have the same (non-null) owner
+ * and sit in loaded chunks. Everything runs on the server thread and changes both sides of a move in one go.
  */
 public final class ShopStorage {
-    /** Most storages below one sales block (placement refuses more; the chain never looks further). */
+    /** Most storages of one sales block (placement refuses more; the chain never looks further). */
     public static final int MAX_CHAIN = 16;
 
     /** The store at {@code pos} if it is a live earnings store in a loaded chunk, else {@code null}. */
@@ -30,54 +35,67 @@ public final class ShopStorage {
         return null;
     }
 
-    /** The sales block's store first, then the storages below it that share its owner (stops at the first gap or foreign block). */
+    /** The position a storage pulls from: the block it faces. */
+    public static BlockPos source(SalesStorageBlockEntity storage) {
+        return storage.getBlockPos().relative(storage.getBlockState().getValueOrElse(SalesStorageBlock.FACING, Direction.UP));
+    }
+
+    /**
+     * The sales block's store first, then its storages in rings (the ones facing it, then the ones facing those) that share its
+     * owner; a gap or a foreign block ends that branch.
+     */
     public static List<EarningsStore> chain(SalesBlockEntity sales) {
         List<EarningsStore> out = new ArrayList<>();
         out.add(sales);
         UUID owner = sales.owner();
         Level level = sales.getLevel();
         if (owner == null || level == null || sales.isServerShop()) return out;
-        BlockPos pos = sales.getBlockPos();
-        for (int i = 0; i < MAX_CHAIN; i++) {
-            pos = pos.below();
-            if (!(storeAt(level, pos) instanceof SalesStorageBlockEntity s) || !owner.equals(s.owner())) break;
-            out.add(s);
+        ArrayDeque<BlockPos> open = new ArrayDeque<>();
+        open.add(sales.getBlockPos());
+        while (!open.isEmpty() && out.size() <= MAX_CHAIN) {
+            BlockPos at = open.poll();
+            for (Direction d : Direction.values()) {
+                BlockPos next = at.relative(d);
+                if (!(storeAt(level, next) instanceof SalesStorageBlockEntity s) || !owner.equals(s.owner()) || !source(s).equals(at) || out.contains(s)) continue;
+                if (out.size() > MAX_CHAIN) break;
+                out.add(s);
+                open.add(next);
+            }
         }
         return out;
     }
 
-    /** How many storages directly above {@code pos} (to the sales block) form an unbroken run with {@code owner}; -1 if there is no sales block at its top. */
-    public static int storagesAbove(Level level, BlockPos pos, UUID owner) {
-        int n = 0;
-        BlockPos p = pos.above();
-        for (int i = 0; i <= MAX_CHAIN + 1; i++) {
-            EarningsStore s = storeAt(level, p);
-            if (s == null || !owner.equals(s.owner())) return -1;
-            if (s instanceof SalesBlockEntity) return n;
-            n++;
-            p = p.above();
-        }
-        return -1;
-    }
-
-    /** Hopper-like step: the first stack of the store directly above moves into {@code self}, if the owners are the same. */
+    /** Hopper-like step: the first stack of the store this storage faces moves into {@code self}, if the owners are the same. */
     public static boolean pull(SalesStorageBlockEntity self) {
         Level level = self.getLevel();
         if (level == null || self.isRemoved() || self.owner() == null) return false;
-        EarningsStore above = storeAt(level, self.getBlockPos().above());
-        if (above == null || !self.owner().equals(above.owner())) return false;
-        NonNullList<ItemStack> from = above.earnings();
+        EarningsStore from0 = storeAt(level, source(self));
+        if (from0 == null || !self.owner().equals(from0.owner())) return false;
+        NonNullList<ItemStack> from = from0.earnings();
         for (int i = 0; i < from.size(); i++) {
             ItemStack stack = from.get(i);
             if (stack.isEmpty()) continue;
             ItemStack rest = insert(List.of(self.earnings()), stack.copy());
             if (rest.getCount() == stack.getCount()) continue;
             from.set(i, rest.isEmpty() ? ItemStack.EMPTY : rest);
-            above.changed();
+            from0.changed();
             self.changed();
             return true;
         }
         return false;
+    }
+
+    /**
+     * Storages saved before SP22-7 had a horizontal look-only facing and only ever pulled from above. Once per block entity: when
+     * the block above is a store of its owner, it turns to face up (the chain keeps working exactly as it did).
+     */
+    public static void aimLegacy(SalesStorageBlockEntity self) {
+        Level level = self.getLevel();
+        if (level == null || self.owner() == null) return;
+        BlockState state = self.getBlockState();
+        if (!state.hasProperty(SalesStorageBlock.FACING)) return;
+        EarningsStore above = storeAt(level, self.getBlockPos().above());
+        if (above != null && self.owner().equals(above.owner()) && state.getValue(SalesStorageBlock.FACING) != Direction.UP) level.setBlock(self.getBlockPos(), state.setValue(SalesStorageBlock.FACING, Direction.UP), 3);
     }
 
     /** Merges {@code stack} into the lists (same item first over all of them, then empty slots); returns what did not fit. */
