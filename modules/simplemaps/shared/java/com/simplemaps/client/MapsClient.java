@@ -64,7 +64,7 @@ public final class MapsClient {
 
     /** The server's answer to saving a framed view: shown by the open map screen of that frame. */
     public static void receive(com.simplemaps.net.FrameSavedPayload payload) {
-        if (Minecraft.getInstance().screen instanceof WayfinderScreen screen) screen.frameSaved(payload);
+        if (Minecraft.getInstance().gui.screen() instanceof WayfinderScreen screen) screen.frameSaved(payload);
     }
 
     /** Once per client tick (end of tick). */
