@@ -55,6 +55,8 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
     private List<BeaconBeamOwner.Section> beamSections = new ArrayList<>();
     private List<BeaconBeamOwner.Section> checkingBeamSections = new ArrayList<>();
     int levels;
+    /** Range factor of the pyramid in percent ({@link RangeFactor}), updated with every pyramid scan. */
+    private int rangePercent = RangeFactor.NONE;
     private int lastCheckY;
     @Nullable Holder<MobEffect> primaryPower;
     @Nullable Holder<MobEffect> secondaryPower;
@@ -152,9 +154,10 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         if (level.getGameTime() % 80L == 0L) {
             if (!entity.beamSections.isEmpty()) {
                 entity.levels = SimpleBeacons.on() ? StrongBeaconLogic.scanPyramid(level, pos, StrongBeaconLogic.maxLevels()) : 0;
+                entity.rangePercent = RangeFactor.strongPercent(level, pos, entity.levels);
             }
             if (entity.levels > 0 && !entity.beamSections.isEmpty()) {
-                StrongBeaconLogic.applyEffects(level, pos, entity.levels, entity.primaryPower, entity.secondaryPower);
+                StrongBeaconLogic.applyEffects(level, pos, entity.levels, entity.primaryPower, entity.secondaryPower, entity.rangePercent);
                 playSound(level, pos, SoundEvents.BEACON_AMBIENT);
             }
         }
@@ -196,6 +199,12 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
     /** Tests and the test centre: sets the levels as a finished pyramid scan would. */
     public void setLevelsForTest(int levels) {
         this.levels = levels;
+        if (this.level != null) this.rangePercent = RangeFactor.strongPercent(this.level, this.worldPosition, levels);
+    }
+
+    /** The material factor of the last pyramid scan in percent (what the menu shows). */
+    public int rangePercent() {
+        return this.rangePercent;
     }
 
     /** The data the menu syncs (levels, primary, secondary). */

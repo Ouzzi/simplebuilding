@@ -13,8 +13,9 @@ import net.minecraft.world.phys.AABB;
 
 /**
  * The rules of the Strong Conduit (concept §4): Vanilla's 5x5x5 frame (42 blocks) or the 7x7x7 frame (three 7x7
- * rings, 66 blocks), active from 16 frame blocks, range {@code (blocks / 7) x 16} (66 = 144, capped by
- * {@code strongConduitMaxRange}), Conduit Power plus Dolphin's Grace for players in the water; beyond Vanilla's 96
+ * rings, 66 blocks), active from 16 frame blocks, range {@code (blocks / 7) x 24} - 1.5 x Vanilla's 16 (SP22-9: a larger
+ * area instead of a new ability; 42 = 144, 66 = 216, capped by {@code strongConduitMaxRange}), Conduit Power plus
+ * Dolphin's Grace for players in the water; beyond Vanilla's 96
  * blocks only for players really under water (not rain). Static and side free, so tests call it directly.
  */
 public final class StrongConduitLogic {
@@ -71,9 +72,12 @@ public final class StrongConduitLogic {
         return found;
     }
 
-    /** Range for {@code frameBlocks} frame blocks: Vanilla's formula, capped by the server config. */
+    /** Blocks of range per 7 frame blocks (Vanilla: 16). */
+    public static final int RANGE_PER_7 = 24;
+
+    /** Range for {@code frameBlocks} frame blocks: Vanilla's formula with {@link #RANGE_PER_7}, capped by the server config. */
     public static int range(int frameBlocks) {
-        return Math.min(frameBlocks / 7 * 16, BeaconsConfig.strongConduitMaxRange);
+        return Math.min(frameBlocks / 7 * RANGE_PER_7, BeaconsConfig.strongConduitMaxRange);
     }
 
     /** Attack radius: 8 with the full 5x5x5 frame, 12 with the full 7x7x7 frame, else no attack (0). */
