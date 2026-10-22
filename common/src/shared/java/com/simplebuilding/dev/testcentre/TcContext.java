@@ -28,7 +28,13 @@ import net.minecraft.world.level.block.Block;
  * Inhaltslisten der Kreativ-Tabs. Die Tabs sind die kuratierte Ordnung der Mod - wer dort ein neues
  * Werkzeug in eine Zeile setzt, bekommt es damit auch in der Testzentrale.
  */
-public record TcContext(HolderLookup.Provider lookup) {
+public record TcContext(HolderLookup.Provider lookup,
+                        net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager templates) {
+
+    /** Ohne Strukturvorlagen (Planung nur aus den Registern; der Abschnitt {@code structures} bleibt leer). */
+    public TcContext(HolderLookup.Provider lookup) {
+        this(lookup, null);
+    }
 
     public HolderLookup.RegistryLookup<Enchantment> enchantmentLookup() {
         return lookup.lookupOrThrow(Registries.ENCHANTMENT);

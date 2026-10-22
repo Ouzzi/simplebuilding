@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 public class StrongBeaconMenu extends BeaconMenu {
     /**
      * Data values beyond Vanilla's three (levels, primary, secondary): the server's max pyramid, range numbers and the
-     * switches of the six extra effects (bit i = {@code BeaconsConfig.EFFECT_IDS[i]}). They ride the normal menu data
+     * switches of the ten extra effects (bit i = {@code BeaconsConfig.EFFECT_IDS[i]}). They ride the normal menu data
      * sync, so a client on a server with other settings shows the right limits.
      */
     public static final int DATA_MAX_LEVELS = 3, DATA_RANGE_BASE = 4, DATA_RANGE_PER_LEVEL = 5, DATA_EFFECTS_ON = 6, DATA_COUNT = 7;
@@ -68,7 +68,7 @@ public class StrongBeaconMenu extends BeaconMenu {
         return synced() ? this.data.get(DATA_RANGE_BASE) + this.data.get(DATA_RANGE_PER_LEVEL) * levels : StrongBeaconLogic.range(levels);
     }
 
-    /** Whether the server lets players choose {@code effect} (the six extra effects can be switched off; Vanilla's four always). */
+    /** Whether the server lets players choose {@code effect} (the ten extra effects can be switched off; Vanilla's six always). */
     public boolean effectEnabled(Holder<MobEffect> effect) {
         String path = StrongBeaconLogic.path(effect);
         int index = BeaconsConfig.EFFECT_IDS.indexOf(path);

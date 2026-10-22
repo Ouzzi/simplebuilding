@@ -456,8 +456,11 @@ public final class TestCentreSections {
         ItemStack crusher = hammers.stream().filter(com.simplebuilding.items.custom.SledgehammerItem::canCrushDiamondBlock)
                 .findFirst().map(ItemStack::new).orElse(hammer);
         c.wallFrame(x, 2, wallZ, crusher);
-        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("inworld.crush", "Crush")),
-                TcText.t("inworld.crush.sub", "8 strikes, iron+ hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
+        // TZ22-8: Schildtext aus den Daten (InWorldTransformations), nicht von Hand.
+        TcWays.Way crush = TcWays.crush(Items.DIAMOND_BLOCK, hammers);
+        if (crush != null) {
+            c.waySign(x, 1, wallZ, crush, TcText.t("inworld.crush", "Crush"));
+        }
         x += 3;
 
         // c) Maschinen-Aufwertung mit Nugget und Hammer.
@@ -489,7 +492,10 @@ public final class TestCentreSections {
             if (needed != null) {
                 c.wallFrame(x, 2, wallZ, new ItemStack(needed));
             }
-            c.wallSign(x, 3, wallZ, TcText.t("inworld.to", "-> %s", upgrade.to().getName()));
+            TcWays.Way way = TcWays.upgrade(block, hammers);
+            if (way != null) {
+                c.waySign(x, 3, wallZ, way, List.of(way.resultLine()));
+            }
             x += 2;
         }
         x++;
@@ -497,8 +503,10 @@ public final class TestCentreSections {
         // d) Scheren an Wolle.
         c.place(x, 0, 2, vanilla("white_wool"));
         c.wallFrame(x, 2, wallZ, new ItemStack(Items.SHEARS));
-        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("inworld.shears", "Shears")), TcText.t("inworld.shears.sub", "use on wool"),
-                TcText.t("inworld.shears.sub2", "-> string"));
+        TcWays.Way shear = TcWays.shear(vanilla("white_wool"));
+        if (shear != null) {
+            c.waySign(x, 1, wallZ, shear, TcText.t("inworld.shears", "Shears"));
+        }
         x += 3;
 
         // e) Besatzvorlage aufwerten (nur abgelegt; die Rahmen zeigen nur Vorlage, Material und Ergebnis).
@@ -529,8 +537,10 @@ public final class TestCentreSections {
         if (!washable.isEmpty()) {
             c.wallFrame(x, 2, wallZ, new ItemStack(washable.getFirst()));
         }
-        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("inworld.wash", "Cauldron wash")),
-                TcText.t("inworld.wash.sub", "dyed octant -> plain"));
+        TcWays.Way wash = washable.isEmpty() ? null : TcWays.wash(washable.getFirst());
+        if (wash != null) {
+            c.waySign(x, 1, wallZ, wash, TcText.t("inworld.wash", "Cauldron wash"));
+        }
         x += 2;
 
         c.backWall(0, x, wallZ, 6);
@@ -1435,33 +1445,8 @@ public final class TestCentreSections {
             }
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
-            // Astral-/Nihil-Schienen (2026-10-04): Teststrecke Ost-West. Stein als Anschlag, 14 Astral-Schienen mit
-            // Astral-Pulver daneben (Hebel aus), 12 ungespeiste Astral-Schienen zum Ausrollen mit hoher Grenze,
-            // 4 Nihil-Schienen mit Nihil-Pulver (Hebel aus), 4 normale Schienen, Stein als Ende.
-            int z = 19;
-            BlockState astralRail = ModBlocks.ASTRAL_RAIL.defaultBlockState()
-                    .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
-            BlockState nihilRail = ModBlocks.NIHIL_RAIL.defaultBlockState()
-                    .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
-            BlockState rail = Blocks.RAIL.defaultBlockState()
-                    .setValue(net.minecraft.world.level.block.RailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
-            for (int x = 0; x <= 35; x++) for (int dz = 0; dz <= 1; dz++) c.place(x, -1, z + dz, Blocks.STONE);
-            c.place(0, 0, z, Blocks.STONE);
-            BlockState railLever = Blocks.LEVER.defaultBlockState()
-                    .setValue(net.minecraft.world.level.block.LeverBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR);
-            c.place(0, 0, z + 1, railLever);
-            for (int x = 1; x <= 14; x++) {
-                c.place(x, 0, z, astralRail);
-                c.place(x, 0, z + 1, ModBlocks.ASTRAL_REDSTONE);
-            }
-            for (int x = 15; x <= 26; x++) c.place(x, 0, z, astralRail);
-            for (int x = 27; x <= 30; x++) {
-                c.place(x, 0, z, nihilRail);
-                c.place(x, 0, z + 1, ModBlocks.NIHIL_REDSTONE);
-            }
-            c.place(31, 0, z + 1, railLever);
-            for (int x = 31; x <= 34; x++) c.place(x, 0, z, rail);
-            c.place(35, 0, z, Blocks.STONE);
+            // TZ22-6: die Teststrecke der Astral-/Nihil-Schienen mit Loren, Knoepfen und Hebeln (endRailTracks).
+            c.append(endRailTracks(), 0, END_RAILS_Z);
         }
         // TZ22-5 (Besitzer 22.10.: die "riesige Wand" mit Truhen, Oefen, Trichtern und anderen Speichern): je Tab-Zeile eine
         // Gruppe im Bodenraster wie im Holzbereich, Nicht-Setzbares im Rahmen an der niedrigen Rueckwand - rechts neben den
@@ -1502,6 +1487,96 @@ public final class TestCentreSections {
         c.backWall(x0, end, wallZ, TcCanvas.EXHIBIT_WALL_HEIGHT);
         return c;
     }
+
+    /** Lage der Schienen-Teststrecke im Abschnitt "devices" (z der Knopfreihe), hinter den Kolben-Bahnen. */
+    public static final int END_RAILS_Z = 17;
+    /** Schienen-Teststrecke (lokal): Bahn A (Astral) bei z 3, Bahn B (Vanilla) bei z 5, Start-Stein bei x 0. */
+    public static final int RAIL_LANE_ASTRAL = 3, RAIL_LANE_VANILLA = 5;
+    /** Astral: 1..14 gespeist (Anschub), bis 22 ungespeist (Hoechstgeschwindigkeit), 23..27 Nihil (Bremse), 28 Ende. */
+    public static final int RAIL_LAUNCH_END = 14, RAIL_GLIDE_END = 22, RAIL_BRAKE_START = 23, RAIL_END = 28;
+    /** Vanilla: 1..9 Antriebsschienen (ein Hebel speist 1, die Schienen reichen 8 weiter), Schienen, ab 23 Halt. */
+    public static final int RAIL_VANILLA_POWERED_END = 9;
+
+    /**
+     * Teststrecke der Astral- und Nihil-Schienen (TZ22-6, Besitzer 22.10.: "keine richtigen Tests ..., sondern nur
+     * vorgebaut"). Zwei Bahnen nebeneinander, gleich lang: A aus Astral-Schienen, B aus Vanilla-Antriebsschienen.
+     * <ul>
+     *   <li>Knopf "Loren aufstellen" setzt je eine Lore an den Start (neben den Anschlag-Stein), "Loren entfernen" raeumt
+     *       die Strecke.</li>
+     *   <li>Start-Hebel zwischen den Bahnen: speist A1 und B1 direkt; an A liegt Astral-Redstone (die 2. Linie) bis x 14,
+     *       B leitet Antriebsschienen selbst weiter. Beide Loren fahren gleichzeitig los: Astral schiebt staerker und hebt
+     *       die Hoechstgeschwindigkeit an (auch auf den ungespeisten Astral-Schienen danach), Vanilla bleibt bei 8 Bl./s.</li>
+     *   <li>Bremse-Hebel: Redstone (1. Linie) ueber zwei Bruecken-Redstone in Nihil-Redstone (3. Linie) an den Nihil-Schienen;
+     *       an: die Astral-Lore haelt dort, aus: sie rollt bis zum Ende. Bahn B haelt auf ungespeisten Antriebsschienen.</li>
+     * </ul>
+     * Alle Hebel sind beim Bau aus (der Bau setzt ohne Nachbar-Updates; erst das Umlegen schaltet). Der Test
+     * {@code endRailTracksRunTheirCarts} baut genau diese Leinwand und faehrt sie.
+     */
+    public static TcCanvas endRailTracks() {
+        TcCanvas c = new TcCanvas();
+        int a = RAIL_LANE_ASTRAL, b = RAIL_LANE_VANILLA;
+        BlockState astral = ModBlocks.ASTRAL_RAIL.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+        BlockState nihil = ModBlocks.NIHIL_RAIL.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+        BlockState powered = Blocks.POWERED_RAIL.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.PoweredRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+        BlockState rail = Blocks.RAIL.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.RailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+        BlockState lever = Blocks.LEVER.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.LeverBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR);
+        int brakeLever = RAIL_END + 3;
+        c.fill(0, -1, 0, brakeLever, -1, b + 2, Blocks.STONE.defaultBlockState());
+        // Bahn A: Anschlag, Astral (Anschub + Gleiten), Nihil (Bremse), Ende.
+        c.place(0, 0, a, Blocks.STONE);
+        for (int x = 1; x <= RAIL_GLIDE_END; x++) c.place(x, 0, a, astral);
+        for (int x = RAIL_BRAKE_START; x < RAIL_END; x++) c.place(x, 0, a, nihil);
+        c.place(RAIL_END, 0, a, Blocks.STONE);
+        // Bahn B: Anschlag, Antriebsschienen, Schienen, ungespeiste Antriebsschienen (Vanilla-Halt), Ende.
+        c.place(0, 0, b, Blocks.STONE);
+        for (int x = 1; x <= RAIL_VANILLA_POWERED_END; x++) c.place(x, 0, b, powered);
+        for (int x = RAIL_VANILLA_POWERED_END + 1; x < RAIL_BRAKE_START; x++) c.place(x, 0, b, rail);
+        for (int x = RAIL_BRAKE_START; x < RAIL_END; x++) c.place(x, 0, b, powered);
+        c.place(RAIL_END, 0, b, Blocks.STONE);
+        // Start: Hebel zwischen den Bahnen, Astral-Redstone (2. Linie) neben dem Anschub von A.
+        c.place(1, 0, a + 1, lever);
+        for (int x = 2; x <= RAIL_LAUNCH_END; x++) c.place(x, 0, a + 1, ModBlocks.ASTRAL_REDSTONE);
+        // Bremse: Hebel - Redstone (1. Linie) - Bruecke - Nihil-Redstone (3. Linie) neben den Nihil-Schienen.
+        c.place(brakeLever, 0, a - 1, lever);
+        c.place(brakeLever - 1, 0, a - 1, Blocks.REDSTONE_WIRE);
+        c.place(brakeLever - 2, 0, a - 1, ModBlocks.BRIDGE_REDSTONE);
+        c.place(brakeLever - 3, 0, a - 1, ModBlocks.BRIDGE_REDSTONE);
+        for (int x = RAIL_BRAKE_START; x < RAIL_END; x++) c.place(x, 0, a - 1, ModBlocks.NIHIL_REDSTONE);
+        // Loren per Knopf (Befehlsbloecke bei z 1, Knopf bei z 0): aufstellen an A1/B1, entfernen auf der ganzen Strecke.
+        c.command(PLACE_CARTS_X, 1, 1, Direction.NORTH, "execute align xyz positioned ~" + (1 - PLACE_CARTS_X + 0.5) + " ~-1 ~"
+                        + (a - 1 + 0.5) + " summon minecraft:minecart positioned ~ ~ ~" + (b - a) + " run summon minecraft:minecart ~ ~ ~",
+                TcText.t("end_rails.place", "Place carts"), TcText.t("end_rails.place.sub", "one per lane"));
+        c.command(REMOVE_CARTS_X, 1, 1, Direction.NORTH, "execute align xyz positioned ~" + (-REMOVE_CARTS_X) + " ~-1 ~" + (a - 1)
+                        + " run kill @e[type=minecraft:minecart,dx=" + (brakeLever - 1) + ",dy=2,dz=" + (b - a + 1) + "]",
+                TcText.t("end_rails.remove", "Remove carts"), TcText.t("end_rails.remove.sub", "on this track"));
+        // Schilder an einer niedrigen Wand hinter Bahn B.
+        int wallZ = b + 2;
+        for (int x = 0; x <= RAIL_END; x++) c.place(x, 0, wallZ, TcCanvas.WALL);
+        int topSpeed = (int) Math.round(com.simplebuilding.blocks.custom.EndRailPhysics.maxSpeedPerTick() * 20);
+        c.wallSign(1, 1, wallZ, TcText.bold(TcText.t("end_rails.title", "End rails")), TcText.t("end_rails.how", "1. button: carts"),
+                TcText.t("end_rails.how2", "2. lever: go"), TcText.t("end_rails.how3", "front: Astral, back: vanilla"));
+        c.wallSign(8, 1, wallZ, TcText.bold(TcText.t("end_rails.launch", "Astral launch")), TcText.t("end_rails.launch.sub", "Astral Redstone,"),
+                TcText.t("end_rails.launch.sub2", "the 2nd line"));
+        c.wallSign(18, 1, wallZ, TcText.bold(TcText.t("end_rails.speed", "Top speed")), TcText.t("end_rails.speed.sub", "Astral: up to %s b/s", topSpeed),
+                TcText.t("end_rails.speed.sub2", "vanilla: 8 b/s"));
+        c.wallSign(25, 1, wallZ, TcText.bold(TcText.t("end_rails.brake", "Nihil brake")), TcText.t("end_rails.brake.sub", "lever, redstone, bridge,"),
+                TcText.t("end_rails.brake.sub2", "Nihil Redstone (3rd line)"));
+        c.anchor("end_rails_start_lever", 1, 0, a + 1);
+        c.anchor("end_rails_brake_lever", brakeLever, 0, a - 1);
+        c.anchor("end_rails_astral_start", 1, 0, a);
+        c.anchor("end_rails_vanilla_start", 1, 0, b);
+        c.anchor("end_rails_place_button", PLACE_CARTS_X, 1, 0);
+        c.anchor("end_rails_remove_button", REMOVE_CARTS_X, 1, 0);
+        return c;
+    }
+
+    /** x der Befehlsbloecke "Loren aufstellen"/"Loren entfernen" in der Schienen-Teststrecke. */
+    static final int PLACE_CARTS_X = 3, REMOVE_CARTS_X = 6;
 
     // =====================================================================================
     // 14. Unsortiert: was noch keinen Abschnitt hat

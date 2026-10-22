@@ -2338,7 +2338,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2349,7 +2349,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2360,7 +2360,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2371,7 +2371,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2382,7 +2382,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2415,7 +2415,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2426,7 +2426,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2437,7 +2437,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2448,7 +2448,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2459,7 +2459,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2470,7 +2470,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2481,7 +2481,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2492,7 +2492,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1
@@ -2503,7 +2503,7 @@
       "hours": 15.0,
       "craft": 0,
       "safetyFloor": 8,
-      "merchant": "wandering_trader",
+      "merchant": "village_wanderer",
       "level": 4,
       "stock": 1,
       "chance": 0.1

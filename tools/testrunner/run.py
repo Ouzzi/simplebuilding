@@ -382,6 +382,13 @@ def module_targets(root=REPO):
                 label=f"{module['displayName']} {loader} standalone", loader=loader,
                 gradle_task=spec["task"], report=spec["report"],
                 catalogue=tests["catalogues"][0], gradle_args=tuple(_forge_java8_args(loader, spec)), **common))
+        # Combo suites (a-small22): the standalone setup plus named optional partners, e.g. crucibles + hammers without SB.
+        for combo in tests.get("combos", []):
+            spec = combo["loaders"]["fabric"]
+            result.append(Target(id=f"module-{module['id']}-with-{'-'.join(combo['with'])}-fabric-263",
+                label=f"{module['displayName']} fabric with {', '.join(combo['with'])}", loader="fabric",
+                gradle_task=spec["task"], report=spec["report"],
+                catalogue=tests["catalogues"][0], **common))
         client = tests.get("client")
         if client:
             result.append(Target(id=f"module-{module['id']}-client-263",

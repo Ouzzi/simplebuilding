@@ -1,0 +1,9 @@
+{
+  "legendary": {
+    "subtitle": "subtitles.simplelib.legendary",
+    "sounds": [
+      "simplelib:legendary1",
+      "simplelib:legendary2"
+    ]
+  }
+}

@@ -181,6 +181,11 @@ public final class ModuleGameTest {
         CrucibleTests.ALL.get("crucible_barrel_beside_inventory_centred").accept(h);
     }
 
+    @GameTest(structure = "simplecrucibles:empty")
+    public void hammerUpgradeStepsShipWithTheModule(GameTestHelper h) {
+        CrucibleTests.ALL.get("hammer_upgrade_steps_ship_with_the_module").accept(h);
+    }
+
     @GameTest(structure = "simplecrucibles:empty") public void discoverRecipeUnlocks(GameTestHelper h) { com.simplecrucibles.discover.CruciblesDiscover.recipeUnlocks(h); }
     @GameTest(structure = "simplecrucibles:empty") public void discoverBehaviourHints(GameTestHelper h) { com.simplecrucibles.discover.CruciblesDiscover.behaviourHints(h); }
     @GameTest(structure = "simplecrucibles:empty") public void discoverFirstPickupTips(GameTestHelper h) { com.simplecrucibles.discover.CruciblesDiscover.firstPickupTips(h); }

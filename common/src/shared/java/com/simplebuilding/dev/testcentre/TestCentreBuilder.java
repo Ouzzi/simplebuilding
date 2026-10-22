@@ -161,6 +161,14 @@ public final class TestCentreBuilder {
                 level.setBlock(place.pos(), Block.updateFromNeighbourShapes(placed, level, place.pos()), QUIET);
             }
         }
+        // Strukturvorlagen (TZ22-3) nach den Bloecken, vor Schildern und Rahmen; ihre Rahmen-Entities zaehlen mit.
+        for (TcOp op : ops) {
+            if (op instanceof TcOp.Structure structure) {
+                placeStructure(level, structure);
+                entities += structure.frames();
+                count++;
+            }
+        }
         for (TcOp op : ops) {
             switch (op) {
                 case TcOp.Sign sign -> {
@@ -278,6 +286,26 @@ public final class TestCentreBuilder {
             }
         }
         return new int[]{count, entities};
+    }
+
+    /**
+     * Setzt eine Vorlage wie ein Pool-Teil, unrotiert: Strukturbloecke fallen weg, Jigsaw-Bloecke werden durch ihren
+     * Endzustand ersetzt, Entities (etwa der Rahmen im Wrack) und Beutetabellen kommen mit; leise wie der Rest des Baus.
+     */
+    static boolean placeStructure(ServerLevel level, TcOp.Structure op) {
+        java.util.Optional<net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate> template =
+                McVersion.structureTemplates(level).get(op.template());
+        if (template.isEmpty()) {
+            Simplebuilding.LOGGER.warn("Test centre: structure template {} is missing", op.template());
+            return false;
+        }
+        net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings settings =
+                new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings()
+                        .setIgnoreEntities(false)
+                        .addProcessor(net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor.STRUCTURE_BLOCK)
+                        .addProcessor(net.minecraft.world.level.levelgen.structure.templatesystem.JigsawReplacementProcessor.INSTANCE);
+        return template.get().placeInWorld(level, op.pos(), op.pos(), settings,
+                net.minecraft.util.RandomSource.create(op.pos().asLong()), QUIET);
     }
 
     private static void spawnFrame(ServerLevel level, BlockPos pos, Direction facing, ItemStack stack) {

@@ -51,6 +51,7 @@ public final class BeaconsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simplebeacons:beacon_material_range",
             "simplebeacons:config_server",
             "simplebeacons:creative_tab_switch",
             "simplebeacons:guide_book",

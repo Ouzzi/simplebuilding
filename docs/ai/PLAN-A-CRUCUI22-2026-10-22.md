@@ -46,3 +46,9 @@ wie der Rest aus Flächen gezeichnet. `wiki/data/textures.js` ändert sich daher
 `/root/sbt a-crucui22`: Compile Fabric/NeoForge/Forge + Modul; Modul-Tests `module-simplecrucibles-fabric-263`,
 `-neoforge-263`, `-standalone-fabric-263`; SB-Tests mit Filter `simplebuilding:*crucible*`; Generatoren
 (module_guides, wiki --all, discover) + `./gradlew check -q`. Keine Client-Läufe.
+
+## Nachtrag 22.10.: Höhen-Vorschau (nur Vorschau, kein Spielcode)
+Besitzer möchte die Extra-Höhe unter dem Raster vergleichen. Generator `tools/textures/crucible_hearth_2026_10_22.py --heights`
+baut EIN Beispiel (Eisen, ohne Fass, Hitze hoch, 3×) mit vier Varianten nebeneinander: 0 px (vorher), ¼ Slot (+5 px),
+½ Slot (+9 px), 1 Slot (+18 px, Ist-Stand Branch). Ausgabe `/root/sb-tools-a/previews/crucui22-heights.html`.
+Nach der Wahl ändert sich nur `CrucibleMenu.FIRE_ROOM` (12 + Extra); Layout-Test und Flammen-Bemessung folgen dem Wert.

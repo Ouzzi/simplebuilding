@@ -36,16 +36,28 @@ Alle unter `/sbtestcentre`, Befehlsrechte Stufe 2 (Operator/Cheats; Befehlsblöc
 
 | Befehl | Wirkung |
 |---|---|
-| `build` | ganze Zentrale am gespeicherten Ursprung neu bauen (sonst über 0/0, Oberfläche) |
+| (ohne Argument), `help` | Hilfe: alle Befehle und die Bereichsnamen (TZ22-4) |
+| `build` | ganze Zentrale am gespeicherten Ursprung neu bauen (sonst über 0/0, Oberfläche) - **der Standard baut immer alles** |
+| `build [here\|<x y z>] only <bereiche>` | Teilbau (TZ22-4): nur diese Bereiche (plus Steuerwand), z. B. `build only mobs,structures` |
+| `build [here\|<x y z>] without <bereiche>` | Teilbau: alles außer diesen, z. B. `build without structures`; kombinierbar: `build only workshop without chisel` |
 | `build here` | an den eigenen Füßen bauen, Ursprung merken |
 | `build <x y z>` | an festem Punkt bauen (so rufen die Befehlsblöcke) |
-| `section <id> [x y z]` | nur einen Abschnitt leeren und neu bauen (z. B. `section machines`) |
+| `section <id> [x y z [optionen]]` | nur einen Abschnitt leeren und neu bauen (z. B. `section machines`); ohne Ursprung mit den Optionen des letzten Baus |
 | `kit [Spieler]` | höchste Stufe von Meißel, Baustab, Vorschlaghammer, Spitzhacke (max. verzaubert), die Geräte, eine Blaupause, Steinziegel |
 | `give <station> [Spieler]` | das Kit einer Station (siehe unten); **ersetzt das Inventar**. So ruft der Ausgabe-Knopf vorn an jeder Station |
 | `tp` | zum Eingang |
 | `tp <platz>` | zu einem benannten Platz der Planung, z. B. `tp mob/simplemobs/shellker` (Blick in die Mob-Zelle) |
 | `coverage` | nennt Mod-Items, die noch keinem Abschnitt zugeordnet sind |
-| `stats` | Abschnitte, Fläche, Item-Rahmen und Rüstungsständer der Planung (ohne Bau); je Abschnitt eine Zeile im Log (TZ22-2) |
+| `stats [only\|without …]` | Abschnitte, Fläche, Item-Rahmen und Rüstungsständer der Planung (ohne Bau); je Abschnitt eine Zeile im Log (TZ22-2); mit Optionen die Größe eines Teilbaus |
+
+**Teilbau (TZ22-4, 22.10.2026).** Bereiche sind die Bezirke (`TestCentreLayout.DISTRICT_NAMES`: `workshop` = Steuerwand,
+Werkzeuge, Meißel, Planung, Abbau, Verzauberungen; `states`; `blocks`; `technics`; `combat`; `modules`; `mobs`;
+`structures`; `catalog` = Tab-Wände; `rest` = Galerie/Unsortiert) oder einzelne Abschnitts-Ids; durch Komma oder Leerzeichen
+getrennt, unbekannte Namen geben eine Fehlermeldung mit der Liste. Die Steuerwand ist immer dabei. Geplant wird trotzdem
+alles (Abdeckung, Kits, Galerie bleiben gleich), gepackt und gebaut nur das Gewählte - die Zentrale wird dadurch kleiner und
+schneller gebaut. Die Optionen stehen hinter dem Fingerabdruck in `simplebuilding_testcentre.txt`
+(`x y z fingerabdruck [only … without …]`); so bauen „Neu bauen“-Knöpfe der Steuerwand (sie tragen die Optionen im Befehl),
+der Neubau beim Betreten, `tp` und `section <id>` dieselbe Zentrale wieder auf.
 
 Der Bau leert zuerst den ganzen Bereich (Entities außer Spielern, Behälterinhalte, Blöcke), legt
 den Boden (Glatter Stein, Seelaternen im 6er-Raster, Tiefenschieferfliesen unter den Abschnitten)
@@ -77,10 +89,9 @@ es auch im Kit. Stationen, die nichts zeigen (heute `devices`, `gallery`, `unsor
 ## Übersicht der Abschnitte
 
 **Bezirke (TZ22-5, 22.10.2026):** Die Abschnitte gehören zu Themen-Bezirken (`TestCentreLayout.DISTRICTS`):
-Eingang & Werkzeuge, Zustände & Umwandlungen, Baublöcke, Technik & Lager, Kampf & Bewegung, Module, Mobs, Katalog (Tabs),
+Eingang & Werkzeuge, Zustände & Umwandlungen, Baublöcke, Technik & Lager, Kampf & Bewegung, Module, Mobs, Strukturen, Katalog (Tabs),
 Rest. Jeder Bezirk wird für sich in Reihen gepackt (höchstens 120 Blöcke breit, vor jeder Reihe ein Gang von 7 Blöcken
 in -z); die Bezirke liegen in einem Raster aus zwei Spalten (Abstand 127 in x), Bezirks-Reihen mit einem Gang dazwischen.
-Ein späterer Bezirk „Strukturen“ (TZ22-3) kommt als eigener Eintrag in die Liste und belegt einen Rasterplatz.
 Wände sind höchstens 6 hoch (Ausnahme: Fallturm des Sinkdämpfers); längere Tafeln laufen auf parallele Wände dahinter
 weiter (Regalgänge, `TcCanvas.shelves`). Der Ursprung ist die Standhöhe am Anfang des ersten Gangs. Die genaue Lage
 steht im Log des Bau-Tests und von `/sbtestcentre stats` (`test centre ... sections:`), weil sie aus den Inhalten folgt.
@@ -119,12 +130,21 @@ unter Glas. Eine Station rahmt nichts, was sie schon gesetzt oder abgelegt zeigt
 | `enchants` | je Mod-Verzauberung, die keine andere Station vorführt (Break Through, Deep Pockets, Air Jump, Drawer, Fast Chiseling, Funnel, Kinetic Protection, Master Builder, Override, Radius, Range), ein Pfosten mit dem höchsten passenden Gegenstand, damit verzaubert, und Hinweis; davor eine Prüfwand (Stein/Erde/Bretter, zwei Lagen) oder für Bündel/Köcher eine Truhe mit Nachschub. Neue Mod-Verzauberungen erscheinen von selbst | Register `enchantment` minus `FeatureStations.SHOWN_ELSEWHERE` |
 | `sinkdamper` | Fallturm für den Sinkdämpfer der Enderit-Rüstung (P8): Säule mit Leiter, Plattform in 12 Blöcken Höhe, Ständer mit vollem Enderit-Satz (das Kit legt ihn ins Inventar) - anziehen, hochklettern, im Fall schleichen; Sprinten bremst | `FeatureStations.sinkDamper` |
 | `tweaks` | die aus Simple Tweaks uebernommenen Pads und Platten: alle Tweaks-Tab-Zeilen als Rahmen, davor Spawn-Teleporter I (50 s) und III (Enderit, 5 s), Elytra-Pad, Flypad I mit eigenem Flugfeld (4 × 4, 8 hoch, auf dem Boden mit Purpur markiert; kein anderes Pad liegt darin - bis 2026-09-28 stand es dicht neben dem Launchpad, wer das testen wollte, flog), Launchpad mit Truhe Windkugeln, Diamant-/oxidierte Kupferplatte an Lampen, Netherit-/Enderit-Platte mit Fass (Diamant) darunter, Leitstein mit Truhe (Echolot; Enderperlen braucht es seit 2026-09-27 nicht mehr), Trank-Pad I mit Truhe Wurf-/Verweiltraenke und Wasserflasche zum Leerwischen (und Lohen- und Endermankopf); Chunk-Loader nur im Rahmen (gesetzt wuerde er Chunks erzwingen) | `TweaksStation`, `TweaksItems.functionalRows` |
-| `devices` | Redstone-, Kolben- und Schienenstrecken der Linien; rechts daneben die **Grundversorgung für neue Tab-Zeilen**: jede Zeile aus SimpleTools oder Maschinen & Lager, die kein Abschnitt eigens liest, als Gruppe im Bodenraster (Truhen, Öfen, Trichter … gesetzt, der Rest im Rahmen auf Sockeln; TZ22-5, vorher eine 27 hohe Wand) | Tab-Zeilen minus `KNOWN_TOOL_ROWS`/`KNOWN_FUNCTIONAL_ROWS` |
+| `devices` | Redstone- und Kolbenstrecken der Linien, dahinter die **Schienen-Teststrecke** (TZ22-6, `endRailTracks`): Bahn A Astral (14 gespeist über Astral-Redstone = 2. Linie, 8 ungespeist mit erhöhter Höchstgeschwindigkeit, 5 Nihil-Schienen als Bremse), Bahn B Vanilla (9 Antriebsschienen, Schienen, ungespeiste Antriebsschienen als Halt); Knöpfe *Loren aufstellen*/*Loren entfernen*, Start-Hebel zwischen den Bahnen (beide Loren fahren gleichzeitig los), Bremse-Hebel: Redstone → Brücken-Redstone → Nihil-Redstone (3. Linie); Schilder mit Ablauf, Höchsttempo (aus der Server-Config), Linien; rechts daneben die **Grundversorgung für neue Tab-Zeilen**: jede Zeile aus SimpleTools oder Maschinen & Lager, die kein Abschnitt eigens liest, als Gruppe im Bodenraster (Truhen, Öfen, Trichter … gesetzt, der Rest im Rahmen auf Sockeln; TZ22-5, vorher eine 27 hohe Wand) | Tab-Zeilen minus `KNOWN_TOOL_ROWS`/`KNOWN_FUNCTIONAL_ROWS` |
 | `mobs` | **Mobs aller geladenen Mods** (Queue N43): je Mob (Entity-Register, nicht Minecraft, nicht MISC, beschwörbar) eine Zelle mit Lebensraum am Boden, Schild (Name, Mod, Lebensraum) und Spawn-Ei an der Rückwand, vorn Knöpfe *Spawnen (still)* (NoAI), *Spawnen (aktiv)* und *Entfernen*. Deceiver: Dichter Eichenwald, Knopf *Gepanzert spawnen* (240 Leben). Hollow Howler: Tiefes Dunkel mit Sculk-Sensor/-Kreischer/-Katalysator und Sculk Jaw. Shellker: Vanilla-End-Transitportal mit Grundgesteinrahmen schwebend über Endstein, Knopf *Torwächter* setzt die vier Wächter wie im End. Soulfire Blaze: Seelensandtal; Dragonmite: End-Insel mit Obsidiansäule. Dread: Beschwörungsfigur (Eisen-T mit Amboss in der Mitte, Skelettschädel), Eisenhelm im Rahmen an der Wand – Rechtsklick damit auf den Schädel weckt ihn; Hollow Watcher: End-Insel. Höchstens zehn Zellen je Reihe, weitere Reihen dahinter. Ohne solche Mods leer. Prüfung: `everyModMobHasItsOwnStationThatSpawnsItInItsHabitat` (allein mit Schwein als Platzhalter) | `MobStations`, Register `entity_type` |
 | `tab_tools`, `tab_building_blocks`, `tab_materials`, `tab_functional`, `tab_pads`, `tab_arrows` | **Item-orientierter Rundgang** (B12): je Kreativ-Tab eine Wand mit dem ganzen Tab in Anzeigereihenfolge (spaltenweise, vier Reihen, höchstens 24 Spalten je Wand, weitere Wände dahinter; Setzbares steht als Block in der Wand oder hängt davor, was eine Station schon gesetzt zeigt, bekommt hier keinen Rahmen mehr), mit Ausgabe-Knopf. Zählt **nicht** für die Abdeckung: jedes Item braucht trotzdem eine Station zum Ausprobieren (testorientierter Rundgang = alle anderen Abschnitte) | `ModItemGroupsContent.populate` je Tab, `TabBrowser` |
 | `gallery` | jeder Mod-Block, den kein anderer Abschnitt setzt (etwa nur im Rahmen zeigt), einmal auf dem Boden (Raster mit einem Feld Abstand) - neue Blöcke von selbst. Ausgenommen `TestCentreLayout.frameOnly`: Pads mit Wirkung auf die Umgebung (Elytra-Pad III gäbe auf 128 × 128 Blöcken Elytren, Teleporter versetzen, Chunk-Loader erzwingen Chunks, Kupferplatten altern) und die alten Flypad-, Spawn-Teleporter- und Elytra-Pad-Stufen | alle Mod-Blöcke minus gesetzte |
 | `modules` | **Modul-Ausstellung** (TZ22-1): je Modul der Familie (`TcContext.FAMILY`) eine Bucht im Stil des Holzbereichs - die angemeldeten Stationen (`framework.api.TestCentreStations`) als Gruppen, dazu „Weitere“: alles aus dem Register des Moduls, was keine Station nennt; was eine andere Station schon sichtbar zeigt, kommt nicht doppelt; Buchten-Reihen höchstens 90 breit | Stationen der Module, Register |
+| `structures` | **Strukturen** (TZ22-3, eigener Bezirk vor dem Katalog): jedes Teil jedes Template-Pools mit Vorlage aus der Familie einmal, unrotiert, mit allen Varianten - End-Wracks (Bug/Heck/zerbrochen/schräg je ohne Rahmen, leerer Rahmen, Rahmen mit Elytra), End-Brunnen (heil, zerbrochen a/b), falsche Gateways a/b/c, End-Wege (gerade, Kurve, T, Kreuz, Welle), die Feldküchen von Simple Crucibles in allen fünf Dorftypen; je Teil ein Schild davor (Struktur, Variante, Namensraum, Maße). Gruppen je Struktur (fremde Pools wie die Dorfhäuser je Namensraum + Pool-Wurzel), Varianten einer Form in einer Reihe, größte Gruppe zuerst, kleinere in Spalten daneben, höchstens 120 breit. Gesetzt wie ein Pool-Teil (`TcOp.Structure`, Jigsaw-Blöcke ersetzt, Entities und Beutetabellen kommen mit) | Register `worldgen/template_pool` (auch nachträglich eingehängte Teile) und `worldgen/structure` (Titel), `StructureStation` |
 | `unsorted` | Mod-Items, die nirgends stehen - soll leer sein | Rest |
+
+**Wege auf Schildern (TZ22-8):** Schilder, die einen Weg zeigen (Rezept, Umwandlung in der Welt: Tiegelbau, Quarz/
+Diamantblock zerschlagen, Maschinen-/Kessel-/Verzauberungstisch-Aufwertung, Schere an Wolle, Kessel-Wäsche, B-Seite,
+Hochofen), schreiben ihn nicht von Hand: `TcWays` baut den Weg aus den Daten des Spiels (Aufwertungs-Engine aus
+`in_world_upgrades`, `InWorldTransformations` wie Wiki/JEI, Tiegel-API + Tags `simplecrucibles:crucible_walls/handles`),
+`TcCanvas.waySign` erzeugt die Zeilen (Ausgang, „+ Nx Material“, „mit Werkzeug“, „-> Ergebnis“; Namen aus der Registry)
+und hängt den Weg an das Schild (`TcOp.Sign#way`). Neue Wege-Schilder immer so; ein Pfeil „->“ auf einem Schild ohne Weg
+ist ein Testfehler.
 
 Schilder und Namensschilder sind übersetzbar (`simplebuilding.testcentre.*` in `en_us`/`de_de`,
 Rückfall Englisch im Code): ein deutscher Client liest Deutsch, ein englischer Englisch.
@@ -153,7 +173,18 @@ Rückfall Englisch im Code): ein deutscher Client liest Deutsch, ein englischer 
   jetzt, dass jeder Mod-Block mit Item auch **gesetzt** ist (nicht nur gerahmt), außer `frameOnly`.
 - **`broken_and_repaired_states_stand_side_by_side`** (ohne Welt): Resonanzstab und Rotator leer, halb und voll; Echolot in allen drei Riss-Stufen des Item-Modells und repariert; jedes abnutzbare Stück der Haltbarkeits-Zeilen fast verbraucht mit dem neuen direkt östlich daneben; rissiger und heiler Diamantblock, Amboss, Hochofen mit rissigen Diamanten, abgenutzter und neuer Ständer.
 - **`every_creative_tab_has_its_item_browser_wall`** (ohne Welt): je Tab ein Abschnitt `tab_<id>` in `SECTION_IDS`; was sich in eine Wand setzen lässt oder an ihr hängen kann, steht dort als Block, die Rahmen zeigen genau die übrigen Stapel des Tabs in Tab-Reihenfolge (ohne was eine Station schon gesetzt zeigt), mit Ausgabe-Knopf.
-- **`every_family_registry_entry_is_in_the_test_centre`** (TZ22-1, ohne Welt): Items, Blöcke und Mobs aller geladenen Module der Familie haben ihren Platz; Ausnahmen nur begründet (`EXCLUDED`, Wand-/Topf-Varianten ohne Item über `TestCentreLayout.technical`, Entity-Typen ohne Mob: MISC/nicht beschwörbar); Strukturen werden für TZ22-3 nur gezählt; ein unbekannter Namensraum `simple…` ist rot (neues Modul in `TcContext.FAMILY`). Das Log nennt Namensräume und Zahlen.
+- **`every_family_registry_entry_is_in_the_test_centre`** (TZ22-1, ohne Welt): Items, Blöcke und Mobs aller geladenen Module der Familie haben ihren Platz; Ausnahmen nur begründet (`EXCLUDED`, Wand-/Topf-Varianten ohne Item über `TestCentreLayout.technical`, Entity-Typen ohne Mob: MISC/nicht beschwörbar); jede Familien-Struktur muss ein Jigsaw sein, dessen Startpool-Teile im Abschnitt `structures` stehen, und jedes Familien-Teil eines beliebigen Pools steht dort (TZ22-3, keine Ausnahme mehr); ein unbekannter Namensraum `simple…` ist rot (neues Modul in `TcContext.FAMILY`). Das Log nennt Namensräume und Zahlen.
+- **`partial_builds_only_contain_the_chosen_areas`** (TZ22-4, ohne Welt): `without structures` plant keine Vorlage und ist kleiner, `only mobs` nur Steuerwand und Mobs, `only workshop without chisel` ohne Meißel; Abdeckung unverändert; Knöpfe der Steuerwand tragen die Optionen; Optionen-Text liest sich zurück, unbekannte Bereiche werfen; `help` und `build … only|without` sind registriert.
+- **`end_rail_tracks_run_their_carts`** (TZ22-6): baut die Schienen-Teststrecke fern der anderen Tests (x = z = 29000)
+  mit dem Bau-Code der Zentrale und fährt sie wie von Hand: Bremse-Hebel speist über Redstone → Brücke → Nihil-Redstone jede
+  Nihil-Schiene, der Knopf stellt zwei Loren auf, der Start-Hebel schickt beide los; Astral schneller als Vanilla (schnellster
+  Schritt > 0,45 Bl./Tick, nie über der Höchstgeschwindigkeit; Vanilla ≤ 0,4), früher am Ende des Anschubs, hält in der
+  Nihil-Strecke; ohne Bremse rollt sie bis ans Ende; *Loren entfernen* räumt. Das Log nennt die gemessenen Werte.
+- **`every_transformation_sign_shows_an_existing_way`** (TZ22-8, ohne Welt): jeder Weg an einem Schild existiert in den
+  Live-Daten (`TcWays.problem`: Engine, InWorldTransformations, Tiegel-API/Tags, Hochofen-Rezepte), die Arten Aufwertung,
+  Zerschlagen, Schere, Hochofen und Tiegelbau kommen vor, kein Schild ohne Weg zeigt „->“ (außer den Ablauf-Texten
+  `section.machines.sub`, `states.gadgets.sub`); Gegenprobe: der alte Tiegelbau am Eisenblock und ein falsches Rezept fallen durch.
+- Der Bau-Test prüft zusätzlich jede gesetzte Strukturvorlage (feste Blöcke im Kasten ≥ Vorlage) und zählt ihre Rahmen mit (`TcOp.frames()`).
 - **`no_frame_holds_what_could_stand_as_block`** (TZ22-2, ohne Welt): kein Wandrahmen hält, was dort als Block stehen könnte; keine Station rahmt, was sie schon gesetzt zeigt; Rahmen und Ständer je Abschnitt stehen im Log.
 - **`the_layout_is_compact_with_low_walls`** (TZ22-5, ohne Welt): kein Abschnitt breiter als 120, keine Ausstellungswand höher als 6 (außer dem Fallturm), jeder Bezirk beginnt an seiner Rasterspalte und bleibt darin.
 - **`every_feature_station_sets_up_its_scenario`** (ohne Welt): jede Mod-Verzauberung steht auf einem Gegenstand (kein Buch) in `mining`, `planning`, `chisel` oder `enchants`; jedes Kleinteil und jedes Ei liegt in `placeables` (26.3); jeder Eisenstab hat nichts über sich und kein Kupfer-Blitzableiter steht in der Zentrale; die Steuerwand hat den Gewitter-Knopf; der Fallturm ist mindestens 10 hoch, die Leiter reicht bis oben, ein Ständer trägt den vollen Enderit-Satz.

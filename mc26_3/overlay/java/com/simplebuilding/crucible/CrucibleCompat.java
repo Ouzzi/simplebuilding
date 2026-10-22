@@ -132,6 +132,11 @@ public final class CrucibleCompat {
         return SimpleCruciblesApi.upgradesInPlace(block);
     }
 
+    /** TZ22-8 (test centre sign check): whether the hammer's next build strike on {@code state} takes {@code offhand} (an empty cauldron starts the build). */
+    public static boolean canBuildStrike(BlockState state, ItemStack offhand) {
+        return SimpleCruciblesApi.canBuildStrike(state, offhand);
+    }
+
     public static void upgradeInPlace(ServerLevel level, BlockPos pos, Block to) {
         SimpleCruciblesApi.upgradeCrucible(level, pos, to);
     }

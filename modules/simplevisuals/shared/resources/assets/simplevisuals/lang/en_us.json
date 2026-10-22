@@ -57,6 +57,8 @@
   "text.autoconfig.simplevisuals.option.visuals.deathCoordsMode.@Tooltip": "Only your own death coordinates, entirely\nlocal. Default: SEPARATE.",
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips": "Map Tooltips",
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips.@Tooltip": "Shows coordinates and biome info when\nhovering over maps in the inventory. Default:\ntrue.",
+  "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems": "Tilted flat blocks in item frames",
+  "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems.@Tooltip": "Pressure plates, carpets, trapdoors and other\nflat blocks show in item frames like in the\ninventory (tilted from above) instead of as a\nthin strip. Client only. Default: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable": "Enable",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable.@Tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.scale": "Scale",

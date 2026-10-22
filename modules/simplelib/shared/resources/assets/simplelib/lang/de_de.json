@@ -32,5 +32,16 @@
   "item.minecraft.potion.effect.warped": "Wirrer Trank",
   "item.minecraft.splash_potion.effect.warped": "Wirrer Wurftrank",
   "item.minecraft.lingering_potion.effect.warped": "Wirrer Verweiltrank",
-  "item.minecraft.tipped_arrow.effect.warped": "Pfeil des Wirren Tranks"
+  "item.minecraft.tipped_arrow.effect.warped": "Pfeil des Wirren Tranks",
+  "subtitles.simplelib.legendary": "Legendäre Fanfare",
+  "simplelib.title": "SimpleLib",
+  "simplelib.tab.legendary": "Legendäre Momente",
+  "simplelib.option.legendaryEffects": "Legendäre Momente",
+  "simplelib.option.legendaryEffects.tooltip": "Fanfare und Partikel, wenn ein Spieler einen\nder schwersten Fortschritte schafft oder eine\nlegendäre Verzauberung auf Höchststufe herstellt.\nStandard: an.",
+  "simplelib.option.legendaryAllChallenges": "Jede Herausforderung ist legendär",
+  "simplelib.option.legendaryAllChallenges.tooltip": "Jeder Fortschritt mit Herausforderungsrahmen\n(auch aus anderen Mods) zählt als legendär.\nStandard: aus.",
+  "simplelib.option.legendaryAdvancements": "Weitere legendäre Fortschritte",
+  "simplelib.option.legendaryAdvancements.tooltip": "Fortschritts-IDs zusätzlich zur eingebauten\nListe, z. B. minecraft:story/enter_the_end.",
+  "simplelib.option.legendaryEnchantments": "Weitere legendäre Verzauberungen",
+  "simplelib.option.legendaryEnchantments.tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending."
 }

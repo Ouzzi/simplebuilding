@@ -14,6 +14,7 @@ public final class MoneyConfigScreen {
   String prefix="text.autoconfig.simplemoney.option.trades.";
   tab.addEntry(fields.startBooleanToggle(Component.translatable(prefix+"enableVillagerTrades"),draft.trades.enableVillagerTrades).setDefaultValue(true).setTooltip(Component.translatable(prefix+"enableVillagerTrades.tooltip")).setSaveConsumer(v->draft.trades.enableVillagerTrades=v).build());
   tab.addEntry(fields.startBooleanToggle(Component.translatable(prefix+"enableWanderingTrades"),draft.trades.enableWanderingTrades).setDefaultValue(true).setTooltip(Component.translatable(prefix+"enableWanderingTrades.tooltip")).setSaveConsumer(v->draft.trades.enableWanderingTrades=v).build());
+  tab.addEntry(fields.startBooleanToggle(Component.translatable(prefix+"enableWandererTrades"),draft.trades.enableWandererTrades).setDefaultValue(true).setTooltip(Component.translatable(prefix+"enableWandererTrades.tooltip")).setSaveConsumer(v->draft.trades.enableWandererTrades=v).build());
   var links=builder.getOrCreateCategory(Component.translatable("text.autoconfig.simplemoney.category.links"));
   String linkPrefix="text.autoconfig.simplemoney.option.links.";
   links.addEntry(fields.startBooleanToggle(Component.translatable(linkPrefix+"enabled"),draft.links.enabled).setDefaultValue(true).setTooltip(Component.translatable(linkPrefix+"enabled.tooltip")).setSaveConsumer(v->draft.links.enabled=v).build());

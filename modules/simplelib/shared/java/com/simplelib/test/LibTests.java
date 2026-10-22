@@ -51,6 +51,8 @@ public final class LibTests {
         ALL.put("pixel_rle_round_trip", PixelArtTests::rleRoundTrip);
         ALL.put("pixel_size_limit", PixelArtTests::sizeLimit);
         ALL.put("simple_rarity_names", LibTests::simpleRarityNames);
+        ALL.put("legendary_advancements", LegendaryTests::advancements);
+        ALL.put("legendary_enchantments", LegendaryTests::enchantments);
     }
 
     // ------------------------------------------------------------ helpers
@@ -78,8 +80,8 @@ public final class LibTests {
             palettes.put("NETHERITE", com.simplelib.api.client.ui.UiPalette.NETHERITE);
             palettes.put("ENDERITE", com.simplelib.api.client.ui.UiPalette.ENDERITE);
             // derived palettes of the mod screens: leather backpack, auto smither, crafter, fletching, astral table, crafting table,
-            // the paper of deed / table, the Wayfinder's brown, the sales-block copper
-            int[] fills = {0xFF8E6440, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F};
+            // the paper of deed / table, the Wayfinder's brown, the sales-block copper, the death vault violet (SP22-3)
+            int[] fills = {0xFF8E6440, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F, 0xFF3C2D57};
             for (int fill : fills) {
                 palettes.put("derived " + Integer.toHexString(fill), com.simplelib.api.client.ui.UiPalette.derived(fill));
             }

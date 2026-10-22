@@ -80,7 +80,8 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
                 map.put(ModBlocks.NETHERITE_SHULKER_BOX, new Upgrade(ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX,
                         ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
             }
-            if (McVersion.CRUCIBLE) crucibleUpgrades(map);
+            // Crucibles, barrels and the cauldron: Simple Crucibles ships them (data/simplecrucibles/in_world_upgrades, a-small22),
+            // so the hammer ways also work without SimpleBuilding.
             // Astral-Verzauberungstisch (Queue N27): Verzauberungstisch + Enderit-Nugget, ab Netherit-Hammer, 4x so viele
             // Schlaege (Standard 5 -> 20); verbraucht wird das Nugget beim letzten Schlag.
             if (McVersion.ASTRAL_ENCHANTING) {
@@ -94,45 +95,8 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
         return table;
     }
 
-    /**
-     * Crucible P5 (owner F9/F10/F11, 56, 59): the Simple Crucibles crucibles and barrels go up with the sledgehammer at
-     * twice the cost of a furnace (2 material, twice the strikes): Iron -> Reinforced (cracked diamonds) -> Netherite
-     * (netherite nuggets) -> Enderite (enderite nuggets); copper -> reinforced -> netherite -> Enderite barrel (owner addition 11). The Vanilla cauldron
-     * becomes the reinforced cauldron with 8 cracked diamonds (owner 2026-10-06: doubled from 4). The blocks by their public ids (principle 6a).
-     */
-    private static void crucibleUpgrades(Map<Block, Upgrade> map) {
-        Block iron = lib("iron_crucible"), reinforced = lib("reinforced_crucible"), netherite = lib("netherite_crucible");
-        Block copperBarrel = lib("copper_barrel"), reinforcedBarrel = lib("reinforced_barrel"), netheriteBarrel = lib("netherite_barrel");
-        Block cauldron = lib("reinforced_cauldron");
-        Block enderite = com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible();
-        Block enderiteBarrel = com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel();
-        if (iron == null || enderite == null || enderiteBarrel == null || netheriteBarrel == null) return;
-        int factor = CRUCIBLE_UPGRADE_DURATION_FACTOR;
-        int cost = CRUCIBLE_UPGRADE_MATERIAL_COST;
-        // Owner N51: crucibles go up strike by strike, 12 strikes, one of 4 units every 3 strikes (blows() ignores the factor).
-        int units = CRUCIBLE_STAGED_MATERIAL_COST;
-        map.put(iron, new Upgrade(iron, reinforced, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, 1, units));
-        map.put(reinforced, new Upgrade(reinforced, netherite, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, 1, units));
-        map.put(netherite, new Upgrade(netherite, enderite, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, 1, units));
-        map.put(copperBarrel, new Upgrade(copperBarrel, reinforcedBarrel, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
-        map.put(reinforcedBarrel, new Upgrade(reinforcedBarrel, netheriteBarrel, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
-        map.put(netheriteBarrel, new Upgrade(netheriteBarrel, enderiteBarrel, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
-        map.put(net.minecraft.world.level.block.Blocks.CAULDRON, new Upgrade(net.minecraft.world.level.block.Blocks.CAULDRON, cauldron,
-                ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, 1, CAULDRON_UPGRADE_MATERIAL_COST));
-    }
-
-    /** Crucible/barrel upgrades cost twice a furnace upgrade (owner F9); the cauldron takes 8 cracked diamonds (owner 56: 4, doubled 2026-10-06). */
-    public static final int CRUCIBLE_UPGRADE_DURATION_FACTOR = 2;
-    public static final int CRUCIBLE_UPGRADE_MATERIAL_COST = 2;
-    /** Crucibles (owner N51): 4 units (cracked diamonds / netherite nuggets / enderite nuggets), one every 3 of the 12 strikes. */
-    public static final int CRUCIBLE_STAGED_MATERIAL_COST = 4;
-    public static final int CAULDRON_UPGRADE_MATERIAL_COST = 8;
     /** Astral Enchanting Table: four times the blows of a machine upgrade (about 20, owner N27). */
     public static final int ASTRAL_TABLE_DURATION_FACTOR = 4;
-
-    private static @Nullable Block lib(String path) {
-        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", path)).orElse(null);
-    }
 
     private static void toNetherite(Map<Block, Upgrade> map, Block from, Block to) {
         map.put(from, new Upgrade(from, to, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false));

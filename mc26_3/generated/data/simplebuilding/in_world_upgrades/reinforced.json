@@ -1,32 +1,3 @@
 {
-  "upgrades": [
-    {
-      "damage_per_hit": 2,
-      "from": "minecraft:cauldron",
-      "material": "simplelib:cracked_diamond",
-      "material_count": 8,
-      "min_tool": "any",
-      "tier": "reinforced",
-      "to": "simplecrucibles:reinforced_cauldron"
-    },
-    {
-      "damage_per_hit": 2,
-      "duration_factor": 2,
-      "from": "simplecrucibles:copper_barrel",
-      "material": "simplelib:cracked_diamond",
-      "material_count": 2,
-      "min_tool": "any",
-      "tier": "reinforced",
-      "to": "simplecrucibles:reinforced_barrel"
-    },
-    {
-      "damage_per_hit": 2,
-      "from": "simplecrucibles:iron_crucible",
-      "material": "simplelib:cracked_diamond",
-      "material_count": 4,
-      "min_tool": "any",
-      "tier": "reinforced",
-      "to": "simplecrucibles:reinforced_crucible"
-    }
-  ]
+  "upgrades": []
 }

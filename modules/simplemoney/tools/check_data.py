@@ -26,7 +26,7 @@ for language in languages:
     for item in IDS:
         assert f"item.simplemoney.{item}" in language
         assert f"tooltip.simplemoney.{item}.tooltip" in language
-    for option in ("enableVillagerTrades", "enableWanderingTrades"):
+    for option in ("enableVillagerTrades", "enableWanderingTrades", "enableWandererTrades"):
         prefix = f"text.autoconfig.simplemoney.option.trades.{option}"
         assert prefix in language and "true" in language[prefix + ".tooltip"]
     assert "text.autoconfig.simplemoney.category.default" in language
