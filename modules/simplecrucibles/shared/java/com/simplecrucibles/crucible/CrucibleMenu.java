@@ -34,9 +34,10 @@ public class CrucibleMenu extends AbstractContainerMenu {
     public static final int GRID_TOP = 18;
     /**
      * Room under the slots (including the 7 px bottom frame) where the flames burn over the dark hearth trapezoid.
-     * SP22-6 (owner 22.10.): one slot pitch more than the old 12 px, so the fire stands free below the lowest items.
+     * SP22-6 (owner 22.10.): a quarter slot (5 px) more than the old 12 px, so the fire stands free below the lowest
+     * items (owner's choice "1/4" from the height preview; one full slot was too tall).
      */
-    public static final int FIRE_ROOM = 30;
+    public static final int FIRE_ROOM = 12 + 5;
     /** Gap between the highest flame tongue and the lowest slot row (SP22-6). */
     public static final int FIRE_GAP = 3;
     /** Side margin of every box from its edge to the slot grid: Vanilla's 7 px (owner N37). */
