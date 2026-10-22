@@ -71,7 +71,7 @@ public final class VisualsTests {
  /** TZ22-7: which framed items are drawn tilted (shape rule; the renderer also needs a block model), option on by default. */
  static void frameTilt(GameTestHelper h,SimplevisualsConfig c){
   h.assertTrue(c.visuals.enableTiltedFrameItems,"Tilted frame items on by default");
-  for(var item:List.of(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE,net.minecraft.world.item.Items.STONE_PRESSURE_PLATE,net.minecraft.world.item.Items.LIGHT_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.WHITE_CARPET,net.minecraft.world.item.Items.MOSS_CARPET,net.minecraft.world.item.Items.OAK_TRAPDOOR,net.minecraft.world.item.Items.DAYLIGHT_DETECTOR))
+  for(var item:List.of(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE,net.minecraft.world.item.Items.STONE_PRESSURE_PLATE,net.minecraft.world.item.Items.LIGHT_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.PALE_MOSS_CARPET,net.minecraft.world.item.Items.MOSS_CARPET,net.minecraft.world.item.Items.OAK_TRAPDOOR,net.minecraft.world.item.Items.DAYLIGHT_DETECTOR))
    h.assertTrue(FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Flat block tilted: "+item);
   for(var item:List.of(net.minecraft.world.item.Items.STONE_BUTTON,net.minecraft.world.item.Items.OAK_SLAB,net.minecraft.world.item.Items.STONE,net.minecraft.world.item.Items.STICK,net.minecraft.world.item.Items.SKELETON_SKULL,net.minecraft.world.item.Items.TORCH,net.minecraft.world.item.Items.AIR))
    h.assertTrue(!FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Keeps Vanilla frame view: "+item);

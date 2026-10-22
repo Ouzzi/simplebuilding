@@ -55,7 +55,7 @@ Stufen (8/16), Köpfe (8/16, Spezialmodell). Ergebnis je Item gecacht.
 ## Tests (ohne Client)
 - Gametest in vorhandenem `VisualsTests.config` (läuft auf allen Adaptern, keine Adapter-/Katalogänderung
   für andere Loader nötig): Default an, Auswahl-Logik: Druckplatten (Eiche, Stein, leicht/schwer),
-  Teppich (Wolle, Moos), Falltür, Tageslichtsensor, SB-Diamant-Druckplatte (falls geladen) → schräg;
+  Teppich (Moos, blasses Moos), Falltür, Tageslichtsensor, SB-Diamant-Druckplatte (falls geladen) → schräg;
   Knopf, Stufe, Stein, Stock, Schädel, Fackel, Luft → Vanilla-Ansicht; Optionen-Anzahl 50 → 51.
 - `configAndLanguageCompleteness` deckt Name/Tooltip/Default EN+DE automatisch ab.
 - Verifikation: `/root/sbt a-frames22` Compile `:mc26_3:fabric:compileJava` + `:modules:simplevisuals:fabric:compileJava`,
