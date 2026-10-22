@@ -33,10 +33,14 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 - A: a-docs22 (Pane-Namen-Rest, Maps-Wiki Claims-Ebene, Config-Tooltips M-08, LegacyMigration M-11; Auftrag /root/a-auftrag-20261022.md)
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
-1. **Testzentrale-Überarbeitung TZ22** (Besitzer 22.10., Abschnitt direkt unten): TZ22-1 bis TZ22-9, in 3–4 Branches nacheinander
-2. Kleinpunkte aus „Verwaiste TODOs 20.10.“: Wanderer-Schalter `enableWandererTrades`, SB-Handbuch lange DE-Seiten, Simple Stats Tragezeit, `dist-publish.sh` streng
-3. Rest-Stufen gemergter Branches: b-tooltips Stufe 3 (Rucksack/Truhen-Items), b-webmap Stufen 2–4, Stil-Audit Rest ST-10/12–15/21
-4. Danach: Wiki-Seite überarbeiten (Nachtrag Besitzer 21.10. nachts: „wenn das fertig ist, auch die Seite noch einmal überarbeiten“)
+1. **Fehler aus dem Spiel (SP22):** SP22-7 Verkaufslager-Geisterblock + Vitrine, SP22-1 Achtel ↔ Vollblock, SP22-11 Mob-Kopf wie Helm, SP22-5 Redstone-Klänge
+2. **Testzentrale TZ22** (läuft: b-tz22a = TZ22-1/2/5), danach TZ22-3/4, TZ22-6/8, TZ22-7
+3. **Leuchtfeuer und Conduit (SP22-10, SP22-9)**, Tiegel-UI (SP22-6), Crafting-Storage-Höhe (SP22-4), Death-Vault-UI (SP22-3)
+4. **Claims-Umbau (SP22-8):** erst Konzept, das Besitzer-Vorgaben übernimmt, dann Umsetzung in 3–4 Branches (Urkunde, Kartentisch, Karte/Maps, Credits/Dimensionen)
+5. **Legendärer Klang (SP22-2)** in simplelib
+6. Kleinpunkte aus „Verwaiste TODOs 20.10.“: Wanderer-Schalter `enableWandererTrades`, SB-Handbuch lange DE-Seiten, Simple Stats Tragezeit, `dist-publish.sh` streng
+7. Reste gemergter Branches: b-tooltips Stufe 3, b-webmap Stufen 2–4, Stil-Audit ST-10/12–15/21
+8. Danach Wiki-Seite überarbeiten (Besitzer 21.10. nachts)
 
 ### (C) Modulaufteilung
 - Stufe 9 Teil 2 läuft (b-s9b). Danach fehlt nur die Brücken-Version 1.3.x-bridge, die erst mit Release-Freigabe kommt.
@@ -57,6 +61,47 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 - Punkte 64–69, Rucksack-Sortierung, Mega-Handbücher und Testzentrale in der Besitzerwelt neu bauen
 
 ---
+
+## Besitzer 22.10. – Spielbefunde (SP22)
+Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). Kernsätze wörtlich, Rest sinngemäß. Priorität steht im Überblick (B).
+- [ ] SP22-1 (Simple Octets, Fehler) Achtel ↔ Vollblock:
+  - Eine Achtel-Zelle, die mit 8 gleichen Achteln gefüllt ist, wird zum Vollblock. Das geht ohne Verlust, weil jeder Block 8 Achtel gibt. Beispiel: Ein volles Diamant-Achtel wird zum Diamantblock und lässt sich dann direkt zu „Cracked Diamond“ weiterverarbeiten.
+  - Umgekehrt: Bricht man im Schleichen eine Ecke eines Vollblocks ab (z. B. Diamantblock), wird er zur Achtel-Zelle, und nur dieses eine Achtel fällt heraus. Heute wird der ganze Block abgebaut.
+  - Gilt für alle Blöcke mit Achtel-Form.
+- [ ] SP22-2 (simplelib) „Legendärer“ Klang und Spieler-Effekt für „Impossible“-Errungenschaften: „Der Sound für legendäre Achievements ist schon ziemlich cool … so etwas oder besser“.
+  - Gilt für die schwierigsten Verzauberungen der Mods und die schwierigsten Vanilla-Verzauberungen sowie für die schwersten Advancements wie „How Did We Get Here?“.
+  - Sitz in simplelib, damit es automatisch für alle Mods greift, sobald SimpleLib installiert ist.
+  - Eigener Klang (synthetisch, wie die Howler-Takes) plus sichtbarer Effekt am Spieler. Liste „impossible“ per Tag/Config erweiterbar.
+- [ ] SP22-3 (Death Vault, UI) Die Death-Vault-Oberfläche „sieht noch etwas schwach aus“. Sie bekommt den Stil der anderen UIs (Rahmen, Kontrast, simplelib-Bausteine).
+- [ ] SP22-4 (Crafting Storage) Items auf dem Crafting-Storage-Block mit 1–2 px Höhe zeichnen, damit man sie von Weitem und von der Seite sieht.
+- [ ] SP22-5 (Redstone-Linien Astral/Nihil/Brücke, Klang) Alles klingt heute nach Amethyst.
+  - Eigene Klänge entwickeln: Redstone-Staub als „Pulver-Sound“, Lampen dürfen amethystartig bleiben, Kolben klingen kolbenartig.
+  - Jeder Block-Typ bekommt eine eigene SoundGroup.
+- [ ] SP22-6 (Crucibles, UI) Tiegel-Fenster, besonders der End-Tiegel:
+  - Unten etwa 1 Block Höhe mehr Platz. Im Hintergrund dieser Zone ein dunkleres Trapez für räumliche Tiefe, im selben Stil wie der Hintergrund.
+  - Das Feuer liegt darüber und ist mit mehr Abstand zu den untersten Items gut sichtbar („dann ist man … stolzer, das gebaut zu haben“).
+- [ ] SP22-7 (Simple Shops, Fehler + Form) Verkaufslager (Sales Storage), Vitrine:
+  - **Fehler:** Das Lager lässt sich überall setzen und verschwindet dann, wenn es nicht erlaubt ist. Neu: Setzen geht nur mit Schleichen + Rechtsklick auf einen Verkaufsblock, von jeder Seite. Sonst gar nicht setzbar, wie ein Item.
+  - **Form:** Das Lager wird ein gerichteter Vollblock, der aussieht, als käme er aus dem Verkaufsblock heraus (wie ein Trichter, aber voll; Vorbild für die Wirkung ist der Strong Beacon). Er schaut zum Verkaufsblock und nimmt von dort die Ware bzw. das Geld auf.
+  - **Vitrine und Glow-Vitrine:** überall ablegbar, auch ohne Verkaufsblock. Geschützt sind sie nur zusammen mit einem Verkaufsblock. Die Decke ist durchsichtig wie beim Leuchtfeuer, damit man von oben hineinsieht, und das Glas wird klarer.
+- [ ] SP22-8 (Claims, Umbau; erst Konzept, dann Umsetzung; Abnahme im Spiel) Claim-Tisch „erscheint mir gerade nicht gut“. Er wird ersetzt:
+  - **Anzeige:** Claims sieht man in erster Linie über die Wayfinder-Karte (Simple Maps), eigene und fremde, wenn die Ebene an ist. Fehlt Simple Maps, zeigt ein Hinweis, dass es für Claims empfohlen ist.
+  - **Claim-Urkunde wie eine Karte:** Sie zeigt den geclaimten Bereich.
+  - **Wiederherstellung am Kartentisch:** Leere Urkunde rein, persönliche Urkunde raus. Kopieren geht auch. Fremde oder schon personalisierte Urkunden sind für andere nicht änderbar, aber es gibt immer einen Weg zur eigenen Urkunde.
+  - **Urkunden-UI:**
+    - Zeigt die eigenen Chunks und ihre Abstände zueinander.
+    - Reiter Overworld/Nether/End plus einer je weiterer Dimension.
+    - Bei 1 Chunk die Karte dieses Chunks. Bei mehreren Chunks klickbare Kacheln (Größe 2×2 Slots); ein Klick zeigt die Karte des Chunks, zurück führt zur Übersicht.
+    - Aktualisiert wird nur, wenn der Chunk geladen ist; es wird nichts extra geladen.
+  - **Dimensionen und Kosten:** Claims gelten in allen Dimensionen. Jeder weitere Chunk kostet mehr, wie bisher.
+  - **Aufgeben:** Wer einen Chunk aufgibt, bekommt nichts zurückgezahlt, aber einen Chunk-Credit für einen neuen Claim.
+- [ ] SP22-9 (Simple Beacons) Der Strong Conduit hebt sich stärker ab: größerer Bereich statt neuer Fähigkeit („Dolphin's Grace ist schon ziemlich gut“; normaler Conduit nur Wasseratmung prüfen).
+- [ ] SP22-10 (Simple Beacons) Leuchtfeuer:
+  - **Kräfte:** Jede Stufe bietet 3 Kräfte. Stufe 1 hat Tempo und Eile, eine dritte kommt dazu. Stufe 2 hat Resistenz und Sprungkraft, eine dritte kommt dazu. Stufe 3 hat nur Stärke, zwei kommen dazu. Stufe 4 und 5 haben schon 3. Neue Kräfte Vanilla-nah wählen und begründen.
+  - **Reichweite nach Material:** Der Faktor richtet sich nach dem Material der Basis: Netherit ×2, Diamant ×1,5, Gold ×1,1, Smaragd ×1,1, Eisen ×1. Gezählt wird nur pro abgeschlossener Ebene, anteilig nach Blockzahl. Beispiel: unterste Ebene ganz Diamant ≈ ×1,25 (überschlagen, genaue Formel im Konzept).
+  - **Anzeige:** Der Faktor steht in der Leuchtfeuer-UI.
+  - Gilt für Strong Beacon und, wo möglich, für das Vanilla-Leuchtfeuer (Modulgrenzen beachten).
+- [ ] SP22-11 (Simple Mob Heads / Kopf-Slot) Rechtsklick mit einem Mob-Kopf in der Hand (in die Luft) tauscht ihn wie einen Helm gegen den Kopf im Mob-Kopf-Slot; ist der Slot frei, wird er dort eingesetzt. Auf einen Block geklickt wird er wie in Vanilla gesetzt.
 
 ## Besitzer 22.10. – Testzentrale-Überarbeitung (TZ22)
 Besitzer-Feedback beim Bauen der Testzentrale (Sprachnachricht, sinngemäß zusammengefasst; wörtliche Kernsätze in Anführungszeichen).
