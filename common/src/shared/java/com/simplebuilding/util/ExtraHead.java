@@ -101,7 +101,7 @@ public final class ExtraHead {
         ItemStack old = worn.copy();
         set(player, inHand.consumeAndReturn(1, player));
         if (!old.isEmpty() && !player.getInventory().add(old)) {
-            player.drop(old, false);
+            com.simplebuilding.version.McVersion.drop(player, old, false, false);
         }
         return net.minecraft.world.InteractionResult.SUCCESS.heldItemTransformedTo(inHand);
     }
