@@ -142,6 +142,15 @@ public final class StructureStation {
                 .count();
     }
 
+    /** Diagnose fuer Testmeldungen: Groesse von Palette und Blockliste der gespeicherten Vorlage. */
+    public static String describe(StructureTemplate template) {
+        CompoundTag tag = template.save(new CompoundTag());
+        return "keys " + tag.keySet() + ", palette " + tag.getListOrEmpty("palette").size() + ", blocks "
+                + tag.getListOrEmpty("blocks").size() + ", first " + (tag.getListOrEmpty("palette").size() > 0
+                ? tag.getListOrEmpty("palette").get(0) : "-") + ", block0 " + (tag.getListOrEmpty("blocks").size() > 0
+                ? tag.getListOrEmpty("blocks").get(0) : "-");
+    }
+
     /** Bloecke einer Vorlage, die nach dem Setzen sicher nicht Luft sind (ohne Luft, Strukturleere, Jigsaw- und Strukturbloecke). */
     public static int solidBlocks(StructureTemplate template) {
         CompoundTag tag = template.save(new CompoundTag());

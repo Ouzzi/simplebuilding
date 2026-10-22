@@ -483,7 +483,8 @@ public final class TestCentreTests {
                             }
                         }
                         helper.assertTrue(want > 0 && have >= want, "structure " + structure.template() + " at " + structure.pos()
-                                + ": " + have + " solid blocks placed, template has " + want);
+                                + ": " + have + " solid blocks placed, template has " + want + " ("
+                                + com.simplebuilding.dev.testcentre.StructureStation.describe(template.get()) + ")");
                     }
                 }
             }
