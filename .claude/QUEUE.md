@@ -38,7 +38,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 Ältere Abschnitte sind aufgelöst: ihre offenen Zeilen stehen unter „Offene Einzelpunkte“ mit Herkunft, das Erledigte im Archiv (23.10.).
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): master 6a420db52 (Bündel 50). Bündel 51 (a-bundle51) = a-opt45b, a-pjuke23, a-mech23b, a-megamap23, a-mech23a, a-blockstex23b, a-misctex23b, a-ui23b. Laufen: a-sbtex23b, a-strong23, a-aud23. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 51 GRÜN → master a3d5b9a21 (23.10. 19:05 UTC: Taschen-Jukebox PJ23, Mechanik B23-M1–M15, Mega-Karte, Simple Optimization e4, Simple Blocks W23-3, Notenblock/Lager/Piggy W23-4, Rahmen+Fragentisch W23-5/6). Fertig für Bündel 52: a-sbtex23b, a-aud23, a-strong23 (Basis a-base24). Laufen (W24): a-tex24a, a-tex24b, a-sound24, a-mech24, a-wiki24, a-vault24. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (1) Wartet auf Besitzer-Wahl → Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
