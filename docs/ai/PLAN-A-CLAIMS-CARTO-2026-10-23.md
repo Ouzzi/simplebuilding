@@ -61,3 +61,15 @@ Compile `:mc26_3:fabric:compileJava` + `:modules:simpletweaks:fabric:compileJava
 SB-Kartentisch (Blaupause) ist nicht geändert; `fabric-263` mit Filter `simplebuilding:blueprint*` nur, falls SB-Tests
 die Hülle berühren (Hülle reicht ohne Urkunde unverändert weiter).
 Nicht getestet: Client (keine Client-Läufe), NeoForge/Forge (Regel), `integration-263` mit Music+SB (Hüllen-Reihenfolge).
+
+## Nachtrag 23.10. (Hauptsitzung)
+- **Merge `a-claims-maps`** (Branch 4) in diesen Branch; `DeedService.mapOf` nutzt `ClaimMaps.present()` statt der
+  doppelten Prüfung. a-claims-carto ist damit Sammel-Branch für SP22-8 Teile 1–4. Zusätzliche Testziele
+  `module-simpletweaks-with-simplemaps-fabric-263`, `module-simplemaps-fabric-263`.
+- **UI-Stil (Besitzer 23.10. „Claims bitte UI an den UI-Stil anpassen“):** `deed/client/DeedStyle` – Kasten
+  `UiBoxes.box` in `UiPalette.derived(0xFF6F5F4B)` (Braun der Wayfinder-Karte, Variante A), Titel in `label()`, Inhalt im
+  hellen Feld (Inventar-Grau) mit dunkler Tinte, Reiter in hellerem Kastenton, Texte auf dem Kasten über
+  `UiContrast.ensure` (≥ 4,5:1, JUnit `DeedStyleContrastTest`). Gilt für Kartenansicht (`DeedMapScreen`) und
+  Rechte-Editor (`DeedScreen`). Vorschau vorher/nachher mit Varianten A/B/C: `/root/sb-tools-a/previews/claims-ui-preview.html`
+  (Python-Port `/root/sb-tools-a/claimsui_prev.py`). Abweichung von „erst exemplarisch“: beide Urkunden-Fenster sind
+  ein Bildschirm-Paar (Karte ↔ Rechte) und bekommen dieselbe Konstante; Variantenwahl über `DeedStyle.FILL`.

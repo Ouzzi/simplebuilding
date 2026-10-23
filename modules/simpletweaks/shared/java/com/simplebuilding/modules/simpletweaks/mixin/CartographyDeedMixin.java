@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpletweaks.mixin;
 
 import com.simplebuilding.modules.simpletweaks.deed.DeedCartography;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -40,8 +41,13 @@ public abstract class CartographyDeedMixin extends AbstractContainerMenu {
         DeedCartography.wrapSlots(this, this.slots, levelAccess);
     }
 
-    @Inject(method = "setupResultSlot", at = @At("HEAD"), cancellable = true)
-    private void simpletweaks$deedResult(ItemStack map, ItemStack additional, ItemStack current, CallbackInfo ci) {
+    /**
+     * Vanilla only builds a result when both inputs are filled; an empty deed alone on top also gives one, so the deed
+     * case is decided here (before Vanilla and the other wrappers) and everything else goes on unchanged.
+     */
+    @Inject(method = "slotsChanged", at = @At("HEAD"), cancellable = true)
+    private void simpletweaks$deedResult(Container changed, CallbackInfo ci) {
+        ItemStack map = this.slots.get(DeedCartography.MAP_SLOT).getItem(), additional = this.slots.get(DeedCartography.ADDITIONAL_SLOT).getItem();
         if (!com.simplebuilding.modules.simpletweaks.claims.Claims.on() || !DeedCartography.involves(map, additional)) return;
         ci.cancel();
         access.execute((level, pos) -> {
