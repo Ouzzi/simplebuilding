@@ -8,6 +8,16 @@ Queue-Pflege (Besitzer 12.10.): Neue Nachträge OBEN anhängen (direkt unter „
 eintragen. Abschnitte ohne offene Punkte wandern monatlich unverändert nach `.claude/QUEUE-ARCHIV.md`
 (Reihenfolge erhalten; letzte Archivierung 2026-10-23, a-queue23). Ablauf: Abschnitt „So wird die Queue abgearbeitet“.
 
+## So wird die Queue abgearbeitet (Besitzer/Sitzung 22.–23.10.)
+1. **Nur MC 26.3 + Fabric** (Besitzer 22.10.): kein Compile/Test/Anpassen für NeoForge, Forge, 26.2, 1.21.11, 26.4 – Ports stehen unter (5) und kommen nur auf Anforderung.
+2. **UI/Optik/Texturen erst exemplarisch:** EIN Beispiel + 2–3 Varianten als Vorschau, Rest erst nach Wahl (PRINZIPIEN A8: Ebenen, Vanilla-nah).
+3. **Vorschauen** auf die Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9; Gewähltes/Abgenommenes nach https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd.
+4. **Claim vor Beginn** in der Ursprungszeile: `[~] (A|B, <branch>, <Datum>)`; je Punkt eigener Branch von claude-wave1, gepusht wird nur dieser nach /root/sb.git.
+5. **Wellen ≤ 6 Agenten parallel** (sb-test-Last); schwere Läufe nur über `/root/sbt`, nie zwei zugleich, gezielte Tests statt Volllauf.
+6. **Ein Bündel-Gate pro Welle:** Hauptsitzung merged alle grünen Branches, ein Gate; grün = master = Production.
+7. **Erledigt** → `[x]` + Branch/Commit/Beleg in der Zeile, Zeile im Überblick streichen; am Bündel-Ende erledigte Zeilen nach `.claude/QUEUE-ARCHIV.md` (Abschnitte ohne Offenes ganz).
+8. **Neue Besitzer-Nachträge** oben unter dem Überblick als eigener Abschnitt mit ID-Präfix (z. B. `W23-n`) und zugleich im Überblick eintragen.
+9. **Vor Rückfragen** Queue/Pläne/Memory nach Besitzer-Antworten durchsuchen; Fragen gesammelt auf die Abnahme-Seite.
 ## Besitzer 17.10. – Prinzipien, Octet-Regel, Simple Blocks, ein Tab
 Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.19. Inventare: `docs/ai/INVENTAR-OCTETS-2026-10-17.md` (23 fehlende Octets),
 `docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md` (Verschiebe-Liste + Tab-Plan).
@@ -38,7 +48,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 Ältere Abschnitte sind aufgelöst: ihre offenen Zeilen stehen unter „Offene Einzelpunkte“ mit Herkunft, das Erledigte im Archiv (23.10.).
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): master 6a420db52 (Bündel 50). Bündel 51 (a-bundle51) = a-opt45b, a-pjuke23, a-mech23b, a-megamap23, a-mech23a, a-blockstex23b, a-misctex23b, a-ui23b. Laufen: a-sbtex23b, a-strong23, a-aud23. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 51 GRÜN → master a3d5b9a21 (23.10. 19:05 UTC: Taschen-Jukebox PJ23, Mechanik B23-M1–M15, Mega-Karte, Simple Optimization e4, Simple Blocks W23-3, Notenblock/Lager/Piggy W23-4, Rahmen+Fragentisch W23-5/6). Fertig für Bündel 52: a-sbtex23b, a-aud23, a-strong23 (Basis a-base24). Laufen (W24): a-tex24a, a-tex24b, a-sound24, a-mech24, a-wiki24, a-vault24. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (1) Wartet auf Besitzer-Wahl → Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
