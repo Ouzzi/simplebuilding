@@ -664,7 +664,7 @@ public final class WayfinderScreen extends Screen {
         drawTab(g, x, y, w, h, style);
         int c = enabled ? style.ink() : UiPalette.scale(style.ink(), 0.55), cx = x + w / 2, cy = y + h / 2;
         for (int k = 0; k < 4; k++) {
-            int dx = left ? k - 2 : 1 - k;
+            int dx = left ? 1 - k : k - 2;
             g.fill(cx + dx, cy - 3 + k, cx + dx + 1, cy - 2 + k, c);
             g.fill(cx + dx, cy + 2 - k, cx + dx + 1, cy + 3 - k, c);
         }
