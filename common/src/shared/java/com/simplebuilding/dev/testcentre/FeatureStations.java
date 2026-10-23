@@ -414,6 +414,72 @@ public final class FeatureStations {
     }
 
     // =====================================================================================
+    // Reiten (Nachtrag 13 "Sonstiges": Leaping/Tailwind aus Simple Riding; Air Jump steht unter enchants)
+    // =====================================================================================
+
+    public static final ResourceKey<Enchantment> TAILWIND = ResourceKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleriding", "tailwind"));
+    public static final ResourceKey<Enchantment> LEAPING = ResourceKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleriding", "leaping"));
+    /** Koppel der Reit-Station (lokal): Zaun von x 2 bis 8, z 3 bis 9; Pferde erscheinen in der Mitte. */
+    static final int PADDOCK_X0 = 2;
+    static final int PADDOCK_Z0 = 3;
+    static final int PADDOCK_SIZE = 7;
+
+    /**
+     * Reit-Station: nur mit Simple Riding (beide Verzauberungen geladen), sonst leer. Koppel mit Tor, Knopf "Pferd holen"
+     * (zahm, Sattel mit Tailwind, Diamant-Rossharnisch mit Leaping, je Hoechststufe), Knopf "Pferde entfernen"; Sattel und
+     * Harnisch verzaubert im Rahmen an der Wand dahinter (das Kit legt sie ins Inventar).
+     */
+    public static TcCanvas riding(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        var tailwind = ctx.enchantment(TAILWIND);
+        var leaping = ctx.enchantment(LEAPING);
+        if (tailwind.isEmpty() || leaping.isEmpty()) {
+            return c;
+        }
+        ItemStack saddle = TcContext.enchanted(new ItemStack(Items.SADDLE), List.of(tailwind.get()));
+        ItemStack armour = TcContext.enchanted(new ItemStack(Items.DIAMOND_HORSE_ARMOR), List.of(leaping.get()));
+        int x1 = PADDOCK_X0 + PADDOCK_SIZE - 1;
+        int z1 = PADDOCK_Z0 + PADDOCK_SIZE - 1;
+        for (int x = PADDOCK_X0; x <= x1; x++) {
+            for (int z = PADDOCK_Z0; z <= z1; z++) {
+                if (x == PADDOCK_X0 || x == x1 || z == PADDOCK_Z0 || z == z1) {
+                    c.place(x, 0, z, Blocks.OAK_FENCE);
+                }
+            }
+        }
+        c.place(PADDOCK_X0 + PADDOCK_SIZE / 2, 0, PADDOCK_Z0, TestCentreSections.facing(Blocks.OAK_FENCE_GATE.defaultBlockState(), Direction.NORTH));
+        TestCentreSections.postSign(c, 0, 1, TcText.bold(TcText.t("section.riding", "Riding")),
+                TcText.t("section.riding.sub", "Tailwind: faster"), TcText.t("section.riding.sub2", "Leaping: higher"));
+        int cx = PADDOCK_X0 + PADDOCK_SIZE / 2;
+        int cz = PADDOCK_Z0 + PADDOCK_SIZE / 2;
+        c.command(cx - 1, 1, 1, Direction.NORTH, horseCommand(ctx, cx - 1, 1, cx, cz, saddle, armour),
+                TcText.t("riding.horse", "Get a horse"), TcText.t("riding.horse.sub", "Tailwind + Leaping"));
+        c.command(cx + 2, 1, 1, Direction.NORTH, "kill @e[type=minecraft:horse,distance=..10]",
+                TcText.t("riding.remove", "Remove horses"));
+        int wallZ = z1 + 2;
+        c.backWall(PADDOCK_X0, x1, wallZ, 3);
+        c.wallFrame(cx - 1, 1, wallZ, saddle);
+        c.wallFrame(cx + 1, 1, wallZ, armour);
+        c.anchor("riding", cx, 0, cz);
+        return c;
+    }
+
+    /**
+     * {@code summon} eines zahmen Pferds mit Sattel und Harnisch in der Koppelmitte ({@code cx}/{@code cz}), relativ zum
+     * Befehlsblock bei ({@code bx}, 1, {@code bz}) (Befehle laufen von dessen Mitte aus). Die Stapel als SNBT aus dem
+     * Item-Codec, damit Verzauberungen genau so ankommen wie im Rahmen.
+     */
+    static String horseCommand(TcContext ctx, int bx, int bz, int cx, int cz, ItemStack saddle, ItemStack armour) {
+        var ops = ctx.lookup().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
+        String saddleTag = ItemStack.CODEC.encodeStart(ops, saddle).getOrThrow().toString();
+        String armourTag = ItemStack.CODEC.encodeStart(ops, armour).getOrThrow().toString();
+        return "summon minecraft:horse ~" + (cx - bx) + " ~-1.5 ~" + (cz - bz) + " {Tame:1b,PersistenceRequired:1b,"
+                + "equipment:{saddle:" + saddleTag + ",body:" + armourTag + "}}";
+    }
+
+    // =====================================================================================
     // Sinkdaempfer: Fallturm fuer die Enderit-Ruestung
     // =====================================================================================
 

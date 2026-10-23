@@ -92,4 +92,19 @@ public final class TestCentreGameTest {
     public void everyTransformationSignShowsAnExistingWay(GameTestHelper helper) {
         TestCentreTests.everyTransformationSignShowsAnExistingWay(helper);
     }
+
+    @GameTest
+    public void uiBlocksAndTooltipsFillByButton(GameTestHelper helper) {
+        TestCentreTests.uiBlocksAndTooltipsFillByButton(helper);
+    }
+
+    @GameTest
+    public void craftingRecipesAreaShowsEveryLiveRecipe(GameTestHelper helper) {
+        TestCentreTests.craftingRecipesAreaShowsEveryLiveRecipe(helper);
+    }
+
+    @GameTest
+    public void upgradeChainsRunByTier(GameTestHelper helper) {
+        TestCentreTests.upgradeChainsRunByTier(helper);
+    }
 }

@@ -171,7 +171,7 @@ public final class TestCentreKits {
                 off = ctx.enchantment(ModEnchantments.CONSTRUCTORS_TOUCH)
                         .map(touch -> TcContext.enchanted(chisel, List.of(touch))).orElse(ItemStack.EMPTY);
             }
-            case "inworld" -> {
+            case "inworld", "upgrades" -> {
                 main = top(ctx, "sledgehammers");
                 off = full(firstUpgradeNugget());
             }

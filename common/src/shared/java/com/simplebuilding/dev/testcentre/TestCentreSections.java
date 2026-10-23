@@ -408,6 +408,103 @@ public final class TestCentreSections {
     // 5. In-World-Umwandlungen: je eine Station
     // =====================================================================================
 
+    /**
+     * Aufwertungsketten nach Stufen (Nachtrag 13, Besitzer 06.10.: "alle In-World-Umwandlungen nach Tiers"): aus der Live-
+     * Engine ({@link SledgehammerUpgrades#upgradeOf}) je Kette die Stufen der Reihe nach. Start ist ein Ausgangsblock, der
+     * selbst kein Ergebnis einer Aufwertung ist; Bloecke der Familie immer, von Vanilla-Starts nur der erste je Ziel
+     * (Kupfertruhe statt acht Varianten, ungefaerbte Shulkerkiste statt 17). Zusammenlaufende Ketten (klebriger Kolben)
+     * enden am ersten schon gezeigten Block.
+     */
+    public static List<List<SledgehammerUpgrades.Upgrade>> upgradeChains() {
+        Map<Block, SledgehammerUpgrades.Upgrade> byFrom = new LinkedHashMap<>();
+        for (Block block : BuiltInRegistries.BLOCK) {
+            SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(block);
+            if (upgrade != null && upgrade.from() == block) {
+                byFrom.put(block, upgrade);
+            }
+        }
+        Set<Block> results = new HashSet<>();
+        byFrom.values().forEach(upgrade -> results.add(upgrade.to()));
+        Set<Block> vanillaTargets = new HashSet<>();
+        Set<Block> used = new HashSet<>();
+        List<List<SledgehammerUpgrades.Upgrade>> chains = new ArrayList<>();
+        for (Map.Entry<Block, SledgehammerUpgrades.Upgrade> entry : byFrom.entrySet()) {
+            Block start = entry.getKey();
+            if (results.contains(start)) {
+                continue;
+            }
+            if (!TcContext.isFamily(TcContext.id(start)) && (!TcContext.isFamily(TcContext.id(entry.getValue().to()))
+                    || !vanillaTargets.add(entry.getValue().to()))) {
+                continue;
+            }
+            List<SledgehammerUpgrades.Upgrade> chain = new ArrayList<>();
+            for (Block b = start; byFrom.containsKey(b) && used.add(b); b = byFrom.get(b).to()) {
+                chain.add(byFrom.get(b));
+            }
+            if (!chain.isEmpty()) {
+                chains.add(chain);
+            }
+        }
+        return chains;
+    }
+
+    /** Spalten je Stufe in {@link #upgrades}: Weg-Schild, Block, Material, Hammer. */
+    static final int UPGRADE_STEP = 4;
+
+    /**
+     * Abschnitt "upgrades": je Kette ({@link #upgradeChains}) eine Zeile an Regalwaenden (vier Zeilen je Wand, TZ22-5) - je
+     * Stufe das Weg-Schild (TcWays, aus der Engine), der Block selbst (gesetzt, zum Draufhauen), Material x Menge und der
+     * schwaechste passende Hammer im Rahmen; am Ende der Endblock.
+     */
+    public static TcCanvas upgrades(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        List<List<SledgehammerUpgrades.Upgrade>> chains = upgradeChains();
+        if (chains.isEmpty()) {
+            return c;
+        }
+        List<Item> hammers = ctx.rowItems("sledgehammers");
+        int width = 2;
+        for (List<SledgehammerUpgrades.Upgrade> chain : chains) {
+            width = Math.max(width, 1 + chain.size() * UPGRADE_STEP + 1);
+        }
+        int walls = TcCanvas.shelfCount(chains.size());
+        int firstWallZ = 2;
+        c.shelfWalls(0, width, firstWallZ, walls);
+        c.title(0, TcCanvas.SHELF_LINES, firstWallZ, TcText.t("section.upgrades", "Upgrades by tier"),
+                TcText.t("section.upgrades.sub", "nugget in off hand"));
+        for (int i = 0; i < chains.size(); i++) {
+            int wallZ = firstWallZ + i / TcCanvas.SHELF_LINES * TcCanvas.SHELF_PITCH;
+            int y = TcCanvas.SHELF_LINES - 1 - i % TcCanvas.SHELF_LINES;
+            int x = 1;
+            for (SledgehammerUpgrades.Upgrade upgrade : chains.get(i)) {
+                TcWays.Way way = TcWays.upgrade(upgrade.from(), hammers);
+                if (way != null) {
+                    c.waySign(x, y, wallZ, way, (Component) null);
+                } else {
+                    c.wallSign(x, y, wallZ, upgrade.from().getName());
+                }
+                c.place(x + 1, y, wallZ, upgradeState(upgrade.from()));
+                c.wallFrame(x + 2, y, wallZ, new ItemStack(upgrade.nugget(), upgrade.materialCost()));
+                for (Item candidate : hammers) {
+                    if (SledgehammerUpgrades.hammerRank(candidate) >= upgrade.minHammerRank()) {
+                        c.wallFrame(x + 3, y, wallZ, new ItemStack(candidate));
+                        break;
+                    }
+                }
+                x += UPGRADE_STEP;
+            }
+            Block last = chains.get(i).getLast().to();
+            c.place(x, y, wallZ, upgradeState(last));
+        }
+        return c;
+    }
+
+    /** Ein Block der Aufwertungskette, Front zum Gang (Shulkerkisten und Kolben in sechs Richtungen). */
+    private static BlockState upgradeState(Block block) {
+        List<BlockState> states = Exhibits.blockStates(block);
+        return states.isEmpty() ? facing(block.defaultBlockState(), Direction.NORTH) : states.getFirst();
+    }
+
     public static TcCanvas inWorld(TcContext ctx) {
         TcCanvas c = new TcCanvas();
         int wallZ = 5;
@@ -463,42 +560,7 @@ public final class TestCentreSections {
         }
         x += 3;
 
-        // c) Maschinen-Aufwertung mit Nugget und Hammer.
-        c.wallSign(x, 3, wallZ, TcText.bold(TcText.t("inworld.upgrade", "Machine upgrades")),
-                TcText.t("inworld.upgrade.sub", "nugget in off hand"), TcText.t("inworld.upgrade.sub2", "hold use with hammer"));
-        x++;
-        for (Block block : BuiltInRegistries.BLOCK) {
-            SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(block);
-            if (upgrade == null || upgrade.from() != block) {
-                continue;
-            }
-            // Von den acht Kupfertruhen steht nur die unverwitterte an der Station, von den 17 Vanilla-
-            // Shulkerkisten nur die ungefaerbte (alle werden gleich aufgewertet).
-            net.minecraft.resources.Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-            if (!"simplebuilding".equals(blockId.getNamespace()) && !blockId.getPath().equals("copper_chest")
-                    && !blockId.getPath().equals("shulker_box")) {
-                continue;
-            }
-            c.place(x, 0, 2, facing(upgrade.from().defaultBlockState(), Direction.NORTH));
-            // Shulkerkisten brauchen zwei Stueck Material je Stufe: der Rahmen zeigt die Anzahl.
-            c.wallFrame(x, 1, wallZ, new ItemStack(upgrade.nugget(), upgrade.materialCost()));
-            Item needed = null;
-            for (Item candidate : hammers) {
-                if (SledgehammerUpgrades.hammerRank(candidate) >= upgrade.minHammerRank()) {
-                    needed = candidate;
-                    break;
-                }
-            }
-            if (needed != null) {
-                c.wallFrame(x, 2, wallZ, new ItemStack(needed));
-            }
-            TcWays.Way way = TcWays.upgrade(block, hammers);
-            if (way != null) {
-                c.waySign(x, 3, wallZ, way, List.of(way.resultLine()));
-            }
-            x += 2;
-        }
-        x++;
+        // c) Maschinen-Aufwertung: eigener Abschnitt "upgrades" (N13, je Kette nach Stufen).
 
         // d) Scheren an Wolle.
         c.place(x, 0, 2, vanilla("white_wool"));
