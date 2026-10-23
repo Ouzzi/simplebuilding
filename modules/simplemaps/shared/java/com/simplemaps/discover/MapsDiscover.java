@@ -58,6 +58,8 @@ public final class MapsDiscover {
             "simplemaps:guide_book",
             "simplemaps:item_frames",
             "simplemaps:map_screen",
+            "simplemaps:mega_map",
+            "simplemaps:mega_wayfinder_map",
             "simplemaps:nether_wayfinder_map",
             "simplemaps:wayfinder_map",
             "simplemaps:wayfinder_maps",
