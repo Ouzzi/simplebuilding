@@ -71,8 +71,8 @@ public final class RecipeStation {
     }
 
     /**
-     * Die neun Felder eines Rezepts (Zeile fuer Zeile), oder null, wenn es sich nicht legen laesst oder eine Zutat kein Item
-     * hat (leerer Tag). Geformt: das Muster oben links; sonst die Zutaten der Reihe nach.
+     * Die neun Felder eines Rezepts (Zeile fuer Zeile), oder null, wenn es sich nicht legen laesst oder eine Zutat kein
+     * schlichtes Item annimmt (leerer Tag, Komponenten verlangt). Geformt: das Muster oben links; sonst die Zutaten der Reihe nach.
      */
     public static List<ItemStack> grid(CraftingRecipe recipe) {
         if (!placeable(recipe)) {
@@ -120,8 +120,12 @@ public final class RecipeStation {
         }
     }
 
+    /**
+     * Das erste Item der Zutat, das sie als schlichter Stapel annimmt; leer, wenn keines passt (Zutaten, die Komponenten
+     * verlangen, etwa ein bestimmter Trank - solche Rezepte fallen weg, der Test zaehlt sie).
+     */
     private static ItemStack first(Ingredient ingredient) {
-        return ingredient.items().findFirst().map(ItemStack::new).orElse(ItemStack.EMPTY);
+        return ingredient.items().map(ItemStack::new).filter(ingredient::test).findFirst().orElse(ItemStack.EMPTY);
     }
 
     /** Der Abschnitt: je Namensraum eine Gruppe (Schild, dann die Crafter spaltenweise zu zweit), Reihen mit Gang. */

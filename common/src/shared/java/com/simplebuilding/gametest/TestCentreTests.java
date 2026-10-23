@@ -1853,10 +1853,13 @@ public final class TestCentreTests {
         if (expected == 0) {
             problems.add("no family crafting recipe found");
         }
+        if (skipped * 20 > expected) {
+            problems.add(skipped + " of " + (expected + skipped) + " recipes skipped - more than one in twenty");
+        }
         if (grids.size() != expected) {
             problems.add(grids.size() + " crafters for " + expected + " recipes");
         }
-        com.simplebuilding.Simplebuilding.LOGGER.info("test centre recipes: {} crafting recipes shown as crafters, {} skipped (ingredient without item)",
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre recipes: {} crafting recipes shown as crafters, {} skipped (ingredient takes no plain item)",
                 expected, skipped);
         helper.assertTrue(problems.isEmpty(), problems.size() + " recipe problem(s): " + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
         helper.succeed();
@@ -1873,12 +1876,14 @@ public final class TestCentreTests {
         TestCentreLayout.Section upgrades = plan.section("upgrades");
         Map<Block, List<BlockPos>> at = new HashMap<>();
         Set<Item> waySubjects = new HashSet<>();
+        Set<BlockPos> waySigns = new HashSet<>();
         for (TcOp op : upgrades.ops()) {
             if (op instanceof TcOp.Place place) {
                 at.computeIfAbsent(place.state().getBlock(), b -> new ArrayList<>()).add(place.pos());
             }
             if (op instanceof TcOp.Sign sign && sign.way() != null && sign.way().kind() == com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE) {
                 waySubjects.add(sign.way().subject().getItem());
+                waySigns.add(sign.pos());
             }
         }
         List<String> problems = new ArrayList<>();
@@ -1912,6 +1917,10 @@ public final class TestCentreTests {
                 continue;
             }
             for (BlockPos from : entry.getValue()) {
+                // Nur Stufen (Weg-Schild links davor); der Endblock einer zusammenlaufenden Kette steht ohne Schild.
+                if (!waySigns.contains(from.offset(-1, 0, -1))) {
+                    continue;
+                }
                 boolean next = at.getOrDefault(upgrade.to(), List.of()).stream()
                         .anyMatch(to -> to.getY() == from.getY() && to.getZ() == from.getZ() && to.getX() > from.getX());
                 if (!next) {
