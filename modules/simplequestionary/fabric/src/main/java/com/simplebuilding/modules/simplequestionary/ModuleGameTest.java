@@ -55,6 +55,21 @@ public final class ModuleGameTest {
     public void hostSwitch(GameTestHelper h) {
         QuestionaryTests.ALL.get("host_switch").accept(h);
     }
+
+    @GameTest
+    public void sheetEveryEntry(GameTestHelper h) {
+        QuestionaryTests.ALL.get("sheet_every_entry").accept(h);
+    }
+
+    @GameTest
+    public void sheetSpans(GameTestHelper h) {
+        QuestionaryTests.ALL.get("sheet_spans").accept(h);
+    }
+
+    @GameTest
+    public void sheetLayout(GameTestHelper h) {
+        QuestionaryTests.ALL.get("sheet_layout").accept(h);
+    }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplequestionary.discover.QuestionaryDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplequestionary.discover.QuestionaryDiscover.behaviourHints(h); }
 }

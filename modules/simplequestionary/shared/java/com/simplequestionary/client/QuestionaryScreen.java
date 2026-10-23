@@ -9,10 +9,12 @@ import com.simplequestionary.QuestionaryData;
 import com.simplequestionary.QuestionaryData.Page;
 import com.simplequestionary.QuestionaryFacts;
 import com.simplequestionary.QuestionaryMenu;
+import com.simplequestionary.QuestionarySheet;
 import com.simplequestionary.SimpleQuestionary;
 import com.simplequestionary.net.FactsPayload;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -20,55 +22,70 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * The table's screen (N37: in the mod's modern box style and in the guide book's look): on the left the lapis desk box
- * (one big item slot in a slowly turning gold ring, the item's name in its rarity colour, the mod it comes from) over
- * the light inventory box - SimpleLib's {@code UiBoxes}/{@code UiMotifs}; on the right an open book like the guide
- * books: lapis leather with gold stitching and corner caps, parchment pages with an inner frame line, a spine with gold
- * clasps. The book has three pages - 1 Lore, 2 Use, 3 Secret - turned with the bookmark tabs ({@code UiBookmarks}) on
- * its right edge, the page arrows, the mouse wheel, A/D or the arrow keys. Text flows from the left page onto the right
- * one; the "Use" page ends with the automatic recipe line from the server. Flat colours only, no texture.
+ * The table's screen (QT23, owner 23.10.): the column - lapis desk box (one big item slot in a slowly turning gold
+ * ring, the item's name, the mod it comes from) over the light inventory box, SimpleLib's {@code UiBoxes}/{@code
+ * UiMotifs} - stands in the middle, in front of an open book that sticks out left and right (and a little above and
+ * below): lapis leather with gold stitching and corner caps, parchment pages with an inner frame line. Three pages -
+ * 1 Lore, 2 Use, 3 Secret - turned with the bookmark ribbons on the book's top edge ({@code UiBookmarks}), the page
+ * arrows, the mouse wheel, A/D or the arrow keys. The left page is always the text: heading in the guide books'
+ * brown, body in warm grey with more line space, keywords bold ({@link QuestionarySheet#spans}); the wheel over it
+ * scrolls a long text. The right page shows pictures: 1 the picture plate (the item large, its family), 2 the recipe
+ * grid, its station, the recipe counts and where the item comes from, 3 the magnifier (the item's texture five times
+ * enlarged with its pixel grid and the texture's name). Flat colours only, no texture.
  */
 public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> {
-    public static final int BOOK_X = QuestionaryMenu.LEFT_WIDTH + 4, BOOK_Y = 0, BOOK_W = 224, BOOK_H = QuestionaryMenu.HEIGHT;
-    public static final int TAB_W = 15, TAB_OUT = 4, TAB_H = 26, TAB_GAP = 4, TAB_Y = BOOK_Y + 16;
-    /** Space kept free at the bottom of both pages for the arrows and the page number. */
-    private static final int BOTTOM = 26;
-    /** Page edge from the cover edge, text from the page edge; the text area of one page. */
-    private static final int PAGE_IN = 5, TEXT_IN = 8, PAGE_MARGIN = PAGE_IN + TEXT_IN, TEXT_W = BOOK_W / 2 - 1 - PAGE_IN - 2 * TEXT_IN, LINE = 10;
-    /** Top of the text below the page edge. */
-    private static final int TEXT_TOP = 12;
-    /** The dotted footer line of both pages (relative to the screen), text stays above it. */
-    private static final int FOOTER_Y = BOOK_Y + BOOK_H - PAGE_IN - 2 - BOTTOM + 3;
-    private static final int COVER = 0xFF2C4A86, COVER_LIGHT = 0xFF3F63A8, COVER_DARK = 0xFF16264A, PAPER = 0xFFF0E4C6,
-            PAPER_DARK = 0xFFE4D4AE, PAPER_LIGHT = 0xFFF8F0DC, PAPER_EDGE = 0xFFD9C79F, FRAME_LINE = 0xFFDCC9A0;
-    private static final int INK = 0xFF3B2A1C, INK_SOFT = 0xFF7A6248, INK_FAINT = 0xFFA08A6A, HEADING = 0xFF6B4423;
+    public static final int BOOK_X = 0, BOOK_Y = 14, BOOK_W = QuestionaryMenu.WIDTH, BOOK_H = QuestionaryMenu.HEIGHT - BOOK_Y;
+    private static final int COL_X = QuestionaryMenu.COLUMN_X, COL_Y = QuestionaryMenu.COLUMN_Y, COL_W = QuestionaryMenu.COLUMN_WIDTH;
+    /** Bookmark ribbons on the right page's top edge: size, how far the active one stands out, pitch. */
+    public static final int TAB_W = 24, TAB_H = 14, TAB_OUT = 3, TAB_PITCH = 28, TAB_X = COL_X + COL_W + 18;
+    private static final int PAGE_IN = 5, LINE = 11, PARA = 5;
+    /** Text areas of the two visible page parts (left of and right of the column). */
+    private static final int LEFT_X = BOOK_X + PAGE_IN + 8, LEFT_W = COL_X - 6 - LEFT_X, RIGHT_X = COL_X + COL_W + 6,
+            RIGHT_W = BOOK_X + BOOK_W - PAGE_IN - 8 - RIGHT_X;
+    private static final int TEXT_TOP = BOOK_Y + 12, BODY_TOP = TEXT_TOP + 18, FOOTER_Y = BOOK_Y + BOOK_H - 30, BODY_BOTTOM = FOOTER_Y - 3;
+    private static final int COVER = 0xFF2C4A86, COVER_LIGHT = 0xFF3F63A8, COVER_DARK = 0xFF16264A, PAPER = QuestionarySheet.PAPER,
+            PAPER_DARK = QuestionarySheet.PAPER_DARK, PAPER_LIGHT = 0xFFF8F0DC, PAPER_EDGE = 0xFFD9C79F, FRAME_LINE = 0xFFDCC9A0;
+    private static final int INK_SOFT = 0xFF7A6248, INK_FAINT = 0xFFA08A6A, HEADING = QuestionarySheet.HEADING, BODY = QuestionarySheet.BODY,
+            KEYWORD = QuestionarySheet.KEYWORD, CAPTION = QuestionarySheet.CAPTION;
     private static final int GOLD = 0xFFE8B923, GOLD_LIGHT = 0xFFFFE27A, GOLD_DARK = 0xFFB5851A;
     private static final int[] TAB_COLORS = {0xFFB03A2E, 0xFF3A63B0, 0xFF7A3FA8};
     /** The desk box: deep lapis, its marks are runes (SimpleLib motif). */
     static final UiPalette DESK = UiPalette.derived(0xFF2B3F7C);
-    /** Arrow size (guide book style, drawn). */
-    private static final int ARROW_W = 18, ARROW_H = 10;
+    /** Sunk slots on the paper (recipe grid, family). */
+    private static final UiPalette PAPER_SLOTS = UiPalette.derived(PAPER_DARK);
+    private static final int ARROW_W = 18, ARROW_H = 10, RING_DOTS = 24, RING_R = 19, NAME_Y = COL_Y + 64;
+    private static final int PLATE = 60, LENS_SCALE = 5, LENS_R = 8 * LENS_SCALE + 5;
     /** The page last read, kept while the game runs (opening the table again shows the same page). */
     private static int lastPage = 0;
 
-    private int page = lastPage;
+    private int page = lastPage, scroll;
     private String cacheKey = "";
-    private List<FormattedCharSequence> leftLines = List.of(), rightLines = List.of();
+    /** Rows of the text page; null = paragraph gap. */
+    private List<FormattedCharSequence> rows = List.of();
+    private List<Identifier> family = List.of();
+    private TextureAtlasSprite sprite;
 
     public QuestionaryScreen(QuestionaryMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, QuestionaryMenu.WIDTH, QuestionaryMenu.HEIGHT);
@@ -86,54 +103,61 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         page = lastPage = next;
     }
 
-    /** Screen position of bookmark tab {@code i} (for the client smoke). */
-    public int tabCenterX() {
-        return leftPos + BOOK_X + BOOK_W + TAB_W / 2;
+    /** Screen position of bookmark ribbon {@code i} (for the client smoke). */
+    public int tabCenterX(int i) {
+        return leftPos + TAB_X + i * TAB_PITCH + TAB_W / 2;
     }
 
     public int tabCenterY(int i) {
-        return topPos + TAB_Y + i * (TAB_H + TAB_GAP) + TAB_H / 2;
+        return topPos + BOOK_Y - TAB_H / 2;
     }
 
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         int x0 = leftPos, y0 = topPos;
-        desk(g, x0, y0);
-        int invTop = y0 + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP;
-        UiBoxes.box(g, x0, invTop, QuestionaryMenu.LEFT_WIDTH, QuestionaryMenu.INVENTORY_BOX, UiPalette.INVENTORY);
+        // Ribbons first: their lower end tucks under the cover.
+        for (int i = 0; i < 3; i++) {
+            boolean active = i == page;
+            int tx = x0 + TAB_X + i * TAB_PITCH, ty = y0 + BOOK_Y + 3 - TAB_H - (active ? TAB_OUT : 0);
+            ribbon(g, tx, ty, TAB_W, y0 + BOOK_Y + 3 - ty, UiPalette.derived(TAB_COLORS[i]), active, inTab(mouseX, mouseY) == i && !active);
+            if (active) g.fill(tx + 2, ty, tx + TAB_W - 2, ty + 1, GOLD);
+        }
+        book(g, x0 + BOOK_X, y0 + BOOK_Y);
+        desk(g, x0 + COL_X, y0 + COL_Y);
+        int invTop = y0 + COL_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP;
+        UiBoxes.box(g, x0 + COL_X, invTop, COL_W, QuestionaryMenu.INVENTORY_BOX, UiPalette.INVENTORY);
         for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
             if (i == QuestionaryMenu.ITEM_SLOT) UiBoxes.bigSlot(g, x0 + slot.x, y0 + slot.y, DESK);
             else UiBoxes.slot(g, x0 + slot.x, y0 + slot.y, UiPalette.INVENTORY);
         }
-        // Tabs first: their inner end tucks under the cover.
-        for (int i = 0; i < 3; i++) {
-            boolean active = i == page;
-            int tx = x0 + BOOK_X + BOOK_W - 3, ty = y0 + TAB_Y + i * (TAB_H + TAB_GAP), tw = TAB_W + (active ? TAB_OUT : 0);
-            boolean hover = inTab(mouseX, mouseY) == i;
-            UiBookmarks.tab(g, tx, ty, tw, TAB_H, false, UiPalette.derived(TAB_COLORS[i]), true, hover && !active);
-            if (active) {
-                g.fill(tx + 3, ty, tx + tw - 2, ty + 1, GOLD);
-                g.fill(tx + 3, ty + TAB_H - 1, tx + tw - 2, ty + TAB_H, GOLD);
-                g.fill(tx + tw - 1, ty + 2, tx + tw, ty + TAB_H - 2, GOLD);
-            }
-        }
-        book(g, x0 + BOOK_X, y0 + BOOK_Y);
-        int bx = x0 + BOOK_X, ay = y0 + BOOK_Y + BOOK_H - 20;
-        arrow(g, bx + PAGE_MARGIN, ay, false, page > 0, mouseX, mouseY);
-        arrow(g, bx + BOOK_W - PAGE_MARGIN - ARROW_W, ay, true, page < 2, mouseX, mouseY);
+        int ay = y0 + BOOK_Y + BOOK_H - 20;
+        arrow(g, x0 + LEFT_X, ay, false, page > 0, mouseX, mouseY);
+        arrow(g, x0 + BOOK_X + BOOK_W - PAGE_IN - 8 - ARROW_W, ay, true, page < 2, mouseX, mouseY);
+    }
+
+    /** A bookmark ribbon standing up out of the book (the {@link UiBookmarks#tab} shape turned upright). */
+    private static void ribbon(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p, boolean active, boolean hovered) {
+        int fill = active ? p.fill() : hovered ? p.light() : UiPalette.scale(p.fill(), 0.82);
+        g.fill(x + 2, y, x + w - 2, y + 1, UiBoxes.RIM);
+        g.fill(x + 1, y + 1, x + w - 1, y + 2, UiBoxes.RIM);
+        g.fill(x, y + 2, x + 1, y + h, UiBoxes.RIM);
+        g.fill(x + w - 1, y + 2, x + w, y + h, UiBoxes.RIM);
+        g.fill(x + 1, y + 2, x + w - 1, y + h, fill);
+        g.fill(x + 2, y + 1, x + w - 2, y + 2, fill);
+        g.fill(x + 1, y + 2, x + 2, y + h, p.light());
     }
 
     /** The desk box: lapis with rune marks, a gold ring of dots around the item slot that turns while an item lies in it. */
     private void desk(GuiGraphicsExtractor g, int x0, int y0) {
-        int w = QuestionaryMenu.LEFT_WIDTH, h = QuestionaryMenu.DESK_HEIGHT;
+        int w = COL_W, h = QuestionaryMenu.DESK_HEIGHT;
         UiBoxes.box(g, x0, y0, w, h, DESK);
-        int cx = x0 + QuestionaryMenu.SLOT_X + 8, cy = y0 + QuestionaryMenu.SLOT_Y + 8;
+        int cx = leftPos + QuestionaryMenu.SLOT_X + 8, cy = topPos + QuestionaryMenu.SLOT_Y + 8;
         List<int[]> avoid = new ArrayList<>();
         avoid.add(new int[] {x0 + 4, y0 + 4, x0 + 12 + font.width(title), y0 + 15});
         avoid.add(new int[] {cx - 24, cy - 24, cx + 25, cy + 25});
-        avoid.add(new int[] {x0 + 8, y0 + NAME_Y - 2, x0 + w - 8, y0 + h - 7});
+        avoid.add(new int[] {x0 + 8, topPos + NAME_Y - 2, x0 + w - 8, y0 + h - 7});
         UiMotifs.draw(g, 0, 0, UiMotifs.Kind.RUNE, x0 + UiBoxes.FRAME, y0 + UiBoxes.FRAME, w - 2 * UiBoxes.FRAME,
                 h - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, DESK, avoid, 37);
         boolean filled = !menu.shown().isEmpty();
@@ -146,9 +170,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         }
     }
 
-    private static final int RING_DOTS = 24, RING_R = 19, NAME_Y = 64;
-
-    /** The open book in the guide book's look, drawn with fills. */
+    /** The open book in the guide book's look, drawn with fills; the column covers its spine. */
     private void book(GuiGraphicsExtractor g, int bx, int by) {
         int mid = bx + BOOK_W / 2, bottom = by + BOOK_H;
         // Cover: rim with cut corners, leather with a light top line, gold stitching all round.
@@ -170,15 +192,6 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         g.fill(bx + PAGE_IN + 1, pageBottom + 1, bx + BOOK_W - PAGE_IN - 1, pageBottom + 2, PAPER_DARK);
         page(g, bx + PAGE_IN, top, mid - 1, pageBottom, 11);
         page(g, mid + 1, top, bx + BOOK_W - PAGE_IN, pageBottom, 29);
-        // Spine: shadow towards the fold on both pages, the fold, gold clasps top and bottom.
-        for (int i = 0; i < 4; i++) {
-            int shade = UiPalette.scale(PAPER, 0.80 + 0.05 * i);
-            g.fill(mid - 1 - (4 - i), top, mid - (4 - i), pageBottom, shade);
-            g.fill(mid + 1 + (3 - i), top, mid + 2 + (3 - i), pageBottom, shade);
-        }
-        g.fill(mid - 1, by + 1, mid + 1, bottom - 1, COVER_DARK);
-        clasp(g, mid - 2, by);
-        clasp(g, mid - 2, bottom - 3);
         // Gold corner caps.
         cap(g, bx, by, 1, 1);
         cap(g, bx + BOOK_W - 1, by, -1, 1);
@@ -206,14 +219,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             g.fill(c[0] + 1, c[1] + 1, c[0] + 2, c[1] + 2, INK_FAINT);
         }
         int footer = topPos + FOOTER_Y;
-        for (int x = x1 + TEXT_IN; x < x2 - TEXT_IN; x += 2) g.fill(x, footer, x + 1, footer + 1, INK_FAINT);
-    }
-
-    /** A gold clasp (4 x 3) over the spine. */
-    private static void clasp(GuiGraphicsExtractor g, int x, int y) {
-        g.fill(x, y, x + 4, y + 3, GOLD_DARK);
-        g.fill(x + 1, y, x + 3, y + 2, GOLD);
-        g.fill(x + 1, y, x + 2, y + 1, GOLD_LIGHT);
+        for (int x = x1 + 8; x < x2 - 8; x += 2) g.fill(x, footer, x + 1, footer + 1, INK_FAINT);
     }
 
     /** A gold corner cap (L of 5 px with a light corner pixel) at corner pixel {@code x, y}, opening towards {@code dx, dy}. */
@@ -249,57 +255,208 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        g.text(font, title, 8, 6, DESK.label(), false);
+        g.text(font, title, COL_X + 8, COL_Y + 6, DESK.label(), false);
         g.text(font, playerInventoryTitle, QuestionaryMenu.INVENTORY_X, QuestionaryMenu.INVENTORY_Y - 11, UiPalette.INVENTORY.label(), false);
         ItemStack stack = menu.shown();
-        int w = QuestionaryMenu.LEFT_WIDTH;
+        int mid = COL_X + COL_W / 2;
         if (!stack.isEmpty()) {
-            List<FormattedCharSequence> name = font.split(stack.getStyledHoverName(), w - 20);
+            List<FormattedCharSequence> name = font.split(stack.getStyledHoverName(), COL_W - 20);
             int lines = Math.min(2, name.size());
-            for (int i = 0; i < lines; i++) g.centeredText(font, name.get(i), w / 2, NAME_Y + i * LINE, 0xFFFFFFFF);
-            Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-            Component mod = Component.literal(SimpleQuestionary.modName.apply(id.getNamespace())).withStyle(ChatFormatting.ITALIC);
-            g.centeredText(font, mod, w / 2, NAME_Y + lines * LINE + 4, UiPalette.mix(DESK.light(), 0xFFFFFFFF, 0.35));
+            for (int i = 0; i < lines; i++) g.centeredText(font, name.get(i), mid, NAME_Y + i * 10, 0xFFFFFFFF);
+            Component mod = Component.literal(modName(stack)).withStyle(ChatFormatting.ITALIC);
+            g.centeredText(font, mod, mid, NAME_Y + lines * 10 + 4, UiPalette.mix(DESK.light(), 0xFFFFFFFF, 0.35));
         } else {
-            g.centeredText(font, Component.translatable("screen.simplequestionary.welcome.title"), w / 2, NAME_Y + 6,
+            g.centeredText(font, Component.translatable("screen.simplequestionary.welcome.title"), mid, NAME_Y + 6,
                     UiPalette.mix(DESK.light(), 0xFFFFFFFF, 0.35));
         }
         for (int i = 0; i < 3; i++) {
-            int ty = TAB_Y + i * (TAB_H + TAB_GAP), tx = BOOK_X + BOOK_W - 3 + (i == page ? TAB_OUT : 0);
-            g.centeredText(font, String.valueOf(i + 1), tx + 8, ty + 6, 0xFFFFFFFF);
-            if (i == 2) {
-                // The seal on the secret tab.
-                g.fill(tx + 6, ty + 17, tx + 10, ty + 21, GOLD);
-                g.fill(tx + 7, ty + 16, tx + 9, ty + 22, GOLD);
-            }
+            int ty = BOOK_Y + 3 - TAB_H - (i == page ? TAB_OUT : 0);
+            g.centeredText(font, String.valueOf(i + 1), TAB_X + i * TAB_PITCH + TAB_W / 2, ty + 3, 0xFFFFFFFF);
         }
         layout(stack);
-        int lx = BOOK_X + PAGE_MARGIN, rx = BOOK_X + BOOK_W / 2 + 1 + TEXT_IN, top = BOOK_Y + TEXT_TOP;
+        // Left page: heading, divider, the text rows from the scroll position on, a scroll bar when it does not fit.
         Page p = Page.values()[page];
         Component heading = stack.isEmpty() ? Component.translatable("screen.simplequestionary.welcome.title")
                 : Component.translatable("screen.simplequestionary.page." + p.key);
-        g.text(font, heading, lx, top, HEADING, false);
-        boolean illustrated = !stack.isEmpty() && p == Page.LORE;
-        divider(g, lx, top + LINE + 1, TEXT_W - (illustrated ? 36 : 0));
-        if (illustrated) {
+        g.text(font, heading, LEFT_X, TEXT_TOP, HEADING, false);
+        divider(g, LEFT_X, TEXT_TOP + LINE + 1, LEFT_W);
+        int y = BODY_TOP;
+        for (int i = scroll; i < rows.size(); i++) {
+            FormattedCharSequence row = rows.get(i);
+            int h = row == null ? PARA : LINE;
+            if (y + h > BODY_BOTTOM + 2) break;
+            if (row != null) g.text(font, row, LEFT_X, y, BODY, false);
+            y += h;
+        }
+        int total = height(0), track = BODY_BOTTOM - BODY_TOP;
+        if (total > track) {
+            int bar = COL_X - 4, thumb = Math.max(8, track * track / total), pos = (track - thumb) * height(0, scroll) / Math.max(1, total - track);
+            g.fill(bar, BODY_TOP, bar + 1, BODY_BOTTOM, FRAME_LINE);
+            g.fill(bar - 1, BODY_TOP + Math.min(pos, track - thumb), bar + 1, BODY_TOP + Math.min(pos, track - thumb) + thumb, INK_SOFT);
+        }
+        // Right page: picture plate, recipe, magnifier.
+        if (stack.isEmpty()) {
+            g.text(font, Component.translatable("screen.simplequestionary.sheet.plate"), RIGHT_X, TEXT_TOP, HEADING, false);
+            divider(g, RIGHT_X, TEXT_TOP + LINE + 1, RIGHT_W);
+            wrapped(g, Component.translatable("screen.simplequestionary.sheet.empty"), RIGHT_X, BODY_TOP, BODY);
+        } else if (p == Page.LORE) {
+            plate(g, stack);
+        } else if (p == Page.USE) {
+            recipe(g, stack);
+        } else {
+            lens(g, stack);
+        }
+        int ay = BOOK_Y + BOOK_H - 20;
+        String number = (page + 1) + " / 3";
+        g.text(font, number, RIGHT_X + (RIGHT_W - ARROW_W - font.width(number)) / 2, ay + 1, HEADING, false);
+    }
+
+    private static String modName(ItemStack stack) {
+        return SimpleQuestionary.modName.apply(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace());
+    }
+
+    /** Right page heading with the guide book's divider below it. */
+    private void heading(GuiGraphicsExtractor g, String key) {
+        g.text(font, Component.translatable("screen.simplequestionary.sheet." + key), RIGHT_X, TEXT_TOP, HEADING, false);
+        divider(g, RIGHT_X, TEXT_TOP + LINE + 1, RIGHT_W);
+    }
+
+    /** Page 1: the item three times enlarged in a framed plate, its name and mod below, then its family. */
+    private void plate(GuiGraphicsExtractor g, ItemStack stack) {
+        heading(g, "plate");
+        int px = RIGHT_X + (RIGHT_W - PLATE) / 2, py = TEXT_TOP + 18;
+        g.fill(px, py, px + PLATE, py + PLATE, FRAME_LINE);
+        g.fill(px + 1, py + 1, px + PLATE - 1, py + PLATE - 1, PAPER_DARK);
+        g.fill(px + 2, py + 2, px + PLATE - 2, py + PLATE - 2, PAPER_LIGHT);
+        for (int[] c : new int[][] {{px, py}, {px + PLATE - 3, py}, {px, py + PLATE - 3}, {px + PLATE - 3, py + PLATE - 3}}) {
+            g.fill(c[0], c[1], c[0] + 3, c[1] + 3, GOLD_DARK);
+            g.fill(c[0] + 1, c[1] + 1, c[0] + 2, c[1] + 2, GOLD_LIGHT);
+        }
+        g.pose().pushMatrix();
+        g.pose().translate(px + 6, py + 6);
+        g.pose().scale(3.0F, 3.0F);
+        g.item(stack, 0, 0);
+        g.pose().popMatrix();
+        int y = py + PLATE + 4;
+        List<FormattedCharSequence> name = font.split(Component.literal(stack.getHoverName().getString()).withStyle(keyword()), RIGHT_W);
+        for (int i = 0; i < Math.min(2, name.size()); i++, y += LINE) g.centeredText(font, name.get(i), RIGHT_X + RIGHT_W / 2, y, KEYWORD);
+        String mod = modName(stack);
+        g.text(font, mod, RIGHT_X + (RIGHT_W - font.width(mod)) / 2, y, CAPTION, false);
+        y += LINE + 6;
+        if (family.isEmpty()) return;
+        g.text(font, Component.translatable("screen.simplequestionary.sheet.family"), RIGHT_X, y, HEADING, false);
+        y += LINE + 1;
+        int shown = Math.min(family.size(), (RIGHT_W + 2) / 18);
+        for (int i = 0; i < shown; i++) {
+            int sx = RIGHT_X + 1 + i * 18;
+            UiBoxes.slot(g, sx, y, PAPER_SLOTS);
+            g.item(new ItemStack(BuiltInRegistries.ITEM.getValue(family.get(i))), sx, y);
+        }
+        if (family.size() > shown) {
+            String more = "+" + (family.size() - shown);
+            g.text(font, more, RIGHT_X + RIGHT_W - font.width(more), y + 21, CAPTION, false);
+        }
+    }
+
+    /** Page 2: the recipe grid with arrow and result, the station, the recipe counts, then where the item comes from. */
+    private void recipe(GuiGraphicsExtractor g, ItemStack stack) {
+        heading(g, "recipe");
+        QuestionaryFacts.Facts facts = FactsPayload.latest;
+        int y = TEXT_TOP + 20;
+        if (!facts.item().equals(BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
+            wrapped(g, Component.translatable("screen.simplequestionary.facts.none"), RIGHT_X, y, BODY);
+            return;
+        }
+        if (facts.madeFrom().isEmpty()) {
+            // Only special recipes (no grid to show) make it: just the counts below.
+            if (facts.makes() == 0) y = wrapped(g, Component.translatable("screen.simplequestionary.facts.not_crafted"), RIGHT_X, y, BODY) + 2;
+        } else {
+            for (int i = 0; i < 9; i++) {
+                int sx = RIGHT_X + 1 + (i % 3) * 18, sy = y + (i / 3) * 18;
+                UiBoxes.slot(g, sx, sy, PAPER_SLOTS);
+                if (i < facts.madeFrom().size()) g.item(new ItemStack(BuiltInRegistries.ITEM.getValue(facts.madeFrom().get(i))), sx, sy);
+            }
+            int ax = RIGHT_X + 58, ay = y + 21;
+            for (int k = 0; k < 12; k++) {
+                if (k < 8) g.fill(ax + k, ay + 3, ax + k + 1, ay + 7, CAPTION);
+                else g.fill(ax + k, ay + k - 7, ax + k + 1, ay + 17 - k, CAPTION);
+            }
+            UiBoxes.bigSlot(g, RIGHT_X + 80, y + 18, PAPER_SLOTS);
+            g.item(stack, RIGHT_X + 80, y + 18);
+            y += 58;
+            Item station = BuiltInRegistries.ITEM.getValue(facts.station());
+            if (station != null && station != net.minecraft.world.item.Items.AIR) {
+                ItemStack shown = new ItemStack(station);
+                UiBoxes.slot(g, RIGHT_X + 1, y, PAPER_SLOTS);
+                g.item(shown, RIGHT_X + 1, y);
+                g.text(font, ellipsis(shown.getHoverName().getString(), RIGHT_W - 21), RIGHT_X + 21, y + 4, CAPTION, false);
+                y += 22;
+            }
+        }
+        y = wrapped(g, Component.translatable("screen.simplequestionary.facts.recipes", number(facts.makes()), number(facts.usedIn())), RIGHT_X, y, BODY) + 6;
+        g.text(font, Component.translatable("screen.simplequestionary.sheet.origin"), RIGHT_X, y, HEADING, false);
+        g.fill(RIGHT_X, y + LINE - 1, RIGHT_X + RIGHT_W, y + LINE, FRAME_LINE);
+        String origin = "screen.simplequestionary.origin." + QuestionarySheet.origin(facts, stack.getItem()).key();
+        wrapped(g, Component.empty().append(Component.translatable(origin).withStyle(keyword())).append(Component.translatable(origin + ".hint")),
+                RIGHT_X, y + LINE + 3, BODY);
+    }
+
+    /** Page 3: the item's texture five times enlarged in a gold magnifier ring with its pixel grid, then its name. */
+    private void lens(GuiGraphicsExtractor g, ItemStack stack) {
+        heading(g, "lens");
+        int d = 16 * LENS_SCALE, cx = RIGHT_X + RIGHT_W / 2, cy = TEXT_TOP + 20 + LENS_R, r = LENS_R;
+        // The ring and the glass, row by row: dark rim, gold ring, light glass.
+        for (int dy = -r - 2; dy <= r + 2; dy++) {
+            int outer = halfWidth(r + 2, dy), ring = halfWidth(r + 1, dy), glass = halfWidth(r - 1, dy);
+            int y = cy + dy;
+            if (outer >= 0) g.fill(cx - outer, y, cx + outer, y + 1, GOLD_DARK);
+            if (ring >= 0) g.fill(cx - ring, y, cx + ring, y + 1, GOLD);
+            if (glass >= 0) g.fill(cx - glass, y, cx + glass, y + 1, PAPER_LIGHT);
+        }
+        for (int i = 0; i < 6; i++) g.fill(cx - r + 8 + i, cy - r + 6 - i / 2, cx - r + 9 + i, cy - r + 7 - i / 2, GOLD_LIGHT);
+        int x0 = cx - d / 2, y0 = cy - d / 2;
+        if (sprite != null) g.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x0, y0, d, d);
+        else {
             g.pose().pushMatrix();
-            g.pose().translate(lx + TEXT_W - 32, top + 2);
-            g.pose().scale(2.0F, 2.0F);
+            g.pose().translate(x0, y0);
+            g.pose().scale(LENS_SCALE, LENS_SCALE);
             g.item(stack, 0, 0);
             g.pose().popMatrix();
         }
-        int y = top + firstLineOffset(stack);
-        for (FormattedCharSequence line : leftLines) {
-            g.text(font, line, lx, y, INK, false);
-            y += LINE;
+        for (int k = 0; k <= d; k += LENS_SCALE) {
+            g.fill(x0 + k, y0, x0 + k + 1, y0 + d, 0x18000000);
+            g.fill(x0, y0 + k, x0 + d, y0 + k + 1, 0x18000000);
         }
-        y = top;
-        for (FormattedCharSequence line : rightLines) {
-            g.text(font, line, rx, y, INK, false);
-            y += LINE;
+        // The handle down to the right.
+        for (int i = 0; i < 9; i++) {
+            int hx = cx + r - 3 + i, hy = cy + r - 3 + i;
+            if (hx + 3 > RIGHT_X + RIGHT_W + 4) break;
+            g.fill(hx, hy, hx + 3, hy + 2, i < 2 ? GOLD_DARK : COVER_DARK);
         }
-        if (!stack.isEmpty() && p == Page.USE) facts(g, stack, rx, FOOTER_Y - 2 - footerHeight());
-        g.centeredText(font, (page + 1) + " / 3", BOOK_X + BOOK_W * 3 / 4, BOOK_Y + BOOK_H - 19, HEADING);
+        int y = cy + r + 6;
+        g.text(font, Component.translatable("screen.simplequestionary.sheet.texture"), RIGHT_X, y, HEADING, false);
+        String name = sprite != null ? sprite.contents().name().toString() : BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        wrapped(g, Component.literal(name), RIGHT_X, y + LINE + 1, CAPTION);
+    }
+
+    /** Half width of a disc of radius {@code r} in row {@code dy} (-1 outside). */
+    private static int halfWidth(int r, int dy) {
+        double v = (double) r * r - (dy + 0.5) * (dy + 0.5);
+        return v < 0 ? -1 : (int) Math.round(Math.sqrt(v));
+    }
+
+    private static Style keyword() {
+        return Style.EMPTY.withBold(true).withColor(KEYWORD & 0xFFFFFF);
+    }
+
+    private static Component number(int n) {
+        return Component.literal(String.valueOf(n)).withStyle(keyword());
+    }
+
+    private String ellipsis(String text, int width) {
+        if (font.width(text) <= width) return text;
+        while (!text.isEmpty() && font.width(text + "…") > width) text = text.substring(0, text.length() - 1);
+        return text + "…";
     }
 
     /** The guide book's heading line: a thin ink line with a small gold diamond in its middle. */
@@ -311,102 +468,104 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         g.fill(c, y - 1, c + 1, y + 2, GOLD);
     }
 
-    private int firstLineOffset(ItemStack stack) {
-        return !stack.isEmpty() && page == 0 ? 40 : LINE + 6;
-    }
-
-    private int footerHeight() {
-        return 3 * LINE + 14;
-    }
-
-    /** The automatic recipe line: ingredient icons of the first recipe, how many recipes make it and use it. */
-    private void facts(GuiGraphicsExtractor g, ItemStack stack, int x, int y) {
-        QuestionaryFacts.Facts facts = FactsPayload.latest;
-        g.fill(x, y - 3, x + TEXT_W, y - 2, FRAME_LINE);
-        if (!facts.item().equals(BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
-            wrapped(g, Component.translatable("screen.simplequestionary.facts.none"), x, y);
-            return;
-        }
-        if (!facts.madeFrom().isEmpty()) {
-            g.text(font, Component.translatable("screen.simplequestionary.facts.made_from"), x, y, HEADING, false);
-            int ix = x;
-            for (Identifier id : facts.madeFrom()) {
-                if (ix + 12 > x + TEXT_W) break;
-                Item item = BuiltInRegistries.ITEM.getValue(id);
-                g.pose().pushMatrix();
-                g.pose().translate(ix, y + LINE);
-                g.pose().scale(0.75F, 0.75F);
-                g.item(new ItemStack(item), 0, 0);
-                g.pose().popMatrix();
-                ix += 12;
-            }
-        } else {
-            wrapped(g, Component.translatable("screen.simplequestionary.facts.not_crafted"), x, y);
-        }
-        wrapped(g, Component.translatable("screen.simplequestionary.facts.recipes", facts.makes(), facts.usedIn()), x, y + LINE + 14);
-    }
-
-    private void wrapped(GuiGraphicsExtractor g, Component text, int x, int y) {
-        for (FormattedCharSequence line : font.split(text, TEXT_W)) {
-            g.text(font, line, x, y, HEADING, false);
+    /** Wrapped text on the right page; returns the y below it. */
+    private int wrapped(GuiGraphicsExtractor g, Component text, int x, int y, int color) {
+        for (FormattedCharSequence line : font.split(text, RIGHT_W)) {
+            g.text(font, line, x, y, color, false);
             y += LINE;
         }
+        return y;
     }
 
-    /** Wraps the current page into left and right page lines (cached until item, page, language or data change). */
+    /** Height of the text rows from {@code from} to {@code to} (exclusive). */
+    private int height(int from, int to) {
+        int h = 0;
+        for (int i = from; i < to && i < rows.size(); i++) h += rows.get(i) == null ? PARA : LINE;
+        return h;
+    }
+
+    private int height(int from) {
+        return height(from, rows.size());
+    }
+
+    /** Largest scroll position: the last rows exactly fill the text area. */
+    private int maxScroll() {
+        int track = BODY_BOTTOM - BODY_TOP, s = rows.size();
+        while (s > 0 && height(s - 1) <= track) s--;
+        return s;
+    }
+
+    /** Wraps the current page's text, finds the item's family and its texture (cached until item, page, language or data change). */
     private void layout(ItemStack stack) {
         Minecraft mc = Minecraft.getInstance();
         String lang = mc.getLanguageManager().getSelected();
         QuestionaryData.Library library = QuestionaryData.current;
         Item item = stack.getItem();
-        String key = BuiltInRegistries.ITEM.getKey(item) + "|" + page + "|" + lang + "|" + System.identityHashCode(library) + "|" + stack.isEmpty();
+        Identifier id = BuiltInRegistries.ITEM.getKey(item);
+        String itemKey = id + "|" + lang + "|" + System.identityHashCode(library) + "|" + stack.isEmpty();
+        String key = itemKey + "|" + page;
         if (key.equals(cacheKey)) return;
+        boolean newItem = !cacheKey.startsWith(itemKey + "|");
         cacheKey = key;
-        List<String> paragraphs = new ArrayList<>();
+        scroll = 0;
+        List<List<QuestionarySheet.Span>> paragraphs = new ArrayList<>();
+        Function<Identifier, Predicate<Identifier>> tagsOf = other -> {
+            Item value = BuiltInRegistries.ITEM.getValue(other);
+            return tag -> value.builtInRegistryHolder().is(TagKey.create(Registries.ITEM, tag));
+        };
         if (stack.isEmpty()) {
-            paragraphs.add(Component.translatable("screen.simplequestionary.welcome.1").getString());
-            paragraphs.add(Component.translatable("screen.simplequestionary.welcome.2").getString());
-        } else {
-            Identifier id = BuiltInRegistries.ITEM.getKey(item);
-            Predicate<Identifier> inTag = tag -> item.builtInRegistryHolder().is(TagKey.create(Registries.ITEM, tag));
-            QuestionaryData.Resolved resolved = library.resolve(id, QuestionaryData.kindOf(item), inTag, lang);
-            String name = stack.getHoverName().getString(), mod = SimpleQuestionary.modName.apply(id.getNamespace());
-            for (String paragraph : resolved.page(Page.values()[page])) {
-                paragraphs.add(QuestionaryData.format(paragraph, name, mod,
-                        other -> BuiltInRegistries.ITEM.getOptional(other).map(i -> new ItemStack(i).getHoverName().getString()).orElse(other.toString())));
+            for (String k : List.of("welcome.1", "welcome.2")) {
+                paragraphs.add(List.of(new QuestionarySheet.Span(Component.translatable("screen.simplequestionary." + k).getString(), false)));
             }
-            if (paragraphs.isEmpty()) paragraphs.add(Component.translatable("screen.simplequestionary.empty").getString());
+            family = List.of();
+            sprite = null;
+        } else {
+            QuestionaryData.Resolved resolved = library.resolve(id, QuestionaryData.kindOf(item), tagsOf.apply(id), lang);
+            String name = stack.getHoverName().getString(), mod = SimpleQuestionary.modName.apply(id.getNamespace());
+            Function<Identifier, String> names = other -> BuiltInRegistries.ITEM.getOptional(other).map(i -> new ItemStack(i).getHoverName().getString()).orElse(other.toString());
+            for (String paragraph : resolved.page(Page.values()[page])) paragraphs.add(QuestionarySheet.spans(paragraph, name, mod, names));
+            if (paragraphs.isEmpty()) paragraphs.add(List.of(new QuestionarySheet.Span(Component.translatable("screen.simplequestionary.empty").getString(), false)));
+            if (newItem) {
+                family = QuestionarySheet.family(library.family(id, tagsOf.apply(id), lang), id, BuiltInRegistries.ITEM.keySet(), tagsOf);
+                sprite = textureOf(mc, stack);
+            }
         }
         List<FormattedCharSequence> lines = new ArrayList<>();
-        for (String paragraph : paragraphs) {
-            if (!lines.isEmpty()) lines.add(FormattedCharSequence.EMPTY);
-            lines.addAll(font.split(Component.literal(paragraph), TEXT_W));
+        for (List<QuestionarySheet.Span> spans : paragraphs) {
+            if (!lines.isEmpty()) lines.add(null);
+            MutableComponent text = Component.empty();
+            for (QuestionarySheet.Span span : spans) text.append(Component.literal(span.text()).withStyle(span.bold() ? keyword() : Style.EMPTY));
+            lines.addAll(font.split(text, LEFT_W));
         }
-        int leftRows = (FOOTER_Y - TEXT_TOP - BOOK_Y - firstLineOffset(stack) + 1) / LINE;
-        int rightBottom = !stack.isEmpty() && page == 1 ? FOOTER_Y - 2 - footerHeight() - 4 : FOOTER_Y;
-        int rightRows = (rightBottom - TEXT_TOP - BOOK_Y + 1) / LINE;
-        // A blank line never starts the right page.
-        int split = Math.min(leftRows, lines.size());
-        leftLines = List.copyOf(lines.subList(0, split));
-        List<FormattedCharSequence> rest = new ArrayList<>(lines.subList(split, lines.size()));
-        if (!rest.isEmpty() && rest.get(0) == FormattedCharSequence.EMPTY) rest.remove(0);
-        if (rest.size() > rightRows) {
-            rest = new ArrayList<>(rest.subList(0, rightRows));
-            rest.set(rightRows - 1, Component.literal("…").getVisualOrderText());
+        rows = lines;
+    }
+
+    /** The sprite the item model shows (its particle texture), or null. */
+    private static TextureAtlasSprite textureOf(Minecraft mc, ItemStack stack) {
+        try {
+            ItemStackRenderState state = new ItemStackRenderState();
+            mc.getItemModelResolver().updateForTopItem(state, stack, ItemDisplayContext.GUI, mc.level, null, 0);
+            var material = state.pickParticleMaterial(RandomSource.create(0));
+            return material == null ? null : material.sprite();
+        } catch (RuntimeException e) {
+            return null;
         }
-        rightLines = List.copyOf(rest);
     }
 
     private int inTab(double mx, double my) {
         for (int i = 0; i < 3; i++) {
-            int tx = leftPos + BOOK_X + BOOK_W - 3, ty = topPos + TAB_Y + i * (TAB_H + TAB_GAP);
-            if (mx >= tx && mx < tx + TAB_W + TAB_OUT && my >= ty && my < ty + TAB_H) return i;
+            int tx = leftPos + TAB_X + i * TAB_PITCH, ty = topPos + BOOK_Y + 3 - TAB_H - TAB_OUT;
+            if (mx >= tx && mx < tx + TAB_W && my >= ty && my < topPos + BOOK_Y + 3) return i;
         }
         return -1;
     }
 
     private boolean inBook(double mx, double my) {
-        return mx >= leftPos + BOOK_X && mx < leftPos + BOOK_X + BOOK_W + TAB_W + TAB_OUT && my >= topPos + BOOK_Y && my < topPos + BOOK_Y + BOOK_H;
+        return mx >= leftPos + BOOK_X && mx < leftPos + BOOK_X + BOOK_W && my >= topPos && my < topPos + BOOK_Y + BOOK_H;
+    }
+
+    private boolean inText(double mx, double my) {
+        return mx >= leftPos + BOOK_X && mx < leftPos + COL_X && my >= topPos + BODY_TOP && my < topPos + BODY_BOTTOM;
     }
 
     @Override
@@ -417,13 +576,14 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             setPage(tab);
             return true;
         }
-        int bx = leftPos + BOOK_X, ay = topPos + BOOK_Y + BOOK_H - 20;
+        int ay = topPos + BOOK_Y + BOOK_H - 20;
         if (my >= ay - 2 && my < ay + ARROW_H + 2) {
-            if (mx >= bx + PAGE_MARGIN - 2 && mx < bx + PAGE_MARGIN + ARROW_W + 2) {
+            if (mx >= leftPos + LEFT_X - 2 && mx < leftPos + LEFT_X + ARROW_W + 2) {
                 setPage(page - 1);
                 return true;
             }
-            if (mx >= bx + BOOK_W - PAGE_MARGIN - ARROW_W - 2 && mx < bx + BOOK_W - PAGE_MARGIN + 2) {
+            int right = leftPos + BOOK_X + BOOK_W - PAGE_IN - 8 - ARROW_W;
+            if (mx >= right - 2 && mx < right + ARROW_W + 2) {
                 setPage(page + 1);
                 return true;
             }
@@ -433,7 +593,12 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (inBook(mouseX, mouseY) && scrollY != 0) {
+        if (scrollY != 0 && inText(mouseX, mouseY) && maxScroll() > 0) {
+            scroll = Math.max(0, Math.min(maxScroll(), scroll + (scrollY < 0 ? 1 : -1)));
+            return true;
+        }
+        boolean column = mouseX >= leftPos + COL_X && mouseX < leftPos + COL_X + COL_W;
+        if (inBook(mouseX, mouseY) && !column && scrollY != 0) {
             setPage(page + (scrollY < 0 ? 1 : -1));
             return true;
         }
