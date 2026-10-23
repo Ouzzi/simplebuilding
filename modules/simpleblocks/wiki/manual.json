@@ -105,6 +105,35 @@
       }
     },
     {
+      "id": "sculk_tiles",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tiles.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tiles.json",
+        "tools/textures/blocks_b23_2026_10_23.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "en": {
+        "title": "Sculk Tiles",
+        "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+        "details": [
+          "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
+          "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+        ]
+      },
+      "de": {
+        "title": "Sculk-Fliesen",
+        "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+        "details": [
+          "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
+          "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+        ]
+      }
+    },
+    {
       "id": "missing_shapes",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
@@ -332,10 +361,10 @@
         "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
       }
     },
     "*_slab": {

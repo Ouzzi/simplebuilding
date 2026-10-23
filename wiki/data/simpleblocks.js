@@ -124,6 +124,35 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "sculk_tiles",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tiles.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tiles.json",
+        "tools/textures/blocks_b23_2026_10_23.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "en": {
+        "title": "Sculk Tiles",
+        "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+        "details": [
+          "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
+          "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+        ]
+      },
+      "de": {
+        "title": "Sculk-Fliesen",
+        "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+        "details": [
+          "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
+          "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+        ]
+      }
+    },
+    {
       "id": "missing_shapes",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
@@ -6390,6 +6419,46 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       }
     },
     {
+      "id": "simpleblocks:sculk_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tiles",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tiles.json",
+      "ingredients": [
+        "minecraft:deepslate_tiles",
+        "minecraft:sculk"
+      ],
+      "pattern": [
+        "TS",
+        "ST"
+      ],
+      "key": {
+        "T": [
+          "minecraft:deepslate_tiles"
+        ],
+        "S": [
+          "minecraft:sculk"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:shapecutter",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -7692,6 +7761,24 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_deepslate.json"
     },
     {
+      "id": "simpleblocks:blocks/sculk_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:sculk_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tiles.json"
+    },
+    {
       "id": "simpleblocks:blocks/shapecutter",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7882,10 +7969,10 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -9155,6 +9242,60 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "usedIn": []
     },
     {
+      "id": "simpleblocks:sculk_tiles",
+      "name": {
+        "en_us": "Sculk Tiles",
+        "de_de": "Sculk-Fliesen"
+      },
+      "note": {
+        "en": {
+          "title": "Sculk Tiles",
+          "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+          "details": [
+            "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
+            "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+          ]
+        },
+        "de": {
+          "title": "Sculk-Fliesen",
+          "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+          "details": [
+            "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
+            "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+          ]
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/sculk_tiles.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Deepslate tiles that took on the colour of the sculk around them."
+          ],
+          "use": [
+            "Craft two from two Deepslate Tiles and two Sculk placed crosswise. A plain building block; it does not dampen vibrations."
+          ],
+          "secret": [
+            "Watch it a while: a few sculk sparks in it breathe slowly, like the Deep Dark itself."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Tiefenschieferfliesen, die die Farbe des Sculks um sie herum angenommen haben."
+          ],
+          "use": [
+            "Zwei Stück aus zwei Tiefenschieferfliesen und zwei Sculk über Kreuz. Ein reiner Baublock; er dämpft keine Vibrationen."
+          ],
+          "secret": [
+            "Schau eine Weile hin: Einige Sculk-Funken darin atmen langsam, wie die Tiefe Finsternis selbst."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:shapecutter",
       "name": {
         "en_us": "Shapecutter",
@@ -9372,14 +9513,14 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
-    "recipes": 282,
-    "lootTables": 53,
+    "features": 9,
+    "recipes": 283,
+    "lootTables": 54,
     "tags": 1,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 53,
+    "blocks": 54,
     "trades": 0,
     "config": 0,
     "quests": 0,

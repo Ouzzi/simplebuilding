@@ -613,3 +613,20 @@ bench-results/*/logs/
 **/assets/simplebuilding/textures/jukebox_264/
 **/assets/minecraft/models/block/jukebox.json
 **/assets/minecraft/textures/block/jukebox_*.png
+# W23-3 (a-blockstex23b): sculk deepslate, hushed tiles, chiseled packed/blue ice are Vanilla-derived since 23.10. (tools/textures/blocks_b23_2026_10_23.py).
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/sculk_deepslate.png
+wiki/assets/textures/simpleblocks/block/sculk_deepslate.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/sculk_deepslate.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/sculk_deepslate.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/hushed_deepslate_tiles.png
+wiki/assets/textures/simpleblocks/block/hushed_deepslate_tiles.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/hushed_deepslate_tiles.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/hushed_deepslate_tiles.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/chiseled_packed_ice.png
+wiki/assets/textures/simpleblocks/block/chiseled_packed_ice.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/chiseled_packed_ice.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/chiseled_packed_ice.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/chiseled_blue_ice.png
+wiki/assets/textures/simpleblocks/block/chiseled_blue_ice.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/chiseled_blue_ice.png
+wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/chiseled_blue_ice.png
