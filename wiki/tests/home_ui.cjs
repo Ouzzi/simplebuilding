@@ -3,7 +3,7 @@
 //   NODE_PATH=/var/tmp/sb/pw/node_modules WIKI_CHROME=~/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome \
 //   HOME_SHOTS=/var/tmp/sb/pw node wiki/tests/home_ui.cjs
 // SimpleBuilding, Simple Blocks and Simple Weather at 1280 and 400 px, light and dark: head with chips and three ways,
-// highlights only with a loaded picture (at most 6), categories only on SimpleBuilding, compatibility chips, no
+// highlights only with a loaded picture (at most 6), categories when more than one is filled, compatibility chips, no
 // horizontal scrolling, text contrast >= 4.5:1, no script errors, the ways lead somewhere.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -54,7 +54,8 @@ async function check(browser, base, mod, width, scheme) {
   assert.ok(hl.length <= 6, tag + ' highlights ' + hl.length);
   assert.ok(hl.every(w => w > 0), tag + ' highlight without picture ' + JSON.stringify(hl));
   if (mod !== 'simpleweather') assert.ok(hl.length >= 1, tag + ' highlights shown');
-  assert.equal(await page.locator('.cat-grid').count(), mod === 'simplebuilding' ? 1 : 0, tag + ' categories');
+  if (mod === 'simplebuilding') assert.equal(await page.locator('.cat-grid').count(), 1, tag + ' categories');
+  if (mod === 'simpleweather') assert.equal(await page.locator('.cat-grid').count(), 0, tag + ' no categories without items');
   assert.equal(await page.locator('.home-compat .compat-row').count(), 2, tag + ' compatibility');
   if (mod === 'simpleblocks') assert.ok(await page.locator('.home-hero .badge').filter({ hasText: /works alone|läuft allein/ }).count() === 1, tag + ' works alone');
   const over = await page.evaluate(() => ({ doc: document.documentElement.scrollWidth, w: window.innerWidth }));
