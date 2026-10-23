@@ -412,6 +412,17 @@
       "de": {
         "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus dem Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
       }
+    },
+    "simplemusic:music_disc_*": {
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+      ],
+      "en": {
+        "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+      },
+      "de": {
+        "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+      }
     }
   }
 }
