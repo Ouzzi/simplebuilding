@@ -46,4 +46,13 @@ Option an **und** Notenblock aus dem Vanilla-Paket unter `minecraft:block/note_b
 - Nicht: Client-Lauf (Animation/Option im Spiel ungesehen), andere Loader.
 
 ## Plan-Abgleich
-(wird nach der Umsetzung ergänzt)
+- Verstärker-Rahmen A ✔ eingebaut (build-abgeleitet, Symmetrie-Assert 90°/180° im Generator); Varianten B/C ✔ Vorschau.
+- Notenblock ✔ nur über Option `noteBlockFrameTexture` (Standard aus) + `NoteBlockFrameSpritesMixin`, Lang EN/DE, ConfigOptionTests.
+- Money ✔ nichts geändert.
+- Lager B1/B2 ✔ Vorschau, B2 eingebaut (Verkaufslager 3 Flächen, Lager-Werkbank 3 Flächen, Ebenen-Quellen).
+- Rucksack D/E/F ✔ nur Vorschau (Empfehlung E).
+- A1 ✔ 11 Texturen animiert (Stil A), `--check` idempotent (Ruhebild aus der Basis-Ebene).
+- Butter X/Y/Z ✔ nur Vorschau (Empfehlung X), heutige bleibt.
+- Piggy P1/P2/P3 ✔ Vorschau, P2 eingebaut.
+- Laub L1 ✔ Aschholz 29 % deckend (`gen_textures.loose_cover`), Dämmerholz unverändert.
+- Abweichung: keine Client-Sicht (keine Client-Läufe erlaubt); Animation und Option im Spiel ungesehen.
