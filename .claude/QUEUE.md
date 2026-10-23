@@ -62,6 +62,18 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 
 ---
 
+## Besitzer 23.10. – Taschen-Jukebox, Bündel, UIs, Rahmen, Erz (PJ23 u. a.)
+Sprachnachricht 23.10. vormittags, sinngemäß.
+- [~] (A, a-pjuke23, 23.10.) PJ23-1 Taschen-Jukebox wie ein Bündel: Discs hinein/heraus wie beim Bundle; Scrollen im Tooltip (Hover) wählt die Disc; Hinein-/Herausgelegtes kommt ans Ende der Warteschlange (Playlist, Reihenfolge entsprechend). Abgestellt (Boden): Schleichen + Scrollen geht die Discs durch wie beim abgestellten Bündel; zeigt die aktuelle Disc oben drüber; Scrollen holt die Disc heraus (analog Bündel).
+- [~] (A, a-pjuke23, 23.10.) PJ23-2 Abgestellte Mod-Bündel (z. B. Enderit-Bündel) machen beim Hineinlegen (Schleichen) kein Geräusch – wie Vanilla-Bündel das Bündel-Geräusch abspielen.
+- [~] (A, a-pjuke23, 23.10.) PJ23-3 Taschen-Jukebox: Start/Pause mit Plattenspieler-Geräusch; Animation, solange sie spielt.
+- [~] (A, a-pjuke23, 23.10.) PJ23-4 Taschen-Jukebox per Redstone steuerbar (abgestellt); Textur verbindet sich sauber mit Redstone, Astralit-, Nihilit- und Brücken-Linien an jeder Seite.
+- [~] (A, a-pjuke23, 23.10.) PJ23-5 Wiedergabe läuft weiter, solange die Jukebox im Inventar ist (Anklicken/Verschieben im Inventar stoppt nicht), als gedropptes Item (spielt weiter, nur wenn sie vorher spielte) und beim Abstellen/Aufheben ohne Unterbrechung.
+- [~] (A, a-pjuke23, 23.10.) DP23 Schallplattenpresse: Disc-Plätze im UI nebeneinander statt übereinander.
+- [~] (A, a-qtable23, 23.10.) QT23 Fragentisch-UI: Fragentisch + Inventar mittig, das Buch ragt links und rechts heraus (zwei Seiten). Links immer der Text mit klarer Hierarchie (Überschrift farbig wie jetzt, Fließtext grau und luftiger, Schlagwörter fett). Rechts: Seite „Lore“ = Textur-Hinweise (Bilder), Seite „Use“ = Rezepte/Verwendung/Fundort-Hinweis, dritte Seite = Textur-Hinweis zum Item. Erst exemplarisch mit Vorschau.
+- [~] (A, a-frames23, 23.10.) FR23 Druckplatten und Scheiben im Item-Rahmen (Korrektur zu TZ22-7): flach gezeichnet, aber von OBEN gesehen als 3D-Objekt, sodass unmissverständlich ist, welche Platte/Scheibe es ist – nicht von der Seite.
+- [ ] SAGE23 Salbei-Erz (Sage Ore): Tiefenschiefer-Variante gefällt, die Stein-Variante verbessern (exemplarisch Varianten).
+
 ## Besitzer 22.10. – Texturen (TX22)
 Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfehlungen passen, gezielt überarbeitet werden nur wenige Texturen.
 - [~] (A, a-vn12, 23.10.) TX22-1 Die 12 aus VN22 neu zeichnen, in Ebenen und Vanilla-nah (A8): Tiegelgriff (Eisen), Piggy-Effekt, Butter innen, Milch-Kessel 0–3, Käse Seite/Oben, Vitrinenglas (klarer, passt zu SP22-7). [Vitrinenglas `display_case_glass` erledigt auf b-shops22, 22.10.: Alpha 24 statt 70, Lichtstreifen, Ebenen-Quelle; Rest offen]
