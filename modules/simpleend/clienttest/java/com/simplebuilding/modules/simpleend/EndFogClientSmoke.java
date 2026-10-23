@@ -77,7 +77,7 @@ public final class EndFogClientSmoke implements FabricClientGameTest {
             shot(context, world, rim, y[0] + 70, 60, yaw, 35, false, "simpleend-fogwall-above-before");
             shot(context, world, rim, y[0] + 70, 60, yaw, 35, true, "simpleend-fogwall-above-after");
             shot(context, world, rim, y[0] + 6, -10, yaw, 5, true, "simpleend-fogwall-rim-inside");
-            SimpleEndConfig.forestFogWall = true;
+            SimpleEndConfig.forestFogWall = false;
         }
     }
 

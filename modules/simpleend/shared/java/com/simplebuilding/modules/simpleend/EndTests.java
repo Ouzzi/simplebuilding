@@ -653,7 +653,10 @@ public final class EndTests {
             double strength = SimpleEndConfig.forestFogStrength;
             try {
                 SimpleEndConfig.apply(json);
-                h.assertTrue(SimpleEndConfig.forestFogWall && SimpleEndConfig.forestFogStrength == 0.85, "defaults on and 0.85");
+                h.assertTrue(!SimpleEndConfig.forestFogWall && SimpleEndConfig.forestFogStrength == 0.85, "fog wall off by default, strength 0.85");
+                json.addProperty("forestFogWall", true);
+                SimpleEndConfig.apply(json);
+                h.assertTrue(SimpleEndConfig.forestFogWall, "switch on is honored");
                 json.addProperty("forestFogStrength", 7);
                 json.addProperty("forestFogWall", false);
                 SimpleEndConfig.apply(json);
