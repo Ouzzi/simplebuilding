@@ -2,6 +2,7 @@ package com.simplemusic.pocket;
 
 import com.simplemusic.SimpleMusic;
 import com.simplemusic.disc.CustomDiscItem;
+import com.simplemusic.registry.MusicComponents;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,13 +40,15 @@ import net.minecraft.world.level.block.Block;
 /**
  * Pocket Jukebox (Bedrock preview 26.70.21, plan docs/ai/PLAN-B-POCKETJUKE-2026-10-21.md): a bundle for up to
  * {@link #CAPACITY} discs (Vanilla discs and burned custom discs, one each). Discs go in and out like a bundle (left
- * click puts in, right click with an empty hand / on an empty slot takes the newest out, bundle sounds); use in the
- * main hand plays and pauses ({@link PocketPlayback}), the off hand only holds it. 17 colours like Vanilla's bundles,
- * dyed by a {@code crafting_transmute} recipe that keeps the discs and the position.
+ * click puts in, right click with an empty hand / on an empty slot takes the selected disc out, else the newest; bundle
+ * sounds); use in the main hand plays and pauses ({@link PocketPlayback}), the off hand only holds it. 17 colours like
+ * Vanilla's bundles, dyed by a {@code crafting_transmute} recipe that keeps the discs and the position.
  *
  * <p>The contents live in Vanilla's {@code bundle_contents}, so the bundle item model (open while a disc is selected)
- * and the bundle tooltip grid work as they are. It is not in {@code #minecraft:bundles} on purpose: Vanilla's bundle
- * dye recipes take that tag and would turn the jukebox into a plain bundle (the price: no mouse wheel selection).
+ * and the bundle tooltip grid work as they are; the grid reads in play order (top left = first in, PJ23-1). It is not
+ * in {@code #minecraft:bundles} on purpose: Vanilla's bundle dye recipes take that tag and would turn the jukebox into a
+ * plain bundle. The mouse wheel still selects (PJ23-1): {@code PocketMouseActions} on the client sends Vanilla's select
+ * packet, which the server applies to any item with bundle contents.
  *
  * <p>Shift + right click on a block puts it down as its {@link PocketJukeboxBlock} with discs and position (plan
  * docs/ai/PLAN-B-PJUKE21-2026-10-22.md); a jukebox playing in the hand goes on playing there.
@@ -69,11 +72,16 @@ public class PocketJukeboxItem extends BlockItem {
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         if (player == null || !player.isSecondaryUseActive() || !SimpleMusic.on()) return InteractionResult.PASS;
-        boolean wasPlaying = player instanceof ServerPlayer server && PocketPlayback.pauseIfActive(server, context.getItemInHand());
+        ItemStack stack = context.getItemInHand();
+        boolean wasPlaying = player instanceof ServerPlayer server && PocketPlayback.handOverToBlock(server, stack);
         BlockPlaceContext place = new BlockPlaceContext(context);
         InteractionResult result = super.useOn(context);
-        if (wasPlaying && result.consumesAction() && context.getLevel().getBlockEntity(place.getClickedPos()) instanceof PocketJukeboxBlockEntity be) {
+        if (!wasPlaying) return result;
+        if (result.consumesAction() && context.getLevel().getBlockEntity(place.getClickedPos()) instanceof PocketJukeboxBlockEntity be) {
+            // the same session goes on at the block: the carrier's client moves the sound there (PJ23-5)
             be.start();
+        } else {
+            PocketPlayback.resume((ServerPlayer) player, stack);
         }
         return result;
     }
@@ -107,18 +115,19 @@ public class PocketJukeboxItem extends BlockItem {
         return true;
     }
 
-    /** Takes the newest disc out, or EMPTY. */
+    /** Takes the selected disc out (mouse wheel, PJ23-1), without a selection the newest - like Vanilla's bundle; or EMPTY. */
     public static ItemStack removeOne(ItemStack jukebox) {
         BundleContents contents = contents(jukebox);
         if (contents.isEmpty()) return ItemStack.EMPTY;
+        int selected = contents.getSelectedItemIndex();
         List<ItemStackTemplate> items = new ArrayList<>(contents.items());
-        ItemStack out = items.remove(0).create();
+        ItemStack out = items.remove(selected >= 0 && selected < items.size() ? selected : 0).create();
         jukebox.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(items));
         return out;
     }
 
-    /** Marks the disc at {@code index} as selected (-1 = none): the open model and the tooltip highlight. */
-    static void select(ItemStack jukebox, int index) {
+    /** Selects the disc at bundle index {@code index} (-1 = none), as Vanilla's select packet does (tests). */
+    public static void select(ItemStack jukebox, int index) {
         BundleContents contents = contents(jukebox);
         if (contents.getSelectedItemIndex() == index) return;
         BundleContents.Mutable mutable = contents.asMutable();
@@ -157,6 +166,11 @@ public class PocketJukeboxItem extends BlockItem {
 
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack jukebox, ItemStack cursor, Slot slot, ClickAction action, Player player, SlotAccess carried) {
+        if (action == ClickAction.PRIMARY && cursor.isEmpty()) {
+            // picked up: like Vanilla's bundle the selection goes
+            select(jukebox, -1);
+            return false;
+        }
         if (action == ClickAction.PRIMARY && !cursor.isEmpty()) {
             if (!isDisc(cursor)) return false;
             if (!slot.allowModification(player)) return false;
@@ -189,11 +203,11 @@ public class PocketJukeboxItem extends BlockItem {
         return InteractionResult.SUCCESS;
     }
 
-    /** A stack that played when it left the inventory (or before a restart) shows closed again. */
+    /** A stack that played when it left the inventory (or before a restart) stops showing it. */
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
-        if (contents(stack).getSelectedItemIndex() >= 0 && !(entity instanceof ServerPlayer player && PocketPlayback.active(player, stack))) {
-            select(stack, -1);
+        if (stack.has(MusicComponents.PLAYING) && !(entity instanceof ServerPlayer player && PocketPlayback.active(player, stack))) {
+            stack.remove(MusicComponents.PLAYING);
         }
     }
 

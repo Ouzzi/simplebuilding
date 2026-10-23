@@ -304,6 +304,60 @@ final class PlacedBundleTests {
         helper.succeed();
     }
 
+    /**
+     * PJ23-2 (Besitzer 23.10.): auch ein abgestelltes Mod-Buendel (Enderit) spielt beim Hineinlegen (Schleichen) Vanillas
+     * Einlege-Ton - fuer alle am Block, also auch fuer den Spieler selbst (vorher nur Player#playSound, das ihn auslaesst).
+     */
+    public static void depositIntoAPlacedModBundlePlaysTheInsertSound(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<net.minecraft.network.protocol.Packet<?>> sink = new java.util.ArrayList<>();
+        ServerPlayer player = capturingPlayer(helper, sink);
+        player.snapTo(helper.absoluteVec(new Vec3(3.5, 3.2, 3.5)).x, helper.absoluteVec(new Vec3(3.5, 3.2, 3.5)).y,
+                helper.absoluteVec(new Vec3(3.5, 3.2, 3.5)).z, 0.0F, 0.0F);
+        player.setNoGravity(true);
+        player.setGameMode(GameType.SURVIVAL);
+        player.setShiftKeyDown(true);
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+        use(helper, player, filled(StorageItems.ENDERITE_BUNDLE), new BlockPos(2, 1, 2), Direction.UP);
+        BlockPos at = helper.absolutePos(new BlockPos(2, 2, 2));
+        helper.assertTrue(bundleAt(helper, new BlockPos(2, 2, 2)) != null, "the enderite bundle was not placed");
+        synchronized (sink) {
+            sink.clear();
+        }
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE, 8);
+        player.setItemInHand(InteractionHand.MAIN_HAND, cobble);
+        player.gameMode.useItemOn(player, level, cobble, InteractionHand.MAIN_HAND, hitTop(at));
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the cobblestone did not go in: " + player.getMainHandItem());
+        List<net.minecraft.network.protocol.game.ClientboundSoundPacket> sounds;
+        synchronized (sink) {
+            sounds = sink.stream().filter(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::isInstance)
+                    .map(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::cast).toList();
+        }
+        long inserts = sounds.stream().filter(p -> p.getSound().value() == net.minecraft.sounds.SoundEvents.BUNDLE_INSERT).count();
+        helper.assertTrue(inserts == 1, "the depositing player heard " + inserts + " insert sounds (want 1): " + sounds.size() + " sound packets");
+        helper.succeed();
+    }
+
+    /** Ein Test-Spieler, dessen Verbindung jedes Paket in {@code sink} legt. */
+    private static ServerPlayer capturingPlayer(GameTestHelper helper, List<net.minecraft.network.protocol.Packet<?>> sink) {
+        ServerLevel level = helper.getLevel();
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "test-capture"), false);
+        ServerPlayer player = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation());
+        net.minecraft.network.Connection connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND) {
+            @Override
+            public void send(net.minecraft.network.protocol.Packet<?> packet, io.netty.channel.ChannelFutureListener listener, boolean flush) {
+                synchronized (sink) {
+                    sink.add(packet);
+                }
+            }
+        };
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        return player;
+    }
+
     // =====================================================================================
     // Drops
     // =====================================================================================

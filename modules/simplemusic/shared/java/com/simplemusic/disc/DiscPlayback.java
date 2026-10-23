@@ -34,13 +34,16 @@ public final class DiscPlayback {
         final boolean song;
         final int ticks;
         final long started;
+        /** The Pocket Jukebox's session id (0 = none): sent along so its sound moves instead of starting again. */
+        final long pocket;
         final Set<UUID> told = new HashSet<>();
 
-        Session(String hash, boolean song, int ticks, long started) {
+        Session(String hash, boolean song, int ticks, long started, long pocket) {
             this.hash = hash;
             this.song = song;
             this.ticks = ticks;
             this.started = started;
+            this.pocket = pocket;
         }
     }
 
@@ -58,9 +61,24 @@ public final class DiscPlayback {
 
     /** Starts (or restarts) an upload hash or a song at a block, {@code offsetTicks} into it. */
     public static void start(ServerLevel level, BlockPos pos, String key, boolean song, int lengthTicks, int offsetTicks) {
+        start(level, pos, key, song, lengthTicks, offsetTicks, 0L);
+    }
+
+    /** {@link #start} for a placed Pocket Jukebox: {@code pocket} is its session id (PJ23-5). */
+    public static void start(ServerLevel level, BlockPos pos, String key, boolean song, int lengthTicks, int offsetTicks, long pocket) {
         stop(level, pos);
-        SESSIONS.put(GlobalPos.of(level.dimension(), pos.immutable()), new Session(key, song, Math.max(1, lengthTicks), level.getGameTime() - Math.max(0, offsetTicks)));
+        SESSIONS.put(GlobalPos.of(level.dimension(), pos.immutable()),
+                new Session(key, song, Math.max(1, lengthTicks), level.getGameTime() - Math.max(0, offsetTicks), pocket));
         update(level, pos);
+    }
+
+    /**
+     * Ends the block's track without telling anyone and returns who heard it: a Pocket Jukebox broken while it plays goes
+     * on as the dropped item, whose session takes these listeners over (PJ23-5).
+     */
+    public static Set<UUID> detach(ServerLevel level, BlockPos pos) {
+        Session s = SESSIONS.remove(GlobalPos.of(level.dimension(), pos));
+        return s == null ? Set.of() : Set.copyOf(s.told);
     }
 
     public static boolean playing(ServerLevel level, BlockPos pos) {
@@ -84,7 +102,7 @@ public final class DiscPlayback {
         if (s == null) return;
         for (UUID id : s.told) {
             ServerPlayer player = level.getServer().getPlayerList().getPlayer(id);
-            if (player != null) SimpleMusic.toClient.accept(player, TrackPlayPayload.stop(pos));
+            if (player != null) SimpleMusic.toClient.accept(player, TrackPlayPayload.stop(pos, s.pocket));
         }
     }
 
@@ -101,14 +119,14 @@ public final class DiscPlayback {
             if (!s.song && (track == null || !track.audibleFor(player.getUUID()))) continue;
             near.add(player.getUUID());
             if (s.told.add(player.getUUID())) {
-                SimpleMusic.toClient.accept(player, new TrackPlayPayload(pos, s.hash, offset, Math.max(1, s.ticks / 20)));
+                SimpleMusic.toClient.accept(player, new TrackPlayPayload(pos, s.hash, offset, Math.max(1, s.ticks / 20), false, s.pocket, -1));
             }
         }
         for (UUID id : Set.copyOf(s.told)) {
             if (near.contains(id)) continue;
             s.told.remove(id);
             ServerPlayer player = level.getServer().getPlayerList().getPlayer(id);
-            if (player != null) SimpleMusic.toClient.accept(player, TrackPlayPayload.stop(pos));
+            if (player != null) SimpleMusic.toClient.accept(player, TrackPlayPayload.stop(pos, s.pocket));
         }
     }
 
