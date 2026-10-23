@@ -2255,7 +2255,12 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
         "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json",
         "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/HiddenOreBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/BrushItemMixin.java",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_ore.json",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_ore.json",
+        "mc26_3/overlay/resources/assets/simplebuilding/blockstates/astralit_ore.json"
       ],
       "en": {
         "title": "Ore Generation in the End (Astralit and Nihilit)",
@@ -2267,7 +2272,7 @@ window.WIKI_DATA = {
           "Nihilit Ore: vein size 6 (5 before W23-2); 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
           "Astralit Ore: hardness 20, blast resistance 1200, emits light level 5, requires a diamond or better pickaxe (tags mineable/pickaxe and needs_diamond_tool), drops 3-7 experience.",
           "Nihilit Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
-          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Fortune raises the amount by the ore formula (ore_drops), Silk Touch yields the ore block itself.",
+          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Silk Touch yields the ore block itself. W24-4 (owner 23.10.2026): the ores hide in the end stone (a few faint crystal splinters) until a brush frees them like an archaeology find: every brush stroke (every 10 ticks of brushing) adds one step to the block state brushed (0-6); after six strokes the ore shows its full crystals with a soft glimmer (animated texture) and the brush loses one durability. Only a freed ore (brushed=6) drops the full amount - one item, raised by Fortune with the ore formula (ore_drops: on average 1, 1.33, 1.75, 2.2 for Fortune 0-III); a hidden or half-brushed ore drops the same with a 70% chance (on average 0.7, 0.93, 1.23, 1.54). Progress stays where brushing stopped; Silk Touch gives the hidden ore block. Dull ores do not react to the brush.",
           "The ores also exist as block items (astralit_ore, nihilith_ore) and appear in the creative tab \"SimpleMaterials\" (simplebuilding:materials).",
           "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names.",
           "Dull ore (W23-2, owner 23.10.2026): about one ore block in five of every vein is Dull Astralit Ore or Dull Nihilit Ore. The vein has two targets - first a random end stone match with the dull chance (Astralit 0.162, Nihilit 0.194), then one with the real chance (0.773 / 0.966); the rest stays end stone. The bigger veins keep the expected amount of real ore as before (a re-implementation of OreFeature in the placement surroundings: Astralit 1.89, Nihilit 1.58 real blocks per vein; a gametest measures 600 veins each).",
@@ -2284,7 +2289,7 @@ window.WIKI_DATA = {
           "Nihilit Ore: Adergröße 6 (vor W23-2: 5); 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
           "Astralit Ore: Härte 20, Explosionswiderstand 1200, leuchtet mit Lichtstärke 5, benötigt eine Spitzhacke aus Diamant oder besser (Tags mineable/pickaxe und needs_diamond_tool), gibt 3–7 Erfahrungspunkte.",
           "Nihilit Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
-          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Glück erhöht die Menge nach der Erz-Formel (ore_drops), Behutsamkeit liefert den Erzblock selbst.",
+          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Behutsamkeit liefert den Erzblock selbst. W24-4 (Besitzer 23.10.2026): die Erze verstecken sich im Endstein (nur einzelne blasse Kristallsplitter), bis ein Pinsel sie wie einen Archäologie-Fund freilegt: jeder Pinselstrich (alle 10 Ticks Pinseln) erhöht den Blockzustand brushed (0–6) um eins; nach sechs Strichen zeigt das Erz seine vollen Kristalle mit dezentem Glimmen (animierte Textur) und der Pinsel verliert einen Haltbarkeitspunkt. Nur freigelegtes Erz (brushed=6) gibt die volle Menge – ein Item, mit Glück nach der Erz-Formel erhöht (ore_drops: im Mittel 1; 1,33; 1,75; 2,2 bei Glück 0–III); verstecktes oder halb gepinseltes Erz gibt dasselbe mit 70 % Wahrscheinlichkeit (im Mittel 0,7; 0,93; 1,23; 1,54). Der Fortschritt bleibt stehen, wo das Pinseln aufhörte; Behutsamkeit liefert den versteckten Erzblock. Trübe Erze reagieren nicht auf den Pinsel.",
           "Die Erze existieren auch als Blockitems (astralit_ore, nihilith_ore) und stehen im Kreativ-Tab „SimpleMaterials“ (simplebuilding:materials).",
           "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück.",
           "Trübes Erz (W23-2, Besitzer 23.10.2026): etwa jeder fünfte Erzblock einer Ader ist Trübes Astraliterz bzw. Trübes Nihiliterz. Die Ader hat zwei Ziele – zuerst ein zufälliger Endstein-Treffer mit der Trüb-Wahrscheinlichkeit (Astralit 0,162, Nihilit 0,194), dann einer mit der Echt-Wahrscheinlichkeit (0,773 / 0,966); der Rest bleibt Endstein. Die größeren Adern halten die erwartete Menge echten Erzes wie vorher (Nachbildung von OreFeature im Platzierungs-Umfeld: Astralit 1,89, Nihilit 1,58 echte Blöcke je Ader; ein Gametest misst je 600 Adern).",
@@ -2990,7 +2995,11 @@ window.WIKI_DATA = {
         "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json",
         "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_block.json",
         "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_block.json",
-        "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json"
+        "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneTorchBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneWallTorchBlock.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone_torch.json",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone_torch.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
@@ -3002,7 +3011,11 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_lamp",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:astral_piston",
-        "simplebuilding:nihil_piston"
+        "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_redstone_torch",
+        "simplebuilding:astral_redstone_torch",
+        "simplebuilding:nihilith_end_rod",
+        "simplebuilding:astralit_end_rod"
       ],
       "en": {
         "title": "Astral, Nihil and Bridge Redstone",
@@ -3017,7 +3030,8 @@ window.WIKI_DATA = {
           "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
           "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take every line - dust of any line lying next to them, levers, redstone blocks and the line blocks - and relay nothing; they fire when the signal switches on, not while it stays on.",
           "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
-          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
+          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload.",
+          "Astral and Nihil Redstone Torch (line dust over a stick): Vanilla's redstone torch - an inverter that goes out when the block it stands on or hangs from is powered by any line, burns out when toggled too often, glows with light 7 and strongly powers the block above - but its output belongs to its line like the line's redstone block: dust of its own line and Bridge Redstone take it, redstone dust and the other line's dust do not, neither directly nor through the block above it; every device reacts. With server.features.endSignals off it gives no signal."
         ]
       },
       "de": {
@@ -3033,7 +3047,8 @@ window.WIKI_DATA = {
           "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
           "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen jede Linie an - Staub jeder Linie direkt daneben, Hebel, Redstone-Blöcke und die Blöcke der Linien - und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
           "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
-          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Astral- und Nihil-Redstone-Fackel (Linien-Staub über einem Stock): Vanillas Redstone-Fackel - ein Inverter, der ausgeht, wenn der Block, auf oder an dem sie sitzt, von irgendeiner Linie gespeist wird, bei zu häufigem Schalten durchbrennt, mit Licht 7 leuchtet und den Block über sich stark speist - aber ihr Ausgang gehört ihrer Linie wie der Redstone-Block der Linie: Staub ihrer Linie und Brücken-Redstone nehmen ihn an, Redstone-Staub und Staub der anderen Linie nicht, weder direkt noch über den Block über ihr; jedes Gerät reagiert. Mit server.features.endSignals aus gibt sie kein Signal."
         ]
       }
     },
@@ -3675,6 +3690,7 @@ window.WIKI_DATA = {
         "simplebuilding:astral_piston",
         "simplebuilding:astral_rail",
         "simplebuilding:astral_redstone_block",
+        "simplebuilding:astral_redstone_torch",
         "simplebuilding:astralit_lamp"
       ],
       "trades": [],
@@ -4588,6 +4604,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_stairs_from_end_stone_brick_stairs",
         "simplebuilding:astralit_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
+        "simplebuilding:astralit_end_rod",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
         "simplebuilding:astralit_quartz_checker",
         "simplebuilding:bridge_redstone",
@@ -6349,14 +6366,16 @@ window.WIKI_DATA = {
           "summary": "A shard of Blazing Obsidian: 9 sledgehammer strikes on one block give 9 chips, 9 chips in the crafting grid give the block back.",
           "details": [
             "Right-click a Blazing Obsidian block with any sledgehammer: one Blazing Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Blazing Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid give the block back.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
           "summary": "Ein Splitter vom Lohen-Obsidian: 9 Vorschlaghammer-Schläge auf einen Block ergeben 9 Splitter, 9 Splitter im Handwerksfeld wieder den Block.",
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Block Lohen-Obsidian rechtsklicken: je Schlag ein Lohen-Obsidian-Splitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Lohen-Obsidian-Splitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Block zurück.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -6365,7 +6384,8 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "tools/textures/obsidian_chips_n55_2026_10_14.py"
+          "tools/textures/obsidian_chips_n55_2026_10_14.py",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9067,14 +9087,16 @@ window.WIKI_DATA = {
           "summary": "A shard of Crying Obsidian: 9 sledgehammer strikes on one block give 9 chips, 9 chips in the crafting grid give the block back.",
           "details": [
             "Right-click a Crying Obsidian block with any sledgehammer: one Crying Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Crying Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid give the block back.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
           "summary": "Ein Splitter vom Weinenden Obsidian: 9 Vorschlaghammer-Schläge auf einen Block ergeben 9 Splitter, 9 Splitter im Handwerksfeld wieder den Block.",
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Block Weinenden Obsidian rechtsklicken: je Schlag ein Weinender-Obsidian-Splitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Weinender-Obsidian-Splitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Block zurück.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -9083,7 +9105,8 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "tools/textures/obsidian_chips_n55_2026_10_14.py"
+          "tools/textures/obsidian_chips_n55_2026_10_14.py",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -12978,7 +13001,8 @@ window.WIKI_DATA = {
           "details": [
             "Sneak + right-click to place a Fire Charge, then right-click it with any sledgehammer four times: one Fire Chip per strike, all four free on the last. In a mixed pile, only the most recently placed Fire Charge is consumed; other parts stay. Works on floors, walls, and ceilings. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
@@ -12986,7 +13010,8 @@ window.WIKI_DATA = {
           "details": [
             "Feuerkugel mit Schleichen + Rechtsklick ablegen, dann viermal mit einem beliebigen Vorschlaghammer rechtsklicken: je Schlag ein Feuerkugelsplitter, alle vier beim letzten frei. Im gemischten Haufen wird nur die zuletzt abgelegte Feuerkugel verbraucht; andere Teile bleiben. Funktioniert auf Boden, Wand und Decke. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -12995,7 +13020,8 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -13042,13 +13068,15 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A flake of flint: one flint gives 4 Flint Chips, 4 chips in a 2x2 give the flint back.",
           "details": [
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs).",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
           "summary": "Ein Splitter Feuerstein: ein Feuerstein ergibt 4 Feuersteinsplitter, 4 Splitter im 2x2-Feld wieder den Feuerstein.",
           "details": [
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs).",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -13056,7 +13084,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -15356,7 +15385,8 @@ window.WIKI_DATA = {
           "details": [
             "Right-click an Ice block with any sledgehammer: one Ice Chip per strike, 4 strikes (Packed Ice: 9). The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
@@ -15364,7 +15394,8 @@ window.WIKI_DATA = {
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Eisblock rechtsklicken: je Schlag ein Eissplitter, 4 Schläge (Packeis: 9). Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -15373,7 +15404,8 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -20287,6 +20319,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_rail",
         "simplebuilding:nihil_redstone_block",
+        "simplebuilding:nihil_redstone_torch",
         "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
@@ -21494,6 +21527,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_stairs_from_end_stone_brick_stairs",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
+        "simplebuilding:nihilith_end_rod",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
         "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:note_amplifier",
@@ -21717,14 +21751,16 @@ window.WIKI_DATA = {
           "summary": "A shard of volcanic glass: 9 sledgehammer strikes on an Obsidian block give 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
           "details": [
             "Right-click an Obsidian block with any sledgehammer: one Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid still give the Obsidian back.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
           "summary": "Ein Splitter Vulkanglas: 9 Vorschlaghammer-Schläge auf einen Obsidianblock ergeben 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: je Schlag ein Obsidiansplitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Obsidiansplitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Obsidian weiterhin zurück.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -21732,7 +21768,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -30162,13 +30199,15 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",
           "details": [
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs).",
+            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
           ]
         },
         "de": {
           "summary": "Ein kleiner Stein: ein Bruchstein ergibt 9 Steinkiesel, 9 Kiesel im Handwerksfeld wieder den Bruchstein.",
           "details": [
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs).",
+            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
           ]
         },
         "sources": [
@@ -30176,7 +30215,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -32370,6 +32410,7 @@ window.WIKI_DATA = {
         "simplebuilding:astral_piston",
         "simplebuilding:astral_rail",
         "simplebuilding:astral_redstone_block",
+        "simplebuilding:astral_redstone_torch",
         "simplebuilding:astralit_lamp"
       ],
       "trades": [],
@@ -41954,6 +41995,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_rail",
         "simplebuilding:nihil_redstone_block",
+        "simplebuilding:nihil_redstone_torch",
         "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
@@ -49247,6 +49289,53 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astral_redstone_torch",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_redstone_torch",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone_torch.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simplebuilding:astral_redstone"
+      ],
+      "pattern": [
+        "X",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "simplebuilding:astral_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -50761,6 +50850,49 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:dull_astralit_dust",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_end_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_end_rod",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_end_rod.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "/",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astralit_dust"
+        ],
+        "/": [
+          "minecraft:blaze_rod"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
           }
         ]
       }
@@ -69295,6 +69427,53 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihil_redstone_torch",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_redstone_torch",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone_torch.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simplebuilding:nihil_redstone"
+      ],
+      "pattern": [
+        "X",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "simplebuilding:nihil_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_vault",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -70769,6 +70948,49 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_end_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_end_rod",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_end_rod.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "/",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "/": [
+          "minecraft:blaze_rod"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
           }
         ]
       }
@@ -94607,6 +94829,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_redstone_block.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_redstone_torch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_redstone_torch"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astral_redstone_torch.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_vault",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -94713,6 +94953,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_end_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_end_rod"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_end_rod.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_lamp",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -94739,13 +94997,14 @@ window.WIKI_DATA = {
           "rolls": 1,
           "items": [
             "simplebuilding:astralit_ore",
+            "simplebuilding:astralit_dust",
             "simplebuilding:astralit_dust"
           ],
           "conditions": [],
           "functions": []
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_ore.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_pillar",
@@ -97820,6 +98079,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_redstone_block.json"
     },
     {
+      "id": "simplebuilding:blocks/nihil_redstone_torch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_redstone_torch"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_redstone_torch.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihil_vault",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -97926,6 +98203,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_end_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_end_rod"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_end_rod.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_lamp",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -97952,13 +98247,14 @@ window.WIKI_DATA = {
           "rolls": 1,
           "items": [
             "simplebuilding:nihilith_ore",
+            "simplebuilding:nihilith_shard",
             "simplebuilding:nihilith_shard"
           ],
           "conditions": [],
           "functions": []
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_pillar",
@@ -107689,8 +107985,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Enable Simple Music",
       "labelDe": "Simple Music aktivieren",
-      "tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Orchestrion, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Music ein oder aus: Notenblätter, Orchestrion, Plattenpresse, hochgeladene Platten und die Taschen-Jukebox. Aus blendet seine Kreativtab-Einträge aus und stoppt Abspielen, Pressen und Hochladen; Items, Blöcke und Platten bleiben. Gilt nach einem Neustart. Standard: an."
+      "tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Music ein oder aus: Notenblätter, Plattenpresse, hochgeladene Platten und die Taschen-Jukebox. Aus blendet seine Kreativtab-Einträge aus und stoppt Abspielen, Pressen und Hochladen; Items, Blöcke und Platten bleiben. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -109395,6 +109691,26 @@ window.WIKI_DATA = {
       "labelDe": "26.4-Jukebox",
       "tooltip": "The jukebox from 26.4 Snapshot 4 (new\nside, top and bottom). Off: the jukebox\nof this version. A resource pack that\nchanges the jukebox wins. Takes effect\nafter reloading resources (F3+T).\nDefault: on.",
       "tooltipDe": "Die Jukebox aus 26.4 Snapshot 4 (neue\nSeiten, Oberseite und Unterseite). Aus:\ndie Jukebox dieser Version. Ein\nRessourcenpaket, das die Jukebox ändert,\ngewinnt. Wirkt nach dem Neuladen der\nRessourcen (F3+T). Standard: an."
+    },
+    {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "noteBlockFrameTexture",
+      "shortName": "noteBlockFrameTexture",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Framed Note Block",
+      "labelDe": "Notenblock mit Rahmen",
+      "tooltip": "The note block with the jukebox frame all\naround, like the amplifiers. Off: the\nVanilla note block. A resource pack that\nchanges the note block wins. Takes effect\nafter reloading resources (F3+T).\nDefault: off.",
+      "tooltipDe": "Der Notenblock mit dem Jukebox-Rahmen\nrundum wie die Verstärker. Aus: der\nVanilla-Notenblock. Ein Ressourcenpaket,\ndas den Notenblock ändert, gewinnt. Wirkt\nnach dem Neuladen der Ressourcen (F3+T).\nStandard: aus."
     },
     {
       "range": null,
@@ -136827,12 +137143,12 @@ window.WIKI_DATA = {
   "counts": {
     "items": 543,
     "blocks": 320,
-    "recipes": 857,
-    "lootTables": 339,
+    "recipes": 861,
+    "lootTables": 343,
     "trades": 20,
     "enchantments": 13,
     "tags": 57,
-    "config": 227,
+    "config": 228,
     "inWorld": 481,
     "advancements": 116,
     "features": 48,
