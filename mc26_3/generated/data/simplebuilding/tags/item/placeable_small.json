@@ -63,6 +63,24 @@
     "simplelib:enderite_scrap",
     "simplelib:cracked_diamond",
     "simplebuilding:sage_orb",
+    "simplebuilding:dull_astralit_dust",
+    "simplebuilding:dull_nihilith_shard",
+    {
+      "id": "simplebeacons:strong_upgrade_shard",
+      "required": false
+    },
+    {
+      "id": "simplemobs:illusion_shard",
+      "required": false
+    },
+    {
+      "id": "simplemobs:soulfire_powder",
+      "required": false
+    },
+    {
+      "id": "simplemobs:nether_gem",
+      "required": false
+    },
     {
       "id": "#minecraft:decorated_pot_sherds",
       "required": false

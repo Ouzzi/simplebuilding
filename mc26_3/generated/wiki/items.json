@@ -9,12 +9,15 @@
     "simplebuilding:astral_rail",
     "simplebuilding:astral_redstone",
     "simplebuilding:astral_redstone_block",
+    "simplebuilding:astral_redstone_torch",
+    "simplebuilding:astral_redstone_wall_torch",
     "simplebuilding:astral_vault",
     "simplebuilding:astralit_block",
     "simplebuilding:astralit_brick_slab",
     "simplebuilding:astralit_brick_stairs",
     "simplebuilding:astralit_brick_wall",
     "simplebuilding:astralit_bricks",
+    "simplebuilding:astralit_end_rod",
     "simplebuilding:astralit_lamp",
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
@@ -188,12 +191,15 @@
     "simplebuilding:nihil_rail",
     "simplebuilding:nihil_redstone",
     "simplebuilding:nihil_redstone_block",
+    "simplebuilding:nihil_redstone_torch",
+    "simplebuilding:nihil_redstone_wall_torch",
     "simplebuilding:nihil_vault",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
     "simplebuilding:nihilith_brick_wall",
     "simplebuilding:nihilith_bricks",
+    "simplebuilding:nihilith_end_rod",
     "simplebuilding:nihilith_lamp",
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
@@ -214,6 +220,7 @@
     "simplebuilding:pink_light_pane",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_egg",
+    "simplebuilding:placed_paint_box",
     "simplebuilding:placed_small_parts",
     "simplebuilding:placed_smithing_template",
     "simplebuilding:polished_astralit",
@@ -356,6 +363,9 @@
       "id": "simplebuilding:astral_redstone_block"
     },
     {
+      "id": "simplebuilding:astral_redstone_torch"
+    },
+    {
       "id": "simplebuilding:astral_vault"
     },
     {
@@ -423,6 +433,9 @@
     },
     {
       "id": "simplebuilding:astralit_dust"
+    },
+    {
+      "id": "simplebuilding:astralit_end_rod"
     },
     {
       "id": "simplebuilding:astralit_lamp"
@@ -1547,6 +1560,9 @@
       "id": "simplebuilding:nihil_redstone_block"
     },
     {
+      "id": "simplebuilding:nihil_redstone_torch"
+    },
+    {
       "id": "simplebuilding:nihil_vault"
     },
     {
@@ -1611,6 +1627,9 @@
     {
       "id": "simplebuilding:nihilith_chess_rook_flat",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_end_rod"
     },
     {
       "id": "simplebuilding:nihilith_lamp"
