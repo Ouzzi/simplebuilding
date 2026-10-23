@@ -36,8 +36,8 @@ public final class SimpleEndConfig {
     /** Dropped Simple End wood items stay 10 instead of 5 minutes. */
     public static boolean longerDespawn = true;
 
-    /** Client: from outside the forest biomes show as a wall of fog (N1 B), and how far the fog is pulled (0..1). */
-    public static boolean forestFogWall = true;
+    /** Client: from outside the forest biomes show as a wall of fog (N1 B; off by default, owner 17.10. "A, B only if A is not enough"), and how far the fog is pulled (0..1). */
+    public static boolean forestFogWall = false;
     public static double forestFogStrength = 0.85;
 
     private SimpleEndConfig() {}
@@ -75,7 +75,7 @@ public final class SimpleEndConfig {
         budsGrowAlone = bool(json, "budsGrowAlone", true);
         voidSafeItems = bool(json, "voidSafeItems", true);
         longerDespawn = bool(json, "longerDespawn", true);
-        forestFogWall = bool(json, "forestFogWall", true);
+        forestFogWall = bool(json, "forestFogWall", false);
         forestFogStrength = clamp(number(json, "forestFogStrength", 0.85), 0.0, 1.0);
     }
 

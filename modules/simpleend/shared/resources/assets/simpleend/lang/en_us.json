@@ -63,7 +63,7 @@
   "config.simpleend.forestFogStrength": "Forest fog wall strength",
   "config.simpleend.forestFogStrength.tooltip": "Client: how far the fog is pulled toward the forest core fog (0 to 1). Default: 0.85.",
   "config.simpleend.forestFogWall": "Forest fog wall",
-  "config.simpleend.forestFogWall.tooltip": "Client: seen from outside (also from above), the Ash Valley and Dawnlands forests rise as a wall of fog. Off keeps the plain Vanilla fog.",
+  "config.simpleend.forestFogWall.tooltip": "Client: seen from outside (also from above), the Ash Valley and Dawnlands forests rise as a wall of fog. Default: off (plain Vanilla fog).",
   "config.simpleend.longerDespawn": "Longer despawn time",
   "config.simpleend.longerDespawn.tooltip": "Dropped End-wood items stay 10 instead of 5 minutes.",
   "config.simpleend.voidSafeItems": "Void-safe wood items",
