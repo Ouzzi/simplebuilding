@@ -1149,6 +1149,332 @@ window.WIKI_ENCHANTING = {
    "exclusive": []
   },
   {
+   "id": "simplebuilding:bridge",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Bridge",
+    "de": "Brücke"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuilding:cover"
+   ]
+  },
+  {
+   "id": "simplebuilding:color_palette",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Color Palette",
+    "de": "Farbpalette"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 65,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:constructors_touch",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Constructor's Touch",
+    "de": "Berührung des Konstrukteurs"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 1,
+   "minCost": {
+    "base": 20,
+    "per_level_above_first": 10
+   },
+   "maxCost": {
+    "base": 50,
+    "per_level_above_first": 10
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:cover",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Cover",
+    "de": "Abdeckung"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuilding:bridge",
+    "simplebuilding:linear"
+   ]
+  },
+  {
+   "id": "simplebuilding:double_jump",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Air Jump",
+    "de": "Luftsprung"
+   },
+   "desc": null,
+   "maxLevel": 2,
+   "weight": 2,
+   "minCost": {
+    "base": 20,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 70,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:fast_chiseling",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Fast Chiseling",
+    "de": "Schnelles Meißeln"
+   },
+   "desc": null,
+   "maxLevel": 2,
+   "weight": 5,
+   "minCost": {
+    "base": 1,
+    "per_level_above_first": 10
+   },
+   "maxCost": {
+    "base": 20,
+    "per_level_above_first": 10
+   },
+   "table": true,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:kinetic_protection",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Kinetic Protection",
+    "de": "Kinetischer Schutz"
+   },
+   "desc": null,
+   "maxLevel": 4,
+   "weight": 5,
+   "minCost": {
+    "base": 10,
+    "per_level_above_first": 8
+   },
+   "maxCost": {
+    "base": 20,
+    "per_level_above_first": 8
+   },
+   "table": true,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "minecraft:protection",
+    "minecraft:blast_protection",
+    "minecraft:fire_protection",
+    "minecraft:projectile_protection"
+   ]
+  },
+  {
+   "id": "simplebuilding:linear",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Linear",
+    "de": "Linear"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 2,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 15
+   },
+   "maxCost": {
+    "base": 55,
+    "per_level_above_first": 15
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuilding:cover"
+   ]
+  },
+  {
+   "id": "simplebuilding:master_builder",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Master Builder",
+    "de": "Baumeister"
+   },
+   "desc": null,
+   "maxLevel": 1,
+   "weight": 1,
+   "minCost": {
+    "base": 25,
+    "per_level_above_first": 25
+   },
+   "maxCost": {
+    "base": 75,
+    "per_level_above_first": 25
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:range",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Range",
+    "de": "Reichweite"
+   },
+   "desc": null,
+   "maxLevel": 3,
+   "weight": 1,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 9
+   },
+   "maxCost": {
+    "base": 65,
+    "per_level_above_first": 9
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:strip_miner",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Strip Miner",
+    "de": "Tunnelgräber"
+   },
+   "desc": null,
+   "maxLevel": 3,
+   "weight": 1,
+   "minCost": {
+    "base": 20,
+    "per_level_above_first": 10
+   },
+   "maxCost": {
+    "base": 60,
+    "per_level_above_first": 10
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
+   "id": "simplebuilding:vein_miner",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Vein Miner",
+    "de": "Aderabbau"
+   },
+   "desc": null,
+   "maxLevel": 5,
+   "weight": 1,
+   "minCost": {
+    "base": 20,
+    "per_level_above_first": 10
+   },
+   "maxCost": {
+    "base": 70,
+    "per_level_above_first": 10
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": [
+    "simplebuilding:strip_miner"
+   ]
+  },
+  {
+   "id": "simplebuilding:versatility",
+   "module": "simplebuilding",
+   "family": true,
+   "name": {
+    "en": "Versatility",
+    "de": "Vielseitigkeit"
+   },
+   "desc": null,
+   "maxLevel": 2,
+   "weight": 1,
+   "minCost": {
+    "base": 15,
+    "per_level_above_first": 0
+   },
+   "maxCost": {
+    "base": 65,
+    "per_level_above_first": 0
+   },
+   "table": false,
+   "curse": false,
+   "treasure": false,
+   "exclusive": []
+  },
+  {
    "id": "simplefun:no_damage",
    "module": "simplefun",
    "family": true,
@@ -1511,7 +1837,9 @@ window.WIKI_ENCHANTING = {
   "minecraft:density",
   "minecraft:breach",
   "minecraft:lunge",
-  "simplequalityoflife:thrift"
+  "simplequalityoflife:thrift",
+  "simplebuilding:fast_chiseling",
+  "simplebuilding:kinetic_protection"
  ],
  "items": [
   {
@@ -1560,7 +1888,9 @@ window.WIKI_ENCHANTING = {
     "minecraft:density",
     "minecraft:breach",
     "minecraft:lunge",
-    "simplequalityoflife:thrift"
+    "simplequalityoflife:thrift",
+    "simplebuilding:fast_chiseling",
+    "simplebuilding:kinetic_protection"
    ],
    "family": []
   },
@@ -1582,8 +1912,14 @@ window.WIKI_ENCHANTING = {
    ],
    "family": [
     [
+     "simplebuilding:range",
+     "simplebuilding:strip_miner",
+     "simplebuilding:versatility",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
+    ],
+    [
+     "simplebuilding:vein_miner"
     ]
    ]
   },
@@ -1632,10 +1968,12 @@ window.WIKI_ENCHANTING = {
     "minecraft:projectile_protection",
     "minecraft:thorns",
     "minecraft:unbreaking",
-    "simplequalityoflife:thrift"
+    "simplequalityoflife:thrift",
+    "simplebuilding:kinetic_protection"
    ],
    "family": [
     [
+     "simplebuilding:kinetic_protection",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
     ]
@@ -1656,10 +1994,12 @@ window.WIKI_ENCHANTING = {
     "minecraft:blast_protection",
     "minecraft:projectile_protection",
     "minecraft:unbreaking",
-    "simplequalityoflife:thrift"
+    "simplequalityoflife:thrift",
+    "simplebuilding:kinetic_protection"
    ],
    "family": [
     [
+     "simplebuilding:kinetic_protection",
      "simplemovement:sprint",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
@@ -1683,10 +2023,13 @@ window.WIKI_ENCHANTING = {
     "minecraft:projectile_protection",
     "minecraft:depth_strider",
     "minecraft:unbreaking",
-    "simplequalityoflife:thrift"
+    "simplequalityoflife:thrift",
+    "simplebuilding:kinetic_protection"
    ],
    "family": [
     [
+     "simplebuilding:double_jump",
+     "simplebuilding:kinetic_protection",
      "simplemovement:step_height",
      "simplequalityoflife:thrift",
      "simpletools:soulbound"
@@ -1721,6 +2064,58 @@ window.WIKI_ENCHANTING = {
    ]
   },
   {
+   "id": "simplebuilding:diamond_building_wand",
+   "name": {
+    "en": "Diamond Building Wand",
+    "de": "Diamant-Baustab"
+   },
+   "enchantability": 10,
+   "assumed": false,
+   "icon": "assets/textures/item/diamond_building_wand.png",
+   "table": [
+    "minecraft:unbreaking",
+    "simplequalityoflife:thrift"
+   ],
+   "family": [
+    [
+     "simplebuilding:bridge",
+     "simplebuilding:color_palette",
+     "simplebuilding:constructors_touch",
+     "simplebuilding:linear",
+     "simplebuilding:master_builder",
+     "simplequalityoflife:thrift",
+     "simpletools:soulbound"
+    ],
+    [
+     "simplebuilding:cover"
+    ]
+   ]
+  },
+  {
+   "id": "simplebuilding:diamond_chisel",
+   "name": {
+    "en": "Diamond Chisel",
+    "de": "Diamantmeißel"
+   },
+   "enchantability": 10,
+   "assumed": false,
+   "icon": "assets/textures/item/diamond_chisel.png",
+   "table": [
+    "minecraft:unbreaking",
+    "simplequalityoflife:thrift",
+    "simplebuilding:fast_chiseling"
+   ],
+   "family": [
+    [
+     "simplebuilding:constructors_touch",
+     "simplebuilding:fast_chiseling",
+     "simplebuilding:range",
+     "simplequalityoflife:thrift",
+     "simpletools:soulbound"
+    ]
+   ]
+  },
+  {
    "id": "simplehammers:diamond_sledgehammer",
    "name": {
     "en": "Diamond Sledgehammer",
@@ -1738,6 +2133,9 @@ window.WIKI_ENCHANTING = {
    ],
    "family": [
     [
+     "simplebuilding:constructors_touch",
+     "simplebuilding:range",
+     "simplebuilding:versatility",
      "simplehammers:break_through",
      "simplehammers:override",
      "simplehammers:radius",
@@ -1761,10 +2159,12 @@ window.WIKI_ENCHANTING = {
     "minecraft:feather_falling",
     "minecraft:blast_protection",
     "minecraft:projectile_protection",
-    "minecraft:depth_strider"
+    "minecraft:depth_strider",
+    "simplebuilding:kinetic_protection"
    ],
    "family": [
     [
+     "simplebuilding:kinetic_protection",
      "simplemovement:step_height",
      "simpleriding:leaping"
     ]
@@ -1798,6 +2198,8 @@ window.WIKI_ENCHANTING = {
    "table": [],
    "family": [
     [
+     "simplebuilding:constructors_touch",
+     "simplebuilding:master_builder",
      "simplestorage:deep_pockets",
      "simplestorage:funnel"
     ]
@@ -1815,9 +2217,14 @@ window.WIKI_ENCHANTING = {
    "table": [],
    "family": [
     [
+     "simplebuilding:color_palette",
+     "simplebuilding:constructors_touch",
+     "simplebuilding:master_builder",
      "simplestorage:deep_pockets",
-     "simplestorage:drawer",
      "simplestorage:funnel"
+    ],
+    [
+     "simplestorage:drawer"
     ]
    ]
   }
