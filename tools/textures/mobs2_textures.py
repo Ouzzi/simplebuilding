@@ -357,7 +357,7 @@ def outputs():
         tex / 'entity/equipment/humanoid/shellker.png': armor_layer(),
         tex / 'item/shellker_helmet.png': helmet_item(),
         tex / 'item/soulfire_rod.png': rod_item(),
-        tex / 'item/shellker_spawn_egg.png': egg(BED[2], BED[1], VIOLET[2], VIOLET[1]),
+        # item/shellker_spawn_egg.png: tools/textures/spawn_eggs_2026_10_23.py (animated, owner 23.10., TX22-2)
         tex / 'item/soulfire_blaze_spawn_egg.png': egg(SOUL[2], SOUL[1], SOUL[5], SOUL[4]),
         tex / 'mob_effect/high_gravity.png': gravity_icon(),
     }

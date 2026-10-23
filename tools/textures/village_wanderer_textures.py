@@ -7,7 +7,7 @@ VillagerModel), nothing is copied or recoloured. Light from the top left, nothin
 * textures/entity/village_wanderer.png (64x64, VillagerModel UV layout): felt hat with a wide brim and a hood that hangs
   over the shoulders, warm ochre travel cloak with rust trim, green scarf with a small brass bell, bedroll and pouch on
   the back, leather boots, a short grey beard.
-* textures/item/village_wanderer_spawn_egg.png (16x16): ochre egg with a green scarf band and a brass bell.
+* textures/item/village_wanderer_spawn_egg.png: since 23.10. from tools/textures/spawn_eggs_2026_10_23.py (only shown here).
 
 Writes modules/simplewanderers/shared/resources/assets/simplewanderers/textures/... and previews (front and back view
 built from the same faces, unwrapped sheet, egg) to docs/ai/previews/oc-wanderers/.
@@ -364,54 +364,9 @@ def entity():
     return s.img
 
 
-# --- spawn egg -------------------------------------------------------------------------------------------------------------
-
-def egg():
-    s = Sheet(16, 16)
-    cx, cy = 7.5, 8.0
-    rows = {}
-    for y in range(1, 15):
-        t = (y - cy) / 7.0
-        half = 5.0 * (1 - t * t) ** 0.5 * (1.0 - 0.12 * t)  # a little narrower at the top
-        rows[y] = half
-    for y, half in rows.items():
-        for x in range(16):
-            dx = abs(x - cx)
-            if dx > half:
-                continue
-            edge = dx > half - 1.0 or y in (1, 14)
-            if edge:
-                c = RUST[0] if (x + y) % 3 else RUST[1]
-            else:
-                lit = (x - cx) * -0.7 + (y - cy) * -0.7
-                shade = 2 if lit < 1 else 3
-                if lit > 3.2:
-                    shade = 4
-                if lit < -3.2:
-                    shade = 1
-                c = OCHRE[shade]
-            s.put(x, y, c)
-    # Green scarf band across the lower third, brass bell on it.
-    for x in range(16):
-        for y in (9, 10):
-            if abs(x - cx) <= rows[y] - 1.0:
-                s.put(x, y, GREEN[2] if y == 9 else GREEN[1])
-    for x in range(16):
-        y = 9
-        if abs(x - cx) <= rows[y] - 1.0 and x < 6:
-            s.put(x, y, GREEN[3])
-    s.rect(9, 11, 11, 13, BRASS[1])
-    s.put(9, 11, BRASS[3])
-    s.put(10, 12, BRASS[0])
-    s.put(10, 11, BRASS[2])
-    # Brass speckles on the shoulders.
-    for x, y in ((5, 4), (9, 5), (7, 3)):
-        s.put(x, y, BRASS[2])
-    return s.img
-
-
 def outputs():
-    return {'entity/village_wanderer.png': entity(), 'item/village_wanderer_spawn_egg.png': egg()}
+    # The spawn egg is drawn by tools/textures/spawn_eggs_2026_10_23.py since the owner's choice of 23.10. (TX22-2).
+    return {'entity/village_wanderer.png': entity()}
 
 
 # --- previews --------------------------------------------------------------------------------------------------------------
@@ -466,7 +421,7 @@ def doll(img, back):
 def preview_sheet(items):
     scale = 8
     img = outputs()['entity/village_wanderer.png']
-    egg_img = outputs()['item/village_wanderer_spawn_egg.png']
+    egg_img = Image.open(os.path.join(ASSETS, 'item/village_wanderer_spawn_egg.png')).convert('RGBA')
     sheet = Image.new('RGBA', (64 * scale + 16 * 16 * 2 + 16 * 8 + 64, 64 * scale), (198, 198, 198, 255))
     bg = backdrop(64 * scale, 64 * scale, 8)
     bg.alpha_composite(img.resize((64 * scale, 64 * scale), Image.Resampling.NEAREST))
