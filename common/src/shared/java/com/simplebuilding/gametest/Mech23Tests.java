@@ -41,8 +41,9 @@ public final class Mech23Tests {
             helper.assertTrue(result.consumesAction() && player.getMainHandItem().getCount() == 2, chip + ": throw used " + result);
         }
         AABB around = player.getBoundingBox().inflate(4.0);
-        helper.assertTrue(helper.getLevel().getEntitiesOfClass(ThrownChipItem.Chip.class, around).size() == chips.size(),
-                "one flying chip per throw");
+        var thrown = helper.getLevel().getEntitiesOfClass(ThrownChipItem.Chip.class, around);
+        helper.assertTrue(thrown.size() == chips.size(), "one flying chip per throw: " + thrown.size());
+        thrown.forEach(net.minecraft.world.entity.Entity::discard);
         // a chip dropped onto a pig: 1 damage
         BlockPos at = new BlockPos(2, 1, 2);
         Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, at);
