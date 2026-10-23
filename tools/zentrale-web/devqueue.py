@@ -6,10 +6,14 @@ import os
 import threading
 import time
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
 import modselect
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "textures"))
+import editor_save  # noqa: E402  (TX22-5: one set of rules for the endpoint and the pickup)
 
 HEADER_NAME = "Cf-Access-Authenticated-User-Email"
 MAX_BODY = 256 * 1024
@@ -48,12 +52,12 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def read_json(self) -> dict:
+    def read_json(self, limit: int = MAX_BODY) -> dict:
         try:
             length = int(self.headers.get("Content-Length", "0"))
         except ValueError as e:
             raise ValueError("invalid length") from e
-        if length < 0 or length > MAX_BODY:
+        if length < 0 or length > limit:
             raise ValueError("body too large")
         data = self.rfile.read(length) if length > 0 else b"{}"
         try:
@@ -84,6 +88,13 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/mods":
             self.handle_get_mods(self.headers.get(HEADER_NAME))
             return
+        if path == "/api/textures":
+            self.send_json(200, self.server.texture_saves())
+            return
+        if path.startswith("/api/textures/"):
+            save = self.server.texture_save(path[len("/api/textures/"):])
+            self.send_json(200 if save else 404, save or {"error": "not found"})
+            return
         self.send_json(404, {"error": "not found"})
 
     def do_POST(self):
@@ -93,9 +104,12 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         try:
-            payload = self.read_json()
+            payload = self.read_json(editor_save.MAX_BODY if path == "/api/textures" else MAX_BODY)
         except ValueError as e:
-            self.send_json(400, {"error": str(e)})
+            self.send_json(400 if str(e) != "body too large" else 413, {"error": str(e)})
+            return
+        if path == "/api/textures":
+            self.handle_texture_save(payload, email)
             return
         if path == "/api/queue":
             self.handle_create_queue(payload, email)
@@ -127,6 +141,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json(400, {"error": str(e)})
                 return
             self.handle_patch_queue(qid, payload)
+            return
+        if path.startswith("/api/textures/"):
+            try:
+                payload = self.read_json()
+            except ValueError as e:
+                self.send_json(400, {"error": str(e)})
+                return
+            self.handle_patch_texture(path[len("/api/textures/"):], payload)
             return
         self.send_json(404, {"error": "not found"})
 
@@ -289,6 +311,40 @@ class Handler(BaseHTTPRequestHandler):
             self.server.refresh_runs()
         self.send_json(200, run)
 
+    def handle_texture_save(self, payload: dict, email: str):
+        """TX22-5: the pixel editor's "Save to repo". Only listed own textures (wiki/data/textures.js of this checkout),
+        checked by tools/textures/editor_save.py; the pickup on the agent host commits it on a tex-* branch."""
+        try:
+            save = editor_save.check_save(payload, editor_save.load_whitelist(self.server.repo))
+        except (editor_save.SaveError, OSError) as e:
+            self.send_json(400, {"error": str(e)})
+            return
+        now = int(time.time() * 1000)
+        with self.server.lock:
+            sid = str(max(now, self.server.last_save_id + 1))
+            self.server.last_save_id = int(sid)
+            record = dict(save, sid=sid, by=email, createdAt=now, updatedAt=now, state="new", note="", branch="")
+            atomic_write_json(self.server.textures_dir / f"{sid}.json", record)
+        self.send_json(201, {k: v for k, v in record.items() if k != "layers"})
+
+    def handle_patch_texture(self, sid: str, payload: dict):
+        """The pickup reports picked/ready/failed with a note and the branch."""
+        state, note, branch = payload.get("state"), payload.get("note", ""), payload.get("branch", "")
+        if state not in editor_save.STATES or not isinstance(note, str) or len(note) > MAX_COMMENT \
+                or not isinstance(branch, str) or len(branch) > 200:
+            self.send_json(400, {"error": "invalid state"})
+            return
+        with self.server.lock:
+            record = self.server.texture_save(sid)
+            if record is None:
+                self.send_json(404, {"error": "not found"})
+                return
+            record.update(state=state, note=note, updatedAt=int(time.time() * 1000))
+            if branch:
+                record["branch"] = branch
+            atomic_write_json(self.server.textures_dir / f"{sid}.json", record)
+        self.send_json(200, {k: v for k, v in record.items() if k != "layers"})
+
     def handle_delete_queue(self, qid: str):
         with self.server.lock:
             for i, item in enumerate(self.server.queue):
@@ -350,6 +406,9 @@ class DevQueueServer(ThreadingHTTPServer):
         self.runs_dir.mkdir(parents=True, exist_ok=True)
         self.repo = modselect.REPO
         self.selections_dir = data_dir / "selections"
+        self.textures_dir = data_dir / "textures"  # editor saves, apart from runs/ (those go to Claude)
+        self.textures_dir.mkdir(parents=True, exist_ok=True)
+        self.last_save_id = 0
         self.lock = threading.Lock()
         self.queue = []
         self._runs_cache = []
@@ -372,6 +431,26 @@ class DevQueueServer(ThreadingHTTPServer):
     def selection_path(self, email: str) -> Path:
         """One file per user; the name is a hash so addresses never become paths."""
         return self.selections_dir / (hashlib.sha256(email.strip().lower().encode("utf-8")).hexdigest()[:32] + ".json")
+
+    def texture_save(self, sid: str) -> dict | None:
+        if not editor_save.SAVE_ID.match(sid or ""):
+            return None
+        path = self.textures_dir / f"{sid}.json"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (OSError, ValueError):
+            return None
+
+    def texture_saves(self) -> list:
+        """Newest first, without the layers (the editor and the pickup only need the state)."""
+        out = []
+        for p in sorted(self.textures_dir.glob("*.json"), reverse=True)[:200]:
+            save = self.texture_save(p.stem)
+            if save:
+                save.pop("layers", None)
+                out.append(save)
+        return out
 
     def runs_list(self) -> list:
         return list(self._runs_cache)

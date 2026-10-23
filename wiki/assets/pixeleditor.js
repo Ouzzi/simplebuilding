@@ -2,7 +2,8 @@
  * Functions and UX after the Resprite analysis (docs/ai/ANALYSE-RESPRITE-2026-10-21.md), own code; layout, icons and
  * comfort after docs/ai/PLAN-B-PIXELEDITOR2-2026-10-21.md. Needs window.SBPixelCore (assets/pixeleditor-core.js).
  * The wiki is static: results are downloaded (<name>.png + <name>.layers.json), a dev puts both next to the original
- * and runs tools/textures/layers.py check.
+ * and runs tools/textures/layers.py check. In the dev wiki (window.sbDevHook) "Save to repo" posts both to /api/textures
+ * (TX22-5, tools/textures/editor_save.py): the pickup commits them on a branch tex-<name>-<id> for the next bundle.
  *
  * window.SBPixelEditor.open({id, name, png, layers, source, model}) - png/layers: URLs (layers optional). */
 (function () {
@@ -32,6 +33,9 @@
       both: 'PNG + layers', png: 'PNG only', json: 'Layers only (.layers.json)', more: 'More',
       howto: 'Put {png} and {json} next to the original ({src}), then run python tools/textures/layers.py check and python wiki/generate.py --all.',
       derived: 'Vanilla-derived texture: never commit it (A8). Edit tools/textures/vanilla_derived.py instead.',
+      save: 'Save to repo', saveTip: 'Saves PNG + layers on a branch tex-… (taken over with the next bundle)', saveComment: 'Comment for the commit (optional)',
+      saving: 'Saving…', saved: 'Saved.', saveFail: 'Saving failed: ',
+      st_new: 'Saved – waiting for the pickup.', st_picked: 'Picked up – being committed.', st_ready: 'On branch {b} – goes in with the next bundle.', st_failed: 'Not taken over: {n}',
       loading: 'Loading the texture…', loadFail: 'The texture could not be loaded.', blank: 'Empty 16×16 texture', hidden: 'Active layer is hidden',
       dirty: 'Discard your changes? They are not exported yet.', discard: 'Discard', cancel: 'Cancel', ok: 'OK',
       fileFail: 'The file could not be opened: ', rotSquare: 'Rotating needs a square area.', nothing: 'Nothing copied yet.', copied: 'Copied.',
@@ -62,6 +66,9 @@
       both: 'PNG + Ebenen', png: 'Nur PNG', json: 'Nur Ebenen (.layers.json)', more: 'Mehr',
       howto: '{png} und {json} neben das Original legen ({src}), dann python tools/textures/layers.py check und python wiki/generate.py --all.',
       derived: 'Vanilla-abgeleitete Textur: nie einchecken (A8), stattdessen tools/textures/vanilla_derived.py anpassen.',
+      save: 'Speichern ins Repo', saveTip: 'Speichert PNG + Ebenen auf einem Branch tex-… (Übernahme mit dem nächsten Bündel)', saveComment: 'Kommentar zum Commit (optional)',
+      saving: 'Wird gespeichert…', saved: 'Gespeichert.', saveFail: 'Speichern fehlgeschlagen: ',
+      st_new: 'Gespeichert – wartet auf die Abholung.', st_picked: 'Abgeholt – wird committet.', st_ready: 'Auf Branch {b} – kommt mit dem nächsten Bündel.', st_failed: 'Nicht übernommen: {n}',
       loading: 'Textur wird geladen…', loadFail: 'Die Textur ließ sich nicht laden.', blank: 'Leere 16×16-Textur', hidden: 'Aktive Ebene ist ausgeblendet',
       dirty: 'Änderungen verwerfen? Sie sind noch nicht exportiert.', discard: 'Verwerfen', cancel: 'Abbrechen', ok: 'OK',
       fileFail: 'Datei nicht lesbar: ', rotSquare: 'Drehen braucht eine quadratische Fläche.', nothing: 'Noch nichts kopiert.', copied: 'Kopiert.',
@@ -112,6 +119,7 @@
     pp: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
     open: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
     exp: '<path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 20h14"/>',
+    save: '<path d="M5 4h11l3 3v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/>',
     close: '<path d="M6 6l12 12M18 6L6 18"/>',
     swap: '<path d="M7 3.5L4 6.5l3 3"/><path d="M4 6.5h10a4 4 0 0 1 4 4v1"/><path d="M17 20.5l3-3-3-3"/><path d="M20 17.5H10a4 4 0 0 1-4-4v-1"/>',
     add: '<path d="M12 5v14M5 12h14"/>',
@@ -260,6 +268,7 @@
     '.pe-prev canvas{display:block;image-rendering:pixelated;border:1px solid var(--pe-line2);background:repeating-conic-gradient(#ccc 0 25%,#fff 0 50%) 0 0/8px 8px}',
     '.pe-ref img{max-width:100%;image-rendering:pixelated;border:1px solid var(--pe-line2);cursor:crosshair;margin-top:8px}',
     '.pe-note{font-size:12px;color:var(--pe-muted);margin:6px 0 0}',
+    '.pe-save{margin-top:10px;display:flex;flex-direction:column;gap:6px}',
     '.pe-warn{font-size:13px;color:var(--pe-warn);font-weight:600}',
     '.pe-keys{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:12px;margin:8px 0 0}',
     '.pe-keys dt{font:600 12px ui-monospace,monospace}',
@@ -402,7 +411,8 @@
         ibtn('grid', tip('grid'), toggleGrid, { 'data-toggle': 'grid' })]),
       h('span', { class: 'pe-vsep' }),
       h('div', { class: 'pe-grp' }, [ibtn('open', T('open'), askOpen, { cls: 'pe-dk' }), S.fileIn,
-        ibtn('exp', T('exp') + ': ' + T('both'), exportBoth, { cls: 'pe-primary', 'data-act': 'export' }, T('exp')),
+        canSave() ? ibtn('save', T('saveTip'), saveToRepo, { cls: 'pe-primary', 'data-act': 'save' }, T('save')) : null,
+        ibtn('exp', T('exp') + ': ' + T('both'), exportBoth, { cls: canSave() ? 'pe-soft pe-dk' : 'pe-primary', 'data-act': 'export' }, T('exp')),
         ibtn('close', tip('close'), function () { close(false); }, { 'data-act': 'close' })])
     ]);
     S.ctx = h('div', { class: 'pe-ctx', role: 'toolbar', 'aria-label': T('tools') });
@@ -480,6 +490,7 @@
     window.removeEventListener('blur', S.onBlur);
     if (S.ro) S.ro.disconnect(); else window.removeEventListener('resize', paint);
     if (S.ref) URL.revokeObjectURL(S.ref);
+    clearTimeout(S.pollT);
     S.root.remove();
     document.body.classList.remove('pe-open');
     S = null;
@@ -843,6 +854,11 @@
         ibtn('exp', T('png'), exportPng, { cls: 'pe-soft', 'data-k': 'expPng' }, T('png')), ibtn('exp', T('json'), exportJson, { cls: 'pe-soft', 'data-k': 'expJson' }, T('json')),
         ibtn('open', T('open'), askOpen, { cls: 'pe-soft', 'data-k': 'open' }, T('open'))]),
       /^build\/vanilla-derived\//.test(src) ? h('p', { class: 'pe-warn', text: T('derived') }) : null,
+      canSave() ? h('div', { class: 'pe-save' }, [
+        h('label', { class: 'pe-note', for: 'pe-save-comment', text: T('saveComment') }),
+        S.commentIn = h('input', { type: 'text', id: 'pe-save-comment', maxlength: '500', value: S.saveComment || '', oninput: function () { S.saveComment = this.value; } }),
+        h('div', { class: 'pe-row' }, [ibtn('save', T('saveTip'), saveToRepo, { cls: 'pe-primary', 'data-k': 'save' }, T('save'))]),
+        S.saveNote = h('p', { class: 'pe-note', role: 'status', 'aria-live': 'polite', 'data-k': 'saveNote', text: S.saveMsg || '' })]) : null,
       h('p', { class: 'pe-note', text: T('howto', { png: baseName() + '.png', json: baseName() + C.SUFFIX, src: src || '?' }) }),
       S.from ? h('p', { class: 'pe-note', text: S.from }) : null,
       h('details', null, [h('summary', { text: T('keysTitle') }), keys])]));
@@ -973,6 +989,37 @@
   }
   function exportJson() { var doc = C.toDoc(S.model); S.model.palette = doc.palette; download(baseName() + C.SUFFIX, C.dumps(doc), 'application/json'); }
   function exportBoth() { if (S.model) exportPng().then(function () { setTimeout(exportJson, 400); }); }
+  /* TX22-5: only in the dev wiki (dev overlay loaded) and only for own textures with a repository source */
+  function canSave() { var src = (S && S.opts.source) || ''; return !!window.sbDevHook && !!src && !/^build\//.test(src); }
+  function setSaveNote(text) { S.saveMsg = text; if (S.saveNote) S.saveNote.textContent = text; }
+  function b64(bytes) { var s = ''; for (var i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s); }
+  function saveToRepo() {
+    if (!S || !S.model || !canSave() || S.saving) return;
+    var m = S.model, doc = C.toDoc(m), mine = S;
+    m.palette = doc.palette;
+    S.saving = true; setSaveNote(T('saving'));
+    C.pngEncode(m.w, m.h, C.compose(m)).then(function (bytes) {
+      return fetch('/api/textures', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: mine.opts.id, source: mine.opts.source, layers: C.dumps(doc), png: b64(bytes), comment: mine.saveComment || '' }) });
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status)); return j; });
+    }).then(function (save) {
+      if (S !== mine) return;
+      S.saving = false; S.dirty = false; toast(T('saved')); setSaveNote(T('st_new'));
+      pollSave(mine, save.sid, 0);
+    }).catch(function (e) {
+      if (S !== mine) return;
+      S.saving = false; setSaveNote(T('saveFail') + (e && e.message || e)); toast(T('saveFail') + (e && e.message || e));
+    });
+  }
+  function pollSave(mine, sid, n) {
+    if (S !== mine || !sid) return;
+    fetch('/api/textures/' + encodeURIComponent(sid), { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (s) {
+      if (S !== mine || !s) return;
+      setSaveNote(T('st_' + s.state, { b: s.branch || '', n: s.note || '' }));
+      if ((s.state === 'new' || s.state === 'picked') && n < 120) S.pollT = setTimeout(function () { pollSave(mine, sid, n + 1); }, 5000);
+    }).catch(function () { /* status stays */ });
+  }
   function askOpen() {
     if (S.dirty) ask(T('dirty'), T('discard')).then(function (yes) { if (yes) S.fileIn.click(); });
     else S.fileIn.click();
