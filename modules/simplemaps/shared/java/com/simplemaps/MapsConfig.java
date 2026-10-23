@@ -39,6 +39,18 @@ public final class MapsConfig {
     public static String webExportDir = "";
     public static java.util.List<String> webAutoOffWith = WEB_AUTO_OFF_DEFAULT;
     /**
+     * Built-in web server (stage 2, read only, {@code docs/SIMPLEMAPS-WEBKARTE.md}): off by default and only with
+     * {@code webEnabled}; binds to the local machine unless {@code webHttpBind} says otherwise; empty token = none.
+     */
+    public static final String WEB_HTTP_BIND_DEFAULT = "127.0.0.1";
+    public static final int WEB_HTTP_PORT_DEFAULT = 8124, WEB_HTTP_PORT_MIN = 1, WEB_HTTP_PORT_MAX = 65535;
+    public static final int WEB_HTTP_RATE_DEFAULT = 1200, WEB_HTTP_RATE_MIN = 60, WEB_HTTP_RATE_MAX = 20000;
+    public static final int WEB_LIVE_DEFAULT = 2, WEB_LIVE_MIN = 1, WEB_LIVE_MAX = 60;
+    public static boolean webHttpEnabled = false;
+    public static String webHttpBind = WEB_HTTP_BIND_DEFAULT, webHttpToken = "";
+    /** Port; requests per minute and client address; seconds between two live.json snapshots (players). */
+    public static int webHttpPort = WEB_HTTP_PORT_DEFAULT, webHttpRequestsPerMinute = WEB_HTTP_RATE_DEFAULT, webLiveSeconds = WEB_LIVE_DEFAULT;
+    /**
      * Whether the module is active. Standalone it always is; bundled in SimpleBuilding the host's config switch
      * "Enable Simple Maps" ({@code enableSimpleMaps} in {@code simplebuilding.json}, read once at load, restart to
      * change) can turn it off: the items stay registered (stable registries) but do nothing and are not offered.
@@ -100,6 +112,13 @@ public final class MapsConfig {
         webIntervalMinutes = clamp(getInt(json, "webIntervalMinutes", WEB_INTERVAL_DEFAULT), 0, WEB_INTERVAL_MAX);
         webExportDir = getString(json, "webExportDir", "");
         webAutoOffWith = getIds(json, "webAutoOffWith", WEB_AUTO_OFF_DEFAULT);
+        webHttpEnabled = getBool(json, "webHttpEnabled", false);
+        String bind = getString(json, "webHttpBind", WEB_HTTP_BIND_DEFAULT).trim();
+        webHttpBind = bind.isEmpty() ? WEB_HTTP_BIND_DEFAULT : bind;
+        webHttpPort = clamp(getInt(json, "webHttpPort", WEB_HTTP_PORT_DEFAULT), WEB_HTTP_PORT_MIN, WEB_HTTP_PORT_MAX);
+        webHttpToken = getString(json, "webHttpToken", "").trim();
+        webHttpRequestsPerMinute = clamp(getInt(json, "webHttpRequestsPerMinute", WEB_HTTP_RATE_DEFAULT), WEB_HTTP_RATE_MIN, WEB_HTTP_RATE_MAX);
+        webLiveSeconds = clamp(getInt(json, "webLiveSeconds", WEB_LIVE_DEFAULT), WEB_LIVE_MIN, WEB_LIVE_MAX);
     }
 
     public static JsonObject toJson() {
@@ -119,6 +138,12 @@ public final class MapsConfig {
         com.google.gson.JsonArray ids = new com.google.gson.JsonArray();
         webAutoOffWith.forEach(ids::add);
         o.add("webAutoOffWith", ids);
+        o.addProperty("webHttpEnabled", webHttpEnabled);
+        o.addProperty("webHttpBind", webHttpBind);
+        o.addProperty("webHttpPort", webHttpPort);
+        o.addProperty("webHttpToken", webHttpToken);
+        o.addProperty("webHttpRequestsPerMinute", webHttpRequestsPerMinute);
+        o.addProperty("webLiveSeconds", webLiveSeconds);
         return o;
     }
 

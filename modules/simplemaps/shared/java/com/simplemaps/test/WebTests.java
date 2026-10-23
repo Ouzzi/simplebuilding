@@ -35,7 +35,7 @@ import net.minecraft.world.level.material.MapColor;
 /** Web map export (stage 1): tiles, throttle, exploration, claims, opt-in players, autoOffWith, command rights. */
 final class WebTests {
     /** Far away so the chunks are never loaded in the test world (the export then keeps the map's pixels). */
-    private static final int FAR_TILE = 4000;
+    static final int FAR_TILE = 4000;
 
     static void register(Map<String, Consumer<GameTestHelper>> all) {
         all.put("web_tile_colors", WebTests::tileColors);
@@ -46,11 +46,12 @@ final class WebTests {
         all.put("web_auto_off", WebTests::autoOff);
         all.put("web_command_permissions", WebTests::commandPermissions);
         all.put("web_shops", WebTests::shops);
+        WebHttpTests.register(all);
     }
 
     private WebTests() {}
 
-    private static Path temp() {
+    static Path temp() {
         try {
             return Files.createTempDirectory("simplemaps-web-test");
         } catch (IOException e) {
@@ -58,14 +59,14 @@ final class WebTests {
         }
     }
 
-    private static void delete(Path dir) {
+    static void delete(Path dir) {
         try (Stream<Path> walk = Files.walk(dir)) {
             walk.sorted(Comparator.reverseOrder()).forEach(p -> p.toFile().delete());
         } catch (IOException ignored) {
         }
     }
 
-    private static void run(WebExport job) {
+    static void run(WebExport job) {
         for (int i = 0; i < 10000 && !job.done(); i++) job.step(1 << 20);
     }
 
@@ -84,7 +85,7 @@ final class WebTests {
     }
 
     /** A map of the overworld with one explored pixel per given block {x, z} (far away tiles, colour gold). */
-    private static WayfinderData farMap(int[]... blocks) {
+    static WayfinderData farMap(int[]... blocks) {
         WayfinderData data = new WayfinderData();
         data.bind(Level.OVERWORLD);
         for (int[] b : blocks) data.set(b[0], b[1], MapColor.GOLD.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, 100, true);

@@ -63,6 +63,13 @@ public final class WebCommands {
             source.sendSuccess(() -> text("status.never", "No web map export since the server started; folder %s.",
                     WebMap.exportDir(server).toString()), false);
         }
+        WebHttp http = WebMap.http(server);
+        if (http != null) {
+            String url = "http://" + http.settings().bind() + ":" + http.port() + "/";
+            source.sendSuccess(() -> text("status.http", "Web map server: %s (read only).", url), false);
+        } else if (MapsConfig.webHttpEnabled) {
+            source.sendSuccess(() -> text("status.http_off", "Web map server: not running (needs webEnabled; see the server log)."), false);
+        }
         return 1;
     }
 

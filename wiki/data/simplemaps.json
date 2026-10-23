@@ -205,6 +205,7 @@
         "modules/simplemaps/shared/java/com/simplemaps/web/WebExport.java",
         "modules/simplemaps/shared/java/com/simplemaps/web/WebMap.java",
         "modules/simplemaps/shared/java/com/simplemaps/web/WebCommands.java",
+        "modules/simplemaps/shared/java/com/simplemaps/web/WebHttp.java",
         "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
         "modules/simplemaps/shared/resources/assets/simplemaps/web/index.html"
       ],
@@ -214,10 +215,12 @@
         "details": [
           "Off by default (webEnabled in simplemaps-server.json). /simplemaps web export starts an export, /simplemaps web status shows its progress (both need permission level 2); webIntervalMinutes (0–1440, default 0 = off) repeats it.",
           "Only what wayfinder maps have explored is exported, in the Vanilla map colors: tiles/<dimension>/<z>/<x>/<y>.png, zoom 4 = one block per pixel (128 blocks per tile) down to zoom 0 = 16 blocks per pixel. Where a chunk is loaded the explored pixels are read fresh; no chunk is ever loaded.",
-          "The export runs on the server at webChunksPerTick chunks per tick (default 32, bounds 1–512). The folder is <world>/simplemaps-web unless webExportDir says otherwise; serve it with any web server (nginx, Caddy), the mod opens no port.",
+          "The export runs on the server at webChunksPerTick chunks per tick (default 32, bounds 1–512). The folder is <world>/simplemaps-web unless webExportDir says otherwise; serve it with any web server (nginx, Caddy); by default the mod opens no port.",
           "Players are hidden by default; each player shows or hides themselves with /simplemaps web show or /simplemaps web hide. markers.json holds only names and positions of those players, no UUIDs.",
           "webHideClaims (default off) leaves chunks empty where a protection (for example claims of Simple Tweaks) forbids strangers to build.",
           "webShops (default off) adds shops (with Simple Shops) to markers.json: position, offer, price and owner name, only on explored tiles and, with webHideClaims, never in protected chunks. With Simple Money they carry its bill icon.",
+          "Optional built-in web server (webHttpEnabled, default off, only together with webEnabled): read only, GET and HEAD only, it serves just the viewer, markers.json, the tiles, the icons and live.json on webHttpBind:webHttpPort (default 127.0.0.1:8124, this machine only). Anything else gets 404; no commands run over HTTP. webHttpRequestsPerMinute (default 1200, 60–20000) limits each address, webHttpToken (empty = none) is then needed as ?token= or Authorization: Bearer. /simplemaps web status shows the address.",
+          "Live: live.json holds the opted-in players right now (every webLiveSeconds, default 2, 1–60; no UUIDs, no spectators) and the time of the last export. The viewer polls it and reloads the tiles when a new export finished (for example with webIntervalMinutes).",
           "If BlueMap, Dynmap, squaremap, Pl3xMap or JourneyMap is loaded, the web export switches itself off (webAutoOffWith, log line); the maps themselves stay."
         ]
       },
@@ -227,10 +230,12 @@
         "details": [
           "Standardmäßig aus (webEnabled in simplemaps-server.json). /simplemaps web export startet einen Export, /simplemaps web status zeigt den Fortschritt (beide brauchen Rechtestufe 2); webIntervalMinutes (0–1440, Standard 0 = aus) wiederholt ihn.",
           "Exportiert wird nur, was Wegfinder-Karten erkundet haben, in den Vanilla-Kartenfarben: tiles/<Dimension>/<z>/<x>/<y>.png, Zoom 4 = ein Block je Pixel (128 Blöcke je Kachel) bis Zoom 0 = 16 Blöcke je Pixel. Ist ein Chunk geladen, werden die erkundeten Pixel frisch gelesen; es wird nie ein Chunk geladen.",
-          "Der Export läuft auf dem Server mit webChunksPerTick Chunks je Tick (Standard 32, Grenzen 1–512). Ordner ist <Welt>/simplemaps-web, sofern webExportDir nichts anderes sagt; ausgeliefert wird er mit einem beliebigen Webserver (nginx, Caddy), die Mod öffnet keinen Port.",
+          "Der Export läuft auf dem Server mit webChunksPerTick Chunks je Tick (Standard 32, Grenzen 1–512). Ordner ist <Welt>/simplemaps-web, sofern webExportDir nichts anderes sagt; ausgeliefert wird er mit einem beliebigen Webserver (nginx, Caddy); standardmäßig öffnet die Mod keinen Port.",
           "Spieler sind standardmäßig verborgen; jeder zeigt oder verbirgt sich selbst mit /simplemaps web show bzw. /simplemaps web hide. markers.json enthält nur Namen und Positionen dieser Spieler, keine UUIDs.",
           "webHideClaims (Standard aus) lässt Chunks leer, in denen ein Schutz (z. B. Claims von Simple Tweaks) Fremden das Bauen verbietet.",
           "webShops (Standard aus) nimmt Shops (mit Simple Shops) in markers.json auf: Position, Angebot, Preis und Besitzername, nur auf erkundeten Kacheln und mit webHideClaims nie in geschützten Chunks. Mit Simple Money tragen sie dessen Geldschein-Symbol.",
+          "Optionaler eingebauter Webserver (webHttpEnabled, Standard aus, nur zusammen mit webEnabled): nur lesend, nur GET und HEAD, er liefert nur die Ansicht, markers.json, die Kacheln, die Symbole und live.json auf webHttpBind:webHttpPort aus (Standard 127.0.0.1:8124, nur dieser Rechner). Alles andere bekommt 404; über HTTP laufen keine Befehle. webHttpRequestsPerMinute (Standard 1200, 60–20000) begrenzt je Adresse, webHttpToken (leer = ohne) ist dann als ?token= oder Authorization: Bearer nötig. /simplemaps web status zeigt die Adresse.",
+          "Live: live.json enthält die freigeschalteten Spieler von gerade eben (alle webLiveSeconds, Standard 2, 1–60; keine UUIDs, keine Zuschauer) und den Zeitpunkt des letzten Exports. Die Ansicht fragt sie ab und lädt die Kacheln neu, sobald ein neuer Export fertig ist (z. B. mit webIntervalMinutes).",
           "Ist BlueMap, Dynmap, squaremap, Pl3xMap oder JourneyMap geladen, schaltet sich der Webkarten-Export selbst aus (webAutoOffWith, Logzeile); die Karten selbst bleiben."
         ]
       }

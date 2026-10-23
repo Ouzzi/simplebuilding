@@ -47,6 +47,8 @@
   "commands.simplemaps.web.status.running": "Webkarten-Export läuft: %s von %s Kacheln, %s Chunks gelesen.",
   "commands.simplemaps.web.status.last": "Letzter Webkarten-Export vor %s min: %s Kacheln in %s Dimensionen, Ordner %s.",
   "commands.simplemaps.web.status.never": "Seit dem Serverstart kein Webkarten-Export; Ordner %s.",
+  "commands.simplemaps.web.status.http": "Webkarten-Server: %s (nur lesend).",
+  "commands.simplemaps.web.status.http_off": "Webkarten-Server: läuft nicht (braucht webEnabled; siehe Server-Log).",
   "commands.simplemaps.web.show": "Deine Position erscheint jetzt auf der Webkarte (ab dem nächsten Export).",
   "commands.simplemaps.web.hide": "Deine Position erscheint nicht mehr auf der Webkarte (ab dem nächsten Export).",
   "item.simplemaps.guide_book": "Simple-Maps-Handbuch",
