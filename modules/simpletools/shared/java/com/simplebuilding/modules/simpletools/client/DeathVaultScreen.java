@@ -8,7 +8,9 @@ import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -25,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
  * colour of its {@link Fate}; a drop still lying gets a despawn bar like a durability bar, and a pause mark while its chunk
  * is not loaded and the timer stands), a legend with counts on the right, the death age in the band below the grid (the
  * future offering slot and button take that place when the redeem option is on), the light inventory box below; the
- * legend box on the right holds its list in a light field with dark ink.
+ * legend box on the right holds one card per group (owner 23.10.: status icons in group cards framed like the UI boxes).
  */
 public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     /** Box colours from the violet of the vault's block texture (SP22-3); the label comes out light (>= 4.5:1). */
@@ -36,14 +38,35 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     private static final int VAULT_HEIGHT = INVENTORY_Y - UiBoxes.FRAME - GAP;
     private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     private static final int PANEL_X = DeathVaultMenu.WIDTH + GAP, PANEL_W = 130;
-    /** The light list field inside the legend box. */
-    private static final int LIST_X = PANEL_X + 7, LIST_Y = 17, LIST_W = PANEL_W - 14, LIST_H = DeathVaultMenu.HEIGHT - LIST_Y - UiBoxes.FRAME_BOTTOM - 3;
-    /** Legend groups (heading key suffix + fates), their line pitch and the short legend names. */
+    /**
+     * Legend cards (owner 23.10.: variant A's status icons in variant C's group cards, the card frame in the style of the
+     * other UI parts - outline and light line with stepped corners - and "Lost" red instead of orange): left edge, width,
+     * first card, head strip height, line pitch, gap between cards.
+     */
+    private static final int CARD_X = PANEL_X + 6, CARD_W = PANEL_W - 12, CARD_Y = 17, HEAD = 11, ROW = 12, CARD_GAP = 3;
+    /** Legend groups (heading key suffix + fates) and the short legend names. */
     private static final Fate[][] GROUPS = {{Fate.LYING}, {Fate.PICKED_OWNER, Fate.PICKED_OTHER, Fate.REDEEMED},
             {Fate.BURNED, Fate.DESPAWNED, Fate.VOID, Fate.OTHER}};
     private static final String[] GROUP_NAMES = {"here", "picked", "lost"};
+    /** Head strip of each group card; white text on them reads 7.8:1 (green), 8.5:1 (blue), 7.3:1 (red). */
+    private static final int[] GROUP_HEADS = {0xFF1F5E22, 0xFF1D4C8C, 0xFFA12A22};
+    private static final int HEAD_TEXT = 0xFFFFFFFF;
     private static final String GROUP_KEY = "screen.simpletools.death_vault.group.", LABEL_KEY = "screen.simpletools.death_vault.legend.";
-    private static final int ROW = 10;
+    /** Outline of the status icons (10:1 on the light card body). */
+    private static final int ICON_OUTLINE = 0xFF1E1A26;
+    /**
+     * 9x9 status icon per fate ('#' fate colour, 'o' outline): hourglass, figure, two figures, emerald (bought back),
+     * flame, puff, fall into the hole, question mark - readable without the colours too (variant A, 22.10.).
+     */
+    private static final Map<Fate, String[]> ICONS = new EnumMap<>(Map.of(
+            Fate.LYING, new String[] {"ooooooooo", "o#######o", ".o#####o.", "..o###o..", "...o#o...", "..o#.#o..", ".o#...#o.", "o###.###o", "ooooooooo"},
+            Fate.PICKED_OWNER, new String[] {"...ooo...", "..o###o..", "..o###o..", "...ooo...", "..o###o..", ".o#####o.", ".o#####o.", ".o#####o.", ".ooooooo."},
+            Fate.PICKED_OTHER, new String[] {"..oo..oo.", ".o##oo##o", ".o##oo##o", "..oo..oo.", ".o##oo##o", "o###oo###", "o###oo###", "o###oo###", "ooooooooo"},
+            Fate.REDEEMED, new String[] {"....o....", "...o#o...", "..o###o..", ".o#####o.", "o#######o", ".o#####o.", "..o###o..", "...o#o...", "....o...."},
+            Fate.BURNED, new String[] {"....o....", "...o#o...", "..o##o...", "..o###o..", ".o##o##o.", ".o#o.o#o.", "o##o.o##o", "o###o###o", ".ooooooo."},
+            Fate.DESPAWNED, new String[] {"..o...o..", "o#o.o.o#o", ".o.o#o.o.", "..o###o..", "oo#####oo", "..o###o..", ".o.o#o.o.", "o#o.o.o#o", "..o...o.."},
+            Fate.VOID, new String[] {"...o#o...", "...o#o...", "...o#o...", ".oo###oo.", "..o###o..", "...o#o...", "ooooooooo", "o#######o", "ooooooooo"},
+            Fate.OTHER, new String[] {"..ooooo..", ".o#####o.", ".o#ooo#o.", "..o..o#o.", "....o#o..", "...o#o...", "...ooo...", "...o#o...", "...ooo..."}));
     private Button offer;
 
     public DeathVaultScreen(DeathVaultMenu menu, Inventory inventory, Component title) {
@@ -122,10 +145,9 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         panel(g);
     }
 
-    /** Legend box right of the vault in the same violet; the list itself sits in a light field with dark ink (UI-BAUSTEINE). */
+    /** Legend box right of the vault in the same violet; its group cards are drawn with the labels ({@link #legend}). */
     private void panel(GuiGraphicsExtractor g) {
         UiBoxes.box(g, leftPos + PANEL_X, topPos, PANEL_W, DeathVaultMenu.HEIGHT, PALETTE);
-        UiBoxes.insetColored(g, leftPos + LIST_X, topPos + LIST_Y, LIST_W, LIST_H, PALETTE, UiPalette.INVENTORY.fill());
     }
 
     // --- slots ---------------------------------------------------------------------------------------------------------
@@ -216,16 +238,16 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     }
 
     /**
-     * Legend (SP22-3, owner 22.10. "improve the legend"): three groups with a heading and a rule - what still lies at
-     * the death spot, what was picked up (or bought back), what is lost - one line per fate with its colour key, a short
-     * name and the count right aligned in its own column; fates without a drop dimmed. Below a rule the timer state.
+     * Legend (SP22-3, owner 23.10. "take A and combine it with C"): one card per group - what still lies at the death
+     * spot, what was picked up (or bought back), what is lost - with a coloured head strip (name and group total), and
+     * one line per fate with its status icon, a short name and the count right aligned; fates without a drop dimmed.
+     * The timer state sits in a small card of its own at the bottom.
      */
     private void legend(GuiGraphicsExtractor g) {
-        int x = LIST_X + 3, right = LIST_X + LIST_W - 4;
         g.text(font, Component.translatable("screen.simpletools.death_vault.legend"), PANEL_X + 8, 6, PALETTE.label(), false);
-        // Ink on the light field, every colour at least 4.5:1 (follows the inventory brightness like the field itself).
-        int field = UiPalette.INVENTORY.fill(), text = UiPalette.INVENTORY.label(), rule = UiPalette.INVENTORY.shade();
-        int dim = UiContrast.ensure(UiPalette.mix(text, field, 0.12), field), warn = UiContrast.ensure(WARN, field);
+        // Ink on the light card body, every colour at least 4.5:1 (follows the inventory brightness like the body itself).
+        int body = UiPalette.INVENTORY.fill(), text = UiPalette.INVENTORY.label();
+        int dim = UiContrast.ensure(UiPalette.mix(text, body, 0.12), body), warn = UiContrast.ensure(WARN, body);
         int[] count = new int[16];
         int lyingRunning = 0, lyingStalled = 0, next = Integer.MAX_VALUE;
         for (int i = 0; i < menu.data(DeathVaultMenu.D_COUNT); i++) {
@@ -237,26 +259,35 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
                 } else lyingStalled++;
             }
         }
-        int y = LIST_Y + 4;
+        int x = CARD_X + 4, right = CARD_X + CARD_W - 4, y = CARD_Y;
         for (int group = 0; group < GROUPS.length; group++) {
-            g.text(font, Component.translatable(GROUP_KEY + GROUP_NAMES[group]), x, y, text, false);
-            g.fill(x, y + 9, right, y + 10, rule);
-            y += 13;
+            List<Fate> shown = new ArrayList<>();
+            int total = 0;
             for (Fate fate : GROUPS[group]) {
                 if (fate == Fate.REDEEMED && !menu.offerEnabled() && count[fate.id] == 0) continue;
+                shown.add(fate);
+                total += count[fate.id];
+            }
+            int height = 2 + HEAD + 3 + shown.size() * ROW + 2;
+            card(g, y, height, GROUP_HEADS[group], body);
+            int head = UiContrast.ensure(HEAD_TEXT, GROUP_HEADS[group]);
+            String sum = Integer.toString(total);
+            List<FormattedCharSequence> title = font.split(Component.translatable(GROUP_KEY + GROUP_NAMES[group]), right - font.width(sum) - 4 - x);
+            if (!title.isEmpty()) g.text(font, title.get(0), x, y + 4, head, false);
+            g.text(font, sum, right - font.width(sum), y + 4, head, false);
+            int line = y + 2 + HEAD + 4;
+            for (Fate fate : shown) {
                 int n = count[fate.id], ink = n == 0 ? dim : text;
                 String number = Integer.toString(n);
                 int numberX = right - font.width(number);
-                g.fill(x + 2, y - 1, x + 10, y + 7, 0xFF000000);
-                g.fill(x + 3, y, x + 9, y + 6, fate.color);
-                List<FormattedCharSequence> name = font.split(Component.translatable(LABEL_KEY + fate.key), numberX - 4 - (x + 14));
-                if (!name.isEmpty()) g.text(font, name.get(0), x + 14, y, ink, false);
-                g.text(font, number, numberX, y, ink, false);
-                y += ROW;
+                icon(g, x, line - 1, fate);
+                List<FormattedCharSequence> name = font.split(Component.translatable(LABEL_KEY + fate.key), numberX - 4 - (x + 13));
+                if (!name.isEmpty()) g.text(font, name.get(0), x + 13, line, ink, false);
+                g.text(font, number, numberX, line, ink, false);
+                line += ROW;
             }
-            y += 5;
+            y += height + CARD_GAP;
         }
-        int sy = LIST_Y + LIST_H - 3;
         List<FormattedCharSequence> status = new ArrayList<>();
         int color = text;
         if (lyingStalled > 0) {
@@ -266,10 +297,35 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
             status = font.split(Component.translatable("screen.simpletools.death_vault.next", clock(next)), right - x);
         }
         if (!status.isEmpty()) {
-            int top = sy - status.size() * 9;
-            g.fill(x, top - 4, right, top - 3, rule);
-            if (lyingStalled > 0) pauseMark(g, x, top);
-            for (int i = 0; i < status.size(); i++) g.text(font, status.get(i), x + (lyingStalled > 0 ? 12 : 0), top + i * 9, color, false);
+            int height = 2 + 3 + status.size() * 9 + 3, top = DeathVaultMenu.HEIGHT - UiBoxes.FRAME_BOTTOM - 2 - height;
+            card(g, top, height, 0, body);
+            if (lyingStalled > 0) pauseMark(g, x, top + 5);
+            for (int i = 0; i < status.size(); i++) g.text(font, status.get(i), x + (lyingStalled > 0 ? 12 : 0), top + 5 + i * 9, color, false);
+        }
+    }
+
+    /**
+     * One legend card at {@code y}: outline and light line with the stepped 2-1 corners of the UI boxes around a light
+     * body, and a head strip of {@link #HEAD} px in {@code headColor} (none when 0) with a darker line below it.
+     */
+    private static void card(GuiGraphicsExtractor g, int y, int height, int headColor, int body) {
+        UiBoxes.stairFrame(g, CARD_X, y, CARD_W, height, new int[] {UiBoxes.RIM, UiPalette.INVENTORY.light()}, body);
+        if (headColor != 0) {
+            g.fill(CARD_X + 2, y + 2, CARD_X + CARD_W - 2, y + 2 + HEAD, headColor);
+            g.fill(CARD_X + 2, y + 2 + HEAD, CARD_X + CARD_W - 2, y + 3 + HEAD, UiPalette.scale(headColor, 0.6));
+        }
+    }
+
+    /** The 9x9 status icon of {@code fate} (variant A): fate colour with a dark outline, so it reads on the light body. */
+    private static void icon(GuiGraphicsExtractor g, int x, int y, Fate fate) {
+        String[] rows = ICONS.get(fate);
+        if (rows == null) return;
+        for (int r = 0; r < rows.length; r++) {
+            for (int c = 0; c < rows[r].length(); c++) {
+                char ch = rows[r].charAt(c);
+                if (ch == '#') g.fill(x + c, y + r, x + c + 1, y + r + 1, fate.color);
+                else if (ch == 'o') g.fill(x + c, y + r, x + c + 1, y + r + 1, ICON_OUTLINE);
+            }
         }
     }
 }

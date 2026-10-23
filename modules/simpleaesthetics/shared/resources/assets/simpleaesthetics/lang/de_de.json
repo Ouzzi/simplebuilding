@@ -1,6 +1,6 @@
 {
   "modmenu.nameTranslation.simpleaesthetics": "Simple Aesthetics",
-  "simpleaesthetics.config.enableSimpleVisuals": "Simple Visuals aktivieren",
-  "simpleaesthetics.config.enableSimpleSounds": "Simple Sounds aktivieren",
-  "simpleaesthetics.config.enableSimpleModels": "Simple Models aktivieren"
+  "text.autoconfig.simpleaesthetics.option.enableSimpleVisuals": "Simple Visuals aktivieren",
+  "text.autoconfig.simpleaesthetics.option.enableSimpleSounds": "Simple Sounds aktivieren",
+  "text.autoconfig.simpleaesthetics.option.enableSimpleModels": "Simple Models aktivieren"
 }

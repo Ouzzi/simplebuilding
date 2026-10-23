@@ -141,7 +141,7 @@ public final class EndClientSmoke implements FabricClientGameTest {
         context.takeScreenshot(name);
     }
 
-    /** Close to the first leaf of the wood (searched in the box from the garden offset) that faces air ({@code inner} false) or has none around it. */
+    /** Close to the first leaf of the wood (searched in the box from the garden offset) that faces air (not dense) or is dense (TX22-4). */
     private static void leafLook(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world,
                                  BlockPos[] garden, EndWood w, int x, int y, int z, boolean inner, String name) {
         world.getServer().runOnServer(server -> {
@@ -150,7 +150,7 @@ public final class EndClientSmoke implements FabricClientGameTest {
             BlockPos best = null;
             for (BlockPos q : BlockPos.betweenClosed(b.offset(x, y, z), b.offset(x + 30, y + 34, z + 34))) {
                 BlockState st = level.getBlockState(q);
-                if (!st.is(w.leaves) || st.getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER) != inner) continue;
+                if (!st.is(w.leaves) || (st.getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DENSITY) == com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DENSE) != inner) continue;
                 if (inner ? level.getBlockState(q.north(2)).is(w.leaves) : level.getBlockState(q.north()).isAir() && level.getBlockState(q.north(2)).isAir()) { best = q.immutable(); break; }
             }
             if (best == null) throw new AssertionError("no " + (inner ? "inner " : "outer ") + w.name + " leaf found");

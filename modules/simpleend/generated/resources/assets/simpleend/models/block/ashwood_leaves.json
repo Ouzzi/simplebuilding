@@ -3,6 +3,7 @@
   "ambientocclusion": false,
   "textures": {
     "particle": "simpleend:block/ashwood_leaves",
+    "loose": "simpleend:block/ashwood_leaves_loose",
     "outer": "simpleend:block/ashwood_leaves",
     "inner": "simpleend:block/ashwood_leaves_inner",
     "crystal": "simpleend:block/ashwood_leaves_crystal"

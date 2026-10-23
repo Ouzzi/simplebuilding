@@ -21,7 +21,7 @@
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Speed bonus per Tailwind level; range 0–1.\nDefault: 0.3. Server setting; restart\nrequired.",
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Speed bonus per Tailwind level; range 0–1.\nDefault: 0.2. Server setting; restart\nrequired.",
   "text.autoconfig.simpleriding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength bonus per Leaping level; range\n0–0.5. Default: 0.2. Server setting; restart\nrequired.",
-  "simpleriding.config.server": "Local Server Configuration (Restart Required)",
+  "text.autoconfig.simpleriding.serverTitle": "Local Server Configuration (Restart Required)",
   "text.autoconfig.simpleriding.option.safety.enableTailwind": "Enable Tailwind",
   "text.autoconfig.simpleriding.option.safety.enableTailwind.@Tooltip": "Allow saddle and harness speed bonuses.\nDefault: true. Server setting; restart\nrequired.",
   "text.autoconfig.simpleriding.option.safety.enableLeaping": "Enable Leaping",

@@ -55,7 +55,7 @@ public final class HammerRegistry {
 
     public static void registerTab() {
         TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleHammers.id("hammers"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-                .title(Component.translatable("itemGroup.simplehammers"))
+                .title(Component.translatable("itemgroup.simplehammers.hammers"))
                 .icon(() -> new ItemStack(HAMMERS.get(HammerTiers.DIAMOND)))
                 .displayItems((parameters, output) -> {
                     tabStacks().forEach(output::accept);

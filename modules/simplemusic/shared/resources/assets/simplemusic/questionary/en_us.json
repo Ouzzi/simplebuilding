@@ -1,0 +1,82 @@
+{
+  "guide_book": {
+    "lore": [
+      "A short book for people who hum while they build."
+    ],
+    "use": [
+      "The Simple Music Guide explains sheet music, note code, the orchestrion, the disc press and the pocket jukebox. Craft it shapeless from a book and a note block."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  },
+  "sheet_music": {
+    "lore": [
+      "Paper, ink and a feather: everything a song needs to be written down."
+    ],
+    "use": [
+      "Shapeless from paper, an ink sac and a feather. Use it to open the note code editor; signing it with a title makes it read-only. A sheet holds a composition or an uploaded track."
+    ],
+    "secret": [
+      "A signed sheet over an empty one in the cartography table makes a copy; only the empty sheet is used up."
+    ]
+  },
+  "orchestrion": {
+    "lore": [
+      "A jukebox that learned to read."
+    ],
+    "use": [
+      "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc to put it in, with an empty hand to take it out. It plays on a loop and never ejects."
+    ],
+    "secret": [
+      "A chest or barrel on top becomes its playlist: after each run the next sheet or disc takes the finished one's place."
+    ]
+  },
+  "disc_press": {
+    "lore": [
+      "A piston that only ever presses music."
+    ],
+    "use": [
+      "A piston over two iron ingots over three smooth stone. Put a sheet on top and blank discs below: it presses the sheet's music onto a blank in 2 seconds."
+    ],
+    "secret": [
+      "The sheet always stays; only the blank becomes a disc."
+    ]
+  },
+  "blank_disc": {
+    "lore": [
+      "A disc that has not heard anything yet."
+    ],
+    "use": [
+      "Four coal or charcoal and four blackstone around an amethyst shard. The disc press puts the music of a sheet onto it."
+    ],
+    "secret": [
+      "A pressed composition gets a paper label, an uploaded track an amethyst one."
+    ]
+  },
+  "custom_disc": {
+    "lore": [
+      "Your own music, pressed to keep."
+    ],
+    "use": [
+      "Carries an uploaded track or a composition. It plays in the orchestrion on a loop and once in a Vanilla jukebox; the pocket jukebox takes track discs."
+    ],
+    "secret": [
+      "A track disc holds only the track's name, length and uploader, never the audio itself."
+    ]
+  },
+  "family:pocket_jukebox": {
+    "items": [
+      "regex:.*pocket_jukebox"
+    ],
+    "lore": [
+      "{name}: a bundle that hums."
+    ],
+    "use": [
+      "Holds up to 20 discs. Use it in the main hand to play or pause; only you hear it, wherever you go. Sneak and right-click a block to put it down."
+    ],
+    "secret": [
+      "Placed on a block it plays its discs for everyone nearby, like a jukebox."
+    ]
+  }
+}

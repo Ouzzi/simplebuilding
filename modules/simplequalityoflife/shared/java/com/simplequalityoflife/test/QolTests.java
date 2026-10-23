@@ -36,7 +36,7 @@ public final class QolTests {
     String key="text.autoconfig.simplequalityoflife.option."+field.getName();
     for(var lang:List.of(en,de)){h.assertTrue(lang.has(key)&&lang.has(key+".@Tooltip"),"Name/tooltip "+field.getName());h.assertTrue(lang.get(key+".@Tooltip").getAsString().replace(" ","").contains(String.valueOf(field.get(c))),"Default in tooltip "+field.getName());}
    }
-   h.assertTrue(en.has("simplequalityoflife.config.tab.submods")&&de.has("simplequalityoflife.config.tab.submods"),"Tab submods");
+   h.assertTrue(en.has("text.autoconfig.simplequalityoflife.category.submods")&&de.has("text.autoconfig.simplequalityoflife.category.submods"),"Tab submods");
    // An old file with qOL.* options: the moved keys are ignored here (each sub-mod takes its values over), the switches default on.
    var loaded=new com.google.gson.Gson().fromJson("{\"enableSimpleTools\":false,\"frostWalkerWalkOnPowderSnow\":false,\"qOL\":{\"linkedContainerRange\":32,\"ladderClimbingSpeed\":0.3}}",SimplequalityoflifeConfig.class);loaded.normalize();
    h.assertTrue(!loaded.enableSimpleTools&&loaded.enableSimpleMovement&&loaded.enableSimpleInterfaces,"Legacy keys ignored, switches kept or defaulted");

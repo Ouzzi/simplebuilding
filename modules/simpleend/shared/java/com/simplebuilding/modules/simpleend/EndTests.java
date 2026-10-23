@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpleend;
 
 import com.simplebuilding.modules.simpleend.block.EndBudBlock;
+import com.simplebuilding.modules.simpleend.block.EndLeavesBlock;
 import com.simplebuilding.modules.simpleend.block.EndSticksBlock;
 import com.simplebuilding.modules.simpleend.mixin.FireBlockInvoker;
 import com.simplebuilding.modules.simpleend.world.EndBiomes;
@@ -499,20 +500,94 @@ public final class EndTests {
                 h.assertTrue(stonePig.getHealth() < stonePig.getMaxHealth(), "a fall onto stone still hurts (control), health " + stonePig.getHealth());
             });
         });
-        add("end_leaves_inner_state", h -> {
+        add("end_leaves_density_state", h -> {
+            // TX22-4: density from the neighbours that are not air, whatever they are (0-3 loose, 4-5 medium, 6 dense), kept up to date.
             ServerLevel level = h.getLevel();
             BlockPos c = new BlockPos(20, 3, 20);
+            BlockPos abs = h.absolutePos(c);
+            Direction[] sides = Direction.values();
+            var player = h.makeMockServerPlayerInLevel();
+            int[] want = {EndLeavesBlock.LOOSE, EndLeavesBlock.LOOSE, EndLeavesBlock.LOOSE, EndLeavesBlock.LOOSE,
+                    EndLeavesBlock.MEDIUM, EndLeavesBlock.MEDIUM, EndLeavesBlock.DENSE};
             for (EndWood w : EndWood.ALL) {
-                // Solid 3x3x3 cube of leaves: only the centre has no air neighbour.
-                for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) for (int dz = -1; dz <= 1; dz++) h.setBlock(c.offset(dx, dy, dz), w.leaves);
-                BlockPos abs = h.absolutePos(c);
-                h.assertTrue(level.getBlockState(abs).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " centre leaf is inner");
-                h.assertTrue(!level.getBlockState(abs.above()).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " face leaf is outer");
-                h.assertTrue(!level.getBlockState(abs.offset(1, 1, 1)).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " corner leaf is outer");
-                // Cut a neighbour: the centre faces air and turns outer again (shape update).
-                h.setBlock(c.above(), Blocks.AIR);
-                h.assertTrue(!level.getBlockState(abs).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " centre leaf is outer again");
-                for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) for (int dz = -1; dz <= 1; dz++) h.setBlock(c.offset(dx, dy, dz), Blocks.AIR);
+                h.setBlock(c, Blocks.AIR);
+                for (Direction d : sides) h.setBlock(c.relative(d), Blocks.AIR);
+                BlockState placed = w.leaves.getStateForPlacement(new net.minecraft.world.item.context.BlockPlaceContext(player,
+                        InteractionHand.MAIN_HAND, new ItemStack(w.leaves), new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false)));
+                h.assertTrue(placed.getValue(EndLeavesBlock.DENSITY) == EndLeavesBlock.LOOSE, w.name + " leaf placed in open air is loose");
+                h.setBlock(c, placed);
+                // Fill the sides one by one with mixed blocks (stone, dirt, logs, leaves): every count gives its stage.
+                Block[] fill = {Blocks.STONE, Blocks.DIRT, w.log, w.leaves, Blocks.GLASS, Blocks.STONE};
+                for (int i = 0; i < 6; i++) {
+                    h.setBlock(c.relative(sides[i]), fill[i]);
+                    int got = level.getBlockState(abs).getValue(EndLeavesBlock.DENSITY);
+                    h.assertTrue(got == want[i + 1], w.name + " with " + (i + 1) + " neighbours has density " + want[i + 1] + ", got " + got);
+                }
+                // Removing neighbours steps back down (shape update).
+                h.setBlock(c.relative(sides[0]), Blocks.AIR);
+                h.assertTrue(level.getBlockState(abs).getValue(EndLeavesBlock.DENSITY) == EndLeavesBlock.MEDIUM, w.name + " back to medium with 5");
+                h.setBlock(c.relative(sides[1]), Blocks.AIR);
+                h.setBlock(c.relative(sides[2]), Blocks.AIR);
+                h.assertTrue(level.getBlockState(abs).getValue(EndLeavesBlock.DENSITY) == EndLeavesBlock.LOOSE, w.name + " back to loose with 3");
+                h.setBlock(c, Blocks.AIR);
+                for (Direction d : sides) h.setBlock(c.relative(d), Blocks.AIR);
+            }
+            h.succeed();
+        });
+        add("end_leaves_density_brake", h -> {
+            // TX22-4: the denser the leaf, the stronger the cobweb brake; medium is exactly the Vanilla cobweb.
+            ServerLevel level = h.getLevel();
+            BlockPos at = new BlockPos(20, 3, 20);
+            BlockPos abs = h.absolutePos(at);
+            var player = h.makeMockServerPlayerInLevel();
+            for (EndWood w : EndWood.ALL) {
+                double last = Double.MAX_VALUE;
+                for (int d = EndLeavesBlock.LOOSE; d <= EndLeavesBlock.DENSE; d++) {
+                    BlockState leaf = w.leaves.defaultBlockState().setValue(EndLeavesBlock.DENSITY, d);
+                    h.setBlock(at, leaf);
+                    Vec3 start = player.position();
+                    leaf.entityInside(level, abs, player, InsideBlockEffectApplier.NOOP, true);
+                    player.move(MoverType.SELF, new Vec3(0.5, 0.0, 0.0));
+                    double moved = player.position().x - start.x;
+                    player.snapTo(start.x, start.y, start.z, 0.0F, 0.0F);
+                    double expect = 0.5 * EndLeavesBlock.stuckSpeed(d, false).x;
+                    h.assertTrue(Math.abs(moved - expect) < 0.01, w.name + " density " + d + " moves " + expect + ", got " + moved);
+                    h.assertTrue(moved < last, w.name + " density " + d + " brakes harder than the stage before (" + moved + " vs " + last + ")");
+                    last = moved;
+                }
+                h.assertTrue(EndLeavesBlock.stuckSpeed(EndLeavesBlock.MEDIUM, false).equals(new Vec3(0.25, 0.05F, 0.25)), "medium = Vanilla cobweb");
+                h.assertTrue(EndLeavesBlock.stuckSpeed(EndLeavesBlock.MEDIUM, true).equals(new Vec3(0.5, 0.25, 0.5)), "medium with Weaving = Vanilla cobweb with Weaving");
+                h.assertTrue(EndLeavesBlock.stuckSpeed(EndLeavesBlock.LOOSE, false).y > EndLeavesBlock.stuckSpeed(EndLeavesBlock.MEDIUM, false).y
+                        && EndLeavesBlock.stuckSpeed(EndLeavesBlock.MEDIUM, false).y > EndLeavesBlock.stuckSpeed(EndLeavesBlock.DENSE, false).y,
+                        "falling is braked by density too");
+            }
+            h.succeed();
+        });
+        add("end_leaves_hoe_tool", h -> {
+            // TX22-4: the hoe is the tool; without one the leaves take as long as a cobweb (bare hand: 20 s, like Vanilla).
+            ServerLevel level = h.getLevel();
+            BlockPos at = new BlockPos(20, 3, 20);
+            BlockPos abs = h.absolutePos(at);
+            var player = h.makeMockServerPlayerInLevel();
+            BlockState web = Blocks.COBWEB.defaultBlockState();
+            for (EndWood w : EndWood.ALL) {
+                h.setBlock(at, w.leaves);
+                BlockState leaf = level.getBlockState(abs);
+                h.assertTrue(leaf.is(BlockTags.MINEABLE_WITH_HOE), w.name + " leaves are mineable with a hoe");
+                for (net.minecraft.world.item.Item tool : new net.minecraft.world.item.Item[] {Items.AIR, Items.STICK, Items.IRON_PICKAXE, Items.IRON_AXE}) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(tool));
+                    float prog = leaf.getDestroyProgress(player, level, abs), cobweb = web.getDestroyProgress(player, level, abs);
+                    h.assertTrue(Math.abs(prog - cobweb) < 1e-6, w.name + " leaves with " + tool + " break like a cobweb: " + prog + " vs " + cobweb);
+                }
+                player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                float hand = leaf.getDestroyProgress(player, level, abs);
+                float ticks = 400.0F * (player.onGround() ? 1 : 5); // Vanilla: mining in the air is five times slower
+                h.assertTrue(Math.abs(1.0F / hand - ticks) < 1.0F, w.name + " leaves by hand take " + ticks + " ticks (cobweb), got " + (1.0F / hand));
+                for (net.minecraft.world.item.Item hoe : new net.minecraft.world.item.Item[] {Items.WOODEN_HOE, Items.IRON_HOE}) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(hoe));
+                    float prog = leaf.getDestroyProgress(player, level, abs);
+                    h.assertTrue(prog >= hand * 10, w.name + " leaves break far faster with " + hoe + ": " + prog + " vs hand " + hand);
+                }
             }
             h.succeed();
         });

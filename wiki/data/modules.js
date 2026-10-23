@@ -794,7 +794,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "8743da5d21e0"
+    "dataHash": "429f7ba70093"
   },
   {
     "id": "simplerespawn",
@@ -1076,7 +1076,7 @@ window.WIKI_MODULES = [
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "677b17642cfc"
+    "dataHash": "b5a5e9f85de2"
   },
   {
     "id": "simplehammers",
@@ -1106,7 +1106,7 @@ window.WIKI_MODULES = [
       "recipes": 11,
       "features": 9
     },
-    "dataHash": "64073d9d1f41"
+    "dataHash": "6a79a1f532f4"
   },
   {
     "id": "simpleoptimization",
@@ -1250,6 +1250,6 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 17
     },
-    "dataHash": "f56a3c2f5ae9"
+    "dataHash": "9432669213ae"
   }
 ];
