@@ -1686,7 +1686,7 @@ public final class TestCentreTests {
                 .withPosition(net.minecraft.world.phys.Vec3.atCenterOf(at)).withSuppressedOutput();
         level.getServer().getCommands().performPrefixedCommand(source, horse.getFirst().command());
         List<net.minecraft.world.entity.LivingEntity> horses = level.getEntitiesOfClass(net.minecraft.world.entity.LivingEntity.class,
-                new AABB(at).inflate(12), entity -> entity.getType() == net.minecraft.world.entity.EntityType.HORSE);
+                new AABB(at).inflate(12), entity -> BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).equals(Identifier.withDefaultNamespace("horse")));
         try {
             if (horses.size() != 1) {
                 problems.add("the horse button summoned " + horses.size() + " horses: " + horse.getFirst().command());

@@ -105,7 +105,7 @@ public final class UiStation {
         return List.of(new ItemStack(Items.RAW_IRON, 16), new ItemStack(Items.COAL, 16), new ItemStack(Items.COBBLESTONE, 64),
                 new ItemStack(Items.OAK_LOG, 32), new ItemStack(Items.BREAD, 8), new ItemStack(Items.DIAMOND, 3),
                 new ItemStack(Items.REDSTONE, 32), new ItemStack(Items.IRON_INGOT, 9), new ItemStack(Items.NETHER_WART, 4),
-                new ItemStack(Items.BLAZE_POWDER, 4), new ItemStack(Items.POTION), new ItemStack(Items.WHITE_WOOL, 16),
+                new ItemStack(Items.BLAZE_POWDER, 4), new ItemStack(Items.POTION), new ItemStack(Items.STRING, 16),
                 new ItemStack(Items.ARROW, 16), new ItemStack(Items.BONE_MEAL, 12), new ItemStack(Items.PAPER, 8));
     }
 
