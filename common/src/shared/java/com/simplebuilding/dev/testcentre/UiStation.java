@@ -127,8 +127,11 @@ public final class UiStation {
                 stack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(filler));
                 out.add(stack);
             } else if (stack.has(DataComponents.BUNDLE_CONTENTS) && (family || item == Items.BUNDLE)) {
-                stack.set(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY.copyWithContents(
-                        java.util.stream.Stream.of(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(Items.DIAMOND, 2), new ItemStack(Items.BREAD, 4))));
+                BundleContents.Mutable contents = com.simplebuilding.version.McVersion.emptyBundleMutable();
+                for (ItemStack inside : List.of(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(Items.DIAMOND, 2), new ItemStack(Items.BREAD, 4))) {
+                    contents.tryInsert(inside);
+                }
+                stack.set(DataComponents.BUNDLE_CONTENTS, contents.toImmutable());
                 out.add(stack);
             }
         }
