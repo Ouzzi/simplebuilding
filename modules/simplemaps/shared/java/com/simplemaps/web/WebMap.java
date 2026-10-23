@@ -10,12 +10,21 @@ import java.net.InetAddress;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
+import com.simplemaps.WayfinderData;
+import com.simplemaps.Waypoints;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -41,6 +50,15 @@ public final class WebMap {
     private static int httpRetryTick;
     /** {@code live.json} as the server thread last built it; the web server threads only read this string. */
     private static volatile String live;
+    /**
+     * Stage 3 (dirty tiles): what the last finished export of this session wrote, and the 1:1 tile keys per dimension
+     * folder with block changes since the running export started. Too many changes or a failed export: next one is full.
+     */
+    private static WebExport.State state;
+    private static Map<String, Set<Long>> dirty = new HashMap<>();
+    private static int dirtyCount;
+    private static boolean fullNext;
+    public static final int MAX_DIRTY = 1 << 18;
 
     private WebMap() {}
 
@@ -76,13 +94,46 @@ public final class WebMap {
     }
 
     public static Start start(MinecraftServer s) {
+        return start(s, false);
+    }
+
+    /**
+     * Starts an export: only changed tiles when this session already finished one into the same folder with the same claim
+     * mode, else (or with {@code full}) every explored tile.
+     */
+    public static Start start(MinecraftServer s, boolean full) {
         attach(s);
         if (!MapsConfig.enabled || !MapsConfig.webEnabled) return Start.DISABLED;
         if (autoOff() != null) return Start.AUTO_OFF;
         if (job != null) return Start.RUNNING;
-        job = WebExport.ofAllMaps(s, exportDir(s), MapsConfig.webHideClaims);
+        Map<String, Set<Long>> changed = dirty;
+        dirty = new HashMap<>();
+        dirtyCount = 0;
+        job = WebExport.ofAllMaps(s, exportDir(s), WebExport.Claims.of(MapsConfig.webHideClaims, MapsConfig.webClaimStyle),
+                full || fullNext ? null : state, changed);
+        fullNext = false;
         lastStartTick = s.getTickCount();
         return Start.STARTED;
+    }
+
+    /**
+     * A block changed (mixin on {@code ServerLevel.sendBlockUpdated}, server thread): remembers its 1:1 tile for the next
+     * export. Only while {@code webEnabled}; past {@link #MAX_DIRTY} keys the next export is a full one instead.
+     */
+    public static void blockChanged(ServerLevel level, BlockPos pos) {
+        if (!MapsConfig.webEnabled || !MapsConfig.enabled || level.getServer() != server || !level.getServer().isSameThread()) return;
+        if (fullNext) return;
+        long key = WayfinderData.key(Math.floorDiv(pos.getX(), WebExport.TILE), Math.floorDiv(pos.getZ(), WebExport.TILE));
+        if (dirty.computeIfAbsent(WebExport.folder(level.dimension()), f -> new HashSet<>()).add(key) && ++dirtyCount > MAX_DIRTY) {
+            dirty = new HashMap<>();
+            dirtyCount = 0;
+            fullNext = true;
+        }
+    }
+
+    /** Whether a block change in this tile waits for the next export (tests). */
+    public static boolean dirty(MinecraftServer s, ResourceKey<Level> dimension, long tileKey) {
+        return s == server && dirty.getOrDefault(WebExport.folder(dimension), Set.of()).contains(tileKey);
     }
 
     /** Whether the built-in web server should run: export allowed ({@link #active()}) and {@code webHttpEnabled}. */
@@ -156,6 +207,12 @@ public final class WebMap {
             }
             job.step(MapsConfig.webChunksPerTick);
             if (job.done()) {
+                if (job.failed()) {
+                    fullNext = true;
+                    job = null;
+                    return;
+                }
+                state = job.state();
                 last = new Last(System.currentTimeMillis(), job.tilesWritten(), job.dimensions(), job.dir());
                 SimpleMaps.LOG.info("Simple Maps: web map exported ({} tiles, {} dimensions) to {}", last.tiles(), last.dimensions(), last.dir());
                 job = null;
@@ -176,6 +233,10 @@ public final class WebMap {
         server = s;
         job = null;
         last = null;
+        state = null;
+        dirty = new HashMap<>();
+        dirtyCount = 0;
+        fullNext = false;
         lastStartTick = s.getTickCount();
         String mod = autoOff();
         if (mod != null && MapsConfig.webEnabled) {
@@ -192,6 +253,57 @@ public final class WebMap {
     public static void setVisible(MinecraftServer s, UUID player, boolean show) {
         Players data = Players.get(s);
         if (show ? data.ids.add(player) : data.ids.remove(player)) data.setDirty();
+    }
+
+    /** One player's shared waypoints of one map (snapshot of {@code /simplemaps web waypoints share}). */
+    public record Share(UUID owner, int map, String dimension, Waypoints waypoints) {
+        public static final Codec<Share> CODEC = RecordCodecBuilder.create(i -> i.group(
+                UUIDUtil.STRING_CODEC.fieldOf("owner").forGetter(Share::owner),
+                Codec.INT.fieldOf("map").forGetter(Share::map),
+                Codec.STRING.fieldOf("dimension").forGetter(Share::dimension),
+                Waypoints.CODEC.fieldOf("waypoints").forGetter(Share::waypoints)).apply(i, Share::new));
+    }
+
+    /** Shared waypoints of every player (empty unless somebody shared). */
+    public static List<Share> shares(MinecraftServer s) {
+        return List.copyOf(Shares.get(s).list);
+    }
+
+    /** Shares (or replaces) the waypoints of this map for this player; returns how many waypoints are shared now. */
+    public static int share(MinecraftServer s, UUID owner, int map, ResourceKey<Level> dimension, Waypoints waypoints) {
+        Shares data = Shares.get(s);
+        data.list.removeIf(x -> x.owner().equals(owner) && x.map() == map);
+        data.list.add(new Share(owner, map, dimension.identifier().toString(), waypoints));
+        data.setDirty();
+        return waypoints.list().size();
+    }
+
+    /** Takes back this player's share of one map, or all of them ({@code map} &lt; 0); returns how many maps were removed. */
+    public static int unshare(MinecraftServer s, UUID owner, int map) {
+        Shares data = Shares.get(s);
+        int before = data.list.size();
+        data.list.removeIf(x -> x.owner().equals(owner) && (map < 0 || x.map() == map));
+        if (data.list.size() != before) data.setDirty();
+        return before - data.list.size();
+    }
+
+    /** Waypoints players shared for the web map ({@code simplemaps:web_waypoints}); nothing is shared by default. */
+    public static final class Shares extends SavedData {
+        public static final Codec<Shares> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Share.CODEC.listOf().fieldOf("shares").forGetter(p -> new ArrayList<>(p.list))).apply(i, Shares::new));
+        public static final SavedDataType<Shares> TYPE = new SavedDataType<>(SimpleMaps.id("web_waypoints"), Shares::new, CODEC,
+                DataFixTypes.SAVED_DATA_COMMAND_STORAGE);
+        final List<Share> list = new ArrayList<>();
+
+        public Shares() {}
+
+        private Shares(List<Share> list) {
+            this.list.addAll(list);
+        }
+
+        static Shares get(MinecraftServer s) {
+            return s.overworld().getDataStorage().computeIfAbsent(TYPE);
+        }
     }
 
     /** Players who switched themselves on ({@code /simplemaps web show}); default is off for everybody. */

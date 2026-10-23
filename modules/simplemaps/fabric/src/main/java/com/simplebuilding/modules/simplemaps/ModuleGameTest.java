@@ -121,6 +121,10 @@ public final class ModuleGameTest {
     @GameTest public void webHttpEndpoints(GameTestHelper h) { MapsTests.ALL.get("web_http_endpoints").accept(h); }
     @GameTest public void webHttpRateLimit(GameTestHelper h) { MapsTests.ALL.get("web_http_rate_limit").accept(h); }
     @GameTest public void webLiveOptIn(GameTestHelper h) { MapsTests.ALL.get("web_live_opt_in").accept(h); }
+    @GameTest public void webDirtyTiles(GameTestHelper h) { MapsTests.ALL.get("web_dirty_tiles").accept(h); }
+    @GameTest public void webDirtyBlockChange(GameTestHelper h) { MapsTests.ALL.get("web_dirty_block_change").accept(h); }
+    @GameTest public void webClaimsPixelate(GameTestHelper h) { MapsTests.ALL.get("web_claims_pixelate").accept(h); }
+    @GameTest public void webWaypoints(GameTestHelper h) { MapsTests.ALL.get("web_waypoints").accept(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.behaviourHints(h); }
     @GameTest public void guideBook(GameTestHelper h) { com.simplebuilding.modules.simplemaps.guide.MapsGuide.gameTest(h); }

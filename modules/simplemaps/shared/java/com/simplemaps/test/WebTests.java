@@ -47,6 +47,7 @@ final class WebTests {
         all.put("web_command_permissions", WebTests::commandPermissions);
         all.put("web_shops", WebTests::shops);
         WebHttpTests.register(all);
+        WebStage3Tests.register(all);
     }
 
     private WebTests() {}
