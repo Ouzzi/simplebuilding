@@ -328,6 +328,7 @@ public final class ColorBrushTests {
     public static void paintBoxPlacedAndPickedUpWithContents(GameTestHelper helper) {
         if (com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX == null) { helper.succeed(); return; }
         var player = playerInLevel(helper);
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         player.setShiftKeyDown(true);
         BlockPos floor = new BlockPos(2, 1, 2);
         helper.setBlock(floor, Blocks.STONE);
@@ -373,6 +374,7 @@ public final class ColorBrushTests {
     public static void paintBoxPlacedDropsWithContents(GameTestHelper helper) {
         if (com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX == null) { helper.succeed(); return; }
         var player = playerInLevel(helper);
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         player.setShiftKeyDown(true);
         for (int i = 0; i < 2; i++) {
             BlockPos floor = new BlockPos(1 + 2 * i, 1, 2);
