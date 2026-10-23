@@ -28,7 +28,7 @@ Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabsc
 Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 48 GRÜN → master 49511b38b (23.10. 11:01 UTC: Vault A+C, Upload C, Stil-Audit, Texturen TX23, Laub-Dichte). Bündel 49 (a-bundle49) = a-claims-carto (SP22-8 Teile 1–4 + UI-Stil) + a-tz13 (N13) + a-sage23 (Generator). Laufen: a-pjuke23, a-qtable23, a-frames23, a-webmap3. Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 48 GRÜN → master 49511b38b (23.10. 11:01 UTC: Vault A+C, Upload C, Stil-Audit, Texturen TX23, Laub-Dichte). Bündel 49 (a-bundle49) = a-claims-carto (SP22-8 Teile 1–4 + UI-Stil) + a-tz13 (N13) + a-sage23 (Generator) + a-qtable23 (QT23) + a-frames23 (FR23). Laufen: a-pjuke23, a-qtable23, a-frames23, a-webmap3. Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
