@@ -62,6 +62,14 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 
 ---
 
+## Besitzer 23.10. abends – Wahlen B23/TX23/FR23/QT23 (W23)
+- [~] (A, a-sbtex23b, 23.10.) W23-1 SB-Texturen einbauen: T5=A (Redstone-Blöcke), T6=C (Erze, aber versteckter – schwerer zu entdecken), T7=C (Kolben), T8=B (Baulicht), T9=B (Astral-Gewölbe).
+- [~] (A, a-sbtex23b, 23.10.) W23-2 Falsche Erze (neu): je ein Fake-Astralit- und Fake-Nihilit-Erz, ähnlich aber „unraffiniert“, ersetzen ~20 % der Vorkommen; Adergröße erhöhen statt Spawnrate, sodass die echte Menge gleich bleibt. Drop = Variation von Astralit/Nihilit → kreative Vorschläge zur Wahl.
+- [~] (A, a-blockstex23b, 23.10.) W23-3 Moos neu (nah an Vanilla; am nächsten war Var. C der Tiefenschiefer-Fliesen). Risse: übernehmen, aber tiefer/durchgehend wie Vanilla. Sculk-Tiefenschiefer: B, Overlay-Muster schöner. Gehüllte Tiefenschiefer-Fliesen: B = Tiefenschiefer-Fliesen + Sculk; C = neuer Block (Fliesen in Sculk-Farben, verschiedene Helligkeit, animiert); B und C mit weniger geraden Linien. Gemeißeltes Packeis: B.
+- [~] (A, a-misctex23b, 23.10.) W23-4 Notenblock/Noten-Verstärker/Jukebox-Verstärker: 90°-drehsymmetrischer Rahmen rundum wie die Jukebox, Mitte Notenblock-Muster (180° symmetrisch erlaubt). Money-Vorschläge verworfen (eigene bleiben). Verkaufslager + Lager-Werkbank: B, aber weicher/weniger harsch (v. a. Verkaufslager). Rucksack: B verfeinern, Motiv im Uhrzeigersinn gedreht wie das Bündel, neue Vorschläge. Animationen (A1) übernehmen. Butter innen verbessern (heutige bleibt bis dahin), Piggy-Effekt Kopf frontal Vanilla-näher (Pupillen außen statt innen), Laub locker ~30 % (L1).
+- [~] (A, a-ui23b, 23.10.) W23-5 Rahmen: A reine Draufsicht; mit Meißel + Schleichen den Rahmen „meißeln“ dreht den Winkel in Stufen, die 90° ergeben (z. B. 6 × 15°).
+- [~] (A, a-ui23b, 23.10.) W23-6 Fragentisch: Variante B, Buch deutlich größer (oben/unten Abstand wie Doppeltruhe), dickere markante Mittelfalz, unten Buchkante/Bindungs-Wulst, Schatten-Backdrop hinter Fragentisch- und Inventar-Kasten.
+
 ## Besitzer 23.10. nachmittags – Texturen, Mechanik, Mega-Karte (B23)
 Sprachnachricht + 5 Screenshots (Kopie auf sb-agent: /root/sb-tools-a/owner-img/23-*). Texturen: immer exemplarisch + Varianten, in Ebenen, Vanilla-nah, „wie bei den Endholz-Varianten“ (mehr Töne, weiche Übergänge).
 **Texturen Simple Blocks (a-blockstex23)**
