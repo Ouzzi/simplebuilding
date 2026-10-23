@@ -26,24 +26,9 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("sheet_save_rules").accept(h);
     }
 
-    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
-    public void orchestrionPlaysSteps(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_plays_steps").accept(h);
-    }
-
-    @GameTest(structure = "simplemusic:empty", maxTicks = 80)
-    public void orchestrionRedstone(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_redstone").accept(h);
-    }
-
-    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
-    public void orchestrionPlaylist(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_playlist").accept(h);
-    }
-
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
-    public void orchestrionPopOut(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_pop_out").accept(h);
+    public void orchestrionBecomesJukebox(GameTestHelper h) {
+        MusicTests.ALL.get("orchestrion_becomes_jukebox").accept(h);
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
@@ -101,7 +86,7 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("pocket_play_pause").accept(h);
     }
 
-    @GameTest(structure = "simplemusic:empty", maxTicks = 40)
+    @GameTest(structure = "simplemusic:empty", maxTicks = 240)
     public void pocketStops(GameTestHelper h) {
         MusicTests.ALL.get("pocket_stops").accept(h);
     }
@@ -139,5 +124,40 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemusic:empty", maxTicks = 40)
     public void subModSwitch(GameTestHelper h) {
         MusicTests.ALL.get("sub_mod_switch").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
+    public void pocketScrollRemove(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_scroll_remove").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 80)
+    public void pocketInventoryContinuity(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_inventory_continuity").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
+    public void pocketDropContinues(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_drop_continues").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 240)
+    public void pocketBreakContinues(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_break_continues").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pocketRedstone(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_redstone").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pocketSounds(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_sounds").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void pressLayout(GameTestHelper h) {
+        MusicTests.ALL.get("press_layout").accept(h);
     }
 }

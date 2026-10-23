@@ -4,7 +4,7 @@
       "A short book for people who hum while they build."
     ],
     "use": [
-      "The Simple Music Guide explains sheet music, note code, the orchestrion, the disc press and the pocket jukebox. Craft it shapeless from a book and a note block."
+      "The Simple Music Guide explains sheet music, note code, the disc press and the pocket jukebox. Craft it shapeless from a book and a note block."
     ],
     "secret": [
       "Its pages open in your language and nothing is consumed."
@@ -19,17 +19,6 @@
     ],
     "secret": [
       "A signed sheet over an empty one in the cartography table makes a copy; only the empty sheet is used up."
-    ]
-  },
-  "orchestrion": {
-    "lore": [
-      "A jukebox that learned to read."
-    ],
-    "use": [
-      "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc to put it in, with an empty hand to take it out. It plays on a loop and never ejects."
-    ],
-    "secret": [
-      "A chest or barrel on top becomes its playlist: after each run the next sheet or disc takes the finished one's place."
     ]
   },
   "disc_press": {
@@ -59,7 +48,7 @@
       "Your own music, pressed to keep."
     ],
     "use": [
-      "Carries an uploaded track or a composition. It plays in the orchestrion on a loop and once in a Vanilla jukebox; the pocket jukebox takes track discs."
+      "Carries an uploaded track or a composition. It plays once in a Vanilla jukebox; the pocket jukebox takes track discs."
     ],
     "secret": [
       "A track disc holds only the track's name, length and uploader, never the audio itself."

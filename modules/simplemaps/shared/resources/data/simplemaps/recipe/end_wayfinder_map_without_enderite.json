@@ -1,0 +1,37 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "simplelib:material_requested",
+        "material": "enderite"
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "simplelib:material_requested",
+        "material": "enderite"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:map",
+    "minecraft:compass",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:netherite_scrap",
+    "minecraft:netherite_scrap",
+    "minecraft:shulker_shell",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemaps:end_wayfinder_map"
+  }
+}

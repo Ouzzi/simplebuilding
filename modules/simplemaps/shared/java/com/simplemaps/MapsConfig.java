@@ -63,6 +63,15 @@ public final class MapsConfig {
      * change) can turn it off: the items stay registered (stable registries) but do nothing and are not offered.
      */
     public static boolean enabled = true;
+    /**
+     * Mega wayfinder map (owner B23-K2): which item unlocks a further dimension at the anvil ({@code dimension id -> item id}
+     * or {@code "any"} = any block while standing in that dimension), the rule of every dimension not listed ({@code "any"}
+     * or {@code ""} = none) and the anvil's level cost.
+     */
+    public static final int MEGA_LEVELS_DEFAULT = 5, MEGA_LEVELS_MIN = 1, MEGA_LEVELS_MAX = 39;
+    public static java.util.Map<String, String> megaUnlockItems = java.util.Map.of();
+    public static String megaUnlockDefault = MegaMaps.ANY;
+    public static int megaUnlockLevels = MEGA_LEVELS_DEFAULT;
     public static final String HOST_FILE = "simplebuilding.json", HOST_KEY = "enableSimpleMaps";
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -129,6 +138,10 @@ public final class MapsConfig {
         webHttpToken = getString(json, "webHttpToken", "").trim();
         webHttpRequestsPerMinute = clamp(getInt(json, "webHttpRequestsPerMinute", WEB_HTTP_RATE_DEFAULT), WEB_HTTP_RATE_MIN, WEB_HTTP_RATE_MAX);
         webLiveSeconds = clamp(getInt(json, "webLiveSeconds", WEB_LIVE_DEFAULT), WEB_LIVE_MIN, WEB_LIVE_MAX);
+        megaUnlockItems = getRules(json, "megaUnlockItems");
+        String rule = getString(json, "megaUnlockDefault", MegaMaps.ANY);
+        megaUnlockDefault = rule.isEmpty() || rule.equals(MegaMaps.ANY) ? rule : MegaMaps.ANY;
+        megaUnlockLevels = clamp(getInt(json, "megaUnlockLevels", MEGA_LEVELS_DEFAULT), MEGA_LEVELS_MIN, MEGA_LEVELS_MAX);
     }
 
     public static JsonObject toJson() {
@@ -156,6 +169,11 @@ public final class MapsConfig {
         o.addProperty("webHttpToken", webHttpToken);
         o.addProperty("webHttpRequestsPerMinute", webHttpRequestsPerMinute);
         o.addProperty("webLiveSeconds", webLiveSeconds);
+        JsonObject rules = new JsonObject();
+        megaUnlockItems.forEach(rules::addProperty);
+        o.add("megaUnlockItems", rules);
+        o.addProperty("megaUnlockDefault", megaUnlockDefault);
+        o.addProperty("megaUnlockLevels", megaUnlockLevels);
         return o;
     }
 
@@ -196,6 +214,22 @@ public final class MapsConfig {
         } catch (Exception e) {
             return fallback;
         }
+    }
+
+    /** {@code dimension id -> item id | "any"}; invalid ids are dropped, at most {@link MegaMaps#MAX} rules. */
+    private static java.util.Map<String, String> getRules(JsonObject json, String key) {
+        java.util.Map<String, String> out = new java.util.LinkedHashMap<>();
+        try {
+            if (!json.has(key) || !json.get(key).isJsonObject()) return java.util.Map.of();
+            for (var e : json.getAsJsonObject(key).entrySet()) {
+                String value = e.getValue().isJsonPrimitive() ? e.getValue().getAsString().trim() : "";
+                if (net.minecraft.resources.Identifier.tryParse(e.getKey()) == null || MegaMaps.builtIn(e.getKey()) || out.size() >= MegaMaps.MAX) continue;
+                if (value.equals(MegaMaps.ANY) || !value.isEmpty() && net.minecraft.resources.Identifier.tryParse(value) != null) out.put(e.getKey(), value);
+            }
+        } catch (Exception e) {
+            return java.util.Map.of();
+        }
+        return java.util.Collections.unmodifiableMap(out);
     }
 
     private static int clamp(int value, int min, int max) {

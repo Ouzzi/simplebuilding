@@ -11,14 +11,19 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -46,8 +51,14 @@ import org.jspecify.annotations.Nullable;
  * It nibbles End stone the way sheep graze - the block under it becomes Burrowed End Stone, which recovers by itself.
  * Never hurts players; not an Endermite, so Endermen ignore it. Bred and tempted with chorus fruit.
  * Variant 0 = Ash Valley colouring, 1 = Dawnlands colouring (chosen by the spawn biome, inherited by the young).
+ *
+ * <p>Tamable (B23-M15, owner 2026-10-23): a ripe Drift Fruit tames a wild one with a chance of 1 in {@link #TAME_CHANCE}
+ * (hearts, else smoke, like a wolf). A tamed one follows its owner; the owner's right-click (without food) switches between
+ * <em>follow</em> and <em>normal</em> (it wanders and nibbles on its own and does not teleport). "Normal" is Vanilla's
+ * {@code orderedToSit} flag without a sit goal, so it is saved and keeps every follow/teleport check of
+ * {@link TamableAnimal} off. Young of a tamed parent are tamed to the same owner. Tamed ones glow brighter (renderer).
  */
-public class Nibblemite extends Animal {
+public class Nibblemite extends TamableAnimal {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Nibblemite.class, EntityDataSerializers.INT);
     /** Mean ticks between two nibbles of an adult (sheep: 1/1000 per tick); young ones nibble more often. */
     public static final int NIBBLE_CHANCE = 600;
@@ -56,6 +67,8 @@ public class Nibblemite extends Animal {
     public static final byte EVENT_CHEW = 10;
     /** Length of the chew cycle in ticks (the NibbleGoal runs 30). */
     public static final int CHEW_TICKS = 30;
+    /** A Drift Fruit tames a wild Nibblemite with a chance of 1 in this. */
+    public static final int TAME_CHANCE = 3;
     /** Client only: ticks left of the chew cycle. */
     private int chewTicks;
 
@@ -88,8 +101,9 @@ public class Nibblemite extends Animal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.1, 6.0F, 2.0F));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, this::isFood, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, s -> isFood(s) || isTamingFood(s), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.addGoal(5, new NibbleGoal(this));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
@@ -134,10 +148,64 @@ public class Nibblemite extends Animal {
         return stack.is(Items.CHORUS_FRUIT) || stack.is(Items.POPPED_CHORUS_FRUIT);
     }
 
+    /** The ripe Drift Fruit tames (B23-M15); breeding stays with chorus fruit. */
+    public static boolean isTamingFood(ItemStack stack) {
+        return EndRegistry.DRIFT_FRUIT != null && stack.is(EndRegistry.DRIFT_FRUIT);
+    }
+
+    /** Tamed and following its owner (not switched to "normal"). */
+    public boolean isFollowing() {
+        return isTame() && !isOrderedToSit();
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!isTame() && isTamingFood(stack) && SimpleEnd.on()) {
+            if (!level().isClientSide()) {
+                usePlayerItem(player, hand, stack);
+                tryToTame(player);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        if (isTame() && isOwnedBy(player) && !isFood(stack) && hand == InteractionHand.MAIN_HAND) {
+            if (!level().isClientSide()) toggleMode(player);
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    /** One taming attempt with a Drift Fruit: hearts and tamed (following) on success, smoke otherwise. */
+    public boolean tryToTame(Player player) {
+        if (this.random.nextInt(TAME_CHANCE) == 0) {
+            tame(player);
+            this.navigation.stop();
+            setOrderedToSit(false);
+            level().broadcastEntityEvent(this, (byte) 7);
+            return true;
+        }
+        level().broadcastEntityEvent(this, (byte) 6);
+        return false;
+    }
+
+    /** Owner's right-click: follow &lt;-&gt; normal, with a short note above the hotbar. */
+    public void toggleMode(Player player) {
+        setOrderedToSit(!isOrderedToSit());
+        this.navigation.stop();
+        player.sendOverlayMessage(Component.translatable(isOrderedToSit()
+                ? "entity.simpleend.nibblemite.mode_normal" : "entity.simpleend.nibblemite.mode_follow"));
+    }
+
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
         Nibblemite baby = EndRegistry.NIBBLEMITE.create(level, EntitySpawnReason.BREEDING);
-        if (baby != null) baby.setVariant(this.random.nextBoolean() || !(partner instanceof Nibblemite other) ? variant() : other.variant());
+        if (baby != null) {
+            baby.setVariant(this.random.nextBoolean() || !(partner instanceof Nibblemite other) ? variant() : other.variant());
+            if (isTame()) {
+                baby.setOwnerReference(getOwnerReference());
+                baby.setTame(true, true);
+            }
+        }
         return baby;
     }
 

@@ -17,7 +17,7 @@ registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
 registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 37, len(g.BLOCKS)
+assert len(g.BLOCKS) == 38, len(g.BLOCKS)
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 
@@ -38,7 +38,7 @@ for path in list((RES / f'data/{NS}').rglob('*.json')) + list((RES / f'assets/{N
     if 'simplebuilding:' in text:
         assert '"simplebuilding"' in text, f'{path.relative_to(MODULE)} names a SimpleBuilding id without a simplebuilding condition'
 for name in ('aqua_froglight_side', 'aqua_froglight_top', 'azure_froglight_side', 'azure_froglight_top', 'scarlet_froglight_side',
-             'scarlet_froglight_top', 'nautilus_shell_block_side', 'nautilus_shell_block_top', 'chiseled_blue_ice', 'chiseled_packed_ice'):
+             'scarlet_froglight_top', 'nautilus_shell_block_side', 'nautilus_shell_block_top'):
     assert (RES / f'assets/{NS}/textures/block/{name}.png').exists(), name
 
 langs = {}
@@ -58,12 +58,16 @@ for feature in manual['features']:
     for src in feature['sources']:
         assert (MODULE.parents[1] / src).exists(), src
 
-# Textures: the own ones are committed, the cracked/mossy bricks are Vanilla-derived (built, never committed).
+# Textures: the own ones are committed, the cracked/mossy bricks are Vanilla-derived (built, never committed); since W23-3
+# also sculk deepslate, hushed tiles and the chiseled ice (Vanilla base + own overlay). Sculk tiles: own, animated.
 tex = RES / f'assets/{NS}/textures/block'
-for name in ('hushed_deepslate_tiles', 'sculk_deepslate', 'blue_nether_bricks'):
+for name in ('blue_nether_bricks', 'sculk_tiles'):
     assert (tex / f'{name}.png').exists(), name
+assert json.loads((tex / 'sculk_tiles.png.mcmeta').read_text(encoding='utf-8'))['animation'], 'sculk tiles are animated'
 sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
 import vanilla_derived  # noqa: E402
+for name in ('sculk_deepslate', 'hushed_deepslate_tiles', 'chiseled_packed_ice', 'chiseled_blue_ice'):
+    assert f'block/{name}.png' in vanilla_derived.MODULE_OUTPUTS[NS] and not (tex / f'{name}.layers.json').exists(), f'{name} is Vanilla-derived'
 assert {f'block/shapecutter_{n}.png' for n in ('top', 'side', 'bottom', 'saw')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'shapecutter textures are Vanilla-derived'
 # The blade is Vanilla's strip regreyed at build time (variant S1/S2); its animation stays Vanilla's (own .mcmeta, same values).
 assert json.loads((tex / 'shapecutter_saw.png.mcmeta').read_text(encoding='utf-8')) == {'animation': {'interpolate': False, 'frametime': 1}}, 'blade animation'
@@ -81,4 +85,4 @@ for color in g.WOOLS:
 for path, ingredient, out, count, mod in cuts:
     foreign = {ingredient.lstrip('#').split(':')[0], out.split(':')[0]} - {'minecraft', NS}
     assert foreign <= ({mod} if mod else set()), (path, 'needs a mod-loaded condition for', foreign)
-print(f'simpleblocks: 37 blocks + 15 moved from SimpleBuilding + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

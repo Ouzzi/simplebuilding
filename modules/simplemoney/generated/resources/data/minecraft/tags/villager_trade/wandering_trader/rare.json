@@ -82,6 +82,14 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/nihil_redstone_torch",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_redstone_torch",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/nihilith_lamp",
       "required": false
     },

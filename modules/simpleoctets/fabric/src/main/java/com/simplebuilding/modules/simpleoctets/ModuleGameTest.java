@@ -77,6 +77,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void cornerBreakOnlyWithHammer(GameTestHelper h) {
+        OctetTests.ALL.get("corner_break_only_with_hammer").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void mixedCellPersistsAndDropsEveryMaterial(GameTestHelper h) {
         OctetTests.ALL.get("mixed_cell_persists_and_drops_every_material").accept(h);
     }

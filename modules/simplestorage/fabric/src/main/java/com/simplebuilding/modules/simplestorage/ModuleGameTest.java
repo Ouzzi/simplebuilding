@@ -386,6 +386,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void placedBundleDepositIntoPlacedModBundlePlaysTheInsertSound(GameTestHelper h) {
+        StorageTests.ALL.get("placed_bundle_deposit_into_placed_mod_bundle_plays_the_insert_sound").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void bundleWiringFunnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks(GameTestHelper h) {
         StorageTests.ALL.get("bundle_wiring_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks").accept(h);
     }
@@ -568,5 +573,25 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplestorage:empty")
     public void rareFindsMigrationFromSimplebuilding(GameTestHelper h) {
         StorageTests.ALL.get("rare_finds_migration_from_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = com.simplestorage.test.PlacedStorageTests.FALL_MAX_TICKS)
+    public void placedStorageBundleFallsLikeSand(GameTestHelper h) {
+        StorageTests.ALL.get("placed_storage_bundle_falls_like_sand").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void placedStorageBundleHangsOnWallNotOnCeiling(GameTestHelper h) {
+        StorageTests.ALL.get("placed_storage_bundle_hangs_on_wall_not_on_ceiling").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = com.simplestorage.test.PlacedStorageTests.FALL_MAX_TICKS)
+    public void placedStorageBackpackFallsAndKeepsContentsWhenItBreaks(GameTestHelper h) {
+        StorageTests.ALL.get("placed_storage_backpack_falls_and_keeps_contents_when_it_breaks").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void placedStoragePlacedQuiverTakesArrowsOnly(GameTestHelper h) {
+        StorageTests.ALL.get("placed_storage_placed_quiver_takes_arrows_only").accept(h);
     }
 }

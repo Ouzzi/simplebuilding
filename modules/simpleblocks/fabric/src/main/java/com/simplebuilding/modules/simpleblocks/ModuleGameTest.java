@@ -21,6 +21,11 @@ public final class ModuleGameTest {
         BlocksTests.ALL.get("hushed_blocks_vibrations").accept(h);
     }
 
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sculkTiles(GameTestHelper h) {
+        BlocksTests.ALL.get("sculk_tiles").accept(h);
+    }
+
     @GameTest(structure = "simpleblocks:empty", maxTicks = 60)
     public void sculkDeepslateDropsAndXp(GameTestHelper h) {
         BlocksTests.ALL.get("sculk_deepslate_drops_and_xp").accept(h);
@@ -199,5 +204,10 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void movedBlocksInTheTab(GameTestHelper h) {
         BlocksTests.ALL.get("moved_blocks_in_the_tab").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void grassSpreadsOntoAndFromSlabs(GameTestHelper h) {
+        BlocksTests.ALL.get("grass_spreads_onto_and_from_slabs").accept(h);
     }
 }

@@ -2,6 +2,7 @@ package com.simplevisuals.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.simplevisuals.ChiseledFrame;
 import com.simplevisuals.FrameTilt;
 import com.simplevisuals.Visuals;
 import com.simplevisuals.client.TiltedFrameState;
@@ -21,8 +22,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * FR23: a flat block or pane (see {@link FrameTilt}) in a frame is drawn as its block model lying flat, top side (pane face)
- * to the viewer and tilted {@link FrameTilt#TILT_DEGREES} so the edge shows, instead of the FIXED item view (a thin strip
- * for a pressure plate, a sprite for a pane). Option visuals.enableTiltedFrameItems.
+ * to the viewer, instead of the FIXED item view (a thin strip for a pressure plate, a sprite for a pane). W23-5: flush on the
+ * back plate, tilted by the frame's chisel step ({@link FrameTilt#degrees}, synced entity datum). Option
+ * visuals.enableTiltedFrameItems.
  */
 @Mixin(ItemFrameRenderer.class)
 public abstract class ItemFrameRendererMixin {
@@ -37,14 +39,14 @@ public abstract class ItemFrameRendererMixin {
             at = @At("TAIL"))
     private void simplevisuals$tilt(ItemFrame frame, ItemFrameRenderState state, float partialTicks, CallbackInfo ci) {
         var tilt = (TiltedFrameState) state;
-        tilt.simplevisuals$setTilt(false, false);
+        tilt.simplevisuals$setTilt(false, false, 0.0F);
         if (!Visuals.active(Visuals.CONFIG.visuals.enableTiltedFrameItems) || state.mapId != null || state.item.isEmpty()) return;
         var kind = FrameTilt.kind(frame.getItem());
         if (kind == FrameTilt.Kind.VANILLA || kind == FrameTilt.Kind.FLAT && !state.item.usesBlockLight()) return;
         blockModelResolver.update(tilt.simplevisuals$model(), FrameTilt.viewState(frame.getItem()), ItemFrameRenderer.BLOCK_DISPLAY_CONTEXT);
         if (tilt.simplevisuals$model().isEmpty()) return;
         state.item.clear(); // Vanilla skips its item branch; the model is drawn below at the item position
-        tilt.simplevisuals$setTilt(true, kind == FrameTilt.Kind.PANE);
+        tilt.simplevisuals$setTilt(true, kind == FrameTilt.Kind.PANE, FrameTilt.degrees(((ChiseledFrame) frame).simplevisuals$tiltStep()));
     }
 
     /** Before the last popPose of submit the pose sits at the item origin (frame space: viewer on -Z, wall on +Z). */
@@ -55,9 +57,10 @@ public abstract class ItemFrameRendererMixin {
         if (!tilt.simplevisuals$tilted() || state.mapId != null) return;
         poseStack.pushPose();
         // Lay the object on the back plate, then lift the lower edge forward; push it out so the upper edge stays clear of the wall.
-        float push = (float) Math.sin(Math.toRadians(FrameTilt.TILT_DEGREES)) * SIMPLEVISUALS$HALF_DIAGONAL;
+        float degrees = tilt.simplevisuals$degrees();
+        float push = (float) Math.sin(Math.toRadians(degrees)) * SIMPLEVISUALS$HALF_DIAGONAL;
         poseStack.translate(0.0F, 0.0F, SIMPLEVISUALS$BACK_PLATE - push);
-        poseStack.rotateDegrees(Axis.XP, FrameTilt.TILT_DEGREES);
+        poseStack.rotateDegrees(Axis.XP, degrees);
         poseStack.rotateDegrees(Axis.ZP, state.rotation * 360.0F / 8.0F);
         poseStack.scale(0.5F, 0.5F, 0.5F);
         if (tilt.simplevisuals$pane()) {

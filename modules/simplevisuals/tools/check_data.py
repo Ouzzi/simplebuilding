@@ -31,7 +31,7 @@ for effect in effects:
 for feature in manual['features']:
     for locale in ('en','de'):assert feature[locale]['title'] and feature[locale]['summary'] and feature[locale]['details']
 mixins=read(MODULE/'shared/resources/simplevisuals.mixins.json')
-assert mixins['mixins']==['AnvilMenuMixin'], 'Client classes must not load on a dedicated server'
+assert mixins['mixins']==['AnvilMenuMixin','ItemFrameChiselMixin'], 'Client classes must not load on a dedicated server'
 for name in mixins['mixins']:
     assert 'net.minecraft.client' not in (MODULE/f'shared/java/com/simplevisuals/mixin/{name}.java').read_text()
 assert 'colour' not in ' '.join(lang['en_us'].values()).lower()

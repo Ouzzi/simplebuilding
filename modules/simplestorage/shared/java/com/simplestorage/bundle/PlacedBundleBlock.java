@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionResult;
@@ -38,8 +39,9 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Ein abgestelltes Buendel (Besitzer 2026-09-28, siehe {@link PlacedBundles}): Schleichen +
- * Rechtsklick mit einem Buendel auf die Oberseite eines Blocks stellt es als 3D-Buendel ab - nur auf
- * den Boden, nie an Wand oder Decke. Das Buendel selbst (samt Inhalt und allen Komponenten) liegt in
+ * Rechtsklick mit einem Buendel (seit B23-M11 auch einem Koecher) auf einen Block stellt es als 3D-Buendel ab:
+ * auf die Oberseite gestellt faellt es wie Sand, sobald nichts darunter ist; an eine Seitenflaeche gehaengt haengt es
+ * wie ein Item-Rahmen an der Wand ({@link PlacedStorage#WALL}); an die Decke nie (B23-M12). Das Buendel selbst (samt Inhalt und allen Komponenten) liegt in
  * der {@link PlacedBundleBlockEntity}; das Blockmodell waehlt die Stufe ({@link #TIER}) und, bei
  * gefaerbten Buendeln, das Zwei-Ebenen-Modell ({@link #DYED}), dessen Leder-Ebene die Farbe der
  * Block-Entity annimmt.
@@ -53,7 +55,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>Form: das Modell {@code block/template_placed_bundle} (Boden, Bauch, Schulter, Hals, Zipfel, Knoten),
  * fuer Blickrichtung Norden angegeben und fuer die anderen drei Richtungen gedreht.
  */
-public class PlacedBundleBlock extends BaseEntityBlock {
+public class PlacedBundleBlock extends BaseEntityBlock implements PlacedStorage.Falling {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<Tier> TIER = EnumProperty.create("tier", Tier.class);
     /** Gefaerbt (Komponente {@code dyed_color} oder ein farbiges Vanilla-Buendel): Leder-Ebene getoent. */
@@ -76,13 +78,24 @@ public class PlacedBundleBlock extends BaseEntityBlock {
             Block.box(6.0, 9.0, 5.0, 10.0, 11.0, 11.0),
             Block.box(7.0, 8.0, 4.0, 9.0, 10.0, 6.0));
     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(NORTH_SHAPE);
+    /** An der Wand: dieselben Quader, Rueckseite an der Wand (+{@link #WALL_SHIFT} nach Sueden) und ebenso weit angehoben. */
+    public static final int WALL_SHIFT = 3;
+    private static final Map<Direction, VoxelShape> WALL_SHAPES = Shapes.rotateHorizontal(NORTH_SHAPE.move(0.0, WALL_SHIFT / 16.0, WALL_SHIFT / 16.0));
+    /** Koecher (stehendes Rohr mit Pfeilen, block/template_placed_quiver); an der Wand wie das Buendel verschoben. */
+    private static final VoxelShape QUIVER_NORTH = Shapes.or(Block.box(5.0, 0.0, 5.0, 11.0, 11.0, 11.0), Block.box(5.5, 11.0, 5.5, 10.5, 15.0, 10.5));
+    private static final Map<Direction, VoxelShape> QUIVER_SHAPES = Shapes.rotateHorizontal(QUIVER_NORTH);
+    private static final Map<Direction, VoxelShape> QUIVER_WALL_SHAPES = Shapes.rotateHorizontal(QUIVER_NORTH.move(0.0, WALL_SHIFT / 16.0, WALL_SHIFT / 16.0));
 
-    /** Die Stufen mit eigenem Modell; das Vanilla-Buendel ({@link #BUNDLE}) auch in allen 16 Farben. */
+    /** Die Stufen mit eigenem Modell; das Vanilla-Buendel ({@link #BUNDLE}) auch in allen 16 Farben; die vier Koecher (B23-M11). */
     public enum Tier implements StringRepresentable {
         BUNDLE("bundle"),
         REINFORCED("reinforced"),
         NETHERITE("netherite"),
-        ENDERITE("enderite");
+        ENDERITE("enderite"),
+        QUIVER("quiver"),
+        REINFORCED_QUIVER("reinforced_quiver"),
+        NETHERITE_QUIVER("netherite_quiver"),
+        ENDERITE_QUIVER("enderite_quiver");
 
         private final String name;
 
@@ -94,49 +107,80 @@ public class PlacedBundleBlock extends BaseEntityBlock {
         public String getSerializedName() {
             return this.name;
         }
+
+        public boolean isQuiver() {
+            return this.name.endsWith("quiver");
+        }
     }
 
     public PlacedBundleBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(TIER, Tier.BUNDLE).setValue(DYED, false));
+                .setValue(TIER, Tier.BUNDLE).setValue(DYED, false).setValue(PlacedStorage.WALL, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TIER, DYED);
+        builder.add(FACING, TIER, DYED, PlacedStorage.WALL);
     }
 
-    /** Vorderseite zum Spieler, Stufe und Farbe nach dem Buendel in der Hand; nur auf einen tragenden Boden. */
+    /**
+     * Stufe und Farbe nach dem Buendel in der Hand (Koecher vorerst ungefaerbt: ein Koecher-Modell je Stufe); Boden oder
+     * Wand nach der geklickten Seite ({@link PlacedStorage#attach}), nie an die Decke.
+     */
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         ItemStack stack = context.getItemInHand();
         Tier tier = PlacedBundles.tierOf(stack);
         BlockState state = this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(TIER, tier == null ? Tier.BUNDLE : tier)
-                .setValue(DYED, PlacedBundles.dyeColor(stack) != DyedStorage.UNDYED);
-        return state.canSurvive(context.getLevel(), context.getClickedPos()) ? state : null;
+                .setValue(DYED, (tier == null || !tier.isQuiver()) && PlacedBundles.dyeColor(stack) != DyedStorage.UNDYED);
+        return PlacedStorage.attach(state, context, FACING);
     }
 
-    /** Wie eine Laterne: der Block darunter muss die Mitte tragen. */
+    /** Boden: immer (faellt sonst wie Sand); Wand: fester Block dahinter wie beim Item-Rahmen. */
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return Block.canSupportCenter(level, pos.below(), Direction.UP);
+        return PlacedStorage.canSurvive(state, level, pos, FACING);
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        level.scheduleTick(pos, this, PlacedStorage.FALL_DELAY);
     }
 
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
                                      Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
-        if (direction == Direction.DOWN && !state.canSurvive(level, pos)) {
-            return Blocks.AIR.defaultBlockState();
+        if (state.getValue(PlacedStorage.WALL)) {
+            if (direction == state.getValue(FACING).getOpposite() && !state.canSurvive(level, pos)) {
+                return Blocks.AIR.defaultBlockState();
+            }
+        } else {
+            ticks.scheduleTick(pos, this, PlacedStorage.FALL_DELAY);
         }
         return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
     }
 
+    /** Am Boden ohne Halt: faellt samt Inhalt wie Sand ({@link PlacedStorage#fall}). */
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (PlacedStorage.shouldFall(state, level, pos)) {
+            PlacedStorage.fall(level, pos, state);
+        }
+    }
+
+    @Override
+    public ItemStack storedStack(BlockEntity blockEntity) {
+        return blockEntity instanceof PlacedBundleBlockEntity be ? be.getBundle().copy() : ItemStack.EMPTY;
+    }
+
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.getValue(FACING));
+        boolean wall = state.getValue(PlacedStorage.WALL);
+        Map<Direction, VoxelShape> shapes = state.getValue(TIER).isQuiver() ? (wall ? QUIVER_WALL_SHAPES : QUIVER_SHAPES) : (wall ? WALL_SHAPES : SHAPES);
+        return shapes.get(state.getValue(FACING));
     }
 
     // --- Buendel in der Block-Entity ------------------------------------------------------------

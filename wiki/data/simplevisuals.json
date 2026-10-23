@@ -582,20 +582,24 @@
       "id": "config_visuals_enableTiltedFrameItems",
       "sources": [
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java",
-        "modules/simplevisuals/shared/java/com/simplevisuals/mixin/ItemFrameRendererMixin.java"
+        "modules/simplevisuals/shared/java/com/simplevisuals/mixin/ItemFrameRendererMixin.java",
+        "modules/simplevisuals/shared/java/com/simplevisuals/FrameChisel.java",
+        "modules/simplevisuals/shared/java/com/simplevisuals/mixin/ItemFrameChiselMixin.java"
       ],
       "en": {
         "title": "Flat blocks and panes in item frames from above",
-        "summary": "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames, seen from above as a slightly tilted 3D model, instead of a thin strip or a flat icon. Client only. Default: true.",
+        "summary": "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames as a 3D model seen from above, instead of a thin strip or a flat icon. Default: true.",
         "details": [
-          "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames, seen from above as a slightly tilted 3D model, instead of a thin strip or a flat icon. Client only. Default: true."
+          "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames as a 3D model seen from above, instead of a thin strip or a flat icon. Default: true.",
+          "Chisel: sneak and right-click the frame with a chisel (item tag simplevisuals:frame_chisels, SimpleBuilding's chisels) to tilt the item one step: 0°, 15°, 30° ... 90°, then flat again. The angle is saved with the frame and seen by every player; taking the item out lays the frame flat. Locked (fixed) frames and other items stay unchanged; the chisel is not worn."
         ]
       },
       "de": {
         "title": "Flache Blöcke und Scheiben im Rahmen von oben",
-        "summary": "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach, von oben gesehen als leicht gekipptes 3D-Modell, statt als dünner Strich oder flaches Symbol. Nur clientseitig. Standard: true.",
+        "summary": "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach als 3D-Modell, von oben gesehen, statt als dünner Strich oder flaches Symbol. Standard: true.",
         "details": [
-          "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach, von oben gesehen als leicht gekipptes 3D-Modell, statt als dünner Strich oder flaches Symbol. Nur clientseitig. Standard: true."
+          "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach als 3D-Modell, von oben gesehen, statt als dünner Strich oder flaches Symbol. Standard: true.",
+          "Meißel: Schleichen und mit einem Meißel (Item-Tag simplevisuals:frame_chisels, die Meißel von SimpleBuilding) auf den Rahmen rechtsklicken kippt das Item um eine Stufe: 0°, 15°, 30° … 90°, dann wieder flach. Der Winkel wird mit dem Rahmen gespeichert und ist für alle Spieler gleich; Herausnehmen legt den Rahmen wieder flach. Fixierte Rahmen und andere Items bleiben unverändert; der Meißel nutzt sich nicht ab."
         ]
       }
     },
@@ -1597,7 +1601,19 @@
   ],
   "recipes": [],
   "lootTables": [],
-  "tags": [],
+  "tags": [
+    {
+      "id": "simplevisuals:item/frame_chisels",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplebuilding:chisel_tools",
+          "required": false
+        }
+      ],
+      "source": "modules/simplevisuals/shared/resources/data/simplevisuals/tags/item/frame_chisels.json"
+    }
+  ],
   "advancements": [],
   "enchantments": [],
   "items": [],
@@ -1619,7 +1635,7 @@
     "features": 78,
     "recipes": 0,
     "lootTables": 0,
-    "tags": 0,
+    "tags": 1,
     "advancements": 0,
     "enchantments": 0,
     "items": 0,

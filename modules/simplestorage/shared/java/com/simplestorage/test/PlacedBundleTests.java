@@ -56,8 +56,8 @@ final class PlacedBundleTests {
      * Schleichen + Rechtsklick auf eine Oberseite stellt jedes Buendel ab - Vanilla, farbig (blau),
      * verstaerkt, Netherit, Enderit und ein gefaerbtes verstaerktes: Stufe und Farbe im Blockzustand,
      * Vorderseite zum Spieler, derselbe Stapel samt Inhalt und Namen in der Block-Entity, die auch so
-     * heisst. Auf eine Seitenflaeche, an die Decke, ohne Schleichen oder mit einem Koecher wird nichts
-     * abgestellt.
+     * heisst. Auf eine Seitenflaeche gehaengt haengt es an der Wand, ein Koecher steht als Koecher (B23-M11/M12);
+     * an die Decke und ohne Schleichen wird nichts abgestellt.
      */
     public static void sneakUsePlacesBundlesOnlyOnTopFaces(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 6.5));
@@ -98,26 +98,28 @@ final class PlacedBundleTests {
                 "the blue vanilla bundle tints " + Integer.toHexString(bundleAt(helper, new BlockPos(1, 2, 1)).dyeColor()));
         helper.assertTrue(bundleAt(helper, new BlockPos(5, 2, 1)).dyeColor() == 0x80C71F, "the dyed bundle lost its colour");
 
-        // Seitenflaeche und Decke: nichts - obwohl unter der Zielstelle jeweils ein tragender Block
-        // steht, entscheidet allein die geklickte Seite.
+        // Seitenflaeche: haengt an der Wand (B23-M12, PlacedStorageTests prueft das genauer); Decke: nichts.
         helper.setBlock(new BlockPos(1, 1, 3), Blocks.STONE);
         helper.setBlock(new BlockPos(3, 2, 4), Blocks.STONE);
         helper.setBlock(new BlockPos(1, 2, 4), Blocks.STONE);
         InteractionResult side = use(helper, player, new ItemStack(StorageItems.REINFORCED_BUNDLE), new BlockPos(1, 2, 4), Direction.NORTH);
-        helper.assertTrue(!side.consumesAction() && !helper.getBlockState(new BlockPos(1, 2, 3)).is(StorageBlocks.PLACED_BUNDLE),
-                "a bundle was placed against a wall: " + side);
+        helper.assertTrue(side.consumesAction() && helper.getBlockState(new BlockPos(1, 2, 3)).is(StorageBlocks.PLACED_BUNDLE)
+                        && helper.getBlockState(new BlockPos(1, 2, 3)).getValue(com.simplestorage.bundle.PlacedStorage.WALL),
+                "a bundle was not hung on the wall: " + side);
         helper.setBlock(new BlockPos(3, 4, 4), Blocks.STONE);
         use(helper, player, new ItemStack(Items.BUNDLE), new BlockPos(3, 4, 4), Direction.DOWN);
         helper.assertTrue(!helper.getBlockState(new BlockPos(3, 3, 4)).is(StorageBlocks.PLACED_BUNDLE), "a bundle was hung under a ceiling");
 
-        // Ohne Schleichen und mit einem Koecher: nichts.
+        // Ohne Schleichen: nichts; ein Koecher steht seit B23-M11 als Koecher.
         helper.setBlock(new BlockPos(5, 1, 4), Blocks.STONE);
         player.setShiftKeyDown(false);
         use(helper, player, new ItemStack(Items.BUNDLE), new BlockPos(5, 1, 4), Direction.UP);
         helper.assertTrue(helper.getBlockState(new BlockPos(5, 2, 4)).isAir(), "a bundle was placed without sneaking");
         player.setShiftKeyDown(true);
         use(helper, player, new ItemStack(StorageItems.QUIVER), new BlockPos(5, 1, 4), Direction.UP);
-        helper.assertTrue(helper.getBlockState(new BlockPos(5, 2, 4)).isAir(), "a quiver was placed as a bundle");
+        helper.assertTrue(helper.getBlockState(new BlockPos(5, 2, 4)).is(StorageBlocks.PLACED_BUNDLE)
+                && helper.getBlockState(new BlockPos(5, 2, 4)).getValue(PlacedBundleBlock.TIER) == PlacedBundleBlock.Tier.QUIVER,
+                "the quiver was not placed as a quiver: " + helper.getBlockState(new BlockPos(5, 2, 4)));
         helper.succeed();
     }
 
@@ -304,6 +306,60 @@ final class PlacedBundleTests {
         helper.succeed();
     }
 
+    /**
+     * PJ23-2 (Besitzer 23.10.): auch ein abgestelltes Mod-Buendel (Enderit) spielt beim Hineinlegen (Schleichen) Vanillas
+     * Einlege-Ton - fuer alle am Block, also auch fuer den Spieler selbst (vorher nur Player#playSound, das ihn auslaesst).
+     */
+    public static void depositIntoPlacedModBundlePlaysTheInsertSound(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<net.minecraft.network.protocol.Packet<?>> sink = new java.util.ArrayList<>();
+        ServerPlayer player = capturingPlayer(helper, sink);
+        player.snapTo(helper.absoluteVec(new Vec3(3.5, 3.2, 3.5)).x, helper.absoluteVec(new Vec3(3.5, 3.2, 3.5)).y,
+                helper.absoluteVec(new Vec3(3.5, 3.2, 3.5)).z, 0.0F, 0.0F);
+        player.setNoGravity(true);
+        player.setGameMode(GameType.SURVIVAL);
+        player.setShiftKeyDown(true);
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+        use(helper, player, filled(StorageItems.ENDERITE_BUNDLE), new BlockPos(2, 1, 2), Direction.UP);
+        BlockPos at = helper.absolutePos(new BlockPos(2, 2, 2));
+        helper.assertTrue(bundleAt(helper, new BlockPos(2, 2, 2)) != null, "the enderite bundle was not placed");
+        synchronized (sink) {
+            sink.clear();
+        }
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE, 8);
+        player.setItemInHand(InteractionHand.MAIN_HAND, cobble);
+        player.gameMode.useItemOn(player, level, cobble, InteractionHand.MAIN_HAND, hitTop(at));
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the cobblestone did not go in: " + player.getMainHandItem());
+        List<net.minecraft.network.protocol.game.ClientboundSoundPacket> sounds;
+        synchronized (sink) {
+            sounds = sink.stream().filter(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::isInstance)
+                    .map(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::cast).toList();
+        }
+        long inserts = sounds.stream().filter(p -> p.getSound().value() == net.minecraft.sounds.SoundEvents.BUNDLE_INSERT).count();
+        helper.assertTrue(inserts == 1, "the depositing player heard " + inserts + " insert sounds (want 1): " + sounds.size() + " sound packets");
+        helper.succeed();
+    }
+
+    /** Ein Test-Spieler, dessen Verbindung jedes Paket in {@code sink} legt. */
+    private static ServerPlayer capturingPlayer(GameTestHelper helper, List<net.minecraft.network.protocol.Packet<?>> sink) {
+        ServerLevel level = helper.getLevel();
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "test-capture"), false);
+        ServerPlayer player = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation());
+        net.minecraft.network.Connection connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND) {
+            @Override
+            public void send(net.minecraft.network.protocol.Packet<?> packet, io.netty.channel.ChannelFutureListener listener, boolean flush) {
+                synchronized (sink) {
+                    sink.add(packet);
+                }
+            }
+        };
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        return player;
+    }
+
     // =====================================================================================
     // Drops
     // =====================================================================================
@@ -329,16 +385,15 @@ final class PlacedBundleTests {
                 "breaking the placed bundle dropped " + (broken == null ? "nothing" : broken.getItem()) + " instead of " + bundle);
         broken.discard();
 
-        // Boden weg: das Buendel faellt mit Inhalt heraus.
+        // Boden weg: seit B23-M12 faellt das Buendel wie Sand (PlacedStorageTests), statt sofort herauszubrechen.
         helper.setBlock(new BlockPos(4, 1, 1), Blocks.STONE);
         ItemStack vanilla = filled(vanilla("red_bundle"), new ItemStack(Items.STRING, 3));
         use(helper, player, vanilla.copy(), new BlockPos(4, 1, 1), Direction.UP);
         helper.assertTrue(helper.getBlockState(new BlockPos(4, 2, 1)).is(StorageBlocks.PLACED_BUNDLE), "the red bundle was not placed");
         helper.setBlock(new BlockPos(4, 1, 1), Blocks.AIR);
-        helper.assertTrue(helper.getBlockState(new BlockPos(4, 2, 1)).isAir(), "the bundle stayed without its floor");
-        ItemEntity fallen = dropped(helper, vanilla("red_bundle"));
-        helper.assertTrue(fallen != null && ItemStack.isSameItemSameComponents(fallen.getItem(), vanilla),
-                "the bundle without floor dropped " + (fallen == null ? "nothing" : fallen.getItem()));
+        helper.assertTrue(helper.getBlockState(new BlockPos(4, 2, 1)).is(StorageBlocks.PLACED_BUNDLE)
+                && dropped(helper, vanilla("red_bundle")) == null, "the bundle broke at once instead of falling");
+        helper.setBlock(new BlockPos(4, 1, 1), Blocks.STONE);
 
         // Kreativ abgebaut (der Mock-Spieler ist im Kreativmodus): ein volles Buendel faellt trotzdem.
         helper.setBlock(new BlockPos(1, 1, 3), Blocks.STONE);

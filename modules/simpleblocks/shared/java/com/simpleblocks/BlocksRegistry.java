@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 37 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 38 blocks with their block items (plus the 15 moved from SimpleBuilding in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -48,6 +48,8 @@ public final class BlocksRegistry {
     public static final Block HUSHED_DEEPSLATE_TILE_WALL = add("hushed_deepslate_tile_wall", Blocks.DEEPSLATE_TILES, s -> new WallBlock(s.forceSolidOn()));
     /** Craftable and found in Ancient City chests only; no world generation. 1-2 experience when mined without Silk Touch. */
     public static final Block SCULK_DEEPSLATE = add("sculk_deepslate", Blocks.DEEPSLATE, s -> new DropExperienceBlock(UniformInt.of(1, 2), s));
+    /** Sculk Tiles (W23-3): deepslate tiles in sculk colours with a slow pulse (animated texture); a plain building block. */
+    public static final Block SCULK_TILES = add("sculk_tiles", Blocks.DEEPSLATE_TILES, Block::new);
 
     // --- Blue nether bricks (N71): turquoise cousin of the red nether bricks, made with SimpleLib's warped wart.
     public static final Block BLUE_NETHER_BRICKS = add("blue_nether_bricks", Blocks.RED_NETHER_BRICKS, Block::new);
@@ -198,7 +200,8 @@ public final class BlocksRegistry {
     public static List<Placement> placements() {
         List<Placement> out = new ArrayList<>(List.of(
                 new Placement(false, Items.REINFORCED_DEEPSLATE, List.of("mossy_deepslate_bricks", "mossy_deepslate_tiles",
-                        "hushed_deepslate_tiles", "hushed_deepslate_tile_stairs", "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall")),
+                        "hushed_deepslate_tiles", "hushed_deepslate_tile_stairs", "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall",
+                        "sculk_tiles")),
                 new Placement(false, Items.CHISELED_TUFF_BRICKS, List.of("cracked_tuff_bricks", "mossy_tuff_bricks")),
                 new Placement(false, Items.RESIN_BRICKS, List.of("cracked_mud_bricks", "mossy_mud_bricks")),
                 new Placement(false, Items.RED_SANDSTONE, List.of("cut_sandstone_stairs", "cut_sandstone_wall", "smooth_sandstone_wall")),

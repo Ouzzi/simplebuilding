@@ -225,8 +225,8 @@ public class ReinforcedBundleItem extends BundleItem {
         Player player = context.getPlayer();
         ItemStack bundleStack = context.getItemInHand();
 
-        // Schleichen + Rechtsklick auf eine Oberseite stellt das Buendel ab (vor dem Meisterbauer:
-        // der wuerde sonst ein Item aus dem Buendel setzen). Koecher liefern hier immer null.
+        // Schleichen + Rechtsklick auf eine Ober- oder Seitenflaeche stellt das Buendel ab (vor dem Meisterbauer:
+        // der wuerde sonst ein Item aus dem Buendel setzen). Koecher haben ihr eigenes useOn.
         InteractionResult placed = PlacedBundles.tryPlace(context);
         if (placed != null) {
             return placed;
@@ -522,6 +522,16 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, Player player) {
+        if (!insertFromWorld(bundle, stackToInsert, player)) return false;
+        this.playInsertSound(player);
+        return true;
+    }
+
+    /**
+     * {@link #tryInsertStackFromWorld} without the sound: the placed bundle plays it at the block for everyone (PJ23-2;
+     * {@code Player#playSound} on the server leaves out the player himself).
+     */
+    public boolean insertFromWorld(ItemStack bundle, ItemStack stackToInsert, Player player) {
         if (!stackToInsert.getItem().canFitInsideContainerItems()) return false;
 
         BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
@@ -533,7 +543,6 @@ public class ReinforcedBundleItem extends BundleItem {
 
         if (added > 0) {
             stackToInsert.shrink(added);
-            this.playInsertSound(player);
             return true;
         }
         return false;

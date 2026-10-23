@@ -34,7 +34,8 @@ public final class TrackPlayer {
     private TrackPlayer() {}
 
     public static void receive(TrackPlayPayload payload) {
-        if (payload.carried()) {
+        if (payload.carried() || payload.session() != 0L) {
+            // a Pocket Jukebox session (carried, dropped or placed): one sound that moves with it (PJ23-5)
             PocketPlayer.receive(payload);
             return;
         }
@@ -87,7 +88,8 @@ public final class TrackPlayer {
         dance(pos, true);
     }
 
-    private static void dance(BlockPos pos, boolean playing) {
+    /** Parrots and allays near {@code pos} dance (or stop), like at Vanilla's jukebox. */
+    static void dance(BlockPos pos, boolean playing) {
         var level = Minecraft.getInstance().level;
         if (level == null) return;
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(3.0))) {

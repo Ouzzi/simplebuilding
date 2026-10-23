@@ -26,7 +26,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "modules/simplemaps/shared/java/com/simplemaps/Reveal.java",
         "modules/simplemaps/shared/java/com/simplemaps/WayfinderData.java",
         "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
-        "modules/simplemaps/shared/java/com/simplemaps/MapsLoot.java"
+        "modules/simplemaps/shared/java/com/simplemaps/MapsLoot.java",
+        "modules/simplemaps/shared/resources/data/simplemaps/recipe/end_wayfinder_map.json",
+        "modules/simplemaps/shared/resources/data/simplemaps/recipe/end_wayfinder_map_without_enderite.json",
+        "modules/simplemaps/shared/resources/data/simplemaps/recipe/nether_wayfinder_map.json"
       ],
       "en": {
         "title": "Wayfinder maps",
@@ -35,7 +38,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "While held in the main or off hand the map explores like a Vanilla map at 1:1 (default radius 128 blocks like Vanilla, halved under a ceiling; server bounds 16–128), one 16th of the columns per tick, only in loaded chunks. Under a ceiling (Nether) the floor below the holder is mapped.",
           "A map binds to the dimension it is first used in. Which dimensions a map accepts is set by the dimension type tags simplemaps:nether_wayfinder and simplemaps:end_wayfinder; the plain map takes every dimension in neither tag.",
           "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384).",
-          "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map needs 2 echo shards and a netherite scrap instead, the End map 2 echo shards and a shulker shell.",
+          "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map adds a netherite scrap. The End map: map + compass + 4 gold ingots + 2 echo shards + enderite scrap when a Simple mod brings enderite, otherwise map + compass + 3 gold ingots + 2 netherite scrap + shulker shell + echo shard.",
           "Found in chests: cartographer and shipwreck map chests 5 % (plain map), bastions and Nether fortresses 2 % (Nether map), end city treasure 2 % (End map).",
           "Wayfinder maps do not stack: each one holds its own waypoints and view.",
           "Server config simplemaps-server.json (no screen, edit the file; values are clamped on load): revealRadius is how many blocks around the holder a map reveals per update (default 128, 16–128; halved under a ceiling such as the Nether); maxTilesPerMap caps the explored 128x128 tiles per map (default 4,096). All options of the file are listed in the sections on copying, extending, layers and the web map."
@@ -48,10 +51,43 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "In Haupt- oder Nebenhand deckt die Karte wie eine Vanilla-Karte im Maßstab 1:1 auf (Standard-Radius 128 Blöcke wie Vanilla, unter einer Decke halbiert; Servergrenzen 16–128), je Tick ein Sechzehntel der Spalten, nur in geladenen Chunks. Unter einer Decke (Nether) wird der Boden unter dem Halter kartiert.",
           "Eine Karte bindet sich an die Dimension, in der sie zuerst benutzt wird. Welche Dimensionen eine Karte annimmt, legen die Dimensionstyp-Tags simplemaps:nether_wayfinder und simplemaps:end_wayfinder fest; die einfache Karte nimmt jede Dimension, die in keinem der beiden steht.",
           "Gespeichert werden nur erkundete Kacheln zu 128 × 128 Blöcken (Farbe und Höhe je Block); höchstens maxTilesPerMap Kacheln je Karte (Standard 4096, Servergrenzen 16–16384).",
-          "Rezepte (formlos): Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter; die Nether-Karte braucht stattdessen 2 Echo-Splitter und einen Netheritplatten, die End-Karte 2 Echo-Splitter und eine Shulker-Schale.",
+          "Rezepte (formlos): Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter; die Nether-Karte zusätzlich einen Netherit-Schrott. Die End-Karte: Karte + Kompass + 4 Goldbarren + 2 Echo-Splitter + Enderit-Schrott, wenn ein Simple-Mod Enderit mitbringt, sonst Karte + Kompass + 3 Goldbarren + 2 Netherit-Schrott + Shulker-Schale + Echo-Splitter.",
           "Fundorte: Kartografen- und Schiffswrack-Kartentruhen 5 % (einfache Karte), Bastionen und Netherfestungen 2 % (Nether-Karte), Endstadt-Schatz 2 % (End-Karte).",
           "Wegfinder-Karten stapeln nicht: jede hat ihre eigenen Wegpunkte und ihren eigenen Ausschnitt.",
           "Server-Config simplemaps-server.json (ohne Oberfläche, Datei bearbeiten; Werte werden beim Laden begrenzt): revealRadius ist der Radius in Blöcken um den Halter, den eine Karte pro Update aufdeckt (Standard 128, 16–128; unter einer Decke wie im Nether halbiert); maxTilesPerMap begrenzt die erkundeten 128x128-Felder pro Karte (Standard 4.096). Alle weiteren Optionen der Datei stehen in den Abschnitten zu Kopieren, Erweitern, Ebenen und Webkarte."
+        ]
+      }
+    },
+    {
+      "id": "mega_map",
+      "sources": [
+        "modules/simplemaps/shared/java/com/simplemaps/MegaWayfinderMapItem.java",
+        "modules/simplemaps/shared/java/com/simplemaps/MegaMaps.java",
+        "modules/simplemaps/shared/java/com/simplemaps/MegaTabs.java",
+        "modules/simplemaps/shared/java/com/simplemaps/mixin/MegaAnvilMixin.java",
+        "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
+        "modules/simplemaps/shared/java/com/simplemaps/client/WayfinderScreen.java"
+      ],
+      "en": {
+        "title": "Mega wayfinder map",
+        "summary": "One map for every dimension: buttons in the map screen's title bar switch between the Overworld (grass block), the Nether (netherrack), the End (end stone) and further dimensions; the map remembers the last one.",
+        "details": [
+          "Recipe (shaped): top row 3 enderite nuggets (only when a Simple mod brings enderite; otherwise 3 eyes of ender), middle row End, Nether and plain wayfinder map, bottom row 3 echo shards. Crafting takes over the three maps' explored areas and waypoints.",
+          "Held in the main or off hand it explores the dimension you stand in, each dimension in its own map with its own waypoints. Buttons of dimensions you have not explored yet are greyed out; only places you have been are on the map.",
+          "Further dimensions at the anvil: mega map + the dimension's item (server config megaUnlockItems, dimension id to item id or \"any\"); \"any\" (default for every dimension not listed, megaUnlockDefault) takes any block while you stand in that dimension. Costs megaUnlockLevels levels (default 5, 1–39) and one item.",
+          "From six dimensions on, the title bar shows five buttons per page with a chevron left and right; free places on the last page stay disabled.",
+          "The cartography table only copies a mega map (extending and combining needs a single-dimension map)."
+        ]
+      },
+      "de": {
+        "title": "Mega-Wegfinder-Karte",
+        "summary": "Eine Karte für alle Dimensionen: Knöpfe in der Titelzeile des Kartenbildschirms wechseln zwischen Oberwelt (Grasblock), Nether (Netherrack), End (Endstein) und weiteren Dimensionen; die Karte merkt sich die letzte.",
+        "details": [
+          "Rezept (geformt): oben 3 Enderit-Nuggets (nur wenn ein Simple-Mod Enderit mitbringt; sonst 3 Enderaugen), Mitte End-, Nether- und einfache Wegfinder-Karte, unten 3 Echo-Splitter. Beim Herstellen übernimmt sie Erkundetes und Wegpunkte der drei Karten.",
+          "In Haupt- oder Nebenhand erkundet sie die Dimension, in der du stehst, jede Dimension in einer eigenen Karte mit eigenen Wegpunkten. Knöpfe noch nicht erkundeter Dimensionen sind ausgegraut; auf der Karte steht nur, wo du warst.",
+          "Weitere Dimensionen am Amboss: Mega-Karte + Item der Dimension (Server-Config megaUnlockItems, Dimensions-Id zu Item-Id oder \"any\"); \"any\" (Standard für jede nicht genannte Dimension, megaUnlockDefault) nimmt einen beliebigen Block, während du in dieser Dimension stehst. Kostet megaUnlockLevels Stufen (Standard 5, 1–39) und ein Item.",
+          "Ab sechs Dimensionen zeigt die Titelzeile fünf Knöpfe je Seite mit einem Chevron links und rechts; freie Plätze der letzten Seite bleiben deaktiviert.",
+          "Der Kartentisch kopiert eine Mega-Karte nur (Erweitern und Kombinieren braucht eine Karte einer Dimension)."
         ]
       }
     },
@@ -283,7 +319,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "minecraft:echo_shard",
         "minecraft:gold_ingot",
         "minecraft:map",
-        "minecraft:shulker_shell"
+        "simplelib:enderite_scrap"
       ],
       "ingredientGroups": [
         [
@@ -311,7 +347,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "minecraft:echo_shard"
         ],
         [
-          "minecraft:shulker_shell"
+          "simplelib:enderite_scrap"
         ]
       ],
       "baseMaterials": {
@@ -336,6 +372,87 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           {
             "id": "minecraft:redstone",
             "count": 2
+          },
+          {
+            "id": "simplelib:enderite_scrap",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemaps:end_wayfinder_map_without_enderite",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemaps:end_wayfinder_map",
+        "count": 1
+      },
+      "source": "modules/simplemaps/shared/resources/data/simplemaps/recipe/end_wayfinder_map_without_enderite.json",
+      "ingredients": [
+        "minecraft:compass",
+        "minecraft:echo_shard",
+        "minecraft:gold_ingot",
+        "minecraft:map",
+        "minecraft:netherite_scrap",
+        "minecraft:shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:map"
+        ],
+        [
+          "minecraft:compass"
+        ],
+        [
+          "minecraft:gold_ingot"
+        ],
+        [
+          "minecraft:gold_ingot"
+        ],
+        [
+          "minecraft:gold_ingot"
+        ],
+        [
+          "minecraft:netherite_scrap"
+        ],
+        [
+          "minecraft:netherite_scrap"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ],
+        [
+          "minecraft:echo_shard"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 8
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_scrap",
+            "count": 2
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:echo_shard",
+            "count": 1
           },
           {
             "id": "minecraft:shulker_shell",
@@ -389,6 +506,164 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       }
     },
     {
+      "id": "simplemaps:mega_wayfinder_map",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemaps:mega_wayfinder_map",
+        "count": 1
+      },
+      "source": "modules/simplemaps/shared/resources/data/simplemaps/recipe/mega_wayfinder_map.json",
+      "ingredients": [
+        "minecraft:echo_shard",
+        "simplelib:enderite_nugget",
+        "simplemaps:end_wayfinder_map",
+        "simplemaps:nether_wayfinder_map",
+        "simplemaps:wayfinder_map"
+      ],
+      "pattern": [
+        "TTT",
+        "ENW",
+        "SSS"
+      ],
+      "key": {
+        "T": [
+          "simplelib:enderite_nugget"
+        ],
+        "E": [
+          "simplemaps:end_wayfinder_map"
+        ],
+        "N": [
+          "simplemaps:nether_wayfinder_map"
+        ],
+        "W": [
+          "simplemaps:wayfinder_map"
+        ],
+        "S": [
+          "minecraft:echo_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 24
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 24
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 12
+          },
+          {
+            "id": "minecraft:echo_shard",
+            "count": 7
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "simplelib:enderite_nugget",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_scrap",
+            "count": 1
+          },
+          {
+            "id": "simplelib:enderite_scrap",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemaps:mega_wayfinder_map_without_enderite",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemaps:mega_wayfinder_map",
+        "count": 1
+      },
+      "source": "modules/simplemaps/shared/resources/data/simplemaps/recipe/mega_wayfinder_map_without_enderite.json",
+      "ingredients": [
+        "minecraft:echo_shard",
+        "minecraft:ender_eye",
+        "simplemaps:end_wayfinder_map",
+        "simplemaps:nether_wayfinder_map",
+        "simplemaps:wayfinder_map"
+      ],
+      "pattern": [
+        "TTT",
+        "ENW",
+        "SSS"
+      ],
+      "key": {
+        "T": [
+          "minecraft:ender_eye"
+        ],
+        "E": [
+          "simplemaps:end_wayfinder_map"
+        ],
+        "N": [
+          "simplemaps:nether_wayfinder_map"
+        ],
+        "W": [
+          "simplemaps:wayfinder_map"
+        ],
+        "S": [
+          "minecraft:echo_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 24
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 24
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 12
+          },
+          {
+            "id": "minecraft:echo_shard",
+            "count": 7
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 3
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:netherite_scrap",
+            "count": 1
+          },
+          {
+            "id": "simplelib:enderite_scrap",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemaps:nether_wayfinder_map",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -428,9 +703,6 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "minecraft:echo_shard"
         ],
         [
-          "minecraft:echo_shard"
-        ],
-        [
           "minecraft:netherite_scrap"
         ]
       ],
@@ -450,12 +722,12 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
             "count": 4
           },
           {
-            "id": "minecraft:echo_shard",
+            "id": "minecraft:redstone",
             "count": 2
           },
           {
-            "id": "minecraft:redstone",
-            "count": 2
+            "id": "minecraft:echo_shard",
+            "count": 1
           },
           {
             "id": "minecraft:netherite_scrap",
@@ -569,6 +841,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         {
           "id": "simplemaps:end_wayfinder_map",
           "required": true
+        },
+        {
+          "id": "simplemaps:mega_wayfinder_map",
+          "required": true
         }
       ],
       "source": "modules/simplemaps/shared/resources/data/simplemaps/tags/item/wayfinder_maps.json"
@@ -625,13 +901,14 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       "note": {
         "sources": [
           "modules/simplemaps/shared/java/com/simplemaps/MapsItems.java",
-          "modules/simplemaps/shared/resources/data/simplemaps/recipe/end_wayfinder_map.json"
+          "modules/simplemaps/shared/resources/data/simplemaps/recipe/end_wayfinder_map.json",
+          "modules/simplemaps/shared/resources/data/simplemaps/recipe/end_wayfinder_map_without_enderite.json"
         ],
         "en": {
-          "summary": "Endless map of the End. Shapeless: map, compass, 4 gold ingots, 2 echo shards, shulker shell."
+          "summary": "Endless map of the End. Shapeless: map, compass, 4 gold ingots, 2 echo shards, enderite scrap (when a Simple mod brings enderite); otherwise map, compass, 3 gold ingots, 2 netherite scrap, shulker shell, echo shard."
         },
         "de": {
-          "summary": "Endlose Karte des Ends. Formlos: Karte, Kompass, 4 Goldbarren, 2 Echo-Splitter, Shulker-Schale."
+          "summary": "Endlose Karte des Ends. Formlos: Karte, Kompass, 4 Goldbarren, 2 Echo-Splitter, Enderit-Schrott (wenn ein Simple-Mod Enderit mitbringt); sonst Karte, Kompass, 3 Goldbarren, 2 Netherit-Schrott, Shulker-Schale, Echo-Splitter."
         }
       },
       "texture": "assets/textures/simplemaps/item/end_wayfinder_map.png",
@@ -660,9 +937,13 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         }
       },
       "craftedBy": [
-        "simplemaps:end_wayfinder_map"
+        "simplemaps:end_wayfinder_map",
+        "simplemaps:end_wayfinder_map_without_enderite"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simplemaps:mega_wayfinder_map",
+        "simplemaps:mega_wayfinder_map_without_enderite"
+      ]
     },
     {
       "id": "simplemaps:guide_book",
@@ -676,10 +957,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+          "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+          "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
         }
       },
       "texture": "assets/textures/simplemaps/item/guide_book.png",
@@ -713,6 +994,32 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       "usedIn": []
     },
     {
+      "id": "simplemaps:mega_wayfinder_map",
+      "name": {
+        "en_us": "Mega Wayfinder Map",
+        "de_de": "Mega-Wegfinder-Karte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemaps/shared/java/com/simplemaps/MegaWayfinderMapItem.java",
+          "modules/simplemaps/shared/resources/data/simplemaps/recipe/mega_wayfinder_map.json",
+          "modules/simplemaps/shared/resources/data/simplemaps/recipe/mega_wayfinder_map_without_enderite.json"
+        ],
+        "en": {
+          "summary": "One map for every dimension. Shaped: 3 enderite nuggets on top (3 eyes of ender without enderite), End, Nether and plain wayfinder map in the middle row, 3 echo shards below; takes over the three maps."
+        },
+        "de": {
+          "summary": "Eine Karte für alle Dimensionen. Geformt: oben 3 Enderit-Nuggets (ohne Enderit 3 Enderaugen), in der Mitte End-, Nether- und einfache Wegfinder-Karte, unten 3 Echo-Splitter; übernimmt die drei Karten."
+        }
+      },
+      "texture": "assets/textures/simplemaps/item/mega_wayfinder_map.png",
+      "craftedBy": [
+        "simplemaps:mega_wayfinder_map",
+        "simplemaps:mega_wayfinder_map_without_enderite"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemaps:nether_wayfinder_map",
       "name": {
         "en_us": "Nether Wayfinder Map",
@@ -724,10 +1031,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "modules/simplemaps/shared/resources/data/simplemaps/recipe/nether_wayfinder_map.json"
         ],
         "en": {
-          "summary": "Endless map of the Nether. Shapeless: map, compass, 4 gold ingots, 2 echo shards, netherite scrap."
+          "summary": "Endless map of the Nether. Shapeless: map, compass, 4 gold ingots, 1 echo shard, netherite scrap."
         },
         "de": {
-          "summary": "Endlose Karte des Nethers. Formlos: Karte, Kompass, 4 Goldbarren, 2 Echo-Splitter, Netheritplatten."
+          "summary": "Endlose Karte des Nethers. Formlos: Karte, Kompass, 4 Goldbarren, 1 Echo-Splitter, Netherit-Schrott."
         }
       },
       "texture": "assets/textures/simplemaps/item/nether_wayfinder_map.png",
@@ -758,7 +1065,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       "craftedBy": [
         "simplemaps:nether_wayfinder_map"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simplemaps:mega_wayfinder_map",
+        "simplemaps:mega_wayfinder_map_without_enderite"
+      ]
     },
     {
       "id": "simplemaps:wayfinder_map",
@@ -806,7 +1116,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       "craftedBy": [
         "simplemaps:wayfinder_map"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simplemaps:mega_wayfinder_map",
+        "simplemaps:mega_wayfinder_map_without_enderite"
+      ]
     }
   ],
   "blocks": [],
@@ -824,13 +1137,13 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
-    "recipes": 4,
+    "features": 9,
+    "recipes": 7,
     "lootTables": 0,
     "tags": 4,
     "advancements": 0,
     "enchantments": 0,
-    "items": 4,
+    "items": 5,
     "blocks": 0,
     "trades": 0,
     "config": 0,

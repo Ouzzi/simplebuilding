@@ -53,22 +53,28 @@ import net.minecraft.world.item.ItemStack;
  * brown, body in warm grey with more line space, keywords bold ({@link QuestionarySheet#spans}); the wheel over it
  * scrolls a long text. The right page shows pictures: 1 the picture plate (the item large, its family), 2 the recipe
  * grid, its station, the recipe counts and where the item comes from, 3 the magnifier (the item's texture five times
- * enlarged with its pixel grid and the texture's name). Flat colours only, no texture.
+ * enlarged with its pixel grid and the texture's name). Flat colours only, no texture. W23-6 (owner 23.10. evening): the
+ * book grows with the screen ({@link QuestionarySheet#bookGrowth}), a thick fold with a binding bulge at its lower end, and
+ * a soft shadow behind the desk and inventory boxes.
  */
 public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> {
-    public static final int BOOK_X = 0, BOOK_Y = 14, BOOK_W = QuestionaryMenu.WIDTH, BOOK_H = QuestionaryMenu.HEIGHT - BOOK_Y;
+    /** The book of the smallest screen (427 x 240); it grows on bigger screens ({@link QuestionarySheet#bookGrowth}). */
+    public static final int BASE_BOOK_Y = 14, BASE_BOOK_W = QuestionaryMenu.WIDTH, BASE_BOOK_H = QuestionaryMenu.HEIGHT - BASE_BOOK_Y;
     private static final int COL_X = QuestionaryMenu.COLUMN_X, COL_Y = QuestionaryMenu.COLUMN_Y, COL_W = QuestionaryMenu.COLUMN_WIDTH;
     /** Bookmark ribbons on the right page's top edge: size, how far the active one stands out, pitch. */
     public static final int TAB_W = 24, TAB_H = 14, TAB_OUT = 3, TAB_PITCH = 28, TAB_X = COL_X + COL_W + 18;
-    private static final int PAGE_IN = 5, LINE = 11, PARA = 5;
-    /** Text areas of the two visible page parts (left of and right of the column). */
-    private static final int LEFT_X = BOOK_X + PAGE_IN + 8, LEFT_W = COL_X - 6 - LEFT_X, RIGHT_X = COL_X + COL_W + 6,
-            RIGHT_W = BOOK_X + BOOK_W - PAGE_IN - 8 - RIGHT_X;
-    private static final int TEXT_TOP = BOOK_Y + 12, BODY_TOP = TEXT_TOP + 18, FOOTER_Y = BOOK_Y + BOOK_H - 30, BODY_BOTTOM = FOOTER_Y - 3;
+    private static final int PAGE_IN = 5, LINE = 11, PARA = 5, RIGHT_X = COL_X + COL_W + 6;
+    /** W23-6: the fold (dark gutter between the pages), the binding bulge below it, the soft shadow behind the boxes. */
+    private static final int FOLD = 6, BULGE_W = 22, SHADOW = 3;
+    /** The book (relative to the window origin; it grows symmetrically, so the column and its slots stay) and the text
+     *  areas of the two visible page parts (left of and right of the column); set in {@link #init}. */
+    private int growY, bookX, bookY = BASE_BOOK_Y, bookW = BASE_BOOK_W, bookH = BASE_BOOK_H, leftX, leftW, rightW, textTop, bodyTop, footerY, bodyBottom;
     private static final int COVER = 0xFF2C4A86, COVER_LIGHT = 0xFF3F63A8, COVER_DARK = 0xFF16264A, PAPER = QuestionarySheet.PAPER,
             PAPER_DARK = QuestionarySheet.PAPER_DARK, PAPER_LIGHT = 0xFFF8F0DC, PAPER_EDGE = 0xFFD9C79F, FRAME_LINE = 0xFFDCC9A0;
     private static final int INK_SOFT = 0xFF7A6248, INK_FAINT = 0xFFA08A6A, HEADING = QuestionarySheet.HEADING, BODY = QuestionarySheet.BODY,
             KEYWORD = QuestionarySheet.KEYWORD, CAPTION = QuestionarySheet.CAPTION;
+    /** The dark gutter line in the fold and on the binding bulge. */
+    private static final int SPINE = 0xFF4A3A28, CURVE = 0x70F8F0DC;
     private static final int GOLD = 0xFFE8B923, GOLD_LIGHT = 0xFFFFE27A, GOLD_DARK = 0xFFB5851A;
     private static final int[] TAB_COLORS = {0xFFB03A2E, 0xFF3A63B0, 0xFF7A3FA8};
     /** The desk box: deep lapis, its marks are runes (SimpleLib motif). */
@@ -91,6 +97,25 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         super(menu, inventory, title, QuestionaryMenu.WIDTH, QuestionaryMenu.HEIGHT);
     }
 
+    @Override
+    protected void init() {
+        super.init();
+        int[] grow = QuestionarySheet.bookGrowth(width, height);
+        bookX = -grow[0];
+        growY = grow[1];
+        bookY = BASE_BOOK_Y - grow[1];
+        bookW = BASE_BOOK_W + 2 * grow[0];
+        bookH = BASE_BOOK_H + 2 * grow[1];
+        leftX = bookX + PAGE_IN + 8;
+        leftW = COL_X - 6 - leftX;
+        rightW = bookX + bookW - PAGE_IN - 8 - RIGHT_X;
+        textTop = bookY + 12;
+        bodyTop = textTop + 18;
+        footerY = bookY + bookH - 30;
+        bodyBottom = footerY - 3;
+        cacheKey = ""; // the text page may be wider now: wrap again
+    }
+
     public int page() {
         return page;
     }
@@ -109,7 +134,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
     }
 
     public int tabCenterY(int i) {
-        return topPos + BOOK_Y - TAB_H / 2;
+        return topPos + bookY - TAB_H / 2;
     }
 
     @Override
@@ -119,22 +144,24 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         // Ribbons first: their lower end tucks under the cover.
         for (int i = 0; i < 3; i++) {
             boolean active = i == page;
-            int tx = x0 + TAB_X + i * TAB_PITCH, ty = y0 + BOOK_Y + 3 - TAB_H - (active ? TAB_OUT : 0);
-            ribbon(g, tx, ty, TAB_W, y0 + BOOK_Y + 3 - ty, UiPalette.derived(TAB_COLORS[i]), active, inTab(mouseX, mouseY) == i && !active);
+            int tx = x0 + TAB_X + i * TAB_PITCH, ty = y0 + bookY + 3 - TAB_H - (active ? TAB_OUT : 0);
+            ribbon(g, tx, ty, TAB_W, y0 + bookY + 3 - ty, UiPalette.derived(TAB_COLORS[i]), active, inTab(mouseX, mouseY) == i && !active);
             if (active) g.fill(tx + 2, ty, tx + TAB_W - 2, ty + 1, GOLD);
         }
-        book(g, x0 + BOOK_X, y0 + BOOK_Y);
-        desk(g, x0 + COL_X, y0 + COL_Y);
+        book(g, x0 + bookX, y0 + bookY);
         int invTop = y0 + COL_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP;
+        shadow(g, x0 + COL_X, y0 + COL_Y, COL_W, QuestionaryMenu.DESK_HEIGHT);
+        shadow(g, x0 + COL_X, invTop, COL_W, QuestionaryMenu.INVENTORY_BOX);
+        desk(g, x0 + COL_X, y0 + COL_Y);
         UiBoxes.box(g, x0 + COL_X, invTop, COL_W, QuestionaryMenu.INVENTORY_BOX, UiPalette.INVENTORY);
         for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
             if (i == QuestionaryMenu.ITEM_SLOT) UiBoxes.bigSlot(g, x0 + slot.x, y0 + slot.y, DESK);
             else UiBoxes.slot(g, x0 + slot.x, y0 + slot.y, UiPalette.INVENTORY);
         }
-        int ay = y0 + BOOK_Y + BOOK_H - 20;
-        arrow(g, x0 + LEFT_X, ay, false, page > 0, mouseX, mouseY);
-        arrow(g, x0 + BOOK_X + BOOK_W - PAGE_IN - 8 - ARROW_W, ay, true, page < 2, mouseX, mouseY);
+        int ay = y0 + bookY + bookH - 20;
+        arrow(g, x0 + leftX, ay, false, page > 0, mouseX, mouseY);
+        arrow(g, x0 + bookX + bookW - PAGE_IN - 8 - ARROW_W, ay, true, page < 2, mouseX, mouseY);
     }
 
     /** A bookmark ribbon standing up out of the book (the {@link UiBookmarks#tab} shape turned upright). */
@@ -172,31 +199,67 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     /** The open book in the guide book's look, drawn with fills; the column covers its spine. */
     private void book(GuiGraphicsExtractor g, int bx, int by) {
-        int mid = bx + BOOK_W / 2, bottom = by + BOOK_H;
+        int mid = bx + bookW / 2, bottom = by + bookH;
         // Cover: rim with cut corners, leather with a light top line, gold stitching all round.
-        g.fill(bx + 1, by, bx + BOOK_W - 1, bottom, COVER_DARK);
-        g.fill(bx, by + 1, bx + BOOK_W, bottom - 1, COVER_DARK);
-        g.fill(bx + 1, by + 1, bx + BOOK_W - 1, bottom - 1, COVER);
-        g.fill(bx + 2, by + 1, bx + BOOK_W - 2, by + 2, COVER_LIGHT);
-        for (int x = bx + 3; x < bx + BOOK_W - 3; x += 3) {
+        g.fill(bx + 1, by, bx + bookW - 1, bottom, COVER_DARK);
+        g.fill(bx, by + 1, bx + bookW, bottom - 1, COVER_DARK);
+        g.fill(bx + 1, by + 1, bx + bookW - 1, bottom - 1, COVER);
+        g.fill(bx + 2, by + 1, bx + bookW - 2, by + 2, COVER_LIGHT);
+        for (int x = bx + 3; x < bx + bookW - 3; x += 3) {
             g.fill(x, by + 2, x + 2, by + 3, GOLD_DARK);
             g.fill(x, bottom - 3, x + 2, bottom - 2, GOLD_DARK);
         }
         for (int y = by + 4; y < bottom - 4; y += 3) {
             g.fill(bx + 2, y, bx + 3, y + 2, GOLD_DARK);
-            g.fill(bx + BOOK_W - 3, y, bx + BOOK_W - 2, y + 2, GOLD_DARK);
+            g.fill(bx + bookW - 3, y, bx + bookW - 2, y + 2, GOLD_DARK);
         }
         // Page block: two layers of page edges below, then the two pages.
         int top = by + PAGE_IN - 1, pageBottom = bottom - PAGE_IN - 2;
-        g.fill(bx + PAGE_IN, top + 1, bx + BOOK_W - PAGE_IN, pageBottom + 2, PAPER_EDGE);
-        g.fill(bx + PAGE_IN + 1, pageBottom + 1, bx + BOOK_W - PAGE_IN - 1, pageBottom + 2, PAPER_DARK);
+        g.fill(bx + PAGE_IN, top + 1, bx + bookW - PAGE_IN, pageBottom + 2, PAPER_EDGE);
+        g.fill(bx + PAGE_IN + 1, pageBottom + 1, bx + bookW - PAGE_IN - 1, pageBottom + 2, PAPER_DARK);
         page(g, bx + PAGE_IN, top, mid - 1, pageBottom, 11);
-        page(g, mid + 1, top, bx + BOOK_W - PAGE_IN, pageBottom, 29);
+        page(g, mid + 1, top, bx + bookW - PAGE_IN, pageBottom, 29);
+        fold(g, mid, top, pageBottom + 2);
+        bulge(g, mid, pageBottom - 1, bottom + Math.min(3, 1 + growY));
         // Gold corner caps.
         cap(g, bx, by, 1, 1);
-        cap(g, bx + BOOK_W - 1, by, -1, 1);
+        cap(g, bx + bookW - 1, by, -1, 1);
         cap(g, bx, bottom - 1, 1, -1);
-        cap(g, bx + BOOK_W - 1, bottom - 1, -1, -1);
+        cap(g, bx + bookW - 1, bottom - 1, -1, -1);
+    }
+
+    /** W23-6: the fold between the pages, thick and plain to see above and below the column and in the gap between its
+     *  boxes: the paper darkens towards the binding (see-through, the page marks stay), a dark gutter line in the middle,
+     *  a light page curve on both sides. */
+    private static void fold(GuiGraphicsExtractor g, int mid, int y1, int y2) {
+        for (int k = FOLD; k >= 1; k--) {
+            int shade = (0x20 + (FOLD - k) * 0x1C) << 24 | 0x5A4630;
+            g.fill(mid - 1 - k, y1, mid - k, y2, shade);
+            g.fill(mid + k, y1, mid + k + 1, y2, shade);
+        }
+        g.fill(mid - FOLD - 2, y1, mid - FOLD - 1, y2, CURVE);
+        g.fill(mid + FOLD + 1, y1, mid + FOLD + 2, y2, CURVE);
+        g.fill(mid - 1, y1, mid + 1, y2, SPINE);
+    }
+
+    /** W23-6: the binding bulge where the fold meets the lower edge, like the rounded spine of a thick bound book: a
+     *  half-round lump of lapis leather from the page edge down to {@code y2} (a little below the cover), dark rim, light
+     *  upper line, gold stitch and the gutter line. */
+    private static void bulge(GuiGraphicsExtractor g, int mid, int y1, int y2) {
+        int rows = y2 - y1;
+        for (int i = 0; i < rows; i++) {
+            int y = y1 + i, half = Math.max(2, (int) Math.round(BULGE_W / 2.0 * Math.sqrt(1.0 - (double) i * i / (rows * rows))));
+            g.fill(mid - half, y, mid + half, y + 1, COVER_DARK);
+            if (i < rows - 1 && half > 2) g.fill(mid - half + 1, y, mid + half - 1, y + 1, i == 0 ? COVER_LIGHT : COVER);
+        }
+        int sy = y1 + rows / 2, sh = (int) Math.round(BULGE_W / 2.0 * Math.sqrt(1.0 - 0.25)) - 3;
+        for (int x = mid - sh; x < mid + sh; x += 3) g.fill(x, sy, x + 2, sy + 1, GOLD_DARK);
+        g.fill(mid - 1, y1, mid + 1, y2 - 1, SPINE);
+    }
+
+    /** W23-6: a soft shadow behind a box (three see-through rings, a little down and right), so the box stands off the page. */
+    private static void shadow(GuiGraphicsExtractor g, int x, int y, int w, int h) {
+        for (int i = SHADOW; i >= 1; i--) g.fill(x - i + 1, y - i + 2, x + w + i + 1, y + h + i + 1, 0x1E000000);
     }
 
     /** One parchment page: speckled paper, a thin inner frame with small corner squares, the dotted footer line. */
@@ -218,7 +281,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             g.fill(c[0], c[1], c[0] + 3, c[1] + 3, FRAME_LINE);
             g.fill(c[0] + 1, c[1] + 1, c[0] + 2, c[1] + 2, INK_FAINT);
         }
-        int footer = topPos + FOOTER_Y;
+        int footer = topPos + footerY;
         for (int x = x1 + 8; x < x2 - 8; x += 2) g.fill(x, footer, x + 1, footer + 1, INK_FAINT);
     }
 
@@ -270,7 +333,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
                     UiPalette.mix(DESK.light(), 0xFFFFFFFF, 0.35));
         }
         for (int i = 0; i < 3; i++) {
-            int ty = BOOK_Y + 3 - TAB_H - (i == page ? TAB_OUT : 0);
+            int ty = bookY + 3 - TAB_H - (i == page ? TAB_OUT : 0);
             g.centeredText(font, String.valueOf(i + 1), TAB_X + i * TAB_PITCH + TAB_W / 2, ty + 3, 0xFFFFFFFF);
         }
         layout(stack);
@@ -278,27 +341,27 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         Page p = Page.values()[page];
         Component heading = stack.isEmpty() ? Component.translatable("screen.simplequestionary.welcome.title")
                 : Component.translatable("screen.simplequestionary.page." + p.key);
-        g.text(font, heading, LEFT_X, TEXT_TOP, HEADING, false);
-        divider(g, LEFT_X, TEXT_TOP + LINE + 1, LEFT_W);
-        int y = BODY_TOP;
+        g.text(font, heading, leftX, textTop, HEADING, false);
+        divider(g, leftX, textTop + LINE + 1, leftW);
+        int y = bodyTop;
         for (int i = scroll; i < rows.size(); i++) {
             FormattedCharSequence row = rows.get(i);
             int h = row == null ? PARA : LINE;
-            if (y + h > BODY_BOTTOM + 2) break;
-            if (row != null) g.text(font, row, LEFT_X, y, BODY, false);
+            if (y + h > bodyBottom + 2) break;
+            if (row != null) g.text(font, row, leftX, y, BODY, false);
             y += h;
         }
-        int total = height(0), track = BODY_BOTTOM - BODY_TOP;
+        int total = height(0), track = bodyBottom - bodyTop;
         if (total > track) {
             int bar = COL_X - 4, thumb = Math.max(8, track * track / total), pos = (track - thumb) * height(0, scroll) / Math.max(1, total - track);
-            g.fill(bar, BODY_TOP, bar + 1, BODY_BOTTOM, FRAME_LINE);
-            g.fill(bar - 1, BODY_TOP + Math.min(pos, track - thumb), bar + 1, BODY_TOP + Math.min(pos, track - thumb) + thumb, INK_SOFT);
+            g.fill(bar, bodyTop, bar + 1, bodyBottom, FRAME_LINE);
+            g.fill(bar - 1, bodyTop + Math.min(pos, track - thumb), bar + 1, bodyTop + Math.min(pos, track - thumb) + thumb, INK_SOFT);
         }
         // Right page: picture plate, recipe, magnifier.
         if (stack.isEmpty()) {
-            g.text(font, Component.translatable("screen.simplequestionary.sheet.plate"), RIGHT_X, TEXT_TOP, HEADING, false);
-            divider(g, RIGHT_X, TEXT_TOP + LINE + 1, RIGHT_W);
-            wrapped(g, Component.translatable("screen.simplequestionary.sheet.empty"), RIGHT_X, BODY_TOP, BODY);
+            g.text(font, Component.translatable("screen.simplequestionary.sheet.plate"), RIGHT_X, textTop, HEADING, false);
+            divider(g, RIGHT_X, textTop + LINE + 1, rightW);
+            wrapped(g, Component.translatable("screen.simplequestionary.sheet.empty"), RIGHT_X, bodyTop, BODY);
         } else if (p == Page.LORE) {
             plate(g, stack);
         } else if (p == Page.USE) {
@@ -306,9 +369,9 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         } else {
             lens(g, stack);
         }
-        int ay = BOOK_Y + BOOK_H - 20;
+        int ay = bookY + bookH - 20;
         String number = (page + 1) + " / 3";
-        g.text(font, number, RIGHT_X + (RIGHT_W - ARROW_W - font.width(number)) / 2, ay + 1, HEADING, false);
+        g.text(font, number, RIGHT_X + (rightW - ARROW_W - font.width(number)) / 2, ay + 1, HEADING, false);
     }
 
     private static String modName(ItemStack stack) {
@@ -317,14 +380,14 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     /** Right page heading with the guide book's divider below it. */
     private void heading(GuiGraphicsExtractor g, String key) {
-        g.text(font, Component.translatable("screen.simplequestionary.sheet." + key), RIGHT_X, TEXT_TOP, HEADING, false);
-        divider(g, RIGHT_X, TEXT_TOP + LINE + 1, RIGHT_W);
+        g.text(font, Component.translatable("screen.simplequestionary.sheet." + key), RIGHT_X, textTop, HEADING, false);
+        divider(g, RIGHT_X, textTop + LINE + 1, rightW);
     }
 
     /** Page 1: the item three times enlarged in a framed plate, its name and mod below, then its family. */
     private void plate(GuiGraphicsExtractor g, ItemStack stack) {
         heading(g, "plate");
-        int px = RIGHT_X + (RIGHT_W - PLATE) / 2, py = TEXT_TOP + 18;
+        int px = RIGHT_X + (rightW - PLATE) / 2, py = textTop + 18;
         g.fill(px, py, px + PLATE, py + PLATE, FRAME_LINE);
         g.fill(px + 1, py + 1, px + PLATE - 1, py + PLATE - 1, PAPER_DARK);
         g.fill(px + 2, py + 2, px + PLATE - 2, py + PLATE - 2, PAPER_LIGHT);
@@ -338,15 +401,15 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         g.item(stack, 0, 0);
         g.pose().popMatrix();
         int y = py + PLATE + 4;
-        List<FormattedCharSequence> name = font.split(Component.literal(stack.getHoverName().getString()).withStyle(keyword()), RIGHT_W);
-        for (int i = 0; i < Math.min(2, name.size()); i++, y += LINE) g.centeredText(font, name.get(i), RIGHT_X + RIGHT_W / 2, y, KEYWORD);
+        List<FormattedCharSequence> name = font.split(Component.literal(stack.getHoverName().getString()).withStyle(keyword()), rightW);
+        for (int i = 0; i < Math.min(2, name.size()); i++, y += LINE) g.centeredText(font, name.get(i), RIGHT_X + rightW / 2, y, KEYWORD);
         String mod = modName(stack);
-        g.text(font, mod, RIGHT_X + (RIGHT_W - font.width(mod)) / 2, y, CAPTION, false);
+        g.text(font, mod, RIGHT_X + (rightW - font.width(mod)) / 2, y, CAPTION, false);
         y += LINE + 6;
         if (family.isEmpty()) return;
         g.text(font, Component.translatable("screen.simplequestionary.sheet.family"), RIGHT_X, y, HEADING, false);
         y += LINE + 1;
-        int shown = Math.min(family.size(), (RIGHT_W + 2) / 18);
+        int shown = Math.min(family.size(), (rightW + 2) / 18);
         for (int i = 0; i < shown; i++) {
             int sx = RIGHT_X + 1 + i * 18;
             UiBoxes.slot(g, sx, y, PAPER_SLOTS);
@@ -354,7 +417,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         }
         if (family.size() > shown) {
             String more = "+" + (family.size() - shown);
-            g.text(font, more, RIGHT_X + RIGHT_W - font.width(more), y + 21, CAPTION, false);
+            g.text(font, more, RIGHT_X + rightW - font.width(more), y + 21, CAPTION, false);
         }
     }
 
@@ -362,7 +425,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
     private void recipe(GuiGraphicsExtractor g, ItemStack stack) {
         heading(g, "recipe");
         QuestionaryFacts.Facts facts = FactsPayload.latest;
-        int y = TEXT_TOP + 20;
+        int y = textTop + 20;
         if (!facts.item().equals(BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
             wrapped(g, Component.translatable("screen.simplequestionary.facts.none"), RIGHT_X, y, BODY);
             return;
@@ -389,13 +452,13 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
                 ItemStack shown = new ItemStack(station);
                 UiBoxes.slot(g, RIGHT_X + 1, y, PAPER_SLOTS);
                 g.item(shown, RIGHT_X + 1, y);
-                g.text(font, ellipsis(shown.getHoverName().getString(), RIGHT_W - 21), RIGHT_X + 21, y + 4, CAPTION, false);
+                g.text(font, ellipsis(shown.getHoverName().getString(), rightW - 21), RIGHT_X + 21, y + 4, CAPTION, false);
                 y += 22;
             }
         }
         y = wrapped(g, Component.translatable("screen.simplequestionary.facts.recipes", number(facts.makes()), number(facts.usedIn())), RIGHT_X, y, BODY) + 6;
         g.text(font, Component.translatable("screen.simplequestionary.sheet.origin"), RIGHT_X, y, HEADING, false);
-        g.fill(RIGHT_X, y + LINE - 1, RIGHT_X + RIGHT_W, y + LINE, FRAME_LINE);
+        g.fill(RIGHT_X, y + LINE - 1, RIGHT_X + rightW, y + LINE, FRAME_LINE);
         String origin = "screen.simplequestionary.origin." + QuestionarySheet.origin(facts, stack.getItem()).key();
         wrapped(g, Component.empty().append(Component.translatable(origin).withStyle(keyword())).append(Component.translatable(origin + ".hint")),
                 RIGHT_X, y + LINE + 3, BODY);
@@ -404,7 +467,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
     /** Page 3: the item's texture five times enlarged in a gold magnifier ring with its pixel grid, then its name. */
     private void lens(GuiGraphicsExtractor g, ItemStack stack) {
         heading(g, "lens");
-        int d = 16 * LENS_SCALE, cx = RIGHT_X + RIGHT_W / 2, cy = TEXT_TOP + 20 + LENS_R, r = LENS_R;
+        int d = 16 * LENS_SCALE, cx = RIGHT_X + rightW / 2, cy = textTop + 20 + LENS_R, r = LENS_R;
         // The ring and the glass, row by row: dark rim, gold ring, light glass.
         for (int dy = -r - 2; dy <= r + 2; dy++) {
             int outer = halfWidth(r + 2, dy), ring = halfWidth(r + 1, dy), glass = halfWidth(r - 1, dy);
@@ -430,7 +493,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         // The handle down to the right.
         for (int i = 0; i < 9; i++) {
             int hx = cx + r - 3 + i, hy = cy + r - 3 + i;
-            if (hx + 3 > RIGHT_X + RIGHT_W + 4) break;
+            if (hx + 3 > RIGHT_X + rightW + 4) break;
             g.fill(hx, hy, hx + 3, hy + 2, i < 2 ? GOLD_DARK : COVER_DARK);
         }
         int y = cy + r + 6;
@@ -470,7 +533,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     /** Wrapped text on the right page; returns the y below it. */
     private int wrapped(GuiGraphicsExtractor g, Component text, int x, int y, int color) {
-        for (FormattedCharSequence line : font.split(text, RIGHT_W)) {
+        for (FormattedCharSequence line : font.split(text, rightW)) {
             g.text(font, line, x, y, color, false);
             y += LINE;
         }
@@ -490,7 +553,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     /** Largest scroll position: the last rows exactly fill the text area. */
     private int maxScroll() {
-        int track = BODY_BOTTOM - BODY_TOP, s = rows.size();
+        int track = bodyBottom - bodyTop, s = rows.size();
         while (s > 0 && height(s - 1) <= track) s--;
         return s;
     }
@@ -535,7 +598,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             if (!lines.isEmpty()) lines.add(null);
             MutableComponent text = Component.empty();
             for (QuestionarySheet.Span span : spans) text.append(Component.literal(span.text()).withStyle(span.bold() ? keyword() : Style.EMPTY));
-            lines.addAll(font.split(text, LEFT_W));
+            lines.addAll(font.split(text, leftW));
         }
         rows = lines;
     }
@@ -554,18 +617,18 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     private int inTab(double mx, double my) {
         for (int i = 0; i < 3; i++) {
-            int tx = leftPos + TAB_X + i * TAB_PITCH, ty = topPos + BOOK_Y + 3 - TAB_H - TAB_OUT;
-            if (mx >= tx && mx < tx + TAB_W && my >= ty && my < topPos + BOOK_Y + 3) return i;
+            int tx = leftPos + TAB_X + i * TAB_PITCH, ty = topPos + bookY + 3 - TAB_H - TAB_OUT;
+            if (mx >= tx && mx < tx + TAB_W && my >= ty && my < topPos + bookY + 3) return i;
         }
         return -1;
     }
 
     private boolean inBook(double mx, double my) {
-        return mx >= leftPos + BOOK_X && mx < leftPos + BOOK_X + BOOK_W && my >= topPos && my < topPos + BOOK_Y + BOOK_H;
+        return mx >= leftPos + bookX && mx < leftPos + bookX + bookW && my >= topPos + bookY - TAB_H - TAB_OUT && my < topPos + bookY + bookH;
     }
 
     private boolean inText(double mx, double my) {
-        return mx >= leftPos + BOOK_X && mx < leftPos + COL_X && my >= topPos + BODY_TOP && my < topPos + BODY_BOTTOM;
+        return mx >= leftPos + bookX && mx < leftPos + COL_X && my >= topPos + bodyTop && my < topPos + bodyBottom;
     }
 
     @Override
@@ -576,13 +639,13 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             setPage(tab);
             return true;
         }
-        int ay = topPos + BOOK_Y + BOOK_H - 20;
+        int ay = topPos + bookY + bookH - 20;
         if (my >= ay - 2 && my < ay + ARROW_H + 2) {
-            if (mx >= leftPos + LEFT_X - 2 && mx < leftPos + LEFT_X + ARROW_W + 2) {
+            if (mx >= leftPos + leftX - 2 && mx < leftPos + leftX + ARROW_W + 2) {
                 setPage(page - 1);
                 return true;
             }
-            int right = leftPos + BOOK_X + BOOK_W - PAGE_IN - 8 - ARROW_W;
+            int right = leftPos + bookX + bookW - PAGE_IN - 8 - ARROW_W;
             if (mx >= right - 2 && mx < right + ARROW_W + 2) {
                 setPage(page + 1);
                 return true;

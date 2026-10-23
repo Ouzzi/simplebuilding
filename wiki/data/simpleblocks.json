@@ -123,6 +123,35 @@
       }
     },
     {
+      "id": "sculk_tiles",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tiles.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tiles.json",
+        "tools/textures/blocks_b23_2026_10_23.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "en": {
+        "title": "Sculk Tiles",
+        "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+        "details": [
+          "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
+          "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+        ]
+      },
+      "de": {
+        "title": "Sculk-Fliesen",
+        "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+        "details": [
+          "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
+          "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+        ]
+      }
+    },
+    {
       "id": "missing_shapes",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
@@ -270,10 +299,10 @@
         "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
         "details": [
           "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
-          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. It neither spreads nor turns into dirt.",
+          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. Grass lives on slabs like on full blocks: with light 9 or more a grass slab spreads onto nearby dirt and dirt slabs, a grass block spreads onto dirt slabs, and a covered grass slab turns back into a Dirt Slab.",
           "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand or Gravel Slab onto one gives dirt, a grass block, sand or gravel instead of a double slab.",
           "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
-          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it breaks away and leaves no water. With nobody on it the cracks stay. No block can be placed against any of its sides, and next to ice it hides the faces between them like ice next to ice. Otherwise it behaves like ice and drops only with Silk Touch. With SimpleBuilding the stone chisel and the sledgehammer also turn ice into cracked ice, and SimpleBuilding's world generation lays cracked ice fields.",
+          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it breaks away and leaves no water. With nobody on it the cracks stay. No block except ice and cracked ice can be placed against any of its sides, and next to ice it hides the faces between them like ice next to ice. Otherwise it behaves like ice and drops only with Silk Touch. With SimpleBuilding the stone chisel and the sledgehammer also turn ice into cracked ice, and SimpleBuilding's world generation lays cracked ice fields.",
           "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
           "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
           "Scarlet, Aqua and Azure Froglights: any froglight (tag simpleblocks:froglights) plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
@@ -286,10 +315,10 @@
         "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
         "details": [
           "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
-          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Sie breitet sich nicht aus und wird nicht zu Erde.",
+          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Gras lebt auf Stufen wie auf vollen Blöcken: ab Licht 9 breitet sich eine Grasstufe auf nahe Erde und Erdstufen aus, ein Grasblock auf Erdstufen, und eine bedeckte Grasstufe wird wieder zur Erdstufe.",
           "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand oder Kies statt einer Doppelstufe.",
           "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
-          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten bricht es weg und hinterlässt kein Wasser. Steht niemand darauf, bleiben die Risse. An keine seiner Seiten lässt sich ein Block setzen, und neben Eis blendet es die gemeinsamen Flächen aus wie Eis neben Eis. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit. Mit SimpleBuilding machen auch der Steinmeißel und der Vorschlaghammer aus Eis rissiges Eis, und SimpleBuildings Weltgenerierung legt Felder aus rissigem Eis an.",
+          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten bricht es weg und hinterlässt kein Wasser. Steht niemand darauf, bleiben die Risse. An keine seiner Seiten lässt sich ein Block setzen außer Eis und rissigem Eis, und neben Eis blendet es die gemeinsamen Flächen aus wie Eis neben Eis. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit. Mit SimpleBuilding machen auch der Steinmeißel und der Vorschlaghammer aus Eis rissiges Eis, und SimpleBuildings Weltgenerierung legt Felder aus rissigem Eis an.",
           "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
           "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
           "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht (Tag simpleblocks:froglights) plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
@@ -6389,6 +6418,46 @@
       }
     },
     {
+      "id": "simpleblocks:sculk_tiles",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:sculk_tiles",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_tiles.json",
+      "ingredients": [
+        "minecraft:deepslate_tiles",
+        "minecraft:sculk"
+      ],
+      "pattern": [
+        "TS",
+        "ST"
+      ],
+      "key": {
+        "T": [
+          "minecraft:deepslate_tiles"
+        ],
+        "S": [
+          "minecraft:sculk"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:shapecutter",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -7691,6 +7760,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_deepslate.json"
     },
     {
+      "id": "simpleblocks:blocks/sculk_tiles",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:sculk_tiles"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_tiles.json"
+    },
+    {
       "id": "simpleblocks:blocks/shapecutter",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7881,10 +7968,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -9154,6 +9241,60 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:sculk_tiles",
+      "name": {
+        "en_us": "Sculk Tiles",
+        "de_de": "Sculk-Fliesen"
+      },
+      "note": {
+        "en": {
+          "title": "Sculk Tiles",
+          "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+          "details": [
+            "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
+            "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
+          ]
+        },
+        "de": {
+          "title": "Sculk-Fliesen",
+          "summary": "Tiefenschieferfliesen in Sculk-Farben: jede Fliese etwas heller oder dunkler, einige Sculk-Funken pulsieren langsam.",
+          "details": [
+            "Rezept (geformt, 2 × 2): zwei Tiefenschieferfliesen und zwei Sculk über Kreuz ergeben zwei Sculk-Fliesen.",
+            "Ein reiner Baublock mit Härte, Werkzeug und Klang der Tiefenschieferfliesen; er droppt sich selbst. Anders als die Gedämpften Tiefenschieferfliesen dämpft er keine Vibrationen."
+          ]
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/sculk_tiles.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Deepslate tiles that took on the colour of the sculk around them."
+          ],
+          "use": [
+            "Craft two from two Deepslate Tiles and two Sculk placed crosswise. A plain building block; it does not dampen vibrations."
+          ],
+          "secret": [
+            "Watch it a while: a few sculk sparks in it breathe slowly, like the Deep Dark itself."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Tiefenschieferfliesen, die die Farbe des Sculks um sie herum angenommen haben."
+          ],
+          "use": [
+            "Zwei Stück aus zwei Tiefenschieferfliesen und zwei Sculk über Kreuz. Ein reiner Baublock; er dämpft keine Vibrationen."
+          ],
+          "secret": [
+            "Schau eine Weile hin: Einige Sculk-Funken darin atmen langsam, wie die Tiefe Finsternis selbst."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:sculk_tiles"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:shapecutter",
       "name": {
         "en_us": "Shapecutter",
@@ -9371,14 +9512,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
-    "recipes": 282,
-    "lootTables": 53,
+    "features": 9,
+    "recipes": 283,
+    "lootTables": 54,
     "tags": 1,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 53,
+    "blocks": 54,
     "trades": 0,
     "config": 0,
     "quests": 0,

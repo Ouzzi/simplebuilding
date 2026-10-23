@@ -590,6 +590,7 @@ public final class ConfigOptionTests {
             "root.vanillaEnchantedBookTextures boolean=true",
             "root.modEnchantedBookTextures boolean=true",
             "root.jukebox264Textures boolean=true",
+            "root.noteBlockFrameTexture boolean=false",
             "root.visibleTrimIconsVanillaArmor boolean=true",
             "root.visibleTrimIconsModArmor boolean=true",
             "root.showModHud boolean=true",

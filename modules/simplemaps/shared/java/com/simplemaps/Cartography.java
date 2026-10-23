@@ -35,8 +35,10 @@ public final class Cartography {
     public static ItemStack result(ItemStack a, ItemStack b, ServerLevel level) {
         boolean wa = MapsItems.isWayfinder(a), wb = MapsItems.isWayfinder(b);
         if (!wa && !wb) return ItemStack.EMPTY;
-        if (wa && wb) return combine(a, b, level);
+        if (wa && wb) return a.getItem() instanceof MegaWayfinderMapItem || b.getItem() instanceof MegaWayfinderMapItem ? ItemStack.EMPTY : combine(a, b, level);
         ItemStack way = wa ? a : b, other = wa ? b : a;
+        // The mega map holds several dimensions: it is only copied, never extended or combined (owner B23-K1).
+        if ((a.getItem() instanceof MegaWayfinderMapItem || b.getItem() instanceof MegaWayfinderMapItem) && !other.is(Items.MAP)) return ItemStack.EMPTY;
         if (other.is(Items.MAP)) {
             return MapsConfig.allowCopy && wa ? way.copyWithCount(1) : ItemStack.EMPTY;
         }

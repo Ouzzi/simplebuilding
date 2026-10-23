@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_top",
-  "textures": {
-    "side": "simplemusic:block/orchestrion_side",
-    "top": "simplemusic:block/orchestrion_top",
-    "particle": "simplemusic:block/orchestrion_side"
-  }
-}

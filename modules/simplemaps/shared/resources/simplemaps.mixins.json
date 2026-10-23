@@ -7,7 +7,8 @@
     "CartographyTableMenuMixin",
     "ItemFrameAccessor",
     "ItemFrameMixin",
-    "WebDirtyMixin"
+    "WebDirtyMixin",
+    "MegaAnvilMixin"
   ],
   "client": [
     "client.FirstPersonMapMixin",

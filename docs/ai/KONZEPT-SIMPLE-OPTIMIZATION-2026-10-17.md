@@ -239,3 +239,23 @@ Plan `docs/ai/PLAN-B-OPT45-2026-10-19.md`. Umgesetzt (Fabric 26.3, framework 0.1
   Item-Entity-Signal = Vanilla-Eingriff), O3 Regen hinter Decken, O4 Modell-Deduplizierung (Client), Messung O3/O4/O9/S5b
   (Bench-Fall `o4` angelegt; Bench läuft als Client und wurde nicht gefahren). O4-Zählung im Integrationslauf:
   117 611 von 130 583 Arrays geteilt, ≈ 4,3 MiB.
+
+## 11. Stand Stufe 4 Rest (`a-opt45b`, 23.10.2026)
+Plan `docs/ai/PLAN-A-OPT45B-2026-10-23.md`. Geprüft am Vanilla-26.3-Code (Fabric-Merged-Jar + Quellen):
+- **O3 Regen hinter Decken: nicht gebaut (begründet).** `WeatherEffectRenderer.extractRenderState` klemmt jede Säule schon
+  an die `MOTION_BLOCKING`-Höhenkarte; unter Dächern und in Höhlen tiefer als der Wetter-Radius (max. 10) entsteht keine
+  Säule. Rest ≤ 441 Säulen je Frame; Verdeckung durch Wände wäre ein Sichtstrahl (O2, Prio 3).
+- **O4 Modell-Deduplizierung: nicht gebaut (begründet).** Vanilla 26.3 interniert `Vector3fc` und `BakedQuad.MaterialInfo`
+  beim Backen (`ModelBakery$InternerImpl`); Rest nur am Client messbar → Stufe 5 nur bei Messbedarf (Besitzer-PC, Heap nach
+  Ressourcen-Laden).
+- **S1a: kein Bereich, Messung als Beleg.** Integrations-Gametest `familyIdleTickCost` misst die Leerlauf-Tick-Kosten aller
+  tickenden Block-Entities der Familie gegen Vanilla-Trichter/-Öfen (Log `SB-BENCH s1a`). Ausreißer werden im
+  Besitzer-Modul behoben (F0), nicht in Optimization. Ergebnis sb-test 23.10. (28 Typen, Leerlauf, ns je Tick, verrauscht):
+  Vanilla-Trichter 40 700, Ofen 366, Hochofen 134; Familie am teuersten Spawn-Teleporter 6 900, SB-Trichter 6 400,
+  Tiegel 5 900, Launchpad 3 800, starkes Leuchtfeuer 3 100, Flypad/Trank-Pad 2 200; alle übrigen ≤ 1 300. Kein Familien-BE
+  ist im Leerlauf teurer als der Vanilla-Trichter → S1a als Bereich unnötig; Spawn-Teleporter/Tiegel (≈ 16–19× Ofen) als
+  F0-Kandidaten in ihren Modulen notiert.
+- **Messung headless:** S5b `s5bTickCost` (simpleoptserver, Log `SB-BENCH s5b`): 36 Kühe ohne Spieler, 3 von 4 Ticks
+  übersprungen (5400/7200), Mob-Tick-Zeit −72/−73 % (Modul- und Standalone-Lauf), Prüfung allein ≈ 0,8–0,9 µs je Mob.
+  O4-Zählung Integrationslauf (alle Module, beim Start): 193 643 von 262 327 Arrays geteilt, ≈ 7,1 MiB. S1a oben. FPS/Frame-Zeit
+  O3/O9 und Heap nach Modell-Laden bleiben Besitzer-PC/Client (Bench-Harness startet immer einen Client).

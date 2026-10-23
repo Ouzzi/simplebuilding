@@ -45,9 +45,13 @@ public final class NatureBlocks {
     public static final Block SUSPENDED_GRAVEL = add("suspended_gravel", Blocks.GRAVEL, Block::new);
     public static final Block LEVITATING_SAND = add("levitating_sand", Blocks.SAND, LevitatingBlock::new);
     public static final Block LEVITATING_GRAVEL = add("levitating_gravel", Blocks.GRAVEL, LevitatingBlock::new);
-    public static final Block DIRT_SLAB = add("dirt_slab", Blocks.DIRT, s -> new MergingSlabBlock(s, Blocks.DIRT));
-    /** Tinted by the biome like the grass block; without Silk Touch it drops the dirt slab. Never spreads, never dies. */
-    public static final Block GRASS_SLAB = add("grass_slab", Blocks.GRASS_BLOCK, s -> new MergingSlabBlock(s, Blocks.GRASS_BLOCK));
+    /** Turns into a grass slab next to grass like Vanilla dirt (B23-M3, {@link GrassSlabBlock}). */
+    public static final Block DIRT_SLAB = add("dirt_slab", Blocks.DIRT, GrassSlabBlock.DirtSlabBlock::new);
+    /**
+     * Tinted by the biome like the grass block; without Silk Touch it drops the dirt slab. Spreads and dies like Vanilla grass
+     * (B23-M3, {@link GrassSlabBlock}).
+     */
+    public static final Block GRASS_SLAB = add("grass_slab", Blocks.GRASS_BLOCK, GrassSlabBlock::new);
     /** Fall like sand and gravel ({@link FallingSlabBlock}); two slabs make the full Vanilla block ({@link MergingSlabBlock}). */
     public static final Block SAND_SLAB = add("sand_slab", Blocks.SAND, s -> new FallingSlabBlock(s, Blocks.SAND));
     public static final Block GRAVEL_SLAB = add("gravel_slab", Blocks.GRAVEL, s -> new FallingSlabBlock(s, Blocks.GRAVEL));

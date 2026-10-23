@@ -32,6 +32,17 @@
       "It sits well beside Sculk and Deepslate Tiles in a deep dark build."
     ]
   },
+  "sculk_tiles": {
+    "lore": [
+      "Deepslate tiles that took on the colour of the sculk around them."
+    ],
+    "use": [
+      "Craft two from two Deepslate Tiles and two Sculk placed crosswise. A plain building block; it does not dampen vibrations."
+    ],
+    "secret": [
+      "Watch it a while: a few sculk sparks in it breathe slowly, like the Deep Dark itself."
+    ]
+  },
   "blue_nether_bricks": {
     "lore": [
       "The cold sibling of Red Nether Bricks."

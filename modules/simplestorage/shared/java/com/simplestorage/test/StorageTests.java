@@ -124,10 +124,18 @@ public final class StorageTests {
         ALL.put("storage_enchantment_drawer_kind_lock_holds_against_the_funnel_too", StorageEnchantmentTests::drawerKindLockHoldsAgainstTheFunnelToo);
         ALL.put("storage_enchantment_funnel_quiver_sweeps_arrows_only_and_stops_at_its_brim", StorageEnchantmentTests::funnelQuiverSweepsArrowsOnlyAndStopsAtItsBrim);
         ALL.put("storage_enchantment_drawer_and_deep_pockets_multiply_on_the_same_container", StorageEnchantmentTests::drawerAndDeepPocketsMultiplyOnTheSameContainer);
+        // B23-M11/M12: floor = gravity, wall = like an item frame, never the ceiling; placed quivers take arrows only.
+        ALL.put("placed_storage_bundle_falls_like_sand", PlacedStorageTests::bundleFallsLikeSand);
+        ALL.put("placed_storage_bundle_hangs_on_wall_not_on_ceiling", PlacedStorageTests::bundleHangsOnWallNotOnCeiling);
+        ALL.put("placed_storage_backpack_falls_and_keeps_contents_when_it_breaks", PlacedStorageTests::backpackFallsAndKeepsContentsWhenItBreaks);
+        ALL.put("placed_storage_placed_quiver_takes_arrows_only", PlacedStorageTests::placedQuiverTakesArrowsOnly);
+        MAX_TICKS.put("placed_storage_bundle_falls_like_sand", PlacedStorageTests.FALL_MAX_TICKS);
+        MAX_TICKS.put("placed_storage_backpack_falls_and_keeps_contents_when_it_breaks", PlacedStorageTests.FALL_MAX_TICKS);
         ALL.put("placed_bundle_sneak_use_places_bundles_only_on_top_faces", PlacedBundleTests::sneakUsePlacesBundlesOnlyOnTopFaces);
         ALL.put("placed_bundle_sneak_scroll_packets_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt);
         ALL.put("placed_bundle_sneak_right_click_with_an_item_deposits_into_the_placed_bundle", PlacedBundleTests::sneakRightClickWithAnItemDepositsIntoThePlacedBundle);
         ALL.put("placed_bundle_placed_bundles_drop_themselves_with_their_contents", PlacedBundleTests::placedBundlesDropThemselvesWithTheirContents);
+        ALL.put("placed_bundle_deposit_into_placed_mod_bundle_plays_the_insert_sound", PlacedBundleTests::depositIntoPlacedModBundlePlaysTheInsertSound);
         ALL.put("bundle_wiring_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks);
         ALL.put("bundle_wiring_funnel_honours_pickup_delay_and_target_in_the_hand", BundleWiringTests::funnelHonoursPickupDelayAndTargetInTheHand);
         ALL.put("bundle_wiring_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions);

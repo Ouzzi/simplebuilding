@@ -217,8 +217,9 @@ public final class TweaksItems {
      * drei Stufen als "drei Stufen + ihre Freischalt-Zutat": die Kerne, dann die Zutaten (Kopf oder Elytra)
      * der Familien, die eine feste Zutat haben (Gold, Diamant, Netherit, Enderit; Kupfer und Eisen nehmen
      * jeden Trial-Chamber-Kopf, die stehen unten bei den Mobkoepfen), dann die Stufen je Tier. Zuletzt das
-     * Spawn-Elytra und die weiteren Mobkoepfe ({@link #extraMobHeads()}). Seit tweaks P8 fliesst alles mit
-     * einer Trennzelle zwischen den Kategorien (keine spaltenweise Ausrichtung mehr).
+     * Spawn-Elytra. Seit tweaks P8 fliesst alles mit einer Trennzelle zwischen den Kategorien (keine spaltenweise
+     * Ausrichtung mehr). B23-M6 (Besitzer 23.10.): nur Pads, Druckplatten und eigene Items wie Kerne und Spawn-Elytra -
+     * keine Mob-Koepfe und keine Vanilla-Elytra mehr (die Zutaten-Zeile entfaellt; 26.3 hat keine Kopf-Zeile).
      */
     public static List<CreativeTabLayout.Row> padsRows() {
         List<CreativeTabLayout.Row> rows = new ArrayList<>(List.of(
@@ -235,8 +236,6 @@ public final class TweaksItems {
                         com.simplebuilding.items.ModItems.COPPER_CORE, com.simplebuilding.items.ModItems.IRON_CORE,
                         com.simplebuilding.items.ModItems.GOLD_CORE, com.simplebuilding.items.ModItems.DIAMOND_CORE,
                         com.simplebuilding.items.ModItems.NETHERITE_CORE, com.simplebuilding.items.ModItems.ENDERITE_CORE),
-                CreativeTabLayout.Row.of("pad_materials",
-                        head(BlazeHeadType.ENDERMAN), Items.ELYTRA, head(BlazeHeadType.BLAZE), head(BlazeHeadType.SHULKER)),
                 CreativeTabLayout.Row.of("pad_tier_1",
                         TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),
@@ -248,7 +247,7 @@ public final class TweaksItems {
                         TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.INFUSED_POTION_PAD, TweaksBlocks.STELLAR_FLYPAD),
                 CreativeTabLayout.Row.of("pad_spawn_elytra",
                         SPAWN_ELYTRA)));
-        // Die uebrigen Mod-Mobkoepfe nach Fundort im Spielverlauf: Oberwelt (Biom), Unterwelt, End.
+        // 26.2 only: the mod heads have no tab of their own there (26.3: Simple Mobheads' tab, this list is empty).
         List<ItemLike> heads = extraMobHeads();
         if (!heads.isEmpty()) {
             rows.add(CreativeTabLayout.Row.of("mob_heads", heads.toArray(ItemLike[]::new)));

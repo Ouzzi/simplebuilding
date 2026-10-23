@@ -27,7 +27,7 @@ Verzauberung hebt die angezeigte Seltenheit (COMMON/UNCOMMON -> RARE, RARE -> EP
 |---|---|---|
 | **Werkstoffe und Bauklötze** | COMMON auf jeder Stufe, wie Netheritbarren | Enderitbarren, -platten, -klumpen, Block aus Enderit, Rohenderit, Netheritklumpen, Rissiger Diamant, Astralit-/Nihilit-/Enderquarz-Paletten, Baustellenlicht |
 | **Ausrüstung** (Werkzeuge, Waffen, Rüstung, Meißel, Spachtel, Vorschlaghämmer, Baustäbe) | COMMON auf jeder Stufe, wie Vanillas Netheritschwert | Enderitschwert, Enderit-Vorschlaghammer, Netheritmeißel |
-| **Stufenfamilien** (Bündel, Köcher, Rucksäcke, Truhen, Shulkerkisten, Trichter, Öfen, Räucheröfen, Schmelzöfen, Kolben, Kerne, Druckplatten, Pads, Stufen-Nahrung) | Grund-/Verstärkt-/Kupfer-/Eisen-/Gold-/Diamant-Stufe COMMON, **Netherit UNCOMMON** (wie die Netherit-Aufwertung), **Enderit EPIC** | Netherittrichter UNCOMMON, Enderitofen EPIC, Netherittruhe UNCOMMON, Enderittruhe EPIC, Netherit-Shulkerkiste UNCOMMON, Enderit-Shulkerkiste EPIC, Netheritkern UNCOMMON, Enderitapfel EPIC |
+| **Stufenfamilien** (Bündel, Köcher, Rucksäcke, Truhen, Shulkerkisten, Trichter, Öfen, Räucheröfen, Schmelzöfen, Kolben, Kerne, Druckplatten, Pads, Stufen-Nahrung) | Grund-/Verstärkt-/Kupfer-/Eisen-/Gold-/Diamant-Stufe COMMON, **Netherit UNCOMMON** (wie die Netherit-Aufwertung), **Enderit EPIC** | Netherittrichter UNCOMMON, Enderitofen EPIC, Netherittruhe UNCOMMON, Enderittruhe EPIC, Netherit-Shulkerkiste UNCOMMON, Enderit-Shulkerkiste EPIC, Enderitapfel EPIC. **Ausnahme Kerne (B23-M5, Besitzer 23.10.):** Kupfer- bis Netheritkern RARE (mindestens wie der Netherstern), Enderitkern EPIC |
 | Pads | nach dem Material, mit dem die Stufe gebaut wird: Netherit-Druckplatte -> UNCOMMON, Enderit-Platte/-Kern -> EPIC | Spawn-Teleporter II und Trank-Pad I/II UNCOMMON (II seit 2026-10-02 aus Netherit-Aufwertung + Netherit-Platte); Flugpads I-III, Enderit-Elytra-Pad III, Trank-Pad III, Spawn-Teleporter III EPIC. Elytra-Pad seit 2026-10-07 drei Stufen (I COMMON, II Netherit UNCOMMON, III Enderit EPIC); die alten Stufen II und V sind als Legacy nur noch zum Laden da (COMMON bzw. EPIC) |
 | **Verzauberte Nahrung** | RARE wie der verzauberte goldene Apfel, Enderit EPIC | Verzauberter Netheritapfel RARE, Verzauberter Enderitapfel EPIC |
 | **Vorlagen** | Aufwertungen UNCOMMON (wie die Netherit-Aufwertung), Besatz-Aufwertungen RARE (eine Stufe über den Vanilla-Besatzvorlagen, aus denen sie entstehen) | Basis- und Enderit-Schmiedevorlage UNCOMMON; Leuchtende/Strahlende Schmiedevorlage RARE |
@@ -78,3 +78,5 @@ vier Vorlagen, "Netherite/Enderite Flypad (Legacy)"; de u. a. Klumpen statt Nugg
 Enderitbeinschutz, Enderitspeer, Enderitplatten, Rohenderit, Netherit-/Enderitbündel, -köcher, -apfel,
 -karotte zusammengeschrieben, Basis-/Enderit-Schmiedevorlage, Astralit-/Nihilit-Paletten zusammengeschrieben,
 "Netherit-/Enderit-Flugpad (alt)".
+
+B23-M5 (23.10.): Wärter-Fühler RARE (selten/besonders); Kerne siehe Stufenfamilien.

@@ -32,6 +32,17 @@
       "Er passt neben Sculk und Tiefenschieferfliesen in ein Deep-Dark-Bauwerk."
     ]
   },
+  "sculk_tiles": {
+    "lore": [
+      "Tiefenschieferfliesen, die die Farbe des Sculks um sie herum angenommen haben."
+    ],
+    "use": [
+      "Zwei Stück aus zwei Tiefenschieferfliesen und zwei Sculk über Kreuz. Ein reiner Baublock; er dämpft keine Vibrationen."
+    ],
+    "secret": [
+      "Schau eine Weile hin: Einige Sculk-Funken darin atmen langsam, wie die Tiefe Finsternis selbst."
+    ]
+  },
   "blue_nether_bricks": {
     "lore": [
       "Das kalte Geschwister der Roten Netherziegel."

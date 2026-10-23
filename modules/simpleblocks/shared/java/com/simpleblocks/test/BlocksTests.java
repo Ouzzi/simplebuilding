@@ -51,13 +51,13 @@ import net.minecraft.world.phys.Vec3;
 public final class BlocksTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
-    public static final int BLOCK_COUNT = 37;
+    public static final int BLOCK_COUNT = 38;
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
     static {
         ALL.put("registered", h -> {
-            h.assertTrue(BlocksRegistry.NAMES.size() == BLOCK_COUNT, "37 blocks, found " + BlocksRegistry.NAMES.size());
+            h.assertTrue(BlocksRegistry.NAMES.size() == BLOCK_COUNT, BLOCK_COUNT + " blocks, found " + BlocksRegistry.NAMES.size());
             for (String name : BlocksRegistry.NAMES) {
                 h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleBlocks.id(name)), "block " + name);
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBlocks.id(name)), "item " + name);
@@ -241,8 +241,31 @@ public final class BlocksTests {
         h.succeed();
     }
 
+    /** Sculk Tiles (W23-3): registered with its item, drops itself, stands in the Simple Blocks tab, 2 tiles + 2 sculk make 2. */
+    private static void sculkTiles(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        Block block = BlocksRegistry.SCULK_TILES;
+        h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleBlocks.id("sculk_tiles")) == block && block.asItem() != Items.AIR, "block and item registered");
+        h.assertTrue(block.defaultBlockState().getSoundType() == Blocks.DEEPSLATE_TILES.defaultBlockState().getSoundType()
+                && block.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), "deepslate tile sound, mined with a pickaxe");
+        BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+        var drops = Block.getDrops(block.defaultBlockState(), level, pos, null, null, new ItemStack(Items.WOODEN_PICKAXE));
+        h.assertTrue(drops.size() == 1 && drops.get(0).is(block.asItem()) && drops.get(0).getCount() == 1, "drops itself: " + drops);
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(level.enabledFeatures(), true, level.registryAccess());
+        h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(SimpleBlocks.id("blocks")).getDisplayItems().stream().anyMatch(st -> st.is(block.asItem())),
+                "in the Simple Blocks tab");
+        ItemStack tiles = new ItemStack(Items.DEEPSLATE_TILES);
+        ItemStack sculk = new ItemStack(Items.SCULK);
+        var input = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, List.of(tiles, sculk, sculk, tiles));
+        ItemStack made = level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level)
+                .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
+        h.assertTrue(made.is(block.asItem()) && made.getCount() == 2, "2 deepslate tiles + 2 sculk -> 2 sculk tiles: " + made);
+        h.succeed();
+    }
+
     static {
         ALL.put("blue_nether_bricks_recipes", BlocksTests::blueNetherBricksRecipes);
+        ALL.put("sculk_tiles", BlocksTests::sculkTiles);
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleblocks.discover.BlocksDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleblocks.discover.BlocksDiscover::firstPickupTips);

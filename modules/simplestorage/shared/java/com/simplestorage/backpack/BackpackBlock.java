@@ -3,6 +3,12 @@ package com.simplestorage.backpack;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import com.simplestorage.bundle.PlacedStorage;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -35,10 +41,14 @@ import org.jetbrains.annotations.Nullable;
  * Inhalt zurueck (Loot-Tabelle mit {@code copy_components}, ohne Werkzeug- oder
  * Explosionsbedingung - er faellt immer).
  *
+ * <p>Wo er steht (B23-M12, {@link PlacedStorage}): auf eine Oberseite gestellt faellt er wie Sand samt Inhalt, sobald
+ * nichts darunter ist; an eine Seitenflaeche gehaengt haengt er wie ein Item-Rahmen an der Wand (Rueckseite an der Wand,
+ * {@link #WALL_SHIFT} angehoben); an die Decke nie.
+ *
  * <p>Form: der Sack (10 x 13 x 6 Pixel) mit einer Vordertasche (8 x 8 x 2). Die Form ist fuer
  * Blickrichtung Norden angegeben und wird fuer die anderen drei Richtungen gedreht.
  */
-public class BackpackBlock extends BaseEntityBlock {
+public class BackpackBlock extends BaseEntityBlock implements PlacedStorage.Falling {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     /**
      * Gefaerbt ({@code minecraft:dyed_color} am abgestellten Item): waehlt das Zwei-Ebenen-Modell
@@ -47,16 +57,21 @@ public class BackpackBlock extends BaseEntityBlock {
      */
     public static final BooleanProperty DYED = BooleanProperty.create("dyed");
 
-    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Shapes.or(
+    private static final VoxelShape NORTH_SHAPE = Shapes.or(
             Block.box(3.0, 0.0, 5.0, 13.0, 13.0, 11.0),
-            Block.box(4.0, 0.0, 3.0, 12.0, 8.0, 5.0)));
+            Block.box(4.0, 0.0, 3.0, 12.0, 8.0, 5.0));
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(NORTH_SHAPE);
+    /** An der Wand: Rueckseite (z 11) an die Wand (z 16), um so viel nach Sueden und {@link #WALL_LIFT} angehoben. */
+    public static final int WALL_SHIFT = 5, WALL_LIFT = 1;
+    private static final Map<Direction, VoxelShape> WALL_SHAPES = Shapes.rotateHorizontal(NORTH_SHAPE.move(0.0, WALL_LIFT / 16.0, WALL_SHIFT / 16.0));
 
     private final BackpackTier tier;
 
     public BackpackBlock(BackpackTier tier, BlockBehaviour.Properties properties) {
         super(properties);
         this.tier = tier;
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(DYED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(DYED, false)
+                .setValue(PlacedStorage.WALL, false));
     }
 
     public BackpackTier getTier() {
@@ -68,20 +83,61 @@ public class BackpackBlock extends BaseEntityBlock {
         return new BackpackBlockEntity(pos, state);
     }
 
+    /** Boden oder Wand nach der geklickten Seite, nie an die Decke ({@link PlacedStorage#attach}). */
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(DYED, context.getItemInHand().has(DataComponents.DYED_COLOR));
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return PlacedStorage.attach(this.defaultBlockState().setValue(DYED, context.getItemInHand().has(DataComponents.DYED_COLOR)),
+                context, FACING);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, DYED);
+        builder.add(FACING, DYED, PlacedStorage.WALL);
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.getValue(FACING));
+        return (state.getValue(PlacedStorage.WALL) ? WALL_SHAPES : SHAPES).get(state.getValue(FACING));
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return PlacedStorage.canSurvive(state, level, pos, FACING);
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        level.scheduleTick(pos, this, PlacedStorage.FALL_DELAY);
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        if (state.getValue(PlacedStorage.WALL)) {
+            if (direction == state.getValue(FACING).getOpposite() && !state.canSurvive(level, pos)) {
+                return Blocks.AIR.defaultBlockState();
+            }
+        } else {
+            ticks.scheduleTick(pos, this, PlacedStorage.FALL_DELAY);
+        }
+        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+    }
+
+    /** Am Boden ohne Halt: faellt samt Inhalt wie Sand. */
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (PlacedStorage.shouldFall(state, level, pos)) {
+            PlacedStorage.fall(level, pos, state);
+        }
+    }
+
+    /** Der Rucksack samt Inhalt und Farbe aus der Block-Entity (fuer einen beim Fallen zerbrochenen). */
+    @Override
+    public ItemStack storedStack(BlockEntity blockEntity) {
+        ItemStack stack = new ItemStack(this);
+        stack.applyComponents(blockEntity.collectComponents());
+        return stack;
     }
 
     /**

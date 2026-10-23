@@ -141,67 +141,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       }
     },
     {
-      "id": "orchestrion",
-      "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlock.java",
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlockEntity.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/recipe/orchestrion.json"
-      ],
-      "en": {
-        "title": "Orchestrion",
-        "summary": "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc (composition or track) to put it in, with an empty hand to take it out. It plays on a loop and never ejects.",
-        "details": [
-          "The server plays each step's tones like a note block (Jukebox/Note Blocks volume, 48 blocks), at most 8 tones per step; one note particle per step.",
-          "Comparator: 1-15 by progress through the piece, 0 when empty."
-        ]
-      },
-      "de": {
-        "title": "Orchestrion",
-        "summary": "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Notenblatt oder einer gepressten Platte (Komposition oder Titel) legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus.",
-        "details": [
-          "Der Server spielt die Töne jedes Schritts wie ein Notenblock (Lautstärke Jukebox/Notenblöcke, 48 Blöcke), höchstens 8 Töne je Schritt; ein Notenpartikel je Schritt.",
-          "Komparator: 1-15 nach Fortschritt im Stück, 0 wenn leer."
-        ]
-      }
-    },
-    {
-      "id": "orchestrion_redstone",
-      "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlockEntity.java"
-      ],
-      "en": {
-        "title": "Redstone",
-        "summary": "Signal on: plays and loops. Signal off: stops at the end of the current step. A rising edge starts from the top. Never wired: plays and loops.",
-        "details": []
-      },
-      "de": {
-        "title": "Redstone",
-        "summary": "Signal an: spielt und loopt. Signal aus: hört am Ende des Schritts auf. Steigende Flanke: von vorn. Ohne Signal angeschlossen: spielt und loopt.",
-        "details": []
-      }
-    },
-    {
-      "id": "orchestrion_playlist",
-      "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlockEntity.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/tags/block/playlist_containers.json"
-      ],
-      "en": {
-        "title": "Playlist on top",
-        "summary": "A chest, trapped chest, barrel or copper chest on top is the playlist: after each run the next sheet or custom disc swaps places with the finished one (slot order). Without another one the piece loops.",
-        "details": [
-          "Only single chests without unopened loot count. Tag simplemusic:playlist_containers."
-        ]
-      },
-      "de": {
-        "title": "Playlist darüber",
-        "summary": "Eine Truhe, Redstone-Truhe, ein Fass oder eine Kupfertruhe darüber ist die Playlist: nach jedem Durchlauf tauscht das nächste Notenblatt oder die nächste eigene Platte den Platz mit dem fertigen (Slot-Reihenfolge). Ohne weiteres loopt das Stück.",
-        "details": [
-          "Nur einzelne Truhen ohne ungeöffnete Beute zählen. Tag simplemusic:playlist_containers."
-        ]
-      }
-    },
-    {
       "id": "blank_disc",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/disc/BlankDiscItem.java",
@@ -228,14 +167,16 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "modules/simplemusic/shared/java/com/simplemusic/press/DiscPress.java",
         "modules/simplemusic/shared/java/com/simplemusic/press/DiscPressBlockEntity.java",
         "modules/simplemusic/shared/java/com/simplemusic/press/DiscPressMenu.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/recipe/disc_press.json"
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/disc_press.json",
+        "modules/simplemusic/shared/java/com/simplemusic/SimpleMusic.java"
       ],
       "en": {
         "title": "Disc Press",
         "summary": "A piston over two iron ingots over three smooth stone. Put a sheet of music on top and blank discs below: it presses the sheet's music (composition or uploaded track) onto a blank in 2 seconds. The sheet always stays.",
         "details": [
           "Only compositions without problems are pressed. The pressed disc waits in the output slot; the next one follows when it is taken.",
-          "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe."
+          "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe.",
+          "Sheets only go into the press: the Orchestrion that played them directly was removed (owner 23.10.); old Orchestrions turn into a jukebox and keep the disc or sheet they held."
         ]
       },
       "de": {
@@ -243,7 +184,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "summary": "Ein Kolben über zwei Eisenbarren über drei glatten Steinen. Oben ein Notenblatt, unten Rohlinge: sie presst die Musik des Blatts (Komposition oder hochgeladener Titel) in 2 Sekunden auf einen Rohling. Das Notenblatt bleibt immer erhalten.",
         "details": [
           "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
-          "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke."
+          "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke.",
+          "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt (Besitzer 23.10.); alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
         ]
       }
     },
@@ -282,18 +224,18 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       ],
       "en": {
         "title": "Custom Disc",
-        "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play in the Orchestrion (loop, playlist) and in the Vanilla jukebox (once); the Pocket Jukebox takes track discs.",
+        "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play once in the Vanilla jukebox; the Pocket Jukebox takes track discs.",
         "details": [
           "Track discs: players within 64 blocks get the file from the server in parts the first time (cache in simplemusic-cache/ of the game folder, 512 MiB) and join at the current position. A deleted track leaves a silent disc.",
-          "Composition discs in the jukebox: the server plays the tones like the Orchestrion, once."
+          "Composition discs in the jukebox: the server plays the tones itself like a note block, once."
         ]
       },
       "de": {
         "title": "Eigene Platte",
-        "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen im Orchestrion (Schleife, Playlist) und in der Vanilla-Jukebox (einmal); die Taschen-Jukebox nimmt Titel-Platten.",
+        "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Titel-Platten.",
         "details": [
           "Titel-Platten: Spieler in 64 Blöcken bekommen die Datei beim ersten Mal in Stücken vom Server (Cache in simplemusic-cache/ im Spielordner, 512 MiB) und steigen an der aktuellen Stelle ein. Ein gelöschter Titel hinterlässt eine stumme Platte.",
-          "Kompositions-Platten in der Jukebox: der Server spielt die Töne wie das Orchestrion, einmal."
+          "Kompositions-Platten in der Jukebox: der Server spielt die Töne selbst wie ein Notenblock, einmal."
         ]
       }
     },
@@ -304,16 +246,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketPlayback.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/PocketPlayer.java",
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
-        "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json"
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketMouseActions.java"
       ],
       "en": {
         "title": "Pocket Jukebox",
         "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
           "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
-          "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
-          "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
-          "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+          "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
+          "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
+          "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
           "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
         ]
       },
@@ -322,9 +265,9 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
         "details": [
           "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
-          "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
-          "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
-          "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+          "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, das Mausrad darüber wählt eine Platte, Rechtsklick mit leerer Hand nimmt die gewählte heraus (ohne Wahl die neueste). Das Raster im Tooltip liest sich in Spielreihenfolge.",
+          "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn; später eingelegte kommen ans Ende. Pause merkt sich die Stelle. Start und Pause klicken wie ein Plattenspieler. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+          "Sie spielt weiter, während du sie im Inventar verschiebst, wenn du sie fallen lässt (dann hören sie alle in der Nähe des Items, und wer sie aufhebt, trägt sie weiter) und wenn du sie abstellst oder abbaust. Sie stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox eine Weile weg bleibt (in einer Kiste). Die Nebenhand hält sie nur.",
           "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
         ]
       }
@@ -336,28 +279,30 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxBlockEntity.java",
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
         "modules/simplemusic/shared/java/com/simplemusic/disc/DiscPlayback.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json"
+        "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketJukeboxRenderer.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/tags/block/pocket_jukebox_links.json"
       ],
       "en": {
         "title": "Placed Pocket Jukebox",
         "summary": "Sneak + right click with the pocket jukebox on a block puts it down, front to you. Placed, it plays its discs for everyone nearby like a jukebox.",
         "details": [
-          "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses, sneak + right click with an empty hand throws the newest disc out on top.",
+          "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses. Sneaking and looking at it shows the current disc above it; sneak + mouse wheel goes through the discs, sneak + right click with an empty hand takes the shown one out.",
           "Same order, loop and pause as in the hand: the first disc in plays first, after the last the first again, a pause keeps the position. A jukebox that played in your hand goes on playing where you put it down.",
           "The sound comes from the block like a jukebox (64 blocks, Jukebox/Note Blocks volume); players who come near later hear it from where the song is. Track discs are heard only by those allowed to hear them (moderation).",
-          "Redstone like a jukebox: signal 15 while it plays, a comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Parrots dance, allays and sculk sensors hear it.",
-          "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position; in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
+          "Redstone: signal 15 out of the front while it plays; a redstone pulse from any other side, above or below starts or pauses it. A comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Redstone dust (and with SimpleBuilding Astral, Nihil and Bridge dust) gets a copper contact. Parrots dance, allays and sculk sensors hear it.",
+          "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position (a playing one goes on playing as the dropped item); in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
         ]
       },
       "de": {
         "title": "Abgestellte Taschen-Jukebox",
         "summary": "Schleichen + Rechtsklick mit der Taschen-Jukebox auf einen Block stellt sie ab, die Vorderseite zu dir. Abgestellt spielt sie ihre Platten wie eine Jukebox für alle in der Nähe.",
         "details": [
-          "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert, Schleichen + Rechtsklick mit leerer Hand wirft die neueste Platte oben heraus.",
+          "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert. Wer schleichend darauf schaut, sieht die aktuelle Platte darüber; Schleichen + Mausrad blättert durch die Platten, Schleichen + Rechtsklick mit leerer Hand nimmt die gezeigte heraus.",
           "Reihenfolge, Schleife und Pause wie in der Hand: die zuerst eingelegte zuerst, nach der letzten von vorn, die Pause merkt sich die Stelle. Spielte die Jukebox in der Hand, spielt sie abgestellt an derselben Stelle weiter.",
           "Der Klang kommt wie bei der Jukebox vom Block (64 Blöcke, Lautstärke Jukebox/Notenblöcke); wer später dazukommt, hört ab der aktuellen Stelle. Titel-Platten hören nur die, die sie hören dürfen (Freigabe).",
-          "Redstone wie bei der Jukebox: Signal 15, solange sie spielt, ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
-          "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück; im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
+          "Redstone: Signal 15 nach vorn, solange sie spielt; ein Redstone-Impuls von einer anderen Seite, von oben oder unten startet oder pausiert sie. Ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Redstone-Staub (mit SimpleBuilding auch Astral-, Nihil- und Brückenstaub) bekommt einen Kupferkontakt. Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
+          "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück (spielte sie, spielt sie als Item weiter); im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
         ]
       }
     },
@@ -395,7 +340,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "summary": "config/simplemusic-server.json, read at start; every number is clamped.",
         "details": [
           "enabled (true); sheetSounds (all | heads | instruments) with blockedSounds (music., music_disc., ui., ambient.cave, world-wide sounds: prefix list).",
-          "maxTonesPerTick (8, 1 to 8), maxPlayingOrchestrions (32 per dimension, 1 to 64), orchestrionRange (48, 16 to 64).",
+          "maxTonesPerTick (8, 1 to 8), toneRange (48, 16 to 64: how far a composition disc's tones carry; an old orchestrionRange is taken over).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 to 16), maxUploadSeconds (300, 10 to 900), quotaPerPlayer (5, 0 to 50), storeLimitMiB (256, 16 to 2048), uploadKiBPerSecond (256, 16 to 1024), downloadKiBPerSecond (512, 32 to 4096).",
           "jukeboxCustomDiscs (true): custom discs in the Vanilla jukebox; it switches itself off where Vanilla has its own jukebox playlist (block tag #minecraft:jukebox_containers).",
           "With SimpleBuilding the switch Enable Simple Music in its config turns the bundled module on or off."
@@ -406,7 +351,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "summary": "config/simplemusic-server.json, beim Start gelesen; jede Zahl wird begrenzt.",
         "details": [
           "enabled (true); sheetSounds (all | heads | instruments) mit blockedSounds (music., music_disc., ui., ambient.cave, weltweite Klänge: Präfixliste).",
-          "maxTonesPerTick (8, 1 bis 8), maxPlayingOrchestrions (32 je Dimension, 1 bis 64), orchestrionRange (48, 16 bis 64).",
+          "maxTonesPerTick (8, 1 bis 8), toneRange (48, 16 bis 64: wie weit die Töne einer Kompositions-Platte reichen; ein altes orchestrionRange wird übernommen).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 bis 16), maxUploadSeconds (300, 10 bis 900), quotaPerPlayer (5, 0 bis 50), storeLimitMiB (256, 16 bis 2048), uploadKiBPerSecond (256, 16 bis 1024), downloadKiBPerSecond (512, 32 bis 4096).",
           "jukeboxCustomDiscs (true): eigene Platten in der Vanilla-Jukebox; schaltet sich selbst ab, wo Vanilla eine eigene Jukebox-Playlist hat (Block-Tag #minecraft:jukebox_containers).",
           "Mit SimpleBuilding schaltet der Schalter Simple Music aktivieren in dessen Config das gebündelte Modul ein oder aus."
@@ -1381,58 +1326,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       }
     },
     {
-      "id": "simplemusic:orchestrion",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplemusic:orchestrion",
-        "count": 1
-      },
-      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/orchestrion.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "minecraft:jukebox",
-        "minecraft:note_block"
-      ],
-      "pattern": [
-        "CNC",
-        " J "
-      ],
-      "key": {
-        "C": [
-          "minecraft:copper_ingot"
-        ],
-        "N": [
-          "minecraft:note_block"
-        ],
-        "J": [
-          "minecraft:jukebox"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 2
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplemusic:pink_pocket_jukebox",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -2084,22 +1977,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/orange_pocket_jukebox.json"
     },
     {
-      "id": "simplemusic:blocks/orchestrion",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemusic:orchestrion"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/orchestrion.json"
-    },
-    {
       "id": "simplemusic:blocks/pink_pocket_jukebox",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2198,55 +2075,27 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   ],
   "tags": [
     {
-      "id": "simplemusic:block/playlist_containers",
+      "id": "simplemusic:block/pocket_jukebox_links",
       "replace": false,
       "values": [
         {
-          "id": "minecraft:chest",
+          "id": "minecraft:redstone_wire",
           "required": true
         },
         {
-          "id": "minecraft:trapped_chest",
-          "required": true
-        },
-        {
-          "id": "minecraft:barrel",
-          "required": true
-        },
-        {
-          "id": "minecraft:copper_chest",
+          "id": "simplebuilding:astral_redstone",
           "required": false
         },
         {
-          "id": "minecraft:exposed_copper_chest",
+          "id": "simplebuilding:nihil_redstone",
           "required": false
         },
         {
-          "id": "minecraft:weathered_copper_chest",
-          "required": false
-        },
-        {
-          "id": "minecraft:oxidized_copper_chest",
-          "required": false
-        },
-        {
-          "id": "minecraft:waxed_copper_chest",
-          "required": false
-        },
-        {
-          "id": "minecraft:waxed_exposed_copper_chest",
-          "required": false
-        },
-        {
-          "id": "minecraft:waxed_weathered_copper_chest",
-          "required": false
-        },
-        {
-          "id": "minecraft:waxed_oxidized_copper_chest",
+          "id": "simplebuilding:bridge_redstone",
           "required": false
         }
       ],
-      "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/block/playlist_containers.json"
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/block/pocket_jukebox_links.json"
     },
     {
       "id": "simplemusic:item/pocket_jukeboxes",
@@ -2388,18 +2237,18 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "note": {
         "en": {
           "title": "Custom Disc",
-          "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play in the Orchestrion (loop, playlist) and in the Vanilla jukebox (once); the Pocket Jukebox takes track discs.",
+          "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play once in the Vanilla jukebox; the Pocket Jukebox takes track discs.",
           "details": [
             "Track discs: players within 64 blocks get the file from the server in parts the first time (cache in simplemusic-cache/ of the game folder, 512 MiB) and join at the current position. A deleted track leaves a silent disc.",
-            "Composition discs in the jukebox: the server plays the tones like the Orchestrion, once."
+            "Composition discs in the jukebox: the server plays the tones itself like a note block, once."
           ]
         },
         "de": {
           "title": "Eigene Platte",
-          "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen im Orchestrion (Schleife, Playlist) und in der Vanilla-Jukebox (einmal); die Taschen-Jukebox nimmt Titel-Platten.",
+          "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Titel-Platten.",
           "details": [
             "Titel-Platten: Spieler in 64 Blöcken bekommen die Datei beim ersten Mal in Stücken vom Server (Cache in simplemusic-cache/ im Spielordner, 512 MiB) und steigen an der aktuellen Stelle ein. Ein gelöschter Titel hinterlässt eine stumme Platte.",
-            "Kompositions-Platten in der Jukebox: der Server spielt die Töne wie das Orchestrion, einmal."
+            "Kompositions-Platten in der Jukebox: der Server spielt die Töne selbst wie ein Notenblock, einmal."
           ]
         }
       },
@@ -2410,7 +2259,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
             "Your own music, pressed to keep."
           ],
           "use": [
-            "Carries an uploaded track or a composition. It plays in the orchestrion on a loop and once in a Vanilla jukebox; the pocket jukebox takes track discs."
+            "Carries an uploaded track or a composition. It plays once in a Vanilla jukebox; the pocket jukebox takes track discs."
           ],
           "secret": [
             "A track disc holds only the track's name, length and uploader, never the audio itself."
@@ -2421,7 +2270,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
             "Deine eigene Musik, zum Aufheben gepresst."
           ],
           "use": [
-            "Trägt einen hochgeladenen Titel oder eine Komposition. Sie spielt im Orchestrion in Schleife und einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Platten mit Titel."
+            "Trägt einen hochgeladenen Titel oder eine Komposition. Sie spielt einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Platten mit Titel."
           ],
           "secret": [
             "Eine Titel-Platte trägt nur Name, Länge und Hochlader, nie die Tonspur selbst."
@@ -2443,10 +2292,10 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 23 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+          "summary": "Guide to this mod: 18 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 23 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+          "summary": "Handbuch zu dieser Mod: 18 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
@@ -2456,7 +2305,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
             "A short book for people who hum while they build."
           ],
           "use": [
-            "The Simple Music Guide explains sheet music, note code, the orchestrion, the disc press and the pocket jukebox. Craft it shapeless from a book and a note block."
+            "The Simple Music Guide explains sheet music, note code, the disc press and the pocket jukebox. Craft it shapeless from a book and a note block."
           ],
           "secret": [
             "Its pages open in your language and nothing is consumed."
@@ -2467,7 +2316,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
             "Ein kurzes Buch für alle, die beim Bauen summen."
           ],
           "use": [
-            "Das Simple-Music-Handbuch erklärt Notenblätter, Notencode, das Orchestrion, die Plattenpresse und die Taschen-Jukebox. Herstellung formlos aus einem Buch und einem Notenblock."
+            "Das Simple-Music-Handbuch erklärt Notenblätter, Notencode, die Plattenpresse und die Taschen-Jukebox. Herstellung formlos aus einem Buch und einem Notenblock."
           ],
           "secret": [
             "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
@@ -2645,7 +2494,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "summary": "A piston over two iron ingots over three smooth stone. Put a sheet of music on top and blank discs below: it presses the sheet's music (composition or uploaded track) onto a blank in 2 seconds. The sheet always stays.",
           "details": [
             "Only compositions without problems are pressed. The pressed disc waits in the output slot; the next one follows when it is taken.",
-            "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe."
+            "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe.",
+            "Sheets only go into the press: the Orchestrion that played them directly was removed (owner 23.10.); old Orchestrions turn into a jukebox and keep the disc or sheet they held."
           ]
         },
         "de": {
@@ -2653,7 +2503,8 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "summary": "Ein Kolben über zwei Eisenbarren über drei glatten Steinen. Oben ein Notenblatt, unten Rohlinge: sie presst die Musik des Blatts (Komposition oder hochgeladener Titel) in 2 Sekunden auf einen Rohling. Das Notenblatt bleibt immer erhalten.",
           "details": [
             "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
-            "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke."
+            "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke.",
+            "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt (Besitzer 23.10.); alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
           ]
         }
       },
@@ -2855,59 +2706,6 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "usedIn": []
     },
     {
-      "id": "simplemusic:orchestrion",
-      "name": {
-        "en_us": "Orchestrion",
-        "de_de": "Orchestrion"
-      },
-      "note": {
-        "en": {
-          "title": "Orchestrion",
-          "summary": "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc (composition or track) to put it in, with an empty hand to take it out. It plays on a loop and never ejects.",
-          "details": [
-            "The server plays each step's tones like a note block (Jukebox/Note Blocks volume, 48 blocks), at most 8 tones per step; one note particle per step.",
-            "Comparator: 1-15 by progress through the piece, 0 when empty."
-          ]
-        },
-        "de": {
-          "title": "Orchestrion",
-          "summary": "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Notenblatt oder einer gepressten Platte (Komposition oder Titel) legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus.",
-          "details": [
-            "Der Server spielt die Töne jedes Schritts wie ein Notenblock (Lautstärke Jukebox/Notenblöcke, 48 Blöcke), höchstens 8 Töne je Schritt; ein Notenpartikel je Schritt.",
-            "Komparator: 1-15 nach Fortschritt im Stück, 0 wenn leer."
-          ]
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A jukebox that learned to read."
-          ],
-          "use": [
-            "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc to put it in, with an empty hand to take it out. It plays on a loop and never ejects."
-          ],
-          "secret": [
-            "A chest or barrel on top becomes its playlist: after each run the next sheet or disc takes the finished one's place."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Jukebox, die lesen gelernt hat."
-          ],
-          "use": [
-            "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Blatt oder einer gepressten Platte legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus."
-          ],
-          "secret": [
-            "Eine Truhe oder ein Fass obendrauf wird zur Wiedergabeliste: nach jedem Durchlauf tauscht das nächste Blatt mit dem fertigen."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplemusic:orchestrion"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplemusic:pink_pocket_jukebox",
       "name": {
         "en_us": "Pink Pocket Jukebox",
@@ -2943,9 +2741,9 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
           "details": [
             "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
-            "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
-            "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
-            "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+            "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
+            "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
+            "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
             "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
           ]
         },
@@ -2954,9 +2752,9 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
           "details": [
             "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
-            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
-            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
-            "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, das Mausrad darüber wählt eine Platte, Rechtsklick mit leerer Hand nimmt die gewählte heraus (ohne Wahl die neueste). Das Raster im Tooltip liest sich in Spielreihenfolge.",
+            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn; später eingelegte kommen ans Ende. Pause merkt sich die Stelle. Start und Pause klicken wie ein Plattenspieler. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+            "Sie spielt weiter, während du sie im Inventar verschiebst, wenn du sie fallen lässt (dann hören sie alle in der Nähe des Items, und wer sie aufhebt, trägt sie weiter) und wenn du sie abstellst oder abbaust. Sie stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox eine Weile weg bleibt (in einer Kiste). Die Nebenhand hält sie nur.",
             "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
           ]
         }
@@ -3077,14 +2875,14 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 17,
-    "recipes": 38,
-    "lootTables": 19,
+    "features": 14,
+    "recipes": 37,
+    "lootTables": 18,
     "tags": 2,
     "advancements": 0,
     "enchantments": 0,
     "items": 4,
-    "blocks": 19,
+    "blocks": 18,
     "trades": 0,
     "config": 0,
     "quests": 0,

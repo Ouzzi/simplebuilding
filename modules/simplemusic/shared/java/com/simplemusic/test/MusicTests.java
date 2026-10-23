@@ -14,7 +14,6 @@ import com.simplemusic.net.TrackRequestPayload;
 import com.simplemusic.net.UploadBeginPayload;
 import com.simplemusic.net.UploadChunkPayload;
 import com.simplemusic.net.UploadResultPayload;
-import com.simplemusic.orchestrion.OrchestrionBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxItem;
 import com.simplemusic.pocket.PocketPlayback;
 import com.simplemusic.pocket.PocketJukeboxBlockEntity;
@@ -75,9 +74,12 @@ public final class MusicTests {
         return stack;
     }
 
-    static OrchestrionBlockEntity orchestrion(GameTestHelper h, BlockPos pos) {
-        h.setBlock(pos, MusicRegistry.ORCHESTRION.defaultBlockState());
-        return h.getBlockEntity(pos, OrchestrionBlockEntity.class);
+    /** A Vanilla jukebox at {@code pos} holding {@code disc} (custom discs play there, JukeboxDiscs). */
+    static JukeboxBlockEntity jukebox(GameTestHelper h, BlockPos pos, ItemStack disc) {
+        h.setBlock(pos, Blocks.JUKEBOX.defaultBlockState());
+        JukeboxBlockEntity jukebox = h.getBlockEntity(pos, JukeboxBlockEntity.class);
+        jukebox.setTheItem(disc);
+        return jukebox;
     }
 
     /** What the server sent to each player (tests run in parallel, so one recorder for all, read per player). */
@@ -150,10 +152,10 @@ public final class MusicTests {
             h.succeed();
         });
         ALL.put("registered", h -> {
-            for (String id : List.of("sheet_music", "orchestrion", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
+            for (String id : List.of("sheet_music", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMusic.id(id)), "item " + id);
             }
-            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("orchestrion")) && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press"))
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press"))
                     && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("black_pocket_jukebox"))
                     && BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimpleMusic.id("pocket_jukebox")), "blocks");
             h.assertTrue(BuiltInRegistries.MENU.containsKey(SimpleMusic.id("disc_press")), "press menu");
@@ -196,81 +198,28 @@ public final class MusicTests {
             h.assertTrue(player.getInventory().countItem(MusicRegistry.SHEET_MUSIC) == 3, "the rest stays blank");
             h.succeed();
         });
-        ALL.put("orchestrion_plays_steps", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            h.assertTrue(!OrchestrionBlockEntity.playable(sheet("harp: zz")) && !OrchestrionBlockEntity.playable(sheet("")), "bad sheets refused");
-            h.assertTrue(be.insert(sheet(TUNE)), "insert");
-            h.assertTrue(h.getBlockState(ORCH).getValue(com.simplemusic.orchestrion.OrchestrionBlock.HAS_RECORD), "has record");
-            h.assertTrue(!be.insert(sheet(TUNE)), "only one");
-            // one tone every 2 ticks (the BE may tick before or after the scheduled check within a tick)
-            h.runAfterDelay(2, () -> h.assertTrue(be.tonesPlayed() >= 1 && be.tonesPlayed() <= 2, "step 1 or 2 by tick 2: " + be.tonesPlayed()));
-            h.runAfterDelay(5, () -> h.assertTrue(be.tonesPlayed() >= 2 && be.tonesPlayed() <= 3, "step 2 or 3 by tick 5: " + be.tonesPlayed()));
-            h.runAfterDelay(4, () -> {
-                int c = be.comparatorOutput();
-                h.assertTrue(c >= 1 && c <= 15, "comparator in range: " + c);
-            });
-            h.runAfterDelay(14, () -> {
-                h.assertTrue(be.runs() >= 2, "loops: " + be.runs());
-                h.assertTrue(!be.item().isEmpty(), "loops without ejecting");
-                h.assertTrue(be.tonesPlayed() >= 6, "kept playing: " + be.tonesPlayed());
-                h.succeed();
-            });
-        });
-        MAX_TICKS.put("orchestrion_plays_steps", 60);
-        ALL.put("orchestrion_redstone", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            be.insert(sheet("tempo 4\nharp: c4 d4 e4 f#4 g4 a4"));
-            BlockPos power = ORCH.east();
-            h.runAfterDelay(2, () -> h.setBlock(power, Blocks.REDSTONE_BLOCK.defaultBlockState()));
-            h.runAfterDelay(4, () -> h.assertTrue(be.step() == 0 && be.playing(), "rising edge starts from the top: " + be.step()));
-            h.runAfterDelay(9, () -> h.setBlock(power, Blocks.AIR.defaultBlockState()));
-            h.runAfterDelay(16, () -> {
-                int stopped = be.tonesPlayed();
-                h.assertTrue(!be.playing(), "signal off stops at the end of the step");
-                h.runAfterDelay(10, () -> {
-                    h.assertTrue(be.tonesPlayed() == stopped, "stays silent while off");
-                    h.setBlock(power, Blocks.REDSTONE_BLOCK.defaultBlockState());
-                });
-            });
-            h.runAfterDelay(29, () -> {
-                h.assertTrue(be.playing() && be.step() <= 1, "starts again from the top: " + be.step());
-                h.succeed();
-            });
-        });
-        MAX_TICKS.put("orchestrion_redstone", 80);
-        ALL.put("orchestrion_playlist", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            h.setBlock(ORCH.above(), Blocks.BARREL.defaultBlockState().setValue(net.minecraft.world.level.block.BarrelBlock.FACING, Direction.UP));
-            Container barrel = (Container) h.getBlockEntity(ORCH.above(), net.minecraft.world.level.block.entity.BarrelBlockEntity.class);
-            barrel.setItem(4, new ItemStack(Items.DIRT));
-            barrel.setItem(5, sheet("tempo 4\nbass: c3 c3"));
-            be.insert(sheet(TUNE));
-            // TUNE runs 6 ticks, the bass sheet 8: bass from about tick 6 to 14, then TUNE again
-            h.runAfterDelay(10, () -> {
-                h.assertTrue(com.simplemusic.sheet.SheetMusicItem.content(be.item()).code().contains("bass"), "next sheet from the container");
-                h.assertTrue(com.simplemusic.sheet.SheetMusicItem.content(barrel.getItem(5)).code().equals(TUNE), "finished sheet took its slot");
-                h.assertTrue(barrel.getItem(4).is(Items.DIRT), "other items stay");
-            });
-            h.runAfterDelay(18, () -> {
-                h.assertTrue(com.simplemusic.sheet.SheetMusicItem.content(be.item()).code().equals(TUNE), "and back");
-                h.succeed();
-            });
-        });
-        MAX_TICKS.put("orchestrion_playlist", 60);
-        ALL.put("orchestrion_pop_out", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            be.insert(sheet(TUNE));
-            be.popOut();
-            h.assertTrue(be.item().isEmpty() && !h.getBlockState(ORCH).getValue(com.simplemusic.orchestrion.OrchestrionBlock.HAS_RECORD), "empty");
-            h.succeedWhenEntityPresent(net.minecraft.world.entity.EntityTypes.ITEM, ORCH.above());
+        ALL.put("orchestrion_becomes_jukebox", h -> {
+            // B23-M9 (owner 23.10.): the Orchestrion is gone; old ids resolve to the Vanilla jukebox, and what it held stays in
+            h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleMusic.id("orchestrion")) == Blocks.JUKEBOX
+                    && BuiltInRegistries.ITEM.getValue(SimpleMusic.id("orchestrion")) == Items.JUKEBOX
+                    && BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleMusic.id("orchestrion")) == net.minecraft.world.level.block.entity.BlockEntityTypes.JUKEBOX,
+                    "orchestrion ids move to the jukebox");
+            ItemStack disc = DiscPress.result(sheet(TUNE), new ItemStack(MusicRegistry.BLANK_DISC));
+            net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+            tag.putString("id", "simplemusic:orchestrion");
+            tag.store("Item", ItemStack.CODEC, h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), disc);
+            var loaded = net.minecraft.world.level.block.entity.BlockEntity.loadStatic(h.absolutePos(ORCH),
+                    Blocks.JUKEBOX.defaultBlockState().setValue(net.minecraft.world.level.block.JukeboxBlock.HAS_RECORD, true), tag, h.getLevel().registryAccess());
+            h.assertTrue(loaded instanceof JukeboxBlockEntity j && ItemStack.isSameItemSameComponents(j.getTheItem(), disc),
+                    "an old Orchestrion's disc stays in the jukebox: " + loaded);
+            h.succeed();
         });
         ALL.put("tone_limit", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            be.insert(sheet("tempo 20\nharp: [c4 e4 g4 c5]"));
-            // ticked by hand within this callback: other tests reset the shared config between ticks
+            NoteCode.Song song = NoteCode.parse("tempo 20\nharp: [c4 e4 g4 c5]", com.simplemusic.sheet.SheetSounds.policy()).song();
+            // within this callback: other tests reset the shared config between ticks
             MusicConfig.maxTonesPerTick = 2;
-            be.tick(h.getLevel());
-            int played = be.tonesPlayed();
+            int played = com.simplemusic.disc.SheetPlayback.playTones(h.getLevel(), h.absolutePos(ORCH), song.tonesAt(0),
+                    com.simplemusic.sheet.SheetSounds.sounds(song));
             MusicConfig.reset();
             h.assertTrue(played == 2, "at most maxTonesPerTick: " + played);
             h.succeed();
@@ -301,12 +250,11 @@ public final class MusicTests {
                 h.assertTrue(track != null && track.status() == TrackStore.Status.PENDING, "pending in the index");
                 h.assertTrue(ref.sha256().equals(UploadSession.sha256(OggCheck.strip(mono))), "hash of the stripped file, computed by the server");
                 // only the uploader hears a pending disc
-                OrchestrionBlockEntity be = orchestrion(h, ORCH);
-                h.assertTrue(be.insert(disc.copy()), "disc into the Orchestrion");
+                JukeboxBlockEntity be = jukebox(h, ORCH, disc.copy());
                 BlockPos abs = h.absolutePos(ORCH);
                 alice.teleportTo(abs.getX(), abs.getY() + 2, abs.getZ());
                 bob.teleportTo(abs.getX() + 2, abs.getY() + 2, abs.getZ());
-                h.runAfterDelay(2, () -> {
+                h.runAfterDelay(3, () -> {
                     var listeners = DiscPlayback.listeners(h.getLevel(), abs);
                     h.assertTrue(listeners.contains(alice.getUUID()) && !listeners.contains(bob.getUUID()), "pending: uploader only " + listeners);
                     h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.isStop() && t.sha256().equals(ref.sha256())), "play sent");
@@ -339,7 +287,7 @@ public final class MusicTests {
                     MusicServer.handleUploadBegin(new UploadBeginPayload(0, "More", 1000), alice);
                     h.assertTrue(last(sent).equals("uploads_off"), "off: " + last(sent));
                     restore();
-                    be.popOut();
+                    be.popOutTheItem();
                     h.succeed();
                 });
             } catch (RuntimeException e) {
@@ -481,14 +429,15 @@ public final class MusicTests {
             h.assertTrue(PocketPlayback.playing(player) == 0, "first disc in plays first");
             h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.carried() && t.isSong()
                     && t.sha256().equals("minecraft:music_disc.13")), "carried play to the carrier: " + sent);
-            h.assertTrue(PocketJukeboxItem.contents(jukebox).getSelectedItemIndex() == 1, "open: the playing disc is selected");
+            h.assertTrue(jukebox.has(MusicComponents.PLAYING) && PocketJukeboxItem.contents(jukebox).getSelectedItemIndex() == -1,
+                    "marked as playing (the turning model), the selection stays the player's");
             long[] paused = {0};
             h.runAfterDelay(10, () -> {
                 ItemStack held = player.getMainHandItem();
                 held.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
                 paused[0] = PocketPlayback.state(held).ticks();
                 h.assertTrue(PocketPlayback.playing(player) == -1 && paused[0] >= 8, "paused at " + paused[0]);
-                h.assertTrue(PocketJukeboxItem.contents(held).getSelectedItemIndex() == -1, "closed while paused");
+                h.assertTrue(!held.has(MusicComponents.PLAYING), "not marked while paused");
                 h.assertTrue(sent.get(sent.size() - 1) instanceof TrackPlayPayload t && t.carried() && t.isStop(), "stop sent");
                 held.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
                 h.assertTrue(PocketPlayback.elapsed(player) >= paused[0], "goes on where it paused");
@@ -509,7 +458,7 @@ public final class MusicTests {
             h.runAfterDelay(16, () -> {
                 ItemStack held = player.getMainHandItem();
                 h.assertTrue(PocketPlayback.playing(player) == 1, "next disc: " + PocketPlayback.playing(player));
-                h.assertTrue(PocketJukeboxItem.contents(held).getSelectedItemIndex() == 0, "selection follows");
+                h.assertTrue(held.has(MusicComponents.PLAYING), "still marked on the next disc");
                 held.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
                 int length = net.minecraft.world.item.JukeboxSong.fromStack(new ItemStack(Items.MUSIC_DISC_CAT)).orElseThrow().value().lengthInTicks();
                 held.set(MusicComponents.POCKET, new com.simplemusic.pocket.PocketState(PocketPlayback.state(held).id(), 1, length - 2));
@@ -543,12 +492,17 @@ public final class MusicTests {
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
             });
             h.runAfterDelay(9, () -> {
-                h.assertTrue(PocketPlayback.playing(player) == -1, "gone from the inventory: stops");
+                // PJ23-5: a few ticks away (a creative cursor the server does not see) is no reason to stop
+                h.assertTrue(PocketPlayback.playing(player) == 0, "still playing while it is looked for");
+                h.assertTrue(!(sent.get(sent.size() - 1) instanceof TrackPlayPayload t && t.isStop()), "no stop yet");
+            });
+            h.runAfterDelay(9 + PocketPlayback.GRACE, () -> {
+                h.assertTrue(PocketPlayback.playing(player) == -1, "gone from the inventory for good: stops");
                 h.assertTrue(sent.get(sent.size() - 1) instanceof TrackPlayPayload t && t.carried() && t.isStop(), "stop sent");
                 h.succeed();
             });
         });
-        MAX_TICKS.put("pocket_stops", 40);
+        MAX_TICKS.put("pocket_stops", 40 + PocketPlayback.GRACE);
         ALL.put("pocket_place_break", h -> {
             ServerPlayer player = h.makeMockServerPlayerInLevel();
             h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
@@ -620,9 +574,12 @@ public final class MusicTests {
                 BlockPos at = h.absolutePos(floor.above());
                 h.assertTrue(PocketPlayback.playing(player) == -1 && be.playing() && DiscPlayback.playing(h.getLevel(), at), "goes on playing on the block");
                 h.assertTrue(DiscPlayback.elapsed(h.getLevel(), at) >= 5, "at the same position: " + DiscPlayback.elapsed(h.getLevel(), at));
-                h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.carried() && t.isStop()), "the hand sound stops");
-                h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.isSong() && t.pos().equals(at)
-                        && t.offsetTicks() >= 5), "positional play mid-song to the player nearby: " + sent);
+                long id = be.state().id();
+                // PJ23-5: no stop - the same session plays on at the block, the client moves its sound there
+                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "no stop on putting it down: " + sent);
+                h.assertTrue(id != 0L && sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.isSong() && t.pos().equals(at)
+                        && t.offsetTicks() >= 5 && t.session() == id), "positional play mid-song, same session, to the player nearby: " + sent);
+                h.assertTrue(h.getBlockState(floor.above()).getValue(com.simplemusic.pocket.PocketJukeboxBlock.PLAYING), "the block shows it plays");
                 h.setBlock(floor.above(), Blocks.AIR);
                 h.assertTrue(!DiscPlayback.playing(h.getLevel(), at), "gone: stops");
                 h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(at).inflate(1.5)).forEach(ItemEntity::discard);
@@ -650,8 +607,9 @@ public final class MusicTests {
             h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.isSong() && t.pos().equals(abs)
                     && t.sha256().equals("minecraft:music_disc.13")), "positional play: " + sent);
             int value13 = net.minecraft.world.item.JukeboxSong.fromStack(new ItemStack(Items.MUSIC_DISC_13)).orElseThrow().value().comparatorOutput();
-            h.assertTrue(h.getBlockState(pos).getSignal(level, abs, Direction.NORTH) == 15
-                    && h.getBlockState(pos).getAnalogOutputSignal(level, abs, Direction.NORTH) == value13, "redstone 15, comparator = the disc's value");
+            // facing north: the front is north, a receiver there asks with the direction pointing back south
+            h.assertTrue(h.getBlockState(pos).getSignal(level, abs, Direction.SOUTH) == 15 && h.getBlockState(pos).getSignal(level, abs, Direction.NORTH) == 0
+                    && h.getBlockState(pos).getAnalogOutputSignal(level, abs, Direction.NORTH) == value13, "redstone 15 out of the front only, comparator = the disc's value");
             ItemStack cat = new ItemStack(Items.MUSIC_DISC_CAT);
             h.getBlockState(pos).useItemOn(cat, level, player, InteractionHand.MAIN_HAND, hit);
             h.assertTrue(be.contents().size() == 2 && be.state().fromEnd() == 0 && be.playing(), "a second disc waits its turn");
@@ -663,7 +621,7 @@ public final class MusicTests {
                 h.getBlockState(pos).useWithoutItem(level, player, hit);
                 paused[0] = be.state().ticks();
                 h.assertTrue(!be.playing() && !DiscPlayback.playing(level, abs) && paused[0] >= 8, "paused at " + paused[0]);
-                h.assertTrue(h.getBlockState(pos).getSignal(level, abs, Direction.NORTH) == 0, "no signal while paused");
+                h.assertTrue(h.getBlockState(pos).getSignal(level, abs, Direction.SOUTH) == 0, "no signal while paused");
                 h.assertTrue(sent.get(sent.size() - 1) instanceof TrackPlayPayload t && !t.carried() && t.isStop() && t.pos().equals(abs), "stop sent");
                 h.getBlockState(pos).useWithoutItem(level, player, hit);
                 h.assertTrue(be.playing() && sent.get(sent.size() - 1) instanceof TrackPlayPayload t && t.offsetTicks() == paused[0], "goes on where it paused");
@@ -678,20 +636,248 @@ public final class MusicTests {
             h.runAfterDelay(22, () -> {
                 h.assertTrue(be.playing() && be.state().fromEnd() == 0, "after the last the first again: " + be.state());
                 player.setShiftKeyDown(true);
+                // PJ23-1: the shown disc is the current one; Shift + wheel moves it, Shift + right click takes the shown one
+                h.assertTrue(be.shownFromEnd() == 0 && be.shownDisc().is(Items.MUSIC_DISC_13), "shows the current disc: " + be.shownDisc());
+                h.assertTrue(com.simplemusic.pocket.PocketJukeboxBlock.scroll(player, abs, 1) && be.shownDisc().is(Items.MUSIC_DISC_CAT), "the wheel shows the next");
+                player.setShiftKeyDown(false);
+                h.assertTrue(!com.simplemusic.pocket.PocketJukeboxBlock.scroll(player, abs, 1) && be.shownDisc().is(Items.MUSIC_DISC_CAT), "only while sneaking");
+                player.setShiftKeyDown(true);
                 h.assertTrue(h.getBlockState(pos).useWithoutItem(level, player, hit).consumesAction()
-                        && be.contents().size() == 1 && be.playing(), "sneak: the newest disc (not playing) comes out, music goes on");
+                        && be.contents().size() == 1 && be.playing() && player.getMainHandItem().is(Items.MUSIC_DISC_CAT),
+                        "sneak: the shown disc (not playing) comes into the hand, music goes on");
                 h.getBlockState(pos).useWithoutItem(level, player, hit);
                 player.setShiftKeyDown(false);
                 h.assertTrue(be.isEmpty() && !be.playing() && !DiscPlayback.playing(level, abs), "the playing disc out: stops");
-                List<ItemEntity> out = level.getEntitiesOfClass(ItemEntity.class, new AABB(abs).inflate(1.5));
-                h.assertTrue(out.size() == 2 && out.stream().anyMatch(e -> e.getItem().is(Items.MUSIC_DISC_CAT))
-                        && out.stream().anyMatch(e -> e.getItem().is(Items.MUSIC_DISC_13)), "both thrown out: " + out);
-                out.forEach(ItemEntity::discard);
+                h.assertTrue(player.getInventory().contains(new ItemStack(Items.MUSIC_DISC_13)), "the second one into the inventory");
                 h.setBlock(pos, Blocks.AIR);
                 h.succeed();
             });
         });
         MAX_TICKS.put("pocket_block_play", 60);
+        ALL.put("pocket_scroll_remove", h -> {
+            // PJ23-1: the mouse wheel selects through Vanilla's select packet (menu -> BundleItem.toggleSelectedItem, no type check),
+            // right click takes the selected disc; taking another disc than the playing one leaves the music running
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            List<CustomPacketPayload> sent = capture(player);
+            ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(0));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_13));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_CAT));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_BLOCKS));
+            var contents = PocketJukeboxItem.contents(jukebox);
+            h.assertTrue(contents.items().get(0).create().is(Items.MUSIC_DISC_BLOCKS) && contents.items().get(2).create().is(Items.MUSIC_DISC_13),
+                    "newest first: the tooltip grid (drawn from the bottom right) reads in play order");
+            jukebox.set(MusicComponents.POCKET, new PocketState(0L, 1, 0));
+            player.getInventory().setItem(0, jukebox);
+            player.getInventory().setSelectedSlot(0);
+            h.assertTrue(player.getMainHandItem().use(h.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction() && PocketPlayback.playing(player) == 1,
+                    "plays the cat disc (second in)");
+            int menuSlot = 36; // hotbar 0 in the inventory menu
+            player.inventoryMenu.setSelectedBundleItemIndex(menuSlot, 2);
+            h.assertTrue(PocketJukeboxItem.contents(player.getInventory().getItem(0)).getSelectedItemIndex() == 2, "Vanilla's select packet path selects");
+            net.minecraft.world.inventory.Slot slot = player.inventoryMenu.getSlot(menuSlot);
+            ItemStack[] cursor = {ItemStack.EMPTY};
+            net.minecraft.world.entity.SlotAccess carried = net.minecraft.world.entity.SlotAccess.of(() -> cursor[0], v -> cursor[0] = v);
+            ItemStack held = player.getInventory().getItem(0);
+            h.assertTrue(held.getItem().overrideOtherStackedOnMe(held, ItemStack.EMPTY, slot, net.minecraft.world.inventory.ClickAction.SECONDARY, player, carried)
+                    && cursor[0].is(Items.MUSIC_DISC_13), "right click takes the selected disc (the first in): " + cursor[0]);
+            int sentBefore = sent.size();
+            h.runAfterDelay(3, () -> {
+                h.assertTrue(PocketPlayback.playing(player) == 0, "the cat disc plays on, one place up: " + PocketPlayback.playing(player));
+                h.assertTrue(sent.subList(sentBefore, sent.size()).stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop()), "no stop");
+                ItemStack now = player.getInventory().getItem(0);
+                h.assertTrue(PocketPlayback.state(now).fromEnd() == 0, "the stack's position follows");
+                PocketJukeboxItem.removeOne(now);
+                h.assertTrue(PocketJukeboxItem.contents(now).size() == 1, "without a selection the newest comes out");
+                now.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("pocket_scroll_remove", 40);
+        ALL.put("pocket_inventory_continuity", h -> {
+            // PJ23-5: moving it to another slot, onto the cursor and back, or a short absence never stops it
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            List<CustomPacketPayload> sent = capture(player);
+            ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(4));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_MALL));
+            player.setItemInHand(InteractionHand.MAIN_HAND, jukebox);
+            jukebox.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
+            long id = PocketPlayback.state(jukebox).id();
+            h.runAfterDelay(2, () -> {
+                ItemStack stack = player.getInventory().getItem(player.getInventory().getSelectedSlot());
+                player.getInventory().setItem(player.getInventory().getSelectedSlot(), ItemStack.EMPTY);
+                player.getInventory().setItem(20, stack.copy()); // shift-click: a copy in another slot
+            });
+            h.runAfterDelay(4, () -> {
+                ItemStack stack = player.getInventory().getItem(20);
+                player.getInventory().setItem(20, ItemStack.EMPTY);
+                player.containerMenu.setCarried(stack); // on the cursor
+            });
+            h.runAfterDelay(6, () -> {
+                ItemStack stack = player.containerMenu.getCarried();
+                player.containerMenu.setCarried(ItemStack.EMPTY); // creative: the server does not see the cursor
+                h.runAfterDelay(20, () -> player.getInventory().setItem(3, stack));
+            });
+            h.runAfterDelay(30, () -> {
+                h.assertTrue(PocketPlayback.playing(id) && player.getUUID().equals(PocketPlayback.carrierOf(id)), "still carried");
+                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "never a stop: " + sent);
+                h.assertTrue(PocketPlayback.elapsed(player) >= 28, "the song went on: " + PocketPlayback.elapsed(player));
+                PocketPlayback.toggle(player, player.getInventory().getItem(3));
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("pocket_inventory_continuity", 60);
+        ALL.put("pocket_drop_continues", h -> {
+            // PJ23-5: dropped while it plays it goes on at the item for everyone near, picked up it is carried again
+            ServerPlayer alice = h.makeMockServerPlayerInLevel();
+            ServerPlayer bob = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(alice));
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(bob));
+            List<CustomPacketPayload> toAlice = capture(alice);
+            List<CustomPacketPayload> toBob = capture(bob);
+            ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(0));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_WARD));
+            alice.setItemInHand(InteractionHand.MAIN_HAND, jukebox);
+            jukebox.use(h.getLevel(), alice, InteractionHand.MAIN_HAND);
+            long id = PocketPlayback.state(jukebox).id();
+            ItemStack quiet = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(1));
+            PocketJukeboxItem.insert(quiet, new ItemStack(Items.MUSIC_DISC_13));
+            quiet.set(MusicComponents.POCKET, new PocketState(424242L, 0, 0));
+            Vec3 at = h.absoluteVec(new Vec3(4.5, 2, 4.5));
+            alice.setPos(at.x, at.y, at.z + 1);
+            bob.setPos(at.x + 2, at.y, at.z);
+            ItemEntity[] dropped = new ItemEntity[2];
+            h.runAfterDelay(2, () -> {
+                ItemStack stack = alice.getMainHandItem().copy();
+                alice.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                dropped[0] = new ItemEntity(h.getLevel(), at.x, at.y, at.z, stack);
+                dropped[0].setPickUpDelay(1000);
+                h.getLevel().addFreshEntity(dropped[0]);
+                dropped[1] = new ItemEntity(h.getLevel(), at.x, at.y, at.z, quiet);
+                dropped[1].setPickUpDelay(1000);
+                h.getLevel().addFreshEntity(dropped[1]);
+            });
+            h.runAfterDelay(5, () -> {
+                h.assertTrue(PocketPlayback.entityOf(id) == dropped[0].getId(), "plays at the dropped item: " + PocketPlayback.entityOf(id));
+                h.assertTrue(dropped[0].getItem().has(MusicComponents.PLAYING), "the dropped item shows it plays");
+                h.assertTrue(toAlice.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "no stop for the one who dropped it");
+                h.assertTrue(toAlice.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.session() == id && t.entity() == dropped[0].getId()),
+                        "her sound moves to the item: " + toAlice);
+                h.assertTrue(toBob.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.session() == id && t.entity() == dropped[0].getId()
+                        && t.offsetTicks() >= 2), "a player nearby hears it mid-song: " + toBob);
+                h.assertTrue(!PocketPlayback.playing(424242L) && !dropped[1].getItem().has(MusicComponents.PLAYING), "one that did not play stays silent");
+                // Bob picks it up
+                ItemStack stack = dropped[0].getItem().copy();
+                dropped[0].discard();
+                bob.getInventory().setItem(5, stack);
+            });
+            h.runAfterDelay(8, () -> {
+                h.assertTrue(bob.getUUID().equals(PocketPlayback.carrierOf(id)), "carried by the one who picked it up");
+                h.assertTrue(lastOf(toBob, id) instanceof TrackPlayPayload t && t.carried() && !t.isStop(), "his sound becomes the carried one");
+                h.assertTrue(lastOf(toAlice, id) instanceof TrackPlayPayload t && t.isStop(), "she no longer hears it");
+                PocketPlayback.toggle(bob, bob.getInventory().getItem(5));
+                dropped[1].discard();
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("pocket_drop_continues", 40);
+        ALL.put("pocket_break_continues", h -> {
+            // PJ23-5: broken while it plays, the jukebox goes on as the dropped item
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            List<CustomPacketPayload> sent = capture(player);
+            BlockPos pos = new BlockPos(3, 1, 3);
+            h.setBlock(pos, MusicRegistry.POCKET_JUKEBOX_BLOCKS.get(2).defaultBlockState());
+            BlockPos abs = h.absolutePos(pos);
+            player.setPos(abs.getX() + 0.5, abs.getY(), abs.getZ() + 2.5);
+            PocketJukeboxBlockEntity be = h.getBlockEntity(pos, PocketJukeboxBlockEntity.class);
+            be.insert(new ItemStack(Items.MUSIC_DISC_STRAD));
+            long id = be.state().id();
+            h.assertTrue(be.playing() && id != 0L, "plays with a session id");
+            h.runAfterDelay(4, () -> h.getLevel().destroyBlock(abs, true, player));
+            h.runAfterDelay(7, () -> {
+                int entity = PocketPlayback.entityOf(id);
+                h.assertTrue(entity >= 0 && h.getLevel().getEntity(entity) instanceof ItemEntity e && e.getItem().has(MusicComponents.PLAYING),
+                        "goes on at the dropped item: " + entity);
+                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "no stop: " + sent);
+                h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.session() == id && t.entity() == entity), "moves to the item");
+                h.getLevel().getEntity(entity).discard();
+            });
+            h.runAfterDelay(10 + PocketPlayback.GRACE, () -> {
+                h.assertTrue(!PocketPlayback.playing(id), "gone for good: stops");
+                h.assertTrue(lastOf(sent, id) instanceof TrackPlayPayload t && t.isStop(), "stop sent");
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("pocket_break_continues", 40 + PocketPlayback.GRACE);
+        ALL.put("pocket_redstone", h -> {
+            // PJ23-4: a rising signal from the back, sides, above or below starts/pauses, the front is the output only;
+            // contacts show towards lines (here redstone dust)
+            BlockPos pos = new BlockPos(3, 2, 3);
+            for (int x = 1; x <= 5; x++) for (int z = 1; z <= 5; z++) h.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+            h.setBlock(pos, MusicRegistry.POCKET_JUKEBOX_BLOCKS.get(0).defaultBlockState()); // facing north: front = north
+            PocketJukeboxBlockEntity be = h.getBlockEntity(pos, PocketJukeboxBlockEntity.class);
+            be.insert(new ItemStack(Items.MUSIC_DISC_13));
+            be.pause();
+            h.assertTrue(!be.playing(), "paused");
+            h.setBlock(pos.south(), Blocks.REDSTONE_BLOCK);
+            h.assertTrue(be.playing() && h.getBlockState(pos).getValue(com.simplemusic.pocket.PocketJukeboxBlock.POWERED), "a signal from the back starts it");
+            h.setBlock(pos.south(), Blocks.AIR);
+            h.assertTrue(be.playing(), "the falling edge does nothing");
+            h.setBlock(pos.above(), Blocks.REDSTONE_BLOCK);
+            h.assertTrue(!be.playing(), "a second pulse (from above) pauses it");
+            h.setBlock(pos.above(), Blocks.AIR);
+            h.setBlock(pos.north(), Blocks.REDSTONE_BLOCK);
+            h.assertTrue(!be.playing(), "the front is no input");
+            h.setBlock(pos.north(), Blocks.AIR);
+            h.setBlock(pos.east(), Blocks.REDSTONE_WIRE);
+            h.setBlock(pos.north(), Blocks.REDSTONE_WIRE);
+            var state = h.getBlockState(pos);
+            h.assertTrue(state.getValue(com.simplemusic.pocket.PocketJukeboxBlock.EAST) && state.getValue(com.simplemusic.pocket.PocketJukeboxBlock.NORTH)
+                    && !state.getValue(com.simplemusic.pocket.PocketJukeboxBlock.WEST), "contacts to the dust: " + state);
+            be.toggle();
+            h.assertTrue(be.playing() && h.getBlockState(pos.north()).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER) == 15,
+                    "plays: the dust in front carries 15");
+            h.assertTrue(be.playing(), "its own signal does not come back");
+            be.toggle();
+            h.assertTrue(h.getBlockState(pos.north()).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER) == 0, "paused: off");
+            h.setBlock(pos.east(), Blocks.AIR);
+            h.assertTrue(!h.getBlockState(pos).getValue(com.simplemusic.pocket.PocketJukeboxBlock.EAST), "contact gone with the dust");
+            h.succeed();
+        });
+        ALL.put("pocket_sounds", h -> {
+            // PJ23-3: start and pause sound like a record player (Vanilla sounds), heard by the player himself
+            List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+            ServerPlayer player = capturingPlayer(h, sink);
+            ItemStack jukebox = new ItemStack(MusicRegistry.POCKET_JUKEBOXES.get(0));
+            PocketJukeboxItem.insert(jukebox, new ItemStack(Items.MUSIC_DISC_13));
+            player.setItemInHand(InteractionHand.MAIN_HAND, jukebox);
+            jukebox.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
+            jukebox.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
+            List<net.minecraft.sounds.SoundEvent> heard;
+            synchronized (sink) {
+                heard = sink.stream().filter(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::isInstance)
+                        .map(p -> ((net.minecraft.network.protocol.game.ClientboundSoundPacket) p).getSound().value()).toList();
+            }
+            h.assertTrue(heard.contains(net.minecraft.sounds.SoundEvents.COPPER_BULB_TURN_ON) && heard.contains(net.minecraft.sounds.SoundEvents.CHISELED_BOOKSHELF_INSERT),
+                    "start sound: " + heard);
+            h.assertTrue(heard.contains(net.minecraft.sounds.SoundEvents.COPPER_BULB_TURN_OFF) && heard.contains(net.minecraft.sounds.SoundEvents.CHISELED_BOOKSHELF_PICKUP),
+                    "pause sound: " + heard);
+            h.succeed();
+        });
+        ALL.put("press_layout", h -> {
+            // DP23: sheet and blank disc side by side, then the arrow and the result
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+            var menu = com.simplemusic.press.DiscPressMenu.client(1, player.getInventory());
+            var sheet = menu.getSlot(DiscPressBlockEntity.SHEET);
+            var blank = menu.getSlot(DiscPressBlockEntity.BLANK);
+            var out = menu.getSlot(DiscPressBlockEntity.OUTPUT);
+            h.assertTrue(sheet.y == blank.y && sheet.x + 18 == blank.x && blank.x < out.x && out.y == sheet.y,
+                    "side by side: sheet " + sheet.x + "/" + sheet.y + ", blank " + blank.x + "/" + blank.y + ", out " + out.x + "/" + out.y);
+            h.succeed();
+        });
         ALL.put("press_sheet_stays", h -> {
             BlockPos pos = new BlockPos(2, 1, 2);
             h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());
@@ -705,7 +891,7 @@ public final class MusicTests {
                         "composition pressed: " + out);
                 h.assertTrue(SheetMusicItem.content(press.getItem(DiscPressBlockEntity.SHEET)).code().equals(TUNE), "the sheet stays");
                 h.assertTrue(press.getItem(DiscPressBlockEntity.BLANK).getCount() == 1 && press.pressed() == 1, "one blank used");
-                h.assertTrue(OrchestrionBlockEntity.playable(out) && JukeboxDiscs.isDisc(out), "plays in the Orchestrion and the jukebox");
+                h.assertTrue(JukeboxDiscs.isDisc(out), "plays in the jukebox");
                 // the name is "Disc: <title>"; Forge's test server has no lang file, so read the argument, not the text
                 h.assertTrue(out.getHoverName().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t
                         && Arrays.asList(t.getArgs()).contains("Test"), "named after the sheet: " + out.getHoverName());
@@ -733,8 +919,8 @@ public final class MusicTests {
             h.assertTrue(DiscPress.result(new ItemStack(MusicRegistry.SHEET_MUSIC), blank).isEmpty(), "an empty sheet is not pressed");
             h.assertTrue(DiscPress.result(sheet(TUNE), new ItemStack(Items.MUSIC_DISC_CAT)).isEmpty(), "only blank discs");
             h.assertTrue(DiscPress.result(sheet(TUNE), blank).getCount() == 1 && blank.getCount() == 1, "pure: inputs untouched");
-            // an uploaded track sheet also plays straight in the Orchestrion, like a track disc
-            h.assertTrue(OrchestrionBlockEntity.playable(upload) && OrchestrionBlockEntity.trackOf(upload) == ref, "upload sheet in the Orchestrion");
+            // B23-M9: a sheet is no disc - it only plays once pressed
+            h.assertTrue(!JukeboxDiscs.isDisc(upload) && JukeboxDiscs.isDisc(disc), "only the pressed disc plays");
             // hopper faces like the furnace
             BlockPos pos = new BlockPos(2, 1, 2);
             h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());
@@ -808,6 +994,33 @@ public final class MusicTests {
         ALL.put("discover_recipe_unlocks", com.simplemusic.discover.MusicDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemusic.discover.MusicDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplemusic.discover.MusicDiscover::firstPickupTips);
+    }
+
+    /** The last play/stop message of Pocket Jukebox session {@code id} (tests run in parallel, others send too). */
+    static TrackPlayPayload lastOf(List<CustomPacketPayload> sent, long id) {
+        TrackPlayPayload last = null;
+        for (CustomPacketPayload p : sent) if (p instanceof TrackPlayPayload t && t.session() == id) last = t;
+        return last;
+    }
+
+    /** A test player whose connection puts every packet into {@code sink} (sound packets). */
+    static ServerPlayer capturingPlayer(GameTestHelper h, List<net.minecraft.network.protocol.Packet<?>> sink) {
+        var level = h.getLevel();
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "test-capture"), false);
+        ServerPlayer player = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation());
+        net.minecraft.network.Connection connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND) {
+            @Override
+            public void send(net.minecraft.network.protocol.Packet<?> packet, io.netty.channel.ChannelFutureListener listener, boolean flush) {
+                synchronized (sink) {
+                    sink.add(packet);
+                }
+            }
+        };
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        h.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        return player;
     }
 
     static ItemStack craft(GameTestHelper h, net.minecraft.world.item.crafting.CraftingInput input) {

@@ -19,12 +19,12 @@ import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
  * Custom discs in the Vanilla jukebox (owner decision U1 b, mixins {@code JukeboxBlockMixin} and
  * {@code JukeboxBlockEntityMixin} on every loader). The jukebox holds the disc like a Vanilla one; a track runs
  * through {@link DiscPlayback}, a pressed composition through {@link SheetPlayback} (server tones), each once like a
- * Vanilla disc (no loop; the Orchestrion loops).
+ * Vanilla disc (no loop).
  *
  * <p>Guard: config {@code jukeboxCustomDiscs} and no Vanilla jukebox playlist. SimpleBuilding's chest-above playlist
  * back port ({@code JukeboxPlaylist}) only moves discs with a Vanilla {@code jukebox_song} and leaves custom discs
  * alone; the real 26.4 feature (block tag {@code #minecraft:jukebox_containers}) is not known yet in detail, so with
- * that tag present the jukebox path switches itself off and custom discs stay in the Orchestrion
+ * that tag present the jukebox path switches itself off (custom discs then play only in the Pocket Jukebox)
  * (docs/ai/PLAN-B-MUSIC-2026-10-20.md, port note).
  */
 public final class JukeboxDiscs {
@@ -55,7 +55,7 @@ public final class JukeboxDiscs {
         if (FINISHED.contains(key)) return;
         TrackRef track = CustomDiscItem.track(item);
         if (track == null) {
-            // a pressed composition: server tones like the Orchestrion, once
+            // a pressed composition: server tones like a note block, once
             if (!SheetPlayback.playing(level, pos) && !SheetPlayback.start(level, pos, CustomDiscItem.composition(item).code())) {
                 FINISHED.add(key);
                 return;

@@ -37,6 +37,8 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nibblemiteNibblesEndStone(GameTestHelper helper) { EndTests.ALL.get("nibblemite_nibbles_end_stone").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void burrowedEndStoneRecovers(GameTestHelper helper) { EndTests.ALL.get("burrowed_end_stone_recovers").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nibblemiteIsPassive(GameTestHelper helper) { EndTests.ALL.get("nibblemite_is_passive").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void driftingDrunkPull(GameTestHelper helper) { EndTests.ALL.get("drifting_drunk_pull").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nibblemiteTamedWithDriftFruit(GameTestHelper helper) { EndTests.ALL.get("nibblemite_tamed_with_drift_fruit").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endGrassOnEndStone(GameTestHelper helper) { EndTests.ALL.get("end_grass_on_end_stone").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void vanillaTabStacks(GameTestHelper helper) { EndTests.ALL.get("vanilla_tab_stacks").accept(helper); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.recipeUnlocks(h); }

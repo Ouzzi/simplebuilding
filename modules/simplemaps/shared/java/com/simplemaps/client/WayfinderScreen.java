@@ -113,6 +113,8 @@ public final class WayfinderScreen extends Screen {
     private Button saveButton, cancelButton, copyButton;
     private Component status;
     private String shownCode = "", saveTip;
+    /** Mega map (owner B23-K1/K2): page of the dimension buttons, and the shown map id to notice a switch. */
+    private int megaPage = -1, lastMapId = -2;
 
     private WayfinderScreen(InteractionHand hand, int frameId) {
         super(Component.translatable("screen.simplemaps.wayfinder"));
@@ -574,6 +576,144 @@ public final class WayfinderScreen extends Screen {
         return (int) Math.floor((originPz() + Math.floor((sy - mapY) / mag())) * zoom());
     }
 
+    // ---------------------------------------------------------------- mega map: dimension buttons in the title bar
+
+    private boolean mega() {
+        return stack().getItem() instanceof com.simplemaps.MegaWayfinderMapItem;
+    }
+
+    private List<com.simplemaps.MegaMaps.Entry> megaEntries() {
+        return com.simplemaps.MegaWayfinderMapItem.maps(stack()).all();
+    }
+
+    private int megaRowX() {
+        return left + panelW - FRAME - com.simplemaps.MegaTabs.rowWidth(megaEntries().size());
+    }
+
+    private int megaRowY() {
+        return top + 3;
+    }
+
+    /** x of button place {@code i} (after the left chevron when paged). */
+    private int megaPlaceX(int i, boolean paged) {
+        int x = megaRowX() + (paged ? com.simplemaps.MegaTabs.CHEVRON_W + com.simplemaps.MegaTabs.GAP : 0);
+        return x + i * (com.simplemaps.MegaTabs.SIZE + com.simplemaps.MegaTabs.GAP);
+    }
+
+    private int megaPage(List<com.simplemaps.MegaMaps.Entry> entries) {
+        if (megaPage < 0) {
+            // First open: the page of the dimension shown.
+            String selected = com.simplemaps.MegaWayfinderMapItem.maps(stack()).selected();
+            int index = 0;
+            for (int i = 0; i < entries.size(); i++) if (entries.get(i).dimension().equals(selected)) index = i;
+            megaPage = com.simplemaps.MegaTabs.pageOf(index, entries.size());
+        }
+        megaPage = com.simplemaps.MegaTabs.clampPage(megaPage, entries.size());
+        return megaPage;
+    }
+
+    /** -1 none, -2 left chevron, -3 right chevron, else the dimension index (placeholders return -1). */
+    private int megaAt(double mx, double my) {
+        List<com.simplemaps.MegaMaps.Entry> entries = megaEntries();
+        int y = megaRowY(), size = com.simplemaps.MegaTabs.SIZE;
+        if (my < y || my >= y + size) return -1;
+        boolean paged = com.simplemaps.MegaTabs.paged(entries.size());
+        int[] places = com.simplemaps.MegaTabs.places(entries.size(), megaPage(entries));
+        if (paged) {
+            int lx = megaRowX(), rx = megaPlaceX(places.length, true);
+            if (mx >= lx && mx < lx + com.simplemaps.MegaTabs.CHEVRON_W) return -2;
+            if (mx >= rx && mx < rx + com.simplemaps.MegaTabs.CHEVRON_W) return -3;
+        }
+        for (int i = 0; i < places.length; i++) {
+            int x = megaPlaceX(i, paged);
+            if (mx >= x && mx < x + size) return places[i];
+        }
+        return -1;
+    }
+
+    /**
+     * The row (variant A, owner B23 preview): 16 px buttons in the side buttons' bronze look with the dimension's item. Shown =
+     * light face with a bar, other visited ones = sunken, not visited / placeholders = greyed out; chevrons when paged.
+     */
+    private void drawMegaRow(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean blocked) {
+        List<com.simplemaps.MegaMaps.Entry> entries = megaEntries();
+        String selected = com.simplemaps.MegaWayfinderMapItem.maps(stack()).selected();
+        boolean paged = com.simplemaps.MegaTabs.paged(entries.size());
+        int page = megaPage(entries), size = com.simplemaps.MegaTabs.SIZE, y = megaRowY();
+        int hover = blocked ? -1 : megaAt(mouseX, mouseY);
+        int[] places = com.simplemaps.MegaTabs.places(entries.size(), page);
+        for (int i = 0; i < places.length; i++) {
+            int x = megaPlaceX(i, paged), index = places[i];
+            com.simplemaps.MegaMaps.Entry e = index < 0 ? null : entries.get(index);
+            boolean on = e != null && e.dimension().equals(selected), usable = e != null && e.visited();
+            WayfinderTabStyle style = WayfinderTabStyle.of(PALETTE, on, usable && hover == index && index >= 0);
+            drawTab(g, x, y, size, size, style);
+            if (e != null) WaypointArt.draw(g, e.icon(), CubeNet.MODEL, x + 2, y + 2, size - 4);
+            if (style.bar() != 0) g.fill(x + 3, y + size - 2, x + size - 3, y + size - 1, style.bar());
+            if (!usable) UiBookmarks.greyOut(g, x, y, size, size);
+        }
+        if (paged) {
+            drawChevron(g, megaRowX(), y, true, page > 0, hover == -2);
+            drawChevron(g, megaPlaceX(places.length, true), y, false, page < com.simplemaps.MegaTabs.pages(entries.size()) - 1, hover == -3);
+        }
+    }
+
+    private void drawChevron(GuiGraphicsExtractor g, int x, int y, boolean left, boolean enabled, boolean hover) {
+        int w = com.simplemaps.MegaTabs.CHEVRON_W, h = com.simplemaps.MegaTabs.SIZE;
+        WayfinderTabStyle style = WayfinderTabStyle.of(PALETTE, enabled, enabled && hover);
+        drawTab(g, x, y, w, h, style);
+        int c = enabled ? style.ink() : UiPalette.scale(style.ink(), 0.55), cx = x + w / 2, cy = y + h / 2;
+        for (int k = 0; k < 4; k++) {
+            int dx = left ? 1 - k : k - 2;
+            g.fill(cx + dx, cy - 3 + k, cx + dx + 1, cy - 2 + k, c);
+            g.fill(cx + dx, cy + 2 - k, cx + dx + 1, cy + 3 - k, c);
+        }
+    }
+
+    private boolean megaClick(double mx, double my) {
+        int at = megaAt(mx, my);
+        List<com.simplemaps.MegaMaps.Entry> entries = megaEntries();
+        if (at == -2 || at == -3) {
+            megaPage = com.simplemaps.MegaTabs.clampPage(megaPage(entries) + (at == -2 ? -1 : 1), entries.size());
+            return true;
+        }
+        if (at < 0) return my >= megaRowY() && my < megaRowY() + com.simplemaps.MegaTabs.SIZE && mx >= megaRowX() && mx < left + panelW - FRAME;
+        com.simplemaps.MegaMaps.Entry e = entries.get(at);
+        if (frameMode() || !e.visited()) return true;
+        SimpleMaps.toServer.accept(new com.simplemaps.net.SelectDimensionPayload(hand == InteractionHand.MAIN_HAND ? 0 : 1, e.dimension()));
+        return true;
+    }
+
+    private void megaTooltip(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        int at = megaAt(mouseX, mouseY);
+        if (at < 0) return;
+        com.simplemaps.MegaMaps.Entry e = megaEntries().get(at);
+        Identifier id = Identifier.tryParse(e.dimension());
+        String key = id == null ? e.dimension() : id.toLanguageKey("dimension");
+        Component name = Component.translatableWithFallback(key, id == null ? e.dimension() : prettyPath(id.getPath()));
+        Component text = e.visited() ? name : Component.translatable("screen.simplemaps.mega.not_visited", name);
+        g.setTooltipForNextFrame(font, text, mouseX, mouseY);
+    }
+
+    private static String prettyPath(String path) {
+        StringBuilder out = new StringBuilder();
+        for (String part : path.replace('/', '_').split("_")) {
+            if (part.isEmpty()) continue;
+            if (!out.isEmpty()) out.append(' ');
+            out.append(Character.toUpperCase(part.charAt(0))).append(part.substring(1));
+        }
+        return out.toString();
+    }
+
+    /** Centres on the player, converted into the shown dimension (Overworld/Nether 8:1, like the map in hand). */
+    private void centerOnPlayerScaled() {
+        if (minecraft == null || minecraft.player == null || minecraft.level == null) return;
+        com.simplemaps.WayfinderMapItem item = (com.simplemaps.WayfinderMapItem) stack().getItem();
+        double scale = com.simplemaps.WayfinderMapItem.coordScale(item.kind(stack()),
+                com.simplemaps.WayfinderMapItem.kindOf(minecraft.level.dimensionTypeRegistration()));
+        centerOn(minecraft.player.getX() * scale, minecraft.player.getZ() * scale, snap);
+    }
+
     private boolean overMap(double x, double y) {
         return x >= mapX && x < mapX + mapW && y >= mapY && y < mapY + mapH;
     }
@@ -623,7 +763,11 @@ public final class WayfinderScreen extends Screen {
         boolean dialog = picker != null;
         drawTabs(g, mouseX, mouseY, waypoints, dialog);
         UiBoxes.box(g, left, top, panelW, panelH, PALETTE);
-        g.text(font, stack.isEmpty() ? title : stack.getHoverName(), left + FRAME, top + FRAME + 1, PALETTE.label(), false);
+        Component name = stack.isEmpty() ? title : stack.getHoverName();
+        int titleW = mega() ? megaRowX() - (left + FRAME) - 4 : panelW - 2 * FRAME;
+        if (font.width(name) > titleW) name = Component.literal(font.plainSubstrByWidth(name.getString(), Math.max(0, titleW - font.width("\u2026"))) + "\u2026");
+        g.text(font, name, left + FRAME, top + FRAME + 1, PALETTE.label(), false);
+        if (mega()) drawMegaRow(g, mouseX, mouseY, dialog || picking);
         // Map area: sunk dark field, then the explored tiles.
         g.fill(mapX - 1, mapY - 1, mapX + mapW + 1, mapY + mapH + 1, UiBoxes.RIM);
         g.fill(mapX, mapY, mapX + mapW, mapY + mapH, 0xFF2C2A25);
@@ -657,6 +801,7 @@ public final class WayfinderScreen extends Screen {
         menu.render(g, font, mouseX, mouseY);
         if (!dialog && !menu.isOpen()) {
             tabTooltips(g, mouseX, mouseY, waypoints);
+            if (mega()) megaTooltip(g, mouseX, mouseY);
             structureTooltip(g, mouseX, mouseY, mapId);
             if (!frameMode() && overMap(mouseX, mouseY)) MapLayers.tooltip(g, font, mapId, mouseX, mouseY, mapX, mapY, originX, originZ, zoom(), mag());
         }
@@ -1000,6 +1145,7 @@ public final class WayfinderScreen extends Screen {
             if (picker.click(mx, my)) return true;
             return super.mouseClicked(event, doubleClick);
         }
+        if (!picking && mega() && megaClick(mx, my)) return true;
         int r = tabAt(mx, my, false);
         if (picking) {
             if (button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT && r >= 1) {
@@ -1187,6 +1333,10 @@ public final class WayfinderScreen extends Screen {
         }
         // Owner 21.10.: closing never changes the frame; only a confirmed save does (tickFrameBar, pressSave).
         if (frameMode()) tickFrameBar();
+        // Mega map: another dimension came from the server → show the player's place there (Nether 1:8).
+        int id = mapId();
+        if (mega() && lastMapId != -2 && id != lastMapId && id >= 0) centerOnPlayerScaled();
+        lastMapId = id;
     }
 
     @Override

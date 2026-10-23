@@ -207,4 +207,75 @@ public final class CrossModGameTest {
             "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket",
             "enderite_water_bucket_full", "enderite_lava_bucket_full", "enderite_soul_lava_bucket_full",
             "enderite_milk_bucket_full");
+
+    /**
+     * S1a measurement (Simple Optimization, plan a-opt45b): idle server tick cost of every ticking block entity outside
+     * {@code minecraft} (all modules loaded) next to Vanilla hopper/furnace/blast furnace as reference. All are placed
+     * at once (flag 2, no neighbour updates) and timed over real game ticks, so tickers gated on {@code getGameTime() % n}
+     * count too. Logged as {@code SB-BENCH s1a ...}; asserted only that every idle ticker runs without an exception.
+     */
+    @GameTest(maxTicks = 260)
+    public void familyIdleTickCost(GameTestHelper helper) {
+        var level = helper.getLevel();
+        var reference = Set.of("minecraft:hopper", "minecraft:furnace", "minecraft:blast_furnace");
+        record Probe(String id, BlockPos pos, net.minecraft.world.level.block.state.BlockState state,
+                     net.minecraft.world.level.block.entity.BlockEntityTicker<net.minecraft.world.level.block.entity.BlockEntity> ticker,
+                     long[] ns) {}
+        var probes = new ArrayList<Probe>();
+        var skipped = new ArrayList<String>();
+        var errors = new ArrayList<String>();
+        var slots = new ArrayList<BlockPos>();
+        for (int y = 1; y <= 5; y += 2) for (int x = 0; x <= 6; x += 2) for (int z = 0; z <= 6; z += 2) slots.add(new BlockPos(x, y, z));
+        for (var type : BuiltInRegistries.BLOCK_ENTITY_TYPE) {
+            var key = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type);
+            if (key == null || key.getNamespace().equals("minecraft") && !reference.contains(key.toString())) continue;
+            var block = BuiltInRegistries.BLOCK.stream().filter(b -> type.isValid(b.defaultBlockState())).findFirst();
+            if (block.isEmpty()) { skipped.add(key + " (no block)"); continue; }
+            var state = block.get().defaultBlockState();
+            var ticker = state.getTicker(level, type);
+            if (ticker == null) continue; // client-only or no ticker: nothing runs on the server
+            if (probes.size() >= slots.size()) { skipped.add(key + " (no slot)"); continue; }
+            var pos = helper.absolutePos(slots.get(probes.size()));
+            try {
+                level.setBlock(pos, state, 2);
+                @SuppressWarnings("unchecked")
+                var t = (net.minecraft.world.level.block.entity.BlockEntityTicker<net.minecraft.world.level.block.entity.BlockEntity>) (Object) level.getBlockState(pos).getTicker(level, type);
+                if (t == null || level.getBlockEntity(pos) == null) { skipped.add(key + " (not placed)"); continue; }
+                probes.add(new Probe(key.toString(), pos, level.getBlockState(pos), t, new long[2]));
+            } catch (Throwable e) {
+                errors.add(key + " place: " + e);
+            }
+        }
+        final int warmup = 40, ticks = 200, calls = 5;
+        for (int tick = 1; tick <= warmup + ticks; tick++) {
+            boolean measure = tick > warmup;
+            helper.runAfterDelay(tick, () -> {
+                for (var p : probes) {
+                    var be = level.getBlockEntity(p.pos());
+                    if (be == null || p.ns()[1] < 0) continue;
+                    try {
+                        long t0 = System.nanoTime();
+                        for (int i = 0; i < calls; i++) p.ticker().tick(level, p.pos(), p.state(), be);
+                        if (measure) { p.ns()[0] += System.nanoTime() - t0; p.ns()[1] += calls; }
+                    } catch (Throwable e) {
+                        errors.add(p.id() + " tick: " + e);
+                        p.ns()[1] = -1;
+                    }
+                }
+            });
+        }
+        helper.runAfterDelay(warmup + ticks + 2, () -> {
+            var log = org.slf4j.LoggerFactory.getLogger("sbintegration");
+            var sorted = new ArrayList<>(probes);
+            sorted.removeIf(p -> p.ns()[1] <= 0);
+            sorted.sort(java.util.Comparator.comparingLong((Probe p) -> p.ns()[0] / p.ns()[1]).reversed());
+            for (var p : sorted)
+                log.info("SB-BENCH s1a {} ns_per_tick={}{}", p.id(), p.ns()[0] / p.ns()[1], reference.contains(p.id()) ? " (reference)" : "");
+            log.info("SB-BENCH s1a measured={} skipped={} errors={}", sorted.size(), skipped, errors);
+            helper.assertTrue(errors.isEmpty(), "idle tickers must not throw: " + errors);
+            helper.assertTrue(sorted.stream().filter(p -> reference.contains(p.id())).count() == reference.size(), "reference measured");
+            helper.assertTrue(sorted.size() > reference.size(), "family block entities measured");
+            helper.succeed();
+        });
+    }
 }

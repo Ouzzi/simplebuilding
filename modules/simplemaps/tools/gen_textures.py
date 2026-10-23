@@ -74,6 +74,43 @@ def end():
 
 MAPS = {'wayfinder_map': overworld, 'nether_wayfinder_map': nether, 'end_wayfinder_map': end}
 
+# Mega map (owner B23-K1): the three maps in one. Variant A (shipped for now): each panel shows its dimension's motif
+# (Overworld left, Nether middle, End right) with the compass badge. B: like A, the badge a gold star (the map of all
+# maps). C: like A with an enderite edge (dark teal outline) instead of the brown one. Only A is written to the repo;
+# B and C exist for the preview (--preview), owner choice open.
+MEGA = 'mega_wayfinder_map'
+MEGA_VARIANT = 'A'
+PANEL_COLUMNS = {'wayfinder_map': range(0, 6), 'nether_wayfinder_map': range(6, 11), 'end_wayfinder_map': range(11, 16)}
+STAR = ['..y..', '.yYy.', 'yYwYy', '.yYy.', '..y..']
+ENDERITE_EDGE = (0x1F, 0x3B, 0x3E)
+
+
+def render_mega(variant=MEGA_VARIANT):
+    img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for name, columns in PANEL_COLUMNS.items():
+        part = render(name)
+        for y in range(16):
+            for x in columns:
+                img.putpixel((x, y), part.getpixel((x, y)))
+        snap(img, {'wayfinder_map': 'Oberwelt-Feld', 'nether_wayfinder_map': 'Nether-Feld', 'end_wayfinder_map': 'End-Feld'}[name])
+    outline = BASE['o'] + (255,)
+    if variant == 'C':
+        for y in range(16):
+            for x in range(16):
+                if img.getpixel((x, y)) == outline:
+                    img.putpixel((x, y), ENDERITE_EDGE + (255,))
+        snap(img, 'Enderit-Rand')
+    if variant == 'B':
+        bx, by = BADGE_AT
+        for j, row in enumerate(BADGE):
+            for i, key in enumerate(row):
+                if (bx + i, by + j) in [(bx, by), (bx + 4, by), (bx, by + 4), (bx + 4, by + 4)]:
+                    continue
+                star = STAR[j][i]
+                img.putpixel((bx + i, by + j), BASE[star] + (255,) if star != '.' else BASE['k'] + (255,))
+        snap(img, 'Stern')
+    return img
+
 # Compass badge: rim, gold ring, white face, red needle pointing up-right.
 BADGE = ['.kkk.', 'kyYyk', 'kwnwk', 'kYwyk', '.kkk.']
 BADGE_AT = (10, 10)
@@ -126,8 +163,8 @@ def main():
     parser.add_argument('--preview')
     args = parser.parse_args()
     bad = []
-    for name in MAPS:
-        img = render(name)
+    for name in list(MAPS) + [MEGA]:
+        img = render_mega() if name == MEGA else render(name)
         path = OUT / f'{name}.png'
         if args.check:
             if not path.exists() or list(Image.open(path).convert('RGBA').getdata()) != list(img.getdata()):
@@ -136,11 +173,16 @@ def main():
             path.parent.mkdir(parents=True, exist_ok=True)
             save(img, path)
     if args.preview:
-        sheet = Image.new('RGBA', (16 * 16 * len(MAPS) + 16 * (len(MAPS) - 1), 16 * 16), (60, 60, 60, 255))
-        for i, name in enumerate(MAPS):
-            sheet.paste(render(name).resize((256, 256), Image.NEAREST), (i * 272, 0))
+        shown = [render(name) for name in MAPS] + [render_mega(v) for v in 'ABC']
+        sheet = Image.new('RGBA', (16 * 16 * len(shown) + 16 * (len(shown) - 1), 16 * 16), (60, 60, 60, 255))
+        for i, img in enumerate(shown):
+            sheet.paste(img.resize((256, 256), Image.NEAREST), (i * 272, 0))
         Path(args.preview).mkdir(parents=True, exist_ok=True)
         sheet.save(Path(args.preview) / 'items.png')
+        for v in 'ABC':
+            render_mega(v).save(Path(args.preview) / f'mega_{v}.png')
+        for name in MAPS:
+            render(name).save(Path(args.preview) / f'{name}.png')
     if bad:
         print('outdated textures:', ', '.join(bad))
         return 1

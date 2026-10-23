@@ -129,4 +129,11 @@ public final class ModuleGameTest {
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.behaviourHints(h); }
     @GameTest public void guideBook(GameTestHelper h) { com.simplebuilding.modules.simplemaps.guide.MapsGuide.gameTest(h); }
+
+    @GameTest public void megaRecipes(GameTestHelper h) { MapsTests.ALL.get("mega_recipes").accept(h); }
+    @GameTest public void megaExplores(GameTestHelper h) { MapsTests.ALL.get("mega_explores").accept(h); }
+    @GameTest public void megaSelect(GameTestHelper h) { MapsTests.ALL.get("mega_select").accept(h); }
+    @GameTest public void megaUnlock(GameTestHelper h) { MapsTests.ALL.get("mega_unlock").accept(h); }
+    @GameTest public void megaInherit(GameTestHelper h) { MapsTests.ALL.get("mega_inherit").accept(h); }
+    @GameTest public void megaCartography(GameTestHelper h) { MapsTests.ALL.get("mega_cartography").accept(h); }
 }

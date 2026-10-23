@@ -37,7 +37,23 @@ public final class QuestionarySheet {
         }
     }
 
+    /** W23-6: room the book keeps to the screen edge, like a double chest at the smallest screen ((240 - 222) / 2). */
+    public static final int EDGE = 9;
+    /** Most the book grows on each side beyond the base layout ({@link QuestionaryMenu#WIDTH} x HEIGHT). */
+    public static final int GROW_X = 40, GROW_Y = 32;
+
     private QuestionarySheet() {}
+
+    /**
+     * W23-6 (owner: the book clearly larger, a good margin above and below like a double chest): how far the book grows on
+     * each side, {x, y}, for a screen of {@code screenWidth x screenHeight} GUI pixels. 0 at the smallest screen (427 x 240,
+     * where the base layout already fills it), then as much as leaves {@link #EDGE} to the screen edge, at most
+     * {@link #GROW_X} / {@link #GROW_Y}. The column and its slots stay; the book grows evenly round it.
+     */
+    public static int[] bookGrowth(int screenWidth, int screenHeight) {
+        int x = (screenWidth - 2 * EDGE - QuestionaryMenu.WIDTH) / 2, y = (screenHeight - 2 * EDGE - QuestionaryMenu.HEIGHT) / 2;
+        return new int[] {Math.max(0, Math.min(GROW_X, x)), Math.max(0, Math.min(GROW_Y, y))};
+    }
 
     /**
      * One paragraph as spans with the placeholders filled in. Keywords (bold): what the placeholders name, words

@@ -1,0 +1,83 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "simplelib:material_requested",
+        "material": "enderite"
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "simplelib:material_requested",
+        "material": "enderite"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_wayfinder_map": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemaps:wayfinder_map"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nether_wayfinder_map": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemaps:nether_wayfinder_map"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_end_wayfinder_map": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemaps:end_wayfinder_map"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_ender_eye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:ender_eye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemaps:mega_wayfinder_map_without_enderite"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wayfinder_map",
+      "has_nether_wayfinder_map",
+      "has_end_wayfinder_map",
+      "has_ender_eye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemaps:mega_wayfinder_map_without_enderite"
+    ]
+  }
+}

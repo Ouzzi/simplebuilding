@@ -118,7 +118,7 @@ public final class MusicServer {
 
     /**
      * The new content, or null when refused: signed sheets are read-only; an unsigned draft may still have problems
-     * (it never plays: the Orchestrion only takes codes that parse), signing needs a title and a code that parses with
+     * (it is never pressed: the disc press only takes codes that parse), signing needs a title and a code that parses with
      * the server rules (sound blocklist).
      */
     public static SheetContent edited(SheetContent old, SheetEditPayload payload, String author) {

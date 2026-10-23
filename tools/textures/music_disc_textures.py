@@ -20,7 +20,7 @@ highlight pixel; the top keeps the jukebox frame and its disc slot is inlaid wit
 
 Output (26.3-only, Vanilla-derived, never committed - tools/textures/vanilla_derived.py builds them through
 derived(jar)): item/music_disc_<song>[_b_side|_track_3|_track_4].png and block/jukebox_amplifier_side/_top.png and
-note_amplifier_side/_top.png (the amplifiers, formerly speakers).
+note_amplifier_side/_top.png (the amplifiers, formerly speakers), block/note_block_framed.png (W23-4).
 --preview writes build/previews/schallplatten-vorschau.png and
 lautsprecher-vorschau.png (16x, labeled).
 """
@@ -156,15 +156,17 @@ def outputs():
         # the textures are ready beforehand.
         discs["music_disc_" + song + "_track_3"] = disc(base, song, 3)
         discs["music_disc_" + song + "_track_4"] = disc(base, song, 4)
-    # Speakers settled 2026-10-04 (owner): note block with the material radially in its holes, one texture for all
-    # six faces - drawn by speaker_settled_2026_10_04.py (speaker_side/speaker_end above are the earlier design).
+    # Amplifiers (owner 2026-10-04 settled the note block grille with the material radially in its holes; W23-4,
+    # 2026-10-23: the jukebox frame once all around, 90 degree rotation symmetric, the Note Amplifier weaker) - one
+    # texture for all six faces, drawn by misctex23b_2026_10_23.amplifier_textures() (speaker_settled_2026_10_04.py is
+    # the previous design). Also block/note_block_framed (client option noteBlockFrameTexture).
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    saved_argv = sys.argv[:]          # the settled module reads/rewrites sys.argv on import
+    saved_argv = sys.argv[:]          # the older speaker modules read/rewrite sys.argv on import
     try:
-        import speaker_settled_2026_10_04 as settled
+        import misctex23b_2026_10_23 as w23
     finally:
         sys.argv = saved_argv
-    blocks = settled.textures(note.convert("RGBA").crop((0, 0, 16, 16)))
+    blocks = w23.amplifier_textures(note.convert("RGBA").crop((0, 0, 16, 16)))
     return discs, blocks
 
 

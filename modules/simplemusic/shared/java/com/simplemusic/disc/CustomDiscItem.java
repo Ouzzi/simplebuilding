@@ -11,8 +11,8 @@ import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * A pressed disc (disc press, owner 21.10.): carries either a {@link TrackRef} (hash, title, length, uploader) of an
- * uploaded track or the composition of a sheet ({@code simplemusic:sheet}). Both play in the Orchestrion and - owner
- * decision U1 b - in the Vanilla jukebox; the Pocket Jukebox takes only track discs. A disc whose track the server
+ * uploaded track or the composition of a sheet ({@code simplemusic:sheet}). Both play - owner decision U1 b - in the
+ * Vanilla jukebox; the Pocket Jukebox takes only track discs. A disc whose track the server
  * deleted is a "scratched disc" and stays silent.
  */
 public class CustomDiscItem extends Item {

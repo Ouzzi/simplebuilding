@@ -6,7 +6,7 @@ from pathlib import Path
 
 MODULE = Path(__file__).resolve().parents[1]
 NS = 'simplemaps'
-ITEMS = ('wayfinder_map', 'nether_wayfinder_map', 'end_wayfinder_map')
+ITEMS = ('wayfinder_map', 'nether_wayfinder_map', 'end_wayfinder_map', 'mega_wayfinder_map')
 
 
 def main():

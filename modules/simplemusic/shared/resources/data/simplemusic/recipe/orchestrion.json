@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:crafting_shaped",
-  "category": "redstone",
-  "pattern": ["CNC", " J "],
-  "key": {"C": "minecraft:copper_ingot", "N": "minecraft:note_block", "J": "minecraft:jukebox"},
-  "result": {"id": "simplemusic:orchestrion", "count": 1}
-}
