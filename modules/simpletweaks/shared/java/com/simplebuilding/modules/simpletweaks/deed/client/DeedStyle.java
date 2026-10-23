@@ -10,7 +10,7 @@ import com.simplelib.api.client.ui.UiPalette;
  * claims are seen first; one constant changes it. Preview: /root/sb-tools-a/previews/claims-ui-preview.html.
  */
 final class DeedStyle {
-    static final int FILL = 0xFF6F5F4B;
+    static final int FILL = 0xFF6F5F4B; // contrast-ok: dark ink sits on FIELD, texts on the box use ensure (DeedStyleContrastTest)
     static final UiPalette BOX = UiPalette.derived(FILL);
     /** The light field inside the box (sheet, code field, tiles' ground). */
     static final int FIELD = UiPalette.INVENTORY.fill();
