@@ -35,3 +35,16 @@ Tiefenschiefer-Fliesen B (weniger gerade Linien), neuer Block Sculk-Fliesen (C, 
 - Gametest `sculk_tiles` (Registrierung, Loot, Tab) + Fabric-Adapter; vorhandene Rundum-Tests (Rezept/Loot je Block) decken ihn mit ab.
 - sbt: Compile `:mc26_3:fabric` + `:modules:simpleblocks:fabric`, `module-simpleblocks-fabric-263` + `-standalone-fabric-263`,
   Generatoren (module_guides, wiki --all, discover, textures.js), `layers.py check`, `./gradlew check -q`.
+
+## Plan-Abgleich
+- Risse: umgesetzt wie geplant (`blocks_b23.cracked`, Ebenen Basis/Lichtkanten/Risstiefe/Risse), gilt für alle 6 rissigen Ziegel
+  (von den 13 gealterten sind 6 rissig, 7 bemoost – das Moos folgt nach der Wahl).
+- Sculk-Tiefenschiefer B: Adern als verzweigtes Wachstum (Drehen + Richtungswechsel statt Geraden), Saum rundum, 3 Leuchtpunkte. Umgesetzt.
+- Gehüllte Fliesen B: Sculk als 4 unregelmäßige Polster + Triebe statt entlang der Fugen. Umgesetzt (das Auge je Fliese entfällt dadurch).
+- Packeis B + Blaueis analog (Blaueis-Relief 1,45-fach tiefer, weil die Vanilla-Basis ruhiger ist). Umgesetzt.
+- Sculk-Fliesen: Abweichung zum Plan-Satz „versetzt/ungleich groß“: Reihen 4/3/3/2 px mit je einer hohen Fliese über zwei Reihen
+  (bricht 2 der 4 Fugenreihen), Stoßfugen versetzt. Rezept 2 Tiefenschieferfliesen + 2 Sculk über Kreuz → 2 (shaped 2×2).
+  Zusätzlich gepflegt: Fragebogen EN/DE, Simple-Money-Preisliste („no trade“), Inventar Baublöcke, MODS-UND-FEATURES.
+- Moos: 3 Varianten A/B/C an bemoosten Tiefenschiefer-Fliesen + Endsteinziegeln, dazu Kalibrierung (A auf Vanilla-Steinziegeln neben Vanilla). Nur Vorschau.
+- Verifiziert: Compile `:mc26_3:fabric` + `:modules:simpleblocks:fabric`; module-simpleblocks-fabric-263 40/40, -standalone-fabric-263 40/40 (inkl. neuem Gametest `sculk_tiles`);
+  `check_data.py`, `layers.py check`, Generatoren und `./gradlew check -q` (siehe Abschlussbericht). Nicht getestet: Client-Sicht (keine Client-Läufe erlaubt).
