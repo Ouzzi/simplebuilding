@@ -72,7 +72,7 @@ Sprachnachricht 23.10. vormittags, sinngemäß.
 - [~] (A, a-pjuke23, 23.10.) DP23 Schallplattenpresse: Disc-Plätze im UI nebeneinander statt übereinander.
 - [~] (A, a-qtable23, 23.10.) QT23 Fragentisch-UI: Fragentisch + Inventar mittig, das Buch ragt links und rechts heraus (zwei Seiten). Links immer der Text mit klarer Hierarchie (Überschrift farbig wie jetzt, Fließtext grau und luftiger, Schlagwörter fett). Rechts: Seite „Lore“ = Textur-Hinweise (Bilder), Seite „Use“ = Rezepte/Verwendung/Fundort-Hinweis, dritte Seite = Textur-Hinweis zum Item. Erst exemplarisch mit Vorschau.
 - [~] (A, a-frames23, 23.10.) FR23 Druckplatten und Scheiben im Item-Rahmen (Korrektur zu TZ22-7): flach gezeichnet, aber von OBEN gesehen als 3D-Objekt, sodass unmissverständlich ist, welche Platte/Scheibe es ist – nicht von der Seite.
-- [~] (A, a-sage23, 23.10.) SAGE23 Salbei-Erz (Sage Ore): Tiefenschiefer-Variante gefällt, die Stein-Variante verbessern (exemplarisch Varianten).
+- [~] (A, a-sage23, 23.10.) SAGE23 Salbei-Erz (Sage Ore): Tiefenschiefer-Variante gefällt, die Stein-Variante verbessern (exemplarisch Varianten). Teilstand 23.10.: 3 Kandidaten A/B/C (Generator tools/textures/sage_ore_stone_variants_2026_10_23.py, Ebenen Stein/Schattenhof/Erz, nichts eingebaut), Vorschau /root/sb-tools-a/previews/sage23-preview.html, Empfehlung A (Tiefenschiefer-treu); offen Besitzer-Wahl, dann `--install X` + Wiki neu.
 
 ## Besitzer 22.10. – Texturen (TX22)
 Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfehlungen passen, gezielt überarbeitet werden nur wenige Texturen.
