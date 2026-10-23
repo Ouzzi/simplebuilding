@@ -44,8 +44,18 @@ for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colo
         assert (RES / f'assets/{NS}/textures/item/{k}{suffix}.png').is_file(), (k, suffix)
     # b-pjuke21: placeable, 3D in the hand, breaking keeps the discs
     assert (RES / f'assets/{NS}/textures/block/{k}_case.png').is_file(), k
-    assert json.loads((RES / f'assets/{NS}/blockstates/{k}.json').read_text(encoding='utf-8'))['variants'], k
-    assert json.loads((RES / f'assets/{NS}/items/{k}.json').read_text(encoding='utf-8'))['model']['fallback']['model'] == f'{NS}:block/{k}', k
+    state = json.loads((RES / f'assets/{NS}/blockstates/{k}.json').read_text(encoding='utf-8'))
+    fallback = json.loads((RES / f'assets/{NS}/items/{k}.json').read_text(encoding='utf-8'))['model']['fallback']
+    if k == 'pocket_jukebox':
+        # a-pjuke23 (exemplary on the undyed one): turning record while playing, copper contacts to lines
+        assert any(p['apply']['model'] == f'{NS}:block/pocket_jukebox_playing' for p in state['multipart']), k
+        assert any(p['apply']['model'] == f'{NS}:block/pocket_jukebox_link' for p in state['multipart']), k
+        assert fallback['on_false']['model'] == f'{NS}:block/{k}' and fallback['on_true']['model'] == f'{NS}:block/pocket_jukebox_playing', k
+        for tex in ('block/pocket_jukebox_spin', 'item/pocket_jukebox_playing'):
+            assert (RES / f'assets/{NS}/textures/{tex}.png.mcmeta').is_file(), tex
+    else:
+        assert state['variants'], k
+        assert fallback['model'] == f'{NS}:block/{k}', k
     loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{k}.json').read_text(encoding='utf-8'))
     entry = loot['pools'][0]['entries'][0]
     assert entry['name'] == f'{NS}:{k}' and entry['modifier'] == {'type': 'minecraft:copy_components', 'source': 'block_entity'}, k
