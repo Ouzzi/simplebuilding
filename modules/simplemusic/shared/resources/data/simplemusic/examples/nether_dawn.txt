@@ -1,0 +1,30 @@
+# Nether Dawn - an original piece by Simple Music (complex: bells, chimes, pling, bass pedal, chords, volume, sections)
+tempo 4
+$bl = bell
+$ch = chime
+$pl = pling
+$b = bass
+$f = flute
+
+# intro: bass pedal and soft pling chords
+$pl: @vol 0.5 [a3 c4 e4] . . . [a3 c4 e4] . . .  [a3 c4 f4] . . . [a3 c4 f4] . . .
+$b: @vol 0.8 a1 . . . . . . .  f2 . . . . . . .
+
+# theme, twice; the second time with chimes on top
+x2 {
+  $pl: @vol 0.6 [a3 c4 e4] . . . [g3 b3 d4] . . .  [a3 c4 f4] . . . [g#3 b3 e4] . . .
+  $b: @vol 0.9 a1 . a2 . g1 . g2 .  f2 . f2 . e2 . e2 .
+  $bl: e6 . a6 . g6 . . .  f6 . a6 . g6 . e6 .
+}
+x2 {
+  $pl: [a3 c4 e4] . . . [g3 b3 d4] . . .  [a3 c4 f4] . . . [g#3 b3 e4] . . .
+  $b: a1 . a2 . g1 . g2 .  f2 . f2 . e2 . e2 .
+  $bl: e6 . a6 . g6 . . .  f6 . a6 . g6 . e6 .
+  $ch: @vol 0.4 a6 e7 a6 e7 b6 e7 b6 e7  c7 e7 c7 e7 b6 e7 b6 e7
+}
+
+# melody on flute over the last pass, then fade out
+$f: @vol 0.8 e5 . a5 . c6 . b5 .  a5 . g5 . e5 - - -
+$pl: @vol 1.0 [a3 c4 e4 a4] - - - - - - -
+$b: a1 - - - - - - -
+$bl: a6 - - - - - - -

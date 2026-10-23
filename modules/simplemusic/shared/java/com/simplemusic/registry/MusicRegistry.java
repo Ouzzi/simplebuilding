@@ -121,6 +121,7 @@ public final class MusicRegistry {
                             if (!SimpleMusic.on()) return;
                             out.accept(com.simplemusic.guide.MusicGuide.stack());
                             tabStacks().forEach(out::accept);
+                            com.simplemusic.sheet.SheetExamples.stacks().forEach(out::accept);
                             toolStacks().forEach(out::accept);
                             discStacks().forEach(out::accept);
                         }).build());

@@ -215,6 +215,30 @@ public final class MusicTests {
                     "an old Orchestrion's disc stays in the jukebox: " + loaded);
             h.succeed();
         });
+        ALL.put("examples_parse", h -> {
+            // NA24-8: every shipped example parses with the server rules, is not trivial and fits the limits
+            var policy = com.simplemusic.sheet.SheetSounds.policy();
+            h.assertTrue(com.simplemusic.sheet.SheetExamples.ALL.size() >= 9, "nine examples");
+            for (var e : com.simplemusic.sheet.SheetExamples.ALL) {
+                String code = com.simplemusic.sheet.SheetExamples.code(e);
+                NoteCode.Result r = NoteCode.parse(code, policy);
+                h.assertTrue(r.ok() && r.song().steps() >= 16 && r.song().toneCount() >= 16,
+                        "example " + e.id() + " parses and sounds: " + r.problems() + " steps " + r.song().steps());
+                h.assertTrue(e.title().length() <= NoteCode.MAX_TITLE_LENGTH, "title of " + e.id());
+                h.assertTrue(code.lines().findFirst().orElse("").startsWith("# "), "source line in " + e.id());
+            }
+            h.assertTrue(com.simplemusic.sheet.SheetExamples.stacks().size() == com.simplemusic.sheet.SheetExamples.ALL.size()
+                    && SheetMusicItem.content(com.simplemusic.sheet.SheetExamples.stacks().get(0)).signed(), "signed sheets for the tab");
+            h.succeed();
+        });
+        ALL.put("tone_volume", h -> {
+            // NA24-8: @vol is audible on the server (a quiet tone keeps its volume, a full one gets the range)
+            NoteCode.Song song = NoteCode.parse("harp: @vol 0.5 c4 @vol 1.0 d4").song();
+            float quiet = com.simplemusic.disc.SheetPlayback.volume(song.tonesAt(0).get(0), 3.0F);
+            float full = com.simplemusic.disc.SheetPlayback.volume(song.tonesAt(1).get(0), 3.0F);
+            h.assertTrue(quiet == 0.5F && full == 3.0F, "quiet " + quiet + " full " + full);
+            h.succeed();
+        });
         ALL.put("tone_limit", h -> {
             NoteCode.Song song = NoteCode.parse("tempo 20\nharp: [c4 e4 g4 c5]", com.simplemusic.sheet.SheetSounds.policy()).song();
             // within this callback: other tests reset the shared config between ticks
