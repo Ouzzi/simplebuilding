@@ -103,6 +103,9 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Warteliste (später, Besitzer 23.10.)
+- [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` (in Arbeit a-earth-konzept). Umsetzung erst auf Besitzer-Anforderung.
+
 ## Audit 23.10. – fehlende Besitzer-Wünsche
 Quelle: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-23.md` (a-audit23; alle Besitzer-Nachrichten 17.–23.10. gegen Queue/Archiv/Pläne).
 - [ ] AUD-1 (Besitzer 23.10., A) Eigene Klänge „zu grell, synthetisch, zu hell, ohne Tiefe“ → mit ElevenLabs neu: Kandidaten für den legendären Klang (s01–s11, `/root/sb-tools-a/eleven23/LISTE.md`) dem Besitzer zur Wahl vorlegen (zusammen mit SP22-2), danach einbauen; prüfen, welche weiteren synthetischen Klänge (Redstone-Linien SP22-5, Verstärker) betroffen sind.
