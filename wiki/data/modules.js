@@ -323,10 +323,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 2,
       "blocks": 1,
-      "recipes": 4,
+      "recipes": 3,
       "features": 41
     },
-    "dataHash": "11a6983a9c9e"
+    "dataHash": "23374f49bf26"
   },
   {
     "id": "simpledimensions",
