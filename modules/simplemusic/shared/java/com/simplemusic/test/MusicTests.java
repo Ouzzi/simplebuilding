@@ -1034,11 +1034,17 @@ public final class MusicTests {
         ALL.put("music_disc_loot", h -> {
             var server = h.getLevel().getServer();
             var origin = net.minecraft.world.phys.Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1)));
+            ServerPlayer brusher = h.makeMockServerPlayerInLevel();
             for (int i = 0; i < MusicDiscs.DISCS.size(); i++) {
                 MusicDiscs.Disc disc = MusicDiscs.DISCS.get(i);
                 var table = server.reloadableRegistries().getLootTable(disc.table());
                 var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(h.getLevel())
                         .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN, origin);
+                if (disc.archaeology()) {
+                    // brushing: the player and the brush (26.3 requires both for archaeology tables)
+                    params.withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY, brusher)
+                            .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.TOOL, new ItemStack(Items.BRUSH));
+                }
                 var built = params.create(disc.archaeology() ? net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ARCHAEOLOGY
                         : net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
                 boolean found = false;
