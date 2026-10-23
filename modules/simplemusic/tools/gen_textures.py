@@ -10,7 +10,7 @@ to top. tools/layers/<texture>.json keeps that source next to the PNG (plan docs
  "tint": {"keys": [...], "variants": {"red_pocket_jukebox": {"f": "#d2382e", ...}}}} - lossless, readable without
 Pillow and easy to turn into the wiki pixel editor's layer format. Pillow is only needed to write/compare PNGs.
 
-Textures: sheet music, blank disc, custom disc (track = amethyst label, composition = paper label), Orchestrion side/top,
+Textures: sheet music, blank disc, custom disc (track = amethyst label, composition = paper label),
 Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front; placed/held 3D model: case sheet per
 colour + one parts sheet), disc press side/top, the placed records' round top views (written into SimpleBuilding's assets).
 Variants (owner choice MU21 R=B P=A D=B, 21.10.): blank/custom disc A round like Vanilla's discs / B oval like the
@@ -205,50 +205,6 @@ def disc(form, palette, scale=1.0):
 # The files go into SimpleBuilding's assets (its placed_<item> models read simplebuilding:block/placed_disc_<item>).
 PLACED_SCALE = 6 / 7
 PLACED = {'placed_disc_blank_disc': (BLANK, 'item/blank_disc'), 'placed_disc_custom_disc': (dict(VINYL, **LABEL_TRACK), 'item/custom_disc')}
-
-
-# ------------------------------------------------------------------ Orchestrion
-WOOD = {'o': (58, 40, 26), 'w': (122, 86, 54), 'v': (104, 72, 44), 'h': (146, 106, 68), 'k': (40, 28, 20),
-        'c': (198, 116, 76), 'C': (232, 160, 112), 'x': (140, 74, 46), 'g': (28, 22, 18)}
-# TEX20 O = B. Owner 21.10.: "diese textur ist nicht symmetrisch vom motiv also die copper pixel" - the copper bell
-# row is now mirror-symmetric about the middle (three bells, columns 3-12, dark gaps instead of see-through holes)
-# and the right frame column is back.
-SIDE = [
-    'oooooooooooooooo',
-    'ohhhhhhhhhhhhhvo',
-    'ohwwwwvwwwwwwwvo',
-    'ohvvvvvvvvvvvvvo',
-    'ohwwvwwwwwvwwwvo',
-    'ohkkkkkkkkkkkkvo',
-    'ohkCCkkCCkkCCkvo',
-    'ohkcckkcckkcckvo',
-    'ohkkkkkkkkkkkkvo',
-    'ohwwwwwvwwwwwwvo',
-    'ohvvvvvvvvvvvvvo',
-    'ohgkgkgkgkgkgkvo',
-    'ohkgkgkgkgkgkgvo',
-    'ohwwwwwwvwwwwwvo',
-    'ovvvvvvvvvvvvvvo',
-    'oooooooooooooooo',
-]
-TOP = [  # planks with a long record slot and copper corners (TEX20 B, already symmetric)
-    'oooooooooooooooo',
-    'ohhhhhhhhhhhhhvo',
-    'ohwwwwvwwwwwwwvo',
-    'ohvvvvvvvvvvvvvo',
-    'ohwwwwwwwvwwwwvo',
-    'ohwkkkkkkkkkkwvo',
-    'ohwkggggggggkwvo',
-    'ohwkkkkkkkkkkwvo',
-    'ohwwvwwwwwwwwwvo',
-    'ohvvvvvvvvvvvvvo',
-    'ohwwwwwvwwwwwwvo',
-    'ohcwwwwwwwwwwcvo',
-    'ohCcwwwwvwwwcCvo',
-    'ohvvvvvvvvvvvvvo',
-    'ovvvvvvvvvvvvvvo',
-    'oooooooooooooooo',
-]
 
 
 # ------------------------------------------------------------------ Pocket Jukebox
@@ -514,9 +470,7 @@ def textures(choice=None):
     out = {'item/sheet_music': sheet(),
            'item/blank_disc': disc(c['disc'], BLANK),
            'item/custom_disc': disc(c['disc'], dict(VINYL, **LABEL_TRACK)),
-           'item/custom_disc_composed': disc(c['disc'], dict(VINYL, **LABEL_SHEET)),
-           'block/orchestrion_side': Tex(WOOD, split(SIDE, [('holz', 'owvh'), ('rahmen', 'kg'), ('kupfer', 'cCx')])),
-           'block/orchestrion_top': Tex(WOOD, split(TOP, [('holz', 'owvh'), ('schlitz', 'kg'), ('kupfer', 'cCx')]))}
+           'item/custom_disc_composed': disc(c['disc'], dict(VINYL, **LABEL_SHEET))}
     for suffix, tex in pocket_texs(c['pocket']).items():
         out['item/pocket_jukebox' + suffix] = tex
     for name, tex in press_texs(c['press']).items():
@@ -548,11 +502,9 @@ def images(textures_, docs=None):
 
 
 def check_rules():
-    for rows in [SIDE, TOP, SHEET_MASK] + list(PRESS_SIDE.values()) + list(PRESS_TOP.values()):
+    for rows in [SHEET_MASK] + list(PRESS_SIDE.values()) + list(PRESS_TOP.values()):
         assert len(rows) == 16 and all(len(r) == 16 for r in rows), rows
         assert all('.' not in r for r in rows if rows is not SHEET_MASK), 'no holes in a full block'
-    for y in (6, 7):
-        assert mirrored(SIDE[y], 'cCkx'), ('copper motif not symmetric', SIDE[y])
 
 
 def to_image(px):

@@ -17,4 +17,7 @@ public final class RedstoneLinesGameTest {
     @GameTest(maxTicks = 60) public void lineBlocksFeedOnlyTheirLine(GameTestHelper helper) { RedstoneLinesTests.lineBlocksFeedOnlyTheirLine(helper); }
     @GameTest public void lineBlockRecipesRoundTrip(GameTestHelper helper) { RedstoneLinesTests.lineBlockRecipesRoundTrip(helper); }
     @GameTest public void lineBlocksHaveOwnSounds(GameTestHelper helper) { RedstoneLinesTests.lineBlocksHaveOwnSounds(helper); }
+    @GameTest(maxTicks = 60) public void lineTorchesFeedOnlyTheirLine(GameTestHelper helper) { RedstoneLinesTests.lineTorchesFeedOnlyTheirLine(helper); }
+    @GameTest(maxTicks = 60) public void lineTorchPowersTheBlockAboveAndInverts(GameTestHelper helper) { RedstoneLinesTests.lineTorchPowersTheBlockAboveAndInverts(helper); }
+    @GameTest public void lineTorchRecipeAndDrop(GameTestHelper helper) { RedstoneLinesTests.lineTorchRecipeAndDrop(helper); }
 }

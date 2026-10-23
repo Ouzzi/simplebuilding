@@ -15,7 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * Server side of a custom disc that plays at a block (Orchestrion or, owner decision U1 b, the Vanilla jukebox):
+ * Server side of a custom disc that plays at a block (owner decision U1 b: the Vanilla jukebox):
  * which track, since when, and which players were told. Players that come within {@link #RANGE} get a
  * {@link TrackPlayPayload} with the current position; players that leave or for whom the track is not audible
  * (pending and not theirs, owner decision U2 b) get nothing / a stop. Kept in memory only: after a restart the block

@@ -207,9 +207,9 @@ MODULES = [
     dict(module="simplemusic", ns="simplemusic", package="com.simplemusic.guide", cls="MusicGuide", kind="item",
          author="Simple Music", recipe="minecraft:note_block",
          name=("Simple Music Guide", "Simple-Music-Handbuch"),
-         intro=("Write sheet music as text, listen to it in the editor and let the Orchestrion play it on a loop. Burn "
+         intro=("Write sheet music as text, listen to it in the editor and press it onto a blank disc for the jukebox. Burn "
                 "your own mono Ogg files onto blank discs.",
-                "Notenblätter als Text schreiben, im Editor probehören und vom Orchestrion in Schleife spielen lassen. "
+                "Notenblätter als Text schreiben, im Editor probehören und für die Jukebox auf einen Rohling pressen. "
                 "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
     dict(module="simplestats", ns="simplestats", package="com.simplebuilding.modules.simplestats.guide", cls="StatsGuide",
          kind="item", author="Simple Stats", recipe="minecraft:flint",

@@ -4,7 +4,7 @@
       "Ein kurzes Buch für alle, die beim Bauen summen."
     ],
     "use": [
-      "Das Simple-Music-Handbuch erklärt Notenblätter, Notencode, das Orchestrion, die Plattenpresse und die Taschen-Jukebox. Herstellung formlos aus einem Buch und einem Notenblock."
+      "Das Simple-Music-Handbuch erklärt Notenblätter, Notencode, die Plattenpresse und die Taschen-Jukebox. Herstellung formlos aus einem Buch und einem Notenblock."
     ],
     "secret": [
       "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
@@ -19,17 +19,6 @@
     ],
     "secret": [
       "Ein signiertes Blatt über einem leeren im Kartentisch ergibt eine Kopie; nur das leere Blatt wird verbraucht."
-    ]
-  },
-  "orchestrion": {
-    "lore": [
-      "Eine Jukebox, die lesen gelernt hat."
-    ],
-    "use": [
-      "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Blatt oder einer gepressten Platte legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus."
-    ],
-    "secret": [
-      "Eine Truhe oder ein Fass obendrauf wird zur Wiedergabeliste: nach jedem Durchlauf tauscht das nächste Blatt mit dem fertigen."
     ]
   },
   "disc_press": {
@@ -59,7 +48,7 @@
       "Deine eigene Musik, zum Aufheben gepresst."
     ],
     "use": [
-      "Trägt einen hochgeladenen Titel oder eine Komposition. Sie spielt im Orchestrion in Schleife und einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Platten mit Titel."
+      "Trägt einen hochgeladenen Titel oder eine Komposition. Sie spielt einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Platten mit Titel."
     ],
     "secret": [
       "Eine Titel-Platte trägt nur Name, Länge und Hochlader, nie die Tonspur selbst."

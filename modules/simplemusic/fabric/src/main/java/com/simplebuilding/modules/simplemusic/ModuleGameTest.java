@@ -26,24 +26,9 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("sheet_save_rules").accept(h);
     }
 
-    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
-    public void orchestrionPlaysSteps(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_plays_steps").accept(h);
-    }
-
-    @GameTest(structure = "simplemusic:empty", maxTicks = 80)
-    public void orchestrionRedstone(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_redstone").accept(h);
-    }
-
-    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
-    public void orchestrionPlaylist(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_playlist").accept(h);
-    }
-
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
-    public void orchestrionPopOut(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_pop_out").accept(h);
+    public void orchestrionBecomesAJukebox(GameTestHelper h) {
+        MusicTests.ALL.get("orchestrion_becomes_a_jukebox").accept(h);
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)

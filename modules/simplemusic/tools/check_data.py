@@ -9,7 +9,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplemusic'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/MusicConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 14, config_keys
+assert len(config_keys) == 13, config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))
@@ -18,7 +18,7 @@ langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
-    for k in sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.sheet_music', f'block.{NS}.orchestrion', f'item.{NS}.blank_disc',
+    for k in sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.sheet_music', f'item.{NS}.blank_disc',
                              f'item.{NS}.custom_disc', f'block.{NS}.disc_press', f'{NS}.testcentre.station']:
         assert data.get(k), (locale, k)
     for k, v in data.items():
@@ -26,7 +26,7 @@ for locale in ('en_us', 'de_de'):
             assert len(v) <= 40, ('tooltip line too long', locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
-assert recipes['orchestrion']['key'] == {'C': 'minecraft:copper_ingot', 'N': 'minecraft:note_block', 'J': 'minecraft:jukebox'}
+assert 'orchestrion' not in recipes, 'B23-M9: the Orchestrion is gone'
 assert sorted(recipes['sheet_music']['ingredients']) == ['minecraft:feather', 'minecraft:ink_sac', 'minecraft:paper']
 assert recipes['blank_disc']['key']['A'] == 'minecraft:amethyst_shard'
 # owner 21.10.: disc press like Vanilla's stone/iron workstations, the piston presses

@@ -122,67 +122,6 @@
       }
     },
     {
-      "id": "orchestrion",
-      "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlock.java",
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlockEntity.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/recipe/orchestrion.json"
-      ],
-      "en": {
-        "title": "Orchestrion",
-        "summary": "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc (composition or track) to put it in, with an empty hand to take it out. It plays on a loop and never ejects.",
-        "details": [
-          "The server plays each step's tones like a note block (Jukebox/Note Blocks volume, 48 blocks), at most 8 tones per step; one note particle per step.",
-          "Comparator: 1-15 by progress through the piece, 0 when empty."
-        ]
-      },
-      "de": {
-        "title": "Orchestrion",
-        "summary": "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Notenblatt oder einer gepressten Platte (Komposition oder Titel) legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus.",
-        "details": [
-          "Der Server spielt die Töne jedes Schritts wie ein Notenblock (Lautstärke Jukebox/Notenblöcke, 48 Blöcke), höchstens 8 Töne je Schritt; ein Notenpartikel je Schritt.",
-          "Komparator: 1-15 nach Fortschritt im Stück, 0 wenn leer."
-        ]
-      }
-    },
-    {
-      "id": "orchestrion_redstone",
-      "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlockEntity.java"
-      ],
-      "en": {
-        "title": "Redstone",
-        "summary": "Signal on: plays and loops. Signal off: stops at the end of the current step. A rising edge starts from the top. Never wired: plays and loops.",
-        "details": []
-      },
-      "de": {
-        "title": "Redstone",
-        "summary": "Signal an: spielt und loopt. Signal aus: hört am Ende des Schritts auf. Steigende Flanke: von vorn. Ohne Signal angeschlossen: spielt und loopt.",
-        "details": []
-      }
-    },
-    {
-      "id": "orchestrion_playlist",
-      "sources": [
-        "modules/simplemusic/shared/java/com/simplemusic/orchestrion/OrchestrionBlockEntity.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/tags/block/playlist_containers.json"
-      ],
-      "en": {
-        "title": "Playlist on top",
-        "summary": "A chest, trapped chest, barrel or copper chest on top is the playlist: after each run the next sheet or custom disc swaps places with the finished one (slot order). Without another one the piece loops.",
-        "details": [
-          "Only single chests without unopened loot count. Tag simplemusic:playlist_containers."
-        ]
-      },
-      "de": {
-        "title": "Playlist darüber",
-        "summary": "Eine Truhe, Redstone-Truhe, ein Fass oder eine Kupfertruhe darüber ist die Playlist: nach jedem Durchlauf tauscht das nächste Notenblatt oder die nächste eigene Platte den Platz mit dem fertigen (Slot-Reihenfolge). Ohne weiteres loopt das Stück.",
-        "details": [
-          "Nur einzelne Truhen ohne ungeöffnete Beute zählen. Tag simplemusic:playlist_containers."
-        ]
-      }
-    },
-    {
       "id": "blank_disc",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/disc/BlankDiscItem.java",
@@ -209,14 +148,16 @@
         "modules/simplemusic/shared/java/com/simplemusic/press/DiscPress.java",
         "modules/simplemusic/shared/java/com/simplemusic/press/DiscPressBlockEntity.java",
         "modules/simplemusic/shared/java/com/simplemusic/press/DiscPressMenu.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/recipe/disc_press.json"
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/disc_press.json",
+        "modules/simplemusic/shared/java/com/simplemusic/SimpleMusic.java"
       ],
       "en": {
         "title": "Disc Press",
         "summary": "A piston over two iron ingots over three smooth stone. Put a sheet of music on top and blank discs below: it presses the sheet's music (composition or uploaded track) onto a blank in 2 seconds. The sheet always stays.",
         "details": [
           "Only compositions without problems are pressed. The pressed disc waits in the output slot; the next one follows when it is taken.",
-          "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe."
+          "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe.",
+          "Sheets only go into the press: the Orchestrion that played them directly was removed (owner 23.10.); old Orchestrions turn into a jukebox and keep the disc or sheet they held."
         ]
       },
       "de": {
@@ -224,7 +165,8 @@
         "summary": "Ein Kolben über zwei Eisenbarren über drei glatten Steinen. Oben ein Notenblatt, unten Rohlinge: sie presst die Musik des Blatts (Komposition oder hochgeladener Titel) in 2 Sekunden auf einen Rohling. Das Notenblatt bleibt immer erhalten.",
         "details": [
           "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
-          "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke."
+          "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke.",
+          "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt (Besitzer 23.10.); alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
         ]
       }
     },
@@ -263,18 +205,18 @@
       ],
       "en": {
         "title": "Custom Disc",
-        "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play in the Orchestrion (loop, playlist) and in the Vanilla jukebox (once); the Pocket Jukebox takes track discs.",
+        "summary": "A pressed disc carries either an uploaded track (hash, title, length, uploader - never audio; amethyst label) or a composition (paper label). Both play once in the Vanilla jukebox; the Pocket Jukebox takes track discs.",
         "details": [
           "Track discs: players within 64 blocks get the file from the server in parts the first time (cache in simplemusic-cache/ of the game folder, 512 MiB) and join at the current position. A deleted track leaves a silent disc.",
-          "Composition discs in the jukebox: the server plays the tones like the Orchestrion, once."
+          "Composition discs in the jukebox: the server plays the tones itself like a note block, once."
         ]
       },
       "de": {
         "title": "Eigene Platte",
-        "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen im Orchestrion (Schleife, Playlist) und in der Vanilla-Jukebox (einmal); die Taschen-Jukebox nimmt Titel-Platten.",
+        "summary": "Eine gepresste Platte trägt entweder einen hochgeladenen Titel (Hash, Titel, Länge, Hochladender - nie Audiodaten; Amethyst-Etikett) oder eine Komposition (Papier-Etikett). Beide spielen einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Titel-Platten.",
         "details": [
           "Titel-Platten: Spieler in 64 Blöcken bekommen die Datei beim ersten Mal in Stücken vom Server (Cache in simplemusic-cache/ im Spielordner, 512 MiB) und steigen an der aktuellen Stelle ein. Ein gelöschter Titel hinterlässt eine stumme Platte.",
-          "Kompositions-Platten in der Jukebox: der Server spielt die Töne wie das Orchestrion, einmal."
+          "Kompositions-Platten in der Jukebox: der Server spielt die Töne selbst wie ein Notenblock, einmal."
         ]
       }
     },
@@ -376,7 +318,7 @@
         "summary": "config/simplemusic-server.json, read at start; every number is clamped.",
         "details": [
           "enabled (true); sheetSounds (all | heads | instruments) with blockedSounds (music., music_disc., ui., ambient.cave, world-wide sounds: prefix list).",
-          "maxTonesPerTick (8, 1 to 8), maxPlayingOrchestrions (32 per dimension, 1 to 64), orchestrionRange (48, 16 to 64).",
+          "maxTonesPerTick (8, 1 to 8), toneRange (48, 16 to 64: how far a composition disc's tones carry; an old orchestrionRange is taken over).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 to 16), maxUploadSeconds (300, 10 to 900), quotaPerPlayer (5, 0 to 50), storeLimitMiB (256, 16 to 2048), uploadKiBPerSecond (256, 16 to 1024), downloadKiBPerSecond (512, 32 to 4096).",
           "jukeboxCustomDiscs (true): custom discs in the Vanilla jukebox; it switches itself off where Vanilla has its own jukebox playlist (block tag #minecraft:jukebox_containers).",
           "With SimpleBuilding the switch Enable Simple Music in its config turns the bundled module on or off."
@@ -387,7 +329,7 @@
         "summary": "config/simplemusic-server.json, beim Start gelesen; jede Zahl wird begrenzt.",
         "details": [
           "enabled (true); sheetSounds (all | heads | instruments) mit blockedSounds (music., music_disc., ui., ambient.cave, weltweite Klänge: Präfixliste).",
-          "maxTonesPerTick (8, 1 bis 8), maxPlayingOrchestrions (32 je Dimension, 1 bis 64), orchestrionRange (48, 16 bis 64).",
+          "maxTonesPerTick (8, 1 bis 8), toneRange (48, 16 bis 64: wie weit die Töne einer Kompositions-Platte reichen; ein altes orchestrionRange wird übernommen).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 bis 16), maxUploadSeconds (300, 10 bis 900), quotaPerPlayer (5, 0 bis 50), storeLimitMiB (256, 16 bis 2048), uploadKiBPerSecond (256, 16 bis 1024), downloadKiBPerSecond (512, 32 bis 4096).",
           "jukeboxCustomDiscs (true): eigene Platten in der Vanilla-Jukebox; schaltet sich selbst ab, wo Vanilla eine eigene Jukebox-Playlist hat (Block-Tag #minecraft:jukebox_containers).",
           "Mit SimpleBuilding schaltet der Schalter Simple Music aktivieren in dessen Config das gebündelte Modul ein oder aus."

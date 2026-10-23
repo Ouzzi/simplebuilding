@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundSource;
 
 /**
  * Client side of {@link com.simplemusic.pocket.PocketPlayback}: the one Pocket Jukebox sound of this player. Starting
- * stops the background music and every other disc sound (jukeboxes, Orchestrion discs); an upload not in the cache is
+ * stops the background music and every other disc sound (jukeboxes); an upload not in the cache is
  * requested once and starts where the song is by then.
  */
 public final class PocketPlayer {

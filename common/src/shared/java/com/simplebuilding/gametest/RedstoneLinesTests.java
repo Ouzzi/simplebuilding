@@ -510,6 +510,104 @@ public final class RedstoneLinesTests {
         });
     }
 
+    /**
+     * B23-M1: an Astral/Nihil Redstone Torch feeds dust of its own line and Bridge Redstone like a redstone torch (15, then
+     * 14), never redstone dust or the other line's dust.
+     */
+    public static void lineTorchesFeedOnlyTheirLine(GameTestHelper helper) {
+        if (!active(helper)) return;
+        floor(helper);
+        Block[] torches = {ModBlocks.ASTRAL_REDSTONE_TORCH, ModBlocks.NIHIL_REDSTONE_TORCH};
+        Block[] dusts = {Blocks.REDSTONE_WIRE, ModBlocks.ASTRAL_REDSTONE, ModBlocks.NIHIL_REDSTONE, ModBlocks.BRIDGE_REDSTONE};
+        List<BlockPos> slots = slots();
+        List<Block[]> lanes = new ArrayList<>();
+        for (Block torch : torches) for (Block dust : dusts) lanes.add(new Block[]{torch, dust});
+        for (int i = 0; i < lanes.size(); i++) {
+            helper.setBlock(slots.get(i), lanes.get(i)[0]);
+            for (int x = 1; x <= 2; x++) helper.setBlock(slots.get(i).east(x), lanes.get(i)[1]);
+        }
+        reshape(helper);
+        helper.runAfterDelay(6, () -> {
+            for (int i = 0; i < lanes.size(); i++) {
+                Block torch = lanes.get(i)[0], dust = lanes.get(i)[1];
+                boolean feeds = ((com.simplebuilding.blocks.custom.LineSource) torch).line().links(SignalDustBlock.lineOf(dust.defaultBlockState()));
+                int first = power(helper, slots.get(i).east()), second = power(helper, slots.get(i).east(2));
+                String lane = name(torch) + " -> " + name(dust);
+                helper.assertTrue(feeds ? first == 15 && second == 14 : first == 0 && second == 0,
+                        lane + (feeds ? " not fed" : " fed") + ": " + first + "/" + second);
+            }
+            helper.succeed();
+        });
+    }
+
+    /**
+     * B23-M1: the line torch strongly powers the block above it like a redstone torch - its own line's dust beside that
+     * block takes it, the other line's dust and redstone dust do not, a lamp does - and it is an inverter: a wall torch on a
+     * block that Nihil dust powers goes out (any line switches it), and with it the Astral dust it fed.
+     */
+    public static void lineTorchPowersTheBlockAboveAndInverts(GameTestHelper helper) {
+        if (!active(helper)) return;
+        floor(helper);
+        // lower room: astral torch, stone above it, astral / nihil / redstone dust around that stone, a lamp touching it
+        BlockPos torch = new BlockPos(2, 1, 2);
+        helper.setBlock(torch, ModBlocks.ASTRAL_REDSTONE_TORCH);
+        helper.setBlock(torch.above(), Blocks.STONE);
+        BlockPos astral = new BlockPos(3, 2, 2), nihil = new BlockPos(1, 2, 2), wire = new BlockPos(2, 2, 3), lamp = new BlockPos(2, 2, 1);
+        for (BlockPos dust : List.of(astral, nihil, wire)) helper.setBlock(dust.below(), Blocks.STONE);
+        helper.setBlock(astral, ModBlocks.ASTRAL_REDSTONE);
+        helper.setBlock(nihil, ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(wire, Blocks.REDSTONE_WIRE);
+        helper.setBlock(lamp, Blocks.REDSTONE_LAMP);
+        // upper room: stone with an astral wall torch on its east face, astral dust beside the torch, a redstone wire too
+        BlockPos wall = new BlockPos(5, 4, 5);
+        helper.setBlock(wall, Blocks.STONE);
+        BlockPos wallTorch = wall.east();
+        helper.setBlock(wallTorch, ModBlocks.ASTRAL_REDSTONE_WALL_TORCH.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.RedstoneWallTorchBlock.FACING, Direction.EAST));
+        BlockPos fed = wallTorch.south(), notFed = wallTorch.north();
+        helper.setBlock(fed, ModBlocks.ASTRAL_REDSTONE);
+        helper.setBlock(notFed, Blocks.REDSTONE_WIRE);
+        reshape(helper);
+        helper.runAfterDelay(6, () -> {
+            helper.assertTrue(power(helper, astral) == 15, "astral dust beside the powered block: " + power(helper, astral));
+            helper.assertTrue(power(helper, nihil) == 0, "nihil dust read the astral torch's block: " + power(helper, nihil));
+            helper.assertTrue(power(helper, wire) == 0, "redstone dust read the astral torch's block: " + power(helper, wire));
+            helper.assertTrue(helper.getBlockState(lamp).getValue(RedstoneLampBlock.LIT), "the lamp on the powered block is dark");
+            helper.assertTrue(helper.getBlockState(wallTorch).getValue(net.minecraft.world.level.block.RedstoneTorchBlock.LIT), "wall torch lit");
+            helper.assertTrue(power(helper, fed) == 15 && power(helper, notFed) == 0,
+                    "wall torch feeds its line only: " + power(helper, fed) + "/" + power(helper, notFed));
+            // nihil dust running into the stone switches the astral wall torch off
+            helper.setBlock(new BlockPos(2, 4, 5), ModBlocks.NIHIL_REDSTONE_BLOCK);
+            for (int x = 3; x <= 4; x++) helper.setBlock(new BlockPos(x, 4, 5), ModBlocks.NIHIL_REDSTONE);
+            reshape(helper);
+        });
+        helper.runAfterDelay(14, () -> {
+            helper.assertTrue(!helper.getBlockState(wallTorch).getValue(net.minecraft.world.level.block.RedstoneTorchBlock.LIT),
+                    "nihil-powered block did not switch the astral torch off");
+            helper.assertTrue(power(helper, fed) == 0, "astral dust still fed by the torch that went out: " + power(helper, fed));
+            helper.succeed();
+        });
+    }
+
+    /** B23-M1: Astral/Nihil Redstone over a stick crafts the torch; the wall torch drops the torch item. */
+    public static void lineTorchRecipeAndDrop(GameTestHelper helper) {
+        if (!active(helper)) return;
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        Block[][] pairs = {{ModBlocks.ASTRAL_REDSTONE, ModBlocks.ASTRAL_REDSTONE_TORCH, ModBlocks.ASTRAL_REDSTONE_WALL_TORCH},
+                {ModBlocks.NIHIL_REDSTONE, ModBlocks.NIHIL_REDSTONE_TORCH, ModBlocks.NIHIL_REDSTONE_WALL_TORCH}};
+        for (Block[] pair : pairs) {
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(1, 2,
+                    List.of(new net.minecraft.world.item.ItemStack(pair[0].asItem()), new net.minecraft.world.item.ItemStack(Items.STICK)));
+            var out = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, helper.getLevel())
+                    .map(r -> r.value().assemble(input)).orElse(net.minecraft.world.item.ItemStack.EMPTY);
+            helper.assertTrue(out.is(pair[1].asItem()) && out.getCount() == 1, name(pair[0]) + " over a stick gave " + out);
+            helper.assertTrue(pair[2].asItem() == pair[1].asItem() || pair[2].asItem() == Items.AIR, "wall torch has no own item");
+            helper.assertTrue(pair[2].getLootTable().equals(pair[1].getLootTable()), "wall torch drops the torch");
+            helper.assertTrue(pair[2].getDescriptionId().equals(pair[1].getDescriptionId()), "wall torch is named like the torch");
+        }
+        helper.succeed();
+    }
+
     /** N51: nine dust craft the block and the block gives the nine back, for every line. */
     public static void lineBlockRecipesRoundTrip(GameTestHelper helper) {
         if (!active(helper)) return;

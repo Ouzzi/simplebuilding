@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Music"
 logoFile="assets/simplemusic/icon_128.png"
 logoBlur=false
-description="Sheet music as a text note code (editor with test listening, .txt/.nbs import), the Orchestrion (redstone loop, chest above = next sheet, comparator progress) and uploaded mono Ogg discs with quota and OP approval, also in the Vanilla jukebox."
+description="Sheet music as a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs with quota and OP approval, played in the Vanilla jukebox and the Pocket Jukebox."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simplemusic]]

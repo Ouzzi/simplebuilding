@@ -2022,7 +2022,7 @@
   "text.autoconfig.simplebuilding.option.enableSimpleStorage": "Enable Simple Storage",
   "text.autoconfig.simplebuilding.option.enableSimpleStorage.@Tooltip": "Turns the bundled Simple Storage module on or off: the crates of every wood and the Storage Crafting Table. Off hides the module's creative tab, its Vanilla tab entries and its guide; the blocks, their contents and recipes stay and keep working. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleMusic": "Enable Simple Music",
-  "text.autoconfig.simplebuilding.option.enableSimpleMusic.@Tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Orchestrion, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleMusic.@Tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

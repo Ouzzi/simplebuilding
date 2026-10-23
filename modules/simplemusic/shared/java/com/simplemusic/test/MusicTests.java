@@ -14,7 +14,6 @@ import com.simplemusic.net.TrackRequestPayload;
 import com.simplemusic.net.UploadBeginPayload;
 import com.simplemusic.net.UploadChunkPayload;
 import com.simplemusic.net.UploadResultPayload;
-import com.simplemusic.orchestrion.OrchestrionBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxItem;
 import com.simplemusic.pocket.PocketPlayback;
 import com.simplemusic.pocket.PocketJukeboxBlockEntity;
@@ -75,9 +74,12 @@ public final class MusicTests {
         return stack;
     }
 
-    static OrchestrionBlockEntity orchestrion(GameTestHelper h, BlockPos pos) {
-        h.setBlock(pos, MusicRegistry.ORCHESTRION.defaultBlockState());
-        return h.getBlockEntity(pos, OrchestrionBlockEntity.class);
+    /** A Vanilla jukebox at {@code pos} holding {@code disc} (custom discs play there, JukeboxDiscs). */
+    static JukeboxBlockEntity jukebox(GameTestHelper h, BlockPos pos, ItemStack disc) {
+        h.setBlock(pos, Blocks.JUKEBOX.defaultBlockState());
+        JukeboxBlockEntity jukebox = h.getBlockEntity(pos, JukeboxBlockEntity.class);
+        jukebox.setTheItem(disc);
+        return jukebox;
     }
 
     /** What the server sent to each player (tests run in parallel, so one recorder for all, read per player). */
@@ -150,10 +152,10 @@ public final class MusicTests {
             h.succeed();
         });
         ALL.put("registered", h -> {
-            for (String id : List.of("sheet_music", "orchestrion", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
+            for (String id : List.of("sheet_music", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMusic.id(id)), "item " + id);
             }
-            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("orchestrion")) && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press"))
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("disc_press"))
                     && BuiltInRegistries.BLOCK.containsKey(SimpleMusic.id("black_pocket_jukebox"))
                     && BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimpleMusic.id("pocket_jukebox")), "blocks");
             h.assertTrue(BuiltInRegistries.MENU.containsKey(SimpleMusic.id("disc_press")), "press menu");
@@ -196,81 +198,28 @@ public final class MusicTests {
             h.assertTrue(player.getInventory().countItem(MusicRegistry.SHEET_MUSIC) == 3, "the rest stays blank");
             h.succeed();
         });
-        ALL.put("orchestrion_plays_steps", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            h.assertTrue(!OrchestrionBlockEntity.playable(sheet("harp: zz")) && !OrchestrionBlockEntity.playable(sheet("")), "bad sheets refused");
-            h.assertTrue(be.insert(sheet(TUNE)), "insert");
-            h.assertTrue(h.getBlockState(ORCH).getValue(com.simplemusic.orchestrion.OrchestrionBlock.HAS_RECORD), "has record");
-            h.assertTrue(!be.insert(sheet(TUNE)), "only one");
-            // one tone every 2 ticks (the BE may tick before or after the scheduled check within a tick)
-            h.runAfterDelay(2, () -> h.assertTrue(be.tonesPlayed() >= 1 && be.tonesPlayed() <= 2, "step 1 or 2 by tick 2: " + be.tonesPlayed()));
-            h.runAfterDelay(5, () -> h.assertTrue(be.tonesPlayed() >= 2 && be.tonesPlayed() <= 3, "step 2 or 3 by tick 5: " + be.tonesPlayed()));
-            h.runAfterDelay(4, () -> {
-                int c = be.comparatorOutput();
-                h.assertTrue(c >= 1 && c <= 15, "comparator in range: " + c);
-            });
-            h.runAfterDelay(14, () -> {
-                h.assertTrue(be.runs() >= 2, "loops: " + be.runs());
-                h.assertTrue(!be.item().isEmpty(), "loops without ejecting");
-                h.assertTrue(be.tonesPlayed() >= 6, "kept playing: " + be.tonesPlayed());
-                h.succeed();
-            });
-        });
-        MAX_TICKS.put("orchestrion_plays_steps", 60);
-        ALL.put("orchestrion_redstone", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            be.insert(sheet("tempo 4\nharp: c4 d4 e4 f#4 g4 a4"));
-            BlockPos power = ORCH.east();
-            h.runAfterDelay(2, () -> h.setBlock(power, Blocks.REDSTONE_BLOCK.defaultBlockState()));
-            h.runAfterDelay(4, () -> h.assertTrue(be.step() == 0 && be.playing(), "rising edge starts from the top: " + be.step()));
-            h.runAfterDelay(9, () -> h.setBlock(power, Blocks.AIR.defaultBlockState()));
-            h.runAfterDelay(16, () -> {
-                int stopped = be.tonesPlayed();
-                h.assertTrue(!be.playing(), "signal off stops at the end of the step");
-                h.runAfterDelay(10, () -> {
-                    h.assertTrue(be.tonesPlayed() == stopped, "stays silent while off");
-                    h.setBlock(power, Blocks.REDSTONE_BLOCK.defaultBlockState());
-                });
-            });
-            h.runAfterDelay(29, () -> {
-                h.assertTrue(be.playing() && be.step() <= 1, "starts again from the top: " + be.step());
-                h.succeed();
-            });
-        });
-        MAX_TICKS.put("orchestrion_redstone", 80);
-        ALL.put("orchestrion_playlist", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            h.setBlock(ORCH.above(), Blocks.BARREL.defaultBlockState().setValue(net.minecraft.world.level.block.BarrelBlock.FACING, Direction.UP));
-            Container barrel = (Container) h.getBlockEntity(ORCH.above(), net.minecraft.world.level.block.entity.BarrelBlockEntity.class);
-            barrel.setItem(4, new ItemStack(Items.DIRT));
-            barrel.setItem(5, sheet("tempo 4\nbass: c3 c3"));
-            be.insert(sheet(TUNE));
-            // TUNE runs 6 ticks, the bass sheet 8: bass from about tick 6 to 14, then TUNE again
-            h.runAfterDelay(10, () -> {
-                h.assertTrue(com.simplemusic.sheet.SheetMusicItem.content(be.item()).code().contains("bass"), "next sheet from the container");
-                h.assertTrue(com.simplemusic.sheet.SheetMusicItem.content(barrel.getItem(5)).code().equals(TUNE), "finished sheet took its slot");
-                h.assertTrue(barrel.getItem(4).is(Items.DIRT), "other items stay");
-            });
-            h.runAfterDelay(18, () -> {
-                h.assertTrue(com.simplemusic.sheet.SheetMusicItem.content(be.item()).code().equals(TUNE), "and back");
-                h.succeed();
-            });
-        });
-        MAX_TICKS.put("orchestrion_playlist", 60);
-        ALL.put("orchestrion_pop_out", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            be.insert(sheet(TUNE));
-            be.popOut();
-            h.assertTrue(be.item().isEmpty() && !h.getBlockState(ORCH).getValue(com.simplemusic.orchestrion.OrchestrionBlock.HAS_RECORD), "empty");
-            h.succeedWhenEntityPresent(net.minecraft.world.entity.EntityTypes.ITEM, ORCH.above());
+        ALL.put("orchestrion_becomes_a_jukebox", h -> {
+            // B23-M9 (owner 23.10.): the Orchestrion is gone; old ids resolve to the Vanilla jukebox, and what it held stays in
+            h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleMusic.id("orchestrion")) == Blocks.JUKEBOX
+                    && BuiltInRegistries.ITEM.getValue(SimpleMusic.id("orchestrion")) == Items.JUKEBOX
+                    && BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleMusic.id("orchestrion")) == net.minecraft.world.level.block.entity.BlockEntityTypes.JUKEBOX,
+                    "orchestrion ids move to the jukebox");
+            ItemStack disc = DiscPress.result(sheet(TUNE), new ItemStack(MusicRegistry.BLANK_DISC));
+            net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+            tag.putString("id", "simplemusic:orchestrion");
+            tag.store("Item", ItemStack.CODEC, h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), disc);
+            var loaded = net.minecraft.world.level.block.entity.BlockEntity.loadStatic(h.absolutePos(ORCH),
+                    Blocks.JUKEBOX.defaultBlockState().setValue(net.minecraft.world.level.block.JukeboxBlock.HAS_RECORD, true), tag, h.getLevel().registryAccess());
+            h.assertTrue(loaded instanceof JukeboxBlockEntity j && ItemStack.isSameItemSameComponents(j.getTheItem(), disc),
+                    "an old Orchestrion's disc stays in the jukebox: " + loaded);
+            h.succeed();
         });
         ALL.put("tone_limit", h -> {
-            OrchestrionBlockEntity be = orchestrion(h, ORCH);
-            be.insert(sheet("tempo 20\nharp: [c4 e4 g4 c5]"));
-            // ticked by hand within this callback: other tests reset the shared config between ticks
+            NoteCode.Song song = NoteCode.parse("tempo 20\nharp: [c4 e4 g4 c5]", com.simplemusic.sheet.SheetSounds.policy()).song();
+            // within this callback: other tests reset the shared config between ticks
             MusicConfig.maxTonesPerTick = 2;
-            be.tick(h.getLevel());
-            int played = be.tonesPlayed();
+            int played = com.simplemusic.disc.SheetPlayback.playTones(h.getLevel(), h.absolutePos(ORCH), song.tonesAt(0),
+                    com.simplemusic.sheet.SheetSounds.sounds(song));
             MusicConfig.reset();
             h.assertTrue(played == 2, "at most maxTonesPerTick: " + played);
             h.succeed();
@@ -301,12 +250,11 @@ public final class MusicTests {
                 h.assertTrue(track != null && track.status() == TrackStore.Status.PENDING, "pending in the index");
                 h.assertTrue(ref.sha256().equals(UploadSession.sha256(OggCheck.strip(mono))), "hash of the stripped file, computed by the server");
                 // only the uploader hears a pending disc
-                OrchestrionBlockEntity be = orchestrion(h, ORCH);
-                h.assertTrue(be.insert(disc.copy()), "disc into the Orchestrion");
+                JukeboxBlockEntity be = jukebox(h, ORCH, disc.copy());
                 BlockPos abs = h.absolutePos(ORCH);
                 alice.teleportTo(abs.getX(), abs.getY() + 2, abs.getZ());
                 bob.teleportTo(abs.getX() + 2, abs.getY() + 2, abs.getZ());
-                h.runAfterDelay(2, () -> {
+                h.runAfterDelay(3, () -> {
                     var listeners = DiscPlayback.listeners(h.getLevel(), abs);
                     h.assertTrue(listeners.contains(alice.getUUID()) && !listeners.contains(bob.getUUID()), "pending: uploader only " + listeners);
                     h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.isStop() && t.sha256().equals(ref.sha256())), "play sent");
@@ -339,7 +287,7 @@ public final class MusicTests {
                     MusicServer.handleUploadBegin(new UploadBeginPayload(0, "More", 1000), alice);
                     h.assertTrue(last(sent).equals("uploads_off"), "off: " + last(sent));
                     restore();
-                    be.popOut();
+                    be.popOutTheItem();
                     h.succeed();
                 });
             } catch (RuntimeException e) {
@@ -705,7 +653,7 @@ public final class MusicTests {
                         "composition pressed: " + out);
                 h.assertTrue(SheetMusicItem.content(press.getItem(DiscPressBlockEntity.SHEET)).code().equals(TUNE), "the sheet stays");
                 h.assertTrue(press.getItem(DiscPressBlockEntity.BLANK).getCount() == 1 && press.pressed() == 1, "one blank used");
-                h.assertTrue(OrchestrionBlockEntity.playable(out) && JukeboxDiscs.isDisc(out), "plays in the Orchestrion and the jukebox");
+                h.assertTrue(JukeboxDiscs.isDisc(out), "plays in the jukebox");
                 // the name is "Disc: <title>"; Forge's test server has no lang file, so read the argument, not the text
                 h.assertTrue(out.getHoverName().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t
                         && Arrays.asList(t.getArgs()).contains("Test"), "named after the sheet: " + out.getHoverName());
@@ -733,8 +681,8 @@ public final class MusicTests {
             h.assertTrue(DiscPress.result(new ItemStack(MusicRegistry.SHEET_MUSIC), blank).isEmpty(), "an empty sheet is not pressed");
             h.assertTrue(DiscPress.result(sheet(TUNE), new ItemStack(Items.MUSIC_DISC_CAT)).isEmpty(), "only blank discs");
             h.assertTrue(DiscPress.result(sheet(TUNE), blank).getCount() == 1 && blank.getCount() == 1, "pure: inputs untouched");
-            // an uploaded track sheet also plays straight in the Orchestrion, like a track disc
-            h.assertTrue(OrchestrionBlockEntity.playable(upload) && OrchestrionBlockEntity.trackOf(upload) == ref, "upload sheet in the Orchestrion");
+            // B23-M9: a sheet is no disc - it only plays once pressed
+            h.assertTrue(!JukeboxDiscs.isDisc(upload) && JukeboxDiscs.isDisc(disc), "only the pressed disc plays");
             // hopper faces like the furnace
             BlockPos pos = new BlockPos(2, 1, 2);
             h.setBlock(pos, MusicRegistry.DISC_PRESS.defaultBlockState());

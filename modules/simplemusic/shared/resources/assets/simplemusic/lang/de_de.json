@@ -1,6 +1,5 @@
 {
   "item.simplemusic.sheet_music": "Notenblatt",
-  "block.simplemusic.orchestrion": "Orchestrion",
   "block.simplemusic.disc_press": "Plattenpresse",
   "item.simplemusic.blank_disc": "Rohling",
   "item.simplemusic.custom_disc": "Eigene Platte",
@@ -93,7 +92,7 @@
   "simplemusic.command.no_player": "Kein Spieler %s online",
   "simplemusic.command.ban": "%s darf nicht mehr hochladen",
   "simplemusic.command.unban": "%s darf wieder hochladen",
-  "tip.simplemusic.sheet_music": "Benutzen: Noten schreiben; das Orchestrion spielt es",
+  "tip.simplemusic.sheet_music": "Benutzen: Noten schreiben; die Plattenpresse macht eine Platte daraus",
   "item.simplemusic.pocket_jukebox": "Taschen-Jukebox",
   "block.simplemusic.pocket_jukebox": "Taschen-Jukebox",
   "item.simplemusic.pocket_jukebox.use": "Benutzen: abspielen oder pausieren",
