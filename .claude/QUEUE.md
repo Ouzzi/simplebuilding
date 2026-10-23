@@ -79,6 +79,7 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 ---
 
 ## Funde 23.10.
+- [ ] (Besitzer 23.10., später) Rissiges Eis: Textur als eigenes Thema überarbeiten (bei B23-T4 bewusst ausgenommen).
 - [ ] (Fund a-mech23a) Achtel/Hammer: Mit dem Stein-Vorschlaghammer baut sich eine 7-Achtel-Diamant-Zelle 1,5× langsamer ab als der Diamantblock – Abbautempo der Zelle an den Vollblock angleichen (OctetCellBlock / MaterialOctetBlock, Test mit Hammer).
 
 ## Besitzer 23.10. abends – Wahlen B23/TX23/FR23/QT23 (W23)
