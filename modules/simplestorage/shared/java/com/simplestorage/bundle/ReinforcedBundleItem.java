@@ -225,8 +225,8 @@ public class ReinforcedBundleItem extends BundleItem {
         Player player = context.getPlayer();
         ItemStack bundleStack = context.getItemInHand();
 
-        // Schleichen + Rechtsklick auf eine Oberseite stellt das Buendel ab (vor dem Meisterbauer:
-        // der wuerde sonst ein Item aus dem Buendel setzen). Koecher liefern hier immer null.
+        // Schleichen + Rechtsklick auf eine Ober- oder Seitenflaeche stellt das Buendel ab (vor dem Meisterbauer:
+        // der wuerde sonst ein Item aus dem Buendel setzen). Koecher haben ihr eigenes useOn.
         InteractionResult placed = PlacedBundles.tryPlace(context);
         if (placed != null) {
             return placed;

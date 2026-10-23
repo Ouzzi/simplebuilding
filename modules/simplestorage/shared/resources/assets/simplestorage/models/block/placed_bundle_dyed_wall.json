@@ -1,0 +1,8 @@
+{
+  "parent": "simplestorage:block/template_placed_bundle_dyed_wall",
+  "textures": {
+    "bundle": "simplestorage:block/placed_bundle_dyed",
+    "overlay": "simplestorage:block/placed_bundle_dyed_overlay",
+    "particle": "simplestorage:block/placed_bundle"
+  }
+}

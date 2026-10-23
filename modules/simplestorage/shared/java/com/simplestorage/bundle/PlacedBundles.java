@@ -28,11 +28,12 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Abgestellte Buendel (Besitzer 2026-09-28; Split-Stufe 8c-1 aus SimpleBuilding): Schleichen + Rechtsklick mit einem Buendel auf die
- * <em>Oberseite</em> eines Blocks stellt es als 3D-Buendel ab ({@link PlacedBundleBlock}); an Waenden,
- * Decken und ohne Schleichen bleibt alles beim Alten. Abstellbar sind die drei Buendel der Mod
+ * Oberseite eines Blocks stellt es als 3D-Buendel ab ({@link PlacedBundleBlock}) - es faellt dann wie Sand -, auf eine
+ * Seitenflaeche gehaengt haengt es wie ein Item-Rahmen an der Wand; an der Decke und ohne Schleichen bleibt alles beim Alten
+ * (B23-M12, {@link PlacedStorage}). Abstellbar sind die drei Buendel der Mod
  * (verstaerkt, Netherit, Enderit, auch gefaerbt) und Vanillas Buendel in allen 17 Farben - die
- * farbigen Vanilla-Buendel nehmen das Vanilla-Modell mit getoenter Leder-Ebene. Koecher nicht: die
- * sind Buendel nur dem Code nach.
+ * farbigen Vanilla-Buendel nehmen das Vanilla-Modell mit getoenter Leder-Ebene - und seit B23-M11 die vier Koecher
+ * (eigenes Koecher-Modell, nur Pfeile hinein).
  *
  * <p>Wer schleichend auf ein abgestelltes Buendel schaut, sieht dessen "oberstes" Item darueber
  * schweben, immer zur eigenen Kamera gedreht (Besitzer 2026-09-29). Welches Item oben liegt, waehlt
@@ -68,7 +69,7 @@ public final class PlacedBundles {
     // Was sich abstellen laesst
     // =====================================================================================
 
-    /** Die Modell-Stufe eines abstellbaren Buendels, oder null fuer alles andere (auch Koecher). */
+    /** Die Modell-Stufe eines abstellbaren Buendels oder Koechers, oder null fuer alles andere. */
     public static PlacedBundleBlock.@Nullable Tier tierOf(ItemStack stack) {
         if (stack.isEmpty()) {
             return null;
@@ -82,6 +83,19 @@ public final class PlacedBundles {
         }
         if (item == com.simplestorage.registry.StorageItems.ENDERITE_BUNDLE) {
             return PlacedBundleBlock.Tier.ENDERITE;
+        }
+        // B23-M11: die vier Koecher stehen als eigenes Koecher-Modell.
+        if (item == com.simplestorage.registry.StorageItems.QUIVER) {
+            return PlacedBundleBlock.Tier.QUIVER;
+        }
+        if (item == com.simplestorage.registry.StorageItems.REINFORCED_QUIVER) {
+            return PlacedBundleBlock.Tier.REINFORCED_QUIVER;
+        }
+        if (item == com.simplestorage.registry.StorageItems.NETHERITE_QUIVER) {
+            return PlacedBundleBlock.Tier.NETHERITE_QUIVER;
+        }
+        if (item == com.simplestorage.registry.StorageItems.ENDERITE_QUIVER) {
+            return PlacedBundleBlock.Tier.ENDERITE_QUIVER;
         }
         if (item instanceof BundleItem && "minecraft".equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
             return PlacedBundleBlock.Tier.BUNDLE;
@@ -147,7 +161,8 @@ public final class PlacedBundles {
     public static @Nullable InteractionResult tryPlace(UseOnContext context) {
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
-        if (player == null || !player.isSecondaryUseActive() || context.getClickedFace() != Direction.UP
+        // B23-M12: Oberseite = Boden (Schwerkraft), Seitenflaeche = an die Wand gehaengt, Decke nie.
+        if (player == null || !player.isSecondaryUseActive() || context.getClickedFace() == Direction.DOWN
                 || tierOf(stack) == null || !player.mayBuild()) {
             return null;
         }
@@ -266,6 +281,13 @@ public final class PlacedBundles {
         if (player == null || held.isEmpty() || context.getHand() != InteractionHand.MAIN_HAND
                 || !player.isSecondaryUseActive() || !(level.getBlockEntity(pos) instanceof PlacedBundleBlockEntity be)) {
             return null;
+        }
+        // B23-M11: in einen abgestellten Koecher nur Pfeile (wie beim Einlegen im Inventar).
+        if (be.getBundle().getItem() instanceof QuiverItem && !held.is(net.minecraft.tags.ItemTags.ARROWS)) {
+            if (!level.isClientSide()) {
+                level.playSound(null, pos, SoundEvents.BUNDLE_INSERT_FAIL, SoundSource.BLOCKS, 0.8F, 1.0F);
+            }
+            return InteractionResult.SUCCESS;
         }
         if (!level.isClientSide()) {
             deposit(level, pos, be, player, held);

@@ -45,9 +45,11 @@ public class QuiverItem extends ReinforcedBundleItem {
         return InteractionResult.PASS;
     }
 
+    /** Schleichen + Rechtsklick auf einen Block stellt den Koecher ab (B23-M11, {@link PlacedBundles#tryPlace}); sonst nichts. */
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        return InteractionResult.PASS;
+        InteractionResult placed = PlacedBundles.tryPlace(context);
+        return placed != null ? placed : InteractionResult.PASS;
     }
 
     // Der Pfeilfilter haengt am KONFIGURIERTEN Einlegeklick, nicht an einer festen Konstante:

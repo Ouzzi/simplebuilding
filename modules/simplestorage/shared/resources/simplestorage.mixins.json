@@ -19,7 +19,8 @@
     "StructureTemplateBetterChestMixin",
     "EndCityPieceMixin",
     "RareShulkerMobMixin",
-    "ShulkerEscortMixin"
+    "ShulkerEscortMixin",
+    "FallingStorageDropMixin"
   ],
   "client": [
     "client.BackpackKeyScreenMixin",

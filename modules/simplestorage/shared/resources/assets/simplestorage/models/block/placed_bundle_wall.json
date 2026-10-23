@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_placed_bundle_wall",
+  "textures": {
+    "bundle": "simplestorage:block/placed_bundle",
+    "particle": "simplestorage:block/placed_bundle"
+  }
+}

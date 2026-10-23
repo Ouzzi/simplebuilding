@@ -1,33 +1,63 @@
 {
   "variants": {
-    "dyed=false,facing=east": {
+    "dyed=false,facing=east,wall=false": {
       "model": "simplestorage:block/enderite_backpack",
       "y": 90
     },
-    "dyed=false,facing=north": {
+    "dyed=false,facing=east,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_wall",
+      "y": 90
+    },
+    "dyed=false,facing=north,wall=false": {
       "model": "simplestorage:block/enderite_backpack"
     },
-    "dyed=false,facing=south": {
+    "dyed=false,facing=north,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_wall"
+    },
+    "dyed=false,facing=south,wall=false": {
       "model": "simplestorage:block/enderite_backpack",
       "y": 180
     },
-    "dyed=false,facing=west": {
+    "dyed=false,facing=south,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_wall",
+      "y": 180
+    },
+    "dyed=false,facing=west,wall=false": {
       "model": "simplestorage:block/enderite_backpack",
       "y": 270
     },
-    "dyed=true,facing=east": {
+    "dyed=false,facing=west,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_wall",
+      "y": 270
+    },
+    "dyed=true,facing=east,wall=false": {
       "model": "simplestorage:block/enderite_backpack_dyed",
       "y": 90
     },
-    "dyed=true,facing=north": {
+    "dyed=true,facing=east,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_dyed_wall",
+      "y": 90
+    },
+    "dyed=true,facing=north,wall=false": {
       "model": "simplestorage:block/enderite_backpack_dyed"
     },
-    "dyed=true,facing=south": {
+    "dyed=true,facing=north,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_dyed_wall"
+    },
+    "dyed=true,facing=south,wall=false": {
       "model": "simplestorage:block/enderite_backpack_dyed",
       "y": 180
     },
-    "dyed=true,facing=west": {
+    "dyed=true,facing=south,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_dyed_wall",
+      "y": 180
+    },
+    "dyed=true,facing=west,wall=false": {
       "model": "simplestorage:block/enderite_backpack_dyed",
+      "y": 270
+    },
+    "dyed=true,facing=west,wall=true": {
+      "model": "simplestorage:block/enderite_backpack_dyed_wall",
       "y": 270
     }
   }
