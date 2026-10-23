@@ -332,7 +332,7 @@ public final class ColorBrushTests {
         player.setShiftKeyDown(true);
         BlockPos floor = new BlockPos(2, 1, 2);
         helper.setBlock(floor, Blocks.STONE);
-        ItemStack box = box(ModItems.NETHERITE_PAINT_BOX, new ItemStack(Items.RED_DYE, 20), new ItemStack(Items.BLUE_DYE, 5));
+        ItemStack box = box(ModItems.NETHERITE_PAINT_BOX, new ItemStack(item("red_dye"), 20), new ItemStack(item("blue_dye"), 5));
         box.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Atelier"));
         ItemStack original = box.copy();
         // a side face does nothing
@@ -351,7 +351,7 @@ public final class ColorBrushTests {
         helper.assertTrue(ItemStack.isSameItemSameComponents(be.getBox(), original), "the placed box holds " + be.getBox());
         // a dye goes in
         player.setShiftKeyDown(false);
-        ItemStack green = new ItemStack(Items.GREEN_DYE, 7);
+        ItemStack green = new ItemStack(item("green_dye"), 7);
         player.setItemInHand(InteractionHand.MAIN_HAND, green);
         var hit = new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(at)), Direction.UP, helper.absolutePos(at), false);
         var abs = helper.absolutePos(at);
@@ -379,7 +379,7 @@ public final class ColorBrushTests {
         for (int i = 0; i < 2; i++) {
             BlockPos floor = new BlockPos(1 + 2 * i, 1, 2);
             helper.setBlock(floor, Blocks.STONE);
-            ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(Items.YELLOW_DYE, 9 + i));
+            ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(item("yellow_dye"), 9 + i));
             player.setItemInHand(InteractionHand.MAIN_HAND, box);
             useOn(player, box, helper.absolutePos(floor));
             helper.assertTrue(helper.getBlockState(floor.above()).is(com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX), "not placed " + i);
