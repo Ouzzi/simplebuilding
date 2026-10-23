@@ -5244,7 +5244,9 @@ function renderMeta() {
   document.getElementById('all-mods-label').textContent = LANG === 'de' ? 'Alle Mods' : 'All mods';
   modSelect.setAttribute('aria-label', LANG === 'de' ? 'Mod auswählen' : 'Select mod');
   buildModSelect();
-  var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : null;
+  /* Modul-Symbol aus modules.js (sonst blieb die Kachel bei Sub-Mods leer) */
+  var modEntry = MODULES.find(function (e) { return e.id === MODID; });
+  var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : (modEntry && modEntry.icon) || null;
   document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
   document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
@@ -5379,6 +5381,10 @@ $main.addEventListener('error', function (ev) {
   var span = document.createElement('span'); span.className = 'slot-text'; span.textContent = name;
   if (parent && parent.classList) parent.classList.add('slot-plain');
   img.replaceWith(span);
+}, true);
+/* Seitenleiste: fehlende Kategorie-Symbole (Vanilla-abgeleitet, A8: nicht im Repo) ausblenden statt Bruch-Symbol. */
+$side.addEventListener('error', function (ev) {
+  if (ev.target && ev.target.tagName === 'IMG') ev.target.style.visibility = 'hidden';
 }, true);
 
 /* Listenfilter: getrennt je Mod und Liste, auch ohne verfuegbaren Storage. */
