@@ -65,4 +65,19 @@ Erzdetektor und Aderabbau bleiben bei den echten Erzen (der Detektor „sieht“
 `wiki/data/textures.js`, module_guides/wiki/discover, `./gradlew check -q`.
 
 ## Plan-Abgleich
-(wird nach der Umsetzung gefüllt)
+| Punkt | Stand |
+|---|---|
+| T5 A | eingebaut: `end_redstone_blocks_2026_10_13.py` zeichnet `sbtex23.rs_vanilla`, 3 Overlay-PNG + Ebenen, `--check` neu |
+| T6 C | C1/C2 als Vorschau, **C2 eingebaut** über `vanilla_derived` (`sbtex23.derived`); alte Repo-PNG/Ebenen + Wiki-Kopien entfernt, `.gitignore`, `WIKI_RENDERS` |
+| T7 C | Variante `W` in `end_pistons_2026_10_03.py`, `CHOSEN = "W"`; eigene Pixel wieder im Overlay (4 PNG + Ebenen), aus `OUTPUTS`/`.gitignore`/`WIKI_RENDERS` |
+| T8 B | `construction_light_strip()` = `sbtex23.light_strip('B')`, Ebenen über den ganzen Streifen (Rahmen/Leuchten/Details); 7b-Streifen bleibt als `_7b` |
+| T9 B | `n46_round3.game_chests()` + `astral_gem()` (6×6 bei 46/36), vanilla_derived wie bisher |
+| W23-2 Blöcke/Items | `dull_astralit_ore`, `dull_nihilith_ore`, `dull_astralit_dust`, `dull_nihilith_shard` (McVersion.DULL_ORES), Kreativ-Reihe, Suchreiter, Tags, Overlay-JSON, Lang EN/DE, JEI-Info, Manual, MODS-UND-FEATURES |
+| W23-2 Weltgen | `ModWorldGen.endOre` (26.3), Größen 5/6, Chancen wie oben; 26.2-Zwilling unverändert (nur Test-Stubs in OreGenChecks) |
+| W23-2 Drop | A eingebaut (Loot-Tabellen + Rezepte 4→1 im Overlay), B/C als Skizze in der Vorschau |
+| W23-2 Texturen | F1 eingebaut (vanilla_derived), F2 Vorschau; Item-Icons trüb im Overlay mit Ebenen |
+| Gametests | `endOreFeaturesCarryTheRightOreBlockAndVeinSize` (neu: zwei Ziele), `dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount`, `dullEndOresDropDullMaterialAndNeedADiamondPickaxe` + Fabric-Adapter + Katalog |
+
+Abweichungen: Das Messen nutzt eine Unterklasse `VeinPlacer` (doPlace der echten Konfiguration ohne den Heightmap-Abbruch
+von `place()`, der in einer fertigen Welt nicht verlässlich ist). Simple Money kennt die neuen Items noch nicht (Preise offen).
+Nebenbei repariert: Vorschaupfade von `end_pistons` (Windows-Pfad) und fehlende Schalter-Texturen in dessen Vorschau.
