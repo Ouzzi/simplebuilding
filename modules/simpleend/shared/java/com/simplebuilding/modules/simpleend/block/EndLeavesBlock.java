@@ -112,7 +112,7 @@ public class EndLeavesBlock extends TintedParticleLeavesBlock {
             return InteractionResult.SUCCESS;
         }
         if (stack.is(ItemTags.AXES) && state.getValue(WAXED)) {
-            level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(player, pos, SoundEvents.AXE_WAX_OFF.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
             level.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(WAXED, false).setValue(DENSITY, density(level, pos)), Block.UPDATE_ALL_IMMEDIATE);
