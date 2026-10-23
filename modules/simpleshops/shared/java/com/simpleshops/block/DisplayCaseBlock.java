@@ -102,7 +102,7 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                           BlockHitResult hit) {
         // Sneak + red dye tints the glass of your own case (without sneaking a dye is just goods to stock).
-        if (player.isShiftKeyDown() && stack.is(Items.RED_DYE) && state.getValue(TINT) == Tint.NONE) {
+        if (player.isShiftKeyDown() && stack.is(Items.DYE.red()) && state.getValue(TINT) == Tint.NONE) {
             if (level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be && be.isOwner(player.getUUID())) {
                 if (!level.isClientSide()) {
                     level.setBlock(pos, state.setValue(TINT, Tint.RED), 3);
