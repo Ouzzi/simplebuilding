@@ -61,4 +61,19 @@ Compile `:modules:simplemaps:fabric:compileJava` + `:mc26_3:fabric:compileJava`;
 Nicht testbar hier: Client-Sicht (keine Client-Läufe erlaubt) → Vorschau + Besitzer-Abnahme.
 
 ## Plan-Abgleich
-(wird nach der Umsetzung ergänzt)
+1. Item + Komponente `simplemaps:mega` (`MegaMaps`, `MegaWayfinderMapItem`): umgesetzt wie geplant.
+2. Erkunden je Dimension, erste Dimension gewählt, danach gemerkt: umgesetzt (`dataFor`/`inventoryTick`, Gametest `mega_explores`).
+3. Rezept K1 geformt `TTT/ENW/SSS` mit Enderit-Nuggets bzw. 3 Enderaugen; Übernahme der drei Karten (`onCraftedBy` → `inherit`,
+   Gametest `mega_inherit`). Eine leere (nie benutzte) Karte im Raster bringt nichts mit.
+4. Knöpfe Variante A in `WayfinderScreen` (Titel wird mit „…“ gekürzt), Paket `select_dimension`, Zentrieren nach Wechsel
+   (Nether 1:8), Blättern + Platzhalter (`MegaTabs`, JUnit `MegaTabsTest`, Gametest `mega_unlock`).
+5. Amboss `MegaAnvilMixin` + Config `megaUnlockItems`/`megaUnlockDefault`/`megaUnlockLevels` (Gametest `mega_unlock`).
+6. K3: Nether 1 Echo-Splitter; End mit Enderit-Schrott (2 Echo + Enderit-Schrott). **Abweichung:** Ersatz ohne Enderit hat
+   10 Teile (Karte, Kompass, 4 Gold, 2 Netherit-Schrott, Schale, Echo) – passt nicht ins 3×3-Raster → 3 statt 4 Gold.
+   Gametest `mega_recipes` prüft: genau eine Variante geladen, Nether 1 Echo.
+7. Kartentisch: nur Kopie (`mega_cartography`).
+8. Optik: Icon A eingebaut (`gen_textures.py`, B/C nur Vorschau), Knöpfe A eingebaut; Vorschau
+   `/root/sb-tools-a/previews/a-megamap23-preview.html`, Wahl offen.
+
+Nicht umgesetzt / offen: NeoForge/Forge-Registrierung des Pakets `select_dimension` (Regel „nur Fabric“), Client-Sicht
+(keine Client-Läufe erlaubt), Besitzer-Wahl Icon/Knöpfe/Ersatzrezept.

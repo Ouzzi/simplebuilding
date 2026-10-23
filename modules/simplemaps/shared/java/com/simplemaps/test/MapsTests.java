@@ -750,7 +750,7 @@ public final class MapsTests {
             MapsConfig.enabled = false;
             h.assertTrue(!MapsItems.isWayfinder(stack) && MapsItems.tabStacks().isEmpty(), "disabled: not offered, not a wayfinder");
             MapsConfig.enabled = true;
-            h.assertTrue(MapsItems.isWayfinder(stack) && MapsItems.tabStacks().size() == 3, "enabled again");
+            h.assertTrue(MapsItems.isWayfinder(stack) && MapsItems.tabStacks().size() == 4, "enabled again (3 maps + mega map)");
         } catch (java.io.IOException e) {
             throw new IllegalStateException(e);
         } finally {
