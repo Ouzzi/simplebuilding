@@ -161,7 +161,7 @@ public final class OreGenAndItemFrameTests {
      * much as before. Measured, not only read: the registered features are placed {@code OreGenChecks.VEINS} times each into
      * End stone shaped like their placement and compared with the pre-W23-2 feature (see OreGenChecks for the numbers).
      */
-    public static void dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount(GameTestHelper helper) {
+    public static void dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.DULL_ORES) {
             helper.succeed();
             return;

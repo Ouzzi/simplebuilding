@@ -55,7 +55,7 @@ Erzdetektor und Aderabbau bleiben bei den echten Erzen (der Detektor „sieht“
 
 ### Gametests (OreGenAndItemFrameTests + Fabric-Adapter + Katalog)
 1. `endOreFeaturesCarryTheRightOreBlockAndVeinSize`: neue Größen, zwei Ziele (trüb zuerst, p wie oben, nur Endstein).
-2. `dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount`: echte Feature-Konfiguration aus der Registry 600× im Platzierungs-Umfeld
+2. `dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount`: echte Feature-Konfiguration aus der Registry 600× im Platzierungs-Umfeld
    gesetzt (fester Zufall), Vergleich mit der alten Konfiguration (Größe 4/5, nur echt): Anteil trüb 0,20 ± 0,04, echte Menge ± 10 %.
 3. `dullOresDropDullMaterialAndNeedADiamondPickaxe`: Werkzeugstufe (Eisen nein, Diamant ja), Drops ohne/mit Behutsamkeit, Rezept 4→1.
 
@@ -76,7 +76,7 @@ Erzdetektor und Aderabbau bleiben bei den echten Erzen (der Detektor „sieht“
 | W23-2 Weltgen | `ModWorldGen.endOre` (26.3), Größen 5/6, Chancen wie oben; 26.2-Zwilling unverändert (nur Test-Stubs in OreGenChecks) |
 | W23-2 Drop | A eingebaut (Loot-Tabellen + Rezepte 4→1 im Overlay), B/C als Skizze in der Vorschau |
 | W23-2 Texturen | F1 eingebaut (vanilla_derived), F2 Vorschau; Item-Icons trüb im Overlay mit Ebenen |
-| Gametests | `endOreFeaturesCarryTheRightOreBlockAndVeinSize` (neu: zwei Ziele), `dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount`, `dullEndOresDropDullMaterialAndNeedADiamondPickaxe` + Fabric-Adapter + Katalog |
+| Gametests | `endOreFeaturesCarryTheRightOreBlockAndVeinSize` (neu: zwei Ziele), `dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount`, `dullEndOresDropDullMaterialAndNeedTheDiamondPickaxe` + Fabric-Adapter + Katalog |
 
 Abweichungen: Das Messen nutzt eine Unterklasse `VeinPlacer` (doPlace der echten Konfiguration ohne den Heightmap-Abbruch
 von `place()`, der in einer fertigen Welt nicht verlässlich ist). Simple Money kennt die neuen Items noch nicht (Preise offen).

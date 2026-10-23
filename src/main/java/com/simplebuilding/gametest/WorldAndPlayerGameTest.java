@@ -32,8 +32,8 @@ public final class WorldAndPlayerGameTest {
     }
 
     @GameTest
-    public void dullEndOresDropDullMaterialAndNeedADiamondPickaxe(GameTestHelper helper) {
-        WorldAndPlayerTests.dullEndOresDropDullMaterialAndNeedADiamondPickaxe(helper);
+    public void dullEndOresDropDullMaterialAndNeedTheDiamondPickaxe(GameTestHelper helper) {
+        WorldAndPlayerTests.dullEndOresDropDullMaterialAndNeedTheDiamondPickaxe(helper);
     }
 
     @GameTest

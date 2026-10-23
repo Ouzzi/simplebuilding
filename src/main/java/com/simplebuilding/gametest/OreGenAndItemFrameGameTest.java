@@ -23,8 +23,8 @@ public final class OreGenAndItemFrameGameTest {
     }
 
     @GameTest
-    public void dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount(GameTestHelper helper) {
-        OreGenAndItemFrameTests.dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount(helper);
+    public void dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount(GameTestHelper helper) {
+        OreGenAndItemFrameTests.dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount(helper);
     }
 
     @GameTest

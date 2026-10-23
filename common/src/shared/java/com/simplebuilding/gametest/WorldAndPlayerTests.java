@@ -437,7 +437,7 @@ public final class WorldAndPlayerTests {
      * <p>Breaks if the drop swaps to the real material (the fake would be worthless as a fake), if a dull ore loses its tool
      * tags or its silk touch branch, or if the 4:1 refining recipe goes missing or yields something else.
      */
-    public static void dullEndOresDropDullMaterialAndNeedADiamondPickaxe(GameTestHelper helper) {
+    public static void dullEndOresDropDullMaterialAndNeedTheDiamondPickaxe(GameTestHelper helper) {
         if (!McVersion.DULL_ORES) {
             helper.succeed();
             return;
