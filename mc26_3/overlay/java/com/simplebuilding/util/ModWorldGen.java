@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
 import java.util.List;
 
@@ -47,6 +46,25 @@ public class ModWorldGen {
 
     public static final ResourceKey<PlacedFeature> ASTRALIT_ORE_PLACED_KEY = registerPlacedKey("astralit_ore_placed");
     public static final ResourceKey<PlacedFeature> NIHILITH_ORE_PLACED_KEY = registerPlacedKey("nihilith_ore_placed");
+
+    /**
+     * Truebe End-Erze (W23-2, Besitzer 2026-10-23): ein Fuenftel der Erzbloecke einer Ader ist truebes Erz, die echte Menge
+     * bleibt im Mittel gleich. Dieselben Platzierungen, nur groessere Adern mit zwei Zielen: zuerst wird End-Stein mit
+     * {@code *_DULL_CHANCE} truebes Erz, sonst mit {@code *_REAL_CHANCE} echtes, der Rest bleibt End-Stein. Die Zahlen stammen
+     * aus einer Nachbildung von OreFeature 26.3 im jeweiligen Platzierungs-Umfeld (10^6 Adern, docs/ai/PLAN-A-SBTEX23B-2026-10-23.md):
+     * Astralit (Oberflaeche) Groesse 4 -> 1,888 Bloecke, Groesse 5 -> 2,913 End-Stein-Treffer; Nihilit (Unterseite) Groesse 5 ->
+     * 1,579, Groesse 6 -> 2,030. trueb = alt/4 / neu, echt = alt / (neu - alt/4). Groesse < 8 haelt jeden Kugelradius unter 1,
+     * die Adern reichen also weiter nur so tief wie vorher (siehe 26.2-Zwilling).
+     */
+    public static final int ASTRALIT_VEIN_SIZE = 5;
+    public static final int NIHILITH_VEIN_SIZE = 6;
+    /** The vein sizes before W23-2 (only real ore), the reference of the expected real amount. */
+    public static final int ASTRALIT_VEIN_SIZE_BEFORE = 4;
+    public static final int NIHILITH_VEIN_SIZE_BEFORE = 5;
+    public static final float ASTRALIT_DULL_CHANCE = 0.162F;
+    public static final float ASTRALIT_REAL_CHANCE = 0.773F;
+    public static final float NIHILITH_DULL_CHANCE = 0.194F;
+    public static final float NIHILITH_REAL_CHANCE = 0.966F;
 
     /** Weisheitserz (2026-10-01): Groesse, Haeufigkeit und Hoehe wie Vanillas kleines Diamanterz. */
     public static final ResourceKey<Feature> SAGE_ORE_KEY = registerConfiguredKey("sage_ore");
@@ -114,9 +132,10 @@ public class ModWorldGen {
     }
 
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
-        RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
-        context.register(ASTRALIT_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.ASTRALIT_ORE.defaultBlockState(), 4));
-        context.register(NIHILITH_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.NIHILITH_ORE.defaultBlockState(), 5));
+        context.register(ASTRALIT_ORE_KEY, endOre(ModBlocks.DULL_ASTRALIT_ORE, ASTRALIT_DULL_CHANCE,
+                ModBlocks.ASTRALIT_ORE, ASTRALIT_REAL_CHANCE, ASTRALIT_VEIN_SIZE));
+        context.register(NIHILITH_ORE_KEY, endOre(ModBlocks.DULL_NIHILITH_ORE, NIHILITH_DULL_CHANCE,
+                ModBlocks.NIHILITH_ORE, NIHILITH_REAL_CHANCE, NIHILITH_VEIN_SIZE));
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             context.register(SCRAP_OVERWORLD_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
                     new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES),
@@ -149,6 +168,17 @@ public class ModWorldGen {
                             ModBlocks.DEEPSLATE_SAGE_ORE.defaultBlockState())),
                     SAGE_ORE_SIZE, SAGE_ORE_AIR_DISCARD));
         }
+    }
+
+    /** An End ore vein: dull ore first (its chance), then the real ore (its chance) - both only in End stone (W23-2). */
+    public static OreFeature endOre(net.minecraft.world.level.block.Block dull, float dullChance,
+                                    net.minecraft.world.level.block.Block real, float realChance, int size) {
+        return new OreFeature(List.of(
+                new net.minecraft.world.level.levelgen.feature.BlockReplacement(
+                        new net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest(Blocks.END_STONE, dullChance), dull.defaultBlockState()),
+                new net.minecraft.world.level.levelgen.feature.BlockReplacement(
+                        new net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest(Blocks.END_STONE, realChance), real.defaultBlockState())),
+                size);
     }
 
     public static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {

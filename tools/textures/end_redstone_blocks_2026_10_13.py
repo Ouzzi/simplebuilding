@@ -6,13 +6,23 @@ block - a uniform light rim (no light top/left vs dark bottom/right) and a darke
 motif: Astral a four-pointed star with small sparkles, Nihil a light ring around a dark void with pits, Bridge three
 wide diagonal strands (Astral, Nihil, redstone) across the face.
 
-Writes textures/block/<line>_redstone_block.png into the 26.3 overlay (the models come from datagen) and a 16x preview
-(single faces and a 3x3 tiling) to SB_PREVIEW_DIR (default /root/previews/redstone-compat).
+W23-1 (owner 23.10. evening, T5 = A): the built faces are now the Vanilla redstone block build of
+sbtex23_2026_10_23.rs_vanilla (light rim, noisy compacted dust, irregular dark core; Astral star glints, Nihil void and
+pits, Bridge red with Astral and Nihil veins, 10 tones per line, layers). draw() below is the N51 art, kept for the record.
+
+Writes textures/block/<line>_redstone_block.png (+ .layers.json) into the 26.3 overlay (the models come from datagen) and
+a 16x preview (single faces and a 3x3 tiling) to SB_PREVIEW_DIR (default /root/previews/redstone-compat).
+--check only compares the built PNGs.
 Run: python3.12 tools/textures/end_redstone_blocks_2026_10_13.py
 """
 import os
+import sys
 
 from PIL import Image, ImageDraw
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import layers  # noqa: E402
+import sbtex23_2026_10_23 as sbtex23  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', '..', 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding', 'textures', 'block')
@@ -105,12 +115,22 @@ def bridge_pixel(x, y, f):
 
 
 def main():
+    check = '--check' in sys.argv
     os.makedirs(OUT, exist_ok=True)
-    faces = {}
+    faces, bad = {}, []
     for kind in ('astral', 'nihil', 'bridge'):
-        im = draw(kind)
-        im.save(os.path.join(OUT, f'{kind}_redstone_block.png'))
+        im = sbtex23.rs_vanilla(kind)
+        path = os.path.join(OUT, f'{kind}_redstone_block.png')
+        if check:
+            if not os.path.exists(path) or Image.open(path).convert('RGBA').tobytes() != im.tobytes():
+                bad.append(path)
+            continue
+        layers.save(im, path)
         faces[kind] = im
+    if check:
+        for path in bad:
+            print('out of date:', path)
+        raise SystemExit(1 if bad else 0)
     preview(faces)
     print('ok')
 

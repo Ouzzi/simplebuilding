@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 581,
+      "count": 585,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -2229,10 +2229,16 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_ore",
         "simplebuilding:nihilith_ore",
         "simplebuilding:astralit_dust",
-        "simplebuilding:nihilith_shard"
+        "simplebuilding:nihilith_shard",
+        "simplebuilding:dull_astralit_ore",
+        "simplebuilding:dull_nihilith_ore",
+        "simplebuilding:dull_astralit_dust",
+        "simplebuilding:dull_nihilith_shard"
       ],
       "sources": [
         "src/main/generated/data/simplebuilding/worldgen/configured_feature/astralit_ore.json",
+        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dull_astralit_ore.json",
         "src/main/generated/data/simplebuilding/worldgen/configured_feature/nihilith_ore.json",
         "src/main/generated/data/simplebuilding/worldgen/placed_feature/astralit_ore_placed.json",
         "src/main/generated/data/simplebuilding/worldgen/placed_feature/nihilith_ore_placed.json",
@@ -2257,13 +2263,15 @@ window.WIKI_DATA = {
         "details": [
           "Both ores generate in every End biome in the \"underground_ores\" step (Fabric: BiomeSelectors.foundInTheEnd; NeoForge and Forge: a biome modifier with the biome tag #minecraft:is_end). The Forge biome modifiers are covered by no test: the Forge module is parked and has never been started.",
           "Both ores replace end stone only; veins are not discarded on air exposure (discard_chance_on_air_exposure 0).",
-          "Astralit Ore: vein size 4; one attempt per chunk (count 1, no rarity filter); anchored on the surface heightmap (MOTION_BLOCKING, one block above the topmost motion-blocking block) and only where the block above that anchor is replaceable. The vein can only reach from three blocks below the anchor up to the anchor's own height, so it sits in the top layers of the island.",
-          "Nihilit Ore: vein size 5; 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
+          "Astralit Ore: vein size 5 (4 before W23-2, 23.10.); one attempt per chunk (count 1, no rarity filter); anchored on the surface heightmap (MOTION_BLOCKING, one block above the topmost motion-blocking block) and only where the block above that anchor is replaceable. The vein can only reach from three blocks below the anchor up to the anchor's own height, so it sits in the top layers of the island.",
+          "Nihilit Ore: vein size 6 (5 before W23-2); 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
           "Astralit Ore: hardness 20, blast resistance 1200, emits light level 5, requires a diamond or better pickaxe (tags mineable/pickaxe and needs_diamond_tool), drops 3-7 experience.",
           "Nihilit Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
           "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Fortune raises the amount by the ore formula (ore_drops), Silk Touch yields the ore block itself.",
           "The ores also exist as block items (astralit_ore, nihilith_ore) and appear in the creative tab \"SimpleMaterials\" (simplebuilding:materials).",
-          "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names."
+          "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names.",
+          "Dull ore (W23-2, owner 23.10.2026): about one ore block in five of every vein is Dull Astralit Ore or Dull Nihilit Ore. The vein has two targets - first a random end stone match with the dull chance (Astralit 0.162, Nihilit 0.194), then one with the real chance (0.773 / 0.966); the rest stays end stone. The bigger veins keep the expected amount of real ore as before (a re-implementation of OreFeature in the placement surroundings: Astralit 1.89, Nihilit 1.58 real blocks per vein; a gametest measures 600 veins each).",
+          "Dull ores look alike but unrefined (milky, no glint), need a diamond pickaxe as well, are a little softer (hardness 15 / 20), drop 1-3 experience, Dull Astralit Ore glows at light level 3. They drop Dull Astralit Dust / Dull Nihilit Shard (Fortune like the real ore, Silk Touch the block); four dull pieces craft one real dust / shard. The Ore Detector only finds the real ores."
         ]
       },
       "de": {
@@ -2272,13 +2280,15 @@ window.WIKI_DATA = {
         "details": [
           "Beide Erze werden in allen End-Biomen im Schritt „underground_ores“ erzeugt (Fabric: BiomeSelectors.foundInTheEnd; NeoForge und Forge: Biom-Modifier mit Biom-Tag #minecraft:is_end). Die Forge-Biom-Modifier deckt kein Test ab: Das Forge-Modul ist zurückgestellt und wurde nie gestartet.",
           "Beide Erze ersetzen ausschließlich Endstein; Adern werden bei Luftkontakt nicht verworfen (discard_chance_on_air_exposure 0).",
-          "Astralit Ore: Adergröße 4; ein Versuch pro Chunk (count 1, kein Seltenheitsfilter); verankert auf der Oberflächen-Höhenkarte (MOTION_BLOCKING, ein Block über dem obersten bewegungshemmenden Block) und nur dort, wo der Block über diesem Anker ersetzbar ist. Die Ader reicht nur von drei Blöcken unter dem Anker bis auf dessen eigene Höhe, sitzt also in den obersten Schichten der Insel.",
-          "Nihilit Ore: Adergröße 5; 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
+          "Astralit Ore: Adergröße 5 (vor W23-2, 23.10.: 4); ein Versuch pro Chunk (count 1, kein Seltenheitsfilter); verankert auf der Oberflächen-Höhenkarte (MOTION_BLOCKING, ein Block über dem obersten bewegungshemmenden Block) und nur dort, wo der Block über diesem Anker ersetzbar ist. Die Ader reicht nur von drei Blöcken unter dem Anker bis auf dessen eigene Höhe, sitzt also in den obersten Schichten der Insel.",
+          "Nihilit Ore: Adergröße 6 (vor W23-2: 5); 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
           "Astralit Ore: Härte 20, Explosionswiderstand 1200, leuchtet mit Lichtstärke 5, benötigt eine Spitzhacke aus Diamant oder besser (Tags mineable/pickaxe und needs_diamond_tool), gibt 3–7 Erfahrungspunkte.",
           "Nihilit Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
           "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Glück erhöht die Menge nach der Erz-Formel (ore_drops), Behutsamkeit liefert den Erzblock selbst.",
           "Die Erze existieren auch als Blockitems (astralit_ore, nihilith_ore) und stehen im Kreativ-Tab „SimpleMaterials“ (simplebuilding:materials).",
-          "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück."
+          "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück.",
+          "Trübes Erz (W23-2, Besitzer 23.10.2026): etwa jeder fünfte Erzblock einer Ader ist Trübes Astraliterz bzw. Trübes Nihiliterz. Die Ader hat zwei Ziele – zuerst ein zufälliger Endstein-Treffer mit der Trüb-Wahrscheinlichkeit (Astralit 0,162, Nihilit 0,194), dann einer mit der Echt-Wahrscheinlichkeit (0,773 / 0,966); der Rest bleibt Endstein. Die größeren Adern halten die erwartete Menge echten Erzes wie vorher (Nachbildung von OreFeature im Platzierungs-Umfeld: Astralit 1,89, Nihilit 1,58 echte Blöcke je Ader; ein Gametest misst je 600 Adern).",
+          "Trübe Erze sehen ähnlich, aber unraffiniert aus (milchig, ohne Glanz), brauchen ebenfalls eine Diamantspitzhacke, sind etwas weicher (Härte 15 / 20), geben 1–3 Erfahrungspunkte, Trübes Astraliterz leuchtet mit Lichtstärke 3. Sie lassen Trüben Astralitstaub bzw. Trüben Nihilitsplitter fallen (Glück wie beim echten Erz, Behutsamkeit den Block); vier trübe Stücke ergeben einen echten Staub bzw. Splitter. Der Erzdetektor findet nur die echten Erze."
         ]
       }
     },
@@ -2980,11 +2990,7 @@ window.WIKI_DATA = {
         "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json",
         "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_block.json",
         "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_block.json",
-        "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneTorchBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneWallTorchBlock.java",
-        "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone_torch.json",
-        "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone_torch.json"
+        "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
@@ -2996,9 +3002,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_lamp",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:astral_piston",
-        "simplebuilding:nihil_piston",
-        "simplebuilding:nihil_redstone_torch",
-        "simplebuilding:astral_redstone_torch"
+        "simplebuilding:nihil_piston"
       ],
       "en": {
         "title": "Astral, Nihil and Bridge Redstone",
@@ -3013,8 +3017,7 @@ window.WIKI_DATA = {
           "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
           "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take every line - dust of any line lying next to them, levers, redstone blocks and the line blocks - and relay nothing; they fire when the signal switches on, not while it stays on.",
           "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
-          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload.",
-          "Astral and Nihil Redstone Torch (line dust over a stick): Vanilla's redstone torch - an inverter that goes out when the block it stands on or hangs from is powered by any line, burns out when toggled too often, glows with light 7 and strongly powers the block above - but its output belongs to its line like the line's redstone block: dust of its own line and Bridge Redstone take it, redstone dust and the other line's dust do not, neither directly nor through the block above it; every device reacts. With server.features.endSignals off it gives no signal."
+          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
         ]
       },
       "de": {
@@ -3030,8 +3033,7 @@ window.WIKI_DATA = {
           "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
           "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen jede Linie an - Staub jeder Linie direkt daneben, Hebel, Redstone-Blöcke und die Blöcke der Linien - und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
           "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
-          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
-          "Astral- und Nihil-Redstone-Fackel (Linien-Staub über einem Stock): Vanillas Redstone-Fackel - ein Inverter, der ausgeht, wenn der Block, auf oder an dem sie sitzt, von irgendeiner Linie gespeist wird, bei zu häufigem Schalten durchbrennt, mit Licht 7 leuchtet und den Block über sich stark speist - aber ihr Ausgang gehört ihrer Linie wie der Redstone-Block der Linie: Staub ihrer Linie und Brücken-Redstone nehmen ihn an, Redstone-Staub und Staub der anderen Linie nicht, weder direkt noch über den Block über ihr; jedes Gerät reagiert. Mit server.features.endSignals aus gibt sie kein Signal."
+          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -3673,7 +3675,6 @@ window.WIKI_DATA = {
         "simplebuilding:astral_piston",
         "simplebuilding:astral_rail",
         "simplebuilding:astral_redstone_block",
-        "simplebuilding:astral_redstone_torch",
         "simplebuilding:astralit_lamp"
       ],
       "trades": [],
@@ -4573,7 +4574,9 @@ window.WIKI_DATA = {
         "de_de": "Astralitstaub"
       },
       "texture": "assets/textures/item/astralit_dust.png",
-      "craftedBy": [],
+      "craftedBy": [
+        "simplebuilding:astralit_dust_from_dull_astralit_dust"
+      ],
       "usedIn": [
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
@@ -6346,16 +6349,14 @@ window.WIKI_DATA = {
           "summary": "A shard of Blazing Obsidian: 9 sledgehammer strikes on one block give 9 chips, 9 chips in the crafting grid give the block back.",
           "details": [
             "Right-click a Blazing Obsidian block with any sledgehammer: one Blazing Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Blazing Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid give the block back.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
           "summary": "Ein Splitter vom Lohen-Obsidian: 9 Vorschlaghammer-Schläge auf einen Block ergeben 9 Splitter, 9 Splitter im Handwerksfeld wieder den Block.",
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Block Lohen-Obsidian rechtsklicken: je Schlag ein Lohen-Obsidian-Splitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Lohen-Obsidian-Splitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Block zurück.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
         "sources": [
@@ -6364,8 +6365,7 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "tools/textures/obsidian_chips_n55_2026_10_14.py",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "tools/textures/obsidian_chips_n55_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -9067,16 +9067,14 @@ window.WIKI_DATA = {
           "summary": "A shard of Crying Obsidian: 9 sledgehammer strikes on one block give 9 chips, 9 chips in the crafting grid give the block back.",
           "details": [
             "Right-click a Crying Obsidian block with any sledgehammer: one Crying Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Crying Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid give the block back.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
           "summary": "Ein Splitter vom Weinenden Obsidian: 9 Vorschlaghammer-Schläge auf einen Block ergeben 9 Splitter, 9 Splitter im Handwerksfeld wieder den Block.",
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Block Weinenden Obsidian rechtsklicken: je Schlag ein Weinender-Obsidian-Splitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Weinender-Obsidian-Splitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Block zurück.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
         "sources": [
@@ -9085,8 +9083,7 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "tools/textures/obsidian_chips_n55_2026_10_14.py",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "tools/textures/obsidian_chips_n55_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -10317,6 +10314,60 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:dull_astralit_dust",
+      "name": {
+        "en_us": "Dull Astralit Dust",
+        "de_de": "Trüber Astralitstaub"
+      },
+      "texture": "assets/textures/item/dull_astralit_dust.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:astralit_dust_from_dull_astralit_dust"
+      ],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:dull_astralit_ore",
+      "name": {
+        "en_us": "Dull Astralit Ore",
+        "de_de": "Trübes Astraliterz"
+      },
+      "texture": "assets/textures/block/dull_astralit_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/dull_astralit_ore.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:dull_nihilith_ore",
+      "name": {
+        "en_us": "Dull Nihilit Ore",
+        "de_de": "Trübes Nihiliterz"
+      },
+      "texture": "assets/textures/block/dull_nihilith_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/dull_nihilith_ore.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:dull_nihilith_shard",
+      "name": {
+        "en_us": "Dull Nihilit Shard",
+        "de_de": "Trüber Nihilitsplitter"
+      },
+      "texture": "assets/textures/item/dull_nihilith_shard.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:nihilith_shard_from_dull_nihilith_shard"
+      ],
+      "trades": [],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:echo_sounder",
@@ -12927,8 +12978,7 @@ window.WIKI_DATA = {
           "details": [
             "Sneak + right-click to place a Fire Charge, then right-click it with any sledgehammer four times: one Fire Chip per strike, all four free on the last. In a mixed pile, only the most recently placed Fire Charge is consumed; other parts stay. Works on floors, walls, and ceilings. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
@@ -12936,8 +12986,7 @@ window.WIKI_DATA = {
           "details": [
             "Feuerkugel mit Schleichen + Rechtsklick ablegen, dann viermal mit einem beliebigen Vorschlaghammer rechtsklicken: je Schlag ein Feuerkugelsplitter, alle vier beim letzten frei. Im gemischten Haufen wird nur die zuletzt abgelegte Feuerkugel verbraucht; andere Teile bleiben. Funktioniert auf Boden, Wand und Decke. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
         "sources": [
@@ -12946,8 +12995,7 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -12994,15 +13042,13 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A flake of flint: one flint gives 4 Flint Chips, 4 chips in a 2x2 give the flint back.",
           "details": [
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs).",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs)."
           ]
         },
         "de": {
           "summary": "Ein Splitter Feuerstein: ein Feuerstein ergibt 4 Feuersteinsplitter, 4 Splitter im 2x2-Feld wieder den Feuerstein.",
           "details": [
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs).",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs)."
           ]
         },
         "sources": [
@@ -13010,8 +13056,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
         ]
       },
       "hasCustomBehaviour": false
@@ -15311,8 +15356,7 @@ window.WIKI_DATA = {
           "details": [
             "Right-click an Ice block with any sledgehammer: one Ice Chip per strike, 4 strikes (Packed Ice: 9). The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
@@ -15320,8 +15364,7 @@ window.WIKI_DATA = {
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Eisblock rechtsklicken: je Schlag ein Eissplitter, 4 Schläge (Packeis: 9). Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
         "sources": [
@@ -15330,8 +15373,7 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -20245,7 +20287,6 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_rail",
         "simplebuilding:nihil_redstone_block",
-        "simplebuilding:nihil_redstone_torch",
         "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
@@ -21437,7 +21478,9 @@ window.WIKI_DATA = {
         "de_de": "Nihilitsplitter"
       },
       "texture": "assets/textures/item/nihilith_shard.png",
-      "craftedBy": [],
+      "craftedBy": [
+        "simplebuilding:nihilith_shard_from_dull_nihilith_shard"
+      ],
       "usedIn": [
         "simplebuilding:bridge_redstone",
         "simplebuilding:ender_quartz",
@@ -21674,16 +21717,14 @@ window.WIKI_DATA = {
           "summary": "A shard of volcanic glass: 9 sledgehammer strikes on an Obsidian block give 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
           "details": [
             "Right-click an Obsidian block with any sledgehammer: one Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid still give the Obsidian back.",
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back.",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
           "summary": "Ein Splitter Vulkanglas: 9 Vorschlaghammer-Schläge auf einen Obsidianblock ergeben 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
           "details": [
             "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: je Schlag ein Obsidiansplitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Obsidiansplitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Obsidian weiterhin zurück.",
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück.",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
         "sources": [
@@ -21691,8 +21732,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -30122,15 +30162,13 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",
           "details": [
-            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs).",
-            "Right-click into the air throws it like a snowball (held: one every four ticks); a hit does 1 damage (half a heart)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs)."
           ]
         },
         "de": {
           "summary": "Ein kleiner Stein: ein Bruchstein ergibt 9 Steinkiesel, 9 Kiesel im Handwerksfeld wieder den Bruchstein.",
           "details": [
-            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs).",
-            "Rechtsklick in die Luft wirft es wie einen Schneeball (gehalten: eins alle vier Ticks); ein Treffer macht 1 Schaden (ein halbes Herz)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs)."
           ]
         },
         "sources": [
@@ -30138,8 +30176,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json",
-          "common/src/shared/java/com/simplebuilding/items/custom/ThrownChipItem.java"
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
         ]
       },
       "hasCustomBehaviour": false
@@ -32333,7 +32370,6 @@ window.WIKI_DATA = {
         "simplebuilding:astral_piston",
         "simplebuilding:astral_rail",
         "simplebuilding:astral_redstone_block",
-        "simplebuilding:astral_redstone_torch",
         "simplebuilding:astralit_lamp"
       ],
       "trades": [],
@@ -36029,6 +36065,42 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:dull_astralit_ore",
+      "name": {
+        "en_us": "Dull Astralit Ore",
+        "de_de": "Trübes Astraliterz"
+      },
+      "texture": "assets/textures/block/dull_astralit_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/dull_astralit_ore.png",
+      "lootTable": "simplebuilding:blocks/dull_astralit_ore",
+      "drops": [
+        "simplebuilding:dull_astralit_dust",
+        "simplebuilding:dull_astralit_ore"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:dull_nihilith_ore",
+      "name": {
+        "en_us": "Dull Nihilit Ore",
+        "de_de": "Trübes Nihiliterz"
+      },
+      "texture": "assets/textures/block/dull_nihilith_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/dull_nihilith_ore.png",
+      "lootTable": "simplebuilding:blocks/dull_nihilith_ore",
+      "drops": [
+        "simplebuilding:dull_nihilith_ore",
+        "simplebuilding:dull_nihilith_shard"
+      ],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:elytra_pad",
@@ -41882,7 +41954,6 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_rail",
         "simplebuilding:nihil_redstone_block",
-        "simplebuilding:nihil_redstone_torch",
         "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
@@ -48897,8 +48968,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -48941,8 +49012,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 18
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 72
           },
           {
             "id": "minecraft:cobblestone",
@@ -49003,8 +49074,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -49051,11 +49122,11 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "minecraft:redstone",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:redstone",
             "count": 0.5
           },
           {
@@ -49094,11 +49165,11 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "minecraft:redstone",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:redstone",
             "count": 1
           }
         ]
@@ -49134,11 +49205,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:redstone",
-            "count": 4.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 18
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:redstone",
             "count": 4.5
           }
         ]
@@ -49171,53 +49242,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astral_redstone_block",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:astral_redstone_torch",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:astral_redstone_torch",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone_torch.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simplebuilding:astral_redstone"
-      ],
-      "pattern": [
-        "X",
-        "#"
-      ],
-      "key": {
-        "#": [
-          "minecraft:stick"
-        ],
-        "X": [
-          "simplebuilding:astral_redstone"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:redstone",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.125
           }
         ]
       }
@@ -49264,12 +49288,12 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:enderite_nugget",
-            "count": 6
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
+            "id": "simplebuilding:enderite_nugget",
+            "count": 6
           },
           {
             "id": "minecraft:ender_pearl",
@@ -49313,8 +49337,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49350,8 +49374,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -49396,8 +49420,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -49468,8 +49492,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
           }
         ]
       }
@@ -49505,8 +49529,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -49538,8 +49562,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49571,8 +49595,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49617,8 +49641,8 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -49650,8 +49674,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49688,8 +49712,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 24
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 96
           }
         ]
       }
@@ -49725,8 +49749,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -49758,8 +49782,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49791,8 +49815,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49837,8 +49861,8 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -49870,8 +49894,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -49907,8 +49931,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 24
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 96
           }
         ]
       }
@@ -49944,8 +49968,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -49977,8 +50001,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50010,8 +50034,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50056,8 +50080,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -50089,8 +50113,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50126,8 +50150,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 16
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 64
           }
         ]
       }
@@ -50163,8 +50187,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -50196,8 +50220,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50242,8 +50266,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -50275,8 +50299,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50310,8 +50334,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50345,8 +50369,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50380,8 +50404,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50415,8 +50439,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50450,8 +50474,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50485,8 +50509,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50520,8 +50544,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50555,8 +50579,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50590,8 +50614,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50625,8 +50649,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50660,8 +50684,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
           }
         ]
       }
@@ -50695,8 +50719,48 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.062
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_dust_from_dull_astralit_dust",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_dust",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_dust_from_dull_astralit_dust.json",
+      "ingredients": [
+        "simplebuilding:dull_astralit_dust"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:dull_astralit_dust"
+        ],
+        [
+          "simplebuilding:dull_astralit_dust"
+        ],
+        [
+          "simplebuilding:dull_astralit_dust"
+        ],
+        [
+          "simplebuilding:dull_astralit_dust"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -50738,8 +50802,8 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           }
         ]
       }
@@ -50795,8 +50859,8 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           }
         ]
       }
@@ -50832,8 +50896,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 8
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 32
           }
         ]
       }
@@ -50869,8 +50933,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -50902,8 +50966,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50935,8 +50999,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50981,8 +51045,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -51026,8 +51090,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
           }
         ]
       }
@@ -51064,8 +51128,8 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 6
           }
         ]
       }
@@ -51099,8 +51163,8 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           }
         ]
       }
@@ -51139,8 +51203,8 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 3
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 12
           }
         ]
       }
@@ -51174,8 +51238,8 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           }
         ]
       }
@@ -52767,6 +52831,14 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:glow_ink_sac",
             "count": 1
           },
@@ -52776,14 +52848,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -54538,15 +54602,15 @@ window.WIKI_DATA = {
         "yield": 3,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
             "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 1
           }
         ]
@@ -54582,15 +54646,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 12
+          },
+          {
             "id": "minecraft:redstone",
-            "count": 3
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 3
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 3
           }
         ]
@@ -54952,8 +55016,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -54989,8 +55053,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -55022,8 +55086,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -55055,8 +55119,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -55088,8 +55152,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -55125,15 +55189,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -55179,12 +55243,12 @@ window.WIKI_DATA = {
             "count": 32.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -55216,15 +55280,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -55257,15 +55321,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -55298,15 +55362,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -55343,8 +55407,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -55380,8 +55444,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -55413,8 +55477,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -55446,8 +55510,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -55479,8 +55543,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -56259,8 +56323,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -56295,8 +56359,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 16
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 64
           }
         ]
       }
@@ -56327,8 +56391,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -56363,8 +56427,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 16
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 64
           }
         ]
       }
@@ -57472,15 +57536,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 1
           }
         ]
@@ -57517,15 +57581,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -57571,15 +57635,15 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -57625,12 +57689,12 @@ window.WIKI_DATA = {
             "count": 32.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -57665,15 +57729,15 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 24
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 24
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 6
           }
         ]
@@ -57719,15 +57783,15 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -57760,15 +57824,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -57801,15 +57865,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -57842,15 +57906,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -57888,15 +57952,15 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 12
           }
         ]
@@ -57942,15 +58006,15 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -57983,15 +58047,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58024,15 +58088,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58065,15 +58129,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58110,15 +58174,15 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 12
           }
         ]
@@ -58164,15 +58228,15 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -58205,15 +58269,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58246,15 +58310,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58287,15 +58351,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58332,15 +58396,15 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 32
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 32
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 8
           }
         ]
@@ -58386,15 +58450,15 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -58427,15 +58491,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58468,15 +58532,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -58522,12 +58586,12 @@ window.WIKI_DATA = {
             "count": 32.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -58571,12 +58635,12 @@ window.WIKI_DATA = {
             "count": 9
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -58613,12 +58677,12 @@ window.WIKI_DATA = {
             "count": 6.75
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.75
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 3
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.75
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 3
           }
         ]
       }
@@ -58652,12 +58716,12 @@ window.WIKI_DATA = {
             "count": 2.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           }
         ]
       }
@@ -58696,12 +58760,12 @@ window.WIKI_DATA = {
             "count": 13.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 6
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 6
           }
         ]
       }
@@ -58735,12 +58799,12 @@ window.WIKI_DATA = {
             "count": 2.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           }
         ]
       }
@@ -58774,12 +58838,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -58813,12 +58877,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -58852,12 +58916,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -58891,12 +58955,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -58930,12 +58994,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -58969,12 +59033,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59008,12 +59072,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59047,12 +59111,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59086,12 +59150,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59125,12 +59189,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59164,12 +59228,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59203,12 +59267,12 @@ window.WIKI_DATA = {
             "count": 0.281
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.031
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.125
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.031
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.125
           }
         ]
       }
@@ -59264,12 +59328,12 @@ window.WIKI_DATA = {
             "count": 2.25
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           }
         ]
       }
@@ -59305,15 +59369,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 4
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 4
           }
         ]
@@ -59346,15 +59410,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -59387,15 +59451,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -59441,15 +59505,15 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -59495,12 +59559,12 @@ window.WIKI_DATA = {
             "count": 32.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -59535,15 +59599,15 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 24
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 24
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 6
           }
         ]
@@ -59576,15 +59640,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -59630,12 +59694,12 @@ window.WIKI_DATA = {
             "count": 16.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -59672,15 +59736,15 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 12
           }
         ]
@@ -59713,15 +59777,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -59767,12 +59831,12 @@ window.WIKI_DATA = {
             "count": 48.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -62972,8 +63036,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 16
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 64
           }
         ]
       }
@@ -63004,8 +63068,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -65285,12 +65349,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:oak_log",
-            "count": 2
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "minecraft:oak_log",
+            "count": 2
           }
         ],
         "tagExamples": [
@@ -66185,8 +66249,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -66221,8 +66285,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 16
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 64
           }
         ]
       }
@@ -68948,8 +69012,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -68992,8 +69056,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 18
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 72
           },
           {
             "id": "minecraft:cobblestone",
@@ -69058,8 +69122,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -69106,11 +69170,11 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "minecraft:redstone",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:redstone",
             "count": 0.5
           },
           {
@@ -69149,11 +69213,11 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "minecraft:redstone",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:redstone",
             "count": 1
           }
         ]
@@ -69189,11 +69253,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:redstone",
-            "count": 4.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 18
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:redstone",
             "count": 4.5
           }
         ]
@@ -69226,53 +69290,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihil_redstone_block",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nihil_redstone_torch",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nihil_redstone_torch",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone_torch.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simplebuilding:nihil_redstone"
-      ],
-      "pattern": [
-        "X",
-        "#"
-      ],
-      "key": {
-        "#": [
-          "minecraft:stick"
-        ],
-        "X": [
-          "simplebuilding:nihil_redstone"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:redstone",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.125
           }
         ]
       }
@@ -69319,12 +69336,12 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:enderite_nugget",
-            "count": 6
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 2
+            "id": "simplebuilding:enderite_nugget",
+            "count": 6
           },
           {
             "id": "minecraft:ender_pearl",
@@ -69368,8 +69385,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69414,8 +69431,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -69450,8 +69467,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 16
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 64
           }
         ]
       }
@@ -69487,8 +69504,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -69523,8 +69540,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 12
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
           }
         ]
       }
@@ -69569,8 +69586,8 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -69606,8 +69623,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -69639,8 +69656,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69672,8 +69689,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69705,8 +69722,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69743,8 +69760,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 24
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 96
           }
         ]
       }
@@ -69789,8 +69806,8 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -69826,8 +69843,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -69859,8 +69876,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69892,8 +69909,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69925,8 +69942,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -69962,8 +69979,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 24
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 96
           }
         ]
       }
@@ -70008,8 +70025,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -70045,8 +70062,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -70078,8 +70095,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -70111,8 +70128,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -70144,8 +70161,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -70181,8 +70198,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 16
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 64
           }
         ]
       }
@@ -70227,8 +70244,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -70264,8 +70281,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -70297,8 +70314,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -70330,8 +70347,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -70365,8 +70382,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70400,8 +70417,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70435,8 +70452,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70470,8 +70487,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70505,8 +70522,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70540,8 +70557,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70575,8 +70592,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70610,8 +70627,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70645,8 +70662,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70680,8 +70697,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70715,8 +70732,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70750,8 +70767,8 @@ window.WIKI_DATA = {
             "count": 0.25
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.062
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.25
           }
         ]
       }
@@ -70793,8 +70810,8 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -70850,8 +70867,8 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -70887,8 +70904,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 8
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 32
           }
         ]
       }
@@ -70924,8 +70941,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -70957,8 +70974,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -70990,8 +71007,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -71036,8 +71053,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -71081,8 +71098,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 2
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
           }
         ]
       }
@@ -71119,8 +71136,8 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 6
           }
         ]
       }
@@ -71154,8 +71171,8 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -71194,8 +71211,8 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 3
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 12
           }
         ]
       }
@@ -71229,8 +71246,48 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_shard_from_dull_nihilith_shard",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_shard",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_shard_from_dull_nihilith_shard.json",
+      "ingredients": [
+        "simplebuilding:dull_nihilith_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:dull_nihilith_shard"
+        ],
+        [
+          "simplebuilding:dull_nihilith_shard"
+        ],
+        [
+          "simplebuilding:dull_nihilith_shard"
+        ],
+        [
+          "simplebuilding:dull_nihilith_shard"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -71269,12 +71326,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:oak_log",
-            "count": 2
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "minecraft:oak_log",
+            "count": 2
           }
         ],
         "tagExamples": [
@@ -73087,8 +73144,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 16
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 64
           }
         ]
       }
@@ -73127,11 +73184,11 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 8
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 32
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 8
           }
         ]
@@ -73165,11 +73222,11 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 6
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 24
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 6
           }
         ]
@@ -73200,11 +73257,11 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 2
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 2
           }
         ]
@@ -73240,11 +73297,11 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 12
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 12
           }
         ]
@@ -73275,11 +73332,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 2
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 2
           }
         ]
@@ -73310,11 +73367,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73345,11 +73402,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73380,11 +73437,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73415,11 +73472,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73450,11 +73507,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73485,11 +73542,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73520,11 +73577,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73555,11 +73612,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73590,11 +73647,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73625,11 +73682,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73660,11 +73717,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73695,11 +73752,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -73736,8 +73793,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -73769,8 +73826,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -73822,11 +73879,11 @@ window.WIKI_DATA = {
         "yield": 8,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 2
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
           },
           {
-            "id": "simplebuilding:astralit_dust",
+            "id": "minecraft:quartz",
             "count": 2
           }
         ]
@@ -73862,8 +73919,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
           }
         ]
       }
@@ -73895,8 +73952,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -73928,8 +73985,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -73974,8 +74031,8 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -74012,8 +74069,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 24
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 96
           }
         ]
       }
@@ -74045,8 +74102,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -74078,8 +74135,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -74124,8 +74181,8 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -74161,8 +74218,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 24
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 96
           }
         ]
       }
@@ -74194,8 +74251,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -74227,8 +74284,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -74264,15 +74321,15 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 32
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 32
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 8
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 8
           }
         ]
@@ -74312,16 +74369,16 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          },
+          {
             "id": "minecraft:quartz",
             "count": 12
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
           }
         ]
       }
@@ -74354,16 +74411,16 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 12
+          },
+          {
             "id": "minecraft:quartz",
             "count": 9
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 3
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 3
           }
         ]
       }
@@ -74393,16 +74450,16 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
             "id": "minecraft:quartz",
             "count": 3
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
           }
         ]
       }
@@ -74437,16 +74494,16 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 24
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 24
+          },
+          {
             "id": "minecraft:quartz",
             "count": 18
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 6
           }
         ]
       }
@@ -74476,16 +74533,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
             "id": "minecraft:quartz",
             "count": 3
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
           }
         ]
       }
@@ -74515,16 +74572,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74554,16 +74611,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74593,16 +74650,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74632,16 +74689,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74671,16 +74728,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74710,16 +74767,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74749,16 +74806,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74788,16 +74845,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74827,16 +74884,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74866,16 +74923,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74905,16 +74962,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74944,16 +75001,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
+          },
+          {
             "id": "minecraft:quartz",
             "count": 0.375
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.125
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
           }
         ]
       }
@@ -74985,15 +75042,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75039,15 +75096,15 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -75093,12 +75150,12 @@ window.WIKI_DATA = {
             "count": 32.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -75150,16 +75207,16 @@ window.WIKI_DATA = {
         "yield": 8,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
             "id": "minecraft:quartz",
             "count": 3
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
           }
         ]
       }
@@ -75194,15 +75251,15 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 24
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 24
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 6
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 6
           }
         ]
@@ -75235,15 +75292,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75276,15 +75333,15 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75330,15 +75387,15 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -75384,12 +75441,12 @@ window.WIKI_DATA = {
             "count": 16.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -75426,15 +75483,15 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 12
           }
         ]
@@ -75467,15 +75524,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75508,15 +75565,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75562,15 +75619,15 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 0.5
           }
         ]
@@ -75616,12 +75673,12 @@ window.WIKI_DATA = {
             "count": 48.5
           },
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 2
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -75657,15 +75714,15 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 12
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 12
           }
         ]
@@ -75698,15 +75755,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75739,15 +75796,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
             "id": "minecraft:quartz",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
             "count": 2
           }
         ]
@@ -75784,8 +75841,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 16
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 64
           }
         ]
       }
@@ -75824,11 +75881,11 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 8
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 32
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 8
           }
         ]
@@ -75862,11 +75919,11 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 6
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 24
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 6
           }
         ]
@@ -75897,11 +75954,11 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 2
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 2
           }
         ]
@@ -75937,11 +75994,11 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 12
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 12
           }
         ]
@@ -75972,11 +76029,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 2
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 2
           }
         ]
@@ -76007,11 +76064,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76042,11 +76099,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76077,11 +76134,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76112,11 +76169,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76147,11 +76204,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76182,11 +76239,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76217,11 +76274,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76252,11 +76309,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76287,11 +76344,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76322,11 +76379,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76357,11 +76414,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76392,11 +76449,11 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 0.25
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 0.25
           }
         ]
@@ -76433,8 +76490,8 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.125
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 0.5
           }
         ]
       }
@@ -76466,8 +76523,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -76519,11 +76576,11 @@ window.WIKI_DATA = {
         "yield": 8,
         "materials": [
           {
-            "id": "minecraft:quartz",
-            "count": 2
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
           },
           {
-            "id": "simplebuilding:nihilith_shard",
+            "id": "minecraft:quartz",
             "count": 2
           }
         ]
@@ -76559,8 +76616,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 12
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
           }
         ]
       }
@@ -76592,8 +76649,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -76625,8 +76682,8 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -76671,8 +76728,8 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -76709,8 +76766,8 @@ window.WIKI_DATA = {
         "yield": 4,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 24
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 96
           }
         ]
       }
@@ -76742,8 +76799,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -76775,8 +76832,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -76821,8 +76878,8 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 1
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -76858,8 +76915,8 @@ window.WIKI_DATA = {
         "yield": 6,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 24
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 96
           }
         ]
       }
@@ -76891,8 +76948,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -76924,8 +76981,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -78517,12 +78574,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           },
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           },
           {
             "id": "minecraft:ender_pearl",
@@ -86131,8 +86188,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:astralit_dust",
-            "count": 4
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -86163,8 +86220,8 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 4
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -94550,24 +94607,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_redstone_block.json"
     },
     {
-      "id": "simplebuilding:blocks/astral_redstone_torch",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:astral_redstone_torch"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astral_redstone_torch.json"
-    },
-    {
       "id": "simplebuilding:blocks/astral_vault",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -95851,6 +95890,40 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dimensional_scrap.json"
+    },
+    {
+      "id": "simplebuilding:blocks/dull_astralit_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:dull_astralit_ore",
+            "simplebuilding:dull_astralit_dust"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dull_astralit_ore.json"
+    },
+    {
+      "id": "simplebuilding:blocks/dull_nihilith_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:dull_nihilith_ore",
+            "simplebuilding:dull_nihilith_shard"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dull_nihilith_ore.json"
     },
     {
       "id": "simplebuilding:blocks/duskwood_cauldron",
@@ -97745,24 +97818,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_redstone_block.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nihil_redstone_torch",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihil_redstone_torch"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_redstone_torch.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_vault",
@@ -107634,8 +107689,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Enable Simple Music",
       "labelDe": "Simple Music aktivieren",
-      "tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Music ein oder aus: Notenblätter, Plattenpresse, hochgeladene Platten und die Taschen-Jukebox. Aus blendet seine Kreativtab-Einträge aus und stoppt Abspielen, Pressen und Hochladen; Items, Blöcke und Platten bleiben. Gilt nach einem Neustart. Standard: an."
+      "tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Orchestrion, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Music ein oder aus: Notenblätter, Orchestrion, Plattenpresse, hochgeladene Platten und die Taschen-Jukebox. Aus blendet seine Kreativtab-Einträge aus und stoppt Abspielen, Pressen und Hochladen; Items, Blöcke und Platten bleiben. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -109340,26 +109395,6 @@ window.WIKI_DATA = {
       "labelDe": "26.4-Jukebox",
       "tooltip": "The jukebox from 26.4 Snapshot 4 (new\nside, top and bottom). Off: the jukebox\nof this version. A resource pack that\nchanges the jukebox wins. Takes effect\nafter reloading resources (F3+T).\nDefault: on.",
       "tooltipDe": "Die Jukebox aus 26.4 Snapshot 4 (neue\nSeiten, Oberseite und Unterseite). Aus:\ndie Jukebox dieser Version. Ein\nRessourcenpaket, das die Jukebox ändert,\ngewinnt. Wirkt nach dem Neuladen der\nRessourcen (F3+T). Standard: an."
-    },
-    {
-      "range": null,
-      "side": "client",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "noteBlockFrameTexture",
-      "shortName": "noteBlockFrameTexture",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "category": "Visuals (Client)",
-      "categoryDe": "Darstellung (Client)",
-      "group": null,
-      "groupDe": null,
-      "label": "Framed Note Block",
-      "labelDe": "Notenblock mit Rahmen",
-      "tooltip": "The note block with the jukebox frame all\naround, like the amplifiers. Off: the\nVanilla note block. A resource pack that\nchanges the note block wins. Takes effect\nafter reloading resources (F3+T).\nDefault: off.",
-      "tooltipDe": "Der Notenblock mit dem Jukebox-Rahmen\nrundum wie die Verstärker. Aus: der\nVanilla-Notenblock. Ein Ressourcenpaket,\ndas den Notenblock ändert, gewinnt. Wirkt\nnach dem Neuladen der Ressourcen (F3+T).\nStandard: aus."
     },
     {
       "range": null,
@@ -136790,14 +136825,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 539,
-    "blocks": 318,
+    "items": 543,
+    "blocks": 320,
     "recipes": 857,
     "lootTables": 339,
     "trades": 20,
     "enchantments": 13,
     "tags": 57,
-    "config": 228,
+    "config": 227,
     "inWorld": 481,
     "advancements": 116,
     "features": 48,

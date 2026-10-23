@@ -84,9 +84,9 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Schmiedetisch mit Rezeptbuch, stärkere Kolben, Astral-/Nihil-Kolben.
 - **Schmelztiegel-Teil** (Tiegel, Seelen-Lava und Eimer selbst in Simple Crucibles, Stufe 5/5b): Vorschlaghammer-Wege
   (Tiegel bauen, Fass anbringen, Aufwerten), Quarz zerschlagen, Advancements „Heißer Topf“/„Seelenschöpfer“/„Bodenloser Eimer“.
-- **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze, Astral-/Nihil-Redstone als getrennte
-  Redstone-Linien (Geräte nehmen jede Linie an), Brücken-Redstone, Redstone-Blöcke der Linien, Astral-/Nihil-Redstone-Fackel
-  (B23-M1: Vanilla-Inverter, Ausgang nur für die eigene Linie + Brücke und jedes Gerät), Lampen, End-Kolben,
+- **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze, Astral-/Nihil-Redstone als getrennte  (seit W23-2 mit ~20 % trübem Erz in denselben Adern,
+  Redstone-Linien (Geräte nehmen jede Linie an), Brücken-Redstone, Redstone-Blöcke der Linien, Astral-/Nihil-Redstone-Fackel Drop trüber Staub/Splitter, 4 → 1 echt; Adern größer, echte Menge gleich), Astral-/Nihil-Redstone als getrennte
+  (B23-M1: Vanilla-Inverter, Ausgang nur für die eigene Linie + Brücke und jedes Gerät) Redstone-Linien (Geräte nehmen jede Linie an), Brücken-Redstone, Redstone-Blöcke der Linien, Lampen, End-Kolben,
   Astral-/Nihil-Schienen, Enderit-Material (leeresicher); seltene Shulker seit Stufe 8b-3 in Simple Storage.
 - **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Herz-Knopf mit
   8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis; Rechtsklick mit einem Mob-Kopf in die Luft setzt ihn ein bzw. tauscht ihn wie einen Helm, SP22-11; Effekte wie im Helm-Slot inkl. Attribute und Frostschutz, Anzieh-Sound, Modell vor einem Helm-Kopf, Größe wie am Mob, Helm darüber), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.

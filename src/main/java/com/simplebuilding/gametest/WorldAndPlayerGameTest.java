@@ -32,6 +32,11 @@ public final class WorldAndPlayerGameTest {
     }
 
     @GameTest
+    public void dullEndOresDropDullMaterialAndNeedTheDiamondPickaxe(GameTestHelper helper) {
+        WorldAndPlayerTests.dullEndOresDropDullMaterialAndNeedTheDiamondPickaxe(helper);
+    }
+
+    @GameTest
     public void lockedFramesStillAnswerTheMagnetWhileOtherSneakClicksFallThrough(GameTestHelper helper) {
         WorldAndPlayerTests.lockedFramesStillAnswerTheMagnetWhileOtherSneakClicksFallThrough(helper);
     }

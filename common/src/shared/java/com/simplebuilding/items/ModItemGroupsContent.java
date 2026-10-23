@@ -443,6 +443,12 @@ public final class ModItemGroupsContent {
                 ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,
                 ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST, CreativeTabLayout.GAP,
                 ModItems.ENDER_QUARTZ));
+        if (com.simplebuilding.version.McVersion.DULL_ORES) {
+            // Truebe End-Erze (W23-2) direkt unter den echten, gleiche Spalten.
+            rows.add(CreativeTabLayout.Row.of("dull_end_ores",
+                    ModItems.DULL_NIHILITH_ORE_ITEM, ModItems.DULL_NIHILITH_SHARD, CreativeTabLayout.GAP,
+                    ModItems.DULL_ASTRALIT_ORE_ITEM, ModItems.DULL_ASTRALIT_DUST));
+        }
         // Erst alle Erz-Zeilen zusammen, dann die kleinen Bauteile (Audit 2026-10-02).
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter; Obsidian-, Feuerkugel- und

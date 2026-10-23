@@ -367,6 +367,142 @@ def ore(kind: str, variant: str, base: Image.Image) -> Image.Image:
     return cv.snap('Glanz').img
 
 
+# ---------------------------------------------------------------- W23-1 T6 = C, hidden (owner 23.10. evening)
+# The owner picked C (streaks + glow / shadow) but wants the ore harder to spot: less contrast and glow, smaller visible ore.
+# C1 "muted": the C streaks, half the glow, ore tones a quarter towards the End stone, the brightest glint toned down.
+# C2 "hidden" (built in): only the core of each streak (no dark rim, the tips far from the light part gone), ore tones
+# blended far towards the End stone under them, a soft glint, no glow; the dark rim becomes a faint End stone shadow.
+HIDE = {'C1': {'glow': 0.5, 'blend': 0.25, 'H': 'L'}, 'C2': {'glow': 0.0, 'blend': 0.45, 'H': 'L'}}
+ES_SHADOW = hx('8e865c')                      # a darker End stone tone (shadow of a crack), not an ore colour
+
+
+def streak_core(rows: list[str]) -> list[str]:
+    """C2: drops the dark rim and every 'm' tip with no light pixel next to it -> 2-3 visible pixels per streak."""
+    grid = [list(r.replace('D', 's')) for r in rows]   # 's' = soft End stone shadow where the rim was
+    for y, r in enumerate(grid):
+        for x, ch in enumerate(r):
+            if ch != 'm':
+                continue
+            near = [grid[y + dy][x + dx] for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1))
+                    if 0 <= x + dx < 16 and 0 <= y + dy < 16]
+            if 'H' not in near and 'L' not in near:
+                grid[y][x] = 's'
+    return [''.join(r) for r in grid]
+
+
+def ore_hidden(kind: str, grade: str, base: Image.Image) -> Image.Image:
+    """T6 = C made harder to spot (grade C1 / C2, see HIDE)."""
+    h = HIDE[grade]
+    rows = streak_core(ORE_STREAKS[kind]) if grade == 'C2' else ORE_STREAKS[kind]
+    cv = Canvas()
+    cv.img = base.crop((0, 0, 16, 16)).convert('RGBA')
+    cv.snap('Basis Endstein')
+    ore_px = {(x, y) for y, r in enumerate(rows) for x, ch in enumerate(r) if ch in 'DmLH'}
+    if h['glow']:
+        glow = hx('ff6ad2') if kind == 'astral' else hx('061016')
+        amount = (0.42 if kind == 'astral' else 0.5) * h['glow']
+        for y in range(16):
+            for x in range(16):
+                if (x, y) in ore_px:
+                    continue
+                d = min((math.hypot(x - ox, y - oy) for ox, oy in ore_px), default=9)
+                if d <= 1.5:
+                    cv.put(x, y, mix(cv.get(x, y), glow, amount * (1.0 if d <= 1.0 else 0.5)))
+        cv.snap('Leuchten' if kind == 'astral' else 'Schatten (Anti-Leuchten)')
+    col = ORE_COL[kind]
+    tone = {'s': lambda c: mix(c, ES_SHADOW, 0.35)}
+    for k in 'Dm':
+        tone[k] = (lambda kk: lambda c: mix(col[kk], c, h['blend']))(k)
+    draw_map(cv, rows, tone)
+    cv.snap('Erz')
+    light = {'L': lambda c: mix(col['L'], c, h['blend']), 'H': lambda c: mix(col[h['H']], c, h['blend'] * 0.6)}
+    draw_map(cv, rows, light)
+    return cv.snap('Glanz').img
+
+
+# ---------------------------------------------------------------- W23-2 dull ores ("unrefined", fake)
+# Same streak layout as the built real ore (C2), so a vein of both reads as one vein:
+# F1 "dull" (built in): the crystals milky and greyed, no glint at all.
+# F2 "impure": the same streaks broken into fragments, ochre-brown inclusions between them.
+DULL_COL = {
+    'astral': {'D': hx('5e4458'), 'm': hx('9a7c92'), 'L': hx('c2aabb'), 'H': hx('c2aabb')},
+    'nihil': {'D': hx('1c2426'), 'm': hx('3c4a4c'), 'L': hx('6a7a7a'), 'H': hx('6a7a7a')},
+}
+OCHRE = hx('8a6a32')
+
+
+def dull_ore(kind: str, variant: str, base: Image.Image) -> Image.Image:
+    rows = streak_core(ORE_STREAKS[kind])
+    if variant == 'F2':                       # break the streaks: every third pixel along them stays End stone
+        rows = [''.join(ch if ch in '.s' or (x + y) % 3 else 's' for x, ch in enumerate(r)) for y, r in enumerate(rows)]
+    cv = Canvas()
+    cv.img = base.crop((0, 0, 16, 16)).convert('RGBA')
+    cv.snap('Basis Endstein')
+    col = DULL_COL[kind]
+    tone = {'s': lambda c: mix(c, ES_SHADOW, 0.35)}
+    for k in 'DmLH':
+        tone[k] = (lambda kk: lambda c: mix(col[kk], c, 0.35))(k)
+    draw_map(cv, rows, tone)
+    cv.snap('Trübes Erz')
+    if variant == 'F2':
+        for x, y in ((6, 2), (12, 6), (3, 11), (10, 13), (14, 10)):
+            cv.put(x, y, mix(OCHRE, cv.get(x, y), 0.3))
+        cv.snap('Einschlüsse')
+    return cv.img
+
+
+# Dull drops (W23-2 drop proposal A, built): the own Astralit dust / Nihilit shard icons, clouded - the colours pulled
+# most of the way to a grey of the same brightness, then a little towards milky white; same shape, so it reads as
+# "the same material, unrefined".
+ITEM = ROOT / 'src/main/resources/assets/simplebuilding/textures/item'
+OVERLAY_ITEM = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures/item'
+DULL_ITEMS = {'dull_astralit_dust': 'astralit_dust', 'dull_nihilith_shard': 'nihilith_shard'}
+MILKY = hx('d8d2d6')
+
+
+def dull_item(src_name: str) -> Image.Image:
+    cv = Canvas()
+    cv.img = Image.open(ITEM / f'{src_name}.png').convert('RGBA')
+    cv.snap('Basis (echtes Material)')
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = cv.img.getpixel((x, y))
+            if a:
+                lum = round(0.299 * r + 0.587 * g + 0.114 * b)
+                cv.put(x, y, mix(mix((r, g, b), (lum, lum, lum), 0.6), MILKY, 0.18))
+    return cv.snap('Trübung').img
+
+
+def install(check: bool) -> int:
+    """W23-2: writes the two dull drop icons (+ layers) into the 26.3 overlay; --check only compares."""
+    bad = []
+    for name, src in DULL_ITEMS.items():
+        im, path = dull_item(src), OVERLAY_ITEM / f'{name}.png'
+        if check:
+            if not path.exists() or Image.open(path).convert('RGBA').tobytes() != im.tobytes():
+                bad.append(path)
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            layers.save(im, path)
+    for b in bad:
+        print('out of date:', b.relative_to(ROOT))
+    return 1 if bad else 0
+
+
+# Built picks (W23-1 T6, W23-2); vanilla_derived.py draws them from the client jar (End stone base).
+ORE_PICK = {'real': 'C2', 'dull': 'F1'}
+
+
+def derived(jar) -> dict:
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: the End ores on Vanilla's End stone."""
+    import vn12_preview_2026_10_23 as vp
+    end_stone = vp.Jar(Path(jar)).tex('block/end_stone')
+    return {'block/astralit_ore.png': ore_hidden('astral', ORE_PICK['real'], end_stone),
+            'block/nihilith_ore.png': ore_hidden('nihil', ORE_PICK['real'], end_stone),
+            'block/dull_astralit_ore.png': dull_ore('astral', ORE_PICK['dull'], end_stone),
+            'block/dull_nihilith_ore.png': dull_ore('nihil', ORE_PICK['dull'], end_stone)}
+
+
 # ---------------------------------------------------------------- T7 pistons (all six faces alike, off + active)
 
 STONE = {  # frame stone from the polished Astralit / Nihilith family, own 10-tone ramps
@@ -703,12 +839,159 @@ def radios(name, opts, rec):
 REC = {'T5': 'A', 'T6': 'B', 'T7': 'B', 'T8': 'A', 'T9': 'B'}
 
 
+def drop_sketch(kind: str) -> Image.Image:
+    """Sketches of the not-built drop proposals (W23-2): B slag (one grey-brown lump), C raw fragment (dull shard, dark rim)."""
+    base = dull_item('astralit_dust' if kind == 'B' else 'nihilith_shard')
+    cv = Canvas()
+    cv.img = base.copy()
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = cv.img.getpixel((x, y))
+            if not a:
+                continue
+            if kind == 'B':
+                lum = (r + g + b) // 3
+                cv.put(x, y, mix((lum, lum, lum), hx('6a5638'), 0.45))
+            elif any(not cv.img.getpixel((x + dx, y + dy))[3] for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))
+                     if 0 <= x + dx < 16 and 0 <= y + dy < 16):
+                cv.put(x, y, mix((r, g, b), hx('2a2024'), 0.5))
+    return cv.img
+
+
+def w23_page(out: str, jarp):
+    """W23-1 / W23-2 (owner 23.10. evening): ONE page - what is built, and what is still to choose."""
+    import vn12_preview_2026_10_23 as vp
+    import end_pistons_2026_10_03 as ep
+    jar = vp.Jar(jarp)
+    es = jar.tex('block/end_stone')
+    ender = n46.vanilla(jarp)
+
+    def cube(im):
+        return fig(vp.cube_iso(im, im, 5), 1, 'Block', 'px plain')
+
+    def old(rel):
+        im = committed(rel)
+        return fig(im.crop((0, 0, 16, 16)), 6, 'alt') if im is not None else ''
+
+    built = []
+    rows = ''.join(f'<div class="row">{fig(im, 8, k)}{fig(tile(im), 2, "Wand 3×3")}{cube(im)}'
+                   f'{old("mc26_3/overlay/resources/assets/simplebuilding/textures/block/" + k + "_redstone_block.png")}</div>'
+                   for k in ('astral', 'nihil', 'bridge') for im in [rs_vanilla(k)])
+    built.append(f'<div class="card"><h3>T5 = A Redstone-Blöcke (Vanilla-Aufbau)</h3>{rows}</div>')
+    rows = ''.join(f'<div class="row">{fig(ore_hidden(k, "C2", es), 8, n)}{fig(wall(ore_hidden(k, "C2", es), es), 2, "in der Endstein-Wand")}'
+                   f'{cube(ore_hidden(k, "C2", es))}{old("src/main/resources/assets/simplebuilding/textures/block/" + n + ".png")}</div>'
+                   for k, n in (('astral', 'astralit_ore'), ('nihil', 'nihilith_ore')))
+    built.append(f'<div class="card"><h3>T6 = C, versteckt (Stufe C2 eingebaut)</h3>{rows}<p class="note">Endstein-Basis = Vanilla → '
+                 f'baut <code>vanilla_derived.py</code>, nicht im Repo. Astraliterz hat weiter Lichtstufe 5 (Mechanik, unverändert).</p></div>')
+    rows = ''.join(f'<div class="row">{fig(piston_waves(k, False), 8, k + " aus")}{fig(piston_waves(k, True), 8, "an")}'
+                   f'{fig(tile(piston_waves(k, False)), 2, "3×3")}{cube(piston_waves(k, False))}'
+                   f'{fig(ep.variant_c(k, False), 6, "alt (Vanilla-Platte umgefärbt)")}</div>' for k in ('astral', 'nihil'))
+    built.append(f'<div class="card"><h3>T7 = C Kolben (Fliesen + Wellenring), eigene Pixel</h3>{rows}</div>')
+    frames = light_strip('B')
+    olds = committed('src/main/resources/assets/simplebuilding/textures/block/construction_light.png')
+    oldf = [olds.crop((0, 16 * i, 16, 16 * i + 16)) for i in range(olds.height // 16)] if olds is not None else []
+    built.append(f'<div class="card"><h3>T8 = B Baulicht (vier Scheiben, Puls wie bisher)</h3><div class="row">'
+                 f'{gfig(gif(frames, 10), 160, 160, "pulsierend")}{gfig(gif([tile(f) for f in frames], 2), 96, 96, "Wand 3×3")}'
+                 f'{cube(frames[0])}{gfig(gif(oldf, 6), 96, 96, "alt") if oldf else ""}</div></div>')
+    new_sheet = n46.game_chests(ender)['astral']
+    old_sheet = n46.sheet(ender, 'astral', 2, n46.PICK['astral'])
+    built.append(f'<div class="card"><h3>T9 = B Astral-Gewölbe (6×6-Enderit unter dem Schloss)</h3><div class="row">'
+                 f'{fig(vault_front(new_sheet), 12, "Vorderseite")}{fig(vault_front(old_sheet), 8, "alt")}</div></div>')
+    # W23-2 built: dull ores F1 + dull drops A, a vein in the wall
+    vein = tile(es, 5)
+    for (x, y), im in {(1, 2): ore_hidden('astral', 'C2', es), (2, 2): dull_ore('astral', 'F1', es), (2, 1): ore_hidden('astral', 'C2', es),
+                       (3, 3): ore_hidden('astral', 'C2', es)}.items():
+        vein.paste(im, (16 * x, 16 * y))
+    veinn = tile(es, 5)
+    for (x, y), im in {(1, 1): ore_hidden('nihil', 'C2', es), (2, 1): ore_hidden('nihil', 'C2', es), (2, 2): dull_ore('nihil', 'F1', es),
+                       (3, 2): ore_hidden('nihil', 'C2', es)}.items():
+        veinn.paste(im, (16 * x, 16 * y))
+    items = ''.join(fig(dull_item(src), 8, name) + fig(Image.open(ITEM / f'{src}.png').convert('RGBA'), 4, 'echt')
+                    for name, src in DULL_ITEMS.items())
+    built.append(f'<div class="card"><h3>W23-2 Trübe Erze (F1 eingebaut) + Drop A</h3><div class="row">'
+                 f'{fig(dull_ore("astral", "F1", es), 8, "trübes Astraliterz")}{fig(dull_ore("nihil", "F1", es), 8, "trübes Nihiliterz")}'
+                 f'{fig(vein, 3, "Astralit-Ader: 3 echt + 1 trüb")}{fig(veinn, 3, "Nihilit-Ader: 3 echt + 1 trüb")}</div>'
+                 f'<div class="row">{items}</div><p class="note">Ader-Rechnung (Nachbildung OreFeature 26.3, 10⁶ Adern im Platzierungs-'
+                 f'Umfeld): Astralit Größe 4→5, trüb 0,162 / echt 0,773 → echt 1,89 Blöcke je Ader wie vorher, trüb ¼ davon = 20 %. '
+                 f'Nihilit Größe 5→6, trüb 0,194 / echt 0,966 → echt 1,58 wie vorher. Gametest misst je 600 Adern. Drop A: trüber Staub/'
+                 f'Splitter (Glück wie echt, Behutsamkeit = Block), 4 → 1 echt in der Werkbank. Etwas weicher (15/20 statt 20/25), 1–3 EP, '
+                 f'trübes Astralit leuchtet 3 statt 5; gleiche Werkzeugstufe (Diamant). Der Erzdetektor findet nur echtes Erz.</p></div>')
+
+    pick = []
+    pick.append(f'<div class="card"><h3>T6 Abstufung: wie versteckt?</h3>{radios("T6", ["C1", "C2"], "C2")}<div class="row">'
+                + ''.join(fig(ore(k, 'C', es), 6, 'C (gewählt) ' + k) + fig(ore_hidden(k, 'C1', es), 6, 'C1 gedämpft')
+                          + fig(ore_hidden(k, 'C2', es), 6, 'C2 versteckt ★') for k in ('astral', 'nihil'))
+                + f'</div><div class="row">{fig(wall(ore_hidden("astral", "C1", es), es), 2, "C1 in der Wand")}'
+                  f'{fig(wall(ore_hidden("astral", "C2", es), es), 2, "C2 in der Wand")}'
+                  f'{fig(wall(ore_hidden("nihil", "C1", es), es), 2, "C1 Nihilit")}{fig(wall(ore_hidden("nihil", "C2", es), es), 2, "C2 Nihilit")}'
+                  f'</div><p class="note">C1: Adern wie C, halber Schein, Töne ¼ zum Endstein. C2: nur der Kern jeder Ader (kein dunkler Rand, '
+                  f'Spitzen weg), Töne fast halb zum Endstein, kein Schein.</p></div>')
+    pick.append(f'<div class="card"><h3>Trübes Erz – Textur</h3>{radios("F", ["F1", "F2"], "F1")}<div class="row">'
+                + ''.join(fig(dull_ore(k, v, es), 6, f'{v} {k}') for v in ('F1', 'F2') for k in ('astral', 'nihil'))
+                + f'{fig(ore_hidden("astral", "C2", es), 6, "echt (C2)")}{fig(ore_hidden("nihil", "C2", es), 6, "echt (C2)")}</div>'
+                  f'<p class="note">F1 trüb ★: gleiche Adern, milchig-grau, kein Glanz. F2 verunreinigt: Adern in Bruchstücke, ockerbraune '
+                  f'Einschlüsse.</p></div>')
+    pick.append(f'<div class="card"><h3>Trübes Erz – Drop</h3>{radios("D", ["A", "B", "C"], "A")}<div class="row">'
+                f'{fig(dull_item("astralit_dust"), 6, "A trüber Staub")}{fig(dull_item("nihilith_shard"), 6, "A trüber Splitter")}'
+                f'{fig(drop_sketch("B"), 6, "B Endschlacke (Skizze)")}{fig(drop_sketch("C"), 6, "C rohes Bruchstück (Skizze)")}</div>'
+                f'<ul class="note"><li><b>A ★ trüber Staub / Splitter</b> (eingebaut): Drop wie echtes Erz, 4 → 1 echtes (Werkbank). Wert ¼, '
+                f'ohne Fremdmodul.</li><li><b>B Endschlacke</b>: ein gemeinsames Item, kein Glück-Bonus, nur Brennstoff/Dünger – reine '
+                f'Täuschung, kein Wert.</li><li><b>C rohes Bruchstück</b>: im Tiegel (Simple Crucibles, nur wenn geladen) 2 → 1 echtes '
+                f'veredelt; ohne Tiegel wertlos.</li></ul><p class="note">Austausch = nur Loot-Tabelle + Rezept '
+                f'(<code>mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dull_*.json</code>).</p></div>')
+
+    html = f'''<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SimpleBuilding Texturen W23</title><style>
+:root{{--bg:#f6f5f2;--fg:#1d1d1f;--mut:#5c5c62;--card:#fff;--line:#d9d7d2;--in:#1f7a3a;--cand:#9a5b00}}
+@media (prefers-color-scheme:dark){{:root:not([data-theme="light"]){{--bg:#18181b;--fg:#ececee;--mut:#a3a3ab;--card:#232327;--line:#3a3a40;--in:#5fd38a;--cand:#f0b45a}}}}
+:root[data-theme="dark"]{{--bg:#18181b;--fg:#ececee;--mut:#a3a3ab;--card:#232327;--line:#3a3a40;--in:#5fd38a;--cand:#f0b45a}}
+body{{margin:0;padding:16px;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,sans-serif}}
+main{{max-width:1280px;margin:auto}} h1{{font-size:1.4rem}} h2{{font-size:1.15rem;margin:0 0 6px}} h3{{font-size:1rem;margin:0 0 6px}}
+section{{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin:14px 0;min-width:0}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}} .card{{border:1px solid var(--line);border-radius:8px;padding:10px;min-width:0}}
+.row{{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:6px 0}}
+figure{{margin:0;text-align:center;max-width:100%}} figcaption{{font-size:12px;color:var(--mut)}}
+img.px{{image-rendering:pixelated;max-width:100%;height:auto;background:#8b8b8b}} img.plain{{background:transparent}}
+.note{{color:var(--mut);margin:4px 0 8px}} .tag{{font-size:12px;padding:2px 6px;border-radius:6px;border:1px solid}} .in{{color:var(--in)}} .cand{{color:var(--cand)}}
+.pick{{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 10px}}
+#code{{position:sticky;top:0;z-index:2;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}}
+button{{font:inherit;padding:4px 10px}} code{{font-size:14px;overflow-wrap:anywhere}}
+</style></head><body><main>
+<h1>SimpleBuilding W23 – eingebaut und offen</h1>
+<p class="note">Branch a-sbtex23b. Oben: was nach der Wahl vom 23.10. abends eingebaut ist (alter Stand daneben). Unten: was noch zu wählen
+ist (★ = vorläufig eingebaut). Vanilla-Endstein nur auf dieser Seite und im Build (vanilla_derived), nie im Repo.</p>
+<div id="code"><span>Antwort:</span><code id="c"></code><button id="cp">Kopieren</button></div>
+<section><h2>Eingebaut <span class="tag in">im Spiel</span></h2><div class="grid">{"".join(built)}</div></section>
+<section><h2>Wahl offen <span class="tag cand">vorläufig ★ eingebaut</span></h2><div class="grid">{"".join(pick)}</div></section>
+</main><script>
+function upd(){{const r=k=>{{const e=document.querySelector('input[name="'+k+'"]:checked');return e?e.value:'?'}};
+document.getElementById('c').textContent='W23 T6='+r('T6')+' Fake='+r('F')+' Drop='+r('D');}}
+document.querySelectorAll('input').forEach(e=>e.addEventListener('change',upd));upd();
+document.getElementById('cp').onclick=()=>{{try{{navigator.clipboard.writeText(document.getElementById('c').textContent)}}catch(e){{}}}};
+</script></body></html>'''
+    Path(out).parent.mkdir(parents=True, exist_ok=True)
+    Path(out).write_text(html, encoding='utf-8')
+    print('preview:', out, f'({len(html) // 1024} KB)')
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--out', required=True)
-    ap.add_argument('--cand', required=True)
+    ap.add_argument('--out')
+    ap.add_argument('--cand')
     ap.add_argument('--jar')
+    ap.add_argument('--install', action='store_true', help='write the built dull drop icons (W23-2) into the overlay')
+    ap.add_argument('--check', action='store_true', help='with --install: only compare')
+    ap.add_argument('--w23', help='W23 page (built + open choices), e.g. /root/sb-tools-a/previews/a-sbtex23b-preview.html')
     a = ap.parse_args()
+    if a.install:
+        raise SystemExit(install(a.check))
+    if a.w23:
+        jarp = vanilla_derived.find_jar(a.jar)
+        if jarp is None:
+            raise SystemExit('sbtex23: needs the 26.3 client jar')
+        return w23_page(a.w23, jarp)
+    if not (a.out and a.cand):
+        ap.error('--out and --cand are needed for the candidate page')
     jarp = vanilla_derived.find_jar(a.jar)
     if jarp is None:
         raise SystemExit('sbtex23: needs the 26.3 client jar (End stone base, vault sheet, Vanilla comparisons)')

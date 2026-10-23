@@ -124,6 +124,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
             builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
         }
+        if (com.simplebuilding.version.McVersion.DULL_ORES) {
+            // Truebe End-Erze (W23-2): gleiche Werkzeugstufe wie die echten, sonst verriete die Spitzhacke sie.
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.DULL_ASTRALIT_ORE)).add(key(ModBlocks.DULL_NIHILITH_ORE));
+            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.DULL_ASTRALIT_ORE)).add(key(ModBlocks.DULL_NIHILITH_ORE));
+        }
         // Aus Simple Tweaks: alle Platten mit der Spitzhacke (Abbautempo regelt sonst der Besitz).
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
 

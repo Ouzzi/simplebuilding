@@ -497,6 +497,15 @@ public class ModItems {
     public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
 
     public static final Item ASTRALIT_ORE_ITEM = registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s));
+    /** Truebe End-Erze und ihr Drop (W23-2): 4 trueber Staub / Splitter ergeben 1 echten (Rezept im 26.3-Overlay). */
+    public static final Item DULL_ASTRALIT_ORE_ITEM = com.simplebuilding.version.McVersion.DULL_ORES
+            ? registerItem("dull_astralit_ore", s -> new BlockItem(ModBlocks.DULL_ASTRALIT_ORE, s)) : null;
+    public static final Item DULL_NIHILITH_ORE_ITEM = com.simplebuilding.version.McVersion.DULL_ORES
+            ? registerItem("dull_nihilith_ore", s -> new BlockItem(ModBlocks.DULL_NIHILITH_ORE, s)) : null;
+    public static final Item DULL_ASTRALIT_DUST = com.simplebuilding.version.McVersion.DULL_ORES
+            ? registerItem("dull_astralit_dust", s -> new Item(s)) : null;
+    public static final Item DULL_NIHILITH_SHARD = com.simplebuilding.version.McVersion.DULL_ORES
+            ? registerItem("dull_nihilith_shard", s -> new Item(s)) : null;
 
     public static final Item AUTO_SMITHER = com.simplebuilding.version.McVersion.AUTO_SMITHER
             ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s)) : null;

@@ -23,6 +23,11 @@ public final class OreGenAndItemFrameGameTest {
     }
 
     @GameTest
+    public void dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount(GameTestHelper helper) {
+        OreGenAndItemFrameTests.dullOresAreOneFifthOfTheVeinAndKeepTheRealAmount(helper);
+    }
+
+    @GameTest
     public void endOrePlacementDiffersBetweenAstralitAndNihilith(GameTestHelper helper) {
         OreGenAndItemFrameTests.endOrePlacementDiffersBetweenAstralitAndNihilith(helper);
     }

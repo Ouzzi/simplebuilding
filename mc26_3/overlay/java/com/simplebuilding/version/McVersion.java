@@ -45,6 +45,8 @@ public final class McVersion {
     public static final boolean END_SYSTEMS = true;
     /** Overworld wave 2026-10-01: Sage Ore and the Sage Orb (main line first, ported later). */
     public static final boolean SAGE_ORE = true;
+    /** Dull (fake) Astralit / Nihilit ore inside the End ore veins (W23-2, owner 2026-10-23; main line first). */
+    public static final boolean DULL_ORES = true;
     /** Dimensional Scrap (2026-10-01): mysterious endgame block in every dimension, no use before v2. */
     public static final boolean DIMENSIONAL_SCRAP = true;
     /** Fletching table and crafted arrows (2026-10-01, main line first). */

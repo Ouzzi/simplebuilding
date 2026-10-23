@@ -7,6 +7,9 @@ docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md, section 7:
                      on = the brackets light up.
   C "piston plate" - vanilla piston head plate recoloured to the channel ramp, small gem hole in the
                      middle; on = a 1 px brighter rim ("extended").
+  W "tiles + wave" - W23-1 (owner 23.10. evening, B23-T7 = C): own pixels from sbtex23_2026_10_23.piston_waves -
+                     polished 2x2 tiles, a gem in the middle and a ring wave on the tile seams (Astral pushed out,
+                     Nihil pulled in), on = lit; drawn in layers, back in the repository (no Vanilla pixels).
 
   python tools/textures/end_pistons_2026_10_03.py              # preview + install the chosen variant
   python tools/textures/end_pistons_2026_10_03.py --install B  # switch the built-in variant
@@ -18,12 +21,16 @@ import argparse
 import io
 import json
 import os
+import sys
 import zipfile
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-CHOSEN = "C"  # owner 2026-10-04
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import layers  # noqa: E402
+
+CHOSEN = "W"  # owner 2026-10-04: C; 2026-10-23 (W23-1, B23-T7 = C of that round): W
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
 SRC_BLOCK = ROOT / "src/main/resources/assets/simplebuilding/textures/block"
@@ -31,7 +38,7 @@ CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/cach
 # Variant C is Vanilla's piston plate recoloured: its textures are built, never committed
 # (tools/textures/vanilla_derived.py calls derived()); A and B are own art and stay in the repository.
 DERIVED_VARIANTS = {"C"}
-PREVIEW = Path("C:/Users/o_o/code/minecraft-mods/previews/astral-nihil-kolben-vorschau.png")
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", "/root/previews/end-pistons")) / "astral-nihil-kolben-vorschau.png"
 
 # Gem ramps of the End signal family (end_system_textures.py): dark, mid, light.
 GEMS = {"astral": [(98, 48, 81), (177, 99, 141), (241, 175, 211)],
@@ -120,7 +127,12 @@ def variant_c(channel, on):
     return img
 
 
-VARIANTS = {"A": variant_a, "B": variant_b, "C": variant_c}
+def variant_w(channel, on):
+    import sbtex23_2026_10_23 as sbtex23
+    return sbtex23.piston_waves(channel, on)
+
+
+VARIANTS = {"A": variant_a, "B": variant_b, "C": variant_c, "W": variant_w}
 
 
 def textures(choice):
@@ -157,7 +169,8 @@ def preview():
     except OSError:
         font = ImageFont.load_default()
     refs = [Image.open(SRC_BLOCK / POLISHED[c]).convert("RGBA") for c in ["astral", "nihil"]]
-    refs += [Image.open(ASSETS / "textures/block" / f"{c}_switch.png").convert("RGBA") for c in ["astralit", "nihilith"]]
+    refs += [Image.open(p).convert("RGBA") for c in ["astralit", "nihilith"]   # the switches moved out (2026-10)
+             if (p := ASSETS / "textures/block" / f"{c}_switch.png").exists()]
     rows = [("Vorlagen", refs)] + [(f"{k}", [VARIANTS[k](ch, on) for ch in ["astral", "nihil"] for on in [False, True]])
                                    for k in VARIANTS]
     cell = 16 * scale
@@ -175,7 +188,7 @@ def preview():
         for i, im in enumerate(images):
             canvas.alpha_composite(im.resize((cell, cell), Image.Resampling.NEAREST), (140 + i * (cell + pad), y))
             if r == 0:
-                caption = ["pol. Astralit", "pol. Nihilith", "Astralit-Schalter", "Nihilith-Schalter"][i]
+                caption = ["pol. Astralit", "pol. Nihilith", "Astralit-Schalter", "Nihilith-Schalter"][i] if i < 4 else ""
                 d.text((140 + i * (cell + pad), y + cell + 1), caption, fill=(200, 200, 200), font=ImageFont.load_default())
     PREVIEW.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(PREVIEW)
@@ -198,7 +211,7 @@ def main():
     for rel, im in art.items():
         p = ASSETS / "textures" / rel
         p.parent.mkdir(parents=True, exist_ok=True)
-        im.save(p)
+        layers.save(im, p)
     write_models()
     print(f"End pistons: variant {args.install} installed, preview {preview()}")
 

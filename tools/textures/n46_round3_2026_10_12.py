@@ -123,10 +123,35 @@ def sheet(van, mat, v, sec=None):
     return out
 
 
+# W23-1 (owner 23.10. evening, B23-T9 = B): the Astral vault front shows a 6x6 cut Enderite gem at x 46..51 / y 36..41 -
+# centred under the lock (x 48/49) and in the six rows the lock leaves free - instead of the 5x5 diamond around (48, 38).
+# Colours of the Enderite block / raw Enderite (simplelib); drawn by sbtex23_2026_10_23.vault_sheet for the preview.
+VAULT_GEM = ['..mm..', '.mLHm.', 'mLHWHm', 'mlHWLd', '.mlld.', '..dd..']
+ENDERITE = {'d': '3e2173', 'm': '55309a', 'l': '8e63dc', 'L': 'a57de9', 'H': 'cfb2fb', 'W': 'f4d2ff'}
+VAULT_GEM_AT = (46, 36)
+
+
+def astral_gem(out, van):
+    """The old motif area back to the empty eye socket, then the 6x6 gem."""
+    x0, y0 = VAULT_GEM_AT
+    for y in range(y0 - 2, y0 + 7):
+        for x in range(x0 - 2, x0 + 8):
+            c = van.getpixel((x, y))
+            if c[3] and is_eye(c):
+                out.putpixel((x, y), H(RAMP['astral'][0]))
+    for dy, row in enumerate(VAULT_GEM):
+        for dx, ch in enumerate(row):
+            if ch in ENDERITE:
+                out.putpixel((x0 + dx, y0 + dy), H(ENDERITE[ch]))
+    return out
+
+
 def game_chests(van=None):
     """The built-in chest sheets (entity/chest/<mat>_vault.png)."""
     van = van if van is not None else vanilla()
-    return {mat: sheet(van, mat, 2, PICK[mat]) for mat in ('astral', 'nihil')}
+    out = {mat: sheet(van, mat, 2, PICK[mat]) for mat in ('astral', 'nihil')}
+    astral_gem(out['astral'], van)
+    return out
 
 
 def page4(path, van):

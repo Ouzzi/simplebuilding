@@ -616,6 +616,15 @@ public class ModBlocks {
     }
 
     public static final Block ASTRALIT_ORE = registerBlock("astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops()));
+    /**
+     * Truebe (falsche) End-Erze (W23-2, Besitzer 2026-10-23): sitzen in denselben Adern wie die echten (ein Fuenftel der
+     * Erzbloecke, {@code ModWorldGen}), sehen aehnlich aus, sind aber "unraffiniert" - etwas weicher, weniger Erfahrung,
+     * truebes Astralit leuchtet schwaecher - und droppen nur truebes Material (Beutetabelle, austauschbar).
+     */
+    public static final Block DULL_ASTRALIT_ORE = McVersion.DULL_ORES ? registerBlock("dull_astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(1, 3),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("dull_astralit_ore")).strength(15.0f, 1200.0f).lightLevel(state -> 3).requiresCorrectToolForDrops())) : null;
+    public static final Block DULL_NIHILITH_ORE = McVersion.DULL_ORES ? registerBlock("dull_nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(1, 3),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("dull_nihilith_ore")).strength(20.0f, 1200.0f).requiresCorrectToolForDrops())) : null;
 
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
