@@ -49,6 +49,7 @@ public final class ClaimDeedItem extends Item {
         DeedData data = stack.get(DeedData.TYPE);
         if (data == null) {
             out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.inactive"));
+            out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.carto"));
             return;
         }
         out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.bound", data.ownerName()));

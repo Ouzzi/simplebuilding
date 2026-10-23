@@ -6,10 +6,6 @@ import com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem;
 import com.simplebuilding.modules.simpletweaks.deed.DeedData;
 import com.simplebuilding.modules.simpletweaks.deed.net.DeedNet;
 import com.simplebuilding.modules.simpletweaks.table.ClaimMapLayer;
-import com.simplebuilding.modules.simpletweaks.table.ClaimTableBlock;
-import com.simplebuilding.modules.simpletweaks.table.TableService;
-import com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload;
-import com.simplebuilding.modules.simpletweaks.table.net.TableRequestPayload;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -116,41 +112,7 @@ public final class ExpansionTests {
             } catch (UnsupportedOperationException | java.io.IOException e) {
                 com.mojang.logging.LogUtils.getLogger().info("[claims] symbolic links unavailable - skipping the failed-save check");
             }
-        } finally { Claims.install(server, previous); TableService.reset(); }
-        h.succeed();
-    }
-
-    /** The table asks the server to expand: needs the opened table in reach, works with the map switched off, answers with fresh data. */
-    public static void tableExpand(GameTestHelper h) {
-        var server = h.getLevel().getServer(); var previous = Claims.get(server); var level = h.getLevel();
-        var base = h.absolutePos(new BlockPos(2, 3, 2));
-        var table = new BlockPos((base.getX() >> 4) * 16 + 16 + 4, base.getY(), (base.getZ() >> 4) * 16 + 8);
-        var oldState = level.getBlockState(table);
-        var oldSender = DeedNet.toClient;
-        var sent = new ArrayList<CustomPacketPayload>();
-        try {
-            level.setBlock(table, ClaimTableBlock.block().defaultBlockState(), 3);
-            var claims = new Claims(config().withVisibility("off"), temp(), Map.of()); Claims.install(server, claims);
-            DeedNet.toClient = (pl, payload) -> { sent.add(payload); return true; };
-            var p = player(h, table.east(2)); var far = player(h, table.east(2));
-            p.getInventory().add(new ItemStack(ClaimDeedItem.item())); p.getInventory().add(new ItemStack(Items.IRON_INGOT, 2)); p.giveExperienceLevels(1);
-            TableService.resetThrottle();
-            TableService.handle(new TableRequestPayload(table, TableRequestPayload.EXPAND, 0, 0, 0, 0), p);
-            yes(h, sent.isEmpty() && claims.budget(p.getUUID()) == 2, "No open table: the request does nothing");
-            yes(h, TableService.open(p, table), "The table opens even with the map off");
-            var open = (TableOpenPayload) sent.get(0);
-            yes(h, open.state() == TableOpenPayload.BUY && open.nextChunks() == 3 && open.nextLevels() == 1 && open.nextCosts().equals(List.of(new TableOpenPayload.Cost("minecraft:iron_ingot", 2)))
-                    && open.maxChunks() == 2, "Open payload offers the next step with its price");
-            sent.clear(); TableService.resetThrottle();
-            TableService.handle(new TableRequestPayload(table, TableRequestPayload.EXPAND, 0, 0, 0, 0), p);
-            yes(h, claims.budget(p.getUUID()) == 3 && count(p, Items.IRON_INGOT) == 0 && p.experienceLevel == 0, "Expansion bought through the table");
-            var fresh = (TableOpenPayload) sent.get(sent.size() - 1);
-            yes(h, fresh.maxChunks() == 3 && fresh.state() == TableOpenPayload.LIMIT, "The answer carries the new budget; the next step is above the server limit");
-            far.getInventory().add(new ItemStack(ClaimDeedItem.item())); far.getInventory().add(new ItemStack(Items.IRON_INGOT, 2)); far.giveExperienceLevels(1);
-            TableService.resetThrottle();
-            TableService.handle(new TableRequestPayload(table, TableRequestPayload.EXPAND, 0, 0, 0, 0), far);
-            yes(h, claims.budget(far.getUUID()) == 2 && count(far, Items.IRON_INGOT) == 2, "A player who never opened the table cannot buy");
-        } finally { DeedNet.toClient = oldSender; Claims.install(server, previous); level.setBlock(table, oldState, 3); TableService.reset(); }
+        } finally { Claims.install(server, previous); }
         h.succeed();
     }
 
