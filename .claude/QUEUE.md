@@ -62,6 +62,46 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 
 ---
 
+## Besitzer 23.10. nachmittags – Texturen, Mechanik, Mega-Karte (B23)
+Sprachnachricht + 5 Screenshots (Kopie auf sb-agent: /root/sb-tools-a/owner-img/23-*). Texturen: immer exemplarisch + Varianten, in Ebenen, Vanilla-nah, „wie bei den Endholz-Varianten“ (mehr Töne, weiche Übergänge).
+**Texturen Simple Blocks (a-blockstex23)**
+- [~] (A, a-blockstex23, 23.10.) B23-T1 Bemooste Varianten: Moos zu grell/strahlend, passt sich nicht der Textur an → wie Vanilla-Moos-Ziegel.
+- [~] (A, a-blockstex23, 23.10.) B23-T2 Sculk-Tiefenschiefer: Tiefenschiefer als Basis, Sculk(-Ader) als Overlay – grundlegend neu.
+- [~] (A, a-blockstex23, 23.10.) B23-T3 (gemeißelte?) Tiefenschiefer-Fliesen + alle gemeißelten (chiseled) Varianten: harte Übergänge, nicht Vanilla-sauber → Endholz-Prozess.
+- [~] (A, a-blockstex23, 23.10.) B23-T4 Rissige (cracked) Varianten: wie Vanilla – gleiche Basistextur + je Block eigenes ähnliches Riss-Overlay (Ebenen). Ausnahmen: Rissiger Diamantblock (gut so), Rissiges Eis (eigenes Thema später).
+**Texturen SimpleBuilding (a-sbtex23)**
+- [~] (A, a-sbtex23, 23.10.) B23-T5 Blöcke Brücken-/Astral-/Nihil-Redstone: passen gar nicht in den Minecraft-Stil → mit maximalem Aufwand neu.
+- [~] (A, a-sbtex23, 23.10.) B23-T6 Astralit-/Nihilit-Erz Vanilla-näher: Endstein-Basis + Erz-Overlay; Astralit leuchtet (leicht zu finden), Nihilit „Anti-Leuchten“. (Dimensional Scraps gefallen sehr.)
+- [~] (A, a-sbtex23, 23.10.) B23-T7 Astral-/Nihil-Kolben: ganz neue, kreative Textur.
+- [~] (A, a-sbtex23, 23.10.) B23-T8 Baulicht (Construction Light, gefällt schon): Endholz-Prozess (schöner).
+- [~] (A, a-sbtex23, 23.10.) B23-T9 Astral-Gewölbe Vorderseite: blaues Motiv → wie Enderit-Klumpen/helles Leuchten des Enderit-Blocks, mittig (6×6 o. ä. statt 5×5 halb verschoben). (Enderit-Block + Enchanter gefallen sehr.)
+**Texturen Musik/Money/Shops (a-misctex23)**
+- [~] (A, a-misctex23, 23.10.) B23-T10 Notenblock + Jukebox-/Noten-Verstärker an neue Jukebox-Textur angleichen: Jukebox-Verstärker Rahmen rundum + Mitte die Textur; Notenblock/Noten-Verstärker dieselbe, schwächer.
+- [~] (A, a-misctex23, 23.10.) B23-T11 Simple Money: neues Design Spezialfaser, Banknoten-Rohling, veredelter Rohling, Rohschein (Geldschein bleibt).
+- [~] (A, a-misctex23, 23.10.) B23-T12 Verkaufslager + Lager-Werkbank (Storage Crafting Table): wirken unpoliert → sauber neu.
+- [~] (A, a-misctex23, 23.10.) B23-T13 Rucksack-Itemtexturen wie die Bündel (schönes Maß).
+- [~] (A, a-misctex23, 23.10.) B23-A1 Animationen: Dimensional Scraps animiert; Tiefenschiefer-Salbei-Erz animiert; Karmesin-/Wirr-Lohenholz-Bretter + Bücherregale dezent animiert in den Rissen (wie Blazing Obsidian, viel dezenter).
+**Mechanik (a-mech23a, a-mech23b)**
+- [~] (A, a-mech23a, 23.10.) B23-M1 Astralit- und Nihilit-Redstone-Fackel.
+- [~] (A, a-mech23a, 23.10.) B23-M2 Rissiges Eis lässt sich nicht neben anderes rissiges Eis setzen → Fehler beheben.
+- [~] (A, a-mech23a, 23.10.) B23-M3 Gras auf Stufen: breitet sich Gras auf Erd-/Gras-Stufen und von Stufen auf Erde aus? Prüfen und wie Vanilla-Gras ermöglichen.
+- [~] (A, a-mech23a, 23.10.) B23-M4 Alle Splitter (Steinkiesel, Feuerstein-, Obsidian-, Weinender-Obsidian-Splitter …) werfbar: sehr wenig Schaden, sehr schnell hintereinander. Klumpen/Nuggets nicht.
+- [~] (A, a-mech23a, 23.10.) B23-M5 Seltenheit: Warden-Ranke selten/besonders; alle Kerne mindestens wie Netherstern.
+- [~] (A, a-mech23a, 23.10.) B23-M6 Simple-Pads-Tab aufräumen: nur Pads, Druckplatten und neue Mod-Items wie Spawn-Elytra; keine Mob-Köpfe.
+- [~] (A, a-mech23a, 23.10.) B23-M7 End-Gras/-Büsche nur auf Endstein setzbar → auf mehr Blöcken (wie Vanilla-Gras/Büsche auf Erde-artigen + passenden End-Blöcken).
+- [~] (A, a-mech23a, 23.10.) B23-M8 Korrektur SP22-1: Schleich-Abbau macht nur mit dem HAMMER aus einem Vollblock eine Achtel-Zelle, nicht generell.
+- [~] (A, a-mech23a, 23.10.) B23-M9 Orchestrion: Relevanz prüfen, ggf. entfernen (Musikblatt nur für Rohlinge/Upload, immer mit Presse; Discs in Taschen-/normaler Jukebox).
+- [~] (A, a-mech23a, 23.10.) B23-M10 Models-Knopf (Simple Models) wird vor statt hinter der UI gerendert (Kreativ- und Überlebensinventar) → hinter die UI wie die anderen Reiter, oder besserer Vorschlag.
+- [~] (A, a-mech23b, 23.10.) B23-M11 Köcher + Farbkästen (paint boxes) platzierbar.
+- [~] (A, a-mech23b, 23.10.) B23-M12 Bündel/Rucksäcke/Köcher usw. abgestellt: am Boden Schwerkraftblock (wie Sand/Drachenei), an der Wand wie Item-Rahmen, an der Decke nicht.
+- [~] (A, a-mech23b, 23.10.) B23-M13 Kisten-Deckel: bei Mod-Kisten öffnet sich die ganze Kiste statt des Deckels → wie Vanilla; auch Astral-/Nihil-Gewölbe (Endertruhen-Variante).
+- [~] (A, a-mech23b, 23.10.) B23-M14 Drifting-Effekt: „betrunken“ – in zufälligen Abständen zufällige Richtungs-Velocity (halbe Laufgeschwindigkeit), addiert sich zur Eingabe (vor+vor = normal, vor+zurück = steht/zurück, seitlich = diagonal).
+- [~] (A, a-mech23b, 23.10.) B23-M15 Nibblemites zähmbar mit Driftfrüchten: Herzen, Modus Folgen/Normal per Rechtsklick; gezähmte mit leuchtenderen (ggf. animierten) Punkten.
+**Simple Maps Mega-Karte (a-megamap23)**
+- [~] (A, a-megamap23, 23.10.) B23-K1 Mega-Wayfinder-Karte: Rezept Mitte waagrecht End-, Nether-, normale Wayfinder-Karte; oben 3 Enderit-Nuggets, unten 3 Echo-Splitter. Oben rechts in der Titelzeile Knöpfe (Kies? „Craft-Block“/Gras, Netherrack, Endstein) wechseln die Dimension; merkt die letzte.
+- [~] (A, a-megamap23, 23.10.) B23-K2 Weitere Dimensionen per Amboss: Mega-Karte + spezifischer Block/Item der Dimension (Config je Dimension; Option „beliebiger Block der Dimension“); nur wo man war. Ab 6 Dimensionen Blättern: Zeile mit 5 Knöpfen + Chevron links/rechts, leere Platzhalter deaktiviert.
+- [~] (A, a-megamap23, 23.10.) B23-K3 Rezepte: End-Wayfinder mit Enderit-Schrott statt Shulker-Schale (wenn Simple-Mods/Enderit da), sonst 2× Netherit-Schrott + Shulker-Schale + Echo-Splitter; Nether-Wayfinder nur 1 Echo-Splitter.
+
 ## Besitzer 23.10. – Taschen-Jukebox, Bündel, UIs, Rahmen, Erz (PJ23 u. a.)
 Sprachnachricht 23.10. vormittags, sinngemäß.
 - [~] (A, a-pjuke23, 23.10.) PJ23-1 Taschen-Jukebox wie ein Bündel: Discs hinein/heraus wie beim Bundle; Scrollen im Tooltip (Hover) wählt die Disc; Hinein-/Herausgelegtes kommt ans Ende der Warteschlange (Playlist, Reihenfolge entsprechend). Abgestellt (Boden): Schleichen + Scrollen geht die Discs durch wie beim abgestellten Bündel; zeigt die aktuelle Disc oben drüber; Scrollen holt die Disc heraus (analog Bündel).
