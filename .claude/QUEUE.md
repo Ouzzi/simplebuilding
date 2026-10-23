@@ -76,11 +76,11 @@ Sprachnachricht + 5 Screenshots (Kopie auf sb-agent: /root/sb-tools-a/owner-img/
 - [~] (A, a-sbtex23, 23.10.) B23-T8 Baulicht (Construction Light, gefällt schon): Endholz-Prozess (schöner).
 - [~] (A, a-sbtex23, 23.10.) B23-T9 Astral-Gewölbe Vorderseite: blaues Motiv → wie Enderit-Klumpen/helles Leuchten des Enderit-Blocks, mittig (6×6 o. ä. statt 5×5 halb verschoben). (Enderit-Block + Enchanter gefallen sehr.)
 **Texturen Musik/Money/Shops (a-misctex23)**
-- [~] (A, a-misctex23, 23.10.) B23-T10 Notenblock + Jukebox-/Noten-Verstärker an neue Jukebox-Textur angleichen: Jukebox-Verstärker Rahmen rundum + Mitte die Textur; Notenblock/Noten-Verstärker dieselbe, schwächer.
-- [~] (A, a-misctex23, 23.10.) B23-T11 Simple Money: neues Design Spezialfaser, Banknoten-Rohling, veredelter Rohling, Rohschein (Geldschein bleibt).
-- [~] (A, a-misctex23, 23.10.) B23-T12 Verkaufslager + Lager-Werkbank (Storage Crafting Table): wirken unpoliert → sauber neu.
-- [~] (A, a-misctex23, 23.10.) B23-T13 Rucksack-Itemtexturen wie die Bündel (schönes Maß).
-- [~] (A, a-misctex23, 23.10.) B23-A1 Animationen: Dimensional Scraps animiert; Tiefenschiefer-Salbei-Erz animiert; Karmesin-/Wirr-Lohenholz-Bretter + Bücherregale dezent animiert in den Rissen (wie Blazing Obsidian, viel dezenter).
+- [x] (A, a-misctex23, 23.10.) B23-T10 Notenblock + Jukebox-/Noten-Verstärker an neue Jukebox-Textur angleichen: Jukebox-Verstärker Rahmen rundum + Mitte die Textur; Notenblock/Noten-Verstärker dieselbe, schwächer. — **Vorschau, Wahl offen** (a-misctex23): /root/sb-tools-a/previews/a-misctex23-preview.html, Generator tools/textures/misctex23_2026_10_23.py, Plan docs/ai/PLAN-A-MISCTEX23-2026-10-23.md; nichts eingebaut.
+- [x] (A, a-misctex23, 23.10.) B23-T11 Simple Money: neues Design Spezialfaser, Banknoten-Rohling, veredelter Rohling, Rohschein (Geldschein bleibt). — **Vorschau, Wahl offen** (a-misctex23): /root/sb-tools-a/previews/a-misctex23-preview.html, Generator tools/textures/misctex23_2026_10_23.py, Plan docs/ai/PLAN-A-MISCTEX23-2026-10-23.md; nichts eingebaut.
+- [x] (A, a-misctex23, 23.10.) B23-T12 Verkaufslager + Lager-Werkbank (Storage Crafting Table): wirken unpoliert → sauber neu. — **Vorschau, Wahl offen** (a-misctex23): /root/sb-tools-a/previews/a-misctex23-preview.html, Generator tools/textures/misctex23_2026_10_23.py, Plan docs/ai/PLAN-A-MISCTEX23-2026-10-23.md; nichts eingebaut.
+- [x] (A, a-misctex23, 23.10.) B23-T13 Rucksack-Itemtexturen wie die Bündel (schönes Maß). — **Vorschau, Wahl offen** (a-misctex23): /root/sb-tools-a/previews/a-misctex23-preview.html, Generator tools/textures/misctex23_2026_10_23.py, Plan docs/ai/PLAN-A-MISCTEX23-2026-10-23.md; nichts eingebaut.
+- [x] (A, a-misctex23, 23.10.) B23-A1 Animationen: Dimensional Scraps animiert; Tiefenschiefer-Salbei-Erz animiert; Karmesin-/Wirr-Lohenholz-Bretter + Bücherregale dezent animiert in den Rissen (wie Blazing Obsidian, viel dezenter). — **Vorschau, Wahl offen** (a-misctex23): /root/sb-tools-a/previews/a-misctex23-preview.html, Generator tools/textures/misctex23_2026_10_23.py, Plan docs/ai/PLAN-A-MISCTEX23-2026-10-23.md; nichts eingebaut.
 **Mechanik (a-mech23a, a-mech23b)**
 - [~] (A, a-mech23a, 23.10.) B23-M1 Astralit- und Nihilit-Redstone-Fackel.
 - [~] (A, a-mech23a, 23.10.) B23-M2 Rissiges Eis lässt sich nicht neben anderes rissiges Eis setzen → Fehler beheben.
