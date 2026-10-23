@@ -389,10 +389,10 @@ public final class CrucibleTests {
                 check(h, by == wide.slotY(tier, i), tier + ": barrel field " + i + " not level with its crucible field");
             }
             check(h, wide.inventoryTop() + 58 + 16 < wide.inventoryBoxTop() + wide.inventoryBoxHeight(), tier + ": hotbar outside the inventory box");
-            // SP22-6 (owner 22.10.): about one block of free fire zone under the lowest slot row (inside the 7 px bottom frame).
+            // SP22-6 (owner 22.10., height "1/4"): 12 + 5 px under the lowest slot row, 10 px of it free inside the 7 px bottom frame.
             int lowest = wide.slotY(tier, tier.slots() - 1) + 17;
-            check(h, wide.fireTop(tier) == lowest && crucibleBottom - 7 - lowest >= 18,
-                    tier + ": fire zone under the grid " + (crucibleBottom - 7 - lowest) + " px (want >= 18)");
+            check(h, wide.fireTop(tier) == lowest && crucibleBottom - 7 - lowest >= 10,
+                    tier + ": fire zone under the grid " + (crucibleBottom - 7 - lowest) + " px (want >= 10)");
         }
         h.succeed();
     }

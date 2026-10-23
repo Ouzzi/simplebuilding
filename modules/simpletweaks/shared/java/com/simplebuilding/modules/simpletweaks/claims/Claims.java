@@ -140,9 +140,30 @@ public final class Claims {
     public static boolean admin(ServerPlayer player) { return Commands.hasPermission(Commands.LEVEL_OWNERS).test(player.createCommandSourceStack()); }
     private boolean ready() {
         if (!config.enabled() || failed) return false;
-        if (store==null) try { store=new ClaimStore(root.resolve("simpletweaks-claims.json"),legacy); }
+        if (store==null) try { store=new ClaimStore(root.resolve("simpletweaks-claims.json"),legacy); migrateCredits(); }
         catch (Exception e) { failed=true; LOG.error("Claims are locked: invalid or unreadable data. Original files preserved.",e); }
         return !failed;
+    }
+    /**
+     * Once per ledger (SP22-8): land held above the paid budget (land from before the budget existed) becomes paid, so
+     * unclaiming it gives a chunk credit instead of shrinking the budget. Owners within their budget keep no entry
+     * (a later change of {@code startChunks} still applies to them). Nothing to change: no write, the marker follows
+     * with the next save.
+     */
+    private void migrateCredits() throws java.io.IOException {
+        if (store.creditsMigrated()) return;
+        var held=new HashMap<UUID,Integer>();
+        store.view().values().forEach(c->held.merge(c.owner(),1,Integer::sum));
+        var next=new HashMap<>(store.budgets());
+        held.forEach((owner,n)->{
+            Integer stored=next.get(owner);
+            if (n>Math.max(stored==null?config.startChunks():stored,config.startChunks())) next.put(owner,Math.min(n,ClaimConfig.MAX_CLAIMS));
+        });
+        var old=store.budgets();
+        long raised=next.entrySet().stream().filter(e->!e.getValue().equals(old.get(e.getKey()))).count();
+        if (raised==0) { store.markCreditsMigrated(); return; }
+        store.migrateCredits(next);
+        LOG.info("Claim ledger migrated to chunk credits: {} owner budget(s) raised to the land they hold.",raised);
     }
     public boolean allowed(String dimension, UUID actor, long chunk) { return allowed(dimension,actor,chunk,ClaimRights.STRICT); }
     /** {@code need}: right bits that must all be held ({@link ClaimRights#PRESENCE}: at least one). Unclaimed land allows everything. */
@@ -167,24 +188,31 @@ public final class Claims {
     }
     public boolean locked() { return config.enabled() && !ready(); }
     public boolean dataLoaded() { return store!=null; }
+    /** Claims the chunk the player stands in with a free chunk credit (nothing is bought). */
     public boolean claim(ServerPlayer player) {
-        if (!config.enabled()) return false;
+        var key=claimKey(player);
+        return key!=null && create(key,player.getUUID(),player.level().getServer().overworld().getGameTime());
+    }
+    /** The chunk the player stands in if its place may be claimed (dimension, world border, spawn); null otherwise. */
+    private ClaimStore.Key claimKey(ServerPlayer player) {
+        if (!config.enabled()) return null;
         var level=player.level(); var chunk=player.chunkPosition();
-        if (player.isSpectator() || !player.mayBuild() || !config.dimensions().contains(level.dimension().identifier().toString())) return false;
+        if (player.isSpectator() || !player.mayBuild() || !config.allowsDimension(level.dimension().identifier().toString())) return null;
         var min=new BlockPos(chunk.getMinBlockX(),player.blockPosition().getY(),chunk.getMinBlockZ());
         var max=min.offset(15,0,15);
-        if (!level.getWorldBorder().isWithinBounds(min) || !level.getWorldBorder().isWithinBounds(max)) return false;
+        if (!level.getWorldBorder().isWithinBounds(min) || !level.getWorldBorder().isWithinBounds(max)) return null;
         // Claims may not intersect Vanilla-protected spawn cells, even for an operator.
         var spawn=level.getServer().getRespawnData();
         if (level.dimension().equals(spawn.dimension())) {
             int radius=Math.max(config.spawnBuffer(), level.getServer() instanceof net.minecraft.server.dedicated.DedicatedServer dedicated ? dedicated.spawnProtectionRadius() : 0);
             if (max.getX()>=spawn.pos().getX()-radius && min.getX()<=spawn.pos().getX()+radius
-                    && max.getZ()>=spawn.pos().getZ()-radius && min.getZ()<=spawn.pos().getZ()+radius) return false;
+                    && max.getZ()>=spawn.pos().getZ()-radius && min.getZ()<=spawn.pos().getZ()+radius) return null;
         }
-        return create(new ClaimStore.Key(level.dimension().identifier().toString(),chunk.pack()),player.getUUID(),level.getServer().overworld().getGameTime());
+        return new ClaimStore.Key(level.dimension().identifier().toString(),chunk.pack());
     }
+    /** Claims {@code key} for {@code owner} with a free chunk credit; refused without one. */
     public boolean create(ClaimStore.Key key, UUID owner, long tick) {
-        if (!ready() || !config.dimensions().contains(key.dimension())) return false;
+        if (!ready() || !config.allowsDimension(key.dimension())) return false;
         if (store.view().containsKey(key) || store.view().size()>=config.globalCap()
                 || chunksOf(owner)>=budget(owner)
                 || !mutationReady(owner,tick)) return false;
@@ -272,15 +300,18 @@ public final class Claims {
         var land=lands().get(owner);
         return (land==null?new ClaimStore.Land(owner,"",ClaimRights.Rules.EMPTY,Map.of()):land).hashCode();
     }
-    /** Land the player may hold now: bought expansion or the start size, never below what they hold, never above the server limit. */
-    public int budget(UUID owner) { return ready()?config.budgetOf(store.budgets().get(owner),chunksOf(owner)):0; }
+    /** Paid land ("bezahlte Chunks"): bought expansion or the start size, never above the server limit. Unclaiming keeps it. */
+    public int budget(UUID owner) { return ready()?config.budgetOf(store.budgets().get(owner)):0; }
+    /** Chunk credits: paid land not held right now, in all dimensions together (SP22-8). Never negative. */
+    public int credits(UUID owner) { return Math.max(0,budget(owner)-chunksOf(owner)); }
     /** Operator command: sets the stored budget (1..256); the effective one is still capped by the server limit. */
     public boolean setBudget(UUID owner,int chunks) {
         if (!ready() || chunks<1 || chunks>ClaimConfig.MAX_CLAIMS) return false;
         var next=new HashMap<>(store.budgets());next.put(owner,chunks);
         return commit(store.view(),store.lands(),next);
     }
-    public enum Expand { OK, DISABLED, LOCKED, MAX, SERVER_LIMIT, NO_DEED, ITEMS, LEVELS, COOLDOWN, FAILED }
+    /** Result of a purchase; {@code PLACE}: the chunk to claim with it cannot be claimed (nothing bought). */
+    public enum Expand { OK, DISABLED, LOCKED, MAX, SERVER_LIMIT, NO_DEED, ITEMS, LEVELS, COOLDOWN, FAILED, PLACE }
     /** The next step the player could buy (null: none or expansion off), and why not if there is none. */
     public ClaimConfig.Tier nextTier(UUID owner) { return ready()&&config.expansionEnabled()?config.nextTier(budget(owner)):null; }
     private static boolean deedFor(ServerPlayer player) {
@@ -304,7 +335,22 @@ public final class Claims {
      * inventory, the materials and XP levels of the configured step, the cooldown. The budget is written first; only when
      * that is saved are materials and levels taken (a failed save costs nothing).
      */
-    public Expand expand(ServerPlayer player) {
+    public Expand expand(ServerPlayer player) { return buy(player,null); }
+    /**
+     * Claims the chunk the player stands in (SP22-8 "Hier beanspruchen"): with a free chunk credit for free, otherwise the
+     * next step is bought and the chunk claimed in one save; materials and levels are only taken after that save.
+     */
+    public Expand buyAndClaim(ServerPlayer player) {
+        if (!config.enabled()) return Expand.DISABLED;
+        if (!ready()) return Expand.LOCKED;
+        var key=claimKey(player);
+        long tick=player.level().getServer().overworld().getGameTime();
+        if (key==null || store.view().containsKey(key) || store.view().size()>=config.globalCap()) return Expand.PLACE;
+        if (credits(player.getUUID())>0) return create(key,player.getUUID(),tick)?Expand.OK:mutationReady(player.getUUID(),tick)?Expand.FAILED:Expand.COOLDOWN;
+        return buy(player,key);
+    }
+    /** Buys the next step; with {@code claim} that chunk is claimed in the same save (Concept SP22-8 §4.4). */
+    private Expand buy(ServerPlayer player,ClaimStore.Key claim) {
         if (!config.enabled() || !config.expansionEnabled()) return Expand.DISABLED;
         if (!ready()) return Expand.LOCKED;
         UUID owner=player.getUUID();int budget=budget(owner);
@@ -323,8 +369,12 @@ public final class Claims {
         if (player.experienceLevel<tier.levels()) return Expand.LEVELS;
         long tick=player.level().getServer().overworld().getGameTime();
         if (!mutationReady(owner,tick)) return Expand.COOLDOWN;
+        // Land above the paid budget (operator lowered it): one step must still cover the new chunk.
+        if (claim!=null && chunksOf(owner)>=tier.chunks()) return Expand.MAX;
         var next=new HashMap<>(store.budgets());next.put(owner,tier.chunks());
-        if (!commit(store.view(),store.lands(),next)) return Expand.FAILED;
+        var nextClaims=store.view();
+        if (claim!=null) { nextClaims=new HashMap<>(nextClaims); nextClaims.put(claim,new ClaimStore.Claim(owner)); }
+        if (!commit(nextClaims,store.lands(),next)) return Expand.FAILED;
         cooldowns.put(owner,tick);
         for (var e:items.entrySet()) {
             int left=e.getValue();var inv=player.getInventory();
@@ -396,11 +446,22 @@ public final class Claims {
         var key=new ClaimStore.Key(actor.level().dimension().identifier().toString(),actor.chunkPosition().pack());
         var claim=store.view().get(key);
         if (claim==null || (administrative ? !admin(actor) : !claim.owner().equals(actor.getUUID()))) return false;
-        long tick=actor.level().getServer().overworld().getGameTime();
-        if (!mutationReady(actor.getUUID(),tick)) return false;
+        return remove(key,actor.getUUID(),actor.level().getServer().overworld().getGameTime());
+    }
+    /**
+     * The owner gives up one of their chunks, in any dimension (the deed's "Chunk aufgeben"). Nothing is refunded; the
+     * paid budget stays, so the chunk returns as a credit.
+     */
+    public boolean unclaim(UUID owner,ClaimStore.Key key,long tick) {
+        if (!ready()) return false;
+        var claim=store.view().get(key);
+        return claim!=null && claim.owner().equals(owner) && remove(key,owner,tick);
+    }
+    private boolean remove(ClaimStore.Key key,UUID actor,long tick) {
+        if (!mutationReady(actor,tick)) return false;
         var next=new HashMap<>(store.view());next.remove(key);
         if (!commit(next,store.lands())) return false;
-        cooldowns.put(actor.getUUID(),tick);return true;
+        cooldowns.put(actor,tick);return true;
     }
     private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next) { return commit(next,store.lands()); }
     private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next,Map<UUID,ClaimStore.Land> nextLands) { return commit(next,nextLands,store.budgets()); }

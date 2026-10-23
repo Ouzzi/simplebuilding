@@ -52,3 +52,11 @@ Besitzer möchte die Extra-Höhe unter dem Raster vergleichen. Generator `tools/
 baut EIN Beispiel (Eisen, ohne Fass, Hitze hoch, 3×) mit vier Varianten nebeneinander: 0 px (vorher), ¼ Slot (+5 px),
 ½ Slot (+9 px), 1 Slot (+18 px, Ist-Stand Branch). Ausgabe `/root/sb-tools-a/previews/crucui22-heights.html`.
 Nach der Wahl ändert sich nur `CrucibleMenu.FIRE_ROOM` (12 + Extra); Layout-Test und Flammen-Bemessung folgen dem Wert.
+
+## Nachtrag 22.10. abends: Besitzer-Wahl „¼“ (a-fix22b)
+Besitzer wählt aus der Höhen-Vorschau **¼ Slot** → `CrucibleMenu.FIRE_ROOM = 12 + 5 = 17` (statt 30), gleich für alle
+Stufen. Freie Feuerzone unter der untersten Slot-Reihe innerhalb des 7-px-Bodenrahmens: 10 px; Flammen-Steigraum
+`CrucibleFlames.room` = 17 − 7 − 3 = 7 px (extrem 5 px, höchste Zunge 7 px), Trapez/Flammen folgen dem Wert.
+Test `CrucibleTests.barrelBesideInventoryCentred`: Mindesthöhe der Zone 18 → 10 px. Fenster werden je Stufe 13 px niedriger.
+Verifikation: Compile `:mc26_3:fabric` + Modul, `module-simplecrucibles-fabric-263`, `-standalone-fabric-263`,
+Generatoren + `check` über sbt (nur 26.3 Fabric).

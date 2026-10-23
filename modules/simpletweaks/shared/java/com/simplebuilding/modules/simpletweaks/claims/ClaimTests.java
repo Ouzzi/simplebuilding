@@ -91,6 +91,10 @@ public final class ClaimTests {
         TESTS.put("claims_expand",ExpansionTests::expand);
         TESTS.put("claims_expand_table",ExpansionTests::tableExpand);
         TESTS.put("claims_map_layer",ExpansionTests::mapLayer);
+        TESTS.put("claims_credit_unclaim",CreditTests::unclaim);
+        TESTS.put("claims_credit_migration",CreditTests::migration);
+        TESTS.put("claims_credit_dimensions",CreditTests::dimensions);
+        TESTS.put("claims_credit_buy",CreditTests::buy);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */
@@ -100,7 +104,8 @@ public final class ClaimTests {
         com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - skipping {}",what);h.succeed();return true;
     }
     static Path temp() { try { return Files.createTempDirectory("simpletweaks-claims-test-"); } catch(java.io.IOException e) { throw new AssertionError(e); } }
-    static ClaimConfig on() { return new ClaimConfig(true,2,2,3,20,false,0,ClaimConfig.DEFAULT.dimensions()); }
+    /** Small limits with the old three-dimension allowlist (the allowlist checks stay meaningful). */
+    static ClaimConfig on() { return new ClaimConfig(true,2,2,3,20,false,0,ClaimConfig.LEGACY_DIMENSIONS); }
     static void config(GameTestHelper h) {
         yes(h,ClaimConfig.DEFAULT.enabled()&&!ClaimConfig.DEFAULT.opBypass()&&!ClaimConfig.OFF.enabled(),"Default on (owner release 2026-10-13), no implicit OP bypass");
         var c=new ClaimConfig(true,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,true,Integer.MAX_VALUE,List.of());

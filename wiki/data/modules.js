@@ -325,7 +325,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 40
     },
-    "dataHash": "19d637c3a9b3"
+    "dataHash": "728f6918f092"
   },
   {
     "id": "simpledimensions",

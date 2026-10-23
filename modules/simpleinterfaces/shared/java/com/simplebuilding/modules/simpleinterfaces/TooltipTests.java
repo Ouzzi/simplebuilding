@@ -28,6 +28,7 @@ public final class TooltipTests {
         ALL.put("tooltip_ender_snapshot", TooltipTests::enderSnapshot);
         ALL.put("tooltip_snapshot_codec", TooltipTests::snapshotCodec);
         ALL.put("tooltip_shulker_grid", TooltipTests::shulkerGrid);
+        ALL.put("tooltip_tier_shulker", TooltipTests::tierShulker);
         ALL.put("tooltip_config_off", TooltipTests::configOff);
         ALL.put("tooltip_ender_close", TooltipTests::enderClose);
         ALL.put("bundle_view_pages", TooltipTests::bundleViewPages);
@@ -103,6 +104,33 @@ public final class TooltipTests {
         var big = ContainerTooltips.preview(box(Items.SHULKER_BOX, many), true, local, true, null).orElseThrow();
         h.assertTrue(big.slots().size() == ContainerTooltips.MAX_CELLS && big.more() == 60 - ContainerTooltips.MAX_CELLS + 1 && big.rows() == 6, "big tier: 6 rows, +n cell");
         h.succeed();
+    }
+
+    /** Simple Storage tier box (only when that module is loaded): real counts above 99 and the dye from BASE_COLOR. */
+    public static void tierShulker(GameTestHelper h) {
+        var item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse("simplestorage:netherite_shulker_box"));
+        var type = net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(net.minecraft.resources.Identifier.parse("simplestorage:container_counts"));
+        if (item == Items.AIR || type == null) {
+            h.succeed();
+            return;
+        }
+        var tier = box(item, slotsWith(2, new ItemStack(Items.COBBLESTONE, 64)));
+        var json = new com.google.gson.JsonArray();
+        var entry = new com.google.gson.JsonObject();
+        entry.addProperty("slot", 2);
+        entry.addProperty("count", 128);
+        json.add(entry);
+        setComponent(tier, type, json);
+        tier.set(DataComponents.BASE_COLOR, net.minecraft.world.item.DyeColor.RED);
+        var local = new ContainersConfig();
+        ContainerPreview grid = ContainerTooltips.preview(tier, true, local, true, null).orElseThrow();
+        h.assertTrue(grid.grid() && grid.slots().get(2).getCount() == 128, "tier box shows the real count above the vanilla cap: " + grid.slots().get(2).getCount());
+        h.assertTrue(grid.face() != ContainerTooltips.VANILLA_FACE, "tier box takes its dye from BASE_COLOR");
+        h.succeed();
+    }
+
+    private static <T> void setComponent(ItemStack stack, net.minecraft.core.component.DataComponentType<T> type, com.google.gson.JsonElement json) {
+        stack.set(type, type.codec().parse(com.mojang.serialization.JsonOps.INSTANCE, json).getOrThrow());
     }
 
     /** Every switch off -> no image (Vanilla tooltip unchanged); unknown ender chest -> nothing. */
