@@ -23,6 +23,7 @@ kein FEHLER, höchstens 6 rote Tests), läuft jeder rote Test einmal allein nach
 | 2026-10-20 | simpletweaks:claims_game_test_claims_rights_action_matrix | Probe-Zelle im Nachbar-Chunk (außerhalb der Struktur) wird von anderen Tests/Mock-Spielern geteilt, Platzieren (Recht B) auf Tick 0 blockiert (probes 0, expected 1); Fix: freie Zelle suchen (`freeGround`), Commit d7b12fc97. Vermutete Ursache (nicht reproduzierbar), 3 Läufe + simpletweaks:* grün |
 | 2026-10-20 | simpleend:module_game_test_end_leaves_catch_fall | Test-Laub war nicht persistent und konnte per Random-Tick zerfallen, bevor das Schwein ankam (~15 Ticks) -> voller Fallschaden (5.0); Fix: PERSISTENT, Commit 5e6e6fb59. 3 Läufe + simpleend:* grün |
 | 2026-10-22 | b1fc76886 | module-simpledimensions-standalone-fabric-263 | simpledimension:module_game_test_player_inventory_roundtrip (erneut, Retry grün) |
+| 2026-10-23 | 6a420db52 | module-simplewanderers-fabric-263 | simplewanderers:module_game_test_horse_leashed_and_capturable (Retry grün) |
 
 ## Delta-Gate
 

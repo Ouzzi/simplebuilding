@@ -28,7 +28,7 @@ Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabsc
 Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 49 GRÜN → master 204c6c185 (23.10. 13:48 UTC: Claims-Umbau SP22-8 komplett, N13 Testzentralen-Module, Fragentisch QT23, Rahmen FR23, Salbei-Generator). Bündel 50 (a-bundle50) = a-webmap3, a-howler23 (Doku), a-misctex23/a-blockstex23/a-sbtex23 (Generatoren, Wahl offen). Laufen: a-pjuke23, a-opt45b, a-mech23a, a-mech23b, a-megamap23. Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): Bündel 50 GRÜN → master 6a420db52 (23.10. 15:15 UTC: Webkarte 3, Textur-Generatoren B23). Laufen (nach Kontingent-Pause 17 UTC fortgesetzt): a-pjuke23, a-opt45b, a-mech23a, a-mech23b, a-megamap23 (fertig, ungeprüft), a-sbtex23b, a-blockstex23b, a-misctex23b, a-ui23b. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
