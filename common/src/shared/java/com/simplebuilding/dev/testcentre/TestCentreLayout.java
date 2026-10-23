@@ -221,6 +221,7 @@ public final class TestCentreLayout {
             excluded.put("simplebuilding:copper_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Kupferbloecken");
             excluded.put("simplebuilding:sulfur_wall_torch", "Wandvariante der Schwefelfackel (N58), gleiches Item");
         }
+        excluded.put("simplebuilding:placed_paint_box", "Abgestellter Farbkasten (W24-2) ohne eigenes Item: entsteht beim Abstellen des Farbkastens, der Farbkasten selbst steht in der Zentrale");
         EXCLUDED = Map.copyOf(excluded);
     }
 
