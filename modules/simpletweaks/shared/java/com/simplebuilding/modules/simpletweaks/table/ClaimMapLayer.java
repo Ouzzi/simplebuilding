@@ -43,7 +43,7 @@ public final class ClaimMapLayer implements MapLayerSources.ViewerCollector {
             int cx = ChunkPos.getX(key.chunk()), cz = ChunkPos.getZ(key.chunk());
             if (cx < minCx || cx > maxCx || cz < minCz || cz > maxCz) continue;
             UUID owner = e.getValue().owner();
-            if (!vis.shows(op, TableService.involved(claims, viewer, dimension, key.chunk(), owner))) continue;
+            if (!vis.shows(op, involved(claims, viewer, dimension, key.chunk(), owner))) continue;
             int at = owners.indexOf(owner);
             if (at < 0) { owners.add(owner); at = owners.size() - 1; }
             hits.add(new long[]{cz, cx, at});
@@ -55,10 +55,10 @@ public final class ClaimMapLayer implements MapLayerSources.ViewerCollector {
             while (j < hits.size() && hits.get(j)[0] == first[0] && hits.get(j)[2] == first[2] && hits.get(j)[1] == first[1] + (j - i)
                     && j - i < com.simplebuilding.modules.simpletweaks.table.ClaimGrid.MAX_SIDE) j++;
             UUID owner = owners.get((int) first[2]);
-            boolean involved = TableService.involved(claims, viewer, dimension, ChunkPos.pack((int) first[1], (int) first[0]), owner);
+            boolean involved = involved(claims, viewer, dimension, ChunkPos.pack((int) first[1], (int) first[0]), owner);
             // Own land carries the viewer's free chunk credits (SP22-8); other land the owner's name as claimVisibility allows.
             String line = owner.equals(viewer) ? ownLine(claims.credits(viewer))
-                    : vis.showsName(op, involved) ? "Claim of " + TableService.nameOf(server, owner) : "Foreign claim";
+                    : vis.showsName(op, involved) ? "Claim of " + nameOf(server, owner) : "Foreign claim";
             out.add(new Marker((int) first[1] * 16, (int) first[0] * 16, String.format("area:%06x:%d:%d", ClaimGrid.color(owner) & 0xFFFFFF, owner.equals(viewer) ? 1 : 0, j - i), List.of(line)));
             i = j;
         }
@@ -67,4 +67,14 @@ public final class ClaimMapLayer implements MapLayerSources.ViewerCollector {
 
     /** Tooltip line of the viewer's own land (plain text, like every map marker line). */
     public static String ownLine(int credits) { return "Your land · " + credits + (credits == 1 ? " credit" : " credits"); }
+
+    /** Whether the viewer owns the claim or holds any right in its chunk. */
+    static boolean involved(Claims claims, java.util.UUID me, String dimension, long chunk, java.util.UUID owner) {
+        return owner.equals(me) || claims.rights(dimension, me, chunk) != 0;
+    }
+
+    static String nameOf(net.minecraft.server.MinecraftServer server, java.util.UUID owner) {
+        String name = Claims.nameOf(server, owner);
+        return name == null ? "?" : name.length() > 16 ? name.substring(0, 16) : name;
+    }
 }
