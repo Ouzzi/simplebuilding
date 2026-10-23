@@ -103,6 +103,17 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Besitzer 24.10. 00:20 – Nachträge aus alter Sitzung (NA24)
+- [ ] NA24-1 Trade Terminal nur mit Behutsamkeit (Silk Touch) abbaubar, sonst droppt nur ein Lesepult.
+- [ ] NA24-2 Rezepte: Sales-Block + oben ein Trichter; Sales Storage zwei Trichter (einer oben Mitte, einer unten Mitte); Display = Holzdruckplatte unten, Glasblock, ringsum Eisennuggets.
+- [ ] NA24-3 Displays tönbar (alle Farbtöne abdecken, wie gefärbtes/getöntes Glas). Optik erst exemplarisch.
+- [ ] NA24-4 Schneidebrett-Rezept: Stufe + ringsum 4 Stöcke. Küchenmesser-Textur 90° im Uhrzeigersinn drehen, dann horizontal spiegeln.
+- [ ] NA24-5 Laufen auf Butterblock gibt „Slippery“-Effekt 3 s (rutschen auf allen Blöcken wie auf Butter). Butterscheibe als Butter-Teppich platzierbar, ebenfalls Slippery.
+- [ ] NA24-6 Simple Trims: inverser Rüstungsbesatz (gleiches Muster, invertiert über die Rüstung), erhältlich über eigenen Conduit im gleichen Umwandlungs-Schema wie die anderen. JEI-Tabs für Umwandlung fehlen → über simplelib wiederherstellen.
+- [ ] NA24-7 Spezialfaser-Rezept gleich lassen, nur Anordnung neu.
+- [ ] NA24-8 Simple Music Notenblatt: Beispiel(e) mitliefern, mehrere von einfach bis komplex – 3 erfundene Eigenkreationen + Rest coole copyright-freie Stücke (gemeinfrei). Spieler (Player) setzen einiges noch falsch um → Fehler suchen und fixen (Gametests).
+- [ ] NA24-9 Splitter/Kleinteile aus allen Mods (z. B. Strong-Upgrade-Splitter) platzierbar machen (wie PlacedSolids).
+
 ## Besitzer 23.10. nachts – Wither-Elytra (EL24)
 - [~] (A, a-elytra24, 23.10.) EL24-1 Neue Elytra-Stufen: Stufe 1 = Elytra + Strong-Upgrade-Vorlage + Wither-Herz (Schmieden; Besitzer: „meinetwegen erstmal im Amboss“) → Optik mehr „Flügel“; Stufe 2 = Stufe 1 + Strong-Upgrade + Nether-Gem. Kein Grundtempo-Bonus: nur die Höchstgeschwindigkeit (z. B. mit Raketen) ist bei Stufe 1 doppelt, bei Stufe 2 vierfach so hoch wie Vanilla (höheres Risiko an Wänden). Weitere Anpassungen folgen später.
 
