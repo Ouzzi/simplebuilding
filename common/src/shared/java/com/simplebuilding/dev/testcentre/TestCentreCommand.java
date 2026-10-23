@@ -103,6 +103,13 @@ public final class TestCentreCommand {
                                 .executes(ctx -> give(ctx, List.of(ctx.getSource().getPlayerOrException())))
                                 .then(Commands.argument("targets", EntityArgument.players())
                                         .executes(ctx -> give(ctx, EntityArgument.getPlayers(ctx, "targets"))))))
+                // Nachtrag 13: Befuell-Knopf der UI-Station - Behaelter eines Abschnitts und die Endertruhe der Spieler.
+                .then(Commands.literal("fill")
+                        .then(Commands.argument("section", StringArgumentType.word())
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.sectionIds(), builder))
+                                .executes(ctx -> fill(ctx, List.of(ctx.getSource().getPlayerOrException())))
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ctx -> fill(ctx, EntityArgument.getPlayers(ctx, "targets"))))))
                 .then(Commands.literal("tp")
                         .executes(ctx -> {
                             ServerPlayer player = ctx.getSource().getPlayerOrException();
@@ -201,7 +208,7 @@ public final class TestCentreCommand {
                 TcText.t("help.only", "build [here|x y z] only <areas> - only these areas, e.g. only mobs,structures"),
                 TcText.t("help.without", "build [here|x y z] without <areas> - all but these, e.g. without structures"),
                 TcText.t("help.section", "section <id> - rebuild one section; stats [only|without ...] - size without building"),
-                TcText.t("help.more", "kit, give <station>, tp [place], coverage, help"),
+                TcText.t("help.more", "kit, give <station>, fill <section> (containers + ender chest), tp [place], coverage, help"),
                 TcText.t("help.areas", "Areas: %s, or any section id", String.join(", ", TestCentreLayout.DISTRICT_NAMES))
                         .withStyle(ChatFormatting.GRAY));
         for (net.minecraft.network.chat.Component line : lines) {
@@ -276,6 +283,24 @@ public final class TestCentreCommand {
         ctx.getSource().sendSuccess(() -> TcText.t("command.section_built", "Section %s rebuilt (%s ms)", id, result.millis())
                 .withStyle(ChatFormatting.GREEN), true);
         return 1;
+    }
+
+    /** {@code fill <abschnitt> [spieler]}: Behaelter des Abschnitts am gespeicherten Ursprung fuellen ({@link UiStation#fill}). */
+    private static int fill(CommandContext<CommandSourceStack> ctx, Collection<ServerPlayer> players) {
+        String id = StringArgumentType.getString(ctx, "section");
+        if (outsideOverworld(ctx.getSource())) {
+            return 0;
+        }
+        ServerLevel level = ctx.getSource().getLevel();
+        TestCentreLayout.Plan plan = plan(level, savedOrDefaultOrigin(level));
+        if (plan.sections().stream().noneMatch(section -> section.id().equals(id))) {
+            ctx.getSource().sendFailure(TcText.t("command.unknown_section", "Unknown section %s", id));
+            return 0;
+        }
+        int filled = UiStation.fill(level, plan, id, players);
+        ctx.getSource().sendSuccess(() -> TcText.t("command.fill", "%s containers filled, ender chest of %s player(s)", filled,
+                players.size()), false);
+        return Math.max(1, filled);
     }
 
     /** Die wichtigsten Werkzeuge: je Familie die hoechste Stufe, dazu die Geraete und eine Blaupause. */

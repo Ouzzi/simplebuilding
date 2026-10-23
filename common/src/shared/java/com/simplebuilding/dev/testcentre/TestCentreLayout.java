@@ -39,6 +39,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
  */
 public final class TestCentreLayout {
 
+    /** Querschnitte (Nachtrag 13), die den Modul-Buchten nichts wegnehmen: UI-Bloecke, Aufwertungsketten. */
+    static final Set<String> CROSS_SECTIONS = Set.of(UiStation.SECTION, "upgrades");
+
     /** Abschnitt mit der Modul-Ausstellung (Stationen und Register aller Module der Familie), nur wenn es Module gibt. */
     public static final String MODULES_SECTION = "modules";
 
@@ -51,19 +54,21 @@ public final class TestCentreLayout {
             // Eingang: Steuerwand, Werkzeuge und Bauen.
             List.of("controls", "tools", "chisel", "planning", "mining", "enchants"),
             // Zustaende, Umwandlungen, Ablegen, Buecher.
-            List.of("states", "inworld", "templates", "placeables", "books"),
+            List.of("states", "inworld", "upgrades", "templates", "placeables", "books"),
             // Baubloecke und Material.
             List.of("blocks", "woodwork", "simpleend", "chess", "astral", "lightroom", "ores"),
             // Technik und Lager.
-            List.of("storage", "devices", "machines", "crucible", "music", "vehicles"),
+            List.of("storage", UiStation.SECTION, "devices", "machines", "crucible", "music", "vehicles"),
             // Kampf, Bewegung, Vorraete.
-            List.of("armour", "archery", "arrows", "sinkdamper", "tweaks", "deathvault", "respawn", "food", "materials"),
+            List.of("armour", "archery", "arrows", "sinkdamper", "riding", "tweaks", "deathvault", "respawn", "food", "materials"),
             // Die Module der Familie (Modulaufteilung 3c, TZ22-1); nur mit Modulen.
             List.of(MODULES_SECTION),
             // Mobs of every loaded mod (Queue N43); empty without such mods.
             List.of("mobs"),
             // Jede eigene Struktur und jedes Strukturteil (TZ22-3); leer ohne Strukturen (26.2).
             List.of(StructureStation.SECTION),
+            // Jedes Crafting-Rezept der Familie als Crafter (Nachtrag 13); leer ohne Server (Planung nur aus den Registern).
+            List.of(RecipeStation.SECTION),
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             List.of("tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows"),
             // Was noch keinen Abschnitt hat.
@@ -71,7 +76,7 @@ public final class TestCentreLayout {
 
     /** Namen der Bezirke fuer {@code /sbtestcentre build only|without} (TZ22-4), in der Reihenfolge von {@link #DISTRICTS}. */
     public static final List<String> DISTRICT_NAMES = List.of("workshop", "states", "blocks", "technics", "combat", "modules",
-            "mobs", "structures", "catalog", "rest");
+            "mobs", "structures", RecipeStation.SECTION, "catalog", "rest");
 
     /**
      * Teilbau (TZ22-4, Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die
@@ -392,7 +397,9 @@ public final class TestCentreLayout {
 
     /** Die Zentrale mit Teilbau-Optionen (TZ22-4). */
     public static Plan plan(net.minecraft.server.level.ServerLevel level, BlockPos origin, Options options) {
-        return plan(new TcContext(level.registryAccess(), com.simplebuilding.version.McVersion.structureTemplates(level)), origin, options);
+        // N13: die Rezepte des Servers fuer den Abschnitt "recipes".
+        return plan(new TcContext(level.registryAccess(), com.simplebuilding.version.McVersion.structureTemplates(level),
+                level.getServer().getRecipeManager().getRecipes()), origin, options);
     }
 
     static Plan plan(TcContext ctx, BlockPos origin, Options options) {
@@ -425,6 +432,10 @@ public final class TestCentreLayout {
         builders.put("vehicles", FeatureStations::vehicles);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
+        // Nachtrag 13: Aufwertungsketten nach Stufen, UI-Bloecke mit Befuell-Knopf, Reiten (nur mit Simple Riding).
+        builders.put("upgrades", TestCentreSections::upgrades);
+        builders.put(UiStation.SECTION, UiStation::build);
+        builders.put("riding", FeatureStations::riding);
         builders.put("templates", TestCentreSections::templates);
         builders.put("blocks", TestCentreSections::blocks);
         builders.put("lightroom", TestCentreSections::lightRoom);
@@ -457,7 +468,12 @@ public final class TestCentreLayout {
         if (allIds.contains(MODULES_SECTION)) {
             Set<Item> visible = new java.util.HashSet<>();
             Set<Block> placedBlocks = new java.util.HashSet<>();
-            for (TcCanvas canvas : canvases.values()) {
+            for (Map.Entry<String, TcCanvas> shown : canvases.entrySet()) {
+                // N13: UI-Bloecke und Aufwertungsketten sind Querschnitte (wie die Tab-Waende) - die Buchten behalten ihre Bloecke.
+                if (CROSS_SECTIONS.contains(shown.getKey())) {
+                    continue;
+                }
+                TcCanvas canvas = shown.getValue();
                 visible(canvas.ops(), visible);
                 canvas.ops().forEach(op -> {
                     if (op instanceof TcOp.Place place) {
@@ -508,6 +524,9 @@ public final class TestCentreLayout {
                     && placedAnywhere.contains(frame.stack().getItem()));
             canvases.put(TabBrowser.sectionId(tab), wall);
         }
+
+        // Crafting-Rezepte (Nachtrag 13): wie die Tab-Waende nach der Abdeckung - Zutaten im Crafter zaehlen nicht als Platz.
+        canvases.put(RecipeStation.SECTION, RecipeStation.build(ctx));
 
         // Ausgabe-Knopf je Station: Kit aus dem, was die Station zeigt; die Station rueckt dafuer nach rechts.
         Map<String, TestCentreKits.Kit> kits = new LinkedHashMap<>();

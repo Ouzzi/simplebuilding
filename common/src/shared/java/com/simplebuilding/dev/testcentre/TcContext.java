@@ -29,11 +29,18 @@ import net.minecraft.world.level.block.Block;
  * Werkzeug in eine Zeile setzt, bekommt es damit auch in der Testzentrale.
  */
 public record TcContext(HolderLookup.Provider lookup,
-                        net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager templates) {
+                        net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager templates,
+                        java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<?>> recipes) {
 
-    /** Ohne Strukturvorlagen (Planung nur aus den Registern; der Abschnitt {@code structures} bleibt leer). */
+    /** Ohne Strukturvorlagen und Rezepte (Planung nur aus den Registern; {@code structures} und {@code recipes} bleiben leer). */
     public TcContext(HolderLookup.Provider lookup) {
-        this(lookup, null);
+        this(lookup, null, List.of());
+    }
+
+    /** Mit Strukturvorlagen, ohne Rezepte. */
+    public TcContext(HolderLookup.Provider lookup,
+                     net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager templates) {
+        this(lookup, templates, List.of());
     }
 
     public HolderLookup.RegistryLookup<Enchantment> enchantmentLookup() {
