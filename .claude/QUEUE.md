@@ -103,6 +103,9 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Besitzer 23.10. nachts – Wither-Elytra (EL24)
+- [~] (A, a-elytra24, 23.10.) EL24-1 Neue Elytra-Stufen: Stufe 1 = Elytra + Strong-Upgrade-Vorlage + Wither-Herz (Schmieden; Besitzer: „meinetwegen erstmal im Amboss“) → Optik mehr „Flügel“; Stufe 2 = Stufe 1 + Strong-Upgrade + Nether-Gem. Kein Grundtempo-Bonus: nur die Höchstgeschwindigkeit (z. B. mit Raketen) ist bei Stufe 1 doppelt, bei Stufe 2 vierfach so hoch wie Vanilla (höheres Risiko an Wänden). Weitere Anpassungen folgen später.
+
 ## Warteliste (später, Besitzer 23.10.)
 - [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` (in Arbeit a-earth-konzept). Umsetzung erst auf Besitzer-Anforderung.
 
