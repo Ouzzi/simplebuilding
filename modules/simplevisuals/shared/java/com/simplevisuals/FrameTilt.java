@@ -15,17 +15,22 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * FR23 (docs/ai/PLAN-A-FRAMES23-2026-10-23.md, replaces the inventory view of TZ22-7): flat blocks lie flat in an item
  * frame, seen from above. Pressure plates, carpets, trapdoors and the daylight detector show their top side to the viewer,
- * panes (glass, stained glass, bars, mod panes) their pane face, each as a 3D block model tilted by {@link #TILT_DEGREES}
- * so the edge shows. This class picks the items and the block state to draw and holds no client classes, so game tests
- * can check the choice; for {@link Kind#FLAT} the renderer also requires a block item model (rails stay sprites).
+ * panes (glass, stained glass, bars, mod panes) their pane face, each as a 3D block model. W23-5 (owner 23.10.): flush on
+ * the back plate ({@link #TILT_DEGREES} = 0, variant A); sneaking with a chisel ({@link FrameChisel}) tilts it in
+ * {@link #STEPS} steps of {@link #STEP_DEGREES} up to 90 degrees and back to flat. This class picks the items and the
+ * block state to draw and holds no client classes, so game tests can check the choice; for {@link Kind#FLAT} the
+ * renderer also requires a block item model (rails stay sprites).
  */
 public final class FrameTilt {
     /** Highest top of a "flat" block in its default state (daylight detector = 6/16). */
     public static final double MAX_HEIGHT = 6.0 / 16.0;
     /** Narrowest footprint in X and Z, so small floor objects keep the Vanilla view. */
     public static final double MIN_WIDTH = 8.0 / 16.0;
-    /** Owner choice B (preview frames23): the lower edge comes 15 degrees forward, so the thickness is always visible. */
-    public static final float TILT_DEGREES = 15.0F;
+    /** Owner choice A (W23-5): the base position lies flush on the back plate, seen straight from above. */
+    public static final float TILT_DEGREES = 0.0F;
+    /** One chisel step: the lower edge comes 15 degrees forward; {@link #STEPS} steps make 90 degrees. */
+    public static final float STEP_DEGREES = 15.0F;
+    public static final int STEPS = 6;
 
     /** How a framed item is drawn. */
     public enum Kind { VANILLA, FLAT, PANE }
@@ -50,6 +55,16 @@ public final class FrameTilt {
             state = state.setValue(CrossCollisionBlock.EAST, true).setValue(CrossCollisionBlock.WEST, true);
         }
         return state;
+    }
+
+    /** The step after {@code step}: 0, 1, ..., {@link #STEPS}, then back to 0 (anything out of range back to 0). */
+    public static int nextStep(int step) {
+        return step >= 0 && step < STEPS ? step + 1 : 0;
+    }
+
+    /** Tilt of a frame at chisel step {@code step} (clamped), in degrees: 0 ... 90. */
+    public static float degrees(int step) {
+        return TILT_DEGREES + Math.max(0, Math.min(STEPS, step)) * STEP_DEGREES;
     }
 
     private static Kind compute(Item item) {

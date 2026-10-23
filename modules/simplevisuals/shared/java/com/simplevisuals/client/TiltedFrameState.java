@@ -9,7 +9,10 @@ public interface TiltedFrameState {
     /** True for a pane: its model already faces the viewer, a flat block is first turned top-forward. */
     boolean simplevisuals$pane();
 
+    /** Tilt of the object out of the back plate, from the frame's chisel step (W23-5): 0 ... 90 degrees. */
+    float simplevisuals$degrees();
+
     BlockModelRenderState simplevisuals$model();
 
-    void simplevisuals$setTilt(boolean tilted, boolean pane);
+    void simplevisuals$setTilt(boolean tilted, boolean pane, float degrees);
 }
