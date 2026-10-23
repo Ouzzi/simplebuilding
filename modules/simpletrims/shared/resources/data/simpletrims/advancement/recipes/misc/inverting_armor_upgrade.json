@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_inverting_trim_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpletrims:inverting_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpletrims:inverting_armor_upgrade"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_inverting_trim_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpletrims:inverting_armor_upgrade"
+    ]
+  }
+}

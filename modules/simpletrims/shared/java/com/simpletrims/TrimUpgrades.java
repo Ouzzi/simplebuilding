@@ -7,8 +7,8 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The three trim upgrades at the smithing table, in one place: Glowing (glow ink, one level), Emitting (glowstone
- * dust, radiance up to 5) and Pulsating (echo shard, once). Read by the recipe type {@code simpletrims:trim_upgrade},
+ * The four trim upgrades at the smithing table, in one place: Glowing (glow ink, one level), Emitting (glowstone
+ * dust, radiance up to 5) Pulsating (echo shard, once) and Inverting (ink sac, once). Read by the recipe type {@code simpletrims:trim_upgrade},
  * so Vanilla's smithing table, SimpleBuilding's auto smither and recipe displays all get the same result.
  */
 public final class TrimUpgrades {
@@ -42,6 +42,12 @@ public final class TrimUpgrades {
             if (TrimGlow.isPulsating(armor)) return ItemStack.EMPTY;
             ItemStack out = armor.copyWithCount(1);
             TrimGlow.setPulsating(out, true);
+            return out;
+        }
+        if (template.is(TrimsRegistry.INVERTING_TRIM_TEMPLATE) && material.is(Items.INK_SAC)) {
+            if (TrimGlow.isInverted(armor)) return ItemStack.EMPTY;
+            ItemStack out = armor.copyWithCount(1);
+            TrimGlow.setInverted(out, true);
             return out;
         }
         return null;

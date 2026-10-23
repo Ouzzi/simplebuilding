@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simpletrims:block/placed_inverting_trim_template"
+  }
+}

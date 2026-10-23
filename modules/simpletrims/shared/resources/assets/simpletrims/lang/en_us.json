@@ -51,5 +51,14 @@
   "quests.simpletrims.start.title": "Welcome to Simple Trims",
   "quests.simpletrims.start.subtitle": "Your free guide",
   "quests.simpletrims.start.welcome.title": "A free guide",
-  "quests.simpletrims.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Trims Guide as a reward. You can also craft it from a book and a glow ink sac."
+  "quests.simpletrims.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Trims Guide as a reward. You can also craft it from a book and a glow ink sac.",
+  "item.simpletrims.inverting_trim_template": "Inverting Armor Trim",
+  "item.simpletrims.inverting_trim_template.applies_to": "Armor",
+  "item.simpletrims.inverting_trim_template.ingredients": "Ink Sac",
+  "item.simpletrims.inverting_trim_template.base_slot_description": "Add armor",
+  "item.simpletrims.inverting_trim_template.additions_slot_description": "Add Ink Sac",
+  "tooltip.simpletrims.inverted": "Inverted",
+  "tooltip.simpletrims.inverted.desc": "The trim pattern is cut out, the rest of the armor takes its color",
+  "jei.simpletrims.note.in_world": "Lay the template down, then strike it %s times with the tool (ink in the off hand).",
+  "jei.simpletrims.note.durability": "Costs the tool %s durability per strike."
 }

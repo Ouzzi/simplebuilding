@@ -51,5 +51,14 @@
   "quests.simpletrims.start.title": "Willkommen bei Simple Trims",
   "quests.simpletrims.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletrims.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletrims.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Trims-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Leuchttintenbeutel herstellen."
+  "quests.simpletrims.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Trims-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Leuchttintenbeutel herstellen.",
+  "item.simpletrims.inverting_trim_template": "Invertierender Rüstungsbesatz",
+  "item.simpletrims.inverting_trim_template.applies_to": "Rüstung",
+  "item.simpletrims.inverting_trim_template.ingredients": "Tintenbeutel",
+  "item.simpletrims.inverting_trim_template.base_slot_description": "Rüstung hinzufügen",
+  "item.simpletrims.inverting_trim_template.additions_slot_description": "Tintenbeutel hinzufügen",
+  "tooltip.simpletrims.inverted": "Invertiert",
+  "tooltip.simpletrims.inverted.desc": "Das Besatzmuster ist ausgespart, der Rest der Rüstung nimmt seine Farbe an",
+  "jei.simpletrims.note.in_world": "Vorlage ablegen, dann %s-mal mit dem Werkzeug schlagen (Tinte in der Nebenhand).",
+  "jei.simpletrims.note.durability": "Kostet das Werkzeug %s Haltbarkeit je Schlag."
 }

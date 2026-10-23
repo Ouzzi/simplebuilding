@@ -186,6 +186,10 @@ public final class TrimsTests {
             ItemStack pulsing = smith(table, TrimsRegistry.PULSATING_TRIM_TEMPLATE, glowing, Items.ECHO_SHARD);
             h.assertTrue(TrimGlow.isPulsating(pulsing) && TrimGlow.getGlowLevel(pulsing) == 1, "Pulsating combines with Glowing: " + pulsing);
             h.assertTrue(smith(table, TrimsRegistry.PULSATING_TRIM_TEMPLATE, pulsing, Items.ECHO_SHARD).isEmpty(), "Pulsating only once");
+            ItemStack inverted = smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, pulsing, Items.INK_SAC);
+            h.assertTrue(TrimGlow.isInverted(inverted) && TrimGlow.isPulsating(inverted) && TrimGlow.getGlowLevel(inverted) == 1, "Inverting combines: " + inverted);
+            h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, inverted, Items.INK_SAC).isEmpty(), "Inverting only once");
+            h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, armor, Items.GLOW_INK_SAC).isEmpty(), "glow ink does not invert");
             h.assertTrue(smith(table, TrimsRegistry.GLOWING_TRIM_TEMPLATE, armor, Items.GLOWSTONE_DUST).isEmpty(), "wrong material: nothing");
             h.assertTrue(smith(table, TrimsRegistry.GLOWING_TRIM_TEMPLATE, new ItemStack(Items.STICK), Items.GLOW_INK_SAC).isEmpty(), "no armor: nothing");
             h.assertTrue(table.getSlot(SmithingMenu.TEMPLATE_SLOT).mayPlace(new ItemStack(TrimsRegistry.PULSATING_TRIM_TEMPLATE))
@@ -212,9 +216,29 @@ public final class TrimsTests {
             wrongTool().ifPresent(wrong -> h.assertTrue(craft(h, pulsatingGrid(wrong)).isEmpty(), "the other tool does not craft: " + wrong));
             h.succeed();
         });
+        // Inverting upgrade as pure maths: pattern cut out, rest filled, rim only in RIM mode, ghost keeps a veil.
+        ALL.put("trim_inversion", h -> {
+            int w = 4, hgt = 3;
+            int[] pattern = new int[w * hgt];
+            pattern[1 * w + 1] = 0xFFFFFFFF;
+            pattern[1 * w + 2] = 0xFFFFFFFF;
+            int fill = 0xFF112233, rim = 0xFF000011;
+            int[] hard = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
+            h.assertTrue(hard[1 * w + 1] == 0 && hard[1 * w + 2] == 0 && hard[0] == fill && hard[1 * w] == fill, "hard: cut-out + flat fill");
+            int[] withRim = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.RIM);
+            h.assertTrue(withRim[1 * w] == rim && withRim[1 * w + 3] == rim && withRim[2 * w + 1] == rim && withRim[0] == fill, "rim: border around the cut-out only");
+            int[] ghost = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.GHOST);
+            h.assertTrue((ghost[1 * w + 1] >>> 24) == com.simpletrims.TrimInversion.GHOST_ALPHA && ghost[0] == fill, "ghost: faint pattern");
+            int[] twice = com.simpletrims.TrimInversion.invert(hard, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
+            h.assertTrue(twice[1 * w + 1] == fill && twice[0] == 0, "inverting twice swaps back the mask");
+            int[] colours = com.simpletrims.TrimInversion.colours(new int[] {0xFFFFFFFF, 0xFFC0C0C0, 0xFF808080, 0xFF404040, 0xFF202020}, pattern);
+            h.assertTrue(colours[0] == 0xFF808080 && colours[1] == 0xFF202020, "fill = third-brightest, rim = darkest");
+            h.succeed();
+        });
         ALL.put("duplication_recipes", h -> {
             for (Item[] pair : new Item[][] {{TrimsRegistry.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE},
-                    {TrimsRegistry.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK}, {TrimsRegistry.PULSATING_TRIM_TEMPLATE, Items.SCULK}}) {
+                    {TrimsRegistry.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK}, {TrimsRegistry.PULSATING_TRIM_TEMPLATE, Items.SCULK},
+                    {TrimsRegistry.INVERTING_TRIM_TEMPLATE, Items.OBSIDIAN}}) {
                 List<ItemStack> grid = new ArrayList<>();
                 for (int i = 0; i < 9; i++) grid.add(new ItemStack(Items.DIAMOND));
                 grid.set(1, new ItemStack(pair[0]));
@@ -264,8 +288,8 @@ public final class TrimsTests {
         });
         // Upgrade in the world: tool of the current mode + glow ink (glowstone dust), five strikes, materials paid at the end.
         ALL.put("in_world_upgrade", h -> {
-            for (Item catalyst : List.of(Items.GLOW_INK_SAC, Items.GLOWSTONE_DUST)) {
-                BlockPos rel = catalyst == Items.GLOW_INK_SAC ? new BlockPos(2, 2, 2) : new BlockPos(5, 2, 2);
+            for (Item catalyst : List.of(Items.GLOW_INK_SAC, Items.GLOWSTONE_DUST, Items.INK_SAC)) {
+                BlockPos rel = catalyst == Items.GLOW_INK_SAC ? new BlockPos(2, 2, 2) : catalyst == Items.GLOWSTONE_DUST ? new BlockPos(5, 2, 2) : new BlockPos(5, 2, 5);
                 BlockPos pos = placed(h, rel, Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE);
                 ServerPlayer player = mockPlayer(h);
                 ItemStack tool = tool();
@@ -273,12 +297,13 @@ public final class TrimsTests {
                 player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(catalyst, 3));
                 h.assertTrue(!PlacedTemplates.hit(h.getLevel(), pos, player), "a strike counted without diamonds");
                 player.getInventory().add(new ItemStack(Items.DIAMOND, 4));
-                player.getInventory().add(new ItemStack(catalyst == Items.GLOW_INK_SAC ? Items.GLOWSTONE : Items.BLAZE_POWDER, 2));
+                player.getInventory().add(new ItemStack(PlacedTemplates.extraMaterials(catalyst).keySet().stream().skip(1).findFirst().orElseThrow(), 2));
                 for (int i = 1; i <= PlacedTemplates.PLACED_HITS; i++) {
                     h.assertTrue(PlacedTemplates.hit(h.getLevel(), pos, player), "strike " + i + " did not count");
                 }
                 ItemStack result = PlacedTemplates.templateAt(h.getLevel(), pos);
-                Item expected = catalyst == Items.GLOW_INK_SAC ? TrimsRegistry.GLOWING_TRIM_TEMPLATE : TrimsRegistry.EMITTING_TRIM_TEMPLATE;
+                Item expected = PlacedTemplates.upgrades().get(catalyst);
+                h.assertTrue(PlacedTemplates.upgrades().size() == 3 && expected != null, "upgrade table: " + PlacedTemplates.upgrades());
                 h.assertTrue(result.is(expected), "five strikes with " + catalyst + " made " + result);
                 h.assertTrue(player.getOffhandItem().getCount() == 3 - PlacedTemplates.CATALYST_COST, "catalyst left: " + player.getOffhandItem());
                 h.assertTrue(player.getInventory().countItem(Items.DIAMOND) == 0, "diamonds were not paid");

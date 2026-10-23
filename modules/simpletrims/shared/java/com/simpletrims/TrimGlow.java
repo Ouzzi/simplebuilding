@@ -15,6 +15,8 @@ import net.minecraft.world.item.component.CustomData;
  *       name on purpose: stack data, no registry id, so old worlds need no migration.</li>
  *   <li><b>Pulsating</b> ({@code simpletrims:pulsating}): alone the trim colour fades to gray and back; with Glowing its
  *       brightness swells between 1 and 15.</li>
+ *   <li><b>Inverted</b> ({@code simpletrims:inverted_trim}): the pattern is cut out and the rest of the armor takes the
+ *       trim colour ({@link com.simpletrims.TrimInversion}).</li>
  * </ul>
  */
 public final class TrimGlow {
@@ -73,6 +75,17 @@ public final class TrimGlow {
         if (stack.isEmpty()) return;
         if (pulsating) stack.set(TrimsRegistry.PULSATING, true);
         else stack.remove(TrimsRegistry.PULSATING);
+    }
+
+    /** Inverting upgrade: only worn trims show it (the trim layer is drawn as the negative of its pattern). */
+    public static boolean isInverted(ItemStack stack) {
+        return !stack.isEmpty() && stack.getOrDefault(TrimsRegistry.INVERTED_TRIM, false);
+    }
+
+    public static void setInverted(ItemStack stack, boolean inverted) {
+        if (stack.isEmpty()) return;
+        if (inverted) stack.set(TrimsRegistry.INVERTED_TRIM, true);
+        else stack.remove(TrimsRegistry.INVERTED_TRIM);
     }
 
     // --- Light rules (owner 2026-09-29) ---

@@ -1,0 +1,6 @@
+{
+  "type": "simpletrims:trim_upgrade",
+  "addition": "minecraft:ink_sac",
+  "base": "#minecraft:trimmable_armor",
+  "template": "simpletrims:inverting_trim_template"
+}

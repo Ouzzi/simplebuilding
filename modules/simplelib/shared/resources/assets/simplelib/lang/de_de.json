@@ -45,5 +45,6 @@
   "text.autoconfig.simplelib.option.legendaryAdvancements": "Weitere legendäre Fortschritte",
   "text.autoconfig.simplelib.option.legendaryAdvancements.@Tooltip": "Fortschritts-IDs zusätzlich zur eingebauten\nListe, z. B. minecraft:story/enter_the_end.",
   "text.autoconfig.simplelib.option.legendaryEnchantments": "Weitere legendäre Verzauberungen",
-  "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending."
+  "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending.",
+  "jei.simplelib.category.in_world_upgrade": "Upgrades in der Welt"
 }

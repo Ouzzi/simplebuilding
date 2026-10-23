@@ -32,6 +32,17 @@
       "At the smithing table, template, armor and an Echo Shard make the trim pulse from full color to gray every 2.4 seconds. Together with Glowing, the brightness pulses too."
     ]
   },
+  "inverting_trim_template": {
+    "lore": [
+      "A trim turned inside out."
+    ],
+    "use": [
+      "Place a trim template and strike it with an axe (with Simple Hammers: a sledgehammer) while holding an Ink Sac in the off hand; costs 4 diamonds and 2 obsidian. One template, 7 diamonds and an obsidian block make 2."
+    ],
+    "secret": [
+      "At the smithing table, template, trimmed armor and an Ink Sac cut the trim pattern out and paint the rest of the armor in the trim color."
+    ]
+  },
   "guide_book": {
     "lore": [
       "A book that keeps the shine of every trim on record."
