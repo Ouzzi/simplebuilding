@@ -20,6 +20,7 @@ Die Knöpfe unter „Laptop-Start“ nutzen das Protokoll `simplemods://` des La
 - `collect_downloads.py` / `publish_downloads.sh` – Jars eines gate-grünen Stands für den Reiter Downloads einsammeln
 - `starter/` – Windows-Starter (`starter.ps1`, Protokoll `simplemods://`) und Installer (`install.ps1`), siehe „Neuer PC“
 - `make_wave_bundle.sh` – git bundle des Arbeitsstands für den Starter
+- `setup_texture_save.sh` – einmalige Einrichtung von „Speichern ins Repo“ auf dem Webserver (siehe unten)
 - `tests/` – Unittests (`python3 -m unittest discover -s tests`), `tests/harness.py` = lokale Vorschau mit Mock-Backend
 
 ## API
@@ -33,6 +34,33 @@ Hinter dem Zugangsschutz der Zentrale:
 - `GET /api/runs` – Läufe auflisten
 - `GET /api/mods` – Mod-Baum, eigene Auswahl (`off`), aufgelöster Zustand (Sperren/Gründe) und Start-Daten
 - `PUT /api/mods/selection` – `{"off": [ids]}` speichern (je Nutzer, `<data>/selections/<hash>.json`)
+- `POST /api/textures` – Pixeleditor „Speichern ins Repo“ `{id, source, layers, png, comment}` (Regeln unten)
+- `GET /api/textures` / `GET /api/textures/<sid>` – Speicherungen (Liste ohne Ebenen) / eine mit Ebenen
+- `PATCH /api/textures/<sid>` – Abholer meldet `{state: picked|ready|failed, note, branch}`
+
+## Textur speichern (TX22-5)
+Kette: Dev-Wiki ▸ ✎ an der Textur ▸ Pixeleditor ▸ **„Speichern ins Repo“** ▸ `POST /api/textures` ▸ Abholer ▸ Branch
+`tex-<name>-<sid>` ▸ Übernahme mit dem **nächsten Bündel** (Hauptsitzung: `git branch --list 'tex-*'` im Hub, mergen,
+Generatoren `wiki/generate.py --all` (auch `wiki/data/textures.js`), Gate). Kein Claude-Lauf, kein Sofort-Gate.
+
+Regeln (`tools/textures/editor_save.py`, gleich für Endpunkt und Abholer): nur `id` + `source` genau wie ein Eintrag in
+`wiki/data/textures.js`, Pfad relativ unter `…/assets/<ns>/textures/…png`, ohne `..`/`\`, nie `build/` (Vanilla-abgeleitet,
+A8), auf dem Basis-Branch eingecheckt; Ebenen ≤ 1 MB, gültig (`layers.validate`), Größe wie die Textur (≤ 512×512);
+ein mitgeschicktes PNG (≤ 256 KB) muss der Komposition gleichen. Eingecheckt wird die **neu kodierte Komposition**, nie
+die hochgeladenen Bytes; Kommentar ≤ 500 Zeichen ohne Steuerzeichen, nur in der Commit-Nachricht (über stdin).
+Gespeichert wird unter `<data>/textures/<sid>.json`, getrennt von `runs/` (die gehen an Claude).
+
+Abholer (Hub-Rechner, cron jede Minute, ohne Worktree – git-Plumbing direkt im Hub-Repo):
+```
+python3 tools/textures/editor_save.py pickup --git-dir <hub.git> --api "ssh -o BatchMode=yes <webserver>" [--base claude-wave1]
+```
+Er setzt `picked`, prüft erneut gegen `textures.js` des Basis-Branches, macht den Ebenen-Check
+(`layers.check_file`: PNG = Komposition), legt den Branch an (überschreibt nie) und meldet `ready` + Branch bzw.
+`failed` + Grund. Der Editor zeigt den Stand unter dem Knopf.
+
+Einrichtung Webserver (einmal, als root, nach dem Merge in den ausgelieferten Stand):
+`tools/zentrale-web/setup_texture_save.sh <checkout> <nginx-site> [dienst]` – prüft Platte und Code, setzt
+`client_max_body_size 2m` für `/api/` (Sicherung `.bak-texsave`, `nginx -t`), startet den Dienst neu.
 
 ## Start
 ```bash

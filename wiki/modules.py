@@ -12,6 +12,18 @@ import re
 from pathlib import Path
 
 
+def guide_intros(repo):
+    """module id -> {'en', 'de'} intro of its guide book; empty when the guide generator is missing."""
+    import importlib.util
+    path = repo / 'tools/guides/module_guides.py'
+    if not path.is_file():
+        return {}
+    spec = importlib.util.spec_from_file_location('module_guides_intro', path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return {cfg['module']: {'en': cfg['intro'][0], 'de': cfg['intro'][1]} for cfg in mod.MODULES if cfg.get('intro')}
+
+
 def discover(repo):
     entries = json.loads((repo / 'modules/modules.json').read_text(encoding='utf-8'))['modules']
     seen = set()
@@ -332,6 +344,7 @@ def sync(g, entries, selected, check=False, strict=False):
     catalog = [{k: e[k] for k in ('id', 'displayName', 'description', 'version', 'minecraft', 'loaders', 'requires', 'optional')} for e in entries]
     meta = {e['id']: e for e in entries}
     overview = overview_status(g.REPO)
+    intros = guide_intros(g.REPO)
     for e in catalog:
         # Super-/sub-mod structure for the "All mods" page and the grouped mod dropdown.
         for key in ('parent', 'bundle'):
@@ -339,6 +352,9 @@ def sync(g, entries, selected, check=False, strict=False):
                 e[key] = meta[e['id']][key]
         if e['id'] in overview:
             e['overview'] = overview[e['id']]
+        # One-sentence intro in EN/DE from the guide books (tools/guides/module_guides.py) for the wiki start page.
+        if e['id'] in intros:
+            e['intro'] = intros[e['id']]
         # 16x16 mod icon (tools/textures/mod_icons.py) for the "All mods" page, inline so no copy is needed.
         root = meta[e['id']]['paths']['root']
         mod_id = meta[e['id']].get('modId', e['id'])

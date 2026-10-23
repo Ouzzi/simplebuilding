@@ -14,13 +14,13 @@ let pw; try { pw = require('playwright'); } catch (e) { pw = require('playwright
 const root = path.resolve(__dirname, '..');
 const shots = process.env.PE_SHOTS || os.tmpdir();
 const LAYERS = 'assets/textures/sheets/simplebuilding/simplebuilding/item/iron_chisel.layers.json';
-const page_html = layers => `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body><script>window.LANG='de'</script><script src="assets/pixeleditor-core.js"></script><script src="assets/pixeleditor.js"></script>
+const page_html = (layers, dev) => `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body><script>window.LANG='de'${dev ? ';window.sbDevHook=function(){}' : ''}</script><script src="assets/pixeleditor-core.js"></script><script src="assets/pixeleditor.js"></script>
 <script>SBPixelEditor.open({id:'simplebuilding:item/iron_chisel',name:'Eisenmeißel',layers:${JSON.stringify(layers)},source:'src/main/resources/assets/simplebuilding/textures/item/iron_chisel.png'});</script></body></html>`;
 const TYPES = { '.js': 'text/javascript', '.html': 'text/html', '.json': 'application/json', '.png': 'image/png' };
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
-  if (url.pathname === '/__pe.html') { res.setHeader('Content-Type', 'text/html'); res.end(page_html(url.searchParams.get('layers') || LAYERS)); return; }
+  if (url.pathname === '/__pe.html') { res.setHeader('Content-Type', 'text/html'); res.end(page_html(url.searchParams.get('layers') || LAYERS, url.searchParams.has('dev'))); return; }
   const file = path.resolve(root, '.' + decodeURIComponent(url.pathname));
   if (!file.startsWith(root + path.sep)) { res.writeHead(403).end(); return; }
   fs.readFile(file, (err, data) => {
@@ -265,6 +265,36 @@ async function phone(browser, base) {
   await ctx.close();
 }
 
+// TX22-5 (a-wiki24): "Speichern ins Repo" only in the dev wiki; posts id/source/layers/png, then shows the pickup state
+async function devSave(browser, base) {
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, colorScheme: 'dark' });
+  const page = await ctx.newPage();
+  const errors = []; page.on('pageerror', e => errors.push(e.message));
+  await page.goto(base + '__pe.html');
+  await page.locator('.pe-layer').first().waitFor();
+  assert.equal(await page.locator('[data-act="save"], [data-k="save"]').count(), 0, 'no save button outside the dev wiki');
+  let posted = null;
+  await page.route('**/api/textures', route => { posted = JSON.parse(route.request().postData()); route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify({ sid: '1761234567', state: 'new' }) }); });
+  await page.route('**/api/textures/1761234567', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ sid: '1761234567', state: 'ready', branch: 'tex-iron_chisel-1761234567' }) }));
+  await page.goto(base + '__pe.html?dev=1');
+  await page.locator('.pe-layer').first().waitFor();
+  const head = page.locator('[data-act="save"]');
+  assert.equal(await head.count(), 1);
+  assert.match(await head.getAttribute('aria-label'), /Branch tex-/);
+  await page.locator('#pe-save-comment').fill('heller');
+  await head.click();
+  await page.waitForFunction(() => (document.querySelector('[data-k="saveNote"]') || {}).textContent?.includes('tex-iron_chisel-1761234567'));
+  assert.equal(posted.id, 'simplebuilding:item/iron_chisel');
+  assert.equal(posted.source, 'src/main/resources/assets/simplebuilding/textures/item/iron_chisel.png');
+  assert.equal(JSON.parse(posted.layers).format, 'sb-layers');
+  assert.ok(posted.png.startsWith('iVBORw0KGgo'), 'png is base64 PNG');
+  assert.equal(posted.comment, 'heller');
+  const c = await page.locator('[data-k="saveNote"]').evaluate(CONTRAST);
+  assert.ok(c >= 4.5, 'save note contrast ' + c.toFixed(2));
+  assert.deepEqual(errors, []);
+  await ctx.close();
+}
+
 (async () => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser;
@@ -274,6 +304,7 @@ async function phone(browser, base) {
     const base = `http://127.0.0.1:${server.address().port}/`;
     const n = await desktop(browser, base);
     await phone(browser, base);
+    await devSave(browser, base);
     console.log('pixel editor ui: ok (' + n + ' buttons, shots in ' + shots + ')');
   } finally {
     if (browser) await browser.close();
