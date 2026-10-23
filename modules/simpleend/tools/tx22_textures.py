@@ -312,6 +312,18 @@ def leaves(kind, density, seed=5):
     return snap(im, 'Blätter')
 
 
+def leaves_loose_alt(s, cover, big=1.2):
+    """Owner 23.10. (TX22-3): an airier loose stage than gen_textures.leaves_loose (about 46-50 % opaque) - the same
+    leaf lenses, fewer and a little smaller, until about `cover` of the 256 pixels carry a leaf. Preview only."""
+    best = None
+    for k in range(4, 40):
+        im = g.leaf_clumps(s, 55, k / 40, big, False, 1)
+        share = sum(1 for p in im.get_flattened_data() if p[3]) / 256
+        if best is None or abs(share - cover) < abs(best[0] - cover):
+            best = (share, im)
+    return best[1]
+
+
 def quantised(density):
     """a: the current leaf lenses (gen_textures.leaf_clumps, owner N68) held to the nine Vanilla-like leaf tones instead
     of 74-100 greys (VN audit 21.10.), each tone placed by the same light rules."""

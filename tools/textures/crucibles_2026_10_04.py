@@ -1,4 +1,6 @@
-"""Usage: python tools/textures/crucibles_2026_10_04.py <vanilla textures dir> [preview.png]
+"""Usage: python tools/textures/crucibles_2026_10_04.py <vanilla textures dir> [preview.png] [--handle [--check]]
+
+--handle writes only the iron handle (owner's VN12 choice C, 23.10.) with its layer source; --check compares it.
 
 Crucible textures for SimpleLib (plan PLAN-CRUCIBLE-2026-10-04, section 4). Derived from the Vanilla
 cauldron (side/top/bottom/inner keep its shading ranks), with each tier getting its own shape detail
@@ -13,8 +15,9 @@ import os
 import sys
 from PIL import Image, ImageDraw
 
-V = sys.argv[1] if len(sys.argv) > 1 else 'build/vanilla-textures/'
-PREVIEW = sys.argv[2] if len(sys.argv) > 2 else None
+ARGS = [a for a in sys.argv[1:] if not a.startswith('--')]
+V = ARGS[0] if ARGS else 'build/vanilla-textures/'
+PREVIEW = ARGS[1] if len(ARGS) > 1 else None
 OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'modules', 'simplecrucibles', 'shared', 'resources',
                    'assets', 'simplecrucibles', 'textures', 'block')
 
@@ -94,6 +97,9 @@ HANDLE_RAMPS = {'A': ('1f1e23', '2d2c32', '3f3e45', '57565e', '76757c'),     # c
                 'C': ('34343a', '55555c', '7c7c84', 'a6a6ac', 'd2d2d4')}     # forged: notches and rivet heads
 
 
+IRON_HANDLE = 'C'  # owner 23.10. (VN12 Griff=C, forged)
+
+
 def handle_vn12(variant='A'):
     from layers import snap  # tools/textures is the script folder
     k, d, m, l, h = [tuple(int(c[i:i + 2], 16) for i in (0, 2, 4)) + (255,) for c in HANDLE_RAMPS[variant]]
@@ -146,11 +152,29 @@ def tier(name):
         cauldron = ramp_of('cauldron_side')
         band(side, 9, [cauldron[1], cauldron[-2]], (2, 7, 8, 13), cauldron[-1])
         rim(side, cauldron[-1])
-        h = handle(cauldron, cauldron[-1])
+        h = handle_vn12(IRON_HANDLE)
     return {'side': side, 'top': top, 'bottom': bottom, 'inner': inner, 'handle': h}
 
 
+def iron_handle_only(check):
+    """Writes/compares only iron_crucible_handle.png + .layers.json (the other crucible files stay untouched)."""
+    import layers
+    img = handle_vn12(IRON_HANDLE)
+    path = os.path.join(OUT, 'iron_crucible_handle.png')
+    if check:
+        doc = layers.from_steps(16, 16, layers.steps_of(img))
+        lp = layers.layers_path(layers.Path(path))
+        ok = (os.path.exists(path) and Image.open(path).convert('RGBA').tobytes() == img.tobytes()
+              and lp.is_file() and lp.read_text(encoding='utf-8') == layers.dumps(doc))
+        print('iron crucible handle current' if ok else 'iron crucible handle out of date')
+        sys.exit(0 if ok else 1)
+    layers.save(img, path)
+    print('iron crucible handle written')
+
+
 def main():
+    if '--handle' in sys.argv:
+        return iron_handle_only('--check' in sys.argv)
     os.makedirs(OUT, exist_ok=True)
     sheets = []
     for name in ('iron', 'reinforced', 'netherite'):

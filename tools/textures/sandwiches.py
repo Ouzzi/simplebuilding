@@ -228,9 +228,8 @@ def noise_block(base, light, dark, seed, holes=None, hole_count=0, border=None):
 
 def cheese_textures():
     return {
-        'cheese_block_top': noise_block('f0c040', 'f8d860', 'e0a828', 11, border='d09020'),
-        'cheese_block_side': noise_block('f0c040', 'f8d860', 'e0a828', 12, holes=('c98e1c', 'e8b030'), hole_count=5,
-                                         border='d09020'),
+        'cheese_block_top': cheese_top_vn12(CHEESE_VN12),      # owner 23.10.: VN12 Käse=B (Emmentaler)
+        'cheese_block_side': cheese_side_vn12(CHEESE_VN12),
         'cheese_block_inner': noise_block('f8d458', 'fde680', 'eec048', 13, holes=('d8a028', 'eec048'), hole_count=6),
         'butter_block_top': noise_block('f6e07a', 'fff0a8', 'ead060', 21, border='dcc050'),
         'butter_block_side': noise_block('f6e07a', 'fff0a8', 'ead060', 22, border='dcc050'),
@@ -274,8 +273,8 @@ def cauldron_textures():
     out = {}
     milk = [('f4f4ee', 'fcfcf8', 'e6e6de'), ('f4f0dc', 'fcfaec', 'e8e2c8'), ('f2e8be', 'faf2d6', 'e6d8a4'),
             ('f0e0a0', 'f8ecc0', 'e4d088')]
-    for i, (b, l, d) in enumerate(milk):
-        out[f'milk_{i}'] = noise_block(b, l, d, 30 + i)
+    for i in range(len(milk)):
+        out[f'milk_{i}'] = milk_vn12(i, MILK_VN12)            # owner 23.10.: VN12 Milch=B (Rahmhaut)
     for i in range(4):
         im = noise_block('eeeed8', 'f8f8ea', 'e2e4c8', 40 + i)
         rnd = random.Random(50 + i)
@@ -304,6 +303,7 @@ def cauldron_textures():
 # Not used by all_textures() until the owner picks a letter (docs/ai/PLAN-A-VN12-2026-10-23.md); the preview script
 # tools/textures/vn12_preview_2026_10_23.py writes them outside the repo. Light comes from the top left like Vanilla;
 # ramps are 5-7 hand-picked tones (own pixels, no Vanilla sprite is read).
+CHEESE_VN12, MILK_VN12 = 'B', 'B'  # owner 23.10. (VN12 Käse=B, Milch=B); written by all_textures()
 CHEESE_RAMP = {'K': '8a5a10', 'R': 'b87c16', 'D': 'd4961f', 'M': 'e6ad30', 'B': 'f0c040', 'L': 'f8d664', 'H': 'fde68e'}
 
 
@@ -378,6 +378,60 @@ def cheese_side_vn12(variant='A'):
         _paint(im, [(0, 0), (1, 0), (0, 1), (8, 0), (15, 6), (5, 15)], r['H'])
     else:
         _paint(im, [(2, 2), (3, 2), (2, 3)] if variant == 'A' else [(1, 2), (2, 2), (7, 2), (8, 2)], r['H'])
+    return _snap(im, 'Glanz')
+
+
+def cheese_top_vn12(variant='B'):
+    """Cheese block top to the chosen side B (Emmentaler): same tones and mottling, no rind, the holes seen from
+    above are flatter (shade R on their upper/left edge instead of the deep K, a light rim at the lower right)."""
+    r = CHEESE_RAMP
+    im = Image.new('RGBA', (16, 16), hx(r['B']))
+    _snap(im, 'Grundfläche')
+    _mottle(im, r, 90, 16)
+    _snap(im, 'Struktur')
+    for x, y, w, h in ((3, 3, 2, 2), (10, 2, 1, 1), (8, 8, 3, 2), (1, 11, 2, 1), (13, 12, 2, 2), (6, 13, 1, 1)):
+        for dy in range(h):
+            for dx in range(w):
+                _paint(im, [(x + dx, y + dy)], r['R'] if dx == 0 or dy == 0 else r['D'])
+        _paint(im, [(x + w, y + h - 1), (x + w - 1, y + h)], r['H'])
+    _snap(im, 'Löcher')
+    _paint(im, [(1, 1), (2, 1), (1, 2), (12, 6)], r['H'])
+    return _snap(im, 'Glanz')
+
+
+# Butter inner (TX22-1, owner 23.10.: 2-3 variants in the cheese B style, preview only - not in all_textures()).
+BUTTER_RAMP = {'K': 'c9a63a', 'R': 'dcbc4e', 'D': 'e8cc60', 'M': 'f2da72', 'B': 'f9e68e', 'L': 'fff2b4', 'H': 'fffadc'}
+
+
+def butter_inner_vn12(variant='A'):
+    """A cut face (mottled, two knife strokes), B smooth with diagonal knife marks, C butter curls (rolled shavings)."""
+    r = BUTTER_RAMP
+    im = Image.new('RGBA', (16, 16), hx(r['B']))
+    _snap(im, 'Grundfläche')
+    _mottle(im, r, 110 + ord(variant), 14 if variant != 'B' else 8, tones=('M', 'L'))
+    _snap(im, 'Struktur')
+    if variant == 'A':
+        for y0 in (4, 11):
+            for x in range(1, 15):
+                _paint(im, [(x, y0)], r['L'])
+                _paint(im, [(x, y0 + 1)], r['D'] if x % 5 else r['R'])
+        _snap(im, 'Messerspuren')
+    elif variant == 'B':
+        for k in range(-16, 16, 6):
+            for i in range(16):
+                x, y = k + i, i
+                if 0 <= x < 16:
+                    _paint(im, [(x, y)], r['L'])
+                    _paint(im, [(x + 1, y)], r['D'])
+        _snap(im, 'Messerspuren')
+    else:
+        for cx, cy in ((4, 4), (11, 6), (6, 11), (13, 13)):
+            _paint(im, [(cx - 1, cy - 1), (cx, cy - 1), (cx + 1, cy - 1)], r['L'])
+            _paint(im, [(cx - 2, cy), (cx + 2, cy)], r['M'])
+            _paint(im, [(cx - 1, cy + 1), (cx, cy + 1), (cx + 1, cy + 1)], r['R'])
+            _paint(im, [(cx, cy)], r['D'])
+        _snap(im, 'Locken')
+    _paint(im, [(1, 1), (2, 1), (1, 2)], r['H'])
     return _snap(im, 'Glanz')
 
 
@@ -2043,6 +2097,7 @@ def preview(files):
 def main():
     files = all_textures()
     changed = []
+    import layers  # tools/textures (script folder): layer sources of textures drawn in named steps (VN12)
     for path, im in files.items():
         data = png_bytes(im)
         old = open(path, 'rb').read() if os.path.exists(path) else None
@@ -2052,6 +2107,13 @@ def main():
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, 'wb') as f:
                     f.write(data)
+        if layers.steps_of(im):
+            lp = layers.layers_path(layers.Path(path))
+            want = layers.dumps(layers.from_steps(16, 16, layers.steps_of(im)))
+            if not lp.is_file() or lp.read_text(encoding='utf-8') != want:
+                changed.append(os.path.relpath(str(lp), ROOT))
+                if not CHECK:
+                    lp.write_text(want, encoding='utf-8', newline='\n')
     if CHECK:
         if changed:
             print('sandwich textures out of date:', *changed, sep='\n  ')
