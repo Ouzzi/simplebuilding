@@ -137,7 +137,7 @@
       ],
       "en": {
         "title": "End grass and End bushes",
-        "summary": "Wiry End grass and twiggy End bushes, like Vanilla dry grass and dead bushes, standing on End stone. They grow in Ash Valley and Dawnlands and sparsely on all outer End islands.",
+        "summary": "Wiry End grass and twiggy End bushes, like Vanilla dry grass and dead bushes, standing on End stone and wherever those stand (sand, terracotta, dirt, grass, moss, mud, farmland). They grow in Ash Valley and Dawnlands and sparsely on all outer End islands.",
         "details": [
           "Shears pick them up; End bushes drop sticks otherwise. Bone meal on End grass spreads a few tufts onto neighbouring End stone.",
           "Their colour is the biome tint (grey-brown in the two End biomes)."
@@ -145,7 +145,7 @@
       },
       "de": {
         "title": "End-Gras und End-Büsche",
-        "summary": "Drahtiges End-Gras und zweigige End-Büsche, wie Vanilla-Trockengras und tote Büsche, auf Endstein. Sie wachsen in Aschental und Dämmerlande und vereinzelt auf allen äußeren End-Inseln.",
+        "summary": "Drahtiges End-Gras und zweigige End-Büsche, wie Vanilla-Trockengras und tote Büsche, auf Endstein und überall, wo diese stehen (Sand, Terrakotta, Erde, Gras, Moos, Schlamm, Ackerland). Sie wachsen in Aschental und Dämmerlande und vereinzelt auf allen äußeren End-Inseln.",
         "details": [
           "Mit der Schere aufsammeln; End-Büsche droppen sonst Stöcke. Knochenmehl auf End-Gras verteilt ein paar Büschel auf benachbarten Endstein.",
           "Ihre Farbe ist der Biom-Tint (grau-braun in den beiden End-Biomen)."
@@ -2363,6 +2363,10 @@
         {
           "id": "#minecraft:dirt",
           "required": true
+        },
+        {
+          "id": "#minecraft:supports_dry_vegetation",
+          "required": true
         }
       ],
       "source": "modules/simpleend/generated/resources/data/simpleend/tags/block/end_plants_may_place_on.json"
@@ -2737,10 +2741,10 @@
           "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+          "summary": "Guide to this mod: 20 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+          "summary": "Handbuch zu dieser Mod: 20 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
         }
       },
       "texture": "assets/textures/simpleend/item/guide_book.png",
@@ -3624,10 +3628,10 @@
       },
       "note": {
         "en": {
-          "summary": "Dry End bush on End stone; drops sticks."
+          "summary": "Dry End bush on End stone, sand, dirt and the like; drops sticks."
         },
         "de": {
-          "summary": "Trockener End-Busch auf Endstein; droppt Stöcke."
+          "summary": "Trockener End-Busch auf Endstein, Sand, Erde und Ähnlichem; droppt Stöcke."
         }
       },
       "texture": "assets/textures/simpleend/block/end_bush.png",
@@ -3660,10 +3664,10 @@
       },
       "note": {
         "en": {
-          "summary": "End grass on End stone; tinted by the biome."
+          "summary": "End grass on End stone, sand, dirt and the like; tinted by the biome."
         },
         "de": {
-          "summary": "End-Gras auf Endstein; vom Biom gefärbt."
+          "summary": "End-Gras auf Endstein, Sand, Erde und Ähnlichem; vom Biom gefärbt."
         }
       },
       "texture": "assets/textures/simpleend/block/end_grass.png",
