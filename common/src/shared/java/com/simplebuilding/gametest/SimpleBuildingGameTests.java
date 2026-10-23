@@ -119,6 +119,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("color_brush_game_test_paint_box_scroll_selection", ColorBrushTests::paintBoxScrollSelection)
                     .build(),
+            GameTestSpec.named("color_brush_game_test_paint_box_placed_and_picked_up_with_contents", ColorBrushTests::paintBoxPlacedAndPickedUpWithContents)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_paint_box_placed_drops_with_contents", ColorBrushTests::paintBoxPlacedDropsWithContents)
+                    .build(),
             GameTestSpec.named("color_brush_game_test_recipes_make_the_brush_and_upgrade_the_box", ColorBrushTests::recipesMakeTheBrushAndUpgradeTheBox)
                     .build(),
             GameTestSpec.named("color_brush_game_test_brushes_suspicious_sand_like_the_vanilla_brush", ColorBrushTests::brushesSuspiciousSandLikeTheVanillaBrush)
