@@ -1,5 +1,6 @@
 # 26.2 datagen files that the 26.3 datagen does not produce; hidden on 26.3.
 # Written by :mc26_3:fabric:syncGenerated263 - do not edit.
+assets/simplebuilding/blockstates/astralit_ore.json
 assets/simplebuilding/blockstates/backpack.json
 assets/simplebuilding/blockstates/blaze_head.json
 assets/simplebuilding/blockstates/blaze_wall_head.json
@@ -31,6 +32,7 @@ assets/simplebuilding/blockstates/netherite_chest.json
 assets/simplebuilding/blockstates/netherite_furnace.json
 assets/simplebuilding/blockstates/netherite_shulker_box.json
 assets/simplebuilding/blockstates/netherite_smoker.json
+assets/simplebuilding/blockstates/nihilith_ore.json
 assets/simplebuilding/blockstates/placed_bundle.json
 assets/simplebuilding/blockstates/polished_end_stone.json
 assets/simplebuilding/blockstates/reinforced_backpack.json
@@ -126,6 +128,7 @@ assets/simplebuilding/items/stone_sledgehammer.json
 assets/simplebuilding/items/stray_skull.json
 assets/simplebuilding/items/suspended_gravel.json
 assets/simplebuilding/items/suspended_sand.json
+assets/simplebuilding/models/block/astralit_ore.json
 assets/simplebuilding/models/block/backpack.json
 assets/simplebuilding/models/block/backpack_dyed.json
 assets/simplebuilding/models/block/cracked_diamond_block.json
@@ -154,6 +157,7 @@ assets/simplebuilding/models/block/netherite_shulker_box.json
 assets/simplebuilding/models/block/netherite_smoker.json
 assets/simplebuilding/models/block/netherite_smoker_on.json
 assets/simplebuilding/models/block/netherite_trapped_chest.json
+assets/simplebuilding/models/block/nihilith_ore.json
 assets/simplebuilding/models/block/placed_bundle.json
 assets/simplebuilding/models/block/placed_bundle_dyed.json
 assets/simplebuilding/models/block/placed_enderite_bundle.json
@@ -395,6 +399,7 @@ data/simplebuilding/enchantment/drawer.json
 data/simplebuilding/enchantment/funnel.json
 data/simplebuilding/enchantment/override.json
 data/simplebuilding/enchantment/radius.json
+data/simplebuilding/loot_table/blocks/astralit_ore.json
 data/simplebuilding/loot_table/blocks/backpack.json
 data/simplebuilding/loot_table/blocks/blaze_head.json
 data/simplebuilding/loot_table/blocks/bogged_skull.json
@@ -419,6 +424,7 @@ data/simplebuilding/loot_table/blocks/netherite_chest.json
 data/simplebuilding/loot_table/blocks/netherite_furnace.json
 data/simplebuilding/loot_table/blocks/netherite_shulker_box.json
 data/simplebuilding/loot_table/blocks/netherite_smoker.json
+data/simplebuilding/loot_table/blocks/nihilith_ore.json
 data/simplebuilding/loot_table/blocks/polished_end_stone.json
 data/simplebuilding/loot_table/blocks/reinforced_backpack.json
 data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json

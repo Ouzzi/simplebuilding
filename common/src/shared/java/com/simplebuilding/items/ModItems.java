@@ -111,6 +111,9 @@ public class ModItems {
     /** Astral/Nihil Redstone Torch (B23-M1): standing and on the wall like Vanilla's redstone torch. */
     public static final Item ASTRAL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.ASTRAL_REDSTONE_TORCH, ModBlocks.ASTRAL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
     public static final Item NIHIL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.NIHIL_REDSTONE_TORCH, ModBlocks.NIHIL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
+    /** Astralit/Nihilit End Rod (W24-4): Vanilla's End rod in the line colours. */
+    public static final Item ASTRALIT_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_end_rod", s -> new BlockItem(ModBlocks.ASTRALIT_END_ROD, s)) : null;
+    public static final Item NIHILITH_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_end_rod", s -> new BlockItem(ModBlocks.NIHILITH_END_ROD, s)) : null;
     public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone_block", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE_BLOCK, s)) : null;
     public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
     public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;

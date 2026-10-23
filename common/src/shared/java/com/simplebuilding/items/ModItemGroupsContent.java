@@ -545,9 +545,9 @@ public final class ModItemGroupsContent {
             rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT));
             rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, CreativeTabLayout.GAP, ModItems.BRIDGE_REDSTONE, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
             // Redstone-Bloecke der Linien (N51) unter ihrem Staub.
-            // B23-M1: the line torches next to their line's block, under the lamps.
-            rows.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_TORCH, CreativeTabLayout.GAP,
-                    CreativeTabLayout.GAP, ModItems.BRIDGE_REDSTONE_BLOCK, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_TORCH));
+            // B23-M1: the line torches next to their line's block, under the lamps; W24-4: the line End rods beside them.
+            rows.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_TORCH, ModItems.NIHILITH_END_ROD,
+                    CreativeTabLayout.GAP, ModItems.BRIDGE_REDSTONE_BLOCK, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_TORCH, ModItems.ASTRALIT_END_ROD));
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) als eigene Zeile direkt unter den End-Signalen, Nihil zuerst wie dort.

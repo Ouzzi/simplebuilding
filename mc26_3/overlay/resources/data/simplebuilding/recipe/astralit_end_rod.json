@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "simplebuilding:astralit_dust",
+    "/": "minecraft:blaze_rod"
+  },
+  "pattern": [
+    "/",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "simplebuilding:astralit_end_rod"
+  }
+}

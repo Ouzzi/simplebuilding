@@ -1,12 +1,17 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.blocks.custom.HiddenOreBlock;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,6 +32,22 @@ public class BrushItemMixin {
                 // Dadurch läuft die "Use"-Animation einfach weiter.
                 ci.cancel();
             }
+        }
+    }
+
+    @Shadow
+    private HitResult calculateHitResult(Player player) {
+        throw new AssertionError();
+    }
+
+    /**
+     * W24-4: every Vanilla brush stroke (the tick that plays the brushing sound, every 10 ticks) on a hidden Astralit /
+     * Nihilit ore frees it one step further ({@link HiddenOreBlock#brush}).
+     */
+    @Inject(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V"))
+    private void simplebuilding$brushHiddenOre(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks, CallbackInfo ci) {
+        if (world instanceof ServerLevel level && user instanceof Player player && calculateHitResult(player) instanceof BlockHitResult hit) {
+            HiddenOreBlock.brush(level, hit.getBlockPos(), user, stack);
         }
     }
 }

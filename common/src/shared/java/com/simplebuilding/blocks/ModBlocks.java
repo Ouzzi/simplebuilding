@@ -48,6 +48,9 @@ public class ModBlocks {
     public static final Block ASTRAL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_wall_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneWallTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, wallTorch(s, ASTRAL_REDSTONE_TORCH).mapColor(MapColor.COLOR_PINK))) : null;
     public static final Block NIHIL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
     public static final Block NIHIL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_wall_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneWallTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, wallTorch(s, NIHIL_REDSTONE_TORCH).mapColor(MapColor.COLOR_CYAN))) : null;
+    /** Astralit/Nihilit End Rod (W24-4, 2026-10-23): Vanilla's End rod in the colours of its line. */
+    public static final Block ASTRALIT_END_ROD = McVersion.END_SYSTEMS ? registerBlock("astralit_end_rod", Blocks.END_ROD, s -> new com.simplebuilding.blocks.custom.LineEndRodBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
+    public static final Block NIHILITH_END_ROD = McVersion.END_SYSTEMS ? registerBlock("nihilith_end_rod", Blocks.END_ROD, s -> new com.simplebuilding.blocks.custom.LineEndRodBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(com.simplebuilding.util.LineSounds.NIHIL_PISTON).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
@@ -594,7 +597,7 @@ public class ModBlocks {
                     .sound(net.minecraft.world.level.block.SoundType.EMPTY))) : null;
 
     public static final Block ENDERITE_BLOCK = com.simplebuilding.util.SharedMaterials.block("enderite_block", () -> registerBlock("enderite_block", unused -> new Block(BlockBehaviour.Properties.of().setId(keyOf("enderite_block")).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK))));
-    public static final Block NIHILITH_ORE = registerBlock("nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops()));
+    public static final Block NIHILITH_ORE = registerBlock("nihilith_ore", unused -> new com.simplebuilding.blocks.custom.HiddenOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops()));
     /**
      * Weisheitserz (Besitzer 2026-10-01): selten wie Diamant, droppt nur Erfahrung (3-7 wie Diamanterz) und
      * selten eine Weisheitskugel (Beutetabelle). Abbau ab Eisen, wie Diamanterz.
@@ -615,7 +618,7 @@ public class ModBlocks {
                 .pushReaction(McVersion.immovable())));
     }
 
-    public static final Block ASTRALIT_ORE = registerBlock("astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops()));
+    public static final Block ASTRALIT_ORE = registerBlock("astralit_ore", unused -> new com.simplebuilding.blocks.custom.HiddenOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops()));
     /**
      * Truebe (falsche) End-Erze (W23-2, Besitzer 2026-10-23): sitzen in denselben Adern wie die echten (ein Fuenftel der
      * Erzbloecke, {@code ModWorldGen}), sehen aehnlich aus, sind aber "unraffiniert" - etwas weicher, weniger Erfahrung,

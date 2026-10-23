@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "simplebuilding:block/astralit_end_rod",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "simplebuilding:block/astralit_end_rod",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simplebuilding:block/astralit_end_rod",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "simplebuilding:block/astralit_end_rod",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "simplebuilding:block/astralit_end_rod"
+    },
+    "facing=west": {
+      "model": "simplebuilding:block/astralit_end_rod",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
