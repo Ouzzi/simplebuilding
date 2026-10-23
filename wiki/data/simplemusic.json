@@ -303,16 +303,17 @@
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketPlayback.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/PocketPlayer.java",
         "modules/simplemusic/shared/resources/data/simplemusic/recipe/pocket_jukebox.json",
-        "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json"
+        "modules/simplemusic/shared/resources/data/simplemusic/recipe/red_pocket_jukebox_dyeing.json",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketMouseActions.java"
       ],
       "en": {
         "title": "Pocket Jukebox",
         "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
           "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
-          "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
-          "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
-          "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+          "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
+          "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
+          "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
           "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
         ]
       },
@@ -321,9 +322,9 @@
         "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
         "details": [
           "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
-          "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
-          "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
-          "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+          "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, das Mausrad darüber wählt eine Platte, Rechtsklick mit leerer Hand nimmt die gewählte heraus (ohne Wahl die neueste). Das Raster im Tooltip liest sich in Spielreihenfolge.",
+          "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn; später eingelegte kommen ans Ende. Pause merkt sich die Stelle. Start und Pause klicken wie ein Plattenspieler. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+          "Sie spielt weiter, während du sie im Inventar verschiebst, wenn du sie fallen lässt (dann hören sie alle in der Nähe des Items, und wer sie aufhebt, trägt sie weiter) und wenn du sie abstellst oder abbaust. Sie stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox eine Weile weg bleibt (in einer Kiste). Die Nebenhand hält sie nur.",
           "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
         ]
       }
@@ -335,28 +336,30 @@
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxBlockEntity.java",
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
         "modules/simplemusic/shared/java/com/simplemusic/disc/DiscPlayback.java",
-        "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json"
+        "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketJukeboxRenderer.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/tags/block/pocket_jukebox_links.json"
       ],
       "en": {
         "title": "Placed Pocket Jukebox",
         "summary": "Sneak + right click with the pocket jukebox on a block puts it down, front to you. Placed, it plays its discs for everyone nearby like a jukebox.",
         "details": [
-          "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses, sneak + right click with an empty hand throws the newest disc out on top.",
+          "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses. Sneaking and looking at it shows the current disc above it; sneak + mouse wheel goes through the discs, sneak + right click with an empty hand takes the shown one out.",
           "Same order, loop and pause as in the hand: the first disc in plays first, after the last the first again, a pause keeps the position. A jukebox that played in your hand goes on playing where you put it down.",
           "The sound comes from the block like a jukebox (64 blocks, Jukebox/Note Blocks volume); players who come near later hear it from where the song is. Track discs are heard only by those allowed to hear them (moderation).",
-          "Redstone like a jukebox: signal 15 while it plays, a comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Parrots dance, allays and sculk sensors hear it.",
-          "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position; in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
+          "Redstone: signal 15 out of the front while it plays; a redstone pulse from any other side, above or below starts or pauses it. A comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Redstone dust (and with SimpleBuilding Astral, Nihil and Bridge dust) gets a copper contact. Parrots dance, allays and sculk sensors hear it.",
+          "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position (a playing one goes on playing as the dropped item); in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
         ]
       },
       "de": {
         "title": "Abgestellte Taschen-Jukebox",
         "summary": "Schleichen + Rechtsklick mit der Taschen-Jukebox auf einen Block stellt sie ab, die Vorderseite zu dir. Abgestellt spielt sie ihre Platten wie eine Jukebox für alle in der Nähe.",
         "details": [
-          "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert, Schleichen + Rechtsklick mit leerer Hand wirft die neueste Platte oben heraus.",
+          "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert. Wer schleichend darauf schaut, sieht die aktuelle Platte darüber; Schleichen + Mausrad blättert durch die Platten, Schleichen + Rechtsklick mit leerer Hand nimmt die gezeigte heraus.",
           "Reihenfolge, Schleife und Pause wie in der Hand: die zuerst eingelegte zuerst, nach der letzten von vorn, die Pause merkt sich die Stelle. Spielte die Jukebox in der Hand, spielt sie abgestellt an derselben Stelle weiter.",
           "Der Klang kommt wie bei der Jukebox vom Block (64 Blöcke, Lautstärke Jukebox/Notenblöcke); wer später dazukommt, hört ab der aktuellen Stelle. Titel-Platten hören nur die, die sie hören dürfen (Freigabe).",
-          "Redstone wie bei der Jukebox: Signal 15, solange sie spielt, ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
-          "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück; im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
+          "Redstone: Signal 15 nach vorn, solange sie spielt; ein Redstone-Impuls von einer anderen Seite, von oben oder unten startet oder pausiert sie. Ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Redstone-Staub (mit SimpleBuilding auch Astral-, Nihil- und Brückenstaub) bekommt einen Kupferkontakt. Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
+          "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück (spielte sie, spielt sie als Item weiter); im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
         ]
       }
     },
@@ -2248,6 +2251,29 @@
       "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/block/playlist_containers.json"
     },
     {
+      "id": "simplemusic:block/pocket_jukebox_links",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:redstone_wire",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_redstone",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:nihil_redstone",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:bridge_redstone",
+          "required": false
+        }
+      ],
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/block/pocket_jukebox_links.json"
+    },
+    {
       "id": "simplemusic:item/pocket_jukeboxes",
       "replace": false,
       "values": [
@@ -2798,9 +2824,9 @@
           "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
           "details": [
             "Recipe: 8 copper nuggets around a bundle, a diamond on top (the colour comes from the bundle). Dye it any time with a dye in the crafting grid: the discs stay in.",
-            "Discs go in and out like a bundle: left click puts one in, right click with an empty hand takes the newest out.",
-            "Plays the discs in the order they went in and starts over after the last. Pausing keeps the position. Starting it stops other music and pauses another pocket jukebox.",
-            "Stops when the playing disc is taken out or the jukebox leaves your inventory. The off hand only holds it.",
+            "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
+            "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
+            "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
             "Back port of the Pocket Jukebox of the Bedrock preview 26.70.21 (Java has none yet; checked again on every port)."
           ]
         },
@@ -2809,9 +2835,9 @@
           "summary": "Ein Bündel für bis zu 20 Platten (Vanilla- und Titel-Platten). In der Haupthand benutzen: abspielen oder pausieren; nur du hörst es, in voller Lautstärke, egal wo. Schleichen + Rechtsklick auf einen Block stellt sie ab (siehe Abgestellte Taschen-Jukebox).",
           "details": [
             "Rezept: 8 Kupfernuggets um ein Bündel, oben ein Diamant (die Farbe kommt vom Bündel). Jederzeit mit Farbstoff im Handwerksfeld umfärbbar: die Platten bleiben drin.",
-            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, Rechtsklick mit leerer Hand nimmt die neueste heraus.",
-            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn. Pause merkt sich die Stelle. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
-            "Stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox dein Inventar verlässt. Die Nebenhand hält sie nur.",
+            "Platten rein und raus wie beim Bündel: Linksklick legt eine hinein, das Mausrad darüber wählt eine Platte, Rechtsklick mit leerer Hand nimmt die gewählte heraus (ohne Wahl die neueste). Das Raster im Tooltip liest sich in Spielreihenfolge.",
+            "Spielt die Platten in der Reihenfolge, in der sie hineinkamen, nach der letzten von vorn; später eingelegte kommen ans Ende. Pause merkt sich die Stelle. Start und Pause klicken wie ein Plattenspieler. Der Start stoppt andere Musik und pausiert eine andere Taschen-Jukebox.",
+            "Sie spielt weiter, während du sie im Inventar verschiebst, wenn du sie fallen lässt (dann hören sie alle in der Nähe des Items, und wer sie aufhebt, trägt sie weiter) und wenn du sie abstellst oder abbaust. Sie stoppt, wenn die laufende Platte herausgenommen wird oder die Jukebox eine Weile weg bleibt (in einer Kiste). Die Nebenhand hält sie nur.",
             "Rückport der Pocket Jukebox aus der Bedrock-Vorschau 26.70.21 (Java hat noch keine; bei jedem Port neu geprüft)."
           ]
         }
@@ -2935,7 +2961,7 @@
     "features": 17,
     "recipes": 38,
     "lootTables": 19,
-    "tags": 2,
+    "tags": 3,
     "advancements": 0,
     "enchantments": 0,
     "items": 4,
