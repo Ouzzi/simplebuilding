@@ -31,7 +31,11 @@ assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
 assert recipes['strong_beacon_smithing']['base'] == 'minecraft:beacon' and recipes['strong_conduit_smithing']['base'] == 'minecraft:conduit'
 assert all(recipes[r]['addition'] == 'minecraft:nether_star' for r in ('strong_beacon_smithing', 'strong_conduit_smithing'))
-assert recipes['strong_upgrade_template_duplication']['result']['count'] == 2
+dup = recipes['strong_upgrade_template_duplication']
+assert dup['result']['count'] == 2 and dup['type'] == 'minecraft:crafting_shapeless'
+assert sorted(dup['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'minecraft:diamond', 'simplemobs:nether_heart']), dup['ingredients']
+assert 'fabric:load_conditions' in dup and 'neoforge:conditions' in dup and 'forge:condition' in dup, 'duplication needs Simple Mobs (Nether Heart)'
+assert 'minecraft:obsidian' not in json.dumps(recipes['strong_upgrade_template']), 'crying obsidian in Strong recipes (23.10.)'
 # Owner 21.10.: no template from plain materials - only 9 shards, the Nether Heart (with Simple Mobs) and duplication
 assert 'strong_upgrade_template_from_basic' not in recipes, 'Basic Upgrade way removed (21.10.)'
 assert all('minecraft:nether_star' not in json.dumps(recipes[r]) for r in recipes if r.startswith('strong_upgrade_template')), 'no Nether Star template recipe'

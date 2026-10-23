@@ -1,15 +1,29 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "D": "minecraft:diamond",
-    "O": "minecraft:obsidian",
-    "T": "simplebeacons:strong_upgrade_template"
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplemobs"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplemobs"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplemobs"
   },
-  "pattern": [
-    "DTD",
-    "DOD",
-    "DDD"
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simplebeacons:strong_upgrade_template",
+    "minecraft:crying_obsidian",
+    "minecraft:diamond",
+    "simplemobs:nether_heart"
   ],
   "result": {
     "count": 2,

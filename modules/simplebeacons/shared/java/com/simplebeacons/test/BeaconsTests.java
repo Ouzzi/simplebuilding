@@ -314,7 +314,7 @@ public final class BeaconsTests {
             ItemStack beacon = smith(h, new ItemStack(Items.BEACON));
             h.assertTrue(beacon.is(BeaconsRegistry.STRONG_BEACON_ITEM), "smithing: beacon + template + nether star");
             h.assertTrue(smith(h, new ItemStack(Items.CONDUIT)).is(BeaconsRegistry.STRONG_CONDUIT_ITEM), "smithing: conduit");
-            ItemStack o = new ItemStack(Items.OBSIDIAN), d = new ItemStack(Items.DIAMOND), n = new ItemStack(Items.NETHER_STAR);
+            ItemStack o = new ItemStack(Items.CRYING_OBSIDIAN), d = new ItemStack(Items.DIAMOND), n = new ItemStack(Items.NETHER_STAR);
             // Owner 21.10.: not craftable from base materials - the Nether Star way and the Basic Upgrade way are gone
             h.assertTrue(craft(h, List.of(o, d, o, d, n, d, o, d, o)).isEmpty(), "no template from a Nether Star");
             h.assertTrue(server.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
@@ -334,10 +334,18 @@ public final class BeaconsTests {
                         SimpleBeacons.id("strong_upgrade_template"))).isEmpty(), "[standalone] no Nether Heart recipe without Simple Mobs");
             }
             ItemStack t = new ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE);
-            CraftingInput dup = CraftingInput.of(3, 3, List.of(d, t, d, d, o, d, d, d, d));
-            ItemStack two = server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, dup, h.getLevel())
-                    .map(r -> r.value().assemble(dup)).orElse(ItemStack.EMPTY);
-            h.assertTrue(two.is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE) && two.getCount() == 2, "duplication gives 2");
+            // W23-8: duplication only with a Nether Heart (template + crying obsidian + diamond + heart -> 2); the old diamond ring is gone
+            CraftingInput old = CraftingInput.of(3, 3, List.of(d, t, d, d, o, d, d, d, d));
+            h.assertTrue(server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, old, h.getLevel()).isEmpty(), "no diamond-ring duplication");
+            if (heart.isPresent()) {
+                CraftingInput dup = CraftingInput.of(2, 2, List.of(t, o, d, new ItemStack(heart.get())));
+                ItemStack two = server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, dup, h.getLevel())
+                        .map(r -> r.value().assemble(dup)).orElse(ItemStack.EMPTY);
+                h.assertTrue(two.is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE) && two.getCount() == 2, "duplication with Nether Heart gives 2");
+            } else {
+                h.assertTrue(server.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        SimpleBeacons.id("strong_upgrade_template_duplication"))).isEmpty(), "[standalone] no duplication without Simple Mobs");
+            }
             h.succeed();
         });
         ALL.put("strong_upgrade_shard", h -> {

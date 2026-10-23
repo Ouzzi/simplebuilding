@@ -6,7 +6,7 @@
     "simplebeacons:strong_beacon": "Needs a beacon and a nether star on top of the template; a trade would skip the boss.",
     "simplebeacons:strong_conduit": "Needs a conduit and a nether star on top of the template; a trade would skip the boss.",
     "simplebeacons:strong_upgrade_shard": "Vanilla Wither drop only (one per kill); a trade would skip the boss.",
-    "simplebeacons:strong_upgrade_template": "Never crafted from plain materials (owner 21.10.): 9 shards from the Wither, a Nether Heart (Simple Mobs) or duplication."
+    "simplebeacons:strong_upgrade_template": "Never crafted from plain materials (owner 21.10.): 9 shards from the Wither, a Nether Heart (Simple Mobs); duplication needs a Nether Heart too."
   },
   "prices": []
 }
