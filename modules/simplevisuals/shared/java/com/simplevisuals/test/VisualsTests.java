@@ -88,6 +88,52 @@ public final class VisualsTests {
    if(BuiltInRegistries.ITEM.containsKey(Identifier.parse(e.getKey())))
     h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(e.getKey()))))==e.getValue(),"Mod item "+e.getKey()+" is "+e.getValue());
  }
+ /** W23-5: chisel steps (6 x 15 = 90 degrees, then flat), the step as synced entity datum, saved and loaded, reset when the item comes out; with a chisel (SimpleBuilding) the real sneak click. */
+ public static void frameChisel(GameTestHelper h){
+  h.assertTrue(FrameTilt.TILT_DEGREES==0f&&FrameTilt.degrees(0)==0f,"Variant A: flat on the back plate");
+  h.assertTrue(FrameTilt.STEPS*FrameTilt.STEP_DEGREES==90f&&FrameTilt.degrees(FrameTilt.STEPS)==90f&&FrameTilt.degrees(99)==90f&&FrameTilt.degrees(-3)==0f,"Steps add up to 90 degrees, clamped");
+  int st=0;var seen=new ArrayList<Integer>();for(int i=0;i<=FrameTilt.STEPS;i++){st=FrameTilt.nextStep(st);seen.add(st);}
+  h.assertTrue(seen.equals(List.of(1,2,3,4,5,6,0))&&FrameTilt.nextStep(42)==0&&FrameTilt.nextStep(-1)==0,"Cycle 0 -> 15 -> ... -> 90 -> 0: "+seen);
+  var sw=com.simplebuilding.framework.api.SubMods.enabled("simplevisuals");var saved=Visuals.CONFIG;
+  var pos=h.absolutePos(new net.minecraft.core.BlockPos(1,2,1));var lvl=h.getLevel();
+  try{
+   com.simplebuilding.framework.api.SubMods.set("simplevisuals",true);Visuals.CONFIG=new SimplevisualsConfig();
+   lvl.setBlockAndUpdate(pos.north(),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+   var frame=new net.minecraft.world.entity.decoration.ItemFrame(lvl,pos,net.minecraft.core.Direction.SOUTH);lvl.addFreshEntity(frame);
+   frame.setItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE),false);
+   var c=(ChiseledFrame)frame;h.assertTrue(c.simplevisuals$tiltStep()==0,"A new frame lies flat");
+   c.simplevisuals$setTiltStep(4);
+   h.assertTrue(frame.getEntityData().getNonDefaultValues()!=null&&frame.getEntityData().getNonDefaultValues().stream().anyMatch(v->v.value() instanceof Byte b&&b==4),"Step is a synced entity datum (sent to clients)");
+   var out=net.minecraft.world.level.storage.TagValueOutput.createWithContext(net.minecraft.util.ProblemReporter.DISCARDING,lvl.registryAccess());frame.saveWithoutId(out);var tag=out.buildResult();
+   h.assertTrue(tag.getIntOr("SimpleVisualsTilt",-1)==4,"Saved with the frame");
+   var back=new net.minecraft.world.entity.decoration.ItemFrame(lvl,pos,net.minecraft.core.Direction.SOUTH);
+   back.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING,lvl.registryAccess(),tag));
+   h.assertTrue(((ChiseledFrame)back).simplevisuals$tiltStep()==4,"Loaded again");
+   c.simplevisuals$setTiltStep(0);var flat=net.minecraft.world.level.storage.TagValueOutput.createWithContext(net.minecraft.util.ProblemReporter.DISCARDING,lvl.registryAccess());frame.saveWithoutId(flat);
+   h.assertTrue(!flat.buildResult().contains("SimpleVisualsTilt"),"Flat frames save nothing extra");
+   var chisels=BuiltInRegistries.ITEM.getTagOrEmpty(FrameChisel.CHISELS).iterator();
+   if(!chisels.hasNext()){com.mojang.logging.LogUtils.getLogger().info("[standalone] no frame chisel (SimpleBuilding) - skipping the click part");h.succeed();return;}
+   var chisel=new net.minecraft.world.item.ItemStack(chisels.next());
+   var p=h.makeMockServerPlayerInLevel();p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);p.snapTo(pos.getX()+.5,pos.getY()-.5,pos.getZ()+2);
+   p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,chisel);p.setShiftKeyDown(true);
+   var steps=new ArrayList<Integer>();
+   for(int i=0;i<=FrameTilt.STEPS;i++){h.assertTrue(frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO).consumesAction(),"Chisel click acts");steps.add(c.simplevisuals$tiltStep());}
+   h.assertTrue(steps.equals(List.of(1,2,3,4,5,6,0)),"Sneak + chisel: 15 degree steps to 90, then flat: "+steps);
+   h.assertTrue(frame.getRotation()==0&&frame.getItem().is(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE)&&p.getMainHandItem().getDamageValue()==0,"Rotation, item and chisel untouched (no Simple Tools reverse turn)");
+   c.simplevisuals$setTiltStep(2);p.setShiftKeyDown(false);frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);
+   h.assertTrue(c.simplevisuals$tiltStep()==2&&frame.getRotation()==1,"Without sneaking: Vanilla turn, tilt stays");
+   Visuals.CONFIG.visuals.enableTiltedFrameItems=false;p.setShiftKeyDown(true);frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);
+   h.assertTrue(c.simplevisuals$tiltStep()==2,"Option off: no chiselling");Visuals.CONFIG.visuals.enableTiltedFrameItems=true;
+   frame.hurtServer(lvl,p.damageSources().playerAttack(p),1f);
+   h.assertTrue(frame.getItem().isEmpty()&&c.simplevisuals$tiltStep()==0,"Taking the item out lays the frame flat again");
+   frame.setItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND),false);frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);
+   h.assertTrue(c.simplevisuals$tiltStep()==0,"A sprite item (diamond) is not chiselled");
+  }finally{
+   Visuals.CONFIG=saved;com.simplebuilding.framework.api.SubMods.set("simplevisuals",sw);
+   lvl.getEntitiesOfClass(net.minecraft.world.entity.decoration.ItemFrame.class,new net.minecraft.world.phys.AABB(pos).inflate(2)).forEach(net.minecraft.world.entity.Entity::discard);
+  }
+  h.succeed();
+ }
  public static void speedLinesMath(GameTestHelper h){
   h.assertTrue(SpeedLinesMath.tempo(SpeedLinesMath.REFERENCE)==1f&&SpeedLinesMath.density(SpeedLinesMath.REFERENCE)==1f,"Reference speed gives base values");
   h.assertTrue(SpeedLinesMath.tempo(1.0)>SpeedLinesMath.tempo(.5)&&SpeedLinesMath.tempo(.5)>SpeedLinesMath.tempo(.25),"Tempo rises with speed");

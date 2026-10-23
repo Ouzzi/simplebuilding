@@ -58,7 +58,7 @@
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips": "Map Tooltips",
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips.@Tooltip": "Shows coordinates and biome info when\nhovering over maps in the inventory. Default:\ntrue.",
   "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems": "Flat blocks and panes in item frames from above",
-  "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems.@Tooltip": "Pressure plates, carpets, trapdoors, glass panes\nand bars lie flat in item frames, seen from\nabove as a slightly tilted 3D model, instead of\na thin strip or a flat icon. Client only.\nDefault: true.",
+  "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems.@Tooltip": "Pressure plates, carpets, trapdoors, glass panes\nand bars lie flat in item frames as a 3D model\nseen from above. Sneak with a chisel on the\nframe to tilt it in 15° steps up to 90° and\nback (saved per frame). Default: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable": "Enable",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable.@Tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.scale": "Scale",

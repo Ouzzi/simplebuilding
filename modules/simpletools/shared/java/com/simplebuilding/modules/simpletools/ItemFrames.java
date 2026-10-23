@@ -2,15 +2,19 @@ package com.simplebuilding.modules.simpletools;
 
 import com.simplebuilding.modules.simpletools.mixin.ItemFrameFixedAccessor;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
@@ -20,9 +24,11 @@ import net.minecraft.world.level.storage.ValueInput;
 /**
  * Better item frames (docs/ai/PLAN-B-ITEMFRAMES-2026-10-19.md), item frames and glow item frames alike. Only while
  * sneaking and only on a frame holding an item: shears hide/show the frame, honeycomb or a glass pane locks it, an axe unlocks it,
- * anything else turns the item backwards. State lives in the Vanilla fields only ({@code Invisible}, {@code Fixed}).
+ * anything else (but a frame chisel of Simple Visuals) turns the item backwards. State lives in the Vanilla fields only ({@code Invisible}, {@code Fixed}).
  */
 public final class ItemFrames {
+    private static final TagKey<Item> FRAME_CHISELS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplevisuals", "frame_chisels"));
+
     private ItemFrames() {}
 
     /** Called at the head of {@link ItemFrame#interact}; null keeps Vanilla (and Simple Maps' unsneaked map click). */
@@ -62,7 +68,8 @@ public final class ItemFrames {
             feedback(frame, player, SoundEvents.GLASS_PLACE, null);
             return InteractionResult.SUCCESS;
         }
-        if (config.enableItemFrameReverseRotate) {
+        // W23-5: a chisel tilts flat items (Simple Visuals' tag simplevisuals:frame_chisels, empty without it)
+        if (config.enableItemFrameReverseRotate && !held.is(FRAME_CHISELS)) {
             frame.setRotation(frame.getRotation() + ItemFrame.NUM_ROTATIONS - 1);
             feedback(frame, player, frame.getRotateItemSound(), null);
             return InteractionResult.SUCCESS;

@@ -188,6 +188,8 @@ Riesen-Zombie (Blitz bei Vollmond, jede Zombie-Art, `scale` ×3) und Riesen-Kuh 
 Geschwindigkeitslinien, Aufnahmehinweise, Elytra-Neigungshilfe, Effekt-Zeitleisten, Spielerköpfe in Locator und Chat,
 lokale Todeskoordinaten, Karten-Tooltip, Item-Info, Schadensanzeigen, Biomhinweise, Amboss-Formatierung,
 CIT-Kompatibilität, 12 Immersions-Partikeleffekte in 5 Stufen.
+Flache Blöcke/Scheiben im Item-Rahmen als 3D-Modell von oben; Schleichen + Meißel kippt sie je Rahmen in 15°-Stufen
+bis 90° und zurück (synchronisiertes Rahmen-Datum, W23-5).
 
 ### Simple Sounds (clientseitig)
 Vanilla-Klang-Gegenstücke zu den 12 Visuals-Effekten, Intensität gekoppelt an Simple Visuals, harte Grenzen.
