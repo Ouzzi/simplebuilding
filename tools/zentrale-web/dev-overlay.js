@@ -69,8 +69,11 @@
     for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
     return null;
   }
+  /* vanilla-derived textures are built from the client jar, never committed (A8): nothing to edit or save */
+  function isDerived(t) { return !!t && /^build\/vanilla-derived\//.test(t.source || ''); }
   function editTexture(t) {
     if (!t || !t.file) { toast('Textur nicht gefunden', false); return; }
+    if (isDerived(t)) { toast('Aus Vanilla abgeleitet (A8): tools/textures/vanilla_derived.py anpassen', false); return; }
     var name = t.name && typeof t.name === 'object' ? (t.name[window.LANG] || t.name.en || t.id) : (t.name || t.id);
     loadEditor().then(function () {
       return window.SBPixelEditor.open({ id: t.id, name: name, png: t.file, layers: t.layers || null, source: t.source || '' });
@@ -114,7 +117,7 @@
       });
       t.appendChild(cb);
     }
-    if (info.kind === 'textures' && !t.querySelector(':scope > .dev-edit')) {
+    if (info.kind === 'textures' && !t.querySelector(':scope > .dev-edit') && !isDerived(textureById(info.target.id))) {
       var pen = el('span', 'position:absolute;bottom:4px;right:4px;z-index:5;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#3b5b8c;color:#fff;font:700 16px system-ui,sans-serif;cursor:pointer', '✎');
       pen.className = 'dev-edit';
       pen.setAttribute('role', 'button');

@@ -1,7 +1,8 @@
 <!doctype html>
-<!-- Simple Maps web map viewer (stage 1). Own code, no third-party library, CC0 like the mod. Reads markers.json and
+<!-- Simple Maps web map viewer (stages 1+2). Own code, no third-party library, CC0 like the mod. Reads markers.json and
      tiles/<dim>/<z>/<x>/<y>.png next to this file; z 4 = one block per pixel, 128 blocks per tile. Serve the folder
-     with any web server (file:// cannot load markers.json in most browsers). -->
+     with any web server (file:// cannot load markers.json in most browsers). Served by the mod's own web server
+     (webHttpEnabled) it also polls live.json (players, export stamp); a ?token= in the page URL is passed on. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -30,8 +31,16 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 "use strict";
 const T = 128, MAXZ = 4, MIN_S = 1 / 16, MAX_S = 8;
 const de = (navigator.language || "").toLowerCase().startsWith("de");
-const L = de ? {players: "Spieler", shops: "Shops", none: "Noch nichts exportiert.", updated: "Stand", error: "markers.json nicht lesbar"}
-             : {players: "Players", shops: "Shops", none: "Nothing exported yet.", updated: "Updated", error: "markers.json could not be read"};
+const L = de ? {players: "Spieler", shops: "Shops", none: "Noch nichts exportiert.", updated: "Stand", error: "markers.json nicht lesbar", live: "live"}
+             : {players: "Players", shops: "Shops", none: "Nothing exported yet.", updated: "Updated", error: "markers.json could not be read", live: "live"};
+// Token of the mod's web server (webHttpToken), passed on to every request; static hosting ignores it.
+const token = new URLSearchParams(location.search).get("token");
+function url(path, version) {
+  const q = [];
+  if (version) q.push("v=" + encodeURIComponent(version));
+  if (token) q.push("token=" + encodeURIComponent(token));
+  return path + (q.length ? "?" + q.join("&") : "");
+}
 document.documentElement.lang = de ? "de" : "en";
 document.getElementById("plText").textContent = L.players;
 document.getElementById("shText").textContent = L.shops;
@@ -40,8 +49,9 @@ const sel = document.getElementById("dim"), info = document.getElementById("info
 // Shop icon: Simple Money's bill (exported next to this page when that mod is loaded), else a drawn bill or diamond.
 const bill = new Image(); let billOk = false;
 bill.onload = () => { billOk = true; draw(); };
-bill.src = "icons/money_bill.png";
-let meta = null, dim = null, cx = 0, cz = 0, scale = 1, mouse = null, queued = false;
+bill.src = url("icons/money_bill.png");
+// livePlayers: from live.json (mod web server only), else null and the players of markers.json are drawn.
+let meta = null, dim = null, cx = 0, cz = 0, scale = 1, mouse = null, queued = false, livePlayers = null, exportedAt = null;
 const cache = new Map();
 
 function tile(z, x, y) {
@@ -50,7 +60,7 @@ function tile(z, x, y) {
   if (!e) {
     e = {img: new Image(), ok: false};
     e.img.onload = () => { e.ok = true; draw(); };
-    e.img.src = "tiles/" + key + ".png";
+    e.img.src = url("tiles/" + key + ".png", meta.generatedAt);
     cache.set(key, e);
     if (cache.size > 4000) cache.delete(cache.keys().next().value);
   }
@@ -85,7 +95,7 @@ function render() {
   }
   if (pl.checked) {
     ctx.font = "13px system-ui,sans-serif"; ctx.textBaseline = "middle";
-    for (const p of meta.players || []) {
+    for (const p of livePlayers || meta.players || []) {
       if (p.dimension !== dim.id) continue;
       const sx = (p.x + 0.5 - cx) * scale + w / 2, sy = (p.z + 0.5 - cz) * scale + h / 2;
       ctx.beginPath(); ctx.arc(sx, sy, 5, 0, 2 * Math.PI);
@@ -120,7 +130,7 @@ function render() {
     ctx.strokeStyle = "#5a5f66"; ctx.lineWidth = 1; ctx.strokeRect(bx + .5, by + .5, bw - 1, bh - 1);
     ctx.fillStyle = "#f2f2f2"; lines.forEach((t, i) => ctx.fillText(t, bx + 6, by + 5 + i * 17));
   }
-  let text = L.updated + " " + new Date(meta.generatedAt).toLocaleString() + " · 1:" + (scale >= 1 ? 1 : 1 / scale);
+  let text = L.updated + " " + new Date(meta.generatedAt).toLocaleString() + (livePlayers ? " · " + L.live : "") + " · 1:" + (scale >= 1 ? 1 : 1 / scale);
   if (mouse) text += " · x " + Math.floor(cx + (mouse.x - w / 2) / scale) + ", z " + Math.floor(cz + (mouse.y - h / 2) / scale);
   info.textContent = text;
 }
@@ -144,8 +154,9 @@ function pick(folder) {
 }
 
 async function load(first) {
+  const before = meta ? meta.generatedAt : null;
   try {
-    const r = await fetch("markers.json", {cache: "no-store"});
+    const r = await fetch(url("markers.json"), {cache: "no-store"});
     meta = await r.json();
   } catch (e) { info.textContent = L.error; return; }
   const keep = dim ? dim.folder : null;
@@ -160,7 +171,8 @@ async function load(first) {
     }
   } else {
     pick(keep);
-    cache.clear();
+    // Only a new export brings new tiles (their URLs carry its stamp); otherwise keep the loaded images.
+    if (meta.generatedAt !== before) cache.clear();
   }
   draw();
 }
@@ -183,7 +195,24 @@ canvas.addEventListener("pointerup", stop);
 canvas.addEventListener("pointercancel", stop);
 canvas.addEventListener("pointerleave", () => { mouse = null; draw(); });
 window.addEventListener("resize", draw);
-load(true);
+// Live (mod web server): live.json every refreshSeconds; a new exportedAt reloads markers.json and the tiles.
+// Static hosting has no live.json: the first request fails and only the one-minute markers.json poll stays.
+async function live() {
+  try {
+    const r = await fetch(url("live.json"), {cache: "no-store"});
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    livePlayers = j.players || [];
+    if (exportedAt !== null && j.exportedAt !== exportedAt) await load(false);
+    exportedAt = j.exportedAt;
+    draw();
+    setTimeout(live, Math.max(1, j.refreshSeconds || 2) * 1000);
+  } catch (e) {
+    if (livePlayers !== null) { livePlayers = null; draw(); setTimeout(live, 10000); }
+  }
+}
+
+load(true).then(live);
 setInterval(() => load(false), 60000);
 </script>
 </body>

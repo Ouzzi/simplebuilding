@@ -115,6 +115,12 @@ public final class ModuleGameTest {
     @GameTest public void webMarkersOptIn(GameTestHelper h) { MapsTests.ALL.get("web_markers_opt_in").accept(h); }
     @GameTest public void webAutoOff(GameTestHelper h) { MapsTests.ALL.get("web_auto_off").accept(h); }
     @GameTest public void webCommandPermissions(GameTestHelper h) { MapsTests.ALL.get("web_command_permissions").accept(h); }
+    @GameTest public void webHttpConfigDefaults(GameTestHelper h) { MapsTests.ALL.get("web_http_config_defaults").accept(h); }
+    @GameTest public void webHttpOnOff(GameTestHelper h) { MapsTests.ALL.get("web_http_on_off").accept(h); }
+    @GameTest public void webHttpTraversal(GameTestHelper h) { MapsTests.ALL.get("web_http_traversal").accept(h); }
+    @GameTest public void webHttpEndpoints(GameTestHelper h) { MapsTests.ALL.get("web_http_endpoints").accept(h); }
+    @GameTest public void webHttpRateLimit(GameTestHelper h) { MapsTests.ALL.get("web_http_rate_limit").accept(h); }
+    @GameTest public void webLiveOptIn(GameTestHelper h) { MapsTests.ALL.get("web_live_opt_in").accept(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.behaviourHints(h); }
     @GameTest public void guideBook(GameTestHelper h) { com.simplebuilding.modules.simplemaps.guide.MapsGuide.gameTest(h); }
