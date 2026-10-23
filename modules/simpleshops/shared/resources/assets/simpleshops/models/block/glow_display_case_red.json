@@ -1,0 +1,6 @@
+{
+  "parent": "simpleshops:block/glow_display_case",
+  "textures": {
+    "glass": "simpleshops:block/display_case_glass_red"
+  }
+}

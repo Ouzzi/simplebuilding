@@ -2,16 +2,47 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      },
+      "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "simpleshops:trade_terminal"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "simpleshops:trade_terminal",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "predicates": {
+                      "minecraft:enchantments": [
+                        {
+                          "enchantments": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:lectern",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ]
+            }
+          ]
         }
-      ],
-      "rolls": 1
+      ]
     }
   ],
   "random_sequence": "simpleshops:blocks/trade_terminal"

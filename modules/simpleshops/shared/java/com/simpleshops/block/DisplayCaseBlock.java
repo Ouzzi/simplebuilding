@@ -18,6 +18,12 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -29,11 +35,33 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     /** Wooden base (2 px) and the glass box above it. */
     private static final VoxelShape SHAPE = Shapes.or(net.minecraft.world.level.block.Block.box(0, 0, 0, 16, 2, 16),
             net.minecraft.world.level.block.Block.box(1, 2, 1, 15, 15, 15));
+    /** NA24-3: the glass tint. Only one example tone (red) so far; the other Vanilla tones follow after the owner picks the look. */
+    public static final EnumProperty<Tint> TINT = EnumProperty.create("tint", Tint.class);
     private final boolean glow;
+
+    public enum Tint implements StringRepresentable {
+        NONE("none"), RED("red");
+        private final String key;
+
+        Tint(String key) {
+            this.key = key;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return this.key;
+        }
+    }
 
     public DisplayCaseBlock(BlockBehaviour.Properties properties, boolean glow) {
         super(properties);
         this.glow = glow;
+        registerDefaultState(this.stateDefinition.any().setValue(TINT, Tint.NONE));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
+        builder.add(TINT);
     }
 
     /** The glow variant draws its goods fully bright (and gives off weak light). */
@@ -73,6 +101,17 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                           BlockHitResult hit) {
+        // Sneak + red dye tints the glass of your own case (without sneaking a dye is just goods to stock).
+        if (player.isShiftKeyDown() && stack.is(Items.RED_DYE) && state.getValue(TINT) == Tint.NONE) {
+            if (level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be && be.isOwner(player.getUUID())) {
+                if (!level.isClientSide()) {
+                    level.setBlock(pos, state.setValue(TINT, Tint.RED), 3);
+                    level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    stack.consume(1, player);
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
         if (level instanceof ServerLevel server && player instanceof ServerPlayer sp) return ShopActions.quickStock(sp, server, pos, hand);
         if (!stack.isEmpty() && level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be && be.isOwner(player.getUUID())) {
             return InteractionResult.SUCCESS;

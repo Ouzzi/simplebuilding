@@ -4,12 +4,12 @@
   "key": {
     "N": "minecraft:iron_nugget",
     "G": "minecraft:glass",
-    "P": "#minecraft:planks"
+    "P": "#minecraft:wooden_pressure_plates"
   },
   "pattern": [
     "NNN",
-    "GGG",
-    "PPP"
+    "NGN",
+    "NPN"
   ],
   "result": {
     "count": 1,
