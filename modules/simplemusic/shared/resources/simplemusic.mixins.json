@@ -11,7 +11,9 @@
   ],
   "client": [
     "client.SoundBufferLibraryMixin",
-    "client.ClientBundleTooltipMixin"
+    "client.ClientBundleTooltipMixin",
+    "client.PocketScreenMixin",
+    "client.PocketScrollMixin"
   ],
   "server": [],
   "injectors": {

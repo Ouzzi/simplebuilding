@@ -8,17 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -33,14 +42,19 @@ import net.minecraft.world.phys.Vec3;
  * item's ({@link PocketPlayback}): first disc in plays first, after the last the first again, a pause keeps the position.
  *
  * <p>The sound is positional like a jukebox for every player in range, through {@link DiscPlayback} (Vanilla discs by
- * their sound event, uploads with their per-listener approval), so a resumed or late heard disc starts mid-song. Like
- * Vanilla's jukebox it sends {@code jukebox_play} and note particles every second and {@code jukebox_stop_play} on
- * stop. Saved with the position and whether it plays: after a restart or chunk reload it goes on where it was.
+ * their sound event, uploads with their per-listener approval) under the jukebox's session id, so a resumed or late heard
+ * disc starts mid-song and a jukebox put down or broken while it plays goes on without a gap (PJ23-5,
+ * {@link PocketPlayback#blockRemoved}). Like Vanilla's jukebox it sends {@code jukebox_play} and note particles every second
+ * and {@code jukebox_stop_play} on stop. Saved with the position and whether it plays: after a restart or chunk reload it
+ * goes on where it was. The shown disc (PJ23-1, -1 = the current one) is synced to clients for the renderer.
  */
 public class PocketJukeboxBlockEntity extends BlockEntity {
     private BundleContents contents = BundleContents.EMPTY;
     private PocketState state = PocketState.NEW;
     private boolean playing;
+    /** The disc shown above it (counted from the first one in), -1 = the current one. */
+    private int shown = -1;
+    private long lastScrollSound = Long.MIN_VALUE;
     /** The running disc's track (null = no session yet, e.g. just loaded). */
     private PocketPlayback.Track current;
 
@@ -66,10 +80,39 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         return new PocketState(state.id(), state.fromEnd(), (int) Math.min(Integer.MAX_VALUE, DiscPlayback.elapsed(server, worldPosition)));
     }
 
-    /** Puts one disc in (newest first, like the item); when nothing plays it starts. False when full or no disc. */
+    /** The current disc (counted from the first one in). */
+    private int currentFromEnd() {
+        return contents.isEmpty() ? 0 : Math.floorMod(state.fromEnd(), contents.size());
+    }
+
+    /** The disc shown above the case (counted from the first one in): the scrolled one, else the current one. */
+    public int shownFromEnd() {
+        return shown >= 0 && shown < contents.size() ? shown : currentFromEnd();
+    }
+
+    /** The shown disc (renderer), EMPTY when there is none. */
+    public ItemStack shownDisc() {
+        return PocketJukeboxItem.disc(contents, shownFromEnd());
+    }
+
+    /** Shift + mouse wheel: the shown disc one on or back (round). */
+    public void cycle(int step) {
+        if (contents.isEmpty()) return;
+        shown = Math.floorMod(shownFromEnd() + step, contents.size());
+        changed();
+    }
+
+    /** At most one scroll sound every 2 ticks. */
+    boolean scrollSoundAllowed(long now) {
+        if (now - lastScrollSound < 2 && now >= lastScrollSound) return false;
+        lastScrollSound = now;
+        return true;
+    }
+
+    /** Puts one disc in (newest first, like the item: the end of the play order); when nothing plays it starts. False when full or no disc. */
     public boolean insert(ItemStack disc) {
         if (!PocketJukeboxItem.isDisc(disc) || contents.size() >= PocketJukeboxItem.CAPACITY) return false;
-        List<ItemStackTemplate> items = new ArrayList<>(contents.size() + 1);
+        List<ItemStackTemplate> items = new ArrayList<>(contents.items().size() + 1);
         items.add(ItemStackTemplate.fromNonEmptyStack(disc, 1));
         items.addAll(contents.items());
         contents = new BundleContents(items);
@@ -78,26 +121,44 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         return true;
     }
 
-    /** Throws the newest disc out on top like a jukebox; the playing one stops (the next start begins the next disc). */
-    public boolean ejectNewest() {
-        if (contents.isEmpty() || level == null) return false;
-        boolean wasCurrent = Math.floorMod(state.fromEnd(), contents.size()) == contents.size() - 1;
+    /**
+     * Shift + right click with an empty hand: the shown disc comes out - into the empty main hand, else the inventory, else
+     * at the feet (like the placed bundle). Taking the playing disc stops it; taking another one leaves the music running.
+     */
+    public ItemStack takeShown(Player player) {
+        if (contents.isEmpty() || level == null) return ItemStack.EMPTY;
+        int taken = shownFromEnd();
+        int cur = currentFromEnd();
+        int size = contents.size();
         List<ItemStackTemplate> items = new ArrayList<>(contents.items());
-        ItemStack out = items.remove(0).create();
+        ItemStack out = items.remove(size - 1 - taken).create();
         contents = new BundleContents(items);
-        if (wasCurrent) {
+        shown = -1;
+        if (taken == cur) {
             if (playing) stop();
-            state = new PocketState(state.id(), contents.isEmpty() ? 0 : state.fromEnd() % contents.size(), 0);
+            state = new PocketState(state.id(), contents.isEmpty() ? 0 : taken % contents.size(), 0);
+        } else if (taken < cur) {
+            state = new PocketState(state.id(), cur - 1, state().ticks());
         }
-        Vec3 at = Vec3.atLowerCornerWithOffset(worldPosition, 0.5, 0.6, 0.5);
-        ItemEntity entity = new ItemEntity(level, at.x, at.y, at.z, out);
-        entity.setDefaultPickUpDelay();
-        level.addFreshEntity(entity);
+        if (player.getMainHandItem().isEmpty()) player.setItemInHand(InteractionHand.MAIN_HAND, out.copy());
+        else {
+            ItemStack given = out.copy();
+            if (!player.getInventory().add(given) && !given.isEmpty()) player.drop(given, false, net.minecraft.util.Prediction.SERVER_ONLY);
+        }
+        level.playSound(null, worldPosition, SoundEvents.BUNDLE_REMOVE_ONE, SoundSource.BLOCKS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
         changed();
-        return true;
+        return out;
     }
 
-    /** Right click: pause what plays, otherwise play (from the paused position). True when it plays now. */
+    /** Right click or a rising redstone edge: pause what plays, otherwise play (from the paused position), with the sound. */
+    public boolean toggleWithSound() {
+        boolean was = playing;
+        boolean now = toggle();
+        if (level != null && (now || was)) PocketPlayback.startStopSound(level, Vec3.atCenterOf(worldPosition), now);
+        return now;
+    }
+
+    /** Pause what plays, otherwise play (from the paused position). True when it plays now. */
     public boolean toggle() {
         if (playing) {
             pause();
@@ -106,7 +167,10 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         return start();
     }
 
-    /** Starts at the saved disc and position; skips discs that cannot play (an upload the server lost). */
+    /**
+     * Starts at the saved disc and position (a jukebox put down while it played goes on there); skips discs that cannot
+     * play (an upload the server lost).
+     */
     public boolean start() {
         if (!(level instanceof ServerLevel server) || contents.isEmpty() || !SimpleMusic.on()) return false;
         int size = contents.size();
@@ -123,10 +187,13 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
     }
 
     private void begin(ServerLevel server, int fromEnd, PocketPlayback.Track track, int offset) {
-        DiscPlayback.start(server, worldPosition, track.key(), track.song(), track.ticks(), offset);
+        long id = state.id();
+        while (id == 0L) id = server.getRandom().nextLong();
+        state = new PocketState(id, fromEnd, offset);
+        DiscPlayback.start(server, worldPosition, track.key(), track.song(), track.ticks(), offset, id);
         current = track;
         playing = true;
-        state = new PocketState(state.id(), fromEnd, offset);
+        setPlayingState(true);
         changed();
     }
 
@@ -150,7 +217,17 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         }
         playing = false;
         current = null;
+        setPlayingState(false);
         changed();
+    }
+
+    /** The block state's {@code playing}: the turning record and the redstone output. */
+    private void setPlayingState(boolean on) {
+        if (level == null || isRemoved()) return;
+        BlockState blockState = level.getBlockState(worldPosition);
+        if (blockState.getBlock() instanceof PocketJukeboxBlock && blockState.getValue(PocketJukeboxBlock.PLAYING) != on) {
+            level.setBlock(worldPosition, blockState.setValue(PocketJukeboxBlock.PLAYING, on), Block.UPDATE_ALL);
+        }
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PocketJukeboxBlockEntity be) {
@@ -166,7 +243,10 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         if (current == null || !DiscPlayback.playing(server, worldPosition)) {
             // just loaded (sessions live in memory): go on where the save left it
             playing = false;
-            if (!start()) changed();
+            if (!start()) {
+                setPlayingState(false);
+                changed();
+            }
             return;
         }
         long elapsed = DiscPlayback.elapsed(server, worldPosition);
@@ -199,20 +279,32 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
     /** 0 empty, else the current disc's Vanilla comparator value (an upload disc: 1). */
     public int comparatorOutput() {
         if (contents.isEmpty()) return 0;
-        ItemStack disc = PocketJukeboxItem.disc(contents, Math.floorMod(state.fromEnd(), contents.size()));
+        ItemStack disc = PocketJukeboxItem.disc(contents, currentFromEnd());
         return JukeboxSong.fromStack(disc).map(Holder::value).map(JukeboxSong::comparatorOutput).orElse(1);
     }
 
     private void changed() {
         setChanged();
-        if (level != null) level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+        if (level != null && !isRemoved()) {
+            level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        }
     }
 
+    /**
+     * Gone while it plays (broken, pushed, blown up, unloaded): the track is detached without a stop and the session goes on
+     * at the dropped item, if one turns up nearby (PJ23-5); otherwise it ends a second later.
+     */
     @Override
     public void setRemoved() {
         if (level instanceof ServerLevel server && DiscPlayback.playing(server, worldPosition)) {
-            DiscPlayback.stop(server, worldPosition);
+            PocketState live = state();
+            var told = DiscPlayback.detach(server, worldPosition);
             server.gameEvent(GameEvent.JUKEBOX_STOP_PLAY, worldPosition, GameEvent.Context.of(getBlockState()));
+            if (current != null && !contents.isEmpty()) {
+                PocketPlayback.blockRemoved(server, worldPosition, live.id(), live.fromEnd(),
+                        PocketJukeboxItem.disc(contents, currentFromEnd()), current, live.ticks(), told);
+            }
         }
         current = null;
         super.setRemoved();
@@ -245,6 +337,7 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         contents = input.read("Discs", BundleContents.CODEC).orElse(BundleContents.EMPTY);
         state = input.read("State", PocketState.CODEC).orElse(PocketState.NEW);
         playing = input.getBooleanOr("Playing", false);
+        shown = input.getIntOr("Shown", -1);
         current = null;
     }
 
@@ -254,5 +347,17 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
         if (!contents.isEmpty()) output.store("Discs", BundleContents.CODEC, contents);
         output.store("State", PocketState.CODEC, state());
         output.putBoolean("Playing", playing);
+        output.putInt("Shown", shown);
+    }
+
+    /** Clients get the discs and the shown one (the renderer draws it above the case). */
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveCustomOnly(registries);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 }

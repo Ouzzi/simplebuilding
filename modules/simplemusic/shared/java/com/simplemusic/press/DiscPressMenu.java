@@ -13,11 +13,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Menu of the disc press, laid out like Vanilla's furnace: the sheet where the furnace takes its input, the blank disc
- * where it takes fuel, the pressed disc on the right. Shift-click sends sheets and blanks to their slots.
+ * Menu of the disc press: sheet and blank disc side by side on the left (owner 23.10., DP23: "nebeneinander statt
+ * übereinander"), the progress arrow, the pressed disc on the right. Shift-click sends sheets and blanks to their slots.
  */
 public class DiscPressMenu extends AbstractContainerMenu {
-    public static final int SHEET_X = 56, SHEET_Y = 17, BLANK_X = 56, BLANK_Y = 53, OUTPUT_X = 116, OUTPUT_Y = 35;
+    public static final int SHEET_X = 38, SHEET_Y = 35, BLANK_X = 56, BLANK_Y = 35, OUTPUT_X = 116, OUTPUT_Y = 35;
     private final Container press;
     private final ContainerData data;
 

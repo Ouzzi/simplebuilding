@@ -24,6 +24,8 @@ public final class SimpleMusic {
     public static BiConsumer<ServerPlayer, CustomPacketPayload> toClient = (player, payload) -> {};
     /** Client to server (set by the loader's client setup). */
     public static Consumer<CustomPacketPayload> toServer = payload -> {};
+    /** Whether the loader registered {@link com.simplemusic.net.PocketScrollPayload} (so far Fabric; elsewhere the wheel stays Vanilla's). */
+    public static boolean pocketScroll;
     /** Whether a mod is loaded (set by the loader). */
     public static Predicate<String> modLoaded = id -> false;
     /** Client screen hook: open the sheet editor for the stack in {@code hand} (0 main, 1 off). */

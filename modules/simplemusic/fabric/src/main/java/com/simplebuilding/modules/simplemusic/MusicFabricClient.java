@@ -24,6 +24,8 @@ public final class MusicFabricClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(TrackPlayPayload.TYPE, (p, c) -> c.client().execute(() -> TrackPlayer.receive(p)));
         ClientPlayNetworking.registerGlobalReceiver(TrackDataPayload.TYPE, (p, c) -> c.client().execute(() -> TrackPlayer.receive(p)));
         ClientTickEvents.END_CLIENT_TICK.register(client -> MusicClient.tick());
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.simplemusic.registry.MusicRegistry.POCKET_JUKEBOX_BE,
+                com.simplemusic.client.PocketJukeboxRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback.EVENT.register(data ->
                 data instanceof com.simplemusic.pocket.PocketContents pocket ? new com.simplemusic.client.PocketTooltip(pocket) : null);
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> client.execute(TrackPlayer::clear));

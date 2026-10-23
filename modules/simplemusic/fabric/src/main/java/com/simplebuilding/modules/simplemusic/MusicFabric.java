@@ -60,6 +60,8 @@ public final class MusicFabric implements ModInitializer {
         PayloadTypeRegistry.serverboundPlay().register(UploadBeginPayload.TYPE, UploadBeginPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(UploadChunkPayload.TYPE, UploadChunkPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(TrackRequestPayload.TYPE, TrackRequestPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(com.simplemusic.net.PocketScrollPayload.TYPE, com.simplemusic.net.PocketScrollPayload.CODEC);
+        SimpleMusic.pocketScroll = true;
         PayloadTypeRegistry.clientboundPlay().register(UploadResultPayload.TYPE, UploadResultPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TrackPlayPayload.TYPE, TrackPlayPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TrackDataPayload.TYPE, TrackDataPayload.CODEC);
@@ -67,6 +69,8 @@ public final class MusicFabric implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(UploadBeginPayload.TYPE, (p, c) -> c.server().execute(() -> MusicServer.handleUploadBegin(p, c.player())));
         ServerPlayNetworking.registerGlobalReceiver(UploadChunkPayload.TYPE, (p, c) -> c.server().execute(() -> MusicServer.handleUploadChunk(p, c.player())));
         ServerPlayNetworking.registerGlobalReceiver(TrackRequestPayload.TYPE, (p, c) -> c.server().execute(() -> MusicServer.handleTrackRequest(p, c.player())));
+        ServerPlayNetworking.registerGlobalReceiver(com.simplemusic.net.PocketScrollPayload.TYPE,
+                (p, c) -> c.server().execute(() -> com.simplemusic.pocket.PocketJukeboxBlock.scroll(c.player(), p.pos(), p.step())));
         SimpleMusic.toClient = (player, payload) -> {
             if (ServerPlayNetworking.canSend(player, payload.type())) ServerPlayNetworking.send(player, payload);
         };

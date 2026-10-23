@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:redstone_wire",
+    {"id": "simplebuilding:astral_redstone", "required": false},
+    {"id": "simplebuilding:nihil_redstone", "required": false},
+    {"id": "simplebuilding:bridge_redstone", "required": false}
+  ]
+}
