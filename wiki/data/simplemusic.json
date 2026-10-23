@@ -2349,6 +2349,30 @@
         }
       },
       "texture": "assets/textures/simplemusic/item/blank_disc.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A disc that has not heard anything yet."
+          ],
+          "use": [
+            "Four coal or charcoal and four blackstone around an amethyst shard. The disc press puts the music of a sheet onto it."
+          ],
+          "secret": [
+            "A pressed composition gets a paper label, an uploaded track an amethyst one."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Platte, die noch nichts gehört hat."
+          ],
+          "use": [
+            "Vier Kohle oder Holzkohle und vier Schwarzstein um einen Amethystsplitter. Die Plattenpresse presst die Musik eines Blatts darauf."
+          ],
+          "secret": [
+            "Eine gepresste Komposition bekommt ein Papieretikett, ein hochgeladener Titel ein Amethystetikett."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemusic:blank_disc"
       ],
@@ -2379,6 +2403,30 @@
         }
       },
       "texture": "assets/textures/simplemusic/item/custom_disc.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Your own music, pressed to keep."
+          ],
+          "use": [
+            "Carries an uploaded track or a composition. It plays in the orchestrion on a loop and once in a Vanilla jukebox; the pocket jukebox takes track discs."
+          ],
+          "secret": [
+            "A track disc holds only the track's name, length and uploader, never the audio itself."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Deine eigene Musik, zum Aufheben gepresst."
+          ],
+          "use": [
+            "Trägt einen hochgeladenen Titel oder eine Komposition. Sie spielt im Orchestrion in Schleife und einmal in der Vanilla-Jukebox; die Taschen-Jukebox nimmt Platten mit Titel."
+          ],
+          "secret": [
+            "Eine Titel-Platte trägt nur Name, Länge und Hochlader, nie die Tonspur selbst."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -2401,6 +2449,30 @@
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book for people who hum while they build."
+          ],
+          "use": [
+            "The Simple Music Guide explains sheet music, note code, the orchestrion, the disc press and the pocket jukebox. Craft it shapeless from a book and a note block."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch für alle, die beim Bauen summen."
+          ],
+          "use": [
+            "Das Simple-Music-Handbuch erklärt Notenblätter, Notencode, das Orchestrion, die Plattenpresse und die Taschen-Jukebox. Herstellung formlos aus einem Buch und einem Notenblock."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemusic:guide_book"
       ],
@@ -2433,6 +2505,30 @@
         }
       },
       "texture": "assets/textures/simplemusic/item/sheet_music.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Paper, ink and a feather: everything a song needs to be written down."
+          ],
+          "use": [
+            "Shapeless from paper, an ink sac and a feather. Use it to open the note code editor; signing it with a title makes it read-only. A sheet holds a composition or an uploaded track."
+          ],
+          "secret": [
+            "A signed sheet over an empty one in the cartography table makes a copy; only the empty sheet is used up."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Papier, Tinte und eine Feder: alles, was ein Lied zum Aufschreiben braucht."
+          ],
+          "use": [
+            "Formlos aus Papier, einem Tintenbeutel und einer Feder. Benutzen öffnet den Notencode-Editor; mit einem Titel signiert ist es schreibgeschützt. Ein Blatt trägt eine Komposition oder einen hochgeladenen Titel."
+          ],
+          "secret": [
+            "Ein signiertes Blatt über einem leeren im Kartentisch ergibt eine Kopie; nur das leere Blatt wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemusic:sheet_music"
       ],
@@ -2557,6 +2653,30 @@
           "details": [
             "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
             "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A piston that only ever presses music."
+          ],
+          "use": [
+            "A piston over two iron ingots over three smooth stone. Put a sheet on top and blank discs below: it presses the sheet's music onto a blank in 2 seconds."
+          ],
+          "secret": [
+            "The sheet always stays; only the blank becomes a disc."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Kolben, der nur Musik presst."
+          ],
+          "use": [
+            "Ein Kolben über zwei Eisenbarren über drei glatten Steinen. Ein Blatt oben, Rohlinge unten: In 2 Sekunden presst sie die Musik des Blatts auf einen Rohling."
+          ],
+          "secret": [
+            "Das Blatt bleibt immer; nur der Rohling wird zur Platte."
           ]
         }
       },
@@ -2754,6 +2874,30 @@
           "details": [
             "Der Server spielt die Töne jedes Schritts wie ein Notenblock (Lautstärke Jukebox/Notenblöcke, 48 Blöcke), höchstens 8 Töne je Schritt; ein Notenpartikel je Schritt.",
             "Komparator: 1-15 nach Fortschritt im Stück, 0 wenn leer."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A jukebox that learned to read."
+          ],
+          "use": [
+            "Two copper ingots beside a note block over a jukebox. Right-click with a sheet or a pressed disc to put it in, with an empty hand to take it out. It plays on a loop and never ejects."
+          ],
+          "secret": [
+            "A chest or barrel on top becomes its playlist: after each run the next sheet or disc takes the finished one's place."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Jukebox, die lesen gelernt hat."
+          ],
+          "use": [
+            "Zwei Kupferbarren neben einem Notenblock über einer Jukebox. Rechtsklick mit einem Blatt oder einer gepressten Platte legt es ein, mit leerer Hand nimmt man es heraus. Es spielt in Schleife und wirft nie aus."
+          ],
+          "secret": [
+            "Eine Truhe oder ein Fass obendrauf wird zur Wiedergabeliste: nach jedem Durchlauf tauscht das nächste Blatt mit dem fertigen."
           ]
         }
       },
