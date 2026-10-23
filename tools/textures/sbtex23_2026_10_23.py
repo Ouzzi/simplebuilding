@@ -343,14 +343,16 @@ ORE_STREAKS = {
 }
 
 
-def ore(kind: str, variant: str, base: Image.Image) -> Image.Image:
+def ore(kind: str, variant: str, base: Image.Image, glow_scale: float = 1.0, glint: int | None = None) -> Image.Image:
+    """glow_scale / glint (W24-4 animation): the glow (shadow) strength and which glint pixel stays at full brightness
+    (the others a third towards the light tone); defaults = the plain picture."""
     rows = ORE_STREAKS[kind] if variant == 'C' else ORE_CLUSTERS[kind]
     cv = Canvas()
     cv.img = base.crop((0, 0, 16, 16)).convert('RGBA')
     cv.snap('Basis Endstein')
     if variant in ('B', 'C'):
         glow = hx('ff6ad2') if kind == 'astral' else hx('061016')
-        amount = 0.42 if kind == 'astral' else 0.5
+        amount = (0.42 if kind == 'astral' else 0.5) * glow_scale
         ore_px = {(x, y) for y, r in enumerate(rows) for x, ch in enumerate(r) if ch != '.'}
         for y in range(16):
             for x in range(16):
@@ -364,6 +366,11 @@ def ore(kind: str, variant: str, base: Image.Image) -> Image.Image:
     draw_map(cv, rows, {k: v for k, v in ORE_COL[kind].items() if k in 'Dm'})
     cv.snap('Erz')
     draw_map(cv, rows, {k: v for k, v in ORE_COL[kind].items() if k in 'LH'})
+    if glint is not None:
+        hs = [(x, y) for y, r in enumerate(rows) for x, ch in enumerate(r) if ch == 'H']
+        for i, (x, y) in enumerate(hs):
+            if i != glint % len(hs):
+                cv.put(x, y, mix(ORE_COL[kind]['H'], ORE_COL[kind]['L'], 0.35))
     return cv.snap('Glanz').img
 
 
@@ -489,6 +496,36 @@ def install(check: bool) -> int:
     return 1 if bad else 0
 
 
+# ---------------------------------------------------------------- W24-4 brushing the hidden ores free (owner 23.10.)
+# Stage 0 is the hidden C2, the freed ore is C. The two stages between reveal C pixel by pixel diagonally from the top
+# left (like a brush stroke), no blending: stage 1 up to x+y < 11, stage 2 up to x+y < 21. The freed ore glimmers:
+# EXPOSED_FRAMES pictures where the glow (Astral) / anti-glow shadow (Nihil) breathes 70-130 % and the full glint
+# moves from crystal to crystal; frametime 6 with interpolation (the .mcmeta lives in the 26.3 overlay).
+STAGE_EDGE = {1: 11, 2: 21}
+EXPOSED_FRAMES = 6
+ORE_NAMES = {'astral': 'astralit_ore', 'nihil': 'nihilith_ore'}
+
+
+def ore_stage(kind: str, stage: int, base: Image.Image) -> Image.Image:
+    hidden, free = ore_hidden(kind, ORE_PICK['real'], base), ore(kind, 'C', base)
+    cv = Canvas()
+    cv.img = hidden.copy()
+    cv.snap('Versteckt (C2)')
+    for y in range(16):
+        for x in range(16):
+            if x + y < STAGE_EDGE[stage]:
+                cv.put(x, y, free.getpixel((x, y))[:3])
+    return cv.snap(f'Freigelegt bis x+y<{STAGE_EDGE[stage]}').img
+
+
+def ore_exposed(kind: str, base: Image.Image) -> Image.Image:
+    strip = Image.new('RGBA', (16, 16 * EXPOSED_FRAMES))
+    for k in range(EXPOSED_FRAMES):
+        scale = 1.0 + 0.3 * math.cos(2 * math.pi * k / EXPOSED_FRAMES)
+        strip.paste(ore(kind, 'C', base, glow_scale=scale, glint=k), (0, 16 * k))
+    return strip
+
+
 # Built picks (W23-1 T6, W23-2); vanilla_derived.py draws them from the client jar (End stone base).
 ORE_PICK = {'real': 'C2', 'dull': 'F1'}
 
@@ -500,7 +537,9 @@ def derived(jar) -> dict:
     return {'block/astralit_ore.png': ore_hidden('astral', ORE_PICK['real'], end_stone),
             'block/nihilith_ore.png': ore_hidden('nihil', ORE_PICK['real'], end_stone),
             'block/dull_astralit_ore.png': dull_ore('astral', ORE_PICK['dull'], end_stone),
-            'block/dull_nihilith_ore.png': dull_ore('nihil', ORE_PICK['dull'], end_stone)}
+            'block/dull_nihilith_ore.png': dull_ore('nihil', ORE_PICK['dull'], end_stone),
+            **{f'block/{ORE_NAMES[k]}_brushed_{st}.png': ore_stage(k, st, end_stone) for k in ORE_NAMES for st in STAGE_EDGE},
+            **{f'block/{ORE_NAMES[k]}_exposed.png': ore_exposed(k, end_stone) for k in ORE_NAMES}}
 
 
 # ---------------------------------------------------------------- T7 pistons (all six faces alike, off + active)

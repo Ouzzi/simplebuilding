@@ -57,7 +57,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 543,
       "blocks": 320,
-      "recipes": 859,
+      "recipes": 861,
       "config": 228,
       "features": 48
     }
@@ -415,7 +415,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 4
     },
-    "dataHash": "e625d567067e"
+    "dataHash": "f6612a149aa2"
   },
   {
     "id": "simpleinterfaces",
@@ -524,7 +524,7 @@ window.WIKI_MODULES = [
       "recipes": 62,
       "features": 12
     },
-    "dataHash": "5d29f50a25b7"
+    "dataHash": "e75b5f312f8c"
   },
   {
     "id": "simpleweather",
@@ -795,7 +795,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "22e4426156bf"
+    "dataHash": "e568ae829397"
   },
   {
     "id": "simplerespawn",
@@ -1246,11 +1246,11 @@ window.WIKI_MODULES = [
     "bundle": "optional",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
     "counts": {
-      "items": 10,
+      "items": 4,
       "blocks": 18,
       "recipes": 37,
-      "features": 15
+      "features": 14
     },
-    "dataHash": "31e1537f4011"
+    "dataHash": "0af7a8b0fd6a"
   }
 ];

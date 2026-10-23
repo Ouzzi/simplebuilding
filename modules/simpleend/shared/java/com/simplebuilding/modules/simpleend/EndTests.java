@@ -567,6 +567,44 @@ public final class EndTests {
             }
             h.succeed();
         });
+        add("end_leaves_wax_freezes_density", h -> {
+            // W24-4: a honeycomb waxes the leaves (one used up), the density then stays whatever the neighbours do; an axe
+            // scrapes the wax off (one durability) and the density follows the neighbours again at once.
+            ServerLevel level = h.getLevel();
+            BlockPos c = new BlockPos(20, 3, 20);
+            BlockPos abs = h.absolutePos(c);
+            var player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(GameType.SURVIVAL);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+            for (EndWood w : EndWood.ALL) {
+                h.setBlock(c, Blocks.AIR);
+                for (Direction d : Direction.values()) h.setBlock(c.relative(d), Blocks.AIR);
+                h.setBlock(c, w.leaves.defaultBlockState().setValue(EndLeavesBlock.DENSITY, EndLeavesBlock.LOOSE)
+                        .setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT, true));
+                ItemStack combs = new ItemStack(Items.HONEYCOMB, 2);
+                player.setItemInHand(InteractionHand.MAIN_HAND, combs);
+                var waxed = player.gameMode.useItemOn(player, level, combs, InteractionHand.MAIN_HAND, hit);
+                h.assertTrue(waxed.consumesAction() && level.getBlockState(abs).getValue(EndLeavesBlock.WAXED), w.name + " leaves waxed: " + waxed);
+                h.assertTrue(combs.getCount() == 1, w.name + ": one honeycomb used up, left " + combs.getCount());
+                var again = player.gameMode.useItemOn(player, level, combs, InteractionHand.MAIN_HAND, hit);
+                h.assertTrue(combs.getCount() == 1, w.name + ": waxing twice uses nothing (" + again + ")");
+                for (Direction d : Direction.values()) h.setBlock(c.relative(d), Blocks.STONE);
+                h.assertTrue(level.getBlockState(abs).getValue(EndLeavesBlock.DENSITY) == EndLeavesBlock.LOOSE,
+                        w.name + " waxed leaves stay loose among six neighbours");
+                ItemStack axe = new ItemStack(Items.IRON_AXE);
+                player.setItemInHand(InteractionHand.MAIN_HAND, axe);
+                var scraped = player.gameMode.useItemOn(player, level, axe, InteractionHand.MAIN_HAND, hit);
+                BlockState now = level.getBlockState(abs);
+                h.assertTrue(scraped.consumesAction() && !now.getValue(EndLeavesBlock.WAXED), w.name + " axe scrapes the wax off: " + scraped);
+                h.assertTrue(now.getValue(EndLeavesBlock.DENSITY) == EndLeavesBlock.DENSE, w.name + " unwaxed leaves turn dense at once");
+                h.assertTrue(axe.getDamageValue() == 1, w.name + ": the axe lost one durability, " + axe.getDamageValue());
+                h.setBlock(c.relative(Direction.UP), Blocks.AIR);
+                h.assertTrue(level.getBlockState(abs).getValue(EndLeavesBlock.DENSITY) == EndLeavesBlock.MEDIUM, w.name + " follows the neighbours again");
+                h.setBlock(c, Blocks.AIR);
+                for (Direction d : Direction.values()) h.setBlock(c.relative(d), Blocks.AIR);
+            }
+            h.succeed();
+        });
         add("end_leaves_hoe_tool", h -> {
             // TX22-4: the hoe is the tool; without one the leaves take as long as a cobweb (bare hand: 20 s, like Vanilla).
             ServerLevel level = h.getLevel();

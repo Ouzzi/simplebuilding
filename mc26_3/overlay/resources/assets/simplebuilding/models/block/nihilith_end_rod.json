@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/end_rod",
+  "textures": {
+    "end_rod": "simplebuilding:block/nihilith_end_rod",
+    "particle": "simplebuilding:block/nihilith_end_rod"
+  }
+}

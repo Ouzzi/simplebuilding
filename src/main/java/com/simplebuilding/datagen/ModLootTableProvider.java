@@ -149,11 +149,12 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             dropSelf(ModBlocks.ENDERITE_SMOKER);
         }
 
-        // Nihilith Ore -> Droppt Shard
-        add(ModBlocks.NIHILITH_ORE, createOreDrop(ModBlocks.NIHILITH_ORE, ModItems.NIHILITH_SHARD));
-
-        // Astralit Ore -> Droppt Dust
-        add(ModBlocks.ASTRALIT_ORE, createOreDrop(ModBlocks.ASTRALIT_ORE, ModItems.ASTRALIT_DUST));
+        // Nihilith Ore -> Droppt Shard, Astralit Ore -> Droppt Dust. W24-4: on 26.3 the hidden ores drop the full amount
+        // only when brushed free (hand-written tables in mc26_3/overlay, docs/ai/PLAN-A-MECH24-2026-10-23.md).
+        if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) {
+            add(ModBlocks.NIHILITH_ORE, createOreDrop(ModBlocks.NIHILITH_ORE, ModItems.NIHILITH_SHARD));
+            add(ModBlocks.ASTRALIT_ORE, createOreDrop(ModBlocks.ASTRALIT_ORE, ModItems.ASTRALIT_DUST));
+        }
 
         // Enderite Block -> Droppt sich selbst
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.ENDERITE_BLOCK); // 26.3: SimpleLib's loot table

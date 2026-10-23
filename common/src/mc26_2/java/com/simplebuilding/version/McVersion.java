@@ -52,6 +52,8 @@ public final class McVersion {
     public static final boolean SAGE_ORE = false;
     /** Dull (fake) Astralit / Nihilit ore inside the End ore veins (W23-2, owner 2026-10-23; main line first). */
     public static final boolean DULL_ORES = false;
+    /** Hidden End ores freed with the brush (W24-4, owner 2026-10-23; main line first). */
+    public static final boolean BRUSHED_ORES = false;
     /** Dimensional Scrap (2026-10-01): mysterious endgame block in every dimension, no use before v2. */
     public static final boolean DIMENSIONAL_SCRAP = false;
     /** Fletching table and crafted arrows (2026-10-01, main line first). */
