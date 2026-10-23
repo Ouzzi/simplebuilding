@@ -946,6 +946,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_end_ore_features_carry_the_right_ore_block_and_vein_size", OreGenAndItemFrameTests::endOreFeaturesCarryTheRightOreBlockAndVeinSize)
                     .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_dull_ores_make_a_fifth_of_the_vein_and_keep_the_real_amount", OreGenAndItemFrameTests::dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount)
+                    .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_end_ore_placement_differs_between_astralit_and_nihilith", OreGenAndItemFrameTests::endOrePlacementDiffersBetweenAstralitAndNihilith)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_both_end_ores_reach_the_end_biomes_and_stay_out_of_the_overworld", OreGenAndItemFrameTests::bothEndOresReachTheEndBiomesAndStayOutOfTheOverworld)
@@ -1574,6 +1576,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("world_and_player_game_test_end_ore_blocks_keep_their_strength_light_and_diamond_tool_requirement", WorldAndPlayerTests::endOreBlocksKeepTheirStrengthLightAndDiamondToolRequirement)
                     .build(),
             GameTestSpec.named("world_and_player_game_test_breaking_an_end_ore_awards_three_to_seven_experience", WorldAndPlayerTests::breakingAnEndOreAwardsThreeToSevenExperience)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_dull_end_ores_drop_dull_material_and_need_a_diamond_pickaxe", WorldAndPlayerTests::dullEndOresDropDullMaterialAndNeedADiamondPickaxe)
                     .build(),
             GameTestSpec.named("world_and_player_game_test_locked_frames_still_answer_the_magnet_while_other_sneak_clicks_fall_through", WorldAndPlayerTests::lockedFramesStillAnswerTheMagnetWhileOtherSneakClicksFallThrough)
                     .build(),

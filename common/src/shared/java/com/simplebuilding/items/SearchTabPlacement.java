@@ -308,6 +308,9 @@ public final class SearchTabPlacement {
         // --- Natur: End-Erze hinter dem Antiken Schutt, Schwebe-/Levitationsblöcke bei Kies und Sand.
         // Hinter dem Antiken Schrott: die End-Erze, dann der Dimensions-Schrott (2026-10-01, nur Hauptlinie).
         List<ItemLike> afterDebris = new ArrayList<>(List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.ASTRALIT_ORE_ITEM));
+        if (com.simplebuilding.version.McVersion.DULL_ORES) {
+            afterDebris.addAll(List.of(ModItems.DULL_NIHILITH_ORE_ITEM, ModItems.DULL_ASTRALIT_ORE_ITEM));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             afterDebris.addAll(List.of(ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, ModItems.END_DIMENSIONAL_SCRAP_ITEM));
         }
@@ -525,7 +528,9 @@ public final class SearchTabPlacement {
         out.add(Placement.after(INGREDIENTS, Items.NETHERITE_INGOT,
                 ModItems.NETHERITE_NUGGET, ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP,
                 ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT));
-        out.add(Placement.after(INGREDIENTS, Items.QUARTZ, ModItems.NIHILITH_SHARD, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ));
+        out.add(Placement.after(INGREDIENTS, Items.QUARTZ, com.simplebuilding.version.McVersion.DULL_ORES
+                ? new ItemLike[]{ModItems.NIHILITH_SHARD, ModItems.DULL_NIHILITH_SHARD, ModItems.ASTRALIT_DUST, ModItems.DULL_ASTRALIT_DUST, ModItems.ENDER_QUARTZ}
+                : new ItemLike[]{ModItems.NIHILITH_SHARD, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ}));
         out.add(Placement.after(INGREDIENTS, Items.LEATHER, ModItems.LEATHER_SHEET));
         out.add(Placement.after(INGREDIENTS, Items.HEAVY_CORE,
                 ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,

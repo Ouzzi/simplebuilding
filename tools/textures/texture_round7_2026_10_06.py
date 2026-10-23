@@ -43,7 +43,7 @@ PREVIEW_CERAMIC = Path('C:/Users/o_o/code/minecraft-mods/previews/keramik-eimer-
 
 # 7b (owner feedback 2026-10-06): diamond block = owner's texture cleaned (C), light rounded + pulsing (C),
 # dummy redrawn symmetric (C), ceramic B.
-INSTALL = {'cracked_diamond_block': 'C', 'construction_light': 'C', 'straw_armor_stand': 'B', 'training_dummy': 'C',
+INSTALL = {'cracked_diamond_block': 'C', 'construction_light': 'W23B', 'straw_armor_stand': 'B', 'training_dummy': 'C',
            'ceramic': 'B'}
 LIGHT_FRAMES, LIGHT_FRAMETIME = 12, 4
 CORE_FRAMES, CORE_FRAMETIME = 20, 2
@@ -152,10 +152,29 @@ def construction_light_frame(glow):
     return img
 
 
-def construction_light_strip():
+def construction_light_strip_7b():
+    """The 7b pulse (variant C, built 2026-10-06 .. 2026-10-23), kept for the record."""
     strip = Image.new('RGBA', (16, 16 * LIGHT_FRAMES))
     for f in range(LIGHT_FRAMES):
         strip.paste(construction_light_frame(0.09 * np.sin(2 * np.pi * f / LIGHT_FRAMES)), (0, 16 * f))
+    return strip
+
+
+def construction_light_strip():
+    """W23-1 (owner 23.10. evening, B23-T8 = B): four panes under a mullion cross, 11 tones, soft 2x2-dithered glow,
+    the same pulse (sbtex23_2026_10_23.light_strip('B')); the layers (frame, glow, cross) run over the whole strip."""
+    import layers
+    import sbtex23_2026_10_23 as sbtex23
+    frames = sbtex23.light_strip('B')
+    assert len(frames) == LIGHT_FRAMES
+    strip = Image.new('RGBA', (16, 16 * LIGHT_FRAMES))
+    steps = [layers.steps_of(f) for f in frames]
+    for k, (name, _) in enumerate(steps[0]):
+        stage = Image.new('RGBA', strip.size)
+        for f, st in enumerate(steps):
+            stage.paste(Image.frombytes('RGBA', (16, 16), st[k][1]), (0, 16 * f))
+        strip.paste(stage)
+        layers.snap(strip, name)
     return strip
 
 
@@ -453,7 +472,7 @@ def outputs():
     img = cracked_diamond_block(v['cracked_diamond_block'])
     out[MAIN / 'block/cracked_diamond_block.png'] = img
     out[WIKI / 'block/cracked_diamond_block.png'] = img
-    img = construction_light_strip() if v['construction_light'] == 'C' else construction_light(v['construction_light'])
+    img = construction_light_strip() if v['construction_light'] == 'W23B' else construction_light(v['construction_light'])
     out[MAIN / 'block/construction_light.png'] = img
     out[WIKI / 'block/construction_light.png'] = img
     img = straw_armor_stand(v['straw_armor_stand'])
@@ -636,7 +655,11 @@ def main():
                 bad.append(meta)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
-            img.save(path)
+            if path.name == 'construction_light.png':
+                import layers
+                layers.save(img, path)       # W23-1: the strip's own layer source (frame, glow, cross)
+            else:
+                img.save(path)
             if text:
                 meta.write_text(text, encoding='utf-8', newline='\n')
     if check:

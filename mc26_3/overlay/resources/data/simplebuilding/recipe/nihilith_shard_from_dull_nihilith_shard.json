@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simplebuilding:dull_nihilith_shard",
+    "simplebuilding:dull_nihilith_shard",
+    "simplebuilding:dull_nihilith_shard",
+    "simplebuilding:dull_nihilith_shard"
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_shard",
+    "count": 1
+  }
+}

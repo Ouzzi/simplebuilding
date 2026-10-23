@@ -3401,6 +3401,10 @@ public final class DataIntegrityTests {
         expected.add(CreativeTabLayout.Row.of("end_ores",
                 ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
                 gap, ModItems.ENDER_QUARTZ));
+        if (com.simplebuilding.version.McVersion.DULL_ORES) {
+            expected.add(CreativeTabLayout.Row.of("dull_end_ores", ModItems.DULL_NIHILITH_ORE_ITEM, ModItems.DULL_NIHILITH_SHARD, gap,
+                    ModItems.DULL_ASTRALIT_ORE_ITEM, ModItems.DULL_ASTRALIT_DUST));
+        }
         // Erst alle Erz-Zeilen zusammen, dann die kleinen Bauteile; die Staebe stehen nach einer Luecke daneben.
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             expected.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP,

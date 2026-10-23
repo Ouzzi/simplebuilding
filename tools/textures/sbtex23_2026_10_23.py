@@ -367,6 +367,142 @@ def ore(kind: str, variant: str, base: Image.Image) -> Image.Image:
     return cv.snap('Glanz').img
 
 
+# ---------------------------------------------------------------- W23-1 T6 = C, hidden (owner 23.10. evening)
+# The owner picked C (streaks + glow / shadow) but wants the ore harder to spot: less contrast and glow, smaller visible ore.
+# C1 "muted": the C streaks, half the glow, ore tones a quarter towards the End stone, the brightest glint toned down.
+# C2 "hidden" (built in): only the core of each streak (no dark rim, the tips far from the light part gone), ore tones
+# blended far towards the End stone under them, a soft glint, no glow; the dark rim becomes a faint End stone shadow.
+HIDE = {'C1': {'glow': 0.5, 'blend': 0.25, 'H': 'L'}, 'C2': {'glow': 0.0, 'blend': 0.45, 'H': 'L'}}
+ES_SHADOW = hx('8e865c')                      # a darker End stone tone (shadow of a crack), not an ore colour
+
+
+def streak_core(rows: list[str]) -> list[str]:
+    """C2: drops the dark rim and every 'm' tip with no light pixel next to it -> 2-3 visible pixels per streak."""
+    grid = [list(r.replace('D', 's')) for r in rows]   # 's' = soft End stone shadow where the rim was
+    for y, r in enumerate(grid):
+        for x, ch in enumerate(r):
+            if ch != 'm':
+                continue
+            near = [grid[y + dy][x + dx] for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1))
+                    if 0 <= x + dx < 16 and 0 <= y + dy < 16]
+            if 'H' not in near and 'L' not in near:
+                grid[y][x] = 's'
+    return [''.join(r) for r in grid]
+
+
+def ore_hidden(kind: str, grade: str, base: Image.Image) -> Image.Image:
+    """T6 = C made harder to spot (grade C1 / C2, see HIDE)."""
+    h = HIDE[grade]
+    rows = streak_core(ORE_STREAKS[kind]) if grade == 'C2' else ORE_STREAKS[kind]
+    cv = Canvas()
+    cv.img = base.crop((0, 0, 16, 16)).convert('RGBA')
+    cv.snap('Basis Endstein')
+    ore_px = {(x, y) for y, r in enumerate(rows) for x, ch in enumerate(r) if ch in 'DmLH'}
+    if h['glow']:
+        glow = hx('ff6ad2') if kind == 'astral' else hx('061016')
+        amount = (0.42 if kind == 'astral' else 0.5) * h['glow']
+        for y in range(16):
+            for x in range(16):
+                if (x, y) in ore_px:
+                    continue
+                d = min((math.hypot(x - ox, y - oy) for ox, oy in ore_px), default=9)
+                if d <= 1.5:
+                    cv.put(x, y, mix(cv.get(x, y), glow, amount * (1.0 if d <= 1.0 else 0.5)))
+        cv.snap('Leuchten' if kind == 'astral' else 'Schatten (Anti-Leuchten)')
+    col = ORE_COL[kind]
+    tone = {'s': lambda c: mix(c, ES_SHADOW, 0.35)}
+    for k in 'Dm':
+        tone[k] = (lambda kk: lambda c: mix(col[kk], c, h['blend']))(k)
+    draw_map(cv, rows, tone)
+    cv.snap('Erz')
+    light = {'L': lambda c: mix(col['L'], c, h['blend']), 'H': lambda c: mix(col[h['H']], c, h['blend'] * 0.6)}
+    draw_map(cv, rows, light)
+    return cv.snap('Glanz').img
+
+
+# ---------------------------------------------------------------- W23-2 dull ores ("unrefined", fake)
+# Same streak layout as the built real ore (C2), so a vein of both reads as one vein:
+# F1 "dull" (built in): the crystals milky and greyed, no glint at all.
+# F2 "impure": the same streaks broken into fragments, ochre-brown inclusions between them.
+DULL_COL = {
+    'astral': {'D': hx('5e4458'), 'm': hx('9a7c92'), 'L': hx('c2aabb'), 'H': hx('c2aabb')},
+    'nihil': {'D': hx('1c2426'), 'm': hx('3c4a4c'), 'L': hx('6a7a7a'), 'H': hx('6a7a7a')},
+}
+OCHRE = hx('8a6a32')
+
+
+def dull_ore(kind: str, variant: str, base: Image.Image) -> Image.Image:
+    rows = streak_core(ORE_STREAKS[kind])
+    if variant == 'F2':                       # break the streaks: every third pixel along them stays End stone
+        rows = [''.join(ch if ch in '.s' or (x + y) % 3 else 's' for x, ch in enumerate(r)) for y, r in enumerate(rows)]
+    cv = Canvas()
+    cv.img = base.crop((0, 0, 16, 16)).convert('RGBA')
+    cv.snap('Basis Endstein')
+    col = DULL_COL[kind]
+    tone = {'s': lambda c: mix(c, ES_SHADOW, 0.35)}
+    for k in 'DmLH':
+        tone[k] = (lambda kk: lambda c: mix(col[kk], c, 0.35))(k)
+    draw_map(cv, rows, tone)
+    cv.snap('Trübes Erz')
+    if variant == 'F2':
+        for x, y in ((6, 2), (12, 6), (3, 11), (10, 13), (14, 10)):
+            cv.put(x, y, mix(OCHRE, cv.get(x, y), 0.3))
+        cv.snap('Einschlüsse')
+    return cv.img
+
+
+# Dull drops (W23-2 drop proposal A, built): the own Astralit dust / Nihilit shard icons, clouded - the colours pulled
+# most of the way to a grey of the same brightness, then a little towards milky white; same shape, so it reads as
+# "the same material, unrefined".
+ITEM = ROOT / 'src/main/resources/assets/simplebuilding/textures/item'
+OVERLAY_ITEM = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures/item'
+DULL_ITEMS = {'dull_astralit_dust': 'astralit_dust', 'dull_nihilith_shard': 'nihilith_shard'}
+MILKY = hx('d8d2d6')
+
+
+def dull_item(src_name: str) -> Image.Image:
+    cv = Canvas()
+    cv.img = Image.open(ITEM / f'{src_name}.png').convert('RGBA')
+    cv.snap('Basis (echtes Material)')
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = cv.img.getpixel((x, y))
+            if a:
+                lum = round(0.299 * r + 0.587 * g + 0.114 * b)
+                cv.put(x, y, mix(mix((r, g, b), (lum, lum, lum), 0.6), MILKY, 0.18))
+    return cv.snap('Trübung').img
+
+
+def install(check: bool) -> int:
+    """W23-2: writes the two dull drop icons (+ layers) into the 26.3 overlay; --check only compares."""
+    bad = []
+    for name, src in DULL_ITEMS.items():
+        im, path = dull_item(src), OVERLAY_ITEM / f'{name}.png'
+        if check:
+            if not path.exists() or Image.open(path).convert('RGBA').tobytes() != im.tobytes():
+                bad.append(path)
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            layers.save(im, path)
+    for b in bad:
+        print('out of date:', b.relative_to(ROOT))
+    return 1 if bad else 0
+
+
+# Built picks (W23-1 T6, W23-2); vanilla_derived.py draws them from the client jar (End stone base).
+ORE_PICK = {'real': 'C2', 'dull': 'F1'}
+
+
+def derived(jar) -> dict:
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: the End ores on Vanilla's End stone."""
+    import vn12_preview_2026_10_23 as vp
+    end_stone = vp.Jar(Path(jar)).tex('block/end_stone')
+    return {'block/astralit_ore.png': ore_hidden('astral', ORE_PICK['real'], end_stone),
+            'block/nihilith_ore.png': ore_hidden('nihil', ORE_PICK['real'], end_stone),
+            'block/dull_astralit_ore.png': dull_ore('astral', ORE_PICK['dull'], end_stone),
+            'block/dull_nihilith_ore.png': dull_ore('nihil', ORE_PICK['dull'], end_stone)}
+
+
 # ---------------------------------------------------------------- T7 pistons (all six faces alike, off + active)
 
 STONE = {  # frame stone from the polished Astralit / Nihilith family, own 10-tone ramps
@@ -705,10 +841,16 @@ REC = {'T5': 'A', 'T6': 'B', 'T7': 'B', 'T8': 'A', 'T9': 'B'}
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--out', required=True)
-    ap.add_argument('--cand', required=True)
+    ap.add_argument('--out')
+    ap.add_argument('--cand')
     ap.add_argument('--jar')
+    ap.add_argument('--install', action='store_true', help='write the built dull drop icons (W23-2) into the overlay')
+    ap.add_argument('--check', action='store_true', help='with --install: only compare')
     a = ap.parse_args()
+    if a.install:
+        raise SystemExit(install(a.check))
+    if not (a.out and a.cand):
+        ap.error('--out and --cand are needed for the candidate page')
     jarp = vanilla_derived.find_jar(a.jar)
     if jarp is None:
         raise SystemExit('sbtex23: needs the 26.3 client jar (End stone base, vault sheet, Vanilla comparisons)')

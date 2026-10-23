@@ -82,4 +82,14 @@ final class OreGenChecks {
         helper.assertFalse(target.target.test(Blocks.STONE.defaultBlockState(), random),
                 key.identifier() + " also replaces overworld stone, so the ore leaks out of the End");
     }
+
+    /** The two End ore features (26.2: one target each, vein sizes 4 and 5; no dull ores on this line). */
+    static void assertEndOreFeatures(GameTestHelper helper) {
+        assertOreFeature(helper, com.simplebuilding.util.ModWorldGen.ASTRALIT_ORE_KEY, com.simplebuilding.blocks.ModBlocks.ASTRALIT_ORE, 4);
+        assertOreFeature(helper, com.simplebuilding.util.ModWorldGen.NIHILITH_ORE_KEY, com.simplebuilding.blocks.ModBlocks.NIHILITH_ORE, 5);
+    }
+
+    /** W23-2 dull ores exist on the 26.3 main line only (McVersion.DULL_ORES); nothing to measure here. */
+    static void assertDullShareAndRealAmount(GameTestHelper helper) {
+    }
 }

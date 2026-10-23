@@ -34,6 +34,11 @@ public final class RecipelessJeiInfo {
         map.put("nihilith_shard", List.of(ModItems.NIHILITH_SHARD));
         map.put("enchanted_netherite_apple", List.of(ModItems.ENCHANTED_NETHERITE_APPLE));
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
+        if (com.simplebuilding.version.McVersion.DULL_ORES) {
+            // Truebe End-Erze (W23-2): keine Rezeptquelle, nur Weltgenerierung; der Drop hat ein Rezept, die Seite erklaert ihn.
+            map.put("dull_end_ores", List.of(ModBlocks.DULL_ASTRALIT_ORE, ModBlocks.DULL_NIHILITH_ORE));
+            map.put("dull_end_drops", List.of(ModItems.DULL_ASTRALIT_DUST, ModItems.DULL_NIHILITH_SHARD));
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));

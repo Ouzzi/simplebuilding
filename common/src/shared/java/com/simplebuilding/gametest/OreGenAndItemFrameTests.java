@@ -151,8 +151,22 @@ public final class OreGenAndItemFrameTests {
      * the vein sizes in {@code ModWorldGen} and ships the old JSON.
      */
     public static void endOreFeaturesCarryTheRightOreBlockAndVeinSize(GameTestHelper helper) {
-        OreGenChecks.assertOreFeature(helper, ModWorldGen.ASTRALIT_ORE_KEY, ModBlocks.ASTRALIT_ORE, 4);
-        OreGenChecks.assertOreFeature(helper, ModWorldGen.NIHILITH_ORE_KEY, ModBlocks.NIHILITH_ORE, 5);
+        // 26.2: one target each, sizes 4 and 5; 26.3 (W23-2): dull ore first, then the real ore, sizes 5 and 6.
+        OreGenChecks.assertEndOreFeatures(helper);
+        helper.succeed();
+    }
+
+    /**
+     * W23-2 (owner 2026-10-23): about 20 % of the End ore turns into dull (fake) ore, the veins grow so the real ore stays as
+     * much as before. Measured, not only read: the registered features are placed {@code OreGenChecks.VEINS} times each into
+     * End stone shaped like their placement and compared with the pre-W23-2 feature (see OreGenChecks for the numbers).
+     */
+    public static void dullOresMakeAFifthOfTheVeinAndKeepTheRealAmount(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.DULL_ORES) {
+            helper.succeed();
+            return;
+        }
+        OreGenChecks.assertDullShareAndRealAmount(helper);
         helper.succeed();
     }
 

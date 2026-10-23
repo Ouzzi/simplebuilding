@@ -428,6 +428,39 @@ public final class WorldAndPlayerTests {
      * it collapses to a constant, or if either ore stops being a {@code DropExperienceBlock}
      * altogether - a plain {@code Block} would award nothing and fail on the very first sample.
      */
+    /**
+     * W23-2 (owner 2026-10-23): the dull End ores need the same tool as the real ones - a diamond pickaxe, so the pickaxe does
+     * not give them away - are a little softer (15 / 20 instead of 20 / 25), the dull Astralit glows weaker (3 instead of 5),
+     * and they drop only dull material: one dull dust / shard bare handed, Fortune like the real ore (ore_drops), the block
+     * itself under Silk Touch. Four dull pieces craft one real one (shapeless).
+     *
+     * <p>Breaks if the drop swaps to the real material (the fake would be worthless as a fake), if a dull ore loses its tool
+     * tags or its silk touch branch, or if the 4:1 refining recipe goes missing or yields something else.
+     */
+    public static void dullEndOresDropDullMaterialAndNeedADiamondPickaxe(GameTestHelper helper) {
+        if (!McVersion.DULL_ORES) {
+            helper.succeed();
+            return;
+        }
+        assertOreBlock(helper, ModBlocks.DULL_ASTRALIT_ORE, ASTRALIT_POS, 15.0F, 3);
+        assertOreBlock(helper, ModBlocks.DULL_NIHILITH_ORE, NIHILITH_POS, 20.0F, 0);
+        assertOreDrops(helper, ModBlocks.DULL_ASTRALIT_ORE, ModItems.DULL_ASTRALIT_DUST, ModItems.DULL_ASTRALIT_ORE_ITEM);
+        assertOreDrops(helper, ModBlocks.DULL_NIHILITH_ORE, ModItems.DULL_NIHILITH_SHARD, ModItems.DULL_NIHILITH_ORE_ITEM);
+        var level = helper.getLevel();
+        for (Item[] pair : List.of(new Item[]{ModItems.DULL_ASTRALIT_DUST, ModItems.ASTRALIT_DUST},
+                new Item[]{ModItems.DULL_NIHILITH_SHARD, ModItems.NIHILITH_SHARD})) {
+            var grid = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, java.util.Collections.nCopies(4, new ItemStack(pair[0])));
+            ItemStack out = level.getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, level)
+                    .orElseThrow(() -> helper.assertionException("four " + pair[0] + " craft nothing")).value().assemble(grid);
+            helper.assertTrue(out.is(pair[1]) && out.getCount() == 1, "four " + pair[0] + " crafted " + out + " instead of one " + pair[1]);
+            var three = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, List.of(new ItemStack(pair[0]), new ItemStack(pair[0]),
+                    new ItemStack(pair[0]), ItemStack.EMPTY));
+            helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, three, level).isEmpty(),
+                    "three " + pair[0] + " already craft something");
+        }
+        helper.succeed();
+    }
+
     public static void breakingAnEndOreAwardsThreeToSevenExperience(GameTestHelper helper) {
         assertOreExperience(helper, ModBlocks.ASTRALIT_ORE, ASTRALIT_POS);
         assertOreExperience(helper, ModBlocks.NIHILITH_ORE, NIHILITH_POS);

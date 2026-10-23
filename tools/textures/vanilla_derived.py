@@ -41,10 +41,11 @@ OUTPUTS = {
     'item/color_brush.png': ((16, 16), 'color_brush_2026_10_09.derived()'),
     'item/color_brush_tip.png': ((16, 16), 'color_brush_2026_10_09.derived()'),
     'item/color_brush_tip_palette.png': ((16, 16), 'color_brush_2026_10_09.derived()'),
-    'block/astral_piston.png': ((16, 16), 'end_pistons_2026_10_03.derived()'),
-    'block/astral_piston_active.png': ((16, 16), 'end_pistons_2026_10_03.derived()'),
-    'block/nihil_piston.png': ((16, 16), 'end_pistons_2026_10_03.derived()'),
-    'block/nihil_piston_active.png': ((16, 16), 'end_pistons_2026_10_03.derived()'),
+    # W23-1 T6 (hidden streaks C2) and W23-2 (dull ores F1) on Vanilla End stone; the pistons are own art again (W23-1 T7).
+    'block/astralit_ore.png': ((16, 16), 'sbtex23_2026_10_23.derived() - Vanilla end_stone + ore overlay (W23-1)'),
+    'block/nihilith_ore.png': ((16, 16), 'sbtex23_2026_10_23.derived() - Vanilla end_stone + ore overlay (W23-1)'),
+    'block/dull_astralit_ore.png': ((16, 16), 'sbtex23_2026_10_23.derived() - Vanilla end_stone + dull ore (W23-2)'),
+    'block/dull_nihilith_ore.png': ((16, 16), 'sbtex23_2026_10_23.derived() - Vanilla end_stone + dull ore (W23-2)'),
     'block/astral_rail.png': ((16, 16), 'end_rails_2026_10_04.derived()'),
     'block/astral_rail_on.png': ((16, 16), 'end_rails_2026_10_04.derived()'),
     'block/nihil_rail.png': ((16, 16), 'end_rails_2026_10_04.derived()'),
@@ -159,7 +160,7 @@ MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures'), 'simpl
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15')
+                    'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 # Shipped next to placeholder textures (assets/<ns>/<MARKER>, also by the Gradle fallbacks): the client logs an error
@@ -260,7 +261,7 @@ def images(jar: Path) -> dict:
 # Wiki 3D renders (wiki/assets/textures/render/<name>.png, block renders as block/<name>, 128x128) that show a
 # Vanilla-derived texture (or draw over a Mojang sprite): not committed, placeholders without the renderer.
 WIKI_RENDERS = {'astral_vault': 128, 'nihil_vault': 128, 'enderite_barrel': 128, 'enderite_crucible': 128,
-                'astral_piston': 128, 'nihil_piston': 128, 'jukebox_amplifier': 128, 'note_amplifier': 128,
+                'astralit_ore': 128, 'nihilith_ore': 128, 'dull_astralit_ore': 128, 'dull_nihilith_ore': 128, 'jukebox_amplifier': 128, 'note_amplifier': 128,
                 'enderite_furnace_minecart': 128, 'enderite_hopper_minecart': 128,
                 'netherite_furnace_minecart': 128, 'netherite_hopper_minecart': 128,
                 'reinforced_furnace_minecart': 128,
