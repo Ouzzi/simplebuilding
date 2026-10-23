@@ -8,7 +8,7 @@ gedimmt bzw in lava anflackern." So, on top of C1 (blazing_obsidian_c_2026_10_17
   (glow) only while their seam flares,
 - plates are Voronoi cells on the 16 px torus, so the tile is seamless (5x5 floor under the Astral table).
 Warm black ground with Vanilla obsidian's tone shares; own pixels only (no Mojang pixels). 16 frames, interpolated,
-frametime 5 (4 s loop). Used by astral_enchanting_textures.py, which also writes the layer source (strip_steps).
+frametime 12 (about 10 s loop, W23-7: was 5 = 4 s, too fast). Used by astral_enchanting_textures.py, which also writes the layer source (strip_steps).
 
 Run alone for a quick look: python3.12 tools/textures/blazing_obsidian_t1_2026_10_21.py <out.png>
 """
@@ -26,7 +26,7 @@ import n41_proposals_2026_10_12 as n41  # noqa: E402
 from n41_proposals_2026_10_12 import H, mix  # noqa: E402
 
 FRAMES = 16
-ANIMATION = {'interpolate': True, 'frametime': 5}
+ANIMATION = {'interpolate': True, 'frametime': 12}
 
 GROUND = [H('050304'), H('0c0709'), H('160d11'), H('241820'), H('362530')]
 SHARE = [0.25, 0.54, 0.80, 0.93, 1.0]

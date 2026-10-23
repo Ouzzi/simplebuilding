@@ -22,7 +22,7 @@
   "key": {
     "D": "minecraft:diamond",
     "N": "simplemobs:nether_heart",
-    "O": "minecraft:obsidian"
+    "O": "minecraft:crying_obsidian"
   },
   "pattern": [
     "ODO",
