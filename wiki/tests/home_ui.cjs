@@ -72,7 +72,7 @@ async function check(browser, base, mod, width, scheme) {
   }
   await page.screenshot({ path: path.join(shots, `home-${mod}-${width}-${scheme}.png`), fullPage: false });
   if (mod === 'simplebuilding') {
-    const more = page.locator('.compat-more > summary');
+    const more = page.locator('.compat-more > summary').first();
     if (await more.count()) {
       const before = await page.locator('.home-compat .chip-opt').filter({ visible: true }).count();
       await more.click();

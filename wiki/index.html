@@ -1973,13 +1973,13 @@ function modChip(id, cls) {
   var t = modMeta(id), label = t ? t.displayName : id;
   return t ? '<a class="chip ' + cls + '" href="' + esc(crossModHref(id, '', '')) + '">' + esc(label) + '</a>' : '<span class="chip ' + cls + '">' + esc(label) + '</span>';
 }
-/* Startseite unten (S-B, a-wiki24): Pflicht gruen, optional grau, ab 8 optionalen der Rest ausklappbar. */
+/* Startseite unten (S-B, a-wiki24): Pflicht gruen, optional grau, ab 11 Eintraegen ab dem 9. ausklappbar. */
 function moduleInfo() {
   var m = modMeta(selectedMod);
   if (!m) return '';
   function row(label, ids, cls) {
     if (!ids.length) return '<div class="compat-row"><span class="compat-l">' + esc(label) + '</span><span class="muted">' + esc(T('homeNone')) + '</span></div>';
-    var head = ids.slice(0, 8), rest = ids.slice(8);
+    var head = ids.length > 10 ? ids.slice(0, 8) : ids, rest = ids.length > 10 ? ids.slice(8) : [];
     return '<div class="compat-row"><span class="compat-l">' + esc(label) + '</span><span class="chips">' + head.map(function (id) { return modChip(id, cls); }).join('') +
       (rest.length ? '<details class="compat-more"><summary class="chip">' + esc(T('homeMore', rest.length)) + '</summary><span class="chips">' + rest.map(function (id) { return modChip(id, cls); }).join('') + '</span></details>' : '') + '</span></div>';
   }
