@@ -508,6 +508,8 @@
   "text.autoconfig.simplebuilding.option.modEnchantedBookTextures.@Tooltip": "Jede Verzauberung dieser Mod hat ihr eigenes\nBuch. Aus: das schlichte Vanilla-Zauberbuch.\nWirkt sofort. Standard: an.",
   "text.autoconfig.simplebuilding.option.jukebox264Textures": "26.4-Jukebox",
   "text.autoconfig.simplebuilding.option.jukebox264Textures.@Tooltip": "Die Jukebox aus 26.4 Snapshot 4 (neue\nSeiten, Oberseite und Unterseite). Aus:\ndie Jukebox dieser Version. Ein\nRessourcenpaket, das die Jukebox ändert,\ngewinnt. Wirkt nach dem Neuladen der\nRessourcen (F3+T). Standard: an.",
+  "text.autoconfig.simplebuilding.option.noteBlockFrameTexture": "Notenblock mit Rahmen",
+  "text.autoconfig.simplebuilding.option.noteBlockFrameTexture.@Tooltip": "Der Notenblock mit dem Jukebox-Rahmen\nrundum wie die Verstärker. Aus: der\nVanilla-Notenblock. Ein Ressourcenpaket,\ndas den Notenblock ändert, gewinnt. Wirkt\nnach dem Neuladen der Ressourcen (F3+T).\nStandard: aus.",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsVanillaArmor": "Besatzmuster auf Vanilla-Rüstungs-Icons",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsVanillaArmor.@Tooltip": "Die Icons besetzter Vanilla-Rüstung (auch des\nSchildkrötenpanzers) zeigen das Besatzmuster\nin den Farben des Materials. Aus: das\nVanilla-Icon mit nur einem Farbfleck. Wirkt\nsofort. Standard: an.",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsModArmor": "Besatzmuster auf Enderit-Rüstungs-Icons",

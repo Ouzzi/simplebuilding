@@ -8,6 +8,7 @@
   },
   "client": [
     "JukeboxSnapshotSpritesMixin",
+    "NoteBlockFrameSpritesMixin",
     "LevelEventHandlerSpeakerMixin",
     "SoundEngineAmplifierMixin",
     "ChannelAmplifierMixin",

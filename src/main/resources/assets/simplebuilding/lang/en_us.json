@@ -544,6 +544,8 @@
   "text.autoconfig.simplebuilding.option.modEnchantedBookTextures.@Tooltip": "Every enchantment of this mod has its own\nenchanted book texture. Turn it off for the\nplain vanilla enchanted book. Takes effect\nimmediately. Default: on.",
   "text.autoconfig.simplebuilding.option.jukebox264Textures": "26.4 Jukebox",
   "text.autoconfig.simplebuilding.option.jukebox264Textures.@Tooltip": "The jukebox from 26.4 Snapshot 4 (new\nside, top and bottom). Off: the jukebox\nof this version. A resource pack that\nchanges the jukebox wins. Takes effect\nafter reloading resources (F3+T).\nDefault: on.",
+  "text.autoconfig.simplebuilding.option.noteBlockFrameTexture": "Framed Note Block",
+  "text.autoconfig.simplebuilding.option.noteBlockFrameTexture.@Tooltip": "The note block with the jukebox frame all\naround, like the amplifiers. Off: the\nVanilla note block. A resource pack that\nchanges the note block wins. Takes effect\nafter reloading resources (F3+T).\nDefault: off.",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsVanillaArmor": "Trim Patterns on Vanilla Armor Icons",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsVanillaArmor.@Tooltip": "Item icons of trimmed vanilla armor (and the\nturtle shell) show the trim pattern in the\ntrim material's colors. Off: the vanilla icon\nwith only a color mark. Takes effect\nimmediately. Default: on.",
   "text.autoconfig.simplebuilding.option.visibleTrimIconsModArmor": "Trim Patterns on Enderite Armor Icons",

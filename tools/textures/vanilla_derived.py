@@ -74,6 +74,7 @@ OUTPUTS = {
     'block/jukebox_amplifier_top.png': ((16, 16), 'music_disc_textures.derived()'),
     'block/note_amplifier_side.png': ((16, 16), 'music_disc_textures.derived()'),
     'block/note_amplifier_top.png': ((16, 16), 'music_disc_textures.derived()'),
+    'block/note_block_framed.png': ((16, 16), 'music_disc_textures.derived() - framed note block, option noteBlockFrameTexture (W23-4)'),
     'block/placed_egg_white.png': ((16, 16), 'placed_egg_textures.derived()'),
     'block/placed_egg_blue.png': ((16, 16), 'placed_egg_textures.derived()'),
     'block/placed_egg_brown.png': ((16, 16), 'placed_egg_textures.derived()'),
