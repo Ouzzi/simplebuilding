@@ -127,7 +127,7 @@ def resources():
         item(name, f"block/{name}")
         data(f"recipe/{name}", end=end, value={
             "type": "minecraft:crafting_shaped", "category": "misc", "group": f"{NS}:cutting_board",
-            "pattern": ["SXX"], "key": {"S": "minecraft:stick", "X": f"{'simpleend' if end else 'minecraft'}:{wood}_slab"},
+            "pattern": [" S ", "SXS", " S "], "key": {"S": "minecraft:stick", "X": f"{'simpleend' if end else 'minecraft'}:{wood}_slab"},
             "result": {"id": f"{NS}:{name}", "count": 1},
         })
         loot(name, {"type": "minecraft:item", "name": f"{NS}:{name}"}, end)
@@ -160,6 +160,15 @@ def resources():
             {"type": "minecraft:item", "name": f"{NS}:{name}",
              "modifier": {"type": "minecraft:copy_state", "block": f"{NS}:{name}", "properties": ["slices", "cut"]}},
         ]})
+
+    # Butter carpet (owner 24.10., NA24-5): the butter slice laid flat, 1 px like a Vanilla carpet (variant A of butter24-preview).
+    asset("blockstates/butter_carpet", {"variants": {"": {"model": f"{NS}:block/butter_carpet"}}})
+    asset("models/block/butter_carpet", {
+        "parent": "minecraft:block/block",
+        "textures": {"top": f"{NS}:block/butter_block_top", "side": f"{NS}:block/butter_block_side", "particle": "#top"},
+        "elements": [cuboid([0, 0, 0, 16, 1, 16])],
+    })
+    loot("butter_carpet", {"type": "minecraft:item", "name": f"{NS}:butter_slice"})
 
     # Milk cauldron; reinforced=true when it was made from SimpleLib's reinforced cauldron (owner addition 11): same
     # contents with the reinforced cauldron's textures (only reachable with SimpleLib), emptying returns that cauldron.

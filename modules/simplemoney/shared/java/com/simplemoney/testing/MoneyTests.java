@@ -88,7 +88,7 @@ public final class MoneyTests {
  public static void recipeOutputs(GameTestHelper h) {
   String[][] rows={
    {"special_paper_from_crafting_table","minecraft:paper,minecraft:honeycomb,minecraft:paper","simplemoney:special_paper","1","3","1"},
-   {"special_fiber_from_crafting_table","minecraft:copper_nugget,minecraft:gold_nugget,minecraft:amethyst_shard,minecraft:diamond,minecraft:amethyst_shard,minecraft:gold_nugget,minecraft:gold_nugget,minecraft:diamond,minecraft:copper_nugget","simplemoney:special_fiber","1","3","3"},
+   {"special_fiber_from_crafting_table","minecraft:copper_nugget,minecraft:diamond,minecraft:amethyst_shard,minecraft:gold_nugget,minecraft:gold_nugget,minecraft:gold_nugget,minecraft:amethyst_shard,minecraft:diamond,minecraft:copper_nugget","simplemoney:special_fiber","1","3","3"},
    {"resin_fiber_from_crafting_table","minecraft:iron_nugget,minecraft:resin_clump,minecraft:honeycomb,minecraft:resin_clump,minecraft:bone_meal,minecraft:resin_clump,minecraft:honeycomb,minecraft:resin_clump,minecraft:iron_nugget","simplemoney:resin_fiber","1","3","3"},
    {"raw_bill_from_crafting_table","minecraft:green_dye,minecraft:ink_sac,minecraft:green_dye,simplemoney:refined_blank_note,simplemoney:refined_blank_note,simplemoney:refined_blank_note,minecraft:ink_sac,minecraft:green_dye,minecraft:ink_sac","simplemoney:raw_bill","3","3","3"},
    {"rocket_from_paper","minecraft:paper,minecraft:paper,minecraft:paper,minecraft:paper,minecraft:gunpowder,minecraft:paper,minecraft:paper,minecraft:gunpowder,minecraft:paper","minecraft:firework_rocket","1","3","3"}
@@ -101,6 +101,8 @@ public final class MoneyTests {
    var result=match.get().value().assemble(grid);h.assertTrue(result.is(stack(row[2]).getItem()),"output item "+row[0]);h.assertValueEqual(result.getCount(),Integer.parseInt(row[3]),"output amount "+row[0]);
    stacks.set(0,ItemStack.EMPTY);h.assertTrue(!match.get().value().matches(CraftingInput.of(Integer.parseInt(row[4]),Integer.parseInt(row[5]),stacks),h.getLevel()),"missing ingredient rejected "+row[0]);
   }
+  var oldFiber=new ArrayList<ItemStack>();for(String name:"minecraft:copper_nugget,minecraft:gold_nugget,minecraft:amethyst_shard,minecraft:diamond,minecraft:amethyst_shard,minecraft:gold_nugget,minecraft:gold_nugget,minecraft:diamond,minecraft:copper_nugget".split(","))oldFiber.add(stack(name));
+  h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,CraftingInput.of(3,3,oldFiber),h.getLevel()).isEmpty(),"old special fiber arrangement no longer crafts");
   for(var row:new String[][]{{"minecraft:iron_ingot","simplemoney:special_paper","simplemoney:resin_fiber","simplemoney:blank_note"},{"minecraft:gold_ingot","simplemoney:blank_note","simplemoney:special_fiber","simplemoney:refined_blank_note"}}) {
    var input=new SmithingRecipeInput(stack(row[0]),stack(row[1]),stack(row[2]));var match=h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,input,h.getLevel());h.assertTrue(match.isPresent(),"source smithing ingredients");h.assertTrue(match.get().value().assemble(input).is(stack(row[3]).getItem()),"source smithing output");h.assertTrue(!match.get().value().matches(new SmithingRecipeInput(ItemStack.EMPTY,input.base(),input.addition()),h.getLevel()),"smithing needs template");
   }

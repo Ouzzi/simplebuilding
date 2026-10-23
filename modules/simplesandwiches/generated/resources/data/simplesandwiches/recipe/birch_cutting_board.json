@@ -16,7 +16,9 @@
     }
   ],
   "pattern": [
-    "SXX"
+    " S ",
+    "SXS",
+    " S "
   ],
   "result": {
     "count": 1,

@@ -104,6 +104,12 @@ public class SliceBlock extends Block {
         return SHAPES[state.getValue(CUT).ordinal()][state.getValue(SLICES)];
     }
 
+    /** Butter makes the walker Slippery (owner 24.10.). */
+    @Override
+    public void stepOn(Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.Entity entity) {
+        if (slice() == com.simplesandwiches.registry.ModItems.BUTTER_SLICE) com.simplesandwiches.registry.ModEffects.slip(level, entity);
+    }
+
     @Override
     protected boolean useShapeForLightOcclusion(BlockState state) {
         return true;

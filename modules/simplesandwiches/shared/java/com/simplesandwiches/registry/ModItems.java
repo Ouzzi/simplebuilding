@@ -34,7 +34,8 @@ public final class ModItems {
         SANDWICH = register("sandwich", p -> new SandwichItem(p.stacksTo(SANDWICH_STACK)
                 .component(ModComponents.SANDWICH_CONTENTS, SandwichContents.EMPTY)));
         CHEESE_SLICE = register("cheese_slice", p -> new Item(p.food(CHEESE_SLICE_FOOD)));
-        BUTTER_SLICE = register("butter_slice", Item::new);
+        // Owner 24.10.: the slice can be laid down as a butter carpet (the block borrows the item name prefix).
+        BUTTER_SLICE = register("butter_slice", p -> new BlockItem(ModBlocks.BUTTER_CARPET, p.useItemDescriptionPrefix()));
         // Eaten in one go, like a cake bite.
         CAKE_SLICE = register("cake_slice", p -> new Item(p.stacksTo(CAKE_SLICE_STACK)
                 .food(CAKE_SLICE_FOOD, Consumable.builder().consumeSeconds(0.0F).build())));

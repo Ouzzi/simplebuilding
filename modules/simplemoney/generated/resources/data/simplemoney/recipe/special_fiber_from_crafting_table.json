@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "CGA",
-    "DAG",
-    "GDC"
+    "CDA",
+    "GGG",
+    "ADC"
   ],
   "key": {
     "D": "minecraft:diamond",

@@ -62,6 +62,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void cuttingBoardRecipeShape(GameTestHelper h) {
+        SandwichTests.ALL.get("cutting_board_recipe_shape").accept(h);
+    }
+
+    @GameTest
+    public void slipperyFromButter(GameTestHelper h) {
+        SandwichTests.ALL.get("slippery_from_butter").accept(h);
+    }
+
+    @GameTest
+    public void slipperyFriction(GameTestHelper h) {
+        SandwichTests.ALL.get("slippery_friction").accept(h);
+    }
+
+    @GameTest
+    public void butterCarpetPlaceBreak(GameTestHelper h) {
+        SandwichTests.ALL.get("butter_carpet_place_break").accept(h);
+    }
+
+    @GameTest
     public void knifeRecipeShape(GameTestHelper h) {
         SandwichTests.ALL.get("knife_recipe_shape").accept(h);
     }
