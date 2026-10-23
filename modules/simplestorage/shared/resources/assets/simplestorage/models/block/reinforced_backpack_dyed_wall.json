@@ -1,0 +1,14 @@
+{
+  "parent": "simplestorage:block/template_backpack_dyed_wall",
+  "textures": {
+    "back": "simplestorage:block/reinforced_backpack_back_dyed",
+    "back_overlay": "simplestorage:block/reinforced_backpack_back_dyed_overlay",
+    "front": "simplestorage:block/reinforced_backpack_front_dyed",
+    "front_overlay": "simplestorage:block/reinforced_backpack_front_dyed_overlay",
+    "particle": "simplestorage:block/reinforced_backpack_side",
+    "side": "simplestorage:block/reinforced_backpack_side_dyed",
+    "side_overlay": "simplestorage:block/reinforced_backpack_side_dyed_overlay",
+    "top": "simplestorage:block/reinforced_backpack_top_dyed",
+    "top_overlay": "simplestorage:block/reinforced_backpack_top_dyed_overlay"
+  }
+}

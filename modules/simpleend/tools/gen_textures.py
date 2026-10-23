@@ -652,6 +652,20 @@ def nibblemite(kind):
     return snap(im, 'Gesicht')
 
 
+def nibblemite_glow(kind):
+    """Glow layer of a tamed Nibblemite (B23-M15): only the spots and feeler tips of nibblemite(kind), lifted towards
+    white; the renderer draws it full-bright (Vanilla eyes layer) with a slow pulse. Everything else stays clear."""
+    body, spot = NIBBLE_COLOURS[kind]
+    src = nibblemite(kind)
+    im = Image.new('RGBA', src.size, CLEAR)
+    bright = mix(spot, H('ffffff'), 0.35)
+    for y in range(src.height):
+        for x in range(src.width):
+            if src.getpixel((x, y)) == spot:
+                im.putpixel((x, y), bright)
+    return snap(im, 'Leuchtpunkte')
+
+
 def nibble_egg():
     im = new()
     base, spot = NIBBLE_COLOURS['ash']
@@ -785,6 +799,8 @@ def main(argv=None):
     write(burrowed_top(), TEX / 'block/burrowed_end_stone_top.png', out)
     write(nibblemite('ash'), TEX / 'entity/nibblemite/ash.png', out)
     write(nibblemite('dusk'), TEX / 'entity/nibblemite/dusk.png', out)
+    write(nibblemite_glow('ash'), TEX / 'entity/nibblemite/ash_glow.png', out)
+    write(nibblemite_glow('dusk'), TEX / 'entity/nibblemite/dusk_glow.png', out)
     write(nibble_egg(), TEX / 'item/nibblemite_spawn_egg.png', out)
     import guide_book_textures as books  # the shared module-guide form, cover in Ashwood bark colours
     books.COVERS['simpleend'] = ('#2b2724', '#423c37', '#aaa096', '#8e857b', '#5a534c')

@@ -74,6 +74,8 @@
   "entity.simpleend.duskwood_boat": "Dämmerholzboot",
   "entity.simpleend.duskwood_chest_boat": "Dämmerholzboot mit Truhe",
   "entity.simpleend.nibblemite": "Knabbermilbe",
+  "entity.simpleend.nibblemite.mode_follow": "Knabbermilbe: folgt dir",
+  "entity.simpleend.nibblemite.mode_normal": "Knabbermilbe: streift frei umher",
   "item.simpleend.ashwood_boat": "Aschholzboot",
   "item.simpleend.ashwood_chest_boat": "Aschholzboot mit Truhe",
   "item.simpleend.drift_fruit": "Schwebfrucht",

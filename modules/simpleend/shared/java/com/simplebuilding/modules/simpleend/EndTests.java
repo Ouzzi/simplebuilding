@@ -436,7 +436,11 @@ public final class EndTests {
             var drift = p.getEffect(EndRegistry.drifting());
             h.assertTrue(drift != null && drift.getDuration() <= 120, "short Drifting effect");
             h.assertTrue(p.hasEffect(MobEffects.SLOW_FALLING) && p.getEffect(MobEffects.SLOW_FALLING).getDuration() > drift.getDuration(), "Slow Falling outlasts the drift");
-            h.assertTrue(p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.GRAVITY) < 0.02, "nearly weightless");
+            // B23-M14: no longer weightless - a drunk stagger on the ground: own steps halved, gravity Vanilla.
+            h.assertTrue(Math.abs(p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.GRAVITY) - 0.08) < 1e-6, "normal gravity");
+            double speed = p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+            double base = p.getAttributeBaseValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+            h.assertTrue(Math.abs(speed - base * 0.5) < 1e-6, "own steps halved: " + speed + " of " + base);
             h.assertTrue(p.getHealth() >= health, "not harmful");
             h.succeed();
         });
@@ -762,6 +766,82 @@ public final class EndTests {
             h.assertTrue(EndRegistry.NIBBLEMITE.getCategory() == net.minecraft.world.entity.MobCategory.CREATURE, "creature category");
             h.assertTrue(mite.isFood(new ItemStack(Items.CHORUS_FRUIT)) && !mite.isFood(new ItemStack(Items.WHEAT)), "fed with chorus fruit");
             h.assertTrue(!mite.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE), "no attack damage");
+            h.succeed();
+        });
+        add("drifting_drunk_pull", h -> {
+            // B23-M14: a pull of half the walking acceleration in a world direction, added to the own movement in travel().
+            BlockPos at = new BlockPos(5, 2, 5);
+            h.setBlock(at.below(), Blocks.STONE);
+            Pig pig = EntityTypes.PIG.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
+            h.assertTrue(pig != null, "pig");
+            BlockPos abs = h.absolutePos(at);
+            pig.snapTo(abs.getX() + 0.5, abs.getY(), abs.getZ() + 0.5, 0f, 0f);
+            pig.setNoAi(true);
+            h.getLevel().addFreshEntity(pig);
+            pig.setOnGround(true);
+            double walk = pig.getAttributeBaseValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED)
+                    * 0.21600002 / Math.pow(Blocks.STONE.getFriction(), 3);
+            DriftingEffect.setPull(pig, 0.0, 10);
+            pig.setDeltaMovement(Vec3.ZERO);
+            Vec3 add = DriftingEffect.drift(pig);
+            h.assertTrue(Math.abs(add.x - walk * DriftingEffect.PULL) < 1e-6 && Math.abs(add.z) < 1e-9 && add.y == 0,
+                    "pull east = half the walking acceleration: " + add + " walk " + walk);
+            // Random directions at random intervals (and rests): over 600 ticks several different pulls.
+            java.util.Set<Long> dirs = new java.util.HashSet<>();
+            DriftingEffect.setPull(pig, 0.0, 0);
+            for (int i = 0; i < 600; i++) {
+                Vec3 v = DriftingEffect.drift(pig);
+                dirs.add(v.lengthSqr() == 0 ? -1L : Math.round(Math.atan2(v.z, v.x) * 100));
+            }
+            h.assertTrue(dirs.size() >= 4, "several directions over time: " + dirs.size());
+            // travel() adds the pull while the effect is on (mixin), and nothing without it.
+            pig.addEffect(new net.minecraft.world.effect.MobEffectInstance(EndRegistry.drifting(), 100, 0));
+            DriftingEffect.setPull(pig, Math.PI / 2, 10);
+            pig.setDeltaMovement(Vec3.ZERO);
+            pig.setOnGround(true);
+            pig.travel(Vec3.ZERO);
+            h.assertTrue(pig.getDeltaMovement().z > 0, "travel() drifts south with the effect: " + pig.getDeltaMovement());
+            pig.removeEffect(EndRegistry.drifting());
+            DriftingEffect.setPull(pig, Math.PI / 2, 10);
+            pig.setDeltaMovement(Vec3.ZERO);
+            pig.setOnGround(true);
+            pig.travel(Vec3.ZERO);
+            h.assertTrue(Math.abs(pig.getDeltaMovement().z) < 1e-9, "no drift without the effect: " + pig.getDeltaMovement());
+            pig.discard();
+            h.succeed();
+        });
+        add("nibblemite_tamed_with_drift_fruit", h -> {
+            // B23-M15: Drift Fruit tames (1 in 3), the owner's right-click switches follow <-> normal, young stay tamed.
+            var mite = EndRegistry.NIBBLEMITE.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
+            h.assertTrue(mite != null, "nibblemite entity");
+            BlockPos abs = h.absolutePos(new BlockPos(6, 2, 6));
+            mite.snapTo(abs.getX() + 0.5, abs.getY(), abs.getZ() + 0.5, 0f, 0f);
+            mite.setNoAi(true);
+            h.getLevel().addFreshEntity(mite);
+            var player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(GameType.SURVIVAL);  // survival: the fruit is eaten
+            h.assertTrue(!mite.isTame(), "wild at first");
+            int tries = 0;
+            while (!mite.isTame() && tries < 80) {
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(EndRegistry.DRIFT_FRUIT, 2));
+                mite.mobInteract(player, InteractionHand.MAIN_HAND);
+                h.assertTrue(player.getMainHandItem().getCount() == 1, "every try eats one Drift Fruit");
+                tries++;
+            }
+            h.assertTrue(mite.isTame() && mite.isOwnedBy(player), "tamed by the player after " + tries + " fruits");
+            h.assertTrue(mite.isFollowing(), "a fresh tame follows");
+            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            mite.mobInteract(player, InteractionHand.MAIN_HAND);
+            h.assertTrue(mite.isTame() && !mite.isFollowing() && !mite.isInSittingPose(), "right-click: normal mode, not sitting");
+            mite.mobInteract(player, InteractionHand.MAIN_HAND);
+            h.assertTrue(mite.isFollowing(), "right-click again: follows");
+            var baby = mite.getBreedOffspring(h.getLevel(), mite);
+            h.assertTrue(baby instanceof com.simplebuilding.modules.simpleend.entity.Nibblemite young && young.isTame() && young.isOwnedBy(player),
+                    "young of a tamed one belong to the same owner");
+            var wild = EndRegistry.NIBBLEMITE.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
+            h.assertTrue(wild != null && !wild.isTamingFood(new ItemStack(Items.CHORUS_FRUIT)) && wild.isTamingFood(new ItemStack(EndRegistry.DRIFT_FRUIT)),
+                    "only the ripe Drift Fruit tames, chorus fruit still breeds");
+            mite.discard();
             h.succeed();
         });
         add("end_grass_on_end_stone", h -> {
