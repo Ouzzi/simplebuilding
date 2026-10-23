@@ -113,6 +113,7 @@ Besitzer: „Rest auch als abgenommen sehen und einbauen“ → alle offenen Wah
 - [~] (A, a-tex24b, 23.10.) W24-2 Rucksack E auf alle Stufen + gefärbt; abgestellter Köcher zeigt Füllstand (bis 5 Pfeile, sichtbar weniger werdend); Farbkästen abstellbar (3D-Form nach Empfehlung); Taschen-Jukebox: Kupferkontakte in Linienfarbe (Redstone rot, Astralit, Nihilit, Brücke) + Animation/Kontakte auf alle 16 gefärbten Jukeboxen.
 - [~] (A, a-sound24, 23.10.) W24-3 Klänge einbauen: legendärer Klang (empfohlener ElevenLabs-Take, Vanilla-Toast-Klang bei legendären Advancements unterdrücken), alle 6 ElevenLabs-Discs als Music Discs (Rezept/Fundort Vanilla-nah), Hollow-Howler-Kandidaten nach Empfehlung (Idle3/Heulen1/Wut1/Treffer2/Tod2).
 - [~] (A, a-mech24, 23.10.) W24-4 Astralit- und Nihilit-Endstäbe (neu, wie Vanilla-End-Rod, Linien-Optik); Ender-Laub mit Honigwabe wachsen → Dichte-Zustand eingefroren; versteckte Erze (C2) mit Pinsel freilegen wie Archäologie → Übergang zur sichtbaren C-Optik, voller Drop nur gepinselt, sonst 70 % (Glück wirkt in beiden Fällen, gepinselt+Glück am meisten); saubere (freigelegte) Erze animiert.
+- [~] (A, a-vault24, 23.10.) W24-6 Astral- und Nihil-Gewölbe (Vault, Endertruhen-Variante): beim Öffnen klappt die ganze Kiste auf statt nur der Deckel (Besitzer 23.10.) → wie Vanilla-Endertruhe nur den Deckel öffnen.
 - [~] (A, a-wiki24, 23.10.) W24-5 Wiki-Startseite + Modulseite M-1 nach Empfehlung umsetzen; TX22-5-Kette (Editor → Speichern → Übernahme mit nächstem Bündel) bauen.
 
 ## Besitzer 23.10. abends – Wahlen B23/TX23/FR23/QT23 (W23)
