@@ -306,7 +306,10 @@ ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, St
                     else if (norm(shipped) != norm(new File(generated, rel))) problems << "not the ${generated.parentFile.name} version: ${rel}"
                 }
                 removedOf(layer).each { String rel ->
-                    if (generatedWinner(rel, i) == -1 && new File(out, rel).isFile()) problems << "removed (${(layer.removed as File).name}) but shipped: ${rel}"
+                    // A removed datagen file may come back hand-written in an overlay of this or a newer layer (W24-4: the
+                    // brushed End ores, whose 26.3 blockstates/loot need the 26.3-only match_block condition).
+                    boolean overlaid = layers.take(i + 1).any { new File(it.overlay as File, rel).isFile() }
+                    if (generatedWinner(rel, i) == -1 && !overlaid && new File(out, rel).isFile()) problems << "removed (${(layer.removed as File).name}) but shipped: ${rel}"
                 }
             }
             if (problems) {
