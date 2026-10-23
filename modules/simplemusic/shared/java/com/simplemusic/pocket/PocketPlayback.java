@@ -428,6 +428,7 @@ public final class PocketPlayback {
             s.carrier = player.getUUID();
             s.entity = -1;
             s.lost = -1;
+            s.grace = GRACE;
             s.where = player.position();
             stack.set(MusicComponents.PLAYING, Unit.INSTANCE);
             SimpleMusic.toClient.accept(player, TrackPlayPayload.carried(s.track.key(), ticks(server, s), s.track.ticks() / 20, s.id));
@@ -439,6 +440,7 @@ public final class PocketPlayback {
             s.carrier = null;
             s.entity = e.getId();
             s.lost = -1;
+            s.grace = GRACE;
             s.where = e.position();
             ItemStack stack = e.getItem().copy();
             stack.set(MusicComponents.PLAYING, Unit.INSTANCE);

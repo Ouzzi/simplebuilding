@@ -414,6 +414,69 @@ def pocket_block_texs():
     return {'block/pocket_jukebox_case': case, 'block/pocket_jukebox_parts': parts}
 
 
+# ------------------------------------------------------------------ playing (PJ23-3, owner 23.10.)
+# "Animation, solange sie spielt" - exemplary on the undyed jukebox until the owner has chosen (rule 22.10.): the record
+# top turns (its sheen runs round in 4 frames: block/pocket_jukebox_spin, frametime in the .mcmeta beside it) and the
+# inventory sprite gets a bobbing note (item/pocket_jukebox_playing, 4 frames). Two layers each: the still picture and
+# what moves. Variants B/C: /root/sb-tools-a/previews/pjuke23-preview.html.
+SPIN_SHEEN = [(2, 1), (4, 2), (3, 4), (1, 3)]  # where the record's sheen ('a') lies in each frame, a quarter turn apart
+NOTE = ['..nn',
+        '.nNn',
+        '.nNn',
+        'nnNn',
+        'nNNn',
+        'nnnn']
+NOTE_PALETTE = {'n': (38, 30, 46), 'N': (236, 240, 255)}
+NOTE_BOB = [0, 1, 2, 1]  # rows down from the top position (x 11..14, y 1)
+
+
+def animated():
+    """{texture path: (width, height, [(layer name, RGBA bytes)])} of the animated textures (frames stacked downwards)."""
+    out = {}
+    record = [row[:6] for row in POCKET_PARTS[:6]]
+    still, moving = bytearray(16 * 64 * 4), bytearray(16 * 64 * 4)
+    for f, (sx, sy) in enumerate(SPIN_SHEEN):
+        for y, row in enumerate(record):
+            for x, ch in enumerate(row):
+                if ch == '.':
+                    continue
+                target, colour = still, POCKET_FIXED[ch]
+                if (x, y) == (sx, sy):
+                    target, colour = moving, POCKET_FIXED['a']
+                elif ch == 'a':
+                    colour = POCKET_FIXED['g']  # the drawn sheen moves on
+                i = ((f * 16 + y) * 16 + x) * 4
+                target[i:i + 4] = bytes(colour + (255,))
+    out['block/pocket_jukebox_spin'] = (16, 64, [('platte', bytes(still)), ('glanz', bytes(moving))])
+    closed = pocket_texs(CHOSEN['pocket'])['']
+    sprite = closed.pixels(dict(closed.palette, **pocket_tint(POCKET_DYES[None])))
+    still, moving = bytearray(16 * 64 * 4), bytearray(16 * 64 * 4)
+    for f, bob in enumerate(NOTE_BOB):
+        for y in range(16):
+            for x in range(16):
+                if sprite[y][x]:
+                    i = ((f * 16 + y) * 16 + x) * 4
+                    still[i:i + 4] = bytes(sprite[y][x])
+        for y, row in enumerate(NOTE):
+            for x, ch in enumerate(row):
+                if ch == '.':
+                    continue
+                i = ((f * 16 + 1 + bob + y) * 16 + 11 + x) * 4
+                moving[i:i + 4] = bytes(NOTE_PALETTE[ch] + (255,))
+    out['item/pocket_jukebox_playing'] = (16, 64, [('jukebox', bytes(still)), ('note', bytes(moving))])
+    return out
+
+
+def flatten(w, h, layers):
+    """The layers composed (each opaque pixel over what lies below)."""
+    img = bytearray(w * h * 4)
+    for _, data in layers:
+        for i in range(w * h):
+            if data[i * 4 + 3]:
+                img[i * 4:i * 4 + 4] = data[i * 4:i * 4 + 4]
+    return bytes(img)
+
+
 # ------------------------------------------------------------------ disc press
 # Owner 21.10.: a new block; recipe piston + iron + smooth stone, so: smooth stone base, iron frame, the piston head
 # (its planks) pressing a disc onto the lower plate; on top the round die. Bottom face: Vanilla's smooth stone (a
@@ -586,6 +649,10 @@ def main(argv):
             f = LAYERS / (path.split('/')[1] + '.json')
             if not f.is_file() or json.loads(f.read_text(encoding='utf-8')) != tex.json():
                 bad.append(str(f))
+        for path, (w, h, layers) in animated().items():
+            f = TEX / f'{path}.png'
+            if not f.is_file() or Image.open(f).convert('RGBA').tobytes() != flatten(w, h, layers):
+                bad.append(str(f))
         if bad:
             print('out of date (run gen_textures.py):\n  ' + '\n  '.join(bad))
             sys.exit(1)
@@ -601,6 +668,10 @@ def main(argv):
     for name, tex in placed.items():
         to_image(tex.pixels()).save(SB_TEX / f'{name}.png')
         sb_layers.write_beside(SB_TEX / f'{name}.png', sb_layers.from_layers(16, 16, tex.layer_doc()))
+    from PIL import Image
+    for path, (w, h, layers) in animated().items():
+        Image.frombytes('RGBA', (w, h), flatten(w, h, layers)).save(TEX / f'{path}.png')
+        sb_layers.write_beside(TEX / f'{path}.png', sb_layers.from_layers(w, h, layers))
     LAYERS.mkdir(exist_ok=True)
     for path, tex in list(texs.items()) + [('block/' + n, t) for n, t in placed.items()]:
         (LAYERS / (path.split('/')[1] + '.json')).write_text(json.dumps(tex.json(), indent=1) + '\n', encoding='utf-8')
