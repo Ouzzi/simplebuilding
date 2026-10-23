@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Adds the Models bookmark to the inventory, the creative inventory (SM21 e) and the anvil. Hooks both init(II) and rebuildWidgets(): a window
- * resize only rebuilds, and would otherwise drop the tab.
+ * resize only rebuilds, and would otherwise drop the tab. B23-M10: the bookmark is drawn at the end of {@code extractBackground}
+ * (after the dimming, before the container image the subclasses blit next), so it sits behind the frame like a creative tab.
  */
 @Mixin(Screen.class)
 public abstract class ModelScreenMixin {
@@ -22,6 +23,12 @@ public abstract class ModelScreenMixin {
     private void simplemodels$tab(int width, int height, CallbackInfo ci) { simplemodels$addTab(); }
     @Inject(method = "rebuildWidgets()V", at = @At("TAIL"))
     private void simplemodels$tabAfterRebuild(CallbackInfo ci) { simplemodels$addTab(); }
+    @Inject(method = "extractBackground", at = @At("TAIL"))
+    private void simplemodels$tabBehind(net.minecraft.client.gui.GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+        for (var child : ((Screen) (Object) this).children()) {
+            if (child instanceof ModelsTab tab) tab.extractBehind(graphics, mouseX, mouseY);
+        }
+    }
     private void simplemodels$addTab() {
         Screen self = (Screen)(Object)this;
         if (!com.simplebuilding.modules.simplemodels.Models.on() || !(self instanceof AnvilScreen || self instanceof InventoryScreen || self instanceof CreativeModeInventoryScreen)

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplebuilding:block/nihil_redstone_torch_off"
+    },
+    "lit=true": {
+      "model": "simplebuilding:block/nihil_redstone_torch"
+    }
+  }
+}

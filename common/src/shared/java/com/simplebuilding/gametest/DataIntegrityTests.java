@@ -3153,8 +3153,8 @@ public final class DataIntegrityTests {
         if (McVersion.END_SYSTEMS) {
             expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.BRIDGE_REDSTONE, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
-            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, gap, gap, gap,
-                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK));
+            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_TORCH, gap, gap,
+                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_TORCH));
         }
         if (McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) direkt unter den End-Signalen.
@@ -3209,10 +3209,8 @@ public final class DataIntegrityTests {
      * with one empty cell between them (tweaks P8, no frozen columns any more): first the pressure
      * plates - oak (the only wooden plate listed), stone and polished blackstone together with the
      * heavy, light, diamond, netherite and enderite plates, then copper (4 stages, then waxed) -; then
-     * the pads in ore order, each three-tier family as "three tiers + its unlock item": the cores,
-     * the fixed ingredients (enderman head and elytra for the families that have one, all others hide
-     * their head among the mob heads below), the tiers I-III, the spawn elytra; then, if there are any,
-     * the further mob heads ({@code TweaksItems#extraMobHeads}).
+     * the pads in ore order: the cores, the tiers I-III, the spawn elytra (B23-M6, owner 23.10.: no mob
+     * heads and no Vanilla elytra in this tab); then, on 26.2 only, the mob heads ({@code TweaksItems#extraMobHeads}).
      *
      * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}. What breaks this: a
      * missing or extra spacer, a family moved, reordered or missing its unlock item, a plate or pad left
@@ -3232,8 +3230,6 @@ public final class DataIntegrityTests {
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE),
                 CreativeTabLayout.Row.of("pad_cores", ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
                         ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
-                CreativeTabLayout.Row.of("pad_materials",
-                        TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN), Items.ELYTRA, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER)),
                 CreativeTabLayout.Row.of("pad_tier_1",
                         TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),

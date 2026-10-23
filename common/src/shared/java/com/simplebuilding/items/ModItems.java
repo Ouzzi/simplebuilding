@@ -108,6 +108,9 @@ public class ModItems {
     public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
     public static final Item ASTRAL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_block", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE_BLOCK, s)) : null;
     public static final Item NIHIL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_block", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE_BLOCK, s)) : null;
+    /** Astral/Nihil Redstone Torch (B23-M1): standing and on the wall like Vanilla's redstone torch. */
+    public static final Item ASTRAL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.ASTRAL_REDSTONE_TORCH, ModBlocks.ASTRAL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
+    public static final Item NIHIL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.NIHIL_REDSTONE_TORCH, ModBlocks.NIHIL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
     public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone_block", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE_BLOCK, s)) : null;
     public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
     public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
@@ -323,31 +326,34 @@ public class ModItems {
 
     public static final Item DIAMOND_PEBBLE = com.simplebuilding.util.SharedMaterials.item("diamond_pebble", () -> registerItem("diamond_pebble", settings -> new Item(settings)));
 
-    /** Steinkiesel: neun aus einem Bruchstein, zum Ablegen und zurueck zu Bruchstein (2026-10-02). */
+    /**
+     * Steinkiesel: neun aus einem Bruchstein, zum Ablegen und zurueck zu Bruchstein (2026-10-02). Alle Kleinteil-Splitter
+     * bis zum Blazing-Obsidian-Splitter sind seit B23-M4 (23.10.) auch werfbar ({@link com.simplebuilding.items.custom.ThrownChipItem}).
+     */
     public static final Item STONE_PEBBLE = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
-            ? registerItem("stone_pebble", settings -> new Item(settings)) : null;
+            ? registerItem("stone_pebble", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
     /** Feuersteinsplitter: vier aus einem Feuerstein (2026-10-02). */
     public static final Item FLINT_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
-            ? registerItem("flint_chip", settings -> new Item(settings)) : null;
+            ? registerItem("flint_chip", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
     /** Feuerkugelsplitter: vier aus einer Feuerkugel, zuendet Kerzen eines Kleinteil-Haufens an (2026-10-05). */
     public static final Item FIRE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
-            ? registerItem("fire_chip", settings -> new Item(settings)) : null;
+            ? registerItem("fire_chip", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
     /** Eissplitter: vier aus Eis, neun aus Packeis, loescht Kerzen eines Kleinteil-Haufens (2026-10-05). */
     public static final Item ICE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
-            ? registerItem("ice_chip", settings -> new Item(settings)) : null;
+            ? registerItem("ice_chip", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
     /**
      * Obsidiansplitter: entsteht nur durch Vorschlaghammer-Schlaege auf Obsidian (neun, N55), neun ergeben den Obsidian
      * zurueck (2026-10-05).
      */
     public static final Item OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
-            ? registerItem("obsidian_chip", settings -> new Item(settings)) : null;
+            ? registerItem("obsidian_chip", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
     /** Weinender-Obsidian-Splitter (N55): wie der Obsidiansplitter, aus weinendem Obsidian. */
     public static final Item CRYING_OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
-            ? registerItem("crying_obsidian_chip", settings -> new Item(settings)) : null;
+            ? registerItem("crying_obsidian_chip", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
     /** Blazing-Obsidian-Splitter (N55): wie der Obsidiansplitter, aus Blazing Obsidian (nur mit dem Astral-Tisch). */
     public static final Item BLAZING_OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
             && com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("blazing_obsidian_chip", settings -> new Item(settings)) : null;
+            ? registerItem("blazing_obsidian_chip", com.simplebuilding.items.custom.ThrownChipItem::new) : null;
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
     public static final Item IRON_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
@@ -512,9 +518,9 @@ public class ModItems {
     /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blaze_book", s -> new Item(s)) : null;
-    /** Waerter-Fuehler (2026-10-09, N24): Drop des Waerters, Brauzutat des Dunkelheitstranks. */
+    /** Waerter-Fuehler (2026-10-09, N24): Drop des Waerters, Brauzutat des Dunkelheitstranks; selten (B23-M5). */
     public static final Item WARDEN_TENDRIL = com.simplebuilding.version.McVersion.BREWING_EFFECTS
-            ? registerItem("warden_tendril", Item::new) : null;
+            ? registerItem("warden_tendril", s -> new Item(s.rarity(Rarity.RARE))) : null;
     public static final Item SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
             ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
     public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
@@ -539,15 +545,15 @@ public class ModItems {
 
     // Building Cores - nicht stapelbar, Rechtsklick spielt eine Animation (BuildingCoreItem)
 
-    public static final Item COPPER_CORE = registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE));
+    public static final Item COPPER_CORE = registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE));
 
-    public static final Item IRON_CORE = registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE));
+    public static final Item IRON_CORE = registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE));
 
-    public static final Item GOLD_CORE = registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE));
+    public static final Item GOLD_CORE = registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE));
 
-    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1), 0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE));
+    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE));
 
-    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), 0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE));
+    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.RARE), 0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE));
 
     public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), 0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE));
 

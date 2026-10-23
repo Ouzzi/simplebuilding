@@ -129,7 +129,9 @@ def own_tags():
         dump(OUT / f'data/{NS}/tags/block/{n}_logs.json', {'values': logs})
         dump(OUT / f'data/{NS}/tags/item/{n}_logs.json', {'values': logs})
     ground = ['minecraft:end_stone', f'{NS}:burrowed_end_stone', '#minecraft:dirt']
-    dump(OUT / f'data/{NS}/tags/block/end_plants_may_place_on.json', {'values': ground})
+    # B23-M7 (owner 23.10.): End grass and bushes also stand where Vanilla's dry grass and dead bush do (sand, terracotta,
+    # dirt, farmland: #minecraft:supports_dry_vegetation), not only on End stone.
+    dump(OUT / f'data/{NS}/tags/block/end_plants_may_place_on.json', {'values': ground + ['#minecraft:supports_dry_vegetation']})
     dump(OUT / f'data/{NS}/tags/block/bud_may_place_on.json', {'values': ground})
     dump(OUT / 'data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:burrowed_end_stone']})
     dump(OUT / 'data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:{w["name"]}_sticks' for w in WOODS]})

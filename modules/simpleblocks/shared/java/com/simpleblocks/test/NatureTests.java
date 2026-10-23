@@ -65,6 +65,7 @@ public final class NatureTests {
     public static void register(Map<String, Consumer<GameTestHelper>> all, Map<String, Integer> maxTicks) {
         all.put("nature_recipes", NatureTests::natureVariantsHaveTheirRecipes);
         all.put("grass_slab_drops_dirt_slab_without_silk_touch", NatureTests::grassSlabDropsDirtSlabWithoutSilkTouch);
+        all.put("grass_spreads_onto_and_from_slabs", NatureTests::grassSpreadsOntoAndFromSlabs);
         all.put("sand_and_gravel_slabs_fall_and_merge", NatureTests::sandAndGravelSlabsFallAndMerge);
         maxTicks.put("sand_and_gravel_slabs_fall_and_merge", FALLING_SLAB_MAX_TICKS);
         all.put("gravity_slabs_settle_on_slabs_and_half_steps", NatureTests::gravitySlabsSettleOnSlabsAndHalfSteps);
@@ -293,6 +294,40 @@ public final class NatureTests {
         });
     }
 
+    /**
+     * B23-M3: grass lives on slabs like Vanilla grass - a grass block spreads onto a dirt slab (bottom stays bottom), a grass
+     * slab spreads onto dirt, a covered grass slab dies to a dirt slab. Random ticks are called directly; glowstone gives the
+     * light (9 or more) above them.
+     */
+    public static void grassSpreadsOntoAndFromSlabs(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos grass = new BlockPos(1, 1, 3);
+        BlockPos slab = new BlockPos(2, 1, 3);
+        BlockPos dirt = new BlockPos(3, 1, 3);
+        BlockPos covered = new BlockPos(5, 1, 3);
+        helper.setBlock(grass, Blocks.GRASS_BLOCK);
+        helper.setBlock(slab, NatureBlocks.DIRT_SLAB);
+        helper.setBlock(dirt, Blocks.DIRT);
+        helper.setBlock(covered, NatureBlocks.GRASS_SLAB);
+        helper.setBlock(covered.above(), Blocks.STONE);
+        for (int x = 1; x <= 3; x++) {
+            helper.setBlock(new BlockPos(x, 3, 4), Blocks.GLOWSTONE);
+        }
+        net.minecraft.util.RandomSource random = level.getRandom();
+        helper.succeedWhen(() -> {
+            for (int i = 0; i < 20; i++) {
+                for (BlockPos at : List.of(slab, covered)) {
+                    helper.getBlockState(at).randomTick(level, helper.absolutePos(at), random);
+                }
+            }
+            BlockState grown = helper.getBlockState(slab);
+            helper.assertTrue(grown.is(NatureBlocks.GRASS_SLAB) && grown.getValue(SlabBlock.TYPE) == SlabType.BOTTOM,
+                    "the dirt slab next to grass became " + grown);
+            helper.assertBlockPresent(Blocks.GRASS_BLOCK, dirt);
+            helper.assertTrue(helper.getBlockState(covered).is(NatureBlocks.DIRT_SLAB), "the covered grass slab is " + helper.getBlockState(covered));
+        });
+    }
+
     /** Rissiges Eis: abgebaut bleibt kein Wasser zurueck (Eis auf Stein wuerde zu Wasser). Den Meissel-Weg prueft SimpleBuilding. */
     public static void crackedIceLeavesNoWater(GameTestHelper helper) {
         BlockPos stone = new BlockPos(1, 1, 1);
@@ -310,7 +345,8 @@ public final class NatureTests {
     }
 
     /**
-     * N53: an keine der sechs Seiten eines rissigen Eisblocks laesst sich ein Block setzen (neben normalem Eis schon), und
+     * N53: an keine der sechs Seiten eines rissigen Eisblocks laesst sich ein Block setzen (neben normalem Eis schon; B23-M2: Eis und
+     * rissiges Eis selbst schon), und
      * Eis und rissiges Eis blenden die Flaechen zueinander aus wie Eis neben Eis (getarnt, keine Innenraender).
      */
     public static void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper helper) {
@@ -332,6 +368,21 @@ public final class NatureTests {
         var control = placeAt(helper, player, stone, ice.above());
         helper.assertTrue(control.consumesAction() && helper.getBlockState(ice.above()).is(Blocks.STONE),
                 "control: stone on normal ice must still be placed, gave " + control);
+        // B23-M2: cracked ice and ice go next to cracked ice (camouflaged fields)
+        for (Direction direction : List.of(Direction.UP, Direction.EAST, Direction.DOWN)) {
+            BlockPos target = centre.relative(direction);
+            helper.setBlock(target, Blocks.AIR);
+            ItemStack more = new ItemStack(NatureBlocks.CRACKED_ICE.asItem(), 2);
+            var placed = placeAt(helper, player, more, target);
+            helper.assertTrue(placed.consumesAction() && helper.getBlockState(target).is(NatureBlocks.CRACKED_ICE),
+                    "cracked ice " + direction + " of cracked ice gave " + placed + ", block " + helper.getBlockState(target));
+            helper.setBlock(target, Blocks.AIR);
+        }
+        BlockPos west = centre.west();
+        helper.setBlock(west, Blocks.AIR);
+        var icePlaced = placeAt(helper, player, new ItemStack(Items.ICE, 2), west);
+        helper.assertTrue(icePlaced.consumesAction() && helper.getBlockState(west).is(Blocks.ICE),
+                "ice next to cracked ice gave " + icePlaced + ", block " + helper.getBlockState(west));
         BlockState cracked = NatureBlocks.CRACKED_ICE.defaultBlockState();
         BlockState plain = Blocks.ICE.defaultBlockState();
         for (Direction direction : Direction.values()) {

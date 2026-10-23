@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * lines stay apart; every device (lamps, pistons, doors, End pistons and rails, mod machines) takes its signal.
  * {@code server.features.endSignals} switched off: it gives nothing.
  */
-public class LineRedstoneBlock extends Block {
+public class LineRedstoneBlock extends Block implements LineSource {
     private final SignalDustBlock.Line line;
 
     public LineRedstoneBlock(SignalDustBlock.Line line, Properties properties) {
@@ -22,6 +22,7 @@ public class LineRedstoneBlock extends Block {
         this.line = line;
     }
 
+    @Override
     public SignalDustBlock.Line line() {
         return line;
     }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplebuilding:block/astral_redstone_torch_off"
+    },
+    "lit=true": {
+      "model": "simplebuilding:block/astral_redstone_torch"
+    }
+  }
+}
