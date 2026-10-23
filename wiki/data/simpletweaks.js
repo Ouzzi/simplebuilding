@@ -159,6 +159,33 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       ]
     },
     {
+      "id": "claims_map",
+      "en": {
+        "title": "Claims on the map",
+        "summary": "Claims are seen first on the wayfinder map of Simple Maps: with its Claims layer on, the map shows your own and other people's claims as colored strips on explored terrain, in every dimension. Simple Maps is recommended for claims.",
+        "details": [
+          "Every map asks for its own dimension (Overworld, Nether, End and every further dimension) and gets that dimension's claims; the layer is off until you switch it on (layers button of the map screen).",
+          "Your own land is framed; its tooltip reads Your land and your free chunk credits. Other people's land shows the owner's name as the server allows (config claimVisibility): all and own show names, owners_hidden only where you hold a right, off shows no claims on the map. Member lists, rights and codes never leave the server.",
+          "Without Simple Maps the claims work the same and the deed shows the hint that Simple Maps is recommended (the server tells the client whether Simple Maps is there). Simple Maps alone has no Claims layer."
+        ]
+      },
+      "de": {
+        "title": "Claims auf der Karte",
+        "summary": "Claims sieht man in erster Linie auf der Wayfinder-Karte von Simple Maps: Ist ihre Ebene Claims an, zeigt die Karte eigene und fremde Claims als farbige Streifen auf erkundetem Gelände, in jeder Dimension. Simple Maps wird für Claims empfohlen.",
+        "details": [
+          "Jede Karte fragt nach ihrer eigenen Dimension (Oberwelt, Nether, End und jede weitere Dimension) und bekommt deren Claims; die Ebene ist aus, bis du sie einschaltest (Ebenen-Knopf des Kartenbildschirms).",
+          "Dein eigenes Land ist umrahmt; sein Tooltip nennt Your land und deine freien Chunk-Credits. Fremdes Land zeigt den Namen des Besitzers, soweit der Server es erlaubt (Config claimVisibility): all und own zeigen Namen, owners_hidden nur dort, wo du ein Recht hast, off zeigt keine Claims auf der Karte. Mitgliederlisten, Rechte und Codes verlassen den Server nie.",
+          "Ohne Simple Maps funktionieren Claims genauso, und die Urkunde zeigt den Hinweis, dass Simple Maps empfohlen ist (der Server teilt dem Client mit, ob Simple Maps da ist). Simple Maps allein hat keine Claims-Ebene."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimMapLayer.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimMaps.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableVisibility.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/MapLayerSources.java"
+      ]
+    },
+    {
       "id": "forge_support",
       "sources": [
         "modules/simpletweaks/forge/src/main/java/com/simplebuilding/modules/simpletweaks/forge/TweaksForge.java",
@@ -1380,10 +1407,10 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 68 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 70 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 68 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 70 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
@@ -1458,7 +1485,7 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 40,
+    "features": 41,
     "recipes": 4,
     "lootTables": 1,
     "tags": 2,
