@@ -30,8 +30,11 @@ public final class RecipelessJeiInfo {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
         map.put("astralit_ore", List.of(ModBlocks.ASTRALIT_ORE));
         map.put("nihilith_ore", List.of(ModBlocks.NIHILITH_ORE));
-        map.put("astralit_dust", List.of(ModItems.ASTRALIT_DUST));
-        map.put("nihilith_shard", List.of(ModItems.NIHILITH_SHARD));
+        if (!com.simplebuilding.version.McVersion.DULL_ORES) {
+            // W23-2: on 26.3 four dull pieces craft one real dust / shard, so JEI shows a recipe for them.
+            map.put("astralit_dust", List.of(ModItems.ASTRALIT_DUST));
+            map.put("nihilith_shard", List.of(ModItems.NIHILITH_SHARD));
+        }
         map.put("enchanted_netherite_apple", List.of(ModItems.ENCHANTED_NETHERITE_APPLE));
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
         if (com.simplebuilding.version.McVersion.DULL_ORES) {

@@ -213,9 +213,18 @@ public final class DataIntegrityTests {
      * Touch. Every other mod block is a {@code dropSelf}, so its expectation is derived from its
      * own block item rather than listed here; see {@link #everyModBlockLootTableLoads}.
      */
-    private static final Map<String, Item> ORE_DROPS = Map.of(
-            "nihilith_ore", ModItems.NIHILITH_SHARD,
-            "astralit_ore", ModItems.ASTRALIT_DUST);
+    private static final Map<String, Item> ORE_DROPS = oreDrops();
+
+    private static Map<String, Item> oreDrops() {
+        Map<String, Item> drops = new java.util.HashMap<>(Map.of(
+                "nihilith_ore", ModItems.NIHILITH_SHARD,
+                "astralit_ore", ModItems.ASTRALIT_DUST));
+        if (com.simplebuilding.version.McVersion.DULL_ORES) { // W23-2: the dull End ores drop dull material
+            drops.put("dull_nihilith_ore", ModItems.DULL_NIHILITH_SHARD);
+            drops.put("dull_astralit_ore", ModItems.DULL_ASTRALIT_DUST);
+        }
+        return Map.copyOf(drops);
+    }
 
     /** Experience ores (owner 2026-10-01): mostly nothing, rarely a Sage Orb; Silk Touch drops the ore. */
     private static final Set<String> EXPERIENCE_ORES = Set.of("sage_ore", "deepslate_sage_ore");
