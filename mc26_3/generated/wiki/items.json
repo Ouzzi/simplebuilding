@@ -82,6 +82,8 @@
     "simplebuilding:diamond_pole",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
+    "simplebuilding:dull_astralit_ore",
+    "simplebuilding:dull_nihilith_ore",
     "simplebuilding:elytra_pad",
     "simplebuilding:end_dimensional_scrap",
     "simplebuilding:ender_quartz_block",
@@ -772,6 +774,18 @@
     },
     {
       "id": "simplebuilding:dimensional_scrap"
+    },
+    {
+      "id": "simplebuilding:dull_astralit_dust"
+    },
+    {
+      "id": "simplebuilding:dull_astralit_ore"
+    },
+    {
+      "id": "simplebuilding:dull_nihilith_ore"
+    },
+    {
+      "id": "simplebuilding:dull_nihilith_shard"
     },
     {
       "durability": 1500,
