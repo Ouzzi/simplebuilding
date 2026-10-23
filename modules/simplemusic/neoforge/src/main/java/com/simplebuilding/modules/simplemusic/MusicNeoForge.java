@@ -8,7 +8,6 @@ import com.simplemusic.net.TrackRequestPayload;
 import com.simplemusic.net.UploadBeginPayload;
 import com.simplemusic.net.UploadChunkPayload;
 import com.simplemusic.net.UploadResultPayload;
-import com.simplemusic.orchestrion.OrchestrionBlockEntity;
 import com.simplemusic.registry.MusicComponents;
 import com.simplemusic.registry.MusicRegistry;
 import com.simplemusic.upload.MusicCommands;
@@ -43,8 +42,7 @@ public final class MusicNeoForge {
             if (key.equals(Registries.ITEM)) MusicRegistry.registerItems();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) MusicRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                MusicRegistry.registerBlockEntities(new BlockEntityType<>(OrchestrionBlockEntity::new, Set.of(MusicRegistry.ORCHESTRION), false),
-                        new BlockEntityType<>(com.simplemusic.press.DiscPressBlockEntity::new, Set.of(MusicRegistry.DISC_PRESS), false),
+                MusicRegistry.registerBlockEntities(new BlockEntityType<>(com.simplemusic.press.DiscPressBlockEntity::new, Set.of(MusicRegistry.DISC_PRESS), false),
                         new BlockEntityType<>(com.simplemusic.pocket.PocketJukeboxBlockEntity::new, Set.copyOf(MusicRegistry.POCKET_JUKEBOX_BLOCKS), false));
             }
             if (key.equals(Registries.MENU)) MusicRegistry.registerMenus();

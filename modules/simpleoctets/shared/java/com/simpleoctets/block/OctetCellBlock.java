@@ -348,7 +348,9 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
     private static final ThreadLocal<AreaBreak> AREA = new ThreadLocal<>();
 
     /**
-     * Besitzer SP22-1: ein schleichender Spieler bricht aus einem Vollblock mit Achteln ({@link OctetCells#cornerCell})
+     * Besitzer SP22-1, korrigiert B23-M8 (23.10.): ein schleichender Spieler mit einem HAMMER in der Haupthand
+     * ({@code #simplelib:hammers}, z. B. Simple Hammers' Vorschlaghaemmer; mit jedem anderen Werkzeug baut Schleichen wie
+     * Vanilla den ganzen Block ab) bricht aus einem Vollblock mit Achteln ({@link OctetCells#cornerCell})
      * nur die angeschaute Ecke heraus - der Block wird zur Zelle mit 7 Achteln, ein Achtel faellt. Aufgerufen am Anfang
      * von {@code Block#playerWillDestroy} ({@code BlockCornerBreakMixin}); danach laeuft Vanilla weiter (Partikel und
      * Klang des Materials, Piglins bei Gold, Game-Event), entfernt den Block und ruft {@code destroy}
@@ -359,7 +361,8 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
      */
     public static void startCornerBreak(Level level, BlockPos pos, BlockState state, Player player) {
         if (state.getBlock() instanceof OctetCellBlock || !player.isShiftKeyDown() || player.isSpectator()
-                || state.hasBlockEntity() || !com.simpleoctets.SimpleOctets.on()) {
+                || state.hasBlockEntity() || !com.simpleoctets.SimpleOctets.on()
+                || !com.simplelib.api.SimpleLibApi.isHammer(player.getMainHandItem())) {
             return;
         }
         BREAKING.remove();

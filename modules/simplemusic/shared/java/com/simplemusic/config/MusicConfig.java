@@ -21,7 +21,7 @@ public final class MusicConfig {
     public static final String FILE = "simplemusic-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "sheetSounds", "blockedSounds", "maxTonesPerTick",
-            "maxPlayingOrchestrions", "orchestrionRange", "uploads", "maxUploadMiB", "maxUploadSeconds", "quotaPerPlayer",
+            "toneRange", "uploads", "maxUploadMiB", "maxUploadSeconds", "quotaPerPlayer",
             "storeLimitMiB", "uploadKiBPerSecond", "downloadKiBPerSecond", "jukeboxCustomDiscs");
 
     /** Which sounds a sheet may name (owner decision N4 a: all, with the blocklist). */
@@ -39,8 +39,8 @@ public final class MusicConfig {
     public static SheetSounds sheetSounds = SheetSounds.ALL;
     public static final List<String> blockedSounds = new ArrayList<>();
     public static int maxTonesPerTick = 8;
-    public static int maxPlayingOrchestrions = 32;
-    public static int orchestrionRange = 48;
+    /** Blocks a composition disc's tones carry (B23-M9: was {@code orchestrionRange}, the old key is still read). */
+    public static int toneRange = 48;
     public static Uploads uploads = Uploads.APPROVE;
     public static int maxUploadMiB = 4;
     public static int maxUploadSeconds = 300;
@@ -84,8 +84,7 @@ public final class MusicConfig {
             blockedSounds.addAll(DEFAULT_BLOCKED);
         }
         maxTonesPerTick = clamp(integer(json, "maxTonesPerTick", 8), 1, 8);
-        maxPlayingOrchestrions = clamp(integer(json, "maxPlayingOrchestrions", 32), 1, 64);
-        orchestrionRange = clamp(integer(json, "orchestrionRange", 48), 16, 64);
+        toneRange = clamp(integer(json, "toneRange", integer(json, "orchestrionRange", 48)), 16, 64);
         uploads = enumeration(json, "uploads", Uploads.class, Uploads.APPROVE);
         maxUploadMiB = clamp(integer(json, "maxUploadMiB", 4), 1, 16);
         maxUploadSeconds = clamp(integer(json, "maxUploadSeconds", 300), 10, 900);
@@ -104,8 +103,7 @@ public final class MusicConfig {
         blockedSounds.forEach(blocked::add);
         o.add("blockedSounds", blocked);
         o.addProperty("maxTonesPerTick", maxTonesPerTick);
-        o.addProperty("maxPlayingOrchestrions", maxPlayingOrchestrions);
-        o.addProperty("orchestrionRange", orchestrionRange);
+        o.addProperty("toneRange", toneRange);
         o.addProperty("uploads", uploads.name().toLowerCase(Locale.ROOT));
         o.addProperty("maxUploadMiB", maxUploadMiB);
         o.addProperty("maxUploadSeconds", maxUploadSeconds);

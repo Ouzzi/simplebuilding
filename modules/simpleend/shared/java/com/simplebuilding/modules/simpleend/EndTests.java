@@ -851,6 +851,13 @@ public final class EndTests {
             h.assertTrue(EndWood.ASHWOOD.bud.defaultBlockState().canSurvive(h.getLevel(), h.absolutePos(at)), "bud stays on End stone");
             h.setBlock(at.below(), Blocks.STONE);
             h.assertTrue(!EndRegistry.END_GRASS.defaultBlockState().canSurvive(h.getLevel(), h.absolutePos(at)), "not on stone");
+            // B23-M7: also where Vanilla's dry grass and dead bush stand
+            for (net.minecraft.world.level.block.Block ground : java.util.List.of(Blocks.SAND, Blocks.RED_SAND, Blocks.TERRACOTTA,
+                    Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.MOSS_BLOCK, Blocks.FARMLAND, Blocks.MUD)) {
+                h.setBlock(at.below(), ground);
+                h.assertTrue(EndRegistry.END_GRASS.defaultBlockState().canSurvive(h.getLevel(), h.absolutePos(at)), "End grass on " + ground);
+                h.assertTrue(EndRegistry.END_BUSH.defaultBlockState().canSurvive(h.getLevel(), h.absolutePos(at)), "End bush on " + ground);
+            }
             h.succeed();
         });
     }

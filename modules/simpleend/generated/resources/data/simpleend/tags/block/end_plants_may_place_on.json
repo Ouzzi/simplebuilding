@@ -2,6 +2,7 @@
   "values": [
     "minecraft:end_stone",
     "simpleend:burrowed_end_stone",
-    "#minecraft:dirt"
+    "#minecraft:dirt",
+    "#minecraft:supports_dry_vegetation"
   ]
 }

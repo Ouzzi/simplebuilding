@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 /**
  * Sheet of music (concept §3): right-click opens the note code editor (like the blueprint), signing makes it read-only
- * with title and author. The code lives in the {@code simplemusic:sheet} component; the Orchestrion plays it. Owner
+ * with title and author. The code lives in the {@code simplemusic:sheet} component; the disc press presses it onto a blank (B23-M9: no more direct playback). Owner
  * 21.10.: a sheet holds either a composition or an uploaded track ({@code simplemusic:track}, burned through the
  * editor's upload button); the disc press copies either onto a blank disc and the cartography table copies the sheet.
  */

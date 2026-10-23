@@ -178,6 +178,10 @@ public final class DataIntegrityTests {
         if (McVersion.FIRES) {
             walls.put("sulfur_wall_torch", "sulfur_torch"); // N58
         }
+        if (McVersion.END_SYSTEMS) {
+            walls.put("astral_redstone_wall_torch", "astral_redstone_torch"); // B23-M1
+            walls.put("nihil_redstone_wall_torch", "nihil_redstone_torch");
+        }
         return Map.copyOf(walls);
     }
 
@@ -2778,7 +2782,6 @@ public final class DataIntegrityTests {
         for (Item resource : List.of(Items.DIAMOND, Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, Items.NETHERITE_INGOT)) {
             vanillaHome.put(resource, ModItemGroupsContent.Tab.MATERIALS);
         }
-        vanillaHome.put(Items.ELYTRA, ModItemGroupsContent.Tab.PADS);
         int trims = 0;
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if ("minecraft".equals(id.getNamespace()) && id.getPath().endsWith("_armor_trim_smithing_template")) {
@@ -2790,7 +2793,7 @@ public final class DataIntegrityTests {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
         if (McVersion.SILENT_DANDELION) vanillaHome.put(Items.GOLDEN_DANDELION, ModItemGroupsContent.Tab.MATERIALS);
-        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + 5 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
+        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + 4 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
                 + (McVersion.SILENT_DANDELION ? 1 : 0)
                 + (McVersion.TRAPPED_TIERED_CHESTS ? 1 : 0)
                 || vanillaHome.containsKey(Items.AIR)) {
@@ -2850,7 +2853,7 @@ public final class DataIntegrityTests {
         pinned.put(ModItemGroupsContent.Tab.PADS, List.of(
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(),
                 TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.LAUNCHPAD.asItem(),
-                TweaksBlocks.CHUNK_LOADER.asItem(), TweaksItems.SPAWN_ELYTRA, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
+                TweaksBlocks.CHUNK_LOADER.asItem(), TweaksItems.SPAWN_ELYTRA));
         pinned.forEach((tab, items) -> {
             for (Item item : items) {
                 List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(item, List.of());
@@ -3153,8 +3156,8 @@ public final class DataIntegrityTests {
         if (McVersion.END_SYSTEMS) {
             expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.BRIDGE_REDSTONE, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
-            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, gap, gap, gap,
-                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK));
+            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_TORCH, gap, gap,
+                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_TORCH));
         }
         if (McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) direkt unter den End-Signalen.
@@ -3209,10 +3212,8 @@ public final class DataIntegrityTests {
      * with one empty cell between them (tweaks P8, no frozen columns any more): first the pressure
      * plates - oak (the only wooden plate listed), stone and polished blackstone together with the
      * heavy, light, diamond, netherite and enderite plates, then copper (4 stages, then waxed) -; then
-     * the pads in ore order, each three-tier family as "three tiers + its unlock item": the cores,
-     * the fixed ingredients (enderman head and elytra for the families that have one, all others hide
-     * their head among the mob heads below), the tiers I-III, the spawn elytra; then, if there are any,
-     * the further mob heads ({@code TweaksItems#extraMobHeads}).
+     * the pads in ore order: the cores, the tiers I-III, the spawn elytra (B23-M6, owner 23.10.: no mob
+     * heads and no Vanilla elytra in this tab); then, on 26.2 only, the mob heads ({@code TweaksItems#extraMobHeads}).
      *
      * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}. What breaks this: a
      * missing or extra spacer, a family moved, reordered or missing its unlock item, a plate or pad left
@@ -3232,8 +3233,6 @@ public final class DataIntegrityTests {
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE),
                 CreativeTabLayout.Row.of("pad_cores", ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
                         ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
-                CreativeTabLayout.Row.of("pad_materials",
-                        TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN), Items.ELYTRA, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER)),
                 CreativeTabLayout.Row.of("pad_tier_1",
                         TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),
@@ -5272,6 +5271,13 @@ public final class DataIntegrityTests {
     private static final Set<String> MATERIALS = Set.of("enderite_ingot", "enderite_scrap", "enderite_nugget",
             "enderite_block", "netherite_nugget", "raw_enderite");
     private static final Map<String, net.minecraft.world.item.Rarity> RARITY_EXCEPTIONS = Map.ofEntries(
+            // B23-M5 (Besitzer 23.10.): alle Kerne mindestens wie der Netherstern (RARE), Enderit bleibt EPIC; Waerter-Fuehler selten
+            Map.entry("copper_core", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("iron_core", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("gold_core", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("diamond_core", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("netherite_core", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("warden_tendril", net.minecraft.world.item.Rarity.RARE),
             // Vorlagen: Aufwertungen wie Vanillas Netherit-Aufwertung, Besatz-Aufwertungen eine Stufe darueber
             Map.entry("basic_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("enderite_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),

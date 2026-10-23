@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * End grass and End bush (Nachtrag 42): like Vanilla short dry grass / dead bush, but they stand on End stone
+ * End grass and End bush (Nachtrag 42): like Vanilla short dry grass / dead bush; they stand on End stone and, B23-M7, wherever those do
  * (tag {@code simpleend:end_plants_may_place_on}). Grey textures tinted with the biome's dry foliage colour.
  * Bone meal on End grass spreads a few more tufts onto neighbouring End stone.
  */

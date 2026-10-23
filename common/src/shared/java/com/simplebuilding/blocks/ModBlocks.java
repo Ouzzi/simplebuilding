@@ -43,6 +43,11 @@ public class ModBlocks {
     public static final Block ASTRAL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
     public static final Block NIHIL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
     public static final Block BRIDGE_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, s.mapColor(MapColor.COLOR_MAGENTA))) : null;
+    /** Astral/Nihil Redstone Torch (B23-M1, 2026-10-23): Vanilla's redstone torch whose output belongs to its line. */
+    public static final Block ASTRAL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
+    public static final Block ASTRAL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_wall_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneWallTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, wallTorch(s, ASTRAL_REDSTONE_TORCH).mapColor(MapColor.COLOR_PINK))) : null;
+    public static final Block NIHIL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
+    public static final Block NIHIL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_wall_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneWallTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, wallTorch(s, NIHIL_REDSTONE_TORCH).mapColor(MapColor.COLOR_CYAN))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(com.simplebuilding.util.LineSounds.NIHIL_PISTON).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
@@ -687,6 +692,11 @@ public class ModBlocks {
         return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(sound)
                 .isRedstoneConductor((state, world, pos) -> false)
                 .lightLevel(state -> state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.POWER) > 0 ? 3 : 0);
+    }
+
+    /** Like Vanilla's wall torch: drops and is named as the standing torch (copied properties of the standing torch). */
+    private static BlockBehaviour.Properties wallTorch(BlockBehaviour.Properties s, Block standing) {
+        return s.overrideLootTable(standing.getLootTable()).overrideDescription(standing.getDescriptionId());
     }
 
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory) {

@@ -3,8 +3,6 @@ package com.simplemusic.registry;
 import com.simplemusic.SimpleMusic;
 import com.simplemusic.disc.BlankDiscItem;
 import com.simplemusic.disc.CustomDiscItem;
-import com.simplemusic.orchestrion.OrchestrionBlock;
-import com.simplemusic.orchestrion.OrchestrionBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxBlock;
 import com.simplemusic.pocket.PocketJukeboxBlockEntity;
 import com.simplemusic.pocket.PocketJukeboxItem;
@@ -32,7 +30,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.material.MapColor;
 
@@ -41,9 +38,8 @@ import net.minecraft.world.level.material.MapColor;
  * in the initializer), in this order: components, blocks, items, block entity type, tab.
  */
 public final class MusicRegistry {
-    public static Block ORCHESTRION, DISC_PRESS;
-    public static Item SHEET_MUSIC, ORCHESTRION_ITEM, BLANK_DISC, CUSTOM_DISC, DISC_PRESS_ITEM;
-    public static BlockEntityType<OrchestrionBlockEntity> ORCHESTRION_BE;
+    public static Block DISC_PRESS;
+    public static Item SHEET_MUSIC, BLANK_DISC, CUSTOM_DISC, DISC_PRESS_ITEM;
     public static BlockEntityType<DiscPressBlockEntity> DISC_PRESS_BE;
     public static BlockEntityType<PocketJukeboxBlockEntity> POCKET_JUKEBOX_BE;
     public static MenuType<DiscPressMenu> DISC_PRESS_MENU;
@@ -58,8 +54,6 @@ public final class MusicRegistry {
     }
 
     public static void registerBlocks() {
-        ORCHESTRION = block("orchestrion", OrchestrionBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
-                .instrument(NoteBlockInstrument.BASS).strength(2.0F, 6.0F).sound(SoundType.WOOD).ignitedByLava());
         // like Vanilla's stonecutter/blast furnace: stone and iron, needs a pickaxe
         DISC_PRESS = block("disc_press", DiscPressBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                 .requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL));
@@ -76,7 +70,6 @@ public final class MusicRegistry {
 
     public static void registerItems() {
         SHEET_MUSIC = item("sheet_music", SheetMusicItem::new, new Item.Properties().stacksTo(16));
-        ORCHESTRION_ITEM = item("orchestrion", p -> new BlockItem(ORCHESTRION, p), new Item.Properties().useBlockDescriptionPrefix());
         DISC_PRESS_ITEM = item("disc_press", p -> new BlockItem(DISC_PRESS, p), new Item.Properties().useBlockDescriptionPrefix());
         BLANK_DISC = item("blank_disc", BlankDiscItem::new, new Item.Properties().stacksTo(16));
         CUSTOM_DISC = item("custom_disc", CustomDiscItem::new, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
@@ -90,9 +83,7 @@ public final class MusicRegistry {
         com.simplemusic.guide.MusicGuide.register();
     }
 
-    public static void registerBlockEntities(BlockEntityType<OrchestrionBlockEntity> orchestrion, BlockEntityType<DiscPressBlockEntity> press,
-                                             BlockEntityType<PocketJukeboxBlockEntity> pocket) {
-        ORCHESTRION_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("orchestrion"), orchestrion);
+    public static void registerBlockEntities(BlockEntityType<DiscPressBlockEntity> press, BlockEntityType<PocketJukeboxBlockEntity> pocket) {
         DISC_PRESS_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("disc_press"), press);
         POCKET_JUKEBOX_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleMusic.id("pocket_jukebox"), pocket);
     }
@@ -111,14 +102,14 @@ public final class MusicRegistry {
     /** Creative tab stacks (empty while the module is switched off). */
     public static List<ItemStack> tabStacks() {
         if (!SimpleMusic.on()) return List.of();
-        return List.of(new ItemStack(ORCHESTRION_ITEM), new ItemStack(DISC_PRESS_ITEM), new ItemStack(SHEET_MUSIC), new ItemStack(BLANK_DISC));
+        return List.of(new ItemStack(DISC_PRESS_ITEM), new ItemStack(SHEET_MUSIC), new ItemStack(BLANK_DISC));
     }
 
     public static void registerTab() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleMusic.id("music"),
                 CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                         .title(Component.translatable("itemgroup.simplemusic.music"))
-                        .icon(() -> new ItemStack(ORCHESTRION_ITEM))
+                        .icon(() -> new ItemStack(DISC_PRESS_ITEM))
                         .displayItems((params, out) -> {
                             if (!SimpleMusic.on()) return;
                             out.accept(com.simplemusic.guide.MusicGuide.stack());

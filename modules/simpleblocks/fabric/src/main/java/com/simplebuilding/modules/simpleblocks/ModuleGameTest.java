@@ -200,4 +200,9 @@ public final class ModuleGameTest {
     public void movedBlocksInTheTab(GameTestHelper h) {
         BlocksTests.ALL.get("moved_blocks_in_the_tab").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void grassSpreadsOntoAndFromSlabs(GameTestHelper h) {
+        BlocksTests.ALL.get("grass_spreads_onto_and_from_slabs").accept(h);
+    }
 }

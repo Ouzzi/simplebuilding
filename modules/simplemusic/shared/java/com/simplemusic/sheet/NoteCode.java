@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * The text note code of a sheet of music (concept docs/ai/KONZEPT-NOTENBLATT-2026-10-19.md §3.1, owner decision
  * KONZ20 N2 e1). Plain Java without game classes: the same parser runs in the editor (colouring, problems, test
- * listening) and on the server (all-or-nothing check before saving, the Orchestrion's sequencer).
+ * listening) and on the server (all-or-nothing check before saving, the jukebox's composition discs).
  *
  * <pre>
  * # comment

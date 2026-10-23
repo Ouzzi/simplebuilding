@@ -170,6 +170,7 @@ public final class SearchTabPlacement {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE, ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.BRIDGE_REDSTONE));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.BRIDGE_REDSTONE_BLOCK));
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE_TORCH, ModItems.NIHIL_REDSTONE_TORCH, ModItems.ASTRAL_REDSTONE_TORCH));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT));
             // End-Kolben vor dem Schleimblock, also hinter den Kolbenstufen der Mod (die stehen hinter dem Klebekolben).

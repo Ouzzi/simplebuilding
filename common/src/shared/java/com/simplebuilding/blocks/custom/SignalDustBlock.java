@@ -109,7 +109,8 @@ public class SignalDustBlock extends Block {
         if (vanillaDepth > 0) vanillaDepth--;
     }
 
-    private static boolean vanillaWireReading() {
+    /** Whether a Vanilla wire on this thread is reading its neighbours (then no line source powers it, B23-M1). */
+    public static boolean vanillaWireReading() {
         return vanillaDepth > 0 && vanillaThread == Thread.currentThread();
     }
 
@@ -228,12 +229,15 @@ public class SignalDustBlock extends Block {
                 ? RedstoneSide.NONE : RedstoneSide.SIDE;
     }
 
-    /** Dust of a linked line, else what vanilla dust connects to (End pistons, lamps and rails of every line, N51). */
+    /**
+     * Dust of a linked line, else what vanilla dust connects to (End pistons, lamps and rails of every line, N51); line
+     * blocks and line torches (B23-M1) only of a linked line.
+     */
     private boolean connectsTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
         Line other = lineOf(state);
         if (other != null) return line.links(other);
         if (state.getBlock() instanceof EndSignalBlock || state.getBlock() instanceof EndRailBlock) return direction != null;
-        if (state.getBlock() instanceof LineRedstoneBlock source) return direction != null && line.links(source.line());
+        if (state.getBlock() instanceof LineSource source) return direction != null && line.links(source.line());
         return WireConnect.vanilla(state, level, pos, direction);
     }
 
@@ -269,12 +273,15 @@ public class SignalDustBlock extends Block {
 
     private int targetStrength(Level level, BlockPos pos) {
         if (!enabled()) return 0;
-        int block = blockSignal(level, pos);
+        int block = blockSignal(level, pos, line);
         return block == 15 ? 15 : Math.max(block, incomingWireSignal(level, pos));
     }
 
-    /** level.getBestNeighborSignal without any dust: neither direct neighbours nor dust powering a neighbour block. */
-    private static int blockSignal(Level level, BlockPos pos) {
+    /**
+     * level.getBestNeighborSignal without any dust: neither direct neighbours nor dust powering a neighbour block, and no line
+     * torch of an unlinked line powering a neighbour block from below (B23-M1; directly it already gives this dust nothing).
+     */
+    private static int blockSignal(Level level, BlockPos pos, Line line) {
         int best = 0;
         for (Direction direction : Direction.values()) {
             BlockPos at = pos.relative(direction);
@@ -285,7 +292,7 @@ public class SignalDustBlock extends Block {
                 for (Direction inner : Direction.values()) {
                     BlockPos source = at.relative(inner);
                     BlockState sourceState = level.getBlockState(source);
-                    if (lineOf(sourceState) != null) continue;
+                    if (lineOf(sourceState) != null || !feeds(sourceState, line)) continue;
                     signal = Math.max(signal, sourceState.getDirectSignal(level, source, inner));
                     if (signal >= 15) break;
                 }
@@ -294,6 +301,11 @@ public class SignalDustBlock extends Block {
             best = Math.max(best, signal);
         }
         return best;
+    }
+
+    /** Whether {@code source} may power dust of {@code line}: anything but a line source of an unlinked line. */
+    public static boolean feeds(BlockState source, Line line) {
+        return !(source.getBlock() instanceof LineSource own) || line.links(own.line());
     }
 
     private int wireSignal(BlockState state) {

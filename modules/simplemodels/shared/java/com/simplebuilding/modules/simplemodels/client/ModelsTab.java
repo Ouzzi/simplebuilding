@@ -18,6 +18,10 @@ import net.minecraft.world.item.Items;
  * book's side tabs (rounded outer end, square inner end tucked under the frame) with a name tag as icon. The position
  * is read from the screen every frame, so the recipe book moving the inventory never leaves it behind. While the
  * recipe book is open its right edge touches the inventory, so the bookmark moves to the top edge (SM21 f).
+ *
+ * <p>B23-M10 (owner 23.10.): drawn behind the screen like Vanilla's creative tabs - {@link #extractBehind} runs at the end
+ * of {@code Screen#extractBackground} (after the dimming, before the container image, {@code ModelScreenMixin}), so the
+ * container frame covers the tucked-in end. The widget itself draws nothing; it keeps the click and the tooltip.
  */
 public final class ModelsTab extends AbstractButton {
     public static final int W = 24, H = 20, OUT = 20, DOWN = 6;
@@ -45,9 +49,16 @@ public final class ModelsTab extends AbstractButton {
 
     @Override protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         place();
+    }
+
+    /** The bookmark itself, drawn in the background pass under the container image (B23-M10). */
+    public void extractBehind(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        if (!visible) return;
+        place();
         int x = getX(), y = getY();
-        if (onTop()) upTab(g, x, y, width, height, UiPalette.INVENTORY, isHoveredOrFocused());
-        else UiBookmarks.tab(g, x, y, width, height, true, UiPalette.INVENTORY, false, isHoveredOrFocused());
+        boolean hovered = isFocused() || isMouseOver(mouseX, mouseY);
+        if (onTop()) upTab(g, x, y, width, height, UiPalette.INVENTORY, hovered);
+        else UiBookmarks.tab(g, x, y, width, height, true, UiPalette.INVENTORY, false, hovered);
         g.item(new ItemStack(Items.NAME_TAG), x + 2, y + 2);
     }
 
