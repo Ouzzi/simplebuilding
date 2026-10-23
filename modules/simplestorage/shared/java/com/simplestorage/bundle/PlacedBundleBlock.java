@@ -129,7 +129,7 @@ public class PlacedBundleBlock extends BaseEntityBlock implements PlacedStorage.
     }
 
     /**
-     * Stufe und Farbe nach dem Buendel in der Hand (Koecher vorerst ungefaerbt: ein Koecher-Modell je Stufe); Boden oder
+     * Stufe und Farbe nach dem Buendel in der Hand (auch der Koecher: Rohr getoent, Pfeile nicht); Boden oder
      * Wand nach der geklickten Seite ({@link PlacedStorage#attach}), nie an die Decke.
      */
     @Override
@@ -138,7 +138,7 @@ public class PlacedBundleBlock extends BaseEntityBlock implements PlacedStorage.
         Tier tier = PlacedBundles.tierOf(stack);
         BlockState state = this.defaultBlockState()
                 .setValue(TIER, tier == null ? Tier.BUNDLE : tier)
-                .setValue(DYED, (tier == null || !tier.isQuiver()) && PlacedBundles.dyeColor(stack) != DyedStorage.UNDYED)
+                .setValue(DYED, PlacedBundles.dyeColor(stack) != DyedStorage.UNDYED)
                 .setValue(ARROWS, PlacedBundles.arrowsShown(stack));
         return PlacedStorage.attach(state, context, FACING);
     }

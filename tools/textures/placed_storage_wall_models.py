@@ -14,6 +14,11 @@ W24-2 (a-tex24b): the placed quiver shows its fill level (owner: "5 Pfeile drin 
 dem immer weniger"): template_placed_quiver_<n> for n = 0..5 arrows (the first n of the five arrow spots), a model per tier
 and count (``placed_<tier>_<n>``, PlacedBundleBlock.ARROWS) and the ``arrows`` property in the blockstate.
 
+W24 follow-up (b-folge24): a dyed quiver keeps the fill level and the colour: ``template_placed_quiver_dyed_<n>`` has the same
+elements, the tube faces carry tintindex 0 (colour from the block entity, PlacedBundleTint), the arrows stay untinted; the
+sheet ``placed_<tier>_dyed.png`` has the leather in neutral greys (taken from the tier's ``*_dyed`` item sprite) so the tint
+multiplies cleanly (tint instead of one texture per colour); models ``placed_<tier>_dyed_<n>``.
+
 Run from the repo root: python3.12 tools/textures/placed_storage_wall_models.py
 """
 from __future__ import annotations
@@ -95,8 +100,18 @@ Q = {
 }
 
 
-def quiver_sheet(tier: str, arrows: int) -> Image.Image:
+def grey_ramp(tier: str):
+    """Five neutral grey tones (dark -> light) of the tier's dyed item sprite: the leather the tint multiplies."""
+    im = Image.open(ASSETS / f'textures/item/{tier}_dyed.png').convert('RGBA')
+    greys = sorted({p[:3] for p in (im.getpixel((x, y)) for y in range(16) for x in range(16)) if p[3] > 200},
+                   key=lambda c: sum(c))
+    return [greys[round(i * (len(greys) - 1) / 4)] + (255,) for i in range(5)]
+
+
+def quiver_sheet(tier: str, arrows: int, dyed: bool = False) -> Image.Image:
     leather, (fl_dark, fl_light), accent = ramp_from_item(tier)
+    if dyed:
+        leather, accent = grey_ramp(tier), None
     im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
     # Base: the tube walls - a round tube, lit from the front-left: per column a tone of the cylinder.
     cyl = [1, 2, 3, 3, 2, 1]
@@ -162,7 +177,7 @@ ARROW_SPOTS = [(8.0, 7.6, 16), (6.3, 6.6, 15), (9.4, 8.2, 15.5), (8.7, 6.4, 14.5
 MAX_ARROWS = len(ARROW_SPOTS)
 
 
-def quiver_model(arrows: int):
+def quiver_model(arrows: int, dyed: bool = False):
     E = []
     tex = '#quiver'
     # The tube: a 6x6 footprint with one stepped corner per side (no coplanar overlaps): middle band + front/back rows.
@@ -176,6 +191,9 @@ def quiver_model(arrows: int):
             faces[side] = {"uv": uvq(region, dx, 0, fw, 11), "texture": tex}
         faces['up'] = {"uv": uvq('top', x0 - 5, z0 - 5, w, d), "texture": tex}
         faces['down'] = {"uv": uvq('bottom', x0 - 5, 11 - z1, w, d), "texture": tex, "cullface": "down"}
+        if dyed:
+            for f in faces.values():
+                f["tintindex"] = 0                                                # the leather takes the colour
         E.append({"from": [x0, 0, z0], "to": [x1, 11, z1], "faces": faces})
     for (x, z, top) in ARROW_SPOTS[:arrows]:
         # shaft out of the opening, then the fletching as two crossed planes (like Vanilla's arrow)
@@ -185,6 +203,7 @@ def quiver_model(arrows: int):
             sides = ('north', 'south') if rot_axis == 'x' else ('east', 'west')
             E.append({"from": f, "to": t, "shade": False, "faces": {s: {"uv": uvq('feather'), "texture": tex} for s in sides}})
     return {"__comment": "Abgestellter Koecher (PlacedBundleBlock, Stufe *_quiver, B23-M11): Lederrohr 6x11x6 mit gestuften Ecken, "
+                        + ("gefaerbt (Rohr tintindex 0, Pfeile ungetoent), " if dyed else "") +
                         f"Rand, Riemen mit Schnalle, {arrows} Pfeile mit gekreuzten Federn (Fuellstand, W24-2). Textur 32x32, ein Texel "
                         "je Modellpixel; erzeugt von tools/textures/placed_storage_wall_models.py. Trefferform PlacedBundleBlock#QUIVER_NORTH.",
             "parent": "block/block", "ambientocclusion": False,
@@ -225,7 +244,7 @@ def blockstate_placed_bundle() -> dict:
                 for tier in BUNDLE_TIERS + QUIVER_TIERS:
                     for wall in (False, True):
                         if tier in QUIVER_TIERS:
-                            model = f'placed_{tier}_{arrows}'                     # quivers stand undyed for now
+                            model = f'placed_{tier}{"_dyed" if dyed else ""}_{arrows}'
                         else:
                             model = 'placed_bundle' if tier == 'bundle' else f'placed_{tier}_bundle'
                             if dyed:
@@ -261,16 +280,20 @@ def main(argv=None):
     # placed quiver: one template per arrow count, one sheet per tier, one model per tier and count (W24-2)
     for arrows in range(MAX_ARROWS + 1):
         dump(models / f'template_placed_quiver_{arrows}.json', quiver_model(arrows))
+        dump(models / f'template_placed_quiver_dyed_{arrows}.json', quiver_model(arrows, True))
     for tier in QUIVER_TIERS:
         tex.mkdir(parents=True, exist_ok=True)
         save(quiver_sheet(tier, MAX_ARROWS), tex / f'placed_{tier}.png')
         for arrows in range(MAX_ARROWS + 1):
             dump(models / f'placed_{tier}_{arrows}.json', {"parent": f"{NS}:block/template_placed_quiver_{arrows}",
                                                            "textures": {"quiver": f"{NS}:block/placed_{tier}", "particle": f"{NS}:block/placed_{tier}"}})
+            dump(models / f'placed_{tier}_dyed_{arrows}.json', {"parent": f"{NS}:block/template_placed_quiver_dyed_{arrows}",
+                                                                "textures": {"quiver": f"{NS}:block/placed_{tier}_dyed", "particle": f"{NS}:block/placed_{tier}"}})
+        save(quiver_sheet(tier, MAX_ARROWS, True), tex / f'placed_{tier}_dyed.png')
     # wall templates and children
     for template, fam in (('template_placed_bundle', 'placed'), ('template_placed_bundle_dyed', 'placed'),
                           ('template_backpack', 'backpack'), ('template_backpack_dyed', 'backpack')) + tuple(
-                             (f'template_placed_quiver_{n}', 'placed') for n in range(MAX_ARROWS + 1)):
+                             (f'template_placed_quiver{d}_{n}', 'placed') for n in range(MAX_ARROWS + 1) for d in ('', '_dyed')):
         src = models / f'{template}.json'
         if not src.exists():
             src = MODELS / f'{template}.json'
@@ -284,6 +307,7 @@ def main(argv=None):
         for tier in QUIVER_TIERS:
             for n in range(MAX_ARROWS + 1):
                 child_wall(f'placed_{tier}_{n}', f'template_placed_quiver_{n}')
+                child_wall(f'placed_{tier}_dyed_{n}', f'template_placed_quiver_dyed_{n}')
         for name in ('backpack', 'reinforced_backpack', 'netherite_backpack', 'enderite_backpack'):
             child_wall(name, 'template_backpack')
             child_wall(name + '_dyed', 'template_backpack_dyed')

@@ -56,7 +56,8 @@ SONGS = ['voidline', 'driftwood', 'daybreak', 'brimstone']
 TRACKS = ['', '_b_side', '_track_3', '_track_4']
 MOD_DISCS = [song + track for song in SONGS for track in TRACKS]
 # Simple Music (MU21): top views are committed (own pixels, modules/simplemusic/tools/gen_textures.py), not derived
-MUSIC_DISCS = ['blank_disc', 'custom_disc']
+MUSIC_DISCS = ['blank_disc', 'custom_disc'] + ['music_disc_' + d for d in (
+    'ember_forge', 'obsidian_throne', 'end_departure', 'fortress_march', 'deep_pulse', 'sky_forge')]   # Simple Music (MU21, W24-3)
 
 
 def mask_rows(hexmask: str) -> list[list[bool]]:

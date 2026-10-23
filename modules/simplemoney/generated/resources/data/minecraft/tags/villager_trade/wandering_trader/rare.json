@@ -90,6 +90,14 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/astralit_end_rod",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_end_rod",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/nihilith_lamp",
       "required": false
     },

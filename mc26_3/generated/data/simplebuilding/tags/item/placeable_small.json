@@ -120,6 +120,30 @@
       "id": "simplemusic:custom_disc",
       "required": false
     },
+    {
+      "id": "simplemusic:music_disc_deep_pulse",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_ember_forge",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_end_departure",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_fortress_march",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_obsidian_throne",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_sky_forge",
+      "required": false
+    },
     "minecraft:shulker_shell",
     "simplestorage:reinforced_shulker_shell",
     "simplestorage:netherite_shulker_shell",
