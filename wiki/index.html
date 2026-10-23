@@ -31,8 +31,8 @@
   --muted: #5f656c;
   --border: #d9d3c3;
   --border-strong: #bdb5a1;
-  --accent: #3b7a25;
-  --accent-strong: #2d6119;
+  --accent: #336b20;        /* >= 4.5:1 on bg, bg-2, code-bg and accent-soft (a-wiki22) */
+  --accent-strong: #285716; /* >= 4.5:1 on slot-bg */
   --accent-soft: #e2efd9;
   --accent-text: #ffffff;
   --end: #7a4fb8;
@@ -620,7 +620,7 @@ a.chip:hover { text-decoration: none; }
 .allmods { display: flex; align-items: center; gap: .25rem; font-size: .8rem; white-space: nowrap; }
 @media (max-width: 700px) {
   :root { --topbar-h: 144px; }
-  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 32px minmax(0, 1fr) 32px 48px; gap: .4rem; align-content: center; }
+  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 36px minmax(0, 1fr) 36px 60px; gap: .4rem; align-content: center; }
   .topbar .brand { grid-column: 2; grid-row: 1; }
   .topbar #theme-btn { grid-column: 3; grid-row: 1; }
   .topbar #lang { grid-column: 4; grid-row: 1; }
@@ -2609,6 +2609,14 @@ function catEntries() {
   });
   return CAT_MEMBERS;
 }
+/* Kategorien mit Eintraegen; das feste Symbol kann nach einer Modulaufteilung fehlen
+   (Rucksack -> Simple Storage, Ofen -> Simple Ovens), dann das erste Mitglied mit Textur. */
+function catsShown() { var ce = catEntries(); return CATS.filter(function (c) { return ce[c.key].length > 0; }); }
+function catIcon(c) {
+  if (textureOf(c.icon)) return c.icon;
+  var m = catEntries()[c.key].filter(function (e) { return textureOf(e.id); })[0];
+  return m ? m.id : c.icon;
+}
 function kindOfId(id) { return IX.items.has(id) ? 'items' : IX.blocks.has(id) ? 'blocks' : null; }
 /* Stufen fuer die Sortierung innerhalb einer Familie. */
 var TIERS = ['wooden', 'stone', 'leather', 'chainmail', 'copper', 'iron', 'gold', 'golden', 'diamond', 'reinforced', 'netherite', 'enderite', 'stellar', 'fine'];
@@ -2681,7 +2689,7 @@ function itemTile(e) {
 }
 function catCard(c) {
   var n = catEntries()[c.key].length;
-  return '<a class="cat-card' + (c.end ? ' cat-end' : '') + '" href="#/cat/' + c.key + '">' + slotHtml(c.icon, 1, { noLink: true }) +
+  return '<a class="cat-card' + (c.end ? ' cat-end' : '') + '" href="#/cat/' + c.key + '">' + slotHtml(catIcon(c), 1, { noLink: true }) +
     '<div><div class="ct">' + esc(catLabel(c.key)) + '<span class="n">' + n + '</span></div><div class="cd">' + esc(T('catd.' + c.key)) + '</div></div></a>';
 }
 /* Items einer Kategorie in Familien/Materialgruppen; Einzelstuecke sammelt "Weitere". */
@@ -2706,7 +2714,7 @@ function pageCategory(key) {
   if (!c) return notFound(T('wordSection'), key);
   var h = crumbs([{ label: catLabel(key) }]);
   var n = catEntries()[key].length;
-  h += '<div class="mk-head">' + slotHtml(c.icon, 1, { cls: 'slot-result', noLink: true }) + '<div><h1>' + esc(catLabel(key)) + '</h1><p class="muted" style="margin:0">' + esc(T('catd.' + key)) + ' ' + esc(T('catPageIntro', n)) + '</p></div></div>';
+  h += '<div class="mk-head">' + slotHtml(catIcon(c), 1, { cls: 'slot-result', noLink: true }) + '<div><h1>' + esc(catLabel(key)) + '</h1><p class="muted" style="margin:0">' + esc(T('catd.' + key)) + ' ' + esc(T('catPageIntro', n)) + '</p></div></div>';
   var feats = featuresOfCat(key);
   if (feats.length) h += '<h3>' + esc(T('catGuides')) + '</h3><div class="guide-grid">' + feats.map(guideLink).join('') + '</div>';
   h += '<h3>' + esc(T('catAll')) + '</h3>';
@@ -2776,7 +2784,7 @@ function pageOverview() {
   h += '<button type="button" class="home-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="grow">' + esc(T('homeSearch')) + '</span><kbd>Ctrl</kbd><kbd>K</kbd></button></section>';
 
   h += moduleInfo();
-  h += '<h2>' + esc(T('homeBrowse')) + '</h2><div class="cat-grid">' + CATS.map(catCard).join('') + '</div>';
+  h += '<h2>' + esc(T('homeBrowse')) + '</h2><div class="cat-grid">' + catsShown().map(catCard).join('') + '</div>';
 
   var tiles = [['items', T('navItems'), arr(D.items).length], ['blocks', T('navBlocks'), arr(D.blocks).length], ['allrecipes', T('navAllRecipes'), arr(D.recipes).length], ['inworld', T('navInWorld'), IW.entries.length], ['enchantments', T('navEnchantments'), arr(D.enchantments).length], ['advancements', T('navAdvancements'), arr(D.advancements).length], ['trades', T('navTrades'), arr(D.trades).length], ['loot', T('navLoot'), arr(D.lootTables).length], ['tags', T('navTags'), arr(D.tags).length], ['config', T('navConfig'), arr(D.config).length]];
   h += '<h2>' + esc(T('homeReference')) + '</h2><div class="tile-list" style="margin:0 0 1.4rem">' + tiles.map(function (t) { return '<a class="tile" href="#/' + t[0] + '"><div class="big">' + t[2] + '</div><div class="lbl">' + esc(t[1]) + '</div></a>'; }).join('') + '</div>';
@@ -4922,7 +4930,7 @@ function renderSidebar(active) {
   function plain(n) { return link('#/' + n.key, n.key, T(n.labelKey), '<span class="glyph" aria-hidden="true">' + n.glyph + '</span>', n.count ? n.count() : null); }
   var ce = catEntries();
   var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + link('#/allmods', 'allmods', T('navAllMods'), '<span class="glyph" aria-hidden="true">★</span>', null) + '</div>';
-  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbCategories')) + '</div>' + CATS.map(function (c) { return link('#/cat/' + c.key, 'cat:' + c.key, catLabel(c.key), iconHtml(c.icon) || '', ce[c.key].length); }).join('') + '</div>';
+  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbCategories')) + '</div>' + catsShown().map(function (c) { return link('#/cat/' + c.key, 'cat:' + c.key, catLabel(c.key), iconHtml(catIcon(c)) || '', ce[c.key].length); }).join('') + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbReference')) + '</div>' + NAV_REF.map(plain).join('') + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbProgress')) + '</div>' + NAV_PROG.map(plain).join('') + '</div>';
   h += '<div class="sb-note">' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
@@ -5236,7 +5244,9 @@ function renderMeta() {
   document.getElementById('all-mods-label').textContent = LANG === 'de' ? 'Alle Mods' : 'All mods';
   modSelect.setAttribute('aria-label', LANG === 'de' ? 'Mod auswählen' : 'Select mod');
   buildModSelect();
-  var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : null;
+  /* Modul-Symbol aus modules.js (sonst blieb die Kachel bei Sub-Mods leer) */
+  var modEntry = MODULES.find(function (e) { return e.id === MODID; });
+  var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : (modEntry && modEntry.icon) || null;
   document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
   document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
@@ -5371,6 +5381,10 @@ $main.addEventListener('error', function (ev) {
   var span = document.createElement('span'); span.className = 'slot-text'; span.textContent = name;
   if (parent && parent.classList) parent.classList.add('slot-plain');
   img.replaceWith(span);
+}, true);
+/* Seitenleiste: fehlende Kategorie-Symbole (Vanilla-abgeleitet, A8: nicht im Repo) ausblenden statt Bruch-Symbol. */
+$side.addEventListener('error', function (ev) {
+  if (ev.target && ev.target.tagName === 'IMG') ev.target.style.visibility = 'hidden';
 }, true);
 
 /* Listenfilter: getrennt je Mod und Liste, auch ohne verfuegbaren Storage. */

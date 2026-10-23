@@ -40,7 +40,7 @@ Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überbl
 5. **Legendärer Klang (SP22-2)** in simplelib
 6. Kleinpunkte aus „Verwaiste TODOs 20.10.“: Wanderer-Schalter `enableWandererTrades`, SB-Handbuch lange DE-Seiten, Simple Stats Tragezeit, `dist-publish.sh` streng
 7. Reste gemergter Branches: b-tooltips Stufe 3, b-webmap Stufen 2–4, Stil-Audit ST-10/12–15/21
-8. Danach Wiki-Seite überarbeiten (Besitzer 21.10. nachts) — [~] (A, a-wiki22, 23.10.: Audit + Konzept + Beispielseite)
+8. Danach Wiki-Seite überarbeiten (Besitzer 21.10. nachts) — [~] (A, a-wiki22, 23.10.: Audit 56 Ansichten + 259 Links erledigt, eindeutige Fehler behoben (1dd1071f0, b7cfdfdfb, 6295910d6), Konzept docs/ai/KONZEPT-WIKI-UEBERARBEITUNG-2026-10-23.md; **wartet auf Besitzer-Wahl** Startseite S-A/S-B/S-C + Modulseite M-1, Vorschau wiki22-preview)
 
 ### (C) Modulaufteilung
 - Stufe 9 Teil 2 läuft (b-s9b). Danach fehlt nur die Brücken-Version 1.3.x-bridge, die erst mit Release-Freigabe kommt.
@@ -78,7 +78,7 @@ Nach der Vanilla-Nähe-Auswahl VN22. Besitzer: Die meisten „so lassen“-Empfe
   - **Dichte nach angrenzenden Blöcken** (egal welche): 1–3 Nachbarn = locker (neu, durchsichtiger), 4–5 = mittel (die heutige Randtextur), 6 = dicht (die heutige innere Textur). Die Stufe aktualisiert sich, wenn Nachbarn gesetzt oder entfernt werden, wie heute schon.
   - **Bremse:** Je dichter das Blatt, desto stärker die Spinnennetz-Bremse. „Umso tiefer man im Baum ist, desto mehr Spinnennetz.“
   - **Abbau:** Standardwerkzeug ist die Hacke. Ohne Hacke dauert der Abbau ziemlich genau so lange wie bei einem Spinnennetz.
-- [~] (A, a-wiki22 Konzept, 23.10.) TX22-5 (Vision, Wiki-Dev-Tab) Texturen-Workflow ohne Umwege: Im Wiki-Dev-Tab Texturen zum Überarbeiten auswählen, im Pixeleditor bearbeiten, speichern. Danach landet die Änderung im Repo (Ebenen-Quelle + PNG) und wird übernommen. „dass das ohne viel Reden, ohne viel Rumgemache einfach funktioniert.“ Ist-Stand Pixeleditor prüfen, fehlende Kette planen (Speichern → Branch/Commit → Gate).
+- [~] (A, a-wiki22 Konzept fertig 23.10., KONZEPT-WIKI-UEBERARBEITUNG Abschnitt 5: „Speichern ins Repo“ → /api/textures → Abholer-Skript → Branch tex-<id> → Bündel; wartet auf Besitzer-Freigabe, dann Umsetzung) TX22-5 (Vision, Wiki-Dev-Tab) Texturen-Workflow ohne Umwege: Im Wiki-Dev-Tab Texturen zum Überarbeiten auswählen, im Pixeleditor bearbeiten, speichern. Danach landet die Änderung im Repo (Ebenen-Quelle + PNG) und wird übernommen. „dass das ohne viel Reden, ohne viel Rumgemache einfach funktioniert.“ Ist-Stand Pixeleditor prüfen, fehlende Kette planen (Speichern → Branch/Commit → Gate).
 
 ## Besitzer 22.10. – Spielbefunde (SP22)
 Besitzer beim Spielen, 22.10. („Die müssen auf jeden Fall gefixt werden“). Kernsätze wörtlich, Rest sinngemäß. Priorität steht im Überblick (B).
