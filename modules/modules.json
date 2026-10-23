@@ -868,7 +868,8 @@
         "simpledimensions",
         "simplebuilding",
         "simplemoney",
-        "simpleweather"
+        "simpleweather",
+        "simplemaps"
       ],
       "checks": [
         "modules/simpletweaks/tools/check_data.py"
@@ -929,6 +930,20 @@
           },
           "reason": "Principle 8: standalone = Simple Tweaks alone (claims, legacy deed, guide); SimpleBuilding and Simple Dimensions are optional partners, their checks skip with a note."
         },
+        "combos": [
+          {
+            "with": [
+              "simplemaps"
+            ],
+            "reason": "SP22-8 (a-claims-maps): claims with Simple Maps - mapsPresent flag and the registered claims source of the wayfinder map.",
+            "loaders": {
+              "fabric": {
+                "task": ":integration:runSimpletweaksWithSimplemapsGameTest",
+                "report": "integration/build/combo/simpletweaks-simplemaps-junit.xml"
+              }
+            }
+          }
+        ],
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simpletweaks.ModuleClientSmoke"

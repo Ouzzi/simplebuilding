@@ -314,7 +314,8 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding",
       "simplemoney",
-      "simpleweather"
+      "simpleweather",
+      "simplemaps"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -323,9 +324,9 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 4,
-      "features": 40
+      "features": 41
     },
-    "dataHash": "ecb9b6de53d4"
+    "dataHash": "11a6983a9c9e"
   },
   {
     "id": "simpledimensions",
@@ -468,7 +469,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 8
     },
-    "dataHash": "57fed3785ddf"
+    "dataHash": "05b66d3b84be"
   },
   {
     "id": "simpletrims",

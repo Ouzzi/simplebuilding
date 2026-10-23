@@ -57,3 +57,10 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simplemaps"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

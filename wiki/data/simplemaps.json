@@ -105,7 +105,7 @@
         "summary": "With Simple Tweaks installed, the layers button of the map screen offers a Claims layer: claimed land as colored strips on explored terrain, your own land framed.",
         "details": [
           "Simple Tweaks registers the layer with the framework; Simple Maps does not know Simple Tweaks. Without Simple Tweaks there is no Claims layer and nothing changes.",
-          "The server decides what you see, with the same visibility rules as the Claim Table (config claimVisibility in simpletweaks-claims.json); member lists, rights and codes never leave the server. One answer carries at most 256 strips. See the Claim Table in the Simple Tweaks manual."
+          "The server decides what you see, with the same visibility rules as the Claim Table (config claimVisibility in simpletweaks-claims.json); member lists, rights and codes never leave the server. It works in every dimension (each map shows its own); your own land's tooltip shows your free chunk credits. One answer carries at most 256 strips. See the Claim Table in the Simple Tweaks manual."
         ]
       },
       "de": {
@@ -113,7 +113,7 @@
         "summary": "Mit Simple Tweaks bietet der Ebenen-Knopf des Kartenbildschirms eine Claims-Ebene: beanspruchtes Land als farbige Streifen auf erkundetem Gelände, dein eigenes Land umrahmt.",
         "details": [
           "Simple Tweaks meldet die Ebene beim Framework an; Simple Maps kennt Simple Tweaks nicht. Ohne Simple Tweaks gibt es keine Claims-Ebene und nichts ändert sich.",
-          "Der Server entscheidet, was du siehst, mit denselben Sichtbarkeitsregeln wie der Claim-Tisch (Config claimVisibility in simpletweaks-claims.json); Mitgliederlisten, Rechte und Codes verlassen den Server nie. Eine Antwort enthält höchstens 256 Streifen. Siehe Claim-Tisch im Simple-Tweaks-Handbuch."
+          "Der Server entscheidet, was du siehst, mit denselben Sichtbarkeitsregeln wie der Claim-Tisch (Config claimVisibility in simpletweaks-claims.json); Mitgliederlisten, Rechte und Codes verlassen den Server nie. Das gilt in jeder Dimension (jede Karte zeigt ihre eigene); der Tooltip deines Landes zeigt deine freien Chunk-Credits. Eine Antwort enthält höchstens 256 Streifen. Siehe Claim-Tisch im Simple-Tweaks-Handbuch."
         ]
       }
     },

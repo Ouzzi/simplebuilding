@@ -99,6 +99,9 @@ public final class ClaimTests {
         TESTS.put("claims_deedui_tiles",DeedUiTests::tiles);
         TESTS.put("claims_deedui_actions",DeedUiTests::actions);
         TESTS.put("claims_deedui_codecs",DeedUiTests::codecs);
+        TESTS.put("claims_maps_dimensions",MapLayerTests::dimensions);
+        TESTS.put("claims_maps_visibility",MapLayerTests::visibility);
+        TESTS.put("claims_maps_present",MapLayerTests::present);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

@@ -49,6 +49,7 @@
     "simpledimension": "*",
     "simplebuilding": "*",
     "simplemoney": "*",
-    "simpleweather": "*"
+    "simpleweather": "*",
+    "simplemaps": "*"
   }
 }

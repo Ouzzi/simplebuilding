@@ -85,4 +85,7 @@ public final class ClaimsGameTest {
  @GameTest public void claimsDeeduiTiles(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_tiles").accept(h); }
  @GameTest public void claimsDeeduiActions(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_actions").accept(h); }
  @GameTest public void claimsDeeduiCodecs(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_codecs").accept(h); }
+ @GameTest public void claimsMapsDimensions(GameTestHelper h) { ClaimTests.TESTS.get("claims_maps_dimensions").accept(h); }
+ @GameTest public void claimsMapsVisibility(GameTestHelper h) { ClaimTests.TESTS.get("claims_maps_visibility").accept(h); }
+ @GameTest public void claimsMapsPresent(GameTestHelper h) { ClaimTests.TESTS.get("claims_maps_present").accept(h); }
 }
