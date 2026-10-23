@@ -84,7 +84,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Schmiedetisch mit Rezeptbuch, stärkere Kolben, Astral-/Nihil-Kolben.
 - **Schmelztiegel-Teil** (Tiegel, Seelen-Lava und Eimer selbst in Simple Crucibles, Stufe 5/5b): Vorschlaghammer-Wege
   (Tiegel bauen, Fass anbringen, Aufwerten), Quarz zerschlagen, Advancements „Heißer Topf“/„Seelenschöpfer“/„Bodenloser Eimer“.
-- **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze, Astral-/Nihil-Redstone als getrennte
+- **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze (seit W23-2 mit ~20 % trübem Erz in denselben Adern,
+  Drop trüber Staub/Splitter, 4 → 1 echt; Adern größer, echte Menge gleich), Astral-/Nihil-Redstone als getrennte
   Redstone-Linien (Geräte nehmen jede Linie an), Brücken-Redstone, Redstone-Blöcke der Linien, Lampen, End-Kolben,
   Astral-/Nihil-Schienen, Enderit-Material (leeresicher); seltene Shulker seit Stufe 8b-3 in Simple Storage.
 - **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Herz-Knopf mit
