@@ -111,7 +111,7 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 - [~] (B, b-kitchen24, 23.10.) NA24-5 Laufen auf Butterblock gibt „Slippery“-Effekt 3 s (rutschen auf allen Blöcken wie auf Butter). Butterscheibe als Butter-Teppich platzierbar, ebenfalls Slippery.
 - [~] (B, b-trims24, 23.10.) NA24-6 Simple Trims: inverser Rüstungsbesatz (gleiches Muster, invertiert über die Rüstung), erhältlich über eigenen Conduit im gleichen Umwandlungs-Schema wie die anderen. JEI-Tabs für Umwandlung fehlen → über simplelib wiederherstellen.
 - [~] (B, b-kitchen24, 23.10.) NA24-7 Spezialfaser-Rezept gleich lassen, nur Anordnung neu.
-- [ ] NA24-8 Simple Music Notenblatt: Beispiel(e) mitliefern, mehrere von einfach bis komplex – 3 erfundene Eigenkreationen + Rest coole copyright-freie Stücke (gemeinfrei). Spieler (Player) setzen einiges noch falsch um → Fehler suchen und fixen (Gametests).
+- [~] (B, b-music24, 23.10.) NA24-8 Simple Music Notenblatt: Beispiel(e) mitliefern, mehrere von einfach bis komplex – 3 erfundene Eigenkreationen + Rest coole copyright-freie Stücke (gemeinfrei). Spieler (Player) setzen einiges noch falsch um → Fehler suchen und fixen (Gametests).
 - [~] (B, b-folge24, 23.10.) NA24-9 Splitter/Kleinteile aus allen Mods (z. B. Strong-Upgrade-Splitter) platzierbar machen (wie PlacedSolids).
 
 ## Besitzer 23.10. nachts – Wither-Elytra (EL24)
@@ -126,8 +126,8 @@ Quelle: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-23.md` (a-audit23; alle Besitze
 - [ ] AUD-2 (Besitzer 23.10., A) Neue Musikplatten im Vanilla-Stil, vor allem epische/treibende: Vorschläge m01–m06 (ElevenLabs, Lizenz in LISTE.md) zur Wahl vorlegen, dann in Simple Music einbauen (Platten-Items, Texturen Vanilla-Aufbau, Fundorte).
 - [x] (A, a-aud23, 23.10.) AUD-3 (Besitzer 17.10., B, ENTSCHEIDUNG17) End-Wald-Nebel: Wahl „A, B nur falls A nicht reicht“ – Nebelwand B (`SimpleEndConfig.forestFogWall`) war Standard AN -> jetzt AUS (a-aud23: Default in SimpleEndConfig, Tooltip/Wiki/Doku, Test forest_fog_config; keine Migration: alte Configs enthalten das Feld explizit, ohne Versionsfeld nicht von bewusster Wahl unterscheidbar).
 - [x] (Besitzer 23.10.: erledigt) AUD-4 (Besitzer 21.10., B) TEX21-Widerspruch: Besitzer meldete „tex21 schon abgearbeitet“, Zeile TEX21 steht als Wahl offen → Wahl von der Abnahme-Seite/Kommentaren ermitteln, `CHOSEN` umstellen, Zeile schließen.
-- [ ] AUD-5 (Besitzer 17.10., A, später) Lichtscheiben + Schwefellichter: Ziel-Sub-Mod klären („später nachbearbeiten“); bisher nur als erledigte Entscheidung im Archiv.
-- [ ] AUD-6 (Besitzer 18.10., A) Bild-Bauplan Stufe 3: Bild als Karte bzw. Kartenwand (Simple Maps), Konzept `docs/ai/KONZEPT-BILD-BAUPLAN-2026-10-19.md`; Stufen 1+2 erledigt (b-picture).
+- [~] (B, b-aud5, 23.10.) AUD-5 (Besitzer 17.10., A, später) Lichtscheiben + Schwefellichter: Ziel-Sub-Mod klären („später nachbearbeiten“); bisher nur als erledigte Entscheidung im Archiv.
+- [~] (B, b-aud6, 23.10.) AUD-6 (Besitzer 18.10., A) Bild-Bauplan Stufe 3: Bild als Karte bzw. Kartenwand (Simple Maps), Konzept `docs/ai/KONZEPT-BILD-BAUPLAN-2026-10-19.md`; Stufen 1+2 erledigt (b-picture).
 - [ ] AUD-7 (Besitzer 19.10., A) Simple-Music-Reste aus b-music20: Raster-Editor E2/E3 fürs Notenblatt, Client-Schalter „Fremde Musik laden“.
 
 ## Funde 23.10.
