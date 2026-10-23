@@ -342,10 +342,6 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
                 if (look.state() == com.simplebuilding.util.StructureCompassCache.State.HIT) {
                     foundPos = BlockPos.of(look.packedPos());
                 } else if (look.state() == com.simplebuilding.util.StructureCompassCache.State.SEARCH_ALLOWED) {
-                    var structureListOptional = serverWorld.structureManager().registryAccess()
-                            .lookupOrThrow(Registries.STRUCTURE)
-                            .get(config.tag());
-
                     // Sicherstellen, dass der Tag existiert
                     if (structureListOptional.isPresent()) {
                         Pair<BlockPos, Holder<Structure>> foundPair = serverWorld.getChunkSource().getGenerator().findNearestMapStructure(
