@@ -1,0 +1,8 @@
+{
+  "parent": "simplemusic:block/pocket_jukebox_template_playing",
+  "textures": {
+    "case": "simplemusic:block/light_gray_pocket_jukebox_case",
+    "parts": "simplemusic:block/pocket_jukebox_parts",
+    "spin": "simplemusic:block/pocket_jukebox_spin"
+  }
+}
