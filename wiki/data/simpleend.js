@@ -88,22 +88,23 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/DriftFruitItem.java",
         "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndRegistry.java",
         "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SpoiledDriftFruitItem.java",
-        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/DriftingEffect.java"
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/DriftingEffect.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndLeavesBlock.java"
       ],
       "en": {
         "title": "Leaves, Drift Fruit and Spoiled Drift Fruit",
-        "summary": "End leaves are no full block: see-through tendril fronds around a small crystal, tinted by the biome. Leaves facing the air hang loose and airy; leaves buried inside a crown (no air on any side) are drawn denser and darker. Only the few leaves a tree marked drop its bud or fruit (always); all drop sticks now and then. Drift Fruit ripens only in the End - elsewhere the fruit is Spoiled Drift Fruit. Both End leaves act like a cobweb.",
+        "summary": "End leaves are no full block: see-through tendril fronds around a small crystal, tinted by the biome. Each leaf counts its neighbours that are not air (any block): 0-3 make it loose and airy, 4-5 medium, all 6 dense and dark - it changes as blocks next to it are placed or removed. Only the few leaves a tree marked drop its bud or fruit (always); all drop sticks now and then. Drift Fruit ripens only in the End - elsewhere the fruit is Spoiled Drift Fruit. Both End leaves act like a cobweb.",
         "details": [
-          "Ashwood and Duskwood leaves: like a cobweb they have no collision, strongly slow everything moving through them (a quarter of the speed sideways, almost no falling), and a fall into them does no damage. Sword and shears cut them quickly.",
+          "Ashwood and Duskwood leaves: like a cobweb they have no collision, slow everything moving through them, and a fall into them does no damage. The denser the leaf, the stronger the brake: loose half the speed sideways, medium a quarter (exactly a cobweb), dense less than a sixth. The hoe is their tool; anything else takes as long as on a cobweb (bare hand 20 seconds; sword and shears as fast as on a cobweb).",
           "Drift Fruit: always edible (3 hunger points), 4 seconds of Slow Falling and a small hop - a short glide.",
           "Spoiled Drift Fruit: 1 hunger point, then 5 seconds of Drifting - almost weightless, slow to steer and pushed about at random - followed by 8 seconds of Slow Falling, so it never ends in a deadly fall."
         ]
       },
       "de": {
         "title": "Laub, Schwebfrucht und Verdorbene Schwebfrucht",
-        "summary": "End-Laub ist kein Vollblock: durchsichtige Ranken um einen kleinen Kristall, getönt vom Biom. Blätter zur Luft hin hängen locker und luftig; Blätter mitten in der Krone (nirgends Luft) werden dichter und dunkler gezeichnet. Nur die wenigen Blätter, die ein Baum markiert hat, droppen seine Knospe oder Frucht (immer); alle geben ab und zu Stöcke. Schwebfrucht reift nur im End - anderswo wird die Frucht zur Verdorbenen Schwebfrucht. Beide End-Laubarten wirken wie ein Spinnennetz.",
+        "summary": "End-Laub ist kein Vollblock: durchsichtige Ranken um einen kleinen Kristall, getönt vom Biom. Jedes Blatt zählt seine Nachbarn, die keine Luft sind (egal welcher Block): 0-3 machen es locker und luftig, 4-5 mittel, alle 6 dicht und dunkel - das ändert sich, sobald daneben Blöcke gesetzt oder abgebaut werden. Nur die wenigen Blätter, die ein Baum markiert hat, droppen seine Knospe oder Frucht (immer); alle geben ab und zu Stöcke. Schwebfrucht reift nur im End - anderswo wird die Frucht zur Verdorbenen Schwebfrucht. Beide End-Laubarten wirken wie ein Spinnennetz.",
         "details": [
-          "Asch- und Dämmerlaub: wie ein Spinnennetz ohne Kollision; alles, was hindurchgeht, wird stark verlangsamt (seitlich ein Viertel der Geschwindigkeit, kaum Fallen), und ein Sturz hinein richtet keinen Schaden an. Schwert und Schere bauen es schnell ab.",
+          "Asch- und Dämmerlaub: wie ein Spinnennetz ohne Kollision; alles, was hindurchgeht, wird gebremst, und ein Sturz hinein richtet keinen Schaden an. Je dichter das Blatt, desto stärker die Bremse: locker seitlich die halbe Geschwindigkeit, mittel ein Viertel (genau ein Spinnennetz), dicht weniger als ein Sechstel. Werkzeug ist die Hacke; alles andere braucht so lange wie an einem Spinnennetz (mit der Hand 20 Sekunden; Schwert und Schere so schnell wie am Spinnennetz).",
           "Schwebfrucht: immer essbar (3 Hungerpunkte), 4 Sekunden Sanfter Fall und ein kleiner Sprung - ein kurzer Schwebeflug.",
           "Verdorbene Schwebfrucht: 1 Hungerpunkt, dann 5 Sekunden Treiben - fast schwerelos, schwer zu steuern und zufällig geschubst - und danach 8 Sekunden Sanfter Fall, also nie ein tödlicher Sturz."
         ]
@@ -2737,10 +2738,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 18 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 18 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
         }
       },
       "texture": "assets/textures/simpleend/item/guide_book.png",

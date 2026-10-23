@@ -294,6 +294,12 @@ def leaves(s):
     return leaf_clumps(s, 0, 0.80 if dusk else 0.78, 1.45 if dusk else 1.4, False, 3)
 
 
+def leaves_loose(s):
+    """TX22-4 loose leaves (0-3 neighbours not air): the airiest stage, about 46-50% opaque (outer about 60%), same leaf
+    lenses, more sky through. Candidate; the look is reviewed with TX22-3."""
+    return leaf_clumps(s, 55, 0.62, 1.3, False, 2)
+
+
 def leaves_inner(s):
     """Heart leaves (no air touches): dense (about 92%) and darker."""
     return leaf_clumps(s, 101, 1.0, 1.8, True, 0)
@@ -752,7 +758,7 @@ def main(argv=None):
             f'{n}_log': log_side(s), f'{n}_log_top': rings(s, False),
             f'stripped_{n}_log': stripped_side(s), f'stripped_{n}_log_top': rings(s, True),
             f'{n}_planks': planks(s), f'{n}_door_top': door(s, 'top'), f'{n}_door_bottom': door(s, 'bottom'),
-            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_inner': leaves_inner(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
+            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_loose': leaves_loose(s), f'{n}_leaves_inner': leaves_inner(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
             f'{n}_sticks': sticks_side(s), f'{n}_sticks_top': sticks_top(s), f'{n}_shelf': shelf(s),
             f'{n}_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_sign.png'), s),
             f'{n}_hanging_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_hanging_sign.png'), s, metal=True),
@@ -819,8 +825,8 @@ def preview(dest):
                 im = tinted(im, TINTS[n])
             sheet.alpha_composite(im.resize((128, 128), Image.NEAREST), (i * 136 + 4, 4))
         sheet.save(dest / f'{n}_textures.png')
-        sheet = Image.new('RGBA', (2 * 264 + 8, 264), (40, 36, 44, 255))   # N65: old | outer | inner at 16x
-        for i, k in enumerate((f'block/{n}_leaves', f'block/{n}_leaves_inner')):
+        sheet = Image.new('RGBA', (3 * 264 + 8, 264), (40, 36, 44, 255))   # TX22-4: loose | medium | dense at 16x
+        for i, k in enumerate((f'block/{n}_leaves_loose', f'block/{n}_leaves', f'block/{n}_leaves_inner')):
             sheet.alpha_composite(tinted(Image.open(TEX / f'{k}.png').convert('RGBA'), TINTS[n]).resize((256, 256), Image.NEAREST), (i * 264 + 8, 4))
         sheet.save(dest / f'{n}_leaves_variants.png')
         for k in ('boat', 'chest_boat'):
