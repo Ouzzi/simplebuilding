@@ -93,20 +93,22 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       "id": "legendary_moments",
       "en": {
         "title": "Legendary moments",
-        "summary": "The hardest advancements and the hardest enchantments play a fanfare and a particle show at the player.",
+        "summary": "The hardest advancements and the hardest enchantments play a deep choir and a particle show at the player.",
         "details": [
           "Advancements: How Did We Get Here?, A Furious Cocktail, Adventuring Time, Monsters Hunted, A Balanced Diet, Two by Two, A Complete Catalogue, The Whole Pack, Smithing with Style, Serious Dedication and Hot Tourist Destinations. The server config list legendaryAdvancements adds more ids; legendaryAllChallenges (default false) makes every challenge advancement count.",
           "Enchantments: tag simplelib:legendary (Swift Sneak, Soul Speed, Wind Burst; mods add theirs) plus the config list legendaryEnchantments. It counts when the enchanting table or the anvil makes an item with such an enchantment at its maximum level that the input did not have; loot does not count.",
-          "Everyone nearby hears the fanfare and sees totem particles, two rising golden spirals and a ring of sparks for two seconds. Switch: legendaryEffects (default true) in simplelib-server.json or the config screen (Mod Menu with Cloth Config)."
+          "Everyone nearby hears the legendary choir (a low wordless choir resolving from minor to major) and sees totem particles, two rising golden spirals and a ring of sparks for two seconds. Switch: legendaryEffects (default true) in simplelib-server.json or the config screen (Mod Menu with Cloth Config).",
+          "Vanilla's challenge jingle on the advancement toast stays silent for a legendary advancement, so only the choir plays. Switch: legendaryMuteToast (default true, client side, same file and screen)."
         ]
       },
       "de": {
         "title": "Legendäre Momente",
-        "summary": "Die schwersten Fortschritte und die schwersten Verzauberungen spielen eine Fanfare und eine Partikelschau am Spieler.",
+        "summary": "Die schwersten Fortschritte und die schwersten Verzauberungen spielen einen tiefen Chor und eine Partikelschau am Spieler.",
         "details": [
           "Fortschritte: Wie zum Teufel sind wir hierher gekommen?, Ein wütender Cocktail, Abenteuerzeit, Monsterjäger, Ausgewogene Ernährung, Paarweise, Ein vollständiger Katalog, Das ganze Rudel, Schmieden mit Stil, Ernsthafte Hingabe und Heiße Touristenziele. Die Server-Liste legendaryAdvancements ergänzt weitere IDs; legendaryAllChallenges (Standard aus) lässt jede Herausforderung zählen.",
           "Verzauberungen: Tag simplelib:legendary (Huschen, Seelenläufer, Windstoß; Mods ergänzen ihre) plus die Liste legendaryEnchantments. Es zählt, wenn Zaubertisch oder Amboss ein Item mit so einer Verzauberung auf Höchststufe herstellen, die die Vorlage noch nicht hatte; Beute zählt nicht.",
-          "Alle in der Nähe hören die Fanfare und sehen zwei Sekunden lang Totem-Partikel, zwei aufsteigende goldene Spiralen und einen Funkenkranz. Schalter: legendaryEffects (Standard an) in simplelib-server.json oder im Konfig-Bildschirm (Mod Menu mit Cloth Config)."
+          "Alle in der Nähe hören den legendären Chor (ein tiefer Chor ohne Worte, der sich von Moll nach Dur auflöst) und sehen zwei Sekunden lang Totem-Partikel, zwei aufsteigende goldene Spiralen und einen Funkenkranz. Schalter: legendaryEffects (Standard an) in simplelib-server.json oder im Konfig-Bildschirm (Mod Menu mit Cloth Config).",
+          "Der Vanilla-Herausforderungsklang beim Fortschritts-Toast bleibt bei legendären Fortschritten stumm, damit nur der Chor spielt. Schalter: legendaryMuteToast (Standard an, clientseitig, gleiche Datei und Bildschirm)."
         ]
       }
     }

@@ -239,6 +239,34 @@
       }
     },
     {
+      "id": "music_discs",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/jukebox_song/ember_forge.json",
+        "modules/simplemusic/fabric/src/main/java/com/simplebuilding/modules/simplemusic/MusicFabric.java"
+      ],
+      "en": {
+        "title": "Music Discs",
+        "summary": "Six music discs by Simple Music, each found only in one kind of structure, like Vanilla's Pigstep or Otherside. They play in every jukebox and the Pocket Jukebox.",
+        "details": [
+          "Ember Forge (Nether groove, comparator 13): bastion chests, 5 %. Obsidian Throne (epic boss piece, 9): Nether fortress chests, 4 %. End Departure (floating islands, 14): End city chests, 4 %.",
+          "Fortress March (dark march, 8): stronghold corridor chests, 4 %. Deep Pulse (deep caverns, 15): ancient city chests, 4 %. Sky Forge (flight and conquest, 4): brushing suspicious gravel of trail ruins (rare pool, as rare as Relic).",
+          "No recipe, like Vanilla's discs. Lengths 90-100 s; the comparator next to a playing jukebox reads the level given above.",
+          "Instrumental music made with ElevenLabs Music for this mod (artist: Simple Music); part of the game, not a sample library."
+        ]
+      },
+      "de": {
+        "title": "Schallplatten",
+        "summary": "Sechs Schallplatten von Simple Music, jede nur in einer Art Bauwerk zu finden, wie Vanillas Pigstep oder Otherside. Sie spielen in jeder Jukebox und in der Taschen-Jukebox.",
+        "details": [
+          "Glutschmiede (Nether-Groove, Komparator 13): Bastions-Truhen, 5 %. Obsidianthron (epischer Bosskampf, 9): Netherfestungs-Truhen, 4 %. Endaufbruch (schwebende Inseln, 14): Endsiedlungs-Truhen, 4 %.",
+          "Festungsmarsch (düsterer Marsch, 8): Gang-Truhen der Festung, 4 %. Tiefenpuls (tiefe Höhlen, 15): Truhen der antiken Stadt, 4 %. Himmelsschmiede (Flug und Eroberung, 4): seltsamen Kies der Pfadruinen abpinseln (seltener Pool, so selten wie Relic).",
+          "Kein Rezept, wie Vanillas Platten. Länge 90-100 s; ein Komparator neben der spielenden Jukebox zeigt die oben genannte Stufe.",
+          "Instrumentalmusik, mit ElevenLabs Music für diese Mod erstellt (Künstler: Simple Music); Teil des Spiels, keine Sample-Sammlung."
+        ]
+      }
+    },
+    {
       "id": "pocket_jukebox",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
@@ -2292,10 +2320,10 @@
           "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 18 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 18 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
@@ -2326,6 +2354,132 @@
       "craftedBy": [
         "simplemusic:guide_book"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_deep_pulse",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_deep_pulse.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_ember_forge",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_ember_forge.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_end_departure",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_end_departure.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_fortress_march",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_fortress_march.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_obsidian_throne",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_obsidian_throne.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_sky_forge",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_sky_forge.png",
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -2875,13 +3029,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 14,
+    "features": 15,
     "recipes": 37,
     "lootTables": 18,
     "tags": 2,
     "advancements": 0,
     "enchantments": 0,
-    "items": 4,
+    "items": 10,
     "blocks": 18,
     "trades": 0,
     "config": 0,

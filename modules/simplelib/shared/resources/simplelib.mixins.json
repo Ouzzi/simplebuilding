@@ -30,7 +30,8 @@
     "client.SlotIconTintMixin",
     "client.CodeAreaSelectAccessor",
     "client.RarityClientThreadMixin",
-    "client.RarityTooltipTextMixin"
+    "client.RarityTooltipTextMixin",
+    "client.LegendaryToastMixin"
   ],
   "server": [],
   "injectors": {

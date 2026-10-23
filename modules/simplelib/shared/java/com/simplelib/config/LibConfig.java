@@ -26,6 +26,8 @@ public final class LibConfig {
     public static final int LEGENDARY_LIST_MAX = 256;
     public static boolean legendaryEffects = true;
     public static boolean legendaryAllChallenges = false;
+    /** W24-3: Vanilla's challenge toast stays silent for a legendary advancement (the choir plays instead); client side. */
+    public static boolean legendaryMuteToast = true;
     public static java.util.List<net.minecraft.resources.Identifier> legendaryAdvancements = java.util.List.of();
     public static java.util.List<net.minecraft.resources.Identifier> legendaryEnchantments = java.util.List.of();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -64,6 +66,7 @@ public final class LibConfig {
         eatSpeedBonus = clamp(getDouble(json, "eatSpeedBonus", EAT_BONUS_DEFAULT), 0.0, EAT_BONUS_MAX);
         legendaryEffects = getBool(json, "legendaryEffects", true);
         legendaryAllChallenges = getBool(json, "legendaryAllChallenges", false);
+        legendaryMuteToast = getBool(json, "legendaryMuteToast", true);
         legendaryAdvancements = getIds(json, "legendaryAdvancements");
         legendaryEnchantments = getIds(json, "legendaryEnchantments");
     }
@@ -102,6 +105,7 @@ public final class LibConfig {
         o.addProperty("eatSpeedBonus", eatSpeedBonus);
         o.addProperty("legendaryEffects", legendaryEffects);
         o.addProperty("legendaryAllChallenges", legendaryAllChallenges);
+        o.addProperty("legendaryMuteToast", legendaryMuteToast);
         o.add("legendaryAdvancements", toArray(legendaryAdvancements));
         o.add("legendaryEnchantments", toArray(legendaryEnchantments));
         return o;

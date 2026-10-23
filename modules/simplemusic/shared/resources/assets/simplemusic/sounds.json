@@ -1,0 +1,56 @@
+{
+  "music_disc.ember_forge": {
+    "subtitle": "subtitles.simplemusic.music_disc.ember_forge",
+    "sounds": [
+      {
+        "name": "simplemusic:records/ember_forge",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.obsidian_throne": {
+    "subtitle": "subtitles.simplemusic.music_disc.obsidian_throne",
+    "sounds": [
+      {
+        "name": "simplemusic:records/obsidian_throne",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.end_departure": {
+    "subtitle": "subtitles.simplemusic.music_disc.end_departure",
+    "sounds": [
+      {
+        "name": "simplemusic:records/end_departure",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.fortress_march": {
+    "subtitle": "subtitles.simplemusic.music_disc.fortress_march",
+    "sounds": [
+      {
+        "name": "simplemusic:records/fortress_march",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.deep_pulse": {
+    "subtitle": "subtitles.simplemusic.music_disc.deep_pulse",
+    "sounds": [
+      {
+        "name": "simplemusic:records/deep_pulse",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.sky_forge": {
+    "subtitle": "subtitles.simplemusic.music_disc.sky_forge",
+    "sounds": [
+      {
+        "name": "simplemusic:records/sky_forge",
+        "stream": true
+      }
+    ]
+  }
+}

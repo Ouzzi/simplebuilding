@@ -53,7 +53,15 @@ public final class MusicFabric implements ModInitializer {
             var pockets = MusicRegistry.toolStacks();
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.DYED_BUNDLE.black()))) out.insertAfter(Items.DYED_BUNDLE.black(), pockets, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             else pockets.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            // W24-3: the music discs after the last Vanilla disc
+            var discs = MusicRegistry.discStacks();
+            var lastDisc = out.getDisplayStacks().stream().filter(s -> s.has(net.minecraft.core.component.DataComponents.JUKEBOX_PLAYABLE)
+                    && net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(s.getItem()).getNamespace().equals("minecraft")).reduce((a, b) -> b);
+            if (lastDisc.isPresent()) out.insertAfter(lastDisc.get().getItem(), discs, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            else discs.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
+        net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) ->
+                com.simplemusic.disc.MusicDiscs.loot(key, table::withPool, table::modifyPools));
         PayloadTypeRegistry.serverboundPlay().register(SheetEditPayload.TYPE, SheetEditPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(UploadBeginPayload.TYPE, UploadBeginPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(UploadChunkPayload.TYPE, UploadChunkPayload.CODEC);

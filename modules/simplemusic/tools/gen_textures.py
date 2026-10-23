@@ -10,7 +10,8 @@ to top. tools/layers/<texture>.json keeps that source next to the PNG (plan docs
  "tint": {"keys": [...], "variants": {"red_pocket_jukebox": {"f": "#d2382e", ...}}}} - lossless, readable without
 Pillow and easy to turn into the wiki pixel editor's layer format. Pillow is only needed to write/compare PNGs.
 
-Textures: sheet music, blank disc, custom disc (track = amethyst label, composition = paper label),
+Textures: sheet music, blank disc, custom disc (track = amethyst label, composition = paper label), the six music
+discs (W24-3: own vinyl tint + label colours per structure),
 Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front; placed/held 3D model: case sheet per
 colour + one parts sheet), disc press side/top, the placed records' round top views (written into SimpleBuilding's assets).
 Variants (owner choice MU21 R=B P=A D=B, 21.10.): blank/custom disc A round like Vanilla's discs / B oval like the
@@ -158,6 +159,21 @@ BLANK = {'o': (54, 54, 58), 'b': (136, 136, 140), 'g': (116, 116, 120), 'h': (18
 VINYL = {'o': (18, 18, 20), 'b': (46, 46, 50), 'g': (32, 32, 36), 'h': (96, 96, 102), 'H': (140, 140, 146), 'x': (12, 12, 14)}
 LABEL_TRACK = {'l': (160, 112, 204), 'L': (116, 76, 158)}  # amethyst: the blank's recipe shard
 LABEL_SHEET = {'l': (232, 224, 200), 'L': (190, 178, 148)}  # sheet music paper
+# W24-3 (owner 23.10.): the six ElevenLabs music discs - the chosen disc form, like Vanilla's structure discs (Pigstep's
+# red body, Otherside's teal label) each its own vinyl tint and a two-tone label in the colours of its structure.
+def _vinyl(r, g, b):
+    """Vinyl tinted towards (r, g, b): the same light steps as VINYL, a little colour in body, groove and outline."""
+    mix = lambda base, k: tuple(round(c + (t - c) * k) for c, t in zip(base, (r, g, b)))
+    return {'o': mix(VINYL['o'], 0.18), 'b': mix(VINYL['b'], 0.28), 'g': mix(VINYL['g'], 0.22),
+            'h': mix(VINYL['h'], 0.22), 'H': mix(VINYL['H'], 0.18), 'x': VINYL['x']}
+MUSIC_DISCS = {
+    'ember_forge': (_vinyl(150, 40, 20), {'l': (244, 132, 30), 'L': (178, 52, 26)}),         # bastion: glowing ember
+    'obsidian_throne': (_vinyl(70, 30, 110), {'l': (236, 184, 64), 'L': (150, 32, 44)}),     # nether fortress: obsidian, gold and nether brick red
+    'end_departure': (_vinyl(90, 70, 110), {'l': (226, 226, 164), 'L': (168, 120, 176)}),    # end city: end stone, purpur
+    'fortress_march': (_vinyl(60, 80, 60), {'l': (112, 162, 96), 'L': (60, 98, 70)}),        # stronghold: mossy stone, eye green
+    'deep_pulse': (_vinyl(10, 70, 80), {'l': (52, 196, 196), 'L': (14, 104, 120)}),          # ancient city: sculk
+    'sky_forge': (_vinyl(140, 90, 60), {'l': (128, 192, 236), 'L': (72, 120, 184)}),         # trail ruins: terracotta, sky
+}
 
 
 def disc_rows(form, scale=1.0):
@@ -598,6 +614,8 @@ def textures(choice=None):
            'item/blank_disc': disc(c['disc'], BLANK),
            'item/custom_disc': disc(c['disc'], dict(VINYL, **LABEL_TRACK)),
            'item/custom_disc_composed': disc(c['disc'], dict(VINYL, **LABEL_SHEET))}
+    for name, (vinyl, label) in MUSIC_DISCS.items():
+        out['item/music_disc_' + name] = disc(c['disc'], dict(vinyl, **label))
     for suffix, tex in pocket_texs(c['pocket']).items():
         out['item/pocket_jukebox' + suffix] = tex
     for name, tex in press_texs(c['press']).items():

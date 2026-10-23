@@ -1,16 +1,19 @@
 // Hollow Howler voice, variant switch per event (concept docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md, sections 9-10).
-// The choice lives in tools/sounds/howler_sounds.json: "mode" (synth = variant A everywhere, the default; vanilla =
-// variant B everywhere; mix = per event as in its "mix" map). -PsbHowlerSounds=synth|vanilla|mix (or SB_HOWLER_SOUNDS)
-// overrides the mode for one build. Variant A = the synthesised .ogg files committed under shared/resources
-// (make_howler_sounds.py). Variant B is built from Vanilla sounds of the local Minecraft asset store by
-// tools/sounds/vanilla_derived_sounds.py into build/generated-resources/vanillaDerivedSounds (never committed,
-// AGENTS.md rule 7); processResources then drops the committed file of every name the generated root has, so the jar
-// carries exactly one copy of each take. A missing Python (numpy, scipy, soundfile) or asset store logs a WARNING and
-// keeps variant A; -PsbVanillaDerivedStrict fails instead. -PsbPython / SB_PYTHON as in module-vanilla-derived.gradle.
+// The choice lives in tools/sounds/howler_sounds.json: "mode" (synth = variant A everywhere, the fallback; vanilla =
+// variant B everywhere; mix = per event as in its "mix" map; eleven = mix plus the committed ElevenLabs takes of the
+// events in its "eleven" map, W24-3 owner 23.10., the default). -PsbHowlerSounds=synth|vanilla|mix|eleven (or
+// SB_HOWLER_SOUNDS) overrides the mode for one build. The ElevenLabs takes live in ../shared/howler-eleven (outside the
+// resources, tools/sounds/eleven_howler_takes.py) and are copied into the generated root after variant B, so they win.
+// Variant A = the synthesised .ogg files committed under shared/resources (make_howler_sounds.py). Variant B is built
+// from Vanilla sounds of the local Minecraft asset store by tools/sounds/vanilla_derived_sounds.py into
+// build/generated-resources/vanillaDerivedSounds (never committed, AGENTS.md rule 7); processResources then drops the
+// committed file of every name the generated root has, so the jar carries exactly one copy of each take. A missing
+// Python (numpy, scipy, soundfile) or asset store logs a WARNING and keeps variant A; -PsbVanillaDerivedStrict fails
+// instead. -PsbPython / SB_PYTHON as in module-vanilla-derived.gradle.
 File vsMapping = rootProject.file('tools/sounds/howler_sounds.json')
 String vsFileMode = vsMapping.isFile() ? (new groovy.json.JsonSlurper().parse(vsMapping).mode as String) : 'synth'
 String vsMode = ((project.findProperty('sbHowlerSounds') ?: System.getenv('SB_HOWLER_SOUNDS') ?: vsFileMode ?: 'synth') as String).trim()
-if (!(vsMode in ['synth', 'vanilla', 'mix'])) throw new GradleException("sbHowlerSounds must be synth, vanilla or mix, not '${vsMode}'")
+if (!(vsMode in ['synth', 'vanilla', 'mix', 'eleven'])) throw new GradleException("sbHowlerSounds must be synth, vanilla, mix or eleven, not '${vsMode}'")
 if (vsMode != 'synth') {
     File vsScript = rootProject.file('tools/sounds/vanilla_derived_sounds.py')
     File vsOut = layout.buildDirectory.dir('generated-resources/vanillaDerivedSounds').get().asFile
@@ -21,17 +24,27 @@ if (vsMode != 'synth') {
     File vsGradleHome = gradle.gradleUserHomeDir
     File vsRoot = rootProject.projectDir
     String vsModule = project.parent.name
+    File vsEleven = file('../shared/howler-eleven')
+    String vsScriptMode = vsMode == 'eleven' ? 'mix' : vsMode
     def vsTask = tasks.register('generateVanillaDerivedSounds') {
         description = "Builds variant B of the ${vsModule} sounds (never committed) from the local Minecraft assets."
         inputs.files(fileTree(vsScript.parentFile) { include '*.py' }).withPropertyName('generators')
         inputs.property('python', vsPython ?: '')
         inputs.property('mode', vsMode)
         inputs.file(vsMapping).withPropertyName('mapping')
+        if (vsMode == 'eleven') inputs.dir(vsEleven).withPropertyName('elevenTakes')
         inputs.file(file('../shared/resources/assets/simplemobs/sounds.json')).withPropertyName('soundsJson')
         outputs.dir(vsOut)
         doLast {
             project.delete(vsOut)
             vsOut.mkdirs()
+            def copyEleven = {
+                if (vsMode != 'eleven') return
+                File target = new File(vsOut, "assets/${vsModule}/sounds/entity/hollow_howler")
+                target.mkdirs()
+                project.copy { from(vsEleven) { include '*.ogg' }; into target }
+                logger.lifecycle("generateVanillaDerivedSounds (${vsModule}): ElevenLabs takes from ${vsEleven.name} (mode eleven)")
+            }
             def fallback = { String why ->
                 if (vsStrict) throw new GradleException(why)
                 logger.warn("WARNING generateVanillaDerivedSounds (${vsModule}): ${why}\n-> variant A (committed synthesis) instead.")
@@ -53,10 +66,11 @@ if (vsMode != 'synth') {
                 }
             }
             List<String> py = candidates.find { c -> run(c + ['-c', 'import numpy, scipy, soundfile']).first() == 0 }
-            if (py == null) { fallback("no Python with numpy, scipy and soundfile among ${candidates*.join(' ')}"); return }
-            def (int code, String text) = run(py + ['-B', vsScript.absolutePath, '--out', vsOut.absolutePath, '--module', vsModule, '--mode', vsMode])
+            if (py == null) { fallback("no Python with numpy, scipy and soundfile among ${candidates*.join(' ')}"); copyEleven(); return }
+            def (int code, String text) = run(py + ['-B', vsScript.absolutePath, '--out', vsOut.absolutePath, '--module', vsModule, '--mode', vsScriptMode])
             text.readLines().each { logger.lifecycle(it) }
             if (code != 0) fallback("vanilla_derived_sounds.py failed (exit ${code}):\n${text.readLines().takeRight(25).join('\n')}")
+            copyEleven()
         }
     }
     sourceSets.main.resources.srcDir(vsTask)
