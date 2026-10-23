@@ -399,6 +399,30 @@ public final class TrimsTests {
             h.assertTrue(TrimLight.lightLevelFor(5) == 15 && TrimLight.lightLevelFor(1) == 3 && TrimLight.lightLevelFor(9) == 15, "3 light per level, max 15");
             h.succeed();
         });
+        // Review F-04: a foreign minecraft:light block (map maker, adventure) is neither taken over nor removed.
+        ALL.put("foreign_light_untouched", h -> {
+            ServerPlayer player = mockPlayer(h);
+            Vec3 at = h.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+            ItemStack chest = new ItemStack(Items.IRON_CHESTPLATE);
+            for (int i = 0; i < 3; i++) TrimGlow.incrementEmissionLevel(chest);
+            player.setItemSlot(EquipmentSlot.CHEST, chest);
+            BlockPos head = player.blockPosition().above();
+            BlockState foreign = Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, 4);
+            h.getLevel().setBlock(head, foreign, 3);
+            try {
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).equals(foreign), "a foreign light block was overwritten: " + h.getLevel().getBlockState(head));
+                player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+                TrimLight.tickPlayer(player);
+                TrimLight.forget(player);
+                h.assertTrue(h.getLevel().getBlockState(head).equals(foreign), "a foreign light block was removed: " + h.getLevel().getBlockState(head));
+            } finally {
+                TrimLight.forget(player);
+                h.getLevel().setBlock(head, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
         // N52: torches, lanterns and lava buckets in either hand shine like the block; radiance and held light never add.
         ALL.put("held_light", h -> {
             ServerPlayer player = mockPlayer(h);

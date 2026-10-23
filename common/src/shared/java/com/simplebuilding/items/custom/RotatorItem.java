@@ -321,6 +321,21 @@ public class RotatorItem extends Item implements AnvilRechargeable {
                 && com.simplebuilding.util.TransformTargets.mayTransform(level, player, target.pos(), target.face(), rotator);
     }
 
+    /** Aufraeumen bei Disconnect (Review F-06). */
+    public static void onDisconnect(Player player) {
+        PENDING_ECHOES.remove(player.getUUID());
+    }
+
+    /** Aufraeumen beim Server-Stopp (Review F-06). */
+    public static void clearAll() {
+        PENDING_ECHOES.clear();
+    }
+
+    /** Nur fuer Tests. */
+    public static int pendingEchoCount() {
+        return PENDING_ECHOES.size();
+    }
+
     /** Spielt den faelligen Ender-Klang des Spielers, der diesen Rotator traegt. */
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot) {

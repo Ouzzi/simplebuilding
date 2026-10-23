@@ -3,6 +3,7 @@ package com.simplestorage.backpack;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.handler.codec.DecoderException;
@@ -71,37 +72,46 @@ public final class BackpackContents {
     private static final Codec<List<Entry>> STRICT_LIST_CODEC = ENTRY_CODEC.sizeLimitedListOf(MAX_SLOT + 1);
 
     /**
-     * Writes exactly like a plain list of entries; reads entry by entry. One entry that no longer
-     * decodes (an item id that is gone - a removed mod, or a vanilla item renamed by a Minecraft
-     * update that did not pass through SimpleBuilding's {@code ModDataFixer}) used to fail
-     * the whole list, and the backpack opened empty. Now only that entry is dropped, with a warning.
+     * Writes like a plain list of entries (plus the {@link #unreadable()} ones, verbatim); reads
+     * entry by entry. One entry that no longer decodes (an item id that is gone - a removed mod, or a
+     * vanilla item renamed by a Minecraft update that did not pass through
+     * {@link com.simplebuilding.datafix.ModDataFixer}) used to fail the whole list, and later to be dropped on the
+     * next save (review F-05). Now it is kept as raw data, warned about, and written back unchanged.
      */
-    private static final Codec<List<Entry>> LENIENT_LIST_CODEC = new Codec<>() {
+    private static final Codec<BackpackContents> LENIENT_CODEC = new Codec<>() {
         @Override
-        public <T> DataResult<T> encode(List<Entry> input, DynamicOps<T> ops, T prefix) {
-            return STRICT_LIST_CODEC.encode(input, ops, prefix);
+        public <T> DataResult<T> encode(BackpackContents input, DynamicOps<T> ops, T prefix) {
+            DataResult<T> list = STRICT_LIST_CODEC.encode(input.entries, ops, prefix);
+            if (input.unreadable.isEmpty()) {
+                return list;
+            }
+            return list.flatMap(t -> ops.mergeToList(t, input.unreadable.stream().map(d -> d.convert(ops).getValue()).toList()));
         }
 
         @Override
-        public <T> DataResult<Pair<List<Entry>, T>> decode(DynamicOps<T> ops, T input) {
+        public <T> DataResult<Pair<BackpackContents, T>> decode(DynamicOps<T> ops, T input) {
             return ops.getStream(input).flatMap(stream -> {
                 List<T> raw = stream.toList();
                 if (raw.size() > MAX_SLOT + 1) {
                     return DataResult.error(() -> "Backpack contents too long: " + raw.size() + " > " + (MAX_SLOT + 1));
                 }
                 List<Entry> entries = new ArrayList<>(raw.size());
+                List<Dynamic<?>> unreadable = new ArrayList<>();
                 for (T element : raw) {
-                    ENTRY_CODEC.parse(ops, element)
-                            .resultOrPartial(error -> LOGGER.warn("Dropping unreadable backpack entry {}: {}", element, error))
-                            .ifPresent(entries::add);
+                    var parsed = ENTRY_CODEC.parse(ops, element);
+                    if (parsed.result().isPresent()) {
+                        entries.add(parsed.result().get());
+                    } else {
+                        LOGGER.warn("Keeping unreadable backpack entry {}: {}", element, parsed.error().map(e -> e.message()).orElse("?"));
+                        unreadable.add(new Dynamic<>(ops, element));
+                    }
                 }
-                return DataResult.success(Pair.of(entries, ops.empty()));
+                return DataResult.success(Pair.of(new BackpackContents(entries, unreadable), ops.empty()));
             });
         }
     };
 
-    public static final Codec<BackpackContents> CODEC = LENIENT_LIST_CODEC
-            .xmap(BackpackContents::new, BackpackContents::entries);
+    public static final Codec<BackpackContents> CODEC = LENIENT_CODEC;
 
     private static final Logger LOGGER = LoggerFactory.getLogger("Simple Storage");
 
@@ -124,9 +134,20 @@ public final class BackpackContents {
     }
 
     private final List<Entry> entries;
+    private final List<Dynamic<?>> unreadable;
 
     public BackpackContents(List<Entry> entries) {
+        this(entries, List.of());
+    }
+
+    public BackpackContents(List<Entry> entries, List<Dynamic<?>> unreadable) {
         this.entries = List.copyOf(entries);
+        this.unreadable = List.copyOf(unreadable);
+    }
+
+    /** Beim Laden nicht lesbare Eintraege (Rohdaten); sie werden beim Speichern unveraendert wieder geschrieben. */
+    public List<Dynamic<?>> unreadable() {
+        return this.unreadable;
     }
 
     public List<Entry> entries() {
@@ -134,7 +155,7 @@ public final class BackpackContents {
     }
 
     public boolean isEmpty() {
-        return this.entries.isEmpty();
+        return this.entries.isEmpty() && this.unreadable.isEmpty();
     }
 
     public int size() {
@@ -173,17 +194,17 @@ public final class BackpackContents {
         } else {
             copy.set(index, Entry.of(copy.get(index).slot(), stack));
         }
-        return new BackpackContents(copy);
+        return new BackpackContents(copy, this.unreadable);
     }
 
     @Override
     public boolean equals(Object other) {
-        return this == other || (other instanceof BackpackContents that && this.entries.equals(that.entries));
+        return this == other || (other instanceof BackpackContents that && this.entries.equals(that.entries) && this.unreadable.equals(that.unreadable));
     }
 
     @Override
     public int hashCode() {
-        return this.entries.hashCode();
+        return this.entries.hashCode() * 31 + this.unreadable.hashCode();
     }
 
     @Override

@@ -58,7 +58,38 @@ public final class StorageTests {
     /** The placed bundle scroll test waits for the shown item not to cycle on its own ({@code PlacedBundleTests.SCROLL_MAX_TICKS}). */
     public static final int PLACED_BUNDLE_SCROLL_MAX_TICKS = PlacedBundleTests.SCROLL_MAX_TICKS;
 
+    /** Review F-05: an entry that no longer decodes (removed mod) is kept as raw data and written back unchanged. */
+    static void backpackKeepsUnreadableEntries(GameTestHelper h) {
+        net.minecraft.nbt.ListTag list = new net.minecraft.nbt.ListTag();
+        CompoundTag good = new CompoundTag();
+        good.putInt("slot", 0);
+        good.putString("id", "minecraft:stone");
+        good.putInt("count", 3);
+        CompoundTag gone = new CompoundTag();
+        gone.putInt("slot", 1);
+        gone.putString("id", "nomod:vanished_item");
+        gone.putInt("count", 2);
+        list.add(good);
+        list.add(gone);
+        var parsed = com.simplestorage.backpack.BackpackContents.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, list);
+        h.assertTrue(parsed.result().isPresent(), "the list with one unreadable entry failed as a whole: " + parsed);
+        var contents = parsed.result().get();
+        h.assertTrue(contents.entries().size() == 1 && contents.unreadable().size() == 1,
+                "expected 1 readable + 1 kept entry, got " + contents.entries().size() + " + " + contents.unreadable().size());
+        h.assertTrue(!contents.isEmpty(), "contents with only a kept entry count as empty and would be removed");
+        var written = com.simplestorage.backpack.BackpackContents.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, contents);
+        h.assertTrue(written.result().isPresent() && written.result().get() instanceof net.minecraft.nbt.ListTag out && out.size() == 2
+                && out.toString().contains("nomod:vanished_item"), "the unreadable entry was dropped on write: " + written);
+        // survives a trip through the container that edits the backpack
+        var tier = com.simplestorage.backpack.BackpackTier.values()[0];
+        var container = new com.simplestorage.backpack.BackpackContainer(tier, 1);
+        container.load(contents);
+        h.assertTrue(container.toContents().unreadable().size() == 1, "the container lost the kept entry");
+        h.succeed();
+    }
+
     static {
+        ALL.put("backpack_keeps_unreadable_entries", StorageTests::backpackKeepsUnreadableEntries);
         // Split stage 8b: the chests and shulker boxes (bodies from SimpleBuilding's TieredChestTests / TieredShulkerBoxTests).
         ALL.put("tiered_chest_single_chest_climbs_from_copper_to_enderite_keeping_its_contents", ChestTests::singleChestClimbsFromCopperToEnderiteKeepingItsContents);
         ALL.put("tiered_chest_double_chest_upgrades_both_halves_together", ChestTests::doubleChestUpgradesBothHalvesTogether);

@@ -399,6 +399,16 @@ public class BuildingCoreItem extends Item {
         }
     }
 
+    /** Aufraeumen bei Disconnect: Schritte des Spielers verfallen (Review F-06). */
+    public static void onDisconnect(Player player) {
+        PENDING.removeIf(step -> step.player().equals(player.getUUID()));
+    }
+
+    /** Aufraeumen beim Server-Stopp: Schritte halten Server, Welt und Spieler fest (Review F-06). */
+    public static void clearAll() {
+        PENDING.clear();
+    }
+
     /** Wie viele Animationsschritte fuer {@code player} noch ausstehen (fuer die Spieltests). */
     public static int pendingSteps(Player player) {
         int count = 0;

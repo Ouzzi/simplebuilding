@@ -125,6 +125,30 @@ public final class BlueprintBuilder {
     private BlueprintBuilder() {
     }
 
+    /** Spieler weg: Auftrag, Pruefung und Merker verfallen (ein entfernter Spieler baut ohnehin nicht weiter; Review F-06). */
+    public static void onDisconnect(Player player) {
+        UUID id = player.getUUID();
+        JOBS.remove(id);
+        CHECKS.remove(id);
+        CLICK_VISITS.remove(id);
+        HINTED.remove(id);
+        WARNED.remove(id);
+    }
+
+    /** Server gestoppt: nichts darf Spieler, Welten oder Layouts der alten Welt festhalten (Review F-06). */
+    public static void clearAll() {
+        JOBS.clear();
+        CHECKS.clear();
+        CLICK_VISITS.clear();
+        HINTED.clear();
+        WARNED.clear();
+    }
+
+    /** Nur fuer Tests: Zahl der gehaltenen Zustandseintraege. */
+    public static int heldState() {
+        return JOBS.size() + CHECKS.size() + CLICK_VISITS.size() + HINTED.size() + WARNED.size();
+    }
+
     /**
      * Zwischen- oder Endstand eines Bauauftrags. {@code checking}: die Fehlstellen-Pruefung laeuft
      * noch ueber die naechsten Ticks, gebaut wurde noch nichts.

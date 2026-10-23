@@ -325,19 +325,42 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
 
                 BlockPos foundPos = null;
 
-                // Sicherstellen, dass der Tag existiert
-                if (structureListOptional.isPresent()) {
-                    // FIX: Radius auf 300 (4800 Blöcke) erhöht!
-                    Pair<BlockPos, Holder<Structure>> foundPair = serverWorld.getChunkSource().getGenerator().findNearestMapStructure(
-                            serverWorld,
-                            structureListOptional.get(),
-                            this.player.blockPosition(),
-                            300,
-                            false
-                    );
-                    if (foundPair != null) {
-                        foundPos = foundPair.getFirst();
+                // Review F-01: Ergebnis je Spieler/Zelle zwischenspeichern, neue Suchen mit Abkuehlung.
+                String dim = serverWorld.dimension().identifier().toString();
+                BlockPos at = this.player.blockPosition();
+                long now = serverWorld.getGameTime();
+                String tagKey = config.tag().location().toString();
+                var look = com.simplebuilding.util.StructureCompassCache.lookup(this.player.getUUID(), dim, tagKey, at.getX(), at.getZ(), now);
+                if (look.state() == com.simplebuilding.util.StructureCompassCache.State.COOLDOWN) {
+                    // Suche laeuft nicht schon wieder: Ergebnisfeld leer, naechstes Tippen versucht es erneut.
+                    this.resultSlots.setItem(0, ItemStack.EMPTY);
+                    this.cost.set(0);
+                    this.repairItemCountCost = 0;
+                    ci.cancel();
+                    return;
+                }
+                if (look.state() == com.simplebuilding.util.StructureCompassCache.State.HIT) {
+                    foundPos = BlockPos.of(look.packedPos());
+                } else if (look.state() == com.simplebuilding.util.StructureCompassCache.State.SEARCH_ALLOWED) {
+                    var structureListOptional = serverWorld.structureManager().registryAccess()
+                            .lookupOrThrow(Registries.STRUCTURE)
+                            .get(config.tag());
+
+                    // Sicherstellen, dass der Tag existiert
+                    if (structureListOptional.isPresent()) {
+                        Pair<BlockPos, Holder<Structure>> foundPair = serverWorld.getChunkSource().getGenerator().findNearestMapStructure(
+                                serverWorld,
+                                structureListOptional.get(),
+                                at,
+                                300,
+                                false
+                        );
+                        if (foundPair != null) {
+                            foundPos = foundPair.getFirst();
+                        }
                     }
+                    com.simplebuilding.util.StructureCompassCache.store(this.player.getUUID(), dim, tagKey,
+                            at.getX(), at.getZ(), now, foundPos == null ? null : foundPos.asLong());
                 }
 
                 // --- ERGEBNIS VERARBEITEN ---

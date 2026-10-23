@@ -105,7 +105,7 @@ public class BackpackItem extends BlockItem {
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
         BackpackContents contents = contents(stack);
-        if (contents.isEmpty()) {
+        if (contents.entries().isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(new BackpackTooltipData(contents, this.tier.slotCount()));
@@ -319,7 +319,7 @@ public class BackpackItem extends BlockItem {
         if (!stack.isEmpty()) {
             List<BackpackContents.Entry> copy = new java.util.ArrayList<>(entries);
             copy.add(BackpackContents.Entry.of(slot, stack));
-            setContents(backpack, new BackpackContents(copy));
+            setContents(backpack, new BackpackContents(copy, contents.unreadable()));
         }
     }
 

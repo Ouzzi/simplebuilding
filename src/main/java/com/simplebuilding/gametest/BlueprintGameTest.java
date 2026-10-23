@@ -228,4 +228,19 @@ public final class BlueprintGameTest {
     public void blueprintTextImportRejectsInvalidInput(GameTestHelper helper) {
         BlueprintTests.blueprintTextImportRejectsInvalidInput(helper);
     }
+
+    @GameTest(maxTicks = 400)
+    public void parseCacheIsBoundedByWeight(GameTestHelper helper) {
+        BlueprintTests.parseCacheIsBoundedByWeight(helper);
+    }
+
+    @GameTest
+    public void pixelCodeEditsPayTheParseBudgetFirst(GameTestHelper helper) {
+        BlueprintTests.pixelCodeEditsPayTheParseBudgetFirst(helper);
+    }
+
+    @GameTest
+    public void buildJobsAreDroppedOnDisconnectAndStop(GameTestHelper helper) {
+        BlueprintTests.buildJobsAreDroppedOnDisconnectAndStop(helper);
+    }
 }

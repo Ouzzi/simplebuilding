@@ -18,4 +18,9 @@ public final class AnvilCrushingGameTest {
     public void invalidFallsDoNotCrush(GameTestHelper helper) {
         AnvilCrushingTests.invalidFallsDoNotCrush(helper);
     }
+
+    @GameTest
+    public void compassSearchIsCachedAndRateLimited(GameTestHelper helper) {
+        AnvilCrushingTests.compassSearchIsCachedAndRateLimited(helper);
+    }
 }

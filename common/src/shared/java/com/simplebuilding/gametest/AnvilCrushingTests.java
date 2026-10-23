@@ -124,4 +124,24 @@ public final class AnvilCrushingTests {
         }
         helper.assertValueEqual(total, expected, "pebbles after actual anvil fall");
     }
+
+    /** Review F-01: the compass search runs once per player/cell, repeats hit the cache, and new searches cool down. */
+    public static void compassSearchIsCachedAndRateLimited(GameTestHelper helper) {
+        com.simplebuilding.util.StructureCompassCache.clear();
+        java.util.UUID p = java.util.UUID.randomUUID();
+        var first = com.simplebuilding.util.StructureCompassCache.lookup(p, "minecraft:overworld", "village", 10, 10, 1000);
+        helper.assertTrue(first.state() == com.simplebuilding.util.StructureCompassCache.State.SEARCH_ALLOWED, "first lookup must search: " + first);
+        var again = com.simplebuilding.util.StructureCompassCache.lookup(p, "minecraft:overworld", "mansion", 10, 10, 1010);
+        helper.assertTrue(again.state() == com.simplebuilding.util.StructureCompassCache.State.COOLDOWN, "a second search within the cooldown must wait: " + again);
+        com.simplebuilding.util.StructureCompassCache.store(p, "minecraft:overworld", "village", 10, 10, 1000, 42L);
+        var hit = com.simplebuilding.util.StructureCompassCache.lookup(p, "minecraft:overworld", "village", 40, 40, 1020);
+        helper.assertTrue(hit.state() == com.simplebuilding.util.StructureCompassCache.State.HIT && hit.packedPos() == 42L, "same cell must hit: " + hit);
+        com.simplebuilding.util.StructureCompassCache.store(p, "minecraft:overworld", "mansion", 10, 10, 1100, null);
+        var miss = com.simplebuilding.util.StructureCompassCache.lookup(p, "minecraft:overworld", "mansion", 10, 10, 1105);
+        helper.assertTrue(miss.state() == com.simplebuilding.util.StructureCompassCache.State.MISS_NOT_FOUND, "a cached 'not found' must not search again: " + miss);
+        var expired = com.simplebuilding.util.StructureCompassCache.lookup(p, "minecraft:overworld", "village", 10, 10, 1000 + com.simplebuilding.util.StructureCompassCache.TTL_TICKS + 1);
+        helper.assertTrue(expired.state() == com.simplebuilding.util.StructureCompassCache.State.SEARCH_ALLOWED, "an expired entry must search again: " + expired);
+        com.simplebuilding.util.StructureCompassCache.clear();
+        helper.succeed();
+    }
 }
