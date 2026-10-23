@@ -118,7 +118,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 73
     },
-    "dataHash": "487293bab483"
+    "dataHash": "3152cb7b4f46"
   },
   {
     "id": "simpleriding",
@@ -228,7 +228,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "b38e8940c87a"
+    "dataHash": "bfd6a761414e"
   },
   {
     "id": "simplesounds",
@@ -465,11 +465,11 @@ window.WIKI_MODULES = [
     "bundle": "optional",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mMIM9f6TwlmABHPty0mGd/oykI14O6s+v9vT+0B0yAc56GDgWFyIM1zkn0QBmBTvGN+0f9HF1egYHQ1KAZ8fnYEjH3zL4BpkAGxXSb/7bOV4AaAxGDqMAwAKQZhmCEwF4DEkA0AGQgSw2oATBLmAnQvwFyF1QUgQZgkzACQS0AaD1hqo3gBxMcZBtgMICoMkJ2P7AVkQ/AaAJNADwOrEIQhVjpScIzTAJD/sAUiSNOLncr/V1RCaBAfxQCYRmQnImOQhq9fP/y/ICEBpjEMQMeg5IqMQRpAtoM0Y7gAlrYJYeQwQMkLlGAAvJFvToS+xP8AAAAASUVORK5CYII=",
     "counts": {
-      "items": 4,
-      "recipes": 4,
-      "features": 8
+      "items": 5,
+      "recipes": 7,
+      "features": 9
     },
-    "dataHash": "d1dc128e3e7f"
+    "dataHash": "6d1eb3963af4"
   },
   {
     "id": "simpletrims",
@@ -795,7 +795,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "429f7ba70093"
+    "dataHash": "22e4426156bf"
   },
   {
     "id": "simplerespawn",
@@ -1013,11 +1013,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 53,
-      "recipes": 282,
-      "features": 8
+      "blocks": 54,
+      "recipes": 283,
+      "features": 9
     },
-    "dataHash": "6490eb6fe341"
+    "dataHash": "62f5deff48f1"
   },
   {
     "id": "simplecrucibles",
@@ -1077,7 +1077,7 @@ window.WIKI_MODULES = [
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "b5a5e9f85de2"
+    "dataHash": "c66989cf0943"
   },
   {
     "id": "simplehammers",
@@ -1222,12 +1222,12 @@ window.WIKI_MODULES = [
       "recipes": 177,
       "features": 12
     },
-    "dataHash": "e3c1431caaac"
+    "dataHash": "819bd2501567"
   },
   {
     "id": "simplemusic",
     "displayName": "Simple Music",
-    "description": "Sheet music with a text note code (editor with test listening, .txt/.nbs import), the Orchestrion (note block + jukebox: redstone loop, chest above = next sheet, comparator progress) and uploaded mono Ogg discs (quota, OP approval). Needs SimpleLib; SimpleBuilding optional.",
+    "description": "Sheet music with a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs (quota, OP approval), played in the Vanilla jukebox and the Pocket Jukebox. Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1247,10 +1247,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
     "counts": {
       "items": 4,
-      "blocks": 19,
-      "recipes": 38,
-      "features": 17
+      "blocks": 18,
+      "recipes": 37,
+      "features": 14
     },
-    "dataHash": "9432669213ae"
+    "dataHash": "0af7a8b0fd6a"
   }
 ];
