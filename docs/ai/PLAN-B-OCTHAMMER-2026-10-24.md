@@ -8,3 +8,7 @@ Aenderung (klein): Mixin wendet den Faktor nur an, wenn der Zustand wirklich bei
 (`level.getBlockState(pos) == this`); der delegierte Vollblock-Aufruf wird uebersprungen.
 Test: `cornerBreakNeedsTheToolAndCreativeDropsNothing` um Vergleich Steinhammer Zelle vs. Diamantblock erweitert
 (laeuft ueber module-simpleoctets-fabric-263, Hammer nur wenn geladen). Verifikation: compile, Modultests, `./gradlew check`.
+
+Nachtrag (Testlauf 1 rot: Zelle 0.00107 vs Block 0.0016 mit Steinhammer): zweite Ursache. `SledgehammerUtils.shouldBreak`
+prueft das Werkzeug am Zellen-Zustand (traegt kein needs_iron) -> Zelle zaehlt als abbaubar (Faktor 1,5), der Diamantblock
+nicht (Steinhammer, Faktor 1). Fix: Ziel- und Ursprungs-Zustand einer Zelle gelten als ihr Vollblock (`OctetCells.baseOf`, SimpleLib).
