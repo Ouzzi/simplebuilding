@@ -1,7 +1,7 @@
-# Simple Maps: Webkarte (Stufe 1 statischer Export, Stufe 2 eingebauter Server + Live)
+# Simple Maps: Webkarte (Stufe 1 statischer Export, Stufe 2 eingebauter Server + Live, Stufe 3 Wegpunkte/Dirty/Claims)
 
 Konzept: `docs/ai/KONZEPT-WEBKARTE-2026-10-19.md`, Pläne: `docs/ai/PLAN-B-WEBMAP-2026-10-19.md` (Stufe 1),
-`docs/ai/PLAN-A-WEBMAP2-2026-10-23.md` (Stufe 2, mit Sicherheitsbegründung).
+`docs/ai/PLAN-A-WEBMAP2-2026-10-23.md` (Stufe 2, mit Sicherheitsbegründung), `docs/ai/PLAN-A-WEBMAP3-2026-10-23.md` (Stufe 3).
 Code: `modules/simplemaps/shared/java/com/simplemaps/web/`, Ansicht `modules/simplemaps/shared/resources/assets/simplemaps/web/index.html`.
 
 ## Was die Mod tut
@@ -21,6 +21,8 @@ Code: `modules/simplemaps/shared/java/com/simplemaps/web/`, Ansicht `modules/sim
 | `webChunksPerTick` | `32` (1–512) | Chunks je Tick; eine Pyramiden-Kachel zählt 16 |
 | `webIntervalMinutes` | `0` (0–1440) | automatischer Export alle n Minuten, 0 = aus |
 | `webHideClaims` | `false` | Chunks leer lassen, in denen ein Schutz (framework `Protection`, z. B. Simple-Tweaks-Claims) Fremden das Bauen verbietet |
+| `webClaimStyle` | `hide` | mit `webHideClaims`: `hide` = geschützter Chunk leer, `pixelate` = jedes erkundete Pixel des Chunks in seiner häufigsten Farbe (grobes Gelände, keine Bauten); Unbekanntes → `hide` |
+| `webWaypoints` | `false` | freigegebene Wegpunkte in `markers.json` (Stufe 3, unten) |
 | `webShops` | `false` | Shops (Ebene `shops` von Simple Shops) in `markers.json`: Dimension, x/z, Angebot/Preis/Besitzername, `icon` `money_bill` (Simple Money geladen, Bild `icons/money_bill.png`) sonst `diamond`; nur erkundete Kacheln, mit `webHideClaims` nie in geschützten Chunks |
 | `webAutoOffWith` | `bluemap, dynmap, squaremap, pl3xmap, journeymap` | einer geladen → Export aus (Logzeile); leere Liste hält ihn an |
 | `webHttpEnabled` | `false` | eingebauter Server (Stufe 2); läuft nur zusammen mit `webEnabled` und ohne autoOffWith-Mod |
@@ -31,7 +33,7 @@ Code: `modules/simplemaps/shared/java/com/simplemaps/web/`, Ansicht `modules/sim
 | `webLiveSeconds` | `2` (1–60) | Takt von `live.json` (Spieler live) |
 
 Spieler erscheinen nur nach eigenem Opt-in: `/simplemaps web show` bzw. `hide` (gespeichert in der Welt,
-`simplemaps:web_players`). `markers.json` enthält Name, Dimension, x/z dieser Spieler – keine UUIDs, keine Wegpunkte.
+`simplemaps:web_players`). `markers.json` enthält Name, Dimension, x/z dieser Spieler – keine UUIDs (Wegpunkte nur freigegebene, Stufe 3).
 Status: `/simplemaps web status`.
 
 ## Stufe 2: eingebauter Server + Live (Standard aus)
@@ -58,6 +60,25 @@ Werte binden neu). Dann `http://127.0.0.1:8124/` im Browser des Server-Rechners.
 location / { proxy_pass http://127.0.0.1:8124; }   # Server-Rechner, webHttpBind bleibt 127.0.0.1
 ```
 
+## Stufe 3: nur Geändertes, Claims verpixeln, Wegpunkte
+- **Dirty-Kacheln:** Der erste Export einer Serversitzung rendert alles. Danach merkt sich die Mod je 1:1-Kachel eine
+  Signatur (welche Kartenkacheln + deren Pixelstand + Claim-Maske der 64 Chunks) und welche Dateien es gibt. Der nächste
+  Export (Befehl oder `webIntervalMinutes`) prüft jede erkundete Kachel (eine Budget-Einheit, kein Chunk wird gelesen) und
+  rendert nur neue Kacheln, Kacheln mit geänderten Kartenpixeln, mit Blockänderung (Mixin auf
+  `ServerLevel.sendBlockUpdated`, nur bei `webEnabled`) oder geänderter Claim-Lage – dazu ihre Pyramiden-Eltern.
+  Voll wird exportiert nach Neustart, mit anderem Ordner/Claim-Modus, nach Abbruch, ab 262144 markierten Kacheln oder mit
+  `/simplemaps web export full`. Blockänderungen ohne Client-Update (seltene Flags, Weltgenerierung) erscheinen erst beim
+  nächsten Vollexport.
+- **Claims verpixeln:** `webHideClaims` + `webClaimStyle: "pixelate"`. „Fremd“ heißt wie bisher: der Schutz verbietet
+  Unbeteiligten das Bauen. Shops und Wegpunkte in geschützten Chunks fehlen in beiden Modi.
+- **Wegpunkte (Standard aus):** Server-Schalter `webWaypoints`; zusätzlich muss jeder Spieler selbst freigeben:
+  `/simplemaps web waypoints share` mit einer Wegfinder-Karte in der Hand speichert einen **Schnappschuss** ihrer Wegpunkte
+  in der Welt (`simplemaps:web_waypoints`); nach Änderungen erneut `share`. `/simplemaps web waypoints unshare` nimmt die
+  gehaltene Karte zurück, ohne Karte alle eigenen Freigaben. Inventare werden nie automatisch ausgelesen.
+  `markers.json` → `waypoints[]`: `dimension`, `x`, `z`, `name`, `color` (`#rrggbb`), `icon` (Item-Id) – nur auf erkundeten
+  Kacheln, nie in verborgenen Claims, ohne Spielernamen/UUID, höchstens 4096. Die Ansicht zeigt sie als Quadrat in
+  Wegpunktfarbe mit Namen (Schalter „Wegpunkte“).
+
 ## Auslieferung statisch (nur beschrieben, nicht eingerichtet)
 Der Ordner ist rein statisch. Beispiel nginx (z. B. auf CT sb-web, Ordner per rsync/Freigabe vom Spielserver holen):
 
@@ -83,5 +104,6 @@ Lizenztext mitliefern.
 
 ## Folgestufen
 2. erledigt (`a-webmap2`, 23.10.): eingebauter Server (Port/Token, Standard 127.0.0.1, aus), Live-Spieler über `live.json`.
-3. Wegpunkte (nur freigegebene), mehrere Dimensionen-Optionen, Claim-Verpixeln, Dirty-Chunks statt Vollexport.
+3. erledigt (`a-webmap3`, 23.10.): Wegpunkte (nur freigegebene), Claim-Verpixeln, Dirty-Kacheln statt Vollexport.
+   Offen: Dimensionen-Auswahl (`dimensions`-Option des Konzepts).
 4. 3D (BlueMap-Anbindung oder Eigenbau) – Besitzer-Entscheidung.

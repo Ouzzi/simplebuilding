@@ -33,6 +33,13 @@ public final class MapsConfig {
     public static boolean webEnabled = false, webHideClaims = false;
     /** Shops (Simple Shops' map layer) in the web map's markers.json: off by default, owner names are in it (privacy). */
     public static boolean webShops = false;
+    /**
+     * Stage 3: waypoints players shared themselves ({@code /simplemaps web waypoints share}) in markers.json, off by default;
+     * how protected chunks look with {@code webHideClaims}: {@code hide} (empty, default) or {@code pixelate} (one colour per chunk).
+     */
+    public static final String WEB_CLAIM_HIDE = "hide", WEB_CLAIM_PIXELATE = "pixelate";
+    public static boolean webWaypoints = false;
+    public static String webClaimStyle = WEB_CLAIM_HIDE;
     /** Chunks read per server tick while exporting; minutes between automatic exports (0 = only by command). */
     public static int webChunksPerTick = WEB_CHUNKS_DEFAULT, webIntervalMinutes = WEB_INTERVAL_DEFAULT;
     /** Empty = {@code <world>/simplemaps-web}; a relative path is relative to the world folder. */
@@ -108,6 +115,9 @@ public final class MapsConfig {
         webEnabled = getBool(json, "webEnabled", false);
         webHideClaims = getBool(json, "webHideClaims", false);
         webShops = getBool(json, "webShops", false);
+        webWaypoints = getBool(json, "webWaypoints", false);
+        webClaimStyle = WEB_CLAIM_PIXELATE.equals(getString(json, "webClaimStyle", WEB_CLAIM_HIDE).trim().toLowerCase(java.util.Locale.ROOT))
+                ? WEB_CLAIM_PIXELATE : WEB_CLAIM_HIDE;
         webChunksPerTick = clamp(getInt(json, "webChunksPerTick", WEB_CHUNKS_DEFAULT), WEB_CHUNKS_MIN, WEB_CHUNKS_MAX);
         webIntervalMinutes = clamp(getInt(json, "webIntervalMinutes", WEB_INTERVAL_DEFAULT), 0, WEB_INTERVAL_MAX);
         webExportDir = getString(json, "webExportDir", "");
@@ -135,6 +145,8 @@ public final class MapsConfig {
         o.addProperty("webIntervalMinutes", webIntervalMinutes);
         o.addProperty("webHideClaims", webHideClaims);
         o.addProperty("webShops", webShops);
+        o.addProperty("webWaypoints", webWaypoints);
+        o.addProperty("webClaimStyle", webClaimStyle);
         com.google.gson.JsonArray ids = new com.google.gson.JsonArray();
         webAutoOffWith.forEach(ids::add);
         o.add("webAutoOffWith", ids);

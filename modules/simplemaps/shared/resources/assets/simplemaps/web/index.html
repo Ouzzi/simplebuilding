@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Simple Maps web map viewer (stages 1+2). Own code, no third-party library, CC0 like the mod. Reads markers.json and
+<!-- Simple Maps web map viewer (stages 1-3). Own code, no third-party library, CC0 like the mod. Reads markers.json and
      tiles/<dim>/<z>/<x>/<y>.png next to this file; z 4 = one block per pixel, 128 blocks per tile. Serve the folder
      with any web server (file:// cannot load markers.json in most browsers). Served by the mod's own web server
      (webHttpEnabled) it also polls live.json (players, export stamp); a ?token= in the page URL is passed on. -->
@@ -25,14 +25,15 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <div id="bar" class="panel"><strong>Simple Maps</strong><select id="dim" aria-label="Dimension"></select>
 <button id="out" aria-label="Zoom out">&minus;</button><button id="in" aria-label="Zoom in">+</button>
 <label><input type="checkbox" id="pl" checked> <span id="plText">Players</span></label>
-<label><input type="checkbox" id="sh" checked> <span id="shText">Shops</span></label></div>
+<label><input type="checkbox" id="sh" checked> <span id="shText">Shops</span></label>
+<label><input type="checkbox" id="wp" checked> <span id="wpText">Waypoints</span></label></div>
 <div id="info" class="panel"></div>
 <script>
 "use strict";
 const T = 128, MAXZ = 4, MIN_S = 1 / 16, MAX_S = 8;
 const de = (navigator.language || "").toLowerCase().startsWith("de");
-const L = de ? {players: "Spieler", shops: "Shops", none: "Noch nichts exportiert.", updated: "Stand", error: "markers.json nicht lesbar", live: "live"}
-             : {players: "Players", shops: "Shops", none: "Nothing exported yet.", updated: "Updated", error: "markers.json could not be read", live: "live"};
+const L = de ? {players: "Spieler", shops: "Shops", waypoints: "Wegpunkte", none: "Noch nichts exportiert.", updated: "Stand", error: "markers.json nicht lesbar", live: "live"}
+             : {players: "Players", shops: "Shops", waypoints: "Waypoints", none: "Nothing exported yet.", updated: "Updated", error: "markers.json could not be read", live: "live"};
 // Token of the mod's web server (webHttpToken), passed on to every request; static hosting ignores it.
 const token = new URLSearchParams(location.search).get("token");
 function url(path, version) {
@@ -44,8 +45,9 @@ function url(path, version) {
 document.documentElement.lang = de ? "de" : "en";
 document.getElementById("plText").textContent = L.players;
 document.getElementById("shText").textContent = L.shops;
+document.getElementById("wpText").textContent = L.waypoints;
 const canvas = document.getElementById("map"), ctx = canvas.getContext("2d");
-const sel = document.getElementById("dim"), info = document.getElementById("info"), pl = document.getElementById("pl"), sh = document.getElementById("sh");
+const sel = document.getElementById("dim"), info = document.getElementById("info"), pl = document.getElementById("pl"), sh = document.getElementById("sh"), wp = document.getElementById("wp");
 // Shop icon: Simple Money's bill (exported next to this page when that mod is loaded), else a drawn bill or diamond.
 const bill = new Image(); let billOk = false;
 bill.onload = () => { billOk = true; draw(); };
@@ -104,6 +106,19 @@ function render() {
     }
   }
   let hover = null;
+  // Waypoints players shared (markers.json "waypoints", stage 3): a square in the waypoint colour, name beside it.
+  if (wp.checked) {
+    ctx.font = "12px system-ui,sans-serif"; ctx.textBaseline = "middle";
+    for (const p of meta.waypoints || []) {
+      if (p.dimension !== dim.id) continue;
+      const sx = (p.x + 0.5 - cx) * scale + w / 2, sy = (p.z + 0.5 - cz) * scale + h / 2;
+      if (sx < -10 || sy < -10 || sx > w + 200 || sy > h + 10) continue;
+      ctx.fillStyle = /^#[0-9a-f]{6}$/.test(p.color) ? p.color : "#ffffff"; ctx.fillRect(sx - 4, sy - 4, 8, 8);
+      ctx.strokeStyle = "#000"; ctx.lineWidth = 1.5; ctx.strokeRect(sx - 4.5, sy - 4.5, 9, 9);
+      if (p.name && scale >= 0.25) { ctx.lineWidth = 3; ctx.strokeText(p.name, sx + 8, sy); ctx.fillStyle = "#fff"; ctx.fillText(p.name, sx + 8, sy); }
+      if (mouse && Math.abs(mouse.x - sx) <= 7 && Math.abs(mouse.y - sy) <= 7) hover = {s: {lines: p.name ? [p.name] : [], x: p.x, z: p.z}, sx, sy};
+    }
+  }
   if (sh.checked) {
     for (const s of meta.shops || []) {
       if (s.dimension !== dim.id) continue;
@@ -180,6 +195,7 @@ async function load(first) {
 sel.addEventListener("change", () => { pick(sel.value); cx = dim.centerX; cz = dim.centerZ; saveHash(); draw(); });
 pl.addEventListener("change", draw);
 sh.addEventListener("change", draw);
+wp.addEventListener("change", draw);
 document.getElementById("in").addEventListener("click", () => zoomAt(2));
 document.getElementById("out").addEventListener("click", () => zoomAt(0.5));
 canvas.addEventListener("wheel", e => { e.preventDefault(); zoomAt(e.deltaY < 0 ? 2 : 0.5, e.offsetX, e.offsetY); }, {passive: false});

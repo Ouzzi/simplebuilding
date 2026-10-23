@@ -12,6 +12,7 @@ import com.simplemaps.Reveal;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.WayfinderData;
 import com.simplemaps.WayfinderIds;
+import com.simplemaps.Waypoint;
 import com.simplemaps.net.LayerDataPayload;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -24,9 +25,11 @@ import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -50,6 +53,10 @@ import net.minecraft.world.level.material.MapColor;
  * the chunk is loaded right now, the explored pixels are read fresh from the world (Vanilla map colours and shading,
  * {@link Reveal#sample}); a chunk is never loaded. Work is split into steps with a chunk budget (one pyramid tile costs
  * {@link #PYRAMID_COST}), so the server thread only does a bounded amount per tick.
+ *
+ * <p>Stage 3: with the {@link State} of the previous export (same folder, same claim mode) only tiles whose map pixels,
+ * claim mask or blocks ({@code dirty}, from {@code WebMap}) changed are rendered again; every other explored tile costs one
+ * check. Protected chunks are hidden or pixelated ({@link Claims}); shared waypoints go into {@code markers.json}.
  */
 public final class WebExport {
     public static final int TILE = WayfinderData.TILE, MAX_ZOOM = 4, CHUNKS_PER_TILE = (TILE / 16) * (TILE / 16), PYRAMID_COST = 16;
@@ -58,7 +65,47 @@ public final class WebExport {
     /** Layer id of Simple Shops' shops (framework {@link MapLayerSources}) and the most shops one export lists. */
     public static final String SHOP_SOURCE = "shops";
     public static final int MAX_SHOPS = 2048;
+    /** Most shared waypoints one export lists. */
+    public static final int MAX_WAYPOINTS = 4096;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+
+    /** How protected chunks look: shown, empty ({@code webHideClaims}) or one colour per chunk ({@code webClaimStyle pixelate}). */
+    public enum Claims {
+        SHOW, HIDE, PIXELATE;
+
+        public static Claims of(boolean hide, String style) {
+            return !hide ? SHOW : MapsConfig.WEB_CLAIM_PIXELATE.equals(style) ? PIXELATE : HIDE;
+        }
+    }
+
+    /**
+     * What one finished export left behind (this server session only), so the next one renders only changed tiles: per
+     * dimension folder the signature of every checked 1:1 tile (map tiles, their versions and the claim mask) and the 1:1
+     * tiles that have a file.
+     */
+    public static final class State {
+        final Path dir;
+        final Claims claims;
+        final Map<String, Map<Long, Long>> signatures = new HashMap<>();
+        final Map<String, Set<Long>> written = new HashMap<>();
+
+        State(Path dir, Claims claims) {
+            this.dir = dir;
+            this.claims = claims;
+        }
+
+        State copy() {
+            State s = new State(dir, claims);
+            signatures.forEach((k, v) -> s.signatures.put(k, new HashMap<>(v)));
+            written.forEach((k, v) -> s.written.put(k, new HashSet<>(v)));
+            return s;
+        }
+
+        /** 1:1 tiles with a file in this folder. */
+        public int written(String folder) {
+            return written.getOrDefault(folder, Set.of()).size();
+        }
+    }
 
     /** One dimension: explored 1:1 tile keys (sorted), the maps that explored them, tiles touched per zoom. */
     private static final class Dim {
@@ -67,7 +114,6 @@ public final class WebExport {
         final List<Long> tiles;
         final List<WayfinderData> maps;
         final List<TreeSet<Long>> touched = new ArrayList<>();
-        int written;
 
         Dim(ServerLevel level, String folder, List<Long> tiles, List<WayfinderData> maps) {
             this.level = level;
@@ -80,31 +126,46 @@ public final class WebExport {
 
     private final MinecraftServer server;
     private final Path dir;
-    private final boolean hideClaims;
+    private final Claims claims;
     private final List<Dim> dims;
     private final int tilesTotal;
-    private int dim, tile, chunk = -1, zoom = MAX_ZOOM - 1, tilesDone, chunksDone, pyramidDim;
+    /** Previous export to compare with (null = render every tile), the state this export builds, changed blocks per folder. */
+    private final State previous, next;
+    private final Map<String, Set<Long>> dirty;
+    private int dim, tile, chunk = -1, zoom = MAX_ZOOM - 1, tilesDone, chunksDone, pyramidDim, rendered;
     private List<Long> parents;
     private byte[] colors, heights;
-    private boolean done;
+    private long mask, signature;
+    private boolean done, failed;
 
-    private WebExport(MinecraftServer server, Path dir, boolean hideClaims, List<Dim> dims) {
+    private WebExport(MinecraftServer server, Path dir, Claims claims, List<Dim> dims, State previous, Map<String, Set<Long>> dirty) {
         this.server = server;
         this.dir = dir;
-        this.hideClaims = hideClaims;
+        this.claims = claims;
         this.dims = dims;
         this.tilesTotal = dims.stream().mapToInt(d -> d.tiles.size()).sum();
+        this.previous = previous != null && previous.dir.equals(dir) && previous.claims == claims ? previous : null;
+        this.next = this.previous != null ? this.previous.copy() : new State(dir, claims);
+        this.dirty = dirty == null ? Map.of() : dirty;
     }
 
     /** Export of every wayfinder map on the server (loads their saved data once, like opening each map). */
-    public static WebExport ofAllMaps(MinecraftServer server, Path dir, boolean hideClaims) {
+    public static WebExport ofAllMaps(MinecraftServer server, Path dir, Claims claims, State previous, Map<String, Set<Long>> dirty) {
         List<WayfinderData> maps = new ArrayList<>();
         for (int id = 0, n = WayfinderIds.count(server); id < n; id++) maps.add(WayfinderData.get(server, id));
-        return of(server, dir, hideClaims, maps);
+        return of(server, dir, claims, maps, previous, dirty);
     }
 
-    /** Export of exactly these maps (maps without a bound, existing dimension are skipped). */
+    /** Full export of exactly these maps, claims shown or hidden. */
     public static WebExport of(MinecraftServer server, Path dir, boolean hideClaims, List<WayfinderData> maps) {
+        return of(server, dir, hideClaims ? Claims.HIDE : Claims.SHOW, maps, null, null);
+    }
+
+    /**
+     * Export of exactly these maps (maps without a bound, existing dimension are skipped); with a matching
+     * {@code previous} state only changed tiles and the tiles in {@code dirty} (1:1 tile keys per folder) are rendered.
+     */
+    public static WebExport of(MinecraftServer server, Path dir, Claims claims, List<WayfinderData> maps, State previous, Map<String, Set<Long>> dirty) {
         Map<String, Dim> byFolder = new TreeMap<>();
         Map<String, TreeSet<Long>> keys = new HashMap<>();
         for (WayfinderData map : maps) {
@@ -117,7 +178,7 @@ public final class WebExport {
             keys.computeIfAbsent(folder, f -> new TreeSet<>()).addAll(map.tileKeys());
         }
         byFolder.forEach((folder, d) -> d.tiles.addAll(keys.get(folder)));
-        return new WebExport(server, dir, hideClaims, new ArrayList<>(byFolder.values()));
+        return new WebExport(server, dir, claims, new ArrayList<>(byFolder.values()), previous, dirty);
     }
 
     /** {@code minecraft:the_nether} -> {@code minecraft_the_nether} (safe as one folder name). */
@@ -137,6 +198,33 @@ public final class WebExport {
 
     public boolean done() {
         return done;
+    }
+
+    /** Stopped by an error (the next export should be a full one). */
+    public boolean failed() {
+        return failed;
+    }
+
+    /** Whether this export only renders changed tiles (a matching previous state). */
+    public boolean incremental() {
+        return previous != null;
+    }
+
+    /** The state for the next export; complete once {@link #done()} without {@link #failed()}. */
+    public State state() {
+        return next;
+    }
+
+    /** 1:1 tiles rendered (checked and found changed, or every tile of a full export). */
+    public int tilesRendered() {
+        return rendered;
+    }
+
+    /** Keys of the 1:1 tiles rendered so far in this dimension. */
+    public Set<Long> rendered(ResourceKey<Level> dimension) {
+        String folder = folder(dimension);
+        for (Dim d : dims) if (d.folder.equals(folder)) return java.util.Collections.unmodifiableSet(d.touched.get(MAX_ZOOM));
+        return Set.of();
     }
 
     public Path dir() {
@@ -159,9 +247,9 @@ public final class WebExport {
         return dims.size();
     }
 
-    /** 1:1 tiles written (not empty) over all dimensions. */
+    /** 1:1 tiles with a file over all dimensions of this export (also the unchanged ones of an incremental export). */
     public int tilesWritten() {
-        return dims.stream().mapToInt(d -> d.written).sum();
+        return dims.stream().mapToInt(d -> next.written(d.folder)).sum();
     }
 
     /**
@@ -189,17 +277,28 @@ public final class WebExport {
             }
         } catch (IOException | RuntimeException e) {
             SimpleMaps.LOG.warn("Simple Maps: web map export to {} stopped: {}", dir, e.toString());
-            done = true;
+            done = failed = true;
         }
         return used;
     }
 
-    /** One chunk of the current 1:1 tile; writes the tile after its last chunk. */
+    /**
+     * One chunk of the current 1:1 tile; writes the tile after its last chunk. The first call per tile computes the claim
+     * mask and signature and, in an incremental export, skips an unchanged tile (that call is its whole cost).
+     */
     private void stepTile() throws IOException {
         Dim d = dims.get(dim);
         long key = d.tiles.get(tile);
         int tx = WayfinderData.tileX(key), tz = WayfinderData.tileZ(key);
         if (chunk < 0) {
+            mask = claimMask(d.level, tx, tz);
+            signature = signature(d, tx, tz, mask);
+            Map<Long, Long> signatures = next.signatures.computeIfAbsent(d.folder, f -> new HashMap<>());
+            if (previous != null && Long.valueOf(signature).equals(signatures.get(key)) && !dirty.getOrDefault(d.folder, Set.of()).contains(key)) {
+                tile++;
+                tilesDone++;
+                return;
+            }
             colors = new byte[WayfinderData.AREA];
             heights = new byte[WayfinderData.AREA];
             for (WayfinderData map : d.maps) {
@@ -215,24 +314,65 @@ public final class WebExport {
             chunk = 0;
         }
         int lx0 = (chunk % 8) * 16, lz0 = (chunk / 8) * 16, cx = tx * 8 + chunk % 8, cz = tz * 8 + chunk / 8;
-        if (hideClaims && hidden(d.level, cx, cz)) {
+        boolean hiddenChunk = (mask >>> chunk & 1L) != 0;
+        if (hiddenChunk && claims == Claims.HIDE) {
             for (int lz = lz0; lz < lz0 + 16; lz++) {
                 for (int lx = lx0; lx < lx0 + 16; lx++) colors[lz * TILE + lx] = 0;
             }
         } else {
             LevelChunk loaded = d.level.getChunkSource().getChunkNow(cx, cz);
             if (loaded != null) refresh(d.level, loaded, tx, tz, lx0, lz0);
+            if (hiddenChunk) pixelate(lx0, lz0);
         }
         chunksDone++;
         if (++chunk < CHUNKS_PER_TILE) return;
         int[] argb = new int[WayfinderData.AREA];
         for (int i = 0; i < argb.length; i++) argb[i] = argb(colors[i]);
-        if (write(d.folder, MAX_ZOOM, tx, tz, argb)) d.written++;
+        Set<Long> files = next.written.computeIfAbsent(d.folder, f -> new HashSet<>());
+        if (write(d.folder, MAX_ZOOM, tx, tz, argb)) files.add(key);
+        else files.remove(key);
+        next.signatures.computeIfAbsent(d.folder, f -> new HashMap<>()).put(key, signature);
         d.touched.get(MAX_ZOOM).add(key);
+        rendered++;
         chunk = -1;
         colors = heights = null;
         tile++;
         tilesDone++;
+    }
+
+    /** Bit {@code (lz / 16) * 8 + lx / 16} set = that chunk of the tile is protected and hidden or pixelated. */
+    private long claimMask(ServerLevel level, int tx, int tz) {
+        if (claims == Claims.SHOW || !Protection.active(server)) return 0L;
+        long m = 0L;
+        for (int c = 0; c < CHUNKS_PER_TILE; c++) if (hidden(level, tx * 8 + c % 8, tz * 8 + c / 8)) m |= 1L << c;
+        return m;
+    }
+
+    /** Which map tiles (identity and pixel version) make up this 1:1 tile, mixed with the claim mask (session only). */
+    private static long signature(Dim d, int tx, int tz, long mask) {
+        long h = 0xCBF29CE484222325L;
+        for (WayfinderData map : d.maps) {
+            WayfinderData.Tile t = map.tile(tx, tz);
+            if (t == null) continue;
+            h = (h ^ System.identityHashCode(t)) * 0x100000001B3L;
+            h = (h ^ t.version) * 0x100000001B3L;
+        }
+        return h ^ mask * 0x9E3779B97F4A7C15L;
+    }
+
+    /** A protected chunk in {@link Claims#PIXELATE}: every explored pixel gets the chunk's most common colour. */
+    private void pixelate(int lx0, int lz0) {
+        int[] count = new int[256];
+        int best = 0;
+        for (int lz = lz0; lz < lz0 + 16; lz++) {
+            for (int lx = lx0; lx < lx0 + 16; lx++) {
+                int c = colors[lz * TILE + lx] & 0xFF;
+                if (c != 0 && ++count[c] > count[best]) best = c;
+            }
+        }
+        for (int lz = lz0; lz < lz0 + 16; lz++) {
+            for (int lx = lx0; lx < lx0 + 16; lx++) if (colors[lz * TILE + lx] != 0) colors[lz * TILE + lx] = (byte) best;
+        }
     }
 
     /** Reads the explored pixels of a loaded chunk fresh (unexplored pixels stay unknown). */
@@ -374,7 +514,7 @@ public final class WebExport {
             JsonObject o = new JsonObject();
             o.addProperty("id", d.level.dimension().identifier().toString());
             o.addProperty("folder", d.folder);
-            o.addProperty("tiles", d.written);
+            o.addProperty("tiles", next.written(d.folder));
             // Start view: the middle of the explored tiles.
             long sx = 0, sz = 0;
             for (long k : d.tiles) {
@@ -389,7 +529,39 @@ public final class WebExport {
         root.add("dimensions", dimensions);
         root.add("players", players(server));
         if (MapsConfig.webShops) root.add("shops", shops());
+        if (MapsConfig.webWaypoints) root.add("waypoints", waypoints());
         return root;
+    }
+
+    /**
+     * Waypoints players shared themselves ({@code /simplemaps web waypoints share}, a snapshot), only with
+     * {@code webWaypoints}, only on explored tiles of an exported dimension, never in a protected chunk while claims are
+     * hidden or pixelated; no UUIDs, no player names.
+     */
+    JsonArray waypoints() {
+        JsonArray out = new JsonArray();
+        Map<String, Set<Long>> explored = new HashMap<>();
+        for (WebMap.Share share : WebMap.shares(server)) {
+            Dim d = null;
+            for (Dim c : dims) if (c.level.dimension().identifier().toString().equals(share.dimension())) d = c;
+            if (d == null) continue;
+            Set<Long> tiles = explored.computeIfAbsent(d.folder, f -> new HashSet<>());
+            if (tiles.isEmpty()) tiles.addAll(d.tiles);
+            for (Waypoint w : share.waypoints().list()) {
+                if (out.size() >= MAX_WAYPOINTS) return out;
+                if (!tiles.contains(WayfinderData.key(Math.floorDiv(w.x(), TILE), Math.floorDiv(w.z(), TILE)))) continue;
+                if (claims != Claims.SHOW && hidden(d.level, w.x() >> 4, w.z() >> 4)) continue;
+                JsonObject o = new JsonObject();
+                o.addProperty("dimension", share.dimension());
+                o.addProperty("x", w.x());
+                o.addProperty("z", w.z());
+                o.addProperty("name", w.name());
+                o.addProperty("color", String.format("#%06x", w.color() & 0xFFFFFF));
+                o.addProperty("icon", w.icon().toString());
+                out.add(o);
+            }
+        }
+        return out;
     }
 
     /**
@@ -432,7 +604,7 @@ public final class WebExport {
                 for (MapLayerSources.Marker m : found) {
                     if (out.size() >= MAX_SHOPS) return out;
                     if (m.x() < x0 || m.x() >= x0 + TILE || m.z() < z0 || m.z() >= z0 + TILE) continue;
-                    if (hideClaims && hidden(d.level, m.x() >> 4, m.z() >> 4)) continue;
+                    if (claims != Claims.SHOW && hidden(d.level, m.x() >> 4, m.z() >> 4)) continue;
                     JsonObject o = new JsonObject();
                     o.addProperty("dimension", d.level.dimension().identifier().toString());
                     o.addProperty("x", m.x());
