@@ -38,6 +38,8 @@ BLOCKS[HUSHED] = dict(kind='cube', tex=OWN_TEX, double=f'{NS}:block/{HUSHED}')
 for kind, suffix in (('stairs', 'tile_stairs'), ('slab', 'tile_slab'), ('wall', 'tile_wall')):
     BLOCKS[f'hushed_deepslate_{suffix}'] = dict(kind=kind, base=f'{NS}:{HUSHED}', top=OWN_TEX, side=OWN_TEX, wall=OWN_TEX, double=OWN_TEX, family=HUSHED)
 BLOCKS['sculk_deepslate'] = dict(kind='cube', tex=f'{NS}:block/sculk_deepslate')
+# Sculk tiles (W23-3, owner pick B23-T3 C): own animated texture, full block only (no stairs/slab, so no octet, A4).
+BLOCKS['sculk_tiles'] = dict(kind='cube', tex=f'{NS}:block/sculk_tiles')
 for family, base, which, tex in SHAPES:
     for letter, kind in (('s', 'stairs'), ('S', 'slab'), ('w', 'wall')):
         if letter in which:
@@ -56,7 +58,7 @@ AGED_BASE = dict(AGED)
 HUSHED_BLOCKS = [n for n in BLOCKS if n.startswith('hushed_')]
 
 # --- Moved from SimpleBuilding (b-blocksmove, docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md) -----------------------------------
-# Java: com.simpleblocks.nature.NatureBlocks (not in BlocksRegistry, so the 37 above stay the module's own). The nature
+# Java: com.simpleblocks.nature.NatureBlocks (not in BlocksRegistry, so the 38 above stay the module's own). The nature
 # variants keep their data files from SimpleBuilding's 26.3 datagen (moved, namespace rewritten; check_data.py checks them);
 # this script writes the gravity blocks' data, the tags and the names of all 15.
 GRAVITY = [('suspended_sand', 'sand', 'simplebuilding:nihilith_shard', 'minecraft:phantom_membrane'),
@@ -272,6 +274,8 @@ def recipes():
                     'ingredients': ['minecraft:deepslate_tiles'] * 4 + ['minecraft:sculk'], 'result': result(HUSHED, 4)}, 'minecraft:sculk')
     recipe('sculk_deepslate', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
                                'ingredients': ['minecraft:deepslate', 'minecraft:sculk'], 'result': result('sculk_deepslate', 2)}, 'minecraft:sculk')
+    recipe('sculk_tiles', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'T': 'minecraft:deepslate_tiles', 'S': 'minecraft:sculk'},
+                           'pattern': ['TS', 'ST'], 'result': result('sculk_tiles', 2)}, 'minecraft:sculk')
     # Blue nether bricks (N71): like red nether bricks (2 wart + 2 nether bricks), with SimpleLib's warped wart; without
     # SimpleLib (Simple Blocks alone) Vanilla's warped wart block stands in (1 block + 8 nether bricks -> 4).
     lib, no_lib = mod_condition('simplelib'), mod_condition('simplelib', True)
@@ -394,6 +398,8 @@ def names():
             en[name], de[name] = 'Blue Nether Bricks', 'Blaue Netherziegel'
         elif name == 'sculk_deepslate':
             en[name], de[name] = 'Sculk Deepslate', 'Sculk-Tiefenschiefer'
+        elif name == 'sculk_tiles':
+            en[name], de[name] = 'Sculk Tiles', 'Sculk-Fliesen'
         elif b['kind'] == 'cube':
             base = AGED_BASE[name]
             word_en, word_de = ('Cracked', 'Rissige') if name.startswith('cracked_') else ('Mossy', 'Bemooste')

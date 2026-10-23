@@ -49,6 +49,10 @@ SimpleLib). Tab: Stufe T2 umgesetzt (die 15 stehen von Haus aus im Tab `simplebl
 SimpleBuilding behält Weltgenerierung (rissige Eisfelder), Meißel-/Hammer-Wege und Schwerkraft-Kolbentests (per Id). Plan:
 `docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md`.
 
+## Stand 23.10. (a-blockstex23b, W23-3)
+Neuer Baublock `simpleblocks:sculk_tiles` (Sculk-Fliesen, eigene animierte Textur, Eigenschaften der Tiefenschieferfliesen) –
+nur Vollblock, keine Treppe/Stufe, daher kein Octet (A4). Plan: `docs/ai/PLAN-A-BLOCKSTEX23B-2026-10-23.md`.
+
 ## Zahlen
 - Tab „SimpleBlocks“ hat heute 12 Zeilengruppen (Basis) + Schach + Octets + Natur + Lichtscheiben + Schwefel + Holzwerk.
 - **Verschieben nach `simpleblocks`: 15 Items sicher** (4 Schwerkraft, 4 Naturstufen, 4 Eis/Schale, 3 Froschlichter) **plus 40 nach Entscheidung E-B1**

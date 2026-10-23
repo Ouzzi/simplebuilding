@@ -1,9 +1,10 @@
 """Simple Blocks textures (N69, 2026-10-16, docs/ai/KONZEPT-MODREF-BLOECKE-2026-10-16.md section 6).
 
-Own pixel art (committed): hushed_deepslate_tiles, sculk_deepslate - the approved drafts of modref_concept_2026_10_16.py.
+Since W23-3 (owner 23.10.) hushed_deepslate_tiles and sculk_deepslate are Vanilla-derived too (blocks_b23_2026_10_23.py);
+this file has no own pixel art left.
 Vanilla-derived (built, never committed, AGENTS.md rule 7): the cracked and mossy bricks. Each starts from the Vanilla brick
-texture of the client jar and adds (cracked) a dark, branching diagonal crack or (mossy) moss in the joints and a few
-patches on the faces, in the style of Vanilla's cracked and mossy stone bricks. Listed in vanilla_derived.MODULE_OUTPUTS['simpleblocks'].
+texture of the client jar and adds (cracked) long cracks that run through several bricks (blocks_b23_2026_10_23.cracked,
+W23-3) or (mossy) moss in the joints and a few patches on the faces. Listed in vanilla_derived.MODULE_OUTPUTS['simpleblocks'].
 
   python3.12 tools/textures/missing_blocks_2026_10_16.py            # writes the own PNGs + both previews
   python3.12 tools/textures/missing_blocks_2026_10_16.py --check    # are the own PNGs current?
@@ -23,7 +24,7 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
-import modref_concept_2026_10_16 as concept  # noqa: E402
+import blocks_b23_2026_10_23 as b23  # noqa: E402
 
 OUT = ROOT / 'modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block'
 OWN_PREVIEW = ROOT / 'docs/ai/previews/claude-missingblocks'
@@ -44,9 +45,8 @@ MOSS = [(58, 82, 36), (78, 108, 44), (100, 134, 56), (126, 160, 72)]
 
 
 def own():
-    """name -> 16x16 RGBA image."""
-    return {'hushed_deepslate_tiles': concept.to_img(concept.hushed_tiles()).convert('RGBA'),
-            'sculk_deepslate': concept.to_img(concept.sculk_deepslate()).convert('RGBA')}
+    """name -> 16x16 RGBA image (none since W23-3: the sculk blocks moved to blocks_b23_2026_10_23.derived)."""
+    return {}
 
 
 def _lum(p):
@@ -58,31 +58,8 @@ def _scale(p, f):
 
 
 def cracked(src, seed):
-    """Two dark, branching diagonal cracks (one pixel wide, a lighter pixel on one flank), like Vanilla's cracked bricks."""
-    rng = random.Random(seed)
-    im = src.copy()
-    px = im.load()
-    marked = set()
-    for start in range(2):
-        x, y = rng.choice([1, 2, 3, 5, 9, 11, 12, 13]), rng.choice([0, 1, 2, 3]) + 8 * start
-        dx = rng.choice([-1, 1])
-        for step in range(rng.randint(8, 11)):
-            marked.add((x % 16, y % 16))
-            if rng.random() < 0.28:  # a short side branch
-                marked.add(((x + dx) % 16, y % 16))
-            y += 1 if rng.random() < 0.8 else 0
-            x += dx if rng.random() < 0.65 else 0
-            if rng.random() < 0.12:
-                dx = -dx
-            if y > 15:
-                break
-    for (x, y) in marked:
-        px[x, y] = _scale(src.getpixel((x, y)), 0.52)
-    for (x, y) in marked:  # relief: the pixel right of a crack catches a little light
-        nx = (x + 1) % 16
-        if (nx, y) not in marked:
-            px[nx, y] = _scale(px[nx, y], 1.10)
-    return im
+    """W23-3 (owner: take the new cracks, deeper and running through like Vanilla): blocks_b23_2026_10_23.cracked."""
+    return b23.cracked(src, seed)
 
 
 def mossy(src, seed):
@@ -145,8 +122,9 @@ def main():
             raise SystemExit(f'missing_blocks: stale textures {stale}; run without --check')
         print('missing_blocks: own textures current')
         return
-    OWN_PREVIEW.mkdir(parents=True, exist_ok=True)
-    _sheet(list(own().values()), per_row=2).save(OWN_PREVIEW / 'own_8x.png')
+    if own():
+        OWN_PREVIEW.mkdir(parents=True, exist_ok=True)
+        _sheet(list(own().values()), per_row=2).save(OWN_PREVIEW / 'own_8x.png')
     jar = os.environ.get('SB_CLIENT_JAR')
     if jar and Path(jar).is_file():
         DERIVED_PREVIEW.mkdir(parents=True, exist_ok=True)
