@@ -2255,7 +2255,12 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
         "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json",
         "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/HiddenOreBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/BrushItemMixin.java",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_ore.json",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_ore.json",
+        "mc26_3/overlay/resources/assets/simplebuilding/blockstates/astralit_ore.json"
       ],
       "en": {
         "title": "Ore Generation in the End (Astralit and Nihilit)",
@@ -2267,7 +2272,7 @@ window.WIKI_DATA = {
           "Nihilit Ore: vein size 6 (5 before W23-2); 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
           "Astralit Ore: hardness 20, blast resistance 1200, emits light level 5, requires a diamond or better pickaxe (tags mineable/pickaxe and needs_diamond_tool), drops 3-7 experience.",
           "Nihilit Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
-          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Fortune raises the amount by the ore formula (ore_drops), Silk Touch yields the ore block itself.",
+          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Silk Touch yields the ore block itself. W24-4 (owner 23.10.2026): the ores hide in the end stone (a few faint crystal splinters) until a brush frees them like an archaeology find: every brush stroke (every 10 ticks of brushing) adds one step to the block state brushed (0-6); after six strokes the ore shows its full crystals with a soft glimmer (animated texture) and the brush loses one durability. Only a freed ore (brushed=6) drops the full amount - one item, raised by Fortune with the ore formula (ore_drops: on average 1, 1.33, 1.75, 2.2 for Fortune 0-III); a hidden or half-brushed ore drops the same with a 70% chance (on average 0.7, 0.93, 1.23, 1.54). Progress stays where brushing stopped; Silk Touch gives the hidden ore block. Dull ores do not react to the brush.",
           "The ores also exist as block items (astralit_ore, nihilith_ore) and appear in the creative tab \"SimpleMaterials\" (simplebuilding:materials).",
           "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names.",
           "Dull ore (W23-2, owner 23.10.2026): about one ore block in five of every vein is Dull Astralit Ore or Dull Nihilit Ore. The vein has two targets - first a random end stone match with the dull chance (Astralit 0.162, Nihilit 0.194), then one with the real chance (0.773 / 0.966); the rest stays end stone. The bigger veins keep the expected amount of real ore as before (a re-implementation of OreFeature in the placement surroundings: Astralit 1.89, Nihilit 1.58 real blocks per vein; a gametest measures 600 veins each).",
@@ -2284,7 +2289,7 @@ window.WIKI_DATA = {
           "Nihilit Ore: Adergröße 6 (vor W23-2: 5); 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
           "Astralit Ore: Härte 20, Explosionswiderstand 1200, leuchtet mit Lichtstärke 5, benötigt eine Spitzhacke aus Diamant oder besser (Tags mineable/pickaxe und needs_diamond_tool), gibt 3–7 Erfahrungspunkte.",
           "Nihilit Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
-          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Glück erhöht die Menge nach der Erz-Formel (ore_drops), Behutsamkeit liefert den Erzblock selbst.",
+          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Behutsamkeit liefert den Erzblock selbst. W24-4 (Besitzer 23.10.2026): die Erze verstecken sich im Endstein (nur einzelne blasse Kristallsplitter), bis ein Pinsel sie wie einen Archäologie-Fund freilegt: jeder Pinselstrich (alle 10 Ticks Pinseln) erhöht den Blockzustand brushed (0–6) um eins; nach sechs Strichen zeigt das Erz seine vollen Kristalle mit dezentem Glimmen (animierte Textur) und der Pinsel verliert einen Haltbarkeitspunkt. Nur freigelegtes Erz (brushed=6) gibt die volle Menge – ein Item, mit Glück nach der Erz-Formel erhöht (ore_drops: im Mittel 1; 1,33; 1,75; 2,2 bei Glück 0–III); verstecktes oder halb gepinseltes Erz gibt dasselbe mit 70 % Wahrscheinlichkeit (im Mittel 0,7; 0,93; 1,23; 1,54). Der Fortschritt bleibt stehen, wo das Pinseln aufhörte; Behutsamkeit liefert den versteckten Erzblock. Trübe Erze reagieren nicht auf den Pinsel.",
           "Die Erze existieren auch als Blockitems (astralit_ore, nihilith_ore) und stehen im Kreativ-Tab „SimpleMaterials“ (simplebuilding:materials).",
           "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück.",
           "Trübes Erz (W23-2, Besitzer 23.10.2026): etwa jeder fünfte Erzblock einer Ader ist Trübes Astraliterz bzw. Trübes Nihiliterz. Die Ader hat zwei Ziele – zuerst ein zufälliger Endstein-Treffer mit der Trüb-Wahrscheinlichkeit (Astralit 0,162, Nihilit 0,194), dann einer mit der Echt-Wahrscheinlichkeit (0,773 / 0,966); der Rest bleibt Endstein. Die größeren Adern halten die erwartete Menge echten Erzes wie vorher (Nachbildung von OreFeature im Platzierungs-Umfeld: Astralit 1,89, Nihilit 1,58 echte Blöcke je Ader; ein Gametest misst je 600 Adern).",
@@ -3008,7 +3013,9 @@ window.WIKI_DATA = {
         "simplebuilding:astral_piston",
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_redstone_torch",
-        "simplebuilding:astral_redstone_torch"
+        "simplebuilding:astral_redstone_torch",
+        "simplebuilding:nihilith_end_rod",
+        "simplebuilding:astralit_end_rod"
       ],
       "en": {
         "title": "Astral, Nihil and Bridge Redstone",
@@ -4597,6 +4604,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_stairs_from_end_stone_brick_stairs",
         "simplebuilding:astralit_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
+        "simplebuilding:astralit_end_rod",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
         "simplebuilding:astralit_quartz_checker",
         "simplebuilding:bridge_redstone",
@@ -21519,6 +21527,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_stairs_from_end_stone_brick_stairs",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
+        "simplebuilding:nihilith_end_rod",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
         "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:note_amplifier",
@@ -22532,7 +22541,8 @@ window.WIKI_DATA = {
             "Craft it from a red, a yellow and a blue dye over three planks. Left-click puts dyes in (also a whole stack at once), right-click with an empty cursor takes up to a stack of the color in front - the color chosen with the mouse wheel over the box, otherwise the first color it holds. The choice stays when the mouse leaves the box.",
             "The tooltip shows all 16 dyes with their counts; colors the box does not hold are greyed out and the color in front is framed.",
             "Tiers like the bundle: Reinforced Paint Box (crafting table, the box in the middle, four diamond pebbles beside it and four gold nuggets in the corners, keeps its dyes) holds 128 of each color, Netherite Paint Box (smithing table, Netherite Upgrade + netherite ingot) 256, Enderite Paint Box (smithing table, Enderite Upgrade + enderite ingot) 512.",
-            "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints its front color, taking out exactly that dye (with the Color Palette enchantment on the brush: a random dye at hand)."
+            "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints its front color, taking out exactly that dye (with the Color Palette enchantment on the brush: a random dye at hand).",
+            "Set it down: sneak + right-click on the top of a block puts the box there as a flat case (the lid shows its window, the latch faces you). Right-clicking it with a dye puts the dye in, right-clicking with an empty hand picks the box up with all its dyes. It needs a solid floor; breaking it, pistons, explosions or a removed floor give the box back with its contents."
           ]
         },
         "de": {
@@ -22541,7 +22551,8 @@ window.WIKI_DATA = {
             "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein (auch einen ganzen Stapel), Rechtsklick mit leerem Cursor nimmt bis zu einen Stapel der vorn liegenden Farbe heraus - der Farbe, die das Mausrad über dem Kasten gewählt hat, sonst der ersten enthaltenen. Die Wahl bleibt, wenn die Maus den Kasten verlässt.",
             "Der Tooltip zeigt alle 16 Farbstoffe mit ihrer Anzahl; Farben, die der Kasten nicht enthält, sind ausgegraut, die vorn liegende ist umrahmt.",
             "Stufen wie beim Bündel: Verstärkter Farbkasten (Werkbank, Kasten in der Mitte, vier Diamantkiesel daneben und vier Goldnuggets in den Ecken, behält seine Farbstoffe) fasst 128 je Farbe, Netheritfarbkasten (Schmiedetisch, Netherit-Aufwertung + Netheritbarren) 256, Enderitfarbkasten (Schmiedetisch, Enderit-Aufwertung + Enderitbarren) 512.",
-            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt seine vordere Farbe; genau dieser Farbstoff wird entnommen (mit Farbpalette auf dem Pinsel: ein zufälliger Farbstoff zur Hand)."
+            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt seine vordere Farbe; genau dieser Farbstoff wird entnommen (mit Farbpalette auf dem Pinsel: ein zufälliger Farbstoff zur Hand).",
+            "Abstellen: Schleichen + Rechtsklick auf die Oberseite eines Blocks stellt den Kasten als flachen Koffer ab (der Deckel zeigt sein Fenster, das Schloss zeigt zu dir). Rechtsklick mit einem Farbstoff legt ihn hinein, Rechtsklick mit leerer Hand nimmt den Kasten samt allen Farbstoffen auf. Er braucht festen Boden; Abbauen, Kolben, Explosionen oder ein weggenommener Boden geben den Kasten mit Inhalt zurück."
           ]
         }
       },
@@ -50846,6 +50857,49 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astralit_end_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_end_rod",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_end_rod.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "/",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astralit_dust"
+        ],
+        "/": [
+          "minecraft:blaze_rod"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astralit_lamp",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -70896,6 +70950,49 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_end_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_end_rod",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_end_rod.json",
+      "ingredients": [
+        "minecraft:blaze_rod",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "/",
+        "#"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "/": [
+          "minecraft:blaze_rod"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 4
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 1
           }
         ]
       }
@@ -94858,6 +94955,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_end_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_end_rod"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_end_rod.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_lamp",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -94884,13 +94999,14 @@ window.WIKI_DATA = {
           "rolls": 1,
           "items": [
             "simplebuilding:astralit_ore",
+            "simplebuilding:astralit_dust",
             "simplebuilding:astralit_dust"
           ],
           "conditions": [],
           "functions": []
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_ore.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_pillar",
@@ -98089,6 +98205,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_end_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_end_rod"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_end_rod.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_lamp",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -98115,13 +98249,14 @@ window.WIKI_DATA = {
           "rolls": 1,
           "items": [
             "simplebuilding:nihilith_ore",
+            "simplebuilding:nihilith_shard",
             "simplebuilding:nihilith_shard"
           ],
           "conditions": [],
           "functions": []
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_pillar",
@@ -137010,8 +137145,8 @@ window.WIKI_DATA = {
   "counts": {
     "items": 543,
     "blocks": 320,
-    "recipes": 859,
-    "lootTables": 341,
+    "recipes": 861,
+    "lootTables": 343,
     "trades": 20,
     "enchantments": 13,
     "tags": 57,
