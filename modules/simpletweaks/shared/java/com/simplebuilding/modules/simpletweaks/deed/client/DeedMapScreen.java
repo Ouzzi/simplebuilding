@@ -201,10 +201,10 @@ public final class DeedMapScreen extends Screen {
         if (key == null) return id;
         if (key.getNamespace().equals("minecraft")) {
             String own = "simpletweaks.play.dimension." + key.getPath();
-            if (I18n.exists(own)) return I18n.get(own);
+            if (net.minecraft.locale.Language.getInstance().has(own)) return I18n.get(own);
         }
         String vanilla = "dimension." + key.getNamespace() + "." + key.getPath();
-        if (I18n.exists(vanilla)) return I18n.get(vanilla);
+        if (net.minecraft.locale.Language.getInstance().has(vanilla)) return I18n.get(vanilla);
         String path = key.getPath().replace('_', ' ');
         return path.isEmpty() ? id : Character.toUpperCase(path.charAt(0)) + path.substring(1);
     }
