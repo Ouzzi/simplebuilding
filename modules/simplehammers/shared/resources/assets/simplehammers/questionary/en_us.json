@@ -1,0 +1,27 @@
+{
+  "guide_book": {
+    "lore": [
+      "A short book for everyone who prefers to work in big strokes."
+    ],
+    "use": [
+      "The Simple Hammers Guide explains the sledgehammers, carving, crushing and in-world upgrades. Craft it shapeless from a book and an iron ingot."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  },
+  "family:sledgehammer": {
+    "items": [
+      "regex:.*_sledgehammer"
+    ],
+    "lore": [
+      "{name}: a pickaxe that never learned to stop at one block."
+    ],
+    "use": [
+      "Mines like a pickaxe of its tier, but takes the 3x3 area in front of you along; sneak to mine only the aimed block. Sneak and hold use on a block to knock an octet off it."
+    ],
+    "secret": [
+      "With the upgrade material in the off hand, holding use on an upgradable block strikes it up to the next tier, contents included."
+    ]
+  }
+}

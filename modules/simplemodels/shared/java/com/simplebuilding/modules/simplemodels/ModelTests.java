@@ -258,9 +258,9 @@ public final class ModelTests {
             }
             h.assertTrue(en.keySet().equals(de.keySet()), "EN/DE complete"); var defaults = new ModelPolicy();
             for (var f : ModelPolicy.class.getFields()) if (!java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
-                String key = "simplemodels.config." + f.getName();
-                for (var lang : List.of(en, de)) for (String suffix : List.of("", ".tooltip", ".tab")) h.assertTrue(lang.containsKey(key + suffix), "Config metadata " + key + suffix);
-                h.assertTrue(en.get(key + ".tooltip").contains("Default: " + f.get(defaults)) && de.get(key + ".tooltip").contains("Standard: " + f.get(defaults)), "Default in every tooltip");
+                String key = "text.autoconfig.simplemodels.option." + f.getName();
+                for (var lang : List.of(en, de)) for (String suffix : List.of("", ".@Tooltip")) h.assertTrue(lang.containsKey(key + suffix), "Config metadata " + key + suffix);
+                h.assertTrue(en.get(key + ".@Tooltip").contains("Default: " + f.get(defaults)) && de.get(key + ".@Tooltip").contains("Standard: " + f.get(defaults)), "Default in every tooltip");
             }
         } catch (Exception e) { throw new AssertionError(e); } h.succeed();
     }

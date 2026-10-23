@@ -21,7 +21,7 @@
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Geschwindigkeitsbonus je Rückenwindstufe;\nBereich 0–1. Standard: 0.3.\nServereinstellung; Neustart erforderlich.",
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Geschwindigkeitsbonus je Rückenwindstufe;\nBereich 0–1. Standard: 0.2.\nServereinstellung; Neustart erforderlich.",
   "text.autoconfig.simpleriding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Sprungkraftbonus je Sprungkraftstufe; Bereich\n0–0,5. Standard: 0.2. Servereinstellung;\nNeustart erforderlich.",
-  "simpleriding.config.server": "Lokale Serverkonfiguration (Neustart erforderlich)",
+  "text.autoconfig.simpleriding.serverTitle": "Lokale Serverkonfiguration (Neustart erforderlich)",
   "text.autoconfig.simpleriding.option.safety.enableTailwind": "Rückenwind aktivieren",
   "text.autoconfig.simpleriding.option.safety.enableTailwind.@Tooltip": "Geschwindigkeitsboni für Sattel und Geschirr\nerlauben. Standard: true. Servereinstellung;\nNeustart erforderlich.",
   "text.autoconfig.simpleriding.option.safety.enableLeaping": "Sprungkraft aktivieren",

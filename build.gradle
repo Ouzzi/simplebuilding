@@ -315,7 +315,8 @@ tasks.named('check') { dependsOn 'checkBalance' }
 ['checkLangText': 'tools/check_tooltip_text.py', 'checkEmptyTags': 'tools/check_empty_tags.py',
  'checkLootFormat': 'tools/check_loot_format.py --strict', 'checkUiContrast': 'tools/check_ui_contrast.py',
  'checkItemProperties': 'tools/check_item_properties.py', 'checkMissingTextures': 'tools/check_missing_textures.py',
- 'checkTextureLayers': 'tools/textures/layers.py check', 'checkModIcons': 'tools/check_mod_icons.py'].each { taskName, script ->
+ 'checkTextureLayers': 'tools/textures/layers.py check', 'checkModIcons': 'tools/check_mod_icons.py',
+ 'checkModuleStyle': 'tools/check_module_style.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."

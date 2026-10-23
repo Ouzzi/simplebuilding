@@ -17110,6 +17110,30 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
         }
       },
       "texture": "assets/textures/simpleoctets/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book about building in halves of halves of halves."
+          ],
+          "use": [
+            "The Simple Octets Guide explains the octets, mixed cells and melon octets. Craft it shapeless from a book and a stonecutter."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch über das Bauen in Hälften von Hälften von Hälften."
+          ],
+          "use": [
+            "Das Simple-Octets-Handbuch erklärt die Achtelblöcke, gemischte Zellen und Melonen-Achtel. Herstellung formlos aus einem Buch und einem Steinschneider."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleoctets:guide_book"
       ],
@@ -19538,6 +19562,30 @@ window.WIKI_MODULE_DATA["simpleoctets"] = {
         },
         "de": {
           "summary": "Melonen-Achtelzelle: mit Schleichen + Rechtsklick einer Melonenscheibe gesetzt; droppt je Achtel eine Melonenscheibe. Sie hat kein Item."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A melon slice that decided to become architecture."
+          ],
+          "use": [
+            "Sneak and right-click a block with a melon slice to place it as a melon octet; without sneaking you eat the slice. Each octet drops one melon slice."
+          ],
+          "secret": [
+            "The cell shows rind outside and flesh on the cut faces."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Melonenscheibe, die Architektur werden wollte."
+          ],
+          "use": [
+            "Schleichen und mit einer Melonenscheibe auf einen Block rechtsklicken setzt sie als Melonen-Achtel; ohne Schleichen isst du sie. Jedes Achtel lässt eine Melonenscheibe fallen."
+          ],
+          "secret": [
+            "Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch."
+          ]
         }
       },
       "craftedBy": [],
