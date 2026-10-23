@@ -198,7 +198,7 @@ public final class MusicTests {
             h.assertTrue(player.getInventory().countItem(MusicRegistry.SHEET_MUSIC) == 3, "the rest stays blank");
             h.succeed();
         });
-        ALL.put("orchestrion_becomes_a_jukebox", h -> {
+        ALL.put("orchestrion_becomes_jukebox", h -> {
             // B23-M9 (owner 23.10.): the Orchestrion is gone; old ids resolve to the Vanilla jukebox, and what it held stays in
             h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleMusic.id("orchestrion")) == Blocks.JUKEBOX
                     && BuiltInRegistries.ITEM.getValue(SimpleMusic.id("orchestrion")) == Items.JUKEBOX

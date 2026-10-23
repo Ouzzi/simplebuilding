@@ -27,8 +27,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
-    public void orchestrionBecomesAJukebox(GameTestHelper h) {
-        MusicTests.ALL.get("orchestrion_becomes_a_jukebox").accept(h);
+    public void orchestrionBecomesJukebox(GameTestHelper h) {
+        MusicTests.ALL.get("orchestrion_becomes_jukebox").accept(h);
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)

@@ -24,7 +24,7 @@ public final class Mech23Tests {
      * B23-M4: every shard throws like a snowball on a right click into the air (one used up, a flying chip carrying the
      * item), and a chip that hits a pig takes half a heart.
      */
-    public static void chipsFlyAndHurtALittle(GameTestHelper helper) {
+    public static void chipsFlyAndHurtSlightly(GameTestHelper helper) {
         if (ModItems.STONE_PEBBLE == null) {
             helper.succeed();
             return;

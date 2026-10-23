@@ -66,7 +66,7 @@ public final class OctetTests {
         ALL.put("sneaking_breaks_one_octet_off_full_blocks", OctetTests::sneakingBreaksOneOctetOffFullBlocks);
         ALL.put("corner_break_needs_the_tool_and_creative_drops_nothing", OctetTests::cornerBreakNeedsTheToolAndCreativeDropsNothing);
         ALL.put("corner_break_respects_protection_and_area_breaks", OctetTests::cornerBreakRespectsProtectionAndAreaBreaks);
-        ALL.put("corner_break_only_with_a_hammer", OctetTests::cornerBreakOnlyWithAHammer);
+        ALL.put("corner_break_only_with_hammer", OctetTests::cornerBreakOnlyWithHammer);
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
         ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
@@ -441,7 +441,7 @@ public final class OctetTests {
      * B23-M8 (owner 23.10., correcting SP22-1): sneaking with a pickaxe (or any non-hammer) mines the whole full block like
      * Vanilla - only a hammer breaks a corner off. Runs standalone too.
      */
-    static void cornerBreakOnlyWithAHammer(GameTestHelper h) {
+    static void cornerBreakOnlyWithHammer(GameTestHelper h) {
         BlockPos pos = h.absolutePos(CELL);
         ServerPlayer player = survivalPlayer(h);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
@@ -536,6 +536,8 @@ public final class OctetTests {
         BlockState rest = h.getBlockState(CELL);
         h.assertTrue(rest.is(cell(Blocks.DIAMOND_BLOCK)) && OctetCellBlock.count(rest) == 7, "seven octets after the wooden pickaxe: " + rest);
         h.assertValueEqual(dropped(h, piece(Blocks.DIAMOND_BLOCK)), 0, "a stone hammer got a diamond octet");
+        // mining speed and drops of the cell, compared with a plain wooden pickaxe (the hammer's own area slow-down is not the topic)
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WOODEN_PICKAXE));
         float cell = rest.getDestroyProgress(player, level, pos);
         float block = Blocks.DIAMOND_BLOCK.defaultBlockState().getDestroyProgress(player, level, pos);
         h.assertTrue(Math.abs(cell - block) < 1.0E-6F, "the cell mines like the diamond block: " + cell + " vs " + block);

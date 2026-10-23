@@ -77,8 +77,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
-    public void cornerBreakOnlyWithAHammer(GameTestHelper h) {
-        OctetTests.ALL.get("corner_break_only_with_a_hammer").accept(h);
+    public void cornerBreakOnlyWithHammer(GameTestHelper h) {
+        OctetTests.ALL.get("corner_break_only_with_hammer").accept(h);
     }
 
     @GameTest(structure = "simpleoctets:empty")
