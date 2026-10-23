@@ -374,6 +374,20 @@ public final class QuestionaryTests {
         h.assertTrue(QuestionaryMenu.COLUMN_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP + QuestionaryMenu.INVENTORY_BOX <= QuestionaryMenu.HEIGHT, "column fits the height");
         h.assertTrue(QuestionaryMenu.INVENTORY_X >= QuestionaryMenu.COLUMN_X && QuestionaryMenu.INVENTORY_X + 9 * 18 <= QuestionaryMenu.COLUMN_X + QuestionaryMenu.COLUMN_WIDTH
                 && QuestionaryMenu.SLOT_X > QuestionaryMenu.COLUMN_X && QuestionaryMenu.SLOT_X + 16 < QuestionaryMenu.COLUMN_X + QuestionaryMenu.COLUMN_WIDTH, "slots inside the column");
+        // W23-6: the book grows with the screen, never at the smallest, evenly, never closer than EDGE to the screen edge.
+        h.assertTrue(java.util.Arrays.equals(QuestionarySheet.bookGrowth(427, 240), new int[] {0, 0}), "smallest screen: base book");
+        int[] fullHd = QuestionarySheet.bookGrowth(480, 270), big = QuestionarySheet.bookGrowth(640, 360);
+        h.assertTrue(fullHd[0] == 19 && fullHd[1] == 7 && big[0] == QuestionarySheet.GROW_X && big[1] == QuestionarySheet.GROW_Y,
+                "1080p auto 480 x 270 -> " + fullHd[0] + "/" + fullHd[1] + ", 640 x 360 -> " + big[0] + "/" + big[1]);
+        int lastX = -1, lastY = -1;
+        for (int w = 300; w <= 800; w += 7) {
+            int[] g = QuestionarySheet.bookGrowth(w, w * 9 / 16);
+            h.assertTrue(g[0] >= lastX && g[1] >= lastY && g[0] >= 0 && g[1] >= 0, "grows monotonically at " + w);
+            h.assertTrue(g[0] == 0 || QuestionaryMenu.WIDTH + 2 * g[0] + 2 * QuestionarySheet.EDGE <= w, "edge kept left/right at " + w);
+            h.assertTrue(g[1] == 0 || QuestionaryMenu.HEIGHT + 2 * g[1] + 2 * QuestionarySheet.EDGE <= w * 9 / 16, "edge kept above/below at " + w);
+            lastX = g[0];
+            lastY = g[1];
+        }
         for (int ink : QuestionarySheet.INKS) {
             for (int paper : new int[] {QuestionarySheet.PAPER, QuestionarySheet.PAPER_DARK}) {
                 double ratio = com.simplelib.api.client.ui.UiContrast.ratio(ink, paper);
