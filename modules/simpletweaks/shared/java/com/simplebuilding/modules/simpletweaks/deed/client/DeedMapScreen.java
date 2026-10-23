@@ -35,8 +35,8 @@ import net.minecraft.world.level.material.MapColor;
  */
 public final class DeedMapScreen extends Screen {
     // Paper of the deed (panel) and of the sheet (map paper, lighter); inks >= 4.5:1 on both (A7, see the plan).
-    static final int PAPER = 0xFFE2D3AA, SHEET = 0xFFEFE6CC, INK = 0xFF404040, INK_SOFT = UiContrast.INK_SOFT, INK_ERROR = UiContrast.INK_ERROR;
-    static final int UNKNOWN = 0xFFDCCFA8, UNKNOWN_LINE = 0xFFC9BA8E, HOVER = 0xFFFFFFFF, TAB_IDLE = 0xFFCDBD90;
+    static final int SHEET = DeedStyle.FIELD, INK = DeedStyle.INK, INK_SOFT = DeedStyle.INK_SOFT, INK_ERROR = DeedStyle.INK_ERROR;
+    static final int UNKNOWN = 0xFFDCCFA8, UNKNOWN_LINE = 0xFFC9BA8E, HOVER = 0xFFFFFFFF, TAB_IDLE = DeedStyle.TAB_IDLE;
     private static final int RETRY_TICKS = 12, RETRIES = 3, RESULT_TICKS = 100;
     /** The last tab per deed owner, so a refresh after an action keeps the page. */
     private static final Map<java.util.UUID,String> LAST_TAB = new HashMap<>();
@@ -77,7 +77,7 @@ public final class DeedMapScreen extends Screen {
     }
 
     private int chunksHere() { return map.chunksIn(tab); }
-    private UiPalette palette() { return UiPalette.derived(PAPER); }
+    private UiPalette palette() { return DeedStyle.BOX; }
     private UiPalette sheetPalette() { return UiPalette.derived(SHEET); }
     private boolean hint() { return !map.mapsPresent() && DeedHint.shown(); }
 
@@ -273,7 +273,7 @@ public final class DeedMapScreen extends Screen {
             boolean on = d.dimension().equals(tab);
             if (on) g.fill(t.x() + 1, t.bottom(), t.right() - 1, t.bottom() + 1, SHEET); // the active tab opens into the sheet
             String name = font.plainSubstrByWidth(dimensionName(d.dimension()), t.w() - 6);
-            g.text(font, name, t.x() + (t.w() - font.width(name)) / 2, t.y() + (on ? 4 : 6), d.chunks() > 0 || on ? INK : INK_SOFT, false);
+            g.text(font, name, t.x() + (t.w() - font.width(name)) / 2, t.y() + (on ? 4 : 6), on ? INK : d.chunks() > 0 ? DeedStyle.TAB_TEXT : DeedStyle.TAB_SOFT, false);
         }
         g.enableScissor(s.x() + 1, s.y() + 1, s.right() - 1, s.bottom() - 1);
         drawSheet(g, mouseX, mouseY);
@@ -389,7 +389,7 @@ public final class DeedMapScreen extends Screen {
         Rect r = layout.confirm();
         g.fill(layout.sheet.x() + 1, layout.sheet.y() + 1, layout.sheet.right() - 1, layout.sheet.bottom() - 1, 0x80303030);
         UiBoxes.box(g, r.x(), r.y(), r.w(), r.h(), palette());
-        g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.unclaim.ask", c.x(), c.z()), r.x() + 8, r.y() + 8, r.w() - 16, INK, false);
+        g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.unclaim.ask", c.x(), c.z()), r.x() + 8, r.y() + 8, r.w() - 16, DeedStyle.LABEL, false);
     }
 
     @Override
@@ -404,12 +404,12 @@ public final class DeedMapScreen extends Screen {
         Component info = resultTicks > 0 && !map.result().isEmpty() ? resultText()
                 : map.owns() ? (map.buy() == DeedMap.BUY ? Component.translatable("simpletweaks.deed.info.next", buyText()) : buyText())
                 : Component.translatable("simpletweaks.deed.read.rights.short", rightsLetters(data.rights()));
-        int infoColor = resultTicks > 0 && !map.result().isEmpty() && !map.result().endsWith(".ok") ? INK_ERROR : INK_SOFT;
+        int infoColor = resultTicks > 0 && !map.result().isEmpty() && !map.result().endsWith(".ok") ? DeedStyle.ERROR : DeedStyle.SOFT;
         g.text(font, font.plainSubstrByWidth(info.getString(), layout.info.w()), layout.info.x(), layout.info.y(), infoColor, false);
         if (layout.showHint) {
             Rect h = layout.hint, x = layout.hintClose();
-            g.text(font, font.plainSubstrByWidth(Component.translatable("simpletweaks.deed.maps_hint").getString(), h.w() - x.w() - 4), h.x(), h.y() + 1, INK_SOFT, false);
-            g.text(font, "x", x.x() + 2, x.y() + 1, x.contains(mouseX, mouseY) ? INK_ERROR : INK, false);
+            g.text(font, font.plainSubstrByWidth(Component.translatable("simpletweaks.deed.maps_hint").getString(), h.w() - x.w() - 4), h.x(), h.y() + 1, DeedStyle.SOFT, false);
+            g.text(font, "x", x.x() + 2, x.y() + 1, x.contains(mouseX, mouseY) ? DeedStyle.ERROR : DeedStyle.LABEL, false);
         }
         var t = confirming || shownDetail() != null ? null : hoveredTile(mouseX, mouseY);
         if (t != null) {

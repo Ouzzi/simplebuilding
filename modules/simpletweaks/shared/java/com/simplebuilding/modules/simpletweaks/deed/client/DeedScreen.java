@@ -78,7 +78,7 @@ public final class DeedScreen extends Screen {
 
     private boolean editing() { return data.mode() == DeedOpenPayload.EDIT; }
     private boolean dirty() { return !text.equals(original); }
-    private UiPalette palette() { return UiPalette.derived(PAPER); }
+    private UiPalette palette() { return DeedStyle.BOX; }
 
     private void recheck() {
         if (!editing()) return;
@@ -243,7 +243,7 @@ public final class DeedScreen extends Screen {
         g.text(font, font.plainSubstrByWidth(getTitle().getString(), layout.title.w()), layout.title.x(), layout.title.y(), label, false);
         if (data.mode() != DeedOpenPayload.CLAIM) {
             Component land = Component.translatable("simpletweaks.deed.land", data.landChunks(), data.maxChunks());
-            g.text(font, font.plainSubstrByWidth(land.getString(), layout.info.w()), layout.info.x(), layout.info.y(), INK_SOFT, false);
+            g.text(font, font.plainSubstrByWidth(land.getString(), layout.info.w()), layout.info.x(), layout.info.y(), DeedStyle.SOFT, false);
         }
         Rect c = layout.code;
         int w = c.w() - 2 * PAD;
@@ -285,10 +285,10 @@ public final class DeedScreen extends Screen {
         Rect s = layout.status;
         Component line;
         int color;
-        if (pending) { line = Component.translatable("simpletweaks.deed.saving"); color = INK_SOFT; }
-        else if (!serverErrors.isEmpty()) { line = errorText(serverErrors.get(0).line(), serverErrors.get(0).key(), serverErrors.get(0).arg()); color = INK_ERROR; }
-        else if (!status.ok()) { var e = parsed.errors().get(0); line = errorText(e.line(), e.key(), e.arg()); color = INK_ERROR; }
-        else { line = Component.translatable("simpletweaks.deed.ok", status.people(), status.sections()); color = INK_OK; }
+        if (pending) { line = Component.translatable("simpletweaks.deed.saving"); color = DeedStyle.SOFT; }
+        else if (!serverErrors.isEmpty()) { line = errorText(serverErrors.get(0).line(), serverErrors.get(0).key(), serverErrors.get(0).arg()); color = DeedStyle.ERROR; }
+        else if (!status.ok()) { var e = parsed.errors().get(0); line = errorText(e.line(), e.key(), e.arg()); color = DeedStyle.ERROR; }
+        else { line = Component.translatable("simpletweaks.deed.ok", status.people(), status.sections()); color = DeedStyle.OK; }
         g.text(font, font.plainSubstrByWidth(line.getString(), s.w()), s.x(), s.y() + 1, color, false);
     }
 
