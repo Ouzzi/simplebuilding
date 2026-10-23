@@ -78,7 +78,7 @@
         "details": [
           "Ashwood and Duskwood leaves: like a cobweb they have no collision, slow everything moving through them, and a fall into them does no damage. The denser the leaf, the stronger the brake: loose half the speed sideways, medium a quarter (exactly a cobweb), dense less than a sixth. The hoe is their tool; anything else takes as long as on a cobweb (bare hand 20 seconds; sword and shears as fast as on a cobweb).",
           "Drift Fruit: always edible (3 hunger points), 4 seconds of Slow Falling and a small hop - a short glide.",
-          "Spoiled Drift Fruit: 1 hunger point, then 5 seconds of Drifting - almost weightless, slow to steer and pushed about at random - followed by 8 seconds of Slow Falling, so it never ends in a deadly fall."
+          "Spoiled Drift Fruit: 1 hunger point, then 5 seconds of Drifting - you stagger like drunk: your own steps are halved, and a random pull of half the walking speed changes direction at random moments and adds to them (forward + forward = normal speed, forward + backward = standing, sideways = diagonal) - followed by 8 seconds of Slow Falling, so it never ends in a deadly fall."
         ]
       },
       "de": {
@@ -87,7 +87,7 @@
         "details": [
           "Asch- und Dämmerlaub: wie ein Spinnennetz ohne Kollision; alles, was hindurchgeht, wird gebremst, und ein Sturz hinein richtet keinen Schaden an. Je dichter das Blatt, desto stärker die Bremse: locker seitlich die halbe Geschwindigkeit, mittel ein Viertel (genau ein Spinnennetz), dicht weniger als ein Sechstel. Werkzeug ist die Hacke; alles andere braucht so lange wie an einem Spinnennetz (mit der Hand 20 Sekunden; Schwert und Schere so schnell wie am Spinnennetz).",
           "Schwebfrucht: immer essbar (3 Hungerpunkte), 4 Sekunden Sanfter Fall und ein kleiner Sprung - ein kurzer Schwebeflug.",
-          "Verdorbene Schwebfrucht: 1 Hungerpunkt, dann 5 Sekunden Treiben - fast schwerelos, schwer zu steuern und zufällig geschubst - und danach 8 Sekunden Sanfter Fall, also nie ein tödlicher Sturz."
+          "Verdorbene Schwebfrucht: 1 Hungerpunkt, dann 5 Sekunden Treiben - man torkelt wie betrunken: die eigenen Schritte sind halbiert, und ein zufälliger Zug mit halber Laufgeschwindigkeit wechselt in zufälligen Abständen die Richtung und addiert sich dazu (vor + vor = normal schnell, vor + zurück = Stillstand, seitlich = schräg) - danach 8 Sekunden Sanfter Fall, also nie ein tödlicher Sturz."
         ]
       }
     },
@@ -172,6 +172,7 @@
         "details": [
           "Never hurts players, flees when hit; it is no Endermite, so Endermen leave it alone.",
           "Chorus fruit (also popped) tempts it and breeds two; the young keep a parent's colouring and grow faster while nibbling.",
+          "Tamable: a ripe Drift Fruit tames a wild one (1 in 3, hearts like a wolf). A tamed Nibblemite follows you and its spots glow brighter, slowly pulsing; right-click it (without chorus fruit) to switch between follow and roam freely. Young of a tamed one are yours as well.",
           "Drops 0-1 chorus fruit (more with Looting). Burrowed End Stone mines and drops like End stone.",
           "The only mob of the two biomes for now; it spawns there like Vanilla animals when the chunks are created."
         ]
@@ -182,6 +183,7 @@
         "details": [
           "Greift Spieler nie an und flieht, wenn sie getroffen wird; sie ist keine Endermilbe, Endermen lassen sie in Ruhe.",
           "Chorusfrucht (auch geplatzte) lockt sie an und lässt zwei Junge zeugen; Junge behalten die Färbung eines Elternteils und wachsen beim Knabbern schneller.",
+          "Zähmbar: eine reife Schwebfrucht zähmt eine wilde (1 zu 3, Herzen wie beim Wolf). Eine zahme Knabbermilbe folgt dir, ihre Punkte leuchten heller und pulsieren langsam; Rechtsklick (ohne Chorusfrucht) wechselt zwischen Folgen und frei Umherstreifen. Junge einer zahmen gehören ebenfalls dir.",
           "Droppt 0-1 Chorusfrucht (mehr mit Plünderung). Durchwühlter Endstein wird abgebaut und droppt wie Endstein.",
           "Vorerst der einzige Mob der beiden Biome; er erscheint dort wie Vanilla-Tiere beim Erzeugen der Chunks."
         ]
@@ -304,10 +306,10 @@
     },
     "simpleend:drift_fruit": {
       "en": {
-        "summary": "Drift Fruit (ripens only in the End): 4 s Slow Falling and a small hop."
+        "summary": "Drift Fruit (ripens only in the End): 4 s Slow Falling and a small hop; tames Nibblemites."
       },
       "de": {
-        "summary": "Schwebfrucht (reift nur im End): 4 s Sanfter Fall und ein kleiner Sprung."
+        "summary": "Schwebfrucht (reift nur im End): 4 s Sanfter Fall und ein kleiner Sprung; zähmt Knabbermilben."
       }
     },
     "simpleend:nibblemite_spawn_egg": {
@@ -648,10 +650,10 @@
     },
     "simpleend:spoiled_drift_fruit": {
       "en": {
-        "summary": "Spoiled Drift Fruit (End fruit grown outside the End): 5 s Drifting - nearly weightless, pushed about - then Slow Falling."
+        "summary": "Spoiled Drift Fruit (End fruit grown outside the End): 5 s Drifting - a drunk stagger with random pulls - then Slow Falling."
       },
       "de": {
-        "summary": "Verdorbene Schwebfrucht (End-Frucht außerhalb des Ends gewachsen): 5 s Treiben - fast schwerelos, geschubst - dann Sanfter Fall."
+        "summary": "Verdorbene Schwebfrucht (End-Frucht außerhalb des Ends gewachsen): 5 s Treiben - betrunkenes Torkeln mit zufälligen Zügen - dann Sanfter Fall."
       }
     }
   }

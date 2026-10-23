@@ -74,6 +74,8 @@
   "entity.simpleend.duskwood_boat": "Duskwood Boat",
   "entity.simpleend.duskwood_chest_boat": "Duskwood Boat with Chest",
   "entity.simpleend.nibblemite": "Nibblemite",
+  "entity.simpleend.nibblemite.mode_follow": "Nibblemite: follows you",
+  "entity.simpleend.nibblemite.mode_normal": "Nibblemite: roams freely",
   "item.simpleend.ashwood_boat": "Ashwood Boat",
   "item.simpleend.ashwood_chest_boat": "Ashwood Boat with Chest",
   "item.simpleend.drift_fruit": "Drift Fruit",

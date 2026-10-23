@@ -9,7 +9,8 @@ import net.minecraft.world.level.Level;
 
 /**
  * Spoiled Drift Fruit: what End trees grown outside the End bear (fruit only ripens in the End, owner 2026-10-13).
- * Eating it gives {@link #DRIFT_TICKS} of Drifting and a longer Slow Falling, so the drift never ends in a deadly fall.
+ * Eating it gives {@link #DRIFT_TICKS} of Drifting (a drunk stagger, {@link DriftingEffect}) and a longer Slow Falling, so the
+ * drift never ends in a deadly fall.
  */
 public class SpoiledDriftFruitItem extends Item {
     public static final int DRIFT_TICKS = 100;
@@ -25,7 +26,6 @@ public class SpoiledDriftFruitItem extends Item {
         if (!level.isClientSide() && SimpleEnd.on() && EndRegistry.drifting() != null) {
             entity.addEffect(new MobEffectInstance(EndRegistry.drifting(), DRIFT_TICKS, 0));
             entity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, SLOW_FALL_TICKS, 0));
-            DriftingEffect.push(entity);
         }
         return result;
     }
