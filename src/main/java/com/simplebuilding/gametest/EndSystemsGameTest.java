@@ -6,6 +6,7 @@ public final class EndSystemsGameTest {
     @GameTest public void redstoneAliasesResolveItemsAndBlocks(GameTestHelper helper) { EndSystemsTests.redstoneAliasesResolveItemsAndBlocks(helper); }
     @GameTest public void vaultSharesOnlyItsFirstHalfAndPersists(GameTestHelper helper) { EndSystemsTests.vaultSharesOnlyItsFirstHalfAndPersists(helper); }
     @GameTest public void vaultOpensAndConfigPreservesContents(GameTestHelper helper) { EndSystemsTests.vaultOpensAndConfigPreservesContents(helper); }
+    @GameTest(maxTicks = 100) public void vaultLidOpensLikeEnderChest(GameTestHelper helper) { EndSystemsTests.vaultLidOpensLikeEnderChest(helper); }
     @GameTest(maxTicks = 220) public void channelsStayIsolatedAndStopAtFifteen(GameTestHelper helper) { EndSystemsTests.channelsStayIsolatedAndStopAtFifteen(helper); }
     @GameTest(maxTicks = 220) public void powderConnectsLikeRedstoneWire(GameTestHelper helper) { EndSystemsTests.powderConnectsLikeRedstoneWire(helper); }
     @GameTest(maxTicks = 100) public void pistonPushesAllSixAtOnce(GameTestHelper helper) { EndSystemsTests.pistonPushesAllSixAtOnce(helper); }
