@@ -59,6 +59,7 @@ public final class CrucibleTests {
         ALL.put("crucible_hitboxes_match_model", CrucibleTests::crucibleHitboxes);
         ALL.put("axe_builds_iron_crucible", CrucibleTests::axeBuild);
         ALL.put("break_drops_contents", CrucibleTests::breakDrops);
+        ALL.put("load_keeps_readable_slots_around_an_unreadable_one", CrucibleTests::loadKeepsReadableSlots);
         ALL.put("axe_upgrade_keeps_contents", CrucibleTests::axeUpgrade);
         ALL.put("village_kitchen_in_pools", CrucibleTests::villageKitchen);
         ALL.put("barrel_attach_and_results_first", CrucibleTests::barrelAttach);
@@ -604,6 +605,32 @@ public final class CrucibleTests {
         StringBuilder line = new StringBuilder();
         out.forEach((k, v) -> line.append(line.isEmpty() ? "" : ", ").append(k).append(' ').append(v));
         return line.toString();
+    }
+
+    /**
+     * Review H-4: one saved stack that no longer decodes (item of a removed mod) must not empty the crucible. Vanilla's
+     * {@code ValueInput.read} keeps the partial list, so the other slots load.
+     */
+    private static void loadKeepsReadableSlots(GameTestHelper h) {
+        BlockPos rel = new BlockPos(1, 2, 1);
+        CrucibleBlockEntity be = crucible(h, rel, Blocks.STONE.defaultBlockState(), CrucibleBlocks.REINFORCED_CRUCIBLE);
+        net.minecraft.nbt.ListTag list = new net.minecraft.nbt.ListTag();
+        for (Object[] slot : new Object[][] {{0, "minecraft:raw_gold", 7}, {1, "nomod:vanished_ore", 3}, {2, "minecraft:raw_iron", 5}}) {
+            net.minecraft.nbt.CompoundTag entry = new net.minecraft.nbt.CompoundTag();
+            entry.putInt("Slot", (Integer) slot[0]);
+            net.minecraft.nbt.CompoundTag item = new net.minecraft.nbt.CompoundTag();
+            item.putString("id", (String) slot[1]);
+            item.putInt("count", (Integer) slot[2]);
+            entry.put("Item", item);
+            entry.putInt("Count", (Integer) slot[2]);
+            list.add(entry);
+        }
+        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+        tag.put("Contents", list);
+        be.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), tag));
+        check(h, be.getItem(0).is(Items.RAW_GOLD) && be.getItem(0).getCount() == 7, "slot before the unreadable one: " + be.getItem(0));
+        check(h, be.getItem(2).is(Items.RAW_IRON) && be.getItem(2).getCount() == 5, "slot after the unreadable one: " + be.getItem(2));
+        h.succeed();
     }
 
     private static void breakDrops(GameTestHelper h) {

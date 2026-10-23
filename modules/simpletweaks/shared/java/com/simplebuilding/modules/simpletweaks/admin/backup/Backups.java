@@ -25,6 +25,10 @@ public final class Backups {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger("simpletweaks-backup");
     private static ExecutorService worker;
     private static volatile boolean running;
+    /** Set on server stop (review H-1): the zip worker gives up at the next file. */
+    private static volatile boolean cancelled;
+    /** Levels this backup switched to noSave; server thread only. */
+    private static final List<ServerLevel> PAUSED = new ArrayList<>();
     private static long last;
 
     public static boolean active() { return Admin.on() && Admin.config().backups().enabled(); }
@@ -40,6 +44,7 @@ public final class Backups {
         catch (Exception e) { last = System.currentTimeMillis(); } // first start: the first backup comes one interval later
     }
     public static void stop() {
+        cancelled = true;
         if (worker != null) worker.shutdown();
         worker = null;
     }
@@ -52,8 +57,8 @@ public final class Backups {
     public static boolean begin(MinecraftServer server, java.util.function.Consumer<Path> done) {
         if (running || worker == null) return false;
         running = true;
-        var paused = new ArrayList<ServerLevel>();
-        for (var level : server.getAllLevels()) if (!level.noSave) { level.noSave = true; paused.add(level); }
+        cancelled = false;
+        for (var level : server.getAllLevels()) if (!level.noSave) { level.noSave = true; PAUSED.add(level); }
         server.saveEverything(true, true, true);
         Path world = server.getWorldPath(LevelResource.ROOT).toAbsolutePath().normalize();
         Path dir = directory(server).toAbsolutePath().normalize();
@@ -66,7 +71,7 @@ public final class Backups {
             catch (Exception e) { LOG.error("World backup failed", e); }
             final Path result = archive;
             server.execute(() -> {
-                for (var level : paused) level.noSave = false;
+                resume();
                 running = false;
                 last = System.currentTimeMillis();
                 try { Files.createDirectories(dir); Files.writeString(marker(server), Long.toString(last)); } catch (IOException ignored) {}
@@ -77,6 +82,23 @@ public final class Backups {
         });
         return true;
     }
+    /** Saving back on for every level this backup paused; harmless to call twice. */
+    private static void resume() {
+        for (var level : PAUSED) level.noSave = false;
+        PAUSED.clear();
+    }
+
+    /**
+     * Server is stopping (called before vanilla's final save, review H-1): vanilla skips levels with noSave unless the
+     * save is forced, so a /stop during the zip would lose everything since the backup began. Resume saving now and
+     * make the worker stop zipping.
+     */
+    public static void stopping() {
+        cancelled = true;
+        resume();
+        running = false;
+    }
+
     private static String size(Path p) {
         try { return String.format(Locale.ROOT, "%.1f MB", Files.size(p) / 1048576.0); } catch (IOException e) { return "?"; }
     }
@@ -89,9 +111,20 @@ public final class Backups {
     static Path zip(Path world, Path dir, String name) throws IOException {
         Files.createDirectories(dir);
         Path part = dir.resolve(name + ".part"), out = dir.resolve(name);
+        try {
+            writeZip(world, dir, name, part);
+        } catch (IOException | RuntimeException e) {
+            Files.deleteIfExists(part);
+            throw e;
+        }
+        Files.move(part, out, StandardCopyOption.REPLACE_EXISTING);
+        return out;
+    }
+    private static void writeZip(Path world, Path dir, String name, Path part) throws IOException {
         try (var zip = new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(part)));
              var walk = Files.walk(world)) {
             for (var file : (Iterable<Path>) walk::iterator) {
+                if (cancelled) throw new IOException("Backup cancelled (server stopping)");
                 if (!Files.isRegularFile(file) || file.startsWith(dir) || file.getFileName().toString().equals("session.lock")) continue;
                 String entry = world.getFileName() + "/" + world.relativize(file).toString().replace('\\', '/');
                 try (var in = Files.newInputStream(file)) {
@@ -101,8 +134,6 @@ public final class Backups {
                 } catch (IOException e) { LOG.warn("Skipped {} in the backup: {}", file, e.toString()); }
             }
         }
-        Files.move(part, out, StandardCopyOption.REPLACE_EXISTING);
-        return out;
     }
     static void prune(Path dir, String prefix, int keep) throws IOException {
         List<Path> archives;
