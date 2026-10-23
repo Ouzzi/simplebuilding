@@ -34,6 +34,7 @@ public final class ConfigOptions {
             "vanillaEnchantedBookTextures",
             "modEnchantedBookTextures",
             "jukebox264Textures",
+            "noteBlockFrameTexture",
             "visibleTrimIconsVanillaArmor",
             "visibleTrimIconsModArmor",
             "showModHud",

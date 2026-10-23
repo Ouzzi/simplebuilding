@@ -295,9 +295,22 @@ def leaves(s):
 
 
 def leaves_loose(s):
-    """TX22-4 loose leaves (0-3 neighbours not air): the airiest stage, about 46-50% opaque (outer about 60%), same leaf
-    lenses, more sky through. Candidate; the look is reviewed with TX22-3."""
+    """TX22-4 loose leaves (0-3 neighbours not air): the airiest stage, same leaf lenses, more sky through. Ashwood: owner
+    23.10. (W23-4, L1) about 30 % opaque; Duskwood stays at about 46-50 % (outer about 60 %)."""
+    if s['name'] == 'ashwood':
+        return loose_cover(s, 0.30)
     return leaf_clumps(s, 55, 0.62, 1.3, False, 2)
+
+
+def loose_cover(s, cover, big=1.2):
+    """The loose leaf lenses, fewer and a little smaller, until about `cover` of the 256 pixels carry a leaf."""
+    best = None
+    for k in range(4, 40):
+        im = leaf_clumps(s, 55, k / 40, big, False, 1)
+        share = sum(1 for y in range(16) for x in range(16) if im.getpixel((x, y))[3]) / 256
+        if best is None or abs(share - cover) < abs(best[0] - cover):
+            best = (share, im)
+    return best[1]
 
 
 def leaves_inner(s):

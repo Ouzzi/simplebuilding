@@ -273,6 +273,12 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean jukebox264Textures = true;
 
+    // Client: der Vanilla-Notenblock mit dem Jukebox-Rahmen rundum wie die Verstaerker (W23-4, Textur beim Build aus
+    // dem Jar abgeleitet, NoteBlockFrameSpritesMixin). Standard aus: Vanilla-Bloecke nicht ungefragt aendern.
+    @ConfigEntry.Category("visuals")
+    @ConfigEntry.Gui.Tooltip
+    public boolean noteBlockFrameTexture = false;
+
     // Client: sichtbare Besatzmuster auf den Icons von Vanilla- bzw. Mod-Ruestung (VisibleTrimIcons).
     // Aus: Vanillas Icon mit nur dem Materialfleck. Beide wirken sofort.
     @ConfigEntry.Category("visuals")

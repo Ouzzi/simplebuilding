@@ -192,7 +192,9 @@ def glass():
 
 
 def outputs():
-    return {'sales_storage_side': side(), 'sales_storage_intake': intake(), 'sales_storage_back': back(), 'display_case_glass': glass()}
+    # W23-4 (owner 23.10.): the Sales Storage faces are drawn by misctex23b_2026_10_23.py (softer B2); side()/intake()/
+    # back() above are the SP22-7 design, kept as history. Only the display case glass is still written here.
+    return {'display_case_glass': glass()}
 
 
 def main():
