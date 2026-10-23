@@ -16,10 +16,13 @@ import net.minecraft.world.item.ItemStack;
  * send the recipe facts for the "Use" page ({@link QuestionaryFacts}); closing gives the item back.
  */
 public class QuestionaryMenu extends AbstractContainerMenu {
-    /** Layout shared with the screen (N37): on the left the lapis desk box (item slot, name) over the inventory box, the
-     *  book to their right. The whole width must stay under 427 (an 854 px window at GUI scale 2), the height under 240. */
-    public static final int LEFT_WIDTH = 176, DESK_HEIGHT = 106, BOX_GAP = 2, INVENTORY_BOX = 100, WIDTH = 424, HEIGHT = 208;
-    public static final int SLOT_X = 80, SLOT_Y = 34, INVENTORY_X = 8, INVENTORY_Y = DESK_HEIGHT + BOX_GAP + 17;
+    /** Layout shared with the screen (QT23): the column - lapis desk box (item slot, name) over the inventory box - in
+     *  the middle, the open book behind it sticking out left and right (and a little above and below). The whole
+     *  window must stay under 427 x 240 (an 854 x 480 window at GUI scale 2). */
+    public static final int COLUMN_WIDTH = 176, DESK_HEIGHT = 106, BOX_GAP = 2, INVENTORY_BOX = 100, WIDTH = 424, HEIGHT = 238;
+    public static final int COLUMN_X = (WIDTH - COLUMN_WIDTH) / 2, COLUMN_Y = 22;
+    public static final int SLOT_X = COLUMN_X + 80, SLOT_Y = COLUMN_Y + 34, INVENTORY_X = COLUMN_X + 8,
+            INVENTORY_Y = COLUMN_Y + DESK_HEIGHT + BOX_GAP + 17;
     public static final int ITEM_SLOT = 0, INVENTORY_START = 1, INVENTORY_END = 37;
 
     private final ContainerLevelAccess access;

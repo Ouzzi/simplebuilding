@@ -78,6 +78,7 @@ public final class MapsTests {
         ALL.put("layers_own_chunks", MapsTests::layersOwnChunks);
         ALL.put("other_dimension_tiles", MapsTests::otherDimensionTiles);
         ALL.put("shop_icon", MapsTests::shopIcon);
+        ALL.put("claims_layer_absent", MapsTests::claimsLayerAbsent);
         WebTests.register(ALL);
     }
 
@@ -503,6 +504,14 @@ public final class MapsTests {
         } finally {
             SimpleMaps.modLoaded = saved;
         }
+        h.succeed();
+    }
+
+    /** SP22-8: the Claims layer comes from Simple Tweaks (framework source "claims"); Simple Maps alone has none and needs no switch. */
+    private static void claimsLayerAbsent(GameTestHelper h) {
+        if (SimpleMaps.modLoaded.test("simpletweaks")) { h.succeed(); return; } // the layer is Simple Tweaks' to test
+        h.assertTrue(com.simplebuilding.framework.api.MapLayerSources.get("claims") == null, "without Simple Tweaks there is no claims source");
+        h.assertTrue(com.simplebuilding.framework.api.MapLayerSources.all().stream().noneMatch(s -> s.owner().equals("simpletweaks")), "nothing of Simple Tweaks on the map");
         h.succeed();
     }
 

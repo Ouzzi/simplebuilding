@@ -72,13 +72,22 @@ public final class ClaimsGameTest {
  @GameTest public void claimsDeedEdit(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_edit").accept(h); }
  @GameTest public void claimsDeedCopy(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_copy").accept(h); }
  @GameTest public void claimsTableBasics(GameTestHelper h) { ClaimTests.TESTS.get("claims_table_basics").accept(h); }
- @GameTest public void claimsTableService(GameTestHelper h) { ClaimTests.TESTS.get("claims_table_service").accept(h); }
  @GameTest public void claimsExpandBudget(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand_budget").accept(h); }
  @GameTest public void claimsExpand(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand").accept(h); }
- @GameTest public void claimsExpandTable(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand_table").accept(h); }
  @GameTest public void claimsMapLayer(GameTestHelper h) { ClaimTests.TESTS.get("claims_map_layer").accept(h); }
  @GameTest public void claimsCreditUnclaim(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_unclaim").accept(h); }
  @GameTest public void claimsCreditMigration(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_migration").accept(h); }
  @GameTest public void claimsCreditDimensions(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_dimensions").accept(h); }
  @GameTest public void claimsCreditBuy(GameTestHelper h) { ClaimTests.TESTS.get("claims_credit_buy").accept(h); }
+ @GameTest public void claimsDeeduiPictures(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_pictures").accept(h); }
+ @GameTest public void claimsDeeduiTiles(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_tiles").accept(h); }
+ @GameTest public void claimsDeeduiActions(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_actions").accept(h); }
+ @GameTest public void claimsDeeduiCodecs(GameTestHelper h) { ClaimTests.TESTS.get("claims_deedui_codecs").accept(h); }
+ @GameTest public void claimsMapsDimensions(GameTestHelper h) { ClaimTests.TESTS.get("claims_maps_dimensions").accept(h); }
+ @GameTest public void claimsMapsVisibility(GameTestHelper h) { ClaimTests.TESTS.get("claims_maps_visibility").accept(h); }
+ @GameTest public void claimsMapsPresent(GameTestHelper h) { ClaimTests.TESTS.get("claims_maps_present").accept(h); }
+ @GameTest public void claimsCartoOwn(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_own").accept(h); }
+ @GameTest public void claimsCartoCopy(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_copy").accept(h); }
+ @GameTest public void claimsCartoWrap(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_wrap").accept(h); }
+ @GameTest public void claimsCartoLegacy(GameTestHelper h) { ClaimTests.TESTS.get("claims_carto_legacy").accept(h); }
 }

@@ -81,7 +81,7 @@ public final class QuestionaryData {
     }
 
     public record Family(String namespace, String name, List<Identifier> tags, List<Pattern> patterns, Entry entry) {
-        boolean matches(Identifier item, Predicate<Identifier> inTag) {
+        public boolean matches(Identifier item, Predicate<Identifier> inTag) {
             for (Identifier tag : tags) if (inTag.test(tag)) return true;
             for (Pattern pattern : patterns) {
                 boolean full = pattern.pattern().contains(":");
@@ -100,6 +100,10 @@ public final class QuestionaryData {
 
         public Map<Identifier, Entry> entries() {
             return entries;
+        }
+
+        public List<Family> families() {
+            return families;
         }
 
         public List<String> fallback(Kind kind, Page page) {
@@ -145,6 +149,18 @@ public final class QuestionaryData {
         public Resolved resolve(Identifier item, Kind kind, Predicate<Identifier> inTag, String lang) {
             List<String> chain = lang.equals(ENGLISH) ? List.of(ENGLISH) : List.of(lang, ENGLISH);
             return resolve(item, kind, inTag, chain, true);
+        }
+
+        /** The first family {@code item} belongs to (selected language, then English), or null. */
+        public Family family(Identifier item, Predicate<Identifier> inTag, String lang) {
+            for (String l : lang.equals(ENGLISH) ? List.of(ENGLISH) : List.of(lang, ENGLISH)) {
+                Language language = languages.get(l);
+                if (language == null) continue;
+                for (Family family : language.families) {
+                    if (family.matches(item, inTag)) return family;
+                }
+            }
+            return null;
         }
 
         /** Resolution in exactly one language, own entries and families only (coverage check). */

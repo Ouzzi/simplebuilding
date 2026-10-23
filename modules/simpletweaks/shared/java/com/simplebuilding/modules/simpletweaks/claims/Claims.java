@@ -67,7 +67,7 @@ public final class Claims {
     }
     /** Super-mod switch "Enable Simple Tweaks" (framework SubMods): off = claims stay registered but protect nothing. */
     public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simpletweaks"); }
-    public static void stop(MinecraftServer server) { install(server,null); settings=null; }
+    public static void stop(MinecraftServer server) { com.simplebuilding.modules.simpletweaks.deed.ClaimPictures.stop(server); install(server,null); settings=null; }
     public static Claims get(MinecraftServer server) { return SERVERS.get(server); }
     public static boolean enabled(MinecraftServer server) { var c=get(server); return on() && c!=null && c.config.enabled(); }
     /** Old callers: no action, so strict (build and destroy). */
@@ -194,7 +194,7 @@ public final class Claims {
         return key!=null && create(key,player.getUUID(),player.level().getServer().overworld().getGameTime());
     }
     /** The chunk the player stands in if its place may be claimed (dimension, world border, spawn); null otherwise. */
-    private ClaimStore.Key claimKey(ServerPlayer player) {
+    public ClaimStore.Key claimKey(ServerPlayer player) {
         if (!config.enabled()) return null;
         var level=player.level(); var chunk=player.chunkPosition();
         if (player.isSpectator() || !player.mayBuild() || !config.allowsDimension(level.dimension().identifier().toString())) return null;

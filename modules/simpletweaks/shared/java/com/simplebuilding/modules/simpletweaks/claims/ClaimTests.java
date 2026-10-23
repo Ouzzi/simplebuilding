@@ -86,15 +86,24 @@ public final class ClaimTests {
         TESTS.put("claims_review_sculk",ReviewClaimTests::sculk);
         TESTS.put("claims_review_frost_walker",ReviewClaimTests::frostWalker);
         TESTS.put("claims_table_basics",TableTests::basics);
-        TESTS.put("claims_table_service",TableTests::service);
         TESTS.put("claims_expand_budget",ExpansionTests::budget);
         TESTS.put("claims_expand",ExpansionTests::expand);
-        TESTS.put("claims_expand_table",ExpansionTests::tableExpand);
         TESTS.put("claims_map_layer",ExpansionTests::mapLayer);
         TESTS.put("claims_credit_unclaim",CreditTests::unclaim);
         TESTS.put("claims_credit_migration",CreditTests::migration);
         TESTS.put("claims_credit_dimensions",CreditTests::dimensions);
         TESTS.put("claims_credit_buy",CreditTests::buy);
+        TESTS.put("claims_deedui_pictures",DeedUiTests::pictures);
+        TESTS.put("claims_deedui_tiles",DeedUiTests::tiles);
+        TESTS.put("claims_deedui_actions",DeedUiTests::actions);
+        TESTS.put("claims_deedui_codecs",DeedUiTests::codecs);
+        TESTS.put("claims_maps_dimensions",MapLayerTests::dimensions);
+        TESTS.put("claims_maps_visibility",MapLayerTests::visibility);
+        TESTS.put("claims_maps_present",MapLayerTests::present);
+        TESTS.put("claims_carto_own",CartoTests::own);
+        TESTS.put("claims_carto_copy",CartoTests::copy);
+        TESTS.put("claims_carto_wrap",CartoTests::wrap);
+        TESTS.put("claims_carto_legacy",CartoTests::legacy);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

@@ -664,7 +664,7 @@ public final class TestCentreTests {
             }
         }
         helper.assertTrue(stations.isEmpty(), "give buttons: " + String.join("; ", stations));
-        for (String withOffHand : List.of("tools", "chisel", "inworld", "templates", "planning", "states")) {
+        for (String withOffHand : List.of("tools", "chisel", "inworld", "upgrades", "templates", "planning", "states")) {
             TestCentreKits.Kit kit = plan.kits().get(withOffHand);
             helper.assertTrue(kit != null && !kit.offHand().isEmpty(), "the kit of " + withOffHand + " should fill the off hand");
         }
@@ -1070,6 +1070,7 @@ public final class TestCentreTests {
         if (!suit) {
             problems.add("no armour stand wears the full enderite set at the tower");
         }
+        ridingSaddlesAHorse(helper, plan, ctx, problems);
         helper.assertTrue(problems.isEmpty(), problems.size() + " station problem(s): " + String.join("; ", problems));
         helper.succeed();
     }
@@ -1651,6 +1652,309 @@ public final class TestCentreTests {
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " sign way problem(s) of " + ways + ": "
                 + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * Reit-Station (Nachtrag 13, "Sonstiges"): nur mit Simple Riding; ihr Knopf "Pferd holen" ruft wirklich ein Pferd mit
+     * Tailwind-Sattel und Leaping-Harnisch (Hoechststufe). Der Befehl laeuft hier an einer Stelle der Teststruktur.
+     */
+    private static void ridingSaddlesAHorse(GameTestHelper helper, TestCentreLayout.Plan plan, TcContext ctx, List<String> problems) {
+        var tailwind = ctx.enchantment(FeatureStations.TAILWIND);
+        var leaping = ctx.enchantment(FeatureStations.LEAPING);
+        List<TcOp.Command> horse = new ArrayList<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            for (TcOp op : section.ops()) {
+                if (op instanceof TcOp.Command command && command.command().startsWith("summon minecraft:horse")) {
+                    horse.add(command);
+                }
+            }
+        }
+        if (tailwind.isEmpty() || leaping.isEmpty()) {
+            if (!horse.isEmpty()) {
+                problems.add("the riding station stands without Simple Riding");
+            }
+            return;
+        }
+        if (horse.size() != 1) {
+            problems.add("the riding station should have one horse button, has " + horse.size());
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        BlockPos at = helper.absolutePos(new BlockPos(1, 2, 1));
+        var source = level.getServer().createCommandSourceStack().withLevel(level)
+                .withPosition(net.minecraft.world.phys.Vec3.atCenterOf(at)).withSuppressedOutput();
+        level.getServer().getCommands().performPrefixedCommand(source, horse.getFirst().command());
+        List<net.minecraft.world.entity.LivingEntity> horses = level.getEntitiesOfClass(net.minecraft.world.entity.LivingEntity.class,
+                new AABB(at).inflate(12), entity -> BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).equals(Identifier.withDefaultNamespace("horse")));
+        try {
+            if (horses.size() != 1) {
+                problems.add("the horse button summoned " + horses.size() + " horses: " + horse.getFirst().command());
+                return;
+            }
+            var mount = horses.getFirst();
+            ItemStack saddle = mount.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.SADDLE);
+            ItemStack body = mount.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.BODY);
+            int wind = net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(tailwind.get(), saddle);
+            int leap = net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(leaping.get(), body);
+            if (!saddle.is(Items.SADDLE) || wind != tailwind.get().value().getMaxLevel()) {
+                problems.add("the horse's saddle is " + saddle + " with Tailwind " + wind);
+            }
+            if (body.isEmpty() || leap != leaping.get().value().getMaxLevel()) {
+                problems.add("the horse's armour is " + body + " with Leaping " + leap);
+            }
+        } finally {
+            horses.forEach(net.minecraft.world.entity.Entity::discard);
+        }
+    }
+
+    /**
+     * Nachtrag 13, UI-Bloecke: jeder Familien-Block, dessen Block-Entity ein Behaelter mit Menue ist, steht in {@code ui}
+     * (sofern er ruhig setzbar ist), die Endertruhe und die Shulkerkiste auch. Teilbau {@code only ui} fern der anderen Tests
+     * bauen, den Befuell-Knopf ausfuehren: jeder Behaelter, der ein Beispiel-Item annimmt, ist gefuellt, die Endertruhe des
+     * Testspielers ist voll, die Tooltip-Truhe haelt eine gefuellte Shulkerkiste. Befehl und Knopf sind da.
+     */
+    public static void uiBlocksAndTooltipsFillByButton(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<String> problems = new ArrayList<>();
+        BlockPos origin = new BlockPos(23000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 23000);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, origin, TestCentreLayout.Options.parse("only ui"));
+        TestCentreLayout.Section ui = plan.section(com.simplebuilding.dev.testcentre.UiStation.SECTION);
+        Set<Block> placed = new HashSet<>();
+        boolean button = false;
+        for (TcOp op : ui.ops()) {
+            if (op instanceof TcOp.Place place) {
+                placed.add(place.state().getBlock());
+            }
+            if (op instanceof TcOp.Command command && command.command().equals(com.simplebuilding.dev.testcentre.UiStation.FILL_COMMAND)) {
+                button = true;
+            }
+        }
+        if (!button) {
+            problems.add("the ui station has no fill button");
+        }
+        if (level.getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre").getChild("fill") == null) {
+            problems.add("/sbtestcentre fill is not registered");
+        }
+        int expected = 0;
+        for (Block block : BuiltInRegistries.BLOCK) {
+            Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+            if (!TcContext.isFamily(id) || block.asItem() == Items.AIR
+                    || !(block instanceof net.minecraft.world.level.block.EntityBlock entityBlock)) {
+                continue;
+            }
+            Object entity;
+            try {
+                entity = entityBlock.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
+            } catch (RuntimeException e) {
+                continue;
+            }
+            if (!(entity instanceof net.minecraft.world.Container) || !(entity instanceof net.minecraft.world.MenuProvider)) {
+                continue;
+            }
+            expected++;
+            if (!placed.contains(block) && !com.simplebuilding.dev.testcentre.Exhibits.blockStates(block).isEmpty()) {
+                problems.add(id + " (container with a menu) is not in the ui station");
+            }
+        }
+        for (Block vanilla : List.of(Blocks.ENDER_CHEST, Blocks.SHULKER_BOX, Blocks.CHEST, Blocks.FURNACE, Blocks.CRAFTING_TABLE)) {
+            if (!placed.contains(vanilla)) {
+                problems.add(BuiltInRegistries.BLOCK.getKey(vanilla) + " is not in the ui station");
+            }
+        }
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        TestCentreBuilder.build(level, plan);
+        try {
+            player.getEnderChestInventory().clearContent();
+            int filled = com.simplebuilding.dev.testcentre.UiStation.fill(level, plan, com.simplebuilding.dev.testcentre.UiStation.SECTION,
+                    List.of(player));
+            BoundingBox box = ui.box(origin);
+            int containers = 0;
+            for (BlockPos pos : BlockPos.betweenClosed(box.minX(), box.minY(), box.minZ(), box.maxX(), box.maxY(), box.maxZ())) {
+                if (!(level.getBlockEntity(pos) instanceof net.minecraft.world.Container container)) {
+                    continue;
+                }
+                containers++;
+                boolean accepts = false;
+                for (int slot = 0; slot < container.getContainerSize() && !accepts; slot++) {
+                    for (ItemStack sample : com.simplebuilding.dev.testcentre.UiStation.samples()) {
+                        accepts |= container.canPlaceItem(slot, sample);
+                    }
+                }
+                if (accepts && container.isEmpty()) {
+                    problems.add("the container at " + pos.toShortString() + " (" + BuiltInRegistries.BLOCK.getKey(level.getBlockState(pos).getBlock())
+                            + ") stayed empty after the fill button");
+                }
+            }
+            if (player.getEnderChestInventory().isEmpty()) {
+                problems.add("the fill button left the player's ender chest empty");
+            }
+            BlockPos chestPos = null;
+            for (TcOp op : ui.ops()) {
+                if (op instanceof TcOp.Fill fill && fill.contents().stream().anyMatch(stack -> stack.is(Items.SHULKER_BOX))) {
+                    chestPos = fill.pos();
+                }
+            }
+            boolean shulker = chestPos != null && level.getBlockEntity(chestPos) instanceof net.minecraft.world.Container chest
+                    && java.util.stream.IntStream.range(0, chest.getContainerSize()).mapToObj(chest::getItem).anyMatch(stack -> stack.is(Items.SHULKER_BOX)
+                    && stack.getOrDefault(net.minecraft.core.component.DataComponents.CONTAINER,
+                    net.minecraft.world.item.component.ItemContainerContents.EMPTY).nonEmptyItemCopyStream().findAny().isPresent());
+            if (!shulker) {
+                problems.add("the tooltip chest holds no filled shulker box");
+            }
+            com.simplebuilding.Simplebuilding.LOGGER.info("test centre ui: {} blocks, {} family containers with a menu, {} containers built, {} filled",
+                    placed.size(), expected, containers, filled);
+        } finally {
+            TestCentreBuilder.clear(level, plan.bounds());
+            level.getServer().getPlayerList().remove(player);
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " ui problem(s): " + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * Nachtrag 13, Crafting-Rezepte aus den Live-Daten: jedes Crafting-Rezept der Familie mit Platzierung (RecipeManager des
+     * Servers) steht genau einmal als Crafter-Muster in {@code recipes}, das Muster passt ({@code matches}) und ergibt etwas;
+     * kein Crafter ohne Rezept. Rezepte, die mehr als schlichte Items verlangen (Zutat mit Komponenten, eigene Rezepttypen wie
+     * verzauberte Elytra), werden nur gezaehlt und genannt - hoechstens eines von zwanzig.
+     */
+    public static void craftingRecipesAreaShowsEveryLiveRecipe(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, BlockPos.ZERO);
+        List<List<ItemStack>> grids = com.simplebuilding.dev.testcentre.RecipeStation.grids(plan.section(com.simplebuilding.dev.testcentre.RecipeStation.SECTION).ops());
+        Map<String, Integer> shown = new HashMap<>();
+        grids.forEach(grid -> shown.merge(com.simplebuilding.dev.testcentre.RecipeStation.key(grid), 1, Integer::sum));
+        List<String> problems = new ArrayList<>();
+        int expected = 0;
+        int skipped = 0;
+        List<String> skippedIds = new ArrayList<>();
+        for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+            Identifier id = holder.id().identifier();
+            if (!TcContext.isFamily(id) || !(holder.value() instanceof net.minecraft.world.item.crafting.CraftingRecipe recipe)
+                    || !com.simplebuilding.dev.testcentre.RecipeStation.placeable(recipe)) {
+                continue;
+            }
+            List<ItemStack> grid = com.simplebuilding.dev.testcentre.RecipeStation.grid(recipe);
+            if (grid == null) {
+                skipped++;
+                skippedIds.add(id.toString());
+                continue;
+            }
+            if (com.simplebuilding.dev.testcentre.RecipeStation.result(recipe, grid, level).isEmpty()) {
+                // Eigene Rezepttypen, die mehr als schlichte Items verlangen (verzauberte Elytra, abgenutztes Werkzeug ...):
+                // ein Crafter mit dem schlichten Muster craftet sie nicht, die Station laesst sie weg.
+                skipped++;
+                skippedIds.add(id.toString());
+                continue;
+            }
+            expected++;
+            if (shown.merge(com.simplebuilding.dev.testcentre.RecipeStation.key(grid), -1, Integer::sum) < 0) {
+                problems.add(id + " has no crafter");
+            }
+        }
+        shown.forEach((key, left) -> {
+            if (left > 0) {
+                problems.add(left + " crafter(s) without a live recipe: " + key);
+            }
+        });
+        if (expected == 0) {
+            problems.add("no family crafting recipe found");
+        }
+        if (skipped * 20 > expected) {
+            problems.add(skipped + " of " + (expected + skipped) + " recipes skipped - more than one in twenty");
+        }
+        if (grids.size() != expected) {
+            problems.add(grids.size() + " crafters for " + expected + " recipes");
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre recipes: {} crafting recipes shown as crafters, {} skipped (need more than plain items): {}",
+                expected, skipped, skippedIds);
+        helper.assertTrue(problems.isEmpty(), problems.size() + " recipe problem(s): " + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * Nachtrag 13, In-World-Aufwertungen nach Stufen: jede Aufwertung der Engine mit Familien-Ziel steht in {@code upgrades} -
+     * Ausgangsblock gesetzt (Familie immer, Vanilla-Starts je Ziel einmal) mit Weg-Schild, das Ziel in derselben Zeile weiter
+     * rechts; {@code inworld} zeigt keine Aufwertung mehr doppelt.
+     */
+    public static void upgradeChainsRunByTier(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, BlockPos.ZERO);
+        TestCentreLayout.Section upgrades = plan.section("upgrades");
+        Map<Block, List<BlockPos>> at = new HashMap<>();
+        Set<Item> waySubjects = new HashSet<>();
+        Set<BlockPos> waySigns = new HashSet<>();
+        for (TcOp op : upgrades.ops()) {
+            if (op instanceof TcOp.Place place) {
+                at.computeIfAbsent(place.state().getBlock(), b -> new ArrayList<>()).add(place.pos());
+            }
+            if (op instanceof TcOp.Sign sign && sign.way() != null && sign.way().kind() == com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE) {
+                waySubjects.add(sign.way().subject().getItem());
+                waySigns.add(sign.pos());
+            }
+        }
+        List<String> problems = new ArrayList<>();
+        Set<Block> vanillaTargets = new HashSet<>();
+        int steps = 0;
+        for (Block block : BuiltInRegistries.BLOCK) {
+            var upgrade = com.simplebuilding.util.SledgehammerUpgrades.upgradeOf(block);
+            if (upgrade == null || upgrade.from() != block || !TcContext.isFamily(BuiltInRegistries.BLOCK.getKey(upgrade.to()))) {
+                continue;
+            }
+            boolean family = TcContext.isFamily(BuiltInRegistries.BLOCK.getKey(block));
+            if (!family) {
+                if (at.containsKey(block)) {
+                    vanillaTargets.add(upgrade.to());
+                }
+                continue;
+            }
+            steps++;
+            if (!at.containsKey(block)) {
+                problems.add(BuiltInRegistries.BLOCK.getKey(block) + " is not in the upgrade chains");
+                continue;
+            }
+            if (!waySubjects.contains(block.asItem())) {
+                problems.add(BuiltInRegistries.BLOCK.getKey(block) + " has no upgrade way sign");
+            }
+        }
+        // Jede Stufe: das Ziel steht in derselben Zeile weiter rechts (Kettenfolge).
+        for (Map.Entry<Block, List<BlockPos>> entry : at.entrySet()) {
+            var upgrade = com.simplebuilding.util.SledgehammerUpgrades.upgradeOf(entry.getKey());
+            if (upgrade == null || upgrade.from() != entry.getKey()) {
+                continue;
+            }
+            for (BlockPos from : entry.getValue()) {
+                // Nur Stufen (Weg-Schild links davor); der Endblock einer zusammenlaufenden Kette steht ohne Schild.
+                if (!waySigns.contains(from.offset(-1, 0, -1))) {
+                    continue;
+                }
+                boolean next = at.getOrDefault(upgrade.to(), List.of()).stream()
+                        .anyMatch(to -> to.getY() == from.getY() && to.getZ() == from.getZ() && to.getX() > from.getX());
+                if (!next) {
+                    problems.add(BuiltInRegistries.BLOCK.getKey(entry.getKey()) + " at " + from.toShortString() + " is not followed by "
+                            + BuiltInRegistries.BLOCK.getKey(upgrade.to()));
+                }
+            }
+        }
+        for (Block block : BuiltInRegistries.BLOCK) {
+            var upgrade = com.simplebuilding.util.SledgehammerUpgrades.upgradeOf(block);
+            if (upgrade != null && upgrade.from() == block && !TcContext.isFamily(BuiltInRegistries.BLOCK.getKey(block))
+                    && TcContext.isFamily(BuiltInRegistries.BLOCK.getKey(upgrade.to())) && !vanillaTargets.contains(upgrade.to())) {
+                problems.add("no vanilla start upgrades to " + BuiltInRegistries.BLOCK.getKey(upgrade.to()));
+                vanillaTargets.add(upgrade.to());
+            }
+        }
+        for (TcOp op : plan.section("inworld").ops()) {
+            if (op instanceof TcOp.Sign sign && sign.way() != null && sign.way().kind() == com.simplebuilding.dev.testcentre.TcWays.Kind.UPGRADE) {
+                problems.add("inworld still shows the upgrade of " + sign.way().subject());
+            }
+        }
+        if (steps == 0) {
+            problems.add("no family upgrade found");
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre upgrades: {} family steps in {} chains", steps,
+                com.simplebuilding.dev.testcentre.TestCentreSections.upgradeChains().size());
+        helper.assertTrue(problems.isEmpty(), problems.size() + " upgrade problem(s): " + String.join("; ", problems.subList(0, Math.min(10, problems.size()))));
         helper.succeed();
     }
 

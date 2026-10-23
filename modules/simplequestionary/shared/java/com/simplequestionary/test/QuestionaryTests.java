@@ -10,6 +10,7 @@ import com.simplequestionary.QuestionaryData.Source;
 import com.simplequestionary.QuestionaryFacts;
 import com.simplequestionary.QuestionaryMenu;
 import com.simplequestionary.QuestionaryRegistry;
+import com.simplequestionary.QuestionarySheet;
 import com.simplequestionary.SimpleQuestionary;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -38,7 +39,12 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.util.context.ContextMap;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -58,6 +64,9 @@ public final class QuestionaryTests {
         ALL.put("facts", QuestionaryTests::facts);
         ALL.put("coverage", QuestionaryTests::coverage);
         ALL.put("host_switch", QuestionaryTests::hostSwitch);
+        ALL.put("sheet_every_entry", QuestionaryTests::sheetEveryEntry);
+        ALL.put("sheet_spans", QuestionaryTests::sheetSpans);
+        ALL.put("sheet_layout", QuestionaryTests::sheetLayout);
     }
 
     private QuestionaryTests() {}
@@ -231,6 +240,14 @@ public final class QuestionaryTests {
         QuestionaryFacts.Facts table = QuestionaryFacts.compute(h.getLevel(), new ItemStack(QuestionaryRegistry.TABLE_ITEM));
         Identifier lapis = BuiltInRegistries.ITEM.getKey(Items.LAPIS_LAZULI), bookId = BuiltInRegistries.ITEM.getKey(Items.BOOK);
         h.assertTrue(table.makes() == 1 && table.madeFrom().contains(lapis) && table.madeFrom().contains(bookId), "table made from lapis and book: " + table);
+        // QT23: the grid keeps the recipe's shape (lapis, book, lapis / planks / plank, obsidian, plank), made at the crafting table.
+        Identifier obsidian = BuiltInRegistries.ITEM.getKey(Items.OBSIDIAN);
+        h.assertTrue(table.madeFrom().size() == QuestionaryFacts.MAX_INGREDIENTS && table.madeFrom().get(0).equals(lapis) && table.madeFrom().get(1).equals(bookId)
+                && table.madeFrom().get(2).equals(lapis) && table.madeFrom().get(7).equals(obsidian), "shaped grid: " + table.madeFrom());
+        h.assertTrue(table.station().equals(BuiltInRegistries.ITEM.getKey(Items.CRAFTING_TABLE)), "station: " + table.station());
+        h.assertTrue(QuestionarySheet.origin(table, QuestionaryRegistry.TABLE_ITEM) == QuestionarySheet.Origin.CRAFT, "the table is crafted");
+        QuestionaryFacts.Facts ingot = QuestionaryFacts.compute(h.getLevel(), new ItemStack(Items.IRON_INGOT));
+        h.assertTrue(ingot.makes() >= 2 && !ingot.madeFrom().isEmpty(), "iron ingot has recipes: " + ingot);
         h.assertTrue(QuestionaryFacts.compute(h.getLevel(), ItemStack.EMPTY) == QuestionaryFacts.Facts.NONE, "empty slot: no facts");
         h.succeed();
     }
@@ -268,6 +285,100 @@ public final class QuestionaryTests {
             throw new IllegalStateException(e);
         } finally {
             QuestionaryConfig.enabled = before;
+        }
+        h.succeed();
+    }
+
+    /**
+     * QT23: every questionary entry (own entries and family members, EN and DE) has text on all three pages for the
+     * left side of the book, and something for the right side: the item for the picture plate, a find hint - a recipe
+     * grid when a recipe makes it, else mined/found - and an item model for the magnifier.
+     */
+    private static void sheetEveryEntry(GameTestHelper h) {
+        QuestionaryData.Library library = loadFromPacks(h.getLevel().getServer());
+        ContextMap context = SlotDisplayContext.fromLevel(h.getLevel());
+        // One pass over all recipes: which items a recipe with a showable grid makes.
+        Set<Identifier> withGrid = new HashSet<>();
+        for (RecipeHolder<?> holder : h.getLevel().getServer().getRecipeManager().getRecipes()) {
+            Recipe<?> recipe = holder.value();
+            try {
+                List<Ingredient> ingredients = recipe.placementInfo().ingredients();
+                for (RecipeDisplay display : recipe.display()) {
+                    if (QuestionaryFacts.distinct(QuestionaryFacts.grid(display, ingredients, context)) == 0) continue;
+                    for (ItemStack result : display.result().resolveForStacks(context)) withGrid.add(BuiltInRegistries.ITEM.getKey(result.getItem()));
+                }
+            } catch (RuntimeException e) {
+                // special recipes without placement info show no grid
+            }
+        }
+        List<String> problems = new java.util.ArrayList<>();
+        Map<QuestionarySheet.Origin, Integer> origins = new java.util.EnumMap<>(QuestionarySheet.Origin.class);
+        int checked = 0, absent = 0;
+        for (String lang : List.of(QuestionaryData.ENGLISH, QuestionaryData.GERMAN)) {
+            QuestionaryData.Language language = library.language(lang);
+            Set<Identifier> items = new java.util.LinkedHashSet<>(language.entries().keySet());
+            for (QuestionaryData.Family family : language.families()) {
+                for (Identifier id : BuiltInRegistries.ITEM.keySet()) if (family.matches(id, tagsOf(id))) items.add(id);
+            }
+            for (Identifier id : items) {
+                Item item = BuiltInRegistries.ITEM.getOptional(id).orElse(null);
+                if (item == null || item == Items.AIR) {
+                    absent++;
+                    continue;
+                }
+                checked++;
+                QuestionaryData.Resolved resolved = library.resolve(id, QuestionaryData.kindOf(item), tagsOf(id), lang);
+                for (Page page : Page.values()) {
+                    if (resolved.page(page).isEmpty()) problems.add(id + " " + lang + " " + page.key + ": no text");
+                    for (String paragraph : resolved.page(page)) {
+                        if (QuestionarySheet.spans(paragraph, "Name", "Mod", Identifier::getPath).isEmpty()) problems.add(id + " " + lang + " " + page.key + ": empty paragraph");
+                    }
+                }
+                ItemStack stack = new ItemStack(item);
+                if (stack.isEmpty()) problems.add(id + ": no picture for the plate");
+                if (stack.get(net.minecraft.core.component.DataComponents.ITEM_MODEL) == null) problems.add(id + ": no item model for the magnifier");
+                QuestionaryFacts.Facts facts = new QuestionaryFacts.Facts(id, withGrid.contains(id) ? List.of(id) : List.of(), id, 0, 0);
+                origins.merge(QuestionarySheet.origin(facts, item), 1, Integer::sum);
+            }
+        }
+        SimpleQuestionary.LOG.info("[sheet] {} entries checked (EN+DE), {} absent items, origins {}", checked, absent, origins);
+        h.assertTrue(problems.isEmpty(), problems.size() + " sheet problems, first: " + problems.subList(0, Math.min(10, problems.size())));
+        h.assertTrue(checked >= 300, "Vanilla entries alone are more than 300 per language: " + checked);
+        h.assertTrue(origins.getOrDefault(QuestionarySheet.Origin.CRAFT, 0) > 0 && origins.getOrDefault(QuestionarySheet.Origin.MINE, 0) > 0
+                && origins.getOrDefault(QuestionarySheet.Origin.FIND, 0) > 0, "all three find hints occur: " + origins);
+        h.succeed();
+    }
+
+    /** Keywords: placeholders, **marked** words, the item's own name and numbers are bold; the rest is plain. */
+    private static void sheetSpans(GameTestHelper h) {
+        List<QuestionarySheet.Span> spans = QuestionarySheet.spans("{name} burns 120 s, **much** longer than {item:minecraft:coal}; a Rod stays.", "Rod", "Mod",
+                id -> id.getPath().toUpperCase(java.util.Locale.ROOT));
+        List<QuestionarySheet.Span> expected = List.of(new QuestionarySheet.Span("Rod", true), new QuestionarySheet.Span(" burns ", false),
+                new QuestionarySheet.Span("120", true), new QuestionarySheet.Span(" s, ", false), new QuestionarySheet.Span("much", true),
+                new QuestionarySheet.Span(" longer than ", false), new QuestionarySheet.Span("COAL", true), new QuestionarySheet.Span("; a ", false),
+                new QuestionarySheet.Span("Rod", true), new QuestionarySheet.Span(" stays.", false));
+        h.assertTrue(spans.equals(expected), "spans: " + spans);
+        h.assertTrue(QuestionarySheet.spans("Plain text.", "", "Mod", Identifier::getPath).equals(List.of(new QuestionarySheet.Span("Plain text.", false))), "plain");
+        h.assertTrue(QuestionarySheet.spans("{mod} 1.5", "a.b", "Simple", Identifier::getPath)
+                .equals(List.of(new QuestionarySheet.Span("Simple", true), new QuestionarySheet.Span(" ", false), new QuestionarySheet.Span("1.5", true))), "mod and decimal");
+        Identifier stone = BuiltInRegistries.ITEM.getKey(Items.STONE);
+        h.assertTrue(QuestionarySheet.origin(new QuestionaryFacts.Facts(stone, List.of(), stone, 0, 0), Items.STONE) == QuestionarySheet.Origin.MINE, "a block is mined");
+        h.assertTrue(QuestionarySheet.origin(new QuestionaryFacts.Facts(stone, List.of(), stone, 0, 0), Items.BLAZE_ROD) == QuestionarySheet.Origin.FIND, "an item is found");
+        h.succeed();
+    }
+
+    /** The window fits 427 x 240 with the column in the middle; every ink of the pages reads on the paper (4.5:1). */
+    private static void sheetLayout(GameTestHelper h) {
+        h.assertTrue(QuestionaryMenu.WIDTH <= 427 && QuestionaryMenu.HEIGHT <= 240, "window " + QuestionaryMenu.WIDTH + " x " + QuestionaryMenu.HEIGHT);
+        h.assertTrue(QuestionaryMenu.COLUMN_X * 2 + QuestionaryMenu.COLUMN_WIDTH == QuestionaryMenu.WIDTH, "column in the middle");
+        h.assertTrue(QuestionaryMenu.COLUMN_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP + QuestionaryMenu.INVENTORY_BOX <= QuestionaryMenu.HEIGHT, "column fits the height");
+        h.assertTrue(QuestionaryMenu.INVENTORY_X >= QuestionaryMenu.COLUMN_X && QuestionaryMenu.INVENTORY_X + 9 * 18 <= QuestionaryMenu.COLUMN_X + QuestionaryMenu.COLUMN_WIDTH
+                && QuestionaryMenu.SLOT_X > QuestionaryMenu.COLUMN_X && QuestionaryMenu.SLOT_X + 16 < QuestionaryMenu.COLUMN_X + QuestionaryMenu.COLUMN_WIDTH, "slots inside the column");
+        for (int ink : QuestionarySheet.INKS) {
+            for (int paper : new int[] {QuestionarySheet.PAPER, QuestionarySheet.PAPER_DARK}) {
+                double ratio = com.simplelib.api.client.ui.UiContrast.ratio(ink, paper);
+                h.assertTrue(ratio >= com.simplelib.api.client.ui.UiContrast.MIN, Integer.toHexString(ink) + " on " + Integer.toHexString(paper) + ": " + ratio);
+            }
         }
         h.succeed();
     }

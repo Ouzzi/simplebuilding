@@ -95,18 +95,22 @@
       "id": "claim_deed",
       "en": {
         "title": "Claim Deed",
-        "summary": "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the rights editor of your land: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees only what they may do.",
+        "summary": "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the map of your land; its Rights button opens the rights editor: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees the map only with a right in that land, otherwise only what they may do.",
         "details": [
-          "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the rights editor of your land: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees only what they may do.",
+          "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the map of your land; its Rights button opens the rights editor: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees the map only with a right in that land, otherwise only what they may do.",
+          "Cartography table: an empty deed on top (nothing below) gives your own deed, bound to you - always, even when you lost yours. Your deed on top and an empty deed below give a copy; the original stays. Managers (M) of the land may copy too; somebody else's deed or a copy gives nothing. The crafting table copy (deed plus empty deed) still works.",
+          "The map: one tab each for the Overworld, the Nether and the End, plus one for every other dimension where you hold land. Several chunks show as tiles (two by two slots, a 16x16 picture in Vanilla map colours); touching chunks form a group, and groups lie in their real direction from each other with the gap squeezed and labelled, for example 481 blocks NE. Drag or scroll to move, hover a tile for its position and age, click it for the detail map (back with < Overview); a dimension with one chunk opens its detail map directly. The footer shows Rights, Buy (the next land step ahead), Claim here (with a free chunk credit, otherwise Buy + claim) and Done. Give up chunk... asks first: no refund, but you get one chunk credit for a new claim. Pictures are only taken of chunks the server has loaded anyway (at most 4 every 5 seconds, each at most every 5 minutes, at once when you claim); nothing is loaded for them, and they live in their own file simpletweaks-claim-maps.dat apart from the claim data. Without Simple Maps the deed suggests it (hide the tip with its x).",
           "The editor is a rights code like the blueprint editor: names resolve only for online players and for people already in the land (never a lookup over the network), the saved code keeps UUIDs so a renamed player cannot inherit rights. The client previews the code; the server decides. Managers (M) may edit, but only people without M and only rights they hold themselves. Saving is all or nothing and uses the claim cooldown. Without the mod on the client, the empty deed still claims at once.",
           "Packets: opening and answers go from the server, saving and claiming from the client; every save names the version of the land it was opened on and is refused when the land changed meanwhile."
         ]
       },
       "de": {
         "title": "Claim-Urkunde",
-        "summary": "Stelle aus Papier, Tintenbeutel und Honigwabe eine leere Claim-Urkunde her. Rechtsklick beansprucht den Chunk, in dem du stehst; danach ist die Urkunde an dich gebunden. Eine gebundene Urkunde öffnet den Rechte-Editor deines Landes: eine Zeile je Person, Name oder UUID, ein Doppelpunkt, dann die Buchstaben B Bauen, D Abbauen, U Benutzen, C Container, R Redstone, A Tiere und Fahrzeuge, M Verwalten, oder eine Rolle (@guest, @helper, @member, @manager). *: U gibt jedem Spieler ein Recht; [x,z] beginnt einen Abschnitt für einen Chunk. Fertig speichert; der Server prüft den Code erneut und nennt die Zeile jedes Fehlers. Kopiere eine gebundene Urkunde mit einer leeren im Handwerksraster; eine Kopie lässt sich nicht kopieren. Wer sonst eine Urkunde hält, sieht nur, was er darf.",
+        "summary": "Stelle aus Papier, Tintenbeutel und Honigwabe eine leere Claim-Urkunde her. Rechtsklick beansprucht den Chunk, in dem du stehst; danach ist die Urkunde an dich gebunden. Eine gebundene Urkunde öffnet die Karte deines Landes; ihr Knopf Rechte öffnet den Rechte-Editor: eine Zeile je Person, Name oder UUID, ein Doppelpunkt, dann die Buchstaben B Bauen, D Abbauen, U Benutzen, C Container, R Redstone, A Tiere und Fahrzeuge, M Verwalten, oder eine Rolle (@guest, @helper, @member, @manager). *: U gibt jedem Spieler ein Recht; [x,z] beginnt einen Abschnitt für einen Chunk. Fertig speichert; der Server prüft den Code erneut und nennt die Zeile jedes Fehlers. Kopiere eine gebundene Urkunde mit einer leeren im Handwerksraster; eine Kopie lässt sich nicht kopieren. Wer sonst eine Urkunde hält, sieht die Karte nur mit einem Recht in diesem Land, sonst nur, was er darf.",
         "details": [
-          "Stelle aus Papier, Tintenbeutel und Honigwabe eine leere Claim-Urkunde her. Rechtsklick beansprucht den Chunk, in dem du stehst; danach ist die Urkunde an dich gebunden. Eine gebundene Urkunde öffnet den Rechte-Editor deines Landes: eine Zeile je Person, Name oder UUID, ein Doppelpunkt, dann die Buchstaben B Bauen, D Abbauen, U Benutzen, C Container, R Redstone, A Tiere und Fahrzeuge, M Verwalten, oder eine Rolle (@guest, @helper, @member, @manager). *: U gibt jedem Spieler ein Recht; [x,z] beginnt einen Abschnitt für einen Chunk. Fertig speichert; der Server prüft den Code erneut und nennt die Zeile jedes Fehlers. Kopiere eine gebundene Urkunde mit einer leeren im Handwerksraster; eine Kopie lässt sich nicht kopieren. Wer sonst eine Urkunde hält, sieht nur, was er darf.",
+          "Stelle aus Papier, Tintenbeutel und Honigwabe eine leere Claim-Urkunde her. Rechtsklick beansprucht den Chunk, in dem du stehst; danach ist die Urkunde an dich gebunden. Eine gebundene Urkunde öffnet die Karte deines Landes; ihr Knopf Rechte öffnet den Rechte-Editor: eine Zeile je Person, Name oder UUID, ein Doppelpunkt, dann die Buchstaben B Bauen, D Abbauen, U Benutzen, C Container, R Redstone, A Tiere und Fahrzeuge, M Verwalten, oder eine Rolle (@guest, @helper, @member, @manager). *: U gibt jedem Spieler ein Recht; [x,z] beginnt einen Abschnitt für einen Chunk. Fertig speichert; der Server prüft den Code erneut und nennt die Zeile jedes Fehlers. Kopiere eine gebundene Urkunde mit einer leeren im Handwerksraster; eine Kopie lässt sich nicht kopieren. Wer sonst eine Urkunde hält, sieht die Karte nur mit einem Recht in diesem Land, sonst nur, was er darf.",
+          "Kartentisch: Eine leere Urkunde oben (unten nichts) ergibt deine eigene, an dich gebundene Urkunde – immer, auch wenn du deine verloren hast. Deine Urkunde oben und eine leere unten ergeben eine Kopie; das Original bleibt. Verwalter (M) des Landes dürfen ebenfalls kopieren; eine fremde Urkunde oder eine Kopie ergibt nichts. Die Kopie an der Werkbank (Urkunde plus leere Urkunde) geht weiterhin.",
+          "Die Karte: je ein Reiter für Oberwelt, Nether und End, dazu einer für jede weitere Dimension, in der du Land hast. Mehrere Chunks erscheinen als Kacheln (zwei mal zwei Slots, ein 16x16-Bild in Vanilla-Kartenfarben); berührende Chunks bilden eine Gruppe, Gruppen liegen in ihrer echten Richtung zueinander, der Abstand gestaucht und beschriftet, zum Beispiel 481 Blöcke NO. Ziehen oder Scrollen verschiebt, über einer Kachel stehen Lage und Alter, ein Klick öffnet die Detailkarte (zurück mit < Übersicht); eine Dimension mit einem Chunk öffnet direkt dessen Detailkarte. Unten stehen Rechte, Kaufen (die nächste Landstufe vorab), Hier beanspruchen (mit freiem Chunk-Credit, sonst Kaufen + beanspruchen) und Fertig. Chunk aufgeben … fragt nach: kein Geld zurück, aber ein Chunk-Credit für einen neuen Claim. Bilder entstehen nur von Chunks, die der Server ohnehin geladen hat (höchstens 4 alle 5 Sekunden, je Chunk höchstens alle 5 Minuten, sofort beim Beanspruchen); dafür wird nichts geladen, und sie liegen in einer eigenen Datei simpletweaks-claim-maps.dat getrennt von den Claim-Daten. Ohne Simple Maps empfiehlt die Urkunde es (Tipp mit x ausblenden).",
           "Der Editor ist ein Rechte-Code wie der Blaupausen-Editor: Namen lösen nur für Online-Spieler und für Personen auf, die schon im Land stehen (nie eine Abfrage übers Netz); der gespeicherte Code behält UUIDs, damit ein umbenannter Spieler keine Rechte erbt. Der Client zeigt eine Vorschau; der Server entscheidet. Verwalter (M) dürfen bearbeiten, aber nur Personen ohne M und nur Rechte, die sie selbst haben. Speichern gilt ganz oder gar nicht und nutzt die Claim-Abklingzeit. Ohne die Mod am Client beansprucht die leere Urkunde weiter sofort.",
           "Pakete: Öffnen und Antworten kommen vom Server, Speichern und Beanspruchen vom Client; jedes Speichern nennt die Version des Landes, auf der es geöffnet wurde, und wird abgelehnt, wenn sich das Land inzwischen geändert hat."
         ]
@@ -119,42 +123,61 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/client/DeedScreen.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/net/DeedEditPayload.java",
         "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_deed.json",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCode.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCode.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/client/DeedMapScreen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedMapLayout.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/ClaimPictures.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedCartography.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/CartographyDeedMixin.java"
       ]
     },
     {
       "id": "claim_table",
       "en": {
-        "title": "Claim Table",
-        "summary": "Craft paper and a Claim Deed over four planks into a Claim Table. Right-click it to see who claimed what around it: a chunk raster with one color per owner (your own land framed), three zoom levels, drag to pan, and an owner list beside it (chunks, only mine, click to center). Terrain is not shown; that is Simple Maps' job.",
+        "title": "Old Claim Table",
+        "summary": "The claim table is gone: claims are seen on the wayfinder map (Simple Maps) and in the deed. An old table left in a world turns into a Vanilla cartography table when you use it and throws out an empty Claim Deed (its recipe held one); breaking it drops a cartography table and an empty deed, and placing an old table item sets a cartography table and gives you the empty deed.",
         "details": [
-          "The server decides what you see (config claimVisibility in simpletweaks-claims.json): all (default) shows every claim with its owner, owners_hidden shows outlines and names only where you hold rights, own shows only land you own or hold rights in, off shows nothing. Operators always see everything. Member lists, rights and codes of other people's land are never sent.",
-          "Packets are bounded: areas up to 64 x 64 chunks within 64 chunks of the table, at most 4 requests per second, only while you stand within 8 blocks of the table you opened; the dimension is always the table's. The owner list comes in pages of 50.",
-          "Land expansion: you start with 4 chunks (config startChunks). The Expand land button at the table buys the next step from your inventory: a claim deed (empty or your own) must be with you, plus the step's materials and XP levels. Default steps: 6 chunks for 1 diamond and 10 levels, 8 for 2 diamonds and 15, 12 for 3 and 20, 16 for 4 and 30, 24 for 5 and 35, 32 for 6 and 40, 48 for 7 and 50, 64 for 8 diamonds and 60 levels. Servers that already saved their own expansionTiers keep them. The server limit maxClaimsPerPlayer still caps the land. Chunk credits: paid chunks minus the chunks you hold, in all dimensions together. Claiming uses a credit; giving a chunk up refunds no material or levels but gives the credit back. /simpletweaks claim buy buys the next step ahead (credits for later), /simpletweaks claim credits shows paid, held and free chunks and the next step. Land held from before credits counts as paid once, so nobody loses land. /simpletweaks claim admin budget <player> <n> sets the paid chunks. expansionEnabled=false brings back the old fixed limit; expansionTiers is configurable.",
-          "With Simple Maps: a Claims layer on the wayfinder map (layers button) shows claims as colored strips on explored terrain, your own land framed; the same server visibility rules apply. Without Simple Maps nothing changes, and Simple Maps shows no Claims layer without Simple Tweaks."
+          "Nothing scans the world for old tables: each one changes only when somebody uses, breaks or places it. The old item has no recipe and is no longer in the creative tabs."
         ]
       },
       "de": {
-        "title": "Claim-Tisch",
-        "summary": "Stelle aus Papier und einer Claim-Urkunde über vier Brettern einen Claim-Tisch her. Rechtsklick zeigt, wer in der Umgebung was beansprucht hat: ein Chunk-Raster mit einer Farbe je Besitzer (dein Land umrahmt), drei Zoomstufen, Ziehen zum Verschieben und daneben eine Besitzerliste (Chunks, nur meine, Klick zentriert). Gelände zeigt er nicht; das ist Sache von Simple Maps.",
+        "title": "Alter Claim-Tisch",
+        "summary": "Den Claim-Tisch gibt es nicht mehr: Claims sieht man auf der Wayfinder-Karte (Simple Maps) und in der Urkunde. Ein alter Tisch in einer Welt wird beim Benutzen zum Vanilla-Kartentisch und wirft eine leere Claim-Urkunde aus (sein Rezept enthielt eine); Abbauen lässt einen Kartentisch und eine leere Urkunde fallen, und ein alter Tisch-Gegenstand setzt beim Platzieren einen Kartentisch und gibt dir die leere Urkunde.",
         "details": [
-          "Der Server entscheidet, was du siehst (Config claimVisibility in simpletweaks-claims.json): all (Standard) zeigt jeden Claim mit Besitzer, owners_hidden zeigt Umrisse und Namen nur dort, wo du Rechte hast, own zeigt nur eigenes Land und Land mit deinen Rechten, off zeigt nichts. Operatoren sehen immer alles. Mitgliederlisten, Rechte und Codes fremden Landes werden nie gesendet.",
-          "Die Pakete sind begrenzt: Bereiche bis 64 x 64 Chunks im Umkreis von 64 Chunks um den Tisch, höchstens 4 Anfragen pro Sekunde, nur solange du höchstens 8 Blöcke vom geöffneten Tisch entfernt stehst; die Dimension ist immer die des Tisches. Die Besitzerliste kommt in Seiten zu 50.",
-          "Landerweiterung: Du startest mit 4 Chunks (Config startChunks). Der Knopf Land erweitern am Tisch kauft die nächste Stufe aus deinem Inventar: eine Claim-Urkunde (leer oder deine eigene) muss dabei sein, dazu Material und Erfahrungslevel der Stufe. Standardstufen: 6 Chunks für 1 Diamant und 10 Level, 8 für 2 Diamanten und 15, 12 für 3 und 20, 16 für 4 und 30, 24 für 5 und 35, 32 für 6 und 40, 48 für 7 und 50, 64 für 8 Diamanten und 60 Level. Server, die eigene expansionTiers gespeichert haben, behalten sie. Die Server-Grenze maxClaimsPerPlayer deckelt das Land weiterhin. Chunk-Credits: bezahlte Chunks minus gehaltene Chunks, über alle Dimensionen zusammen. Beanspruchen verbraucht einen Credit; Aufgeben erstattet weder Material noch Level, gibt aber den Credit zurück. /simpletweaks claim buy kauft die nächste Stufe vorab (Credits für später), /simpletweaks claim credits zeigt bezahlte, belegte und freie Chunks und die nächste Stufe. Land aus der Zeit vor den Credits gilt einmalig als bezahlt, niemand verliert Land. /simpletweaks claim admin budget <Spieler> <n> setzt die bezahlten Chunks. expansionEnabled=false bringt die alte feste Grenze zurück; expansionTiers ist einstellbar.",
-          "Mit Simple Maps: Eine Claims-Ebene auf der Wayfinder-Karte (Ebenen-Knopf) zeigt Claims als farbige Streifen auf erkundetem Gelände, dein eigenes Land umrahmt; es gelten dieselben Sichtbarkeitsregeln des Servers. Ohne Simple Maps ändert sich nichts, und Simple Maps zeigt ohne Simple Tweaks keine Claims-Ebene."
+          "Die Welt wird nicht nach alten Tischen durchsucht: jeder ändert sich erst, wenn jemand ihn benutzt, abbaut oder setzt. Der alte Gegenstand hat kein Rezept mehr und steht nicht mehr in den Kreativ-Tabs."
         ]
       },
       "sources": [
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimTableBlock.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableService.java",
+        "modules/simpletweaks/shared/resources/data/simpletweaks/loot_table/blocks/claim_table.json",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"
+      ]
+    },
+    {
+      "id": "claims_map",
+      "en": {
+        "title": "Claims on the map",
+        "summary": "Claims are seen first on the wayfinder map of Simple Maps: with its Claims layer on, the map shows your own and other people's claims as colored strips on explored terrain, in every dimension. Simple Maps is recommended for claims.",
+        "details": [
+          "Every map asks for its own dimension (Overworld, Nether, End and every further dimension) and gets that dimension's claims; the layer is off until you switch it on (layers button of the map screen).",
+          "Your own land is framed; its tooltip reads Your land and your free chunk credits. Other people's land shows the owner's name as the server allows (config claimVisibility): all and own show names, owners_hidden only where you hold a right, off shows no claims on the map. Member lists, rights and codes never leave the server.",
+          "Without Simple Maps the claims work the same and the deed shows the hint that Simple Maps is recommended (the server tells the client whether Simple Maps is there). Simple Maps alone has no Claims layer."
+        ]
+      },
+      "de": {
+        "title": "Claims auf der Karte",
+        "summary": "Claims sieht man in erster Linie auf der Wayfinder-Karte von Simple Maps: Ist ihre Ebene Claims an, zeigt die Karte eigene und fremde Claims als farbige Streifen auf erkundetem Gelände, in jeder Dimension. Simple Maps wird für Claims empfohlen.",
+        "details": [
+          "Jede Karte fragt nach ihrer eigenen Dimension (Oberwelt, Nether, End und jede weitere Dimension) und bekommt deren Claims; die Ebene ist aus, bis du sie einschaltest (Ebenen-Knopf des Kartenbildschirms).",
+          "Dein eigenes Land ist umrahmt; sein Tooltip nennt Your land und deine freien Chunk-Credits. Fremdes Land zeigt den Namen des Besitzers, soweit der Server es erlaubt (Config claimVisibility): all und own zeigen Namen, owners_hidden nur dort, wo du ein Recht hast, off zeigt keine Claims auf der Karte. Mitgliederlisten, Rechte und Codes verlassen den Server nie.",
+          "Ohne Simple Maps funktionieren Claims genauso, und die Urkunde zeigt den Hinweis, dass Simple Maps empfohlen ist (der Server teilt dem Client mit, ob Simple Maps da ist). Simple Maps allein hat keine Claims-Ebene."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimMapLayer.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimMaps.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableVisibility.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimGrid.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableLayout.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/client/TableScreen.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/net/TableAreaPayload.java",
-        "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_table.json",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimMapLayer.java"
+        "framework/src/main/java/com/simplebuilding/framework/api/MapLayerSources.java"
       ]
     },
     {
@@ -1096,62 +1119,6 @@
       "ingredients": []
     },
     {
-      "id": "simpletweaks:claim_table",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpletweaks:claim_table",
-        "count": 1
-      },
-      "source": "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_table.json",
-      "ingredients": [
-        "#minecraft:planks",
-        "minecraft:paper",
-        "simpletweaks:claim_deed"
-      ],
-      "pattern": [
-        "PD",
-        "WW",
-        "WW"
-      ],
-      "key": {
-        "D": [
-          "simpletweaks:claim_deed"
-        ],
-        "P": [
-          "minecraft:paper"
-        ],
-        "W": [
-          "#minecraft:planks"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 2
-          },
-          {
-            "id": "minecraft:honeycomb",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#minecraft:planks"
-        ]
-      }
-    },
-    {
       "id": "simpletweaks:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1197,7 +1164,17 @@
         {
           "rolls": 1,
           "items": [
-            "simpletweaks:claim_table"
+            "minecraft:cartography_table"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simpletweaks:claim_deed"
           ],
           "conditions": [
             "minecraft:survives_explosion"
@@ -1329,10 +1306,10 @@
           "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedCloningRecipe.java"
         ],
         "en": {
-          "summary": "Empty: right-click claims the chunk you stand in and binds the deed to you. Bound: right-click opens the rights editor of your land (anybody else sees what they may do). Stack size 1. Recipe: paper + ink sac + honeycomb; a bound deed plus an empty one copies it (a copy cannot be copied)."
+          "summary": "Empty: right-click claims the chunk you stand in and binds the deed to you. Bound: right-click opens the map of your land with tabs per dimension and chunk pictures; Rights opens the rights editor (others see the map only with a right there). Stack size 1. Recipe: paper + ink sac + honeycomb; a bound deed plus an empty one copies it (a copy cannot be copied)."
         },
         "de": {
-          "summary": "Leer: Rechtsklick beansprucht den Chunk, in dem du stehst, und bindet die Urkunde an dich. Gebunden: Rechtsklick öffnet den Rechte-Editor deines Landes (andere sehen, was sie dürfen). Stapelgröße 1. Rezept: Papier + Tintenbeutel + Honigwabe; eine gebundene und eine leere Urkunde kopieren sie (eine Kopie lässt sich nicht kopieren)."
+          "summary": "Leer: Rechtsklick beansprucht den Chunk, in dem du stehst, und bindet die Urkunde an dich. Gebunden: Rechtsklick öffnet die Karte deines Landes mit Reitern je Dimension und Chunk-Bildern; Rechte öffnet den Rechte-Editor (andere sehen die Karte nur mit einem Recht dort). Stapelgröße 1. Rezept: Papier + Tintenbeutel + Honigwabe; eine gebundene und eine leere Urkunde kopieren sie (eine Kopie lässt sich nicht kopieren)."
         }
       },
       "texture": "assets/textures/simpletweaks/item/claim_deed.png",
@@ -1363,9 +1340,7 @@
       "craftedBy": [
         "simpletweaks:claim_deed"
       ],
-      "usedIn": [
-        "simpletweaks:claim_table"
-      ]
+      "usedIn": []
     },
     {
       "id": "simpletweaks:guide_book",
@@ -1379,10 +1354,10 @@
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 68 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 70 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 68 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 70 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
@@ -1427,19 +1402,16 @@
       "note": {
         "sources": [
           "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimTableBlock.java",
-          "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_table.json",
-          "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableService.java"
+          "modules/simpletweaks/shared/resources/data/simpletweaks/loot_table/blocks/claim_table.json"
         ],
         "en": {
-          "summary": "Right-click: the claim map and owner list around the table (what you see follows the server's claimVisibility). Mineable with an axe. Recipe: paper + Claim Deed over four planks."
+          "summary": "Outdated: using it turns it into a cartography table and throws out an empty Claim Deed; breaking drops both; placing the item sets a cartography table and gives the deed. No recipe."
         },
         "de": {
-          "summary": "Rechtsklick: Claim-Karte und Besitzerliste um den Tisch (was du siehst, richtet sich nach claimVisibility des Servers). Mit der Axt abbaubar. Rezept: Papier + Claim-Urkunde über vier Brettern."
+          "summary": "Veraltet: Benutzen macht ihn zum Kartentisch und wirft eine leere Claim-Urkunde aus; Abbauen lässt beides fallen; Setzen des Gegenstands ergibt einen Kartentisch und die Urkunde. Kein Rezept."
         }
       },
-      "craftedBy": [
-        "simpletweaks:claim_table"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -1457,8 +1429,8 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 40,
-    "recipes": 4,
+    "features": 41,
+    "recipes": 3,
     "lootTables": 1,
     "tags": 2,
     "advancements": 0,

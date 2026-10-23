@@ -13,8 +13,6 @@ public final class TweaksFabricClient implements ClientModInitializer {
         DeedNet.toServer=payload->{if(ClientPlayNetworking.canSend(payload.type()))ClientPlayNetworking.send(payload);};
         ClientPlayNetworking.registerGlobalReceiver(DeedOpenPayload.TYPE,(payload,context)->context.client().execute(()->DeedClient.open(payload)));
         ClientPlayNetworking.registerGlobalReceiver(DeedResultPayload.TYPE,(payload,context)->context.client().execute(()->DeedClient.result(payload)));
-        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload.TYPE,(payload,context)->context.client().execute(()->com.simplebuilding.modules.simpletweaks.table.client.TableClient.open(payload)));
-        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.table.net.TableAreaPayload.TYPE,(payload,context)->context.client().execute(()->com.simplebuilding.modules.simpletweaks.table.client.TableClient.area(payload)));
-        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.table.net.TableListPayload.TYPE,(payload,context)->context.client().execute(()->com.simplebuilding.modules.simpletweaks.table.client.TableClient.list(payload)));
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedChunksPayload.TYPE,(payload,context)->context.client().execute(()->DeedClient.chunks(payload)));
     }
 }

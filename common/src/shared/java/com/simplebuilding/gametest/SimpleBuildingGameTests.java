@@ -157,6 +157,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_transformation_sign_shows_an_existing_way", TestCentreTests::everyTransformationSignShowsAnExistingWay)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_ui_blocks_and_tooltips_fill_by_button", TestCentreTests::uiBlocksAndTooltipsFillByButton)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_crafting_recipes_area_shows_every_live_recipe", TestCentreTests::craftingRecipesAreaShowsEveryLiveRecipe)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_upgrade_chains_run_by_tier", TestCentreTests::upgradeChainsRunByTier)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)

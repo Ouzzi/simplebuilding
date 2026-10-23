@@ -228,7 +228,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "0fd5f79d6204"
+    "dataHash": "b38e8940c87a"
   },
   {
     "id": "simplesounds",
@@ -314,7 +314,8 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding",
       "simplemoney",
-      "simpleweather"
+      "simpleweather",
+      "simplemaps"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -322,10 +323,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 2,
       "blocks": 1,
-      "recipes": 4,
-      "features": 40
+      "recipes": 3,
+      "features": 41
     },
-    "dataHash": "728f6918f092"
+    "dataHash": "23374f49bf26"
   },
   {
     "id": "simpledimensions",
@@ -468,7 +469,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 8
     },
-    "dataHash": "3185f1beb85c"
+    "dataHash": "3d07f1c64d08"
   },
   {
     "id": "simpletrims",

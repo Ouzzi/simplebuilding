@@ -586,17 +586,17 @@ window.WIKI_MODULE_DATA["simplevisuals"] = {
         "modules/simplevisuals/shared/java/com/simplevisuals/mixin/ItemFrameRendererMixin.java"
       ],
       "en": {
-        "title": "Tilted flat blocks in item frames",
-        "summary": "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors and other flat blocks show in item frames like in the inventory (tilted from above) instead of as a thin strip. Client only. Default: true.",
+        "title": "Flat blocks and panes in item frames from above",
+        "summary": "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames, seen from above as a slightly tilted 3D model, instead of a thin strip or a flat icon. Client only. Default: true.",
         "details": [
-          "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors and other flat blocks show in item frames like in the inventory (tilted from above) instead of as a thin strip. Client only. Default: true."
+          "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames, seen from above as a slightly tilted 3D model, instead of a thin strip or a flat icon. Client only. Default: true."
         ]
       },
       "de": {
-        "title": "Flache Blöcke im Rahmen schräg",
-        "summary": "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren und andere flache Blöcke zeigen sich im Rahmen wie im Inventar (schräg von oben) statt als dünner Strich. Nur clientseitig. Standard: true.",
+        "title": "Flache Blöcke und Scheiben im Rahmen von oben",
+        "summary": "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach, von oben gesehen als leicht gekipptes 3D-Modell, statt als dünner Strich oder flaches Symbol. Nur clientseitig. Standard: true.",
         "details": [
-          "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren und andere flache Blöcke zeigen sich im Rahmen wie im Inventar (schräg von oben) statt als dünner Strich. Nur clientseitig. Standard: true."
+          "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach, von oben gesehen als leicht gekipptes 3D-Modell, statt als dünner Strich oder flaches Symbol. Nur clientseitig. Standard: true."
         ]
       }
     },
