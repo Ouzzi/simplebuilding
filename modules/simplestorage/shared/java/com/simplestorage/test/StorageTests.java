@@ -129,6 +129,7 @@ public final class StorageTests {
         ALL.put("placed_storage_bundle_hangs_on_wall_not_on_ceiling", PlacedStorageTests::bundleHangsOnWallNotOnCeiling);
         ALL.put("placed_storage_backpack_falls_and_keeps_contents_when_it_breaks", PlacedStorageTests::backpackFallsAndKeepsContentsWhenItBreaks);
         ALL.put("placed_storage_placed_quiver_takes_arrows_only", PlacedStorageTests::placedQuiverTakesArrowsOnly);
+        ALL.put("placed_storage_placed_quiver_shows_fill_level", PlacedStorageTests::placedQuiverShowsFillLevel);
         MAX_TICKS.put("placed_storage_bundle_falls_like_sand", PlacedStorageTests.FALL_MAX_TICKS);
         MAX_TICKS.put("placed_storage_backpack_falls_and_keeps_contents_when_it_breaks", PlacedStorageTests.FALL_MAX_TICKS);
         ALL.put("placed_bundle_sneak_use_places_bundles_only_on_top_faces", PlacedBundleTests::sneakUsePlacesBundlesOnlyOnTopFaces);

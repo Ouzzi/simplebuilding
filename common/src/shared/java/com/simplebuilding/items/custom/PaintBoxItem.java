@@ -115,6 +115,13 @@ public final class PaintBoxItem extends Item {
         box.set(ModDataComponentTypes.PAINT_BOX, contents.with(color.getId(), contents.count(color.getId()) - 1));
     }
 
+    /** W24-2: Schleichen + Rechtsklick auf eine Oberseite stellt den Kasten ab ({@code PlacedPaintBoxBlock}). */
+    @Override
+    public net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context) {
+        net.minecraft.world.InteractionResult placed = com.simplebuilding.blocks.custom.PlacedPaintBoxBlock.tryPlace(context);
+        return placed != null ? placed : super.useOn(context);
+    }
+
     @Override
     public boolean overrideStackedOnOther(ItemStack box, Slot slot, ClickAction action, Player player) {
         if (box.getCount() != 1) return false;

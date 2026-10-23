@@ -594,4 +594,9 @@ public final class ModuleGameTest {
     public void placedStoragePlacedQuiverTakesArrowsOnly(GameTestHelper h) {
         StorageTests.ALL.get("placed_storage_placed_quiver_takes_arrows_only").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void placedStoragePlacedQuiverShowsFillLevel(GameTestHelper h) {
+        StorageTests.ALL.get("placed_storage_placed_quiver_shows_fill_level").accept(h);
+    }
 }

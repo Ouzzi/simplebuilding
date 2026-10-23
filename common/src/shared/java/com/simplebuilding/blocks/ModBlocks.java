@@ -276,6 +276,10 @@ public class ModBlocks {
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+    // W24-2: abgestellter Farbkasten (Schleichen + Rechtsklick auf eine Oberseite), haelt den Kasten samt Inhalt.
+    public static final Block PLACED_PAINT_BOX = registerBlock("placed_paint_box", Blocks.OAK_PLANKS, s -> new com.simplebuilding.blocks.custom.PlacedPaintBoxBlock(s
+            .strength(0.3F).sound(SoundType.WOOD).noLootTable().noOcclusion().ignitedByLava()
+            .pushReaction(McVersion.PUSH_DESTROYS)));
 
     // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).
     public static final Block IRON_POLE = McVersion.GADGET_REWORK ? registerBlock("iron_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(

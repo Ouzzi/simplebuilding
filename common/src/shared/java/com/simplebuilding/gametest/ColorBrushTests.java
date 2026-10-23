@@ -320,6 +320,80 @@ public final class ColorBrushTests {
         helper.succeed();
     }
 
+    /**
+     * W24-2: sneak + right-click on a top face sets the paint box down (tier, facing towards the player, the box with its
+     * dyes in the block entity); right-clicking with a dye puts it in; right-clicking with an empty hand picks the box up
+     * with everything in it. Not on a side face.
+     */
+    public static void paintBoxPlacedAndPickedUpWithContents(GameTestHelper helper) {
+        if (com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX == null) { helper.succeed(); return; }
+        var player = playerInLevel(helper);
+        player.setShiftKeyDown(true);
+        BlockPos floor = new BlockPos(2, 1, 2);
+        helper.setBlock(floor, Blocks.STONE);
+        ItemStack box = box(ModItems.NETHERITE_PAINT_BOX, new ItemStack(Items.RED_DYE, 20), new ItemStack(Items.BLUE_DYE, 5));
+        box.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Atelier"));
+        ItemStack original = box.copy();
+        // a side face does nothing
+        player.setItemInHand(InteractionHand.MAIN_HAND, box);
+        var side = new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(floor)), Direction.NORTH, helper.absolutePos(floor), false);
+        box.getItem().useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, side));
+        helper.assertTrue(helper.getBlockState(floor.north()).isAir() && player.getMainHandItem().getCount() == 1, "placed on a side face");
+        var result = useOn(player, box, helper.absolutePos(floor));
+        BlockPos at = floor.above();
+        var state = helper.getBlockState(at);
+        helper.assertTrue(result.consumesAction() && state.is(com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX), "not set down: " + result + " " + state);
+        helper.assertTrue(state.getValue(com.simplebuilding.blocks.custom.PlacedPaintBoxBlock.TIER)
+                == com.simplebuilding.blocks.custom.PlacedPaintBoxBlock.Tier.NETHERITE, "tier " + state);
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the box stayed in the hand");
+        var be = helper.getBlockEntity(at, com.simplebuilding.blocks.entity.custom.PlacedPaintBoxBlockEntity.class);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(be.getBox(), original), "the placed box holds " + be.getBox());
+        // a dye goes in
+        player.setShiftKeyDown(false);
+        ItemStack green = new ItemStack(Items.GREEN_DYE, 7);
+        player.setItemInHand(InteractionHand.MAIN_HAND, green);
+        var hit = new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(at)), Direction.UP, helper.absolutePos(at), false);
+        var abs = helper.absolutePos(at);
+        var dyeResult = helper.getLevel().getBlockState(abs).useItemOn(green, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
+        helper.assertTrue(dyeResult.consumesAction() && green.isEmpty(), "the dye did not go in: " + dyeResult + " " + green);
+        helper.assertTrue(PaintBoxItem.contents(be.getBox()).count(DyeColor.GREEN.getId()) == 7, "green in the box: " + PaintBoxItem.contents(be.getBox()));
+        // empty hand picks it up with everything
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        var picked = helper.getLevel().getBlockState(abs).useWithoutItem(helper.getLevel(), player, hit);
+        helper.assertTrue(picked.consumesAction() && helper.getBlockState(at).isAir(), "not picked up: " + picked);
+        ItemStack back = player.getMainHandItem();
+        PaintBoxContents c = PaintBoxItem.contents(back);
+        helper.assertTrue(back.is(ModItems.NETHERITE_PAINT_BOX) && "Atelier".equals(back.getHoverName().getString())
+                && c.count(DyeColor.RED.getId()) == 20 && c.count(DyeColor.BLUE.getId()) == 5 && c.count(DyeColor.GREEN.getId()) == 7,
+                "picked up " + back + " " + c);
+        helper.succeed();
+    }
+
+    /** W24-2: a placed paint box drops itself with its dyes when its floor goes, and when it is broken. */
+    public static void paintBoxPlacedDropsWithContents(GameTestHelper helper) {
+        if (com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX == null) { helper.succeed(); return; }
+        var player = playerInLevel(helper);
+        player.setShiftKeyDown(true);
+        for (int i = 0; i < 2; i++) {
+            BlockPos floor = new BlockPos(1 + 2 * i, 1, 2);
+            helper.setBlock(floor, Blocks.STONE);
+            ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(Items.YELLOW_DYE, 9 + i));
+            player.setItemInHand(InteractionHand.MAIN_HAND, box);
+            useOn(player, box, helper.absolutePos(floor));
+            helper.assertTrue(helper.getBlockState(floor.above()).is(com.simplebuilding.blocks.ModBlocks.PLACED_PAINT_BOX), "not placed " + i);
+        }
+        helper.setBlock(new BlockPos(1, 1, 2), Blocks.AIR);                               // floor gone
+        helper.getLevel().destroyBlock(helper.absolutePos(new BlockPos(3, 2, 2)), true);  // broken
+        helper.assertTrue(helper.getBlockState(new BlockPos(1, 2, 2)).isAir(), "stayed without its floor");
+        java.util.List<Integer> counts = new java.util.ArrayList<>();
+        for (var e : helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, helper.getBounds())) {
+            if (e.getItem().is(ModItems.PAINT_BOX)) counts.add(PaintBoxItem.contents(e.getItem()).count(DyeColor.YELLOW.getId()));
+        }
+        java.util.Collections.sort(counts);
+        helper.assertTrue(counts.equals(java.util.List.of(9, 10)), "dropped boxes with yellow " + counts);
+        helper.succeed();
+    }
+
     private static ItemStack brushInHand(net.minecraft.server.level.ServerPlayer player, BlockPos pos) {
         player.setPos(Vec3.atCenterOf(pos).add(0, 1, 0));
         player.getInventory().setSelectedSlot(0);

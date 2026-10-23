@@ -24,6 +24,9 @@ public final class MusicFabricClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(TrackPlayPayload.TYPE, (p, c) -> c.client().execute(() -> TrackPlayer.receive(p)));
         ClientPlayNetworking.registerGlobalReceiver(TrackDataPayload.TYPE, (p, c) -> c.client().execute(() -> TrackPlayer.receive(p)));
         ClientTickEvents.END_CLIENT_TICK.register(client -> MusicClient.tick());
+        // W24-2: the line contacts in the line's colour (tintindex 1..4 = north, east, south, west).
+        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(com.simplemusic.client.PocketLinkTint.SOURCES,
+                com.simplemusic.registry.MusicRegistry.POCKET_JUKEBOX_BLOCKS.toArray(new net.minecraft.world.level.block.Block[0]));
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.simplemusic.registry.MusicRegistry.POCKET_JUKEBOX_BE,
                 com.simplemusic.client.PocketJukeboxRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback.EVENT.register(data ->

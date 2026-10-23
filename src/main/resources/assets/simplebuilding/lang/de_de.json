@@ -2626,6 +2626,7 @@
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item-IDs, die sich nicht mehr ablegen lassen,\ndurch Komma oder Leerzeichen getrennt (ohne\nNamensraum: minecraft). Schon abgelegte\nbleiben liegen. Serverseitig. Standard: leer.",
   "block.simplebuilding.placed_egg": "Gelegtes Ei",
   "block.simplebuilding.placed_small_parts": "Kleinteile",
+  "block.simplebuilding.placed_paint_box": "Abgestellter Farbkasten",
   "block.simplebuilding.iron_pole": "Eisenstange",
   "tooltip.simplebuilding.iron_pole": "Zieht Blitze im Umkreis von 32 Blöcken an",
   "item.simplebuilding.iron_pole": "Eisenstange",

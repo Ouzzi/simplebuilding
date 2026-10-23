@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,6 +61,9 @@ public class PlacedBundleBlock extends BaseEntityBlock implements PlacedStorage.
     public static final EnumProperty<Tier> TIER = EnumProperty.create("tier", Tier.class);
     /** Gefaerbt (Komponente {@code dyed_color} oder ein farbiges Vanilla-Buendel): Leder-Ebene getoent. */
     public static final BooleanProperty DYED = BooleanProperty.create("dyed");
+    /** W24-2: sichtbare Pfeile eines abgestellten Koechers nach seinem Fuellstand ({@link PlacedBundles#arrowsShown}); sonst 0. */
+    public static final int MAX_ARROWS = 5;
+    public static final IntegerProperty ARROWS = IntegerProperty.create("arrows", 0, MAX_ARROWS);
 
     /**
      * Die Quader des Modells (Pixel, Vorderseite nach Norden); das Modell muss dazu passen. Von oben abgerundet:
@@ -116,12 +120,12 @@ public class PlacedBundleBlock extends BaseEntityBlock implements PlacedStorage.
     public PlacedBundleBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(TIER, Tier.BUNDLE).setValue(DYED, false).setValue(PlacedStorage.WALL, false));
+                .setValue(TIER, Tier.BUNDLE).setValue(DYED, false).setValue(PlacedStorage.WALL, false).setValue(ARROWS, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TIER, DYED, PlacedStorage.WALL);
+        builder.add(FACING, TIER, DYED, PlacedStorage.WALL, ARROWS);
     }
 
     /**
@@ -134,7 +138,8 @@ public class PlacedBundleBlock extends BaseEntityBlock implements PlacedStorage.
         Tier tier = PlacedBundles.tierOf(stack);
         BlockState state = this.defaultBlockState()
                 .setValue(TIER, tier == null ? Tier.BUNDLE : tier)
-                .setValue(DYED, (tier == null || !tier.isQuiver()) && PlacedBundles.dyeColor(stack) != DyedStorage.UNDYED);
+                .setValue(DYED, (tier == null || !tier.isQuiver()) && PlacedBundles.dyeColor(stack) != DyedStorage.UNDYED)
+                .setValue(ARROWS, PlacedBundles.arrowsShown(stack));
         return PlacedStorage.attach(state, context, FACING);
     }
 
