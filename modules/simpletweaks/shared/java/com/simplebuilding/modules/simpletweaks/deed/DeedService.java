@@ -164,7 +164,7 @@ public final class DeedService {
                 tier.items().stream().limit(DeedMap.MAX_COSTS).forEach(c -> costs.add(new DeedMap.Cost(c.id(), c.count())));
             }
         }
-        boolean maps = com.simplebuilding.modules.simpletweaks.play.Mods.loaded("simplemaps") && com.simplebuilding.framework.api.SubMods.enabled("simplemaps");
+        boolean maps = com.simplebuilding.modules.simpletweaks.claims.ClaimMaps.present();
         return new DeedMap(true, owns, owns ? claims.credits(owner) : 0, here, buy, next, levels, costs, maps, tabs, result.length() > 32 ? result.substring(0, 32) : result);
     }
 
