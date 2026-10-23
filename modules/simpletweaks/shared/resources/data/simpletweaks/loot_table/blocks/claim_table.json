@@ -8,7 +8,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simpletweaks:claim_table"
+          "name": "minecraft:cartography_table"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpletweaks:claim_deed"
         }
       ],
       "rolls": 1

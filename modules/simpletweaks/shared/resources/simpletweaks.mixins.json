@@ -3,7 +3,8 @@
   "package": "com.simplebuilding.modules.simpletweaks.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "LegacyRegistryMixin"
+    "LegacyRegistryMixin",
+    "CartographyDeedMixin"
   ],
   "injectors": {
     "defaultRequire": 1

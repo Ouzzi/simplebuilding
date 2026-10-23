@@ -38,7 +38,6 @@ public final class LegacyDeed {
                             if (!com.simplebuilding.modules.simpletweaks.claims.Claims.on()) return;
                             out.accept(new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book()));
                             out.accept(new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item()));
-                            out.accept(new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.table.ClaimTableBlock.item()));
                         }).build());
     }
 }
