@@ -61,7 +61,7 @@ public class SimplevisualsConfig {
 
         public boolean enableMapTooltips = true;
 
-        /** TZ22-7: flat block items (pressure plates, carpets, trapdoors) in item frames tilted like in the inventory. */
+        /** FR23 (was TZ22-7): pressure plates, carpets, trapdoors and panes lie flat in item frames, seen from above as 3D models. */
         public boolean enableTiltedFrameItems = true;
 
         public SpeedLines speedLines = new SpeedLines();
