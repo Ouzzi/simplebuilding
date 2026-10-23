@@ -82,16 +82,16 @@ Sprachnachricht + 5 Screenshots (Kopie auf sb-agent: /root/sb-tools-a/owner-img/
 - [~] (A, a-misctex23, 23.10.) B23-T13 Rucksack-Itemtexturen wie die Bündel (schönes Maß).
 - [~] (A, a-misctex23, 23.10.) B23-A1 Animationen: Dimensional Scraps animiert; Tiefenschiefer-Salbei-Erz animiert; Karmesin-/Wirr-Lohenholz-Bretter + Bücherregale dezent animiert in den Rissen (wie Blazing Obsidian, viel dezenter).
 **Mechanik (a-mech23a, a-mech23b)**
-- [~] (A, a-mech23a, 23.10.) B23-M1 Astralit- und Nihilit-Redstone-Fackel.
-- [~] (A, a-mech23a, 23.10.) B23-M2 Rissiges Eis lässt sich nicht neben anderes rissiges Eis setzen → Fehler beheben.
-- [~] (A, a-mech23a, 23.10.) B23-M3 Gras auf Stufen: breitet sich Gras auf Erd-/Gras-Stufen und von Stufen auf Erde aus? Prüfen und wie Vanilla-Gras ermöglichen.
-- [~] (A, a-mech23a, 23.10.) B23-M4 Alle Splitter (Steinkiesel, Feuerstein-, Obsidian-, Weinender-Obsidian-Splitter …) werfbar: sehr wenig Schaden, sehr schnell hintereinander. Klumpen/Nuggets nicht.
-- [~] (A, a-mech23a, 23.10.) B23-M5 Seltenheit: Warden-Ranke selten/besonders; alle Kerne mindestens wie Netherstern.
-- [~] (A, a-mech23a, 23.10.) B23-M6 Simple-Pads-Tab aufräumen: nur Pads, Druckplatten und neue Mod-Items wie Spawn-Elytra; keine Mob-Köpfe.
-- [~] (A, a-mech23a, 23.10.) B23-M7 End-Gras/-Büsche nur auf Endstein setzbar → auf mehr Blöcken (wie Vanilla-Gras/Büsche auf Erde-artigen + passenden End-Blöcken).
-- [~] (A, a-mech23a, 23.10.) B23-M8 Korrektur SP22-1: Schleich-Abbau macht nur mit dem HAMMER aus einem Vollblock eine Achtel-Zelle, nicht generell.
-- [~] (A, a-mech23a, 23.10.) B23-M9 Orchestrion: Relevanz prüfen, ggf. entfernen (Musikblatt nur für Rohlinge/Upload, immer mit Presse; Discs in Taschen-/normaler Jukebox).
-- [~] (A, a-mech23a, 23.10.) B23-M10 Models-Knopf (Simple Models) wird vor statt hinter der UI gerendert (Kreativ- und Überlebensinventar) → hinter die UI wie die anderen Reiter, oder besserer Vorschlag.
+- [x] (A, a-mech23a, 23.10.; LineRedstoneTorchBlock/-WallTorch, Ausgang wie der Linien-Block, Tests redstone_lines_game_test_line_torch* 3; Textur A eingebaut, Vorschau /root/sb-tools-a/previews/a-mech23a-preview.html – Wahl A/B/C offen, Client-Sicht offen) B23-M1 Astralit- und Nihilit-Redstone-Fackel.
+- [x] (A, a-mech23a, 23.10.; Eis + rissiges Eis an rissiges Eis setzbar, alles andere weiter nicht; simpleblocks Test cracked_ice_blocks_placement…) B23-M2 Rissiges Eis lässt sich nicht neben anderes rissiges Eis setzen → Fehler beheben.
+- [x] (A, a-mech23a, 23.10.; GrassSlabBlock/DirtSlabBlock wie Vanilla-Gras: Ausbreitung Stufe↔Erde/Grasblock, bedeckt stirbt; Test grass_spreads_onto_and_from_slabs) B23-M3 Gras auf Stufen: breitet sich Gras auf Erd-/Gras-Stufen und von Stufen auf Erde aus? Prüfen und wie Vanilla-Gras ermöglichen.
+- [x] (A, a-mech23a, 23.10.; ThrownChipItem: 7 Kleinteil-Splitter werfbar, 1 Schaden, Vanilla-Takt; Klumpen/Diamantkiesel nicht; Test mech23_game_test_chips_fly_and_hurt_slightly) B23-M4 Alle Splitter (Steinkiesel, Feuerstein-, Obsidian-, Weinender-Obsidian-Splitter …) werfbar: sehr wenig Schaden, sehr schnell hintereinander. Klumpen/Nuggets nicht.
+- [x] (A, a-mech23a, 23.10.; Kerne Kupfer–Netherit RARE = Netherstern, Enderit EPIC, Wärter-Fühler RARE; Test) B23-M5 Seltenheit: Warden-Ranke selten/besonders; alle Kerne mindestens wie Netherstern.
+- [x] (A, a-mech23a, 23.10.; Zeile Köpfe+Elytra raus, Tab = Druckplatten, Kerne, Pads, Spawn-Elytra; Layout-Test) B23-M6 Simple-Pads-Tab aufräumen: nur Pads, Druckplatten und neue Mod-Items wie Spawn-Elytra; keine Mob-Köpfe.
+- [x] (A, a-mech23a, 23.10.; Tag + #minecraft:supports_dry_vegetation: Sand, Terrakotta, Erde, Gras, Moos, Schlamm, Ackerland; Test end_grass_on_end_stone) B23-M7 End-Gras/-Büsche nur auf Endstein setzbar → auf mehr Blöcken (wie Vanilla-Gras/Büsche auf Erde-artigen + passenden End-Blöcken).
+- [x] (A, a-mech23a, 23.10.; Ecken-Abbau nur mit #simplelib:hammers in der Haupthand; Test corner_break_only_with_hammer + SP22-1-Tests mit Vorschlaghammer) B23-M8 Korrektur SP22-1: Schleich-Abbau macht nur mit dem HAMMER aus einem Vollblock eine Achtel-Zelle, nicht generell.
+- [x] (A, a-mech23a, 23.10.; entfernt: Blätter nur über die Presse, Discs in (Taschen-)Jukebox; IdMoves Block/Item/BE → minecraft:jukebox, Inhalt bleibt (JukeboxBlockEntityMixin); Config toneRange; Test orchestrion_becomes_jukebox) B23-M9 Orchestrion: Relevanz prüfen, ggf. entfernen (Musikblatt nur für Rohlinge/Upload, immer mit Presse; Discs in Taschen-/normaler Jukebox).
+- [x] (A, a-mech23a, 23.10.; ModelsTab im Hintergrund-Durchgang (Screen#extractBackground TAIL) hinter dem Rahmen; ohne Client-Lauf – Client-Sicht offen) B23-M10 Models-Knopf (Simple Models) wird vor statt hinter der UI gerendert (Kreativ- und Überlebensinventar) → hinter die UI wie die anderen Reiter, oder besserer Vorschlag.
 - [~] (A, a-mech23b, 23.10.) B23-M11 Köcher + Farbkästen (paint boxes) platzierbar.
 - [~] (A, a-mech23b, 23.10.) B23-M12 Bündel/Rucksäcke/Köcher usw. abgestellt: am Boden Schwerkraftblock (wie Sand/Drachenei), an der Wand wie Item-Rahmen, an der Decke nicht.
 - [~] (A, a-mech23b, 23.10.) B23-M13 Kisten-Deckel: bei Mod-Kisten öffnet sich die ganze Kiste statt des Deckels → wie Vanilla; auch Astral-/Nihil-Gewölbe (Endertruhen-Variante).

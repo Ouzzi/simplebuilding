@@ -550,14 +550,14 @@ public final class RedstoneLinesTests {
         floor(helper);
         // lower room: astral torch, stone above it, astral / nihil / redstone dust around that stone, a lamp touching it
         BlockPos torch = new BlockPos(2, 1, 2);
-        helper.setBlock(torch, ModBlocks.ASTRAL_REDSTONE_TORCH);
-        helper.setBlock(torch.above(), Blocks.STONE);
         BlockPos astral = new BlockPos(3, 2, 2), nihil = new BlockPos(1, 2, 2), wire = new BlockPos(2, 2, 3), lamp = new BlockPos(2, 2, 1);
+        helper.setBlock(torch, ModBlocks.ASTRAL_REDSTONE_TORCH);
+        helper.setBlock(lamp, Blocks.REDSTONE_LAMP); // before the stone: placing the stone updates the lamp
+        helper.setBlock(torch.above(), Blocks.STONE);
         for (BlockPos dust : List.of(astral, nihil, wire)) helper.setBlock(dust.below(), Blocks.STONE);
         helper.setBlock(astral, ModBlocks.ASTRAL_REDSTONE);
         helper.setBlock(nihil, ModBlocks.NIHIL_REDSTONE);
         helper.setBlock(wire, Blocks.REDSTONE_WIRE);
-        helper.setBlock(lamp, Blocks.REDSTONE_LAMP);
         // upper room: stone with an astral wall torch on its east face, astral dust beside the torch, a redstone wire too
         BlockPos wall = new BlockPos(5, 4, 5);
         helper.setBlock(wall, Blocks.STONE);

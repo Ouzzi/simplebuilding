@@ -30,6 +30,7 @@ public final class Mech23Tests {
             return;
         }
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         List<Item> chips = new java.util.ArrayList<>(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP,
                 ModItems.OBSIDIAN_CHIP, ModItems.CRYING_OBSIDIAN_CHIP));
         if (ModItems.BLAZING_OBSIDIAN_CHIP != null) chips.add(ModItems.BLAZING_OBSIDIAN_CHIP);
