@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/template_placed_paint_box",
+  "textures": {
+    "box": "simplebuilding:block/placed_enderite_paint_box",
+    "particle": "simplebuilding:block/placed_enderite_paint_box"
+  }
+}

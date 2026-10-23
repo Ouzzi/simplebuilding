@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,tier=basic": {
+      "model": "simplebuilding:block/placed_paint_box",
+      "y": 90
+    },
+    "facing=north,tier=basic": {
+      "model": "simplebuilding:block/placed_paint_box"
+    },
+    "facing=south,tier=basic": {
+      "model": "simplebuilding:block/placed_paint_box",
+      "y": 180
+    },
+    "facing=west,tier=basic": {
+      "model": "simplebuilding:block/placed_paint_box",
+      "y": 270
+    },
+    "facing=east,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_paint_box",
+      "y": 90
+    },
+    "facing=north,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_paint_box"
+    },
+    "facing=south,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_paint_box",
+      "y": 180
+    },
+    "facing=west,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_paint_box",
+      "y": 270
+    },
+    "facing=east,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_paint_box",
+      "y": 90
+    },
+    "facing=north,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_paint_box"
+    },
+    "facing=south,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_paint_box",
+      "y": 180
+    },
+    "facing=west,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_paint_box",
+      "y": 270
+    },
+    "facing=east,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_paint_box",
+      "y": 90
+    },
+    "facing=north,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_paint_box"
+    },
+    "facing=south,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_paint_box",
+      "y": 180
+    },
+    "facing=west,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_paint_box",
+      "y": 270
+    }
+  }
+}
