@@ -674,7 +674,7 @@ window.WIKI_MODULE_DATA["simplebeacons"] = {
           ],
           "use": [
             "In die Nebenhand, dann 8-mal mit einer Axt (oder dem Vorschlaghammer) auf ein Leuchtfeuer oder einen Aquisator schlagen, mit Netherstern dabei; oder am Schmiedetisch.",
-            "9 Splitter vom Vanilla-Wither ergeben eine; mit Simple Mobs auch Netherherz, 4 Diamanten, 4 Weinender Obsidian. Nur mit Netherherz: Vorlage, Weinender Obsidian, Diamant und Herz ergeben 2."
+            "9 Splitter vom Vanilla-Wither ergeben eine; mit Simple Mobs auch Netherherz, 4 Diamanten, 4 Weinender Obsidian. Kopie: Vorlage, Weinender Obsidian, Diamant und Netherherz ergeben 2."
           ],
           "secret": [
             "Der aufgewertete Block behält seine gewählten Kräfte, seine Sperre und seinen Namen."

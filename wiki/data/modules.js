@@ -846,7 +846,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "69efa0fc0f60"
+    "dataHash": "931cabb16689"
   },
   {
     "id": "simpleovens",
