@@ -22532,7 +22532,8 @@ window.WIKI_DATA = {
             "Craft it from a red, a yellow and a blue dye over three planks. Left-click puts dyes in (also a whole stack at once), right-click with an empty cursor takes up to a stack of the color in front - the color chosen with the mouse wheel over the box, otherwise the first color it holds. The choice stays when the mouse leaves the box.",
             "The tooltip shows all 16 dyes with their counts; colors the box does not hold are greyed out and the color in front is framed.",
             "Tiers like the bundle: Reinforced Paint Box (crafting table, the box in the middle, four diamond pebbles beside it and four gold nuggets in the corners, keeps its dyes) holds 128 of each color, Netherite Paint Box (smithing table, Netherite Upgrade + netherite ingot) 256, Enderite Paint Box (smithing table, Enderite Upgrade + enderite ingot) 512.",
-            "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints its front color, taking out exactly that dye (with the Color Palette enchantment on the brush: a random dye at hand)."
+            "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints its front color, taking out exactly that dye (with the Color Palette enchantment on the brush: a random dye at hand).",
+            "Set it down: sneak + right-click on the top of a block puts the box there as a flat case (the lid shows its window, the latch faces you). Right-clicking it with a dye puts the dye in, right-clicking with an empty hand picks the box up with all its dyes. It needs a solid floor; breaking it, pistons, explosions or a removed floor give the box back with its contents."
           ]
         },
         "de": {
@@ -22541,7 +22542,8 @@ window.WIKI_DATA = {
             "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein (auch einen ganzen Stapel), Rechtsklick mit leerem Cursor nimmt bis zu einen Stapel der vorn liegenden Farbe heraus - der Farbe, die das Mausrad über dem Kasten gewählt hat, sonst der ersten enthaltenen. Die Wahl bleibt, wenn die Maus den Kasten verlässt.",
             "Der Tooltip zeigt alle 16 Farbstoffe mit ihrer Anzahl; Farben, die der Kasten nicht enthält, sind ausgegraut, die vorn liegende ist umrahmt.",
             "Stufen wie beim Bündel: Verstärkter Farbkasten (Werkbank, Kasten in der Mitte, vier Diamantkiesel daneben und vier Goldnuggets in den Ecken, behält seine Farbstoffe) fasst 128 je Farbe, Netheritfarbkasten (Schmiedetisch, Netherit-Aufwertung + Netheritbarren) 256, Enderitfarbkasten (Schmiedetisch, Enderit-Aufwertung + Enderitbarren) 512.",
-            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt seine vordere Farbe; genau dieser Farbstoff wird entnommen (mit Farbpalette auf dem Pinsel: ein zufälliger Farbstoff zur Hand)."
+            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt seine vordere Farbe; genau dieser Farbstoff wird entnommen (mit Farbpalette auf dem Pinsel: ein zufälliger Farbstoff zur Hand).",
+            "Abstellen: Schleichen + Rechtsklick auf die Oberseite eines Blocks stellt den Kasten als flachen Koffer ab (der Deckel zeigt sein Fenster, das Schloss zeigt zu dir). Rechtsklick mit einem Farbstoff legt ihn hinein, Rechtsklick mit leerer Hand nimmt den Kasten samt allen Farbstoffen auf. Er braucht festen Boden; Abbauen, Kolben, Explosionen oder ein weggenommener Boden geben den Kasten mit Inhalt zurück."
           ]
         }
       },

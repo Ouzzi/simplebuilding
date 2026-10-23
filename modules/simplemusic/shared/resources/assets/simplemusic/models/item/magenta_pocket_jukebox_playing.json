@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplemusic:item/magenta_pocket_jukebox_playing"
+  }
+}

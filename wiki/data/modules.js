@@ -846,7 +846,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "931cabb16689"
+    "dataHash": "37d367143d37"
   },
   {
     "id": "simpleovens",
@@ -1222,7 +1222,7 @@ window.WIKI_MODULES = [
       "recipes": 177,
       "features": 12
     },
-    "dataHash": "819bd2501567"
+    "dataHash": "e781e719e9bf"
   },
   {
     "id": "simplemusic",
@@ -1251,6 +1251,6 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 14
     },
-    "dataHash": "0af7a8b0fd6a"
+    "dataHash": "f3ba4ea9b316"
   }
 ];

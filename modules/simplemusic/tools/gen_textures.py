@@ -221,7 +221,9 @@ POCKET_DYES = {
     'purple': 0x942ACA, 'blue': 0x4573C7, 'brown': 0xD18A59, 'green': 0x77A119, 'red': 0xD2382E, 'black': 0x38364F,
 }
 POCKET_FIXED = {'k': (140, 74, 46), 'c': (198, 116, 76), 'C': (232, 160, 112), 'r': (24, 22, 26), 'g': (60, 58, 66),
-                'l': (232, 224, 200), 'w': (224, 224, 228), 'a': (128, 128, 134)}
+                'l': (232, 224, 200), 'w': (224, 224, 228), 'a': (128, 128, 134),
+                # W24-2: the line contacts, grey - the block tint (PocketLinkTint) multiplies the line's colour in
+                'L': (255, 255, 255), 'M': (196, 196, 196)}
 TINT_KEYS = ['f', 'h', 's', 'o', 'x']
 _E = '.' * 16
 _A_FRONT = ['.okCCCCCCCCCCko.', '.osssssCCssssxo.', '.offfffccffffso.', '.offfffffffffso.', '.osssssssssssxo.',
@@ -347,7 +349,8 @@ def pocket_case_rows():
 
 
 # parts sheet (fixed colours, no tint): record top 6 x 6 at (0,0) with its edge in row 6, tone arm/base 4 x 4 at (8,0)
-# (top row silver, the rest grey), clasp 2 x 2 at (0,8) with its dark copper sides at (2,8)
+# (top row silver, the rest grey), clasp 2 x 2 at (0,8) with its dark copper sides at (2,8); W24-2: the line contact
+# (grey, tinted in the line's colour) top 2 x 1 at (4,8), its sides 4 x 1 at (4,9)
 POCKET_PARTS = [
     '.rrrr...wwww....',
     'rgaggr..aaaa....',
@@ -357,8 +360,8 @@ POCKET_PARTS = [
     '.rrrr...........',
     'rrrrrr..........',
     '................',
-    'CCk.............',
-    'ckk.............',
+    'CCk.LL..........',
+    'ckk.MMMM........',
 ] + ['.' * 16] * 6
 
 
@@ -366,7 +369,7 @@ def pocket_block_texs():
     tint = {'keys': TINT_KEYS, 'variants': {pocket_id(d): pocket_tint(c) for d, c in POCKET_DYES.items()}}
     palette = dict(POCKET_FIXED, **pocket_tint(POCKET_DYES[None]))
     case = Tex(palette, split(pocket_case_rows(), [('farbe', 'fhsox'), ('kupfer', 'kcC')]), tint)
-    parts = Tex(POCKET_FIXED, split(POCKET_PARTS, [('platte', 'rgl'), ('glanz_tonarm', 'wa'), ('kupfer', 'kcC')]))
+    parts = Tex(POCKET_FIXED, split(POCKET_PARTS, [('platte', 'rgl'), ('glanz_tonarm', 'wa'), ('kupfer', 'kcC'), ('kontakt', 'LM')]))
     return {'block/pocket_jukebox_case': case, 'block/pocket_jukebox_parts': parts}
 
 
@@ -405,22 +408,83 @@ def animated():
                 target[i:i + 4] = bytes(colour + (255,))
     out['block/pocket_jukebox_spin'] = (16, 64, [('platte', bytes(still)), ('glanz', bytes(moving))])
     closed = pocket_texs(CHOSEN['pocket'])['']
-    sprite = closed.pixels(dict(closed.palette, **pocket_tint(POCKET_DYES[None])))
-    still, moving = bytearray(16 * 64 * 4), bytearray(16 * 64 * 4)
-    for f, bob in enumerate(NOTE_BOB):
-        for y in range(16):
-            for x in range(16):
-                if sprite[y][x]:
-                    i = ((f * 16 + y) * 16 + x) * 4
-                    still[i:i + 4] = bytes(sprite[y][x])
-        for y, row in enumerate(NOTE):
-            for x, ch in enumerate(row):
-                if ch == '.':
-                    continue
-                i = ((f * 16 + 1 + bob + y) * 16 + 11 + x) * 4
-                moving[i:i + 4] = bytes(NOTE_PALETTE[ch] + (255,))
-    out['item/pocket_jukebox_playing'] = (16, 64, [('jukebox', bytes(still)), ('note', bytes(moving))])
+    for dye, colour in POCKET_DYES.items():  # W24-2: every colour (was the undyed one only)
+        sprite = closed.pixels(dict(closed.palette, **pocket_tint(colour)))
+        still, moving = bytearray(16 * 64 * 4), bytearray(16 * 64 * 4)
+        for f, bob in enumerate(NOTE_BOB):
+            for y in range(16):
+                for x in range(16):
+                    if sprite[y][x]:
+                        i = ((f * 16 + y) * 16 + x) * 4
+                        still[i:i + 4] = bytes(sprite[y][x])
+            for y, row in enumerate(NOTE):
+                for x, ch in enumerate(row):
+                    if ch == '.':
+                        continue
+                    i = ((f * 16 + 1 + bob + y) * 16 + 11 + x) * 4
+                    moving[i:i + 4] = bytes(NOTE_PALETTE[ch] + (255,))
+        out[f'item/{pocket_id(dye)}_playing'] = (16, 64, [('jukebox', bytes(still)), ('note', bytes(moving))])
     return out
+
+
+# ------------------------------------------------------------------ pocket jukebox models (W24-2, owner 23.10.)
+# "PJ23 abgenommen, aber Kupferkontakte in Linienfarbe" + roll the playing animation and the contacts out to all 16 dyed
+# jukeboxes. One contact model per side with its own tintindex (1 north, 2 east, 3 south, 4 west - the world side, so the
+# model is not turned): PocketLinkTint colours each from the line next to it (redstone, astral, nihil, bridge).
+LINK_SIDES = {'north': (1, 0), 'east': (2, 90), 'south': (3, 180), 'west': (4, 270)}
+FACINGS = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
+
+
+def link_model(tint):
+    face = lambda u: {'uv': u, 'texture': '#parts', 'tintindex': tint}  # noqa: E731
+    return {'textures': {'parts': 'simplemusic:block/pocket_jukebox_parts', 'particle': 'simplemusic:block/pocket_jukebox_parts'},
+            'elements': [{'name': 'contact', 'from': [7, 0, 0], 'to': [9, 1, 4.5], 'faces': {
+                'north': face([4, 9, 6, 10]), 'east': face([4, 9, 8, 10]), 'west': face([4, 9, 8, 10]),
+                'up': face([4, 8, 6, 9]), 'down': dict(face([4, 8, 6, 9]), cullface='down')}}]}
+
+
+def pocket_models():
+    """{asset path: JSON} of the 17 Pocket Jukeboxes' blockstates, playing models, item definitions, and the contacts."""
+    out = {}
+    for side, (tint, _) in LINK_SIDES.items():
+        out[f'models/block/pocket_jukebox_link_{side}.json'] = link_model(tint)
+    for dye in POCKET_DYES:
+        k = pocket_id(dye)
+        parts = []
+        for facing, y in FACINGS.items():
+            for playing in (False, True):
+                apply = {'model': f'simplemusic:block/{k}' + ('_playing' if playing else '')}
+                if y:
+                    apply['y'] = y
+                parts.append({'when': {'facing': facing, 'playing': str(playing).lower()}, 'apply': apply})
+        for side, (_, y) in LINK_SIDES.items():
+            apply = {'model': f'simplemusic:block/pocket_jukebox_link_{side}'}
+            if y:
+                apply['y'] = y
+            parts.append({'when': {side: 'true'}, 'apply': apply})
+        out[f'blockstates/{k}.json'] = {'multipart': parts}
+        out[f'models/block/{k}_playing.json'] = {'parent': 'simplemusic:block/pocket_jukebox_template_playing', 'textures': {
+            'case': f'simplemusic:block/{k}_case', 'parts': 'simplemusic:block/pocket_jukebox_parts',
+            'spin': 'simplemusic:block/pocket_jukebox_spin'}}
+        out[f'models/item/{k}_playing.json'] = {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'simplemusic:item/{k}_playing'}}
+
+        def playing(on_true, on_false):
+            return {'type': 'minecraft:condition', 'property': 'minecraft:has_component', 'component': 'simplemusic:playing',
+                    'on_true': {'type': 'minecraft:model', 'model': on_true}, 'on_false': {'type': 'minecraft:model', 'model': on_false}}
+        out[f'items/{k}.json'] = {'model': {'type': 'minecraft:select', 'property': 'minecraft:display_context', 'cases': [{
+            'when': 'gui', 'model': {'type': 'minecraft:condition', 'property': 'minecraft:bundle/has_selected_item',
+                                     'on_true': {'type': 'minecraft:composite', 'models': [
+                                         {'type': 'minecraft:model', 'model': f'simplemusic:item/{k}_open_back'},
+                                         {'type': 'minecraft:bundle/selected_item'},
+                                         {'type': 'minecraft:model', 'model': f'simplemusic:item/{k}_open_front'}]},
+                                     'on_false': playing(f'simplemusic:item/{k}_playing', f'simplemusic:item/{k}')}}],
+            'fallback': playing(f'simplemusic:block/{k}_playing', f'simplemusic:block/{k}')}}
+        out[f'textures/item/{k}_playing.png.mcmeta'] = {'animation': {'frametime': 4}}
+    return out
+
+
+def dump_json(data):
+    return json.dumps(data, indent=2) + '\n'
 
 
 def flatten(w, h, layers):
@@ -605,6 +669,10 @@ def main(argv):
             f = TEX / f'{path}.png'
             if not f.is_file() or Image.open(f).convert('RGBA').tobytes() != flatten(w, h, layers):
                 bad.append(str(f))
+        for rel, data in pocket_models().items():
+            f = TEX.parent / rel
+            if not f.is_file() or f.read_text(encoding='utf-8') != dump_json(data):
+                bad.append(str(f))
         if bad:
             print('out of date (run gen_textures.py):\n  ' + '\n  '.join(bad))
             sys.exit(1)
@@ -624,6 +692,9 @@ def main(argv):
     for path, (w, h, layers) in animated().items():
         Image.frombytes('RGBA', (w, h), flatten(w, h, layers)).save(TEX / f'{path}.png')
         sb_layers.write_beside(TEX / f'{path}.png', sb_layers.from_layers(w, h, layers))
+    for rel, data in pocket_models().items():
+        (TEX.parent / rel).parent.mkdir(parents=True, exist_ok=True)
+        (TEX.parent / rel).write_text(dump_json(data), encoding='utf-8', newline='\n')
     LAYERS.mkdir(exist_ok=True)
     for path, tex in list(texs.items()) + [('block/' + n, t) for n, t in placed.items()]:
         (LAYERS / (path.split('/')[1] + '.json')).write_text(json.dumps(tex.json(), indent=1) + '\n', encoding='utf-8')

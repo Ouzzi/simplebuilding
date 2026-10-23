@@ -164,6 +164,40 @@ public final class PlacedStorageTests {
         helper.succeed();
     }
 
+    /**
+     * W24-2: a placed quiver shows its fill level as 0..5 arrows (full = 5, then fewer, one arrow already shows one), set on
+     * placing and on every change of its contents; bundles always stay at 0.
+     */
+    public static void placedQuiverShowsFillLevel(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 6.5));
+        player.setShiftKeyDown(true);
+        int[][] cases = {{0, 0}, {1, 1}, {32, 3}, {51, 4}, {64, 5}};
+        for (int i = 0; i < cases.length; i++) {
+            BlockPos floor = new BlockPos(1 + i, 1, 2);
+            helper.setBlock(floor, Blocks.STONE);
+            ItemStack quiver = cases[i][0] == 0 ? new ItemStack(StorageItems.QUIVER) : filled(StorageItems.QUIVER, new ItemStack(Items.ARROW, cases[i][0]));
+            helper.assertTrue(PlacedBundles.arrowsShown(quiver) == cases[i][1], cases[i][0] + " arrows show " + PlacedBundles.arrowsShown(quiver));
+            use(helper, player, quiver, floor, Direction.UP);
+            BlockState state = helper.getBlockState(floor.above());
+            helper.assertTrue(state.is(StorageBlocks.PLACED_BUNDLE) && state.getValue(PlacedBundleBlock.ARROWS) == cases[i][1],
+                    cases[i][0] + " arrows placed as " + state);
+        }
+        // contents change: 32 arrows (3) + 32 spectral arrows = full (5); taking the spectral ones out gives 3 again
+        BlockPos at = new BlockPos(3, 2, 2);
+        use(helper, player, new ItemStack(Items.SPECTRAL_ARROW, 32), at, Direction.UP);
+        helper.assertTrue(helper.getBlockState(at).getValue(PlacedBundleBlock.ARROWS) == 5, "filled up: " + helper.getBlockState(at));
+        PlacedBundleBlockEntity be = helper.getBlockEntity(at, PlacedBundleBlockEntity.class);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        PlacedBundles.takeShown(helper.getLevel(), helper.absolutePos(at), be, player);
+        helper.assertTrue(player.getMainHandItem().is(Items.SPECTRAL_ARROW), "took " + player.getMainHandItem());
+        helper.assertTrue(helper.getBlockState(at).getValue(PlacedBundleBlock.ARROWS) == 3, "after taking: " + helper.getBlockState(at));
+        // a bundle never shows arrows
+        helper.setBlock(new BlockPos(1, 1, 4), Blocks.STONE);
+        use(helper, player, filled(StorageItems.REINFORCED_BUNDLE, new ItemStack(Items.ARROW, 64)), new BlockPos(1, 1, 4), Direction.UP);
+        helper.assertTrue(helper.getBlockState(new BlockPos(1, 2, 4)).getValue(PlacedBundleBlock.ARROWS) == 0, "bundle shows arrows");
+        helper.succeed();
+    }
+
     private static ItemStack filled(Item item, ItemStack... contents) {
         ItemStack bundle = new ItemStack(item);
         PlacedBundles.setContents(bundle, List.of(contents));

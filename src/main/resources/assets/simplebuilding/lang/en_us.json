@@ -2626,6 +2626,7 @@
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item IDs that can no longer be placed,\nseparated by commas or spaces (without a\nnamespace: minecraft). Already placed ones\nstay. Server-side. Default: empty.",
   "block.simplebuilding.placed_egg": "Placed Egg",
   "block.simplebuilding.placed_small_parts": "Small Parts",
+  "block.simplebuilding.placed_paint_box": "Placed Paint Box",
   "block.simplebuilding.iron_pole": "Iron Pole",
   "tooltip.simplebuilding.iron_pole": "Attracts lightning within 32 blocks",
   "item.simplebuilding.iron_pole": "Iron Pole",

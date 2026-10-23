@@ -476,7 +476,11 @@ BACKPACKS = {
 }
 
 
-def backpack(v):
+def backpack(v, leather=None, buckle=None):
+    """Backpack icon v in the given leather ramp (8 tones dark -> light) and buckle ramp (4); default the basic tier.
+    W24 (a-tex24b): E is built in for every tier through w24b_2026_10_23.py, which reads t.body/t.handle/t.straps."""
+    LEATHER_SOFT = leather or globals()['LEATHER_SOFT']
+    BUCKLE = buckle or globals()['BUCKLE']
     spec = BACKPACKS[v]
     fw, sw = spec['fw'], spec['sw']
     top, bot = 4, 14
@@ -500,6 +504,7 @@ def backpack(v):
                 side[(x, y)] = ((x - sa) / max(1, sb - sa), (y - top) / (bot - top))
     body = set(front) | set(side)
     t = Tex()
+    t.body = body                                                 # leather pixels (the dye layer of w24b)
     base = t.layer('Basis: Leder (Front + Seitenteil)')
     out = mix(LEATHER_SOFT[0], LEATHER_SOFT[1], 0.3)
     for (x, y), (u, w) in front.items():

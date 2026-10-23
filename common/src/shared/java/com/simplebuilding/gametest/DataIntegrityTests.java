@@ -150,7 +150,7 @@ public final class DataIntegrityTests {
 
     private static Set<String> blocksWithoutItem() {
         Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
-                "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts",
+                "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts", "placed_paint_box",
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
                 "hammock_rope",
                 // a stick/bone/blaze/breeze/diamond rod standing upright: placed and dropped as the rod item itself
@@ -191,6 +191,8 @@ public final class DataIntegrityTests {
             "placed_smithing_template", "placed_blueprint",
             // drops the bundle (with its contents) stored in its block entity (PlacedBundleBlock#getDrops)
             "placed_bundle",
+            // drops the paint box (with its dyes) stored in its block entity (PlacedPaintBoxBlock#getDrops, W24-2)
+            "placed_paint_box",
             // silk touch pops the egg, otherwise it breaks and may hatch (PlacedEggBlock#spawnAfterBreak)
             "placed_egg",
             // drops the parts stored in its block entity, eggs only with silk touch (PlacedSmallPartsBlock#getDrops)

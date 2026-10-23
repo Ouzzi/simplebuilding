@@ -83,7 +83,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "simplemusic:block/pocket_jukebox_link"
+        "model": "simplemusic:block/pocket_jukebox_link_north"
       }
     },
     {
@@ -91,7 +91,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "simplemusic:block/pocket_jukebox_link",
+        "model": "simplemusic:block/pocket_jukebox_link_east",
         "y": 90
       }
     },
@@ -100,7 +100,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "simplemusic:block/pocket_jukebox_link",
+        "model": "simplemusic:block/pocket_jukebox_link_south",
         "y": 180
       }
     },
@@ -109,7 +109,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "simplemusic:block/pocket_jukebox_link",
+        "model": "simplemusic:block/pocket_jukebox_link_west",
         "y": 270
       }
     }
