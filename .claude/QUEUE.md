@@ -109,7 +109,7 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 - [~] (B, b-shops24, 23.10.) NA24-3 Displays tönbar (alle Farbtöne abdecken, wie gefärbtes/getöntes Glas). Optik erst exemplarisch.
 - [~] (B, b-kitchen24, 23.10.) NA24-4 Schneidebrett-Rezept: Stufe + ringsum 4 Stöcke. Küchenmesser-Textur 90° im Uhrzeigersinn drehen, dann horizontal spiegeln.
 - [~] (B, b-kitchen24, 23.10.) NA24-5 Laufen auf Butterblock gibt „Slippery“-Effekt 3 s (rutschen auf allen Blöcken wie auf Butter). Butterscheibe als Butter-Teppich platzierbar, ebenfalls Slippery.
-- [ ] NA24-6 Simple Trims: inverser Rüstungsbesatz (gleiches Muster, invertiert über die Rüstung), erhältlich über eigenen Conduit im gleichen Umwandlungs-Schema wie die anderen. JEI-Tabs für Umwandlung fehlen → über simplelib wiederherstellen.
+- [~] (B, b-trims24, 23.10.) NA24-6 Simple Trims: inverser Rüstungsbesatz (gleiches Muster, invertiert über die Rüstung), erhältlich über eigenen Conduit im gleichen Umwandlungs-Schema wie die anderen. JEI-Tabs für Umwandlung fehlen → über simplelib wiederherstellen.
 - [~] (B, b-kitchen24, 23.10.) NA24-7 Spezialfaser-Rezept gleich lassen, nur Anordnung neu.
 - [ ] NA24-8 Simple Music Notenblatt: Beispiel(e) mitliefern, mehrere von einfach bis komplex – 3 erfundene Eigenkreationen + Rest coole copyright-freie Stücke (gemeinfrei). Spieler (Player) setzen einiges noch falsch um → Fehler suchen und fixen (Gametests).
 - [~] (B, b-folge24, 23.10.) NA24-9 Splitter/Kleinteile aus allen Mods (z. B. Strong-Upgrade-Splitter) platzierbar machen (wie PlacedSolids).
