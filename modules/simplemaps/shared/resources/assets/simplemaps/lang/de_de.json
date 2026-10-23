@@ -3,6 +3,7 @@
   "item.simplemaps.wayfinder_map": "Wegfinder-Karte",
   "item.simplemaps.nether_wayfinder_map": "Nether-Wegfinder-Karte",
   "item.simplemaps.end_wayfinder_map": "End-Wegfinder-Karte",
+  "item.simplemaps.mega_wayfinder_map": "Mega-Wegfinder-Karte",
   "item.simplemaps.wayfinder_map.tooltip.overworld": "Endlose Karte der Oberwelt",
   "item.simplemaps.wayfinder_map.tooltip.nether": "Endlose Karte des Nethers",
   "item.simplemaps.wayfinder_map.tooltip.end": "Endlose Karte des Ends",
@@ -78,5 +79,10 @@
   "quests.simplemaps.start.title": "Willkommen bei Simple Maps",
   "quests.simplemaps.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemaps.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemaps.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Maps-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kompass herstellen."
+  "quests.simplemaps.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Maps-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kompass herstellen.",
+  "item.simplemaps.mega_wayfinder_map.tooltip": "Erkundete Dimensionen: %s von %s",
+  "screen.simplemaps.mega.not_visited": "%s (noch nicht erkundet)",
+  "dimension.minecraft.overworld": "Oberwelt",
+  "dimension.minecraft.the_nether": "Nether",
+  "dimension.minecraft.the_end": "End"
 }

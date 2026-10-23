@@ -3,6 +3,7 @@
   "item.simplemaps.wayfinder_map": "Wayfinder Map",
   "item.simplemaps.nether_wayfinder_map": "Nether Wayfinder Map",
   "item.simplemaps.end_wayfinder_map": "End Wayfinder Map",
+  "item.simplemaps.mega_wayfinder_map": "Mega Wayfinder Map",
   "item.simplemaps.wayfinder_map.tooltip.overworld": "Endless map of the Overworld",
   "item.simplemaps.wayfinder_map.tooltip.nether": "Endless map of the Nether",
   "item.simplemaps.wayfinder_map.tooltip.end": "Endless map of the End",
@@ -78,5 +79,10 @@
   "quests.simplemaps.start.title": "Welcome to Simple Maps",
   "quests.simplemaps.start.subtitle": "Your free guide",
   "quests.simplemaps.start.welcome.title": "A free guide",
-  "quests.simplemaps.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Maps Guide as a reward. You can also craft it from a book and a compass."
+  "quests.simplemaps.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Maps Guide as a reward. You can also craft it from a book and a compass.",
+  "item.simplemaps.mega_wayfinder_map.tooltip": "Dimensions explored: %s of %s",
+  "screen.simplemaps.mega.not_visited": "%s (not explored yet)",
+  "dimension.minecraft.overworld": "Overworld",
+  "dimension.minecraft.the_nether": "The Nether",
+  "dimension.minecraft.the_end": "The End"
 }

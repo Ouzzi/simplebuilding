@@ -85,12 +85,17 @@ public final class MapsComponents {
     public static final DataComponentType<Pending> PENDING = DataComponentType.<Pending>builder()
             .persistent(Pending.CODEC).networkSynchronized(Pending.STREAM_CODEC).build();
 
+    /** Mega wayfinder map (owner B23-K1): one map per dimension and the dimension shown. */
+    public static final DataComponentType<MegaMaps> MEGA = DataComponentType.<MegaMaps>builder()
+            .persistent(MegaMaps.CODEC).networkSynchronized(MegaMaps.STREAM_CODEC).cacheEncoding().build();
+
     public static void register() {
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("map_id"), MAP_ID);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("waypoints"), WAYPOINTS);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("view"), VIEW);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("pending"), PENDING);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("display"), DISPLAY);
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("mega"), MEGA);
     }
 
     private MapsComponents() {}

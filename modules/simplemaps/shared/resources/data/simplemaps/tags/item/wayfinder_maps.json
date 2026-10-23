@@ -2,6 +2,7 @@
   "values": [
     "simplemaps:wayfinder_map",
     "simplemaps:nether_wayfinder_map",
-    "simplemaps:end_wayfinder_map"
+    "simplemaps:end_wayfinder_map",
+    "simplemaps:mega_wayfinder_map"
   ]
 }

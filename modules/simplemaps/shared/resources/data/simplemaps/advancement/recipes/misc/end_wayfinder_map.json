@@ -1,4 +1,16 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_map": {
@@ -41,11 +53,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_shulker_shell": {
+    "has_enderite_scrap": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:shulker_shell"
+            "items": "simplelib:enderite_scrap"
           }
         ]
       },
@@ -65,7 +77,7 @@
       "has_compass",
       "has_gold_ingot",
       "has_echo_shard",
-      "has_shulker_shell"
+      "has_enderite_scrap"
     ]
   ],
   "rewards": {
