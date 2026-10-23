@@ -79,7 +79,7 @@ async function check(browser, base, mod, width, scheme) {
       assert.ok(await page.locator('.home-compat .chip-opt').filter({ visible: true }).count() > before, tag + ' +N more opens');
     }
     await page.locator('.home-ways .way').first().click();
-    await page.waitForFunction(() => location.hash === '#/features');
+    await page.waitForFunction(() => /^(Guides|Anleitungen)/.test((document.querySelector('#main h1') || {}).textContent || ''));
   }
   assert.deepEqual(errors, [], tag);
   await ctx.close();
