@@ -794,7 +794,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "429f7ba70093"
+    "dataHash": "881178d14772"
   },
   {
     "id": "simplerespawn",
@@ -1221,7 +1221,7 @@ window.WIKI_MODULES = [
       "recipes": 177,
       "features": 12
     },
-    "dataHash": "e3c1431caaac"
+    "dataHash": "819bd2501567"
   },
   {
     "id": "simplemusic",
