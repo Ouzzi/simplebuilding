@@ -17,11 +17,11 @@ public final class StructureCompassCache {
     private static final int MAX_ENTRIES = 512;
 
     /** Gefundene Position oder null ("nicht gefunden"), samt Suchzeit. */
-    private record Entry(@Nullable Long packedPos, long time) {}
+    private record Cached(@Nullable Long packedPos, long time) {}
 
-    private static final Map<String, Entry> CACHE = new LinkedHashMap<>(64, 0.75f, true) {
+    private static final Map<String, Cached> CACHE = new LinkedHashMap<>(64, 0.75f, true) {
         @Override
-        protected boolean removeEldestEntry(Map.Entry<String, Entry> eldest) {
+        protected boolean removeEldestEntry(Map.Entry<String, Cached> eldest) {
             return size() > MAX_ENTRIES;
         }
     };
@@ -44,7 +44,7 @@ public final class StructureCompassCache {
 
     /** Was ist fuer diese Anfrage zu tun? Bucht bei {@code SEARCH_ALLOWED} den Cooldown sofort. */
     public static synchronized Lookup lookup(UUID player, String dimension, String tag, int x, int z, long now) {
-        Entry e = CACHE.get(key(player, dimension, tag, x, z));
+        Cached e = CACHE.get(key(player, dimension, tag, x, z));
         if (e != null && now - e.time() >= 0 && now - e.time() < TTL_TICKS) {
             return e.packedPos() == null ? new Lookup(State.MISS_NOT_FOUND, 0) : new Lookup(State.HIT, e.packedPos());
         }
@@ -57,7 +57,7 @@ public final class StructureCompassCache {
     }
 
     public static synchronized void store(UUID player, String dimension, String tag, int x, int z, long now, @Nullable Long packedPos) {
-        CACHE.put(key(player, dimension, tag, x, z), new Entry(packedPos, now));
+        CACHE.put(key(player, dimension, tag, x, z), new Cached(packedPos, now));
     }
 
     public static synchronized void clear() {
