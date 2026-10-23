@@ -42,6 +42,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 | ENDREP | Enderit-Reparatur mit Netherit-Material behalten? | Besitzer klärt |
 | STIL | ST-13 ID-Migration, ST-10 Icon-Abnahme | Besitzer |
 | VW-1…3 | Verwerfen ja/nein (Block „Besitzer: verwerfen?“) | Besitzer |
+| AUD-1…4 | Audit 23.10.: ElevenLabs-Klänge + Musikplatten wählen, Nebelwand B aus?, TEX21-Abgleich | Wahl/Klärung offen |
 
 ### (2) Wartet auf Abnahme im Spiel (Client) – gesammelt für einen Abnahme-Termin
 | ID | Thema | Status |
@@ -63,6 +64,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 | 6 | WEB | Stufe 4 (3D) + Dimensionen-Auswahl | L | Mechanik | Browser-Abnahme (2) |
 | 7 | MA-9, MA-N70 | Modulaufteilung Stufe 9 Teil 2 (b-s9b; B pausiert bis 24.10. 01:00) – übernehmen oder warten; MA-6 Haken prüfen (Octets laut MA-N70 in master) | M / S | Mechanik / Doku | B-Pause |
 | 8 | DIST | `dist-publish.sh` streng + `starter.ps1` auf sb-web neu ausliefern | S | Doku/Betrieb | OPS-4 (Platz auf sb-web) |
+| 9 | AUD-5…7 | Audit 23.10.: fehlende Besitzer-Wünsche (Abschnitt unten); AUD-1/2 nach Wahl in (1) | S–M | Mechanik/Konzept | – |
 | – | OPT-e4 | Rest O3-Regen, O4-Modelle, Messung | M | Mechanik | läuft (a-opt45b) |
 
 ### (4) Betrieb (Besitzer bzw. Hauptsitzung)
@@ -77,6 +79,16 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icons, Punkte 64–69, Port-Run 26.2/1.21.11/26.4 + Forge-Client (END-5…8), Rucksack-Sortierung, Mega-Handbücher, Vanilla-Konformitäts-Audit, Performance-Recherche, Astralit-/Nihilit-Fliesen, Hammer-Tempo, Simple Hearts, Texturen auf Meldung. Modulaufteilung: Brücken-Version 1.3.x-bridge erst mit Release-Freigabe.
 
 ---
+
+## Audit 23.10. – fehlende Besitzer-Wünsche
+Quelle: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-23.md` (a-audit23; alle Besitzer-Nachrichten 17.–23.10. gegen Queue/Archiv/Pläne).
+- [ ] AUD-1 (Besitzer 23.10., A) Eigene Klänge „zu grell, synthetisch, zu hell, ohne Tiefe“ → mit ElevenLabs neu: Kandidaten für den legendären Klang (s01–s11, `/root/sb-tools-a/eleven23/LISTE.md`) dem Besitzer zur Wahl vorlegen (zusammen mit SP22-2), danach einbauen; prüfen, welche weiteren synthetischen Klänge (Redstone-Linien SP22-5, Verstärker) betroffen sind.
+- [ ] AUD-2 (Besitzer 23.10., A) Neue Musikplatten im Vanilla-Stil, vor allem epische/treibende: Vorschläge m01–m06 (ElevenLabs, Lizenz in LISTE.md) zur Wahl vorlegen, dann in Simple Music einbauen (Platten-Items, Texturen Vanilla-Aufbau, Fundorte).
+- [ ] AUD-3 (Besitzer 17.10., B, ENTSCHEIDUNG17) End-Wald-Nebel: Wahl „A, B nur falls A nicht reicht“ – Nebelwand B (`SimpleEndConfig.forestFogWall`) ist weiter Standard AN; auf AUS stellen oder Besitzer kurz bestätigen lassen.
+- [ ] AUD-4 (Besitzer 21.10., B) TEX21-Widerspruch: Besitzer meldete „tex21 schon abgearbeitet“, Zeile TEX21 steht als Wahl offen → Wahl von der Abnahme-Seite/Kommentaren ermitteln, `CHOSEN` umstellen, Zeile schließen.
+- [ ] AUD-5 (Besitzer 17.10., A, später) Lichtscheiben + Schwefellichter: Ziel-Sub-Mod klären („später nachbearbeiten“); bisher nur als erledigte Entscheidung im Archiv.
+- [ ] AUD-6 (Besitzer 18.10., A) Bild-Bauplan Stufe 3: Bild als Karte bzw. Kartenwand (Simple Maps), Konzept `docs/ai/KONZEPT-BILD-BAUPLAN-2026-10-19.md`; Stufen 1+2 erledigt (b-picture).
+- [ ] AUD-7 (Besitzer 19.10., A) Simple-Music-Reste aus b-music20: Raster-Editor E2/E3 fürs Notenblatt, Client-Schalter „Fremde Musik laden“.
 
 ## Funde 23.10.
 - [ ] (Besitzer 23.10., später) Rissiges Eis: Textur als eigenes Thema überarbeiten (bei B23-T4 bewusst ausgenommen).
