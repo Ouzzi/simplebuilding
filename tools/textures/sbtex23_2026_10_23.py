@@ -613,11 +613,16 @@ def piston_waves(kind: str, active: bool) -> Image.Image:
     cv = Canvas()
     for y in range(16):
         for x in range(16):
+            # W24-1 (owner: "the motif in the middle is not centred"): the old seams (light at 0/8, dark at 7/15) put
+            # the dark seam cross at 7,7 - half a pixel off the gem/ring centre 7.5,7.5. Now a 2 px groove (7|8 and,
+            # between blocks, 15|0) with the bevel inside each tile, so the cross and the motif share the exact centre.
             lx, ly = x % 8, y % 8
             t = 6 + round((n[y][x] - 0.5) * 2)
-            if lx == 0 or ly == 0:
+            if lx == 1 or ly == 1:
                 t = 8
-            if lx == 7 or ly == 7:
+            if lx == 6 or ly == 6:
+                t = 5
+            if lx in (0, 7) or ly in (0, 7):
                 t = 3
             cv.put(x, y, S[max(0, min(9, t))])
     cv.snap('Basis Fliesen')

@@ -358,7 +358,7 @@ def outputs():
         tex / 'item/shellker_helmet.png': helmet_item(),
         tex / 'item/soulfire_rod.png': rod_item(),
         # item/shellker_spawn_egg.png: tools/textures/spawn_eggs_2026_10_23.py (animated, owner 23.10., TX22-2)
-        tex / 'item/soulfire_blaze_spawn_egg.png': egg(SOUL[2], SOUL[1], SOUL[5], SOUL[4]),
+        # item/soulfire_blaze_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
         tex / 'mob_effect/high_gravity.png': gravity_icon(),
     }
 

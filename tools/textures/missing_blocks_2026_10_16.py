@@ -62,8 +62,17 @@ def cracked(src, seed):
     return b23.cracked(src, seed)
 
 
+MOSS_SEED = 13   # the seed of variant B on the owner's preview page (a-blockstex23b-preview.html)
+
+
 def mossy(src, seed):
-    """Moss in the joints (the dark pixels of the brick) and a few small patches on the faces."""
+    """W24-1 (owner 23.10. late: moss B accepted): blocks_b23_2026_10_23.mossy variant B - Vanilla's structure (moss along
+    the horizontal joints, short drips, the stone beside it a step darker), quieter and toned towards the brick."""
+    return b23.mossy(src, 'B', seed=MOSS_SEED)
+
+
+def mossy_old(src, seed):
+    """Before W24-1: moss in the joints (the dark pixels of the brick) and a few small patches on the faces."""
     rng = random.Random(seed)
     im = src.copy()
     px = im.load()
