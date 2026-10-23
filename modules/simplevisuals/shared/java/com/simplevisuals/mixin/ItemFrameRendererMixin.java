@@ -6,12 +6,12 @@ import com.simplevisuals.FrameTilt;
 import com.simplevisuals.Visuals;
 import com.simplevisuals.client.TiltedFrameState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
-import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.decoration.ItemFrame;
-import net.minecraft.world.item.ItemDisplayContext;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,32 +20,55 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * TZ22-7: a flat block item (see {@link FrameTilt}) in a frame uses its inventory view (GUI display context, tilted from
- * above) instead of the FIXED view, where a pressure plate is a thin strip. Option visuals.enableTiltedFrameItems.
+ * FR23: a flat block or pane (see {@link FrameTilt}) in a frame is drawn as its block model lying flat, top side (pane face)
+ * to the viewer and tilted {@link FrameTilt#TILT_DEGREES} so the edge shows, instead of the FIXED item view (a thin strip
+ * for a pressure plate, a sprite for a pane). Option visuals.enableTiltedFrameItems.
  */
 @Mixin(ItemFrameRenderer.class)
 public abstract class ItemFrameRendererMixin {
-    @Shadow @Final private ItemModelResolver itemModelResolver;
+    /** Half the diagonal of the drawn object (0.5 block wide, turned up to 45 degrees in the frame), in frame units. */
+    private static final float SIMPLEVISUALS$HALF_DIAGONAL = 0.36F;
+    /** Front of the frame's back plate, seen from the item origin. */
+    private static final float SIMPLEVISUALS$BACK_PLATE = 1.0F / 32.0F;
+
+    @Shadow @Final private BlockModelResolver blockModelResolver;
 
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;F)V",
             at = @At("TAIL"))
     private void simplevisuals$tilt(ItemFrame frame, ItemFrameRenderState state, float partialTicks, CallbackInfo ci) {
         var tilt = (TiltedFrameState) state;
-        tilt.simplevisuals$setTilt(false, 0);
-        if (!Visuals.active(Visuals.CONFIG.visuals.enableTiltedFrameItems) || state.mapId != null || state.item.isEmpty()
-                || !state.item.usesBlockLight() || !FrameTilt.flat(frame.getItem())) return;
-        itemModelResolver.updateForNonLiving(state.item, frame.getItem(), ItemDisplayContext.GUI, frame);
-        // After the 180 degree turn below the model's -Z side faces the wall: push it out by that depth.
-        tilt.simplevisuals$setTilt(true, (float) Math.max(0, -state.item.getModelBoundingBox().minZ));
+        tilt.simplevisuals$setTilt(false, false);
+        if (!Visuals.active(Visuals.CONFIG.visuals.enableTiltedFrameItems) || state.mapId != null || state.item.isEmpty()) return;
+        var kind = FrameTilt.kind(frame.getItem());
+        if (kind == FrameTilt.Kind.VANILLA || kind == FrameTilt.Kind.FLAT && !state.item.usesBlockLight()) return;
+        blockModelResolver.update(tilt.simplevisuals$model(), FrameTilt.viewState(frame.getItem()), ItemFrameRenderer.BLOCK_DISPLAY_CONTEXT);
+        if (tilt.simplevisuals$model().isEmpty()) return;
+        state.item.clear(); // Vanilla skips its item branch; the model is drawn below at the item position
+        tilt.simplevisuals$setTilt(true, kind == FrameTilt.Kind.PANE);
     }
 
+    /** Before the last popPose of submit the pose sits at the item origin (frame space: viewer on -Z, wall on +Z). */
     @Inject(method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState;submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;III)V"))
-    private void simplevisuals$tiltPose(ItemFrameRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera, CallbackInfo ci) {
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", ordinal = 1))
+    private void simplevisuals$submitFlat(ItemFrameRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera, CallbackInfo ci) {
         var tilt = (TiltedFrameState) state;
-        if (!tilt.simplevisuals$tilted()) return;
-        // Frame space: the viewer is on -Z, the wall on +Z; the GUI view is made for a viewer on +Z.
-        poseStack.translate(0.0F, 0.0F, -tilt.simplevisuals$push());
-        poseStack.rotateDegrees(Axis.YP, 180.0F);
+        if (!tilt.simplevisuals$tilted() || state.mapId != null) return;
+        poseStack.pushPose();
+        // Lay the object on the back plate, then lift the lower edge forward; push it out so the upper edge stays clear of the wall.
+        float push = (float) Math.sin(Math.toRadians(FrameTilt.TILT_DEGREES)) * SIMPLEVISUALS$HALF_DIAGONAL;
+        poseStack.translate(0.0F, 0.0F, SIMPLEVISUALS$BACK_PLATE - push);
+        poseStack.rotateDegrees(Axis.XP, FrameTilt.TILT_DEGREES);
+        poseStack.rotateDegrees(Axis.ZP, state.rotation * 360.0F / 8.0F);
+        poseStack.scale(0.5F, 0.5F, 0.5F);
+        if (tilt.simplevisuals$pane()) {
+            poseStack.translate(-0.5F, -0.5F, -9.0F / 16.0F); // east-west pane (z 7..9) with its back at z = 0
+        } else {
+            poseStack.rotateDegrees(Axis.ZP, 180.0F); // north edge up, east on the viewer's right, as seen from above
+            poseStack.rotateDegrees(Axis.XP, -90.0F); // top side (+Y) to the viewer (-Z), the bottom on the back plate
+            poseStack.translate(-0.5F, 0.0F, -0.5F);
+        }
+        int light = state.isGlowFrame ? 15728880 : state.lightCoords;
+        tilt.simplevisuals$model().submit(poseStack, collector, light, OverlayTexture.NO_OVERLAY, state.outlineColor);
+        poseStack.popPose();
     }
 }

@@ -68,14 +68,25 @@ public final class VisualsTests {
   c.particles.globalLevel=null;c.particles.overrides.put("unknown",Intensity.MAXIMUM);c.particles.overrides.put("cold_breath",null);ConfigOptions.normalize(c);
   h.assertTrue(c.particles.globalLevel==Intensity.SUBTLE&&c.particles.overrides.isEmpty(),"Corrupt levels and unknown effect ids rejected");h.succeed();
  }
- /** TZ22-7: which framed items are drawn tilted (shape rule; the renderer also needs a block model), option on by default. */
+ /** FR23: which framed items lie flat seen from above (shape rule or pane; FLAT also needs a block model), option on by default. */
  static void frameTilt(GameTestHelper h,SimplevisualsConfig c){
-  h.assertTrue(c.visuals.enableTiltedFrameItems,"Tilted frame items on by default");
+  h.assertTrue(c.visuals.enableTiltedFrameItems,"Flat frame items on by default");
   for(var item:List.of(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE,net.minecraft.world.item.Items.STONE_PRESSURE_PLATE,net.minecraft.world.item.Items.LIGHT_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.PALE_MOSS_CARPET,net.minecraft.world.item.Items.MOSS_CARPET,net.minecraft.world.item.Items.OAK_TRAPDOOR,net.minecraft.world.item.Items.DAYLIGHT_DETECTOR))
-   h.assertTrue(FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Flat block tilted: "+item);
-  for(var item:List.of(net.minecraft.world.item.Items.STONE_BUTTON,net.minecraft.world.item.Items.OAK_SLAB,net.minecraft.world.item.Items.STONE,net.minecraft.world.item.Items.STICK,net.minecraft.world.item.Items.SKELETON_SKULL,net.minecraft.world.item.Items.TORCH,net.minecraft.world.item.Items.AIR))
-   h.assertTrue(!FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Keeps Vanilla frame view: "+item);
-  for(var id:List.of("simplebuilding:diamond_pressure_plate"))if(BuiltInRegistries.ITEM.containsKey(Identifier.parse(id)))h.assertTrue(FrameTilt.flat(new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(id)))),"Mod pressure plate tilted: "+id);
+   h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(item))==FrameTilt.Kind.FLAT,"Flat block seen from above: "+item);
+  for(var item:List.of(net.minecraft.world.item.Items.GLASS_PANE,net.minecraft.world.item.Items.RED_STAINED_GLASS_PANE,net.minecraft.world.item.Items.TINTED_GLASS,net.minecraft.world.item.Items.IRON_BARS)){
+   var stack=new net.minecraft.world.item.ItemStack(item);
+   if(item==net.minecraft.world.item.Items.TINTED_GLASS){h.assertTrue(FrameTilt.kind(stack)==FrameTilt.Kind.VANILLA,"Glass block is no pane");continue;}
+   h.assertTrue(FrameTilt.kind(stack)==FrameTilt.Kind.PANE,"Pane seen from above: "+item);
+   var st=FrameTilt.viewState(stack);
+   h.assertTrue(st.getValue(net.minecraft.world.level.block.CrossCollisionBlock.EAST)&&st.getValue(net.minecraft.world.level.block.CrossCollisionBlock.WEST)
+     &&!st.getValue(net.minecraft.world.level.block.CrossCollisionBlock.NORTH)&&!st.getValue(net.minecraft.world.level.block.CrossCollisionBlock.SOUTH),"Pane drawn stretched east-west: "+item);
+  }
+  h.assertTrue(FrameTilt.viewState(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.OAK_TRAPDOOR))==net.minecraft.world.level.block.Blocks.OAK_TRAPDOOR.defaultBlockState(),"Flat block drawn in its default state");
+  for(var item:List.of(net.minecraft.world.item.Items.STONE_BUTTON,net.minecraft.world.item.Items.OAK_SLAB,net.minecraft.world.item.Items.STONE,net.minecraft.world.item.Items.STICK,net.minecraft.world.item.Items.SKELETON_SKULL,net.minecraft.world.item.Items.TORCH,net.minecraft.world.item.Items.OAK_FENCE,net.minecraft.world.item.Items.AIR))
+   h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(item))==FrameTilt.Kind.VANILLA&&!FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Keeps Vanilla frame view: "+item);
+  for(var e:java.util.Map.of("simplebuilding:diamond_pressure_plate",FrameTilt.Kind.FLAT,"simplebuilding:light_pane",FrameTilt.Kind.FLAT,"simplebuilding:oak_sheet",FrameTilt.Kind.PANE).entrySet())
+   if(BuiltInRegistries.ITEM.containsKey(Identifier.parse(e.getKey())))
+    h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(e.getKey()))))==e.getValue(),"Mod item "+e.getKey()+" is "+e.getValue());
  }
  public static void speedLinesMath(GameTestHelper h){
   h.assertTrue(SpeedLinesMath.tempo(SpeedLinesMath.REFERENCE)==1f&&SpeedLinesMath.density(SpeedLinesMath.REFERENCE)==1f,"Reference speed gives base values");

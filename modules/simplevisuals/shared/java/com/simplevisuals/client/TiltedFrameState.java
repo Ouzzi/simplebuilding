@@ -1,10 +1,15 @@
 package com.simplevisuals.client;
 
-/** Duck interface on {@code ItemFrameRenderState} (TZ22-7): the framed item is drawn tilted, pushed this far off the wall. */
+import net.minecraft.client.renderer.block.BlockModelRenderState;
+
+/** Duck interface on {@code ItemFrameRenderState} (FR23): the framed item is drawn as a flat block model seen from above. */
 public interface TiltedFrameState {
     boolean simplevisuals$tilted();
 
-    float simplevisuals$push();
+    /** True for a pane: its model already faces the viewer, a flat block is first turned top-forward. */
+    boolean simplevisuals$pane();
 
-    void simplevisuals$setTilt(boolean tilted, float push);
+    BlockModelRenderState simplevisuals$model();
+
+    void simplevisuals$setTilt(boolean tilted, boolean pane);
 }
