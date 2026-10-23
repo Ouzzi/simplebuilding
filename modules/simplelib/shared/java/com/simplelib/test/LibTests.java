@@ -80,8 +80,10 @@ public final class LibTests {
             palettes.put("NETHERITE", com.simplelib.api.client.ui.UiPalette.NETHERITE);
             palettes.put("ENDERITE", com.simplelib.api.client.ui.UiPalette.ENDERITE);
             // derived palettes of the mod screens: leather backpack, auto smither, crafter, fletching, astral table, crafting table,
-            // the paper of deed / table, the Wayfinder's brown, the sales-block copper, the death vault violet (SP22-3)
-            int[] fills = {0xFF8E6440, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F, 0xFF3C2D57};
+            // the paper of deed / table, the Wayfinder's brown, the sales-block copper, the death vault violet (SP22-3),
+            // the jukebox brown of Simple Music's upload window and sheet editor (owner 23.10.)
+            int[] fills = {0xFF8E6440, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F, 0xFF3C2D57,
+                    0xFF6B4A35};
             for (int fill : fills) {
                 palettes.put("derived " + Integer.toHexString(fill), com.simplelib.api.client.ui.UiPalette.derived(fill));
             }
@@ -99,6 +101,20 @@ public final class LibTests {
                                     entry.getKey() + " ribbon number (" + filled + "," + hovered + ") in " + brightnessMode + " has contrast " + ribbon);
                         }
                     }
+                }
+            }
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);
+            // fixed text colours of mod screens (owner 23.10.): white on the death vault's legend card heads (green, blue, red)
+            for (int head : new int[] {0xFF1F5E22, 0xFF1D4C8C, 0xFFA12A22}) {
+                check(h, com.simplelib.api.client.ui.UiContrast.readable(0xFFFFFFFF, head), "white on card head " + Integer.toHexString(head));
+            }
+            // Simple Music's light inks (text, problem, ok) on the jukebox brown in every brightness
+            var brown = com.simplelib.api.client.ui.UiPalette.derived(0xFF6B4A35);
+            for (var brightnessMode : com.simplelib.api.client.ui.UiBrightness.values()) {
+                com.simplelib.api.client.ui.UiBrightness.set(brightnessMode);
+                for (int ink : new int[] {0xFFF2EEE8, 0xFFFFB8B0, 0xFFB8F0B6}) {
+                    double r = com.simplelib.api.client.ui.UiContrast.ratio(ink, brown.fill());
+                    check(h, r >= com.simplelib.api.client.ui.UiContrast.MIN, "ink " + Integer.toHexString(ink) + " on brown in " + brightnessMode + " has contrast " + r);
                 }
             }
             com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);

@@ -8,6 +8,7 @@ import com.simplemusic.sheet.NoteCode;
 import com.simplemusic.upload.OggCheck;
 import com.simplemusic.upload.UploadSession;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,12 +30,15 @@ import net.minecraft.network.chat.Component;
  * checks everything again and answers with {@link UploadResultPayload}.
  */
 public class BurnScreen extends Screen {
-    /** Panel in SimpleLib's box style (style audit, plan a-style22): Vanilla grey, dark text without shadow. */
-    private static final UiPalette PALETTE = UiPalette.INVENTORY;
-    private static final int PANEL_FACE = 0xFFC6C6C6; // = PALETTE.fill(), named for tools/check_ui_contrast.py
-    private static final int INK = 0xFF404040;         // 6.07:1 on the panel
-    private static final int PROBLEM_INK = 0xFF8B1A1A; // 5.44:1
-    private static final int OK_INK = 0xFF1A5C1A;      // 4.75:1
+    /**
+     * Panel in SimpleLib's box style, jukebox brown with light text (style audit, owner 23.10. variant C); the sheet
+     * editor uses the same palette and inks.
+     */
+    static final int PANEL_FACE = 0xFF6B4A35; // fill of PALETTE, named for tools/check_ui_contrast.py
+    static final UiPalette PALETTE = UiPalette.derived(PANEL_FACE);
+    static final int INK = 0xFFF2EEE8;         // = PALETTE.label(), 6.84:1 on the panel
+    static final int PROBLEM_INK = 0xFFFFB8B0; // 4.79:1
+    static final int OK_INK = 0xFFB8F0B6;      // 6.09:1
     private static final int PANEL_WIDTH = 260;
     private static BurnScreen current;
 
@@ -169,12 +173,18 @@ public class BurnScreen extends Screen {
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractRenderState(g, mouseX, mouseY, a);
         int left = width / 2 - 120;
-        g.text(font, getTitle(), width / 2 - font.width(getTitle()) / 2, 12, INK, false);
+        int ink = ink(INK);
+        g.text(font, getTitle(), width / 2 - font.width(getTitle()) / 2, 12, ink, false);
         Component folder = Component.translatable("simplemusic.burn.folder", SheetFiles.uploads().toString());
-        g.text(font, folder, width / 2 - Math.min(font.width(folder), 240) / 2, 24, INK, false);
-        g.text(font, status, left, height - 52, statusInk, false);
-        g.text(font, Component.translatable("simplemusic.burn.rights"), left, height - 42, INK, false);
-        if (chosen != null) g.text(font, Component.literal(chosen.getFileName().toString()), left, height - 88, INK, false);
+        g.text(font, folder, width / 2 - Math.min(font.width(folder), 240) / 2, 24, ink, false);
+        g.text(font, status, left, height - 52, ink(statusInk), false);
+        g.text(font, Component.translatable("simplemusic.burn.rights"), left, height - 42, ink, false);
+        if (chosen != null) g.text(font, Component.literal(chosen.getFileName().toString()), left, height - 88, ink, false);
+    }
+
+    /** {@code color} at least 4.5:1 on the panel as currently toned (inventory brightness). */
+    static int ink(int color) {
+        return UiContrast.ensure(color, PALETTE.fill());
     }
 
     @Override
