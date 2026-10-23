@@ -73,7 +73,7 @@ public final class VisualsTests {
   h.assertTrue(c.visuals.enableTiltedFrameItems,"Flat frame items on by default");
   for(var item:List.of(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE,net.minecraft.world.item.Items.STONE_PRESSURE_PLATE,net.minecraft.world.item.Items.LIGHT_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE,net.minecraft.world.item.Items.PALE_MOSS_CARPET,net.minecraft.world.item.Items.MOSS_CARPET,net.minecraft.world.item.Items.OAK_TRAPDOOR,net.minecraft.world.item.Items.DAYLIGHT_DETECTOR))
    h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(item))==FrameTilt.Kind.FLAT,"Flat block seen from above: "+item);
-  for(var item:List.of(net.minecraft.world.item.Items.GLASS_PANE,net.minecraft.world.item.Items.RED_STAINED_GLASS_PANE,net.minecraft.world.item.Items.TINTED_GLASS,net.minecraft.world.item.Items.IRON_BARS)){
+  for(var item:List.of(net.minecraft.world.item.Items.GLASS_PANE,net.minecraft.world.item.Items.STAINED_GLASS_PANE.pick(net.minecraft.world.item.DyeColor.RED),net.minecraft.world.item.Items.TINTED_GLASS,net.minecraft.world.item.Items.IRON_BARS)){
    var stack=new net.minecraft.world.item.ItemStack(item);
    if(item==net.minecraft.world.item.Items.TINTED_GLASS){h.assertTrue(FrameTilt.kind(stack)==FrameTilt.Kind.VANILLA,"Glass block is no pane");continue;}
    h.assertTrue(FrameTilt.kind(stack)==FrameTilt.Kind.PANE,"Pane seen from above: "+item);
