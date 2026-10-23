@@ -20,6 +20,7 @@ public final class ServerOptTests {
         ALL.put("s5a_controller", ServerOptTests::s5aController);
         ALL.put("config_file", ServerOptTests::configFile);
         ALL.put("s5b_rule", ServerOptTests::s5bRule);
+        ALL.put("s5b_tick_cost", ServerOptTests::s5bTickCost);
     }
 
     private ServerOptTests() {}
@@ -145,5 +146,56 @@ public final class ServerOptTests {
         h.assertTrue(ActivationRange.exempt(h.spawn(EntityTypes.VILLAGER, 1, 2, 3)), "villagers stay active");
         h.assertTrue(ActivationRange.exempt(h.spawn(EntityTypes.ARMOR_STAND, 2, 2, 3)), "non-mobs are never touched");
         h.succeed();
+    }
+
+    /**
+     * S5b headless measurement (plan a-opt45b): 36 adult cows, no player near (all "far"). Each round times one full tick
+     * of every cow, then the same with the S5b rule in front ({@link ActivationRange#skip}), then the rule check alone.
+     * Logged as {@code SB-BENCH s5b ...}; only the share of skipped ticks is asserted (timings vary with the machine).
+     */
+    public static void s5bTickCost(GameTestHelper h) {
+        var level = h.getLevel();
+        var cows = new java.util.ArrayList<net.minecraft.world.entity.Mob>();
+        for (int x = 1; x <= 6; x++) for (int z = 1; z <= 6; z++) cows.add(h.spawn(EntityTypes.COW, x, 2, z));
+        h.runAfterDelay(20, () -> {
+            var p = ActivationRange.Params.DEFAULTS;
+            long full = 0, rule = 0, check = 0, ran = 0, skippable = 0, skipped = 0;
+            try {
+                for (int round = 0; round < 240; round++) {
+                    boolean warm = round < 40;
+                    long t0 = System.nanoTime();
+                    for (var c : cows) c.tick();
+                    long t1 = System.nanoTime();
+                    for (var c : cows) {
+                        c.tickCount = round;
+                        if (!ActivationRange.skip(c, level, p)) c.tick();
+                    }
+                    long t2 = System.nanoTime();
+                    for (var c : cows) {
+                        c.tickCount = round;
+                        boolean exempt = ActivationRange.exempt(c), skip = ActivationRange.skip(c, level, p);
+                        if (warm) continue;
+                        if (!exempt) skippable++;
+                        if (skip) skipped++;
+                    }
+                    long t3 = System.nanoTime();
+                    if (warm) continue;
+                    full += t1 - t0;
+                    rule += t2 - t1;
+                    check += t3 - t2;
+                    ran += cows.size();
+                }
+            } finally {
+                cows.forEach(net.minecraft.world.entity.Entity::discard);
+            }
+            ServerOpt.LOG.info("SB-BENCH s5b mobs={} rounds=200 full_ns={} rule_ns={} check_ns={} saved={}% skipped={}/{}",
+                    cows.size(), full / ran, rule / ran, check / ran, Math.round(100.0 * (full - rule) / Math.max(1, full)),
+                    skipped, skippable);
+            h.assertTrue(skippable > 0, "some cows idle on the ground");
+            // offBeat skips 3 of 4 ticks per mob; mobs that are exempt in some rounds (a step up, airborne) move it a little
+            double share = (double) skipped / skippable;
+            h.assertTrue(!level.players().isEmpty() || share > 0.6 && share < 0.9, "skipped share ~3/4: " + share);
+            h.succeed();
+        });
     }
 }
