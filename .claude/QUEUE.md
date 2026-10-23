@@ -28,7 +28,7 @@ Jeder offene Punkt steht hier genau einmal, mit Verweis auf seinen Ursprungsabsc
 Erledigtes dort mit `[x]` abhaken und die Zeile hier streichen. Die alte Überblicksliste vom 13.10. war veraltet und ist ersetzt.
 
 ### (A) In Arbeit
-- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): master 6a420db52 (Bündel 50). Bündel 51 (a-bundle51) = a-opt45b (e4), a-pjuke23 (PJ23/DP23), a-mech23b (M11–M15), a-megamap23 (K1–K3). Laufen: a-mech23a, a-sbtex23b, a-blockstex23b, a-misctex23b, a-ui23b, a-strong23, a-queue23. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
+- A (bis Sa 24.10. 01:00 Umsetzung, B pausiert): master 6a420db52 (Bündel 50). Bündel 51 (a-bundle51) = a-opt45b, a-pjuke23, a-mech23b, a-megamap23, a-mech23a, a-blockstex23b, a-misctex23b, a-ui23b. Laufen: a-sbtex23b, a-strong23, a-aud23. Abnahme offen https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9 · Abgenommen https://claude.ai/artifact/GSUExA4pvZUdb7Y6WovTNd
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (B) Als Nächstes bauen (Reihenfolge = Priorität)
