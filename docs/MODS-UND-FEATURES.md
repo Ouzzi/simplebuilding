@@ -77,7 +77,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 - **Helfer/Gadgets:** Attraktor (mehrere ziehen zum gemeinsamen Mittelpunkt), Detektor (Erz-Sonar),
   Resonanzstab (Laser, Scannen), Echolot, Geschwindigkeitsmesser.
 - **Lager:** Rucksäcke (4 Stufen), Truhen- und Fallen-Truhen-Stufen (Kupfer→Enderit), Shulkerkisten-Stufen,
-  Bündel-Stufen und Köcher, abgestellte Bündel, Astral-/Nihil-Gewölbe, Mod-Trichter mit Filter-Prinzip.
+  Bündel-Stufen und Köcher, abgestellte Bündel, Astral-/Nihil-Gewölbe (Deckel öffnet wie die Endertruhe, seit W24-6), Mod-Trichter mit Filter-Prinzip.
 - **Fahrzeuge (26.3):** Trichterloren in den Stufen Verstärkt/Netherit/Enderit – Tempo wie der Trichter der Stufe,
   Filter-Prinzip (Antriebsloren: Simple Ovens; Güterloren und Truhenboote: Simple Storage, Stufe 8b-2).
 - **Maschinen:** schnellere Öfen (3 Stufen je Ofenart; auf 26.3 aus der Pflicht-Sub-Mod Simple Ovens), Auto-Schmied, Autonomer Crafter, Befiederungs- und
