@@ -1049,7 +1049,7 @@ public final class BlueprintTests {
         String last = null;
         BlueprintCode.ParseResult lastResult = null;
         for (String block : blocks) {
-            last = block + " 0..255,0..255,0..17 # cache weight probe";
+            last = block + " 0..255,0..255,0..17";
             lastResult = BlueprintCode.parseCached(last);
             helper.assertTrue(lastResult.ok() && lastResult.model().size() == 256 * 256 * 18, "the probe code did not parse: " + lastResult.problems());
         }
