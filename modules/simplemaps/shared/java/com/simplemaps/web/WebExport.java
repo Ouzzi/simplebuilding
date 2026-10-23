@@ -387,6 +387,16 @@ public final class WebExport {
             dimensions.add(o);
         }
         root.add("dimensions", dimensions);
+        root.add("players", players(server));
+        if (MapsConfig.webShops) root.add("shops", shops());
+        return root;
+    }
+
+    /**
+     * Online players who switched themselves on ({@code /simplemaps web show}), no spectators: name, dimension, x/z, no
+     * UUIDs. Shared by {@code markers.json} and the live {@code live.json} of the web server (server thread only).
+     */
+    public static JsonArray players(MinecraftServer server) {
         JsonArray players = new JsonArray();
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             if (p.isSpectator() || !WebMap.visible(server, p.getUUID())) continue;
@@ -397,9 +407,7 @@ public final class WebExport {
             o.addProperty("z", Mth.floor(p.getZ()));
             players.add(o);
         }
-        root.add("players", players);
-        if (MapsConfig.webShops) root.add("shops", shops());
-        return root;
+        return players;
     }
 
     /**
