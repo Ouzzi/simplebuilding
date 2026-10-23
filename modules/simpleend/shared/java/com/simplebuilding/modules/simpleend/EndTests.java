@@ -819,7 +819,7 @@ public final class EndTests {
             mite.setNoAi(true);
             h.getLevel().addFreshEntity(mite);
             var player = h.makeMockServerPlayerInLevel();
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.CHORUS_FRUIT));
+            player.setGameMode(GameType.SURVIVAL);  // survival: the fruit is eaten
             h.assertTrue(!mite.isTame(), "wild at first");
             int tries = 0;
             while (!mite.isTame() && tries < 80) {
