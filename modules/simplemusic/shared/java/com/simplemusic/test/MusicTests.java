@@ -628,7 +628,7 @@ public final class MusicTests {
                 h.assertTrue(DiscPlayback.elapsed(h.getLevel(), at) >= 5, "at the same position: " + DiscPlayback.elapsed(h.getLevel(), at));
                 long id = be.state().id();
                 // PJ23-5: no stop - the same session plays on at the block, the client moves its sound there
-                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop()), "no stop on putting it down: " + sent);
+                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "no stop on putting it down: " + sent);
                 h.assertTrue(id != 0L && sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.isSong() && t.pos().equals(at)
                         && t.offsetTicks() >= 5 && t.session() == id), "positional play mid-song, same session, to the player nearby: " + sent);
                 h.assertTrue(h.getBlockState(floor.above()).getValue(com.simplemusic.pocket.PocketJukeboxBlock.PLAYING), "the block shows it plays");
@@ -773,7 +773,7 @@ public final class MusicTests {
             });
             h.runAfterDelay(30, () -> {
                 h.assertTrue(PocketPlayback.playing(id) && player.getUUID().equals(PocketPlayback.carrierOf(id)), "still carried");
-                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop()), "never a stop: " + sent);
+                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "never a stop: " + sent);
                 h.assertTrue(PocketPlayback.elapsed(player) >= 28, "the song went on: " + PocketPlayback.elapsed(player));
                 PocketPlayback.toggle(player, player.getInventory().getItem(3));
                 h.succeed();
@@ -813,7 +813,7 @@ public final class MusicTests {
             h.runAfterDelay(5, () -> {
                 h.assertTrue(PocketPlayback.entityOf(id) == dropped[0].getId(), "plays at the dropped item: " + PocketPlayback.entityOf(id));
                 h.assertTrue(dropped[0].getItem().has(MusicComponents.PLAYING), "the dropped item shows it plays");
-                h.assertTrue(toAlice.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop()), "no stop for the one who dropped it");
+                h.assertTrue(toAlice.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "no stop for the one who dropped it");
                 h.assertTrue(toAlice.stream().anyMatch(p -> p instanceof TrackPlayPayload t && !t.carried() && t.session() == id && t.entity() == dropped[0].getId()),
                         "her sound moves to the item: " + toAlice);
                 h.assertTrue(toBob.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.session() == id && t.entity() == dropped[0].getId()
@@ -826,8 +826,8 @@ public final class MusicTests {
             });
             h.runAfterDelay(8, () -> {
                 h.assertTrue(bob.getUUID().equals(PocketPlayback.carrierOf(id)), "carried by the one who picked it up");
-                h.assertTrue(toBob.get(toBob.size() - 1) instanceof TrackPlayPayload t && t.carried() && t.session() == id, "his sound becomes the carried one");
-                h.assertTrue(toAlice.get(toAlice.size() - 1) instanceof TrackPlayPayload t && t.isStop() && t.session() == id, "she no longer hears it");
+                h.assertTrue(lastOf(toBob, id) instanceof TrackPlayPayload t && t.carried() && !t.isStop(), "his sound becomes the carried one");
+                h.assertTrue(lastOf(toAlice, id) instanceof TrackPlayPayload t && t.isStop(), "she no longer hears it");
                 PocketPlayback.toggle(bob, bob.getInventory().getItem(5));
                 dropped[1].discard();
                 h.succeed();
@@ -852,13 +852,13 @@ public final class MusicTests {
                 int entity = PocketPlayback.entityOf(id);
                 h.assertTrue(entity >= 0 && h.getLevel().getEntity(entity) instanceof ItemEntity e && e.getItem().has(MusicComponents.PLAYING),
                         "goes on at the dropped item: " + entity);
-                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop()), "no stop: " + sent);
+                h.assertTrue(sent.stream().noneMatch(p -> p instanceof TrackPlayPayload t && t.isStop() && t.session() == id), "no stop: " + sent);
                 h.assertTrue(sent.stream().anyMatch(p -> p instanceof TrackPlayPayload t && t.session() == id && t.entity() == entity), "moves to the item");
                 h.getLevel().getEntity(entity).discard();
             });
             h.runAfterDelay(10 + PocketPlayback.GRACE, () -> {
                 h.assertTrue(!PocketPlayback.playing(id), "gone for good: stops");
-                h.assertTrue(sent.get(sent.size() - 1) instanceof TrackPlayPayload t && t.isStop() && t.session() == id, "stop sent");
+                h.assertTrue(lastOf(sent, id) instanceof TrackPlayPayload t && t.isStop(), "stop sent");
                 h.succeed();
             });
         });
@@ -1046,6 +1046,13 @@ public final class MusicTests {
         ALL.put("discover_recipe_unlocks", com.simplemusic.discover.MusicDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemusic.discover.MusicDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplemusic.discover.MusicDiscover::firstPickupTips);
+    }
+
+    /** The last play/stop message of Pocket Jukebox session {@code id} (tests run in parallel, others send too). */
+    static TrackPlayPayload lastOf(List<CustomPacketPayload> sent, long id) {
+        TrackPlayPayload last = null;
+        for (CustomPacketPayload p : sent) if (p instanceof TrackPlayPayload t && t.session() == id) last = t;
+        return last;
     }
 
     /** A test player whose connection puts every packet into {@code sink} (sound packets). */
