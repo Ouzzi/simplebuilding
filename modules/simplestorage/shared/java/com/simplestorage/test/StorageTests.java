@@ -128,7 +128,7 @@ public final class StorageTests {
         ALL.put("placed_bundle_sneak_scroll_packets_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt);
         ALL.put("placed_bundle_sneak_right_click_with_an_item_deposits_into_the_placed_bundle", PlacedBundleTests::sneakRightClickWithAnItemDepositsIntoThePlacedBundle);
         ALL.put("placed_bundle_placed_bundles_drop_themselves_with_their_contents", PlacedBundleTests::placedBundlesDropThemselvesWithTheirContents);
-        ALL.put("placed_bundle_deposit_into_a_placed_mod_bundle_plays_the_insert_sound", PlacedBundleTests::depositIntoAPlacedModBundlePlaysTheInsertSound);
+        ALL.put("placed_bundle_deposit_into_placed_mod_bundle_plays_the_insert_sound", PlacedBundleTests::depositIntoPlacedModBundlePlaysTheInsertSound);
         ALL.put("bundle_wiring_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks);
         ALL.put("bundle_wiring_funnel_honours_pickup_delay_and_target_in_the_hand", BundleWiringTests::funnelHonoursPickupDelayAndTargetInTheHand);
         ALL.put("bundle_wiring_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions);

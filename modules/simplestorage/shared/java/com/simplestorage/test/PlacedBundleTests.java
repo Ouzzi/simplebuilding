@@ -308,7 +308,7 @@ final class PlacedBundleTests {
      * PJ23-2 (Besitzer 23.10.): auch ein abgestelltes Mod-Buendel (Enderit) spielt beim Hineinlegen (Schleichen) Vanillas
      * Einlege-Ton - fuer alle am Block, also auch fuer den Spieler selbst (vorher nur Player#playSound, das ihn auslaesst).
      */
-    public static void depositIntoAPlacedModBundlePlaysTheInsertSound(GameTestHelper helper) {
+    public static void depositIntoPlacedModBundlePlaysTheInsertSound(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         List<net.minecraft.network.protocol.Packet<?>> sink = new java.util.ArrayList<>();
         ServerPlayer player = capturingPlayer(helper, sink);

@@ -386,8 +386,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void placedBundleDepositIntoAPlacedModBundlePlaysTheInsertSound(GameTestHelper h) {
-        StorageTests.ALL.get("placed_bundle_deposit_into_a_placed_mod_bundle_plays_the_insert_sound").accept(h);
+    public void placedBundleDepositIntoPlacedModBundlePlaysTheInsertSound(GameTestHelper h) {
+        StorageTests.ALL.get("placed_bundle_deposit_into_placed_mod_bundle_plays_the_insert_sound").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")

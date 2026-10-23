@@ -889,11 +889,11 @@ public final class MusicTests {
             h.assertTrue(state.getValue(com.simplemusic.pocket.PocketJukeboxBlock.EAST) && state.getValue(com.simplemusic.pocket.PocketJukeboxBlock.NORTH)
                     && !state.getValue(com.simplemusic.pocket.PocketJukeboxBlock.WEST), "contacts to the dust: " + state);
             be.toggle();
-            h.assertTrue(be.playing() && h.getBlockState(pos.north()).getValue(net.minecraft.world.level.block.RedStoneWireBlock.POWER) == 15,
+            h.assertTrue(be.playing() && h.getBlockState(pos.north()).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER) == 15,
                     "plays: the dust in front carries 15");
             h.assertTrue(be.playing(), "its own signal does not come back");
             be.toggle();
-            h.assertTrue(h.getBlockState(pos.north()).getValue(net.minecraft.world.level.block.RedStoneWireBlock.POWER) == 0, "paused: off");
+            h.assertTrue(h.getBlockState(pos.north()).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER) == 0, "paused: off");
             h.setBlock(pos.east(), Blocks.AIR);
             h.assertTrue(!h.getBlockState(pos).getValue(com.simplemusic.pocket.PocketJukeboxBlock.EAST), "contact gone with the dust");
             h.succeed();
