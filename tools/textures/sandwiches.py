@@ -299,6 +299,153 @@ def cauldron_textures():
     return out
 
 
+
+# === VN12 (TX22-1, 2026-10-23): candidates for the VN22 choice, drawn in named steps (layer sources) ==========
+# Not used by all_textures() until the owner picks a letter (docs/ai/PLAN-A-VN12-2026-10-23.md); the preview script
+# tools/textures/vn12_preview_2026_10_23.py writes them outside the repo. Light comes from the top left like Vanilla;
+# ramps are 5-7 hand-picked tones (own pixels, no Vanilla sprite is read).
+CHEESE_RAMP = {'K': '8a5a10', 'R': 'b87c16', 'D': 'd4961f', 'M': 'e6ad30', 'B': 'f0c040', 'L': 'f8d664', 'H': 'fde68e'}
+
+
+def _snap(im, name):
+    from layers import snap  # tools/textures is the script folder (layers.py beside this file)
+    return snap(im, name)
+
+
+def _paint(im, cells, col):
+    for x, y in cells:
+        im.putpixel((x % 16, y % 16), hx(col))
+
+
+def _mottle(im, ramp, seed, count, tones=('M', 'L')):
+    """Soft clusters (2-4 px) instead of single-pixel noise: Vanilla blocks shade in small patches."""
+    rnd = random.Random(seed)
+    shapes = [((0, 0), (1, 0)), ((0, 0), (0, 1)), ((0, 0), (1, 0), (0, 1)), ((0, 0), (1, 0), (1, 1)), ((0, 0),)]
+    for i in range(count):
+        x, y = rnd.randrange(16), rnd.randrange(16)
+        _paint(im, [(x + dx, y + dy) for dx, dy in rnd.choice(shapes)], ramp[tones[i % len(tones)]])
+
+
+def _hole(im, ramp, x, y, w, h):
+    """A cheese hole lit from the top left: its top/left inner wall is in shadow, the bottom/right wall catches light,
+    a light rim pixel sits just outside the lower right."""
+    for dy in range(h):
+        for dx in range(w):
+            top, left = dy == 0, dx == 0
+            col = 'K' if (top or left) and not (w > 2 and h > 2 and (dx, dy) == (w - 1, 0)) else 'R'
+            if dx == w - 1 and dy == h - 1 and w * h > 1:
+                col = 'D'
+            if w > 2 and h > 2 and (dx, dy) in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)):
+                if w > 3:
+                    continue  # round corners on big holes
+                col = 'R' if (dx, dy) == (0, 0) else 'D'  # 3x3: soft corners instead of a plus shape
+            _paint(im, [(x + dx, y + dy)], ramp[col])
+    _paint(im, [(x + w, y + h - 1), (x + w - 1, y + h)], ramp['H'])
+
+
+def cheese_side_vn12(variant='A'):
+    """Cheese block side. A rind frame, B Emmentaler (big holes, tiling across the edge), C loaf bands top/bottom."""
+    r = CHEESE_RAMP
+    im = Image.new('RGBA', (16, 16), hx(r['B']))
+    _snap(im, 'Grundfläche')
+    _mottle(im, r, 70 + ord(variant), 22 if variant != 'B' else 16)
+    _snap(im, 'Struktur')
+    if variant == 'A':
+        for i in range(16):
+            _paint(im, [(i, 0), (0, i)], r['D'])
+            _paint(im, [(i, 15), (15, i)], r['R'])
+        for i in range(1, 15):
+            _paint(im, [(i, 1), (1, i)], r['L'])
+        _snap(im, 'Rinde')
+        holes = [(4, 4, 2, 2), (10, 3, 1, 1), (9, 8, 3, 3), (3, 10, 2, 2), (12, 12, 1, 1)]
+    elif variant == 'B':
+        holes = [(2, 2, 3, 3), (9, 3, 2, 2), (6, 8, 4, 3), (14, 10, 3, 3), (2, 12, 2, 2), (11, 13, 1, 1)]  # x 14..16 wraps
+    else:
+        for x in range(16):
+            _paint(im, [(x, 0)], r['R'])
+            _paint(im, [(x, 1)], r['D'] if x % 5 else r['R'])
+            _paint(im, [(x, 2)], r['L'])
+            _paint(im, [(x, 13)], r['D'])
+            _paint(im, [(x, 14), (x, 15)], r['R'])
+        for x in (3, 4, 10, 11):
+            _paint(im, [(x, 15)], r['K'])
+        _snap(im, 'Rinde')
+        holes = [(3, 5, 2, 2), (9, 4, 1, 1), (11, 7, 2, 2), (6, 9, 2, 2), (2, 10, 1, 1)]
+    for h in holes:
+        _hole(im, r, *h)
+    _snap(im, 'Löcher')
+    if variant == 'B':
+        _paint(im, [(0, 0), (1, 0), (0, 1), (8, 0), (15, 6), (5, 15)], r['H'])
+    else:
+        _paint(im, [(2, 2), (3, 2), (2, 3)] if variant == 'A' else [(1, 2), (2, 2), (7, 2), (8, 2)], r['H'])
+    return _snap(im, 'Glanz')
+
+
+# Milk ripeness stages 0..3 (BlockInfo.MILK_STAGES): fresh white -> creamy yellow. Tones per stage:
+# deep shade, shade, base, light, highlight, cream (fat).
+MILK_RAMPS = [('d6d6cc', 'e6e6de', 'f4f4ee', 'fafaf5', 'ffffff', 'f6f0d2'),
+              ('d8d2b8', 'e8e2c8', 'f4f0dc', 'faf8ec', 'fffef8', 'f2e6b0'),
+              ('d6c894', 'e6d8a4', 'f2e8be', 'f8f2d8', 'fffbea', 'eedc94'),
+              ('d0b870', 'e4d088', 'f0e0a0', 'f8ecc0', 'fff6dc', 'e8cc6c')]
+
+
+def milk_vn12(stage, variant='A'):
+    """Milk surface in the cauldron. A waves like Vanilla water, B a cream skin that grows with the stage,
+    C calm surface with a highlight streak (like the milk bucket's shine)."""
+    dd, d, b, l, h, c = MILK_RAMPS[stage]
+    im = Image.new('RGBA', (16, 16), hx(b))
+    _snap(im, 'Grundfläche')
+    if variant == 'A':
+        for y0, ph in ((2, 0), (7, 5), (12, 10)):
+            for x in range(16):
+                y = y0 + round(1.1 * math.sin((x + ph) / 16 * 2 * math.pi))
+                _paint(im, [(x, y)], l)
+                if x % 4 != 1:
+                    _paint(im, [(x, y + 1)], d)
+        _snap(im, 'Wellen')
+        rnd = random.Random(80 + stage)
+        for _ in range(stage * 3):
+            x, y = rnd.randrange(16), rnd.randrange(16)
+            _paint(im, [(x, y), (x + 1, y)], c)
+            _paint(im, [(x + 1, y + 1)], dd if stage == 3 else d)
+        _snap(im, 'Rahm')
+        _paint(im, [(3, 1), (4, 1), (9, 6), (14, 11)], h)
+    elif variant == 'B':
+        for y in range(16):
+            for x in range(16):
+                if (x + 2 * y) % 7 == 0:
+                    _paint(im, [(x, y)], l)
+                elif (x + 2 * y) % 7 == 4 and (x * y) % 3 == 0:
+                    _paint(im, [(x, y)], d)
+        _snap(im, 'Kräuselung')
+        blobs = [(3, 3, 4, 2), (10, 5, 3, 3), (5, 10, 5, 3), (12, 12, 3, 2), (1, 7, 2, 2), (8, 1, 3, 2)]
+        for bx, by, bw, bh in blobs[:(0, 2, 4, 6)[stage]]:
+            for yy in range(bh):
+                for xx in range(bw):
+                    if (xx, yy) in ((0, 0), (bw - 1, bh - 1)) and bw > 2:
+                        continue
+                    _paint(im, [(bx + xx, by + yy)], c)
+            _paint(im, [(bx + xx, by + bh) for xx in range(1, bw)] + [(bx + bw, by + yy) for yy in range(bh - 1)], dd)
+            _paint(im, [(bx + 1, by)], h)
+        _snap(im, 'Rahmhaut')
+    else:
+        for y in range(16):
+            for x in range(16):
+                t = x + y
+                if t > 22:
+                    _paint(im, [(x, y)], d)
+                elif t < 6:
+                    _paint(im, [(x, y)], l)
+        _snap(im, 'Verlauf')
+        for i in range(4):
+            _paint(im, [(3 + i, 7 - i), (4 + i, 7 - i)], h)
+        _paint(im, [(11, 10), (12, 9)], l)
+        _snap(im, 'Glanz')
+        for x, y in ((9, 12), (13, 4), (5, 13), (2, 10))[:stage + (1 if stage else 0)]:
+            _paint(im, [(x, y)], c)
+            _paint(im, [(x + 1, y + 1)], dd)
+    return _snap(im, 'Feinschliff')
+
 # === v2 (owner feedback 2026-10-05): new bread/sandwich, knife, board, cake slice, bread halves ========
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
