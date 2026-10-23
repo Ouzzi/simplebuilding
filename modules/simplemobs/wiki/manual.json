@@ -317,7 +317,7 @@
           "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is thrown far away (knockback resistance does not help). Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
           "Drops (Looting does not change it): the Blighted Wither exactly one Nether Heart, 1-2 Nether Stars and 3-5 Netherite nuggets (without a mod that adds them one Netherite Scrap); the Abyssal Wither one Nether Heart, one Red Nether Gem and 3-5 Enderite nuggets (tag c:nuggets/enderite, only when a mod adds them) - no Nether Star. Only these two drop heart and gem.",
           "Placed loot: once the death has ended, Nether Heart and Red Nether Gem are set as small blocks on the ground straight under the Wither (searched down to 24 blocks, the gem on a free spot next to the heart). Without ground they drop as items. Both survive explosions and fire as items and as blocks (blast resistance 1200, Withers cannot break them); breaking the block gives the item back. The placed Nether Heart is its icon in 3D (the heart with its two vessel stubs, thicker in the middle) and turns its front to whoever places it (after the fight to the nearest player).",
-          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: its use is still to come. Old Wither Hearts become Nether Hearts."
+          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: with the Strong Upgrade it turns Wither Wings into Nether Wings (see Wither Wings). Old Wither Hearts become Nether Hearts."
         ]
       },
       "de": {
@@ -333,7 +333,7 @@
           "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weit weggeschleudert (Rückstoßresistenz hilft nicht). Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
           "Beute (Plünderung ändert sie nicht): der Verdorrte Wither genau ein Netherherz, 1-2 Nethersterne und 3-5 Netheritnuggets (ohne Mod, die sie hinzufügt, eine Netheritplatte); der Abgrund-Wither ein Netherherz, ein Rotes Nether-Juwel und 3-5 Enderitnuggets (Tag c:nuggets/enderite, nur wenn eine Mod sie hinzufügt) - keinen Netherstern. Nur diese beiden lassen Herz und Juwel fallen.",
           "Gesetzte Beute: Wenn der Tod vorbei ist, stehen Netherherz und Rotes Nether-Juwel als kleine Blöcke auf dem Boden direkt unter dem Wither (bis 24 Blöcke tief gesucht, das Juwel auf einem freien Platz neben dem Herz). Ohne Boden fallen sie als Gegenstände. Beide überstehen Explosionen und Feuer, als Gegenstand und als Block (Explosionsfestigkeit 1200, Wither zerstören sie nicht); abgebaut geben sie den Gegenstand zurück. Das gesetzte Netherherz ist sein Symbol in 3D (das Herz mit seinen zwei Adern-Stummeln, in der Mitte dicker) und dreht seine Vorderseite zu dem, der es setzt (nach dem Kampf zum nächsten Spieler).",
-          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: sein Zweck folgt später. Alte Witherherzen werden zu Netherherzen."
+          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: macht mit der Starken Aufwertung aus Wither-Schwingen Nether-Schwingen (siehe Wither-Schwingen). Alte Witherherzen werden zu Netherherzen."
         ]
       }
     },
@@ -383,6 +383,34 @@
         "summary": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
         "details": [
           "Der gemeinsame Schalter simplemobs.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
+        ]
+      }
+    },
+    {
+      "id": "wither_wings",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherWings.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/FireworkRocketWingsMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Wither Wings",
+        "summary": "Two Elytra stages from the Wither's loot that raise only the top speed a firework rocket reaches: x2 (Wither Wings) and x4 (Nether Wings). Gliding without a rocket stays Vanilla.",
+        "details": [
+          "Smithing table: Strong Upgrade template (Simple Beacons) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings. Without Simple Beacons the Netherite Upgrade template takes its place. Enchantments and wear carry over.",
+          "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67 m/s and 133 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
+          "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2) and netherWingsSpeedFactor (default 4), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
+          "576 and 768 durability (Elytra 432), repaired with phantom membrane, fire-proof like Netherite, own feather look on the back."
+        ]
+      },
+      "de": {
+        "title": "Wither-Schwingen",
+        "summary": "Zwei Elytra-Stufen aus der Wither-Beute, die nur die Höchstgeschwindigkeit mit Feuerwerksraketen anheben: x2 (Wither-Schwingen) und x4 (Nether-Schwingen). Gleiten ohne Rakete bleibt Vanilla.",
+        "details": [
+          "Schmiedetisch: Vorlage Starke Aufwertung (Simple Beacons) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen. Ohne Simple Beacons tritt die Netherit-Aufwertung an ihre Stelle. Verzauberungen und Abnutzung bleiben.",
+          "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67 m/s und 133 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
+          "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2) und netherWingsSpeedFactor (Standard 4), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
+          "576 bzw. 768 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, eigene Federoptik auf dem Rücken."
         ]
       }
     }
@@ -562,10 +590,26 @@
     },
     "simplemobs:nether_gem": {
       "en": {
-        "summary": "Dropped by the Abyssal Wither, one per kill, placed next to the Nether Heart. Its use is still to come."
+        "summary": "Dropped by the Abyssal Wither, one per kill, placed next to the Nether Heart. With the Strong Upgrade it turns Wither Wings into Nether Wings."
       },
       "de": {
-        "summary": "Fällt vom Abgrund-Wither, eins pro Kampf, neben das Netherherz gesetzt. Sein Zweck folgt später."
+        "summary": "Fällt vom Abgrund-Wither, eins pro Kampf, neben das Netherherz gesetzt. Mit der Starken Aufwertung macht es aus Wither-Schwingen Nether-Schwingen."
+      }
+    },
+    "simplemobs:wither_wings": {
+      "en": {
+        "summary": "Stage 1 wings: Strong Upgrade + Elytra + Nether Heart at the smithing table (with Simple Beacons; without it the Netherite Upgrade). A rocket pushes them up to twice the Vanilla top speed; 576 durability, phantom membrane repair, fire-proof."
+      },
+      "de": {
+        "summary": "Schwingen Stufe 1: Starke Aufwertung + Elytren + Netherherz am Schmiedetisch (mit Simple Beacons; ohne die Netherit-Aufwertung). Eine Rakete schiebt bis zur doppelten Vanilla-Höchstgeschwindigkeit; 576 Haltbarkeit, Reparatur Phantomhaut, feuerfest."
+      }
+    },
+    "simplemobs:nether_wings": {
+      "en": {
+        "summary": "Stage 2 wings: Strong Upgrade + Wither Wings + Red Nether Gem at the smithing table (without Simple Beacons the Netherite Upgrade). Rockets reach four times the Vanilla top speed; 768 durability."
+      },
+      "de": {
+        "summary": "Schwingen Stufe 2: Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel am Schmiedetisch (ohne Simple Beacons die Netherit-Aufwertung). Raketen erreichen die vierfache Vanilla-Höchstgeschwindigkeit; 768 Haltbarkeit."
       }
     }
   }

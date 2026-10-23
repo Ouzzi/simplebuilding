@@ -5,7 +5,7 @@ MODULE = Path(__file__).resolve().parents[1]
 DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder'}
 _vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
 assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
@@ -146,3 +146,12 @@ import vanilla_derived_sounds as _vd  # stdlib only at import time
 assert _vd.selected('vanilla') == list(_short_ord := [k.removeprefix('entity.hollow_howler.') for k in _snd])
 assert _vd.selected('mix') == [e for e in _short_ord if _map['mix'][e] == 'vanilla'] and _vd.selected('synth') == []
 print(f'simplemobs: Hollow Howler voice {len(_snd)} events, {len(_seen)} takes, mode {_map["mode"]}')
+# EL24-1 Wither/Nether Wings: Strong Upgrade with Simple Beacons, Netherite Upgrade without (not-conditions in all loader forms)
+for stage, base, add in (('wither_wings', 'minecraft:elytra', 'simplemobs:nether_heart'), ('nether_wings', 'simplemobs:wither_wings', 'simplemobs:nether_gem')):
+    for suffix, template, negated in (('_smithing', 'simplebeacons:strong_upgrade_template', False),
+                                      ('_smithing_without_simplebeacons', 'minecraft:netherite_upgrade_smithing_template', True)):
+        r = json.loads((MODULE / f'shared/resources/data/simplemobs/recipe/{stage}{suffix}.json').read_text(encoding='utf-8'))
+        assert (r['type'], r['template'], r['base'], r['addition']) == ('minecraft:smithing_transform', template, base, add), (stage, suffix)
+        assert (r['fabric:load_conditions'][0]['condition'] == 'fabric:not') == negated and (r['neoforge:conditions'][0]['type'] == 'neoforge:not') == negated
+    assert (MODULE / f'shared/resources/assets/simplemobs/equipment/{stage}.json').is_file()
+    assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/equipment/wings/{stage}.png').is_file()

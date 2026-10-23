@@ -135,7 +135,7 @@ public final class MobsRegistry {
 
     /** Tab order: tools and gear, ingredients, spawn eggs. */
     public static final java.util.List<String> TAB_ITEMS = java.util.List.of(
-            "calm_amulet", "deceiver_cloak", "shellker_helmet", "soul_fire_charge",
+            "calm_amulet", "deceiver_cloak", "shellker_helmet", "wither_wings", "nether_wings", "soul_fire_charge",
             "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
             "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem",
             "deceiver_spawn_egg", "dread_spawn_egg", "hollow_howler_spawn_egg", "hollow_watcher_spawn_egg",

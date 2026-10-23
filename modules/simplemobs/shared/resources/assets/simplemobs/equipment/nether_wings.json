@@ -1,0 +1,9 @@
+{
+  "layers": {
+    "wings": [
+      {
+        "texture": "simplemobs:nether_wings"
+      }
+    ]
+  }
+}
