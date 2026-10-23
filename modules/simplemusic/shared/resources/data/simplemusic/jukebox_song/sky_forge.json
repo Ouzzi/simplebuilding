@@ -1,0 +1,10 @@
+{
+  "comparator_output": 4,
+  "description": {
+    "translate": "jukebox_song.simplemusic.sky_forge"
+  },
+  "length_in_seconds": 90.0,
+  "sound_event": {
+    "sound_id": "simplemusic:music_disc.sky_forge"
+  }
+}

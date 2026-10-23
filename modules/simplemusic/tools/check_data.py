@@ -78,4 +78,25 @@ for locale in ('en', 'de'):
 for f in manual['features']:
     for src in f['sources']:
         assert (MODULE.parents[1] / src).is_file(), src
+# W24-3: the six music discs - song data, streamed mono Ogg (at most 1 MiB), sound event with subtitle, item model,
+# texture, both languages, a wiki entry
+discs = re.findall(r'new Disc\("([a-z_]+)", ([0-9.]+)F, (\d+), table\("([a-z_/]+)"\), (\d+)\)',
+                   (JAVA / 'disc/MusicDiscs.java').read_text(encoding='utf-8'))
+assert len(discs) == 6, discs
+sounds_json = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
+for disc, seconds, comparator, table, weight in discs:
+    song = json.loads((RES / f'data/{NS}/jukebox_song/{disc}.json').read_text(encoding='utf-8'))
+    assert song['length_in_seconds'] == float(seconds) and song['comparator_output'] == int(comparator), disc
+    assert song['sound_event'] == {'sound_id': f'{NS}:music_disc.{disc}'} and song['description'] == {'translate': f'jukebox_song.{NS}.{disc}'}, disc
+    event = sounds_json[f'music_disc.{disc}']
+    assert event['sounds'] == [{'name': f'{NS}:records/{disc}', 'stream': True}], disc
+    ogg = (RES / f'assets/{NS}/sounds/records/{disc}.ogg').read_bytes()
+    assert ogg[:4] == b'OggS' and ogg[0x27] == 1 and len(ogg) <= 1024 * 1024, (disc, 'mono Ogg, at most 1 MiB')
+    assert (RES / f'assets/{NS}/textures/item/music_disc_{disc}.png').is_file(), disc
+    assert json.loads((RES / f'assets/{NS}/items/music_disc_{disc}.json').read_text(encoding='utf-8'))['model']['model'] == f'{NS}:item/music_disc_{disc}'
+    for locale in ('en_us', 'de_de'):
+        for k in (f'item.{NS}.music_disc_{disc}', f'jukebox_song.{NS}.{disc}', event['subtitle']):
+            assert langs[locale].get(k), (locale, k)
+        assert langs[locale][f'jukebox_song.{NS}.{disc}'].startswith('Simple Music - '), (locale, disc)
+assert any(f['id'] == 'music_discs' for f in manual['features']), 'wiki entry music_discs'
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure and wiki valid')

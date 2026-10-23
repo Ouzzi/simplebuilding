@@ -68,6 +68,34 @@ public final class LegendaryTests {
     }
 
     /**
+     * W24-3: the client mixin silences Vanilla's challenge jingle exactly where the legendary choir plays - How Did We Get
+     * Here? yes; a normal advancement, the switch {@code legendaryMuteToast} off or the legendary effects off: no.
+     */
+    public static void toastSwitch(GameTestHelper h) {
+        var advancements = h.getLevel().getServer().getAdvancements();
+        var legendary = advancements.get(Identifier.withDefaultNamespace("nether/all_effects"));
+        var normal = advancements.get(Identifier.withDefaultNamespace("story/mine_stone"));
+        try {
+            LibConfig.apply(new JsonObject());
+            h.assertTrue(LibConfig.legendaryMuteToast, "legendaryMuteToast defaults to true");
+            h.assertTrue(LibConfig.toJson().has("legendaryMuteToast"), "legendaryMuteToast is written to the file");
+            h.assertTrue(LegendaryMoments.muteToast(legendary), "How Did We Get Here? keeps Vanilla's jingle");
+            h.assertFalse(LegendaryMoments.muteToast(normal), "a normal advancement lost its toast sound");
+            JsonObject off = new JsonObject();
+            off.addProperty("legendaryMuteToast", false);
+            LibConfig.apply(off);
+            h.assertFalse(LegendaryMoments.muteToast(legendary), "switch off but the jingle is still muted");
+            JsonObject noEffects = new JsonObject();
+            noEffects.addProperty("legendaryEffects", false);
+            LibConfig.apply(noEffects);
+            h.assertFalse(LegendaryMoments.muteToast(legendary), "no choir (effects off) but the jingle is muted");
+        } finally {
+            LibConfig.reset();
+        }
+        h.succeed();
+    }
+
+    /**
      * Tag {@code #simplelib:legendary}: Swift Sneak III from a book on the anvil celebrates, Swift Sneak II, Sharpness V and an
      * already present level do not; the config list extends the tag; the enchanting table path counts a fresh item.
      */

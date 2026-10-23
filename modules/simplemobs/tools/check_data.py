@@ -139,8 +139,18 @@ _vds = (_tools / 'vanilla_derived_sounds.py').read_text(encoding='utf-8')
 _b_events = set(re.findall(r"'([a-z_]+)': [a-z_]+[,}]", _vds[_vds.index('    return {\'heartbeat\''):]))
 assert _b_events == _short, f'variant B recipes differ from sounds.json: {sorted(_b_events ^ _short)}'
 _map = json.loads((_tools / 'howler_sounds.json').read_text(encoding='utf-8'))
-assert _map['mode'] in ('synth', 'vanilla', 'mix'), _map['mode']
+assert _map['mode'] in ('synth', 'vanilla', 'mix', 'eleven'), _map['mode']
 assert set(_map['mix']) == _short and set(_map['mix'].values()) <= {'synth', 'vanilla'}, 'howler_sounds.json mix: every event, synth or vanilla'
+# W24-3 mode eleven: the ElevenLabs takes (shared/howler-eleven, eleven_howler_takes.py) are exactly the takes of the
+# events in "eleven" - every take present, nothing else, mono and small like the others
+_eleven = _map['eleven']
+assert set(_eleven) <= _short and all(re.fullmatch(r'h_[a-z]+_\d', v) for v in _eleven.values()), _eleven
+_want = {(_s if isinstance(_s, str) else _s['name']).rsplit('/', 1)[1] for _e in _eleven for _s in _snd['entity.hollow_howler.' + _e]['sounds']}
+_have = {p.stem for p in (MODULE / 'shared/howler-eleven').glob('*.ogg')}
+assert _have == _want, f'howler-eleven takes differ from sounds.json: {sorted(_have ^ _want)}'
+for _ogg in (MODULE / 'shared/howler-eleven').glob('*.ogg'):
+    _b = _ogg.read_bytes()
+    assert _b[:4] == b'OggS' and len(_b) < 64 * 1024 and _b[0x27] == 1, f'howler-eleven/{_ogg.name}: mono Ogg, small'
 sys.path.insert(0, str(_tools))
 import vanilla_derived_sounds as _vd  # stdlib only at import time
 assert _vd.selected('vanilla') == list(_short_ord := [k.removeprefix('entity.hollow_howler.') for k in _snd])

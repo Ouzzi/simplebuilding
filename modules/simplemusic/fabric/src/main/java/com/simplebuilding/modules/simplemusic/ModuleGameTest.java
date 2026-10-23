@@ -160,4 +160,14 @@ public final class ModuleGameTest {
     public void pressLayout(GameTestHelper h) {
         MusicTests.ALL.get("press_layout").accept(h);
     }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void musicDiscs(GameTestHelper h) {
+        MusicTests.ALL.get("music_discs").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void musicDiscLoot(GameTestHelper h) {
+        MusicTests.ALL.get("music_disc_loot").accept(h);
+    }
 }

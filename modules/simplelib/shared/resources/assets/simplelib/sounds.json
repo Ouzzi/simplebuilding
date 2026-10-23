@@ -2,7 +2,10 @@
   "legendary": {
     "subtitle": "subtitles.simplelib.legendary",
     "sounds": [
-      "simplelib:legendary1",
+      {
+        "name": "simplelib:legendary1",
+        "weight": 3
+      },
       "simplelib:legendary2"
     ]
   }

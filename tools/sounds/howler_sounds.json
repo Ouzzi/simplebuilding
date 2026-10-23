@@ -1,6 +1,6 @@
 {
-  "_doc": "Hollow Howler voice per event (concept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md section 10). mode: synth = variant A everywhere (committed synthesis, default), vanilla = variant B everywhere (built from Vanilla at build time), mix = per event as in 'mix'. -PsbHowlerSounds / SB_HOWLER_SOUNDS override mode for one build.",
-  "mode": "mix",
+  "_doc": "Hollow Howler voice per event (concept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md section 10). mode: synth = variant A everywhere (committed synthesis), vanilla = variant B everywhere (built from Vanilla at build time), mix = per event as in 'mix', eleven = 'mix' plus the ElevenLabs takes of the events in 'eleven' (W24-3 owner 23.10., default; committed in modules/simplemobs/shared/howler-eleven, made by tools/sounds/eleven_howler_takes.py from the named candidate). -PsbHowlerSounds / SB_HOWLER_SOUNDS override mode for one build.",
+  "mode": "eleven",
   "mix": {
     "heartbeat": "synth",
     "ambient": "vanilla",
@@ -13,5 +13,13 @@
     "sniff": "vanilla",
     "roar": "vanilla",
     "roar_rage": "vanilla"
+  },
+  "eleven": {
+    "ambient": "h_ambient_3",
+    "ambient_rage": "h_rage_1",
+    "hurt": "h_hurt_2",
+    "death": "h_death_2",
+    "roar": "h_roar_1",
+    "roar_rage": "h_rage_1"
   }
 }

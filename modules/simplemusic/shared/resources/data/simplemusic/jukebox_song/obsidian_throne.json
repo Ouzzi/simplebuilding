@@ -1,0 +1,10 @@
+{
+  "comparator_output": 9,
+  "description": {
+    "translate": "jukebox_song.simplemusic.obsidian_throne"
+  },
+  "length_in_seconds": 100.0,
+  "sound_event": {
+    "sound_id": "simplemusic:music_disc.obsidian_throne"
+  }
+}
