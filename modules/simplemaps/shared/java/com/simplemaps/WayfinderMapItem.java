@@ -64,6 +64,16 @@ public class WayfinderMapItem extends Item {
         return accepts(kind, level.dimensionTypeRegistration());
     }
 
+    /** The kind this stack charts (the mega map: its shown dimension's). */
+    public Kind kind(ItemStack stack) {
+        return kind;
+    }
+
+    /** Whether this stack charts the level's dimension kind (the mega map: whether it shows this dimension). */
+    public boolean accepts(ItemStack stack, Level level) {
+        return accepts(level);
+    }
+
     /** The stack's map id; assigns a new one first if needed (server only). */
     public static int ensureId(ItemStack stack, MinecraftServer server) {
         MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);

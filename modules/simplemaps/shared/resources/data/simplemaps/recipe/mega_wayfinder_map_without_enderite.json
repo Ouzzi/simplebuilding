@@ -1,0 +1,38 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "simplelib:material_requested",
+        "material": "enderite"
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "simplelib:material_requested",
+        "material": "enderite"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": "minecraft:ender_eye",
+    "E": "simplemaps:end_wayfinder_map",
+    "N": "simplemaps:nether_wayfinder_map",
+    "W": "simplemaps:wayfinder_map",
+    "S": "minecraft:echo_shard"
+  },
+  "pattern": [
+    "TTT",
+    "ENW",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemaps:mega_wayfinder_map"
+  }
+}

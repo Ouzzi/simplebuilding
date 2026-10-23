@@ -52,6 +52,7 @@ public final class MapsFabric implements ModInitializer {
         PayloadTypeRegistry.serverboundPlay().register(WaypointEditPayload.TYPE, WaypointEditPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(FrameViewPayload.TYPE, FrameViewPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(DisplayPayload.TYPE, DisplayPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(com.simplemaps.net.SelectDimensionPayload.TYPE, com.simplemaps.net.SelectDimensionPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TileDataPayload.TYPE, TileDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(MapStatePayload.TYPE, MapStatePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(FrameSavedPayload.TYPE, FrameSavedPayload.CODEC);
@@ -67,6 +68,8 @@ public final class MapsFabric implements ModInitializer {
                 (payload, context) -> context.server().execute(() -> MapsNetwork.handleFrameView(payload, context.player())));
         ServerPlayNetworking.registerGlobalReceiver(DisplayPayload.TYPE,
                 (payload, context) -> context.server().execute(() -> MapsNetwork.handleDisplay(payload, context.player())));
+        ServerPlayNetworking.registerGlobalReceiver(com.simplemaps.net.SelectDimensionPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> MapsNetwork.handleSelectDimension(payload, context.player())));
         SimpleMaps.toClient = (player, payload) -> {
             if (ServerPlayNetworking.canSend(player, payload.type())) ServerPlayNetworking.send(player, payload);
         };

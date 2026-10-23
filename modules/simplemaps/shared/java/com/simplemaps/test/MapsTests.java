@@ -79,16 +79,21 @@ public final class MapsTests {
         ALL.put("other_dimension_tiles", MapsTests::otherDimensionTiles);
         ALL.put("shop_icon", MapsTests::shopIcon);
         WebTests.register(ALL);
+        MegaTests.register(ALL);
     }
 
     private MapsTests() {}
 
     private static void registered(GameTestHelper h) {
         h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleMaps.id("maps")), "own creative tab maps is registered");
-        for (String id : List.of("wayfinder_map", "nether_wayfinder_map", "end_wayfinder_map")) {
+        for (String id : List.of("wayfinder_map", "nether_wayfinder_map", "end_wayfinder_map", "mega_wayfinder_map")) {
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMaps.id(id)), "item missing: " + id);
-            h.assertTrue(h.getLevel().getServer().getRecipeManager()
-                    .byKey(ResourceKey.create(Registries.RECIPE, SimpleMaps.id(id))).isPresent(), "recipe missing: " + id);
+            // End and mega map: one of two recipes, with or without enderite (owner B23-K1/K3, mega_recipes checks which).
+            boolean found = false;
+            for (String r : List.of(id, id + "_without_enderite")) {
+                found |= h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, SimpleMaps.id(r))).isPresent();
+            }
+            h.assertTrue(found, "recipe missing: " + id);
         }
         ServerLevel nether = h.getLevel().getServer().getLevel(Level.NETHER), end = h.getLevel().getServer().getLevel(Level.END);
         h.assertTrue(nether != null && nether.dimensionTypeRegistration().is(MapsItems.NETHER_DIMENSIONS), "nether tag");

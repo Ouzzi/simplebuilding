@@ -21,7 +21,7 @@ public final class MapsItems {
     public static final TagKey<Item> WAYPOINT_HEADS = TagKey.create(Registries.ITEM, SimpleMaps.id("waypoint_heads"));
     public static final TagKey<Item> WAYFINDER_MAPS = TagKey.create(Registries.ITEM, SimpleMaps.id("wayfinder_maps"));
 
-    public static Item WAYFINDER_MAP, NETHER_WAYFINDER_MAP, END_WAYFINDER_MAP;
+    public static Item WAYFINDER_MAP, NETHER_WAYFINDER_MAP, END_WAYFINDER_MAP, MEGA_WAYFINDER_MAP;
 
     /** Owner 21.10.: a wayfinder map does not stack (each one is a single map with its own waypoints and view). */
     public static final int STACK_SIZE = 1;
@@ -30,12 +30,14 @@ public final class MapsItems {
         WAYFINDER_MAP = register("wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.OVERWORLD, p.rarity(Rarity.UNCOMMON).stacksTo(STACK_SIZE)));
         NETHER_WAYFINDER_MAP = register("nether_wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.NETHER, p.rarity(Rarity.RARE).stacksTo(STACK_SIZE)));
         END_WAYFINDER_MAP = register("end_wayfinder_map", p -> new WayfinderMapItem(WayfinderMapItem.Kind.END, p.rarity(Rarity.EPIC).stacksTo(STACK_SIZE)));
+        MEGA_WAYFINDER_MAP = register("mega_wayfinder_map", p -> new MegaWayfinderMapItem(p.rarity(Rarity.EPIC).stacksTo(STACK_SIZE)));
     }
 
     public static List<ItemStack> tabStacks() {
         if (!MapsConfig.enabled) return List.of();
         // The guide book joins only the own tab (registerTab); the Vanilla tab gets it from the loader hook.
-        return List.of(new ItemStack(WAYFINDER_MAP), new ItemStack(NETHER_WAYFINDER_MAP), new ItemStack(END_WAYFINDER_MAP));
+        return List.of(new ItemStack(WAYFINDER_MAP), new ItemStack(NETHER_WAYFINDER_MAP), new ItemStack(END_WAYFINDER_MAP),
+                new ItemStack(MEGA_WAYFINDER_MAP));
     }
 
     public static boolean isWayfinder(ItemStack stack) {

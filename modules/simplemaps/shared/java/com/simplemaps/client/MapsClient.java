@@ -88,7 +88,7 @@ public final class MapsClient {
             MapsComponents.Display display = stack.getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT);
             // Another dimension (owner 19.10.): the explored map stays, centred on the holder's position converted
             // to the map's dimension (Nether 1:8); only unexplored pixels get the faint static.
-            WayfinderMapItem.Kind kind = ((WayfinderMapItem) stack.getItem()).kind;
+            WayfinderMapItem.Kind kind = ((WayfinderMapItem) stack.getItem()).kind(stack);
             boolean jam = jammed(stack, mc.level);
             double scale = jam ? WayfinderMapItem.coordScale(kind, WayfinderMapItem.kindOf(mc.level.dimensionTypeRegistration())) : 1.0;
             view.compose(CACHE, ref.id(), display.handZoom(), Mth.floor(mc.player.getX() * scale), Mth.floor(mc.player.getZ() * scale),
@@ -126,7 +126,7 @@ public final class MapsClient {
     public static boolean jammed(ItemStack stack, net.minecraft.world.level.Level level) {
         if (!(stack.getItem() instanceof WayfinderMapItem item)) return false;
         MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
-        return !item.accepts(level) || ref != null && !inMapDimension(ref.id());
+        return !item.accepts(stack, level) || ref != null && !inMapDimension(ref.id());
     }
 
     /** First-person map in hand: our picture, the holder arrow in the middle and the death cross (Feature 7). */
@@ -184,7 +184,7 @@ public final class MapsClient {
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack stack = mc.player.getItemInHand(hand);
             MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
-            if (!(stack.getItem() instanceof WayfinderMapItem item) || ref == null || !item.accepts(mc.player.level()) || !inMapDimension(ref.id())) continue;
+            if (!(stack.getItem() instanceof WayfinderMapItem item) || ref == null || !item.accepts(stack, mc.player.level()) || !inMapDimension(ref.id())) continue;
             for (Waypoint w : stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY).list()) {
                 out.add(new Mark(new Vec3(w.x() + 0.5, mc.player.getY(), w.z() + 0.5), w));
             }

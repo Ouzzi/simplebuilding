@@ -111,6 +111,13 @@ public final class MapsNetwork {
         else stack.set(MapsComponents.DISPLAY, payload.display());
     }
 
+    /** Owner B23-K1: the mega map in that hand shows another (visited) dimension; everything is checked by {@code select}. */
+    public static void handleSelectDimension(SelectDimensionPayload payload, ServerPlayer player) {
+        if (!com.simplemaps.MapsConfig.enabled || payload.hand() < 0 || payload.hand() > 1) return;
+        ItemStack stack = player.getItemInHand(payload.hand() == 0 ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
+        com.simplemaps.MegaWayfinderMapItem.select(stack, payload.dimension());
+    }
+
     /** Outcome of saving a framed view: stored, refused by a right (claim, fixed frame, adventure, spawn), or a bad request. */
     public enum FrameSave { SAVED, DENIED, INVALID }
 
