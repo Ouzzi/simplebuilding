@@ -156,4 +156,70 @@ public final class MapsNetwork {
         return Protection.allows(server, new Protection.Target(player.getUUID(), level.dimension().identifier().toString(),
                 pos.getX(), pos.getY(), pos.getZ(), admin), Protection.Action.CONTAINER);
     }
+
+    /** What became of a {@link PictureMapPayload}. */
+    public enum PictureResult { OK, OFF, PERMISSION, SIZE, INVALID, RATE }
+
+    /** Window and per-player tile count of the picture rate limit: at most twice the largest wall per minute. */
+    private static final int PICTURE_WINDOW = 1200;
+    private static final Map<UUID, int[]> PICTURES = new HashMap<>();
+
+    public static void handlePicture(PictureMapPayload payload, ServerPlayer player) {
+        PictureResult result = createPictureMap(player, payload);
+        if (result != PictureResult.OK) {
+            String key = result.name().toLowerCase(java.util.Locale.ROOT);
+            player.sendSystemMessage(net.minecraft.network.chat.Component.translatableWithFallback("message.simplemaps.picture." + key,
+                    switch (result) {
+                        case OFF -> "Picture maps are off (pictureMap in simplemaps-server.json).";
+                        case PERMISSION -> "You may not make picture maps on this server.";
+                        case SIZE -> "That picture wall is larger than this server allows.";
+                        case RATE -> "Too many picture maps in a short time, wait a minute.";
+                        default -> "The picture data was refused.";
+                    }));
+        }
+    }
+
+    /**
+     * One map of a picture wall (AUD-6): refused unless picture maps are on, the player has the permission level, the wall is
+     * at most {@code pictureMapMaxSide} maps per edge, the index lies in it, exactly one map of colour bytes arrives with only
+     * valid map colours, and the per-minute budget lasts. Then a locked, 1:1 Vanilla map with these colours goes to the
+     * player's inventory (dropped at the feet when full).
+     */
+    public static PictureResult createPictureMap(ServerPlayer player, PictureMapPayload p) {
+        if (!com.simplemaps.MapsConfig.pictureMap) return PictureResult.OFF;
+        if (!hasLevel(player, com.simplemaps.MapsConfig.pictureMapPermission)) return PictureResult.PERMISSION;
+        int max = com.simplemaps.MapsConfig.pictureMapMaxSide;
+        if (p.cols() < 1 || p.rows() < 1 || p.cols() > max || p.rows() > max) return PictureResult.SIZE;
+        if (p.col() < 0 || p.row() < 0 || p.col() >= p.cols() || p.row() >= p.rows() || p.colors().length != com.simplemaps.PictureMaps.BYTES) return PictureResult.INVALID;
+        for (byte b : p.colors()) if (!com.simplemaps.PictureMaps.valid(b)) return PictureResult.INVALID;
+        int now = player.level().getServer().getTickCount();
+        int[] window = PICTURES.computeIfAbsent(player.getUUID(), k -> new int[]{now, 0});
+        if (now - window[0] < 0 || now - window[0] >= PICTURE_WINDOW) { window[0] = now; window[1] = 0; }
+        if (window[1] >= 2 * max * max) return PictureResult.RATE;
+        window[1]++;
+        if (PICTURES.size() > 4096) PICTURES.keySet().retainAll(player.level().getServer().getPlayerList().getPlayers().stream().map(ServerPlayer::getUUID).toList());
+        ServerLevel level = player.level();
+        ItemStack stack = net.minecraft.world.item.MapItem.create(level, 0, 0, (byte) 0, false, false);
+        net.minecraft.world.level.saveddata.maps.MapItemSavedData data = net.minecraft.world.item.MapItem.getSavedData(stack, level);
+        if (data == null) return PictureResult.INVALID;
+        System.arraycopy(p.colors(), 0, data.colors, 0, com.simplemaps.PictureMaps.BYTES);
+        data.locked = true;
+        data.setDirty();
+        stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.translatableWithFallback(
+                "item.simplemaps.picture_map", "Picture %s/%s", p.col() + 1 + p.row() * p.cols(), p.cols() * p.rows()));
+        if (!player.getInventory().add(stack)) player.drop(stack, false);
+        return PictureResult.OK;
+    }
+
+    /** Vanilla permission level 0..4 (0 = everyone), fresh from the operator list like commands. */
+    static boolean hasLevel(ServerPlayer player, int level) {
+        if (level <= 0) return true;
+        var check = switch (level) {
+            case 1 -> Commands.LEVEL_MODERATORS;
+            case 2 -> Commands.LEVEL_GAMEMASTERS;
+            case 3 -> Commands.LEVEL_ADMINS;
+            default -> Commands.LEVEL_OWNERS;
+        };
+        return check.check(player.createCommandSourceStack().permissions());
+    }
 }

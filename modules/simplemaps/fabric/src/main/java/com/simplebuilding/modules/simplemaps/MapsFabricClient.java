@@ -22,5 +22,12 @@ public final class MapsFabricClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(LayerDataPayload.TYPE, (payload, context) -> context.client().execute(() -> MapsClient.receive(payload)));
         ClientPlayNetworking.registerGlobalReceiver(FrameSavedPayload.TYPE, (payload, context) -> context.client().execute(() -> MapsClient.receive(payload)));
         ClientTickEvents.END_CLIENT_TICK.register(MapsClient::tick);
+        // /simplemaps picture (AUD-6): the screen for picture maps; the server decides whether it may be used.
+        net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback.EVENT.register((dispatcher, registry) -> dispatcher.register(
+                net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("simplemaps").then(
+                        net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("picture").executes(c -> {
+                            c.getSource().getClient().execute(MapsClient::openPicture);
+                            return 1;
+                        }))));
     }
 }

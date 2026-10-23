@@ -50,6 +50,11 @@ public final class MapsClient {
         SimpleMaps.openFrame = entityId -> Minecraft.getInstance().gui.setScreen(WayfinderScreen.forFrame(entityId));
     }
 
+    /** Opens the picture map screen (AUD-6). */
+    public static void openPicture() {
+        Minecraft.getInstance().gui.setScreen(new PictureMapScreen());
+    }
+
     public static void receive(TileDataPayload payload) {
         CACHE.receive(payload);
     }
