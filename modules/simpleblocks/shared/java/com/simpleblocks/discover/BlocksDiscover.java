@@ -109,6 +109,7 @@ public final class BlocksDiscover {
             "simpleblocks:sand_slab",
             "simpleblocks:scarlet_froglight",
             "simpleblocks:sculk_deepslate",
+            "simpleblocks:sculk_tiles",
             "simpleblocks:shapecutter",
             "simpleblocks:smooth_basalt_slab",
             "simpleblocks:smooth_basalt_stairs",
