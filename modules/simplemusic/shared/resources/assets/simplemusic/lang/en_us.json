@@ -92,7 +92,7 @@
   "simplemusic.command.no_player": "No player %s online",
   "simplemusic.command.ban": "%s may no longer upload",
   "simplemusic.command.unban": "%s may upload again",
-  "tip.simplemusic.sheet_music": "Use it to write notes; the disc press makes a disc of it",
+  "tip.simplemusic.sheet_music": "Use it to write notes; press it onto a blank disc",
   "item.simplemusic.pocket_jukebox": "Pocket Jukebox",
   "block.simplemusic.pocket_jukebox": "Pocket Jukebox",
   "item.simplemusic.pocket_jukebox.use": "Use to play or pause",

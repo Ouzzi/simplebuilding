@@ -92,7 +92,7 @@
   "simplemusic.command.no_player": "Kein Spieler %s online",
   "simplemusic.command.ban": "%s darf nicht mehr hochladen",
   "simplemusic.command.unban": "%s darf wieder hochladen",
-  "tip.simplemusic.sheet_music": "Benutzen: Noten schreiben; die Plattenpresse macht eine Platte daraus",
+  "tip.simplemusic.sheet_music": "Benutzen: Noten schreiben; auf einen Rohling pressen",
   "item.simplemusic.pocket_jukebox": "Taschen-Jukebox",
   "block.simplemusic.pocket_jukebox": "Taschen-Jukebox",
   "item.simplemusic.pocket_jukebox.use": "Benutzen: abspielen oder pausieren",
