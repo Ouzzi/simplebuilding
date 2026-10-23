@@ -59,6 +59,7 @@ public final class MusicDiscover {
             "simplemusic:disc_press",
             "simplemusic:guide_book",
             "simplemusic:moderation",
+            "simplemusic:music_disc_*",
             "simplemusic:music_discs",
             "simplemusic:note_code",
             "simplemusic:pocket_jukebox",

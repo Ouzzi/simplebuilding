@@ -2362,7 +2362,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "en_us": "Music Disc",
         "de_de": "Schallplatte"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
       "texture": "assets/textures/simplemusic/item/music_disc_deep_pulse.png",
       "craftedBy": [],
       "usedIn": []
@@ -2373,7 +2383,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "en_us": "Music Disc",
         "de_de": "Schallplatte"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
       "texture": "assets/textures/simplemusic/item/music_disc_ember_forge.png",
       "craftedBy": [],
       "usedIn": []
@@ -2384,7 +2404,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "en_us": "Music Disc",
         "de_de": "Schallplatte"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
       "texture": "assets/textures/simplemusic/item/music_disc_end_departure.png",
       "craftedBy": [],
       "usedIn": []
@@ -2395,7 +2425,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "en_us": "Music Disc",
         "de_de": "Schallplatte"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
       "texture": "assets/textures/simplemusic/item/music_disc_fortress_march.png",
       "craftedBy": [],
       "usedIn": []
@@ -2406,7 +2446,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "en_us": "Music Disc",
         "de_de": "Schallplatte"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
       "texture": "assets/textures/simplemusic/item/music_disc_obsidian_throne.png",
       "craftedBy": [],
       "usedIn": []
@@ -2417,7 +2467,17 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "en_us": "Music Disc",
         "de_de": "Schallplatte"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
       "texture": "assets/textures/simplemusic/item/music_disc_sky_forge.png",
       "craftedBy": [],
       "usedIn": []
@@ -2966,14 +3026,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplemusic:music_disc_deep_pulse",
-    "simplemusic:music_disc_ember_forge",
-    "simplemusic:music_disc_end_departure",
-    "simplemusic:music_disc_fortress_march",
-    "simplemusic:music_disc_obsidian_throne",
-    "simplemusic:music_disc_sky_forge"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 15,
@@ -2988,7 +3041,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 6,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
