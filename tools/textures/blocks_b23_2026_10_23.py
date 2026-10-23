@@ -109,6 +109,99 @@ def joints(p):
     return j
 
 
+# ---------------------------------------------------------------- moss (W23-3 round; W24-1: B built in)
+
+# Own moss ramp near Vanilla's five olive tones (Vanilla mossy stone bricks / mossy cobblestone: lum 86-130, darker than
+# the stone's middle; the darkest tone sits in the joints): six tones, dark to light.
+MOSS6 = ramp('4a5530', '57653a', '637443', '70834a', '7d9353', '8aa15c')
+
+
+def moss_pick(base_px, t, adapt):
+    """Moss tone for a pixel: t = 0 (deep in the joint) .. 1 (on the brick's lit top); a light brick lifts it one step.
+    adapt > 0 pulls the tone that far towards the brick's own brightness (the moss sits in the texture's light)."""
+    k = max(0, min(5, int(round(t * 5))))
+    c = MOSS6[k]
+    if adapt:
+        target = lum(c) * (1 - adapt) + lum(base_px) * 0.78 * adapt
+        c = scale(c, target / max(1, lum(c)))
+    return c
+
+
+def mossy(base_im, variant, seed=3):
+    """W23-3 moss, the structure of Vanilla's mossy stone bricks:
+    A  Vanilla structure: moss runs along each horizontal joint in clumps (darkest tone in the joint), a lighter cap on
+       the brick row below with drips of 1-5 px (tips darker), a few pixels climbing up; the stone beside the moss one
+       step darker (its shadow).
+    B  the same, quieter (the owner's nearest pick was the subtle C): fewer clumps, drips up to 2 px, the tone a quarter
+       of the way to the brick's brightness.
+    C  cushions like mossy cobblestone: round clumps on the joint crossings, thin moss along part of the joints."""
+    p = pix(base_im)
+    j = joints(p)
+    rows = [y for y in range(16) if sum(j[y]) >= 12]
+    lums = sorted(lum(c) for row in p for c in row)
+    lo, hi = lums[3], lums[-4]
+    bright = lambda px: min(1.0, max(0.0, (lum(px) - lo) / max(1, hi - lo)))
+    adapt = {'A': 0.0, 'B': 0.3, 'C': 0.15}[variant]
+    cover, drip_max, climb_max = {'A': (0.62, 5, 4), 'B': (0.45, 2, 2), 'C': (0.32, 2, 1)}[variant]
+    joint_l = [[None] * 16 for _ in range(16)]
+    face_l = [[None] * 16 for _ in range(16)]
+    r = random.Random(seed)
+    dith = lambda x, y: (hsh(x, y, seed + 9) - 0.5) * 0.45                     # mottled, two tones side by side
+
+    def put(x, y, t):
+        x, y = x % 16, y % 16
+        if j[y][x]:
+            joint_l[y][x] = moss_pick(p[y][x], min(0.25, max(0.0, t * 0.3 + dith(x, y) * 0.5)), adapt)
+        else:
+            face_l[y][x] = moss_pick(p[y][x], min(1.0, max(0.0, t + 0.25 * bright(p[y][x]) + dith(x, y))), adapt)
+
+    for row in rows:
+        for x in range(16):
+            n = vnoise(x, row, 5, seed + row) * 0.75 + hsh(x, row, seed) * 0.25  # clumps of 3-6 columns, ragged
+            if n > cover:
+                continue
+            strength = 1 - n / cover
+            if strength > 0.25 or hsh(x, row, seed + 6) < 0.5:
+                put(x, row, 0.0)
+            down = int(round(strength * drip_max * (0.3 + 0.9 * hsh(x, row, seed + 1))))
+            up = int(round(strength * climb_max * (0.3 + 0.9 * hsh(x, row, seed + 2))))
+            for k in range(1, down + 1):                                       # hanging below the joint
+                if j[(row + k) % 16][x]:
+                    break
+                put(x, row + k, 0.62 - 0.1 * k if k < down else 0.25)
+            for k in range(1, up + 1):                                         # climbing above it
+                if j[(row - k) % 16][x]:
+                    break
+                put(x, row - k, 0.5 - 0.08 * k if k < up else 0.25)
+    for y in range(16):                                                        # ragged fringe: single moss pixels
+        for x in range(16):
+            if face_l[y][x] is None and not j[y][x]:
+                nb = sum(face_l[(y + dy) % 16][(x + dx) % 16] is not None for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                if nb >= 2 and hsh(x, y, seed + 8) < 0.35 * (1 if variant == 'A' else 0.6):
+                    put(x, y, 0.35)
+    if variant == 'C':                                                         # cushions on the joint crossings
+        crossings = [(x, y) for y in rows for x in range(16) if j[(y + 1) % 16][x] or j[(y - 1) % 16][x]]
+        r.shuffle(crossings)
+        for cx, cy in crossings[:4]:
+            rad = r.uniform(1.8, 2.8)
+            for dy in range(-3, 4):
+                for dx in range(-3, 4):
+                    d = math.hypot(dx, dy) + (vnoise(cx + dx, cy + dy, 2, seed) - 0.5) * 1.4
+                    if d < rad:
+                        x, y = (cx + dx) % 16, (cy + dy) % 16
+                        put(x, y, 0.2 + 0.5 * (1 - d / rad))
+    shadow = [[None] * 16 for _ in range(16)]
+    for y in range(16):                                                        # stone beside the moss: a step darker
+        for x in range(16):
+            if joint_l[y][x] is None and face_l[y][x] is None and not j[y][x]:
+                nb = [(x, (y - 1) % 16), ((x - 1) % 16, y), ((x + 1) % 16, y)]
+                if any(face_l[b][a] is not None for a, b in nb) and hsh(x, y, seed + 5) < 0.55:
+                    shadow[y][x] = scale(p[y][x], 0.9)
+    s1 = overlay(p, shadow)
+    s2 = overlay(s1, joint_l)
+    return layered([('Basis (Vanilla)', p), ('Mooschatten', s1), ('Moos in den Fugen', s2), ('Moos auf den Ziegeln', overlay(s2, face_l))])
+
+
 def vanilla(jar, name):
     with zipfile.ZipFile(jar) as z:
         return Image.open(io.BytesIO(z.read(f'assets/minecraft/textures/block/{name}.png'))).convert('RGBA').crop((0, 0, 16, 16))

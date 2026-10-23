@@ -539,8 +539,8 @@ def outputs():
         RES / 'item/dread_link.png': dread_link(),
         RES / 'item/calm_amulet.png': calm_amulet(),
         RES / 'item/watcher_eye.png': watcher_eye(),
-        RES / 'item/dread_spawn_egg.png': dread_egg(),
-        RES / 'item/hollow_watcher_spawn_egg.png': watcher_egg(),
+        # item/dread_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
+        # item/hollow_watcher_spawn_egg.png: likewise
         RES / 'mob_effect/focus.png': focus_icon(),
         RES / 'mob_effect/shivering.png': shivering_icon(),
     }

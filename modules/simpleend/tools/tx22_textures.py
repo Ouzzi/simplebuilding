@@ -35,6 +35,11 @@ from layers import snap, steps_of  # noqa: E402
 BARK = ramp('1d1a18', '2a2623', '37322e', '453f3a', '554e48', '665e57', '797067', '8c8379', 'a0968b', 'b6ac9f')
 WOOD = ramp('5f574e', '726960', '857b70', '978d81', 'a89f93', 'b8afa3', 'c6beb2', 'd3ccc1', 'dfd9cf', 'ebe6de')
 LILAC = ramp('3e3048', '5e4a6c', '82699a', 'a68dc0', 'c9b5e0', 'eee4fa')
+ASH = (BARK, WOOD, LILAC)                              # W24-1: the B functions take a palette (Duskwood below)
+# Duskwood, ten tones each (the N44 B3 ramps stretched, same hues; mauve instead of lilac).
+DUSK = (ramp('1b1714', '28221f', '332b26', '3b332d', '473d35', '51463d', '5d5046', '695b4f', '827263', '9b8a79'),
+        ramp('5a5048', '6c6055', '786b5e', '837567', '8e7f70', '988a7a', 'ab9d8c', 'b5a796', 'beb09f', 'cfc2b2'),
+        ramp('3e2a3a', '5a3f55', '7f5a78', 'a9849f', 'd6b9cd', 'f0dce9'))
 LEAF = [(v, v, v, 255) for v in (78, 100, 122, 144, 164, 184, 204, 222, 240)]   # grey, tinted in the biome
 
 
@@ -100,9 +105,11 @@ def crystal(im, x, y):
     put(im, x, (y + 1) % 16, LILAC[0])
 
 
-def bark_b(seed=23):
+def bark_b(seed=23, pal=None, net='ash'):
     """B "Rauten": the diamond net of a real ash tree - light raised ridges run in two steep diagonals and cross each
-    other, the narrow diamond furrows between them sink dark (darkest in the middle); two furrows glow lilac."""
+    other, the narrow diamond furrows between them sink dark (darkest in the middle); two furrows glow lilac.
+    net='dusk' (W24-1, Duskwood): the ridges run at 45 degrees, so one wide diamond lattice per block (its own motif)."""
+    BARK, WOOD, LILAC = pal or ASH
     im = new()
     for y in range(16):
         for x in range(16):
@@ -111,7 +118,8 @@ def bark_b(seed=23):
     furrow = {}
     for y in range(16):
         for x in range(16):
-            p, q = (2 * x - y) % 16, (2 * x + y + 8) % 16             # the two ridge families: diamonds 8 wide, 16 tall
+            k = 2 if net == 'ash' else 1
+            p, q = (k * x - y) % 16, (k * x + y + 8) % 16             # the two ridge families: diamonds 8 wide, 16 tall
             dp, dq = min(p, 16 - p), min(q, 16 - q)
             jit = 1 if hsh(x // 4, y // 4, seed + 1) > 0.7 else 0          # ridges thicken here and there
             if min(dp, dq) <= 1 + jit:
@@ -173,10 +181,11 @@ def bark_c(seed=37):
 
 # ---------------------------------------------------------------- rings (log top) and stripped wood
 
-def rings(kind, stripped, seed=11):
+def rings(kind, stripped, seed=11, pal=None):
     """Log top: rim of bark (or stripped wood), a dark cambium ring, alternating early/late wood rings and a lilac core.
     a = rounded square rings, b = round rings with a radial drying crack, c = rings around an off-centre core with a
     lilac crystal star."""
+    BARK, WOOD, LILAC = pal or ASH
     im = new()
     cx, cy = (7.5, 7.5) if kind != 'c' else (8.0, 7.0)
     for y in range(16):
@@ -224,9 +233,10 @@ def rings(kind, stripped, seed=11):
     return snap(im, 'Kern')
 
 
-def stripped(kind, seed=19):
+def stripped(kind, seed=19, pal=None):
     """Stripped log side: pale ash wood with long grain lines. a = straight fine grain, b = grain flowing around a small
     knot, c = wavy figured grain with a faint lilac mineral streak."""
+    BARK, WOOD, LILAC = pal or ASH
     im = new()
     for y in range(16):
         for x in range(16):

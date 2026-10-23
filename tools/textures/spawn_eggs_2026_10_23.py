@@ -499,7 +499,12 @@ def shipped() -> dict:
     """path -> (image, layer stack, mcmeta or None) of the eggs the owner chose (23.10.)."""
     strip, meta, stack = shellker_animation()
     img, wstack = wanderer_b2()
-    return {ROOT / SHIPPED["shellker"]: (strip, stack, meta), ROOT / SHIPPED["village_wanderer"]: (img, wstack, None)}
+    out = {ROOT / SHIPPED["shellker"]: (strip, stack, meta), ROOT / SHIPPED["village_wanderer"]: (img, wstack, None)}
+    # W24-1 (owner 23.10. late: all open choices accepted): the other seven own eggs in style B as well.
+    for _, fn, path, _ in CANDIDATES_B.values():
+        eimg, estack = fn()
+        out[ROOT / path] = (eimg, estack, None)
+    return out
 
 
 def meta_text(meta: dict) -> str:
@@ -533,9 +538,9 @@ def write_or_check(check: bool) -> int:
         if stale:
             print("spawn eggs out of date:", *[str(s.relative_to(ROOT)) for s in stale], sep="\n  ")
             return 1
-        print(f"spawn eggs current ({len(SHIPPED)} eggs)")
+        print(f"spawn eggs current ({len(SHIPPED) + len(CANDIDATES_B)} eggs)")
     else:
-        print(f"wrote {len(SHIPPED)} spawn eggs")
+        print(f"wrote {len(SHIPPED) + len(CANDIDATES_B)} spawn eggs")
     return 0
 
 
