@@ -78,6 +78,9 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Funde 23.10.
+- [ ] (Fund a-mech23a) Achtel/Hammer: Mit dem Stein-Vorschlaghammer baut sich eine 7-Achtel-Diamant-Zelle 1,5× langsamer ab als der Diamantblock – Abbautempo der Zelle an den Vollblock angleichen (OctetCellBlock / MaterialOctetBlock, Test mit Hammer).
+
 ## Besitzer 23.10. abends – Wahlen B23/TX23/FR23/QT23 (W23)
 - [~] (A, a-sbtex23b, 23.10.) W23-1 SB-Texturen einbauen: T5=A (Redstone-Blöcke), T6=C (Erze, aber versteckter – schwerer zu entdecken), T7=C (Kolben), T8=B (Baulicht), T9=B (Astral-Gewölbe).
 - [~] (A, a-sbtex23b, 23.10.) W23-2 Falsche Erze (neu): je ein Fake-Astralit- und Fake-Nihilit-Erz, ähnlich aber „unraffiniert“, ersetzen ~20 % der Vorkommen; Adergröße erhöhen statt Spawnrate, sodass die echte Menge gleich bleibt. Drop = Variation von Astralit/Nihilit → kreative Vorschläge zur Wahl.
