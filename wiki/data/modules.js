@@ -228,7 +228,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "b38e8940c87a"
+    "dataHash": "0fd5f79d6204"
   },
   {
     "id": "simplesounds",
@@ -314,8 +314,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding",
       "simplemoney",
-      "simpleweather",
-      "simplemaps"
+      "simpleweather"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -323,10 +322,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 2,
       "blocks": 1,
-      "recipes": 3,
-      "features": 41
+      "recipes": 4,
+      "features": 40
     },
-    "dataHash": "23374f49bf26"
+    "dataHash": "728f6918f092"
   },
   {
     "id": "simpledimensions",
@@ -469,7 +468,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 8
     },
-    "dataHash": "3d07f1c64d08"
+    "dataHash": "c0a8a6163e54"
   },
   {
     "id": "simpletrims",
@@ -795,7 +794,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "429f7ba70093"
+    "dataHash": "8743da5d21e0"
   },
   {
     "id": "simplerespawn",
@@ -1077,7 +1076,7 @@ window.WIKI_MODULES = [
       "recipes": 521,
       "features": 6
     },
-    "dataHash": "b5a5e9f85de2"
+    "dataHash": "677b17642cfc"
   },
   {
     "id": "simplehammers",
@@ -1107,7 +1106,7 @@ window.WIKI_MODULES = [
       "recipes": 11,
       "features": 9
     },
-    "dataHash": "6a79a1f532f4"
+    "dataHash": "64073d9d1f41"
   },
   {
     "id": "simpleoptimization",
@@ -1251,6 +1250,6 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 17
     },
-    "dataHash": "9432669213ae"
+    "dataHash": "f56a3c2f5ae9"
   }
 ];
