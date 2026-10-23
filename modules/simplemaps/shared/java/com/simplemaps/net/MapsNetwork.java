@@ -199,12 +199,15 @@ public final class MapsNetwork {
         window[1]++;
         if (PICTURES.size() > 4096) PICTURES.keySet().retainAll(player.level().getServer().getPlayerList().getPlayers().stream().map(ServerPlayer::getUUID).toList());
         ServerLevel level = player.level();
-        ItemStack stack = net.minecraft.world.item.MapItem.create(level, 0, 0, (byte) 0, false, false);
-        net.minecraft.world.level.saveddata.maps.MapItemSavedData data = net.minecraft.world.item.MapItem.getSavedData(stack, level);
-        if (data == null) return PictureResult.INVALID;
-        System.arraycopy(p.colors(), 0, data.colors, 0, com.simplemaps.PictureMaps.BYTES);
-        data.locked = true;
+        var fresh = net.minecraft.world.level.saveddata.maps.MapItemSavedData.createFresh(0, 0, (byte) 0, false, false, level.dimension());
+        System.arraycopy(p.colors(), 0, fresh.colors, 0, com.simplemaps.PictureMaps.BYTES);
+        // A locked map never redraws from the world (an open one would paint over the picture when held near its centre).
+        var data = fresh.locked();
+        net.minecraft.world.level.saveddata.maps.MapId mapId = level.getFreeMapId();
+        level.setMapData(mapId, data);
         data.setDirty();
+        ItemStack stack = new ItemStack(net.minecraft.world.item.Items.FILLED_MAP);
+        stack.set(net.minecraft.core.component.DataComponents.MAP_ID, mapId);
         stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.translatableWithFallback(
                 "item.simplemaps.picture_map", "Picture %s/%s", p.col() + 1 + p.row() * p.cols(), p.cols() * p.rows()));
         if (!player.getInventory().add(stack)) player.drop(stack, false);
