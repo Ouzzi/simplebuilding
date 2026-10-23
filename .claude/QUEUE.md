@@ -104,7 +104,7 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 ---
 
 ## Warteliste (später, Besitzer 23.10.)
-- [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` (in Arbeit a-earth-konzept). Umsetzung erst auf Besitzer-Anforderung.
+- [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` – **Konzept fertig (a-earth-konzept, 23.10.), Fragen E1–E12 an den Besitzer**, Empfehlung Tesserakt-Variante V3 „Eckfenster + Umstülpen“; Vorschau `/root/sb-tools-a/previews/earth-konzept.html`. Umsetzung erst auf Besitzer-Anforderung.
 
 ## Audit 23.10. – fehlende Besitzer-Wünsche
 Quelle: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-23.md` (a-audit23; alle Besitzer-Nachrichten 17.–23.10. gegen Queue/Archiv/Pläne).
