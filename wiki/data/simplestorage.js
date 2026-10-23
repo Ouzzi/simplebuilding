@@ -409,6 +409,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
         "simplebuilding:color_palette"
       ],
       "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundles.java",
         "modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java",
         "modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java",
         "modules/simplestorage/shared/java/com/simplestorage/mixin/BowItemMixin.java",
@@ -444,6 +445,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
           "Where to find them: alone only the recipes. With SimpleBuilding the plain Quiver also lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion) while its loot changes are on (default).",
           "The Netherite and Enderite tiers are fire resistant and, as dropped items, immune to explosions; the Quiver and the Reinforced Quiver are neither. With SimpleBuilding the Enderite Quiver is also kept out of the void.",
           "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a quiver also fits the belt or back accessory slot. A quiver there feeds bow and crossbow right after the chest slot (before the hotbar), pays the arrow from that very quiver, and takes picked up arrows with Funnel (after the quivers in the inventory). On your back only one thing shows: a backpack or quiver in the chest slot, else a backpack in an accessory slot, else the quiver. Without an accessory mod nothing changes.",
+          "Set down (sneak + right-click), a quiver shows how full it is: five arrows stick out of a full quiver, fewer as it empties (rounded up, so one arrow already shows one), none when empty.",
           "Old worlds: SimpleBuilding's four quivers (simplebuilding:quiver ...) become these with their arrows (id moves). On Minecraft 26.2 the quivers are still SimpleBuilding's."
         ]
       },
@@ -463,6 +465,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
           "Fundorte: allein nur die Rezepte. Mit SimpleBuilding liegt der einfache Köcher auch in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), solange dessen Loot-Änderungen aktiv sind (Standard).",
           "Netherit- und Enderit-Stufe sind feuerfest und als Drop explosionsimmun; Köcher und Verstärkter Köcher sind beides nicht. Mit SimpleBuilding bleibt der Enderitköcher zusätzlich vor der Leere bewahrt.",
           "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Köcher auch in den Gürtel- oder Rücken-Accessoire-Slot. Ein Köcher dort versorgt Bogen und Armbrust gleich nach dem Brust-Slot (vor der Schnellleiste), bezahlt den Pfeil aus genau diesem Köcher und nimmt mit Trichter aufgehobene Pfeile auf (nach den Köchern im Inventar). Auf dem Rücken ist nur eines zu sehen: Rucksack oder Köcher im Brust-Slot, sonst ein Rucksack im Accessoire-Slot, sonst der Köcher. Ohne Accessoire-Mod ändert sich nichts.",
+          "Abgestellt (Schleichen + Rechtsklick) zeigt ein Köcher seinen Füllstand: Aus einem vollen ragen fünf Pfeile, je leerer, desto weniger (aufgerundet, ein Pfeil zeigt schon einen), leer keiner.",
           "Alte Welten: SimpleBuildings vier Köcher (simplebuilding:quiver ...) werden samt Pfeilen zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören die Köcher weiter SimpleBuilding."
         ]
       }
