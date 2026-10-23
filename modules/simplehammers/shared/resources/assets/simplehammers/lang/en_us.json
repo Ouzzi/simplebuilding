@@ -18,7 +18,7 @@
   "tooltip.simplehammers.hammer_upgrade.enderite": "Upgrade in place: hold right-click.",
   "tooltip.simplehammers.hammer_upgrade.shulker_box": "Upgrade in place; contents and color stay.",
   "tooltip.simplehammers.hammer_upgrade.material": "Off hand: %2$s ×%1$s.",
-  "itemGroup.simplehammers": "Simple Hammers",
+  "itemgroup.simplehammers.hammers": "Simple Hammers",
   "simplehammers.testcentre.station": "Simple Hammers",
   "jei.simplehammers.info.area": "Mines the 3x3 area in front of you (Radius: 5x5, Break Through: more layers, Override: other blocks too). Sneak to mine one block.",
   "jei.simplehammers.info.reshape": "Sneak and hold use to carve the aimed octet off a block: the rest becomes stairs, a slab or octets (with Simple Octets). Constructor's Touch (SimpleBuilding) turns slabs back into stairs and stairs into blocks.",

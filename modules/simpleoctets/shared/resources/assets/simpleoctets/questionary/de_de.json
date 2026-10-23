@@ -1,0 +1,38 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch über das Bauen in Hälften von Hälften von Hälften."
+    ],
+    "use": [
+      "Das Simple-Octets-Handbuch erklärt die Achtelblöcke, gemischte Zellen und Melonen-Achtel. Herstellung formlos aus einem Buch und einem Steinschneider."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
+  },
+  "family:octet": {
+    "items": [
+      "regex:.*_octet"
+    ],
+    "lore": [
+      "{name}: ein sauber geschnittenes Achtel eines Blocks."
+    ],
+    "use": [
+      "Die Formsäge schneidet 8 Achtel aus einem vollen Block des Materials (ohne Simple Blocks der Steinschneider). 8 Achtel eines Materials ergeben wieder den Block. Bis zu acht füllen eine Blockzelle."
+    ],
+    "secret": [
+      "Achtel verschiedener Materialien teilen sich eine Zelle; sie merkt sich das Material jedes einzelnen."
+    ]
+  },
+  "melon_octet": {
+    "lore": [
+      "Eine Melonenscheibe, die Architektur werden wollte."
+    ],
+    "use": [
+      "Schleichen und mit einer Melonenscheibe auf einen Block rechtsklicken setzt sie als Melonen-Achtel; ohne Schleichen isst du sie. Jedes Achtel lässt eine Melonenscheibe fallen."
+    ],
+    "secret": [
+      "Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch."
+    ]
+  }
+}

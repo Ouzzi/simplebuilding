@@ -1,5 +1,5 @@
 {
-  "itemGroup.simpleoctets": "Simple Octets",
+  "itemgroup.simpleoctets.octets": "Simple Octets",
   "simpleoctets.testcentre.station": "Simple Octets",
   "tooltip.simpleoctets.material_octet": "Right-click: place a 0.125 block",
   "tooltip.simpleoctets.melon_slice.place": "Sneak + right-click: place as eighth",

@@ -22,7 +22,7 @@ public final class FunConfigScreen {
       var cat =
           b.getOrCreateCategory(
               Component.translatable(
-                  "simplefun.config.tab."
+                  "text.autoconfig.simplefun.category."
                       + (key.endsWith("Crumbs")
                                   || java.util.Set.of(
                                           "flowerSniff",

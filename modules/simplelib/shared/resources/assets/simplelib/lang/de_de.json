@@ -36,12 +36,12 @@
   "subtitles.simplelib.legendary": "Legendäre Fanfare",
   "simplelib.title": "SimpleLib",
   "simplelib.tab.legendary": "Legendäre Momente",
-  "simplelib.option.legendaryEffects": "Legendäre Momente",
-  "simplelib.option.legendaryEffects.tooltip": "Fanfare und Partikel, wenn ein Spieler einen\nder schwersten Fortschritte schafft oder eine\nlegendäre Verzauberung auf Höchststufe herstellt.\nStandard: an.",
-  "simplelib.option.legendaryAllChallenges": "Jede Herausforderung ist legendär",
-  "simplelib.option.legendaryAllChallenges.tooltip": "Jeder Fortschritt mit Herausforderungsrahmen\n(auch aus anderen Mods) zählt als legendär.\nStandard: aus.",
-  "simplelib.option.legendaryAdvancements": "Weitere legendäre Fortschritte",
-  "simplelib.option.legendaryAdvancements.tooltip": "Fortschritts-IDs zusätzlich zur eingebauten\nListe, z. B. minecraft:story/enter_the_end.",
-  "simplelib.option.legendaryEnchantments": "Weitere legendäre Verzauberungen",
-  "simplelib.option.legendaryEnchantments.tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending."
+  "text.autoconfig.simplelib.option.legendaryEffects": "Legendäre Momente",
+  "text.autoconfig.simplelib.option.legendaryEffects.@Tooltip": "Fanfare und Partikel, wenn ein Spieler einen\nder schwersten Fortschritte schafft oder eine\nlegendäre Verzauberung auf Höchststufe herstellt.\nStandard: an.",
+  "text.autoconfig.simplelib.option.legendaryAllChallenges": "Jede Herausforderung ist legendär",
+  "text.autoconfig.simplelib.option.legendaryAllChallenges.@Tooltip": "Jeder Fortschritt mit Herausforderungsrahmen\n(auch aus anderen Mods) zählt als legendär.\nStandard: aus.",
+  "text.autoconfig.simplelib.option.legendaryAdvancements": "Weitere legendäre Fortschritte",
+  "text.autoconfig.simplelib.option.legendaryAdvancements.@Tooltip": "Fortschritts-IDs zusätzlich zur eingebauten\nListe, z. B. minecraft:story/enter_the_end.",
+  "text.autoconfig.simplelib.option.legendaryEnchantments": "Weitere legendäre Verzauberungen",
+  "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending."
 }

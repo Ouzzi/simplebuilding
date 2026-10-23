@@ -1,6 +1,8 @@
 package com.simplemusic.client;
 
+import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiCodeArea;
+import com.simplelib.api.client.ui.UiPalette;
 import com.simplemusic.SimpleMusic;
 import com.simplemusic.net.SheetEditPayload;
 import com.simplemusic.sheet.NoteCode;
@@ -25,7 +27,8 @@ import net.minecraft.world.item.ItemStack;
  * line and text; "Listen" plays the code locally; "Import" lists {@code config/simplemusic/sheets/} (.txt, .nbs),
  * "Copy" puts the code on the clipboard; closing saves, "Sign" saves it read-only with a title. The server checks every
  * save again. "Upload" (owner 21.10.) opens the {@link BurnScreen}: the chosen Ogg file becomes this sheet's track
- * instead of a composition; an upload sheet shows its track read-only.
+ * instead of a composition; an upload sheet shows its track read-only. Drawn in the upload window's brown box with light
+ * text (owner 23.10., style audit variant C).
  */
 public class SheetMusicScreen extends Screen {
     /** Style colours by {@code NoteCode.STYLE_*}; each at least 4.5:1 on the field's paper (#F3EBD2). */
@@ -40,9 +43,8 @@ public class SheetMusicScreen extends Screen {
             0xFFC62828, // error
             0xFF7A6355, // rest
     };
-    /** Problem text on the dark screen background. */
-    private static final int PROBLEM_INK = 0xFFFF8A80;
-    private static final int INFO_INK = 0xFFE0E0E0;
+    /** The upload window's box and inks (owner 23.10.: same style as the {@link BurnScreen}, jukebox brown, light text). */
+    private static final UiPalette BOX = BurnScreen.PALETTE;
 
     private final int hand;
     private final SheetContent content;
@@ -89,14 +91,14 @@ public class SheetMusicScreen extends Screen {
         area = new UiCodeArea(font, margin, top, width - margin * 2, bottom - top, scale, readOnly, code, this::onCode,
                 NoteCode.MAX_CODE_LENGTH, PALETTE, Component.translatable("simplemusic.editor.code"));
         addRenderableWidget(area);
-        titleBox = new EditBox(font, width - margin - 140, 8, 140, 16, Component.translatable("simplemusic.editor.title"));
+        titleBox = new EditBox(font, width - margin - 140, 9, 140, 16, Component.translatable("simplemusic.editor.title"));
         titleBox.setMaxLength(NoteCode.MAX_TITLE_LENGTH);
         titleBox.setValue(title);
         titleBox.setEditable(!readOnly);
         titleBox.setResponder(v -> title = v);
         titleBox.setHint(Component.translatable("simplemusic.editor.title"));
         addRenderableWidget(titleBox);
-        int y = height - 26;
+        int y = height - 30;
         List<Button> buttons = new ArrayList<>();
         listen = Button.builder(listenLabel(), b -> toggleListen()).width(80).build();
         if (track == null) buttons.add(listen);
@@ -138,7 +140,7 @@ public class SheetMusicScreen extends Screen {
         addRenderableWidget(Button.builder(Component.translatable("gui.back"), b -> {
             importing = false;
             rebuildWidgets();
-        }).bounds(width / 2 - 40, height - 26, 80, 20).build());
+        }).bounds(width / 2 - 40, height - 30, 80, 20).build());
     }
 
     private Component listenLabel() {
@@ -166,29 +168,36 @@ public class SheetMusicScreen extends Screen {
     }
 
     @Override
+    public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
+        super.extractBackground(g, mouseX, mouseY, a);
+        UiBoxes.box(g, 4, 4, width - 8, height - 8, BOX);
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractRenderState(g, mouseX, mouseY, a);
+        int info = BurnScreen.ink(BurnScreen.INK), problem = BurnScreen.ink(BurnScreen.PROBLEM_INK);
         g.text(font, importing ? Component.translatable("simplemusic.editor.import.title", SheetFiles.sheets().toString()) : getTitle(),
-                12, 12, INFO_INK, true);
+                12, 12, info, false);
         if (importing) return;
         int y = height - 48;
         if (track != null) {
             g.text(font, Component.translatable("simplemusic.editor.track", track.title(), track.seconds() / 60,
-                    String.format(java.util.Locale.ROOT, "%02d", track.seconds() % 60), track.uploader()), 12, y, INFO_INK, true);
+                    String.format(java.util.Locale.ROOT, "%02d", track.seconds() % 60), track.uploader()), 12, y, info, false);
             return;
         }
         if (!parsed.problems().isEmpty()) {
             NoteCode.Problem p = parsed.problems().get(0);
             Component message = Component.translatable("simplemusic.code.line", p.line() + 1,
                     Component.translatable("simplemusic.code.error." + p.key(), p.args().toArray()));
-            g.text(font, message, 12, y, PROBLEM_INK, true);
+            g.text(font, message, 12, y, problem, false);
             if (parsed.problems().size() > 1) {
-                g.text(font, Component.translatable("simplemusic.code.more", parsed.problems().size() - 1), 12, y + 10, PROBLEM_INK, true);
+                g.text(font, Component.translatable("simplemusic.code.more", parsed.problems().size() - 1), 12, y + 10, problem, false);
             }
         } else {
             NoteCode.Song song = parsed.song();
             g.text(font, Component.translatable("simplemusic.editor.info", song.steps(), song.instruments().size(),
-                    song.ticks() / 20 / 60, String.format(java.util.Locale.ROOT, "%02d", song.ticks() / 20 % 60)), 12, y, INFO_INK, true);
+                    song.ticks() / 20 / 60, String.format(java.util.Locale.ROOT, "%02d", song.ticks() / 20 % 60)), 12, y, info, false);
         }
     }
 

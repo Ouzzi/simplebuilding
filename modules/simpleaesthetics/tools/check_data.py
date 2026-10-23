@@ -6,7 +6,7 @@ REPO = MODULE.parents[1]
 en, de = (json.loads((MODULE / f'shared/resources/assets/simpleaesthetics/lang/{l}.json').read_text(encoding='utf-8')) for l in ('en_us', 'de_de'))
 assert en.keys() == de.keys(), 'en/de keys differ'
 for sub in ('Visuals', 'Sounds', 'Models'):
-    assert f'simpleaesthetics.config.enableSimple{sub}' in en, sub
+    assert f'text.autoconfig.simpleaesthetics.option.enableSimple{sub}' in en, sub
 assert not any(k.startswith(('item.', 'block.')) for k in en), 'Simple Aesthetics has no items'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for feature in manual['features']:

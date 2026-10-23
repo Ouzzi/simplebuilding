@@ -76,5 +76,20 @@ Nicht prüfbar auf sb-agent: `check_data.py` von simplemaps/enddragonfight/quest
 Ursache: `TECHNICAL_BLOCKS` wurde nur in der Vorwärtsrichtung (Lang-Schlüssel -> Wiki-Liste) übersprungen; die Gegenrichtung
 (registriert, aber nicht in der Liste -> "unnamed") zog sie nicht ab. Behoben dort (`- TECHNICAL_BLOCKS`), keine Unterdrückung.
 
+## B7. Stand 22.10. (a-style22, Plan `docs/ai/PLAN-A-STYLE22-2026-10-22.md`)
+
+| ID | Stand |
+|---|---|
+| ST-10 | technisch erledigt (b-modicons fc1037b1e, `checkModIcons`); offen nur Besitzer-Abnahme der Motive (nach hinten gestellt) |
+| ST-12 | **erledigt (dokumentiert)**: zwei gültige Paketschemata, PRINZIPIEN A11.4 |
+| ST-13 | **dokumentiert** als einzige Mod-ID-Ausnahme (A11.4); Migration offen bis Besitzer-Entscheid |
+| ST-14 | **erledigt**: b-misc21b (Besitzer Ea: 0.x bis Abnahme, dann 1.0.0), Regel in A11.3 |
+| ST-15 | offen (später, nächste Models-Migration) |
+| ST-20 | **Teil 1 erledigt**: models (Browser + Test + Balance), aesthetics, trims, optimization, Kategorien/Titel von fun, QoL, riding auf Schema (b); Lint `tools/check_module_style.py` (`checkModuleStyle`) mit Liste `LEGACY` (14 Module offen: (a) farming, interfaces, loot, mobmanners, movement, sounds, tools, weather; (c) end, enddragonfight, mobheads, respawn, tweaks; (d) dimensions) |
+| ST-21 | **erledigt** (b-misc21b) + Nachtrag: `itemGroup.simplehammers`/`itemGroup.simpleoctets` → `itemgroup.<mod>.<name>`; Lint prüft alle 19 Tabs |
+| ST-30..35 | erledigt (b-uikit2); neu: simplemusic `BurnScreen` als UI-Beispiel auf `UiBoxes.box` umgestellt (Kontrast 4,75–6,07:1), `SheetMusicScreen` nach Besitzer-Abnahme (`DiscPressScreen` nutzt `UiBoxes` schon) |
+| ST-41 | Nachtrag: `questionary/` für simplehammers, simpleoctets, simplemusic (alle Items EN+DE); weitere Lücken siehe Plan |
+| ST-42 | **erledigt (dokumentiert)**: Ausnahme in A11.5 |
+
 ## C. Prüflauf
 Siehe Abschnitt "Ergebnis" am Ende (Compile, Modul-Targets, Daten-/Wiki-Checks).

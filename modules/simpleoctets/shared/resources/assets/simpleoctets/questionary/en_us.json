@@ -1,0 +1,38 @@
+{
+  "guide_book": {
+    "lore": [
+      "A short book about building in halves of halves of halves."
+    ],
+    "use": [
+      "The Simple Octets Guide explains the octets, mixed cells and melon octets. Craft it shapeless from a book and a stonecutter."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  },
+  "family:octet": {
+    "items": [
+      "regex:.*_octet"
+    ],
+    "lore": [
+      "{name}: an eighth of a block, cut clean."
+    ],
+    "use": [
+      "The Shapecutter cuts 8 octets from one full block of the material (without Simple Blocks the stonecutter does). 8 octets of one material craft back into the block. Up to eight fill one block cell."
+    ],
+    "secret": [
+      "Octets of different materials share a cell; it remembers the material of each one."
+    ]
+  },
+  "melon_octet": {
+    "lore": [
+      "A melon slice that decided to become architecture."
+    ],
+    "use": [
+      "Sneak and right-click a block with a melon slice to place it as a melon octet; without sneaking you eat the slice. Each octet drops one melon slice."
+    ],
+    "secret": [
+      "The cell shows rind outside and flesh on the cut faces."
+    ]
+  }
+}

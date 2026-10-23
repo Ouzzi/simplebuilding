@@ -12,7 +12,7 @@ def read(p):return json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=pa
 en,de=[read(M/f'shared/resources/assets/simplemodels/lang/{locale}.json') for locale in ('en_us','de_de')]
 assert en.keys()==de.keys()
 # The generated guide (tools/guides/module_guides.py) adds its item name and FTB quest texts.
-assert all(k.startswith(('simplemodels.','item.simplemodels.guide_book','quests.simplemodels.start.')) and v for k,v in en.items())
+assert all(k.startswith(('simplemodels.','text.autoconfig.simplemodels.option.','item.simplemodels.guide_book','quests.simplemodels.start.')) and v for k,v in en.items())
 policy=(M/'shared/java/com/simplebuilding/modules/simplemodels/ModelPolicy.java').read_text()
 fields=re.findall(r'public (?:boolean|int) (\w+) = (\w+);',policy)
 constants=dict(re.findall(r'public static final int (\w+) = (\d+);',policy))
@@ -20,9 +20,9 @@ manual=read(M/'wiki/manual.json');ids={f['id'] for f in manual['features']}
 for name,default in fields:
  default=constants.get(default,default)
  for lang,word in [(en,'Default'),(de,'Standard')]:
-  k='simplemodels.config.'+name
-  assert all(k+s in lang for s in ('','.tooltip','.tab'))
-  assert word+': '+default in lang[k+'.tooltip']
+  k='text.autoconfig.simplemodels.option.'+name
+  assert all(k+s in lang for s in ('','.@Tooltip'))
+  assert word+': '+default in lang[k+'.@Tooltip']
  assert 'config_'+name in ids
 for f in manual['features']:assert f['en']['summary'] and f['de']['summary']
 tests=(M/'shared/java/com/simplebuilding/modules/simplemodels/ModelTests.java').read_text()

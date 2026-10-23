@@ -44,10 +44,10 @@ public final class LibConfigScreen {
     }
 
     private static Component name(String key) {
-        return Component.translatable("simplelib.option." + key);
+        return Component.translatable("text.autoconfig.simplelib.option." + key);
     }
 
     private static Component tip(String key) {
-        return Component.translatable("simplelib.option." + key + ".tooltip");
+        return Component.translatable("text.autoconfig.simplelib.option." + key + ".@Tooltip");
     }
 }

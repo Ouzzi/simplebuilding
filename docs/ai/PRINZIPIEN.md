@@ -3,7 +3,7 @@
 Eine Stelle für alle Regeln: **Teil 1** gilt für jede Mod der Familie (SimpleBuilding und alle Module unter `modules/`), **Teil 2** gibt je Mod
 (Sub-Mod) die eigenen Regeln. Dies ist der Einstieg; die ausführlichen Texte bleiben in den verlinkten Dateien und in `AGENTS.md`
 (maßgebliche Regelsammlung für Assistenten). Neue Regeln des Besitzers hier eintragen (Teil 1 oder beim passenden Modul) und von dort verlinken.
-Regel-IDs: A1–A10 gelten für alle Mods; die Besitzer-Regeln vom 17.10. tragen zusätzlich die IDs B1 (Baublöcke, = A3) und O1 (Octets, = A4).
+Regel-IDs: A1–A11 gelten für alle Mods; die Besitzer-Regeln vom 17.10. tragen zusätzlich die IDs B1 (Baublöcke, = A3) und O1 (Octets, = A4).
 
 ## Teil 1 – Für alle Mods
 
@@ -59,6 +59,14 @@ Alle Stellschrauben serverseitig mit Obergrenzen, die Vanilla nicht gefährden (
 ### A10 Arbeitsweise
 Queue-Punkte vor Arbeitsbeginn mit `[~] (A|B, <branch>, <Datum>)` beanspruchen (`docs/ai/ZWEI-SESSIONS.md`, 3.17); Push nur nach grünem Gate (3.2); Hauptlinie 26.3 zuerst, Fabric zuerst (3.1);
 Ports (26.2, 1.21.11, 26.4) erst auf Anforderung. Abläufe: `docs/ai/WORKFLOW.md`, Tests/Gate: AGENTS.md §4.
+
+### A11 Einheitliches Schema der Module (Stil-Audit, 22.10.)
+Neue und angefasste Module folgen einem Schema; `tools/check_module_style.py` (Gradle `checkModuleStyle`, in `check`) prüft 1.–2.
+1. **Kreativtab:** Titel-Schlüssel `itemgroup.<modid>.<name>`, EN+DE, Anzeige „Simple X“; Vanilla-Tab-Einsortierung immer hinter `CreativeTabSettings` (framework, Datei `config/simple-creative-tabs.properties`).
+2. **Config-Texte:** Schema von SimpleBuilding/AutoConfig: `text.autoconfig.<modid>.option.<feld>` + `.@Tooltip`, Titel `text.autoconfig.<modid>.title`, Reiter `text.autoconfig.<modid>.category.<x>`; EN+DE paarig. Alte Schemata (`<mod>.option.*`, `config.<mod>.*`, `<mod>.config.*`) nur noch in den Modulen der Liste `LEGACY` des Lints (offene Umstellung ST-20 Teil 2; die Liste darf nur schrumpfen).
+3. **Versionen (Besitzer 21.10., Ea):** Modulversionen bleiben 0.x bis zur Besitzer-Abnahme (neue Module 0.1.0, fertig gebaute 0.9.0), danach 1.0.0; SimpleLib zählt eigenständig (Mindestversion in den Abhängigkeiten der Nutzer).
+4. **Pakete/IDs:** zwei gültige Paketschemata, kein drittes: `com.simplebuilding.modules.<modid>` (Vorlage `tools/newmod.py`) und `com.<modid>` (aus SimpleBuilding abgespaltene Module wie simpleovens, simpleblocks, sowie simplefun/simplemobheads/simplemoney, ST-12 – Umbenennen wäre Port-/Mixin-/Weltdaten-Risiko). Einstiegsklassen `<Name>Fabric|NeoForge|Forge`, Mod-ID = Ordnername; einzige Ausnahme Mod-ID `simpledimension` von simpledimensions (ST-13, Migration nur mit Besitzer-Entscheid).
+5. **Pflichtdateien:** Mod-Icon (A8 c), `wiki/manual.json` EN/DE, Handbuch (`tools/guides/module_guides.py`), `questionary/` für Module mit Items, `tools/check_data.py` – Ausnahme `wiringexample` (Beispielmodul, ST-42).
 
 ---
 

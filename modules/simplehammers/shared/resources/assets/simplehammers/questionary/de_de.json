@@ -1,0 +1,27 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch für alle, die lieber mit großen Schlägen arbeiten."
+    ],
+    "use": [
+      "Das Simple-Hammers-Handbuch erklärt die Vorschlaghämmer, das Behauen, das Zerschlagen und die Aufwertungen in der Welt. Herstellung formlos aus einem Buch und einem Eisenbarren."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
+  },
+  "family:sledgehammer": {
+    "items": [
+      "regex:.*_sledgehammer"
+    ],
+    "lore": [
+      "{name}: eine Spitzhacke, die nie gelernt hat, bei einem Block aufzuhören."
+    ],
+    "use": [
+      "Baut ab wie eine Spitzhacke seiner Stufe, nimmt aber die 3x3-Fläche vor dir mit; schleichend nur den anvisierten Block. Schleichen und Benutzen halten schlägt ein Achtel vom Block ab."
+    ],
+    "secret": [
+      "Mit dem Aufwertungsmaterial in der Nebenhand schlägt Benutzen-Halten einen aufwertbaren Block samt Inhalt auf die nächste Stufe."
+    ]
+  }
+}

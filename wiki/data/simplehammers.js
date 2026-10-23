@@ -1273,6 +1273,30 @@ window.WIKI_MODULE_DATA["simplehammers"] = {
         }
       },
       "texture": "assets/textures/simplehammers/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book for everyone who prefers to work in big strokes."
+          ],
+          "use": [
+            "The Simple Hammers Guide explains the sledgehammers, carving, crushing and in-world upgrades. Craft it shapeless from a book and an iron ingot."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch für alle, die lieber mit großen Schlägen arbeiten."
+          ],
+          "use": [
+            "Das Simple-Hammers-Handbuch erklärt die Vorschlaghämmer, das Behauen, das Zerschlagen und die Aufwertungen in der Welt. Herstellung formlos aus einem Buch und einem Eisenbarren."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplehammers:guide_book"
       ],

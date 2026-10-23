@@ -18,7 +18,7 @@
   "tooltip.simplehammers.hammer_upgrade.enderite": "Vor Ort aufwerten: Rechtsklick halten.",
   "tooltip.simplehammers.hammer_upgrade.shulker_box": "Vor Ort aufwerten; Inhalt und Farbe bleiben.",
   "tooltip.simplehammers.hammer_upgrade.material": "Nebenhand: %2$s ×%1$s.",
-  "itemGroup.simplehammers": "Simple Hammers",
+  "itemgroup.simplehammers.hammers": "Simple Hammers",
   "simplehammers.testcentre.station": "Simple Hammers",
   "jei.simplehammers.info.area": "Baut die 3x3-Fläche vor dir ab (Radius: 5x5, Durchbruch: weitere Lagen, Übersteuerung: auch andere Blöcke). Schleichen baut einen Block ab.",
   "jei.simplehammers.info.reshape": "Schleichen und Benutzen halten trägt das angezielte Achtel eines Blocks ab: der Rest wird Treppe, Stufe oder Achtel (mit Simple Octets). Berührung des Konstrukteurs (SimpleBuilding) macht Stufen wieder zu Treppen und Treppen zu Blöcken.",
