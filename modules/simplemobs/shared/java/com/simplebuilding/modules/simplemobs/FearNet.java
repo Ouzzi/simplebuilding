@@ -44,6 +44,8 @@ public final class FearNet {
 
     public static void forget(ServerPlayer p) { FOV.remove(p.getUUID()); }
 
+    public static void forgetAll() { FOV.clear(); }
+
     /** Client: called from a Watcher's client tick; sends the FOV when it changed (at most every 2 s, resent every 30 s). */
     public static void report(long gameTime) {
         int fov = fovSupplier.getAsInt();

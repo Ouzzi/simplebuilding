@@ -36,5 +36,8 @@ public final class SimpleLibFabric implements ModInitializer {
                 com.simplelib.material.MaterialLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.InWorldStrikes::tick);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.LegendaryMoments::tick);
+        // Per-player static state of the modules (PlayerState): dropped on disconnect and server stop.
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplelib.api.PlayerState.left(handler.getPlayer()));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.api.PlayerState.stopped());
     }
 }

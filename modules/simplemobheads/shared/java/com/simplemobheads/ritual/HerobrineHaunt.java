@@ -168,8 +168,13 @@ public final class HerobrineHaunt {
         player.connection.send(new ClientboundSoundPacket(sound, source, at.x, at.y, at.z, volume, pitch, player.getRandom().nextLong()));
     }
 
+    /** Server stop: no haunting outlives its world. */
+    public static void stopAll() {
+        HAUNTED.clear();
+    }
+
     /** Tests only. */
     public static void resetForTests() {
-        HAUNTED.clear();
+        stopAll();
     }
 }

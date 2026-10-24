@@ -87,6 +87,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void playerStateLeaveStop(GameTestHelper h) {
+        LibTests.ALL.get("player_state_leave_stop").accept(h);
+    }
+
+    @GameTest
     public void uiTextContrast(GameTestHelper h) {
         LibTests.ALL.get("ui_text_contrast").accept(h);
     }
