@@ -113,8 +113,10 @@ public class Simplebuilding implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(com.simplebuilding.datafix.SplitBackupMarker::onServerStarted);
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> LegacySpatulaMigration.migratePlayer(handler.player));
         // Testzentrale: eine Welt namens SB-Testzentrale baut sich in der Entwicklungsumgebung beim ersten Betreten selbst.
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> com.simplebuilding.dev.testcentre.TestCentreCommand.onPlayerJoin(
-                handler.player, com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment()));
+        if (com.simplebuilding.platform.ModEnvironment.hasTestCentre()) {
+            ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> com.simplebuilding.dev.testcentre.TestCentreCommand.onPlayerJoin(
+                    handler.player, com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment()));
+        }
         registerCauldronBehavior();
     }
 
