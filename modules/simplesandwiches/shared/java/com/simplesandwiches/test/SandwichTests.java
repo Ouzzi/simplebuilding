@@ -519,7 +519,9 @@ public final class SandwichTests {
         h.assertTrue(carpet.getCollisionShape(h.getLevel(), cell).isEmpty(), "butter carpet: walker sinks in (no collision)");
         h.assertTrue(carpet.getBlock().getSpeedFactor() == ModBlocks.BUTTER_CARPET_SPEED && ModBlocks.BUTTER_CARPET_SPEED < 1.0F, "butter carpet slows");
         p.setPos(cell.getX() + 0.5, cell.getY(), cell.getZ() + 0.5);
-        h.assertTrue(p.getBlockSpeedFactor() == ModBlocks.BUTTER_CARPET_SPEED, "walker inside the carpet is slowed: " + p.getBlockSpeedFactor());
+        p.setDeltaMovement(1.0, 0.0, 0.0);
+        p.move(net.minecraft.world.entity.MoverType.SELF, new Vec3(0.01, 0.0, 0.0));
+        h.assertTrue(Math.abs(p.getDeltaMovement().x - ModBlocks.BUTTER_CARPET_SPEED) < 0.01, "walker inside the carpet is slowed: " + p.getDeltaMovement().x);
         h.succeed();
     }
 
