@@ -26,7 +26,10 @@ public abstract class BeaconRangeMixin {
     @Inject(method = "applyEffects", at = @At("HEAD"))
     private static void simplebeacons$factor(Level level, BlockPos pos, int levels, Holder<MobEffect> primary, Holder<MobEffect> secondary,
                                              CallbackInfo ci) {
-        simplebeacons$percent = level.isClientSide() ? RangeFactor.NONE : RangeFactor.vanillaPercent(level, pos, levels);
+        // The client also calls applyEffects (it returns before the inflate there): writing the static from the client
+        // thread could reset the integrated server's percent between its HEAD and its inflate (REV2-A).
+        if (level.isClientSide()) return;
+        simplebeacons$percent = RangeFactor.vanillaPercent(level, pos, levels);
     }
 
     @ModifyArg(method = "applyEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/AABB;inflate(D)Lnet/minecraft/world/phys/AABB;"))

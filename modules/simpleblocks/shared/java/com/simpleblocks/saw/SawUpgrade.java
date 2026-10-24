@@ -48,6 +48,8 @@ public final class SawUpgrade {
                                      java.util.function.Predicate<ItemStack> tool) {
         BlockState state = level.getBlockState(pos);
         if (!state.is(Blocks.STONECUTTER) || !tool.test(player.getItemInHand(hand))) return false;
+        // Swapping a block is building: not for spectators or players who may not build (Adventure mode, REV2-A).
+        if (player.isSpectator() || !player.mayBuild()) return false;
         boolean free = player.hasInfiniteMaterials();
         if (!free && player.getInventory().countItem(Items.IRON_NUGGET) < NUGGETS) return false;
         if (level.isClientSide()) return true;

@@ -541,6 +541,10 @@ tasks.register('checkModuleData') {
         def conditions = providers.exec { workingDir rootDir; commandLine wikiPython, 'tools/check_load_conditions.py' }
         println conditions.standardOutput.asText.get().trim()
         conditions.result.get().assertNormalExitValue()
+        // REV2-A: literal own-namespace lang keys in module Java have EN and DE texts.
+        def langKeys = providers.exec { workingDir rootDir; commandLine wikiPython, 'tools/check_lang_keys.py' }
+        println langKeys.standardOutput.asText.get().trim()
+        langKeys.result.get().assertNormalExitValue()
         moduleRegistry.each { entry ->
             (entry.checks ?: []).each { script ->
                 def process = providers.exec { workingDir rootDir; commandLine wikiPython, script }
