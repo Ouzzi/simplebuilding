@@ -55,7 +55,8 @@
         "simplebeacons",
         "simpleshops",
         "simplewanderers",
-        "simplemusic"
+        "simplemusic",
+        "simpleearth"
       ],
       "paths": {
         "root": ".",
