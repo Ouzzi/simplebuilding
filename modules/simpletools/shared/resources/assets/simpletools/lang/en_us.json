@@ -107,7 +107,7 @@
   "simpletools.guide.page.8.title": "Better item frames",
   "simpletools.guide.page.8": "Without sneaking everything stays Vanilla, so a Simple Maps wayfinder in a frame still opens on a plain right-click. Server side only, sounds and wax particles are Vanilla's.",
   "simpletools.guide.page.9.title": "Better item frames",
-  "simpletools.guide.page.9": "With SimpleBuilding installed there is still only this one behaviour:",
+  "simpletools.guide.page.9": "With SimpleBuilding installed there is still only this one behavior:",
   "simpletools.guide.page.10.title": "Better item frames",
   "simpletools.guide.page.10": "its older frame actions (own glass-pane lock state, sneaking shows a hidden frame) step aside when Simple Tools is loaded, and frames locked by the old state (SimpleBuildingLocked) become Fixed when they load.",
   "simpletools.guide.page.11.title": "Better item frames",

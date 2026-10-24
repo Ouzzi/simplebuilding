@@ -365,6 +365,20 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [x] (B, b-revlow24, Bündel 55) **REV24-F-30** BuildPermissions.probing globaler Zähler, nicht thread-lokal – `common/.../util/BuildPermissions.java`
 - [x] (B, b-revrest24 1087ebf56 (synchronized + clear bei SERVER_STOPPED)) **REV24-F-31** Protection.PROVIDERS nicht thread-sicher, kein Aufräumen beim Server-Stopp – `framework/.../Protection.java`
 
+## Review 2 24.10. (REV2)
+
+Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe C (b-rev2c24): Bericht `docs/ai/REVIEW2-GRUPPE-C-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2C-2026-10-24.md`. P2/kleine P3 dort behoben (Admin-/Play-Zustand beiseitelegen, Storage-Paletten-Migrationstest, Visuals-DE, atomare Client-Configs, Biom-Pinsel, Trim-Rezept); hier P4 und Größeres.
+
+- [ ] **REV2-C-1** Kern-Daten 26.3 nennen alte `simplebuilding:`-Ids (Tags `craftable`/`not_allowed_in_backpack` 33×, `c:ores/*`, Vault-Rezepte `enderite_nugget`); laden nur per IdMoves-Rückfall → neue Ids, `required:false` – `mc26_3/overlay/resources/data/...`
+- [ ] **REV2-C-2** 17 Mixin-Injektoren mit `require = 0` (Kern + Gruppe C) fallen bei Ziel-Änderung still aus → Testrunner-Prüflauf mit `-Dmixin.debug.countInjections=true`, Warnung je 0 Treffer
+- [ ] **REV2-C-3** Questionary: `QuestionaryFacts.compute` läuft je Slot-Änderung über alle Rezepte → Ergebnis je Item bis `/reload` cachen – `modules/simplequestionary/.../QuestionaryFacts.java`
+- [ ] **REV2-C-4** Respawn: Paket-Sperre am `HEAD` (Netz-Thread); verworfener Container-Klick ohne Neuabgleich → nach `ensureRunningOnSameThread` einhängen, `sendAllDataToRemote` – `modules/simplerespawn/.../mixin/ServerGamePacketListenerMixin.java`
+- [ ] **REV2-C-5** Riding: Aufwärtsbewegung ohne Sprung (Levitation, Schleim, Explosion) wird zurückgesetzt → bei Levitation/Server-Impuls erlauben, Test – `modules/simpleriding/.../RidingSecurity.java`
+- [ ] **REV2-C-6** Sandwiches: Bündel-Essen isst am Ende, was dann oben liegt → beim Start merken, bei Wechsel abbrechen – `modules/simplesandwiches/.../item/BundleEating.java`
+- [ ] **REV2-C-7** Tweaks: kleine statische Spielerlisten ohne Abmelde-Aufräumen (`Freeze.AT`, `BlockLogCommands.PAGES`, `DeedService.LAST*`, `Pvp.TOGGLED`, `Coords.LAST`, `Inspect`) → `PlayerState.onLeave`
+- [ ] **REV2-C-8** Visuals: `Visuals.save` wirft bei Schreibfehler (Config-Bildschirm = Absturz) → loggen – `modules/simplevisuals/.../Visuals.java`
+- [x] (B, b-rev2c24: manual.json + Lang, audit_data 0 Treffer in Gruppe C) **REV2-C-9** Britisches Englisch in Guide-Seiten `simpletools.guide.page.9` („behaviour“), `simpletweaks.guide.page.51` („grey“)
+
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
 - [x] (A, claude-s6-octets, 17.10.; in master seit 18.10.) 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)

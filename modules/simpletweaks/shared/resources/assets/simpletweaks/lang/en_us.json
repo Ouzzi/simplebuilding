@@ -455,7 +455,7 @@
   "simpletweaks.guide.page.50.title": "Votes (T23)",
   "simpletweaks.guide.page.50": "/simpletweaks vote weather clear and /simpletweaks vote event <name> start a vote with clickable Yes/No; /simpletweaks vote yes|no counts.",
   "simpletweaks.guide.page.51.title": "AFK detection (T24)",
-  "simpletweaks.guide.page.51": "After minutes (default 5) without any action, or with /simpletweaks afk, a player is AFK: grey with [AFK] in the tab list and not counted for sleeping.",
+  "simpletweaks.guide.page.51": "After minutes (default 5) without any action, or with /simpletweaks afk, a player is AFK: gray with [AFK] in the tab list and not counted for sleeping.",
   "simpletweaks.guide.page.52.title": "World border per dimension (T25)",
   "simpletweaks.guide.page.52": "Entries in border.dimensions (size and center per dimension) are applied to that dimension's world border at server start; /simpletweaks border lists all borders.",
   "simpletweaks.guide.page.53.title": "Nether roof lock (T26)",
