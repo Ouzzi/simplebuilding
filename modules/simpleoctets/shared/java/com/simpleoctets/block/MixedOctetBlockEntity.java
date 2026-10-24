@@ -57,11 +57,13 @@ public class MixedOctetBlockEntity extends BlockEntity {
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         Arrays.fill(this.parts, null);
-        List<BlockState> palette = input.read(PALETTE_TAG, BlockState.CODEC.listOf()).orElse(List.of());
+        // Entry by entry (REV2-B): one material of a removed mod must not take the others with it - a strict list codec
+        // fails as a whole and left a cell without any material (invisible, no drops). Unreadable entries stay empty.
+        List<com.mojang.serialization.Dynamic<?>> palette = input.read(PALETTE_TAG, com.mojang.serialization.Codec.PASSTHROUGH.listOf()).orElse(List.of());
         int[] octets = input.getIntArray(OCTETS_TAG).orElse(new int[0]);
         for (int i = 0; i < 8 && i < octets.length; i++) {
             int at = octets[i];
-            this.parts[i] = at >= 0 && at < palette.size() ? OctetCells.material(palette.get(at)) : null;
+            this.parts[i] = at >= 0 && at < palette.size() ? OctetCells.material(BlockState.CODEC.parse(palette.get(at)).result().orElse(null)) : null;
         }
     }
 

@@ -16,6 +16,7 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void powderSnow(GameTestHelper h){MovementTests.powderSnow(h);}
  @GameTest(maxTicks=100) public void realMovementPackets(GameTestHelper h){MovementTests.realMovementPackets(h);}
  @GameTest(maxTicks=100) public void featureSwitches(GameTestHelper h){MovementTests.featureSwitches(h);}
+ @GameTest(maxTicks=100) public void climbBoosts(GameTestHelper h){MovementTests.climbBoosts(h);}
  @GameTest(maxTicks=100) public void enchantStepHeight(GameTestHelper h){MovementTests.enchantStepHeight(h);}
  @GameTest(maxTicks=100) public void enchantSprint(GameTestHelper h){MovementTests.enchantSprint(h);}
  @GameTest(maxTicks=100) public void enchantTreasureRules(GameTestHelper h){MovementTests.enchantTreasureRules(h);}

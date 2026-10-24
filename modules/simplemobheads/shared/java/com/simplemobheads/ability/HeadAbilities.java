@@ -476,6 +476,19 @@ public final class HeadAbilities {
         player.spawnAtLocation(level, found, 0.3F);
     }
 
+    /**
+     * Server stop (SimpleLib {@code PlayerState.onStop}): the cooldowns count game ticks of one world, a next world (single
+     * player) starts with its own clock. Not on leaving: a relog must not reset the shearing cooldown.
+     */
+    public static void forgetAll() {
+        SHORN.clear();
+        STEW.clear();
+        SNIFF_READY.clear();
+        NEXT_EGG.clear();
+        SNIFFING.clear();
+        NEXT_GREETING.clear();
+        GAZE_READY.clear();
+    }
     /** Tests only: forget every cooldown of a player. */
     public static void resetForTests(Player player) {
         SHORN.remove(player.getUUID());

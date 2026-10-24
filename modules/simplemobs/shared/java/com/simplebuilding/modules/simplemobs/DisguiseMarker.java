@@ -42,6 +42,10 @@ public class DisguiseMarker extends Entity {
         this.setInvisible(true);
     }
 
+    /** Client, leaving a world (REV2-B): markers are not removed one by one then, and each holds the old client level. */
+    public static void clearClient() {
+        CLIENT.clear();
+    }
     /** The client-side marker of {@code owner}, or null. */
     public static @Nullable DisguiseMarker of(Player owner) {
         DisguiseMarker m = CLIENT.get(owner.getId());

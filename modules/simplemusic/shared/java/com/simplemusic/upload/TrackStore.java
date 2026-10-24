@@ -39,6 +39,7 @@ public final class TrackStore {
     }
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger("Simple Music");
     private final Path root;
     private final Map<String, Track> tracks = new LinkedHashMap<>();
     private final Set<UUID> banned = new LinkedHashSet<>();
@@ -114,7 +115,12 @@ public final class TrackStore {
         }
         Track track = new Track(hash, title, seconds, data.length, uploader, uploaderName, now, approved ? Status.APPROVED : Status.PENDING);
         tracks.put(hash, track);
-        save();
+        if (!save()) {
+            // REV2-B: no index entry, no file - the caller reports "store_failed" instead of the server thread throwing
+            tracks.remove(hash);
+            Files.deleteIfExists(file(hash));
+            throw new IOException("could not write " + index());
+        }
         return track;
     }
 
@@ -158,21 +164,32 @@ public final class TrackStore {
             JsonObject json = GSON.fromJson(Files.readString(index), JsonObject.class);
             if (json == null) return;
             JsonArray list = json.has("tracks") ? json.getAsJsonArray("tracks") : new JsonArray();
+            // Entry by entry (REV2-B): one damaged entry (hand edit) no longer throws away every other track's status.
             for (JsonElement e : list) {
-                JsonObject o = e.getAsJsonObject();
-                String hash = o.get("hash").getAsString();
-                if (!UploadSession.isHash(hash)) continue;
-                Status status;
                 try {
-                    status = Status.valueOf(o.get("status").getAsString());
+                    JsonObject o = e.getAsJsonObject();
+                    String hash = o.get("hash").getAsString();
+                    if (!UploadSession.isHash(hash)) continue;
+                    Status status;
+                    try {
+                        status = Status.valueOf(o.get("status").getAsString());
+                    } catch (RuntimeException ex) {
+                        status = Status.PENDING;
+                    }
+                    tracks.put(hash, new Track(hash, o.get("title").getAsString(), o.get("seconds").getAsInt(), o.get("bytes").getAsInt(),
+                            UUID.fromString(o.get("uploader").getAsString()), o.has("uploaderName") ? o.get("uploaderName").getAsString() : "",
+                            o.get("date").getAsLong(), status));
                 } catch (RuntimeException ex) {
-                    status = Status.PENDING;
+                    LOG.warn("Skipped an unreadable track entry in {}: {}", index, ex.toString());
                 }
-                tracks.put(hash, new Track(hash, o.get("title").getAsString(), o.get("seconds").getAsInt(), o.get("bytes").getAsInt(),
-                        UUID.fromString(o.get("uploader").getAsString()), o.has("uploaderName") ? o.get("uploaderName").getAsString() : "",
-                        o.get("date").getAsLong(), status));
             }
-            if (json.has("banned")) for (JsonElement e : json.getAsJsonArray("banned")) banned.add(UUID.fromString(e.getAsString()));
+            if (json.has("banned")) for (JsonElement e : json.getAsJsonArray("banned")) {
+                try {
+                    banned.add(UUID.fromString(e.getAsString()));
+                } catch (RuntimeException ex) {
+                    LOG.warn("Skipped an unreadable ban entry in {}: {}", index, ex.toString());
+                }
+            }
         } catch (Exception e) {
             // a broken index is kept aside, the store starts empty (files stay on disk)
             try {
@@ -183,7 +200,8 @@ public final class TrackStore {
         }
     }
 
-    private void save() {
+    /** Writes the index; false (logged) when the disk refuses, so no caller on the server thread throws. */
+    private boolean save() {
         JsonObject json = new JsonObject();
         JsonArray list = new JsonArray();
         for (Track t : tracks.values()) {
@@ -207,8 +225,10 @@ public final class TrackStore {
             Path tmp = root.resolve("index.json.tmp");
             Files.writeString(tmp, GSON.toJson(json));
             Files.move(tmp, index(), StandardCopyOption.REPLACE_EXISTING);
+            return true;
         } catch (IOException e) {
-            throw new IllegalStateException("could not write " + index(), e);
+            LOG.warn("Could not write {}: {}", index(), e.toString());
+            return false;
         }
     }
 

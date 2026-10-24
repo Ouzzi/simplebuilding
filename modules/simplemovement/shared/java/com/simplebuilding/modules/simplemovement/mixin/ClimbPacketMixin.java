@@ -17,10 +17,10 @@ public abstract class ClimbPacketMixin implements com.simplebuilding.modules.sim
  @Inject(method="handleMovePlayer",at=@At("HEAD"),cancellable=true)
  private void qol$validate(ServerboundMovePlayerPacket packet,CallbackInfo ci){
   if(!player.level().getServer().isSameThread()||!SimpleMovement.active())return;
-  if(!player.onClimbable()||player.getAbilities().flying||player.isPassenger()){qol$baseTick=-1;return;}
+  if(!player.onClimbable()||player.getAbilities().flying||player.isPassenger()||com.simplebuilding.modules.simplemovement.ClimbSecurity.launched(player)){qol$baseTick=-1;return;}
   int tick=player.tickCount;
   if(qol$baseTick!=tick){qol$budgetTicks=qol$baseTick<0?1:Math.clamp(tick-qol$baseTick,1,3);qol$baseY=player.getY();qol$baseTick=tick;}
-  if(!com.simplebuilding.modules.simplemovement.ClimbSecurity.allowed(packet.getY(player.getY())-qol$baseY,qol$budgetTicks,SimpleMovement.config())){
+  if(!com.simplebuilding.modules.simplemovement.ClimbSecurity.allowed(packet.getY(player.getY())-qol$baseY,qol$budgetTicks,SimpleMovement.config(),com.simplebuilding.modules.simplemovement.ClimbSecurity.extraUp(player))){
    qol$rejectedPackets++;
    player.connection.teleport(player.getX(),player.getY(),player.getZ(),player.getYRot(),player.getXRot());ci.cancel();
   }

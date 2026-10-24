@@ -400,6 +400,19 @@ Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe A (b-re
 - [x] (B, b-rev2a24) REV2-A-11 simpleinterfaces: `onChange` bei `SERVER_STOPPED` geleert.
 - [ ] REV2-A-12 simplelib: `CarriedStacks` Quellen-Fehler loggen; `OwnedLights.sweep` nach Chunk gruppieren; warm-blinder Menü-Sync (`WarmStackingMixin`) prüfen.
 - [ ] REV2-A-13 simplemaps: `handleTiles` Render-Aufrufe je Paket begrenzen (nicht nur Antwort-Bytes).
+Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe B (b-rev2b24): Bericht `docs/ai/REVIEW2-GRUPPE-B-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2B-2026-10-24.md`. P1/P2/kleine P3 dort behoben; hier P4 und Größeres.
+- [x] (B, b-rev2b24 c331a5c49, Module-Tests 296/296, check grün) **REV2-B Gruppe B** 14 Module geprüft (mobheads, mobmanners, mobs, models, money, movement, music, octets, optimization, optmemory, optrender, optserver, ovens, qualityoflife); behoben: 2× P2 (Octet-Mischzelle und Taschen-Jukebox verlieren beim Laden nicht mehr alles wegen eines fremden Eintrags), 11× P3 (Client-Lecks Mobs/Octets/Music, Server-Referenz Movement, Kletter-Gummiband, Money-Config-IO, TrackStore-Absturz/-Index, Kopf-Abklingzeiten, atomare Configs).
+- [ ] **REV2-B-1** `onChange`-Hook aus `SERVER_STARTED` hält den Server nach dem Stopp (Einzelspieler: alte Welt im Speicher) – `modules/simplefarming/fabric/.../FarmingFabric.java:17`, `simpleinterfaces/fabric/.../InterfacesFabric.java:45`, `simpletools/fabric/.../ToolsFabric.java:43`; Fix wie `MovementFabric` (SERVER_STOPPED → No-op) oder `PlayerState.onStop`.
+- [ ] **REV2-B-2** `simplemobmanners` `EntityMuteMixin.isSilent`: `mutedEntities` als `Set<EntityType<?>>` beim `normalize` vorberechnen statt je Klang `getKey().toString()` + `List.contains`.
+- [ ] **REV2-B-3** `simpleovens` `OvenItem`-Tooltip: Server-Tempo synchronisieren (oder `defaultSpeed()` + Hinweis), die lokale Client-Config weicht auf fremden Servern ab.
+- [ ] **REV2-B-4** `simplemoney` `LinkBudget`: bei `MAX_PLAYERS` abgelaufene Fenster (> 1 Tag) entfernen statt neue Spieler abzuweisen.
+- [ ] **REV2-B-5** `simpleoctets` Mischzelle mit gesetzten Bits ohne lesbares Material nach dem Laden zu Luft/Wasser machen (heute unsichtbare Geisterzelle).
+- [ ] **REV2-B-6** `simplemusic`: `/music ban` auch für Offline-Spieler (GameProfile-Argument); Taschen-Jukebox-Scrollen über die Claim-Probe (`Protection`) prüfen.
+- [ ] **REV2-B-7** `simplemobheads` Herobrine-Kopf `flickerTorches`: statt 17³ `getBlockState` je Sekunde nur Abschnitte mit Fackeln (`maybeHas`) oder eine kleine Stichprobe.
+- [ ] **REV2-B-8** `simpleoptmemory` `StateTables`-Maps nach dem Registry-Freeze leeren; `simpleoptserver` beim Ausschalten zur Laufzeit die Sichtweite auf server.properties zurücksetzen.
+- [ ] **REV2-B-9** `simplemodels` `ModelBrowser` „Ordner öffnen“ über denselben Config-Pfad wie der Server (`Models.root`) statt `gameDir/config`.
+- [ ] **REV2-B-10** Besitzer-Frage: Tarnumhang, Howler-Ritual und Trickspiegel melden per Aktionsleiste (Regel 4 „kein Text für Gadgets“) – so lassen oder auf Klang/Partikel umstellen?
+- [ ] **REV2-B-11** Vorschlag simplelib: `SafeCodecs.listLenient` für BE-/SavedData-Listen + Prüfskript gegen `input.read(..., X.listOf())`; `ClientState.onDisconnect` für Client-Caches; Check gegen `Files.writeString` auf Config-JSON.
 
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.

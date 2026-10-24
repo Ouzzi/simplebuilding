@@ -335,14 +335,21 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
     /** Legt nach einem gezielten Abbau an {@code pos} die uebrigen Achtel zurueck (auch fuer Vollbloecke, {@code BlockCornerBreakMixin}). */
     public static void restoreRest(LevelAccessor level, BlockPos pos) {
         Breaking breaking = BREAKING.get();
-        if (breaking == null || breaking.level() != level || !breaking.pos().equals(pos) || OctetCells.mask(breaking.rest()) == 0) {
+        if (breaking == null || breaking.level() != level || !breaking.pos().equals(pos)) {
+            return;
+        }
+        // The client never asks for drops (getDrops clears it on the server): forget it here, it holds the client level.
+        if (level.isClientSide()) {
+            BREAKING.remove();
+        }
+        if (OctetCells.mask(breaking.rest()) == 0) {
             return;
         }
         OctetCells.set(level, pos, breaking.rest(), breaking.wet(), Block.UPDATE_ALL);
     }
 
     /** Spieler und Tick des letzten Abbaus eines nicht angeschauten Blocks (Flaechenabbau), je Thread. */
-    private record AreaBreak(Player player, long time) {
+    private record AreaBreak(java.util.UUID player, long time) {
     }
 
     private static final ThreadLocal<AreaBreak> AREA = new ThreadLocal<>();
@@ -373,11 +380,11 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         long time = level.getGameTime();
         if (!(player.pick(player.blockInteractionRange(), 1.0F, false) instanceof BlockHitResult hit)
                 || hit.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK || !hit.getBlockPos().equals(pos)) {
-            AREA.set(new AreaBreak(player, time));
+            AREA.set(new AreaBreak(player.getUUID(), time)); // the id, not the player: the client thread lives on after its level
             return;
         }
         AreaBreak area = AREA.get();
-        if (area != null && area.player() == player && area.time() == time) {
+        if (area != null && area.player().equals(player.getUUID()) && area.time() == time) {
             return;
         }
         BlockState own = OctetCells.material(cell.defaultBlockState());

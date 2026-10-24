@@ -116,6 +116,11 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("pocket_place_break").accept(h);
     }
 
+    @GameTest(structure = "simplemusic:empty")
+    public void pocketKeepsReadableDiscs(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_keeps_readable_discs").accept(h);
+    }
+
     @GameTest(structure = "simplemusic:empty", maxTicks = 40)
     public void pocketPlaceWhilePlaying(GameTestHelper h) {
         MusicTests.ALL.get("pocket_place_while_playing").accept(h);

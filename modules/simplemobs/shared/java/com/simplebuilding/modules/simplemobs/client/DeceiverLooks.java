@@ -18,6 +18,11 @@ public final class DeceiverLooks {
 
     private DeceiverLooks() {}
 
+    /** Leaving a world (REV2-B): the stand-ins hold the old client level (see {@link DisguiseLooks#clear}). */
+    public static void clear() {
+        STAND_INS.clear();
+    }
+
     public static Entity look(Entity entity) {
         if (!(entity instanceof DeceiverEntity deceiver)) return entity;
         EntityType<?> type = deceiver.look();

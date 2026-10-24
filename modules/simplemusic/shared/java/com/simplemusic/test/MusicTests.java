@@ -200,6 +200,27 @@ public final class MusicTests {
             h.assertTrue(player.getInventory().countItem(MusicRegistry.SHEET_MUSIC) == 3, "the rest stays blank");
             h.succeed();
         });
+        ALL.put("pocket_keeps_readable_discs", h -> {
+            // REV2-B: a placed Pocket Jukebox whose saved discs name an item of a removed mod keeps every other disc
+            net.minecraft.world.level.block.Block block = MusicRegistry.POCKET_JUKEBOX_BLOCKS.get(0);
+            BlockPos pos = new BlockPos(2, 2, 2);
+            h.setBlock(pos, block.defaultBlockState());
+            PocketJukeboxBlockEntity be = h.getBlockEntity(pos, PocketJukeboxBlockEntity.class);
+            h.assertTrue(be.insert(new ItemStack(Items.MUSIC_DISC_13)) && be.insert(new ItemStack(Items.MUSIC_DISC_CAT)), "two discs in");
+            net.minecraft.nbt.CompoundTag saved = be.saveWithFullMetadata(h.getLevel().registryAccess());
+            net.minecraft.nbt.CompoundTag tag;
+            try {
+                tag = net.minecraft.nbt.TagParser.parseCompoundFully(saved.toString().replace("minecraft:music_disc_cat", "removedmod:gone_disc"));
+            } catch (Exception e) {
+                throw h.assertionException("tag: " + e);
+            }
+            h.assertTrue(tag.toString().contains("removedmod:gone_disc"), "the saved discs name the removed item: " + tag);
+            var loaded = net.minecraft.world.level.block.entity.BlockEntity.loadStatic(h.absolutePos(pos), block.defaultBlockState(), tag, h.getLevel().registryAccess());
+            h.assertTrue(loaded instanceof PocketJukeboxBlockEntity p && p.contents().size() == 1
+                    && p.contents().items().get(0).create().is(Items.MUSIC_DISC_13), "the readable disc stays: "
+                    + (loaded instanceof PocketJukeboxBlockEntity p ? p.contents().items() : loaded));
+            h.succeed();
+        });
         ALL.put("orchestrion_becomes_jukebox", h -> {
             // B23-M9 (owner 23.10.): the Orchestrion is gone; old ids resolve to the Vanilla jukebox, and what it held stays in
             h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleMusic.id("orchestrion")) == Blocks.JUKEBOX
