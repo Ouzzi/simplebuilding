@@ -447,6 +447,10 @@ public final class NatureTests {
             if (!ice.defaultBlockState().is(net.minecraft.tags.BlockTags.ICE) || !ice.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("ice tags of " + ice);
         }
         if (!NatureBlocks.NAUTILUS_SHELL_BLOCK.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("nautilus shell block pickaxe");
+        // Sand/gravel copies dig like Vanilla sand: fast with a shovel (AUDM24).
+        for (Block gravity : List.of(NatureBlocks.SUSPENDED_SAND, NatureBlocks.SUSPENDED_GRAVEL, NatureBlocks.LEVITATING_SAND, NatureBlocks.LEVITATING_GRAVEL)) {
+            if (!gravity.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)) problems.add("shovel tag of " + gravity);
+        }
         var froglights = net.minecraft.tags.TagKey.create(Registries.ITEM, SimpleBlocks.id("froglights"));
         for (Item froglight : List.of(Items.OCHRE_FROGLIGHT, Items.VERDANT_FROGLIGHT, Items.PEARLESCENT_FROGLIGHT, NatureBlocks.SCARLET_FROGLIGHT.asItem(),
                 NatureBlocks.AQUA_FROGLIGHT.asItem(), NatureBlocks.AZURE_FROGLIGHT.asItem())) {

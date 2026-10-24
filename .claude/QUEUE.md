@@ -310,6 +310,16 @@ Reihenfolge für die Branches: TZ22-1/2/5 (Inventar + Layout + Rahmen), dann TZ2
 - [ ] TZ22-9 Danach: Testzentrale neu bauen und Rundgang dokumentieren (Screenshots per Server-Render nur, falls ohne Client möglich; sonst Besitzer-Abnahme).
 
 
+## Modul-Audit 24.10. (AUDM24)
+Bericht `docs/ai/AUDIT-MODULE-2026-10-24.md`, Inventar `docs/ai/module-inventory-2026-10-24.json`, Prüfskript `tools/audit/module_completeness.py` (wiederholbar).
+- [x] (B, b-audmods24, 24.10.) Inventar + Vollständigkeit aller 44 Module (Lang, Loot, Tags, Herkunft, JEI, Tab, Wiki, Config, Standalone, Vergleich mit Kern vor den Splits, 272 verschobene IDs). Behoben: `mineable/shovel` für Schwebenden/Aufsteigenden Sand/Kies (Simple Blocks) + Testprüfung.
+- [ ] **AUDM24-1** (P1, an b-jei24) Simple Money: `MoneyLinksJei` hat auf Fabric keinen `jei_mod_plugin`-Entrypoint in `modules/simplemoney/fabric/src/main/resources/fabric.mod.json` – Infoseite „Geld-Links“ fehlt in JEI (Fabric).
+- [ ] **AUDM24-2** (P2, an b-jei24) Rezepte ohne JEI-Darstellung: `simplebuilding:fletching` (16, Befiederungstisch), `simpletweaks:claim_deed_copy` (1); prüfen, ob JEI `simpletrims:tool_shapeless` (Pulsierend-Vorlage), `simplestorage:backpack_upgrade`, `simplebuilding:enchanted_shapeless` zeigt.
+- [ ] **AUDM24-3** (P3, an b-jei24) 22 Module mit Items/Blöcken ohne eigenes JEI-Plugin (Liste `JEI-NO-PLUGIN` im Bericht; zuerst Storage, End, Music, Mobs, Sandwiches, Ovens, Beacons, Shops); Infoseiten für nur per Java erreichbare Items (Crucibles-Eimerstufen, Music-Platten per Loot, Storage-Shulkerschalen, Mobs `end_wings`/`trick_mirror`, Beacons-Splitter).
+- [ ] **AUDM24-4** (P3) Aschholz-/Dämmerholz-Varianten ohne Simple End: Storage `ashwood_crate`/`duskwood_crate`, Sandwiches `*_cutting_board`, Kern `*_cauldron`/`*_sheet`/`carved_*_log`/`hollow_*_log` sind immer registriert, aber nur mit Simple End herstellbar → ohne Simple End aus Tab/JEI ausblenden (`c:hidden_from_recipe_viewers` + Tab-Filter) oder nur mit Simple End registrieren (Regel 5). Prüfen per `module-<mod>-standalone-fabric-263`.
+- [ ] **AUDM24-5** (P3, an b-cmdcfg24) Config-Labels ohne Tooltip: Riding (6), Dimensions (6), Aesthetics/Optimization („Enable …“ je 3), Money `trades`, Fun `fun` (Liste `CONFIG-NO-TOOLTIP` im Bericht).
+- [ ] **AUDM24-6** (P4, Port-Run) Kern-Lang: 111 Namen + alte `tooltip.simplebuilding.{bundle,quiver}*`/`jei.simplebuilding.info.*_head` verschobener IDs erst entfernen, wenn 26.2/1.21.11 die IDs auch in die Sub-Mods verschieben.
+
 ## Code-Review 24.10. (REV24)
 
 Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/niedrig). KRITISCH/HOCH (F-01..F-06, H-1..H-4) macht b-revfix24. Plan: `docs/ai/PLAN-B-REVMID24-2026-10-24.md`.

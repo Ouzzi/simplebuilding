@@ -3,6 +3,10 @@
     "simpleblocks:dirt_slab",
     "simpleblocks:grass_slab",
     "simpleblocks:sand_slab",
-    "simpleblocks:gravel_slab"
+    "simpleblocks:gravel_slab",
+    "simpleblocks:suspended_sand",
+    "simpleblocks:suspended_gravel",
+    "simpleblocks:levitating_sand",
+    "simpleblocks:levitating_gravel"
   ]
 }
