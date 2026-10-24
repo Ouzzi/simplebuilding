@@ -541,6 +541,14 @@ public final class OctetTests {
         float cell = rest.getDestroyProgress(player, level, pos);
         float block = Blocks.DIAMOND_BLOCK.defaultBlockState().getDestroyProgress(player, level, pos);
         h.assertTrue(Math.abs(cell - block) < 1.0E-6F, "the cell mines like the diamond block: " + cell + " vs " + block);
+        // the same with the stone hammer in hand (a-mech23a: the hammer's slow-down once counted twice on the cell)
+        player.setItemInHand(InteractionHand.MAIN_HAND, stoneHammer);
+        float cellHammer = rest.getDestroyProgress(player, level, pos);
+        h.setBlock(CELL, Blocks.DIAMOND_BLOCK);
+        float blockHammer = h.getBlockState(CELL).getDestroyProgress(player, level, pos);
+        h.setBlock(CELL, rest);
+        h.assertTrue(Math.abs(cellHammer - blockHammer) < 1.0E-6F, "the cell mines like the diamond block with a hammer: " + cellHammer + " vs " + blockHammer);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WOODEN_PICKAXE));
         player.setShiftKeyDown(false);
         player.gameMode.destroyBlock(pos);
         h.assertBlockPresent(Blocks.AIR, CELL);

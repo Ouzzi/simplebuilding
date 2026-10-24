@@ -170,6 +170,11 @@ public class SledgehammerUtils {
                 HammerEnchantments.level(stack, world, HammerEnchantments.OVERRIDE));
     }
 
+    private static BlockState asFullBlock(BlockState state) {
+        net.minecraft.world.level.block.Block base = com.simplelib.api.OctetCells.baseOf(state.getBlock());
+        return base == null ? state : base.defaultBlockState();
+    }
+
     /** Wie oben, mit schon gelesenem Ursprung und Override-Stufe (fuer grosse Auswahlen, einmal je Schlag). */
     public static boolean shouldBreak(Level world, BlockPos pos, BlockState originState, ItemStack stack, int overrideLevel) {
         BlockState targetState = world.getBlockState(pos);
@@ -177,6 +182,9 @@ public class SledgehammerUtils {
         if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {
             return false;
         }
+        // an octet cell counts as its full block (tool tier, same block): it mines exactly like it (Fund a-mech23a)
+        targetState = asFullBlock(targetState);
+        originState = asFullBlock(originState);
 
         if (!(stack.getItem() instanceof SledgehammerItem hammer)) {
             return false;

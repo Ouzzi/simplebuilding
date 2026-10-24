@@ -138,7 +138,7 @@ Quelle: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-23.md` (a-audit23; alle Besitze
 
 ## Funde 23.10.
 - [ ] (Besitzer 23.10., später) Rissiges Eis: Textur als eigenes Thema überarbeiten (bei B23-T4 bewusst ausgenommen).
-- [ ] (Fund a-mech23a) Achtel/Hammer: Mit dem Stein-Vorschlaghammer baut sich eine 7-Achtel-Diamant-Zelle 1,5× langsamer ab als der Diamantblock – Abbautempo der Zelle an den Vollblock angleichen (OctetCellBlock / MaterialOctetBlock, Test mit Hammer).
+- [x] (b-octhammer24, 24.10.; Ursache: Hammer-Faktor doppelt, HammerMiningSpeedMixin gilt jetzt nur fuer den Zustand bei pos; Test cornerBreakNeedsTheToolAndCreativeDropsNothing mit Steinhammer) (Fund a-mech23a) Achtel/Hammer: Mit dem Stein-Vorschlaghammer baut sich eine 7-Achtel-Diamant-Zelle 1,5× langsamer ab als der Diamantblock – Abbautempo der Zelle an den Vollblock angleichen (OctetCellBlock / MaterialOctetBlock, Test mit Hammer).
 
 ## Besitzer 23.10. spätabends – alles Offene abgenommen (W24)
 Besitzer: „Rest auch als abgenommen sehen und einbauen“ → alle offenen Wahlen der Abnahme-Seite mit der jeweiligen Empfehlung (ohne Empfehlung: Entscheidung im Plan begründen). Abgenommen: Fackeln A, PJ23 (aber Kupferkontakte in Linienfarbe), Mega-Karte, Claims (C1–C13 Empfehlungen, UI A), trübe Erze (C2, F1, Drop A), Moos B, Rucksack E, Piggy P2, Lager B2, Notenblock A, Salbei A, Eier B (alle 7), Wiki-Startseite nach Empfehlung, TX22-5 Übernahme mit dem nächsten Bündel, TEX21 erledigt.
