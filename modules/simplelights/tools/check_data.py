@@ -38,9 +38,9 @@ for pane in PANES:
 for tag, members in (('light_panes', 17), ('copper_light_panes', 17)):
     values = json.loads((RES / f'data/{NS}/tags/item/{tag}.json').read_text(encoding='utf-8'))['values']
     assert len(values) == members and all(v.startswith(f'{NS}:') for v in values), (tag, values)
-for path in RES.rglob('*.json'):
-    if path.name.endswith('.layers.json'):
-        continue
+for path in list((RES / f'data/{NS}').rglob('*.json')) + list((RES / f'assets/{NS}').rglob('*.json')):
+    if path.name.endswith('.layers.json') or path.parent.name in ('lang', 'questionary'):
+        continue  # prose (guide pages, wiki) may name the old ids
     assert 'simplebuilding:' not in path.read_text(encoding='utf-8'), path
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
