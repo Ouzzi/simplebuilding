@@ -114,6 +114,9 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleLights = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleEarth = true;
 
     /**
