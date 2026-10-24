@@ -21,10 +21,12 @@ import net.minecraft.network.chat.Component;
  * The Simple Earth menu (key O or the dev button): a box at the right edge that leaves the world visible and does not pause -
  * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). Pick a version V1-V9;
  * the scroll list shows that version's values as sliders (drag, click, Shift + wheel steps), every change applies live.
- * Vanilla inventory palette (#404040 on #C6C6C6 = 5.7:1, secondary #555555 = 4.6:1).
+ * Vanilla inventory palette: #404040 on #C6C6C6 = 5.7:1, on the list well #D6D6D6 = 7.1:1; secondary #4A4A4A = 5.2:1 / 6.1:1.
  */
 public final class EarthScreen extends Screen {
-    static final int LABEL = 0xFF404040, SECONDARY = 0xFF555555, TRACK = 0xFF8B8B8B, TRACK_DARK = 0xFF373737, FILL = 0xFF4E7A3A;
+    static final int LABEL = 0xFF404040, SECONDARY_TEXT = 0xFF4A4A4A, TRACK = 0xFF8B8B8B, TRACK_DARK = 0xFF373737, BAR = 0xFF4E7A3A;
+    /** Panel (UiPalette.INVENTORY fill) and the lighter list well the rows sit on. */
+    static final int PANEL_BG = 0xFFC6C6C6, LIST_BG = 0xFFD6D6D6;
     static final int W = 214, ROW = 24, PAD = 8;
     private int panelX, panelY, panelH, listTop, listBottom;
     private double scroll;
@@ -249,9 +251,9 @@ public final class EarthScreen extends Screen {
         g.text(font, title, panelX + PAD, panelY + 8, LABEL, false);
         int v = EarthClientConfig.version;
         Component name = Component.translatable("simpleearth.version." + v + ".name");
-        g.text(font, name, panelX + W - PAD - font.width(name), panelY + 8, SECONDARY, false);
-        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, panelY + 44, W - 2 * PAD, SECONDARY, false);
-        UiBoxes.sunkRect(g, panelX + PAD - 1, listTop - 2, W - 2 * PAD + 2, listBottom - listTop + 4, UiPalette.INVENTORY);
+        g.text(font, name, panelX + W - PAD - font.width(name), panelY + 8, SECONDARY_TEXT, false);
+        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, panelY + 44, W - 2 * PAD, SECONDARY_TEXT, false);
+        UiBoxes.insetColored(g, panelX + PAD - 1, listTop - 2, W - 2 * PAD + 2, listBottom - listTop + 4, UiPalette.INVENTORY, LIST_BG);
         g.enableScissor(panelX + PAD, listTop, panelX + W - PAD, listBottom);
         Row hovered = null;
         for (int i = 0; i < rows.size(); i++) {
@@ -278,7 +280,7 @@ public final class EarthScreen extends Screen {
             g.fill(tx, ty + 5, tx + tw, ty + 6, 0xFFFFFFFF);
             double f = (value - s.min()) / Math.max(1e-9, s.max() - s.min());
             int fx = tx + 1 + (int) Math.round(f * (tw - 2));
-            g.fill(tx + 1, ty + 1, fx, ty + 5, FILL);
+            g.fill(tx + 1, ty + 1, fx, ty + 5, BAR);
             UiBoxes.raised(g, Math.max(tx, fx - 2), ty - 2, 5, 10, 0xFFC6C6C6);
             if (mouseX >= panelX + PAD && mouseX <= panelX + W - PAD && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW, listBottom)) hovered = row;
         }
@@ -286,7 +288,7 @@ public final class EarthScreen extends Screen {
         if (maxScroll() > 0) {
             int barH = Math.max(12, (listBottom - listTop) * (listBottom - listTop) / (rows.size() * ROW));
             int barY = listTop + (int) ((listBottom - listTop - barH) * scroll / maxScroll());
-            g.fill(panelX + W - PAD - 2, barY, panelX + W - PAD, barY + barH, SECONDARY);
+            g.fill(panelX + W - PAD - 2, barY, panelX + W - PAD, barY + barH, SECONDARY_TEXT);
         }
         super.extractRenderState(g, mouseX, mouseY, delta);
         if (hovered != null && dragging < 0) {
