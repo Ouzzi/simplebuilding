@@ -144,7 +144,7 @@ public class AutonomousCrafterBlockEntity extends BaseContainerBlockEntity imple
         List<ItemStack> remainders = recipe.get().value().getRemainingItems(input);
 
         result.onCraftedBySystem(level);
-        HopperBlockEntity.addItem(this, into, result, Direction.UP);
+        ItemStack unplaced = HopperBlockEntity.addItem(this, into, result, Direction.UP);
         for (ItemStack stack : this.items) {
             if (!stack.isEmpty()) stack.shrink(1);
         }
@@ -154,6 +154,10 @@ public class AutonomousCrafterBlockEntity extends BaseContainerBlockEntity imple
             if (!left.isEmpty()) {
                 Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, left);
             }
+        }
+        if (!unplaced.isEmpty()) {
+            // fits() und addItem koennen bei Fremd-Containern auseinanderlaufen: nichts geht verloren.
+            Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, unplaced);
         }
         into.setChanged();
         setChanged();

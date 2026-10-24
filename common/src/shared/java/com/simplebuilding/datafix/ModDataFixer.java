@@ -118,7 +118,8 @@ public final class ModDataFixer {
     public static void migrateGuide(CompoundTag stack) {
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) return;
         String id = stack.getStringOr("id", "");
-        if (!stack.contains("count") && !stack.contains("Count")) return;
+        // Jeder Chunk-/Spielerladevorgang laeuft hier fuer jedes Compound: nur Mod-Stapel kosten mehr als der Praefixtest.
+        if (!id.startsWith(NS) || (!stack.contains("count") && !stack.contains("Count"))) return;
         for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.topics()) {
             if (!id.equals(NS + book.itemName())) continue;
             CompoundTag components = stack.getCompound("components").orElseGet(CompoundTag::new);

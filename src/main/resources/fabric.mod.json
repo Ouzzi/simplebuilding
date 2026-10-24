@@ -94,6 +94,7 @@
       "com.simplebuilding.gametest.RotatorGameTest",
       "com.simplebuilding.gametest.MagnetGameTest",
       "com.simplebuilding.gametest.ModpackGameTest",
+      "com.simplebuilding.gametest.RevCore24GameTest",
       "com.simplebuilding.gametest.TrimBonusGameTest",
       "com.simplebuilding.gametest.TrimWiringGameTest",
       "com.simplebuilding.gametest.ReinforcedBundleGameTest",

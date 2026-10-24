@@ -9,9 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -60,7 +58,6 @@ public class MagnetItem extends Item {
     public static final double MAX_RANGE = 9.0;
     /** Harte Obergrenze nach dem Config-Faktor {@code tools.magnetRangeMultiplier}. */
     public static final double HARD_MAX_RANGE = 15.0;
-    private static final double SYNC_DISTANCE_SQ = 64 * 64;
 
     public MagnetItem(Properties settings) {
         super(settings);
@@ -95,8 +92,6 @@ public class MagnetItem extends Item {
 
             // Pickup Delay resetten
             itemEntity.setPickUpDelay(0);
-
-            syncVelocityToNearbyPlayers(world, itemEntity);
         }
     }
 
@@ -168,19 +163,23 @@ public class MagnetItem extends Item {
                 newVel = newVel.add(0, 0.15, 0);
             }
 
-            itemEntity.setDeltaMovement(newVel);
+            applyVelocity(itemEntity, newVel);
             return;
         }
 
-        itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().scale(0.2));
+        applyVelocity(itemEntity, itemEntity.getDeltaMovement().scale(0.2));
     }
 
-    private static void syncVelocityToNearbyPlayers(ServerLevel world, ItemEntity itemEntity) {
-        ClientboundSetEntityMotionPacket packet = new ClientboundSetEntityMotionPacket(itemEntity);
-        for (ServerPlayer serverPlayer : world.players()) {
-            if (serverPlayer.distanceToSqr(itemEntity) < SYNC_DISTANCE_SQ) {
-                serverPlayer.connection.send(packet);
-            }
+    /**
+     * push() setzt das Sync-Flag, Vanilla schickt die Bewegung an die Tracker; ein ruhendes Item bekommt keine
+     * Pakete mehr (wie {@code PlacedAttractors}).
+     */
+    private static void applyVelocity(ItemEntity itemEntity, Vec3 newVel) {
+        Vec3 change = newVel.subtract(itemEntity.getDeltaMovement());
+        if (change.lengthSqr() > 1.0E-8) {
+            itemEntity.push(change.x, change.y, change.z);
+        } else {
+            itemEntity.setDeltaMovement(newVel);
         }
     }
 

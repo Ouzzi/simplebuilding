@@ -137,6 +137,9 @@ public final class ChunkLoaderRegistry extends SavedData {
         return server.getPlayerList().getPlayer(owner) != null;
     }
 
+    /** So viele nicht geladene Chunks weckt ein Abgleichlauf hoechstens. */
+    public static final int MAX_WAKE_LOADS_PER_RUN = 8;
+
     /**
      * Gleicht alle Loader mit ihren Regeln ab (vom Server-Tick alle
      * {@value ChunkLoaderBlockEntity#CHECK_INTERVAL} Ticks): ein Loader, der laufen soll, aber keine
@@ -151,6 +154,7 @@ public final class ChunkLoaderRegistry extends SavedData {
             return 0;
         }
         int changed = 0;
+        int loads = 0;
         for (Entry entry : new ArrayList<>(data.entries.values())) {
             ResourceKey<Level> key = entry.levelKey();
             ServerLevel level = key == null ? null : server.getLevel(key);
@@ -166,7 +170,14 @@ public final class ChunkLoaderRegistry extends SavedData {
                 update(level, entry.pos(), entry.owner().orElse(null), entry.tier(), false);
                 continue;
             }
-            // getChunk laedt den Chunk, falls noetig (einmal beim Wecken).
+            // getChunk laedt den Chunk, falls noetig (einmal beim Wecken). Pro Lauf nur wenige Ladungen, der Rest folgt
+            // im naechsten Intervall (Join-Spitze bei vielen Loadern eines Besitzers).
+            if (level.getChunkSource().getChunkNow(entry.pos().getX() >> 4, entry.pos().getZ() >> 4) == null) {
+                if (loads >= MAX_WAKE_LOADS_PER_RUN) {
+                    continue;
+                }
+                loads++;
+            }
             level.getChunk(entry.pos());
             if (level.getBlockEntity(entry.pos()) instanceof ChunkLoaderBlockEntity loader) {
                 loader.update(level);
