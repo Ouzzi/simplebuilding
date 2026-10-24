@@ -1,0 +1,6 @@
+# Greensleeves (opening, A minor) - English traditional, 16th century, public domain
+tempo 4
+$m = harp
+$b = bass
+$m: a4 - c5 -  d5 - - e5  f5 e5 - d5  b4 - g4 g4  a4 - b4 -  c5 - a4 - a4 g#4 - a4  b4 - g#4 - e4 - -
+$b: a2 - - - a2 - - -     f2 - - - g2 - - -       a2 - - - a2 - - -  e2 - - - e2 - - -

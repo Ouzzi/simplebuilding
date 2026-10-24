@@ -1,0 +1,15 @@
+# Prelude in C major, first bars (BWV 846) - Johann Sebastian Bach (1722), public domain
+tempo 2
+$m = harp
+$b = bass
+# every bar: c4 e4 g4 c5 e5 | g4 c5 e5 repeated; written once per bar
+x2 {
+  $m: . e4 g4 c5 e5 g4 c5 e5   . e4 g4 c5 e5 g4 c5 e5
+  $b: c3 - - - - - - -          c3 - - - - - - -
+}
+x2 {
+  $m: . d4 a4 d5 f5 a4 d5 f5   . d4 g4 d5 f5 g4 d5 f5
+  $b: c3 - - - - - - -          b2 - - - - - - -
+}
+$m: . e4 g4 c5 e5 g4 c5 e5
+$b: c3 - - - - - - -

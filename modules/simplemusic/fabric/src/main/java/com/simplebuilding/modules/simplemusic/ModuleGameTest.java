@@ -32,6 +32,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void examplesParse(GameTestHelper h) {
+        MusicTests.ALL.get("examples_parse").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void toneVolume(GameTestHelper h) {
+        MusicTests.ALL.get("tone_volume").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void toneLimit(GameTestHelper h) {
         MusicTests.ALL.get("tone_limit").accept(h);
     }

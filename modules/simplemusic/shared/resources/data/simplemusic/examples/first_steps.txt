@@ -1,0 +1,6 @@
+# First Steps - an original piece by Simple Music (simple: one instrument, a few notes)
+tempo 5
+harp: c4 e4 g4 e4  c4 e4 g4 -
+harp: d4 f4 a4 f4  d4 f4 a4 -
+harp: e4 g4 c5 g4  e4 g4 c5 -
+harp: g4 e4 d4 f4  e4 d4 c4 - - -

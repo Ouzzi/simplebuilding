@@ -1,0 +1,5 @@
+# Alle meine Entchen - German folk song (19th century, Ernst Anschuetz 1824 / traditional), public domain
+tempo 6
+harp: c4 d4 e4 f4  g4 - g4 -  a4 a4 a4 a4  g4 - - -
+harp: a4 a4 a4 a4  g4 - - -  f4 f4 f4 f4  e4 - e4 -
+harp: d4 d4 d4 d4  c4 - - -

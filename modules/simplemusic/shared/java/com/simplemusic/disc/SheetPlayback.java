@@ -76,13 +76,22 @@ public final class SheetPlayback {
             if (played >= MusicConfig.maxTonesPerTick) break;
             Holder<SoundEvent> sound = sounds[tone.instrument()];
             if (sound == null) continue;
-            level.playSeededSound(null, x, y, z, sound, SoundSource.RECORDS, range * tone.volume(), tone.pitch(), level.getRandom().nextLong());
+            level.playSeededSound(null, x, y, z, sound, SoundSource.RECORDS, volume(tone, range), tone.pitch(), level.getRandom().nextLong());
             played++;
         }
         if (played > 0) {
             level.sendParticles(ParticleTypes.NOTE, x, y + 0.7, z, 0, tones.get(0).note() / 24.0, 0.0, 0.0, 1.0);
         }
         return played;
+    }
+
+    /**
+     * The game volume of a tone. Vanilla clamps the gain to 1 and only lets a volume above 1 widen the range (a note block
+     * plays at 3.0 = 48 blocks), so {@code range * volume} made every {@code @vol} from 0.34 up as loud as a full tone:
+     * a quieter tone is sent at its own volume (hearing range 16), a full one with the configured range.
+     */
+    public static float volume(NoteCode.Tone tone, float range) {
+        return tone.volume() < 1.0F ? tone.volume() : range;
     }
 
     public static void stop(ServerLevel level, BlockPos pos) {
