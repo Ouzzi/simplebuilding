@@ -17,6 +17,11 @@ public final class NetherRoof {
     public static final int ROOF = 128;
     static final Map<UUID, Vec3> SAFE = new HashMap<>();
 
+    /** A player left: forget the last safe place. */
+    public static void forget(ServerPlayer p) { SAFE.remove(p.getUUID()); }
+    /** Server stop. */
+    public static void forgetAll() { SAFE.clear(); }
+
     public static boolean active() { return Play.on() && Play.server() != null && Play.config().netherRoof().enabled(); }
 
     public static void tick(MinecraftServer server) {

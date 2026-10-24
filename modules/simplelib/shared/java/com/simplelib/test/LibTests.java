@@ -33,6 +33,7 @@ public final class LibTests {
         ALL.put("warm_stacks_by_mean", LibTests::warmStacksByMean);
         ALL.put("warm_bundle_insulates", LibTests::warmBundleInsulates);
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
+        ALL.put("player_state_leave_stop", LibTests::playerStateLeaveStop);
         ALL.put("inventory_brightness_tones_palettes", LibTests::inventoryBrightness);
         ALL.put("ui_text_contrast", LibTests::uiTextContrast);
         ALL.put("shift_tooltip_collapse", LibTests::shiftTooltipCollapse);
@@ -318,6 +319,30 @@ public final class LibTests {
 
 
 
+
+    /** REV24-N-1: leave and stop listeners run, a throwing listener does not block the others, replaced ids run once. */
+    private static void playerStateLeaveStop(GameTestHelper h) {
+        var player = h.makeMockServerPlayerInLevel();
+        var left = new java.util.ArrayList<java.util.UUID>();
+        int[] stopped = {0};
+        com.simplelib.api.PlayerState.onLeave("test:boom", p -> { throw new IllegalStateException("expected by the test"); });
+        com.simplelib.api.PlayerState.onLeave("test:left", p -> left.add(p.getUUID()));
+        com.simplelib.api.PlayerState.onLeave("test:left", p -> left.add(p.getUUID()));
+        com.simplelib.api.PlayerState.onStop("test:boom", () -> { throw new IllegalStateException("expected by the test"); });
+        com.simplelib.api.PlayerState.onStop("test:stop", () -> stopped[0]++);
+        try {
+            com.simplelib.api.PlayerState.left(player);
+            com.simplelib.api.PlayerState.stopped();
+            check(h, left.equals(java.util.List.of(player.getUUID())), "leave listener ran once for the player: " + left);
+            check(h, stopped[0] == 1, "stop listener ran once: " + stopped[0]);
+        } finally {
+            com.simplelib.api.PlayerState.onLeave("test:boom", p -> { });
+            com.simplelib.api.PlayerState.onLeave("test:left", p -> { });
+            com.simplelib.api.PlayerState.onStop("test:boom", () -> { });
+            com.simplelib.api.PlayerState.onStop("test:stop", () -> { });
+        }
+        h.succeed();
+    }
 
     /**
      * Owner N15: hoppers top raised slots up to their container's limit - alone and as a double chest - while a

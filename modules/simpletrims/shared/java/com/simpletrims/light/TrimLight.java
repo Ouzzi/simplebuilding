@@ -163,6 +163,11 @@ public final class TrimLight {
         }
     }
 
+    /** Server stop: the lights went with their world, drop the table. */
+    public static void forgetAll() {
+        PLAYER_LIGHTS.clear();
+    }
+
     /** Drops a player's light and table entry (tests: mock players are never removed through the level). */
     public static void forget(Player player) {
         BlockPos pos = PLAYER_LIGHTS.remove(player.getUUID());

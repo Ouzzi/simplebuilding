@@ -22,6 +22,8 @@ public final class TrimsFabric implements ModInitializer {
         TrimsRegistry.registerBlockEntity(new BlockEntityType<>(PlacedTrimTemplateBlockEntity::new, java.util.Set.of(TrimsRegistry.PLACED_TEMPLATE)));
         TrimsRegistry.registerRecipeSerializers();
         TrimsRegistry.registerTab();
+        // a player's light is removed with the player (EntityRemovedTrimsMixin); the table must not outlive the world
+        com.simplelib.api.PlayerState.onStop("simpletrims:light", com.simpletrims.light.TrimLight::forgetAll);
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleTrims.MOD_ID)) return;
             var stacks = TrimsRegistry.tabStacks();
