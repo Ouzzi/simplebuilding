@@ -116,8 +116,8 @@ Schärfe-Grasschnitt (nur Server, max. 27 Blöcke, je Block Rechteprobe), Ackers
 Fehler ignoriert, beim Trennen geleert), Befehle (Rechte-Stufe Owner), 3 Mixins, Config-Bildschirm.
 - **P3 behoben** `mixin/GrassOutlineMixin`: hängt an `BlockStateBase.getShape` (jeder Strahl, jede Umrandung); mit Schärfe-Schwert in der
   Hand lief für jeden Block eine Registry-/Verzauberungs-Abfrage. Jetzt wird erst geprüft, ob der Block überhaupt schneidbar ist.
-- P4 `FarmingFabric`: `SimpleFarming.onChange` hält nach Server-Stopp den alten `MinecraftServer` (Einzelspieler-Weltwechsel) bis zum
-  nächsten Start; bei `SERVER_STOPPED` zurücksetzen. (REV2-A-8)
+- **P3 behoben** `FarmingFabric`: `SimpleFarming.onChange` hielt nach Server-Stopp den alten `MinecraftServer` samt Welten (Einzelspieler-
+  Weltwechsel); jetzt bei `SERVER_STOPPED` geleert (ebenso simpleinterfaces und – auf Bitte des Koordinators, REV2-B-1 – simpletools).
 - P4 Guard-Duplikat `InteractionGuard` (REV24-N-5, Teilstand b-revn5) – hier noch die Modul-Kopie. (REV2-A-8)
 
 ## simplefun (89 Dateien, 46 Java, 24 JSON)
@@ -153,7 +153,7 @@ genau dieser Stapel im gesperrten Slot liegt; Sperre gegen Zifferntasten/Nebenha
 jedem Klick – kein Dupe gefunden), Netzpakete (nur `linked_cancel` vom Client, ohne Daten; Rest Server→Client mit Grenzen),
 Endertruhen-Schnappschuss nur für den eigenen Spieler, 4 gemeinsame + 31 Client-Mixins (Seiten korrekt, Werkzeug-Abgleich aller
 Mixin-Listen gegen die Klassen), Stile/Screens (nur Client), Config + Sync.
-- Kein P1–P3. P4 `InterfacesFabric`: `SimpleInterfaces.onChange` hält wie bei simplefarming den alten Server nach dem Stopp. (REV2-A-11)
+- **P3 behoben** `InterfacesFabric`: `SimpleInterfaces.onChange` hielt wie bei simplefarming den gestoppten Server; jetzt bei `SERVER_STOPPED` geleert.
 
 ## simplelib (147 Dateien, 96 Java, 26 JSON)
 Geprüft: API (IdMoves mit Schleifen-/Doppelschutz, InWorldUpgrades mit `mayBuild`/`mayInteract`, InWorldStrikes mit Tick-Aufräumen,
@@ -191,3 +191,9 @@ Die Id-Umzugs-Proben `CrucibleTests.migration` (alle `simplelib:`/`simplebuildin
 muss `id` tragen, alter Name unter `id`, zusätzlich Dekodieren über `BlockState.CODEC` (Chunk-Sektion). simpleblocks
 `moved_ids_from_simplebuilding` prüft jetzt ebenso jeden der 15 umgezogenen Natur-Blöcke über die Palette. simplehammers/-beacons/
 -dimensions/-end haben keine Block-Id-Umzüge (Hämmer: nur Items/Verzauberungen).
+
+## Zusatz (Koordinator): eintragsweises Laden (REV24-H-4-Muster)
+Alle Listen-/Map-Codecs der Gruppe mit Items oder Registry-Ids geprüft: Tiegel-Inhalt, Upgrade-Einheiten und Fass-Inhalt laufen über
+`ValueInput.read` (im Gate per GameTest belegt: lesbare Einträge um einen unlesbaren bleiben); Karten, Lichter, Tresor-Zeiten, Web-
+Freigaben tragen nur Zahlen/UUIDs/Strings. Einzig `SledgehammerProgress` (SavedData, `BLOCK.byNameCodec`) – nur Schlag-Fortschritt,
+als P4 REV2-A-10(d) vermerkt.

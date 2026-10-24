@@ -377,10 +377,10 @@ Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe A (b-re
 - [ ] REV2-A-5 simpledimensions: (a) `DimensionRuntime.save` wirft im Tick bei Schreibfehler – loggen und später erneut; (b) `CONFIG_ROOT` hängt am Arbeitsverzeichnis (Umzug mit Migration); (c) verworfene Definitionen/Rezepte über Logger melden; (d) `SkyPortalBlockEntity.getUpdateTag` ohne Link-/Anker-Koordinaten; (e) tote Klasse `ExampleItems` entfernen.
 - [ ] REV2-A-6 simpleend: leere-sichere Items bekommen Schwerkraft zurück, sobald sie über dem Weltboden liegen.
 - [ ] REV2-A-7 simpleenddragonfight: statische Kampf-Sitzung (Warteschlange mit `Player`-Objekten, Teilnehmer, Faktoren) bei `SERVER_STOPPED` über `PlayerState.onStop` zurücksetzen.
-- [ ] REV2-A-8 simplefarming: `onChange` hält nach Server-Stopp den alten Server; InteractionGuard-Kopie (REV24-N-5).
+- [x] (B, b-rev2a24) REV2-A-8 simplefarming: `onChange` bei `SERVER_STOPPED` geleert (mit REV2-B-1, auch simpletools). Offen nur InteractionGuard-Kopie (REV24-N-5).
 - [ ] REV2-A-9 simplefun: `getConfig()` normalisiert bei jedem Aufruf (auch aus `hurtServer`); Config-Pfad am Arbeitsverzeichnis; Rückstoß-Kappe wirkt auch ausgeschaltet (gewollt, im Wiki vermerken).
 - [ ] REV2-A-10 simplehammers: (a) Amboss kombiniert Hämmer verschiedener Stufen immer für 1 Stufe (Verzauberungs-Transfer ohne Kosten) – gleiche Stufe verlangen oder Vanilla-Kosten; (b) `ShapelessRecipeMixin` enger fassen; (c) Kern-Tag `simplebuilding:craftable` auf `simplehammers:*_sledgehammer` umstellen; (d) `SledgehammerProgress` liest Einträge mit `BLOCK.byNameCodec` strikt – ein Block einer entfernten Mod verwirft alle gespeicherten Schlag-Stände (eintragsweise lesen).
-- [ ] REV2-A-11 simpleinterfaces: `onChange` hält nach Server-Stopp den alten Server.
+- [x] (B, b-rev2a24) REV2-A-11 simpleinterfaces: `onChange` bei `SERVER_STOPPED` geleert.
 - [ ] REV2-A-12 simplelib: `CarriedStacks` Quellen-Fehler loggen; `OwnedLights.sweep` nach Chunk gruppieren; warm-blinder Menü-Sync (`WarmStackingMixin`) prüfen.
 - [ ] REV2-A-13 simplemaps: `handleTiles` Render-Aufrufe je Paket begrenzen (nicht nur Antwort-Bytes).
 

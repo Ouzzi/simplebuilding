@@ -43,6 +43,8 @@ public final class InterfacesFabric implements ModInitializer {
             }
         };
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(s -> SimpleInterfaces.onChange = () -> s.getPlayerList().getPlayers().forEach(InterfacesFabric::sync));
+        // REV2-A/REV2-B-1: the lambda holds the server; a stopped one (single player world switch) must not stay referenced.
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(s -> SimpleInterfaces.onChange = () -> {});
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((h, sender, s) -> sync(h.player));
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p, w, hand, hit) -> LinkedContainers.onRightClickBlock(p, hand, hit.getBlockPos()));
     }

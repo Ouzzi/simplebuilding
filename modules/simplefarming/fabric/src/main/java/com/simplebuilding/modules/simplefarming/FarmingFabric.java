@@ -15,6 +15,8 @@ public final class FarmingFabric implements ModInitializer {
                 HoeHarvestHandler.onRightClickBlock(p, hand, hit.getBlockPos(), hit.getDirection()));
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simplefarming.network.ConfigSyncPayload.TYPE, com.simplebuilding.modules.simplefarming.network.ConfigSyncPayload.STREAM_CODEC);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(s -> SimpleFarming.onChange = () -> s.getPlayerList().getPlayers().forEach(FarmingFabric::sync));
+        // REV2-A/REV2-B-1: the lambda holds the server; a stopped one (single player world switch) must not stay referenced.
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(s -> SimpleFarming.onChange = () -> {});
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((h, sender, s) -> sync(h.player));
     }
     private static void sync(net.minecraft.server.level.ServerPlayer p) {
