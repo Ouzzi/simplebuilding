@@ -174,7 +174,7 @@ public final class MapsTests {
         java.util.Arrays.fill(colors, (byte) (4 * 4 + 2));
         try {
             MapsConfig.pictureMap = false;
-            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.OFF, "off by default");
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.OFF, "switched off");
             MapsConfig.pictureMap = true;
             MapsConfig.pictureMapMaxSide = 2;
             h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(3, 1, 0, 0, colors)), MapsNetwork.PictureResult.SIZE, "wall too wide");
@@ -211,7 +211,7 @@ public final class MapsTests {
             h.assertTrue(MapsConfig.revealRadius == MapsConfig.REVEAL_RADIUS_MAX, "radius clamped");
             h.assertTrue(MapsConfig.maxTilesPerMap == MapsConfig.MAX_TILES_MIN, "tiles clamped");
             h.assertTrue(!MapsConfig.allowCopy && MapsConfig.allowExtend && MapsConfig.allowCombine, "switches");
-            h.assertTrue(!MapsConfig.pictureMap && MapsConfig.pictureMapMaxSide == MapsConfig.PICTURE_SIDE_DEFAULT && MapsConfig.pictureMapPermission == 0, "picture maps off by default");
+            h.assertTrue(MapsConfig.pictureMap && MapsConfig.pictureMapMaxSide == MapsConfig.PICTURE_SIDE_DEFAULT && MapsConfig.pictureMapPermission == 0, "picture maps on by default");
             json.addProperty("pictureMapMaxSide", 99);
             json.addProperty("pictureMapPermission", -3);
             MapsConfig.apply(json);

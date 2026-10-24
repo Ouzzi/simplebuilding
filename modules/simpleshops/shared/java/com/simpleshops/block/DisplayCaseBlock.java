@@ -35,21 +35,43 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     /** Wooden base (2 px) and the glass box above it. */
     private static final VoxelShape SHAPE = Shapes.or(net.minecraft.world.level.block.Block.box(0, 0, 0, 16, 2, 16),
             net.minecraft.world.level.block.Block.box(1, 2, 1, 15, 15, 15));
-    /** NA24-3: the glass tint. Only one example tone (red) so far; the other Vanilla tones follow after the owner picks the look. */
+    /** NA24-3/WB24-5: glass and frame tint, one per Vanilla dye tone ("both soft"). */
     public static final EnumProperty<Tint> TINT = EnumProperty.create("tint", Tint.class);
     private final boolean glow;
 
     public enum Tint implements StringRepresentable {
-        NONE("none"), RED("red");
-        private final String key;
+        NONE(null),
+        WHITE(net.minecraft.world.item.DyeColor.WHITE),
+        ORANGE(net.minecraft.world.item.DyeColor.ORANGE),
+        MAGENTA(net.minecraft.world.item.DyeColor.MAGENTA),
+        LIGHT_BLUE(net.minecraft.world.item.DyeColor.LIGHT_BLUE),
+        YELLOW(net.minecraft.world.item.DyeColor.YELLOW),
+        LIME(net.minecraft.world.item.DyeColor.LIME),
+        PINK(net.minecraft.world.item.DyeColor.PINK),
+        GRAY(net.minecraft.world.item.DyeColor.GRAY),
+        LIGHT_GRAY(net.minecraft.world.item.DyeColor.LIGHT_GRAY),
+        CYAN(net.minecraft.world.item.DyeColor.CYAN),
+        PURPLE(net.minecraft.world.item.DyeColor.PURPLE),
+        BLUE(net.minecraft.world.item.DyeColor.BLUE),
+        BROWN(net.minecraft.world.item.DyeColor.BROWN),
+        GREEN(net.minecraft.world.item.DyeColor.GREEN),
+        RED(net.minecraft.world.item.DyeColor.RED),
+        BLACK(net.minecraft.world.item.DyeColor.BLACK);
+        public final net.minecraft.world.item.@Nullable DyeColor dye;
 
-        Tint(String key) {
-            this.key = key;
+        Tint(net.minecraft.world.item.@Nullable DyeColor dye) {
+            this.dye = dye;
         }
 
         @Override
         public String getSerializedName() {
-            return this.key;
+            return name().toLowerCase(java.util.Locale.ROOT);
+        }
+
+        /** The tint a dye stack stands for, or NONE. */
+        public static Tint of(ItemStack stack) {
+            for (Tint t : values()) if (t.dye != null && stack.is(Items.DYE.pick(t.dye))) return t;
+            return NONE;
         }
     }
 
@@ -101,11 +123,12 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                           BlockHitResult hit) {
-        // Sneak + red dye tints the glass of your own case (without sneaking a dye is just goods to stock).
-        if (player.isShiftKeyDown() && stack.is(Items.DYE.red()) && state.getValue(TINT) == Tint.NONE) {
+        // Sneak + dye tints glass and frame of your own case (without sneaking a dye is just goods to stock).
+        Tint tint = Tint.of(stack);
+        if (player.isShiftKeyDown() && tint != Tint.NONE && state.getValue(TINT) != tint) {
             if (level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity be && be.isOwner(player.getUUID())) {
                 if (!level.isClientSide()) {
-                    level.setBlock(pos, state.setValue(TINT, Tint.RED), 3);
+                    level.setBlock(pos, state.setValue(TINT, tint), 3);
                     level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     stack.consume(1, player);
                 }
