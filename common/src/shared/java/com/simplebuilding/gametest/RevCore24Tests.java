@@ -118,10 +118,10 @@ public final class RevCore24Tests {
         ItemEntity far = helper.spawnItem(Items.DIAMOND, new Vec3(4.5, 1.0, 1.5));
         far.setDeltaMovement(Vec3.ZERO);
         far.setOnGround(false);
-        far.hasImpulse = false;
+        far.needsSync = false;
         magnet.getItem().inventoryTick(magnet, level, player, EquipmentSlot.MAINHAND);
-        helper.assertTrue(far.getDeltaMovement().lengthSqr() > 0 && far.hasImpulse,
-                "the pulled item was not marked for the vanilla motion sync: " + far.getDeltaMovement() + " " + far.hasImpulse);
+        helper.assertTrue(far.getDeltaMovement().lengthSqr() > 0 && far.needsSync,
+                "the pulled item was not marked for the vanilla motion sync: " + far.getDeltaMovement() + " " + far.needsSync);
         helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
         helper.succeed();
     }
