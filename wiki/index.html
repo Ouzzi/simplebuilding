@@ -225,6 +225,7 @@ a.badge:hover { border-color: var(--accent); color: var(--accent); text-decorati
 .box ul { margin-bottom: .2rem; }
 .hint { color: var(--muted); font-style: italic; }
 .table-wrap { overflow: auto; max-height: 70vh; -webkit-overflow-scrolling: touch; }
+.table-wrap.tw-full { max-height: none; } /* Mod-Listen: ganze Seite scrollt, kein innerer Rollbereich (b-wiki24) */
 .table-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .table thead th { position: sticky; top: 0; z-index: 1; background: var(--panel); }
 .table { width: 100%; border-collapse: collapse; font-size: .92rem; }
@@ -2034,7 +2035,7 @@ function pageCommands() {
   mods.sort(function (a, b) { return (b.id === selectedMod) - (a.id === selectedMod); });
   var h = '<div class="listhead"><h1>' + esc(T('navCommands')) + ' <span class="muted tiny" style="font-weight:400">' + allCommandCount() + '</span></h1></div><p>' + esc(T('cmdIntro')) + '</p>';
   if (!mods.length) return h + '<p class="hint">' + esc(T('cmdNone')) + '</p>';
-  h += '<div class="table-wrap"><table class="table cmd-table"><thead><tr><th>' + esc(T('cmdMod')) + '</th><th>' + esc(T('cmdList')) + '</th></tr></thead><tbody>';
+  h += '<div class="table-wrap tw-full"><table class="table cmd-table"><thead><tr><th>' + esc(T('cmdMod')) + '</th><th>' + esc(T('cmdList')) + '</th></tr></thead><tbody>';
   mods.forEach(function (m) {
     h += '<tr><td data-l="' + esc(T('cmdMod')) + '">' + amLink(m) + (modPurpose(m) ? '<div class="muted tiny">' + esc(modPurpose(m)) + '</div>' : '') + '</td><td data-l="' + esc(T('cmdList')) + '">' + cmdChips(m) + '</td></tr>';
   });
@@ -2851,7 +2852,7 @@ function pageAllMods() {
     h += '<section class="box" id="mod-' + esc(m.id) + '"><h2>' + amLink(m) + ' <span class="muted tiny">' + esc(T('amSuper')) + ' · <code>' + esc(m.id) + '</code></span></h2><p>' + esc(modPurpose(m) || m.description) + '</p>';
     h += '<p class="muted">' + esc('v' + m.version + ' · ' + T('amLoaders') + ': ' + m.loaders.join(', ') + (amCounts(m) ? ' · ' + amCounts(m) : '')) + '</p>';
     if (o) h += '<p><strong>' + esc(T('amStatus')) + ':</strong> ' + esc(o.status) + ' · ' + esc(o.open + ' ' + T('amOpen')) + '<br><strong>' + esc(T('amMissing')) + ':</strong> ' + esc(o.missing) + '<br><span class="muted tiny">' + esc(T('amAsOf', o.asOf)) + '</span></p>';
-    h += '<h3>' + esc(T('amSub')) + ' · ' + subs.length + '</h3><div class="table-wrap"><table class="table am-table"><thead><tr><th>' + esc(T('amSub')) + '</th><th>' + esc(T('amBundle')) + '</th><th>' + esc(T('amContent')) + '</th><th>' + esc(T('amLoaders')) + '</th></tr></thead><tbody>';
+    h += '<h3>' + esc(T('amSub')) + ' · ' + subs.length + '</h3><div class="table-wrap tw-full"><table class="table am-table"><thead><tr><th>' + esc(T('amSub')) + '</th><th>' + esc(T('amBundle')) + '</th><th>' + esc(T('amContent')) + '</th><th>' + esc(T('amLoaders')) + '</th></tr></thead><tbody>';
     subs.forEach(function (c) {
       h += '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td data-l="' + esc(T('amBundle')) + '">' + esc(c.bundle ? T(c.bundle === 'required' ? 'amRequired' : 'amOptional') : '–') + '</td><td data-l="' + esc(T('amContent')) + '">' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td><td data-l="' + esc(T('amLoaders')) + '">' + esc(c.loaders.join(', ')) + '</td></tr>';
     });
@@ -2859,7 +2860,7 @@ function pageAllMods() {
   });
   var alone = MODULES.filter(function (m) { return !m.parent && !modChildren(m.id).length; });
   if (alone.length) {
-    h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap"><table class="table am-table"><tbody>' + alone.map(function (c) {
+    h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap tw-full"><table class="table am-table"><tbody>' + alone.map(function (c) {
       return '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td></tr>';
     }).join('') + '</tbody></table></div></section>';
   }
