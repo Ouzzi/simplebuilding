@@ -414,10 +414,10 @@ public final class TrimsTests {
                 TrimLight.tickPlayer(player);
                 h.assertTrue(h.getLevel().getBlockState(head).is(Blocks.LIGHT) && com.simplelib.api.OwnedLights.isMarked(h.getLevel(), head), "the light stands and is marked");
                 h.assertTrue(!com.simplelib.api.OwnedLights.isMarked(h.getLevel(), foreign), "a foreign light is not marked");
-                h.assertTrue(com.simplelib.api.OwnedLights.sweep(h.getLevel(), new net.minecraft.world.level.ChunkPos(head)) == 0 && h.getLevel().getBlockState(head).is(Blocks.LIGHT),
+                h.assertTrue(com.simplelib.api.OwnedLights.sweep(h.getLevel(), net.minecraft.world.level.ChunkPos.containing(head)) == 0 && h.getLevel().getBlockState(head).is(Blocks.LIGHT),
                         "a live carrier keeps its light through a sweep");
                 TrimLight.forgetAll(); // crash: the table is gone, the block stays
-                h.assertTrue(com.simplelib.api.OwnedLights.sweep(h.getLevel(), new net.minecraft.world.level.ChunkPos(head)) == 1, "the orphan is swept");
+                h.assertTrue(com.simplelib.api.OwnedLights.sweep(h.getLevel(), net.minecraft.world.level.ChunkPos.containing(head)) == 1, "the orphan is swept");
                 h.assertTrue(h.getLevel().getBlockState(head).isAir() && !com.simplelib.api.OwnedLights.isMarked(h.getLevel(), head), "orphan light gone, mark gone");
                 h.assertTrue(h.getLevel().getBlockState(foreign).is(Blocks.LIGHT) && h.getLevel().getBlockState(foreign).getValue(LightBlock.LEVEL) == 7, "a foreign minecraft:light stays");
             } finally {
