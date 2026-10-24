@@ -53,7 +53,7 @@ public final class HammersViewer {
     /** The sledgehammers, weakest first. */
     public static List<Item> hammers() {
         List<Item> out = new ArrayList<>(HammerRegistry.HAMMERS.values());
-        out.sort(Comparator.comparingInt(SledgehammerUpgrades::hammerRank));
+        out.sort(Comparator.comparingInt((Item hammer) -> SledgehammerUpgrades.hammerRank(hammer)));
         return out;
     }
 
