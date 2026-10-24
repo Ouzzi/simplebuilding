@@ -149,6 +149,29 @@ Nord- und Ost-Kachel bleiben dabei an ihrem Bildschirmplatz, die Nordost-Kachel 
 **Empfehlung:** Datenmodell immer V1 (feste Kacheln ab A, Kachel = Fläche); Darstellung **V3**. S1 baut V1 (reicht zum Prüfen von Gefühl und Werten),
 V3 kommt in S3. V2 bleibt verworfen wegen Pixelverzerrung (Stil-Bruch, A8 „nah an Vanilla“).
 
+### 3.7 Vorschau V4–V6 (24.10.)
+
+Besitzer-Befund (WA24-6): beim Überqueren einer Kante springt das Bild. **Ursache** in `earth-konzept.html` (nachgemessen, Vorschau zeigt sie im Modus „alt“):
+1. **Umbeschriften:** `applyTextures()` gibt beim Wechsel allen sechs Flächen die Nachbarn der *neuen* Mitte. Oben und die Seite in Flugrichtung passen,
+   die zwei Seitenflächen quer zur Flugrichtung springen auf andere Kacheln (Flug Ost: Süd-Fläche (0, 1) → (1, 1)); neue Kacheln kommen erst als 32-px-Grobbild.
+2. **Lage je Bild neu als kürzeste Drehung** (`setFromUnitVectors((u,1,v) → oben)`): für die neue Fläche ist das nicht „alte Lage × 90°“ –
+   Gier-Ruck um die Hochachse von 8° (v = 0,25), 16° (0,5), 24° (0,75) bis 30° am Eck; nur genau mittig 0°. In der Vorschau gemessen: 10° bzw. 19° in einem Bild.
+3. **Unterseite fest Kachel (+2, 0):** bei Flug nach Süd/West kippt eine falsche Kachel ins Bild (Netz-Prüfung: 1–2 Flächen physisch inkonsistent).
+
+**Ansätze** (je eigene Seite, Umschalter Außen/Ich-Ansicht, Vergleich „alt“):
+- **V4 Rollen + Slerp** – Lage fortschreiben (Parallel-Transport, an der Kante nur umbenennen = Lage × 90°), Nordrichtung und Anzeige sanft nachführen;
+  Seitenflächen blenden ortsabhängig, an der Kante exakt 50/50 alte/neue Nachbarkachel → vor und nach dem Wechsel bildgleich; Unterseite = Kachel 2 weiter in Flugachse.
+  Gemessen max. 0,2–1,0° Drehung je Bild (alt 10–19°), 0 Inhaltswechsel an Kanten. Ecke: 90°-Nordführung in ~1 s + 0,35-s-Bildüberblendung.
+- **V5 Glatte Normale** – Superellipsoid |x|⁸+|y|⁸+|z|⁸ = 1, die Bodennormale unter dem Spieler steht immer senkrecht (Boden waagrecht, Würfel rollt an der Kante weich ab,
+  in der Mitte kaum Drehung). Sonst wie V4. Gemessen max. 0,8° je Bild. Rundung stärker als „leicht“.
+- **V6 Faltnetz** – kein Drehen: die Fläche unter dir bleibt waagrecht, die Nachbarfläche klappt ab der Flächenmitte von senkrecht auf waagrecht herein (Terrain lädt dabei nach),
+  an der Kante liegt sie flach; Eckkacheln klappen mit, sodass um einen Eckpunkt alle vier Kacheln eben liegen. 17 Quads mit Scharnieren; geprüft: alle sichtbaren Stücke
+  stetig (Lageänderung je Bild = Flugweg), nur ferne Teile im Eckbereich per Bildüberblendung.
+
+**Empfehlung:** **V4** – am nächsten am Wunsch („Würfel rotiert leicht unter einem“), kleinste Änderung am Renderer (Lage fortschreiben + Seitenmischung), keine Verzerrung.
+V6 als Alternative, falls die Kante sich wie echte Welt anfühlen soll (Ich-Ansicht am ruhigsten). Wahl offen beim Besitzer.
+Vorschauen: `/root/sb-tools-b/previews/wa24-6-earth-v4.html`, `-v5.html`, `-v6.html`.
+
 ---
 
 ## 4. Terrain-Bild
