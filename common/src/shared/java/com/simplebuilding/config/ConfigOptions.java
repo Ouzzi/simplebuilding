@@ -120,6 +120,7 @@ public final class ConfigOptions {
             "enableSimpleHammers",
             "enableSimpleStorage",
             "enableSimpleMusic",
+            "enableSimpleEarth",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

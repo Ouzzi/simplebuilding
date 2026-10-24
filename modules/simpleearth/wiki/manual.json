@@ -1,0 +1,13 @@
+{
+  "features": [
+    {
+      "id": "orbit",
+      "sources": [
+        "modules/simpleearth/shared/java/com/simplebuilding/modules/simpleearth/orbit/OrbitTracker.java"
+      ],
+      "en": {"title": "Orbit", "summary": "Placeholder (filled in stage 5)."},
+      "de": {"title": "Orbit", "summary": "Platzhalter (Stufe 5)."}
+    }
+  ],
+  "notes": {}
+}

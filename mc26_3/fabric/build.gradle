@@ -306,6 +306,7 @@ dependencies {
     include project(':modules:simpleshops:fabric')
     include project(':modules:simplewanderers:fabric')
     include project(':modules:simplemusic:fabric')
+    include project(':modules:simpleearth:fabric')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

@@ -4053,6 +4053,77 @@
       },
       "parent": "simplebuilding",
       "bundle": "optional"
+    },
+    {
+      "id": "simpleearth",
+      "name": "Simple Earth",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Earth",
+      "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (nine display versions, standard V6 folding net) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simpleearth/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleearth",
+        "catalogues": [
+          "modules/simpleearth/fabric/src/main/java/com/simplebuilding/modules/simpleearth/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleearth"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleearthGameTest",
+            "report": "integration/build/simpleearth-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleearthStandaloneGameTest",
+              "report": "integration/build/standalone/simpleearth-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleearth.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleearth/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleearth",
+        "shared": "modules/simpleearth/shared",
+        "fabric": "modules/simpleearth/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleearth/generated/resources",
+        "lang": "modules/simpleearth/shared/resources/assets/simpleearth/lang",
+        "wikiManual": "modules/simpleearth/wiki/manual.json",
+        "balanceDir": "balance/simpleearth"
+      },
+      "projects": {
+        "fabric": ":modules:simpleearth:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     }
   ]
 }

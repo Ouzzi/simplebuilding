@@ -139,7 +139,28 @@ def models_icon():
 
 # ---------------------------------------------------------------- ASCII icons
 
+def earth_icon():
+    """Simple Earth: the Overworld as a small cube in orbit - map-colour pixels on top (grass, forest, water, sand)."""
+    g = blank()
+
+    def top(s, t):
+        # a coast across the top face: water to the north-east, sand line, grass and a forest patch
+        if s + 0.6 * t > 1.05:
+            return "W"
+        if s + 0.6 * t > 0.92:
+            return "S"
+        return "F" if (s - 0.3) ** 2 + (t - 0.35) ** 2 < 0.05 else "G"
+
+    def side(dark, mid):
+        return lambda s, t: mid if t < 0.35 else dark
+    cube(g, 2, 2, 12, 6, top, side("d", "L"), side("e", "R"))
+    return icon("Erdwürfel mit Kartenpixeln", {"o": "#10141e", "G": "#7fb238", "F": "#007c00", "W": "#4040ff", "S": "#f7e9a3",
+                                             "L": "#5f8a2a", "d": "#6a5034", "R": "#46661f", "e": "#4e3a26"},
+                [("Kontur", "o"), ("Oberseite", "GFWS"), ("Linke Seite", "Ld"), ("Rechte Seite", "Re")], *rows_of(g))
+
+
 ICONS: dict[str, dict] = {
+    "simpleearth": earth_icon(),
     "wiringexample": icon("Redstone-Knoten (Verdrahtung)", {"o": "#3a0a08", "R": "#d82818", "r": "#9a1a10",
                                                             "H": "#ff6a4a", "L": "#ffd0b0"},
                           [("Kontur", "o"), ("Leitung", "Rr"), ("Knoten", "HL")],
@@ -608,7 +629,7 @@ BG = {
     "simplemobheads": "#c8b090", "simpleshops": "#80b0e0", "simplewanderers": "#e0c890", "simplestats": "#c8d0e0",
     "simpleblocks": "#a0c8e8", "simplecrucibles": "#7088a0", "simpleoctets": "#90c890", "simplehammers": "#d09060",
     "simpleoptimization": "#4a5aa8", "simpleoptrender": "#7a6ac0", "simpleoptmemory": "#c0c8e8",
-    "simpleoptserver": "#2e3a6a", "simplestorage": "#90b8a0", "simplemusic": "#e0a858",
+    "simpleoptserver": "#2e3a6a", "simplestorage": "#90b8a0", "simplemusic": "#e0a858", "simpleearth": "#1e2a52",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 
