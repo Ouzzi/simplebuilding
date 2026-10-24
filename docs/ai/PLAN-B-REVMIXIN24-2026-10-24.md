@@ -27,3 +27,6 @@ Wrapper um die ganze Methode und wuerde Verhalten aendern.
 Compile 26.3 Fabric (Kern + betroffene Module), gezielte Tests fabric-263 und module-<mod>-(standalone-)fabric-263 fuer
 storage, riding, enddragonfight, weather, respawn, interfaces; `./gradlew check`. Nicht testbar: Client-Mixins (kein
 Client-Lauf erlaubt) - Handler-Signatur ist mechanisch (Empfaenger, Args, Operation).
+
+## Nachtrag Hauptsitzung B (24.10.)
+Die 7 Client-Mixins (HudContextualBar, HudExperienceLevel, BundleTooltipView, ContainerScreenLinked, KeyboardLinked, MouseHandler, VisualRain) sind auf diesem Branch wieder auf dem alten Stand: ohne Client-Lauf (verboten bis auf Weiteres) zeigt sich eine falsche @WrapOperation-Signatur erst als Absturz beim Client-Start. Der Umbau liegt geparkt auf `b-revmixin24-client` (017023f75) und wird erst mit einem Client-Smoke-Lauf übernommen.

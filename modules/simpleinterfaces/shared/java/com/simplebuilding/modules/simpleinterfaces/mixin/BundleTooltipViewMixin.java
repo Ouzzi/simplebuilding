@@ -1,6 +1,5 @@
 package com.simplebuilding.modules.simpleinterfaces.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplebuilding.modules.simpleinterfaces.client.BundleViews;
@@ -13,7 +12,9 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
@@ -32,7 +33,7 @@ public abstract class BundleTooltipViewMixin {
     }
 
     /** {@code contents.size() > 12}: overflowing only when entries are off the page. */
-    @ModifyExpressionValue(method = "extractBundleWithItemsTooltip", at = @At(value = "CONSTANT", args = "intValue=12"))
+    @ModifyConstant(method = "extractBundleWithItemsTooltip", constant = @Constant(intValue = 12))
     private int simpleinterfaces$overflow(int vanilla) {
         BundleView view = BundleViews.of(contents);
         return view == null ? vanilla : view.overflow() ? 0 : Integer.MAX_VALUE;
