@@ -15,7 +15,7 @@ public final class SoundClient {
  private static Object world, observedPlayer; private static long tick; private static float health; private static boolean initialized;
  private static Path path(){return Minecraft.getInstance().gameDirectory.toPath().resolve("config/simplesounds.json");}
  public static void load(){try{if(Files.isRegularFile(path())&&Files.size(path())<=65536){var c=new Gson().fromJson(Files.readString(path()),SoundConfig.class);if(c!=null)CONFIG=c;}}catch(java.io.IOException|RuntimeException ignored){}CONFIG.normalize();}
- public static void save(){CONFIG.normalize();try{Files.createDirectories(path().getParent());Files.writeString(path(),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(CONFIG));}catch(java.io.IOException e){org.slf4j.LoggerFactory.getLogger("simplesounds").warn("Cannot save local sound settings",e);}}
+ public static void save(){CONFIG.normalize();try{Files.createDirectories(path().getParent());com.simplebuilding.framework.api.ConfigFiles.writeAtomic(path(),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(CONFIG));}catch(java.io.IOException e){org.slf4j.LoggerFactory.getLogger("simplesounds").warn("Cannot save local sound settings",e);}}
  public static void tick(Minecraft mc){
   if(!initialized){load();initialized=true;}
   if(world!=mc.level || observedPlayer!=mc.player){world=mc.level;observedPlayer=mc.player;BUDGET.reset();tick=0;health=mc.player==null?0:mc.player.getHealth();}

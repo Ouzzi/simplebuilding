@@ -276,6 +276,14 @@ public final class StorageTests {
             if (BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(SimpleStorage.old("container_counts")) != com.simplestorage.registry.StorageComponents.CONTAINER_COUNTS) {
                 problems.add("component container_counts");
             }
+            // REV2-C: a chunk palette entry of an old world (26.3 names the block under "id": BlockState.CODEC, NbtUtils) keeps
+            // block and properties - for every moved block, not only through the registry lookup above.
+            List<String> paletteBlocks = new ArrayList<>(SimpleStorage.movedBlocks());
+            paletteBlocks.addAll(SimpleStorage.movedBackpacks());
+            paletteBlocks.add("placed_bundle");
+            for (String path : paletteBlocks) {
+                if (BuiltInRegistries.BLOCK.containsKey(SimpleStorage.id(path))) oldPaletteEntry(h, path, problems);
+            }
             // A filled Netherite chest of an old world: block entity id simplebuilding:tiered_chest, a slot of 100 (over the codec's 99).
             BlockState chestState = StorageBlocks.NETHERITE_CHEST.defaultBlockState();
             CompoundTag chestTag = oldEntity("simplebuilding:tiered_chest", "minecraft:cobblestone", 99);
@@ -637,6 +645,26 @@ public final class StorageTests {
     /** A partner mod is there when its namespace has registered items (no loader call in shared code). */
     static boolean loaded(String namespace) {
         return BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals(namespace));
+    }
+
+    /**
+     * The block {@code path} as a chunk palette entry of an old world: a non-default state written by this build, its id swapped
+     * for the old {@code simplebuilding:} one. The chunk codec (BlockState.CODEC) and NbtUtils must load the same state again.
+     */
+    private static void oldPaletteEntry(GameTestHelper h, String path, List<String> problems) {
+        BlockState state = BuiltInRegistries.BLOCK.getValue(SimpleStorage.id(path)).defaultBlockState();
+        var properties = state.getProperties().iterator();
+        if (properties.hasNext()) state = state.cycle(properties.next());
+        CompoundTag tag = net.minecraft.nbt.NbtUtils.writeBlockState(state);
+        if (!tag.contains("id")) {
+            problems.add("palette entry without id: " + tag);
+            return;
+        }
+        tag.putString("id", SimpleStorage.old(path).toString());
+        BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
+        if (decoded != state) problems.add("palette " + tag + " loads as " + decoded);
+        BlockState read = net.minecraft.nbt.NbtUtils.readBlockState(h.getLevel().holderLookup(Registries.BLOCK), tag);
+        if (read != state) problems.add("NbtUtils " + tag + " loads as " + read);
     }
 
     /** A saved block entity of an old world: {@code id} with one stack of {@code item} in slot 0. */

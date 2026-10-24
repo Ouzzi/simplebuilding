@@ -24,7 +24,7 @@ public final class RidingConfigScreen {
    }
   }
   // Editing the local file never mutates the running integrated or remote server's values.
-  builder.setSavingRunnable(()->{c.normalize();try{Files.createDirectories(Path.of("config"));Files.writeString(Path.of("config/simpleriding.json"),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(c));}catch(Exception e){throw new IllegalStateException(e);}});
+  builder.setSavingRunnable(()->{c.normalize();try{Files.createDirectories(Path.of("config"));com.simplebuilding.framework.api.ConfigFiles.writeAtomic(Path.of("config/simpleriding.json"),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(c));}catch(Exception e){throw new IllegalStateException(e);}});
   return builder.build();
  }
 }
