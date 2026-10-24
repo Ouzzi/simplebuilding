@@ -152,8 +152,7 @@ Gelesen bzw. per Durchlauf: Spawner (REV24 M-12), Entity-Speichern, Wetter-Confi
 - **P2 behoben** `fabric.mod.json` von simplerespawn, simplesounds, simplevisuals: nutzen Fabric API (Netzwerk, Befehle,
   Client-Ereignisse, Kreativtab), erklärten sie aber nicht als Abhängigkeit – ohne Fabric API Absturz beim Start statt der
   Meldung „fehlende Abhängigkeit“. Jetzt `"fabric-api": "*"` wie die anderen Module.
-- **P3 behoben** simpletweaks `fabric.mod.json` `suggests` nannte `simpledimension` (Modul heißt `simpledimensions`). In
-  `neoforge.mods.toml`/`mods.toml` steht derselbe Tippfehler – beim Port (REV2-C-10).
+- Geprüft und richtig: simpletweaks `suggests` `simpledimension` ist die Mod-Id von simpledimensions (`modules.json`), kein Tippfehler.
 
 ## Geänderte Dateien
 `modules/simplevisuals/.../lang/de_de.json`, `simplevisuals/Visuals.java`, `simplesounds/SoundClient.java`,
@@ -161,4 +160,4 @@ Gelesen bzw. per Durchlauf: Spawner (REV24 M-12), Entity-Speichern, Wetter-Confi
 `simplestorage/chest/StorageProtection.java`, Storage-`ModuleGameTest`, `simpletools/brush/BiomeBrush.java`,
 `simpletrims/recipe/TrimUpgradeRecipe.java`, `simpletweaks/admin/AdminState.java`, `simpletweaks/play/PlayState.java`,
 `simpletweaks/admin/AdminTests.java`, `simpletweaks/play/PlayTests.java`, Fabric-Adapter `AdminGameTest`, `PlayGameTest`,
-`fabric.mod.json` von simplerespawn/simplesounds/simplevisuals/simpletweaks, Guide-Texte simpletools/simpletweaks (manual.json + Lang).
+`fabric.mod.json` von simplerespawn/simplesounds/simplevisuals, Guide-Texte simpletools/simpletweaks (manual.json + Lang).

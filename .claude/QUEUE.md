@@ -378,7 +378,6 @@ Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe C (b-re
 - [ ] **REV2-C-7** Tweaks: kleine statische Spielerlisten ohne Abmelde-Aufräumen (`Freeze.AT`, `BlockLogCommands.PAGES`, `DeedService.LAST*`, `Pvp.TOGGLED`, `Coords.LAST`, `Inspect`) → `PlayerState.onLeave`
 - [ ] **REV2-C-8** Visuals: `Visuals.save` wirft bei Schreibfehler (Config-Bildschirm = Absturz) → loggen – `modules/simplevisuals/.../Visuals.java`
 - [x] (B, b-rev2c24: manual.json + Lang, audit_data 0 Treffer in Gruppe C) **REV2-C-9** Britisches Englisch in Guide-Seiten `simpletools.guide.page.9` („behaviour“), `simpletweaks.guide.page.51` („grey“)
-- [ ] **REV2-C-10** (Port-Run) simpletweaks `neoforge.mods.toml`/`mods.toml`: optionale Abhängigkeit `modId="simpledimension"` → `simpledimensions` (Fabric behoben)
 
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
