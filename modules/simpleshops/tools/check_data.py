@@ -40,7 +40,7 @@ for name in BLOCKS:
 # The trade terminal holds nothing: an ordinary block (axe, own loot with the explosion rule, never in the immune tags).
 loot = json.loads((RES / f'data/{NS}/loot_table/blocks/trade_terminal.json').read_text(encoding='utf-8'))
 alt = loot['pools'][0]['entries'][0]['children']
-assert alt[0]['name'] == f'{NS}:trade_terminal' and 'silk_touch' in json.dumps(alt[0]['conditions']) and alt[1]['name'] == 'minecraft:lectern', 'terminal: silk touch or a lectern (NA24)'
+assert alt[0]['name'] == f'{NS}:trade_terminal' and alt[0]['condition'] == 'minecraft:tool/can_silk_touch' and alt[1]['name'] == 'minecraft:lectern', 'terminal: silk touch or a lectern (NA24)'
 for kind in ('wither_immune', 'dragon_immune'):
     assert f'{NS}:trade_terminal' not in json.loads((RES / f'data/minecraft/tags/block/{kind}.json').read_text(encoding='utf-8'))['values']
 for sub in ('blockstates', 'items', 'models/block'):

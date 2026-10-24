@@ -10,33 +10,14 @@
             {
               "type": "minecraft:item",
               "name": "simpleshops:trade_terminal",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
-                    }
-                  }
-                },
-                {
-                  "condition": "minecraft:survives_explosion"
-                }
-              ]
+              "condition": "minecraft:tool/can_silk_touch"
             },
             {
               "type": "minecraft:item",
               "name": "minecraft:lectern",
-              "conditions": [
+              "modifier": [
                 {
-                  "condition": "minecraft:survives_explosion"
+                  "type": "minecraft:explosion_decay"
                 }
               ]
             }
