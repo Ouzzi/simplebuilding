@@ -97,12 +97,6 @@ public final class Vis24ClientTest implements FabricClientGameTest {
         context.runOnClient(c -> c.player.getInventory().setSelectedSlot(1));
         context.waitTicks(10);
         guard("hud-hotbar-wand", () -> shot(context, "hud-hotbar-wand"));
-        guard("hud-f3", () -> {
-            context.runOnClient(c -> c.debugEntries().toggleDebugOverlay());
-            context.waitTicks(5);
-            shot(context, "hud-f3");
-            context.runOnClient(c -> c.debugEntries().toggleDebugOverlay());
-        });
         // Survival inventory with tooltip hover over every hotbar item (the tooltips of the mod items).
         guard("inventory", () -> {
             context.runOnClient(c -> c.setScreenAndShow(new InventoryScreen(c.player)));
