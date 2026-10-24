@@ -1,0 +1,50 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebeacons"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebeacons"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebeacons"
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nether_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:nether_heart"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemobs:wither_wings_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nether_heart"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemobs:wither_wings_smithing"
+    ]
+  }
+}

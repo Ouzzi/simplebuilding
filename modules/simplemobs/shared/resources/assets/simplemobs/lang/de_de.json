@@ -85,6 +85,8 @@
   "subtitles.simplemobs.entity.hollow_howler.roar_rage": "Hollow Howler tobt",
   "block.simplemobs.nether_heart": "Netherherz",
   "block.simplemobs.nether_gem": "Rotes Nether-Juwel",
+  "item.simplemobs.wither_wings": "Wither-Schwingen",
+  "item.simplemobs.nether_wings": "Nether-Schwingen",
   "item.simplemobs.guide_book": "Simple-Mobs-Handbuch",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der Biom-Pinsel.",
@@ -122,10 +124,10 @@
   "simplemobs.guide.page.17": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
   "simplemobs.guide.page.18.title": "Kreativ-Tabs",
   "simplemobs.guide.page.18": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+  "simplemobs.guide.page.19.title": "Wither-Schwingen",
+  "simplemobs.guide.page.19": "Zwei Elytra-Stufen aus der Wither-Beute, die nur die Höchstgeschwindigkeit mit Feuerwerksraketen anheben: x2 (Wither-Schwingen) und x4 (Nether-Schwingen). Gleiten ohne Rakete bleibt Vanilla.",
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
-  "item.simplemobs.wither_wings": "Wither-Schwingen",
-  "item.simplemobs.nether_wings": "Nether-Schwingen"
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
 }
