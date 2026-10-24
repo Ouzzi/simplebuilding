@@ -190,4 +190,9 @@ public final class ModuleGameTest {
     public void musicDiscLoot(GameTestHelper h) {
         MusicTests.ALL.get("music_disc_loot").accept(h);
     }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void noteGridRoundTrip(GameTestHelper h) {
+        MusicTests.ALL.get("note_grid_round_trip").accept(h);
+    }
 }
