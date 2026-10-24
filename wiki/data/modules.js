@@ -1215,9 +1215,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 11,
-      "features": 9
+      "features": 10
     },
-    "dataHash": "6a79a1f532f4"
+    "dataHash": "cb95e9c7709e"
   },
   {
     "id": "simpleoptimization",

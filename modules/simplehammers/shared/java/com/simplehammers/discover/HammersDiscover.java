@@ -52,6 +52,7 @@ public final class HammersDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simplehammers:*_sledgehammer",
+            "simplehammers:anvil",
             "simplehammers:break_through",
             "simplehammers:config_server",
             "simplehammers:copper_sledgehammer",

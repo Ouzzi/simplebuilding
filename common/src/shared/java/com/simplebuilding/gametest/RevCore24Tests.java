@@ -146,6 +146,8 @@ public final class RevCore24Tests {
         menu.getSlot(AnvilMenu.ADDITIONAL_SLOT).set(right);
         ItemStack result = menu.getSlot(AnvilMenu.RESULT_SLOT).getItem();
         helper.assertTrue(!result.isEmpty(), "the anvil made no result for hammer + hammer");
+        // REV24-F-18: one hammer rule only (26.2 the core mixin, 26.3 Simple Hammers'), one level
+        helper.assertTrue(menu.getCost() == 1, "hammer + hammer cost " + menu.getCost() + " instead of 1");
         var enchants = EnchantmentHelper.getEnchantmentsForCrafting(result);
         helper.assertTrue(enchants.getLevel(silk) == 1, "silk touch got lost: " + enchants);
         helper.assertTrue(enchants.getLevel(fortune) == 0, "fortune was combined with silk touch: " + enchants);

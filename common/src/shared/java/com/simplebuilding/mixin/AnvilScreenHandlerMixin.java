@@ -62,8 +62,10 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
     }
 
     // --- 1. SLEDGEHAMMER CUSTOM LOGIC (HEAD) ---
+    // Nur 26.2 (McVersion.HAMMERS_IN_SB): auf 26.3 rechnet Simple Hammers' HammerAnvilMixin (REV24-F-18), sonst doppelt.
     @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
     private void updateResultHead(CallbackInfo ci) {
+        if (!McVersion.HAMMERS_IN_SB) return;
         ItemStack leftStack = this.inputSlots.getItem(0);
         ItemStack rightStack = this.inputSlots.getItem(1);
 
@@ -223,10 +225,12 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
 
         if (outputStack.isEmpty()) return;
 
-        // A) SLEDGEHAMMER REPAIR COST FIX
+        // A) SLEDGEHAMMER REPAIR COST FIX (26.2; auf 26.3 Simple Hammers' HammerAnvilMixin, REV24-F-18)
         if (com.simplebuilding.items.custom.SledgehammerItem.isHammer(outputStack.getItem())) {
-            outputStack.set(DataComponents.REPAIR_COST, 0);
-            if (this.cost.get() >= 40) this.cost.set(39);
+            if (McVersion.HAMMERS_IN_SB) {
+                outputStack.set(DataComponents.REPAIR_COST, 0);
+                if (this.cost.get() >= 40) this.cost.set(39);
+            }
         } else if (com.simplebuilding.config.ServerTuning.get().features.anvilRepairKeepsCost
                 && EnchantmentHelper.getEnchantmentsForCrafting(outputStack)
                         .equals(EnchantmentHelper.getEnchantmentsForCrafting(this.inputSlots.getItem(0)))) {

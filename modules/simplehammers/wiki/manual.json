@@ -192,6 +192,23 @@
       }
     },
     {
+      "id": "anvil",
+      "sources": [
+        "modules/simplehammers/shared/java/com/simplehammers/engine/HammerAnvil.java",
+        "modules/simplehammers/shared/java/com/simplehammers/mixin/HammerAnvilMixin.java"
+      ],
+      "en": {
+        "title": "Sledgehammers at the anvil",
+        "summary": "Two sledgehammers combine for 1 level: both durabilities plus 12 % of the maximum, enchantments merged like vanilla (incompatible ones from the right hammer are dropped). With its repair material a damaged hammer mends one eleventh per piece for 1 level per piece (+1 for a new name, at most 39). Hammer results never raise the repair cost.",
+        "details": []
+      },
+      "de": {
+        "title": "Vorschlaghämmer am Amboss",
+        "summary": "Zwei Vorschlaghämmer verbinden sich für 1 Stufe: beide Haltbarkeiten plus 12 % des Höchstwerts, Verzauberungen wie in Vanilla vereint (unverträgliche des rechten Hammers fallen weg). Mit seinem Reparaturmaterial wird ein beschädigter Hammer je Stück um ein Elftel repariert, 1 Stufe je Stück (+1 für einen neuen Namen, höchstens 39). Hammer-Ergebnisse erhöhen die Arbeitskosten nie.",
+        "details": []
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simplehammers/shared/java/com/simplehammers/config/HammerConfig.java"
@@ -258,10 +275,10 @@
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 20 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
+        "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 20 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
+        "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
       }
     },
     "simplehammers:*_sledgehammer": {

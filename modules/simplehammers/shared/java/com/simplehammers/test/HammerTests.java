@@ -277,6 +277,65 @@ public final class HammerTests {
             h.assertTrue(SledgehammerCrafting.damaged(hammer).isEmpty(), "a hammer that breaks is gone");
             h.succeed();
         });
+        ALL.put("anvil_hammer_combine", h -> {
+            // REV24-F-18: Simple Hammers' own anvil rule, standalone and with SimpleBuilding (only one mixin counts).
+            var registry = h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+            var silk = registry.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH);
+            var fortune = registry.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.FORTUNE);
+            var unbreaking = registry.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.UNBREAKING);
+            ItemStack left = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
+            int max = left.getMaxDamage();
+            left.setDamageValue(max - 100);
+            left.enchant(silk, 1);
+            left.enchant(unbreaking, 1);
+            left.set(net.minecraft.core.component.DataComponents.REPAIR_COST, 7);
+            ItemStack right = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
+            right.setDamageValue(max - 50);
+            right.enchant(fortune, 2);
+            right.enchant(unbreaking, 1);
+            ServerPlayer player = lookingDown(h, ItemStack.EMPTY);
+            var menu = anvil(player, left, right);
+            ItemStack result = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+            List<String> problems = new ArrayList<>();
+            if (!result.is(left.getItem())) problems.add("result " + result);
+            else {
+                int expected = max - Math.min(max, 150 + (int) (max * 0.12f));
+                if (result.getDamageValue() != expected) problems.add("damage " + result.getDamageValue() + " != " + expected);
+                var enchants = net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentsForCrafting(result);
+                if (enchants.getLevel(silk) != 1 || enchants.getLevel(fortune) != 0 || enchants.getLevel(unbreaking) != 2) problems.add("enchantments " + enchants);
+                if (result.getOrDefault(net.minecraft.core.component.DataComponents.REPAIR_COST, -1) != 0) problems.add("repair cost raised");
+            }
+            if (menu.getCost() != 1) problems.add("cost " + menu.getCost());
+            player.experienceLevel = 1;
+            if (!menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).mayPickup(player)) problems.add("cannot take with 1 level");
+            h.assertTrue(problems.isEmpty(), "hammer + hammer: " + problems);
+            h.succeed();
+        });
+        ALL.put("anvil_hammer_repair", h -> {
+            ItemStack left = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
+            int max = left.getMaxDamage();
+            int perItem = Math.max(1, max / 11);
+            left.setDamageValue(perItem * 2 + 1);
+            ItemStack right = new ItemStack(Items.IRON_INGOT, 10);
+            h.assertTrue(left.isValidRepairItem(right), "iron does not repair the iron hammer");
+            ServerPlayer player = lookingDown(h, ItemStack.EMPTY);
+            var menu = anvil(player, left, right);
+            var slot = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT);
+            ItemStack result = slot.getItem();
+            List<String> problems = new ArrayList<>();
+            if (!result.is(left.getItem()) || result.getDamageValue() != 0) problems.add("result " + result + " damage " + result.getDamageValue());
+            if (menu.getCost() != 3) problems.add("cost " + menu.getCost() + " (one level per ingot, 3 ingots)");
+            player.experienceLevel = 3;
+            if (!slot.mayPickup(player)) problems.add("cannot take with 3 levels");
+            else {
+                ItemStack taken = slot.getItem().copy();
+                slot.onTake(player, taken);
+                ItemStack rest = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem();
+                if (rest.getCount() != 7) problems.add("ingots left " + rest.getCount() + " != 7");
+            }
+            h.assertTrue(problems.isEmpty(), "hammer + material: " + problems);
+            h.succeed();
+        });
         ALL.put("guide_book", com.simplehammers.guide.HammersGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simplehammers.discover.HammersDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplehammers.discover.HammersDiscover::behaviourHints);
@@ -306,6 +365,13 @@ public final class HammerTests {
     }
 
     /** A survival player above {@link #SPOT}, looking straight down, {@code tool} in the main hand. */
+    static net.minecraft.world.inventory.AnvilMenu anvil(ServerPlayer player, ItemStack left, ItemStack right) {
+        var menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(), net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(left);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(right);
+        return menu;
+    }
+
     static ServerPlayer lookingDown(GameTestHelper h, ItemStack tool) {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));

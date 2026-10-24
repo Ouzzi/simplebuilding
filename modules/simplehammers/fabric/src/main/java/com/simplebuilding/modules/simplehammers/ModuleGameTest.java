@@ -80,4 +80,14 @@ public final class ModuleGameTest {
     public void discoverFirstPickupTips(GameTestHelper h) {
         HammerTests.ALL.get("discover_first_pickup_tips").accept(h);
     }
+
+    @GameTest(structure = "simplehammers:empty")
+    public void anvilHammerCombine(GameTestHelper h) {
+        HammerTests.ALL.get("anvil_hammer_combine").accept(h);
+    }
+
+    @GameTest(structure = "simplehammers:empty")
+    public void anvilHammerRepair(GameTestHelper h) {
+        HammerTests.ALL.get("anvil_hammer_repair").accept(h);
+    }
 }
