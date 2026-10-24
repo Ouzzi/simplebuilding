@@ -322,7 +322,7 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [x] (B, b-revlow24 21ccdf4bc, Bündel 55) **REV24-N-2** simplecrucibles importiert interne simplelib-Klassen statt com.simplelib.api – `modules/simplecrucibles/.../CrucibleJob.java`
 - [x] (B, b-revlow24, Bündel 55 (ConfigFiles.migrateOptions)) **REV24-N-3** options.txt-Migration doppelt und nicht atomar -> ein simplelib-Helfer – `modules/simplestorage/.../BackpackKeyMigration.java`
 - [x] (B, b-revlow24, Bündel 55 (ConfigFiles.writeAtomic, 29 Schreiber)) **REV24-N-4** Config-Dateien nicht atomar geschrieben (~30 Stellen) -> ConfigFiles.writeAtomic – `modules/simplemobs/.../MobsConfig.java u. a.`
-- [ ] (B, b-revstate24 f9157d8e9) **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
+- [~] (B, b-revn5) **REV24-N-5 Teilstand: Guard+Testhelfer nach simplelib für tools/interfaces/models/visuals; Farming/Dimensions behalten Kopie (ohne simplelib); ModelBrowser offen** --  InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
 - [x] (B, b-revlow24 Bündel 55 + b-revbackup24 72ad0f37a: begin() setzt bei Fehler noSave/running zurück, .zip.part-Reste geräumt, ATOMIC_MOVE mit Fallback; tweaks 328/328) **REV24-N-6** Backup-Worker: shutdown() ohne Warten, ZIP liest lebende Dateien, .part-Reste (Backups-Datei gehört b-revfix24) – `modules/simpletweaks/.../admin/backup/Backups.java`
 - [x] (B, b-revlow24, Bündel 55) **REV24-N-7** Maps: Waypoint-/Display-Handler ohne MapsConfig.enabled-Prüfung (MapsNetwork gehört b-revfix24) – `modules/simplemaps/.../net/MapsNetwork.java`
 - [x] (B, b-revlow24, Bündel 55) **REV24-N-8** Sledgehammer-Fläche: statisches HARVESTED_BLOCKS ohne Dimension – `modules/simplehammers/.../engine/SledgehammerUsageEvent.java`
@@ -415,6 +415,6 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ### Review 24.10. Zustand/Struktur (b-revstate24)
 - [x] **REV24-N-1** Pro-Spieler-Zustand: `PlayerState.onLeave/onStop` (simplelib), Fear/Herobrine/NetherRoof/TrimLight darüber geräumt (Fabric; NeoForge/Forge TODO im Plan). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md
-- [ ] **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
+- [~] **REV24-N-5** (Teilstand b-revn5, ModelBrowser + Farming/Dimensions-Kopien offen) InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
 - [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid)
 - [ ] **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (erst nach dem Anvil-Mixin-Agenten)

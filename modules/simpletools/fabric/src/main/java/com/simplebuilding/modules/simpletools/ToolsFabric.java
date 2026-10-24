@@ -1,4 +1,5 @@
 package com.simplebuilding.modules.simpletools;
+import com.simplelib.api.InteractionGuard;
 
 import net.fabricmc.api.ModInitializer;
 

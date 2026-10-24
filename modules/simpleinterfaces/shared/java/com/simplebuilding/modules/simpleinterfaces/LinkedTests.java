@@ -6,7 +6,7 @@ import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
 import com.simplebuilding.modules.simpleinterfaces.linked.LinkedSlot;
 import com.simplebuilding.modules.simpleinterfaces.linked.PortableContainers;
 import com.simplebuilding.modules.simpleinterfaces.linked.PortableMenu;
-import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
+import com.simplelib.api.InteractionGuard;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

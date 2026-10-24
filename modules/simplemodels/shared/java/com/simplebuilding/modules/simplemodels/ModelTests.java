@@ -1,4 +1,6 @@
 package com.simplebuilding.modules.simplemodels;
+import static com.simplelib.test.PartnerChecks.isModLoaded;
+import static com.simplelib.test.PartnerChecks.partnerMissing;
 import com.google.gson.*;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.core.component.DataComponents;
@@ -11,10 +13,6 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public final class ModelTests {
- /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
- public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
- /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
- public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     static {
         ALL.put("guide_book", com.simplebuilding.modules.simplemodels.guide.ModelsGuide::gameTest);
