@@ -310,5 +310,35 @@ dependencies {
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 
+// REV24-F-14: the server gametests share the main source set with the mod (the trees are shared with 26.2/NeoForge), but
+// only runGametest needs them, and it loads the class folders, not this jar. The release jar (also the one
+// integration/standalone runs put in their mods folder, where SB's own suite never runs) leaves them out, together with
+// their fabric-gametest entrypoints. The test centre (com.simplebuilding.dev, /sbtestcentre) stays: the owner builds it in
+// his own worlds. The check below fails the build if an entrypoint lacks its class, a gametest class slipped in or the
+// test centre is missing.
+tasks.named('jar', Jar) {
+	exclude 'com/simplebuilding/gametest/**'
+	filesMatching('fabric.mod.json') {
+		filter { String line -> line ==~ /\s*"com\.simplebuilding\.gametest\.[^"]*",?\s*/ ? null : line }
+	}
+	doLast {
+		def zip = new java.util.zip.ZipFile(archiveFile.get().asFile)
+		try {
+			def json = new groovy.json.JsonSlurper().parse(zip.getInputStream(zip.getEntry('fabric.mod.json')), 'UTF-8')
+			def missing = json.entrypoints.collectMany { kind, list -> list.collect { it instanceof Map ? it.value : it } }
+					.findAll { it.startsWith('com.simplebuilding.') }
+					.collect { it.split('::')[0] }
+					.findAll { zip.getEntry(it.replace('.', '/') + '.class') == null }
+			def leaked = zip.entries().toList()*.name.findAll { it ==~ /com\/simplebuilding\/gametest\/.+/ }
+			def centre = zip.getEntry('com/simplebuilding/dev/testcentre/TestCentreCommand.class') != null
+			if (missing || leaked || !centre) {
+				throw new GradleException("Release jar: entrypoints without class ${missing}, gametest classes ${leaked.take(5)}, test centre present: ${centre}")
+			}
+		} finally {
+			zip.close()
+		}
+	}
+}
+
 sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
 sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')
