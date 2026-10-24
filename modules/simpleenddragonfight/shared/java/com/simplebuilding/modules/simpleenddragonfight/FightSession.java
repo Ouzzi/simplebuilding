@@ -36,7 +36,7 @@ public final class FightSession {
     public static final Identifier SCALE_ID = Identifier.fromNamespaceAndPath(DragonFightRegistry.ID, "player_scale");
     public static final int SCAN_TICKS = 20;
     public static final int PAUSE_TICKS = 10;
-    public static final int RING_MIN = 3, RING_MAX = 8, SPAWN_TRIES = 8;
+    public static final int RING_MIN = 3, RING_MAX = 8, SPAWN_TRIES = 24;
 
     /** A queued entry animation: who entered and their name at that moment. */
     public record Entry(Player player, String name) {}
@@ -224,7 +224,7 @@ public final class FightSession {
         return level.getEntities(DragonFightRegistry.DRAGONMITE, box, m -> m.isAlive() && dragon.equals(m.boundDragon())).size();
     }
 
-    /** A free, safe spot on the ring 3-8 blocks around the portal column, on top of the ground; null after 8 misses. */
+    /** A free, safe spot on the ring 3-8 blocks around the portal column, on top of the ground; null after 24 misses. */
     public static @Nullable BlockPos spawnSpot(ServerLevel level, BlockPos center) {
         var random = level.getRandom();
         for (int t = 0; t < SPAWN_TRIES; t++) {
