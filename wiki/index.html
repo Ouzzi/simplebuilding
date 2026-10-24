@@ -225,6 +225,7 @@ a.badge:hover { border-color: var(--accent); color: var(--accent); text-decorati
 .box ul { margin-bottom: .2rem; }
 .hint { color: var(--muted); font-style: italic; }
 .table-wrap { overflow: auto; max-height: 70vh; -webkit-overflow-scrolling: touch; }
+.table-wrap.tw-full { max-height: none; } /* Mod-Listen: ganze Seite scrollt, kein innerer Rollbereich (b-wiki24) */
 .table-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .table thead th { position: sticky; top: 0; z-index: 1; background: var(--panel); }
 .table { width: 100%; border-collapse: collapse; font-size: .92rem; }
@@ -268,7 +269,7 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .slot img { width: 40px; height: 40px; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
 /* Animated item textures are vertical strips (one 16x16 frame under the other): show the first frame. */
 img[src*="assets/textures/"] { object-fit: cover; object-position: top; }
-.slot-text { font-size: 9.5px; line-height: 1.12; text-align: center; padding: 2px 3px; word-break: break-word; color: var(--slot-text); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.slot-text { font-size: 9.5px; line-height: 1.12; text-align: center; padding: 2px 3px; overflow-wrap: anywhere; hyphens: auto; color: var(--slot-text); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .slot-tag { box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi), inset 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
 .slot-tag .slot-text { color: var(--accent-strong); }
 .slot-tag .hash { font-weight: 700; }
@@ -295,6 +296,10 @@ img[src*="assets/textures/"] { object-fit: cover; object-position: top; }
 .recipe-base { margin-top: .5rem; font-size: .82rem; color: var(--muted); }
 .recipe-base .reflist { margin-top: .2rem; }
 .line-variant { margin-top: .4rem; }
+.line-variant summary { cursor: pointer; list-style-position: inside; }
+.line-variant ul { margin: .3rem 0 .2rem 1.1rem; padding: 0; }
+.line-variant li { overflow-wrap: anywhere; }
+.line-src { display: block; overflow-wrap: anywhere; }
 
 /* Listen */
 .listhead { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .8rem; }
@@ -340,7 +345,7 @@ img[src*="assets/textures/"] { object-fit: cover; object-position: top; }
 .crumbs { font-size: .82rem; color: var(--muted); margin-bottom: .8rem; display: flex; flex-wrap: wrap; align-items: center; gap: .15rem .4rem; }
 .crumbs a { color: var(--muted); }
 .crumbs a:hover { color: var(--accent); }
-.crumbs .sep { opacity: .55; }
+.crumbs .sep { color: var(--muted); }
 .hero { display: flex; gap: 1.4rem; align-items: center; margin-bottom: 1rem; }
 .hero > div { min-width: 0; }
 .hero h1, .idline code, .crumbs, .row-sub code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
@@ -432,6 +437,19 @@ a.chip { cursor: pointer; }
 .compat-l { font-weight: 700; font-size: .85rem; min-width: 9rem; }
 .chip-req { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent-strong); }
 .chip-opt { background: var(--panel); color: var(--muted); }
+.compat-v { flex: 1 1 16rem; min-width: 0; }
+.compat-v .chip-req, .compat-v .chip-opt { display: inline-block; }
+.chip-cmd { font-family: var(--mono, ui-monospace, monospace); font-size: .8rem; }
+a.cmd-link:hover { text-decoration: none; }
+.cmd-table td { vertical-align: top; }
+/* Handy: Mod-Tabellen als Karten statt abgeschnittener Spalten (b-wiki24). */
+@media (max-width: 640px) {
+  .am-table thead, .cmd-table thead { display: none; }
+  .am-table, .am-table tbody, .am-table tr, .am-table td, .cmd-table, .cmd-table tbody, .cmd-table tr, .cmd-table td { display: block; width: auto; }
+  .am-table tr, .cmd-table tr { padding: .55rem 0; border-bottom: 1px solid var(--border); }
+  .am-table td, .cmd-table td { border: 0; padding: .15rem .2rem; }
+  .am-table td[data-l]::before, .cmd-table td[data-l]::before { content: attr(data-l); display: block; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+}
 .home-compat a.chip:hover { text-decoration: none; }
 .compat-more { display: inline-flex; flex-wrap: wrap; gap: .3rem; max-width: 100%; }
 .compat-more > summary { list-style: none; color: var(--accent-strong); }
@@ -1974,6 +1992,24 @@ function modChip(id, cls) {
   var t = modMeta(id), label = t ? t.displayName : id;
   return t ? '<a class="chip ' + cls + '" href="' + esc(crossModHref(id, '', '')) + '">' + esc(label) + '</a>' : '<span class="chip ' + cls + '">' + esc(label) + '</span>';
 }
+/* Steckbrief und Befehle (b-wiki24): Zweck, Haupt-Mod und Befehle aus dem Modul-Inventar (wiki/modules.py -> modules.js). */
+Object.assign(STR.en, {
+  homePurpose: 'What it does', homeIncluded: 'Included in', homeCommands: 'Commands', homeConfig: 'Settings',
+  homePartReq: '{0} (required part, also works alone)', homePartOpt: '{0} (optional part, also works alone)',
+  homeSuperOf: 'Super-mod: bundles {0} sub-mods', homeAlone: 'Standalone mod', homeCfgCount: '{0} options',
+  navCommands: 'Commands', cmdIntro: 'Chat commands each mod registers. Type them in chat; most need operator rights. What the sub-commands do is described in the guides of the mod.',
+  cmdMod: 'Mod', cmdList: 'Commands', cmdNone: 'No mod registers its own command.'
+});
+Object.assign(STR.de, {
+  homePurpose: 'Was es macht', homeIncluded: 'Enthalten in', homeCommands: 'Befehle', homeConfig: 'Einstellungen',
+  homePartReq: '{0} (Pflichtteil, läuft auch allein)', homePartOpt: '{0} (optionaler Teil, läuft auch allein)',
+  homeSuperOf: 'Super-Mod: bündelt {0} Sub-Mods', homeAlone: 'Eigenständiger Mod', homeCfgCount: '{0} Optionen',
+  navCommands: 'Befehle', cmdIntro: 'Chat-Befehle, die jeder Mod anmeldet. Im Chat eingeben; die meisten brauchen Operator-Rechte. Was die Unterbefehle tun, steht in den Anleitungen des Mods.',
+  cmdMod: 'Mod', cmdList: 'Befehle', cmdNone: 'Kein Mod meldet einen eigenen Befehl an.'
+});
+function modPurpose(m) { var p = m && isObj(m.purpose) ? m.purpose : null; return (p && (p[LANG] || p.en)) || ''; }
+function cmdChips(m) { return '<span class="chips">' + arr(m.commands).map(function (c) { return '<code class="chip chip-cmd">/' + esc(c) + '</code>'; }).join('') + '</span>'; }
+function allCommandCount() { return MODULES.reduce(function (n, m) { return n + arr(m.commands).length; }, 0); }
 /* Startseite unten (S-B, a-wiki24): Pflicht gruen, optional grau, ab 11 Eintraegen ab dem 9. ausklappbar. */
 function moduleInfo() {
   var m = modMeta(selectedMod);
@@ -1984,7 +2020,26 @@ function moduleInfo() {
     return '<div class="compat-row"><span class="compat-l">' + esc(label) + '</span><span class="chips">' + head.map(function (id) { return modChip(id, cls); }).join('') +
       (rest.length ? '<details class="compat-more"><summary class="chip">' + esc(T('homeMore', rest.length)) + '</summary><span class="chips">' + rest.map(function (id) { return modChip(id, cls); }).join('') + '</span></details>' : '') + '</span></div>';
   }
-  return '<section class="home-compat"><h2>' + esc(T('homeCompat')) + '</h2>' + row(T('homeRequires'), arr(m.requires), 'chip-req') + row(T('homeOptional'), arr(m.optional), 'chip-opt') + '</section>';
+  function line(label, html) { return '<div class="compat-row"><span class="compat-l">' + esc(label) + '</span><span class="compat-v">' + html + '</span></div>'; }
+  var parent = m.parent ? modMeta(m.parent) : null, subs = modChildren(m.id), nCfg = arr(D && D.config).length;
+  var included = parent ? T(m.bundle === 'required' ? 'homePartReq' : 'homePartOpt', '\u0001').split('\u0001').map(esc).join(modChip(parent.id, m.bundle === 'required' ? 'chip-req' : 'chip-opt'))
+    : esc(subs.length ? T('homeSuperOf', subs.length) : T('homeAlone'));
+  var facts = (modPurpose(m) ? line(T('homePurpose'), esc(modPurpose(m))) : '') + line(T('homeIncluded'), included) +
+    line(T('homeCommands'), arr(m.commands).length ? '<a class="cmd-link" href="#/commands">' + cmdChips(m) + '</a>' : '<span class="muted">' + esc(T('homeNone')) + '</span>') +
+    (nCfg ? line(T('homeConfig'), '<a href="#/config">' + esc(T('homeCfgCount', nCfg)) + '</a>') : '');
+  return '<section class="home-compat"><h2>' + esc(T('homeCompat')) + '</h2>' + facts + row(T('homeRequires'), arr(m.requires), 'chip-req') + row(T('homeOptional'), arr(m.optional), 'chip-opt') + '</section>';
+}
+/* Befehle aller Mods (?tab=commands), je Mod eine Zeile; der eigene Mod steht oben. */
+function pageCommands() {
+  var mods = MODULES.filter(function (m) { return arr(m.commands).length; });
+  mods.sort(function (a, b) { return (b.id === selectedMod) - (a.id === selectedMod); });
+  var h = '<div class="listhead"><h1>' + esc(T('navCommands')) + ' <span class="muted tiny" style="font-weight:400">' + allCommandCount() + '</span></h1></div><p>' + esc(T('cmdIntro')) + '</p>';
+  if (!mods.length) return h + '<p class="hint">' + esc(T('cmdNone')) + '</p>';
+  h += '<div class="table-wrap tw-full"><table class="table cmd-table"><thead><tr><th>' + esc(T('cmdMod')) + '</th><th>' + esc(T('cmdList')) + '</th></tr></thead><tbody>';
+  mods.forEach(function (m) {
+    h += '<tr><td data-l="' + esc(T('cmdMod')) + '">' + amLink(m) + (modPurpose(m) ? '<div class="muted tiny">' + esc(modPurpose(m)) + '</div>' : '') + '</td><td data-l="' + esc(T('cmdList')) + '">' + cmdChips(m) + '</td></tr>';
+  });
+  return h + '</tbody></table></div>';
 }
 var MOD = D && isObj(D.mod) ? D.mod : {};
 var MODID = MOD.id || 'simplebuilding';
@@ -2382,11 +2437,18 @@ function renderCooking(r) {
 function lineVariantsHtml(r) {
   var vs = arr(r && r.variants).filter(isObj);
   if (!vs.length) return '';
-  function val(v) { return v == null ? T('lineVariantNone') : typeof v === 'string' ? v : JSON.stringify(v); }
+  /* Ids als Namen, Listen und Felder als Text - kein rohes JSON (b-wiki24). */
+  function val(v) {
+    if (v == null) return T('lineVariantNone');
+    if (typeof v === 'string') return /^#?[a-z0-9_.-]+:[a-z0-9_./-]+$/.test(v) && v.charAt(0) !== '#' ? (displayName(v) || v) : v;
+    if (Array.isArray(v)) return v.map(val).join(', ');
+    if (isObj(v)) return Object.keys(v).map(function (k) { return k + ' = ' + val(v[k]); }).join('; ');
+    return String(v);
+  }
   return vs.map(function (v) {
-    return '<div class="tiny line-variant">' + badge(T('lineVariant', arr(v.lines).join(' / ')), 'line') + ' ' +
-      arr(v.changes).map(function (c) { return esc(T('lineVariantField', c.field, val(c['this']), val(c.other))); }).join(' · ') +
-      (v.source ? ' <code>' + esc(v.source) + '</code>' : '') + '</div>';
+    return '<details class="tiny line-variant"><summary>' + badge(T('lineVariant', arr(v.lines).join(' / ')), 'line') + '</summary><ul>' +
+      arr(v.changes).map(function (c) { return '<li>' + esc(T('lineVariantField', c.field, val(c['this']), val(c.other))) + '</li>'; }).join('') +
+      '</ul>' + (v.source ? '<code class="line-src">' + esc(v.source) + '</code>' : '') + '</details>';
   }).join('');
 }
 function renderGeneric(r) {
@@ -2787,19 +2849,19 @@ function pageAllMods() {
   var supers = MODULES.filter(function (m) { return modChildren(m.id).length; });
   supers.forEach(function (m) {
     var o = m.overview, subs = modChildren(m.id);
-    h += '<section class="box" id="mod-' + esc(m.id) + '"><h2>' + amLink(m) + ' <span class="muted tiny">' + esc(T('amSuper')) + ' · <code>' + esc(m.id) + '</code></span></h2><p>' + esc(m.description) + '</p>';
+    h += '<section class="box" id="mod-' + esc(m.id) + '"><h2>' + amLink(m) + ' <span class="muted tiny">' + esc(T('amSuper')) + ' · <code>' + esc(m.id) + '</code></span></h2><p>' + esc(modPurpose(m) || m.description) + '</p>';
     h += '<p class="muted">' + esc('v' + m.version + ' · ' + T('amLoaders') + ': ' + m.loaders.join(', ') + (amCounts(m) ? ' · ' + amCounts(m) : '')) + '</p>';
     if (o) h += '<p><strong>' + esc(T('amStatus')) + ':</strong> ' + esc(o.status) + ' · ' + esc(o.open + ' ' + T('amOpen')) + '<br><strong>' + esc(T('amMissing')) + ':</strong> ' + esc(o.missing) + '<br><span class="muted tiny">' + esc(T('amAsOf', o.asOf)) + '</span></p>';
-    h += '<h3>' + esc(T('amSub')) + ' · ' + subs.length + '</h3><div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('amSub')) + '</th><th>' + esc(T('amBundle')) + '</th><th>' + esc(T('amContent')) + '</th><th>' + esc(T('amLoaders')) + '</th></tr></thead><tbody>';
+    h += '<h3>' + esc(T('amSub')) + ' · ' + subs.length + '</h3><div class="table-wrap tw-full"><table class="table am-table"><thead><tr><th>' + esc(T('amSub')) + '</th><th>' + esc(T('amBundle')) + '</th><th>' + esc(T('amContent')) + '</th><th>' + esc(T('amLoaders')) + '</th></tr></thead><tbody>';
     subs.forEach(function (c) {
-      h += '<tr><td>' + amLink(c) + '<br><code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(c.bundle ? T(c.bundle === 'required' ? 'amRequired' : 'amOptional') : '–') + '</td><td>' + esc(c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td><td>' + esc(c.loaders.join(', ')) + '</td></tr>';
+      h += '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td data-l="' + esc(T('amBundle')) + '">' + esc(c.bundle ? T(c.bundle === 'required' ? 'amRequired' : 'amOptional') : '–') + '</td><td data-l="' + esc(T('amContent')) + '">' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td><td data-l="' + esc(T('amLoaders')) + '">' + esc(c.loaders.join(', ')) + '</td></tr>';
     });
     h += '</tbody></table></div></section>';
   });
   var alone = MODULES.filter(function (m) { return !m.parent && !modChildren(m.id).length; });
   if (alone.length) {
-    h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap"><table class="table"><tbody>' + alone.map(function (c) {
-      return '<tr><td>' + amLink(c) + '<br><code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td></tr>';
+    h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap tw-full"><table class="table am-table"><tbody>' + alone.map(function (c) {
+      return '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td></tr>';
     }).join('') + '</tbody></table></div></section>';
   }
   return h;
@@ -4829,7 +4891,7 @@ document.getElementById('all-mods').addEventListener('change', function () { if 
    es beim Hash-Router - dann gilt HASHMODE. */
 var ROUTE_PARAM = { items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
 var PARAM_ROUTE = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures'];
+var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands'];
 var HASHMODE = false;
 function hashToRoute(h) {
   h = String(h || '');
@@ -4981,6 +5043,7 @@ var NAV_PROG = [
   { key: 'features', labelKey: 'navGuides', glyph: '✎', count: function () { return arr(D.features).length; } },
   { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return arr(D.advancements).length; } },
   { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } },
+  { key: 'commands', labelKey: 'navCommands', glyph: '/', count: function () { return allCommandCount() || null; } },
   { key: 'textures', labelKey: 'navTextures', glyph: '▦', count: function () { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).length : null; } }
 ];
 function renderSidebar(active) {
@@ -4990,7 +5053,7 @@ function renderSidebar(active) {
     NAV_REF.concat(NAV_PROG).forEach(function (entry) {
       var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
       var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
-      if (entry.key === 'textures' || entry.key === 'enchanting') links.push([entry.key, T(entry.labelKey)]);
+      if (entry.key === 'textures' || entry.key === 'enchanting' || entry.key === 'commands') links.push([entry.key, T(entry.labelKey)]);
       else if (entry.key !== 'features' && count) links.push([entry.key, T(entry.labelKey) + ' · ' + count]);
     });
     $side.innerHTML = links.map(function (entry) { return '<a href="#/' + entry[0] + '"' + ((active === entry[0] || (!entry[0] && active === 'overview')) ? ' aria-current="page" class="active"' : '') + '>' + esc(entry[1]) + '</a>'; }).join('');
@@ -5353,6 +5416,7 @@ function render(opts) {
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
       case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
       case 'textures': html = pageTextures(); title = T('navTextures'); break;
+      case 'commands': html = pageCommands(); title = T('navCommands'); break;
       case 'allrecipes': html = pageAllRecipes(); title = T('arTitle'); break;
       case 'make': case 'use': html = pageMake(r.id, r.section); title = T(r.section === 'use' ? 'mkUseTitle' : 'mkTitle', displayName(r.id)); active = 'allrecipes'; break;
       case 'tree': html = pageTree(r.id); title = T('treeTitle', r.id ? displayName(r.id) : '?'); active = ''; break;

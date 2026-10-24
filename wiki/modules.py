@@ -308,6 +308,19 @@ def extract(entry, g, check=False):
     return data, problems
 
 
+def module_inventory(repo):
+    """module id -> entry of the newest docs/ai/module-inventory-*.json (tools/audit/module_completeness.py), optional.
+    A hand-written German purpose in tools/audit/module_purposes.json wins over the inventory's."""
+    docs = sorted((repo / 'docs/ai').glob('module-inventory-*.json'))
+    out = {m['id']: dict(m) for m in json.loads(docs[-1].read_text(encoding='utf-8')).get('modules', [])} if docs else {}
+    purposes = repo / 'tools/audit/module_purposes.json'
+    if purposes.is_file():
+        for mid, p in json.loads(purposes.read_text(encoding='utf-8')).items():
+            if isinstance(p, dict) and p.get('purpose_de'):
+                out.setdefault(mid, {})['purpose_de'] = p['purpose_de']
+    return out
+
+
 def overview_status(repo):
     """Status per super-mod from 'Tabelle A' of the newest docs/ai/UEBERSICHT-MODS-*.md (hand-maintained text, optional)."""
     docs = sorted((repo / 'docs/ai').glob('UEBERSICHT-MODS-*.md'))
@@ -338,13 +351,16 @@ def sync(g, entries, selected, check=False, strict=False):
             problems += [f"{entry['id']}: incomplete prose {identifier}" for identifier in data['incompleteProse']]
         payload = json.dumps(data, indent=2, ensure_ascii=False) + '\n'
         outputs[entry['id'] + '.json'] = payload
-        outputs[entry['id'] + '.js'] = 'window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};\nwindow.WIKI_MODULE_DATA[' + json.dumps(entry['id']) + '] = ' + payload.rstrip() + ';\n'
+        # The page loads the .js: compact (no indentation) keeps the download about a fifth smaller.
+        compact = json.dumps(data, separators=(',', ':'), ensure_ascii=False)
+        outputs[entry['id'] + '.js'] = 'window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};\nwindow.WIKI_MODULE_DATA[' + json.dumps(entry['id']) + '] = ' + compact + ';\n'
     # Metadata remains separate to preserve SimpleBuilding's existing payload bytes.
     properties = dict(re.findall(r'^([\w]+)=(.*)$', (g.REPO / 'gradle.properties').read_text(encoding='utf-8'), re.M))
     catalog = [{k: e[k] for k in ('id', 'displayName', 'description', 'version', 'minecraft', 'loaders', 'requires', 'optional')} for e in entries]
     meta = {e['id']: e for e in entries}
     overview = overview_status(g.REPO)
     intros = guide_intros(g.REPO)
+    inventory = module_inventory(g.REPO)
     for e in catalog:
         # Super-/sub-mod structure for the "All mods" page and the grouped mod dropdown.
         for key in ('parent', 'bundle'):
@@ -355,6 +371,12 @@ def sync(g, entries, selected, check=False, strict=False):
         # One-sentence intro in EN/DE from the guide books (tools/guides/module_guides.py) for the wiki start page.
         if e['id'] in intros:
             e['intro'] = intros[e['id']]
+        # What the module does (EN/DE) and its chat commands, from the module inventory (tools/audit).
+        inv = inventory.get(e['id'], {})
+        if inv.get('purpose_en') or inv.get('purpose_de'):
+            e['purpose'] = {'en': inv.get('purpose_en') or inv.get('purpose_de'), 'de': inv.get('purpose_de') or inv.get('purpose_en')}
+        if inv.get('commands'):
+            e['commands'] = sorted(inv['commands'])
         # 16x16 mod icon (tools/textures/mod_icons.py) for the "All mods" page, inline so no copy is needed.
         root = meta[e['id']]['paths']['root']
         mod_id = meta[e['id']].get('modId', e['id'])

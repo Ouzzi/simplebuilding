@@ -327,6 +327,12 @@ Bericht `docs/ai/AUDIT-MODULE-2026-10-24.md`, Inventar `docs/ai/module-inventory
 - [ ] **AUDM24-4** (P3) Aschholz-/Dämmerholz-Varianten ohne Simple End: Storage `ashwood_crate`/`duskwood_crate`, Sandwiches `*_cutting_board`, Kern `*_cauldron`/`*_sheet`/`carved_*_log`/`hollow_*_log` sind immer registriert, aber nur mit Simple End herstellbar → ohne Simple End aus Tab/JEI ausblenden (`c:hidden_from_recipe_viewers` + Tab-Filter) oder nur mit Simple End registrieren (Regel 5). Prüfen per `module-<mod>-standalone-fabric-263`.
 - [ ] **AUDM24-5** (P3, an b-cmdcfg24) Config-Labels ohne Tooltip: Riding (6), Dimensions (6), Aesthetics/Optimization („Enable …“ je 3), Money `trades`, Fun `fun` (Liste `CONFIG-NO-TOOLTIP` im Bericht).
 - [ ] **AUDM24-6** (P4, Port-Run) Kern-Lang: 111 Namen + alte `tooltip.simplebuilding.{bundle,quiver}*`/`jei.simplebuilding.info.*_head` verschobener IDs erst entfernen, wenn 26.2/1.21.11 die IDs auch in die Sub-Mods verschieben.
+## Wiki 24.10. (WIKI24)
+
+Plan: `docs/ai/PLAN-B-WIKI24-2026-10-24.md`. Vorschau: `/root/sb-tools-b/previews/wiki24-visual.html`.
+- [x] (B, b-wiki24, 24.10.) **WIKI24-1** Sichtprüfung `tools/wiki/visual_check.py` (Playwright/Chromium, 51 Seiten × 1440/390 px × hell/dunkel: Konsole, 404, kaputte Bilder, Überlauf, Kontrast ≥ 4,5:1, Nicht-gefunden, Link-Stichprobe); Funde behoben: Steckbrief je Modul (Was es macht, Enthalten in, Befehle, Einstellungen), neue Seite Befehle (`?tab=commands`), Alle-Mods-Tabellen mobil als Karten, Linien-Unterschiede lesbar + eingeklappt, Brotkrumen-Kontrast, Daten-`.js` kompakt (−20 %). Beleg siehe Abschnitt b-wiki24 in der Übergabe B.
+- [ ] **WIKI24-2** sb-web: Platte 100 % (Dev-Wiki steht auf 200c482c5 vom 20.10.) und nginx `gzip_types` für JS/JSON aus (11 MB statt ~1,5 MB je Erstaufruf) – Besitzer per `pct exec 109` (B ändert dort nichts).
+- [ ] **WIKI24-3** Ersatzkacheln für nicht veröffentlichte Vanilla-abgeleitete Texturen (z. B. Enderit-Schmiedevorlage, Netherit-Ofen) zeigen nur Text; Option: eigene Pixel statt Vanilla-Ableitung (Regel A8) – Besitzer-Entscheidung.
 
 ## Code-Review 24.10. (REV24)
 
