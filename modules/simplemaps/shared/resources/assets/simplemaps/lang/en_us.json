@@ -99,7 +99,7 @@
   "screen.simplemaps.picture.no_files": "No PNG files in %s",
   "screen.simplemaps.picture.error.read": "The file could not be read",
   "screen.simplemaps.picture.summary": "%s x %s maps (%s in total)",
-  "item.simplemaps.picture_map": "Picture %s/%s",
+  "simplemaps.picture.map_name": "Picture %s/%s",
   "message.simplemaps.picture.off": "Picture maps are off on this server.",
   "message.simplemaps.picture.permission": "You may not make picture maps on this server.",
   "message.simplemaps.picture.size": "That picture wall is larger than this server allows.",

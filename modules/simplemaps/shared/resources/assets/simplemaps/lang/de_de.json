@@ -99,7 +99,7 @@
   "screen.simplemaps.picture.no_files": "Keine PNG-Dateien in %s",
   "screen.simplemaps.picture.error.read": "Die Datei konnte nicht gelesen werden",
   "screen.simplemaps.picture.summary": "%s x %s Karten (%s insgesamt)",
-  "item.simplemaps.picture_map": "Bild %s/%s",
+  "simplemaps.picture.map_name": "Bild %s/%s",
   "message.simplemaps.picture.off": "Bildkarten sind auf diesem Server aus.",
   "message.simplemaps.picture.permission": "Du darfst auf diesem Server keine Bildkarten erzeugen.",
   "message.simplemaps.picture.size": "Die Bildwand ist größer, als dieser Server erlaubt.",
