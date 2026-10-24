@@ -191,6 +191,13 @@ MODULES = [
                 "auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr "
                 "Plätzen und größeren Stapeln, und Bündel und Köcher in drei Stufen mit den Lager-Verzauberungen "
                 "Schublade, Tiefe Taschen und Trichter.")),
+    dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
+         author="Simple Lights", recipe="minecraft:glowstone_dust",
+         name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
+         intro=("Light Panes: flat lamps on any block side - plain, transparent, in sixteen colors, a redstone pane whose color "
+                "follows the signal strength and copper panes that toggle like the Copper Bulb.",
+                "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, "
+                "deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),

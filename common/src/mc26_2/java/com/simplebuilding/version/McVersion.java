@@ -159,6 +159,8 @@ public final class McVersion {
     public static final boolean NATURE_VARIANTS = false;
     /** Light Panes (N57, 2026-10-14): flat 1 px lamp panes on any block side - normal, transparent, 16 colors, redstone multicolor. */
     public static final boolean LIGHT_PANES = false;
+    /** Namespace of the Light Panes: since WB24-6 (24.10.) the required sub-mod Simple Lights on 26.3 ({@code util/LightRefs}); 26.2 has none. */
+    public static final String LIGHTS_NAMESPACE = "simplebuilding";
 
     public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
             net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {

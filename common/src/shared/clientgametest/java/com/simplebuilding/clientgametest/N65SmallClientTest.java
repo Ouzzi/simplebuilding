@@ -19,10 +19,10 @@ public final class N65SmallClientTest {
         script.command("setblock 13 4 18 minecraft:glass_pane");
         script.command("setblock 14 4 18 minecraft:glass_pane");
         // The mod's light panes (flat glass-like lamps) floating without a block behind them, seen from below.
-        script.command("setblock 6 6 18 simplebuilding:transparent_light_pane[facing=up]");
-        script.command("setblock 8 6 18 simplebuilding:light_pane[facing=up]");
-        script.command("setblock 10 6 18 simplebuilding:red_light_pane[facing=up]");
-        script.command("setblock 12 6 18 simplebuilding:blue_light_pane[facing=north]");
+        script.command("setblock 6 6 18 simplelights:transparent_light_pane[facing=up]");
+        script.command("setblock 8 6 18 simplelights:light_pane[facing=up]");
+        script.command("setblock 10 6 18 simplelights:red_light_pane[facing=up]");
+        script.command("setblock 12 6 18 simplelights:blue_light_pane[facing=north]");
         script.awaitPackets();
         script.command("tp @a 10.5 0.0 12.5 0.0 -30.0");
         script.awaitPackets();

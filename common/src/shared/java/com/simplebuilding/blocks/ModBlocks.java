@@ -643,67 +643,9 @@ public class ModBlocks {
                 .lightLevel(state -> state.getValue(EndSignalLampBlock.LIT) ? 15 : 0);
     }
 
+    // Light Panes (N57): since WB24-6 in Simple Lights (simplelights:*, util/LightRefs).
+
     /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it), own powder sound (SP22-5). */
-    // Light Panes (N57, 2026-10-14, docs/ai/PLAN-LIGHT-PANE-2026-10-14.md): flat 1 px lamps on any block side. Normal, transparent
-    // (veil over the block behind), 16 colors, and the redstone multicolor pane. Behavior in AbstractLightPaneBlock and subclasses.
-    public static final Block LIGHT_PANE = McVersion.LIGHT_PANES ? lightPane("light_pane", MapColor.COLOR_YELLOW) : null;
-    public static final Block TRANSPARENT_LIGHT_PANE = McVersion.LIGHT_PANES ? lightPane("transparent_light_pane", MapColor.NONE) : null;
-    /** The sixteen single-color panes in dye order (white ... black); empty on lines without {@link McVersion#LIGHT_PANES}. */
-    public static final List<Block> COLORED_LIGHT_PANES = McVersion.LIGHT_PANES ? coloredLightPanes() : List.of();
-    public static final Block REDSTONE_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("redstone_light_pane",
-            s -> new RedstoneLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_RED, RedstoneLightPaneBlock::light))) : null;
-    /** N65: one fixed color, flips on every rising redstone edge like the Vanilla Copper Bulb; no oxidation stages (see BERICHT-OC-LIGHTPANE2). */
-    public static final Block COPPER_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("copper_light_pane",
-            s -> new CopperLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_ORANGE, CopperLightPaneBlock::light))) : null;
-
-    /** N68: the sixteen colors of the plain panes with the copper switch (same dye order), named {@code <dye>_copper_light_pane}. */
-    public static final List<Block> COPPER_COLORED_LIGHT_PANES = McVersion.LIGHT_PANES ? copperColoredLightPanes() : List.of();
-    /** N68: the multicolor pane with the copper switch. */
-    public static final Block COPPER_REDSTONE_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("copper_redstone_light_pane",
-            s -> new com.simplebuilding.blocks.custom.CopperRedstoneLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_RED,
-                    com.simplebuilding.blocks.custom.CopperRedstoneLightPaneBlock::light))) : null;
-
-    private static List<Block> copperColoredLightPanes() {
-        List<Block> out = new java.util.ArrayList<>();
-        for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
-            out.add(registerBlock(dye.getSerializedName() + "_copper_light_pane",
-                    s -> new CopperLightPaneBlock(lightPaneProperties(s, dye.getMapColor(), CopperLightPaneBlock::light))));
-        }
-        return List.copyOf(out);
-    }
-
-    private static Block lightPane(String name, MapColor color) {
-        return registerBlock(name, s -> new LightPaneBlock(lightPaneProperties(s, color, LightPaneBlock::light)));
-    }
-
-    private static List<Block> coloredLightPanes() {
-        List<Block> out = new java.util.ArrayList<>();
-        for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
-            out.add(lightPane(dye.getSerializedName() + "_light_pane", dye.getMapColor()));
-        }
-        return List.copyOf(out);
-    }
-
-    private static BlockBehaviour.Properties lightPaneProperties(BlockBehaviour.Properties s, MapColor color,
-                                                                  java.util.function.ToIntFunction<net.minecraft.world.level.block.state.BlockState> light) {
-        return s.strength(0.3F).sound(SoundType.GLASS).mapColor(color).noCollision().noOcclusion().lightLevel(light)
-                .pushReaction(McVersion.PUSH_DESTROYS);
-    }
-
-    /** All Light Panes in tab order: normal, transparent, the sixteen colors, redstone, copper, the sixteen copper colors, copper redstone (empty without {@link McVersion#LIGHT_PANES}). */
-    public static List<Block> lightPanes() {
-        if (!McVersion.LIGHT_PANES) {
-            return List.of();
-        }
-        List<Block> out = new java.util.ArrayList<>(List.of(LIGHT_PANE, TRANSPARENT_LIGHT_PANE));
-        out.addAll(COLORED_LIGHT_PANES);
-        out.add(REDSTONE_LIGHT_PANE);
-        out.add(COPPER_LIGHT_PANE);
-        out.addAll(COPPER_COLORED_LIGHT_PANES);
-        out.add(COPPER_REDSTONE_LIGHT_PANE);
-        return List.copyOf(out);
-    }
-
     private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s, SoundType sound) {
         return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(sound)
                 .isRedstoneConductor((state, world, pos) -> false)

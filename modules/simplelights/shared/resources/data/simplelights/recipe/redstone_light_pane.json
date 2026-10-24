@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "#simplelights:light_panes",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "simplelights:redstone_light_pane"
+  }
+}

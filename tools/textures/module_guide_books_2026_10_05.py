@@ -45,6 +45,8 @@ BOOKS = {
     "simplehammers": ("simplehammers", ("#241e1a", "#3a302a", "#a0938a", "#7c7068", "#5c524c"), "#d8343c", "Hammerstahl, Schmiedeglut"),
     # 2026-10-19 (split stage 8a)
     "simplestorage": ("simplestorage", ("#2c1e10", "#46301a", "#b88a52", "#966c3a", "#74522a"), "#e04848", "Kistenholz, Apfelrot"),
+    # 2026-10-24 (WB24-6)
+    "simplelights": ("simplelights", ("#2a2410", "#443a1a", "#e8c870", "#c8a850", "#a08438"), "#fff4c0", "Glowstone-Gelb, Lampenweiss"),
     "simpletrims": ("simpletrims", ("#141838", "#20285a", "#6a7ed0", "#4a5eae", "#3a4a8a"), "#ffd860", "Nachtblau, Besatzgold"),
     "simplewanderers": ("simplewanderers", ("#2e1a0a", "#4a2c14", "#c08a48", "#a06c34", "#7a4e24"), "#5aa04a", "Reisemantel-Ocker, Schalgruen"),
     "simpleblocks": ("simpleblocks", ("#14181c", "#222830", "#6a7482", "#4c5460", "#383f4a"), "#3ac6b4", "Tiefenschiefer, Sculk-Türkis"),

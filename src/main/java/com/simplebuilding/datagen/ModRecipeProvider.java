@@ -195,37 +195,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('B', Items.BONE).define('E', Items.ECHO_SHARD).define('S', Items.SCULK)
                             .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
                 }
-                // Light Panes (N57): glass pane + glowstone dust; transparent = glass only plus a little dust; dye or redstone on a pane.
-                if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
-                    shapeless(RecipeCategory.DECORATIONS, ModItems.LIGHT_PANES.get(0), 2).requires(Items.GLASS_PANE)
-                            .requires(Items.GLOWSTONE_DUST, 2)
-                            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST)).save(output);
-                    shapeless(RecipeCategory.DECORATIONS, ModItems.LIGHT_PANES.get(1), 2).requires(Items.GLASS_PANE, 2)
-                            .requires(Items.GLOWSTONE_DUST)
-                            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST)).save(output);
-                    for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
-                        shapeless(RecipeCategory.DECORATIONS, ModItems.LIGHT_PANES.get(2 + dye.getId())).requires(com.simplebuilding.util.ModTags.Items.LIGHT_PANES)
-                                .requires(Items.DYE.pick(dye))
-                                .unlockedBy("has_light_pane", has(ModItems.LIGHT_PANES.get(0))).save(output);
-                    }
-                    shapeless(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(18)).requires(com.simplebuilding.util.ModTags.Items.LIGHT_PANES)
-                            .requires(Items.REDSTONE)
-                            .unlockedBy("has_light_pane", has(ModItems.LIGHT_PANES.get(0))).save(output);
-                    // N65: the Vanilla Copper Bulb recipe with Blaze Powder instead of the Blaze Rod
-                    shaped(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(19), 4).define('C', Items.COPPER_BLOCK.weathering().unaffected())
-                            .define('R', Items.REDSTONE).define('B', Items.BLAZE_POWDER)
-                            .pattern(" C ").pattern("CBC").pattern(" R ")
-                            .unlockedBy(getHasName(Items.COPPER_BLOCK.weathering().unaffected()), has(Items.COPPER_BLOCK.weathering().unaffected())).save(output);
-                    // N68: the copper pane takes a dye (also recoloring) or redstone like the plain pane
-                    for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
-                        shapeless(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(20 + dye.getId())).requires(com.simplebuilding.util.ModTags.Items.COPPER_LIGHT_PANES)
-                                .requires(Items.DYE.pick(dye))
-                                .unlockedBy("has_copper_light_pane", has(ModItems.LIGHT_PANES.get(19))).save(output);
-                    }
-                    shapeless(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(36)).requires(com.simplebuilding.util.ModTags.Items.COPPER_LIGHT_PANES)
-                            .requires(Items.REDSTONE)
-                            .unlockedBy("has_copper_light_pane", has(ModItems.LIGHT_PANES.get(19))).save(output);
-                }
+                // Light Panes (N57): recipes and unlocks are Simple Lights' since WB24-6 (simplelights:*).
 
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.
                 if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {

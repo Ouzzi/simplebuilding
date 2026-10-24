@@ -22,7 +22,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-RES = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
+RES = ROOT / "modules/simplelights/shared/resources/assets/simplelights"  # WB24-6: the panes are Simple Lights'
 WIKI = ROOT / "wiki/assets/textures"
 PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", ROOT / "docs/ai/previews/oc-lightpane"))
 
@@ -175,7 +175,7 @@ def base_model():
 
 
 def child_model(texture):
-    return {"parent": "simplebuilding:block/light_pane_base", "textures": {"panel": "simplebuilding:block/" + texture}}
+    return {"parent": "simplelights:block/light_pane_base", "textures": {"panel": "simplelights:block/" + texture}}
 
 
 ROT = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "east": {"x": 90, "y": 90},
@@ -183,7 +183,7 @@ ROT = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "east": {"x": 90, "y": 
 
 
 def variant(model, facing):
-    return dict({"model": "simplebuilding:block/" + model}, **ROT[facing])
+    return dict({"model": "simplelights:block/" + model}, **ROT[facing])
 
 
 def single_state(name):
@@ -217,9 +217,9 @@ def item_base_model():
 
 def item_files(name, panel=None):
     """Item definition + 3D model (plate of the pane); `panel` = texture of the plate (default: the lit block texture)."""
-    return {f"items/{name}.json": {"model": {"type": "minecraft:model", "model": f"simplebuilding:item/{name}"}},
-            f"models/item/{name}.json": {"parent": "simplebuilding:item/light_pane_item_base",
-                                         "textures": {"panel": panel or f"simplebuilding:block/{name}"}}}
+    return {f"items/{name}.json": {"model": {"type": "minecraft:model", "model": f"simplelights:item/{name}"}},
+            f"models/item/{name}.json": {"parent": "simplelights:item/light_pane_item_base",
+                                         "textures": {"panel": panel or f"simplelights:block/{name}"}}}
 
 
 def rainbow(src, diag=True):
@@ -256,7 +256,7 @@ def files():
     out["models/block/redstone_light_pane_off.json"] = child_model("redstone_light_pane_off")
     out["blockstates/redstone_light_pane.json"] = redstone_state()
     out["textures/item/redstone_light_pane.png"] = rainbow(redstone_icon())  # B-panes21: all rainbow, full panel (3D plate)
-    out.update(item_files("redstone_light_pane", "simplebuilding:item/redstone_light_pane"))
+    out.update(item_files("redstone_light_pane", "simplelights:item/redstone_light_pane"))
     return out
 
 

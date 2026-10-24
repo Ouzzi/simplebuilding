@@ -84,7 +84,7 @@ public final class VisualsTests {
   h.assertTrue(FrameTilt.viewState(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.OAK_TRAPDOOR))==net.minecraft.world.level.block.Blocks.OAK_TRAPDOOR.defaultBlockState(),"Flat block drawn in its default state");
   for(var item:List.of(net.minecraft.world.item.Items.STONE_BUTTON,net.minecraft.world.item.Items.OAK_SLAB,net.minecraft.world.item.Items.STONE,net.minecraft.world.item.Items.STICK,net.minecraft.world.item.Items.SKELETON_SKULL,net.minecraft.world.item.Items.TORCH,net.minecraft.world.item.Items.OAK_FENCE,net.minecraft.world.item.Items.AIR))
    h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(item))==FrameTilt.Kind.VANILLA&&!FrameTilt.flat(new net.minecraft.world.item.ItemStack(item)),"Keeps Vanilla frame view: "+item);
-  for(var e:java.util.Map.of("simplebuilding:diamond_pressure_plate",FrameTilt.Kind.FLAT,"simplebuilding:light_pane",FrameTilt.Kind.FLAT,"simplebuilding:oak_sheet",FrameTilt.Kind.PANE).entrySet())
+  for(var e:java.util.Map.of("simplebuilding:diamond_pressure_plate",FrameTilt.Kind.FLAT,"simplelights:light_pane",FrameTilt.Kind.FLAT,"simplebuilding:oak_sheet",FrameTilt.Kind.PANE).entrySet())
    if(BuiltInRegistries.ITEM.containsKey(Identifier.parse(e.getKey())))
     h.assertTrue(FrameTilt.kind(new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(e.getKey()))))==e.getValue(),"Mod item "+e.getKey()+" is "+e.getValue());
  }

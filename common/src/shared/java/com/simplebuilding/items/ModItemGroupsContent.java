@@ -315,14 +315,17 @@ public final class ModItemGroupsContent {
         return CreativeTabLayout.Row.of("sulfur_lights", ModItems.SULFUR_LIGHTS.toArray(new net.minecraft.world.level.ItemLike[0]));
     }
 
-    /** Light Panes (N57): normal, transparent and redstone in one row, the sixteen colors in the next; N68: the copper switch variants (copper, copper redstone) and their sixteen colors in two more rows. */
+    /**
+     * Light Panes (N57): normal, transparent and redstone in one row, the sixteen colors in the next; N68: the copper switch
+     * variants (copper, copper redstone) and their sixteen colors in two more rows. Since WB24-6 Simple Lights' items, by id.
+     */
     public static List<CreativeTabLayout.Row> lightPaneRows() {
+        List<net.minecraft.world.item.Item> panes = com.simplebuilding.util.LightRefs.items();
         return List.of(
-                CreativeTabLayout.Row.of("light_panes", ModItems.LIGHT_PANES.get(0), ModItems.LIGHT_PANES.get(1),
-                        ModItems.LIGHT_PANES.get(18)),
-                CreativeTabLayout.Row.of("light_panes_colored", ModItems.LIGHT_PANES.subList(2, 18).toArray(new net.minecraft.world.level.ItemLike[0])),
-                CreativeTabLayout.Row.of("copper_light_panes", ModItems.LIGHT_PANES.get(19), ModItems.LIGHT_PANES.get(36)),
-                CreativeTabLayout.Row.of("copper_light_panes_colored", ModItems.LIGHT_PANES.subList(20, 36).toArray(new net.minecraft.world.level.ItemLike[0])));
+                CreativeTabLayout.Row.of("light_panes", panes.get(0), panes.get(1), panes.get(18)),
+                CreativeTabLayout.Row.of("light_panes_colored", panes.subList(2, 18).toArray(new net.minecraft.world.level.ItemLike[0])),
+                CreativeTabLayout.Row.of("copper_light_panes", panes.get(19), panes.get(36)),
+                CreativeTabLayout.Row.of("copper_light_panes_colored", panes.subList(20, 36).toArray(new net.minecraft.world.level.ItemLike[0])));
     }
 
     /**

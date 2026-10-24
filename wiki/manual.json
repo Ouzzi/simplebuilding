@@ -9842,38 +9842,6 @@
         ]
       }
     },
-    "*light_pane": {
-      "en": {
-        "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-        "details": [
-          "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-          "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-          "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-          "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-          "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-        ]
-      },
-      "de": {
-        "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-        "details": [
-          "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-          "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-          "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-          "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-          "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "tools/textures/light_panes_2026_10_14.py",
-        "tools/textures/copper_light_pane_2026_10_15.py"
-      ]
-    },
     "astralit_end_rod": {
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/LineEndRodBlock.java",

@@ -1,0 +1,8 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+// 0.9.0: SimpleBuilding 26.3 requires simplelights >=0.9.0 (modules stay 0.x until the owner's approval, then 1.0.0).
+ext.moduleVersion = '0.9.0'
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API for standalone runs (SubMods switch, test centre station, creative tab settings).
+dependencies { include project(':framework') }
+// SimpleLib (IdMoves migration of the old SimpleBuilding ids) nested per principle 6a; compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

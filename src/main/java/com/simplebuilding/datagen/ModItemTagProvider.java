@@ -242,18 +242,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         // Naturvarianten (N24/N25): Stufen-Tags und der Froschlicht-Tag (simpleblocks:froglights) seit b-blocksmove in Simple Blocks.
 
-        if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
-            // Light Panes (N57): the plain pane and the sixteen colors take a dye (recoloring included); transparent and redstone do not.
-            var panes = builder(ModTags.Items.LIGHT_PANES).add(key(ModItems.LIGHT_PANES.get(0)));
-            for (net.minecraft.world.item.Item pane : ModItems.LIGHT_PANES.subList(2, 18)) {
-                panes.add(key(pane));
-            }
-            // N68: the copper pane and its sixteen colors (items 19, 20..35) take a dye or redstone as well
-            var copperPanes = builder(ModTags.Items.COPPER_LIGHT_PANES).add(key(ModItems.LIGHT_PANES.get(19)));
-            for (net.minecraft.world.item.Item pane : ModItems.LIGHT_PANES.subList(20, 36)) {
-                copperPanes.add(key(pane));
-            }
-        }
+        // Light Panes (N57): tags simplelights:light_panes / copper_light_panes are Simple Lights' since WB24-6.
 
         // Alle acht Vanilla-Kupfertruhen (Oxidationsstufen, gewachst): Zutat der Verstaerkten Truhe.
         var copperChests = builder(ModTags.Items.COPPER_CHESTS);

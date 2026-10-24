@@ -1,0 +1,6 @@
+{
+  "parent": "simplelights:item/light_pane_item_base",
+  "textures": {
+    "panel": "simplelights:block/lime_light_pane"
+  }
+}

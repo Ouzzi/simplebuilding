@@ -150,6 +150,8 @@ MODS = [
                # split stage 8c-2: the backpacks
                ("backpack", ["backpack", "*_backpack"], "Use to wear it, then press the backpack key (B)",
                 "Benutzen zum Anlegen, dann Rucksack-Taste (B)")]),
+    dict(id="simplelights", ns=["simplelights"], cls="LightsDiscover", package="com.simplelights.discover",
+         own_packages=["com.simplelights."]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

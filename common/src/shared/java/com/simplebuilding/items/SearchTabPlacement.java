@@ -399,8 +399,8 @@ public final class SearchTabPlacement {
 
         // --- Gebrauchsbloecke: Licht, Blaupause beim Kartografentisch, Oefen, Truhen, Koepfe.
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SEA_LANTERN, ModItems.CONSTRUCTION_LIGHT));
-        if (com.simplebuilding.version.McVersion.LIGHT_PANES) { // N57: the Light Panes right behind the construction light
-            out.add(Placement.after(FUNCTIONAL_BLOCKS, ModItems.CONSTRUCTION_LIGHT, ModItems.LIGHT_PANES.toArray(new ItemLike[0])));
+        if (com.simplebuilding.version.McVersion.LIGHT_PANES) { // N57: the Light Panes right behind the construction light (Simple Lights, by id)
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, ModItems.CONSTRUCTION_LIGHT, com.simplebuilding.util.LightRefs.items().toArray(new ItemLike[0])));
         }
         if (com.simplebuilding.version.McVersion.FIRES) { // N58: sulfur torch, lantern and campfire behind their soul versions
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SOUL_TORCH, ModItems.SULFUR_LIGHTS.get(0)));

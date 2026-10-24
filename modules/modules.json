@@ -28,7 +28,8 @@
         "simpleoctets",
         "simpleblocks",
         "simplehammers",
-        "simplestorage"
+        "simplestorage",
+        "simplelights"
       ],
       "optional": [
         "jei",
@@ -4053,6 +4054,69 @@
       },
       "parent": "simplebuilding",
       "bundle": "optional"
+    },
+    {
+      "id": "simplelights",
+      "name": "Simple Lights",
+      "version": "0.9.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Lights",
+      "description": "Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb, moved from SimpleBuilding (ids migrate). Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplelights/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplelights",
+        "catalogues": [
+          "modules/simplelights/fabric/src/main/java/com/simplebuilding/modules/simplelights/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplelights"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplelightsGameTest",
+            "report": "integration/build/simplelights-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplelightsStandaloneGameTest",
+              "report": "integration/build/standalone/simplelights-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplelights",
+        "shared": "modules/simplelights/shared",
+        "fabric": "modules/simplelights/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplelights/generated/resources",
+        "lang": "modules/simplelights/shared/resources/assets/simplelights/lang",
+        "wikiManual": "modules/simplelights/wiki/manual.json",
+        "balanceDir": "balance/simplelights"
+      },
+      "projects": {
+        "fabric": ":modules:simplelights:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
     }
   ]
 }
