@@ -143,6 +143,17 @@ public final class ServerOptTests {
         h.assertTrue(!ActivationRange.exempt(cow), "adult cow may sleep");
         cow.setInLove(null);
         h.assertTrue(ActivationRange.exempt(cow), "cow in love stays active");
+        var cooling = h.spawn(EntityTypes.COW, 4, 2, 1);
+        cooling.setOnGround(true);
+        cooling.setAge(6000);
+        h.assertTrue(ActivationRange.exempt(cooling), "breeding cooldown keeps ticking");
+        var poisoned = h.spawn(EntityTypes.COW, 5, 2, 1);
+        poisoned.setOnGround(true);
+        poisoned.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.POISON, 200));
+        h.assertTrue(ActivationRange.exempt(poisoned), "active potion effects keep ticking");
+        var hen = h.spawn(EntityTypes.CHICKEN, 6, 2, 1);
+        hen.setOnGround(true);
+        h.assertTrue(ActivationRange.exempt(hen), "hens keep laying");
         h.assertTrue(ActivationRange.exempt(h.spawn(EntityTypes.VILLAGER, 1, 2, 3)), "villagers stay active");
         h.assertTrue(ActivationRange.exempt(h.spawn(EntityTypes.ARMOR_STAND, 2, 2, 3)), "non-mobs are never touched");
         h.succeed();

@@ -268,6 +268,9 @@ public final class ProtectTests {
             yes(h, hidden < 50, "Obfuscating an ore-rich chunk stays cheap: " + hidden + " ms");
             var bytes = AntiXray.obfuscate(chunk);
             yes(h, bytes.length > 0, "Bench chunk serializes");
+            yes(h, AntiXray.obfuscate(chunk) == bytes, "A second viewer in the same second shares the computed chunk");
+            AntiXray.forget(level, chunk.getPos().getWorldPosition());
+            yes(h, AntiXray.obfuscate(chunk) != bytes, "A block change in the chunk drops the shared result");
         });
         h.succeed();
     }

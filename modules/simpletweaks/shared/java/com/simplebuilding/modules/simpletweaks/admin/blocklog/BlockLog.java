@@ -43,6 +43,10 @@ public final class BlockLog {
     public static final UUID WORLD = new UUID(0L, 0L);
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger("simpletweaks-blocklog");
     private static final ConcurrentLinkedQueue<Entry> QUEUE = new ConcurrentLinkedQueue<>();
+    /** Entries waiting for the writer; over {@link #maxQueue} (a stuck disk) new ones are dropped with one warning instead of filling the heap. */
+    private static final java.util.concurrent.atomic.AtomicInteger QUEUED = new java.util.concurrent.atomic.AtomicInteger();
+    public static volatile int maxQueue = 200_000;
+    private static volatile boolean overflowWarned;
     private static ExecutorService io;
     private static Path root;
     private static long ticks;
@@ -67,12 +71,13 @@ public final class BlockLog {
     }
     public static void stop() {
         if (io != null) {
+            collect(); // hopper sums of the last flush interval belong in the final drain
             io.submit(BlockLog::drain);
             io.shutdown();
             try { if (!io.awaitTermination(10, TimeUnit.SECONDS)) LOG.warn("Block log writer did not finish in 10 s"); }
             catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         }
-        io = null; root = null; QUEUE.clear(); HOPPERS.clear();
+        io = null; root = null; QUEUE.clear(); QUEUED.set(0); overflowWarned = false; HOPPERS.clear();
         Rollback.forget();
     }
     public static void tick(MinecraftServer server) {
@@ -84,14 +89,14 @@ public final class BlockLog {
 
     public static void record(ServerLevel level, ServerPlayer player, char action, BlockPos pos, String id, int count, String extra) {
         if (!active() || player == null) return;
-        QUEUE.add(new Entry(clock.millis(), action, player.getUUID(), player.getGameProfile().name(), level.dimension().identifier().toString(),
+        enqueue(new Entry(clock.millis(), action, player.getUUID(), player.getGameProfile().name(), level.dimension().identifier().toString(),
                 pos.getX(), pos.getY(), pos.getZ(), id, count, extra == null ? "" : extra));
     }
 
     /** A logged action of a non-player actor ({@code #name}). */
     public static void record(ServerLevel level, String actor, char action, BlockPos pos, String id, int count, String extra) {
         if (!active()) return;
-        QUEUE.add(new Entry(clock.millis(), action, WORLD, actor, level.dimension().identifier().toString(), pos.getX(), pos.getY(), pos.getZ(), id, count, extra == null ? "" : extra));
+        enqueue(new Entry(clock.millis(), action, WORLD, actor, level.dimension().identifier().toString(), pos.getX(), pos.getY(), pos.getZ(), id, count, extra == null ? "" : extra));
     }
     /** World events take one unit of the per-tick budget ({@code worldEventsPerTick}); false = drop the event. */
     public static boolean budget() {
@@ -114,8 +119,17 @@ public final class BlockLog {
     /** Server thread: the summed hopper moves go into the write queue. */
     static void collect() {
         if (HOPPERS.isEmpty()) return;
-        QUEUE.addAll(HOPPERS.values());
+        for (var e : HOPPERS.values()) enqueue(e);
         HOPPERS.clear();
+    }
+
+    private static void enqueue(Entry e) {
+        if (QUEUED.get() >= maxQueue) {
+            if (!overflowWarned) { overflowWarned = true; LOG.warn("Block log writer is behind ({} entries queued): dropping new entries until it catches up", QUEUED.get()); }
+            return;
+        }
+        QUEUED.incrementAndGet();
+        QUEUE.add(e);
     }
 
     /** Tests and shutdown: everything queued so far is on disk when this returns. */
@@ -129,6 +143,8 @@ public final class BlockLog {
         if (root == null) return;
         var byFile = new LinkedHashMap<Path, StringBuilder>();
         for (Entry e; (e = QUEUE.poll()) != null; ) {
+            QUEUED.decrementAndGet();
+            overflowWarned = false;
             var day = Instant.ofEpochMilli(e.time()).atZone(clock.getZone()).toLocalDate();
             byFile.computeIfAbsent(regionDir(e.dimension(), e.x() >> 9, e.z() >> 9).resolve(day + ".tsv"), k -> new StringBuilder()).append(e.line()).append('\n');
         }

@@ -17,6 +17,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
+    public void findSpotSkipsUnloaded(GameTestHelper h) {
+        WandererTests.ALL.get("find_spot_skips_unloaded").accept(h);
+    }
+
+    @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
     public void subModSwitch(GameTestHelper h) {
         WandererTests.ALL.get("sub_mod_switch").accept(h);
     }

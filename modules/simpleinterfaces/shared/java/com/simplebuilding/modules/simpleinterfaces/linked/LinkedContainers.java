@@ -213,10 +213,22 @@ public final class LinkedContainers {
 
     // --- server tick ---
 
+    /** The claim/lock right is re-checked this often: a mark does not outlive a revoked right (a vetoing claim, a new lock). */
+    private static final int PERMISSION_TICKS = 20;
+
+    private static boolean permitted(ServerPlayer player, Mark mark) {
+        return player.level().getBlockEntity(mark.pos()) instanceof BaseContainerBlockEntity be && be.canOpen(player)
+                && InteractionGuard.permission.test(player, mark.pos());
+    }
+
     /** Start of every server player tick: end invalid marks, close broken linked menus, hand particles. */
     public static void tick(ServerPlayer player) {
         Mark mark = MARKS.get(player);
         if (mark != null && !valid(player, mark)) {
+            clear(player);
+            mark = null;
+        }
+        if (mark != null && player.tickCount % PERMISSION_TICKS == 0 && !permitted(player, mark)) {
             clear(player);
             mark = null;
         }

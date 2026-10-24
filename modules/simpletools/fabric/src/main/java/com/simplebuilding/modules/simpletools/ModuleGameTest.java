@@ -54,4 +54,19 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void biomeBrushMoved(GameTestHelper h){ToolsTests.ALL.get("biome_brush_moved").accept(h);}
  @GameTest(maxTicks=100) public void biomeBrushRarity(GameTestHelper h){ToolsTests.ALL.get("biome_brush_rarity").accept(h);}
  // CAT-END
+ private static boolean[] probeSeen;
+ /** M-11: the permission probe fires the real BEFORE handlers, but area hammers must see it as a veto situation. */
+ @GameTest(maxTicks=100) public void permissionProbeVetoesAreas(GameTestHelper h){
+  boolean[] seen={false,false};
+  if(probeSeen==null){
+   probeSeen=seen;
+   net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.register((w,pl,pos,st,be)->{ if(probeSeen!=null){probeSeen[0]=true;probeSeen[1]=com.simplelib.api.HammerActions.areaVetoed();} return true; });
+  }
+  boolean[] mine=probeSeen; mine[0]=false; mine[1]=false;
+  var p=h.makeMockServerPlayerInLevel();
+  boolean ok=InteractionGuard.permission.test(p,h.absolutePos(new net.minecraft.core.BlockPos(1,2,1)));
+  h.assertTrue(ok&&mine[0]&&mine[1],"probe reached the BEFORE handler with the area veto on: "+mine[0]+"/"+mine[1]);
+  h.assertTrue(!com.simplelib.api.HammerActions.areaVetoed(),"veto is off again after the probe");
+  h.succeed();
+ }
 }

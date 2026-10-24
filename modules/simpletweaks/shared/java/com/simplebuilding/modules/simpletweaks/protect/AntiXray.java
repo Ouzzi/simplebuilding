@@ -41,7 +41,20 @@ public final class AntiXray {
     private static ProtectConfig resolvedFor;
 
     /** Drops the resolved lists (config change, reload, server start); they are rebuilt on first use. */
-    public static synchronized void invalidate() { RULES.clear(); resolvedFor = null; }
+    public static synchronized void invalidate() { RULES.clear(); resolvedFor = null; CACHE.clear(); }
+
+    /** The result for a chunk does not depend on the viewer, so players loading the same chunk within a second share it. */
+    private static final int CACHE_TICKS = 20, CACHE_MAX = 256;
+    private record CacheKey(Level level, long chunk) {}
+    private record Cached(long time, byte[] bytes) {}
+    private static final Map<CacheKey, Cached> CACHE = new HashMap<>();
+
+    /** A block changed at {@code pos}: the chunk and its neighbours (borders count for "enclosed") are recomputed. */
+    public static synchronized void forget(Level level, BlockPos pos) {
+        if (CACHE.isEmpty()) return;
+        int cx = pos.getX() >> 4, cz = pos.getZ() >> 4;
+        for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) CACHE.remove(new CacheKey(level, new net.minecraft.world.level.ChunkPos(cx + dx, cz + dz).pack()));
+    }
 
     static synchronized Rules rules(Level level) {
         var c = Protect.config();
@@ -97,6 +110,23 @@ public final class AntiXray {
 
     /** The serialized sections of {@code chunk} as the client should see them (same layout as Vanilla's buffer). */
     public static byte[] obfuscate(LevelChunk chunk) {
+        var level = chunk.getLevel();
+        long now = level.getGameTime();
+        var key = new CacheKey(level, chunk.getPos().pack());
+        synchronized (AntiXray.class) {
+            var hit = CACHE.get(key);
+            if (hit != null && now - hit.time() >= 0 && now - hit.time() < CACHE_TICKS) return hit.bytes();
+        }
+        var bytes = compute(chunk);
+        synchronized (AntiXray.class) {
+            if (CACHE.size() >= CACHE_MAX) CACHE.values().removeIf(c -> now - c.time() >= CACHE_TICKS || now < c.time());
+            if (CACHE.size() >= CACHE_MAX) CACHE.clear();
+            CACHE.put(key, new Cached(now, bytes));
+        }
+        return bytes;
+    }
+
+    private static byte[] compute(LevelChunk chunk) {
         var rules = rules(chunk.getLevel());
         var sections = chunk.getSections();
         var out = sections;
@@ -208,7 +238,7 @@ public final class AntiXray {
             long t = System.nanoTime();
             new net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData(chunk);
             long t2 = System.nanoTime();
-            obfuscate(chunk);
+            compute(chunk);
             long t3 = System.nanoTime();
             v += t2 - t; o += t3 - t2;
         }

@@ -186,6 +186,7 @@ public final class MusicServer {
     }
 
     public static void handleUploadChunk(UploadChunkPayload payload, ServerPlayer player) {
+        if (!SimpleMusic.on()) return;
         Upload upload = UPLOADS.get(player.getUUID());
         if (upload == null) return;
         String problem = upload.session().accept(payload.index(), payload.bytes(), clock.getAsLong());
@@ -268,6 +269,8 @@ public final class MusicServer {
     /** Sends download chunks within the global rate (config {@code downloadKiBPerSecond}), round robin. */
     public static void tick(MinecraftServer current) {
         com.simplemusic.pocket.PocketPlayback.tick(current);
+        // abandoned (or disconnected) uploads give their buffer back after the timeout, not only at the next foreign begin
+        if (!UPLOADS.isEmpty()) UPLOADS.values().removeIf(u -> u.session().expired(clock.getAsLong()));
         if (DOWNLOADS.isEmpty()) return;
         long budget = MusicConfig.downloadKiBPerSecond * 1024L / 20;
         boolean sent = true;

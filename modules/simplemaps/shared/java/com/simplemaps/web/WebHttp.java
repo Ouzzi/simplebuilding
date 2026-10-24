@@ -145,11 +145,19 @@ public final class WebHttp implements AutoCloseable {
             client.setSoTimeout(TIMEOUT_MS);
             InputStream in = client.getInputStream();
             OutputStream out = client.getOutputStream();
-            String requestLine = readLine(in);
+            // Slowloris: the whole request must arrive within TIMEOUT_MS (the socket timeout alone counts per read), and the
+            // per-address limit counts before anything is read.
+            long deadline = System.nanoTime() + TIMEOUT_MS * 1_000_000L;
+            String ip = client.getInetAddress() == null ? "?" : client.getInetAddress().getHostAddress();
+            if (!limit.allow(ip, System.currentTimeMillis())) {
+                respond(out, 429, "Too Many Requests", "text/plain; charset=utf-8", bytes("too many requests"), true, "Retry-After: 60");
+                return;
+            }
+            String requestLine = readLine(in, deadline);
             if (requestLine == null) return;
             String authorization = null;
             for (int i = 0; ; i++) {
-                String header = readLine(in);
+                String header = readLine(in, deadline);
                 if (header == null || i >= MAX_HEADERS) {
                     respond(out, 400, "Bad Request", "text/plain; charset=utf-8", bytes("bad request"), true);
                     return;
@@ -157,11 +165,6 @@ public final class WebHttp implements AutoCloseable {
                 if (header.isEmpty()) break;
                 int colon = header.indexOf(':');
                 if (colon > 0 && header.substring(0, colon).trim().equalsIgnoreCase("Authorization")) authorization = header.substring(colon + 1).trim();
-            }
-            String ip = client.getInetAddress() == null ? "?" : client.getInetAddress().getHostAddress();
-            if (!limit.allow(ip, System.currentTimeMillis())) {
-                respond(out, 429, "Too Many Requests", "text/plain; charset=utf-8", bytes("too many requests"), true, "Retry-After: 60");
-                return;
             }
             String[] parts = requestLine.split(" ");
             if (parts.length != 3 || !parts[2].startsWith("HTTP/1.")) {
@@ -224,9 +227,15 @@ public final class WebHttp implements AutoCloseable {
     }
 
     /** One CRLF (or LF) terminated ASCII line of at most {@link #MAX_LINE} bytes; null at end of stream or when too long. */
-    static String readLine(InputStream in) throws IOException {
+    public static String readLine(InputStream in) throws IOException {
+        return readLine(in, Long.MAX_VALUE);
+    }
+
+    /** As {@link #readLine(InputStream)}, but null once {@link System#nanoTime()} passes {@code deadlineNanos} (slow senders). */
+    public static String readLine(InputStream in, long deadlineNanos) throws IOException {
         ByteArrayOutputStream line = new ByteArrayOutputStream();
         for (int b; (b = in.read()) != -1; ) {
+            if (deadlineNanos != Long.MAX_VALUE && System.nanoTime() - deadlineNanos > 0) return null;
             if (b == '\n') {
                 byte[] raw = line.toByteArray();
                 int n = raw.length > 0 && raw[raw.length - 1] == '\r' ? raw.length - 1 : raw.length;

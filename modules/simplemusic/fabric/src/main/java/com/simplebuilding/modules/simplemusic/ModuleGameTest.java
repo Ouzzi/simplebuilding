@@ -41,6 +41,11 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("upload_moderation_download").accept(h);
     }
 
+    @GameTest(structure = "simplemusic:empty", maxTicks = 60)
+    public void uploadAbandonedExpires(GameTestHelper h) {
+        MusicTests.ALL.get("upload_abandoned_expires").accept(h);
+    }
+
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void uploadRejectsBadChunks(GameTestHelper h) {
         MusicTests.ALL.get("upload_rejects_bad_chunks").accept(h);

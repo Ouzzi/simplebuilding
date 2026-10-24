@@ -38,10 +38,22 @@ public final class NetherRoof {
         var c = Play.config().netherRoof();
         return c.opBypass() && c.bypassPermission() > 0 && PlayPerms.has(p, c.bypassPermission());
     }
+    /** Remembers {@code at} as the last safe place of {@code id} (what {@link #check} does for a player on the ground). */
+    public static void remember(UUID id, Vec3 at) { SAFE.put(id, at); }
+    /** Disconnect or server stop: the remembered place goes (it would be hours old, maybe in another world). */
+    public static void forget(UUID id) { SAFE.remove(id); }
+    public static void forgetAll() { SAFE.clear(); }
+    /** Two air blocks over a solid block, no fluid: the remembered place may be old, so it is checked again before the teleport. */
+    static boolean standable(ServerLevel level, BlockPos at) {
+        return level.getBlockState(at).isAir() && level.getBlockState(at.above()).isAir()
+                && level.getBlockState(at.below()).isFaceSturdy(level, at.below(), net.minecraft.core.Direction.UP)
+                && level.getFluidState(at.below()).isEmpty();
+    }
     /** Back to the last place below the roof, or a free spot under it. */
     public static void moveDown(ServerLevel level, ServerPlayer p) {
         var back = SAFE.get(p.getUUID());
-        if (back == null || back.distanceToSqr(p.getX(), back.y, p.getZ()) > 64 * 64) back = below(level, p.blockPosition());
+        if (back == null || back.distanceToSqr(p.getX(), back.y, p.getZ()) > 64 * 64 || !level.hasChunkAt(BlockPos.containing(back))
+                || !standable(level, BlockPos.containing(back))) back = below(level, p.blockPosition());
         p.stopRiding();
         p.teleportTo(back.x, back.y, back.z);
         p.resetFallDistance();
@@ -53,9 +65,7 @@ public final class NetherRoof {
             if (Math.max(Math.abs(dx), Math.abs(dz)) != r) continue;
             for (int y = ROOF - 6; y > level.getMinY() + 1; y--) {
                 var at = new BlockPos(pos.getX() + dx, y, pos.getZ() + dz);
-                if (level.getBlockState(at).isAir() && level.getBlockState(at.above()).isAir()
-                        && level.getBlockState(at.below()).isFaceSturdy(level, at.below(), net.minecraft.core.Direction.UP)
-                        && level.getFluidState(at.below()).isEmpty()) return Vec3.atBottomCenterOf(at);
+                if (standable(level, at)) return Vec3.atBottomCenterOf(at);
             }
         }
         return new Vec3(pos.getX() + .5, ROOF - 8, pos.getZ() + .5);
