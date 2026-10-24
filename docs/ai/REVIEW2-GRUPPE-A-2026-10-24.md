@@ -183,3 +183,11 @@ Obergrenze 2^18), 9 + 4 Client-Mixins, Config, Lang.
   Rohschlüssel. Aus dem Ursprungs-Commit (inkl. `.help`-Umbenennung fd401385d) wiederhergestellt; neuer Wächter `tools/check_lang_keys.py`.
 - P4 `net/MapsNetwork.handleTiles`: das Byte-Budget zählt nur Antworten; `data.render` läuft für bis zu 48 Kacheln je Paket (bei
   Zoom 64 je Kachel bis 4096 Nachschläge), auch wenn die Version gleich bleibt. Render-Aufrufe je Paket zählen (z. B. 16). (REV2-A-13)
+
+## Zusatz (Koordinator): Paletten-Migrationstests
+Die Id-Umzugs-Proben `CrucibleTests.migration` (alle `simplelib:`/`simplebuilding:`-Tiegel/Fässer), `BucketTests` (Seelenlava) und
+`IdMovesTests.registries` (simplelib) setzten den alten Block-Namen unter `Name`; 26.3 liest Paletten-Einträge unter `id`
+(`BlockState.CODEC`, `NbtUtils`). Damit wurde der alte Id-Pfad nie geprüft. Korrigiert nach Vorbild b-wb24lights 9f14ea143: Eintrag
+muss `id` tragen, alter Name unter `id`, zusätzlich Dekodieren über `BlockState.CODEC` (Chunk-Sektion). simpleblocks
+`moved_ids_from_simplebuilding` prüft jetzt ebenso jeden der 15 umgezogenen Natur-Blöcke über die Palette. simplehammers/-beacons/
+-dimensions/-end haben keine Block-Id-Umzüge (Hämmer: nur Items/Verzauberungen).
