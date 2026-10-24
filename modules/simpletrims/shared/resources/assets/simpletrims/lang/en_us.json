@@ -58,7 +58,7 @@
   "item.simpletrims.inverting_trim_template.base_slot_description": "Add armor",
   "item.simpletrims.inverting_trim_template.additions_slot_description": "Add Ink Sac",
   "tooltip.simpletrims.inverted": "Inverted",
-  "tooltip.simpletrims.inverted.desc": "The trim pattern is cut out, the rest of the armor takes its color",
+  "tooltip.simpletrims.inverted.desc": "Pattern cut out, armor takes its color",
   "jei.simpletrims.note.in_world": "Lay the template down, then strike it %s times with the tool (ink in the off hand).",
   "jei.simpletrims.note.durability": "Costs the tool %s durability per strike."
 }
