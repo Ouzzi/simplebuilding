@@ -46,7 +46,7 @@
   ],
   "license": "CC0-1.0",
   "suggests": {
-    "simpledimension": "*",
+    "simpledimensions": "*",
     "simplebuilding": "*",
     "simplemoney": "*",
     "simpleweather": "*",

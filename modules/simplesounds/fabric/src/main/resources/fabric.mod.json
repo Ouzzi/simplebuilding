@@ -33,7 +33,8 @@
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",
-    "cloth-config": "*"
+    "cloth-config": "*",
+    "fabric-api": "*"
   },
   "mixins": [
     "simplesounds.mixins.json"
