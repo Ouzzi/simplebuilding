@@ -38,7 +38,16 @@ public final class WorldPermissions {
         int minZ=net.minecraft.util.Mth.floor(box.minZ)>>4,maxZ=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ))>>4;
         if((long)(maxX-minX+1)*(maxZ-minZ+1)>256)return false;
         for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)if(!mayAct(level,player,new BlockPos(x*16,net.minecraft.util.Mth.floor(box.minY),z*16),action))return false;
+        // Claims kleiner als ein Chunk: auch die wirklichen Eck- und Mittelpunkte der Box fragen
+        int y=net.minecraft.util.Mth.floor(box.minY);
+        for(var point:footprintPoints(box))if(!mayAct(level,player,new BlockPos(point[0],y,point[1]),action))return false;
         return true;
+    }
+    /** Eck- und Mittelpunkte (Blockspalten) der Box; die Chunk-Ecken fragt der Aufrufer weiterhin selbst. */
+    private static int[][] footprintPoints(AABB box){
+        int x0=net.minecraft.util.Mth.floor(box.minX),x1=net.minecraft.util.Mth.floor(Math.nextDown(box.maxX));
+        int z0=net.minecraft.util.Mth.floor(box.minZ),z1=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ));
+        return new int[][]{{x0,z0},{x1,z0},{x0,z1},{x1,z1},{net.minecraft.util.Mth.floor(box.getCenter().x),net.minecraft.util.Mth.floor(box.getCenter().z)}};
     }
     public static boolean mayAffectEntity(Player player,Entity target) {return mayOccupy(target.level(),player,target.getBoundingBox(),Action.ENTITY);}
     /** Checks both machine and target footprints before any transfer, fuel use or destruction. */
@@ -66,6 +75,8 @@ public final class WorldPermissions {
         int minZ=net.minecraft.util.Mth.floor(box.minZ)>>4,maxZ=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ))>>4;
         if((long)(maxX-minX+1)*(maxZ-minZ+1)>256)return false;
         for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)if(!BRIDGE.allowsAutomation((ServerLevel)level,source,new BlockPos(x*16,source.getY(),z*16)))return false;
+        for(var point:footprintPoints(box))if(!BRIDGE.allowsAutomation((ServerLevel)level,source,new BlockPos(point[0],source.getY(),point[1])))return false;
+        for(var point:footprintPoints(entity.getBoundingBox()))if(!BRIDGE.allowsAutomation((ServerLevel)level,source,new BlockPos(point[0],source.getY(),point[1])))return false;
         return true;
     }
     public static boolean mayTeleport(ServerPlayer player,ServerLevel targetLevel,Vec3 target) {

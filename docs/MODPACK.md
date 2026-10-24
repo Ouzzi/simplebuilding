@@ -29,6 +29,9 @@ The events per loader:
 - **Fabric:** `PlayerBlockBreakEvents.BEFORE` (a refusal fires `CANCELED`). Fabric API has no block
   place event; the placement check fires `BEFORE` for the cell that is about to be filled (a
   fake-placement check - claim mods on Fabric guard their land through the break event).
+  Side effect: loggers, rollback and statistic mods that listen to the same event see a break for
+  every placed cell (usually of air). Claim mods should use the `WorldPermissions` provider API instead
+  where they can; it is asked for placements too and does not touch the break event.
 - **NeoForge:** `BreakBlockEvent` (`BlockEvent.BreakEvent` on 1.21.11) and
   `BlockEvent.EntityPlaceEvent`.
 - **Forge:** `BlockEvent.BreakEvent` (cancelled or result `DENY`) and `BlockEvent.EntityPlaceEvent`.

@@ -101,6 +101,16 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
                     int rightLevel = entry.getIntValue();
                     int leftLevel = leftEnchants.getLevel(enchantment);
 
+                    // Wie Vanilla: unvertraegliche Paarungen (Behutsamkeit/Glueck, Schutz, ...) werden verworfen
+                    boolean compatible = true;
+                    for (Holder<Enchantment> existing : builder.keySet()) {
+                        if (!existing.equals(enchantment) && !Enchantment.areCompatible(existing, enchantment)) {
+                            compatible = false;
+                            break;
+                        }
+                    }
+                    if (!compatible) continue;
+
                     // Vanilla Amboss-Logik für Level-Berechnung
                     int newLevel = leftLevel;
                     if (leftLevel == rightLevel) {

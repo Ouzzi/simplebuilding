@@ -147,8 +147,43 @@ public final class ModDataTables {
     /** The loader's datapack sync hook: sends the server's tables to {@code player}. */
     public static void sync(ServerPlayer player) {
         if (PlatformServices.canSendToPlayer(player, DataTablesSyncPayload.ID)) {
-            PlatformServices.sendToPlayer(player, new DataTablesSyncPayload(lastChisel, lastUpgrades));
+            Map<String, String> chisel = new HashMap<>(lastChisel);
+            Map<String, String> upgrades = new HashMap<>(lastUpgrades);
+            trimToPacket(chisel, upgrades);
+            PlatformServices.sendToPlayer(player, new DataTablesSyncPayload(chisel, upgrades));
         }
+    }
+
+    /** Grenze fuer alle Dateien zusammen: ein Custom Payload darf hoechstens 1 MiB haben, sonst trennt der Client. */
+    public static final int MAX_PACKET_BYTES = 900_000;
+
+    /**
+     * Wirft die groessten Dateien heraus, bis beide Maps in ein Paket passen (mit Warnung im Log). Der Client
+     * bekommt dann weniger Dateien, wird aber nicht getrennt; der Server wendet weiter alle an.
+     */
+    public static void trimToPacket(Map<String, String> chisel, Map<String, String> upgrades) {
+        while (bytes(chisel) + bytes(upgrades) > MAX_PACKET_BYTES) {
+            Map<String, String> from = largest(chisel) >= largest(upgrades) ? chisel : upgrades;
+            if (from.isEmpty()) {
+                return;
+            }
+            String id = from.entrySet().stream().max(Comparator.comparingInt(e -> e.getValue().length())).get().getKey();
+            LOGGER.warn("Data table {} is too large for the sync packet and is not sent to clients", id);
+            from.remove(id);
+        }
+    }
+
+    private static int largest(Map<String, String> files) {
+        return files.values().stream().mapToInt(String::length).max().orElse(0);
+    }
+
+    private static int bytes(Map<String, String> files) {
+        int total = 0;
+        for (var entry : files.entrySet()) {
+            total += 6 + java.nio.charset.StandardCharsets.UTF_8.encode(entry.getKey()).remaining()
+                    + java.nio.charset.StandardCharsets.UTF_8.encode(entry.getValue()).remaining();
+        }
+        return total;
     }
 
     /** Client side of {@link DataTablesSyncPayload}. */
