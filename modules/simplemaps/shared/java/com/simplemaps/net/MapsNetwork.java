@@ -210,7 +210,7 @@ public final class MapsNetwork {
         stack.set(net.minecraft.core.component.DataComponents.MAP_ID, mapId);
         stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.translatableWithFallback(
                 "item.simplemaps.picture_map", "Picture %s/%s", p.col() + 1 + p.row() * p.cols(), p.cols() * p.rows()));
-        if (!player.getInventory().add(stack)) player.drop(stack, false);
+        player.getInventory().placeItemBackInInventory(stack, net.minecraft.util.Prediction.SERVER_ONLY);
         return PictureResult.OK;
     }
 
