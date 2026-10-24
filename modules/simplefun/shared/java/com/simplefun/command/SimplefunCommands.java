@@ -17,8 +17,8 @@ public class SimplefunCommands {
   public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
     dispatcher.register(
         Commands.literal("simplefun")
-            // Level 4 (admins) for config changes.
-            .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
+            // Level 2 (game masters) for config changes, like every config command (CMD24).
+            .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
             // pvp headDrops moved to Simple Mobheads (/simplemobheads pvp headDrops; it keeps /simplefun pvp headDrops as alias).
             .then(
                 Commands.literal("tweaks")

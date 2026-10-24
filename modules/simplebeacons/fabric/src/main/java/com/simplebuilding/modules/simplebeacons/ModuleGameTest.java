@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void configCommand(GameTestHelper h) {
+        BeaconsTests.ALL.get("config_command").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
         BeaconsTests.ALL.get("registered").accept(h);
     }

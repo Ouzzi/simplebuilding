@@ -70,6 +70,9 @@ public final class SimpleCrucibles {
 
     public static void init(Path configDir) {
         CrucibleConfig.load(configDir);
+        // CMD24: /simplecrucibles config; the village kitchen and soul lava fuel/world generation are read at start.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(CrucibleConfig::toJson, CrucibleConfig::apply).file(configDir, CrucibleConfig.FILE)
+                .restart("villageKitchenWeight", "soulLava.fuelMultiplier", "soulLava.springChance", "soulLava.fortressChance").register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
         // The shipped upgrade file (data/simplecrucibles/in_world_upgrades) applies before datapack files of other namespaces.

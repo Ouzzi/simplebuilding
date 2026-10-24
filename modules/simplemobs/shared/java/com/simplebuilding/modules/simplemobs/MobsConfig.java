@@ -77,6 +77,12 @@ public final class MobsConfig {
     /** Reads (and writes if missing) the client config; unreadable files fall back to the defaults. */
     public static void loadClient(Path dir) {
         Path file = dir == null ? null : dir.resolve(CLIENT_FILE);
+        // CMD24: /simplemobs clientconfig reduceMotion.
+        com.simplelib.api.config.ConfigCommands.client(MobsRegistry.ID).json(() -> {
+            JsonObject o = new JsonObject();
+            o.addProperty("reduceMotion", reduceMotion);
+            return o;
+        }, json -> reduceMotion = bool(json, "reduceMotion", false)).file(file).register();
         try {
             if (file != null && Files.isRegularFile(file)) {
                 JsonObject read = GSON.fromJson(Files.readString(file), JsonObject.class);
@@ -115,6 +121,8 @@ public final class MobsConfig {
             }
         }
         apply(json);
+        // CMD24: /simplemobs config; the Trick Mirror's recipe and drop follow the switch when data loads.
+        com.simplelib.api.config.ConfigCommands.server(MobsRegistry.ID).json(MobsConfig::toJson, MobsConfig::apply).file(file).restart("trickMirrorEnabled").register();
         if (file != null) {
             try {
                 Files.createDirectories(dir);

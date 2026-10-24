@@ -58,6 +58,8 @@ public final class SimpleOvens {
 
     public static void init(Path configDir) {
         OvensConfig.load(configDir);
+        // CMD24: /simpleovens config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(OvensConfig::toJson, OvensConfig::apply).file(configDir, OvensConfig.FILE).register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
         // The shipped upgrade file (data/simpleovens/in_world_upgrades) applies before datapack files of other namespaces.

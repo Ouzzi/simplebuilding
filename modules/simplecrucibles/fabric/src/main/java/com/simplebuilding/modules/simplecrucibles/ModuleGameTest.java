@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
+    public void configCommand(GameTestHelper h) {
+        CrucibleTests.ALL.get("config_command").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
     public void configAdoptsSimplelibOptions(GameTestHelper h) {
         CrucibleTests.ALL.get("config_adopts_simplelib_options").accept(h);
     }

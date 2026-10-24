@@ -46,5 +46,22 @@
   "text.autoconfig.simplelib.option.legendaryAdvancements.@Tooltip": "Fortschritts-IDs zusätzlich zur eingebauten\nListe, z. B. minecraft:story/enter_the_end.",
   "text.autoconfig.simplelib.option.legendaryEnchantments": "Weitere legendäre Verzauberungen",
   "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending.",
-  "jei.simplelib.category.in_world_upgrade": "Upgrades in der Welt"
+  "jei.simplelib.category.in_world_upgrade": "Upgrades in der Welt",
+  "simplelib.config.list": "%s: %s Optionen (gold = geändert)",
+  "simplelib.config.get": "%s = %s (Standard %s, %s)",
+  "simplelib.config.set": "%s: %s auf %s gesetzt",
+  "simplelib.config.reset": "%s: %s auf %s zurückgesetzt",
+  "simplelib.config.clamped": "Außerhalb des Bereichs: stattdessen %s gespeichert.",
+  "simplelib.config.invalid": "„%s“ ist ungültig (erwartet: %s) für %s",
+  "simplelib.config.unknown": "Unbekannte Option: %s",
+  "simplelib.config.save_failed": "%s wurde auf %s geändert, aber die Datei konnte nicht gespeichert werden (siehe Log).",
+  "simplelib.config.restart": "Wirkt nach einem Neustart.",
+  "simplelib.config.choices": "Werte: %s",
+  "simplelib.config.help": "%1$s [list [Gruppe] | get <Option> | set <Option> <Wert> | reset <Option>]: zeigt und ändert jede Option dieses Mods; Tab ergänzt Optionen und Werte.",
+  "simplelib.config.type.bool": "true/false",
+  "simplelib.config.type.int": "ganze Zahl",
+  "simplelib.config.type.decimal": "Zahl",
+  "simplelib.config.type.text": "Text",
+  "simplelib.config.type.list": "Liste (a, b, c oder JSON)",
+  "simplelib.config.type.object": "JSON-Objekt"
 }

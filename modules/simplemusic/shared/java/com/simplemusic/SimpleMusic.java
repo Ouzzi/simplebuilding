@@ -46,6 +46,9 @@ public final class SimpleMusic {
     public static void init(Path dir) {
         configDir = dir;
         MusicConfig.load(dir);
+        // CMD24: /simplemusic config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(MusicConfig::toJson, MusicConfig::apply).file(dir, MusicConfig.FILE)
+                .choices("sheetSounds", MusicConfig.SheetSounds.class).choices("uploads", MusicConfig.Uploads.class).register();
         registerIdMoves();
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "music", "simplemusic.testcentre.station",
                 java.util.stream.Stream.concat(java.util.stream.Stream.of("simplemusic:sheet_music", "simplemusic:disc_press",

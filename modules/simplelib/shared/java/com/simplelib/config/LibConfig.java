@@ -33,6 +33,9 @@ public final class LibConfig {
     public static java.util.List<net.minecraft.resources.Identifier> legendaryEnchantments = java.util.List.of();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplelib-server.json";
+    /** The keys this class owns (the config command lists only these, CMD24). */
+    public static final java.util.List<String> KEYS = java.util.List.of("warmBaseTicks", "warmDurationTicks", "warmBundleDurationTicks",
+            "eatSpeedBonus", "legendaryEffects", "legendaryAllChallenges", "legendaryMuteToast", "legendaryAdvancements", "legendaryEnchantments");
     /** Keys this class does not own (the crucible options before split stage 5): written back unchanged so Simple Crucibles can still take them over. */
     private static JsonObject kept = new JsonObject();
     private static Path file;

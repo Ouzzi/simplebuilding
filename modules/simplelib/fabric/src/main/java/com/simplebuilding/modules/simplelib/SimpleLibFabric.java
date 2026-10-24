@@ -41,5 +41,12 @@ public final class SimpleLibFabric implements ModInitializer {
         // Per-player static state of the modules (PlayerState): dropped on disconnect and server stop.
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplelib.api.PlayerState.left(handler.getPlayer()));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.api.PlayerState.stopped());
+        // CMD24: /<modid> config for every announced config, in a late phase so existing /<modid> roots keep their checks.
+        var configPhase = SimpleLib.id("config_commands");
+        net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.addPhaseOrdering(net.fabricmc.fabric.api.event.Event.DEFAULT_PHASE, configPhase);
+        net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register(configPhase, (dispatcher, registry, environment) ->
+                com.simplelib.api.config.ConfigCommands.registerAll(dispatcher, false,
+                        net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS),
+                        com.simplelib.api.config.ConfigCommands.SERVER_IO));
     }
 }

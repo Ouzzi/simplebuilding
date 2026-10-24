@@ -39,6 +39,8 @@ public final class RidingConfig {
   var gson=new GsonBuilder().setPrettyPrinting().create(); var path=directory.resolve("simpleriding.json");
   RidingConfig c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(path,t->gson.fromJson(t,RidingConfig.class),org.slf4j.LoggerFactory.getLogger("SimpleRiding")::warn);
   if(c==null)c=new RidingConfig();
+  // CMD24: /simpleriding config for every option (normalize keeps the hard caps).
+  com.simplelib.api.config.ConfigCommands.server("simpleriding").gson(RidingConfig.class,()->Riding.CONFIG,n->{n.normalize();Riding.CONFIG=n;},()->{var d=new RidingConfig();d.normalize();return d;}).file(path).register();
   try { c.normalize(); if(!Files.exists(path)){ Files.createDirectories(directory); Files.writeString(path,gson.toJson(c)); } return c;
   } catch(java.io.IOException e) { throw new IllegalStateException("Cannot write Simple Riding server config "+path,e); }
  }

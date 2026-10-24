@@ -8,13 +8,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
-/** {@code /simpletools} (owners): the switches formerly under {@code /simplequalityoflife tweaks}. */
+/** {@code /simpletools} (game masters, level 2): the switches formerly under {@code /simplequalityoflife tweaks}. */
 public final class ToolsCommands {
     private ToolsCommands() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal(SimpleTools.MOD_ID)
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(toggle("fullDurabilityBonus", (c, v) -> c.enableFullDurabilityBonus = v))
                 .then(toggle("anvilRepairKeepsCost", (c, v) -> c.anvilRepairKeepsCost = v))
                 .then(toggle("furnaceLava", (c, v) -> c.enableFurnaceLavaFill = v))

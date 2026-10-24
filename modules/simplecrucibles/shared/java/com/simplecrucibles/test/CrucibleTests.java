@@ -40,6 +40,17 @@ public final class CrucibleTests {
 
     static {
         ALL.put("config_bounds", CrucibleTests::configBounds);
+        // CMD24: a nested group (soulLava.*) through /simplecrucibles config, clamp and the restart hint.
+        ALL.put("config_command", h -> {
+            com.simplelib.test.ConfigCommandTests.roundTrip(h, SimpleCrucibles.MOD_ID, "soulLava.burnSeconds", "20", "20", "1.5");
+            var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleCrucibles.MOD_ID, false);
+            String before = com.simplelib.api.config.ConfigCommands.show(spec.value("soulLava.burnSeconds"));
+            var r = spec.set("soulLava.burnSeconds", "999");
+            spec.set("soulLava.burnSeconds", before);
+            h.assertTrue(r.status() == com.simplelib.api.config.ConfigCommands.Status.CLAMPED && r.value().equals("60"), "clamp " + r);
+            h.assertTrue(spec.restart("soulLava.fuelMultiplier") && !spec.restart("soulLava.burnSeconds"), "restart hint");
+            h.succeed();
+        });
         ALL.put("config_adopts_simplelib_options", CrucibleTests::configAdoptsSimpleLibOptions);
         ALL.put("broken_config_is_quarantined", CrucibleTests::brokenConfigIsQuarantined);
         ALL.put("registered", CrucibleTests::registered);

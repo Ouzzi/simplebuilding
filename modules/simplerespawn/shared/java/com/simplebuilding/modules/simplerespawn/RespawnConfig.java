@@ -49,6 +49,8 @@ public final class RespawnConfig {
                 SimpleRespawn.LOG::warn);
         JsonObject json = read == null ? new JsonObject() : read;
         apply(json);
+        // CMD24: /simplerespawn config for every option.
+        com.simplelib.api.config.ConfigCommands.server("simplerespawn").json(RespawnConfig::toJson, RespawnConfig::apply).file(file).register();
         if (file != null) {
             try {
                 Files.createDirectories(dir);

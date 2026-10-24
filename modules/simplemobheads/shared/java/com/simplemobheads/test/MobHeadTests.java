@@ -79,6 +79,7 @@ public final class MobHeadTests {
 
     static {
         put("registered", MobHeadTests::registered);
+        put("config_command", MobHeadTests::configCommand);
         put("mobs_have_heads", MobHeadTests::everyMobHasAHead);
         put("sounds_and_names", MobHeadTests::soundsAndNames);
         put("creeper_drops_every_head", MobHeadTests::creeperDropsEveryHead);
@@ -125,6 +126,20 @@ public final class MobHeadTests {
     }
 
     private MobHeadTests() {
+    }
+
+    /** CMD24: the object config (Gson) through /simplemobheads config: set, clamp to the cap, one switch per ability, restart hint. */
+    private static void configCommand(GameTestHelper h) {
+        com.simplelib.test.ConfigCommandTests.roundTrip(h, SimpleMobHeads.MOD_ID, "playerKillChance", "0.05", "0.05", "x");
+        var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleMobHeads.MOD_ID, false);
+        var r = spec.set("playerKillChance", "0.5");
+        h.assertTrue(r.status() == com.simplelib.api.config.ConfigCommands.Status.CLAMPED && SimpleMobHeads.config().playerKillChance == MobHeadsConfig.MAX_PLAYER_KILL_CHANCE,
+                "clamp " + r);
+        String ability = SimpleMobHeads.abilityIds().iterator().next();
+        h.assertTrue(spec.option("abilities." + ability) != null, "no switch for ability " + ability);
+        h.assertTrue(spec.set("abilities." + ability, "false").ok() && !SimpleMobHeads.config().ability(ability), "ability switch");
+        h.assertTrue(spec.restart("hintBook") && !spec.restart("greeting"), "restart hint");
+        h.succeed();
     }
 
     private static void put(String name, Consumer<GameTestHelper> body) {

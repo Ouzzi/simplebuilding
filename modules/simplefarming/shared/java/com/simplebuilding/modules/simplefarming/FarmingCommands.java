@@ -8,13 +8,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
-/** {@code /simplefarming} (owners): the switches formerly under {@code /simplequalityoflife tweaks}. */
+/** {@code /simplefarming} (game masters, level 2): the switches formerly under {@code /simplequalityoflife tweaks}. */
 public final class FarmingCommands {
     private FarmingCommands() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal(SimpleFarming.MOD_ID)
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(toggle("farmlandProtect", (c, v) -> c.preventFarmlandTrampleWithFeatherFalling = v))
                 .then(toggle("hoeHarvest", (c, v) -> c.enableHoeHarvest = v))
                 .then(toggle("sharpnessCut", (c, v) -> c.sharpnessCutsGrass = v)));

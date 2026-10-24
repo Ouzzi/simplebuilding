@@ -82,5 +82,6 @@
   "quests.simplemodels.start.title": "Willkommen bei Simple Models",
   "quests.simplemodels.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemodels.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemodels.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Models-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Rahmen herstellen."
+  "quests.simplemodels.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Models-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Rahmen herstellen.",
+  "commands.simplemodels.reload": "Simple Models: %s Modelle neu geladen und an alle Spieler geschickt."
 }

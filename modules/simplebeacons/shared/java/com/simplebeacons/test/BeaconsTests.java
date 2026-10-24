@@ -60,6 +60,18 @@ public final class BeaconsTests {
     static final BlockPos CENTER = new BlockPos(7, 7, 7);
 
     static {
+        // CMD24: /simplebeacons config set/get/reset through the server's dispatcher, clamp, map group of effect switches.
+        ALL.put("config_command", h -> {
+            com.simplelib.test.ConfigCommandTests.roundTrip(h, SimpleBeacons.MOD_ID, "upgradeStrikes", "12", "12", "abc");
+            var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleBeacons.MOD_ID, false);
+            String before = com.simplelib.api.config.ConfigCommands.show(spec.value("upgradeStrikes"));
+            var r = spec.set("upgradeStrikes", "999");
+            spec.set("upgradeStrikes", before);
+            h.assertTrue(r.status() == com.simplelib.api.config.ConfigCommands.Status.CLAMPED && r.value().equals(String.valueOf(BeaconsConfig.STRIKES_MAX)), "clamp " + r);
+            var effect = spec.option("strongBeaconEffects.night_vision");
+            h.assertTrue(effect != null && effect.kind() == com.simplelib.api.config.ConfigCommands.Kind.BOOL, "effect switch " + effect);
+            h.succeed();
+        });
         ALL.put("config_defaults", h -> {
             BeaconsConfig.reset();
             h.assertTrue(BeaconsConfig.enabled && BeaconsConfig.strongBeaconMaxLevels == 6 && BeaconsConfig.strongBeaconRangeBase == 10

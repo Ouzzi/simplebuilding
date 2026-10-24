@@ -82,5 +82,6 @@
   "quests.simplemodels.start.title": "Welcome to Simple Models",
   "quests.simplemodels.start.subtitle": "Your free guide",
   "quests.simplemodels.start.welcome.title": "A free guide",
-  "quests.simplemodels.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Models Guide as a reward. You can also craft it from a book and an item frame."
+  "quests.simplemodels.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Models Guide as a reward. You can also craft it from a book and an item frame.",
+  "commands.simplemodels.reload": "Simple Models: %s models reloaded and sent to all players."
 }

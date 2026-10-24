@@ -51,7 +51,10 @@ public final class Models {
         dispatcher.register(net.minecraft.commands.Commands.literal("simplemodels")
                 .requires(s -> net.minecraft.commands.Commands.LEVEL_GAMEMASTERS.check(s.permissions()))
                 .then(net.minecraft.commands.Commands.literal("reload").executes(c -> {
-                    reload(); c.getSource().getServer().getPlayerList().getPlayers().forEach(send); return server.models().size();
+                    reload(); c.getSource().getServer().getPlayerList().getPlayers().forEach(send);
+                    int count = server.models().size();
+                    c.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.translatable("commands.simplemodels.reload", count), true);
+                    return count;
                 })));
     }
     private Models() {}

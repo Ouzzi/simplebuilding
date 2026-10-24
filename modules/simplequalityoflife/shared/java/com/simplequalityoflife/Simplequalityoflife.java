@@ -26,5 +26,7 @@ public final class Simplequalityoflife {
  public static void serverStarted(){serverConfig=getLocalConfig();serverConfig.normalize();subMods(serverConfig);}
  /** Super-mod switches "Enable Simple XY": the sub-mods read them through framework SubMods (no class import). */
  public static void subMods(SimplequalityoflifeConfig c){com.simplebuilding.framework.api.SubMods.set("simpleweather",c.enableSimpleWeather);com.simplebuilding.framework.api.SubMods.set("simpleinterfaces",c.enableSimpleInterfaces);com.simplebuilding.framework.api.SubMods.set("simpleloot",c.enableSimpleLoot);com.simplebuilding.framework.api.SubMods.set("simplemobmanners",c.enableSimpleMobManners);com.simplebuilding.framework.api.SubMods.set("simplefarming",c.enableSimpleFarming);com.simplebuilding.framework.api.SubMods.set("simpletools",c.enableSimpleTools);com.simplebuilding.framework.api.SubMods.set("simplemovement",c.enableSimpleMovement);}
+ /** The config command (CMD24): a new, normalised server config; {@link #save} writes it. */
+ public static void replace(SimplequalityoflifeConfig c){c.normalize();serverConfig=c;}
  public static void save(){serverConfig.normalize();AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).setConfig(serverConfig);AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).save();subMods(serverConfig);}
 }
