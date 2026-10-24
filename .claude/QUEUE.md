@@ -104,18 +104,16 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 ---
 
 ## Besitzer 24.10. 00:20 – Nachträge aus alter Sitzung (NA24)
-- [~] (B, b-shops24, 23.10.) NA24-1 Trade Terminal nur mit Behutsamkeit (Silk Touch) abbaubar, sonst droppt nur ein Lesepult.
-- [~] (B, b-shops24, 23.10.) NA24-2 Rezepte: Sales-Block + oben ein Trichter; Sales Storage zwei Trichter (einer oben Mitte, einer unten Mitte); Display = Holzdruckplatte unten, Glasblock, ringsum Eisennuggets.
-- [~] (B, b-shops24, 23.10.) NA24-3 Displays tönbar (alle Farbtöne abdecken, wie gefärbtes/getöntes Glas). Optik erst exemplarisch.
+- [x] (B, b-shops24, 24.10.) NA24-1 Trade Terminal nur mit Behutsamkeit (Silk Touch) abbaubar, sonst droppt nur ein Lesepult. → Loot nur mit Behutsamkeit, sonst Lesepult; Test terminal_drops_lectern_without_silk_touch
+- [x] (B, b-shops24, 24.10.) NA24-2 Rezepte: Sales-Block + oben ein Trichter; Sales Storage zwei Trichter (einer oben Mitte, einer unten Mitte); Display = Holzdruckplatte unten, Glasblock, ringsum Eisennuggets. → Verkaufsblock PHP/IEI/PCP (Trichter ersetzt oberes Mittelbrett – Besitzer bestätigen), Lager PHP/IEI/PHP, Vitrine NNN/NGN/NPN; Test shops_recipes_na24
+- [~] (B, b-shops24, 23.10.) NA24-3 Displays tönbar (alle Farbtöne abdecken, wie gefärbtes/getöntes Glas). Optik erst exemplarisch. → TEILSTAND: nur Rot (Variante A getöntes Glas, Schleichen+Farbstoff), Vorschau https://claude.ai/artifact/3TU5GXtDyBgx7nYVSHUZuJ – 15 Töne nach Besitzer-Wahl
 - [~] (B, b-kitchen24, 23.10.) NA24-4 Schneidebrett-Rezept: Stufe + ringsum 4 Stöcke. Küchenmesser-Textur 90° im Uhrzeigersinn drehen, dann horizontal spiegeln.
 - [~] (B, b-kitchen24, 23.10.) NA24-5 Laufen auf Butterblock gibt „Slippery“-Effekt 3 s (rutschen auf allen Blöcken wie auf Butter). Butterscheibe als Butter-Teppich platzierbar, ebenfalls Slippery.
-- [~] (B, b-trims24, 23.10.) NA24-6 Simple Trims: inverser Rüstungsbesatz (gleiches Muster, invertiert über die Rüstung), erhältlich über eigenen Conduit im gleichen Umwandlungs-Schema wie die anderen. JEI-Tabs für Umwandlung fehlen → über simplelib wiederherstellen.
 - [~] (B, b-kitchen24, 23.10.) NA24-7 Spezialfaser-Rezept gleich lassen, nur Anordnung neu.
 - [~] (B, b-music24, 23.10.) NA24-8 Simple Music Notenblatt: Beispiel(e) mitliefern, mehrere von einfach bis komplex – 3 erfundene Eigenkreationen + Rest coole copyright-freie Stücke (gemeinfrei). Spieler (Player) setzen einiges noch falsch um → Fehler suchen und fixen (Gametests).
-- [~] (B, b-folge24, 23.10.) NA24-9 Splitter/Kleinteile aus allen Mods (z. B. Strong-Upgrade-Splitter) platzierbar machen (wie PlacedSolids).
 
 ## Besitzer 23.10. nachts – Wither-Elytra (EL24)
-- [~] (A, a-elytra24, 23.10., Teilstand 99e8303a9: umgesetzt, Compile/Tests ausstehend) EL24-1 Neue Elytra-Stufen: Stufe 1 = Elytra + Strong-Upgrade-Vorlage + Wither-Herz (Schmieden; Besitzer: „meinetwegen erstmal im Amboss“) → Optik mehr „Flügel“; Stufe 2 = Stufe 1 + Strong-Upgrade + Nether-Gem. Kein Grundtempo-Bonus: nur die Höchstgeschwindigkeit (z. B. mit Raketen) ist bei Stufe 1 doppelt, bei Stufe 2 vierfach so hoch wie Vanilla (höheres Risiko an Wänden). Weitere Anpassungen folgen später.
+- [x] (A→B, a-elytra24, 24.10.: e1a183974, simplemobs 218/218, data_integrity 51/51, check grün; Look-Wahl https://claude.ai/artifact/VjX8pB6xntzC93gyaALeAH, Client-Sicht offen) EL24-1 Neue Elytra-Stufen: Stufe 1 = Elytra + Strong-Upgrade-Vorlage + Wither-Herz (Schmieden; Besitzer: „meinetwegen erstmal im Amboss“) → Optik mehr „Flügel“; Stufe 2 = Stufe 1 + Strong-Upgrade + Nether-Gem. Kein Grundtempo-Bonus: nur die Höchstgeschwindigkeit (z. B. mit Raketen) ist bei Stufe 1 doppelt, bei Stufe 2 vierfach so hoch wie Vanilla (höheres Risiko an Wänden). Weitere Anpassungen folgen später.
 
 ## Warteliste (später, Besitzer 23.10.)
 - [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` – **Konzept fertig (a-earth-konzept, 23.10.), Fragen E1–E12 an den Besitzer**, Empfehlung Tesserakt-Variante V3 „Eckfenster + Umstülpen“; Vorschau `/root/sb-tools-a/previews/earth-konzept.html`. Umsetzung erst auf Besitzer-Anforderung.
