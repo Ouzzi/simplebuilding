@@ -343,6 +343,7 @@
       "id": "config_server",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/config/MusicConfig.java",
+        "modules/simplemusic/shared/java/com/simplemusic/config/MusicClientConfig.java",
         "modules/simplemusic/shared/java/com/simplemusic/SimpleMusic.java"
       ],
       "en": {
@@ -353,6 +354,7 @@
           "maxTonesPerTick (8, 1 to 8), toneRange (48, 16 to 64: how far a composition disc's tones carry; an old orchestrionRange is taken over).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 to 16), maxUploadSeconds (300, 10 to 900), quotaPerPlayer (5, 0 to 50), storeLimitMiB (256, 16 to 2048), uploadKiBPerSecond (256, 16 to 1024), downloadKiBPerSecond (512, 32 to 4096).",
           "jukeboxCustomDiscs (true): custom discs in the Vanilla jukebox; it switches itself off where Vanilla has its own jukebox playlist (block tag #minecraft:jukebox_containers).",
+          "Client file config/simplemusic-client.json: loadForeignMusic (true). The server only sends tracks it vouches for; with false this client downloads and plays only tracks it uploaded itself (a short hint appears once per track), Vanilla songs are unaffected.",
           "With SimpleBuilding the switch Enable Simple Music in its config turns the bundled module on or off."
         ]
       },
@@ -364,6 +366,7 @@
           "maxTonesPerTick (8, 1 bis 8), toneRange (48, 16 bis 64: wie weit die Töne einer Kompositions-Platte reichen; ein altes orchestrionRange wird übernommen).",
           "uploads (approve | everyone | op | off), maxUploadMiB (4, 1 bis 16), maxUploadSeconds (300, 10 bis 900), quotaPerPlayer (5, 0 bis 50), storeLimitMiB (256, 16 bis 2048), uploadKiBPerSecond (256, 16 bis 1024), downloadKiBPerSecond (512, 32 bis 4096).",
           "jukeboxCustomDiscs (true): eigene Platten in der Vanilla-Jukebox; schaltet sich selbst ab, wo Vanilla eine eigene Jukebox-Playlist hat (Block-Tag #minecraft:jukebox_containers).",
+          "Client-Datei config/simplemusic-client.json: loadForeignMusic (true). Der Server schickt nur Tracks, für die er einsteht; bei false lädt und spielt dieser Client nur selbst hochgeladene Tracks (ein kurzer Hinweis je Track), Vanilla-Songs bleiben unberührt.",
           "Mit SimpleBuilding schaltet der Schalter Simple Music aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
