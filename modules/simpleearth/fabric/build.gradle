@@ -1,0 +1,9 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API (sub-mod switch, config files) for standalone runs.
+dependencies { include project(':framework') }
+// SimpleLib (UI box and palette for the earth menu) nested and compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// JUnit for the pure view maths (V1-V9 folds and turns) - no game needed.
+dependencies { testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
+test { useJUnitPlatform() }

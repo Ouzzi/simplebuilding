@@ -45,7 +45,8 @@
     "simpleoptserver",
     "simplestorage",
     "simplemusic",
-    "simplelights"
+    "simplelights",
+    "simpleearth"
   ],
   "devMods": [
     "jei",

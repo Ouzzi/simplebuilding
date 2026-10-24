@@ -1,0 +1,86 @@
+package com.simplebuilding.modules.simpleearth.config;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The settings schema of the nine earth versions: one list per version (shared values first, then the version's own), each
+ * entry with range, step and default. The client config stores one value set per version, the menu shows the list of the
+ * chosen version as its scroll list, the server clamps the heights/edge/speed it receives once more ({@link EarthServerConfig}).
+ * Labels: {@code text.autoconfig.simpleearth.option.<key>} (+ {@code .@Tooltip}).
+ */
+public final class EarthSettings {
+    public enum Kind { INT, DECIMAL }
+
+    public record Setting(String key, double min, double max, double def, double step, Kind kind) {
+        public double clamp(double v) {
+            if (!Double.isFinite(v)) return def;
+            double c = Math.max(min, Math.min(max, v));
+            return kind == Kind.INT ? Math.round(c) : c;
+        }
+    }
+
+    public static final int VERSIONS = 9;
+    /** Owner 24.10.: V6 is the favourite and the standard. */
+    public static final int DEFAULT_VERSION = 6;
+
+    private static Setting i(String key, double min, double max, double def, double step) {
+        return new Setting(key, min, max, def, step, Kind.INT);
+    }
+
+    private static Setting d(String key, double min, double max, double def, double step) {
+        return new Setting(key, min, max, def, step, Kind.DECIMAL);
+    }
+
+    /** Heights, edge, speed, sampling - every version has its own copy (E1, E2, E11). */
+    public static final List<Setting> SHARED = List.of(
+            i("activationY", 512, 16384, 1024, 64),
+            i("switchY", 640, 20000, 1536, 64),
+            i("ceilingY", 1024, 30000, 6144, 256),
+            i("fadeBand", 16, 1024, 128, 16),
+            i("edge", 8192, 262144, 65536, 4096),
+            i("orbitSpeed", 16, 2048, 256, 16),
+            i("faceResolution", 64, 512, 256, 64),
+            d("orbitDistance", 0.5, 8, 3, 0.25),
+            d("relief", 0, 4, 1, 0.25),
+            d("atmosphere", 0, 1, 0.6, 0.05),
+            d("moonSize", 0, 3, 1, 0.1),
+            d("stars", 0, 1, 1, 0.05));
+
+    private static final Setting ROUNDING = d("rounding", 0, 0.3, 0.07, 0.01);
+    private static final Setting CORNER_TURN = d("cornerTurn", 0.05, 2, 0.35, 0.05);
+    private static final Setting INVERSION = d("inversion", 0.2, 3, 0.9, 0.1);
+    private static final Setting WINDOW_START = d("windowStart", 0, 0.95, 0.5, 0.05);
+    private static final Setting FOLD_START = d("foldStart", 0, 0.9, 0.1, 0.05);
+
+    /** The full list of one version (1..9). */
+    public static List<Setting> forVersion(int version) {
+        List<Setting> out = new ArrayList<>(SHARED);
+        switch (version) {
+            case 1 -> out.addAll(List.of(ROUNDING, CORNER_TURN));
+            case 2 -> out.addAll(List.of(ROUNDING, CORNER_TURN, d("foldRadius", 0.2, 1, 0.6, 0.05)));
+            case 3 -> out.addAll(List.of(ROUNDING, INVERSION, WINDOW_START, d("windowSize", 0.1, 0.9, 0.62, 0.02)));
+            case 4 -> out.addAll(List.of(ROUNDING, d("followRate", 1, 30, 6, 0.5), d("northRate", 0, 10, 2.5, 0.25)));
+            case 5 -> out.addAll(List.of(d("exponent", 3, 20, 8, 0.5), d("followRate", 1, 30, 10, 0.5), d("northRate", 0, 10, 2.5, 0.25)));
+            case 6 -> out.add(FOLD_START);
+            case 7 -> out.addAll(List.of(FOLD_START, d("cellDepth", 0.02, 1, 0.18, 0.02), d("lineAlpha", 0, 1, 0.6, 0.05)));
+            case 8 -> out.addAll(List.of(FOLD_START, INVERSION, WINDOW_START));
+            default -> out.addAll(List.of(FOLD_START, d("lineAlpha", 0, 1, 0.35, 0.05)));
+        }
+        return out;
+    }
+
+    public static Setting find(int version, String key) {
+        for (Setting s : forVersion(version)) if (s.key().equals(key)) return s;
+        return null;
+    }
+
+    /** Every key of any version (lang/wiki checks read this). */
+    public static List<String> allKeys() {
+        List<String> keys = new ArrayList<>();
+        for (int v = 1; v <= VERSIONS; v++) for (Setting s : forVersion(v)) if (!keys.contains(s.key())) keys.add(s.key());
+        return keys;
+    }
+
+    private EarthSettings() {}
+}

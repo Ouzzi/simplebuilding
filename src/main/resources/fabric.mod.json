@@ -192,6 +192,7 @@
     "simplebeacons": "*",
     "simpleshops": "*",
     "simplewanderers": "*",
-    "simplemusic": "*"
+    "simplemusic": "*",
+    "simpleearth": "*"
   }
 }

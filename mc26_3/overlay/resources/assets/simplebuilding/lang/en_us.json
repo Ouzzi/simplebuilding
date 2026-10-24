@@ -2035,6 +2035,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleMusic.@Tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleLights": "Enable Simple Lights",
   "text.autoconfig.simplebuilding.option.enableSimpleLights.@Tooltip": "Turns the bundled Simple Lights module on or off: the Light Panes. Off hides the module's creative tab, its Vanilla tab entries and its guide; the panes and their recipes stay and keep working. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleEarth": "Enable Simple Earth",
+  "text.autoconfig.simplebuilding.option.enableSimpleEarth.@Tooltip": "Turns the bundled Simple Earth module on or off: far above the world (activation height, default 1024) the Overworld shows as a cube with map-coloured terrain read from the world generator. Off: no orbit, everything stays Vanilla. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

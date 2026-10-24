@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleearth",
+  "version": "${version}",
+  "name": "Simple Earth",
+  "icon": "assets/simpleearth/icon.png",
+  "description": "The Overworld seen from orbit: far above the world it becomes a slightly rounded cube (nine display versions) whose faces show Vanilla map colours read from the world generator - no chunks generated. Flat sun, cube moon, stars; below everything stays Vanilla.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleearth.EarthFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleearth.EarthFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleearth.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simpleearth.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}
