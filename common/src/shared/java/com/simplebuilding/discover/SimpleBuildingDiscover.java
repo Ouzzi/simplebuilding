@@ -344,6 +344,7 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:placed_blueprint",
             "simplebuilding:placed_bundles",
             "simplebuilding:placed_egg",
+            "simplebuilding:placed_paint_box",
             "simplebuilding:placed_small_parts",
             "simplebuilding:placed_smithing_template",
             "simplebuilding:placed_templates",

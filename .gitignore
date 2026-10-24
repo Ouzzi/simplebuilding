@@ -205,6 +205,13 @@ mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_egg_blue.pn
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_egg_brown.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_egg_white.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_*.png
+# W24 follow-up: the six Simple Music discs are drawn by modules/simplemusic/tools/gen_textures.py, not Vanilla-derived
+!mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_ember_forge.png
+!mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_obsidian_throne.png
+!mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_end_departure.png
+!mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_fortress_march.png
+!mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_deep_pulse.png
+!mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_sky_forge.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/silent_dandelion.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/standing_blaze_rod.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/standing_bone.png
@@ -275,7 +282,21 @@ wiki/assets/textures/block/placed_egg_blue.png
 wiki/assets/textures/block/placed_egg_brown.png
 wiki/assets/textures/block/placed_egg_white.png
 wiki/assets/textures/block/placed_disc_music_disc_*.png
+# W24 follow-up: the six Simple Music discs are drawn by modules/simplemusic/tools/gen_textures.py, not Vanilla-derived
+!wiki/assets/textures/block/placed_disc_music_disc_ember_forge.png
+!wiki/assets/textures/block/placed_disc_music_disc_obsidian_throne.png
+!wiki/assets/textures/block/placed_disc_music_disc_end_departure.png
+!wiki/assets/textures/block/placed_disc_music_disc_fortress_march.png
+!wiki/assets/textures/block/placed_disc_music_disc_deep_pulse.png
+!wiki/assets/textures/block/placed_disc_music_disc_sky_forge.png
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_*.png
+# W24 follow-up: the six Simple Music discs are drawn by modules/simplemusic/tools/gen_textures.py, not Vanilla-derived
+!wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_ember_forge.png
+!wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_obsidian_throne.png
+!wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_end_departure.png
+!wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_fortress_march.png
+!wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_deep_pulse.png
+!wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_sky_forge.png
 wiki/assets/textures/block/silent_dandelion.png
 wiki/assets/textures/block/standing_blaze_rod.png
 wiki/assets/textures/block/standing_bone.png

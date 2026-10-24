@@ -191,6 +191,15 @@ public final class PlacedStorageTests {
         PlacedBundles.takeShown(helper.getLevel(), helper.absolutePos(at), be, player);
         helper.assertTrue(player.getMainHandItem().is(Items.SPECTRAL_ARROW), "took " + player.getMainHandItem());
         helper.assertTrue(helper.getBlockState(at).getValue(PlacedBundleBlock.ARROWS) == 3, "after taking: " + helper.getBlockState(at));
+        // a dyed quiver keeps fill level (32 of 128 = 2) and colour (b-folge24): dyed model, tint from the block entity
+        helper.setBlock(new BlockPos(2, 1, 4), Blocks.STONE);
+        ItemStack dyedQuiver = filled(StorageItems.NETHERITE_QUIVER, new ItemStack(Items.ARROW, 32));
+        dyedQuiver.set(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(0xB02E26));
+        use(helper, player, dyedQuiver, new BlockPos(2, 1, 4), Direction.UP);
+        BlockState dyedState = helper.getBlockState(new BlockPos(2, 2, 4));
+        helper.assertTrue(dyedState.getValue(PlacedBundleBlock.DYED) && dyedState.getValue(PlacedBundleBlock.ARROWS) == 2
+                && dyedState.getValue(PlacedBundleBlock.TIER) == PlacedBundleBlock.Tier.NETHERITE_QUIVER, "dyed quiver placed as " + dyedState);
+        helper.assertTrue(helper.getBlockEntity(new BlockPos(2, 2, 4), PlacedBundleBlockEntity.class).dyeColor() == 0xB02E26, "dyed quiver lost its colour");
         // a bundle never shows arrows
         helper.setBlock(new BlockPos(1, 1, 4), Blocks.STONE);
         use(helper, player, filled(StorageItems.REINFORCED_BUNDLE, new ItemStack(Items.ARROW, 64)), new BlockPos(1, 1, 4), Direction.UP);

@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_placed_quiver_dyed_4",
+  "textures": {
+    "quiver": "simplestorage:block/placed_reinforced_quiver_dyed",
+    "particle": "simplestorage:block/placed_reinforced_quiver"
+  }
+}

@@ -55,9 +55,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 543,
-      "blocks": 320,
-      "recipes": 859,
+      "items": 547,
+      "blocks": 325,
+      "recipes": 861,
       "config": 228,
       "features": 48
     }
@@ -112,6 +112,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Currency production, weighted villager trades and treasure loot.",
+      "de": "Geldherstellung, gewichtete Dorfbewohner-Angebote und Schatzbeute."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABoUlEQVR42r2TS0sbURiG/V2CgjQBtaUxxFEhtQS7ELWWpG4CophfoFatmlSdgAUxCyt00ZBKQUSCF7zhQry1CUWN8TImxpnODI8ns3e0iC5evsN3Pp7znpdzSuKJOR6jkicBtL59g8/twVvtsvSuxm3VewHFofWpTo4Xo3g/uzBNzVLHpGT11r52ERkO3w0onnqa7EFN/eCV7KB+vpT2ZA37qRhqOs7FZpTJ0cG7AaEWL6Z+jKn+FVWhOdaAS35BINYkeinMm12+jEbsHRhnK6BfEpQ/IEWq6E2E2D/dAO0E/eQX8ti4fQa/EyMWJDAngalgahn2MutincO4WrV3UAQUdnppCzfyWlhvm/axuBenccJD93QQXdftQ+xwV2BcH4ornPMy6iCV3UJe/kTfQgizILLRzxgYHLLPQMunhQ7oX+oS9s9R81kBWkK9yWLkth8Qohgq5I7w/6zD0BT06yP+ZDYtwD9lyx4QHhoh+L6Wb2N+8tkdtEvhRkmzlhzgu/zR2puZmb3/KTfVS5SXlSE5q6l1OvBUOvFJnmf8TP+jW3RFGn0zsn8bAAAAAElFTkSuQmCC",
     "counts": {
       "items": 8,
@@ -140,6 +144,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot and trades.",
+      "de": "Sattel-Tempo, Pferdesprünge, Nautilus-Sprints, Reittier-Rüstungshilfen, Beute und Handel."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA2UlEQVR42mO4devWf3z4//MpOOW+7C/4z4AuQCz/+6M+MM2AbipMAp2NCzOAnIhuEzr2kGD/X6MvCMcoBhCyDab5f1cIGL+OV0YxhAGfrTDNIE0gvNpVAmwIiIYZgmIAsjNBimAakTFMHMMAbM7EZghMXFuADWIALABhToY5E6QYxke2HWQASBxuAHpgIWsC0TA+DCNrxhkGME3obJBGEB9rNOKLe5BGmK0wAzBSIno6gGlCdi7c4MwYRF4gJiUi422z2v772FvCMxpJeQFbasWbG3HlSOQsDgBbY+6dp3ZhZwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
@@ -166,6 +174,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
+    "intro": {
+      "en": "Server-approved custom item models, anvil assignment and a searchable model browser.",
+      "de": "Vom Server freigegebene eigene Itemmodelle, Zuweisung am Amboss und ein durchsuchbarer Modell-Browser."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mMQldL6TwlmABGNnYuxYq1ZB8AYm5yJQxaqAQHR9f+XrNwDpmEaQWxsfJBmVT0fTAPQFaJjmDzIIhQDCGlEthmEYepRDAApmPfhPxjj0gyThxmCYQAMoxuErBHZFTgNwKeRfgag+5kkA2CKSDIAZgiyIlwGYEQjekLCZQCyPEZKBKUudIUwA9ANxjAAJoCOYRqxyaEYQAkGACSFGALwloT6AAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
@@ -195,6 +207,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Bounded playful mechanics, throwable bricks and cosmetic transformations. The animal heads moved to Simple Mobheads.",
+      "de": "Begrenzte verspielte Mechaniken, Wurfziegel und kosmetische Verwandlungen. Die Tierköpfe liegen jetzt in Simple Mobheads."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAh0lEQVR42mOw8Iv9TwlmABE7bn0kGfcceYFqwJwzr/+ffvIVTBPCIM2pvcsxDSBWM8ginAZ4yYsQxDhdAJI8WRWFF68IsgKrwzCAWM15Bgq4DQApwIdBmgka0OVggKERJkaUAdg0Eu0CmAJ8mGAsEBOFOA2ASRKDMQwApS6yDYAJkIrhBlCCAZ7ocpZYjVK8AAAAAElFTkSuQmCC",
     "counts": {
       "items": 2,
@@ -224,6 +240,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
+    "intro": {
+      "en": "Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. Open this guide again with /simplevisuals guide.",
+      "de": "Begrenzte Client-Anzeigen, Tooltips, Amboss-Formatierung und Vanilla-Immersionspartikel. Dieses Handbuch öffnet /simplevisuals guide."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABgWlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kb9LQlEUxz9qUZRhUENDkIQ1ZZiB1NJglAXVoAb9WvTp08Afj/eMiNagNSiIWvo11F9Qa9AcBEURRHOtRS0lr/M0UCLP5Z77ud97zuHec8EezShZo84H2VxBD4eC7rn5BXfDK05aseGhK6YY2nRkPEpN+7yXSLFbr1Wrdty/1pxIGgrYGoVHFE0vCE8IT60WNIt3hNuVdCwhfCbcp8sFhe8sPV7mF4tTZf62WI+GR8HeKuxOVXG8ipW0nhWWl+PJZlaU3/tYL3Emc7MRWbtldmIQJkQQN5OMMUqAAYbFB/Dip1921Mj3lfJnyEuuIl5jDZ1lUqQp0CfqilRPyqqKnpSRYc3q/9++Guqgv1zdGYT6Z9N874GGbShumebXkWkWj8HxBJe5Sn7+EIY+RN+qaJ4DcG3A+VVFi+/CxSZ0PGoxPVaSHDLtqgpvp9AyD2030LRY7tnvOScPEF2Xr7qGvX3olXjX0g9t+GfpNyGCNQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAdBJREFUKJFlUjFo20AUfTp9nQylWWwQGGtJsySQkkkYCh06FDp7KF1STMC0NDHNoMWTS7t5CcZD6SI6ZCiN505dDO3gbim4BIqH4LiYKhlaGmrrpOvwhawmx3F3uv/+e1/3vrF3dOZ7cWdoAujWyk/fT5EbloDvxa7rNvvpvbF3dAagvjoLxg4A34vbA82xGwXKuLIheGN0lCAMQ6Uinn/+qjAMowQsniporQE0+9MowWKhlIp0oji2v3XZGxWlpFZ1qWNebDY+fPvte/F64efnH5ZO1Hy+GLy4X77z6EtY0BrP1i8Ojm8mGqaBbq1MrNgeaKVWGJ2VO58vbBsHxytEanfjvFQqNftTApaV5NH5HKXQGxWlNAFQPvzp1YPr53svP+ZfOU14+/gWANQn/FmpVCaTSZ5r5/CUDwRASto5PM2qevdkk2MPX3+1bWkIIrKkTKlFqxo31mZSEpFlCLJtuR2cANgOTq6gG2uzpdPs2hUfGL27cZ4563ux4K2+OuPant/+ZQgyBO1vXTJ3MHaCseN7MYDO0BTdWrkzNIOxYwm0qvGb7w6RRWT1RsX2XcNKWweu66b/kLUhZ7IOzwwEoNmfcjv95wO/9HUQk/L6Dx4w4ZYODKssAAAAAElFTkSuQmCC",
     "counts": {
       "features": 78
@@ -251,6 +271,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simpleaesthetics",
     "bundle": "required",
+    "intro": {
+      "en": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects. Open this guide again with /simplesounds guide.",
+      "de": "Begrenzte lokale Vanilla-Klänge zu den zwölf Immersionseffekten von Simple Visuals. Dieses Handbuch öffnet /simplesounds guide."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVR42mNICHP4TwlmABHfnh8hGX+4sQDVgE931/7/8fYKmCaEQZrXzinGNAAZa2lpgTE2zSCL8BoA0jhr1iwMA6wWnAAbgNUFMBtBODs7G8UAZI0wNlYDQBqRMcwAZI0wNtEGoNtMWwOwhQE2zQSjETkWYBrRDcJpAEwBzDXIBiBjrAbgUkyUAaDURbYBMAFSMdwASjAABHrCsb/q5xYAAAAASUVORK5CYII=",
     "counts": {
       "features": 20
@@ -288,6 +312,10 @@ window.WIKI_MODULES = [
       "missing": "Grundstock fertig; neu Item-Rahmen (in wave1) und Container-Tooltips (auf Branch), Bündel-Ansicht geplant; Abnahmen im Spiel offen.",
       "asOf": "19.10.2026"
     },
+    "intro": {
+      "en": "Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement.",
+      "de": "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAq0lEQVR42mOwD3P6TwlmABGHn50gGc+7tgzVgDV3Nv2//PY6mIZhKxUBMEYWA2GQ5qJZFZgGoGs+uSQLjJENAWkGWUTQAGwuAGmGYbwGwDSiY6IMAClcUWKDgbujtFEMwWoAsmaQBnSc5aQANwTDAGyarxlYodDIhuA0AFkzOiZoALqT0TWTbAA25+M0ABaI2AxB14w1EEGpCySBKw2gpwUUA2ACpGK4AZRgANECVTHhFbnoAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
@@ -319,6 +347,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Legacy compatibility and server-authoritative claims, on by default.",
+      "de": "Kompatibilität mit alten Ständen und serverseitige Claims, standardmäßig an."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA+klEQVR42o2TIQ7CQBBFewZSTUjqKkhRCBBVOEwF6REgGBQGwwHQVcgegRoOATfgBBUI/JI/yd902O4W8buzk/7XmdlttFnPzaTIgsI7PkUElPXWVI+rrN04vxRe8Cgba8DxfhYDAYgh5qeH3MaQAsDwui1N+2kdIQ/jr5wK8PKqKh0hz9ZgRCVOBUiEAH3tWACCoQrQIqVawIP0f1tQQ2T/Q4A6ScxzMZNVtcATCJ0CTO/TTgTIPo7FLBeJFfguEgQTzDD2AngsvpvI8tmCAiDAYDigrpgDDCYKewXgVPlFxtwD0qSp7LkqgE9ojfe/C+AR2r/RpxCcgC81FzUy44IBpwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 2,
@@ -353,6 +385,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Configurable dimensions, light arches and safe linked portals.",
+      "de": "Konfigurierbare Dimensionen, Lichtbögen und sicher verknüpfte Portale."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlUlEQVR42mPwc475TwlmABG3Tn4AYy42IaIwSO2RFc9QDTiz5RVY0lor5r+UgAZWDJIDqQFp7q1cht0AkMIq/Qtg7Cc1A0xvKPgBpkFyIDVPbnwhbABME8wQZAMIugBZE7JBRBuA7gWYQUQbALMV3SCSXADShG4Q2V5AjwWiDBi4WCA7JYJSF7F5AcMAmACpGG4AJRgArKknSmNVLV8AAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
@@ -380,6 +416,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
+      "de": "Sandwiches auf dem Schneidebrett, ein Küchenmesser, Käse und Butter aus dem Kessel und Essen direkt aus Bündeln."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
@@ -415,7 +455,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 4
     },
-    "dataHash": "f6612a149aa2"
+    "dataHash": "e625d567067e"
   },
   {
     "id": "simpleinterfaces",
@@ -463,6 +503,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Wayfinder Maps that show where you have been, a big map screen with waypoints, cartography and map displays on item frames.",
+      "de": "Wegfinder-Karten, die zeigen, wo du gewesen bist, ein großer Kartenbildschirm mit Wegpunkten, Kartographie und Kartenanzeigen auf Rahmen."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVR42mMIM9f6TwlmABHPty0mGd/oykI14O6s+v9vT+0B0yAc56GDgWFyIM1zkn0QBmBTvGN+0f9HF1egYHQ1KAZ8fnYEjH3zL4BpkAGxXSb/7bOV4AaAxGDqMAwAKQZhmCEwF4DEkA0AGQgSw2oATBLmAnQvwFyF1QUgQZgkzACQS0AaD1hqo3gBxMcZBtgMICoMkJ2P7AVkQ/AaAJNADwOrEIQhVjpScIzTAJD/sAUiSNOLncr/V1RCaBAfxQCYRmQnImOQhq9fP/y/ICEBpjEMQMeg5IqMQRpAtoM0Y7gAlrYJYeQwQMkLlGAAvJFvToS+xP8AAAAASUVORK5CYII=",
     "counts": {
       "items": 5,
@@ -491,6 +535,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Glowing, Emitting and Pulsating armor trims, placeable trim templates and forging them with an axe (with Simple Hammers: the sledgehammer).",
+      "de": "Leuchtender, strahlender und pulsierender Rüstungsbesatz, ablegbare Besatzvorlagen und ihr Schmieden mit der Axt (mit Simple Hammers: dem Vorschlaghammer)."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABj0lEQVR42oWTzUsCQRyGOyp9f1C3ig4hQZFkhGVYaNShIrUvDYswRDEsMzLD1RIR+iBCgijo4KW6Bt3r2slrx6COXfoLfvUOzrTTah2eZXd23mfenWUqPFPd9BudrlJQ6r2aClw+Xm4ECFmsLjLN+mjQExIi9Rzw+rQpC96fM/T59igEHOvqOrnjB0KEeQjnjxxaAQ87U1kKnV9KIg4XlRXw8G2hQIn7B43A6t+i+oZWsT9CoK4OiToMIcZwjzAkJQXGPhujxzjK4OG7Yhv77h4TjEUVWcBXnw5GaClzSBNxRUgAwmjQ2NQm6kt7gIH+GTcLK9d5Go/GGMP+ELV39DIQ5EgCPAzN+cgW3ibvSY7s4R2aTGYo8H0PiVPZlwSYL/1GDIz4w7R8miNDl0XgPT6jxXSWSXj1soIBh4c6DWZJgCb+iyuqqW2hqupmJuFhjQABCEyulZ8GxU9AGDiS6dIC9eExza+R2RNksoVYilXW6+vItpGQwhoBH+AiCABWhsAaiIidVyMEfx3n/471F3h08EUyFpsCAAAAAElFTkSuQmCC",
     "counts": {
       "items": 4,
@@ -517,14 +565,18 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
+      "de": "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der Biom-Pinsel."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 22,
+      "items": 20,
       "blocks": 2,
-      "recipes": 66,
-      "features": 13
+      "recipes": 62,
+      "features": 12
     },
-    "dataHash": "1953622d83b2"
+    "dataHash": "5d29f50a25b7"
   },
   {
     "id": "simpleweather",
@@ -599,6 +651,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplequalityoflife",
     "bundle": "required",
+    "intro": {
+      "en": "Furnaces filled with lava, durability bonuses, cheaper anvil repairs, the Soulbound enchantment and the Death Vault.",
+      "de": "Mit Lava gefüllte Öfen, Haltbarkeitsboni, günstigere Amboss-Reparaturen, die Verzauberung Seelenbindung und der Todesvorrat."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mMIc/D6TwlmABHPj1wmiEX4heAYxL+xYAeqAXfXHvr/9sp9MI2OQZpOvPgCxj07boD5c4pbMA0gRvODS5P+5+y3AYuTZACy5jk3o4gzAJdm+35t4g0Aad6/Ig1FM1EGgBTkn7z2PyYgDKtmgoEIUgTSfOP3//92xpZwjSAMikK8BoAUeTm5gjFIM7JGGMZpAEhhTlLKf0NtPawa8RqArhmbRpwGkKIZwwBSNWMYABKA+RckQSyGG0AJBgAtb4QCDYMvfgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 2,
@@ -757,6 +813,10 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simpleend",
     "bundle": "optional",
+    "intro": {
+      "en": "A harder Ender Dragon fight: it scales with the players, flies faster, can be summoned again, enters with an animation and brings dragonmites.",
+      "de": "Ein härterer Enderdrachenkampf: Er wächst mit den Spielern, fliegt schneller, lässt sich erneut beschwören, tritt mit einer Animation auf und bringt Drachenmilben mit."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAy0lEQVR42mOIinD4TwlmABFvXh4hGT+4swDVgCcP1/7/+P4KmBbhlsGKQXIgDNK8cF4xpgEwhfdvL/v/4d0xFAwSg8mDLMIwAKbx5JGu/9Yq/v8XxJwAYxAbhkFyMIOwGqAmZvzfQNYBjJE1wsRAGKQGwwBkf4JswOUFZG+AMIoBMOfDbMfmBZAcsjdQDAA5jVgvwLxBOy+AMLoXYOJYvYAcC9i8gc35OKMR3RB0zTgNAKUumN+QFaNrBGGMpAwTgGFceQFZDYoBlGAA+3Ert1q9x4UAAAAASUVORK5CYII=",
     "counts": {
       "items": 3,
@@ -788,6 +848,10 @@ window.WIKI_MODULES = [
       "missing": "Funktionen fertig; offen Client-Sicht im Spiel, Stil-Audit-Reste und die Nebelwand-Frage (Lohen-Seite).",
       "asOf": "19.10.2026"
     },
+    "intro": {
+      "en": "Ashwood and Duskwood, buds that grow End trees or stick scrub, End grass and the Ash Valley and Dawnlands biomes on the outer End islands.",
+      "de": "Aschholz und Dämmerholz, Knospen für End-Bäume oder Stöcke-Gestrüpp, End-Gras und die Biome Aschental und Dämmerlande auf den äußeren End-Inseln."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mOQk9D+TwlmABET2paQjH1sclANSA1v/L9u+d7/Jy8eBrOxYZgcSLO5th+mAcgKZy2dCueD2MiaQRbhNQCGc6uywRjGB2mGYaIN8HIKwNBM0IC4kKT/r59+AOPTh66AMUiMKAOQNYPwxq7TYAOWzt6AYghOA5A1w2wHaQbhupIO/AYg2w6zGWYASDMIw1yB0wCYJlya8RoAwshOhmkGuQZZM04DQBIgRciakW3GawAodcEkQQrRNeKNRpgAMkbXjC6PYgAlGADBDC0kWCrJGAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
@@ -795,7 +859,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "22e4426156bf"
+    "dataHash": "e568ae829397"
   },
   {
     "id": "simplerespawn",
@@ -812,6 +876,10 @@ window.WIKI_MODULES = [
     "optional": [],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Downed instead of dead: teammates revive you before you bleed out.",
+      "de": "Niedergeschlagen statt tot: Mitspieler beleben dich wieder, bevor du verblutest."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwjor9TwlmABEn33wkGa948ALVgC1PXv+34uBAwSAxbOIgzZULl6MaAJL4UFDw/4qWFhzDNCCLwcRRDIBpRjcAHwbpwTAAXREMEGUANo3ogGoGdImIoBoAC0RivADTjBELsOjCZwBMM9ZoRI5zbIGGrBmvASBJdEPQNeM0AFkBzBBsmrEacOPjVwxFyEkXrwEwAVIx3ABKMADfR3xpZ2gp6gAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
@@ -839,6 +907,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and ten more powers, and a conduit into a Strong Conduit with a 7x7x7 frame.",
+      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen und zehn weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 3,
@@ -867,6 +939,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces that cook 2, 4 and 8 times as fast, and furnace minecarts of the same tiers.",
+      "de": "Verstärkte, Netherit- und Enderit-Öfen, -Räucheröfen und -Schmelzöfen, die 2-, 4- und 8-mal so schnell garen, und Antriebsloren derselben Stufen."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
@@ -901,6 +977,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "A head for every mob: a charged creeper's explosion drops it, worn it keeps that mob calm and hides a small secret, placed it decorates, on a note block it speaks.",
+      "de": "Ein Kopf für jeden Mob: die Explosion eines geladenen Creepers lässt ihn fallen, getragen beruhigt er seinen Mob und verbirgt ein kleines Geheimnis, aufgestellt schmückt er, auf dem Notenblock spricht er."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAgklEQVR42mMIcLP6TwlmABF3z+0iGZ/YMAHVADkrCZLwhPoMTAOiNnj9t+syAdPobGQ+XgPwaYSxCbpASEoAjGGaYHyiXYCuAd1AnAagOx1dI1FeQNeMbAhRXkB3NjZXEO0C5EAlygXoYYALk5QOsKUJnAaQnZRBGQMkQCqGG0AJBgA3BxAT2z0G5AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
@@ -931,6 +1011,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Player shops: a Sales Block with a price and a Display Case with up to five goods, protected from strangers and explosions. Buyers swap price items for one piece per trade.",
+      "de": "Spieler-Shops: ein Verkaufsblock mit Preis und eine Vitrine mit bis zu fünf Waren, geschützt vor Fremden und Explosionen. Käufer tauschen Preis-Items gegen ein Stück je Tausch."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhUlEQVR42mMwdov6TwlmABEbzr0hGTdseIBqgJWKAEk4pn4hwgCQwAkDAzD+8OEDGBPig/RQzwCKvQAyYNLuJ/+7kozANDoGBRgMg9SAaLwGGBxIAGOY5g8HDMCYZANgthJlAMVhABJcUWJDFMZrQFWQBk6NMDnauYDsMICFKqkYbgAlGABcnECwCVT7ggAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
@@ -959,6 +1043,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "One Village Wanderer per village: a travel-cloaked trader with a leashed horse, a new stock every 3 days, a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
+      "de": "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAd0lEQVR42mOICrD6TwlmABFv7u4iGT84MQHVABEVN5LwwgkZmAboxawgCuM1QN6pAadGmBxBA07MysKKiTIApPDDhw//tbqs4BpBbJAYiE2UATC8osILjJHFhoABFAcizBBsmKh0QFFCIjspgzIGSIBUDDeAEgwAwIBBl9sRlXEAAAAASUVORK5CYII=",
     "counts": {
       "items": 2,
@@ -982,6 +1070,10 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "intro": {
+      "en": "Every tool, weapon and piece of armor counts its own blocks, kills, absorbed damage, distances and catches, with an item-specific statistics screen.",
+      "de": "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken und Fänge, mit einem Statistik-Bildschirm je Gegenstand."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcElEQVR42mMICI76TwlmABF3H70hGZ+48ABhgJWV1f8L15/8f/bqI5gmhEGaJ0xbiGkAIeywIQCMtaos6GTAiwMGYLyiSwHs7CFgwA0HBzCepaFBuQEgDUPMAHIwSl4AJWOQLcRiFBfABEjFcAMowQBeNqVBEv8rtgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
@@ -1010,6 +1102,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, the missing Vanilla stairs, slabs and walls, cracked and mossy bricks and the Shapecutter, which cuts stone and wood.",
+      "de": "Die fehlenden Baublöcke: Gedämpfte Tiefenschieferfliesen, die Vibrationen wie Wolle schlucken, Sculk-Tiefenschiefer, die fehlenden Vanilla-Treppen, -Stufen und -Mauern, rissige und bemooste Ziegel und die Formsäge, die Stein und Holz schneidet."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
@@ -1040,6 +1136,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "Iron, Reinforced, Netherite and Enderite crucibles that cook every slot at once without fuel, barrels that dock onto them, the reinforced cauldron and village field kitchens.",
+      "de": "Eisen-, verstärkte, Netherit- und Enderit-Schmelztiegel, die ohne Brennstoff alle Plätze zugleich garen, Fässer, die an sie andocken, der verstärkte Kessel und Dorf-Feldküchen."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
     "counts": {
       "items": 27,
@@ -1070,6 +1170,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "Octets - half-block cubes of every wood, of every block with stairs and slabs and of the melon - cut in the Shapecutter (Simple Blocks; without it in the stonecutter), placed into the clicked corner and mixed in one cell.",
+      "de": "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - in der Formsäge (Simple Blocks; ohne sie im Steinmetz) geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
@@ -1101,6 +1205,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "Seven sledgehammers that mine a whole area, carve and reshape blocks, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, and their three enchantments.",
+      "de": "Sieben Vorschlaghämmer, die ganze Flächen abbauen, Blöcke abtragen und umformen, Diamant- und Quarzblöcke zerschlagen und Blöcke in der Welt Schlag für Schlag aufwerten, und ihre drei Verzauberungen."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA40lEQVR42mMItlL7jw9HRUXhlWcAEY92zcGKQZpBQFNTE0PuwoQEVAOuLyj7/+rsdjANwjDNb968gRsCkwNpnpbhimkANs0wDDLAw1T0f6SHBtginAaga7537x4Yg9jVSab/NeS4iXMBsmYQXr9+/f/6+nqwSwgaADMkOjoarBGbIQQNAGGQn5ENIckAkGaQn9WBfgZpxGYITgOQNYP8C1KMbAheA0Ca29PU4ZphGNkQEMZqAC7NyIaAbMdqAEhzuq8cTs3ohsANAGkkZDM2Q+CxgKwZJEgKhnsBpBmECWVtbBgAwfhqwWiFR/AAAAAASUVORK5CYII=",
     "counts": {
       "items": 8,
@@ -1215,6 +1323,10 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "Crates of every wood that hold nine stacks of food in layers, the Storage Crafting Table that keeps its grid on its top, chests, shulker boxes, chest carts and chest boats in three tiers with more slots and bigger stacks, and bundles and quivers in three tiers with the storage enchantments Drawer, Deep Pockets and Funnel.",
+      "de": "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, die Werkbank mit Lager, die ihr Raster auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr Plätzen und größeren Stapeln, und Bündel und Köcher in drei Stufen mit den Lager-Verzauberungen Schublade, Tiefe Taschen und Trichter."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
     "counts": {
       "items": 17,
@@ -1222,7 +1334,7 @@ window.WIKI_MODULES = [
       "recipes": 177,
       "features": 12
     },
-    "dataHash": "819bd2501567"
+    "dataHash": "e781e719e9bf"
   },
   {
     "id": "simplemusic",
@@ -1244,13 +1356,17 @@ window.WIKI_MODULES = [
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
+    "intro": {
+      "en": "Write sheet music as text, listen to it in the editor and press it onto a blank disc for the jukebox. Burn your own mono Ogg files onto blank discs.",
+      "de": "Notenblätter als Text schreiben, im Editor probehören und für die Jukebox auf einen Rohling pressen. Eigene Mono-Ogg-Dateien auf Rohlinge brennen."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApUlEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBiBjISERFIysGWQRVgNgivX0jLBimDxWF8A0JiSkgTG6ZgUFFRSDUAxA1wwzYEHBGTDG5RoMA5BtKfGZ95+Hhw+MQWx0l9DGAHSM7gXksEExADkQ0V1CVCBSJRphiQSG0RMSshxWA0CpC10RPoxiAEyAVAw3gBIMAP+6D2a7uZI2AAAAAElFTkSuQmCC",
     "counts": {
-      "items": 4,
+      "items": 10,
       "blocks": 18,
       "recipes": 37,
-      "features": 14
+      "features": 15
     },
-    "dataHash": "0af7a8b0fd6a"
+    "dataHash": "0414d1a2a4d3"
   }
 ];

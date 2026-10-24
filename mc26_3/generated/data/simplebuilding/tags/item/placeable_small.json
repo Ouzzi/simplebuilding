@@ -63,6 +63,24 @@
     "simplelib:enderite_scrap",
     "simplelib:cracked_diamond",
     "simplebuilding:sage_orb",
+    "simplebuilding:dull_astralit_dust",
+    "simplebuilding:dull_nihilith_shard",
+    {
+      "id": "simplebeacons:strong_upgrade_shard",
+      "required": false
+    },
+    {
+      "id": "simplemobs:illusion_shard",
+      "required": false
+    },
+    {
+      "id": "simplemobs:soulfire_powder",
+      "required": false
+    },
+    {
+      "id": "simplemobs:nether_gem",
+      "required": false
+    },
     {
       "id": "#minecraft:decorated_pot_sherds",
       "required": false
@@ -118,6 +136,30 @@
     },
     {
       "id": "simplemusic:custom_disc",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_deep_pulse",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_ember_forge",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_end_departure",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_fortress_march",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_obsidian_throne",
+      "required": false
+    },
+    {
+      "id": "simplemusic:music_disc_sky_forge",
       "required": false
     },
     "minecraft:shulker_shell",

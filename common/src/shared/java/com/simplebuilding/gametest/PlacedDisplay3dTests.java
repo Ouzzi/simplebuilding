@@ -160,11 +160,20 @@ public final class PlacedDisplay3dTests {
                 }
             }
             // Simple Music's blank and pressed discs (MU21) lie as the round form, when that mod is loaded
-            for (String musicDisc : List.of("blank_disc", "custom_disc")) {
+            for (String musicDisc : List.of("blank_disc", "custom_disc", "music_disc_ember_forge",
+                    "music_disc_obsidian_throne", "music_disc_end_departure", "music_disc_fortress_march", "music_disc_deep_pulse", "music_disc_sky_forge")) {
                 Item music = item("simplemusic:" + musicDisc);
                 if (music != Items.AIR) {
                     helper.assertTrue(PlacedSolids.shape(music) == PlacedSolids.Shape.DISC, musicDisc + " has no disc model");
                     resources(helper, "simplebuilding", musicDisc, true);
+                }
+            }
+            // NA24-9: shards and powders of the modules lie as flat plates (optional entries, only when that module is loaded)
+            for (String small : List.of("simplebuilding:dull_nihilith_shard", "simplebuilding:dull_astralit_dust", "simplebeacons:strong_upgrade_shard",
+                    "simplemobs:illusion_shard", "simplemobs:soulfire_powder", "simplemobs:nether_gem")) {
+                Item shard = item(small);
+                if (shard != Items.AIR) {
+                    helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(shard)), small + " is not placeable");
                 }
             }
             // trims and the mod's upgrade templates are slabs; a flat plate stays for everything else

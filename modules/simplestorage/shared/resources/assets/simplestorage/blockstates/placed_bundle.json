@@ -273,35 +273,35 @@
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_0",
+      "model": "simplestorage:block/placed_quiver_dyed_0",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_0_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_0_wall",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0_wall",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_0",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_0_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0_wall",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_0",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0",
       "y": 90
     },
     "arrows=0,dyed=true,facing=east,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_0_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0_wall",
       "y": 90
     },
     "arrows=0,dyed=true,facing=north,tier=bundle,wall=false": {
@@ -329,28 +329,28 @@
       "model": "simplestorage:block/placed_enderite_bundle_dyed_wall"
     },
     "arrows=0,dyed=true,facing=north,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_0"
+      "model": "simplestorage:block/placed_quiver_dyed_0"
     },
     "arrows=0,dyed=true,facing=north,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_0_wall"
+      "model": "simplestorage:block/placed_quiver_dyed_0_wall"
     },
     "arrows=0,dyed=true,facing=north,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0"
     },
     "arrows=0,dyed=true,facing=north,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0_wall"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0_wall"
     },
     "arrows=0,dyed=true,facing=north,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_0"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0"
     },
     "arrows=0,dyed=true,facing=north,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_0_wall"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0_wall"
     },
     "arrows=0,dyed=true,facing=north,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_0"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0"
     },
     "arrows=0,dyed=true,facing=north,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_0_wall"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0_wall"
     },
     "arrows=0,dyed=true,facing=south,tier=bundle,wall=false": {
       "model": "simplestorage:block/placed_bundle_dyed",
@@ -385,35 +385,35 @@
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_0",
+      "model": "simplestorage:block/placed_quiver_dyed_0",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_0_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_0_wall",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0_wall",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_0",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_0_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0_wall",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_0",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0",
       "y": 180
     },
     "arrows=0,dyed=true,facing=south,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_0_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0_wall",
       "y": 180
     },
     "arrows=0,dyed=true,facing=west,tier=bundle,wall=false": {
@@ -449,35 +449,35 @@
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_0",
+      "model": "simplestorage:block/placed_quiver_dyed_0",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_0_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_0_wall",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_0_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_0_wall",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_0",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_0_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_0_wall",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_0",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0",
       "y": 270
     },
     "arrows=0,dyed=true,facing=west,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_0_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_0_wall",
       "y": 270
     },
     "arrows=1,dyed=false,facing=east,tier=bundle,wall=false": {
@@ -753,35 +753,35 @@
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_1",
+      "model": "simplestorage:block/placed_quiver_dyed_1",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_1_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_1_wall",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1_wall",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_1",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_1_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1_wall",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_1",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1",
       "y": 90
     },
     "arrows=1,dyed=true,facing=east,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_1_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1_wall",
       "y": 90
     },
     "arrows=1,dyed=true,facing=north,tier=bundle,wall=false": {
@@ -809,28 +809,28 @@
       "model": "simplestorage:block/placed_enderite_bundle_dyed_wall"
     },
     "arrows=1,dyed=true,facing=north,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_1"
+      "model": "simplestorage:block/placed_quiver_dyed_1"
     },
     "arrows=1,dyed=true,facing=north,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_1_wall"
+      "model": "simplestorage:block/placed_quiver_dyed_1_wall"
     },
     "arrows=1,dyed=true,facing=north,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1"
     },
     "arrows=1,dyed=true,facing=north,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1_wall"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1_wall"
     },
     "arrows=1,dyed=true,facing=north,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_1"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1"
     },
     "arrows=1,dyed=true,facing=north,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_1_wall"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1_wall"
     },
     "arrows=1,dyed=true,facing=north,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_1"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1"
     },
     "arrows=1,dyed=true,facing=north,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_1_wall"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1_wall"
     },
     "arrows=1,dyed=true,facing=south,tier=bundle,wall=false": {
       "model": "simplestorage:block/placed_bundle_dyed",
@@ -865,35 +865,35 @@
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_1",
+      "model": "simplestorage:block/placed_quiver_dyed_1",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_1_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_1_wall",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1_wall",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_1",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_1_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1_wall",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_1",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1",
       "y": 180
     },
     "arrows=1,dyed=true,facing=south,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_1_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1_wall",
       "y": 180
     },
     "arrows=1,dyed=true,facing=west,tier=bundle,wall=false": {
@@ -929,35 +929,35 @@
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_1",
+      "model": "simplestorage:block/placed_quiver_dyed_1",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_1_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_1_wall",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_1_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_1_wall",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_1",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_1_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_1_wall",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_1",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1",
       "y": 270
     },
     "arrows=1,dyed=true,facing=west,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_1_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_1_wall",
       "y": 270
     },
     "arrows=2,dyed=false,facing=east,tier=bundle,wall=false": {
@@ -1233,35 +1233,35 @@
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_2",
+      "model": "simplestorage:block/placed_quiver_dyed_2",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_2_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_2_wall",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2_wall",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_2",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_2_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2_wall",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_2",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2",
       "y": 90
     },
     "arrows=2,dyed=true,facing=east,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_2_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2_wall",
       "y": 90
     },
     "arrows=2,dyed=true,facing=north,tier=bundle,wall=false": {
@@ -1289,28 +1289,28 @@
       "model": "simplestorage:block/placed_enderite_bundle_dyed_wall"
     },
     "arrows=2,dyed=true,facing=north,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_2"
+      "model": "simplestorage:block/placed_quiver_dyed_2"
     },
     "arrows=2,dyed=true,facing=north,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_2_wall"
+      "model": "simplestorage:block/placed_quiver_dyed_2_wall"
     },
     "arrows=2,dyed=true,facing=north,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2"
     },
     "arrows=2,dyed=true,facing=north,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2_wall"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2_wall"
     },
     "arrows=2,dyed=true,facing=north,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_2"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2"
     },
     "arrows=2,dyed=true,facing=north,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_2_wall"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2_wall"
     },
     "arrows=2,dyed=true,facing=north,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_2"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2"
     },
     "arrows=2,dyed=true,facing=north,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_2_wall"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2_wall"
     },
     "arrows=2,dyed=true,facing=south,tier=bundle,wall=false": {
       "model": "simplestorage:block/placed_bundle_dyed",
@@ -1345,35 +1345,35 @@
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_2",
+      "model": "simplestorage:block/placed_quiver_dyed_2",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_2_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_2_wall",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2_wall",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_2",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_2_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2_wall",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_2",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2",
       "y": 180
     },
     "arrows=2,dyed=true,facing=south,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_2_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2_wall",
       "y": 180
     },
     "arrows=2,dyed=true,facing=west,tier=bundle,wall=false": {
@@ -1409,35 +1409,35 @@
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_2",
+      "model": "simplestorage:block/placed_quiver_dyed_2",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_2_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_2_wall",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_2_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_2_wall",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_2",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_2_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_2_wall",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_2",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2",
       "y": 270
     },
     "arrows=2,dyed=true,facing=west,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_2_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_2_wall",
       "y": 270
     },
     "arrows=3,dyed=false,facing=east,tier=bundle,wall=false": {
@@ -1713,35 +1713,35 @@
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_3",
+      "model": "simplestorage:block/placed_quiver_dyed_3",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_3_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_3_wall",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3_wall",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_3",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_3_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3_wall",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_3",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3",
       "y": 90
     },
     "arrows=3,dyed=true,facing=east,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_3_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3_wall",
       "y": 90
     },
     "arrows=3,dyed=true,facing=north,tier=bundle,wall=false": {
@@ -1769,28 +1769,28 @@
       "model": "simplestorage:block/placed_enderite_bundle_dyed_wall"
     },
     "arrows=3,dyed=true,facing=north,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_3"
+      "model": "simplestorage:block/placed_quiver_dyed_3"
     },
     "arrows=3,dyed=true,facing=north,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_3_wall"
+      "model": "simplestorage:block/placed_quiver_dyed_3_wall"
     },
     "arrows=3,dyed=true,facing=north,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3"
     },
     "arrows=3,dyed=true,facing=north,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3_wall"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3_wall"
     },
     "arrows=3,dyed=true,facing=north,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_3"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3"
     },
     "arrows=3,dyed=true,facing=north,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_3_wall"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3_wall"
     },
     "arrows=3,dyed=true,facing=north,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_3"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3"
     },
     "arrows=3,dyed=true,facing=north,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_3_wall"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3_wall"
     },
     "arrows=3,dyed=true,facing=south,tier=bundle,wall=false": {
       "model": "simplestorage:block/placed_bundle_dyed",
@@ -1825,35 +1825,35 @@
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_3",
+      "model": "simplestorage:block/placed_quiver_dyed_3",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_3_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_3_wall",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3_wall",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_3",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_3_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3_wall",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_3",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3",
       "y": 180
     },
     "arrows=3,dyed=true,facing=south,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_3_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3_wall",
       "y": 180
     },
     "arrows=3,dyed=true,facing=west,tier=bundle,wall=false": {
@@ -1889,35 +1889,35 @@
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_3",
+      "model": "simplestorage:block/placed_quiver_dyed_3",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_3_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_3_wall",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_3_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_3_wall",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_3",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_3_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_3_wall",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_3",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3",
       "y": 270
     },
     "arrows=3,dyed=true,facing=west,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_3_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_3_wall",
       "y": 270
     },
     "arrows=4,dyed=false,facing=east,tier=bundle,wall=false": {
@@ -2193,35 +2193,35 @@
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_4",
+      "model": "simplestorage:block/placed_quiver_dyed_4",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_4_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_4_wall",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4_wall",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_4",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_4_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4_wall",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_4",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4",
       "y": 90
     },
     "arrows=4,dyed=true,facing=east,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_4_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4_wall",
       "y": 90
     },
     "arrows=4,dyed=true,facing=north,tier=bundle,wall=false": {
@@ -2249,28 +2249,28 @@
       "model": "simplestorage:block/placed_enderite_bundle_dyed_wall"
     },
     "arrows=4,dyed=true,facing=north,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_4"
+      "model": "simplestorage:block/placed_quiver_dyed_4"
     },
     "arrows=4,dyed=true,facing=north,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_4_wall"
+      "model": "simplestorage:block/placed_quiver_dyed_4_wall"
     },
     "arrows=4,dyed=true,facing=north,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4"
     },
     "arrows=4,dyed=true,facing=north,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4_wall"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4_wall"
     },
     "arrows=4,dyed=true,facing=north,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_4"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4"
     },
     "arrows=4,dyed=true,facing=north,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_4_wall"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4_wall"
     },
     "arrows=4,dyed=true,facing=north,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_4"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4"
     },
     "arrows=4,dyed=true,facing=north,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_4_wall"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4_wall"
     },
     "arrows=4,dyed=true,facing=south,tier=bundle,wall=false": {
       "model": "simplestorage:block/placed_bundle_dyed",
@@ -2305,35 +2305,35 @@
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_4",
+      "model": "simplestorage:block/placed_quiver_dyed_4",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_4_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_4_wall",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4_wall",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_4",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_4_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4_wall",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_4",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4",
       "y": 180
     },
     "arrows=4,dyed=true,facing=south,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_4_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4_wall",
       "y": 180
     },
     "arrows=4,dyed=true,facing=west,tier=bundle,wall=false": {
@@ -2369,35 +2369,35 @@
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_4",
+      "model": "simplestorage:block/placed_quiver_dyed_4",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_4_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_4_wall",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_4_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_4_wall",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_4",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_4_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_4_wall",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_4",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4",
       "y": 270
     },
     "arrows=4,dyed=true,facing=west,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_4_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_4_wall",
       "y": 270
     },
     "arrows=5,dyed=false,facing=east,tier=bundle,wall=false": {
@@ -2673,35 +2673,35 @@
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_5",
+      "model": "simplestorage:block/placed_quiver_dyed_5",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_5_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_5_wall",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5_wall",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_5",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_5_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5_wall",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_5",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5",
       "y": 90
     },
     "arrows=5,dyed=true,facing=east,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_5_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5_wall",
       "y": 90
     },
     "arrows=5,dyed=true,facing=north,tier=bundle,wall=false": {
@@ -2729,28 +2729,28 @@
       "model": "simplestorage:block/placed_enderite_bundle_dyed_wall"
     },
     "arrows=5,dyed=true,facing=north,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_5"
+      "model": "simplestorage:block/placed_quiver_dyed_5"
     },
     "arrows=5,dyed=true,facing=north,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_5_wall"
+      "model": "simplestorage:block/placed_quiver_dyed_5_wall"
     },
     "arrows=5,dyed=true,facing=north,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5"
     },
     "arrows=5,dyed=true,facing=north,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5_wall"
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5_wall"
     },
     "arrows=5,dyed=true,facing=north,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_5"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5"
     },
     "arrows=5,dyed=true,facing=north,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_5_wall"
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5_wall"
     },
     "arrows=5,dyed=true,facing=north,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_5"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5"
     },
     "arrows=5,dyed=true,facing=north,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_5_wall"
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5_wall"
     },
     "arrows=5,dyed=true,facing=south,tier=bundle,wall=false": {
       "model": "simplestorage:block/placed_bundle_dyed",
@@ -2785,35 +2785,35 @@
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_5",
+      "model": "simplestorage:block/placed_quiver_dyed_5",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_5_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_5_wall",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5_wall",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_5",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_5_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5_wall",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_5",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5",
       "y": 180
     },
     "arrows=5,dyed=true,facing=south,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_5_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5_wall",
       "y": 180
     },
     "arrows=5,dyed=true,facing=west,tier=bundle,wall=false": {
@@ -2849,35 +2849,35 @@
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=quiver,wall=false": {
-      "model": "simplestorage:block/placed_quiver_5",
+      "model": "simplestorage:block/placed_quiver_dyed_5",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=quiver,wall=true": {
-      "model": "simplestorage:block/placed_quiver_5_wall",
+      "model": "simplestorage:block/placed_quiver_dyed_5_wall",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=reinforced_quiver,wall=false": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=reinforced_quiver,wall=true": {
-      "model": "simplestorage:block/placed_reinforced_quiver_5_wall",
+      "model": "simplestorage:block/placed_reinforced_quiver_dyed_5_wall",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=netherite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_netherite_quiver_5",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=netherite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_netherite_quiver_5_wall",
+      "model": "simplestorage:block/placed_netherite_quiver_dyed_5_wall",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=enderite_quiver,wall=false": {
-      "model": "simplestorage:block/placed_enderite_quiver_5",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5",
       "y": 270
     },
     "arrows=5,dyed=true,facing=west,tier=enderite_quiver,wall=true": {
-      "model": "simplestorage:block/placed_enderite_quiver_5_wall",
+      "model": "simplestorage:block/placed_enderite_quiver_dyed_5_wall",
       "y": 270
     }
   }

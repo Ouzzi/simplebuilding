@@ -54,6 +54,8 @@ public final class PlacedSolids {
             "creator_music_box", "far", "lava_chicken", "mall", "mellohi", "otherside", "pigstep", "precipice", "relic", "stal",
             "strad", "tears", "wait", "ward");
     private static final List<String> SONGS = List.of("voidline", "driftwood", "daybreak", "brimstone");
+    private static final List<String> SIMPLEMUSIC_SONGS = List.of("ember_forge", "obsidian_throne", "end_departure", "fortress_march",
+            "deep_pulse", "sky_forge");
     private static final List<String> TRACKS = List.of("", "_b_side", "_track_3", "_track_4");
 
     /** Item ids with a slab model, and with a disc model. */
@@ -84,6 +86,10 @@ public final class PlacedSolids {
         // Simple Music (MU21, 21.10.): the blank and the pressed disc lie as the round form; absent without that mod
         discs.add("simplemusic:blank_disc");
         discs.add("simplemusic:custom_disc");
+        // W24-3 follow-up: the six ElevenLabs discs of Simple Music lie as the same round form
+        for (String song : SIMPLEMUSIC_SONGS) {
+            discs.add("simplemusic:music_disc_" + song);
+        }
         DISCS = Set.copyOf(discs);
     }
 

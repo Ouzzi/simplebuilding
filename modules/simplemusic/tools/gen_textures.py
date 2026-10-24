@@ -221,6 +221,8 @@ def disc(form, palette, scale=1.0):
 # The files go into SimpleBuilding's assets (its placed_<item> models read simplebuilding:block/placed_disc_<item>).
 PLACED_SCALE = 6 / 7
 PLACED = {'placed_disc_blank_disc': (BLANK, 'item/blank_disc'), 'placed_disc_custom_disc': (dict(VINYL, **LABEL_TRACK), 'item/custom_disc')}
+# W24-3 follow-up: the six ElevenLabs discs lie as the round form too, in their own vinyl and label colours
+PLACED.update({'placed_disc_music_disc_' + n: (dict(v, **l), 'item/music_disc_' + n) for n, (v, l) in MUSIC_DISCS.items()})
 
 
 # ------------------------------------------------------------------ Pocket Jukebox

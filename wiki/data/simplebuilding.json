@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 585,
+      "count": 589,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3792,6 +3792,45 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_redstone_torch",
+      "name": {
+        "en_us": "Astral Redstone Torch",
+        "de_de": "Astral-Redstone-Fackel"
+      },
+      "texture": "assets/textures/block/astral_redstone_torch.png",
+      "craftedBy": [
+        "simplebuilding:astral_redstone_torch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneTorchBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone_torch.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Astral Redstone Torch",
+          "summary": "Vanilla's redstone torch for the Astral line: an inverter whose signal feeds only Astral dust, Bridge Redstone and every device.",
+          "details": [
+            "Astral Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+            "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+            "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-Redstone-Fackel",
+          "summary": "Vanillas Redstone-Fackel für die Astral-Linie: ein Inverter, dessen Signal nur Astral-Staub, Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Astral-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+            "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+            "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "name": {
         "en_us": "Astral Vault",
@@ -4633,6 +4672,45 @@
           ],
           "secret": [
             "Färben wie mit Farbstoff: 8 Endstein um 1 Staub ergeben Astral-Endstein. Staub, Nihilitsplitter und Quarz, formlos, ergeben 2 Enderquarz."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_end_rod",
+      "name": {
+        "en_us": "Astralit End Rod",
+        "de_de": "Astralit-Endstab"
+      },
+      "texture": "assets/textures/block/astralit_end_rod.png",
+      "craftedBy": [
+        "simplebuilding:astralit_end_rod"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_end_rod.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineEndRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_end_rod.json",
+          "tools/textures/line_torches_2026_10_23.py"
+        ],
+        "en": {
+          "title": "Astralit End Rod",
+          "summary": "Vanilla's End rod in the colours of the Astral line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+          "details": [
+            "A blaze rod over Astralit Dust crafts four, like the End rod from a blaze rod over popped chorus fruit.",
+            "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a white-pink crystal rod, brightest in the middle, on a dark pink base."
+          ]
+        },
+        "de": {
+          "title": "Astralit-Endstab",
+          "summary": "Vanillas Endstab in den Farben der Astral-Linie: Licht 14, der Endstab-Funke an der Spitze, zeigt beim Platzieren von der angeklickten Fläche weg.",
+          "details": [
+            "Eine Lohenrute über Astralitstaub ergibt vier, wie der Endstab aus Lohenrute über Ploppfrucht.",
+            "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein weiß-rosa Kristallstab, in der Mitte am hellsten, auf dunkelrosa Fuß."
           ]
         }
       },
@@ -20421,6 +20499,45 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_redstone_torch",
+      "name": {
+        "en_us": "Nihil Redstone Torch",
+        "de_de": "Nihil-Redstone-Fackel"
+      },
+      "texture": "assets/textures/block/nihil_redstone_torch.png",
+      "craftedBy": [
+        "simplebuilding:nihil_redstone_torch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneTorchBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone_torch.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Nihil Redstone Torch",
+          "summary": "Vanilla's redstone torch for the Nihil line: an inverter whose signal feeds only Nihil dust, Bridge Redstone and every device.",
+          "details": [
+            "Nihil Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+            "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+            "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Redstone-Fackel",
+          "summary": "Vanillas Redstone-Fackel für die Nihil-Linie: ein Inverter, dessen Signal nur Nihil-Staub, Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Nihil-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+            "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+            "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_vault",
       "name": {
         "en_us": "Nihil Vault",
@@ -21203,6 +21320,45 @@
             "Schleichen + Rechtsklick mit einer Figur auf eine stehende ersetzt sie: die alte kommt in deine Hand, wenn es deine letzte Figur war, sonst ins Inventar.",
             "Schleichen + Rechtsklick mit leerer Hand nimmt eine Figur auf; die leere Hand ohne Schleichen dreht sie eine Vierteldrehung im Uhrzeigersinn. Mit der letzten Figur verschwindet der Block.",
             "Figuren sind wasserfüllbar; Abbauen, ein fehlender Boden oder ein Kolben droppt alle Figuren. Stapel zu 16."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_end_rod",
+      "name": {
+        "en_us": "Nihilit End Rod",
+        "de_de": "Nihilit-Endstab"
+      },
+      "texture": "assets/textures/block/nihilith_end_rod.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_end_rod"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_end_rod.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineEndRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_end_rod.json",
+          "tools/textures/line_torches_2026_10_23.py"
+        ],
+        "en": {
+          "title": "Nihilit End Rod",
+          "summary": "Vanilla's End rod in the colours of the Nihil line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+          "details": [
+            "A blaze rod over a Nihilit Shard crafts four, like the End rod from a blaze rod over popped chorus fruit.",
+            "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a pale cyan rod around a dark void middle, on a dark teal base."
+          ]
+        },
+        "de": {
+          "title": "Nihilit-Endstab",
+          "summary": "Vanillas Endstab in den Farben der Nihil-Linie: Licht 14, der Endstab-Funke an der Spitze, zeigt beim Platzieren von der angeklickten Fläche weg.",
+          "details": [
+            "Eine Lohenrute über einem Nihilitsplitter ergibt vier, wie der Endstab aus Lohenrute über Ploppfrucht.",
+            "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein blass-cyanfarbener Stab um eine dunkle Leere in der Mitte, auf dunkel-petrolfarbenem Fuß."
           ]
         }
       },
@@ -32523,6 +32679,50 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_redstone_torch",
+      "name": {
+        "en_us": "Astral Redstone Torch",
+        "de_de": "Astral-Redstone-Fackel"
+      },
+      "texture": "assets/textures/block/astral_redstone_torch.png",
+      "craftedBy": [
+        "simplebuilding:astral_redstone_torch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astral_redstone_torch.png",
+      "lootTable": "simplebuilding:blocks/astral_redstone_torch",
+      "drops": [
+        "simplebuilding:astral_redstone_torch"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneTorchBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone_torch.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Astral Redstone Torch",
+          "summary": "Vanilla's redstone torch for the Astral line: an inverter whose signal feeds only Astral dust, Bridge Redstone and every device.",
+          "details": [
+            "Astral Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+            "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+            "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-Redstone-Fackel",
+          "summary": "Vanillas Redstone-Fackel für die Astral-Linie: ein Inverter, dessen Signal nur Astral-Staub, Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Astral-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+            "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+            "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "name": {
         "en_us": "Astral Vault",
@@ -32733,6 +32933,49 @@
       "drops": [
         "simplebuilding:astralit_bricks"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_end_rod",
+      "name": {
+        "en_us": "Astralit End Rod",
+        "de_de": "Astralit-Endstab"
+      },
+      "texture": "assets/textures/block/astralit_end_rod.png",
+      "craftedBy": [
+        "simplebuilding:astralit_end_rod"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_end_rod.png",
+      "lootTable": "simplebuilding:blocks/astralit_end_rod",
+      "drops": [
+        "simplebuilding:astralit_end_rod"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineEndRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_end_rod.json",
+          "tools/textures/line_torches_2026_10_23.py"
+        ],
+        "en": {
+          "title": "Astralit End Rod",
+          "summary": "Vanilla's End rod in the colours of the Astral line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+          "details": [
+            "A blaze rod over Astralit Dust crafts four, like the End rod from a blaze rod over popped chorus fruit.",
+            "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a white-pink crystal rod, brightest in the middle, on a dark pink base."
+          ]
+        },
+        "de": {
+          "title": "Astralit-Endstab",
+          "summary": "Vanillas Endstab in den Farben der Astral-Linie: Licht 14, der Endstab-Funke an der Spitze, zeigt beim Platzieren von der angeklickten Fläche weg.",
+          "details": [
+            "Eine Lohenrute über Astralitstaub ergibt vier, wie der Endstab aus Lohenrute über Ploppfrucht.",
+            "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein weiß-rosa Kristallstab, in der Mitte am hellsten, auf dunkelrosa Fuß."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -42108,6 +42351,50 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_redstone_torch",
+      "name": {
+        "en_us": "Nihil Redstone Torch",
+        "de_de": "Nihil-Redstone-Fackel"
+      },
+      "texture": "assets/textures/block/nihil_redstone_torch.png",
+      "craftedBy": [
+        "simplebuilding:nihil_redstone_torch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihil_redstone_torch.png",
+      "lootTable": "simplebuilding:blocks/nihil_redstone_torch",
+      "drops": [
+        "simplebuilding:nihil_redstone_torch"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneTorchBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone_torch.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Nihil Redstone Torch",
+          "summary": "Vanilla's redstone torch for the Nihil line: an inverter whose signal feeds only Nihil dust, Bridge Redstone and every device.",
+          "details": [
+            "Nihil Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+            "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+            "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Redstone-Fackel",
+          "summary": "Vanillas Redstone-Fackel für die Nihil-Linie: ein Inverter, dessen Signal nur Nihil-Staub, Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Nihil-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+            "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+            "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_vault",
       "name": {
         "en_us": "Nihil Vault",
@@ -42317,6 +42604,49 @@
       "drops": [
         "simplebuilding:nihilith_bricks"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_end_rod",
+      "name": {
+        "en_us": "Nihilit End Rod",
+        "de_de": "Nihilit-Endstab"
+      },
+      "texture": "assets/textures/block/nihilith_end_rod.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_end_rod"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_end_rod.png",
+      "lootTable": "simplebuilding:blocks/nihilith_end_rod",
+      "drops": [
+        "simplebuilding:nihilith_end_rod"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineEndRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_end_rod.json",
+          "tools/textures/line_torches_2026_10_23.py"
+        ],
+        "en": {
+          "title": "Nihilit End Rod",
+          "summary": "Vanilla's End rod in the colours of the Nihil line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+          "details": [
+            "A blaze rod over a Nihilit Shard crafts four, like the End rod from a blaze rod over popped chorus fruit.",
+            "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a pale cyan rod around a dark void middle, on a dark teal base."
+          ]
+        },
+        "de": {
+          "title": "Nihilit-Endstab",
+          "summary": "Vanillas Endstab in den Farben der Nihil-Linie: Licht 14, der Endstab-Funke an der Spitze, zeigt beim Platzieren von der angeklickten Fläche weg.",
+          "details": [
+            "Eine Lohenrute über einem Nihilitsplitter ergibt vier, wie der Endstab aus Lohenrute über Ploppfrucht.",
+            "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein blass-cyanfarbener Stab um eine dunkle Leere in der Mitte, auf dunkel-petrolfarbenem Fuß."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -43351,6 +43681,36 @@
           "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java",
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "tools/textures/placed_egg_textures.py"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:placed_paint_box",
+      "name": {
+        "en_us": "Placed Paint Box",
+        "de_de": "Abgestellter Farbkasten"
+      },
+      "texture": "assets/textures/block/placed_paint_box.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/placed_paint_box.png",
+      "note": {
+        "en": {
+          "summary": "A Paint Box set down with sneak + right-click: it stands as a flat case on the floor (or hangs on a wall) and keeps its stored colors.",
+          "details": [
+            "Block class PlacedPaintBoxBlock with a block entity that stores the whole box stack; breaking it drops the box with its contents."
+          ]
+        },
+        "de": {
+          "summary": "Ein mit Schleichen + Rechtsklick abgestellter Farbkasten: er steht als flacher Koffer auf dem Boden (oder haengt an der Wand) und behaelt seine Farben.",
+          "details": [
+            "Blockklasse PlacedPaintBoxBlock mit Block-Entity, die den ganzen Kasten speichert; abgebaut faellt der Kasten samt Inhalt wieder aus."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedPaintBoxBlock.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -106780,6 +107140,30 @@
           "required": true
         },
         {
+          "id": "simplebuilding:dull_astralit_dust",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:dull_nihilith_shard",
+          "required": true
+        },
+        {
+          "id": "simplebeacons:strong_upgrade_shard",
+          "required": false
+        },
+        {
+          "id": "simplemobs:illusion_shard",
+          "required": false
+        },
+        {
+          "id": "simplemobs:soulfire_powder",
+          "required": false
+        },
+        {
+          "id": "simplemobs:nether_gem",
+          "required": false
+        },
+        {
           "id": "#minecraft:decorated_pot_sherds",
           "required": false
         },
@@ -106969,6 +107353,30 @@
         },
         {
           "id": "simplemusic:custom_disc",
+          "required": false
+        },
+        {
+          "id": "simplemusic:music_disc_deep_pulse",
+          "required": false
+        },
+        {
+          "id": "simplemusic:music_disc_ember_forge",
+          "required": false
+        },
+        {
+          "id": "simplemusic:music_disc_end_departure",
+          "required": false
+        },
+        {
+          "id": "simplemusic:music_disc_fortress_march",
+          "required": false
+        },
+        {
+          "id": "simplemusic:music_disc_obsidian_throne",
+          "required": false
+        },
+        {
+          "id": "simplemusic:music_disc_sky_forge",
           "required": false
         },
         {
@@ -137140,8 +137548,8 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 543,
-    "blocks": 320,
+    "items": 547,
+    "blocks": 325,
     "recipes": 861,
     "lootTables": 343,
     "trades": 20,

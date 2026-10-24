@@ -9921,6 +9921,23 @@
           "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein blass-cyanfarbener Stab um eine dunkle Leere in der Mitte, auf dunkel-petrolfarbenem Fuß."
         ]
       }
+    },
+    "placed_paint_box": {
+      "en": {
+        "summary": "A Paint Box set down with sneak + right-click: it stands as a flat case on the floor (or hangs on a wall) and keeps its stored colors.",
+        "details": [
+          "Block class PlacedPaintBoxBlock with a block entity that stores the whole box stack; breaking it drops the box with its contents."
+        ]
+      },
+      "de": {
+        "summary": "Ein mit Schleichen + Rechtsklick abgestellter Farbkasten: er steht als flacher Koffer auf dem Boden (oder haengt an der Wand) und behaelt seine Farben.",
+        "details": [
+          "Blockklasse PlacedPaintBoxBlock mit Block-Entity, die den ganzen Kasten speichert; abgebaut faellt der Kasten samt Inhalt wieder aus."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedPaintBoxBlock.java"
+      ]
     }
   },
   "inWorld": {

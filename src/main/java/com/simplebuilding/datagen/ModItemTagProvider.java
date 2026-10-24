@@ -423,10 +423,16 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 com.simplebuilding.items.ModItems.NIHILITH_SHARD, com.simplebuilding.items.ModItems.ASTRALIT_DUST,
                 com.simplebuilding.items.ModItems.ENDER_QUARTZ, com.simplebuilding.items.ModItems.RAW_ENDERITE,
                 com.simplebuilding.items.ModItems.ENDERITE_SCRAP, com.simplebuilding.items.ModItems.CRACKED_DIAMOND,
-                com.simplebuilding.items.ModItems.SAGE_ORB)) {
+                com.simplebuilding.items.ModItems.SAGE_ORB, com.simplebuilding.items.ModItems.DULL_ASTRALIT_DUST,
+                com.simplebuilding.items.ModItems.DULL_NIHILITH_SHARD)) {
             if (item != null) {
                 tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
             }
+        }
+        // NA24-9: Splitter und Pulver anderer Module lagen bisher nicht ab; nur optional (Modul-Unabhaengigkeit), flaches Modell.
+        for (String foreign : java.util.List.of("simplebeacons:strong_upgrade_shard", "simplemobs:illusion_shard",
+                "simplemobs:soulfire_powder", "simplemobs:nether_gem")) {
+            tag.addOptional(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse(foreign)));
         }
         // Item-Display 3D (Besitzer 2026-10-15, D2/D3): alle Toepferscherben (auch die anderer Mods ueber den Vanilla-Tag) und alle
         // Vanilla-Schallplatten liegen ab; mit eigenem 3D-Modell sind die Vanilla-Scherben und -Platten (PlacedSolids), der Rest flach.
