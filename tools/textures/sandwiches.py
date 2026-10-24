@@ -2025,12 +2025,49 @@ def preview_n18(path):
     print('preview n18:', path)
 
 
+def slippery_icon():
+    """Slippery effect icon (18x18, transparent frame): a butter pat that slides, three speed streaks behind it."""
+    pal = {'o': hx('b08a28'), 'h': hx('fff4b0'), 'm': hx('f3d860'), 'd': hx('e0bc40'), 's': hx('c89c30')}
+    im = Image.new('RGBA', (18, 18), (0, 0, 0, 0))
+    rows = [
+        '..................',
+        '..................',
+        '..................',
+        '.........oooooooo.',
+        '........ohhhmmmmo.',
+        '.......ohhmmmmmmdo',
+        '......ohmmmmmmmmdo',
+        '.....ooooooooooodo',
+        '.....oddddddddddo.',
+        '.....oddmmddmmddo.',
+        '.....ossssssssso..',
+        '......oooooooooo..',
+        '..................',
+        '..................',
+        '..................',
+        '..................',
+        '..................',
+        '..................',
+    ]
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch != '.':
+                im.putpixel((x, y), pal[ch])
+    for y, (x0, x1) in ((6, (1, 4)), (8, (0, 3)), (10, (1, 4))):
+        for x in range(x0, x1 + 1):
+            im.putpixel((x, y + 0), pal['d'] if x < x1 else pal['m'])
+    return im
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
     item = lambda n: os.path.join(OUT, 'item', *n.split('/')) + '.png'
     block = lambda n: os.path.join(OUT, 'block', *n.split('/')) + '.png'
-    files[item('knife')] = KNIFE_V4[STYLE['knife']]() if STYLE['knife'] in KNIFE_V4 else knife()
+    # Owner 24.10. (NA24-4): knife turned 90 degrees clockwise, then mirrored horizontally = transpose.
+    knife_im = KNIFE_V4[STYLE['knife']]() if STYLE['knife'] in KNIFE_V4 else knife()
+    files[item('knife')] = knife_im.transpose(Image.Transpose.TRANSPOSE)
+    files[os.path.join(OUT, 'mob_effect', 'slippery.png')] = slippery_icon()
     files[item('cheese_slice')] = CHEESE_SLICE
     files[item('butter_slice')] = BUTTER_SLICE
     files[item('cake_slice')] = cake_slice()

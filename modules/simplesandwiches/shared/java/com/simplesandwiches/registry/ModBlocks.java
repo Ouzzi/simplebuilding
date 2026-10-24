@@ -1,6 +1,7 @@
 package com.simplesandwiches.registry;
 
 import com.simplesandwiches.Sandwiches;
+import com.simplesandwiches.block.ButterCarpetBlock;
 import com.simplesandwiches.block.CuttingBoardBlock;
 import com.simplesandwiches.block.MilkCauldronBlock;
 import com.simplesandwiches.block.SliceBlock;
@@ -33,6 +34,7 @@ public final class ModBlocks {
 
     public static final Map<String, CuttingBoardBlock> CUTTING_BOARDS = new LinkedHashMap<>();
     public static SliceBlock CHEESE_BLOCK, BUTTER_BLOCK;
+    public static ButterCarpetBlock BUTTER_CARPET;
     public static MilkCauldronBlock MILK_CAULDRON;
 
     public static void register() {
@@ -61,6 +63,9 @@ public final class ModBlocks {
                 .setId(key("cheese_block")), () -> ModItems.CHEESE_SLICE, () -> ModSounds.CHEESE_CUT));
         BUTTER_BLOCK = register("butter_block", new SliceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
                 .strength(0.5F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).setId(key("butter_block")), () -> ModItems.BUTTER_SLICE, () -> ModSounds.BUTTER_CUT));
+        BUTTER_CARPET = register("butter_carpet", new ButterCarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
+                .strength(0.1F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).pushReaction(PushReaction.POPPED)
+                .setId(key("butter_carpet"))));
         MILK_CAULDRON = register("milk_cauldron", new MilkCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)
                 .setId(key("milk_cauldron"))));
     }

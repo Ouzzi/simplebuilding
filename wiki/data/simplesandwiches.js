@@ -200,7 +200,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -214,11 +216,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:acacia_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:acacia_log",
             "count": 0.125
           }
         ]
@@ -239,7 +241,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "simpleend:ashwood_slab"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -254,11 +258,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "materials": [
           {
             "id": "simpleend:ashwood_slab",
-            "count": 2
+            "count": 1
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.125
+            "count": 0.5
           }
         ]
       }
@@ -278,7 +282,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -293,11 +299,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "materials": [
           {
             "id": "minecraft:bamboo",
-            "count": 4.5
+            "count": 2.25
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.125
+            "count": 0.5
           }
         ]
       }
@@ -317,7 +323,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -331,11 +339,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:birch_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:birch_log",
             "count": 0.125
           }
         ]
@@ -356,7 +364,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -370,11 +380,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:cherry_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:cherry_log",
             "count": 0.125
           }
         ]
@@ -395,7 +405,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -409,11 +421,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:crimson_stem",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:crimson_stem",
             "count": 0.125
           }
         ]
@@ -434,7 +446,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -448,11 +462,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:dark_oak_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:dark_oak_log",
             "count": 0.125
           }
         ]
@@ -473,7 +487,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "simpleend:duskwood_slab"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -488,11 +504,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "materials": [
           {
             "id": "simpleend:duskwood_slab",
-            "count": 2
+            "count": 1
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.125
+            "count": 0.5
           }
         ]
       }
@@ -552,7 +568,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -566,11 +584,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:jungle_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:jungle_log",
             "count": 0.125
           }
         ]
@@ -632,7 +650,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -646,11 +666,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:mangrove_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:mangrove_log",
             "count": 0.125
           }
         ]
@@ -671,7 +691,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -686,7 +708,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "materials": [
           {
             "id": "minecraft:oak_log",
-            "count": 0.375
+            "count": 0.625
           }
         ]
       }
@@ -706,7 +728,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -720,11 +744,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:pale_oak_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:pale_oak_log",
             "count": 0.125
           }
         ]
@@ -745,7 +769,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -759,11 +785,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:poplar_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:poplar_log",
             "count": 0.125
           }
         ]
@@ -784,7 +810,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:stick"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -798,11 +826,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:spruce_log",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:spruce_log",
             "count": 0.125
           }
         ]
@@ -823,7 +851,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "minecraft:warped_slab"
       ],
       "pattern": [
-        "SXX"
+        " S ",
+        "SXS",
+        " S "
       ],
       "key": {
         "S": [
@@ -837,11 +867,11 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:warped_stem",
-            "count": 0.25
+            "id": "minecraft:oak_log",
+            "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
+            "id": "minecraft:warped_stem",
             "count": 0.125
           }
         ]
@@ -939,6 +969,24 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         }
       ],
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/butter_block.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/butter_carpet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:butter_slice"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/butter_carpet.json"
     },
     {
       "id": "simplesandwiches:blocks/cheese_block",
@@ -1520,10 +1568,10 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       },
       "note": {
         "en": {
-          "summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps."
+          "summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps. Placed on the ground it becomes a butter carpet."
         },
         "de": {
-          "summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und summierte Effektdauer unter Beachtung der Effektgrenzen."
+          "summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und summierte Effektdauer unter Beachtung der Effektgrenzen. Auf den Boden gelegt wird sie zum Butter-Teppich."
         }
       },
       "texture": "assets/textures/simplesandwiches/item/butter_slice.png",
@@ -1861,10 +1909,10 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       },
       "note": {
         "en": {
-          "summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9."
+          "summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9. Walking on butter gives Slippery for 3 seconds."
         },
         "de": {
-          "summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9."
+          "summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9. Wer auf Butter läuft, bekommt 3 Sekunden Rutschig."
         }
       },
       "questionary": {
@@ -1889,6 +1937,23 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "secret": [
             "Eine passende Scheibe stellt eine Lage wieder her. Seine Reibung ist 0,9, er ist also rutschig."
           ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:butter_carpet",
+      "name": {
+        "en_us": "Butter Carpet",
+        "de_de": "Butter-Teppich"
+      },
+      "note": {
+        "en": {
+          "summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter. Breaking it drops the slice."
+        },
+        "de": {
+          "summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt die Scheibe zurück."
         }
       },
       "craftedBy": [],
@@ -2213,12 +2278,12 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
   "counts": {
     "features": 6,
     "recipes": 17,
-    "lootTables": 18,
+    "lootTables": 19,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
     "items": 6,
-    "blocks": 18,
+    "blocks": 19,
     "trades": 0,
     "config": 0,
     "quests": 0,

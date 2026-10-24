@@ -9,7 +9,7 @@ Namensraum `simplemoney` unverändert. Sieben Items: `special_paper` (64), `spec
 ## Rezepte (alle Original-IDs erhalten)
 
 - `special_paper_from_crafting_table`: Papier / Honigwabe / Papier → 1 Spezialpapier.
-- `special_fiber_from_crafting_table`: `CGA/DAG/GDC`, C Kupfernugget, G Goldnugget, A Amethystscherbe, D Diamant → 1 Spezialfaser.
+- `special_fiber_from_crafting_table`: `CDA/GGG/ADC`, C Kupfernugget, G Goldnugget, A Amethystscherbe, D Diamant → 1 Spezialfaser.
 - `resin_fiber_from_crafting_table`: `ERH/RBR/HRE`, E Eisennugget, R Harzklumpen, H Honigwabe, B Knochenmehl → 1 Harzfaser.
 - `blank_note_smithing`: Eiseningot als Vorlage + Spezialpapier + Harzfaser → 1 Banknotenrohling.
 - `refined_bank_note_blank_smithing`: Goldingot als Vorlage + Banknotenrohling + Spezialfaser → 1 veredelter Rohling.

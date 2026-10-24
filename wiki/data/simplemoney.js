@@ -53,7 +53,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "details": [
           "Registry ID: simplemoney:special_fiber",
           "Stack limit: 16",
-          "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+          "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CDA\", \"GGG\", \"ADC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
         ]
       },
       "de": {
@@ -62,7 +62,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "details": [
           "Registry-ID: simplemoney:special_fiber",
           "Stapelgrenze: 16",
-          "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+          "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CDA\", \"GGG\", \"ADC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
         ]
       },
       "sources": [
@@ -3420,9 +3420,9 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "minecraft:gold_nugget"
       ],
       "pattern": [
-        "CGA",
-        "DAG",
-        "GDC"
+        "CDA",
+        "GGG",
+        "ADC"
       ],
       "key": {
         "D": [
@@ -3889,7 +3889,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "details": [
             "Registry ID: simplemoney:special_fiber",
             "Stack limit: 16",
-            "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+            "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CDA\", \"GGG\", \"ADC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
           ]
         },
         "de": {
@@ -3898,7 +3898,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "details": [
             "Registry-ID: simplemoney:special_fiber",
             "Stapelgrenze: 16",
-            "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+            "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CDA\", \"GGG\", \"ADC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
           ]
         },
         "sources": [

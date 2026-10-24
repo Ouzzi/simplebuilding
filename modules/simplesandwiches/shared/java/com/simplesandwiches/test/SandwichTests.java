@@ -82,6 +82,10 @@ public final class SandwichTests {
         ALL.put("knife_cake_slices", SandwichTests::knifeCakeSlices);
         ALL.put("knife_melon_and_tools", SandwichTests::knifeMelonAndTools);
         ALL.put("knife_recipe_shape", SandwichTests::knifeRecipeShape);
+        ALL.put("cutting_board_recipe_shape", SandwichTests::cuttingBoardRecipeShape);
+        ALL.put("slippery_from_butter", SandwichTests::slipperyFromButter);
+        ALL.put("slippery_friction", SandwichTests::slipperyFriction);
+        ALL.put("butter_carpet_place_break", SandwichTests::butterCarpetPlaceBreak);
         ALL.put("slice_block_cutting", SandwichTests::sliceBlockCutting);
         ALL.put("slice_block_keeps_state", SandwichTests::sliceBlockKeepsState);
         ALL.put("cheese_bounces_like_bed", SandwichTests::cheeseBouncesLikeBed);
@@ -465,6 +469,89 @@ public final class SandwichTests {
                 List.of(empty, empty, nugget, empty, nugget, empty, stick, empty, empty));
         h.assertTrue(recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, old, level).isEmpty(),
                 "old two-nugget pattern must not craft a knife");
+        h.succeed();
+    }
+
+    /** NA24-4: four sticks around one slab craft the board of that wood; the old stick + two slabs row does not. */
+    static void cuttingBoardRecipeShape(GameTestHelper h) {
+        var level = h.getLevel();
+        var recipes = level.getServer().getRecipeManager();
+        var e = ItemStack.EMPTY;
+        var stick = new ItemStack(Items.STICK);
+        var slab = new ItemStack(Items.OAK_SLAB);
+        var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(e, stick, e, stick, slab, stick, e, stick, e));
+        var output = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level).orElseThrow().value().assemble(input);
+        h.assertTrue(output.is(ModItems.CUTTING_BOARDS.get("oak")) && output.getCount() == 1, "stick cross around an oak slab crafts the oak board");
+        var old = net.minecraft.world.item.crafting.CraftingInput.of(3, 1, List.of(stick, slab, slab));
+        h.assertTrue(recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, old, level).isEmpty(), "old SXX row does not craft");
+        h.succeed();
+    }
+
+    private static void step(GameTestHelper h, BlockPos pos, net.minecraft.world.entity.Entity who) {
+        BlockPos abs = h.absolutePos(pos);
+        h.getLevel().getBlockState(abs).getBlock().stepOn(h.getLevel(), abs, h.getLevel().getBlockState(abs), who);
+    }
+
+    /** NA24-5: stepping on a butter block or butter carpet gives Slippery for 3 s; cheese and stone do not. */
+    static void slipperyFromButter(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        h.setBlock(pos.below(), Blocks.STONE);
+        ServerPlayer p = player(h, pos);
+        h.assertTrue(com.simplesandwiches.registry.ModEffects.SLIPPERY != null, "effect registered");
+        var slippery = com.simplesandwiches.registry.ModEffects.SLIPPERY;
+        h.setBlock(pos, Blocks.STONE);
+        step(h, pos, p);
+        h.assertTrue(!p.hasEffect(slippery), "stone gives nothing");
+        h.setBlock(pos, ModBlocks.CHEESE_BLOCK);
+        step(h, pos, p);
+        h.assertTrue(!p.hasEffect(slippery), "cheese gives nothing");
+        h.setBlock(pos, ModBlocks.BUTTER_BLOCK);
+        step(h, pos, p);
+        var now = p.getEffect(slippery);
+        h.assertTrue(now != null && now.getDuration() == 60 && !now.isVisible(), "butter block: 3 s, no particles: " + now);
+        p.removeAllEffects();
+        h.setBlock(pos, ModBlocks.BUTTER_CARPET);
+        step(h, pos, p);
+        h.assertTrue(p.hasEffect(slippery) && p.getEffect(slippery).getDuration() == 60, "butter carpet: 3 s");
+        h.succeed();
+    }
+
+    /** NA24-5: with Slippery every ground slides like butter (friction lifted to 0.9), without it stone keeps 0.6. */
+    static void slipperyFriction(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        h.setBlock(pos.below(), Blocks.STONE);
+        ServerPlayer p = player(h, pos);
+        p.setPos(h.absolutePos(pos).getX() + 0.5, h.absolutePos(pos).getY(), h.absolutePos(pos).getZ() + 0.5);
+        double[] kept = new double[2];
+        for (int i = 0; i < 2; i++) {
+            if (i == 1) p.addEffect(new MobEffectInstance(com.simplesandwiches.registry.ModEffects.SLIPPERY, 60));
+            p.setOnGround(true);
+            p.setDeltaMovement(0.2, 0, 0);
+            p.travel(Vec3.ZERO);
+            kept[i] = p.getDeltaMovement().x;
+        }
+        h.assertTrue(kept[1] > kept[0] * 1.3, "slippery keeps more speed than plain stone: " + kept[0] + " vs " + kept[1]);
+        h.assertTrue(com.simplesandwiches.registry.ModEffects.friction(p, 0.6F) == ModBlocks.BUTTER_FRICTION
+                && com.simplesandwiches.registry.ModEffects.friction(p, 0.98F) == 0.98F, "ice stays slicker, stone lifted to butter");
+        h.succeed();
+    }
+
+    /** NA24-5: a butter slice is laid as a 1 px carpet (survival: consumes one), breaking drops the slice, no placing in mid-air. */
+    static void butterCarpetPlaceBreak(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos abs = h.absolutePos(pos);
+        h.setBlock(pos.below(), Blocks.STONE);
+        ServerPlayer p = player(h, pos.below());
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.BUTTER_SLICE, 3));
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).relative(Direction.DOWN, 0.5), Direction.UP, abs.below(), false);
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, hit);
+        h.assertTrue(h.getLevel().getBlockState(abs).is(ModBlocks.BUTTER_CARPET), "slice lies down as a carpet: " + h.getLevel().getBlockState(abs));
+        h.assertTrue(p.getMainHandItem().getCount() == 2, "one slice consumed");
+        h.assertTrue(h.getLevel().getBlockState(abs).getShape(h.getLevel(), abs).max(net.minecraft.core.Direction.Axis.Y) == 1.0 / 16, "1 px high");
+        var drops = net.minecraft.world.level.block.Block.getDrops(h.getLevel().getBlockState(abs), h.getLevel(), abs, null);
+        h.assertTrue(drops.size() == 1 && drops.get(0).is(ModItems.BUTTER_SLICE), "breaking drops the slice: " + drops);
+        h.setBlock(pos.below(), Blocks.AIR);
+        h.assertTrue(!ModBlocks.BUTTER_CARPET.defaultBlockState().canSurvive(h.getLevel(), abs.below()), "no carpet in mid-air");
         h.succeed();
     }
 

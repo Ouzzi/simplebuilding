@@ -179,12 +179,16 @@
       "de": {"summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."}
     },
     "simplesandwiches:butter_block": {
-      "en": {"summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9."},
-      "de": {"summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9."}
+      "en": {"summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9. Walking on butter gives Slippery for 3 seconds."},
+      "de": {"summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9. Wer auf Butter läuft, bekommt 3 Sekunden Rutschig."}
+    },
+    "simplesandwiches:butter_carpet": {
+      "en": {"summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter. Breaking it drops the slice."},
+      "de": {"summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt die Scheibe zurück."}
     },
     "simplesandwiches:butter_slice": {
-      "en": {"summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps."},
-      "de": {"summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und summierte Effektdauer unter Beachtung der Effektgrenzen."}
+      "en": {"summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps. Placed on the ground it becomes a butter carpet."},
+      "de": {"summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und summierte Effektdauer unter Beachtung der Effektgrenzen. Auf den Boden gelegt wird sie zum Butter-Teppich."}
     },
     "simplesandwiches:cake_slice": {
       "en": {"summary": "One piece per knife use, seven from a full cake. Restores 2 hunger and 0.4 saturation instantly, stacks to seven and works as a sandwich ingredient."},
