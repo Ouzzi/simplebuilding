@@ -566,12 +566,14 @@ public final class LightsTests {
         props.putString("facing", "north");
         props.putString("start", "3");
         stateTag.put("Properties", props);
-        BlockState old = net.minecraft.nbt.NbtUtils.readBlockState(helper.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), stateTag);
+        // The chunk palette decodes through BlockState.CODEC (the block registry's name codec).
+        BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, stateTag).result().orElse(Blocks.AIR.defaultBlockState());
         if (!old.is(LightsRegistry.REDSTONE_LIGHT_PANE) || old.getValue(AbstractLightPaneBlock.FACING) != Direction.NORTH
                 || old.getValue(RedstoneLightPaneBlock.START) != 3) {
             problems.add("old block state loads as " + old);
-        } else if (!net.minecraft.nbt.NbtUtils.writeBlockState(old).getStringOr("Name", "").equals("simplelights:redstone_light_pane")) {
-            problems.add("old block state saves as " + net.minecraft.nbt.NbtUtils.writeBlockState(old));
+        } else if (!BlockState.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, old).result()
+                .map(t -> ((net.minecraft.nbt.CompoundTag) t).getStringOr("Name", "")).orElse("").equals("simplelights:redstone_light_pane")) {
+            problems.add("old block state saves under another id");
         }
         // A stack of an old inventory.
         net.minecraft.nbt.CompoundTag stackTag = new net.minecraft.nbt.CompoundTag();
