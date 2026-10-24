@@ -41,7 +41,9 @@ public final class PlayState {
         try {
             if (Files.isRegularFile(file) && Files.size(file) < 16_000_000) state = GSON.fromJson(Files.readString(file), PlayState.class);
         } catch (Exception e) {
-            org.slf4j.LoggerFactory.getLogger("simpletweaks-play").warn("Could not read {}; starting with an empty state", file, e);
+            // REV2-C: keep the unreadable file (the next save would overwrite playtimes, last-seen and choices with the empty state).
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-play").warn("Could not read {}; starting with an empty state, old file kept as {}",
+                    file, com.simplebuilding.framework.api.ConfigFiles.quarantine(file), e);
         }
         if (state == null) state = new PlayState();
         state.fill();

@@ -29,7 +29,9 @@ public final class AdminState {
                 state.maintenance = json.has("maintenance") && json.get("maintenance").getAsBoolean();
             }
         } catch (Exception e) {
-            org.slf4j.LoggerFactory.getLogger("simpletweaks-admin").warn("Could not read {}; starting with an empty admin state", state.file, e);
+            // REV2-C: keep the unreadable file (the next save would overwrite it with the empty state).
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-admin").warn("Could not read {}; starting with an empty admin state, old file kept as {}",
+                    state.file, com.simplebuilding.framework.api.ConfigFiles.quarantine(state.file), e);
         }
         return state;
     }
