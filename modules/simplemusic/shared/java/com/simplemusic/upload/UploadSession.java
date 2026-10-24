@@ -28,7 +28,7 @@ public final class UploadSession {
         this.declared = declared;
         this.title = title;
         this.bytesPerSecond = Math.max(1, bytesPerSecond);
-        this.data = new ByteArrayOutputStream(Math.min(Math.max(0, declared), MAX_CHUNK)) // grows with what really arrives, not with the claim;
+        this.data = new ByteArrayOutputStream(Math.min(Math.max(0, declared), MAX_CHUNK)); // grows with what really arrives, not with the claim
         this.lastMillis = nowMillis;
         this.started = nowMillis;
         // one second of burst plus one chunk, so a client that paces at the limit never trips it
