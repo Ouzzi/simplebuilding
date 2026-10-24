@@ -563,13 +563,18 @@ public final class LightsTests {
         BlockState placed = LightsRegistry.REDSTONE_LIGHT_PANE.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.NORTH)
                 .setValue(RedstoneLightPaneBlock.START, 3);
         net.minecraft.nbt.CompoundTag stateTag = net.minecraft.nbt.NbtUtils.writeBlockState(placed);
-        stateTag.putString("Name", "simplebuilding:redstone_light_pane");
+        // 26.3 palette entries carry the block under "id" (BlockState.CODEC, NbtUtils), older saves are datafixed to it.
+        if (!stateTag.contains("id")) problems.add("palette entry without id: " + stateTag);
+        stateTag.putString("id", "simplebuilding:redstone_light_pane");
         BlockState old = net.minecraft.nbt.NbtUtils.readBlockState(helper.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), stateTag);
         if (old != placed) {
             problems.add("old block state " + stateTag + " loads as " + old);
-        } else if (!net.minecraft.nbt.NbtUtils.writeBlockState(old).getStringOr("Name", "").equals("simplelights:redstone_light_pane")) {
+        } else if (!net.minecraft.nbt.NbtUtils.writeBlockState(old).getStringOr("id", "").equals("simplelights:redstone_light_pane")) {
             problems.add("old block state saves as " + net.minecraft.nbt.NbtUtils.writeBlockState(old));
         }
+        // The chunk section codec decodes the palette through BlockState.CODEC.
+        BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, stateTag).result().orElse(null);
+        if (decoded != placed) problems.add("chunk codec loads " + stateTag + " as " + decoded);
         // A stack of an old inventory.
         net.minecraft.nbt.CompoundTag stackTag = new net.minecraft.nbt.CompoundTag();
         stackTag.putString("id", "simplebuilding:cyan_copper_light_pane");
