@@ -67,6 +67,8 @@ public final class MapsTests {
         ALL.put("cartography_switches", MapsTests::cartographySwitches);
         ALL.put("waypoint_edit", MapsTests::waypointEdit);
         ALL.put("frame_view", MapsTests::frameView);
+        ALL.put("picture_palette", MapsTests::picturePalette);
+        ALL.put("picture_map_server", MapsTests::pictureMapServer);
         ALL.put("frame_save_rules", MapsTests::frameSaveRules);
         ALL.put("frame_code", MapsTests::frameCode);
         ALL.put("stack_size", MapsTests::stackSize);
@@ -143,6 +145,62 @@ public final class MapsTests {
         h.succeed();
     }
 
+    /** AUD-6: the picture palette is made of valid map colours, conversion is deterministic and sized to the wall. */
+    private static void picturePalette(GameTestHelper h) {
+        h.assertTrue(com.simplemaps.PictureMaps.colors() == 244, "61 base colours x 4 shades: " + com.simplemaps.PictureMaps.colors());
+        h.assertTrue(com.simplemaps.PictureMaps.valid((byte) 0) && com.simplemaps.PictureMaps.valid((byte) (4 * 4 + 1)), "free and a real colour are valid");
+        h.assertTrue(!com.simplemaps.PictureMaps.valid((byte) 1) && !com.simplemaps.PictureMaps.valid((byte) 255), "shades of NONE and out-of-range ids are not");
+        // 4x2 picture: red left half, blue right half, transparent bottom row -> 2 maps wide, 1 high
+        int[] argb = {0xFFFF0000, 0xFFFF0000, 0xFF0000FF, 0xFF0000FF, 0, 0, 0, 0};
+        var a = com.simplemaps.PictureMaps.convert(argb, 4, 2, 2, com.simplelib.api.image.PixelArt.Dither.NONE);
+        var b = com.simplemaps.PictureMaps.convert(argb, 4, 2, 2, com.simplelib.api.image.PixelArt.Dither.NONE);
+        h.assertTrue(a.cols() == 2 && a.rows() == 1 && a.colors().length == 2 * com.simplemaps.PictureMaps.BYTES, "2 x 1 maps: " + a.cols() + "x" + a.rows());
+        h.assertTrue(java.util.Arrays.equals(a.colors(), b.colors()), "deterministic");
+        for (byte c : a.colors()) h.assertTrue(com.simplemaps.PictureMaps.valid(c), "only valid colours");
+        int w = 2 * com.simplemaps.PictureMaps.MAP;
+        // top row of the picture area is red on the left, blue on the right; below the picture it is free
+        int redRgb = com.simplemaps.PictureMaps.rgb(a.colors()[0 * w + 10]), blueRgb = com.simplemaps.PictureMaps.rgb(a.colors()[0 * w + w - 10]);
+        h.assertTrue(((redRgb >> 16) & 255) > 150 && (redRgb & 255) < 100, "left is red: " + Integer.toHexString(redRgb));
+        h.assertTrue((blueRgb & 255) > 150 && ((blueRgb >> 16) & 255) < 100, "right is blue: " + Integer.toHexString(blueRgb));
+        h.assertTrue(a.colors()[(com.simplemaps.PictureMaps.MAP - 1) * w + 10] == 0, "transparent bottom row stays free");
+        h.assertTrue(a.tile(1, 0)[0] == a.colors()[com.simplemaps.PictureMaps.MAP], "tile(1,0) starts at the second map");
+        h.succeed();
+    }
+
+    /** AUD-6: the server refuses every bad picture packet and makes a locked map with the colours for a good one. */
+    private static void pictureMapServer(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        byte[] colors = new byte[com.simplemaps.PictureMaps.BYTES];
+        java.util.Arrays.fill(colors, (byte) (4 * 4 + 2));
+        try {
+            MapsConfig.pictureMap = false;
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.OFF, "off by default");
+            MapsConfig.pictureMap = true;
+            MapsConfig.pictureMapMaxSide = 2;
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(3, 1, 0, 0, colors)), MapsNetwork.PictureResult.SIZE, "wall too wide");
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(2, 2, 2, 0, colors)), MapsNetwork.PictureResult.INVALID, "index outside");
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, new byte[10])), MapsNetwork.PictureResult.INVALID, "wrong length");
+            byte[] bad = colors.clone();
+            bad[5] = 1;
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, bad)), MapsNetwork.PictureResult.INVALID, "invalid colour byte");
+            MapsConfig.pictureMapPermission = 4;
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.PERMISSION, "permission level");
+            MapsConfig.pictureMapPermission = 0;
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(2, 1, 1, 0, colors)), MapsNetwork.PictureResult.OK, "good packet");
+            ItemStack map = ItemStack.EMPTY;
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) if (player.getInventory().getItem(i).is(net.minecraft.world.item.Items.FILLED_MAP)) map = player.getInventory().getItem(i);
+            h.assertTrue(!map.isEmpty(), "a filled map reached the inventory");
+            var data = net.minecraft.world.item.MapItem.getSavedData(map, h.getLevel());
+            h.assertTrue(data != null && data.locked && data.colors[100] == (byte) (4 * 4 + 2) && data.colors[com.simplemaps.PictureMaps.BYTES - 1] == (byte) (4 * 4 + 2), "locked map holds the colours");
+            // budget: 2 * 2^2 = 8 per minute, one used
+            for (int i = 0; i < 7; i++) h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.OK, "within budget " + i);
+            h.assertValueEqual(MapsNetwork.createPictureMap(player, new com.simplemaps.net.PictureMapPayload(1, 1, 0, 0, colors)), MapsNetwork.PictureResult.RATE, "budget used up");
+        } finally {
+            MapsConfig.apply(new JsonObject());
+        }
+        h.succeed();
+    }
+
     private static void configBounds(GameTestHelper h) {
         try {
             JsonObject json = new JsonObject();
@@ -153,6 +211,11 @@ public final class MapsTests {
             h.assertTrue(MapsConfig.revealRadius == MapsConfig.REVEAL_RADIUS_MAX, "radius clamped");
             h.assertTrue(MapsConfig.maxTilesPerMap == MapsConfig.MAX_TILES_MIN, "tiles clamped");
             h.assertTrue(!MapsConfig.allowCopy && MapsConfig.allowExtend && MapsConfig.allowCombine, "switches");
+            h.assertTrue(!MapsConfig.pictureMap && MapsConfig.pictureMapMaxSide == MapsConfig.PICTURE_SIDE_DEFAULT && MapsConfig.pictureMapPermission == 0, "picture maps off by default");
+            json.addProperty("pictureMapMaxSide", 99);
+            json.addProperty("pictureMapPermission", -3);
+            MapsConfig.apply(json);
+            h.assertTrue(MapsConfig.pictureMapMaxSide == MapsConfig.PICTURE_SIDE_MAX && MapsConfig.pictureMapPermission == 0, "picture bounds clamped");
         } finally {
             MapsConfig.apply(new JsonObject());
         }

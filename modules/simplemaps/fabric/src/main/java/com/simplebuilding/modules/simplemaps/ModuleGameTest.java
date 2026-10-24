@@ -17,6 +17,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void picturePalette(GameTestHelper h) {
+        MapsTests.ALL.get("picture_palette").accept(h);
+    }
+
+    @GameTest
+    public void pictureMapServer(GameTestHelper h) {
+        MapsTests.ALL.get("picture_map_server").accept(h);
+    }
+
+    @GameTest
     public void waypoints(GameTestHelper h) {
         MapsTests.ALL.get("waypoints").accept(h);
     }

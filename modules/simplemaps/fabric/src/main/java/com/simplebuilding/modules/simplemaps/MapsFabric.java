@@ -51,6 +51,9 @@ public final class MapsFabric implements ModInitializer {
         PayloadTypeRegistry.serverboundPlay().register(TileRequestPayload.TYPE, TileRequestPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(WaypointEditPayload.TYPE, WaypointEditPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(FrameViewPayload.TYPE, FrameViewPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(com.simplemaps.net.PictureMapPayload.TYPE, com.simplemaps.net.PictureMapPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(com.simplemaps.net.PictureMapPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> MapsNetwork.handlePicture(payload, context.player())));
         PayloadTypeRegistry.serverboundPlay().register(DisplayPayload.TYPE, DisplayPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(com.simplemaps.net.SelectDimensionPayload.TYPE, com.simplemaps.net.SelectDimensionPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TileDataPayload.TYPE, TileDataPayload.CODEC);
