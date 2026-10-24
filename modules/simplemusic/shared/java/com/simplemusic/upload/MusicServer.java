@@ -24,7 +24,15 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.HashSet;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -47,6 +55,24 @@ public final class MusicServer {
     public static java.util.function.LongSupplier clock = System::currentTimeMillis;
 
     private record Upload(UploadSession session, int hand) {}
+
+    /**
+     * One thread for the pure CPU part of a finished upload (Ogg check with CRC, tag stripping: tens of ms for 4 MiB, a
+     * few hundred for 16), a short queue; the results are applied on the server thread in {@link #tick}.
+     */
+    private static final class Worker {
+        final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(8), r -> {
+            Thread t = new Thread(r, "simplemusic-upload");
+            t.setDaemon(true);
+            return t;
+        });
+        final ConcurrentLinkedQueue<Runnable> done = new ConcurrentLinkedQueue<>();
+        final AtomicInteger inFlight = new AtomicInteger();
+    }
+
+    private static Worker worker;
+    /** Players whose finished upload is being checked (server thread only): no second upload meanwhile. */
+    private static final Set<UUID> PROCESSING = new HashSet<>();
 
     private static final class Download {
         final String hash;
@@ -80,6 +106,12 @@ public final class MusicServer {
         server = null;
         store = null;
         UPLOADS.clear();
+        PROCESSING.clear();
+        if (worker != null) {
+            worker.executor.shutdownNow();
+            worker.done.clear();
+            worker = null;
+        }
         DOWNLOADS.clear();
         DiscPlayback.clear();
         com.simplemusic.disc.SheetPlayback.clear();
@@ -155,7 +187,7 @@ public final class MusicServer {
         if (size <= 0) return "empty";
         if (size > MusicConfig.maxUploadMiB << 20) return "too_big";
         if (s.totalBytes() + size > ((long) MusicConfig.storeLimitMiB << 20)) return "store_full";
-        if (UPLOADS.containsKey(player.getUUID())) return "busy";
+        if (UPLOADS.containsKey(player.getUUID()) || PROCESSING.contains(player.getUUID())) return "busy";
         return null;
     }
 
@@ -208,10 +240,58 @@ public final class MusicServer {
         return stack.getItem() instanceof SheetMusicItem && !SheetMusicItem.content(stack).signed();
     }
 
-    /** Checks and stores a complete upload, turns the sheet into an upload sheet (track + signed title). */
+    /**
+     * Hands a complete upload to the worker (check + strip off the server thread); {@link #store} follows on the server
+     * thread, where the sheet and the track store are touched.
+     */
     private static void finish(ServerPlayer player, Upload upload) {
+        if (worker == null) worker = new Worker();
+        Worker w = worker;
         byte[] data = upload.session().bytes();
-        OggCheck.Result check = OggCheck.check(data, MusicConfig.uploadLimits());
+        UUID id = player.getUUID();
+        w.inFlight.incrementAndGet();
+        try {
+            w.executor.execute(() -> {
+                OggCheck.Result check = null;
+                byte[] clean = null;
+                try {
+                    check = OggCheck.check(data, MusicConfig.uploadLimits());
+                    if (check.ok()) clean = OggCheck.strip(data);
+                } catch (RuntimeException e) {
+                    SimpleMusic.LOG.warn("Could not process an upload: {}", e.toString());
+                    check = null;
+                }
+                OggCheck.Result result = check;
+                byte[] stripped = clean;
+                w.done.add(() -> {
+                    PROCESSING.remove(id);
+                    if (result == null) reply(player, "store_failed");
+                    else store(player, upload, result, stripped);
+                });
+                w.inFlight.decrementAndGet();
+            });
+            PROCESSING.add(id);
+        } catch (RejectedExecutionException e) {
+            w.inFlight.decrementAndGet();
+            reply(player, "busy");
+        }
+    }
+
+    /** Test access: waits for the worker and applies its results (what {@link #tick} does as they arrive). */
+    public static void flushUploads() {
+        Worker w = worker;
+        if (w == null) return;
+        long end = System.nanoTime() + 20_000_000_000L;
+        while (w.inFlight.get() > 0 && System.nanoTime() < end) Thread.onSpinWait();
+        applyResults(w);
+    }
+
+    private static void applyResults(Worker w) {
+        for (Runnable r; (r = w.done.poll()) != null; ) r.run();
+    }
+
+    /** Stores a checked upload, turns the sheet into an upload sheet (track + signed title). Server thread. */
+    private static void store(ServerPlayer player, Upload upload, OggCheck.Result check, byte[] clean) {
         if (!check.ok()) {
             reply(player, check.key(), check.args().toArray());
             return;
@@ -222,7 +302,6 @@ public final class MusicServer {
             reply(player, "no_sheet");
             return;
         }
-        byte[] clean = OggCheck.strip(data);
         boolean approved = host(player) || MusicConfig.uploads == MusicConfig.Uploads.EVERYONE
                 || (MusicConfig.uploads == MusicConfig.Uploads.OP && op(player));
         TrackStore.Track track;
@@ -269,6 +348,7 @@ public final class MusicServer {
     /** Sends download chunks within the global rate (config {@code downloadKiBPerSecond}), round robin. */
     public static void tick(MinecraftServer current) {
         com.simplemusic.pocket.PocketPlayback.tick(current);
+        if (worker != null) applyResults(worker);
         // abandoned (or disconnected) uploads give their buffer back after the timeout, not only at the next foreign begin
         if (!UPLOADS.isEmpty()) UPLOADS.values().removeIf(u -> u.session().expired(clock.getAsLong()));
         if (DOWNLOADS.isEmpty()) return;

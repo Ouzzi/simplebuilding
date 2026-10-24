@@ -130,6 +130,7 @@ public final class MusicTests {
             int from = i * UploadSession.MAX_CHUNK;
             MusicServer.handleUploadChunk(new UploadChunkPayload(i, Arrays.copyOfRange(data, from, Math.min(data.length, from + UploadSession.MAX_CHUNK))), player);
         }
+        MusicServer.flushUploads(); // the check runs on the worker; apply its result like the tick does
     }
 
     static {
@@ -237,6 +238,31 @@ public final class MusicTests {
                 now[0] += UploadSession.TIMEOUT_MILLIS + 1;
                 MusicServer.tick(h.getLevel().getServer());
                 h.assertTrue(!MusicServer.uploading(alice.getUUID()), "abandoned upload freed by the tick, no foreign begin needed");
+                h.succeed();
+            } finally {
+                restore();
+            }
+        });
+        ALL.put("upload_worker_delivers", h -> {
+            ServerPlayer alice = h.makeMockServerPlayerInLevel();
+            List<CustomPacketPayload> sent = capture(alice);
+            try {
+                alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.SHEET_MUSIC));
+                byte[] mono = uniqueOgg(1, 5);
+                long[] now = {1_000_000L};
+                MusicServer.clock = () -> now[0];
+                MusicServer.handleUploadBegin(new UploadBeginPayload(0, "Worker", mono.length), alice);
+                for (int i = 0; i * UploadSession.MAX_CHUNK < mono.length; i++) {
+                    now[0] += 1000;
+                    int from = i * UploadSession.MAX_CHUNK;
+                    MusicServer.handleUploadChunk(new UploadChunkPayload(i, Arrays.copyOfRange(mono, from, Math.min(mono.length, from + UploadSession.MAX_CHUNK))), alice);
+                }
+                h.assertTrue(SheetMusicItem.track(alice.getMainHandItem()) == null, "the sheet is only written after the worker, on the server thread");
+                h.assertTrue("busy".equals(MusicServer.refusal(alice, 10)), "no second upload while the first is processed");
+                MusicServer.flushUploads();
+                h.assertTrue(last(sent).equals("pending"), "result arrives after the worker: " + last(sent));
+                h.assertTrue(SheetMusicItem.track(alice.getMainHandItem()) != null, "sheet became an upload sheet");
+                h.assertTrue(MusicServer.refusal(alice, 10) == null, "busy ends with the result");
                 h.succeed();
             } finally {
                 restore();
