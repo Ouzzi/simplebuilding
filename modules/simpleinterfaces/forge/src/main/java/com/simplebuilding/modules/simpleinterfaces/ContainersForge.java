@@ -1,6 +1,6 @@
 package com.simplebuilding.modules.simpleinterfaces;
 
-import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
+import com.simplelib.api.InteractionGuard;
 import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
 import com.simplebuilding.modules.simpleinterfaces.network.ConfigSyncPayload;
 import com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload;

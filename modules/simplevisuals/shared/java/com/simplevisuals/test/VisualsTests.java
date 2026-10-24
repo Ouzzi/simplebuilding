@@ -1,14 +1,12 @@
 package com.simplevisuals.test;
+import static com.simplelib.test.PartnerChecks.isModLoaded;
+import static com.simplelib.test.PartnerChecks.partnerMissing;
 import com.simplevisuals.*;import com.simplevisuals.config.*;import com.simplevisuals.effects.*;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.core.registries.BuiltInRegistries;import net.minecraft.resources.Identifier;
 import java.util.*;
 
 public final class VisualsTests {
- /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
- public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
- /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
- public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
  /** Super-mod switch "Enable Simple Aesthetics" off: registries/command/effect list stay, every cosmetic option reports inert. */
  public static void subModSwitch(GameTestHelper h){
   var sw=com.simplebuilding.framework.api.SubMods.enabled("simplevisuals");

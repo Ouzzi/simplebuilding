@@ -1,7 +1,7 @@
 package com.simplebuilding.modules.simpleinterfaces.linked;
 
 import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
-import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
+import com.simplelib.api.InteractionGuard;
 import com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload;
 import com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload;
 import java.util.ArrayList;

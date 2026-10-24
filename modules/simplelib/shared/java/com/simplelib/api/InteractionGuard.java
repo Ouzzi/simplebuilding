@@ -1,6 +1,7 @@
-package com.simplebuilding.modules.simpleinterfaces.linked;
+package com.simplelib.api;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+/** Shared interaction check (reach, build rights, spam); loaders set {@link #permission}. */
 public final class InteractionGuard {
  public static final double MAX_REACH=4.5;
  /** >0 while the fabric permission probe runs: its break event is no real break (area hammers must not start, see M-11). */

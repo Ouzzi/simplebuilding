@@ -1,4 +1,5 @@
 package com.simplebuilding.modules.simpletools;
+import com.simplelib.api.InteractionGuard;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge/Forge register ToolsTests.ALL. */

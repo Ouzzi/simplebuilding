@@ -1,4 +1,7 @@
 package com.simplebuilding.modules.simpletools;
+import static com.simplelib.test.PartnerChecks.isModLoaded;
+import static com.simplelib.test.PartnerChecks.partnerMissing;
+import com.simplelib.api.InteractionGuard;
 
 import com.simplebuilding.framework.api.SubMods;
 import java.nio.file.Files;
@@ -39,10 +42,6 @@ public final class ToolsTests {
  }
  private ToolsTests(){}
  public static Identifier id(String s){return Identifier.fromNamespaceAndPath(SimpleTools.MOD_ID,s);}
- /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
- public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
- /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
- public static boolean partnerMissing(GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
  private static void close(GameTestHelper h,double a,double b,String msg){h.assertTrue(Math.abs(a-b)<0.00001,msg+": "+a+" / "+b);}
  private static Player player(GameTestHelper h,BlockPos pos){var p=h.makeMockPlayer(GameType.SURVIVAL);p.setPos(Vec3.atCenterOf(h.absolutePos(pos)));return p;}
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key){var s=new ItemStack(item);s.enchant(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),3);return s;}
