@@ -1,0 +1,3961 @@
+{
+ "schema": 1,
+ "generated_by": "tools/audit/module_completeness.py",
+ "baseline": {
+  "baseline": "134cb5a06^",
+  "moved_ids": 272,
+  "moved_per_module": {
+   "simplestorage": 51,
+   "simpleoctets": 105,
+   "simpleblocks": 15,
+   "simplelib": 13,
+   "simplemobheads": 32,
+   "simplecrucibles": 37,
+   "simplehammers": 7,
+   "simpletrims": 3,
+   "simpleovens": 9
+  }
+ },
+ "modules": [
+  {
+   "id": "simplebuilding",
+   "namespace": "simplebuilding",
+   "name_en": "SimpleBuilding",
+   "name_de": "SimpleBuilding",
+   "purpose_en": "Building tools, storage, machines, and enchantments.",
+   "purpose_de": "Kern- und Super-Mod: Baustäbe, Blaupause, Oktant, Pads, Enderit, Kerne, Rucksack-/Maschinen-Rest, Verzauberungen und Handbücher; bündelt die Pflicht-Sub-Mods (Ovens, Mobheads, Crucibles, Octets, Blocks, Hammers, Storage) und optional weitere.",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [
+    "simplebeacons",
+    "simpleblocks",
+    "simplecrucibles",
+    "simpledimensions",
+    "simpleend",
+    "simplefun",
+    "simplehammers",
+    "simplemaps",
+    "simplemobheads",
+    "simplemobs",
+    "simplemoney",
+    "simplemusic",
+    "simpleoctets",
+    "simpleovens",
+    "simplequestionary",
+    "simplerespawn",
+    "simpleriding",
+    "simplesandwiches",
+    "simpleshops",
+    "simplestorage",
+    "simpletrims",
+    "simpletweaks",
+    "simplewanderers"
+   ],
+   "required_by": [],
+   "requires": [
+    "cloth-config",
+    "simplelib",
+    "simpleovens",
+    "simplemobheads",
+    "simplecrucibles",
+    "simpleoctets",
+    "simpleblocks",
+    "simplehammers",
+    "simplestorage"
+   ],
+   "optional": [
+    "jei",
+    "roughlyenoughitems",
+    "modmenu",
+    "jade",
+    "appleskin",
+    "mousetweaks",
+    "trinkets_updated",
+    "curios",
+    "simplemaps",
+    "simplequestionary",
+    "simpleriding",
+    "simplesandwiches",
+    "simpletweaks",
+    "simplemoney",
+    "simplefun",
+    "simpledimensions",
+    "simpletrims",
+    "simplemobs",
+    "simpleend",
+    "simplerespawn",
+    "simplebeacons",
+    "simpleshops",
+    "simplewanderers",
+    "simplemusic"
+   ],
+   "standalone": false,
+   "example": false,
+   "counts": {
+    "blocks": 339,
+    "items": 606,
+    "render_only_item_models": 148,
+    "entities": 11,
+    "recipes": 885,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 286,
+     "minecraft:stonecutting": 286,
+     "minecraft:smithing_transform": 42,
+     "simplebuilding:count_based_smithing": 31,
+     "minecraft:crafting_shapeless": 106,
+     "simplebuilding:enchanted_shapeless": 2,
+     "simplebuilding:easter_smithing": 24,
+     "simplebuilding:reinforced_bundle": 1,
+     "minecraft:brewing": 78,
+     "simplebuilding:fletching": 16,
+     "simpleblocks:sawing": 13
+    },
+    "loot_tables": 341,
+    "advancements": 120,
+    "recipe_advancements": 755,
+    "lang_keys": 3740,
+    "config_options": 282,
+    "config_without_tooltip": 39,
+    "commands": 4,
+    "tests": 1233,
+    "wiki_features": 48,
+    "java_files": 969
+   },
+   "entities": [
+    "crafted_arrow",
+    "enderite_furnace_minecart",
+    "enderite_hopper_minecart",
+    "levitating_block",
+    "netherite_furnace_minecart",
+    "netherite_hopper_minecart",
+    "reinforced_furnace_minecart",
+    "reinforced_hopper_minecart",
+    "small_armor_stand",
+    "straw_armor_stand",
+    "training_dummy"
+   ],
+   "commands": [
+    "killboats",
+    "killcarts",
+    "sbtestcentre",
+    "simplebuilding"
+   ],
+   "config_classes": [
+    "BuildingWandConfigurePayload",
+    "ConfigFlags",
+    "ConfigOptionGameTest",
+    "ConfigOptionTests",
+    "ConfigOptions",
+    "ConfigResourceCondition",
+    "ConfigSaving",
+    "OctantConfigurePayload",
+    "PistonConfigPayload",
+    "ServerTuningConfig",
+    "SimplebuildingConfig",
+    "StructureConfig",
+    "TweaksConfig",
+    "TweaksConfigPayload"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "SimplebuildingJeiPlugin.java"
+    ],
+    "rei_plugin": [
+     "SimplebuildingReiCommonPlugin.java",
+     "SimplebuildingReiClientPlugin.java"
+    ],
+    "emi_plugin": [],
+    "categories": [
+     "CauldronWorldCategory",
+     "InWorldCategory",
+     "MobDropCategory"
+    ],
+    "recipe_types": [
+     "simplebuilding:cauldron_world",
+     "simplebuilding:in_world_",
+     "simplebuilding:mob_drop"
+    ],
+    "info_calls": 3,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P2",
+     "code": "ITEM-NO-ORIGIN",
+     "message": "items without recipe, loot, other data source or mention in Java",
+     "ids": [
+      "music_disc_voidline_track_3"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P2",
+     "code": "JEI-RECIPE-TYPE-NO-CATEGORY",
+     "message": "custom recipe types not named in any JEI plugin code (module or core) - recipes invisible in JEI [b-jei24]",
+     "ids": [
+      "simplebuilding:fletching (16 recipes)"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "commands.simplebuilding.config.client_side",
+      "commands.simplebuilding.config.get",
+      "commands.simplebuilding.config.invalid",
+      "commands.simplebuilding.config.list",
+      "commands.simplebuilding.config.on_reload",
+      "commands.simplebuilding.config.recipes_on_reload",
+      "commands.simplebuilding.config.reset",
+      "commands.simplebuilding.config.restart",
+      "commands.simplebuilding.config.set",
+      "commands.simplebuilding.config.unknown",
+      "text.autoconfig.simplebuilding.option.server",
+      "text.autoconfig.simplebuilding.option.server.arrows",
+      "text.autoconfig.simplebuilding.option.server.blueprint",
+      "text.autoconfig.simplebuilding.option.server.charges",
+      "text.autoconfig.simplebuilding.option.server.chunkLoaders",
+      "text.autoconfig.simplebuilding.option.server.craftyShulker",
+      "text.autoconfig.simplebuilding.option.server.dimensionLocks",
+      "text.autoconfig.simplebuilding.option.server.features",
+      "text.autoconfig.simplebuilding.option.server.hammock",
+      "text.autoconfig.simplebuilding.option.server.laser",
+      "text.autoconfig.simplebuilding.option.server.loot",
+      "text.autoconfig.simplebuilding.option.server.machines",
+      "text.autoconfig.simplebuilding.option.server.oreDetector",
+      "text.autoconfig.simplebuilding.option.server.oreGeneration",
+      "text.autoconfig.simplebuilding.option.server.pads",
+      "text.autoconfig.simplebuilding.option.server.speakers",
+      "text.autoconfig.simplebuilding.option.server.tools",
+      "text.autoconfig.simplebuilding.option.server.trimStrengths",
+      "text.autoconfig.simplebuilding.option.tools",
+      "text.autoconfig.simplebuilding.option.tweaks",
+      "text.autoconfig.simplebuilding.option.tweaks.balancing",
+      "text.autoconfig.simplebuilding.option.tweaks.commands",
+      "text.autoconfig.simplebuilding.option.tweaks.dimensions",
+      "text.autoconfig.simplebuilding.option.tweaks.laserPointer",
+      "text.autoconfig.simplebuilding.option.tweaks.optimization",
+      "text.autoconfig.simplebuilding.option.tweaks.padTuning",
+      "text.autoconfig.simplebuilding.option.tweaks.pads",
+      "text.autoconfig.simplebuilding.option.tweaks.spawn",
+      "text.autoconfig.simplebuilding.option.worldGen"
+     ],
+     "count": 39
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-NO-ORIGIN-ALONE",
+     "message": "items whose only recipe/loot needs a partner mod and that no module Java names (standalone rule 1 - fine if the item is only registered with the partner)",
+     "ids": [
+      "ashwood_cauldron",
+      "ashwood_sheet",
+      "carved_ashwood_log",
+      "carved_duskwood_log",
+      "duskwood_cauldron",
+      "duskwood_sheet",
+      "hollow_ashwood_log",
+      "hollow_duskwood_log",
+      "stripped_ashwood_cauldron",
+      "stripped_ashwood_sheet",
+      "stripped_duskwood_cauldron",
+      "stripped_duskwood_sheet"
+     ],
+     "count": 12
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "blazing_obsidian_chip",
+      "crafted_arrow",
+      "creative_blueprint",
+      "creative_building_wand",
+      "creative_spacer",
+      "crying_obsidian_chip",
+      "enderite_furnace_minecart",
+      "music_disc_brimstone_b_side",
+      "music_disc_daybreak_b_side",
+      "music_disc_driftwood_b_side",
+      "music_disc_voidline_b_side",
+      "netherite_furnace_minecart",
+      "obsidian_chip",
+      "reinforced_furnace_minecart"
+     ],
+     "count": 14
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-RECIPE-TYPE-VANILLA-CLASS",
+     "message": "custom serializer on a Vanilla crafting/smithing recipe class, no JEI code names it - check that JEI draws it (special/custom recipes stay hidden) [b-jei24]",
+     "ids": [
+      "simplebuilding:enchanted_shapeless (2 recipes)"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "astral_redstone",
+      "astral_redstone_torch",
+      "astralit_end_rod",
+      "astralit_lamp",
+      "black_copper_light_pane",
+      "black_hammock",
+      "black_light_pane",
+      "blue_copper_light_pane",
+      "blue_hammock",
+      "blue_light_pane",
+      "bridge_redstone",
+      "brown_copper_light_pane",
+      "brown_hammock",
+      "brown_light_pane",
+      "chess_pieces",
+      "construction_light",
+      "copper_light_pane",
+      "copper_redstone_light_pane",
+      "cyan_copper_light_pane",
+      "cyan_hammock",
+      "cyan_light_pane",
+      "goat_horn_holder",
+      "gray_copper_light_pane",
+      "gray_hammock",
+      "gray_light_pane",
+      "green_copper_light_pane",
+      "green_hammock",
+      "green_light_pane",
+      "hammock_rope",
+      "light_blue_copper_light_pane",
+      "light_blue_hammock",
+      "light_blue_light_pane",
+      "light_gray_copper_light_pane",
+      "light_gray_hammock",
+      "light_gray_light_pane",
+      "light_pane",
+      "lime_copper_light_pane",
+      "lime_hammock",
+      "lime_light_pane",
+      "magenta_copper_light_pane",
+      "magenta_hammock",
+      "magenta_light_pane",
+      "nihil_redstone",
+      "nihil_redstone_torch",
+      "nihilith_end_rod",
+      "nihilith_lamp",
+      "orange_copper_light_pane",
+      "orange_hammock",
+      "orange_light_pane",
+      "pink_copper_light_pane",
+      "pink_hammock",
+      "pink_light_pane",
+      "potted_silent_dandelion",
+      "purple_copper_light_pane",
+      "purple_hammock",
+      "purple_light_pane",
+      "red_copper_light_pane",
+      "red_hammock",
+      "red_light_pane",
+      "redstone_light_pane"
+     ],
+     "count": 71
+    },
+    {
+     "severity": "P4",
+     "code": "LANG-NAME-WITHOUT-MODEL",
+     "message": "name keys without a 26.3 item definition/blockstate: ids moved to sub-mods on 26.3 only; 26.2/1.21.11 still register them under simplebuilding - keep",
+     "ids": [
+      "aqua_froglight",
+      "azure_froglight",
+      "backpack",
+      "basic_upgrade_template",
+      "blaze_head",
+      "blaze_wall_head",
+      "bogged_skull",
+      "bogged_wall_skull",
+      "breeze_head",
+      "breeze_wall_head",
+      "cave_spider_head",
+      "cave_spider_wall_head",
+      "chiseled_blue_ice",
+      "chiseled_packed_ice",
+      "copper_sledgehammer",
+      "cracked_diamond",
+      "cracked_diamond_block",
+      "cracked_ice",
+      "diamond_pebble",
+      "diamond_sledgehammer",
+      "dirt_slab",
+      "drowned_head",
+      "drowned_wall_head",
+      "emitting_trim_template",
+      "enderite_backpack",
+      "enderite_blast_furnace",
+      "enderite_block",
+      "enderite_bundle",
+      "enderite_chest",
+      "enderite_furnace",
+      "enderite_ingot",
+      "enderite_nugget",
+      "enderite_quiver",
+      "enderite_scrap",
+      "enderite_shulker_box",
+      "enderite_sledgehammer",
+      "enderite_smoker",
+      "enderite_trapped_chest",
+      "enderite_upgrade_template",
+      "enderman_head",
+      "enderman_wall_head",
+      "exposed_trapped_copper_chest",
+      "glowing_trim_template",
+      "gold_sledgehammer",
+      "grass_slab",
+      "gravel_slab",
+      "guide_book_admin",
+      "guide_book_building",
+      "guide_book_enchantments",
+      "guide_book_end",
+      "guide_book_gadgets",
+      "guide_book_machines",
+      "guide_book_storage",
+      "guide_book_tools",
+      "guide_book_trims",
+      "guide_book_tweaks",
+      "home_teleporter",
+      "husk_head",
+      "husk_wall_head",
+      "iron_sledgehammer"
+     ],
+     "count": 111
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "astral_redstone_wall_torch",
+      "copper_fire",
+      "enderite_piston_head",
+      "netherite_piston_head",
+      "nihil_redstone_wall_torch",
+      "placed_blueprint",
+      "placed_egg",
+      "placed_paint_box",
+      "placed_small_parts",
+      "placed_smithing_template",
+      "reinforced_piston_head",
+      "sulfur_fire",
+      "sulfur_wall_torch"
+     ],
+     "count": 13
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-GETDROPS",
+     "message": "no loot table, but the module overrides Block#getDrops (check the block class)",
+     "ids": [
+      "checker_octet",
+      "chess_pieces",
+      "goat_horn_holder",
+      "hammock_rope",
+      "standing_rod"
+     ],
+     "count": 5
+    }
+   ]
+  },
+  {
+   "id": "wiringexample",
+   "namespace": "wiringexample",
+   "name_en": "Wiring Example",
+   "name_de": "Wiring Example",
+   "purpose_en": "Minimal module used to verify loader and integration wiring.",
+   "purpose_de": "Minimales Testmodul, prüft nur die Loader- und Integrationsverdrahtung (nicht für Spieler).",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [],
+   "optional": [],
+   "standalone": false,
+   "example": true,
+   "counts": {
+    "blocks": 0,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 1,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 0,
+    "wiki_features": 1,
+    "java_files": 2
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P2",
+     "code": "TAB-NO-HOOK",
+     "message": "items/blocks but no creative tab code found in module Java",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "token"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplemoney",
+   "namespace": "simplemoney",
+   "name_en": "Simple Money",
+   "name_de": "Simple Money",
+   "purpose_en": "Currency production, weighted villager trades and treasure loot.",
+   "purpose_de": "Währung (Geldscheine), gewichtete Dorfbewohner-Handel und Schatzbeute; Preislisten für alle Simple-Mods, nur aktiv, wenn der jeweilige Mod geladen ist.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "jei",
+    "modmenu",
+    "simplebuilding",
+    "simplefun",
+    "simplemodels",
+    "simplequalityoflife",
+    "simpleriding",
+    "simplesandwiches",
+    "simplesounds",
+    "simpletweaks",
+    "simplevisuals",
+    "wiringexample"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 8,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 9,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 5,
+     "minecraft:smithing_transform": 2,
+     "minecraft:blasting": 1,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 9,
+    "lang_keys": 74,
+    "config_options": 11,
+    "config_without_tooltip": 1,
+    "commands": 0,
+    "tests": 23,
+    "wiki_features": 73,
+    "java_files": 21
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "MoneyConfigScreen"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "MoneyLinksJei.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 2,
+    "fabric_entrypoint_ok": false
+   },
+   "findings": [
+    {
+     "severity": "P1",
+     "code": "JEI-PLUGIN-NOT-REGISTERED",
+     "message": "JEI plugin class exists but fabric.mod.json has no jei_mod_plugin entrypoint for it (check: loader-specific plugin may live in fabric/)",
+     "ids": [
+      "MoneyLinksJei.java"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "text.autoconfig.simplemoney.option.trades"
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleriding",
+   "namespace": "simpleriding",
+   "name_en": "Simple Riding",
+   "name_de": "Simple Riding",
+   "purpose_en": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
+   "purpose_de": "Reiten: Sattel-Tempo, Pferdesprünge, Nautilus-Sprint, Hufeisen und Reittier-Rüstungen mit Beute und Handel; Enderit-Hufeisen nur mit SimpleBuilding.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplebuilding",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 8,
+    "render_only_item_models": 2,
+    "entities": 0,
+    "recipes": 8,
+    "recipe_types": {
+     "minecraft:smithing_transform": 6,
+     "minecraft:crafting_shaped": 1,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 1,
+    "recipe_advancements": 8,
+    "lang_keys": 107,
+    "config_options": 31,
+    "config_without_tooltip": 6,
+    "commands": 0,
+    "tests": 44,
+    "wiki_features": 35,
+    "java_files": 48
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "RidingConfig",
+    "RidingConfigScreen"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "text.autoconfig.simpleriding.option.enchantments",
+      "text.autoconfig.simpleriding.option.enchantments.horseJump",
+      "text.autoconfig.simpleriding.option.enchantments.swiftRide",
+      "text.autoconfig.simpleriding.option.horseshoes",
+      "text.autoconfig.simpleriding.option.safety",
+      "text.autoconfig.simpleriding.option.worldGen"
+     ],
+     "count": 6
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplemodels",
+   "namespace": "simplemodels",
+   "name_en": "Simple Models",
+   "name_de": "Simple Models",
+   "purpose_en": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
+   "purpose_de": "Vom Server freigegebene eigene Item-Modelle, Zuweisung am Amboss und ein durchsuchbarer Modell-Browser.",
+   "supermod": "simpleaesthetics",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simpleaesthetics"
+   ],
+   "requires": [],
+   "optional": [
+    "simplebuilding",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 84,
+    "config_options": 7,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 21,
+    "wiki_features": 14,
+    "java_files": 21
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplefun",
+   "namespace": "simplefun",
+   "name_en": "Simple Fun",
+   "name_de": "Simple Fun",
+   "purpose_en": "Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).",
+   "purpose_de": "Begrenzte Spaß-Mechaniken: werfbare Ziegel, Yeet, kosmetische Verwandlungen (die Tierköpfe sind seit 1.4.0 in Simple Mobheads).",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "modmenu",
+    "jei",
+    "jade"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 2,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 2,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 1,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 1,
+    "recipe_advancements": 2,
+    "lang_keys": 99,
+    "config_options": 21,
+    "config_without_tooltip": 1,
+    "commands": 1,
+    "tests": 30,
+    "wiki_features": 38,
+    "java_files": 45
+   },
+   "entities": [],
+   "commands": [
+    "simplefun"
+   ],
+   "config_classes": [
+    "FunConfigScreen",
+    "SimplefunConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "FunJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 1,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "text.autoconfig.simplefun.option.fun"
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplevisuals",
+   "namespace": "simplevisuals",
+   "name_en": "Simple Visuals",
+   "name_de": "Simple Visuals",
+   "purpose_en": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
+   "purpose_de": "Clientseitig: begrenztes HUD, Tooltips, Amboss-Formatierung und Vanilla-Immersionspartikel.",
+   "supermod": "simpleaesthetics",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simpleaesthetics"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simplemodels",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 252,
+    "config_options": 51,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 22,
+    "wiki_features": 78,
+    "java_files": 44
+   },
+   "entities": [],
+   "commands": [
+    "simplevisuals"
+   ],
+   "config_classes": [
+    "ConfigOptions",
+    "SimplevisualsConfig",
+    "VisualsConfigScreen"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplesounds",
+   "namespace": "simplesounds",
+   "name_en": "Simple Sounds",
+   "name_de": "Simple Sounds",
+   "purpose_en": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
+   "purpose_de": "Clientseitig: lokale Vanilla-Klänge passend zu den zwölf Immersionseffekten von Simple Visuals.",
+   "supermod": "simpleaesthetics",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simpleaesthetics"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplevisuals",
+    "simplebuilding",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 83,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 19,
+    "wiki_features": 20,
+    "java_files": 15
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "SoundConfig"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplequalityoflife",
+   "namespace": "simplequalityoflife",
+   "name_en": "Simple Quality of Life",
+   "name_de": "Simple Quality of Life",
+   "purpose_en": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
+   "purpose_de": "Super-Mod ohne eigene Spielinhalte: bündelt Weather, Interfaces, Loot, Mob Manners, Farming, Tools und Movement mit je einem Schalter; Handbuch und Startquest.",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [
+    "simplefarming",
+    "simpleinterfaces",
+    "simpleloot",
+    "simplemobmanners",
+    "simplemovement",
+    "simpletools",
+    "simpleweather"
+   ],
+   "required_by": [],
+   "requires": [
+    "cloth_config",
+    "simpleweather",
+    "simpleinterfaces",
+    "simpleloot",
+    "simplemobmanners",
+    "simplefarming",
+    "simpletools",
+    "simplemovement"
+   ],
+   "optional": [
+    "simplebuilding",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 197,
+    "config_options": 7,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 6,
+    "wiki_features": 9,
+    "java_files": 10
+   },
+   "entities": [],
+   "commands": [
+    "simplequalityoflife"
+   ],
+   "config_classes": [
+    "QolConfigScreen",
+    "SimplequalityoflifeConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpletweaks",
+   "namespace": "simpletweaks",
+   "name_en": "Simple Tweaks",
+   "name_de": "Simple Tweaks",
+   "purpose_en": "Legacy compatibility and server-authoritative claims, on by default.",
+   "purpose_de": "Server-Claims (Urkunde, Claim-Tisch, Vertrauenslisten, standardmäßig an) und Legacy-Kompatibilität alter SimpleBuilding-Tweaks.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simpledimensions",
+    "simplebuilding",
+    "simplemoney",
+    "simpleweather",
+    "simplemaps"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 1,
+    "items": 3,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 3,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 2,
+     "simpletweaks:claim_deed_copy": 1
+    },
+    "loot_tables": 1,
+    "advancements": 0,
+    "recipe_advancements": 2,
+    "lang_keys": 499,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 18,
+    "tests": 164,
+    "wiki_features": 41,
+    "java_files": 236
+   },
+   "entities": [],
+   "commands": [
+    "afk",
+    "backup",
+    "claim",
+    "coords",
+    "endersee",
+    "freeze",
+    "inspect",
+    "invsee",
+    "lag",
+    "maintenance",
+    "phantoms",
+    "playtime",
+    "pregen",
+    "pvp",
+    "seen",
+    "tweaks",
+    "unfreeze",
+    "vanish"
+   ],
+   "config_classes": [
+    "AdminConfig",
+    "ClaimConfig",
+    "PlayConfig",
+    "ProtectConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P2",
+     "code": "JEI-RECIPE-TYPE-NO-CATEGORY",
+     "message": "custom recipe types not named in any JEI plugin code (module or core) - recipes invisible in JEI [b-jei24]",
+     "ids": [
+      "simpletweaks:claim_deed_copy (1 recipes)"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "claim_table"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpledimensions",
+   "namespace": "simpledimension",
+   "name_en": "Simple Dimensions",
+   "name_de": "Simple Dimensions",
+   "purpose_en": "Configurable dimensions, light arches, and safe linked portals.",
+   "purpose_de": "Konfigurierbare eigene Dimensionen, Lichtbögen und sichere verknüpfte Portale.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplebuilding",
+    "modmenu",
+    "flan",
+    "ftbchunks",
+    "openpartiesandclaims",
+    "griefdefender",
+    "claimchunk"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 2,
+    "items": 2,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 163,
+    "config_options": 54,
+    "config_without_tooltip": 6,
+    "commands": 0,
+    "tests": 45,
+    "wiki_features": 7,
+    "java_files": 42
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "ConfigLimits",
+    "DimensionConfigScreen",
+    "DimensionConfigStore",
+    "DimensionPortalConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "simpledimension.config.access",
+      "simpledimension.config.advanced",
+      "simpledimension.config.dimensions",
+      "simpledimension.config.remote",
+      "simpledimension.config.remoteNotice",
+      "simpledimension.config.safety"
+     ],
+     "count": 6
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "light_blue_portal"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "light_blue_portal",
+      "sky_portal"
+     ],
+     "count": 2
+    }
+   ]
+  },
+  {
+   "id": "simplesandwiches",
+   "namespace": "simplesandwiches",
+   "name_en": "Simple Sandwiches",
+   "name_de": "Simple Sandwiches",
+   "purpose_en": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
+   "purpose_de": "Sandwiches auf dem Schneidebrett, Küchenmesser, Käse und Butter aus dem Kessel, Essen direkt aus Bündeln.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [],
+   "optional": [
+    "simplebuilding",
+    "simpleend"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 19,
+    "items": 23,
+    "render_only_item_models": 1,
+    "entities": 0,
+    "recipes": 17,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 16,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 19,
+    "advancements": 0,
+    "recipe_advancements": 17,
+    "lang_keys": 56,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 38,
+    "wiki_features": 6,
+    "java_files": 36
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "SandwichConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-NO-ORIGIN-ALONE",
+     "message": "items whose only recipe/loot needs a partner mod and that no module Java names (standalone rule 1 - fine if the item is only registered with the partner)",
+     "ids": [
+      "ashwood_cutting_board",
+      "duskwood_cutting_board"
+     ],
+     "count": 2
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "sandwich"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "butter_block",
+      "butter_carpet",
+      "cheese_block"
+     ],
+     "count": 3
+    }
+   ]
+  },
+  {
+   "id": "simplelib",
+   "namespace": "simplelib",
+   "name_en": "SimpleLib",
+   "name_de": "SimpleLib",
+   "purpose_en": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
+   "purpose_de": "Gebündelte Bibliothek (Jar-in-Jar): Warm-Essen, gemeinsame Grundstoffe (Enderit, Rissiger Diamant …), IdMoves, In-World-Aufwertungen, UI-Bausteine, legendäre Momente; kein eigenständiger Spielinhalt.",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [],
+   "required_by": [
+    "simplebeacons",
+    "simpleblocks",
+    "simplebuilding",
+    "simplecrucibles",
+    "simplehammers",
+    "simpleinterfaces",
+    "simplemaps",
+    "simplemobheads",
+    "simplemobs",
+    "simplemusic",
+    "simpleoctets",
+    "simpleovens",
+    "simplequestionary",
+    "simpleshops",
+    "simplestorage",
+    "simpletrims",
+    "simpletweaks"
+   ],
+   "requires": [],
+   "optional": [
+    "jei"
+   ],
+   "standalone": false,
+   "example": false,
+   "counts": {
+    "blocks": 7,
+    "items": 17,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 29,
+    "recipe_types": {
+     "minecraft:stonecutting": 5,
+     "minecraft:crafting_shapeless": 6,
+     "minecraft:blasting": 2,
+     "minecraft:crafting_shaped": 13,
+     "minecraft:brewing": 3
+    },
+    "loot_tables": 7,
+    "advancements": 0,
+    "recipe_advancements": 26,
+    "lang_keys": 48,
+    "config_options": 5,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 36,
+    "wiki_features": 4,
+    "java_files": 93
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "LibConfig",
+    "LibConfigScreen"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "SimpleLibJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [
+     "InWorldUpgradeCategory"
+    ],
+    "recipe_types": [
+     "simplelib:in_world_upgrade"
+    ],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "warped_wart"
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleinterfaces",
+   "namespace": "simpleinterfaces",
+   "name_en": "Simple Interfaces",
+   "name_de": "Simple Interfaces",
+   "purpose_en": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Vanilla-Container-Bildschirme neu gestaltet (Farbe je Block), verknüpfte Container, Easy Shulkers/Endertruhen; allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config",
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 85,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 36,
+    "wiki_features": 43,
+    "java_files": 81
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "ConfigSyncPayload",
+    "ContainersConfig",
+    "LinkedConfig"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplemaps",
+   "namespace": "simplemaps",
+   "name_en": "Simple Maps",
+   "name_de": "Simple Maps",
+   "purpose_en": "Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.",
+   "purpose_de": "Wegfinder-Karten: endlose Karte je Dimension mit Zoom, Wegpunkte in der Locator-Bar, gerahmte Ansichten, Kartentisch-Aufwertungen, Webkarten-Export.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplemoney"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 5,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 7,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 5,
+     "minecraft:crafting_shaped": 2
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 7,
+    "lang_keys": 106,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 54,
+    "wiki_features": 9,
+    "java_files": 77
+   },
+   "entities": [],
+   "commands": [
+    "simplemaps"
+   ],
+   "config_classes": [
+    "MapsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpletrims",
+   "namespace": "simpletrims",
+   "name_en": "Simple Trims",
+   "name_de": "Simple Trims",
+   "purpose_en": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
+   "purpose_de": "Rüstungsbesatz Leuchtend/Strahlend/Pulsierend/Invertierend, platzierbare Besatzvorlagen und Aufwertungen (aus SimpleBuilding verschoben, IDs migrieren); Axt allein, Vorschlaghammer mit Simple Hammers.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "jei"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 1,
+    "items": 5,
+    "render_only_item_models": 22,
+    "entities": 0,
+    "recipes": 10,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 4,
+     "simpletrims:trim_upgrade": 4,
+     "simpletrims:tool_shapeless": 1,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 3,
+    "recipe_advancements": 10,
+    "lang_keys": 64,
+    "config_options": 1,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 22,
+    "wiki_features": 6,
+    "java_files": 32
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "TrimsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "TrimsJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P2",
+     "code": "SPLIT-RECIPE-KIND-LOST",
+     "message": "recipe kinds (type) the old id had and the new one lacks",
+     "ids": [
+      "emitting_trim_template: smithing_transform",
+      "glowing_trim_template: smithing_transform",
+      "pulsating_trim_template: crafting_shapeless, smithing_transform"
+     ],
+     "count": 3
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-RECIPE-TYPE-VANILLA-CLASS",
+     "message": "custom serializer on a Vanilla crafting/smithing recipe class, no JEI code names it - check that JEI draws it (special/custom recipes stay hidden) [b-jei24]",
+     "ids": [
+      "simpletrims:tool_shapeless (1 recipes)"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "placed_template"
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplemobs",
+   "namespace": "simplemobs",
+   "name_en": "Simple Mobs",
+   "name_de": "Simple Mobs",
+   "purpose_en": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Red Nether Gem, and the Potion of Silence.",
+   "purpose_de": "Neue Mobs und Bosse: Hollow Howler/Watcher, Shellker, Seelenfeuer-Lohe, Schreckensritter, Täuscher, Verdorbener/Abgrund-Wither mit Netherherz und Rotem Nethergem, Trank der Stille.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 2,
+    "items": 25,
+    "render_only_item_models": 0,
+    "entities": 12,
+    "recipes": 66,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 3,
+     "minecraft:crafting_shapeless": 3,
+     "minecraft:smithing_transform": 4,
+     "minecraft:brewing": 56
+    },
+    "loot_tables": 10,
+    "advancements": 0,
+    "recipe_advancements": 10,
+    "lang_keys": 132,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 109,
+    "wiki_features": 13,
+    "java_files": 110
+   },
+   "entities": [
+    "abyssal_wither",
+    "blighted_wither",
+    "deceiver",
+    "disguise_marker",
+    "dread",
+    "hollow_howler",
+    "hollow_watcher",
+    "howler_manifestation",
+    "shellker",
+    "shellker_bullet",
+    "soul_fireball",
+    "soulfire_blaze"
+   ],
+   "commands": [],
+   "config_classes": [
+    "MobsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "end_wings",
+      "trick_mirror"
+     ],
+     "count": 2
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "nether_gem",
+      "nether_heart"
+     ],
+     "count": 2
+    }
+   ]
+  },
+  {
+   "id": "simpleweather",
+   "namespace": "simpleweather",
+   "name_en": "Simple Weather",
+   "name_de": "Simple Weather",
+   "purpose_en": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Wetter-Schalter (Server) und Regendichte (Client); allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplequalityoflife",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 6,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 5,
+    "wiki_features": 3,
+    "java_files": 10
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "WeatherConfig"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplemovement",
+   "namespace": "simplemovement",
+   "name_en": "Simple Movement",
+   "name_de": "Simple Movement",
+   "purpose_en": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Kriechen per Taste, vom Server erlaubtes Auto-Laufen, schnellere Leitern, Frostläufer auf Pulverschnee; allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplequalityoflife",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 25,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 18,
+    "wiki_features": 17,
+    "java_files": 23
+   },
+   "entities": [],
+   "commands": [
+    "crawl"
+   ],
+   "config_classes": [
+    "ConfigSyncPayload",
+    "MovementConfig"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simpletools",
+   "namespace": "simpletools",
+   "name_en": "Simple Tools",
+   "name_de": "Simple Tools",
+   "purpose_en": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Bonus bei voller Haltbarkeit, Sparsamkeit und Seelenbindung, Todestresor, Biom-Pinsel, Amboss-Reparatur ohne Aufpreis, Lavaeimer in Öfen; allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simplequalityoflife",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 1,
+    "items": 3,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 4,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 3,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 1,
+    "advancements": 0,
+    "recipe_advancements": 4,
+    "lang_keys": 163,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 52,
+    "wiki_features": 32,
+    "java_files": 48
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "ConfigSyncPayload",
+    "ToolsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplefarming",
+   "namespace": "simplefarming",
+   "name_en": "Simple Farming",
+   "name_de": "Simple Farming",
+   "purpose_en": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Federfall schützt Ackerland, Schärfe mäht Gras, die Hacke erntet und pflanzt reife Feldfrüchte neu; allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simplequalityoflife",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 9,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 12,
+    "wiki_features": 8,
+    "java_files": 18
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "ConfigSyncPayload",
+    "FarmingConfig"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplemobmanners",
+   "namespace": "simplemobmanners",
+   "name_en": "Simple Mob Manners",
+   "name_de": "Simple Mob Manners",
+   "purpose_en": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Mobs nach Typ oder Namensschild stumm schalten, benannte Babys bleiben klein, Piglins ignorieren Gold-Besatz und -Werkzeuge; allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplequalityoflife",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 21,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 11,
+    "wiki_features": 11,
+    "java_files": 14
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "MobMannersConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "frog_bucket"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleloot",
+   "namespace": "simpleloot",
+   "name_en": "Simple Loot",
+   "name_de": "Simple Loot",
+   "purpose_en": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
+   "purpose_de": "Sub-Mod von QoL: Tresor-Abklingzeit in Tagen statt einmal je Spieler; allein spielbar.",
+   "supermod": "simplequalityoflife",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplequalityoflife"
+   ],
+   "requires": [
+    "cloth_config"
+   ],
+   "optional": [
+    "simplequalityoflife",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 8,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 7,
+    "wiki_features": 5,
+    "java_files": 14
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "LootConfig"
+   ],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplequestionary",
+   "namespace": "simplequestionary",
+   "name_en": "Simple Questionary",
+   "name_de": "Simple Questionary",
+   "purpose_en": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+   "purpose_de": "Fragentisch: ein Item hineinlegen und in einem offenen Buch seine Geschichte, seinen Nutzen und ein Geheimnis lesen.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 1,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 1
+    },
+    "loot_tables": 1,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 25,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 15,
+    "wiki_features": 2,
+    "java_files": 15
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "QuestionaryConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleaesthetics",
+   "namespace": "simpleaesthetics",
+   "name_en": "Simple Aesthetics",
+   "name_de": "Simple Aesthetics",
+   "purpose_en": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
+   "purpose_de": "Super-Mod ohne eigene Inhalte: bündelt Simple Visuals, Simple Sounds und Simple Models mit je einem Schalter.",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [
+    "simplemodels",
+    "simplesounds",
+    "simplevisuals"
+   ],
+   "required_by": [],
+   "requires": [
+    "simplevisuals",
+    "simplesounds",
+    "simplemodels"
+   ],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 4,
+    "config_options": 3,
+    "config_without_tooltip": 3,
+    "commands": 0,
+    "tests": 2,
+    "wiki_features": 1,
+    "java_files": 4
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "text.autoconfig.simpleaesthetics.option.enableSimpleModels",
+      "text.autoconfig.simpleaesthetics.option.enableSimpleSounds",
+      "text.autoconfig.simpleaesthetics.option.enableSimpleVisuals"
+     ],
+     "count": 3
+    }
+   ]
+  },
+  {
+   "id": "simpleenddragonfight",
+   "namespace": "simpleenddragonfight",
+   "name_en": "Simple End Dragon Fight",
+   "name_de": "Simple End Dragon Fight",
+   "purpose_en": "Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.",
+   "purpose_de": "Sub-Mod von Simple End: Enderdrache mit +1 Lebensleiste je Spieler, schneller, Auftritts-Animationen und Drachenmilben ab halber Gesundheit.",
+   "supermod": "simpleend",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 3,
+    "render_only_item_models": 0,
+    "entities": 1,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 1,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 70,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 15,
+    "wiki_features": 6,
+    "java_files": 17
+   },
+   "entities": [
+    "dragonmite"
+   ],
+   "commands": [],
+   "config_classes": [
+    "DragonFightConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleend",
+   "namespace": "simpleend",
+   "name_en": "Simple End",
+   "name_de": "Simple End",
+   "purpose_en": "End wood (Ashwood, Duskwood) with buds, trees and stick scrub, End grass, the Ash Valley and Dawnlands biomes on the outer End islands; bundles Simple End Dragon Fight.",
+   "purpose_de": "End-Holz Aschholz/Dämmerholz (volles Holzset, Knospen, Bäume, Gestrüpp), End-Gras, Biome Aschental und Morgenland auf den äußeren Inseln; bündelt Simple End Dragon Fight.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [
+    "simpleenddragonfight"
+   ],
+   "required_by": [],
+   "requires": [],
+   "optional": [
+    "simpleenddragonfight"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 47,
+    "items": 49,
+    "render_only_item_models": 0,
+    "entities": 5,
+    "recipes": 35,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 26,
+     "minecraft:crafting_shapeless": 9
+    },
+    "loot_tables": 44,
+    "advancements": 0,
+    "recipe_advancements": 35,
+    "lang_keys": 131,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 42,
+    "wiki_features": 8,
+    "java_files": 38
+   },
+   "entities": [
+    "ashwood_boat",
+    "ashwood_chest_boat",
+    "duskwood_boat",
+    "duskwood_chest_boat",
+    "nibblemite"
+   ],
+   "commands": [],
+   "config_classes": [
+    "SimpleEndConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "burrowed_end_stone"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "ash_bud",
+      "dusk_bud",
+      "end_bush",
+      "end_grass",
+      "potted_ash_bud",
+      "potted_dusk_bud"
+     ],
+     "count": 6
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "ashwood_wall_hanging_sign",
+      "ashwood_wall_sign",
+      "duskwood_wall_hanging_sign",
+      "duskwood_wall_sign"
+     ],
+     "count": 4
+    }
+   ]
+  },
+  {
+   "id": "simplerespawn",
+   "namespace": "simplerespawn",
+   "name_en": "Simple Respawn",
+   "name_de": "Simple Respawn",
+   "purpose_en": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.",
+   "purpose_de": "Niedergeschlagen statt tot: Mitspieler können innerhalb der Ausblutzeit wiederbeleben; eigener Bildschirm mit Zuschauen, Inventar-Ansicht und Aufgeben.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 1,
+    "recipe_advancements": 1,
+    "lang_keys": 63,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 19,
+    "wiki_features": 6,
+    "java_files": 25
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "RespawnConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplebeacons",
+   "namespace": "simplebeacons",
+   "name_en": "Simple Beacons",
+   "name_de": "Simple Beacons",
+   "purpose_en": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+   "purpose_de": "Starkes Leuchtfeuer (6 Pyramidenstufen, 10 weitere Effekte, Reichweite nach Material), Starke Aquisphäre und die Starke Aufwertungsvorlage; Axt allein, Vorschlaghammer mit Hammer-Mod.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 2,
+    "items": 5,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 6,
+    "recipe_types": {
+     "minecraft:smithing_transform": 2,
+     "minecraft:crafting_shaped": 2,
+     "minecraft:crafting_shapeless": 2
+    },
+    "loot_tables": 2,
+    "advancements": 0,
+    "recipe_advancements": 6,
+    "lang_keys": 67,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 27,
+    "wiki_features": 8,
+    "java_files": 33
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "BeaconsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "strong_upgrade_shard"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "strong_beacon",
+      "strong_conduit"
+     ],
+     "count": 2
+    }
+   ]
+  },
+  {
+   "id": "simpleovens",
+   "namespace": "simpleovens",
+   "name_en": "Simple Ovens",
+   "name_de": "Simple Ovens",
+   "purpose_en": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
+   "purpose_de": "Pflicht-Sub-Mod von SB: Verstärkte/Netherit-/Enderit-Öfen, -Räucheröfen, -Schmelzöfen (2×/4×/8×) und Antriebsloren (IDs aus SB migrieren); Axt allein, Vorschlaghammer mit Simple Hammers.",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 9,
+    "items": 13,
+    "render_only_item_models": 0,
+    "entities": 3,
+    "recipes": 9,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 3,
+     "minecraft:crafting_shapeless": 4,
+     "minecraft:smithing_transform": 2
+    },
+    "loot_tables": 9,
+    "advancements": 0,
+    "recipe_advancements": 9,
+    "lang_keys": 67,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 18,
+    "wiki_features": 7,
+    "java_files": 25
+   },
+   "entities": [
+    "enderite_furnace_minecart",
+    "netherite_furnace_minecart",
+    "reinforced_furnace_minecart"
+   ],
+   "commands": [],
+   "config_classes": [
+    "OvensConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplemobheads",
+   "namespace": "simplemobheads",
+   "name_en": "Simple Mobheads",
+   "name_de": "Simple Mobheads",
+   "purpose_en": "A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.",
+   "purpose_de": "Pflicht-Sub-Mod von SB: ein Kopf für jeden Mob (Drop durch geladenen Creeper), tragbar mit kleinem Geheimnis, platzierbar, als Notenblock-Klang; Köpfe aus Simple Fun und SB sind hierher gezogen.",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib",
+    "cloth_config"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simplemobs",
+    "simpleend",
+    "simpleenddragonfight",
+    "jei",
+    "modmenu"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 194,
+    "items": 98,
+    "render_only_item_models": 0,
+    "entities": 1,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 97,
+    "advancements": 99,
+    "recipe_advancements": 1,
+    "lang_keys": 529,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 2,
+    "tests": 45,
+    "wiki_features": 15,
+    "java_files": 61
+   },
+   "entities": [
+    "giant_cow"
+   ],
+   "commands": [
+    "simplefun",
+    "simplemobheads"
+   ],
+   "config_classes": [
+    "MobHeadsConfig",
+    "MobHeadsConfigScreen"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "MobHeadsJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 1,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P2",
+     "code": "SPLIT-LANG-EXTRA-LOST",
+     "message": "extra lang keys (tooltip/desc/info) of the old id missing under the new namespace",
+     "ids": [
+      "blaze_head: jei (1 old keys, e.g. jei.simplebuilding.info.blaze_head; still in old namespace)",
+      "drowned_head: jei (1 old keys, e.g. jei.simplebuilding.info.drowned_head; still in old namespace)",
+      "enderman_head: jei (1 old keys, e.g. jei.simplebuilding.info.enderman_head; still in old namespace)",
+      "shulker_head: jei (1 old keys, e.g. jei.simplebuilding.info.shulker_head; still in old namespace)"
+     ],
+     "count": 4
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "abyssal_wither_wall_head",
+      "allay_wall_head",
+      "armadillo_wall_head",
+      "axolotl_wall_head",
+      "bat_wall_head",
+      "bee_wall_head",
+      "blaze_wall_head",
+      "blighted_wither_wall_head",
+      "bogged_wall_skull",
+      "breeze_wall_head",
+      "camel_husk_wall_head",
+      "camel_wall_head",
+      "cat_wall_head",
+      "cave_spider_wall_head",
+      "chicken_wall_head",
+      "cod_wall_head",
+      "copper_golem_wall_head",
+      "cow_wall_head",
+      "creaking_wall_head",
+      "crowned_pig_wall_head",
+      "deceiver_wall_head",
+      "dolphin_wall_head",
+      "donkey_wall_head",
+      "dragonmite_wall_head",
+      "dread_wall_head",
+      "drowned_wall_head",
+      "elder_guardian_wall_head",
+      "enderman_wall_head",
+      "endermite_wall_head",
+      "evoker_wall_head",
+      "fox_wall_head",
+      "frog_wall_head",
+      "ghast_wall_head",
+      "giant_cow_wall_head",
+      "giant_wall_head",
+      "glow_squid_wall_head",
+      "goat_wall_head",
+      "guardian_wall_head",
+      "happy_ghast_wall_head",
+      "herobrine_wall_head",
+      "hoglin_wall_head",
+      "hollow_howler_wall_skull",
+      "hollow_watcher_wall_head",
+      "horse_wall_head",
+      "husk_wall_head",
+      "illusioner_wall_head",
+      "iron_golem_wall_head",
+      "llama_wall_head",
+      "magma_cube_wall_head",
+      "mooshroom_wall_head",
+      "mule_wall_head",
+      "nautilus_wall_head",
+      "nibblemite_wall_head",
+      "ocelot_wall_head",
+      "panda_wall_head",
+      "parched_wall_skull",
+      "parrot_wall_head",
+      "phantom_wall_head",
+      "pig_wall_head",
+      "piglin_brute_wall_head"
+     ],
+     "count": 97
+    }
+   ]
+  },
+  {
+   "id": "simpleshops",
+   "namespace": "simpleshops",
+   "name_en": "Simple Shops",
+   "name_de": "Simple Shops",
+   "purpose_en": "Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.",
+   "purpose_de": "Spieler-Läden: Verkaufsblock mit Preis aus bis zu fünf exakten Preis-Items und Vitrine mit bis zu fünf Waren, geschützt vor Fremden, Explosionen, Kolben und Trichtern.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simplemoney",
+    "simpletweaks"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 5,
+    "items": 6,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 6,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 4,
+     "minecraft:crafting_shapeless": 2
+    },
+    "loot_tables": 5,
+    "advancements": 0,
+    "recipe_advancements": 6,
+    "lang_keys": 139,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 76,
+    "wiki_features": 11,
+    "java_files": 48
+   },
+   "entities": [],
+   "commands": [
+    "servershop"
+   ],
+   "config_classes": [
+    "ShopsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplewanderers",
+   "namespace": "simplewanderers",
+   "name_en": "Simple Wanderers",
+   "name_de": "Simple Wanderers",
+   "purpose_en": "Village Wanderer: one Wandering Trader per village with a leashed horse, goods split from the traveling trader, a new stock every 3 days, a restock every 1.5 days and a range by village biome. Works on its own with Vanilla.",
+   "purpose_de": "Dorf-Wanderer: ein Fahrender Händler je Dorf mit angeleintem Pferd, eigenem Sortiment und Nachschub je nach Dorfbiom; allein mit Vanilla spielbar.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [],
+   "optional": [
+    "simplebuilding",
+    "simplemoney",
+    "simplemobheads"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 2,
+    "render_only_item_models": 0,
+    "entities": 2,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 31,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 22,
+    "wiki_features": 6,
+    "java_files": 15
+   },
+   "entities": [
+    "village_wanderer",
+    "wanderer_horse"
+   ],
+   "commands": [],
+   "config_classes": [
+    "WandererConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simplestats",
+   "namespace": "simplestats",
+   "name_en": "Simple Stats",
+   "name_de": "Simple Stats",
+   "purpose_en": "Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.",
+   "purpose_de": "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil führt eigene Statistiken (Blöcke, Kills nach Mob, absorbierter Schaden, Strecken, Fänge) mit eigenem Statistik-Bildschirm.",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [],
+   "optional": [
+    "simplebuilding"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 1,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 1,
+    "recipe_types": {
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 1,
+    "lang_keys": 267,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 23,
+    "wiki_features": 10,
+    "java_files": 41
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "StatsConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleblocks",
+   "namespace": "simpleblocks",
+   "name_en": "Simple Blocks",
+   "name_de": "Simple Blocks",
+   "purpose_en": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.",
+   "purpose_de": "Pflicht-Sub-Mod von SB: fehlende Baublöcke (Gedämpfte Tiefenschiefer-Fliesen, Sculk-Tiefenschiefer, fehlende Vanilla-Treppen/-Stufen/-Mauern, rissige/bemooste Ziegel) und SBs heimatlose Baublöcke; die Formsäge schneidet Stein und Holz in jede Form.",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "jei"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 54,
+    "items": 55,
+    "render_only_item_models": 0,
+    "entities": 1,
+    "recipes": 283,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 37,
+     "minecraft:stonecutting": 24,
+     "minecraft:smelting": 6,
+     "minecraft:crafting_shapeless": 15,
+     "simpleblocks:sawing": 201
+    },
+    "loot_tables": 54,
+    "advancements": 0,
+    "recipe_advancements": 82,
+    "lang_keys": 148,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 41,
+    "wiki_features": 9,
+    "java_files": 31
+   },
+   "entities": [
+    "levitating_block"
+   ],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "BlocksJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [
+     "SawCategory"
+    ],
+    "recipe_types": [
+     "simpleblocks:sawing"
+    ],
+    "info_calls": 1,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "aqua_froglight",
+      "azure_froglight",
+      "scarlet_froglight"
+     ],
+     "count": 3
+    }
+   ]
+  },
+  {
+   "id": "simplecrucibles",
+   "namespace": "simplecrucibles",
+   "name_en": "Simple Crucibles",
+   "name_de": "Simple Crucibles",
+   "purpose_en": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
+   "purpose_de": "Pflicht-Sub-Mod von SB: Eisen-/Verstärkter/Netherit-/Enderit-Tiegel und -Fässer (Kochstation ohne Brennstoff), Verstärkter Kessel, Feldküchen im Dorf, Eimer-Familie und Seelenlava (IDs migrieren).",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "jei",
+    "jade"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 11,
+    "items": 36,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 6,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 4,
+     "minecraft:smelting": 1,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 11,
+    "advancements": 0,
+    "recipe_advancements": 6,
+    "lang_keys": 125,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 71,
+    "wiki_features": 7,
+    "java_files": 71
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "CrucibleConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "CruciblesJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [
+     "CrucibleCategory"
+    ],
+    "recipe_types": [
+     "simplecrucibles:crucible"
+    ],
+    "info_calls": 1,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "brittle_ceramic_bucket",
+      "brittle_ceramic_lava_bucket",
+      "brittle_ceramic_water_bucket",
+      "ceramic_lava_bucket",
+      "ceramic_water_bucket",
+      "chipped_ceramic_bucket",
+      "chipped_ceramic_lava_bucket",
+      "chipped_ceramic_water_bucket",
+      "copper_lava_bucket",
+      "copper_water_bucket",
+      "cracked_ceramic_bucket",
+      "cracked_ceramic_lava_bucket",
+      "cracked_ceramic_water_bucket",
+      "enderite_lava_bucket",
+      "enderite_lava_bucket_full",
+      "enderite_milk_bucket",
+      "enderite_milk_bucket_full",
+      "enderite_soul_lava_bucket",
+      "enderite_soul_lava_bucket_full",
+      "enderite_water_bucket",
+      "enderite_water_bucket_full",
+      "soul_lava_bucket"
+     ],
+     "count": 22
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "soul_lava"
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleoctets",
+   "namespace": "simpleoctets",
+   "name_en": "Simple Octets",
+   "name_de": "Simple Octets",
+   "purpose_en": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+   "purpose_de": "Pflicht-Sub-Mod von SB: Achtelblöcke (0,5³) aus jedem Holz und jedem Block mit Treppe/Stufe, mischbar in einer Zelle; Steinsäge schneidet, Werkbank setzt zurück, Vorschlaghammer schnitzt.",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simpleend",
+    "jei"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 176,
+    "items": 160,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 521,
+    "recipe_types": {
+     "minecraft:stonecutting": 172,
+     "minecraft:crafting_shapeless": 175,
+     "simpleblocks:sawing": 174
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 347,
+    "lang_keys": 390,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 22,
+    "wiki_features": 6,
+    "java_files": 24
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "OctetsJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 2,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "black_wool_octet",
+      "blue_wool_octet",
+      "brown_wool_octet",
+      "cyan_wool_octet",
+      "gray_wool_octet",
+      "green_wool_octet",
+      "light_blue_wool_octet",
+      "light_gray_wool_octet",
+      "lime_wool_octet",
+      "magenta_wool_octet",
+      "mixed_octet",
+      "orange_wool_octet",
+      "pink_wool_octet",
+      "purple_wool_octet",
+      "red_wool_octet",
+      "white_wool_octet",
+      "yellow_wool_octet"
+     ],
+     "count": 17
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-GETDROPS",
+     "message": "no loot table, but the module overrides Block#getDrops (check the block class)",
+     "ids": [
+      "acacia_log_octet",
+      "acacia_octet",
+      "andesite_octet",
+      "ashwood_log_octet",
+      "ashwood_octet",
+      "astralit_bricks_octet",
+      "bamboo_mosaic_octet",
+      "bamboo_octet",
+      "birch_log_octet",
+      "birch_octet",
+      "black_concrete_octet",
+      "black_terracotta_octet",
+      "black_wool_octet",
+      "blackstone_block_octet",
+      "blue_concrete_octet",
+      "blue_nether_bricks_octet",
+      "blue_terracotta_octet",
+      "blue_wool_octet",
+      "bone_block_octet",
+      "bricks_octet",
+      "brown_concrete_octet",
+      "brown_terracotta_octet",
+      "brown_wool_octet",
+      "calcite_octet",
+      "cherry_log_octet",
+      "cherry_octet",
+      "cinnabar_bricks_octet",
+      "cinnabar_octet",
+      "coal_block_octet",
+      "cobbled_deepslate_octet",
+      "cobblestone_octet",
+      "copper_block_octet",
+      "crimson_octet",
+      "crimson_stem_octet",
+      "cut_copper_octet",
+      "cut_red_sandstone_octet",
+      "cut_sandstone_octet",
+      "cyan_concrete_octet",
+      "cyan_terracotta_octet",
+      "cyan_wool_octet",
+      "dark_oak_log_octet",
+      "dark_oak_octet",
+      "dark_prismarine_octet",
+      "deepslate_bricks_octet",
+      "deepslate_tiles_octet",
+      "diamond_block_octet",
+      "diorite_octet",
+      "duskwood_log_octet",
+      "duskwood_octet",
+      "emerald_block_octet",
+      "end_stone_bricks_octet",
+      "end_stone_octet",
+      "ender_quartz_block_octet",
+      "ender_quartz_bricks_octet",
+      "exposed_copper_octet",
+      "exposed_cut_copper_octet",
+      "gold_block_octet",
+      "granite_octet",
+      "gray_concrete_octet",
+      "gray_terracotta_octet"
+     ],
+     "count": 176
+    }
+   ]
+  },
+  {
+   "id": "simplehammers",
+   "namespace": "simplehammers",
+   "name_en": "Simple Hammers",
+   "name_de": "Simple Hammers",
+   "purpose_en": "Seven sledgehammers (Stone to Enderite) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, with the enchantments Break Through, Override and Radius, moved from SimpleBuilding (ids migrate). While it is loaded the in-world ways of the other Simple mods take the hammer instead of the axe.",
+   "purpose_de": "Pflicht-Sub-Mod von SB: sieben Vorschlaghämmer (Stein bis Enderit) für 3×3-Abbau, Umformen in Treppen/Stufen, Achtel schnitzen, Zerschlagen und schrittweise In-World-Aufwertungen; Verzauberungen Durchbruch, Überschreiben, Radius.",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simpleoctets",
+    "simplecrucibles",
+    "jei"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 8,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 11,
+    "recipe_types": {
+     "minecraft:crafting_shaped": 5,
+     "simplebuilding:count_based_smithing": 3,
+     "minecraft:smithing_transform": 2,
+     "minecraft:crafting_shapeless": 1
+    },
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 11,
+    "lang_keys": 75,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 17,
+    "wiki_features": 10,
+    "java_files": 34
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [
+    "HammerConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [
+     "HammersJeiPlugin.java"
+    ],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 1,
+    "fabric_entrypoint_ok": true
+   },
+   "findings": [
+    {
+     "severity": "P2",
+     "code": "SPLIT-JEI-MENTION-LOST",
+     "message": "named in old JEI/REI code, in no JEI/REI code now (in-world/info pages?) [b-jei24]",
+     "ids": [
+      "netherite_sledgehammer"
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": "simpleoptimization",
+   "namespace": "simpleoptimization",
+   "name_en": "Simple Optimization",
+   "name_de": "Simple Optimization",
+   "purpose_en": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
+   "purpose_de": "Super-Mod ohne eigene Inhalte (nur Fabric 26.3): bündelt Opt Render, Opt Memory und Opt Server mit je einem Schalter.",
+   "supermod": null,
+   "bundle": null,
+   "required": false,
+   "super_of": [
+    "simpleoptmemory",
+    "simpleoptrender",
+    "simpleoptserver"
+   ],
+   "required_by": [],
+   "requires": [
+    "simpleoptrender",
+    "simpleoptmemory",
+    "simpleoptserver"
+   ],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 4,
+    "config_options": 3,
+    "config_without_tooltip": 3,
+    "commands": 0,
+    "tests": 2,
+    "wiki_features": 1,
+    "java_files": 4
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "CONFIG-NO-TOOLTIP",
+     "message": "config labels without tooltip key [b-cmdcfg24]",
+     "ids": [
+      "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory",
+      "text.autoconfig.simpleoptimization.option.enableSimpleOptRender",
+      "text.autoconfig.simpleoptimization.option.enableSimpleOptServer"
+     ],
+     "count": 3
+    }
+   ]
+  },
+  {
+   "id": "simpleoptrender",
+   "namespace": "simpleoptrender",
+   "name_en": "Simple Opt Render",
+   "name_de": "Simple Opt Render",
+   "purpose_en": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
+   "purpose_de": "Client-Optimierungen (Laub-Culling, Lightmap-Cache, schneller IP-Ping, Telemetrie aus); tritt zurück, wenn ein bekannter Optimierungsmod den Bereich abdeckt.",
+   "supermod": "simpleoptimization",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simpleoptimization"
+   ],
+   "requires": [],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 7,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 11,
+    "wiki_features": 7,
+    "java_files": 23
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simpleoptmemory",
+   "namespace": "simpleoptmemory",
+   "name_en": "Simple Opt Memory",
+   "name_de": "Simple Opt Memory",
+   "purpose_en": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
+   "purpose_de": "Speicher-Optimierungen (Blockzustände, Modelle); Stufe 1 enthält nur Schalter, Config und Mod-Erkennung.",
+   "supermod": "simpleoptimization",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simpleoptimization"
+   ],
+   "requires": [],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 2,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 3,
+    "wiki_features": 2,
+    "java_files": 9
+   },
+   "entities": [],
+   "commands": [],
+   "config_classes": [],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simpleoptserver",
+   "namespace": "simpleoptserver",
+   "name_en": "Simple Opt Server",
+   "name_de": "Simple Opt Server",
+   "purpose_en": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
+   "purpose_de": "Server-Optimierung: Sichtweite folgt der Serverlast (MSPT) in den Grenzen der server.properties; tritt vor ServerCore zurück.",
+   "supermod": "simpleoptimization",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simpleoptimization"
+   ],
+   "requires": [],
+   "optional": [],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 0,
+    "items": 0,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 0,
+    "recipe_types": {},
+    "loot_tables": 0,
+    "advancements": 0,
+    "recipe_advancements": 0,
+    "lang_keys": 5,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 6,
+    "wiki_features": 2,
+    "java_files": 10
+   },
+   "entities": [],
+   "commands": [
+    "simpleopt"
+   ],
+   "config_classes": [],
+   "creative_tab_hook": false,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": []
+  },
+  {
+   "id": "simplestorage",
+   "namespace": "simplestorage",
+   "name_en": "Simple Storage",
+   "name_de": "Simple Storage",
+   "purpose_en": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
+   "purpose_de": "Pflicht-Sub-Mod von SB: Kisten aller Hölzer, Lager-Werkbank, gestufte/Fallen-Truhen, Shulkerkisten-Stufen, Truhenloren/-boote, Bündel, Köcher, Rucksäcke und die Lager-Verzauberungen (IDs migrieren).",
+   "supermod": "simplebuilding",
+   "bundle": "required",
+   "required": true,
+   "super_of": [],
+   "required_by": [
+    "simplebuilding"
+   ],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simpleend",
+    "trinkets_updated",
+    "curios"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 37,
+    "items": 53,
+    "render_only_item_models": 0,
+    "entities": 6,
+    "recipes": 177,
+    "recipe_types": {
+     "minecraft:smithing_transform": 10,
+     "minecraft:crafting_transmute": 81,
+     "minecraft:crafting_shapeless": 62,
+     "minecraft:crafting_shaped": 18,
+     "simplestorage:reinforced_bundle": 4,
+     "simplestorage:backpack_upgrade": 2
+    },
+    "loot_tables": 36,
+    "advancements": 0,
+    "recipe_advancements": 177,
+    "lang_keys": 183,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 0,
+    "tests": 120,
+    "wiki_features": 12,
+    "java_files": 137
+   },
+   "entities": [
+    "enderite_chest_boat",
+    "enderite_chest_minecart",
+    "netherite_chest_boat",
+    "netherite_chest_minecart",
+    "reinforced_chest_boat",
+    "reinforced_chest_minecart"
+   ],
+   "commands": [],
+   "config_classes": [
+    "StorageConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-NO-ORIGIN-ALONE",
+     "message": "items whose only recipe/loot needs a partner mod and that no module Java names (standalone rule 1 - fine if the item is only registered with the partner)",
+     "ids": [
+      "ashwood_crate",
+      "duskwood_crate"
+     ],
+     "count": 2
+    },
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "enderite_shulker_shell",
+      "netherite_shulker_shell",
+      "reinforced_shulker_shell"
+     ],
+     "count": 3
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-RECIPE-TYPE-VANILLA-CLASS",
+     "message": "custom serializer on a Vanilla crafting/smithing recipe class, no JEI code names it - check that JEI draws it (special/custom recipes stay hidden) [b-jei24]",
+     "ids": [
+      "simplestorage:backpack_upgrade (2 recipes)"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "backpack",
+      "enderite_backpack",
+      "netherite_backpack",
+      "reinforced_backpack"
+     ],
+     "count": 4
+    },
+    {
+     "severity": "P4",
+     "code": "LOOT-MISSING-EXPECTED",
+     "message": "no loot table, name suggests dropsLike/technical block",
+     "ids": [
+      "placed_bundle"
+     ],
+     "count": 1
+    },
+    {
+     "severity": "P4",
+     "code": "SPLIT-LANG-LEFTOVER",
+     "message": "old tooltip/JEI/Jade keys of the moved id stay in the old namespace and no Java uses them (cleanup; the new owner covers it otherwise, e.g. own JEI info pages)",
+     "ids": [
+      "enderite_bundle: tooltip (1 old keys, e.g. tooltip.simplebuilding.enderite_bundle; still in old namespace)",
+      "enderite_quiver: tooltip (1 old keys, e.g. tooltip.simplebuilding.enderite_quiver; still in old namespace)",
+      "netherite_bundle: tooltip (1 old keys, e.g. tooltip.simplebuilding.netherite_bundle; still in old namespace)",
+      "netherite_quiver: tooltip (1 old keys, e.g. tooltip.simplebuilding.netherite_quiver; still in old namespace)",
+      "quiver: tooltip (1 old keys, e.g. tooltip.simplebuilding.quiver; still in old namespace)",
+      "reinforced_bundle: tooltip (1 old keys, e.g. tooltip.simplebuilding.reinforced_bundle; still in old namespace)",
+      "reinforced_quiver: tooltip (1 old keys, e.g. tooltip.simplebuilding.reinforced_quiver; still in old namespace)"
+     ],
+     "count": 7
+    }
+   ]
+  },
+  {
+   "id": "simplemusic",
+   "namespace": "simplemusic",
+   "name_en": "Simple Music",
+   "name_de": "Simple Music",
+   "purpose_en": "Sheet music with a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs (quota, OP approval), played in the Vanilla jukebox and the Pocket Jukebox. Needs SimpleLib; SimpleBuilding optional.",
+   "purpose_de": "Notenblätter mit Text-Notencode (Editor, .txt/.nbs-Import), gepresst auf Rohlinge in der Plattenpresse, hochgeladene Ogg-Platten (Kontingent, OP-Freigabe), Taschen-Jukebox; braucht SimpleLib.",
+   "supermod": "simplebuilding",
+   "bundle": "optional",
+   "required": false,
+   "super_of": [],
+   "required_by": [],
+   "requires": [
+    "simplelib"
+   ],
+   "optional": [
+    "simplebuilding",
+    "simplemobheads"
+   ],
+   "standalone": true,
+   "example": false,
+   "counts": {
+    "blocks": 18,
+    "items": 28,
+    "render_only_item_models": 0,
+    "entities": 0,
+    "recipes": 37,
+    "recipe_types": {
+     "minecraft:crafting_transmute": 16,
+     "minecraft:crafting_shaped": 19,
+     "minecraft:crafting_shapeless": 2
+    },
+    "loot_tables": 18,
+    "advancements": 0,
+    "recipe_advancements": 37,
+    "lang_keys": 194,
+    "config_options": 0,
+    "config_without_tooltip": 0,
+    "commands": 1,
+    "tests": 37,
+    "wiki_features": 15,
+    "java_files": 78
+   },
+   "entities": [],
+   "commands": [
+    "music"
+   ],
+   "config_classes": [
+    "MusicClientConfig",
+    "MusicConfig"
+   ],
+   "creative_tab_hook": true,
+   "jei": {
+    "jei_plugin": [],
+    "rei_plugin": [],
+    "emi_plugin": [],
+    "categories": [],
+    "recipe_types": [],
+    "info_calls": 0,
+    "fabric_entrypoint_ok": null
+   },
+   "findings": [
+    {
+     "severity": "P3",
+     "code": "ITEM-ORIGIN-CODE-ONLY",
+     "message": "no recipe/loot/data source; the id is named in Java (loot injection, conversion, drop or creative-only - check)",
+     "ids": [
+      "custom_disc",
+      "music_disc_deep_pulse",
+      "music_disc_ember_forge",
+      "music_disc_end_departure",
+      "music_disc_fortress_march",
+      "music_disc_obsidian_throne",
+      "music_disc_sky_forge"
+     ],
+     "count": 7
+    },
+    {
+     "severity": "P3",
+     "code": "JEI-NO-PLUGIN",
+     "message": "module has items/blocks but no own JEI plugin (no info pages / categories standalone) [b-jei24]",
+     "ids": [],
+     "count": 1
+    },
+    {
+     "severity": "P3",
+     "code": "TAG-NO-MINEABLE",
+     "message": "blocks in no mineable/* tag (fine for instant-break blocks - check hardness)",
+     "ids": [
+      "black_pocket_jukebox",
+      "blue_pocket_jukebox",
+      "brown_pocket_jukebox",
+      "cyan_pocket_jukebox",
+      "gray_pocket_jukebox",
+      "green_pocket_jukebox",
+      "light_blue_pocket_jukebox",
+      "light_gray_pocket_jukebox",
+      "lime_pocket_jukebox",
+      "magenta_pocket_jukebox",
+      "orange_pocket_jukebox",
+      "pink_pocket_jukebox",
+      "pocket_jukebox",
+      "purple_pocket_jukebox",
+      "red_pocket_jukebox",
+      "white_pocket_jukebox",
+      "yellow_pocket_jukebox"
+     ],
+     "count": 17
+    }
+   ]
+  }
+ ]
+}
