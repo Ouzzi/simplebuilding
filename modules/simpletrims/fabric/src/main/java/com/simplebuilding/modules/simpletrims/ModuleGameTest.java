@@ -77,6 +77,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void orphanLightSwept(GameTestHelper h) {
+        TrimsTests.ALL.get("orphan_light_swept").accept(h);
+    }
+
+    @GameTest
     public void radianceLight(GameTestHelper h) {
         TrimsTests.ALL.get("radiance_light").accept(h);
     }

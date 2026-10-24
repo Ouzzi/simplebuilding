@@ -148,10 +148,17 @@ public class DynamicLightHandler {
                     .setValue(LightBlock.LEVEL, lightLevel)
                     .setValue(LightBlock.WATERLOGGED, isWater), 3);
         }
+        com.simplelib.api.OwnedLights.mark(world, pos);
         return true;
     }
 
+    static {
+        // Nach einem Absturz ist die Tabelle weg: lebendig ist nur das Licht eines Spielers in lightSources (Rest: OwnedLights.sweep).
+        com.simplelib.api.OwnedLights.claim("simplebuilding:dynamic_light", (level, pos) -> lightSources.containsValue(pos));
+    }
+
     private static void removeLight(Level world, BlockPos pos) {
+        com.simplelib.api.OwnedLights.unmark(world, pos);
         BlockState state = world.getBlockState(pos);
         if (state.is(Blocks.LIGHT)) {
             if (state.getValue(LightBlock.WATERLOGGED)) {
