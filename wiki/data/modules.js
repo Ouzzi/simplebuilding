@@ -46,7 +46,8 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
-      "simplemusic"
+      "simplemusic",
+      "simpleearth"
     ],
     "overview": {
       "status": "in Arbeit",
