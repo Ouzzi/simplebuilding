@@ -54,17 +54,44 @@ public final class TerrainSampler {
                 }
                 int h = generator.getBaseHeight((int) x, (int) z, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
                 heights[k] = (short) Math.max(Short.MIN_VALUE, Math.min(Short.MAX_VALUE, h));
-                MapColor c = color(biomes, (int) x, Math.max(h, sea), (int) z, h < sea);
+                MapColor c = color(biomes, (int) x, Math.max(h, sea), (int) z, h < sea - LAKE_DEPTH, 1 << e);
                 colors[k] = (byte) c.id;
             }
         }
         return new Tile(colors, heights);
     }
 
-    /** The noise biome at a block and its map colour. */
-    public static MapColor color(BiomeResolver biomes, int x, int y, int z, boolean underwater) {
-        Holder<Biome> biome = biomes.getNoiseBiome(QuartPos.fromBlock(x), QuartPos.fromBlock(y), QuartPos.fromBlock(z));
-        return EarthColors.color(biome, underwater);
+    /** Ground this far below sea level counts as water in a land biome (shallow dips stay land, concept §4.2: no speckles). */
+    public static final int LAKE_DEPTH = 4;
+
+    /**
+     * The map colour of a sample cell: from {@code step} >= 128 blocks the noise biome is asked at four points of the cell and
+     * the most frequent colour wins (concept §4.2 - otherwise narrow rivers and single biome patches flicker into speckles);
+     * below that one point in the middle. Only the biome is sampled several times, the height once (the costly part).
+     */
+    public static MapColor color(BiomeResolver biomes, int x, int y, int z, boolean underwater, int step) {
+        int qy = QuartPos.fromBlock(y);
+        if (step < 128) return EarthColors.color(biomes.getNoiseBiome(QuartPos.fromBlock(x), qy, QuartPos.fromBlock(z)), underwater);
+        int d = step / 4;
+        MapColor[] votes = new MapColor[4];
+        int k = 0;
+        for (int dz = -d; dz <= d; dz += 2 * d) {
+            for (int dx = -d; dx <= d; dx += 2 * d) {
+                Holder<Biome> biome = biomes.getNoiseBiome(QuartPos.fromBlock(x + dx), qy, QuartPos.fromBlock(z + dz));
+                votes[k++] = EarthColors.color(biome, underwater);
+            }
+        }
+        MapColor best = votes[0];
+        int bestCount = 0;
+        for (MapColor c : votes) {
+            int n = 0;
+            for (MapColor o : votes) if (o == c) n++;
+            if (n > bestCount) {
+                best = c;
+                bestCount = n;
+            }
+        }
+        return best;
     }
 
     /** The dimension's region folder (E8: a region file there = explored). */

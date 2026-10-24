@@ -75,7 +75,7 @@ public final class EarthTests {
                 MapColor got = EarthColors.color(biomes.getOrThrow(key), false);
                 h.assertTrue(got == c[1], key.identifier() + " -> map colour " + got.id + ", expected " + ((MapColor) c[1]).id);
             }
-            h.assertTrue(EarthColors.color(biomes.getOrThrow(Biomes.PLAINS), true) == MapColor.WATER, "ground below sea level = water");
+            h.assertTrue(EarthColors.color(biomes.getOrThrow(Biomes.PLAINS), true) == MapColor.WATER, "ground well below sea level = water");
             h.succeed();
         });
 
@@ -95,7 +95,7 @@ public final class EarthTests {
                 int i = k % TileMath.TILE, j = k / TileMath.TILE;
                 int x = (int) TileMath.sampleBlock((long) tx * TileMath.TILE + i, e), z = (int) TileMath.sampleBlock((long) tz * TileMath.TILE + j, e);
                 int height = generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
-                MapColor expected = TerrainSampler.color(independent, x, Math.max(height, sea), z, height < sea);
+                MapColor expected = TerrainSampler.color(independent, x, Math.max(height, sea), z, height < sea - TerrainSampler.LAKE_DEPTH, 1 << e);
                 h.assertTrue(tile.colors()[k] == (byte) expected.id, "sample " + i + "/" + j + " at " + x + "/" + z + ": " + tile.colors()[k] + " vs " + expected.id);
                 h.assertTrue(tile.heights()[k] == height, "height at " + x + "/" + z);
                 h.assertTrue(tile.colors()[k] != 0, "every sample known");
