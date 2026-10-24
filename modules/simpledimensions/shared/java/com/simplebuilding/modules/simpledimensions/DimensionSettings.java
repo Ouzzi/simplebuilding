@@ -15,6 +15,12 @@ public final class DimensionSettings {
   };
  }
  public void normalize(){portalDelayTicks=ConfigLimits.clamp(portalDelayTicks,0,200);teleportCooldownTicks=ConfigLimits.clamp(teleportCooldownTicks,20,1200); nonPlayerTravel=false;}
+ /** Takes over every value of {@code o} (a live settings object stays the same instance). */
+ public void copyFrom(DimensionSettings o){
+  accessEnabled=o.accessEnabled;automaticDestination=o.automaticDestination;nonPlayerTravel=o.nonPlayerTravel;
+  skyblockEnabled=o.skyblockEnabled;miningEnabled=o.miningEnabled;travelEnabled=o.travelEnabled;
+  portalDelayTicks=o.portalDelayTicks;teleportCooldownTicks=o.teleportCooldownTicks;
+ }
  public void save(Path root){
   normalize();
   try{Files.createDirectories(root);var file=root.resolve("server.json");

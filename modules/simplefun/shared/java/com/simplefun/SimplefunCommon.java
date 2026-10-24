@@ -26,6 +26,11 @@ public final class SimplefunCommon {
     if (config == null) config = new SimplefunConfig();
     config.normalize();
     if (!Files.exists(p)) saveConfig();
+    // CMD24: /simplefun config for every option (the existing /simplefun tweaks switches stay).
+    com.simplelib.api.config.ConfigCommands.server(Constants.MOD_ID)
+        .gson(SimplefunConfig.class, () -> config, c -> { c.normalize(); config = c; },
+            () -> { var d = new SimplefunConfig(); d.normalize(); return d; })
+        .save(SimplefunCommon::saveConfig).register();
   }
 
   public static SimplefunConfig getConfig() {

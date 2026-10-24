@@ -4,3 +4,5 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // Super-mod level 2 (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): nests its optional sub-mod; no class imports.
 dependencies { include project(':modules:simpleenddragonfight:fabric') }
+// SimpleLib nested per principle 6a and compiled against: /<modid> config (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

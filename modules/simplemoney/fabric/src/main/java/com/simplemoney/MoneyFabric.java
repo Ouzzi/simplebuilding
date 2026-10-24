@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 public final class MoneyFabric implements ModInitializer {
  public void onInitialize() {
   MoneyLinks.loaded=FabricLoader.getInstance()::isModLoaded;
-  SimpleMoney.loadConfig(FabricLoader.getInstance().getConfigDir()); MoneyItems.register(); com.simplemoney.guide.MoneyGuide.register(); MoneyItems.registerTab(FabricCreativeModeTab.builder());
+  SimpleMoney.loadConfig(FabricLoader.getInstance().getConfigDir()); SimpleMoney.announce(FabricLoader.getInstance().getConfigDir()); MoneyItems.register(); com.simplemoney.guide.MoneyGuide.register(); MoneyItems.registerTab(FabricCreativeModeTab.builder());
   Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Identifier.fromNamespaceAndPath("simplemoney","weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
   MoneyCondition.register();
   if(FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplemoney.guide.MoneyGuide.installQuests(FabricLoader.getInstance().getConfigDir());

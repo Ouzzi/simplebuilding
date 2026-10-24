@@ -21,26 +21,8 @@ CONFIG_IO = re.compile(r"ConfigFiles\.(?:readOrQuarantine|writeAtomic)\(|AutoCon
                        r"resolve\((?:MOD_ID|FILE|CLIENT_FILE)\s*(?:\+\s*\"[^\"]*\.json\")?\)|resolve\(\"[a-z0-9_-]+\.json\"\)")
 ANNOUNCE = re.compile(r"ConfigCommands\s*\.\s*(?:server|client)\(")
 
-# Modules with an own config but no generic command yet, with the reason (Teilstand CMD24).
-PENDING = {
-    "simplefarming": "no SimpleLib dependency yet (bundling SimpleLib is a separate step)",
-    "simpleloot": "no SimpleLib dependency yet",
-    "simplemobmanners": "no SimpleLib dependency yet",
-    "simplemovement": "no SimpleLib dependency yet",
-    "simpleweather": "no SimpleLib dependency yet",
-    "simplefun": "no SimpleLib dependency yet (Cloth config)",
-    "simplemoney": "no SimpleLib dependency yet",
-    "simpledimensions": "no SimpleLib dependency yet",
-    "simpleend": "no SimpleLib dependency yet",
-    "simpleenddragonfight": "no SimpleLib dependency yet",
-    "simplewanderers": "no SimpleLib dependency yet",
-    "simpleaesthetics": "no SimpleLib dependency yet",
-    "simpleoptimization": "no SimpleLib dependency yet (shared simpleoptimization.json of the opt sub-mods)",
-    "simpleoptmemory": "no SimpleLib dependency yet",
-    "simpleoptrender": "no SimpleLib dependency yet",
-    "simpleoptserver": "no SimpleLib dependency yet",
-    "simpletweaks": "record configs in several files (play, admin, protect, claims) still to announce",
-}
+# Modules with an own config but no generic command yet, with the reason (empty since CMD24-2/3).
+PENDING: dict[str, str] = {}
 # Modules that only keep state or data files, no options.
 NO_OPTIONS = {
     "simplestats": "statistics state files",

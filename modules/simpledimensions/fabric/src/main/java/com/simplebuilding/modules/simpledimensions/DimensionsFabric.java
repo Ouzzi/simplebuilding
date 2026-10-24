@@ -5,6 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 public final class DimensionsFabric implements ModInitializer {
  public void onInitialize() {
+  DimensionRuntime.announceConfig();
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(s->DimensionRuntime.get(s).tick());
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(DimensionRuntime::stop);
   net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,l,h,hit)->p instanceof net.minecraft.server.level.ServerPlayer sp?PortalActivation.ignite(sp,h,hit):net.minecraft.world.InteractionResult.PASS);

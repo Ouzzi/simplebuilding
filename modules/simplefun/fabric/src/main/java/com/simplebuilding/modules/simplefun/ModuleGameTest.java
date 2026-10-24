@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplefun", false); }
   @GameTest
   public void guideBook(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("guide_book").accept(h);

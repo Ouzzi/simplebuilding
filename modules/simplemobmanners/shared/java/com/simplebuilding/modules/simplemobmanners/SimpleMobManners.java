@@ -49,6 +49,9 @@ public final class SimpleMobManners {
 
     public static void load() {
         CONFIG = read(configDir);
+        // CMD24: /<modid> config for every option; save() normalises, writes and syncs the clients.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).gson(MobMannersConfig.class, () -> CONFIG, c -> { c.normalize(); CONFIG = c; },
+                () -> { MobMannersConfig d = new MobMannersConfig(); d.normalize(); return d; }).save(() -> save()).register();
     }
 
     /**

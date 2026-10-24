@@ -5,6 +5,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge/Forge register LootTests.ALL. */
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleloot", false); }
     @GameTest public void launch(GameTestHelper h) { LootTests.launch(h); }
     @GameTest public void vault(GameTestHelper h) { LootTests.vault(h); }
     @GameTest public void vaultPersistence(GameTestHelper h) { LootTests.vaultPersistence(h); }
