@@ -161,3 +161,12 @@ Gelesen bzw. per Durchlauf: Spawner (REV24 M-12), Entity-Speichern, Wetter-Confi
 `simpletrims/recipe/TrimUpgradeRecipe.java`, `simpletweaks/admin/AdminState.java`, `simpletweaks/play/PlayState.java`,
 `simpletweaks/admin/AdminTests.java`, `simpletweaks/play/PlayTests.java`, Fabric-Adapter `AdminGameTest`, `PlayGameTest`,
 `fabric.mod.json` von simplerespawn/simplesounds/simplevisuals, Guide-Texte simpletools/simpletweaks (manual.json + Lang).
+
+## Verifikation (sb-test, c80d4a4d3)
+- Compile `:mc26_3:fabric` + 8 betroffene Module: grün.
+- `module-<storage, storage-standalone, tweaks, tools, trims, respawn, visuals, sounds, riding>-fabric-263`: **alles gruen 584/584**
+  (Storage 121 + standalone 121 mit `migration_from_simplebuilding` (Paletten-Prüfung) und `bundle_wiring_funnel_respects_protection`,
+  Tweaks 166 mit beiden `unreadable_state_file_kept`).
+- `module_guides.py`, `wiki/generate.py --all`, `discover.py`: Ausgabe übernommen (a692d3d30, nur die zwei Guide-Texte); `./gradlew check -q` grün.
+- Nicht getestet: Client (keine Client-Läufe), NeoForge/Forge, Zusammenspiel Funnel + Simple-Tweaks-Claims im selben Server
+  (nur über einen Test-Anbieter der framework-`Protection`), `integration-263`.
