@@ -448,6 +448,33 @@ public final class TrimsTests {
             }
             h.succeed();
         });
+        // REV24-M-5a: after a crash the carrier table is gone; the marked light block is swept with its chunk, a foreign Vanilla light stays.
+        ALL.put("orphan_light_swept", h -> {
+            ServerPlayer player = mockPlayer(h);
+            Vec3 at = h.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+            ItemStack chest = new ItemStack(Items.IRON_CHESTPLATE);
+            for (int i = 0; i < 3; i++) TrimGlow.incrementEmissionLevel(chest);
+            player.setItemSlot(EquipmentSlot.CHEST, chest);
+            BlockPos head = player.blockPosition().above();
+            BlockPos foreign = head.offset(2, 0, 0);
+            h.getLevel().setBlock(foreign, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, 7), 3);
+            try {
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).is(Blocks.LIGHT) && com.simplelib.api.OwnedLights.isMarked(h.getLevel(), head), "the light stands and is marked");
+                h.assertTrue(!com.simplelib.api.OwnedLights.isMarked(h.getLevel(), foreign), "a foreign light is not marked");
+                h.assertTrue(com.simplelib.api.OwnedLights.sweep(h.getLevel(), net.minecraft.world.level.ChunkPos.containing(head)) == 0 && h.getLevel().getBlockState(head).is(Blocks.LIGHT),
+                        "a live carrier keeps its light through a sweep");
+                TrimLight.forgetAll(); // crash: the table is gone, the block stays
+                h.assertTrue(com.simplelib.api.OwnedLights.sweep(h.getLevel(), net.minecraft.world.level.ChunkPos.containing(head)) == 1, "the orphan is swept");
+                h.assertTrue(h.getLevel().getBlockState(head).isAir() && !com.simplelib.api.OwnedLights.isMarked(h.getLevel(), head), "orphan light gone, mark gone");
+                h.assertTrue(h.getLevel().getBlockState(foreign).is(Blocks.LIGHT) && h.getLevel().getBlockState(foreign).getValue(LightBlock.LEVEL) == 7, "a foreign minecraft:light stays");
+            } finally {
+                TrimLight.forget(player);
+                h.getLevel().setBlock(foreign, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
         // N52: torches, lanterns and lava buckets in either hand shine like the block; radiance and held light never add.
         ALL.put("held_light", h -> {
             ServerPlayer player = mockPlayer(h);

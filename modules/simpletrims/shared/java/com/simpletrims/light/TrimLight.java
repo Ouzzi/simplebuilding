@@ -2,6 +2,7 @@ package com.simpletrims.light;
 
 import com.simpletrims.SimpleTrims;
 import com.simpletrims.TrimGlow;
+import com.simplelib.api.OwnedLights;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,11 @@ public final class TrimLight {
     public static final float MOTE_CHANCE_PER_LEVEL = 0.005f;
     /** Cap per carrier: at most one glint every 40 ticks on average. */
     public static final float MAX_MOTE_CHANCE = 0.025f;
+
+    static {
+        // After a crash the table is gone: only a player's light in PLAYER_LIGHTS is alive, resting carriers re-place theirs within HOLDER_INTERVAL ticks.
+        OwnedLights.claim("simpletrims:light", (level, pos) -> PLAYER_LIGHTS.containsValue(new Lit(level.dimension(), pos)));
+    }
 
     private TrimLight() {}
 
@@ -168,6 +174,7 @@ public final class TrimLight {
         if (!current.is(Blocks.LIGHT) || current.getValue(LightBlock.LEVEL) != light) {
             level.setBlock(pos, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, light).setValue(LightBlock.WATERLOGGED, water), 3);
         }
+        OwnedLights.mark(level, pos);
         return true;
     }
 
@@ -199,8 +206,10 @@ public final class TrimLight {
     }
 
     private static void removeLight(Level level, BlockPos pos) {
+        boolean ours = OwnedLights.isMarked(level, pos);
+        OwnedLights.unmark(level, pos);
         BlockState state = level.getBlockState(pos);
-        if (state.is(Blocks.LIGHT)) {
+        if (ours && state.is(Blocks.LIGHT)) {
             level.setBlock(pos, state.getValue(LightBlock.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 3);
         }
     }
