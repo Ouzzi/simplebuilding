@@ -295,6 +295,17 @@ INTEGRATION_TARGETS = (Target(
     mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
     gradle_args=("-PmoduleClientTest=modelaudit",), audit=True,
 ), Target(
+    # Client-Sicht 24.10. (VIS24): every screen opened like a player does and photographed (Vis24ClientTest),
+    # pictures for the eye in integration/run-fabric-263/screenshots. Opt in (heavy, boots a real client).
+    id="vis24-client-263", label="Client-Sicht: alle Screens (Integration) - MC 26.3", loader="fabric", kind="client",
+    mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
+    gradle_args=("-PmoduleClientTest=vis24",), audit=True,
+), Target(
+    # The same after every module client smoke, in one client (the bundled visual review run).
+    id="vis24all-client-263", label="Client-Sicht: alle Modul-Smokes + alle Screens - MC 26.3", loader="fabric",
+    kind="client", mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
+    gradle_args=("-PmoduleClientTest=vis24all",), audit=True,
+), Target(
     # Simple Optimization concept 4.7: our three sub-mods next to Cull Leaves, More Culling, BadOptimizations and ServerCore.
     # Starts, prints its decision tables, theirs wins every area they cover, no crash. Mods: tools/bench (Modrinth, pinned).
     id="compat-opt-263", label="Simple Optimization compat (Cull Leaves, More Culling, BadOptimizations, ServerCore) - MC 26.3",
@@ -842,6 +853,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
             error = compat_opt_check(output)
         elif log_faults:
             error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
+        elif "[vis24] screens shot:" in output:
+            pass
         elif "[model-audit] items checked:" not in output:
             error = "der Audit-Test hat seine Zusammenfassung nicht geschrieben - Beweis fehlt"
     elif not expected:
