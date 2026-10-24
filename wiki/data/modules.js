@@ -358,7 +358,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 41
     },
-    "dataHash": "23374f49bf26"
+    "dataHash": "35a2366f9fbd"
   },
   {
     "id": "simpledimensions",
@@ -664,7 +664,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 32
     },
-    "dataHash": "7b2c7b8013b7"
+    "dataHash": "5fc274140ccd"
   },
   {
     "id": "simplefarming",
