@@ -198,22 +198,25 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "id": "commands",
       "en": {
         "title": "Server Commands",
-        "summary": "Permission level 4: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
+        "summary": "Permission level 2: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
         "details": [
-          "Every value is bounded server-side and saved to config/simplemobheads.json; the config screen edits the same file."
+          "Every value is bounded server-side and saved to config/simplemobheads.json; the config screen edits the same file.",
+          "/simplemobheads config shows and changes every option of config/simplemobheads.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
         ]
       },
       "de": {
         "title": "Server-Befehle",
-        "summary": "Berechtigung 4: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
+        "summary": "Berechtigung 2: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
         "details": [
-          "Jeder Wert ist serverseitig begrenzt und steht in config/simplemobheads.json; der Einstellungsbildschirm bearbeitet dieselbe Datei."
+          "Jeder Wert ist serverseitig begrenzt und steht in config/simplemobheads.json; der Einstellungsbildschirm bearbeitet dieselbe Datei.",
+          "/simplemobheads config zeigt und ändert jede Option von config/simplemobheads.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
         ]
       },
       "sources": [
         "modules/simplemobheads/shared/java/com/simplemobheads/command/MobHeadsCommands.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/config/MobHeadsConfig.java",
-        "modules/simplemobheads/shared/java/com/simplemobheads/client/MobHeadsConfigScreen.java"
+        "modules/simplemobheads/shared/java/com/simplemobheads/client/MobHeadsConfigScreen.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/SimpleMobHeads.java"
       ]
     },
     {

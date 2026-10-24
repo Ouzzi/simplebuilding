@@ -656,10 +656,10 @@
         "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 30 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+        "summary": "Guide to this mod: 32 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 30 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+        "summary": "Handbuch zu dieser Mod: 32 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
       }
     },
     "simplestorage:*_crate": {

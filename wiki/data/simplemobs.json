@@ -435,6 +435,22 @@
           "576 bzw. 768 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, eigene Federoptik auf dem Rücken."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplemobs config shows and changes every option of config/simplemobs-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2. /simpleclient simplemobs (list, get, set, reset, help) does the same for config/simplemobs-client.json on your own client.",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplemobs config zeigt und ändert jede Option von config/simplemobs-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2. /simpleclient simplemobs (list, get, set, reset, help) macht dasselbe für config/simplemobs-client.json auf dem eigenen Client.",
+        "details": []
+      }
     }
   ],
   "recipes": [
@@ -2595,10 +2611,10 @@
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "texture": "assets/textures/simplemobs/item/guide_book.png",
@@ -3311,7 +3327,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
+    "features": 14,
     "recipes": 66,
     "lootTables": 10,
     "tags": 7,

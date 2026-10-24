@@ -53,6 +53,7 @@ public final class OvensDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplelib:enderite_nugget",
             "simplelib:netherite_nugget",
+            "simpleovens:commands",
             "simpleovens:config_server",
             "simpleovens:creative_tab_switch",
             "simpleovens:enderite_blast_furnace",

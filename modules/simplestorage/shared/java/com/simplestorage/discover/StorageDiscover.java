@@ -72,6 +72,7 @@ public final class StorageDiscover {
             "simplestorage:backpacks",
             "simplestorage:bundles",
             "simplestorage:chests",
+            "simplestorage:commands",
             "simplestorage:crates",
             "simplestorage:creative_tab_switch",
             "simplestorage:deep_pockets",

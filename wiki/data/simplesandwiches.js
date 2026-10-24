@@ -182,6 +182,22 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplesandwiches/fabric/src/main/java/com/simplebuilding/modules/simplesandwiches/SandwichesFabric.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplesandwiches config shows and changes every option of config/simplesandwiches-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplesandwiches config zeigt und ändert jede Option von config/simplesandwiches-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": []
+      }
     }
   ],
   "recipes": [
@@ -1698,10 +1714,10 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."
+          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."
+          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."
         }
       },
       "texture": "assets/textures/simplesandwiches/item/guide_book.png",
@@ -2276,7 +2292,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
+    "features": 7,
     "recipes": 17,
     "lootTables": 19,
     "tags": 5,

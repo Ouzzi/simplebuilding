@@ -52,6 +52,7 @@ public final class ShopsDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simpleshops:buying",
+            "simpleshops:commands",
             "simpleshops:config_server",
             "simpleshops:creative_tab_switch",
             "simpleshops:display_case",

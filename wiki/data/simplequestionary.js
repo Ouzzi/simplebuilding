@@ -77,6 +77,22 @@ window.WIKI_MODULE_DATA["simplequestionary"] = {
           "tools/questionary/check_data.py meldet, welchen Gegenständen noch Text fehlt; der Abdeckungs-Spieltest zählt dasselbe."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplequestionary/shared/java/com/simplequestionary/QuestionaryConfig.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplequestionary config shows and changes every option of config/simplequestionary.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplequestionary config zeigt und ändert jede Option von config/simplequestionary.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": []
+      }
     }
   ],
   "recipes": [
@@ -232,7 +248,7 @@ window.WIKI_MODULE_DATA["simplequestionary"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 2,
+    "features": 3,
     "recipes": 1,
     "lootTables": 1,
     "tags": 0,

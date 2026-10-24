@@ -109,11 +109,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simplefarming farmlandProtect, hoeHarvest and sharpnessCut <true|false>; changes are saved to config/simplefarming.json."
+        "summary": "Permission level 2: /simplefarming farmlandProtect, hoeHarvest and sharpnessCut <true|false>; changes are saved to config/simplefarming.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simplefarming farmlandProtect, hoeHarvest und sharpnessCut <true|false>; Speichern in config/simplefarming.json."
+        "summary": "Berechtigung 2: /simplefarming farmlandProtect, hoeHarvest und sharpnessCut <true|false>; Speichern in config/simplefarming.json."
       }
     },
     {

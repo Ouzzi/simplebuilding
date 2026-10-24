@@ -68,11 +68,11 @@ window.WIKI_MODULE_DATA["simpleloot"] = {
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simpleloot vaults cooldown <days> and /simpleloot vaults repeat <true|false>; changes are saved to config/simpleloot.json."
+        "summary": "Permission level 2: /simpleloot vaults cooldown <days> and /simpleloot vaults repeat <true|false>; changes are saved to config/simpleloot.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simpleloot vaults cooldown <Tage> und /simpleloot vaults repeat <true|false>; Speichern in config/simpleloot.json."
+        "summary": "Berechtigung 2: /simpleloot vaults cooldown <Tage> und /simpleloot vaults repeat <true|false>; Speichern in config/simpleloot.json."
       }
     },
     {

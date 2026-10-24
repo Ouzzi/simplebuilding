@@ -208,7 +208,7 @@
   "simplevisuals.guide.page.21.title": "Kompatibilität umbenannter Modelle",
   "simplevisuals.guide.page.21": "Bei installiertem Simple Models übernimmt dieses die Funktion und deaktiviert diesen Kompatibilitätshandler.",
   "simplevisuals.guide.page.22.title": "Konfigurationsbefehle",
-  "simplevisuals.guide.page.22": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], nur Administratoren. Optische Optionen verwenden den lokalen Clientbildschirm;",
+  "simplevisuals.guide.page.22": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm;",
   "simplevisuals.guide.page.23.title": "Konfigurationsbefehle",
   "simplevisuals.guide.page.23": "Serverwerte überschreiben kein fremdes HUD.",
   "simplevisuals.guide.page.24.title": "Schrittstaub",

@@ -52,6 +52,7 @@ public final class LibDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simplelib:basic_upgrade_template",
+            "simplelib:commands",
             "simplelib:cracked_diamond",
             "simplelib:cracked_diamond_block",
             "simplelib:diamond_pebble",

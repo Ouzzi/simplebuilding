@@ -348,6 +348,22 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Der gemeinsame Schalter simpleshops.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/SimpleShops.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleshops config shows and changes every option of config/simpleshops-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleshops config zeigt und ändert jede Option von config/simpleshops-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": []
+      }
     }
   ],
   "recipes": [
@@ -775,10 +791,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
         }
       },
       "texture": "assets/textures/simpleshops/item/guide_book.png",
@@ -1053,7 +1069,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 11,
+    "features": 12,
     "recipes": 6,
     "lootTables": 5,
     "tags": 0,

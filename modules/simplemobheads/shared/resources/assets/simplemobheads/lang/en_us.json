@@ -507,7 +507,7 @@
   "simplemobheads.guide.page.8.title": "Player Heads",
   "simplemobheads.guide.page.8": "A player killed by another player drops their own head with their skin (server switch, default on; moved in from Simple Fun).",
   "simplemobheads.guide.page.9.title": "Server Commands",
-  "simplemobheads.guide.page.9": "Permission level 4: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
+  "simplemobheads.guide.page.9": "Permission level 2: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
   "simplemobheads.guide.page.10.title": "Moved In",
   "simplemobheads.guide.page.10": "Simple Fun's four animal heads and SimpleBuilding's twelve mob heads are Simple Mobheads heads now; old worlds keep them.",
   "simplemobheads.guide.page.11.title": "Simple Mods' Mobs",

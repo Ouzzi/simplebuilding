@@ -208,11 +208,11 @@ window.WIKI_MODULE_DATA["simplemovement"] = {
       ],
       "en": {
         "title": "Commands",
-        "summary": "/crawl is available to players. Owner-level /simplemovement autowalk and frostWalkerSnow <true|false> and ladderSpeed <0.2-0.4>; changes are saved to config/simplemovement.json."
+        "summary": "/crawl is available to players. Permission level 2: /simplemovement autowalk and frostWalkerSnow <true|false> and ladderSpeed <0.2-0.4>; changes are saved to config/simplemovement.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist für Spieler. Besitzerberechtigung: /simplemovement autowalk und frostWalkerSnow <true|false> sowie ladderSpeed <0.2-0.4>; Speichern in config/simplemovement.json."
+        "summary": "/crawl ist für Spieler. Berechtigung 2: /simplemovement autowalk und frostWalkerSnow <true|false> sowie ladderSpeed <0.2-0.4>; Speichern in config/simplemovement.json."
       }
     },
     {
