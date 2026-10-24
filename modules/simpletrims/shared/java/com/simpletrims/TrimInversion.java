@@ -4,21 +4,20 @@ package com.simpletrims;
  * The Inverting upgrade as pure pixel maths (no client classes, so tests can run it): the trim layer of an armor piece
  * is a texture in armor UV layout whose pattern pixels are opaque and everything else transparent. Inverted, the
  * pattern is cut out and every other pixel takes the trim colour - the same pattern, its mask flipped over the armor.
- * Three stages (owner WA24-1, one smithing round each): {@link Mode#HARD} flat fill, {@link Mode#RIM} fill with a
- * one-pixel border around the cut-out (the pattern stays readable), {@link Mode#SOFT} a two-pixel border plus
- * a one-pixel transition for a soft gradient into the fill. The border is a subtraction (WB24-1): the fill colour minus
- * {@link #RIM_SUBTRACT} per channel, no colour of its own; the transition subtracts half of it.
+ * Three stages (owner WA24-1, one smithing round each), no transition (WC24-2): the border around the cut-out is
+ * 1, 2 or 3 pixels wide ({@link Mode#W1}..{@link Mode#W3}), so the higher the stage, the less trim colour is left outside.
+ * The border is a subtraction (WB24-1): the fill colour minus {@link #RIM_SUBTRACT} per channel, no colour of its own.
  */
 public final class TrimInversion {
-    public enum Mode { HARD, RIM, SOFT }
+    public enum Mode { W1, W2, W3 }
 
     /** Highest stage; stage n (1..MAX_LEVEL) draws {@link Mode#values()}{@code [n - 1]}. */
     public static final int MAX_LEVEL = Mode.values().length;
 
-    /** Border width in pixels per mode (SOFT: plus one transition pixel). */
-    private static final int[] BORDER = {0, 1, 2};
+    /** Border width in pixels per mode. */
+    private static final int[] BORDER = {1, 2, 3};
 
-    /** Per colour channel (0..255) taken off the fill for the border; the transition takes half. */
+    /** Per colour channel (0..255) taken off the fill for the border. */
     public static final int RIM_SUBTRACT = 80;
 
     private TrimInversion() {}
@@ -53,15 +52,13 @@ public final class TrimInversion {
     /** The inverted layer of {@code pattern} (w*h ARGB, row-major) in the given mode. */
     public static int[] invert(int[] pattern, int w, int h, int fill, int rim, Mode mode) {
         int border = BORDER[mode.ordinal()];
-        int reach = mode == Mode.SOFT ? border + 1 : border;
-        int mid = mix(fill, rim);
         int[] out = new int[pattern.length];
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 int i = y * w + x;
                 if ((pattern[i] >>> 24) != 0) continue;
-                int d = distance(pattern, w, h, x, y, reach);
-                out[i] = d == 0 || d > reach ? fill : d <= border ? rim : mid;
+                int d = distance(pattern, w, h, x, y, border);
+                out[i] = d == 0 ? fill : rim;
             }
         }
         return out;
@@ -76,10 +73,6 @@ public final class TrimInversion {
             }
         }
         return 0;
-    }
-
-    private static int mix(int a, int b) {
-        return 0xFF000000 | (((a >> 16 & 255) + (b >> 16 & 255)) / 2) << 16 | (((a >> 8 & 255) + (b >> 8 & 255)) / 2) << 8 | ((a & 255) + (b & 255)) / 2;
     }
 
     private static boolean opaque(int[] pattern, int w, int h, int x, int y) {

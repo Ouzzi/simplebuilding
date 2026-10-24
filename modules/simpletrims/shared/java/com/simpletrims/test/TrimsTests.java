@@ -220,27 +220,26 @@ public final class TrimsTests {
             wrongTool().ifPresent(wrong -> h.assertTrue(craft(h, pulsatingGrid(wrong)).isEmpty(), "the other tool does not craft: " + wrong));
             h.succeed();
         });
-        // Inverting upgrade as pure maths: pattern cut out, rest filled; stage 2 adds a 1 px rim, stage 3 a 2 px rim + 1 px transition.
+        // Inverting upgrade as pure maths: pattern cut out, rest filled; border 1/2/3 px per stage, no transition.
         ALL.put("trim_inversion", h -> {
-            int w = 8, hgt = 3;
+            int w = 10, hgt = 3;
             int[] pattern = new int[w * hgt];
             pattern[1 * w + 1] = 0xFFFFFFFF;
             pattern[1 * w + 2] = 0xFFFFFFFF;
             int fill = 0xFF703050, rim = com.simpletrims.TrimInversion.subtract(fill, com.simpletrims.TrimInversion.RIM_SUBTRACT);
-            int[] hard = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
-            h.assertTrue(hard[1 * w + 1] == 0 && hard[1 * w + 2] == 0 && hard[0] == fill && hard[1 * w] == fill, "hard: cut-out + flat fill");
-            int[] withRim = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.RIM);
-            h.assertTrue(withRim[1 * w] == rim && withRim[1 * w + 3] == rim && withRim[2 * w + 1] == rim && withRim[0] == fill && withRim[1 * w + 4] == fill, "rim: 1 px border around the cut-out only");
-            int[] soft = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.SOFT);
-            int mid = soft[1 * w + 5];
-            h.assertTrue(soft[1 * w + 3] == rim && soft[1 * w + 4] == rim && mid != rim && mid != fill && soft[1 * w + 6] == fill && soft[1 * w + 1] == 0, "soft: 2 px rim, 1 px transition, then fill");
-            h.assertTrue(com.simpletrims.TrimInversion.mode(1) == com.simpletrims.TrimInversion.Mode.HARD && com.simpletrims.TrimInversion.mode(2) == com.simpletrims.TrimInversion.Mode.RIM
-                    && com.simpletrims.TrimInversion.mode(3) == com.simpletrims.TrimInversion.Mode.SOFT, "stage -> mode");
-            int[] twice = com.simpletrims.TrimInversion.invert(hard, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
-            h.assertTrue(twice[1 * w + 1] == fill && twice[0] == 0, "inverting twice swaps back the mask");
+            int[] hard = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W1);
+            h.assertTrue(hard[1 * w + 1] == 0 && hard[1 * w + 2] == 0 && hard[1 * w] == rim && hard[1 * w + 3] == rim && hard[2 * w + 1] == rim && hard[0] == fill && hard[1 * w + 4] == fill, "stage 1: 1 px border");
+            int[] withRim = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W2);
+            h.assertTrue(withRim[1 * w + 4] == rim && withRim[1 * w + 5] == fill, "stage 2: 2 px border");
+            int[] soft = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W3);
+            h.assertTrue(soft[1 * w + 5] == rim && soft[1 * w + 6] == fill && soft[1 * w + 1] == 0, "stage 3: 3 px border, no transition");
+            h.assertTrue(com.simpletrims.TrimInversion.mode(1) == com.simpletrims.TrimInversion.Mode.W1 && com.simpletrims.TrimInversion.mode(2) == com.simpletrims.TrimInversion.Mode.W2
+                    && com.simpletrims.TrimInversion.mode(3) == com.simpletrims.TrimInversion.Mode.W3, "stage -> mode");
+            int[] twice = com.simpletrims.TrimInversion.invert(hard, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W1);
+            h.assertTrue(twice[1 * w + 1] != 0 && twice[0] == 0, "inverting twice swaps the mask back (cut-out filled, old fill cut)");
             int[] colours = com.simpletrims.TrimInversion.colours(new int[] {0xFFFFFFFF, 0xFFC0C0C0, 0xFF808080, 0xFF404040, 0xFF202020}, pattern);
             h.assertTrue(colours[0] == 0xFF808080 && colours[1] == 0xFF303030, "fill = third-brightest, rim = fill minus 80 per channel (subtraction, no own colour)");
-            h.assertTrue(rim == 0xFF200000 && mid == 0xFF481828, "transition = fill and rim averaged");
+            h.assertTrue(rim == 0xFF200000, "rim = fill minus 80");
             h.assertTrue(com.simpletrims.TrimInversion.subtract(0xFF101010, 80) == 0xFF000000, "subtraction clamps at black");
             h.succeed();
         });
