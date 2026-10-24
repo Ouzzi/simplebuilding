@@ -38,6 +38,11 @@ public final class MapsNetwork {
 
     private MapsNetwork() {}
 
+    /** Tests only: forget the player's last request so the next one is not throttled. */
+    public static void resetThrottle(ServerPlayer player) {
+        LAST_REQUEST.remove(player.getUUID());
+    }
+
     public static void handleTiles(TileRequestPayload payload, ServerPlayer player) {
         if (!com.simplemaps.MapsConfig.enabled) return;
         MinecraftServer server = player.level().getServer();
@@ -48,8 +53,15 @@ public final class MapsNetwork {
         if (LAST_REQUEST.size() > 4096) LAST_REQUEST.keySet().retainAll(server.getPlayerList().getPlayers().stream().map(ServerPlayer::getUUID).toList());
         int budget = ANSWER_BYTES;
         Set<Integer> maps = new LinkedHashSet<>();
+        Set<Integer> allowed = carriedIds(player);
+        boolean framesAdded = false;
         for (TileRequestPayload.Entry e : payload.entries()) {
-            if (!WayfinderIds.exists(server, e.mapId())) continue;
+            // Review H-2: only maps the player carries or sees in a frame; others would be read (and loaded from disk) by id.
+            if (!allowed.contains(e.mapId()) && !framesAdded) {
+                framesAdded = true;
+                allowed.addAll(frameIds(player));
+            }
+            if (!allowed.contains(e.mapId()) || !WayfinderIds.exists(server, e.mapId())) continue;
             WayfinderData data = WayfinderData.get(server, e.mapId());
             if (maps.add(e.mapId())) {
                 Map<Integer, Integer> seen = SENT_MARKS.computeIfAbsent(player, p -> new HashMap<>());
@@ -66,6 +78,34 @@ public final class MapsNetwork {
             byte[] packed = tile.colors() == null ? new byte[0] : TileCodec.pack(tile.colors(), tile.heights());
             budget -= packed.length + 32;
             SimpleMaps.toClient.accept(player, new TileDataPayload(e.mapId(), zoom, e.tx(), e.tz(), tile.version(), packed));
+        }
+    }
+
+    /** Frames within this distance show their map to the player (entity tracking range, generous). */
+    public static final double FRAME_VIEW_RANGE = 64.0;
+
+    /** Map ids in the player's inventory, cursor and open menu (a mega map brings all its dimensions' maps). */
+    public static Set<Integer> carriedIds(ServerPlayer player) {
+        Set<Integer> ids = new java.util.HashSet<>();
+        for (ItemStack stack : player.getInventory()) addIds(ids, stack);
+        addIds(ids, player.containerMenu.getCarried());
+        for (net.minecraft.world.inventory.Slot slot : player.containerMenu.slots) addIds(ids, slot.getItem());
+        return ids;
+    }
+
+    /** Map ids of the wayfinder maps in item frames near the player. */
+    public static Set<Integer> frameIds(ServerPlayer player) {
+        Set<Integer> ids = new java.util.HashSet<>();
+        for (ItemFrame frame : player.level().getEntitiesOfClass(ItemFrame.class, player.getBoundingBox().inflate(FRAME_VIEW_RANGE))) addIds(ids, frame.getItem());
+        return ids;
+    }
+
+    private static void addIds(Set<Integer> ids, ItemStack stack) {
+        if (!MapsItems.isWayfinder(stack)) return;
+        MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
+        if (ref != null) ids.add(ref.id());
+        if (stack.getItem() instanceof com.simplemaps.MegaWayfinderMapItem) {
+            for (var entry : com.simplemaps.MegaWayfinderMapItem.maps(stack).entries()) ids.add(entry.mapId());
         }
     }
 

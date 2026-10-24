@@ -183,16 +183,21 @@ public final class BlueprintCode {
     // PARSER
     // =====================================================================================
 
-    private static final Map<String, ParseResult> CACHE = new LinkedHashMap<>(32, 0.75f, true) {
-        @Override
-        protected boolean removeEldestEntry(Map.Entry<String, ParseResult> eldest) {
-            return size() > 24;
-        }
-    };
+    /** Obergrenze fuer den Zwischenspeicher: Eintraege (LRU) und Summe der Modellstellen (je Stelle rund 16 Byte). */
+    public static final int CACHE_MAX_ENTRIES = 24;
+    public static final long CACHE_MAX_WEIGHT = 8_000_000L;
+    private static final Map<String, ParseResult> CACHE = new LinkedHashMap<>(32, 0.75f, true);
+    private static long cacheWeight;
+
+    private static long weight(ParseResult r) {
+        return 1L + r.model().size();
+    }
 
     /**
      * Wie {@link #parse}, aber mit einem kleinen LRU-Zwischenspeicher: Tooltip, Vorschau und
      * Baustab fragen denselben Code viele Male pro Sekunde. Das Modell darf nicht veraendert werden.
+     * Der Speicher ist nach Eintraegen und nach Gewicht (Summe der Stellen) begrenzt, damit viele
+     * Grosscodes nicht den Heap fuellen (Review F-03).
      */
     public static ParseResult parseCached(String code) {
         if (code == null) {
@@ -206,9 +211,29 @@ public final class BlueprintCode {
         }
         ParseResult result = parse(code);
         synchronized (CACHE) {
-            CACHE.put(code, result);
+            ParseResult old = CACHE.put(code, result);
+            if (old != null) {
+                cacheWeight -= weight(old);
+            }
+            cacheWeight += weight(result);
+            var it = CACHE.entrySet().iterator();
+            while (it.hasNext() && (CACHE.size() > CACHE_MAX_ENTRIES || cacheWeight > CACHE_MAX_WEIGHT)) {
+                var eldest = it.next();
+                if (eldest.getValue() == result) {
+                    break; // der frische Eintrag bleibt immer
+                }
+                cacheWeight -= weight(eldest.getValue());
+                it.remove();
+            }
         }
         return result;
+    }
+
+    /** Nur fuer Tests: Anzahl und Gewicht des Zwischenspeichers. */
+    public static int[] cacheStats() {
+        synchronized (CACHE) {
+            return new int[]{CACHE.size(), (int) cacheWeight};
+        }
     }
 
     public static ParseResult parse(String code) {

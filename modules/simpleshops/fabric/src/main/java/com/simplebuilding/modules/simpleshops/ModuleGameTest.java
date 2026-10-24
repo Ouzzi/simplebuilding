@@ -380,4 +380,9 @@ public final class ModuleGameTest {
     public void terminalDupeFuzz(GameTestHelper h) {
         ShopsTests.ALL.get("terminal_dupe_fuzz").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void endershopsSurviveAnUnreadableItem(GameTestHelper h) {
+        ShopsTests.ALL.get("ender_shops_survive_an_unreadable_item").accept(h);
+    }
 }

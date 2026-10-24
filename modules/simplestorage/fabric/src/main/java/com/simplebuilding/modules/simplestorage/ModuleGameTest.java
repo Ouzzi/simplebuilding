@@ -599,4 +599,9 @@ public final class ModuleGameTest {
     public void placedStoragePlacedQuiverShowsFillLevel(GameTestHelper h) {
         StorageTests.ALL.get("placed_storage_placed_quiver_shows_fill_level").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void backpackKeepsUnreadableEntries(GameTestHelper h) {
+        StorageTests.ALL.get("backpack_keeps_unreadable_entries").accept(h);
+    }
 }

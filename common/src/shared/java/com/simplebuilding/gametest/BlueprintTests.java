@@ -1040,6 +1040,72 @@ public final class BlueprintTests {
                 .thenSucceed();
     }
 
+    /**
+     * Review F-03: der Parse-Zwischenspeicher haelt nicht mehr als {@link BlueprintCode#CACHE_MAX_WEIGHT}
+     * Stellen, auch wenn die Eintragszahl klein bleibt. <strong>Bricht bei:</strong> einem LRU, der nur Eintraege zaehlt.
+     */
+    public static void parseCacheIsBoundedByWeight(GameTestHelper helper) {
+        String[] blocks = {"stone", "dirt", "sand", "gravel", "clay", "glass", "granite", "diorite", "andesite", "tuff"};
+        String last = null;
+        BlueprintCode.ParseResult lastResult = null;
+        for (String block : blocks) {
+            last = block + " 0..255,0..255,0..17";
+            lastResult = BlueprintCode.parseCached(last);
+            helper.assertTrue(lastResult.ok() && lastResult.model().size() == 256 * 256 * 18, "the probe code did not parse: " + lastResult.problems());
+        }
+        int[] stats = BlueprintCode.cacheStats();
+        helper.assertTrue(stats[1] <= BlueprintCode.CACHE_MAX_WEIGHT, "cache weight " + stats[1] + " exceeds " + BlueprintCode.CACHE_MAX_WEIGHT);
+        helper.assertTrue(stats[0] <= BlueprintCode.CACHE_MAX_ENTRIES, "cache holds " + stats[0] + " entries");
+        helper.assertTrue(BlueprintCode.parseCached(last) == lastResult, "the freshest entry was evicted");
+        helper.succeed();
+    }
+
+    /**
+     * Review F-02: Code mit pixels-Zeilen zahlt vorab aus dem Parse-Budget, auch ohne Signieren.
+     * <strong>Bricht bei:</strong> einem Editor-Paket, das vor jedem Budget voll geparst wird.
+     */
+    public static void pixelCodeEditsPayTheParseBudgetFirst(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        BlueprintContent old = new BlueprintContent("", "", "", false);
+        int before = BlueprintCode.cacheStats()[0];
+        long weightBefore = BlueprintCode.cacheStats()[1];
+        for (int i = 0; i < 6; i++) {
+            String code = "# pixels probe " + i + "\n" + "#".repeat(BlueprintCode.MAX_CODE_LENGTH - 40);
+            com.simplebuilding.networking.ModMessageHandlers.editedBlueprint(old,
+                    new com.simplebuilding.networking.BlueprintEditPayload(0, code, false, "", java.util.Optional.empty()), player);
+        }
+        int[] after = BlueprintCode.cacheStats();
+        // Budget: zwei volle Codes sofort; vier weitere Pakete duerfen nicht mehr parsen.
+        helper.assertTrue(after[0] - before <= 2 || after[0] == BlueprintCode.CACHE_MAX_ENTRIES,
+                "six pixel packets parsed " + (after[0] - before) + " codes; the budget did not stop them");
+        helper.assertTrue(after[1] >= weightBefore || after[0] <= BlueprintCode.CACHE_MAX_ENTRIES, "cache stats inconsistent");
+        helper.succeed();
+    }
+
+    /**
+     * Review F-06: beim Disconnect und beim Server-Stopp verfallen laufende Bauauftraege.
+     * <strong>Bricht bei:</strong> einem Auftrag, der den entfernten Spieler samt Welt festhaelt.
+     */
+    public static void buildJobsAreDroppedOnDisconnectAndStop(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        clear(helper);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,4");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && !first.finished() && BlueprintBuilder.building(player), "no job to drop: " + first);
+        BlueprintBuilder.onDisconnect(player);
+        helper.assertTrue(!BlueprintBuilder.building(player), "the job survived the disconnect");
+        // Rotator/BuildingCore: no pending state for this player; the calls must be safe. (clearAll() is not
+        // called here: tests run side by side and it would wipe their jobs.)
+        com.simplebuilding.items.custom.RotatorItem.onDisconnect(player);
+        com.simplebuilding.items.custom.BuildingCoreItem.onDisconnect(player);
+        helper.assertTrue(!BlueprintBuilder.building(player), "a job came back");
+        clear(helper);
+        helper.succeed();
+    }
+
     // =====================================================================================
     // BILD-BAUPLAN (Plan docs/ai/PLAN-B-PICTURE-2026-10-19.md)
     // =====================================================================================

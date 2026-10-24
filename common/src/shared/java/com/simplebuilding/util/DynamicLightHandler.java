@@ -79,7 +79,7 @@ public class DynamicLightHandler {
 
         // 3. Neues Licht setzen
         if (lightLevel > 0) {
-            if (placeOrUpdate(world, currentPos, lightLevel)) {
+            if (placeOrUpdate(world, currentPos, lightLevel, currentPos.equals(oldPos))) {
                 lightSources.put(uuid, currentPos);
             }
         } else if (oldPos != null) {
@@ -117,11 +117,12 @@ public class DynamicLightHandler {
     static void tickHolder(Level level, OwnedLightHolder holder, BlockPos target, int emissionPoints) {
         int lightLevel = enabled() ? lightLevelFor(emissionPoints) : 0;
         BlockPos owned = holder.simplebuilding$getOwnedLight();
+        boolean ownsTarget = owned != null && owned.equals(target);
         if (owned != null && (lightLevel == 0 || !owned.equals(target))) {
             removeLight(level, owned);
             holder.simplebuilding$setOwnedLight(null);
         }
-        if (lightLevel > 0 && placeOrUpdate(level, target, lightLevel)) {
+        if (lightLevel > 0 && placeOrUpdate(level, target, lightLevel, ownsTarget && lightLevel > 0)) {
             holder.simplebuilding$setOwnedLight(target);
         }
     }
@@ -134,11 +135,13 @@ public class DynamicLightHandler {
      * unangetastet und die Helligkeit aenderte sich erst beim naechsten Schritt. isWater stammt
      * aus dem aktuellen Zustand und ist fuer einen waterlogged Lichtblock true, das Wasser
      * bleibt beim Aktualisieren also erhalten.
+     * Review F-04: ein stehender Lichtblock gilt nur dann als unserer, wenn dieser Traeger ihn selbst
+     * dort gesetzt hat ({@code ownsExisting}); fremde minecraft:light-Bloecke (Karten, Adventure) bleiben unberuehrt.
      */
-    private static boolean placeOrUpdate(Level world, BlockPos pos, int lightLevel) {
+    static boolean placeOrUpdate(Level world, BlockPos pos, int lightLevel, boolean ownsExisting) {
         BlockState currentState = world.getBlockState(pos);
         boolean isWater = currentState.getFluidState().is(FluidTags.WATER);
-        if (!(currentState.isAir() || currentState.is(Blocks.LIGHT)
+        if (!(currentState.isAir() || (ownsExisting && currentState.is(Blocks.LIGHT))
                 || (isWater && currentState.getFluidState().isSource()))) {
             return false;
         }

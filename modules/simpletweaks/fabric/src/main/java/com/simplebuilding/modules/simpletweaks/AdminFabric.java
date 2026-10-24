@@ -8,6 +8,7 @@ final class AdminFabric {
     static void init() {
         Invsee.registerMenus();
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(Admin::start);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(s -> com.simplebuilding.modules.simpletweaks.admin.backup.Backups.stopping());
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(Admin::stop);
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> AdminCommands.register(d));
     }

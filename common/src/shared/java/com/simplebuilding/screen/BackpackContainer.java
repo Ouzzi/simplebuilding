@@ -31,6 +31,9 @@ public class BackpackContainer implements Container {
     private final List<BackpackContents.Entry> overflow = new ArrayList<>();
     private Runnable changeListener = () -> {};
 
+    /** Beim Laden nicht lesbare Eintraege (Review F-05): bleiben erhalten und gehen beim Speichern zurueck. */
+    private List<com.mojang.serialization.Dynamic<?>> unreadable = List.of();
+
     public BackpackContainer(BackpackTier tier, int multiplier) {
         this.tier = tier;
         this.multiplier = Math.max(1, multiplier);
@@ -59,6 +62,7 @@ public class BackpackContainer implements Container {
             this.items.set(i, ItemStack.EMPTY);
         }
         this.overflow.clear();
+        this.unreadable = contents.unreadable();
         for (BackpackContents.Entry entry : contents.entries()) {
             int index = this.tier.containerIndex(entry.slot());
             if (index >= 0 && this.items.get(index).isEmpty()) {
@@ -79,7 +83,7 @@ public class BackpackContainer implements Container {
             }
         }
         entries.addAll(this.overflow);
-        return entries.isEmpty() ? BackpackContents.EMPTY : new BackpackContents(entries);
+        return entries.isEmpty() && this.unreadable.isEmpty() ? BackpackContents.EMPTY : new BackpackContents(entries, this.unreadable);
     }
 
     /**

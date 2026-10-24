@@ -105,4 +105,9 @@ public final class ModuleGameTest {
     public void plateHint(GameTestHelper h) {
         TrimsTests.ALL.get("plate_hint").accept(h);
     }
+
+    @GameTest
+    public void foreignLightUntouched(GameTestHelper h) {
+        TrimsTests.ALL.get("foreign_light_untouched").accept(h);
+    }
 }

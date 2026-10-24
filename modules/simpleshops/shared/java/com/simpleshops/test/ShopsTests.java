@@ -89,6 +89,35 @@ public final class ShopsTests {
             ShopsConfig.reset();
             h.succeed();
         });
+        // Review H-3: one unreadable item (removed mod) must not take the other vaults of the world save with it.
+        ALL.put("ender_shops_survive_an_unreadable_item", h -> {
+            net.minecraft.nbt.ListTag vaults = new net.minecraft.nbt.ListTag();
+            for (String[] v : new String[][] {{"p000001", "nomod:vanished_item"}, {"p000002", "minecraft:emerald"}}) {
+                net.minecraft.nbt.CompoundTag vault = new net.minecraft.nbt.CompoundTag();
+                vault.putString("id", v[0]);
+                vault.putString("kind", "sales");
+                vault.putString("dimension", "minecraft:overworld");
+                vault.putLong("pos", 0L);
+                net.minecraft.nbt.CompoundTag item = new net.minecraft.nbt.CompoundTag();
+                item.putString("id", v[1]);
+                item.putInt("count", 2);
+                net.minecraft.nbt.CompoundTag slot = new net.minecraft.nbt.CompoundTag();
+                slot.putInt("slot", 0);
+                slot.put("item", item);
+                net.minecraft.nbt.ListTag items = new net.minecraft.nbt.ListTag();
+                items.add(slot);
+                vault.put("items", items);
+                vaults.add(vault);
+            }
+            net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+            tag.putLong("next", 3L);
+            tag.put("vaults", vaults);
+            // The same call vanilla's SavedDataStorage makes: parse(...).resultOrPartial(...)
+            var loaded = com.simpleshops.logic.EnderShops.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).resultOrPartial(e -> { }).orElse(null);
+            h.assertTrue(loaded != null, "the world data did not load at all");
+            h.assertTrue(loaded.find("p000002") != null && loaded.find("p000002").items.get(0).is(Items.EMERALD), "the readable vault lost its goods: " + loaded.size() + " vaults");
+            h.succeed();
+        });
         ALL.put("registered", h -> {
             h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleShops.id("shops")), "own creative tab shops is registered");
             for (String id : List.of("sales_block", "display_case", "glow_display_case", "guide_book")) {

@@ -77,6 +77,7 @@ public final class MapsTests {
         ALL.put("layers", MapsTests::layers);
         ALL.put("layers_own_chunks", MapsTests::layersOwnChunks);
         ALL.put("other_dimension_tiles", MapsTests::otherDimensionTiles);
+        ALL.put("foreign_map_tiles_refused", MapsTests::foreignMapTilesRefused);
         ALL.put("shop_icon", MapsTests::shopIcon);
         ALL.put("claims_layer_absent", MapsTests::claimsLayerAbsent);
         WebTests.register(ALL);
@@ -459,6 +460,32 @@ public final class MapsTests {
         h.succeed();
     }
 
+    /** Review H-2: tiles and marks of a map the player neither carries nor sees in a frame are not served. */
+    private static void foreignMapTilesRefused(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        ItemStack stack = new ItemStack(MapsItems.WAYFINDER_MAP);
+        WayfinderData data = ((WayfinderMapItem) MapsItems.WAYFINDER_MAP).dataFor(stack, h.getLevel());
+        h.assertTrue(data != null, "map binds");
+        data.set(16, 16, MapColor.GRASS.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, 10, true);
+        int id = stack.get(MapsComponents.MAP_ID).id();
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var request = new com.simplemaps.net.TileRequestPayload(List.of(new com.simplemaps.net.TileRequestPayload.Entry(id, 1, 0, 0, -1)));
+        var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
+        var old = SimpleMaps.toClient;
+        SimpleMaps.toClient = (p, payload) -> sent.add(payload);
+        try {
+            MapsNetwork.handleTiles(request, player);
+            h.assertTrue(sent.isEmpty(), "a map the player does not have was served: " + sent.size() + " packets");
+            player.getInventory().setItem(0, stack);
+            MapsNetwork.resetThrottle(player);
+            MapsNetwork.handleTiles(request, player);
+            h.assertTrue(!sent.isEmpty(), "the carried map is served");
+        } finally {
+            SimpleMaps.toClient = old;
+        }
+        h.succeed();
+    }
+
     /** Owner 19.10.: a map of another dimension is still served (End/Nether map in the Overworld), positions convert 8:1. */
     private static void otherDimensionTiles(GameTestHelper h) {
         var server = h.getLevel().getServer();
@@ -469,6 +496,7 @@ public final class MapsTests {
         data.set(16, 16, MapColor.NETHER.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, 10, true);
         int id = stack.get(MapsComponents.MAP_ID).id();
         ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
         h.assertTrue(player.level().dimension() != Level.NETHER, "holder is outside the Nether");
         var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
         var old = SimpleMaps.toClient;

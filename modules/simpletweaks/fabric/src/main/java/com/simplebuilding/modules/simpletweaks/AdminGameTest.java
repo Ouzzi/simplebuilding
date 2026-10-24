@@ -26,6 +26,7 @@ public final class AdminGameTest {
  @GameTest(maxTicks=100) public void freezeHoldsPlayer(GameTestHelper h) { AdminTests.TESTS.get("freeze_holds_player").accept(h); }
  @GameTest(maxTicks=200) public void restartCountdown(GameTestHelper h) { AdminTests.TESTS.get("restart_countdown").accept(h); }
  @GameTest(maxTicks=1200) public void backupZipAndRotation(GameTestHelper h) { AdminTests.TESTS.get("backup_zip_and_rotation").accept(h); }
+ @GameTest(maxTicks=1300) public void backupStopResumesSaving(GameTestHelper h) { AdminTests.TESTS.get("backup_stop_resumes_saving").accept(h); }
  @GameTest(maxTicks=100) public void maintenanceLoginAndMotd(GameTestHelper h) { AdminTests.TESTS.get("maintenance_login_and_motd").accept(h); }
  @GameTest(maxTicks=100) public void lagFinderSamples(GameTestHelper h) { AdminTests.TESTS.get("lag_finder_samples").accept(h); }
 }

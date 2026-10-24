@@ -105,6 +105,7 @@ public final class ModuleGameTest {
         MapsTests.ALL.get("layers").accept(h);
     }
     @GameTest public void layersOwnChunks(GameTestHelper h) { MapsTests.ALL.get("layers_own_chunks").accept(h); }
+    @GameTest public void foreignMapTilesRefused(GameTestHelper h) { MapsTests.ALL.get("foreign_map_tiles_refused").accept(h); }
     @GameTest public void otherDimensionTiles(GameTestHelper h) { MapsTests.ALL.get("other_dimension_tiles").accept(h); }
     @GameTest public void shopIcon(GameTestHelper h) { MapsTests.ALL.get("shop_icon").accept(h); }
     @GameTest public void claimsLayerAbsent(GameTestHelper h) { MapsTests.ALL.get("claims_layer_absent").accept(h); }

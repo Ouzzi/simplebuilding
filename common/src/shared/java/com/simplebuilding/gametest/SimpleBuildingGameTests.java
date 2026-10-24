@@ -34,6 +34,7 @@ public final class SimpleBuildingGameTests {
     private static final List<GameTestSpec> ALL = List.of(
             GameTestSpec.named("anvil_crushing_game_test_anvils_consume_once", AnvilCrushingTests::anvilsConsumeOnce).maxTicks(120).build(),
             GameTestSpec.named("anvil_crushing_game_test_catalog_and_recipes_conserve_diamonds", AnvilCrushingTests::catalogAndRecipesConserveDiamonds).build(),
+            GameTestSpec.named("anvil_crushing_game_test_compass_search_is_cached_and_rate_limited", AnvilCrushingTests::compassSearchIsCachedAndRateLimited).build(),
             GameTestSpec.named("anvil_crushing_game_test_invalid_falls_do_not_crush", AnvilCrushingTests::invalidFallsDoNotCrush).maxTicks(80).build(),
             GameTestSpec.named("tweaks_game_test_boost_command_refuses_invalid_strength", HardenTests::boostCommandRefusesInvalidStrength).build(),
             GameTestSpec.named("tweaks_game_test_xp_and_launch_runtime_caps", HardenTests::xpAndLaunchRuntimeCaps).build(),
@@ -1679,6 +1680,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("octant_game_test_the_octant_recipe_crafts_from_its_documented_pattern", OctantTests::theOctantRecipeCraftsFromItsDocumentedPattern)
                     .build(),
             GameTestSpec.named("blueprint_game_test_code_round_trips_and_parses_the_spec_examples", BlueprintTests::codeRoundTripsAndParsesTheSpecExamples)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_parse_cache_is_bounded_by_weight", BlueprintTests::parseCacheIsBoundedByWeight).maxTicks(400)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_pixel_code_edits_pay_the_parse_budget_first", BlueprintTests::pixelCodeEditsPayTheParseBudgetFirst)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_jobs_are_dropped_on_disconnect_and_stop", BlueprintTests::buildJobsAreDroppedOnDisconnectAndStop)
                     .build(),
             GameTestSpec.named("blueprint_game_test_size_limits_cap_the_code_and_map_wand_tiers", BlueprintTests::sizeLimitsCapTheCodeAndMapWandTiers)
                     .build(),

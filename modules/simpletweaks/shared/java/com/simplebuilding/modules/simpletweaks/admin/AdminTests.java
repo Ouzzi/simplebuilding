@@ -57,6 +57,7 @@ public final class AdminTests {
         TESTS.put("freeze_holds_player", AdminTests::freeze);
         TESTS.put("restart_countdown", AdminTests::restart);
         TESTS.put("backup_zip_and_rotation", AdminTests::backup);
+        TESTS.put("backup_stop_resumes_saving", AdminTests::backupStop);
         TESTS.put("maintenance_login_and_motd", AdminTests::maintenance);
         TESTS.put("lag_finder_samples", AdminTests::lag);
     }
@@ -67,6 +68,7 @@ public final class AdminTests {
             case "blocklog_inspect_does_not_break", "lag_finder_samples", "freeze_holds_player" -> 100;
             case "vanish_no_vibrations", "restart_countdown" -> 200;
             case "backup_zip_and_rotation" -> 1200;
+            case "backup_stop_resumes_saving" -> 1300;
             default -> 100;
         };
     }
@@ -733,6 +735,25 @@ public final class AdminTests {
     }
 
     // ------------------------------------------------------------------ T17
+    /** Review H-1: a server stop during the zip must give saving back (vanilla skips noSave levels on a normal save). */
+    static void backupStop(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        var previous = Admin.config();
+        var d = previous;
+        String dir = "gametest-backups-" + UUID.randomUUID().toString().substring(0, 8);
+        Admin.configure(new AdminConfig(d.blockLog(), d.deathBackups(), d.invsee(), d.vanish(), d.freeze(), d.restart(),
+                new AdminConfig.Backups(true, 3, 6, 2, dir), d.maintenance(), d.lagFinder()));
+        h.startSequence().thenWaitUntil(() -> h.assertTrue(!Backups.running(), "another backup is still running"))
+                .thenExecute(() -> {
+                    h.assertTrue(Backups.begin(server, p -> { }), "Backup started");
+                    h.assertTrue(server.getAllLevels().iterator().next().noSave, "Saving is paused while the zip runs");
+                    Backups.stopping();
+                    for (var level : server.getAllLevels()) h.assertTrue(!level.noSave, "Saving resumed on stop: " + level.dimension());
+                    h.assertTrue(!Backups.running(), "running flag cleared");
+                })
+                .thenSucceed();
+    }
+
     static void backup(GameTestHelper h) {
         var server = h.getLevel().getServer();
         var previous = Admin.config();

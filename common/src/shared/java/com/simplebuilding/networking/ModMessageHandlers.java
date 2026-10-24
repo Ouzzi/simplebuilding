@@ -456,13 +456,26 @@ public final class ModMessageHandlers {
     }
 
     /** Der neue Inhalt nach den Regeln des Editors, oder null, wenn der Server die Aenderung abweist. */
-    private static com.simplebuilding.blueprint.BlueprintContent editedBlueprint(com.simplebuilding.blueprint.BlueprintContent old,
+    public static com.simplebuilding.blueprint.BlueprintContent editedBlueprint(com.simplebuilding.blueprint.BlueprintContent old,
             BlueprintEditPayload payload, ServerPlayer player) {
         if (old.signed()) {
             return null;
         }
         String code = payload.code().replace("\r", "");
         if (code.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH) {
+            return null;
+        }
+        // Parsen kostet: Signieren und jeder Code mit pixels-Zeilen (BlueprintPicture.refusal parst ihn)
+        // zahlen vorab aus dem Budget (Review F-02); gewoehnlicher Code bleibt frei.
+        if (payload.sign()) {
+            String t = payload.title().strip();
+            if (t.isEmpty() || t.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {
+                return null;
+            }
+        }
+        if ((payload.sign() || code.contains(com.simplebuilding.blueprint.BlueprintCode.PIXELS)) && !takeSignBudget(player, code.length())) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.sign.too_fast")
+                    .withStyle(net.minecraft.ChatFormatting.YELLOW));
             return null;
         }
         // Bild-Bauplan (pixels-Zeilen): Server-Schalter, Rechtestufe und Groesse (BlueprintPicture).
@@ -473,14 +486,6 @@ public final class ModMessageHandlers {
         }
         if (payload.sign()) {
             String title = payload.title().strip();
-            if (title.isEmpty() || title.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {
-                return null;
-            }
-            if (!takeSignBudget(player, code.length())) {
-                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.sign.too_fast")
-                        .withStyle(net.minecraft.ChatFormatting.YELLOW));
-                return null;
-            }
             // Zwischengespeichert: der Bau (Tooltip, Vorschau, Baustab) fragt gleich denselben Code.
             com.simplebuilding.blueprint.BlueprintCode.ParseResult parsed = com.simplebuilding.blueprint.BlueprintCode.parseCached(code);
             if (!parsed.ok() || parsed.model().isEmpty()) {

@@ -113,7 +113,7 @@ public final class TrimLight {
             old = null;
         }
         if (light > 0) {
-            if (placeOrUpdate(level, head, light)) PLAYER_LIGHTS.put(uuid, head);
+            if (placeOrUpdate(level, head, light, old != null)) PLAYER_LIGHTS.put(uuid, head);
         } else if (old != null) {
             removeLight(level, old);
             PLAYER_LIGHTS.remove(uuid);
@@ -138,18 +138,22 @@ public final class TrimLight {
     public static void tickHolderLight(Level level, OwnedLightHolder holder, BlockPos target, int lightLevel) {
         int light = enabled() ? lightLevel : 0;
         BlockPos owned = holder.simpletrims$getOwnedLight();
+        boolean ownsTarget = owned != null && owned.equals(target);
         if (owned != null && (light == 0 || !owned.equals(target))) {
             removeLight(level, owned);
             holder.simpletrims$setOwnedLight(null);
         }
-        if (light > 0 && placeOrUpdate(level, target, light)) holder.simpletrims$setOwnedLight(target);
+        if (light > 0 && placeOrUpdate(level, target, light, ownsTarget)) holder.simpletrims$setOwnedLight(target);
     }
 
-    /** Sets or updates the light block - only in air, a standing light block or a water source. */
-    private static boolean placeOrUpdate(Level level, BlockPos pos, int light) {
+    /**
+     * Sets or updates the light block - only in air, a water source or the carrier's own standing light block
+     * ({@code ownsExisting}); foreign minecraft:light blocks (maps, adventure) are never touched (review F-04).
+     */
+    static boolean placeOrUpdate(Level level, BlockPos pos, int light, boolean ownsExisting) {
         BlockState current = level.getBlockState(pos);
         boolean water = current.getFluidState().is(FluidTags.WATER);
-        if (!(current.isAir() || current.is(Blocks.LIGHT) || (water && current.getFluidState().isSource()))) return false;
+        if (!(current.isAir() || (ownsExisting && current.is(Blocks.LIGHT)) || (water && current.getFluidState().isSource()))) return false;
         if (!current.is(Blocks.LIGHT) || current.getValue(LightBlock.LEVEL) != light) {
             level.setBlock(pos, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, light).setValue(LightBlock.WATERLOGGED, water), 3);
         }

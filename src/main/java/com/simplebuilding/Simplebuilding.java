@@ -144,8 +144,17 @@ public class Simplebuilding implements ModInitializer {
             if (com.simplebuilding.version.McVersion.HAMMERS_IN_SB) com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(handler.player);
             com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(handler.player);
             com.simplebuilding.util.WandUndo.onDisconnect(handler.player);
+            com.simplebuilding.blueprint.BlueprintBuilder.onDisconnect(handler.player);
+            com.simplebuilding.items.custom.RotatorItem.onDisconnect(handler.player);
+            com.simplebuilding.items.custom.BuildingCoreItem.onDisconnect(handler.player);
         });
-        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplebuilding.util.WandUndo.clearAll());
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            com.simplebuilding.util.WandUndo.clearAll();
+            com.simplebuilding.blueprint.BlueprintBuilder.clearAll();
+            com.simplebuilding.items.custom.RotatorItem.clearAll();
+            com.simplebuilding.items.custom.BuildingCoreItem.clearAll();
+            com.simplebuilding.util.StructureCompassCache.clear();
+        });
     }
 
     private void registerNetworking() {

@@ -109,7 +109,7 @@ public class BackpackItem extends BlockItem {
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
         BackpackContents contents = contents(stack);
-        if (contents.isEmpty()) {
+        if (contents.entries().isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(new BackpackTooltipData(contents, this.tier.slotCount()));

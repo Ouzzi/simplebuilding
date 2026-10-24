@@ -346,4 +346,9 @@ public final class ModuleGameTest {
     public void jeiInfoPagesCoverTheFilledBuckets(GameTestHelper h) {
         CrucibleTests.ALL.get("jei_info_pages_cover_the_filled_buckets").accept(h);
     }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void loadKeepsReadableSlotsAroundAnUnreadableOne(GameTestHelper h) {
+        CrucibleTests.ALL.get("load_keeps_readable_slots_around_an_unreadable_one").accept(h);
+    }
 }
