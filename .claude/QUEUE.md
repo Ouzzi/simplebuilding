@@ -426,3 +426,6 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [ ] **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
 - [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid). TEILSTAND b-revf17: Schritt 1 erledigt (tools/check_dup_impl.py + tools/dup_pairs.txt, 114 Paare, in check als checkDupImpl); Schritt 2 offen; Schritt 3 braucht Besitzer-Freigabe
 - [x] **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. (B, b-revf18 34ec472fc+d578d3e54: engine/HammerAnvil + mixin/HammerAnvilMixin, Kern-Hammerteil nur HAMMERS_IN_SB; Tests module-simplehammers-fabric-263 17/17, -standalone- 17/17, fabric-263 *anvil* 10/10, check grün; Plan docs/ai/PLAN-B-REVF18-2026-10-24.md)
+
+## JEI-Abdeckung 24.10. (JEI24)
+- [~] (B, b-jei24, 24.10.) JEI24 alle JEI-Rezepte je Modul, auch standalone (Crafting, Umwandlungen, Mob-Drops). Plan docs/ai/PLAN-B-JEI24-2026-10-24.md
