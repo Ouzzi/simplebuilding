@@ -537,7 +537,7 @@ def animated() -> dict[str, tuple[dict, str]]:
     hp, gp = {**HEART_A, **BLUE}, {**GEM_A, **BLUE}
     return {
         'nether_heart': (doc(*strip(HEART_SHAPE, HEART_LIGHT_A, HEART_TO_BLUE), hp), mcmeta(200)),
-        'nether_gem': (doc(*strip(GEM_SHAPE, GEM_LIGHT, GEM_TO_BLUE), gp), mcmeta(260)),
+        # item nether_gem: since WC24-1 (owner 24.10.) from tools/textures/wb24_gems/wb24_gems.py --install
         'nether_heart_block': (doc(*strip(hb, HEART_LIGHT_A, HEART_TO_BLUE), hp), mcmeta(200)),   # in step with the item
         'nether_gem_block': (doc(*strip(GEM_BLOCK_SHAPE, GEM_BLOCK_LIGHT, GEM_TO_BLUE), gp), mcmeta(260)),
     }
@@ -548,7 +548,6 @@ def variants() -> dict[str, tuple[Path, dict, dict]]:
     hb = heart_block_shape()
     return {
         'nether_heart': (MOBS / 'item/nether_heart.png', doc(HEART_SHAPE, HEART_LIGHT_A, HEART_A), doc(HEART_SHAPE, HEART_LIGHT_B, HEART_B)),
-        'nether_gem': (MOBS / 'item/nether_gem.png', doc(GEM_SHAPE, GEM_LIGHT, GEM_A), doc(GEM_SHAPE, GEM_LIGHT, GEM_B)),
         # WI21: built in the small shard from B (SB), alternative the small one from A (SA)
         'strong_upgrade_shard': (BEACONS / 'item/strong_upgrade_shard.png',
                                  doc(SHARD_SMALL_SHAPE_B, SHARD_SMALL_LIGHT_B, SHARD_PAL),
