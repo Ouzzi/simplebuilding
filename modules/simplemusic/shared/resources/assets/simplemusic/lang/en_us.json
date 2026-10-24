@@ -150,6 +150,12 @@
   "item.simplemusic.music_disc_sky_forge": "Music Disc",
   "jukebox_song.simplemusic.sky_forge": "Simple Music - Sky Forge",
   "subtitles.simplemusic.music_disc.sky_forge": "Music: Sky Forge",
+  "jei.simplemusic.note.press": "In the disc press, %s s",
+  "jei.simplemusic.note.press_sheet": "The sheet stays; the disc carries its music",
+  "jei.simplemusic.note.copy": "Cartography table: a signed sheet on top",
+  "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy",
+  "jei.simplemusic.note.disc_chest": "No recipe: found only in the chests of %s (%s in 100).",
+  "jei.simplemusic.note.disc_brushed": "No recipe: found only by brushing suspicious gravel of %s (weight %s).",
   "item.simplemusic.guide_book": "Simple Music Guide",
   "simplemusic.guide.page.1.title": "Simple Music",
   "simplemusic.guide.page.1": "Write sheet music as text, listen to it in the editor and press it onto a blank disc for the jukebox. Burn your own mono Ogg files onto blank discs.",
@@ -192,11 +198,5 @@
   "quests.simplemusic.start.title": "Welcome to Simple Music",
   "quests.simplemusic.start.subtitle": "Your free guide",
   "quests.simplemusic.start.welcome.title": "A free guide",
-  "quests.simplemusic.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Music Guide as a reward. You can also craft it from a book and a note block.",
-  "jei.simplemusic.note.press": "In the disc press, %s s",
-  "jei.simplemusic.note.press_sheet": "The sheet stays; the disc carries its music",
-  "jei.simplemusic.note.copy": "Cartography table: a signed sheet on top",
-  "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy",
-  "jei.simplemusic.note.disc_chest": "No recipe: found only in the chests of %s (%s in 100).",
-  "jei.simplemusic.note.disc_brushed": "No recipe: found only by brushing suspicious gravel of %s (weight %s)."
+  "quests.simplemusic.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Music Guide as a reward. You can also craft it from a book and a note block."
 }

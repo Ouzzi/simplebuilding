@@ -101,6 +101,11 @@
   "jade.simplecrucibles.cauldron.content.extreme": "Extreme (soul lava)",
   "jade.simplecrucibles.cauldron.level": "Fill level: %s/%s",
   "config.jade.plugin_simplecrucibles.cauldron": "Reinforced cauldron",
+  "jei.simplecrucibles.note.crucible_build.how": "Strike an empty cauldron %s times",
+  "jei.simplecrucibles.note.crucible_build.parts": "Off hand: %s wall pieces, then %s handles",
+  "jei.simplecrucibles.note.strike_damage": "%s durability per strike",
+  "jei.simplecrucibles.note.barrel_attach.how": "Barrel next to a crucible: %s strikes",
+  "jei.simplecrucibles.note.barrel_attach.use": "Results go there first (%s slots)",
   "item.simplecrucibles.guide_book": "Simple Crucibles Guide",
   "simplecrucibles.guide.page.1.title": "Simple Crucibles",
   "simplecrucibles.guide.page.1": "Iron, Reinforced, Netherite and Enderite crucibles that cook every slot at once without fuel, barrels that dock onto them, the reinforced cauldron and village field kitchens.",
@@ -123,10 +128,5 @@
   "quests.simplecrucibles.start.title": "Welcome to Simple Crucibles",
   "quests.simplecrucibles.start.subtitle": "Your free guide",
   "quests.simplecrucibles.start.welcome.title": "A free guide",
-  "quests.simplecrucibles.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Crucibles Guide as a reward. You can also craft it from a book and a cauldron.",
-  "jei.simplecrucibles.note.crucible_build.how": "Strike an empty cauldron %s times",
-  "jei.simplecrucibles.note.crucible_build.parts": "Off hand: %s wall pieces, then %s handles",
-  "jei.simplecrucibles.note.strike_damage": "%s durability per strike",
-  "jei.simplecrucibles.note.barrel_attach.how": "Barrel next to a crucible: %s strikes",
-  "jei.simplecrucibles.note.barrel_attach.use": "Results go there first (%s slots)"
+  "quests.simplecrucibles.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Crucibles Guide as a reward. You can also craft it from a book and a cauldron."
 }

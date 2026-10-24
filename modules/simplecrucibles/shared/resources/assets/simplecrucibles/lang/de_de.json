@@ -101,6 +101,11 @@
   "jade.simplecrucibles.cauldron.content.extreme": "Extrem (Seelenlava)",
   "jade.simplecrucibles.cauldron.level": "Füllstand: %s/%s",
   "config.jade.plugin_simplecrucibles.cauldron": "Verstärkter Kessel",
+  "jei.simplecrucibles.note.crucible_build.how": "%s-mal auf einen leeren Kessel schlagen",
+  "jei.simplecrucibles.note.crucible_build.parts": "Nebenhand: %s Wandteile, dann %s Griffe",
+  "jei.simplecrucibles.note.strike_damage": "%s Haltbarkeit je Schlag",
+  "jei.simplecrucibles.note.barrel_attach.how": "Fass neben einem Tiegel: %s Schläge",
+  "jei.simplecrucibles.note.barrel_attach.use": "Ergebnisse kommen zuerst dorthin (%s Plätze)",
   "item.simplecrucibles.guide_book": "Simple-Crucibles-Handbuch",
   "simplecrucibles.guide.page.1.title": "Simple Crucibles",
   "simplecrucibles.guide.page.1": "Eisen-, verstärkte, Netherit- und Enderit-Schmelztiegel, die ohne Brennstoff alle Plätze zugleich garen, Fässer, die an sie andocken, der verstärkte Kessel und Dorf-Feldküchen.",
@@ -123,10 +128,5 @@
   "quests.simplecrucibles.start.title": "Willkommen bei Simple Crucibles",
   "quests.simplecrucibles.start.subtitle": "Dein Handbuch gratis",
   "quests.simplecrucibles.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplecrucibles.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Crucibles-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kessel herstellen.",
-  "jei.simplecrucibles.note.crucible_build.how": "%s-mal auf einen leeren Kessel schlagen",
-  "jei.simplecrucibles.note.crucible_build.parts": "Nebenhand: %s Wandteile, dann %s Griffe",
-  "jei.simplecrucibles.note.strike_damage": "%s Haltbarkeit je Schlag",
-  "jei.simplecrucibles.note.barrel_attach.how": "Fass neben einem Tiegel: %s Schläge",
-  "jei.simplecrucibles.note.barrel_attach.use": "Ergebnisse kommen zuerst dorthin (%s Plätze)"
+  "quests.simplecrucibles.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Crucibles-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kessel herstellen."
 }

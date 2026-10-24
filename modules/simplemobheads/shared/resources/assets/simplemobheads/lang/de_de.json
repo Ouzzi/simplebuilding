@@ -489,6 +489,7 @@
   "variant.simplemobheads.giant_cow.cold": "Kalt",
   "ability.simplemobheads.giant_cow": "Riesenkuhkopf",
   "ability.simplemobheads.giant_cow.tooltip": "Der Träger wächst auf 1,5-fache Größe und steigt\nganze Blöcke hoch; ein anderer Spieler kann ihn\nwie eine Kuh melken.",
+  "jei.simplemobheads.note.charged_creeper": "%s durch die Explosion eines geladenen Creepers getötet",
   "item.simplemobheads.guide_book": "Simple-Mobheads-Handbuch",
   "simplemobheads.guide.page.1.title": "Simple Mobheads",
   "simplemobheads.guide.page.1": "Ein Kopf für jeden Mob: die Explosion eines geladenen Creepers lässt ihn fallen, getragen beruhigt er seinen Mob und verbirgt ein kleines Geheimnis, aufgestellt schmückt er, auf dem Notenblock spricht er.",
@@ -527,6 +528,5 @@
   "quests.simplemobheads.start.title": "Willkommen bei Simple Mobheads",
   "quests.simplemobheads.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobheads.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobheads.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobheads-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Skelettschädel herstellen.",
-  "jei.simplemobheads.note.charged_creeper": "%s durch die Explosion eines geladenen Creepers getötet"
+  "quests.simplemobheads.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobheads-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Skelettschädel herstellen."
 }

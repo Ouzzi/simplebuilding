@@ -88,6 +88,9 @@
   "item.simplemobs.wither_wings": "Wither-Schwingen",
   "item.simplemobs.nether_wings": "Nether-Schwingen",
   "item.simplemobs.end_wings": "End-Schwingen",
+  "jei.simplemobs.note.wither_drops": "Wenn der %s stirbt",
+  "jei.simplemobs.note.wither_counts": "%s-%s Klumpen aus dem Metall der Krone",
+  "jei.simplemobs.note.shellker_dress": "Rechtsklick mit der Schale auf einen Shulker",
   "item.simplemobs.guide_book": "Simple-Mobs-Handbuch",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der Biom-Pinsel.",
@@ -130,8 +133,5 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
-  "jei.simplemobs.note.wither_drops": "Wenn der %s stirbt",
-  "jei.simplemobs.note.wither_counts": "%s-%s Klumpen aus dem Metall der Krone",
-  "jei.simplemobs.note.shellker_dress": "Rechtsklick mit der Schale auf einen Shulker"
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
 }

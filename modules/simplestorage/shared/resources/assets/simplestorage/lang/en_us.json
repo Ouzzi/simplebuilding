@@ -117,6 +117,8 @@
   "tooltip.simplestorage.backpack.open_hint": "Press %s: open while worn or carried",
   "tooltip.simplestorage.backpack.place_hint": "Sneak + right-click a block: place",
   "tip.simplestorage.backpack": "Use to wear it, then press the backpack key (B)",
+  "jei.simplestorage.note.rare_shulker": "A rare shulker drops 0-%s shells of its tier",
+  "jei.simplestorage.note.rare_shulker_where": "Reinforced, Netherite or Enderite, end cities",
   "item.simplestorage.guide_book": "Simple Storage Guide",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Crates of every wood that hold nine stacks of food in layers, the Storage Crafting Table that keeps its grid on its top, chests, shulker boxes, chest carts and chest boats in three tiers with more slots and bigger stacks, and bundles",
@@ -181,7 +183,5 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
-  "jei.simplestorage.note.rare_shulker": "A rare shulker drops 0-%s shells of its tier",
-  "jei.simplestorage.note.rare_shulker_where": "Reinforced, Netherite or Enderite, end cities"
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
 }

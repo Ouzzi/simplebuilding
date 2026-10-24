@@ -88,6 +88,9 @@
   "item.simplemobs.wither_wings": "Wither Wings",
   "item.simplemobs.nether_wings": "Nether Wings",
   "item.simplemobs.end_wings": "End Wings",
+  "jei.simplemobs.note.wither_drops": "When the %s dies",
+  "jei.simplemobs.note.wither_counts": "%s-%s nuggets of the crown's metal",
+  "jei.simplemobs.note.shellker_dress": "Right-click a Shulker with the shell",
   "item.simplemobs.guide_book": "Simple Mobs Guide",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
@@ -130,8 +133,5 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
-  "jei.simplemobs.note.wither_drops": "When the %s dies",
-  "jei.simplemobs.note.wither_counts": "%s-%s nuggets of the crown's metal",
-  "jei.simplemobs.note.shellker_dress": "Right-click a Shulker with the shell"
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
 }

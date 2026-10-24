@@ -36,6 +36,13 @@
   "subtitles.simplesandwiches.block.butter_block.cut": "Butter wird geschnitten",
   "subtitles.simplesandwiches.block.cheese_block.cut": "Käse wird geschnitten",
   "tip.simplesandwiches.cutting_board": "Brot auflegen, mit Messer öffnen, Belag drauf",
+  "jei.simplesandwiches.note.milk_butter": "Milch reift von selbst: Butter nach %s s",
+  "jei.simplesandwiches.note.milk_cheese": "Butter liegen lassen: Käse nach %s s",
+  "jei.simplesandwiches.note.milk_take": "Mit leerer Hand nehmen (oder Trichter)",
+  "jei.simplesandwiches.note.knife": "Eine Scheibe je Klick mit dem Messer",
+  "jei.simplesandwiches.note.sandwich.open": "Brot aufs Brett, das Messer öffnet es",
+  "jei.simplesandwiches.note.sandwich.fill": "Butter nach Wunsch, dann bis zu %s Zutaten",
+  "jei.simplesandwiches.note.sandwich.close": "Leere Hand schließt und nimmt es",
   "item.simplesandwiches.guide_book": "Simple-Sandwiches-Handbuch",
   "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
   "simplesandwiches.guide.page.1": "Sandwiches auf dem Schneidebrett, ein Küchenmesser, Käse und Butter aus dem Kessel und Essen direkt aus Bündeln.",
@@ -54,12 +61,5 @@
   "quests.simplesandwiches.start.title": "Willkommen bei Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Dein Handbuch gratis",
   "quests.simplesandwiches.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen.",
-  "jei.simplesandwiches.note.milk_butter": "Milch reift von selbst: Butter nach %s s",
-  "jei.simplesandwiches.note.milk_cheese": "Butter liegen lassen: Käse nach %s s",
-  "jei.simplesandwiches.note.milk_take": "Mit leerer Hand nehmen (oder Trichter)",
-  "jei.simplesandwiches.note.knife": "Eine Scheibe je Klick mit dem Messer",
-  "jei.simplesandwiches.note.sandwich.open": "Brot aufs Brett, das Messer öffnet es",
-  "jei.simplesandwiches.note.sandwich.fill": "Butter nach Wunsch, dann bis zu %s Zutaten",
-  "jei.simplesandwiches.note.sandwich.close": "Leere Hand schließt und nimmt es"
+  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen."
 }

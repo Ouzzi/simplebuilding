@@ -85,6 +85,7 @@
   "item.simpleend.spoiled_drift_fruit": "Verdorbene Schwebfrucht",
   "itemgroup.simpleend.main": "Simple End",
   "subtitles.simpleend.music": "End-Musik spielt",
+  "jei.simpleend.info.nibblemite_drops": "Stirbt eine Knabbermilbe, kann sie eine Chorusfrucht fallen lassen (mit Plünderung mehr).",
   "item.simpleend.guide_book": "Simple-End-Handbuch",
   "simpleend.guide.page.1.title": "Simple End",
   "simpleend.guide.page.1": "Aschholz und Dämmerholz, Knospen für End-Bäume oder Stöcke-Gestrüpp, End-Gras und die Biome Aschental und Dämmerlande auf den äußeren End-Inseln.",
@@ -129,6 +130,5 @@
   "quests.simpleend.start.title": "Willkommen bei Simple End",
   "quests.simpleend.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleend.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleend.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-End-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Chorusfrucht herstellen.",
-  "jei.simpleend.info.nibblemite_drops": "Stirbt eine Knabbermilbe, kann sie eine Chorusfrucht fallen lassen (mit Plünderung mehr)."
+  "quests.simpleend.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-End-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Chorusfrucht herstellen."
 }

@@ -150,6 +150,12 @@
   "item.simplemusic.music_disc_sky_forge": "Schallplatte",
   "jukebox_song.simplemusic.sky_forge": "Simple Music - Himmelsschmiede",
   "subtitles.simplemusic.music_disc.sky_forge": "Musik: Himmelsschmiede",
+  "jei.simplemusic.note.press": "In der Plattenpresse, %s s",
+  "jei.simplemusic.note.press_sheet": "Das Notenblatt bleibt; die Platte trägt seine Musik",
+  "jei.simplemusic.note.copy": "Kartentisch: ein signiertes Blatt oben",
+  "jei.simplemusic.note.copy_slots": "Ein leeres Blatt unten wird zur Kopie",
+  "jei.simplemusic.note.disc_chest": "Kein Rezept: nur in den Truhen von %s (%s zu 100).",
+  "jei.simplemusic.note.disc_brushed": "Kein Rezept: nur beim Abpinseln von seltsamem Kies aus %s (Gewicht %s).",
   "item.simplemusic.guide_book": "Simple-Music-Handbuch",
   "simplemusic.guide.page.1.title": "Simple Music",
   "simplemusic.guide.page.1": "Notenblätter als Text schreiben, im Editor probehören und für die Jukebox auf einen Rohling pressen. Eigene Mono-Ogg-Dateien auf Rohlinge brennen.",
@@ -192,11 +198,5 @@
   "quests.simplemusic.start.title": "Willkommen bei Simple Music",
   "quests.simplemusic.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemusic.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemusic.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Music-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Notenblock herstellen.",
-  "jei.simplemusic.note.press": "In der Plattenpresse, %s s",
-  "jei.simplemusic.note.press_sheet": "Das Notenblatt bleibt; die Platte trägt seine Musik",
-  "jei.simplemusic.note.copy": "Kartentisch: ein signiertes Blatt oben",
-  "jei.simplemusic.note.copy_slots": "Ein leeres Blatt unten wird zur Kopie",
-  "jei.simplemusic.note.disc_chest": "Kein Rezept: nur in den Truhen von %s (%s zu 100).",
-  "jei.simplemusic.note.disc_brushed": "Kein Rezept: nur beim Abpinseln von seltsamem Kies aus %s (Gewicht %s)."
+  "quests.simplemusic.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Music-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Notenblock herstellen."
 }

@@ -353,6 +353,8 @@
   "simpletweaks.protect.checks.kind.reach_block": "Block außer Reichweite",
   "simpletweaks.protect.checks.kind.reach_entity": "Entity außer Reichweite",
   "simpletweaks.protect.checks.kind.fast_break": "Schnellabbau",
+  "jei.simpletweaks.note.deed_copy": "Gebundene + leere Urkunde: eine zweite Urkunde",
+  "jei.simpletweaks.note.deed_copy_once": "Das Original bleibt; eine Kopie lässt sich nicht kopieren",
   "item.simpletweaks.guide_book": "Simple-Tweaks-Handbuch",
   "simpletweaks.guide.page.1.title": "Simple Tweaks",
   "simpletweaks.guide.page.1": "Kompatibilität mit alten Ständen und serverseitige Claims, standardmäßig an.",
@@ -497,7 +499,5 @@
   "quests.simpletweaks.start.title": "Willkommen bei Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletweaks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen.",
-  "jei.simpletweaks.note.deed_copy": "Gebundene + leere Urkunde: eine zweite Urkunde",
-  "jei.simpletweaks.note.deed_copy_once": "Das Original bleibt; eine Kopie lässt sich nicht kopieren"
+  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen."
 }

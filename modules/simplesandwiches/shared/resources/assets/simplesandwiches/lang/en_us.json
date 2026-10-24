@@ -36,6 +36,13 @@
   "subtitles.simplesandwiches.block.butter_block.cut": "Butter sliced",
   "subtitles.simplesandwiches.block.cheese_block.cut": "Cheese sliced",
   "tip.simplesandwiches.cutting_board": "Place bread, open it with a knife, add toppings",
+  "jei.simplesandwiches.note.milk_butter": "Milk ripens by itself: butter after %s s",
+  "jei.simplesandwiches.note.milk_cheese": "Leave the butter: cheese after %s s",
+  "jei.simplesandwiches.note.milk_take": "Take it with an empty hand (or a hopper)",
+  "jei.simplesandwiches.note.knife": "One slice per click with the knife",
+  "jei.simplesandwiches.note.sandwich.open": "Bread on the board, the knife opens it",
+  "jei.simplesandwiches.note.sandwich.fill": "Butter optional, then up to %s ingredients",
+  "jei.simplesandwiches.note.sandwich.close": "Empty hand closes and takes it",
   "item.simplesandwiches.guide_book": "Simple Sandwiches Guide",
   "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
   "simplesandwiches.guide.page.1": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
@@ -54,12 +61,5 @@
   "quests.simplesandwiches.start.title": "Welcome to Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Your free guide",
   "quests.simplesandwiches.start.welcome.title": "A free guide",
-  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread.",
-  "jei.simplesandwiches.note.milk_butter": "Milk ripens by itself: butter after %s s",
-  "jei.simplesandwiches.note.milk_cheese": "Leave the butter: cheese after %s s",
-  "jei.simplesandwiches.note.milk_take": "Take it with an empty hand (or a hopper)",
-  "jei.simplesandwiches.note.knife": "One slice per click with the knife",
-  "jei.simplesandwiches.note.sandwich.open": "Bread on the board, the knife opens it",
-  "jei.simplesandwiches.note.sandwich.fill": "Butter optional, then up to %s ingredients",
-  "jei.simplesandwiches.note.sandwich.close": "Empty hand closes and takes it"
+  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread."
 }
