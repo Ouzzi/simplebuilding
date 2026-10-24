@@ -511,8 +511,15 @@ public final class SandwichTests {
         h.assertTrue(now != null && now.getDuration() == 60 && !now.isVisible(), "butter block: 3 s, no particles: " + now);
         p.removeAllEffects();
         h.setBlock(pos, ModBlocks.BUTTER_CARPET);
-        step(h, pos, p);
-        h.assertTrue(p.hasEffect(slippery) && p.getEffect(slippery).getDuration() == 60, "butter carpet: 3 s");
+        BlockPos cell = h.absolutePos(pos);
+        h.getLevel().getBlockState(cell).entityInside(h.getLevel(), cell, p, net.minecraft.world.entity.InsideBlockEffectApplier.NOOP, true);
+        h.assertTrue(p.hasEffect(slippery) && p.getEffect(slippery).getDuration() == 60, "butter carpet (walking in it): 3 s");
+        // WA24-3: no collision (the walker sinks its 1 px to the floor) and slowed, outline stays a 1 px carpet.
+        var carpet = ModBlocks.BUTTER_CARPET.defaultBlockState();
+        h.assertTrue(carpet.getCollisionShape(h.getLevel(), cell).isEmpty(), "butter carpet: walker sinks in (no collision)");
+        h.assertTrue(carpet.getBlock().getSpeedFactor() == ModBlocks.BUTTER_CARPET_SPEED && ModBlocks.BUTTER_CARPET_SPEED < 1.0F, "butter carpet slows");
+        p.setPos(cell.getX() + 0.5, cell.getY(), cell.getZ() + 0.5);
+        h.assertTrue(p.getBlockSpeedFactor() == ModBlocks.BUTTER_CARPET_SPEED, "walker inside the carpet is slowed: " + p.getBlockSpeedFactor());
         h.succeed();
     }
 
