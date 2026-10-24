@@ -34,6 +34,8 @@ public final class TrimPulseTextures {
     /** Platzhalter fuer eine Kombination, deren Dateien fehlen (kein zweiter Versuch je Sitzung). */
     private static final Entry MISSING = new Entry(null, -1);
     private static int nextIndex;
+    /** Der Ressourcen-Manager, mit dem {@link #CACHE} gefuellt wurde; ein Reload (F3+T) legt einen neuen an (REV24-F-11). */
+    private static @Nullable ResourceManager cachedFor;
 
     private TrimPulseTextures() {
     }
@@ -63,6 +65,7 @@ public final class TrimPulseTextures {
         if (step <= 0 || step >= GlowingTrimUtils.DESATURATION_STEPS) {
             return null;
         }
+        dropIfReloaded();
         Entry entry = CACHE.computeIfAbsent(new Key(base, keyPalette, palette), TrimPulseTextures::load);
         if (entry.colored == null) {
             return null;
@@ -77,6 +80,26 @@ public final class TrimPulseTextures {
             entry.steps[step] = id;
         }
         return id;
+    }
+
+    /** Nach einem Ressourcen-Reload: native Bilder schliessen, Texturen abmelden, Cache leeren (auch MISSING, damit nachgelieferte Dateien greifen). */
+    private static void dropIfReloaded() {
+        ResourceManager now = Minecraft.getInstance().getResourceManager();
+        if (now == cachedFor) {
+            return;
+        }
+        cachedFor = now;
+        for (Entry entry : CACHE.values()) {
+            for (Identifier id : entry.steps) {
+                if (id != null) {
+                    Minecraft.getInstance().getTextureManager().release(id);
+                }
+            }
+            if (entry.colored != null) {
+                entry.colored.close();
+            }
+        }
+        CACHE.clear();
     }
 
     private static Entry load(Key key) {

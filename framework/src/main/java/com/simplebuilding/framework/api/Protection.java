@@ -17,9 +17,17 @@ public final class Protection {
         /** Automation has no player authority. Providers may permit matching land owners. */
         default boolean allowsAutomation(Target source,Target target) {return allows(source)&&allows(target);}
     }
-    private static final Map<Object,Map<String,Check>> PROVIDERS=new IdentityHashMap<>();
-    public static void register(Object server,String id,Check check) {PROVIDERS.computeIfAbsent(server,s->new LinkedHashMap<>()).put(Objects.requireNonNull(id),Objects.requireNonNull(check));}
-    public static void unregister(Object server,String id) {var checks=PROVIDERS.get(server);if(checks!=null){checks.remove(id);if(checks.isEmpty())PROVIDERS.remove(server);}}
+    /** Identity-keyed (one entry per server); values are immutable snapshots, so checks read without locking and cannot race a registration. */
+    private static final Map<Object,Map<String,Check>> PROVIDERS=Collections.synchronizedMap(new IdentityHashMap<>());
+    public static void register(Object server,String id,Check check) {
+        Objects.requireNonNull(id);Objects.requireNonNull(check);
+        PROVIDERS.compute(server,(s,old)->{var next=new LinkedHashMap<String,Check>(old==null?Map.of():old);next.put(id,check);return Collections.unmodifiableMap(next);});
+    }
+    public static void unregister(Object server,String id) {
+        PROVIDERS.computeIfPresent(server,(s,old)->{var next=new LinkedHashMap<>(old);next.remove(id);return next.isEmpty()?null:Collections.unmodifiableMap(next);});
+    }
+    /** Drops every provider of a stopped server so the map does not keep the server and its worlds alive. */
+    public static void clear(Object server) {PROVIDERS.remove(server);}
     public static boolean active(Object server) {return PROVIDERS.containsKey(server);}
     /** Old callers: no action given, so {@link Action#ANY} (strict). */
     public static boolean allows(Object server,Target target) {return allows(server,target,Action.ANY);}

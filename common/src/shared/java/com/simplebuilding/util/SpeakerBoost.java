@@ -216,8 +216,12 @@ public final class SpeakerBoost {
                     for (int y = Math.max(minY, sy << 4); y <= Math.min(maxY, (sy << 4) + 15); y++) {
                         for (int x = Math.max(center.getX() - r, cx << 4); x <= Math.min(center.getX() + r, (cx << 4) + 15); x++) {
                             for (int z = Math.max(center.getZ() - r, cz << 4); z <= Math.min(center.getZ() + r, (cz << 4) + 15); z++) {
+                                // Zustand zuerst (billig), BlockPos nur fuer Treffer (REV24-F-24).
+                                if (!matches.test(section.getBlockState(x & 15, y & 15, z & 15))) {
+                                    continue;
+                                }
                                 BlockPos pos = new BlockPos(x, y, z);
-                                if (!pos.equals(center) && pos.distSqr(center) <= (double) r * r && matches.test(section.getBlockState(x & 15, y & 15, z & 15))) {
+                                if (!pos.equals(center) && pos.distSqr(center) <= (double) r * r) {
                                     found.add(pos);
                                 }
                             }

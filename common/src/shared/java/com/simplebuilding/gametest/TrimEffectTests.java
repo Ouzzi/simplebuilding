@@ -192,23 +192,24 @@ public final class TrimEffectTests {
                 "a ward set was counted as rib");
         assertClose(helper, TrimEffectUtil.getTrimCount(player, "ward"), 4.0, "a full ward set");
 
-        // --- the known weakness, pinned on purpose ---
-        // Matching is String.contains against the pattern's asset PATH, with the namespace
-        // dropped first. So another mod's "someothermod:rib_cage" counts as a rib trim, and
-        // "astral" matches the material "astralit". If matching ever becomes exact, these two
-        // assertions are what tells you - and they tell you in the message, not in a stack trace.
+        // --- exact matching (REV24-F-10): similar names and foreign namespaces score nothing ---
         Holder<TrimPattern> foreignRibCage = Holder.direct(new TrimPattern(
                 Identifier.fromNamespaceAndPath("someothermod", "rib_cage"),
                 Component.literal("Rib Cage"), false));
         wear(player, copper, foreignRibCage, 1);
-        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 1.0,
-                "someothermod:rib_cage stopped counting as a rib trim - pattern matching is a "
-                        + "substring test on the asset path with the namespace dropped; if that "
-                        + "changed on purpose, update this test");
+        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 0.0,
+                "someothermod:rib_cage was counted as a rib trim - pattern matching must be exact");
+        Holder<TrimPattern> foreignRib = Holder.direct(new TrimPattern(
+                Identifier.fromNamespaceAndPath("someothermod", "rib"),
+                Component.literal("Rib"), false));
+        wear(player, copper, foreignRib, 1);
+        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 0.0,
+                "a foreign-namespace rib pattern was counted as the vanilla rib trim");
         wear(player, astralit, ward, 4);
-        helper.assertTrue(TrimEffectUtil.getMaterialCount(player, "astral") == 4,
-                "the material match stopped being a substring test; \"astral\" no longer finds "
-                        + "\"astralit\". If that changed on purpose, update this test");
+        helper.assertTrue(TrimEffectUtil.getMaterialCount(player, "astral") == 0,
+                "\"astral\" matched the material \"astralit\" - material matching must be exact");
+        helper.assertTrue(TrimEffectUtil.getMaterialCount(player, "astralit") == 4,
+                "astralit pieces were not counted as astralit");
 
         bare(player);
         helper.succeed();
