@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Rotation;
 public final class RevCore24GameTest {
 
     @GameTest(rotation = Rotation.NONE)
-    public void claimsSmallerThanAChunkAreAskedAtTheRealFootprint(GameTestHelper helper) {
-        RevCore24Tests.claimsSmallerThanAChunkAreAskedAtTheRealFootprint(helper);
+    public void claimsInsideOneChunkAreAskedAtTheRealFootprint(GameTestHelper helper) {
+        RevCore24Tests.claimsInsideOneChunkAreAskedAtTheRealFootprint(helper);
     }
 
     @GameTest(rotation = Rotation.NONE)

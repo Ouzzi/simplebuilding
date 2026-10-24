@@ -45,7 +45,7 @@ public final class RevCore24Tests {
      * footprint check only asked the chunk corner and let the box through.
      */
     @SuppressWarnings("removal")
-    public static void claimsSmallerThanAChunkAreAskedAtTheRealFootprint(GameTestHelper helper) {
+    public static void claimsInsideOneChunkAreAskedAtTheRealFootprint(GameTestHelper helper) {
         try {
             claimsBody(helper);
         } catch (ReflectiveOperationException e) {

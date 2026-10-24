@@ -2461,16 +2461,16 @@ public final class SimpleBuildingGameTests {
                     .build(),
             // --- /tweaks ---
             // --- modpack ---
-            GameTestSpec.named("rev_core24_game_test_claims_smaller_than_a_chunk_are_asked_at_the_real_footprint", RevCore24Tests::claimsSmallerThanAChunkAreAskedAtTheRealFootprint)
+            GameTestSpec.named("rev_core24game_test_claims_inside_one_chunk_are_asked_at_the_real_footprint", RevCore24Tests::claimsInsideOneChunkAreAskedAtTheRealFootprint)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("rev_core24_game_test_held_attractor_marks_moving_items_for_sync_and_leaves_resting_ones_alone", RevCore24Tests::heldAttractorMarksMovingItemsForSyncAndLeavesRestingOnesAlone)
+            GameTestSpec.named("rev_core24game_test_held_attractor_marks_moving_items_for_sync_and_leaves_resting_ones_alone", RevCore24Tests::heldAttractorMarksMovingItemsForSyncAndLeavesRestingOnesAlone)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("rev_core24_game_test_anvil_hammer_combine_skips_incompatible_enchantments", RevCore24Tests::anvilHammerCombineSkipsIncompatibleEnchantments)
+            GameTestSpec.named("rev_core24game_test_anvil_hammer_combine_skips_incompatible_enchantments", RevCore24Tests::anvilHammerCombineSkipsIncompatibleEnchantments)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("rev_core24_game_test_data_tables_are_trimmed_to_the_sync_packet_limit", RevCore24Tests::dataTablesAreTrimmedToTheSyncPacketLimit)
+            GameTestSpec.named("rev_core24game_test_data_tables_are_trimmed_to_the_sync_packet_limit", RevCore24Tests::dataTablesAreTrimmedToTheSyncPacketLimit)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("modpack_game_test_building_wand_skips_cells_the_loader_events_refuse_and_counts_its_blocks", ModpackTests::buildingWandSkipsCellsTheLoaderEventsRefuseAndCountsItsBlocks)
