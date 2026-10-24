@@ -85,4 +85,9 @@ public final class ModuleGameTest {
     public void discoverBehaviourHints(GameTestHelper h) {
         LightsTests.ALL.get("discover_behaviour_hints").accept(h);
     }
+
+    @GameTest(structure = "simplelights:empty")
+    public void guideBook(GameTestHelper h) {
+        LightsTests.ALL.get("guide_book").accept(h);
+    }
 }

@@ -67,6 +67,7 @@ public final class LightsTests {
         ALL.put("copper_redstone_pane_colors_and_flips", LightsTests::copperRedstonePaneColorsAndFlips);
         ALL.put("discover_recipe_unlocks", com.simplelights.discover.LightsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplelights.discover.LightsDiscover::behaviourHints);
+        ALL.put("guide_book", com.simplelights.guide.LightsGuide::gameTest);
     }
 
     private LightsTests() {
