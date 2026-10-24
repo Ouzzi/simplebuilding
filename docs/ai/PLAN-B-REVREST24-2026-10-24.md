@@ -21,7 +21,7 @@ Branch `b-revrest24`, Basis claude-wave1 (dda4cd77a). Nur 26.3 Fabric.
   globale Cache-Invalidierungszaehler (`GENERATION`) bleibt (Cache je Welt wuerde API/Verhalten aendern, Nutzen klein).
 - **F-31 bestaetigt, umgesetzt.** `Protection.PROVIDERS` jetzt `synchronizedMap(IdentityHashMap)` mit unveraenderlichen
   Snapshot-Maps je Server (Registrierung per `compute`, Lesen ohne Sperre, gleiche Reihenfolge/Semantik). Neu
-  `Protection.clear(server)`, aufgerufen im SB-`SERVER_STOPPED` (`Simplebuilding.java`). Registrierung beim Mod-Init bleibt
+  `Protection.clear(server)`, aufgerufen im `SERVER_STOPPED` von `modules/simpletweaks/fabric/.../ProtectFabric.java` (Abweichung: `Simplebuilding.java` im Root sieht das Framework nicht; Tweaks ist in jedem SB-Jar verschachtelt). Registrierung beim Mod-Init bleibt
   unberuehrt (Provider werden pro Serverstart in `SERVER_STARTED` neu registriert, z. B. `Claims`/`Protect.start`).
 - **F-14 (nur Pruefung, nichts geaendert).** Gemessen am gebauten 26.3-Fabric-Jar (sb-test, `simplebuilding-26.3-2.0.0.jar`,
   45,7 MB, davon 25 verschachtelte Modul-Jars mit 25,1 MB): im Haupt-Jar liegen 285 Klassen `com/simplebuilding/gametest`
