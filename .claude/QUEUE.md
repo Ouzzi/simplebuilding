@@ -300,10 +300,10 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [x] **REV24-M-7** Musik-Upload: kein Vorab-Puffer, Ablauf im Tick, on()-Prüfung im Chunk-Handler; Verarbeitung auf Worker-Thread offen – `modules/simplemusic/.../upload/MusicServer.java, UploadSession.java` – Beleg: Branch b-revmid24, Test upload_abandoned_expires.
 - [x] **REV24-M-8** Block-Log: collect() vor Abschluss-Drain, Queue-Grenze 200 000 – `modules/simpletweaks/.../admin/blocklog/BlockLog.java` – Beleg: Branch b-revmid24, Test blocklog_signs_explosions_fire_hoppers.
 - [x] **REV24-M-10** Nether-Dach: gemerkter Ort wird vor Teleport geprüft, bei Disconnect/Stop vergessen – `modules/simpletweaks/.../play/roof/NetherRoof.java` – Beleg: Branch b-revmid24, Test roof.
-- [x] **REV24-M-11** Berechtigungsprobe setzt Hammer-Veto (Fabric); gemeinsame Probe in simplelib offen – `modules/simpletools|simpleinterfaces Fabric-Klassen (simplefarming ohne simplelib-Abhängigkeit: offen)` – Beleg: Branch b-revmid24, Fabric-Test permissionProbeVetoesAreas.
+- [x] **REV24-M-11** Berechtigungsprobe setzt Hammer-Veto (Fabric); gemeinsame Probe in simplelib offen; simplefarming-Rest verworfen (Veto bräuchte harte simplelib-Abhängigkeit, Modul-Unabhängigkeit) – `modules/simpletools|simpleinterfaces Fabric-Klassen` – Beleg: Branch b-revmid24, Fabric-Test permissionProbeVetoesAreas.
 - [x] **REV24-M-12** Dorf-Wanderer: hasChunkAt vor Struktursuche und in findSpot (Drosselung bestand schon, 200 Ticks) – `modules/simplewanderers/.../logic/WandererSpawner.java` – Beleg: Branch b-revmid24, Test find_spot_skips_unloaded.
 - [ ] **REV24-M-1** Mehrere @Redirect auf häufige Vanilla-Aufrufe (Köcher, Riding) -> @WrapOperation + ThreadLocal in try/finally – `modules/simplestorage/.../BowItemMixin.java u. a.`
-- [ ] **REV24-M-9** Death Vault: strikter Ledger-Codec und reindex() über alle Spieler (Statik-Teil erledigt in b-revmid24, Wrapper statt RETURN-Inject) – `modules/simpletools/.../vault/DeathLedger.java`
+- [x] **REV24-M-9** Death Vault: toleranter Ledger-Codec (kaputte Einträge/Tode/Spieler geloggt + übersprungen, Rest bleibt; Encode unverändert); reindex() lief schon über alle Spieler (verworfen) – `modules/simpletools/.../vault/DeathLedger.java` – Beleg: Branch b-revvault24, Test vault_persistence erweitert.
 - [ ] **REV24-N-1** Statische Pro-Spieler-Zustände (FearNet, MISSES/LAST, Pvp, HerobrineHaunt) bei Stop/Disconnect nicht geräumt -> gemeinsamer Hook in simplelib – `modules/simplemobs/.../FearNet.java u. a.`
 - [ ] **REV24-N-2** simplecrucibles importiert interne simplelib-Klassen statt com.simplelib.api – `modules/simplecrucibles/.../CrucibleJob.java`
 - [ ] **REV24-N-3** options.txt-Migration doppelt und nicht atomar -> ein simplelib-Helfer – `modules/simplestorage/.../BackpackKeyMigration.java`
@@ -331,7 +331,7 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [ ] **REV24-F-24** SpeakerBoost.inRelayRange: Brute-Force je Kettenschritt – `common/.../util/SpeakerBoost.java`
 - [ ] **REV24-F-26** WornHeads.extra: Listen-Allokation je Aufruf, Fehler still geschluckt – `framework/.../WornHeads.java`
 - [ ] **REV24-F-27** ConfigFiles.quarantine: Namenskollision innerhalb einer Sekunde – `framework/.../ConfigFiles.java`
-- [ ] **REV24-F-28** Test-Hooks laufen im Produktionspfad (FabricBuildGuard, FabricPistonBreakGuard) – `mc26_3/fabric/.../platform/FabricBuildGuard.java`
+- [x] **REV24-F-28** Test-Hooks: Listener der Probes werden erst beim ersten Test-Aufruf registriert (Fabric) – `src/main/.../platform/FabricBuildGuard.java, FabricPistonBreakGuard.java, common/.../ProtectionProbe, PistonEventProbe` – Beleg: Branch b-revvault24.
 - [ ] **REV24-F-29** FabricItemAutomation: Transaction.openOuter() in verschachtelter Lage – `mc26_3/fabric/.../platform/FabricItemAutomation.java`
 - [ ] **REV24-F-30** BuildPermissions.probing globaler Zähler, nicht thread-lokal – `common/.../util/BuildPermissions.java`
 - [ ] **REV24-F-31** Protection.PROVIDERS nicht thread-sicher, kein Aufräumen beim Server-Stopp – `framework/.../Protection.java`
