@@ -355,4 +355,4 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [ ] **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
 - [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid)
 - [ ] **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (erst nach dem Anvil-Mixin-Agenten)
-- [~] REV24-M-5a Verwaiste Licht-Bloecke nach Absturz: b-revlight24 – OwnedLights (SavedData-Marken + Chunk-Lade-Sweep, simplelib), TrimLight + DynamicLightHandler markieren; Test orphan_light_swept. Tests/Gate offen (Hauptsitzung).
+- [~] REV24-M-5a Verwaiste Licht-Bloecke nach Absturz: b-revlight24 – OwnedLights (SavedData-Marken + Chunk-Lade-Sweep, simplelib), TrimLight markiert; Kern-DynamicLightHandler offen (common ohne simplelib); Test orphan_light_swept. Tests/Gate offen (Hauptsitzung).
