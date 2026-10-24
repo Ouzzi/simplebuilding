@@ -254,5 +254,17 @@ class ModuleWikiTests(unittest.TestCase):
         self.assertEqual(problems, [])
 
 
+    def test_module_inventory_purpose_and_commands(self):
+        # b-wiki24: newest docs/ai/module-inventory-*.json, hand-written German purpose wins.
+        self.write('docs/ai/module-inventory-2026-01-01.json', {'modules': [{'id': 'old', 'purpose_en': 'Old.'}]})
+        self.write('docs/ai/module-inventory-2026-02-01.json', {'modules': [
+            {'id': 'wiringexample', 'purpose_en': 'Wires.', 'purpose_de': 'Inventar.', 'commands': ['b', 'a']}]})
+        self.write('tools/audit/module_purposes.json', {'_comment': 'x', 'wiringexample': {'purpose_de': 'Verdrahtet.'}})
+        inv = module_wiki.module_inventory(self.root)
+        self.assertNotIn('old', inv)
+        self.assertEqual(inv['wiringexample']['purpose_de'], 'Verdrahtet.')
+        self.assertEqual(inv['wiringexample']['commands'], ['b', 'a'])
+        self.assertEqual(module_wiki.module_inventory(self.root / 'missing'), {})
+
 if __name__ == '__main__':
     unittest.main()

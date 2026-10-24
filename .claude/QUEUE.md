@@ -317,6 +317,13 @@ Reihenfolge für die Branches: TZ22-1/2/5 (Inventar + Layout + Rahmen), dann TZ2
 - [ ] TZ22-9 Danach: Testzentrale neu bauen und Rundgang dokumentieren (Screenshots per Server-Render nur, falls ohne Client möglich; sonst Besitzer-Abnahme).
 
 
+## Wiki 24.10. (WIKI24)
+
+Plan: `docs/ai/PLAN-B-WIKI24-2026-10-24.md`. Vorschau: `/root/sb-tools-b/previews/wiki24-visual.html`.
+- [x] (B, b-wiki24, 24.10.) **WIKI24-1** Sichtprüfung `tools/wiki/visual_check.py` (Playwright/Chromium, 51 Seiten × 1440/390 px × hell/dunkel: Konsole, 404, kaputte Bilder, Überlauf, Kontrast ≥ 4,5:1, Nicht-gefunden, Link-Stichprobe); Funde behoben: Steckbrief je Modul (Was es macht, Enthalten in, Befehle, Einstellungen), neue Seite Befehle (`?tab=commands`), Alle-Mods-Tabellen mobil als Karten, Linien-Unterschiede lesbar + eingeklappt, Brotkrumen-Kontrast, Daten-`.js` kompakt (−20 %). Beleg siehe Abschnitt b-wiki24 in der Übergabe B.
+- [ ] **WIKI24-2** sb-web: Platte 100 % (Dev-Wiki steht auf 200c482c5 vom 20.10.) und nginx `gzip_types` für JS/JSON aus (11 MB statt ~1,5 MB je Erstaufruf) – Besitzer per `pct exec 109` (B ändert dort nichts).
+- [ ] **WIKI24-3** Ersatzkacheln für nicht veröffentlichte Vanilla-abgeleitete Texturen (z. B. Enderit-Schmiedevorlage, Netherit-Ofen) zeigen nur Text; Option: eigene Pixel statt Vanilla-Ableitung (Regel A8) – Besitzer-Entscheidung.
+
 ## Code-Review 24.10. (REV24)
 
 Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/niedrig). KRITISCH/HOCH (F-01..F-06, H-1..H-4) macht b-revfix24. Plan: `docs/ai/PLAN-B-REVMID24-2026-10-24.md`.

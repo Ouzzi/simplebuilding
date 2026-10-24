@@ -56,7 +56,11 @@ async function check(browser, base, mod, width, scheme) {
   if (mod !== 'simpleweather') assert.ok(hl.length >= 1, tag + ' highlights shown');
   if (mod === 'simplebuilding') assert.equal(await page.locator('.cat-grid').count(), 1, tag + ' categories');
   if (mod === 'simpleweather') assert.equal(await page.locator('.cat-grid').count(), 0, tag + ' no categories without items');
-  assert.equal(await page.locator('.home-compat .compat-row').count(), 2, tag + ' compatibility');
+  // fact box (b-wiki24): purpose, included in, commands (+ settings when the mod has config), then requires/works with
+  const rows = await page.locator('.home-compat .compat-row').count();
+  assert.ok(rows >= 5 && rows <= 6, tag + ' compatibility rows ' + rows);
+  assert.equal(await page.locator('.home-compat .compat-l').filter({ hasText: /^(Included in|Enthalten in)$/ }).count(), 1, tag + ' included in');
+  if (mod === 'simplebuilding') assert.ok(await page.locator('.home-compat .chip-cmd').count() >= 1, tag + ' commands');
   if (mod === 'simpleblocks') assert.ok(await page.locator('.home-hero .badge').filter({ hasText: /works alone|läuft allein/ }).count() === 1, tag + ' works alone');
   const over = await page.evaluate(() => ({ doc: document.documentElement.scrollWidth, w: window.innerWidth }));
   assert.ok(over.doc <= over.w, tag + ' horizontal scroll ' + JSON.stringify(over));
