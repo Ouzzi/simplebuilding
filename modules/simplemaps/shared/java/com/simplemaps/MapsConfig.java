@@ -26,9 +26,9 @@ public final class MapsConfig {
     public static boolean allowCopy = true, allowExtend = true, allowCombine = true;
     /** Map layers (loaded chunks, shops, chunk loaders): the server answers layer requests only when true. */
     public static boolean layers = true;
-    /** Picture maps (AUD-6, concept 19.10.): a client-converted picture becomes Vanilla maps; off until released. Side = longer edge in maps, permission = Vanilla level 0..4. */
+    /** Picture maps (AUD-6, concept 19.10.): a client-converted picture becomes Vanilla maps; on by default (owner 24.10.). Side = longer edge in maps, permission = Vanilla level 0..4. */
     public static final int PICTURE_SIDE_DEFAULT = 3, PICTURE_SIDE_MIN = 1, PICTURE_SIDE_MAX = 4, PICTURE_PERMISSION_MAX = 4;
-    public static boolean pictureMap = false;
+    public static boolean pictureMap = true;
     public static int pictureMapMaxSide = PICTURE_SIDE_DEFAULT, pictureMapPermission = 0;
     /** Web map export (stage 1, static files): off by default; see {@code docs/SIMPLEMAPS-WEBKARTE.md}. */
     public static final int WEB_CHUNKS_DEFAULT = 32, WEB_CHUNKS_MIN = 1, WEB_CHUNKS_MAX = 512;
@@ -126,7 +126,7 @@ public final class MapsConfig {
         allowExtend = getBool(json, "allowExtend", true);
         allowCombine = getBool(json, "allowCombine", true);
         layers = getBool(json, "layers", true);
-        pictureMap = getBool(json, "pictureMap", false);
+        pictureMap = getBool(json, "pictureMap", true);
         pictureMapMaxSide = clamp(getInt(json, "pictureMapMaxSide", PICTURE_SIDE_DEFAULT), PICTURE_SIDE_MIN, PICTURE_SIDE_MAX);
         pictureMapPermission = clamp(getInt(json, "pictureMapPermission", 0), 0, PICTURE_PERMISSION_MAX);
         webEnabled = getBool(json, "webEnabled", false);

@@ -226,7 +226,7 @@ public final class TrimsTests {
             int[] pattern = new int[w * hgt];
             pattern[1 * w + 1] = 0xFFFFFFFF;
             pattern[1 * w + 2] = 0xFFFFFFFF;
-            int fill = 0xFF112233, rim = 0xFF000011;
+            int fill = 0xFF703050, rim = com.simpletrims.TrimInversion.subtract(fill, com.simpletrims.TrimInversion.RIM_SUBTRACT);
             int[] hard = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
             h.assertTrue(hard[1 * w + 1] == 0 && hard[1 * w + 2] == 0 && hard[0] == fill && hard[1 * w] == fill, "hard: cut-out + flat fill");
             int[] withRim = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.RIM);
@@ -239,7 +239,9 @@ public final class TrimsTests {
             int[] twice = com.simpletrims.TrimInversion.invert(hard, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
             h.assertTrue(twice[1 * w + 1] == fill && twice[0] == 0, "inverting twice swaps back the mask");
             int[] colours = com.simpletrims.TrimInversion.colours(new int[] {0xFFFFFFFF, 0xFFC0C0C0, 0xFF808080, 0xFF404040, 0xFF202020}, pattern);
-            h.assertTrue(colours[0] == 0xFF808080 && colours[1] == 0xFF202020, "fill = third-brightest, rim = darkest");
+            h.assertTrue(colours[0] == 0xFF808080 && colours[1] == 0xFF303030, "fill = third-brightest, rim = fill minus 80 per channel (subtraction, no own colour)");
+            h.assertTrue(rim == 0xFF200000 && mid == 0xFF481828, "transition = fill and rim averaged");
+            h.assertTrue(com.simpletrims.TrimInversion.subtract(0xFF101010, 80) == 0xFF000000, "subtraction clamps at black");
             h.succeed();
         });
         ALL.put("duplication_recipes", h -> {

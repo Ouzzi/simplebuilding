@@ -99,6 +99,10 @@ final class TerminalTests {
             owner.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, dye2);
             level.getBlockState(c.box).useItemOn(dye2, level, owner, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
             h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.RED && dye2.getCount() == 1, "owner tints, one dye used");
+            ItemStack blue = new ItemStack(Items.DYE.pick(net.minecraft.world.item.DyeColor.BLUE), 1);
+            owner.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, blue);
+            level.getBlockState(c.box).useItemOn(blue, level, owner, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+            h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.BLUE && blue.isEmpty(), "another tone re-tints (all 16 dyes)");
             h.assertTrue(level.getBlockEntity(c.box) instanceof com.simpleshops.block.DisplayCaseBlockEntity, "the case keeps its entity");
             h.succeed();
         });

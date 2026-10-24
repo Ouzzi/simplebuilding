@@ -1,0 +1,7 @@
+{
+  "parent": "simpleshops:block/display_case",
+  "textures": {
+    "frame": "simpleshops:block/display_case_frame_pink",
+    "glass": "simpleshops:block/display_case_glass_pink"
+  }
+}

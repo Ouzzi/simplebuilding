@@ -5,8 +5,9 @@ package com.simpletrims;
  * is a texture in armor UV layout whose pattern pixels are opaque and everything else transparent. Inverted, the
  * pattern is cut out and every other pixel takes the trim colour - the same pattern, its mask flipped over the armor.
  * Three stages (owner WA24-1, one smithing round each): {@link Mode#HARD} flat fill, {@link Mode#RIM} fill with a
- * one-pixel dark border around the cut-out (the pattern stays readable), {@link Mode#SOFT} a two-pixel border plus
- * a one-pixel transition (border and fill mixed) for a soft gradient into the fill.
+ * one-pixel border around the cut-out (the pattern stays readable), {@link Mode#SOFT} a two-pixel border plus
+ * a one-pixel transition for a soft gradient into the fill. The border is a subtraction (WB24-1): the fill colour minus
+ * {@link #RIM_SUBTRACT} per channel, no colour of its own; the transition subtracts half of it.
  */
 public final class TrimInversion {
     public enum Mode { HARD, RIM, SOFT }
@@ -17,13 +18,16 @@ public final class TrimInversion {
     /** Border width in pixels per mode (SOFT: plus one transition pixel). */
     private static final int[] BORDER = {0, 1, 2};
 
+    /** Per colour channel (0..255) taken off the fill for the border; the transition takes half. */
+    public static final int RIM_SUBTRACT = 80;
+
     private TrimInversion() {}
 
     public static Mode mode(int level) {
         return Mode.values()[Math.max(1, Math.min(level, MAX_LEVEL)) - 1];
     }
 
-    /** Fill and rim colour of a trim layer: the palette's third-brightest colour (the main shade of Vanilla patterns) and its darkest colour (or the layer's own average). */
+    /** Fill and rim colour of a trim layer: the palette's third-brightest colour (the main shade of Vanilla patterns) or the layer's own average, and that fill minus {@link #RIM_SUBTRACT}. */
     public static int[] colours(int[] palette, int[] pattern) {
         int[] source = palette;
         if (source == null || source.length == 0) {
@@ -37,14 +41,13 @@ public final class TrimInversion {
             }
             if (n == 0) return new int[] {0xFF808080, 0xFF404040};
             int fill = 0xFF000000 | (int) (r / n) << 16 | (int) (g / n) << 8 | (int) (b / n);
-            return new int[] {fill, darker(fill)};
+            return new int[] {fill, subtract(fill, RIM_SUBTRACT)};
         }
         Integer[] order = new Integer[source.length];
         for (int i = 0; i < order.length; i++) order[i] = i;
         java.util.Arrays.sort(order, java.util.Comparator.comparingDouble(i -> luma(source[i])));
         int fill = 0xFF000000 | source[order[Math.max(0, order.length - 3)]];
-        int rim = 0xFF000000 | source[order[0]];
-        return new int[] {fill, rim};
+        return new int[] {fill, subtract(fill, RIM_SUBTRACT)};
     }
 
     /** The inverted layer of {@code pattern} (w*h ARGB, row-major) in the given mode. */
@@ -87,7 +90,8 @@ public final class TrimInversion {
         return 0.299 * ((argb >> 16) & 255) + 0.587 * ((argb >> 8) & 255) + 0.114 * (argb & 255);
     }
 
-    private static int darker(int argb) {
-        return 0xFF000000 | (((argb >> 16) & 255) * 5 / 8) << 16 | (((argb >> 8) & 255) * 5 / 8) << 8 | ((argb & 255) * 5 / 8);
+    /** {@code argb} minus {@code amount} on each colour channel, not below 0. */
+    public static int subtract(int argb, int amount) {
+        return 0xFF000000 | Math.max(0, (argb >> 16 & 255) - amount) << 16 | Math.max(0, (argb >> 8 & 255) - amount) << 8 | Math.max(0, (argb & 255) - amount);
     }
 }

@@ -3,8 +3,53 @@
     "tint=none": {
       "model": "simpleshops:block/glow_display_case"
     },
+    "tint=white": {
+      "model": "simpleshops:block/glow_display_case_white"
+    },
+    "tint=orange": {
+      "model": "simpleshops:block/glow_display_case_orange"
+    },
+    "tint=magenta": {
+      "model": "simpleshops:block/glow_display_case_magenta"
+    },
+    "tint=light_blue": {
+      "model": "simpleshops:block/glow_display_case_light_blue"
+    },
+    "tint=yellow": {
+      "model": "simpleshops:block/glow_display_case_yellow"
+    },
+    "tint=lime": {
+      "model": "simpleshops:block/glow_display_case_lime"
+    },
+    "tint=pink": {
+      "model": "simpleshops:block/glow_display_case_pink"
+    },
+    "tint=gray": {
+      "model": "simpleshops:block/glow_display_case_gray"
+    },
+    "tint=light_gray": {
+      "model": "simpleshops:block/glow_display_case_light_gray"
+    },
+    "tint=cyan": {
+      "model": "simpleshops:block/glow_display_case_cyan"
+    },
+    "tint=purple": {
+      "model": "simpleshops:block/glow_display_case_purple"
+    },
+    "tint=blue": {
+      "model": "simpleshops:block/glow_display_case_blue"
+    },
+    "tint=brown": {
+      "model": "simpleshops:block/glow_display_case_brown"
+    },
+    "tint=green": {
+      "model": "simpleshops:block/glow_display_case_green"
+    },
     "tint=red": {
       "model": "simpleshops:block/glow_display_case_red"
+    },
+    "tint=black": {
+      "model": "simpleshops:block/glow_display_case_black"
     }
   }
 }
