@@ -19,7 +19,8 @@
     "DiscoverTipMixin",
     "ItemHelmetWitherMixin",
     "DisplayWitherCrownMixin",
-    "WitherBossAccessor"
+    "WitherBossAccessor",
+    "FireworkRocketWingsMixin"
   ],
   "client": [
     "DeceiverLookMixin",

@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.PushReaction;
 
 /**
  * Blighted and Abyssal Wither (concept N26, owner N50) and their loot (owner 21.10., docs/ai/PLAN-B-WITHER21-2026-10-21.md):
- * the Nether Heart (stage 2 and 3, replaces the Wither Heart) and the Nether Gem (stage 3, for later). Both are small
+ * the Nether Heart (stage 2 and 3, replaces the Wither Heart) and the Nether Gem (stage 3, forges the Nether Wings, EL24-1). Both are small
  * blocks: the Wither sets them under itself when its death ends ({@link WitherLoot}), broken they give the item back.
  * The Biome Brush moved to Simple Tools.
  */
@@ -59,7 +59,7 @@ public final class WitherMobs {
     public static final ResourceKey<Item> HEART_KEY = itemKey("nether_heart");
     public static final ResourceKey<Item> GEM_KEY = itemKey("nether_gem");
     public static final Item HEART = new BlockItem(HEART_BLOCK, lootItem().setId(HEART_KEY));
-    public static final Item GEM = new NetherGemItem(GEM_BLOCK, lootItem().setId(GEM_KEY));
+    public static final Item GEM = new BlockItem(GEM_BLOCK, lootItem().setId(GEM_KEY));
 
     private WitherMobs() {}
 
@@ -71,19 +71,6 @@ public final class WitherMobs {
     private static Item.Properties lootItem() {
         return com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties()).useBlockDescriptionPrefix()
                 .delayedComponent(DataComponents.DAMAGE_RESISTANT, registries -> new DamageResistant(registries.getOrThrow(LOOT_RESISTANT)));
-    }
-
-    /** Nether Gem: its use is still to come (one tooltip line says so). */
-    static final class NetherGemItem extends BlockItem {
-        NetherGemItem(Block block, Item.Properties properties) {
-            super(block, properties);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
-                                    java.util.function.Consumer<net.minecraft.network.chat.Component> builder, net.minecraft.world.item.TooltipFlag flag) {
-            builder.accept(net.minecraft.network.chat.Component.translatable("item.simplemobs.nether_gem.tooltip").withStyle(net.minecraft.ChatFormatting.GRAY));
-        }
     }
 
     private static ResourceKey<Item> itemKey(String path) {
@@ -103,6 +90,7 @@ public final class WitherMobs {
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {
         sink.accept(HEART_KEY, HEART);
         sink.accept(GEM_KEY, GEM);
+        WitherWings.items(sink);
     }
 
     /** Fabric: direct registration. */

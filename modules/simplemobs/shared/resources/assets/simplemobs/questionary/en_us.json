@@ -218,10 +218,32 @@
       "A shard of the Nether's own fire, cut by the deepest Wither."
     ],
     "use": [
-      "Dropped only by the Abyssal Wither, one per kill, set down next to the Nether Heart. Its use is still to come."
+      "Dropped only by the Abyssal Wither, one per kill, set down next to the Nether Heart. With the Strong Upgrade it turns Wither Wings into Nether Wings."
     ],
     "secret": [
       "Keep it safe: explosions and fire cannot harm it."
+    ]
+  },
+  "wither_wings": {
+    "lore": [
+      "Elytra that took in a Wither's heart. The membrane became feathers, black as burnt paper."
+    ],
+    "use": [
+      "Smithing table: Strong Upgrade + Elytra + Nether Heart (without Simple Beacons: Netherite Upgrade). Glides like an Elytra; a firework rocket pushes it up to twice the Vanilla top speed. 576 durability, repair with phantom membrane, fire-proof."
+    ],
+    "secret": [
+      "It is not faster by itself: only the speed a rocket can reach is higher, and walls hurt just as Vanilla says, at that speed."
+    ]
+  },
+  "nether_wings": {
+    "lore": [
+      "The Red Nether Gem woke the embers in every quill."
+    ],
+    "use": [
+      "Smithing table: Strong Upgrade + Wither Wings + Red Nether Gem (without Simple Beacons: Netherite Upgrade). Rockets reach four times the Vanilla top speed. 768 durability, repair with phantom membrane, fire-proof."
+    ],
+    "secret": [
+      "Four times the speed means far more damage when you hit a wall. Fly high."
     ]
   }
 }

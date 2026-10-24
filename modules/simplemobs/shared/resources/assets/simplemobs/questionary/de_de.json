@@ -218,10 +218,32 @@
       "Ein Splitter vom eigenen Feuer des Nethers, geschliffen vom tiefsten Wither."
     ],
     "use": [
-      "Fällt nur vom Abgrund-Wither, eins pro Kampf, neben das Netherherz gesetzt. Sein Zweck folgt später."
+      "Fällt nur vom Abgrund-Wither, eins pro Kampf, neben das Netherherz gesetzt. Mit der Starken Aufwertung macht es aus Wither-Schwingen Nether-Schwingen."
     ],
     "secret": [
       "Gut aufbewahren: Explosionen und Feuer können ihm nichts anhaben."
+    ]
+  },
+  "wither_wings": {
+    "lore": [
+      "Elytren, die das Herz eines Withers aufgenommen haben. Aus der Haut wurden Federn, schwarz wie verbranntes Papier."
+    ],
+    "use": [
+      "Schmiedetisch: Starke Aufwertung + Elytren + Netherherz (ohne Simple Beacons: Netherit-Aufwertung). Gleitet wie Elytren; eine Feuerwerksrakete schiebt bis zur doppelten Vanilla-Höchstgeschwindigkeit. 576 Haltbarkeit, Reparatur mit Phantomhaut, feuerfest."
+    ],
+    "secret": [
+      "Von selbst ist sie nicht schneller: nur das Tempo, das eine Rakete erreichen kann, liegt höher – und Wände tun bei diesem Tempo genau so weh, wie Vanilla es vorsieht."
+    ]
+  },
+  "nether_wings": {
+    "lore": [
+      "Das Rote Nether-Juwel hat die Glut in jedem Federkiel geweckt."
+    ],
+    "use": [
+      "Schmiedetisch: Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel (ohne Simple Beacons: Netherit-Aufwertung). Raketen erreichen die vierfache Vanilla-Höchstgeschwindigkeit. 768 Haltbarkeit, Reparatur mit Phantomhaut, feuerfest."
+    ],
+    "secret": [
+      "Vierfaches Tempo heißt viel mehr Schaden an einer Wand. Flieg hoch."
     ]
   }
 }

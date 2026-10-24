@@ -72,6 +72,7 @@ public final class MobsDiscover {
             "simplemobs:illusion_shard",
             "simplemobs:nether_gem",
             "simplemobs:nether_heart",
+            "simplemobs:nether_wings",
             "simplemobs:potion_of_silence",
             "simplemobs:shellker",
             "simplemobs:shellker_helmet",
@@ -84,7 +85,8 @@ public final class MobsDiscover {
             "simplemobs:soulfire_powder",
             "simplemobs:soulfire_rod",
             "simplemobs:trick_mirror",
-            "simplemobs:watcher_eye");
+            "simplemobs:watcher_eye",
+            "simplemobs:wither_wings");
     static final List<Tip> TIPS = List.of(
             new Tip("trick_mirror", List.of("trick_mirror")),
             new Tip("deceiver_cloak", List.of("deceiver_cloak")),
