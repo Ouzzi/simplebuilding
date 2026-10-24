@@ -232,6 +232,18 @@ public final class MusicTests {
                     && SheetMusicItem.content(com.simplemusic.sheet.SheetExamples.stacks().get(0)).signed(), "signed sheets for the tab");
             h.succeed();
         });
+        ALL.put("note_grid_round_trip", h -> {
+            // WB24-4: the editor grid reads the song of valid code and writes code that parses to the same tones
+            String code = "tempo 6\n$h = harp\n$h: x2 { c4 [e4 g4] } @vol 0.5 c5\nbass: c3 . c3\ncreeper: c4";
+            com.simplemusic.sheet.NoteGrid grid = com.simplemusic.sheet.NoteGrid.fromCode(code, SheetSounds.policy());
+            h.assertTrue(grid != null, "valid code gives a grid");
+            NoteCode.Song a = NoteCode.parse(code).song(), b = NoteCode.parse(grid.toCode(), SheetSounds.policy()).song();
+            h.assertTrue(a.steps() == b.steps() && a.toneCount() == b.toneCount() && a.tempo() == b.tempo(), "same song: " + grid.toCode());
+            NoteCode.Instrument harp = new NoteCode.Instrument(NoteCode.Kind.NOTE_BLOCK, "harp", 0);
+            h.assertTrue(grid.toggle(harp, 1, 6) == com.simplemusic.sheet.NoteGrid.Toggle.ADDED && grid.has(harp, 1, 6), "click sets a note");
+            h.assertTrue(com.simplemusic.sheet.NoteGrid.fromCode("harp: c4 zz", SheetSounds.policy()) == null, "broken code keeps the grid");
+            h.succeed();
+        });
         ALL.put("tone_volume", h -> {
             // NA24-8: @vol is audible on the server (a quiet tone keeps its volume, a full one gets the range)
             NoteCode.Song song = NoteCode.parse("harp: @vol 0.5 c4 @vol 1.0 d4").song();
