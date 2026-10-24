@@ -9,8 +9,9 @@ Sichtprüfung des Wikis im Headless-Browser (Playwright, Chromium).
 Texturen, Suche, eine Item-Seite) in Desktop 1440 px und Handy 390 px, jeweils hell und dunkel,
 und speichert Screenshots. Gesammelt werden:
   * Konsolen-Fehler und Skriptfehler,
-  * Antworten >= 400 und abgebrochene Anfragen (Vanilla-Texturen unter
-    assets/textures/minecraft/ werden absichtlich nicht ausgeliefert und nur gezählt),
+  * Antworten >= 400 und abgebrochene Anfragen (Dateien, die laut .gitignore nicht eingecheckt
+    werden - Vanilla-abgeleitete Texturen, data/ui-shots.js -, liefert kein Host aus; die Seite
+    fängt sie ab, sie werden nur als expected404 gezählt),
   * kaputte Bilder, die sichtbar im DOM bleiben,
   * waagerechter Überlauf der Seite (Element ragt aus dem Fenster, ohne Scroll-Container),
   * Text mit Kontrast unter 4,5:1 (große Schrift 3:1),
@@ -28,6 +29,7 @@ import functools
 import http.server
 import json
 import re
+import subprocess
 import sys
 import threading
 import time
@@ -37,6 +39,16 @@ from urllib.parse import urljoin, urlparse
 from playwright.sync_api import sync_playwright
 
 VANILLA = "/assets/textures/minecraft/"
+REPO = Path(__file__).resolve().parents[2]
+
+
+@functools.lru_cache(maxsize=None)
+def ignored(url_path: str) -> bool:
+    """Liegt die Datei in .gitignore (Vanilla-abgeleitet, nur lokal)? Dann ist ein 404 beim Hosting gewollt."""
+    if VANILLA in url_path:
+        return True
+    rel = "wiki/" + url_path.lstrip("/")
+    return subprocess.run(["git", "-C", str(REPO), "check-ignore", "-q", "--no-index", rel]).returncode == 0
 
 FIXED_PAGES = [
     ("start", ""),
@@ -216,20 +228,20 @@ def main() -> int:
                                           extra_http_headers=headers)
                 for name, query in pages:
                     entry = {"page": name, "url": query, "width": width, "scheme": scheme,
-                             "console": [], "pageerrors": [], "http": [], "vanilla404": 0}
+                             "console": [], "pageerrors": [], "http": [], "expected404": 0}
                     pg = ctx.new_page()
 
                     def on_response(resp, entry=entry):
                         if resp.status >= 400:
-                            if VANILLA in urlparse(resp.url).path:
-                                entry["vanilla404"] += 1
+                            if ignored(urlparse(resp.url).path):
+                                entry["expected404"] += 1
                             else:
                                 entry["http"].append(f"{resp.status} {resp.url.replace(base, '/')}")
 
                     pg.on("console", lambda m, e=entry: m.type == "error" and not m.text.startswith("Failed to load resource") and e["console"].append(m.text[:300]))
                     pg.on("pageerror", lambda exc, e=entry: e["pageerrors"].append(str(exc)[:300]))
                     pg.on("response", on_response)
-                    pg.on("requestfailed", lambda r, e=entry: e["http"].append(f"failed {r.url.replace(base, '/')} {r.failure}"))
+                    pg.on("requestfailed", lambda r, e=entry: ignored(urlparse(r.url).path) or e["http"].append(f"failed {r.url.replace(base, '/')} {r.failure}"))
                     t0 = time.time()
                     try:
                         pg.goto(urljoin(base, query), wait_until="load", timeout=90000)
@@ -244,6 +256,10 @@ def main() -> int:
                     if width == 1440 and scheme == args.schemes.split(",")[0]:
                         links.update(pg.evaluate(LINKS_JS))
                     if not args.no_shots:
+                        # Durchscrollen: Kacheln, die erst beim Sichtbarwerden gefuellt werden, mit aufnehmen.
+                        pg.evaluate("""async (max) => { const h = Math.min(document.documentElement.scrollHeight, max);
+                          for (let y = 0; y < h; y += innerHeight / 2) { scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); }
+                          scrollTo(0, 0); await new Promise(r => setTimeout(r, 150)); }""", args.max_height)
                         h = min(pg.evaluate("document.documentElement.scrollHeight"), args.max_height)
                         shot = args.out / f"{slug(name)}-{width}-{scheme}.png"
                         pg.screenshot(path=str(shot), full_page=True, clip={"x": 0, "y": 0, "width": width, "height": h})
@@ -272,7 +288,7 @@ def main() -> int:
             path = urlparse(url).path
             if path.endswith((".png", ".js", ".json", ".css", ".html")) and not path.endswith("index.html"):
                 r = ctx.request.get(url)
-                if r.status >= 400 and VANILLA not in path:
+                if r.status >= 400 and not ignored(path):
                     bad.append(f"{r.status} {url}")
                 continue
             try:
