@@ -349,3 +349,9 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [ ] **VW-1** (aus „Verwaiste TODOs 20.10.“) (übergreifend, vermutlich verwerfen) Offline-Testlauf (Windows, `offline_gate.ps1`): Probelauf der finalen Fassung – Memory `simplebuilding-offline-gate.md:22`; Gates laufen seit 08.10. auf sb-test.
 - [ ] **VW-2** (aus „Verwaiste TODOs 20.10.“) (Simple Tweaks, vermutlich verwerfen) Alte Ideenliste: Kompost, Wachs-Varianten, Werfer, Chat-Rechner, Questbuch, Challenges, Extra-Inventar, Holzdruckplatte – `docs/SIMPLETWEAKS-UEBERNAHME.md:81`.
 - [ ] **VW-3** (aus „Verwaiste TODOs 20.10.“) (Simple Stats, klein/verwerfen) Tragezeit nur alle 10 s übergeben (Rüstungswechsel schreibt Zeit dem neuen Teil zu) – `simple-stats-2026-10-15.md:11`.
+
+### Review 24.10. Zustand/Struktur (b-revstate24)
+- [x] **REV24-N-1** Pro-Spieler-Zustand: `PlayerState.onLeave/onStop` (simplelib), Fear/Herobrine/NetherRoof/TrimLight darüber geräumt (Fabric; NeoForge/Forge TODO im Plan). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md
+- [ ] **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
+- [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid)
+- [ ] **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (erst nach dem Anvil-Mixin-Agenten)
