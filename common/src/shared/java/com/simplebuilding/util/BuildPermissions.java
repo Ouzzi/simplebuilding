@@ -21,25 +21,26 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public final class BuildPermissions {
 
-    private static int probing;
+    // per thread: single player runs client and server thread in one JVM
+    private static final ThreadLocal<int[]> PROBING = ThreadLocal.withInitial(() -> new int[1]);
 
     private BuildPermissions() {
     }
 
     /** True while a break or place event fired by this class is being answered. */
     public static boolean isProbing() {
-        return probing > 0;
+        return PROBING.get()[0] > 0;
     }
 
     /** A machine's loader event is a permission probe, not a fake player's tool action. */
     public static boolean probeAutomation(Level level, BlockPos source, BlockPos target, java.util.function.BooleanSupplier check) {
         if (!com.simplebuilding.api.WorldPermissions.active(level)) return check.getAsBoolean();
         if (!com.simplebuilding.api.WorldPermissions.mayAutomate(level, source, target)) return false;
-        probing++;
+        PROBING.get()[0]++;
         try {
             return check.getAsBoolean();
         } finally {
-            probing--;
+            PROBING.get()[0]--;
         }
     }
 
@@ -51,11 +52,11 @@ public final class BuildPermissions {
         if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos, com.simplebuilding.api.WorldPermissions.Action.DESTROY)) {
             return false;
         }
-        probing++;
+        PROBING.get()[0]++;
         try {
             return PlatformServices.buildGuard().mayBreak(serverLevel, serverPlayer, pos.immutable(), state);
         } finally {
-            probing--;
+            PROBING.get()[0]--;
         }
     }
 
@@ -67,12 +68,12 @@ public final class BuildPermissions {
         if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos, com.simplebuilding.api.WorldPermissions.Action.BUILD)) {
             return false;
         }
-        probing++;
+        PROBING.get()[0]++;
         try {
             return com.simplebuilding.api.WorldPermissions.mayPlace(level, player, pos, state)
                     && PlatformServices.buildGuard().mayPlace(serverLevel, serverPlayer, pos.immutable(), state);
         } finally {
-            probing--;
+            PROBING.get()[0]--;
         }
     }
 }

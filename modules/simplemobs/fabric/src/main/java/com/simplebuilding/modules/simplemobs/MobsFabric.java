@@ -31,6 +31,7 @@ public final class MobsFabric implements ModInitializer {
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(FearNet.FovPayload.TYPE,
                 (payload, context) -> context.server().execute(() -> FearNet.handle(payload, context.player())));
         ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> FearNet.forget(handler.getPlayer()));
         WitherMobs.registerAll();
         com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
         MobsRegistry.registerTab();

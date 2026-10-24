@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpleloot;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -90,6 +91,6 @@ public final class SimpleLoot {
 
     private static void write(Path file, LootConfig config) throws IOException {
         Files.createDirectories(file.getParent());
-        Files.writeString(file, new GsonBuilder().setPrettyPrinting().create().toJson(config));
+        ConfigFiles.writeAtomic(file, new GsonBuilder().setPrettyPrinting().create().toJson(config));
     }
 }

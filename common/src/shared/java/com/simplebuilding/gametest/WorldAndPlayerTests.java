@@ -100,7 +100,7 @@ import net.minecraft.world.phys.Vec3;
  *       {@link #theAirJumpLevelReadsEverySlotWhileTheServerOnlyCreditsTheBoots} pins both halves as
  *       they are and will fail the day either side is aligned with the other.</li>
  *   <li><b>The void damage interval has an unreachable default.</b>
- *       {@code LivingEntityMixin#modifyVoidDamage} initialises {@code damageInterval} to 10 and then
+ *       {@code LivingEntityMixin#simplebuilding$modifyVoidDamage} initialises {@code damageInterval} to 10 and then
  *       overwrites it for one, two, three and four pieces - and the whole block only runs when at
  *       least one piece is worn, so 10 can never be the value that is used. Not asserted (a test on
  *       dead code would only cement it); what is asserted is the four reachable intervals and the

@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplemobs;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -84,7 +85,7 @@ public final class MobsConfig {
                 Files.createDirectories(dir);
                 JsonObject o = new JsonObject();
                 o.addProperty("reduceMotion", false);
-                Files.writeString(file, GSON.toJson(o));
+                ConfigFiles.writeAtomic(file, GSON.toJson(o));
             }
         } catch (Exception e) {
             LOG.warn("Could not read {}: {}", CLIENT_FILE, e.toString());
@@ -117,7 +118,7 @@ public final class MobsConfig {
         if (file != null) {
             try {
                 Files.createDirectories(dir);
-                Files.writeString(file, GSON.toJson(toJson()));
+                ConfigFiles.writeAtomic(file, GSON.toJson(toJson()));
             } catch (Exception e) {
                 LOG.warn("Could not write {}: {}", FILE, e.toString());
             }

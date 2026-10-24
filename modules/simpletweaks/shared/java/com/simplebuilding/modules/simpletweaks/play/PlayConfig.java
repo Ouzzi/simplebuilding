@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpletweaks.play;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.*;
 import java.nio.file.*;
 import java.util.*;
@@ -194,7 +195,7 @@ public record PlayConfig(Coords coords, DeathHint deathHint, Mentions mentions, 
         try {
             if (!Files.exists(path)) {
                 Files.createDirectories(path.toAbsolutePath().getParent());
-                Files.writeString(path, GSON.toJson(DEFAULT));
+                ConfigFiles.writeAtomic(path, GSON.toJson(DEFAULT));
                 return DEFAULT;
             }
             if (Files.isSymbolicLink(path) || Files.size(path) > 65536) throw new java.io.IOException("Unsafe play config");

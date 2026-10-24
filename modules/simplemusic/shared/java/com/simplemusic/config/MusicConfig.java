@@ -1,5 +1,6 @@
 package com.simplemusic.config;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -65,7 +66,7 @@ public final class MusicConfig {
         if (file != null) {
             try {
                 Files.createDirectories(dir);
-                Files.writeString(file, GSON.toJson(toJson()));
+                ConfigFiles.writeAtomic(file, GSON.toJson(toJson()));
             } catch (Exception e) {
                 SimpleMusic.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }

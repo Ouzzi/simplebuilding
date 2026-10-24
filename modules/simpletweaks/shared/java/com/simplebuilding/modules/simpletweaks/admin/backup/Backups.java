@@ -46,6 +46,9 @@ public final class Backups {
     public static void stop() {
         cancelled = true;
         if (worker != null) worker.shutdown();
+        // let a running zip finish its current file before the server goes on (N-6); bounded, the thread is a daemon anyway
+        try { if (worker != null) worker.awaitTermination(5, java.util.concurrent.TimeUnit.SECONDS); }
+        catch (InterruptedException e) { Thread.currentThread().interrupt(); }
         worker = null;
     }
     public static void tick(MinecraftServer server) {

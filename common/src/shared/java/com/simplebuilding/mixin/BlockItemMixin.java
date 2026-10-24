@@ -47,7 +47,10 @@ public abstract class BlockItemMixin {
 
     @Inject(method = "place", at = @At("HEAD"))
     private void simplebuilding$rememberPlacedStack(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir) {
-        SIMPLEBUILDING_PLACING.set(context.getItemInHand().copy());
+        // nur serverseitig mit Spieler: nur dort wird der Rucksack-Nachschub gebraucht (die tiefe Kopie spart der Client)
+        if (!context.getLevel().isClientSide() && context.getPlayer() != null) {
+            SIMPLEBUILDING_PLACING.set(context.getItemInHand().copy());
+        }
     }
 
     @Inject(method = "place", at = @At("RETURN"))

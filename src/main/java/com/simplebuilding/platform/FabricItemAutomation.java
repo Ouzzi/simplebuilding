@@ -17,13 +17,19 @@ import net.minecraft.world.item.ItemStack;
  */
 public final class FabricItemAutomation implements ItemAutomation {
 
+    /** An outer transaction, or a nested one when a transfer operation of another mod is running on this thread (openOuter would throw). */
+    private static Transaction open() {
+        net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext current = Transaction.getCurrentUnsafe();
+        return current == null ? Transaction.openOuter() : Transaction.openNested(current);
+    }
+
     @Override
     public int insert(ServerLevel level, BlockPos pos, Direction side, ItemStack stack) {
         Storage<ItemVariant> storage = ItemStorage.SIDED.find(level, pos, side);
         if (storage == null) {
             return NO_HANDLER;
         }
-        try (Transaction transaction = Transaction.openOuter()) {
+        try (Transaction transaction = open()) {
             long moved = storage.insert(ItemVariant.of(stack), stack.getCount(), transaction);
             transaction.commit();
             return (int) moved;
@@ -36,7 +42,7 @@ public final class FabricItemAutomation implements ItemAutomation {
         if (storage == null) {
             return NO_HANDLER;
         }
-        try (Transaction transaction = Transaction.openOuter()) {
+        try (Transaction transaction = open()) {
             long moved = storage.extract(ItemVariant.of(item), amount, transaction);
             transaction.commit();
             return (int) moved;

@@ -1,7 +1,7 @@
 package com.simplebuilding.modules.simplemovement;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /** One-time takeover of the Simple QoL key bindings in {@code options.txt} (no client classes, so tests run on servers). */
@@ -15,11 +15,7 @@ public final class KeyMigration {
     /** Runs before Minecraft reads the options; never overwrites a new key line. */
     public static void run(Path gameDir) {
         try {
-            var options = gameDir.resolve("options.txt");
-            if (!Files.isRegularFile(options) || Files.size(options) > 1 << 20) return;
-            var text = Files.readString(options);
-            var migrated = options(text);
-            if (!migrated.equals(text)) Files.writeString(options, migrated);
+            ConfigFiles.migrateOptions(gameDir, KeyMigration::options);
         } catch (IOException | RuntimeException e) {
             SimpleMovement.LOGGER.warn("Cannot take over the Simple QoL key bindings", e);
         }
@@ -27,7 +23,7 @@ public final class KeyMigration {
 
     /** The options text with the old key lines renamed, each unless its new line already exists. */
     public static String options(String text) {
-        for (var pair : KEYS) if (text.contains(pair[0]) && !text.contains(pair[1])) text = text.replace(pair[0], pair[1]);
+        for (var pair : KEYS) text = ConfigFiles.renameOptionKey(text, pair[0], pair[1]);
         return text;
     }
 }

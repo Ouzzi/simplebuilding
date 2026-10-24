@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplestats;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.simplebuilding.modules.simplestats.data.StatData;
@@ -44,6 +45,6 @@ public final class SimpleStats {
 
     private static void write(Path file, StatsConfig config) throws IOException {
         Files.createDirectories(file.getParent());
-        Files.writeString(file, new GsonBuilder().setPrettyPrinting().create().toJson(config));
+        ConfigFiles.writeAtomic(file, new GsonBuilder().setPrettyPrinting().create().toJson(config));
     }
 }

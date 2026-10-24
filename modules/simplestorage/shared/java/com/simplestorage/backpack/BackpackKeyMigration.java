@@ -1,8 +1,8 @@
 package com.simplestorage.backpack;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.simplestorage.SimpleStorage;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -18,11 +18,7 @@ public final class BackpackKeyMigration {
     /** Runs before Minecraft reads the options; never overwrites a new key line. */
     public static void run(Path gameDir) {
         try {
-            Path options = gameDir.resolve("options.txt");
-            if (!Files.isRegularFile(options) || Files.size(options) > 1 << 20) return;
-            String text = Files.readString(options);
-            String migrated = options(text);
-            if (!migrated.equals(text)) Files.writeString(options, migrated);
+            ConfigFiles.migrateOptions(gameDir, BackpackKeyMigration::options);
         } catch (IOException | RuntimeException e) {
             SimpleStorage.LOG.warn("Cannot take over SimpleBuilding's backpack key binding", e);
         }
@@ -30,6 +26,6 @@ public final class BackpackKeyMigration {
 
     /** The options text with the old key line renamed, unless the new line already exists. */
     public static String options(String text) {
-        return text.contains(OLD) && !text.contains(NEW) ? text.replace(OLD, NEW) : text;
+        return ConfigFiles.renameOptionKey(text, OLD, NEW);
     }
 }

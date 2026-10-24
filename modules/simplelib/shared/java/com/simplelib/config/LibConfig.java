@@ -1,5 +1,6 @@
 package com.simplelib.config;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -51,7 +52,7 @@ public final class LibConfig {
         if (file != null) {
             try {
                 Files.createDirectories(file.getParent());
-                Files.writeString(file, GSON.toJson(toJson()));
+                ConfigFiles.writeAtomic(file, GSON.toJson(toJson()));
             } catch (Exception e) {
                 SimpleLib.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
