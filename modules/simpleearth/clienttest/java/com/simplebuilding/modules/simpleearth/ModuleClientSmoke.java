@@ -15,7 +15,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
         if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simpleearth")) throw new AssertionError("Module did not boot");
         context.takeScreenshot("simpleearth-title");
-        try (TestSingleplayerContext world = context.worldBuilder().create()) {
+        // a normal noise world (the default test world is flat): the faces must show real biomes from the generator
+        try (TestSingleplayerContext world = context.worldBuilder().adjustSettings(ui -> {
+            ui.setSeed("simpleearth");
+            ui.getNormalPresetList().stream().filter(t -> t.preset().unwrapKey().map(k -> k.identifier().getPath().equals("normal")).orElse(false))
+                    .findFirst().ifPresent(ui::setWorldType);
+        }).create()) {
             world.getConnection().waitForChunksRender();
             world.getServer().runCommand("time set noon");
             world.getServer().runOnServer(server -> {
@@ -33,11 +38,18 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(300);
             context.takeScreenshot("simpleearth-orbit-v6");
-            for (int v : new int[]{1, 3, 4, 5, 7, 8, 9}) {
-                version(context, v);
-                context.waitTicks(30);
-                context.takeScreenshot("simpleearth-orbit-v" + v);
-            }
+            context.runOnClient(mc -> mc.player.setXRot(12));
+            context.waitTicks(20);
+            context.takeScreenshot("simpleearth-horizon-v6");
+            shot(context, 1, "simpleearth-orbit-v1");
+            shot(context, 2, "simpleearth-orbit-v2");
+            shot(context, 3, "simpleearth-orbit-v3");
+            shot(context, 4, "simpleearth-orbit-v4");
+            shot(context, 5, "simpleearth-orbit-v5");
+            shot(context, 7, "simpleearth-orbit-v7");
+            shot(context, 8, "simpleearth-orbit-v8");
+            shot(context, 9, "simpleearth-orbit-v9");
+            context.runOnClient(mc -> mc.player.setXRot(55));
             version(context, 6);
             context.getInput().holdKeyFor(o -> o.keyUp, 100);
             context.waitTicks(60);
@@ -46,11 +58,22 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(mc -> mc.player.setXRot(70));
             context.waitTicks(30);
             context.takeScreenshot("simpleearth-far-v6");
+            teleport(context, world, 2600, 60);
+            context.runOnClient(mc -> mc.player.setXRot(35));
+            context.waitTicks(40);
+            context.takeScreenshot("simpleearth-mid-v6");
             context.setScreen(EarthScreen::new);
             context.waitTicks(10);
             context.takeScreenshot("simpleearth-menu");
             context.setScreen(() -> null);
         }
+    }
+
+    /** Switches the version (horizon view, pitch 12) and takes a screenshot (literal names: the runner reads them from the source). */
+    private static void shot(ClientGameTestContext context, int v, String name) {
+        version(context, v);
+        context.waitTicks(30);
+        context.takeScreenshot(name);
     }
 
     private static void version(ClientGameTestContext context, int v) {

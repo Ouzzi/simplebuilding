@@ -63,7 +63,7 @@ public final class EarthScreen extends Screen {
             changed(null);
         }).bounds(panelX + PAD, by, 96, 20).tooltip(Tooltip.create(Component.translatable("simpleearth.screen.reset.tip"))).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(panelX + W - PAD - 96, by, 96, 20).build());
-        listTop = panelY + 70;
+        listTop = panelY + 82;
         listBottom = by - 6;
         rebuild();
     }
