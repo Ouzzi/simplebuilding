@@ -6,7 +6,6 @@ import com.simplestorage.SimpleStorage;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,7 +29,7 @@ public final class StorageViewer {
             if (shell != null && shell != Items.AIR) shells.add(new ItemStack(shell, RareShulkers.MAX_SHELL_DROPS));
         }
         if (shells.isEmpty()) return List.of();
-        return List.of(new MobDrop(SimpleStorage.MOD_ID + "/rare_shulker_shells", EntityType.SHULKER, new ItemStack(Items.SHULKER_SPAWN_EGG),
+        return List.of(new MobDrop(SimpleStorage.MOD_ID + "/rare_shulker_shells", net.minecraft.world.entity.EntityTypes.SHULKER, new ItemStack(Items.SHULKER_SPAWN_EGG),
                 ItemStack.EMPTY, shells, List.of(Component.translatable("jei.simplestorage.note.rare_shulker", RareShulkers.MAX_SHELL_DROPS),
                         Component.translatable("jei.simplestorage.note.rare_shulker_where"))));
     }
