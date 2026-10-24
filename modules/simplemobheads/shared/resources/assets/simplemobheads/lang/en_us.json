@@ -489,6 +489,7 @@
   "variant.simplemobheads.giant_cow.cold": "Cold",
   "ability.simplemobheads.giant_cow": "Giant Cow Head",
   "ability.simplemobheads.giant_cow.tooltip": "Its wearer grows to 1.5x size and steps up whole\nblocks; another player can milk it like a cow.",
+  "jei.simplemobheads.note.charged_creeper": "%s killed by a charged creeper's explosion",
   "item.simplemobheads.guide_book": "Simple Mobheads Guide",
   "simplemobheads.guide.page.1.title": "Simple Mobheads",
   "simplemobheads.guide.page.1": "A head for every mob: a charged creeper's explosion drops it, worn it keeps that mob calm and hides a small secret, placed it decorates, on a note block it speaks.",

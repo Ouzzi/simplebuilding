@@ -6,3 +6,5 @@ dependencies { include project(':framework') }
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Simple Crucibles (crucibles, barrels, cauldron: split stage 5) nested like SimpleLib before, so worlds with crucibles keep them.
 dependencies { include project(':modules:simplecrucibles:fabric') }
+// JEI24: the recipe viewer entries (fabric/src SandwichesViewer) compile against SimpleLib; the shared code still meets it by id only.
+dependencies { implementation project(':modules:simplelib:fabric') }

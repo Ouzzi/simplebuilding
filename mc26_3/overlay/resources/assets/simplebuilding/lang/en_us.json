@@ -3665,5 +3665,6 @@
   "simplebuilding.testcentre.help.areas": "Areas: %s, or any section id",
   "simplebuilding.testcentre.command.built_partial": "Partial build: %s (%s of %s sections) - /sbtestcentre build builds everything",
   "simplebuilding.testcentre.command.section_not_built": "Section %s is not part of this build (%s)",
-  "simplebuilding.testcentre.section.structures": "Structures"
+  "simplebuilding.testcentre.section.structures": "Structures",
+  "jei.simplebuilding.note.fletching": "One tip, one shaft, one fletching: a crafted arrow"
 }

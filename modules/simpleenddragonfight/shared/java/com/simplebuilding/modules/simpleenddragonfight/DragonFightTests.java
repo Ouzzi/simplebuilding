@@ -298,4 +298,9 @@ public final class DragonFightTests {
             h.succeed();
         });
     }
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        add("jei_mob_drop_pages", DragonFightJeiTests::mobDropPages);
+    }
 }

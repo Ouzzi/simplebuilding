@@ -25,7 +25,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Things done in the world with cauldrons and crucibles that have no recipe: building the iron crucible,
  * attaching a barrel, turning a cauldron into a reinforced one, and the milk cauldron's butter and cheese.
- * JEI shows them as the "Cauldron and crucible" category ({@code CauldronWorldCategory}).
+ * JEI24 (24.10.): no longer a JEI tab of SimpleBuilding - Simple Crucibles ({@code CruciblesViewer}), SimpleLib's upgrade
+ * table and Simple Sandwiches show the same ways themselves, also without SimpleBuilding; this catalog stays the data of
+ * {@code CrucibleTests}.
  *
  * <p>Free of JEI classes (a game test checks it). Like {@link CrucibleRecipeCatalog} it needs SimpleLib, so it
  * is empty unless {@link McVersion#CRUCIBLE}; SimpleLib and SimpleSandwiches are met only by public id, tag and the

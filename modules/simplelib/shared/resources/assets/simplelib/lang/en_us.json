@@ -63,5 +63,14 @@
   "commands.simplelib.config.type.decimal": "number",
   "commands.simplelib.config.type.text": "text",
   "commands.simplelib.config.type.list": "list (a, b, c or JSON)",
-  "commands.simplelib.config.type.object": "JSON object"
+  "commands.simplelib.config.type.object": "JSON object",
+  "jei.simplelib.category.special": "Special Ways",
+  "jei.simplelib.category.mob_drop": "Mob Drops",
+  "jei.simplelib.note.upgrade.strikes": "%s strikes, material in the off hand",
+  "jei.simplelib.note.upgrade.min_tool": "Needs at least: %s",
+  "jei.simplelib.note.upgrade.damage": "%s durability per strike",
+  "jei.simplelib.note.mob_drop.loot": "When %s dies (loot table)",
+  "jei.simplelib.grade.diamond": "diamond tier",
+  "jei.simplelib.grade.netherite": "Netherite tier",
+  "jei.simplelib.grade.enderite": "Enderite tier"
 }

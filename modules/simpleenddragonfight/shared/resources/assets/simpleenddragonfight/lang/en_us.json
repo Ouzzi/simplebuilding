@@ -48,6 +48,7 @@
   "config.simpleenddragonfight.summonMaxMultiplier.tooltip": "Highest multiplier from summonings. Default: 3.0.",
   "config.simpleenddragonfight.summonSpeedCap": "Speed cap with summonings",
   "config.simpleenddragonfight.summonSpeedCap.tooltip": "Highest total flight speed once summonings add to it. Default: 2.0.",
+  "jei.simpleenddragonfight.info.dragonmite_drops": "Dragonmites appear once the Ender Dragon is down to half health. A Dragonmite killed by a player may drop Dragon Chitin.",
   "item.simpleenddragonfight.guide_book": "Simple End Dragon Fight Guide",
   "simpleenddragonfight.guide.page.1.title": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1": "A harder Ender Dragon fight: it scales with the players, flies faster, can be summoned again, enters with an animation and brings dragonmites.",

@@ -63,5 +63,14 @@
   "commands.simplelib.config.type.decimal": "Zahl",
   "commands.simplelib.config.type.text": "Text",
   "commands.simplelib.config.type.list": "Liste (a, b, c oder JSON)",
-  "commands.simplelib.config.type.object": "JSON-Objekt"
+  "commands.simplelib.config.type.object": "JSON-Objekt",
+  "jei.simplelib.category.special": "Besondere Wege",
+  "jei.simplelib.category.mob_drop": "Mob-Drops",
+  "jei.simplelib.note.upgrade.strikes": "%s Schläge, Material in der Nebenhand",
+  "jei.simplelib.note.upgrade.min_tool": "Mindestens: %s",
+  "jei.simplelib.note.upgrade.damage": "%s Haltbarkeit je Schlag",
+  "jei.simplelib.note.mob_drop.loot": "Wenn %s stirbt (Beutetabelle)",
+  "jei.simplelib.grade.diamond": "Diamantstufe",
+  "jei.simplelib.grade.netherite": "Netheritstufe",
+  "jei.simplelib.grade.enderite": "Enderitstufe"
 }

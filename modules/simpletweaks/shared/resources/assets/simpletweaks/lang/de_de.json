@@ -353,6 +353,8 @@
   "simpletweaks.protect.checks.kind.reach_block": "Block außer Reichweite",
   "simpletweaks.protect.checks.kind.reach_entity": "Entity außer Reichweite",
   "simpletweaks.protect.checks.kind.fast_break": "Schnellabbau",
+  "jei.simpletweaks.note.deed_copy": "Gebundene + leere Urkunde: eine zweite Urkunde",
+  "jei.simpletweaks.note.deed_copy_once": "Das Original bleibt; eine Kopie lässt sich nicht kopieren",
   "item.simpletweaks.guide_book": "Simple-Tweaks-Handbuch",
   "simpletweaks.guide.page.1.title": "Simple Tweaks",
   "simpletweaks.guide.page.1": "Kompatibilität mit alten Ständen und serverseitige Claims, standardmäßig an.",

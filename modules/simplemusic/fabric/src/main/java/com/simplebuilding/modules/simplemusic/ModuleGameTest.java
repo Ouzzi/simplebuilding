@@ -195,4 +195,9 @@ public final class ModuleGameTest {
     public void noteGridRoundTrip(GameTestHelper h) {
         MusicTests.ALL.get("note_grid_round_trip").accept(h);
     }
+
+    @GameTest
+    public void jeiPressAndCopy(GameTestHelper h) {
+        MusicTests.ALL.get("jei_press_and_copy").accept(h);
+    }
 }

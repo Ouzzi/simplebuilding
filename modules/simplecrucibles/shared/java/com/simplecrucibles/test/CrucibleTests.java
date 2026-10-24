@@ -1018,4 +1018,9 @@ public final class CrucibleTests {
         ALL.put("discover_behaviour_hints", com.simplecrucibles.discover.CruciblesDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplecrucibles.discover.CruciblesDiscover::firstPickupTips);
     }
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        ALL.put("jei_build_attach_and_upgrades", CrucibleJeiTests::buildAttachAndUpgrades);
+    }
 }

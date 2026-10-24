@@ -19,6 +19,8 @@ public final class SandwichesFabric implements ModInitializer {
         // CMD24: /simplesandwiches config for every option (Fabric only so far: the NeoForge/Forge builds do not compile against SimpleLib).
         com.simplelib.api.config.ConfigCommands.server(Sandwiches.MOD_ID).json(com.simplesandwiches.config.SandwichConfig::toJson,
                 com.simplesandwiches.config.SandwichConfig::apply).file(FabricLoader.getInstance().getConfigDir(), com.simplesandwiches.config.SandwichConfig.FILE).register();
+        // JEI24: milk, knife and board ways in SimpleLib's recipe viewer tab (Fabric only for now; no JEI class).
+        com.simplesandwiches.SandwichesViewer.register();
         Sandwiches.simpleEnd = FabricLoader.getInstance().isModLoaded("simpleend");
         ModComponents.register();
         com.simplesandwiches.registry.ModSounds.register();

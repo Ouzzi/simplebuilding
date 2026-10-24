@@ -50,6 +50,7 @@ public final class SimpleMusic {
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(MusicConfig::toJson, MusicConfig::apply).file(dir, MusicConfig.FILE)
                 .choices("sheetSounds", MusicConfig.SheetSounds.class).choices("uploads", MusicConfig.Uploads.class).register();
         registerIdMoves();
+        com.simplemusic.press.MusicViewer.register(); // JEI24: disc press and sheet copy in the recipe viewer (no JEI class)
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "music", "simplemusic.testcentre.station",
                 java.util.stream.Stream.concat(java.util.stream.Stream.of("simplemusic:sheet_music", "simplemusic:disc_press",
                         "simplemusic:blank_disc", "simplemusic:custom_disc", "simplemusic:guide_book", "simplemusic:pocket_jukebox"),

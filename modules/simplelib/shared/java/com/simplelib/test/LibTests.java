@@ -58,6 +58,9 @@ public final class LibTests {
         ALL.put("config_command_types", ConfigCommandTests::types);
         ALL.put("config_command_lib", ConfigCommandTests::lib);
         ALL.put("config_command_every_option", ConfigCommandTests::everyOption);
+        ALL.put("recipe_viewer_table_entries", RecipeViewerTests::tableEntries);
+        ALL.put("recipe_viewer_loot_items", RecipeViewerTests::lootItems);
+        ALL.put("recipe_viewer_partner_shown", RecipeViewerTests::partnerShown);
     }
 
     // ------------------------------------------------------------ helpers

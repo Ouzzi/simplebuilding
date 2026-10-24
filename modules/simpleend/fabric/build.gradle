@@ -4,3 +4,6 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // Super-mod level 2 (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): nests its optional sub-mod; no class imports.
 dependencies { include project(':modules:simpleenddragonfight:fabric') }
+// JEI24: optional JEI plugin (fabric/src: mob drop info pages), compiled against, never bundled.
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

@@ -83,6 +83,8 @@ public final class SimpleHammers {
         // Principle 5a / split plan §2.6: with a hammer mod the in-world ways run with the hammer only, the Vanilla axe ways go off.
         SimpleLibApi.disableAxeWays();
         HammerActions.setUpgradeTakesClick(com.simplehammers.engine.SledgehammerUpgrades::shouldSkipBlockUse);
+        // JEI24: hammer ranks for SimpleLib's upgrade tab, standalone also carving and crushing (no JEI class).
+        com.simplehammers.compat.HammersViewer.register();
         // Test centre station (framework contract, no import of the test centre): the hammers and the guide by id.
         List<String> items = new ArrayList<>();
         TIERS.forEach(tier -> items.add(MOD_ID + ":" + tier + "_sledgehammer"));

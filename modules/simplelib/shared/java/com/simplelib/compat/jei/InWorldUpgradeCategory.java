@@ -23,6 +23,8 @@ import net.minecraft.world.item.Items;
  */
 public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgrade> {
     public static final IRecipeType<InWorldUpgrade> TYPE = IRecipeType.create("simplelib", "in_world_upgrade", InWorldUpgrade.class);
+    /** JEI24: the second tab with the same layout, "Special Ways" (machines and hand ways without a recipe). */
+    public static final IRecipeType<InWorldUpgrade> SPECIAL = IRecipeType.create("simplelib", "special", InWorldUpgrade.class);
     private static final int WIDTH = 176;
     private static final int SLOT_Y = 5;
     private static final int TEXT_TOP = 30;
@@ -31,19 +33,26 @@ public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgr
     private static final int HEIGHT = TEXT_TOP + 3 * LINE_HEIGHT;
 
     private final IDrawable icon;
+    private final IRecipeType<InWorldUpgrade> type;
 
     public InWorldUpgradeCategory(IGuiHelper gui) {
-        this.icon = gui.createDrawableItemLike(Items.ANVIL);
+        this(gui, TYPE, Items.ANVIL);
+    }
+
+    /** A tab of this layout for {@code type} (title {@code jei.simplelib.category.<path>}). */
+    public InWorldUpgradeCategory(IGuiHelper gui, IRecipeType<InWorldUpgrade> type, net.minecraft.world.level.ItemLike icon) {
+        this.icon = gui.createDrawableItemLike(icon);
+        this.type = type;
     }
 
     @Override
     public IRecipeType<InWorldUpgrade> getRecipeType() {
-        return TYPE;
+        return type;
     }
 
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.simplelib.category.in_world_upgrade");
+        return Component.translatable("jei.simplelib.category." + type.getUid().getPath());
     }
 
     @Override
@@ -80,7 +89,9 @@ public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgr
             builder.addInputSlot(x, SLOT_Y).setStandardSlotBackground().addItemStacks(stacks(input.items(), input.count()));
             x += 20;
         }
-        builder.addInputSlot(toolX(entry) + 1, SLOT_Y).setStandardSlotBackground().addItemStacks(stacks(entry.tools(), 1));
+        if (!entry.tools().isEmpty()) {
+            builder.addInputSlot(toolX(entry) + 1, SLOT_Y).setStandardSlotBackground().addItemStacks(stacks(entry.tools(), 1));
+        }
         builder.addOutputSlot(outputX(entry), SLOT_Y).setOutputSlotBackground().addItemStack(entry.output());
     }
 
@@ -95,7 +106,7 @@ public final class InWorldUpgradeCategory implements IRecipeCategory<InWorldUpgr
 
     @Override
     public Identifier getIdentifier(InWorldUpgrade entry) {
-        return Identifier.fromNamespaceAndPath("simplelib", "in_world_upgrade/" + entry.id().replace(':', '/'));
+        return Identifier.fromNamespaceAndPath("simplelib", type.getUid().getPath() + "/" + entry.id().replace(':', '/'));
     }
 
     private static List<ItemStack> stacks(List<Item> items, int count) {

@@ -117,6 +117,8 @@
   "tooltip.simplestorage.backpack.open_hint": "%s: öffnen, getragen oder im Inventar",
   "tooltip.simplestorage.backpack.place_hint": "Schleich-Rechtsklick auf Block: abstellen",
   "tip.simplestorage.backpack": "Benutzen zum Anlegen, dann Rucksack-Taste (B)",
+  "jei.simplestorage.note.rare_shulker": "Ein seltener Shulker lässt 0-%s Schalen seiner Stufe fallen",
+  "jei.simplestorage.note.rare_shulker_where": "Verstärkt, Netherit oder Enderit, Endsiedlungen",
   "item.simplestorage.guide_book": "Simple-Storage-Handbuch",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, die Werkbank mit Lager, die ihr Raster auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr Plätzen und größeren",

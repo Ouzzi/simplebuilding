@@ -23,6 +23,9 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpleend.ModuleGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simplebuilding.modules.simpleend.EndJeiPlugin"
     ]
   },
   "depends": {

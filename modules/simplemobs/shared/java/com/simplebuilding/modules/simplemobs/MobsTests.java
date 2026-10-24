@@ -204,4 +204,9 @@ public final class MobsTests {
         ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simplemobs.discover.MobsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplebuilding.modules.simplemobs.discover.MobsDiscover::firstPickupTips);
     }
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        ALL.put("jei_mob_drops", MobsJeiTests::mobDrops);
+    }
 }

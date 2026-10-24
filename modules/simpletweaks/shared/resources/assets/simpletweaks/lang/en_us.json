@@ -353,6 +353,8 @@
   "simpletweaks.protect.checks.kind.reach_block": "block out of reach",
   "simpletweaks.protect.checks.kind.reach_entity": "entity out of reach",
   "simpletweaks.protect.checks.kind.fast_break": "fast break",
+  "jei.simpletweaks.note.deed_copy": "Bound deed + empty deed: a second deed",
+  "jei.simpletweaks.note.deed_copy_once": "The original stays; a copy cannot be copied",
   "item.simpletweaks.guide_book": "Simple Tweaks Guide",
   "simpletweaks.guide.page.1.title": "Simple Tweaks",
   "simpletweaks.guide.page.1": "Legacy compatibility and server-authoritative claims, on by default.",

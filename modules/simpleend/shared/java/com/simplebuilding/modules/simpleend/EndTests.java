@@ -928,4 +928,9 @@ public final class EndTests {
         ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simpleend.discover.EndDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpleend.discover.EndDiscover::behaviourHints);
     }
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        ALL.put("jei_mob_drop_pages", EndJeiTests::mobDropPages);
+    }
 }

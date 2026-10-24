@@ -1174,4 +1174,9 @@ public final class MusicTests {
     }
 
     private MusicTests() {}
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        ALL.put("jei_press_and_copy", MusicJeiTests::pressAndCopy);
+    }
 }
