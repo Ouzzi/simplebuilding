@@ -932,8 +932,13 @@ final class BucketTests {
         }
         // Block state palette entry of soul lava in an old chunk.
         net.minecraft.nbt.CompoundTag state = net.minecraft.nbt.NbtUtils.writeBlockState(CrucibleFluids.SOUL_LAVA_BLOCK.defaultBlockState());
-        state.putString("Name", "simplebuilding:soul_lava");
+        // 26.3 palette entries name the block under "id" (the old probe set "Name" and never read the old id).
+        if (!state.contains("id")) problems.add("palette entry without id: " + state);
+        state.remove("Name");
+        state.putString("id", "simplebuilding:soul_lava");
         if (!net.minecraft.nbt.NbtUtils.readBlockState(helper.getLevel().holderLookup(Registries.BLOCK), state).is(CrucibleFluids.SOUL_LAVA_BLOCK)) problems.add("palette " + state);
+        var decoded = net.minecraft.world.level.block.state.BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, state).result().orElse(null);
+        if (decoded == null || !decoded.is(CrucibleFluids.SOUL_LAVA_BLOCK)) problems.add("chunk codec loads " + state + " as " + decoded);
         for (String path : SimpleCrucibles.BUCKET_RECIPES_FROM_SB) {
             var key = net.minecraft.resources.ResourceKey.create(Registries.RECIPE, SimpleCrucibles.id(path));
             if (helper.getLevel().getServer().getRecipeManager().byKey(key).isEmpty()) problems.add("no recipe " + path);

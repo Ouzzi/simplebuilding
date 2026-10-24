@@ -466,6 +466,13 @@ public final class NatureTests {
         for (String name : NatureBlocks.NAMES) {
             if (BuiltInRegistries.BLOCK.getValue(SimpleBlocks.old(name)) != NatureBlocks.BLOCKS.get(name)) problems.add("block " + name);
             if (BuiltInRegistries.ITEM.getValue(SimpleBlocks.old(name)) != NatureBlocks.ITEMS.get(name)) problems.add("item " + name);
+            // Chunk palette entry of an old world: 26.3 names the block under "id" and decodes it through BlockState.CODEC (REV2-A).
+            var paletteTag = net.minecraft.nbt.NbtUtils.writeBlockState(NatureBlocks.BLOCKS.get(name).defaultBlockState());
+            if (!paletteTag.contains("id")) problems.add("palette entry without id: " + paletteTag);
+            paletteTag.remove("Name");
+            paletteTag.putString("id", SimpleBlocks.old(name).toString());
+            var decoded = net.minecraft.world.level.block.state.BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, paletteTag).result().orElse(null);
+            if (decoded == null || !decoded.is(NatureBlocks.BLOCKS.get(name))) problems.add("palette " + name + " loads as " + decoded);
         }
         if (BuiltInRegistries.ENTITY_TYPE.getValue(SimpleBlocks.old(NatureBlocks.LEVITATING_ENTITY)) != NatureBlocks.LEVITATING_BLOCK) problems.add("entity levitating_block");
         NatureBlocks.MOVED_RECIPES.forEach((path, folder) -> {

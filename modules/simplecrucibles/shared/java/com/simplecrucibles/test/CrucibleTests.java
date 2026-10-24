@@ -229,9 +229,15 @@ public final class CrucibleTests {
             if (resaved == null || resaved.toString().contains(from.toString())) problems.add("stack saved back as " + resaved);
             // block state palette entry of a chunk
             net.minecraft.nbt.CompoundTag state = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState());
-            state.putString("Name", from.toString());
+            // 26.3 palette entries name the block under "id" (BlockState.CODEC, NbtUtils); the old probe set "Name" and never read the old id.
+            if (!state.contains("id")) problems.add("palette entry without id: " + state);
+            state.remove("Name");
+            state.putString("id", from.toString());
             if (!net.minecraft.nbt.NbtUtils.readBlockState(h.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), state).is(block))
                 problems.add("palette " + state);
+            // The chunk section codec decodes the palette through BlockState.CODEC.
+            BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, state).result().orElse(null);
+            if (decoded == null || !decoded.is(block)) problems.add("chunk codec loads " + state + " as " + decoded);
         }
         var blank = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("simplelib:crucible_blank"));
         if (blank != CrucibleBlocks.CRUCIBLE_BLANK) problems.add("the old crucible blank does not resolve");
