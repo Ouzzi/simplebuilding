@@ -43699,6 +43699,23 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/block/placed_paint_box.png",
+      "note": {
+        "en": {
+          "summary": "A Paint Box set down with sneak + right-click: it stands as a flat case on the floor (or hangs on a wall) and keeps its stored colors.",
+          "details": [
+            "Block class PlacedPaintBoxBlock with a block entity that stores the whole box stack; breaking it drops the box with its contents."
+          ]
+        },
+        "de": {
+          "summary": "Ein mit Schleichen + Rechtsklick abgestellter Farbkasten: er steht als flacher Koffer auf dem Boden (oder haengt an der Wand) und behaelt seine Farben.",
+          "details": [
+            "Blockklasse PlacedPaintBoxBlock mit Block-Entity, die den ganzen Kasten speichert; abgebaut faellt der Kasten samt Inhalt wieder aus."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedPaintBoxBlock.java"
+        ]
+      },
       "hasCustomBehaviour": true
     },
     {
@@ -137545,11 +137562,9 @@ window.WIKI_DATA = {
     "inWorld": 481,
     "advancements": 116,
     "features": 48,
-    "undocumented": 1,
+    "undocumented": 0,
     "incompleteProse": 0
   },
-  "undocumented": [
-    "simplebuilding:placed_paint_box"
-  ],
+  "undocumented": [],
   "incompleteProse": {}
 };
