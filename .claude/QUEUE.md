@@ -408,3 +408,10 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [ ] **VW-2** (aus „Verwaiste TODOs 20.10.“) (Simple Tweaks, vermutlich verwerfen) Alte Ideenliste: Kompost, Wachs-Varianten, Werfer, Chat-Rechner, Questbuch, Challenges, Extra-Inventar, Holzdruckplatte – `docs/SIMPLETWEAKS-UEBERNAHME.md:81`.
 - [ ] **VW-3** (aus „Verwaiste TODOs 20.10.“) (Simple Stats, klein/verwerfen) Tragezeit nur alle 10 s übergeben (Rüstungswechsel schreibt Zeit dem neuen Teil zu) – `simple-stats-2026-10-15.md:11`.
 - [x] (B, b-trims24, 24.10.) NA24-6 Simple Trims: inverser Rüstungsbesatz (Vorlage `inverting_trim_template`, Komponente `simpletrims:inverted_trim`, Laufzeit-Inversion aller Muster `TrimInversion`, Varianten HARD/RIM/GHOST, Empfehlung RIM, Vorschau previews/trims-invers24-preview.html) + JEI-Tab für Besatz-Umwandlungen über SimpleLib (`simplelib:in_world_upgrade`; Ursache: SB-Tab liest leere SB-Tabelle seit N18). Plan docs/ai/PLAN-B-TRIMS24-2026-10-24.md. Offen: Besitzer-Wahl der Variante, Client-Sicht, Item-Icon-Abnahme.
+
+### Review 24.10. Zustand/Struktur (b-revstate24)
+- [x] **REV24-N-1** Pro-Spieler-Zustand: `PlayerState.onLeave/onStop` (simplelib), Fear/Herobrine/NetherRoof/TrimLight darüber geräumt (Fabric; NeoForge/Forge TODO im Plan). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md
+- [ ] **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
+- [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid)
+- [ ] **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (erst nach dem Anvil-Mixin-Agenten)
+- [~] REV24-M-5a Verwaiste Licht-Bloecke nach Absturz: b-revlight24b (b-revlight24 + F-04/M-5b/c) – OwnedLights (SavedData-Marken + Chunk-Lade-Sweep, simplelib), TrimLight markiert, entfernt nur markierte Lichter; Kern-DynamicLightHandler offen (common ohne simplelib); Tests orphan_light_swept + foreign_light_untouched. Gate offen (Hauptsitzung).
