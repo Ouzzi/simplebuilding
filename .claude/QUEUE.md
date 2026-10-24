@@ -311,7 +311,7 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [ ] **REV24-N-3** options.txt-Migration doppelt und nicht atomar -> ein simplelib-Helfer – `modules/simplestorage/.../BackpackKeyMigration.java`
 - [ ] **REV24-N-4** Config-Dateien nicht atomar geschrieben (~30 Stellen) -> ConfigFiles.writeAtomic – `modules/simplemobs/.../MobsConfig.java u. a.`
 - [ ] **REV24-N-5** Kopierter Code (InteractionGuard 3x, Test-Helfer 5x) nach simplelib/Test-Util – `modules/simplefarming|simpletools|simpleinterfaces InteractionGuard.java`
-- [ ] **REV24-N-6** Backup-Worker: shutdown() ohne Warten, ZIP liest lebende Dateien, .part-Reste (Backups-Datei gehört b-revfix24) – `modules/simpletweaks/.../admin/backup/Backups.java`
+- [x] **REV24-N-6** Backup-Worker: shutdown() ohne Warten, ZIP liest lebende Dateien, .part-Reste (Backups-Datei gehört b-revfix24) – `modules/simpletweaks/.../admin/backup/Backups.java` – ERLEDIGT b-revbackup24: Backups.stopping + awaitTermination (b-revfix24/b-revlow24); neu: noSave/flush war schon da, jetzt auch Resume bei Fehler in begin, .part-Raeumung (start+zip), ATOMIC_MOVE mit Fallback, Test backup_zip_and_rotation erweitert
 - [ ] **REV24-N-7** Maps: Waypoint-/Display-Handler ohne MapsConfig.enabled-Prüfung (MapsNetwork gehört b-revfix24) – `modules/simplemaps/.../net/MapsNetwork.java`
 - [ ] **REV24-N-8** Sledgehammer-Fläche: statisches HARVESTED_BLOCKS ohne Dimension – `modules/simplehammers/.../engine/SledgehammerUsageEvent.java`
 - [ ] **REV24-F-07** Schutzprüfung nur am Chunk-Eck-Punkt: Claims unterhalb Chunk-Größe umgehbar – `common/.../api/WorldPermissions.java`
