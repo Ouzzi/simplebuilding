@@ -64,7 +64,7 @@ public final class ModBlocks {
         BUTTER_BLOCK = register("butter_block", new SliceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
                 .strength(0.5F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).setId(key("butter_block")), () -> ModItems.BUTTER_SLICE, () -> ModSounds.BUTTER_CUT));
         BUTTER_CARPET = register("butter_carpet", new ButterCarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
-                .strength(0.1F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).pushReaction(PushReaction.DESTROY)
+                .strength(0.1F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).pushReaction(PushReaction.POPPED)
                 .setId(key("butter_carpet"))));
         MILK_CAULDRON = register("milk_cauldron", new MilkCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)
                 .setId(key("milk_cauldron"))));
