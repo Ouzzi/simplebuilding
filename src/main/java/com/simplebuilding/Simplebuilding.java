@@ -149,7 +149,6 @@ public class Simplebuilding implements ModInitializer {
             com.simplebuilding.items.custom.BuildingCoreItem.onDisconnect(handler.player);
         });
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
-            com.simplebuilding.framework.api.Protection.clear(server);
             com.simplebuilding.util.WandUndo.clearAll();
             com.simplebuilding.blueprint.BlueprintBuilder.clearAll();
             com.simplebuilding.items.custom.RotatorItem.clearAll();
