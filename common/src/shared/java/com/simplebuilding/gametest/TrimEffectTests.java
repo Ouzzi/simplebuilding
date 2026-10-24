@@ -211,6 +211,15 @@ public final class TrimEffectTests {
         helper.assertTrue(TrimEffectUtil.getMaterialCount(player, "astralit") == 4,
                 "astralit pieces were not counted as astralit");
 
+        // TrimBonusCatalog (tooltip) and AdvancementChecks use the same exact matching
+        helper.assertTrue(com.simplebuilding.util.TrimBonusCatalog.forPattern(Identifier.fromNamespaceAndPath("someothermod", "rib_cage")).isEmpty()
+                        && com.simplebuilding.util.TrimBonusCatalog.forPattern(Identifier.fromNamespaceAndPath("someothermod", "rib")).isEmpty()
+                        && com.simplebuilding.util.TrimBonusCatalog.forMaterial(Identifier.fromNamespaceAndPath("minecraft", "astral")).isEmpty(),
+                "the tooltip catalog matched a foreign or look-alike pattern/material");
+        helper.assertTrue(com.simplebuilding.util.TrimBonusCatalog.forPattern(Identifier.fromNamespaceAndPath("minecraft", "rib")).size() == 2
+                        && com.simplebuilding.util.TrimBonusCatalog.forMaterial(Identifier.fromNamespaceAndPath("simplebuilding", "astralit")).size() == 2,
+                "the tooltip catalog lost the exact vanilla/own matches");
+
         bare(player);
         helper.succeed();
     }

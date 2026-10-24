@@ -124,7 +124,7 @@ public class TrimEffectUtil {
      * Exakter Vergleich (REV24-F-10): Pfad gleich {@code name} und Namensraum Vanilla oder ein Simple-Mod
      * (simplebuilding, simpletrims ...). Fremde Muster/Materialien mit aehnlichem Namen (oddeye, smoky_quartz) zaehlen nicht.
      */
-    private static boolean isOwn(Identifier id, String name) {
+    public static boolean isOwn(Identifier id, String name) {
         String ns = id.getNamespace();
         return id.getPath().equals(name) && (ns.equals("minecraft") || ns.startsWith("simple"));
     }
